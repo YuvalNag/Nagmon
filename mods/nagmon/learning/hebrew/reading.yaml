@@ -1,0 +1,419 @@
+# Nagmon learning content - hebrew / reading (optional, grades 1-3): short reading comprehension and building sentences
+# Format: docs/kids/SDD_CONTENT.md section 3. Generated from curated sources; reviewed by a parent.
+# Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
+# Aligned with early-grade Hebrew language goals (MoE "חינוך לשוני", 1-3): reading short texts, literal and simple inferential questions, word order.
+
+skill: hebrew.reading.sentences
+items:
+- id: heb.reading.001
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 1
+  difficulty: -1.0
+  prompt_he: דני הלך לגן עם אבא. בגן הוא ראה ציפור כחולה. מה דני ראה בגן?
+  prompt_en: Dani went to the park with Dad. There he saw a blue bird. What did Dani see in the park?
+  choices:
+  - {he: חתול שחור, en: a black cat}
+  - {he: ציפור כחולה, en: a blue bird}
+  - {he: פרח אדום, en: a red flower}
+  answer: 1
+  explanation_he: 'כתוב במשפט: "בגן הוא ראה ציפור כחולה".'
+  explanation_en: 'The sentence says: "There he saw a blue bird".'
+  tags: [reading]
+- id: heb.reading.002
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 1
+  difficulty: 0.0
+  prompt_he: נועה אוכלת תפוח ירוק. איזה צבע התפוח?
+  prompt_en: Noa is eating a green apple. What color is the apple?
+  choices:
+  - {he: צהוב, en: yellow}
+  - {he: ירוק, en: green}
+  - {he: אדום, en: red}
+  answer: 1
+  explanation_he: במשפט כתוב "תפוח ירוק".
+  explanation_en: The sentence says "green apple".
+  tags: [reading]
+- id: heb.reading.003
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 1
+  difficulty: 0.0
+  prompt_he: לסבתא יש חתול בשם מיצי. מיצי אוהב לישון על הספה. איפה מיצי אוהב לישון?
+  prompt_en: Grandma has a cat named Mitzi. Mitzi likes to sleep on the sofa. Where does Mitzi like to sleep?
+  choices:
+  - {he: במיטה, en: in the bed}
+  - {he: בגינה, en: in the garden}
+  - {he: על הספה, en: on the sofa}
+  answer: 2
+  explanation_he: 'כתוב: "מיצי אוהב לישון על הספה".'
+  explanation_en: 'It says: "Mitzi likes to sleep on the sofa".'
+  tags: [reading]
+- id: heb.reading.004
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: יורד גשם חזק. יואב לקח מטריה ולבש מגפיים. למה יואב לקח מטריה?
+  prompt_en: It's raining hard. Yoav took an umbrella and wore boots. Why did Yoav take an umbrella?
+  choices:
+  - {he: כי חם מאוד, en: because it's very hot}
+  - {he: כי יורד גשם, en: because it's raining}
+  - {he: כי הוא הולך לים, en: because he's going to the beach}
+  answer: 1
+  explanation_he: המשפט הראשון אומר שיורד גשם חזק. מטריה שומרת עלינו יבשים בגשם.
+  explanation_en: The first sentence says it's raining hard. An umbrella keeps us dry in the rain.
+  tags: [reading]
+- id: heb.reading.005
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: ביום שישי אמא אפתה חלה. בערב כל המשפחה אכלה ממנה בארוחת שבת. מה אמא אפתה?
+  prompt_en: On Friday Mom baked challah. In the evening the family ate it at the Shabbat meal. What did Mom bake?
+  choices:
+  - {he: עוגה, en: cake}
+  - {he: עוגיות, en: cookies}
+  - {he: חלה, en: challah}
+  answer: 2
+  explanation_he: כתוב "אמא אפתה חלה". את החלה אכלו בארוחת שבת.
+  explanation_en: It says "Mom baked challah", which they ate at the Shabbat meal.
+  tags: [reading]
+- id: heb.reading.006
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 2
+  difficulty: 1.0
+  prompt_he: 'לתמר יש שלושה בלונים: אדום, כחול וצהוב. הבלון הכחול עף. כמה בלונים נשארו לתמר?'
+  prompt_en: 'Tamar has three balloons: red, blue and yellow. The blue one flew away. How many are left?'
+  choices:
+  - {he: '1', en: '1'}
+  - {he: '3', en: '3'}
+  - {he: '2', en: '2'}
+  answer: 2
+  explanation_he: 'היו שלושה בלונים ואחד עף, אז נשארו שניים: האדום והצהוב.'
+  explanation_en: 'There were three and one flew away, so two are left: red and yellow.'
+  tags: [reading]
+- id: heb.reading.007
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: אורי קם בבוקר, צחצח שיניים ואכל דייסה. מה אורי עשה אחרי שצחצח שיניים?
+  prompt_en: Uri got up, brushed his teeth and ate porridge. What did he do after brushing his teeth?
+  choices:
+  - {he: הלך לישון, en: went to sleep}
+  - {he: אכל דייסה, en: ate porridge}
+  - {he: שיחק כדורגל, en: played soccer}
+  answer: 1
+  explanation_he: 'לפי הסדר במשפט: קם, צחצח שיניים, ואחר כך אכל דייסה.'
+  explanation_en: 'By the order in the sentence: got up, brushed, then ate porridge.'
+  tags: [reading]
+- id: heb.reading.008
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 2
+  difficulty: 1.0
+  prompt_he: מאיה מצאה גור חתולים רועד מקור. היא עטפה אותו בשמיכה. איך הרגיש הגור לפני שמאיה עזרה לו?
+  prompt_en: Maya found a kitten shivering from cold. She wrapped it in a blanket. How did the kitten feel before Maya helped?
+  choices:
+  - {he: חם לו, en: it was hot}
+  - {he: הוא היה שבע, en: it was full}
+  - {he: קר לו, en: it was cold}
+  answer: 2
+  explanation_he: כתוב שהגור "רועד מקור". מאיה עטפה אותו בשמיכה כדי לחמם אותו.
+  explanation_en: It says the kitten was "shivering from cold". Maya wrapped it to warm it.
+  tags: [reading]
+- id: heb.reading.009
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: בספרייה יש מדף של ספרים על חיות. גיל לקח ספר על פילים. על מה הספר של גיל?
+  prompt_en: The library has a shelf of animal books. Gil took a book about elephants. What is Gil's book about?
+  choices:
+  - {he: על כוכבים, en: about stars, emoji: 2b50}
+  - {he: על מכוניות, en: about cars, emoji: 1f697}
+  - {he: על פילים, en: about elephants, emoji: 1f418}
+  answer: 2
+  explanation_he: כתוב "גיל לקח ספר על פילים".
+  explanation_en: It says "Gil took a book about elephants".
+  tags: [reading]
+- id: heb.reading.010
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: השמש שקעה והשמיים החשיכו. הכוכבים הראשונים הופיעו. מתי זה קרה?
+  prompt_en: The sun set and the sky darkened. The first stars appeared. When did this happen?
+  choices:
+  - {he: בערב, en: in the evening}
+  - {he: בבוקר, en: in the morning}
+  - {he: בצהריים, en: at noon}
+  answer: 0
+  explanation_he: כשהשמש שוקעת והכוכבים מופיעים, זה ערב. לא כתוב "ערב", אבל אפשר להבין את זה מהרמזים.
+  explanation_en: When the sun sets and stars appear, it's evening. The word isn't written, but the clues tell us.
+  tags: [reading]
+- id: heb.reading.011
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: רוני שכח את הכריך בבית. חברו יונתן חילק איתו את הכריך שלו. איך התנהג יונתן?
+  prompt_en: Roni forgot his sandwich at home. His friend Yonatan shared his sandwich with him. How did Yonatan behave?
+  choices:
+  - {he: כמו מישהו שמתבייש, en: like someone who is shy}
+  - {he: כחבר טוב שעוזר, en: 'like a good, helpful friend'}
+  - {he: כמו מישהו שכועס, en: like someone who is angry}
+  answer: 1
+  explanation_he: יונתן חילק את האוכל שלו עם חבר שהיה צריך. זה מעשה של חבר טוב.
+  explanation_en: Yonatan shared his food with a friend in need. That's what a good friend does.
+  tags: [reading]
+- id: heb.reading.012
+  skill: hebrew.reading.sentences
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: בחורף הדובים ישנים במערות. באביב הם מתעוררים רעבים מאוד. מתי הדובים ישנים?
+  prompt_en: In winter bears sleep in caves. In spring they wake up very hungry. When do the bears sleep?
+  choices:
+  - {he: בקיץ, en: in summer, emoji: '2600'}
+  - {he: באביב, en: in spring, emoji: 1f337}
+  - {he: בחורף, en: in winter, emoji: '2744'}
+  answer: 2
+  explanation_he: כתוב "בחורף הדובים ישנים". באביב הם כבר מתעוררים.
+  explanation_en: It says "in winter bears sleep". In spring they wake up.
+  tags: [reading]
+- id: heb.reading.013
+  skill: hebrew.reading.sentences
+  kind: true_false
+  grade: 1
+  difficulty: 0.0
+  prompt_he: '"הכלב של שירה נובח כשמישהו דופק בדלת." לשירה יש כלב.'
+  prompt_en: '"Shira''s dog barks when someone knocks at the door." Shira has a dog.'
+  answer: true
+  explanation_he: נכון. כתוב "הכלב של שירה", כלומר הכלב שייך לשירה.
+  explanation_en: True. It says "Shira's dog", so the dog belongs to Shira.
+  tags: [reading]
+- id: heb.reading.014
+  skill: hebrew.reading.sentences
+  kind: true_false
+  grade: 2
+  difficulty: 0.0
+  prompt_he: '"אחרי בית הספר, עמית הלך לשחות בבריכה." עמית הלך לבריכה לפני בית הספר.'
+  prompt_en: '"After school, Amit went swimming in the pool." Amit went to the pool before school.'
+  answer: false
+  explanation_he: לא נכון. כתוב "אחרי בית הספר", כלומר הוא הלך לבריכה רק כשבית הספר נגמר.
+  explanation_en: False. It says "after school", so he went to the pool once school was over.
+  tags: [reading]
+- id: heb.reading.015
+  skill: hebrew.reading.sentences
+  kind: true_false
+  grade: 3
+  difficulty: 1.0
+  prompt_he: '"ליה שתלה זרע בעציץ והשקתה אותו כל יום. אחרי שבוע יצא נבט קטן." הנבט יצא בזכות ההשקיה והטיפול.'
+  prompt_en: '"Lia planted a seed in a pot and watered it daily. After a week a little sprout came up." The sprout grew thanks to watering and care.'
+  answer: true
+  explanation_he: נכון. ליה השקתה את הזרע כל יום, וזרע צריך מים כדי לנבוט.
+  explanation_en: True. Lia watered the seed daily, and a seed needs water to sprout.
+  tags: [reading]
+- id: heb.reading.016
+  skill: hebrew.reading.order
+  kind: order
+  grade: 1
+  difficulty: -1.0
+  prompt_he: סדרו את המילים למשפט.
+  prompt_en: Put the words in order to make a sentence.
+  choices:
+  - {he: בגן, en: in the park}
+  - {he: הכלב, en: the dog}
+  - {he: רץ, en: runs}
+  answer: [1, 2, 0]
+  explanation_he: במשפט עברי פשוט מתחילים במי שעושה (הכלב), אחר כך מה הוא עושה (רץ), ואז איפה (בגן).
+  explanation_en: A simple Hebrew sentence starts with who (the dog), then what it does (runs), then where (in the park).
+  tags: [sentence_order]
+- id: heb.reading.017
+  skill: hebrew.reading.order
+  kind: order
+  grade: 1
+  difficulty: 0.0
+  prompt_he: סדרו את המילים למשפט.
+  prompt_en: Put the words in order to make a sentence.
+  choices:
+  - {he: אוהב, en: love}
+  - {he: גלידה, en: ice cream}
+  - {he: אני, en: I}
+  answer: [2, 0, 1]
+  explanation_he: '"אני אוהב גלידה": מי, מה עושה, ומה.'
+  explanation_en: '"Ani ohev glida": who, does what, and what.'
+  tags: [sentence_order]
+- id: heb.reading.018
+  skill: hebrew.reading.order
+  kind: order
+  grade: 2
+  difficulty: 0.0
+  prompt_he: סדרו את המילים למשפט.
+  prompt_en: Put the words in order to make a sentence.
+  choices:
+  - {he: העץ, en: the tree}
+  - {he: עפה, en: flies}
+  - {he: הציפור, en: the bird}
+  - {he: מעל, en: above}
+  answer: [2, 1, 3, 0]
+  explanation_he: '"הציפור עפה מעל העץ". המילה "מעל" באה לפני המקום, "העץ".'
+  explanation_en: '"The bird flies above the tree". The word "above" comes before the place, "the tree".'
+  tags: [sentence_order]
+- id: heb.reading.019
+  skill: hebrew.reading.order
+  kind: order
+  grade: 2
+  difficulty: 0.0
+  prompt_he: סדרו את המילים למשפט.
+  prompt_en: Put the words in order to make a sentence.
+  choices:
+  - {he: ספר, en: a book}
+  - {he: לפני השינה, en: before bedtime}
+  - {he: אבא, en: Dad}
+  - {he: קורא, en: reads}
+  answer: [2, 3, 0, 1]
+  explanation_he: '"אבא קורא ספר לפני השינה": מי, מה עושה, מה, ומתי.'
+  explanation_en: '"Dad reads a book before bedtime": who, does what, what, and when.'
+  tags: [sentence_order]
+- id: heb.reading.020
+  skill: hebrew.reading.order
+  kind: order
+  grade: 2
+  difficulty: 1.0
+  prompt_he: סדרו את המילים למשפט.
+  prompt_en: Put the words in order to make a sentence.
+  choices:
+  - {he: בבוקר, en: in the morning}
+  - {he: זורחת, en: rises}
+  - {he: השמש, en: the sun}
+  - {he: במזרח, en: in the east}
+  answer: [0, 2, 1, 3]
+  explanation_he: '"בבוקר השמש זורחת במזרח". אפשר להתחיל משפט גם במילה שאומרת מתי.'
+  explanation_en: '"In the morning the sun rises in the east". A sentence can also start with when.'
+  tags: [sentence_order]
+- id: heb.reading.021
+  skill: hebrew.reading.order
+  kind: order
+  grade: 2
+  difficulty: 0.0
+  prompt_he: סדרו את המילים למשפט.
+  prompt_en: Put the words in order to make a sentence.
+  choices:
+  - {he: מים, en: water}
+  - {he: כוס, en: a glass of}
+  - {he: נועה, en: Noa}
+  - {he: שותה, en: drinks}
+  answer: [2, 3, 1, 0]
+  explanation_he: '"נועה שותה כוס מים". "כוס מים" הם צמד מילים שבאות יחד.'
+  explanation_en: '"Noa drinks a glass of water". "A glass of water" is a pair of words that go together.'
+  tags: [sentence_order]
+- id: heb.reading.022
+  skill: hebrew.reading.order
+  kind: order
+  grade: 3
+  difficulty: 1.0
+  prompt_he: סדרו את המילים למשפט.
+  prompt_en: Put the words in order to make a sentence.
+  choices:
+  - {he: הילדים, en: the children}
+  - {he: בנו, en: built}
+  - {he: בחול, en: in the sand}
+  - {he: ארמון, en: a castle}
+  answer: [0, 1, 3, 2]
+  explanation_he: '"הילדים בנו ארמון בחול": מי, מה עשו, מה בנו, ואיפה.'
+  explanation_en: '"The children built a castle in the sand": who, did what, built what, and where.'
+  tags: [sentence_order]
+- id: heb.reading.023
+  skill: hebrew.reading.order
+  kind: order
+  grade: 3
+  difficulty: 1.0
+  prompt_he: סדרו את המילים למשפט שאלה.
+  prompt_en: Put the words in order to make a question.
+  choices:
+  - {he: שלי, en: my}
+  - {he: איפה, en: where}
+  - {he: נמצא, en: is}
+  - {he: הספר, en: the book}
+  answer: [1, 2, 3, 0]
+  explanation_he: 'משפט שאלה מתחיל לרוב במילת שאלה: "איפה נמצא הספר שלי?"'
+  explanation_en: 'A question usually starts with a question word: "Where is my book?"'
+  tags: [sentence_order]
+- id: heb.reading.024
+  skill: hebrew.reading.order
+  kind: order
+  grade: 2
+  difficulty: 1.0
+  prompt_he: סדרו את המילים למשפט.
+  prompt_en: Put the words in order to make a sentence.
+  choices:
+  - {he: על הכרית, en: on the pillow}
+  - {he: ישן, en: sleeps}
+  - {he: שלי, en: my}
+  - {he: החתול, en: the cat}
+  answer: [3, 2, 1, 0]
+  explanation_he: '"החתול שלי ישן על הכרית". המילה "שלי" באה אחרי מה ששייך לי.'
+  explanation_en: '"My cat sleeps on the pillow". The word "sheli" (my) comes after the thing that''s mine.'
+  tags: [sentence_order]
+- id: heb.reading.025
+  skill: hebrew.reading.order
+  kind: order
+  grade: 3
+  difficulty: 2.0
+  prompt_he: סדרו את המילים למשפט.
+  prompt_en: Put the words in order to make a sentence.
+  choices:
+  - {he: בבית, en: at home}
+  - {he: אנחנו, en: we}
+  - {he: כשיורד גשם, en: when it rains}
+  - {he: משחקים, en: play}
+  answer: [2, 1, 3, 0]
+  explanation_he: '"כשיורד גשם, אנחנו משחקים בבית". החלק "כשיורד גשם" אומר מתי זה קורה.'
+  explanation_en: '"When it rains, we play at home". The part "when it rains" tells us when it happens.'
+  tags: [sentence_order]
+- id: heb.reading.026
+  skill: hebrew.reading.order
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: איזה משפט מסודר נכון?
+  prompt_en: Which sentence is in the right order?
+  choices:
+  - {he: במים הדג שוחה במים, en: in the water the fish swims in the water}
+  - {he: הדג שוחה במים, en: the fish swims in the water}
+  - {he: שוחה הדג מים ב, en: swims the fish water in}
+  answer: 1
+  explanation_he: '"הדג שוחה במים": מי (הדג), מה עושה (שוחה), איפה (במים).'
+  explanation_en: '"The fish swims in the water": who (the fish), does what (swims), where (in the water).'
+  tags: [sentence_order]
+- id: heb.reading.027
+  skill: hebrew.reading.order
+  kind: choice
+  grade: 2
+  difficulty: 1.0
+  prompt_he: איזה משפט מסודר נכון?
+  prompt_en: Which sentence is in the right order?
+  choices:
+  - {he: סבא נותן לי סוכרייה, en: Grandpa gives me a candy}
+  - {he: לי סבא סוכרייה נותן, en: me grandpa candy gives}
+  - {he: נותן סוכרייה לי סבא סבא, en: gives candy me grandpa grandpa}
+  answer: 0
+  explanation_he: '"סבא נותן לי סוכרייה": מי נותן, למי, ומה.'
+  explanation_en: '"Grandpa gives me a candy": who gives, to whom, and what.'
+  tags: [sentence_order]
+- id: heb.reading.028
+  skill: hebrew.reading.order
+  kind: true_false
+  grade: 2
+  difficulty: 0.0
+  prompt_he: '"הפרח צומח בגינה" זה משפט מסודר נכון.'
+  prompt_en: '"The flower grows in the garden" is a correctly ordered sentence.'
+  answer: true
+  explanation_he: נכון. קודם מי (הפרח), אחר כך מה הוא עושה (צומח), ואז איפה (בגינה).
+  explanation_en: True. First who (the flower), then what it does (grows), then where (in the garden).
+  tags: [sentence_order]

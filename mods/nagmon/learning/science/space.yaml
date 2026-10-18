@@ -1,0 +1,769 @@
+# Nagmon learning content - science / earth and space (day and night, the moon, the solar system, stars and gravity)
+# Format: docs/kids/SDD_CONTENT.md section 3. Generated from curated sources; reviewed by a parent.
+# Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
+# Curriculum alignment: Israeli MoE "מדע וטכנולוגיה" (science and technology) strands -
+#   materials, energy and interactions, systems and processes in living things, earth and universe, technology.
+# Sources consulted:
+#   - Elementary curriculum (grades 1-6): https://pop.education.gov.il/tchumey_daat/mada-tehnologia/yesodi/technology-science-pedagogy/curriculum
+#   - Elementary curriculum PDF (2009 draft): https://meyda.education.gov.il/files/Tochniyot_Limudim/KdamYesodi/MadaTechnologia.pdf
+#   - Middle school (grades 7-9): https://pop.education.gov.il/tchumey_daat/mada-tehnologia/chativat-beynayim/mada-technologia-pedagogia/curriculum
+#   - Grade 8/9 test specifications (Meitzav/RAMA): https://meyda.education.gov.il/files/Rama/Mifrat_sci_9_H_2027.pdf
+# Topics: day, night and the sun (1-3), the moon and its phases (2-5), the solar system (4-6), stars, galaxies and gravity (5-8).
+
+skill: science.space.day_night
+items:
+- id: sci.space.001
+  skill: science.space.day_night
+  kind: choice
+  grade: 1
+  difficulty: -1.0
+  prompt_he: באיזה כיוון השמש זורחת בבוקר?
+  prompt_en: In which direction does the sun rise in the morning?
+  choices:
+  - {he: במערב, en: in the west}
+  - {he: במזרח, en: in the east}
+  - {he: בצפון, en: in the north}
+  answer: 1
+  explanation_he: השמש זורחת במזרח ושוקעת במערב. בישראל הים התיכון במערב, ולכן רואים שם את השקיעה מעל הים.
+  explanation_en: The sun rises in the east and sets in the west. In Israel the Mediterranean is to the west, so sunsets are over the sea.
+  tags: [day_night]
+- id: sci.space.002
+  skill: science.space.day_night
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: למה יש יום ולילה?
+  prompt_en: Why do we have day and night?
+  choices:
+  - {he: השמש מסתתרת מאחורי הירח, en: the sun hides behind the moon, emoji: 1f315}
+  - {he: כדור הארץ מסתובב סביב עצמו, en: Earth spins on its axis, emoji: 1f30d}
+  - {he: השמש כבה בלילה, en: the sun switches off at night, emoji: '2600'}
+  answer: 1
+  explanation_he: כדור הארץ מסתובב סביב צירו פעם ביממה. הצד שפונה לשמש נמצא ביום, והצד השני בלילה.
+  explanation_en: Earth spins on its axis once a day. The side facing the sun has day; the other side has night.
+  tags: [day_night]
+- id: sci.space.003
+  skill: science.space.day_night
+  kind: true_false
+  grade: 2
+  difficulty: 1.0
+  prompt_he: השמש מסתובבת סביב כדור הארץ פעם ביום.
+  prompt_en: The sun goes around Earth once a day.
+  answer: false
+  explanation_he: לא נכון. נראה לנו שהשמש זזה בשמיים, אבל בעצם כדור הארץ הוא שמסתובב סביב עצמו. וכדור הארץ סובב סביב השמש.
+  explanation_en: False. The sun seems to move across the sky, but it's really Earth spinning. And Earth orbits the sun.
+  tags: [day_night]
+- id: sci.space.004
+  skill: science.space.day_night
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: כמה זמן לוקח לכדור הארץ להסתובב פעם אחת סביב עצמו?
+  prompt_en: How long does Earth take to spin around once?
+  choices:
+  - {he: 'כ-24 שעות, יממה', en: 'about 24 hours, one day', emoji: 1f550}
+  - {he: שבוע, en: a week, emoji: 1f4c5}
+  - {he: שנה, en: a year, emoji: 1f4c6}
+  answer: 0
+  explanation_he: 'סיבוב אחד סביב הציר הוא יממה: יום ולילה ביחד.'
+  explanation_en: 'One spin on the axis is one full day: day and night together.'
+  tags: [day_night]
+- id: sci.space.005
+  skill: science.space.day_night
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: כמה זמן לוקח לכדור הארץ להקיף את השמש?
+  prompt_en: How long does Earth take to go around the sun?
+  choices:
+  - {he: כשנה, en: about a year}
+  - {he: יום, en: a day}
+  - {he: חודש, en: a month}
+  answer: 0
+  explanation_he: כדור הארץ משלים הקפה סביב השמש בכ-365 ימים ורבע. בגלל הרבע מוסיפים יום בשנה מעוברת לועזית.
+  explanation_en: Earth completes an orbit in about 365 and a quarter days. Because of that quarter, a leap day is added every four years.
+  tags: [day_night]
+- id: sci.space.006
+  skill: science.space.day_night
+  kind: true_false
+  grade: 1
+  difficulty: 0.0
+  prompt_he: השמש היא כוכב.
+  prompt_en: The sun is a star.
+  answer: true
+  explanation_he: נכון. השמש היא כוכב, כמו הכוכבים שרואים בלילה. היא נראית גדולה כי היא הכוכב הקרוב ביותר אלינו.
+  explanation_en: True. The sun is a star like those we see at night. It looks big because it's the closest star to us.
+  tags: [day_night]
+- id: sci.space.007
+  skill: science.space.day_night
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: מה גדול יותר, השמש או כדור הארץ?
+  prompt_en: Which is bigger, the sun or Earth?
+  choices:
+  - {he: כדור הארץ, en: Earth, emoji: 1f30d}
+  - {he: הם באותו גודל, en: they're the same size, emoji: '2696'}
+  - {he: 'השמש, גדולה פי יותר ממאה', en: 'the sun, over a hundred times wider', emoji: '2600'}
+  answer: 2
+  explanation_he: הקוטר של השמש גדול פי 109 בערך מזה של כדור הארץ. היא נראית קטנה כי היא רחוקה מאוד, כ-150 מיליון ק"מ.
+  explanation_en: The sun is about 109 times wider than Earth. It looks small because it's very far away, about 150 million km.
+  tags: [day_night]
+- id: sci.space.008
+  skill: science.space.day_night
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: כשבישראל צהריים, מה השעה בצד השני של כדור הארץ?
+  prompt_en: When it's noon in Israel, what time is it on the other side of Earth?
+  choices:
+  - {he: לילה, en: night, emoji: 1f319}
+  - {he: תמיד בוקר, en: always morning, emoji: 1f305}
+  - {he: גם צהריים, en: also noon, emoji: '2600'}
+  answer: 0
+  explanation_he: רק חצי מכדור הארץ פונה לשמש בכל רגע. כשאצלנו צהריים, בצד השני של העולם לילה.
+  explanation_en: Only half of Earth faces the sun at any moment. When it's noon here, it's night on the other side of the world.
+  tags: [day_night]
+- id: sci.space.009
+  skill: science.space.day_night
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איך עובד שעון שמש?
+  prompt_en: How does a sundial work?
+  choices:
+  - {he: הצל של מוט זז במהלך היום, en: a stick's shadow moves through the day}
+  - {he: יש בו סוללה, en: it has a battery}
+  - {he: הוא סופר קרני שמש, en: it counts sunbeams}
+  answer: 0
+  explanation_he: כשהשמש זזה בשמיים, הצל של המוט מסתובב ומצביע על השעה.
+  explanation_en: As the sun moves across the sky, the stick's shadow turns and points to the hour.
+  tags: [day_night]
+- id: sci.space.010
+  skill: science.space.day_night
+  kind: true_false
+  grade: 3
+  difficulty: 1.0
+  prompt_he: כל שנה רביעית בלוח הלועזי יש בפברואר 29 ימים.
+  prompt_en: Every fourth year February has 29 days in the Gregorian calendar.
+  answer: true
+  explanation_he: נכון. כך מתקנים את רבע היום הנוסף בכל שנה. אחרת, העונות היו זזות לאט בלוח השנה.
+  explanation_en: True. This corrects for the extra quarter day each year. Otherwise the seasons would slowly drift on the calendar.
+  tags: [day_night]
+- id: sci.space.011
+  skill: science.space.day_night
+  kind: order
+  grade: 2
+  difficulty: 0.0
+  prompt_he: סדרו את חלקי היממה, החל מהזריחה.
+  prompt_en: Order the parts of the day starting with sunrise.
+  choices:
+  - {he: זריחה, en: sunrise, emoji: 1f305}
+  - {he: לילה, en: night, emoji: 1f319}
+  - {he: שקיעה, en: sunset, emoji: 1f307}
+  - {he: צהריים, en: noon, emoji: '2600'}
+  answer: [0, 3, 2, 1]
+  explanation_he: אחרי הזריחה השמש עולה, בצהריים היא הכי גבוהה, בערב היא שוקעת, ואז מגיע הלילה.
+  explanation_en: After sunrise the sun climbs, at noon it's highest, in the evening it sets, and then night falls.
+  tags: [day_night]
+- id: sci.space.012
+  skill: science.space.day_night
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: למה כדאי לא להסתכל על השמש גם דרך משקפת?
+  prompt_en: Why should you never look at the sun even through binoculars?
+  choices:
+  - {he: כי השמש תיעלם, en: the sun will disappear}
+  - {he: כי המשקפת תימס מיד, en: the binoculars will melt instantly}
+  - {he: משקפת מרכזת את האור ועלולה לפגוע בעין, en: binoculars concentrate light and can harm the eye}
+  answer: 2
+  explanation_he: עדשות מרכזות הרבה אור לנקודה אחת. הסתכלות כזו יכולה לפגוע בעין מיד ולתמיד.
+  explanation_en: Lenses gather lots of light into one spot. Looking this way can damage the eye instantly and permanently.
+  tags: [day_night]
+- id: sci.space.013
+  skill: science.space.moon
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: מה מאיר את הירח?
+  prompt_en: What lights up the moon?
+  choices:
+  - {he: הירח בוער, en: the moon is burning, emoji: 1f525}
+  - {he: מנורות שעל הירח, en: lamps on the moon, emoji: 1f4a1}
+  - {he: אור השמש, en: sunlight, emoji: '2600'}
+  answer: 2
+  explanation_he: הירח לא מפיק אור. אנחנו רואים את החלק שלו שהשמש מאירה.
+  explanation_en: The moon makes no light. We see the part of it lit by the sun.
+  tags: [moon]
+- id: sci.space.014
+  skill: science.space.moon
+  kind: order
+  grade: 3
+  difficulty: 0.0
+  prompt_he: סדרו את מופעי הירח החל מירח חדש.
+  prompt_en: Order the moon's phases starting with the new moon.
+  choices:
+  - {he: ירח מלא, en: full moon, emoji: 1f315}
+  - {he: חצי ירח, en: half moon, emoji: 1f313}
+  - {he: מולד (ירח חדש), en: new moon, emoji: 1f311}
+  - {he: סהר דק, en: crescent, emoji: 1f312}
+  answer: [2, 3, 1, 0]
+  explanation_he: אחרי המולד רואים כל לילה חלק גדול יותר מהצד המואר, עד הירח המלא. אחר כך הוא הולך וקטן.
+  explanation_en: After the new moon we see more of the lit side each night until the full moon. Then it shrinks again.
+  tags: [moon]
+- id: sci.space.015
+  skill: science.space.moon
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: כמה זמן עובר מירח מלא אחד לירח המלא הבא?
+  prompt_en: How long from one full moon to the next?
+  choices:
+  - {he: שנה, en: a year}
+  - {he: 'כחודש, בערך 29.5 ימים', en: 'about a month, roughly 29.5 days'}
+  - {he: שבוע, en: a week}
+  answer: 1
+  explanation_he: זה מחזור מופעי הירח. המילה חודש קשורה למילה חדש, כי בלוח העברי כל חודש מתחיל במולד הירח.
+  explanation_en: That's the moon's phase cycle. The Hebrew word for month, chodesh, is linked to "new", since each Hebrew month begins with the new moon.
+  tags: [moon]
+- id: sci.space.016
+  skill: science.space.moon
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: פסח וסוכות חלים בט"ו בחודש, ואז הירח מלא.
+  prompt_en: Passover and Sukkot fall on the 15th of the month, when the moon is full.
+  answer: true
+  explanation_he: נכון. בלוח העברי החודש מתחיל במולד, ובאמצע החודש, בערך ב-15, הירח מלא.
+  explanation_en: True. The Hebrew month starts at the new moon, so around the 15th, mid-month, the moon is full.
+  tags: [moon]
+- id: sci.space.017
+  skill: science.space.moon
+  kind: true_false
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מופעי הירח נוצרים כי הצל של כדור הארץ מסתיר את הירח.
+  prompt_en: The moon's phases happen because Earth's shadow covers the moon.
+  answer: false
+  explanation_he: לא נכון. חצי מהירח תמיד מואר. כשהירח סובב סביבנו אנחנו רואים כל פעם חלק אחר מהצד המואר. צל כדור הארץ על הירח הוא ליקוי ירח.
+  explanation_en: False. Half the moon is always lit. As it orbits us we see different amounts of the lit side. Earth's shadow on the moon is a lunar eclipse.
+  tags: [moon]
+- id: sci.space.018
+  skill: science.space.moon
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: מי היה האדם הראשון שהלך על הירח?
+  prompt_en: Who was the first person to walk on the moon?
+  choices:
+  - {he: ניל ארמסטרונג, en: Neil Armstrong}
+  - {he: יורי גגרין, en: Yuri Gagarin}
+  - {he: אילן רמון, en: Ilan Ramon}
+  answer: 0
+  explanation_he: ארמסטרונג דרך על הירח בשנת 1969. גגרין היה האדם הראשון בחלל, ואילן רמון היה האסטרונאוט הישראלי הראשון.
+  explanation_en: Armstrong walked on the moon in 1969. Gagarin was the first person in space, and Ilan Ramon was the first Israeli astronaut.
+  tags: [moon]
+- id: sci.space.019
+  skill: science.space.moon
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: למה עקבות האסטרונאוטים נשארו על הירח עד היום?
+  prompt_en: Why are the astronauts' footprints still on the moon?
+  choices:
+  - {he: כי הם עשויים מבטון, en: they're made of concrete}
+  - {he: כי מישהו שומר עליהם, en: someone guards them}
+  - {he: 'אין שם אוויר, רוח וגשם שימחקו אותן', en: 'there''s no air, wind or rain to erase them'}
+  answer: 2
+  explanation_he: לירח אין אטמוספרה ואין מזג אוויר. בלי רוח ומים, העקבות יכולות להישאר עשרות ואלפי שנים.
+  explanation_en: The moon has no atmosphere or weather. Without wind or water, footprints can last for many thousands of years.
+  tags: [moon]
+- id: sci.space.020
+  skill: science.space.moon
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מה גורם לגאות ושפל בים?
+  prompt_en: What causes ocean tides?
+  choices:
+  - {he: דגים גדולים, en: big fish, emoji: 1f40b}
+  - {he: רוחות חזקות, en: strong winds, emoji: 1f32c}
+  - {he: בעיקר כוח המשיכה של הירח, en: mainly the moon's gravity, emoji: 1f315}
+  answer: 2
+  explanation_he: הירח מושך את מי האוקיינוסים, וכך פני הים עולים ויורדים פעמיים ביממה. גם לשמש יש השפעה קטנה יותר.
+  explanation_en: The moon pulls on ocean water, so sea level rises and falls twice a day. The sun has a smaller effect too.
+  tags: [moon]
+- id: sci.space.021
+  skill: science.space.moon
+  kind: true_false
+  grade: 4
+  difficulty: 1.0
+  prompt_he: אנחנו תמיד רואים את אותו צד של הירח.
+  prompt_en: We always see the same side of the moon.
+  answer: true
+  explanation_he: נכון. הירח מסתובב סביב עצמו באותו זמן שהוא מקיף את כדור הארץ, ולכן אותו צד תמיד פונה אלינו.
+  explanation_en: True. The moon spins once in the same time it takes to orbit Earth, so the same side always faces us.
+  tags: [moon]
+- id: sci.space.022
+  skill: science.space.moon
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: מתי מתרחש ליקוי חמה?
+  prompt_en: When does a solar eclipse happen?
+  choices:
+  - {he: כשהירח עובר בין השמש לכדור הארץ, en: when the moon passes between the sun and Earth}
+  - {he: כשהשמש נכבית, en: when the sun goes out}
+  - {he: כשכדור הארץ עובר בין השמש לירח, en: when Earth passes between the sun and the moon}
+  answer: 0
+  explanation_he: בליקוי חמה הירח מסתיר את השמש. בליקוי ירח כדור הארץ מטיל את הצל שלו על הירח.
+  explanation_en: In a solar eclipse the moon hides the sun. In a lunar eclipse Earth casts its shadow on the moon.
+  tags: [moon]
+- id: sci.space.023
+  skill: science.space.moon
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: איך נוצרו המכתשים העגולים על הירח?
+  prompt_en: How did the round craters on the moon form?
+  choices:
+  - {he: גשם חזק, en: heavy rain}
+  - {he: פגיעות של סלעים מהחלל, en: impacts of rocks from space}
+  - {he: אסטרונאוטים חפרו אותם, en: astronauts dug them}
+  answer: 1
+  explanation_he: סלעי חלל פגעו בירח ויצרו מכתשים. בלי אוויר ומים שמשנים את פני הקרקע, הם נשמרו.
+  explanation_en: Space rocks struck the moon and left craters. With no air or water to reshape the ground, they remain.
+  tags: [moon]
+- id: sci.space.024
+  skill: science.space.moon
+  kind: choice
+  grade: 6
+  difficulty: 2.0
+  prompt_he: הספינה "בראשית" הייתה ניסיון ישראלי ראשון...
+  prompt_en: The spacecraft "Beresheet" was Israel's first attempt to...
+  choices:
+  - {he: לנחות על מאדים, en: land on Mars}
+  - {he: לטוס לשמש, en: fly to the sun}
+  - {he: לנחות על הירח, en: land on the moon}
+  answer: 2
+  explanation_he: בשנת 2019 ישראל הייתה קרובה לנחות על הירח. "בראשית" הגיעה לירח אבל התרסקה ממש בשלב הנחיתה.
+  explanation_en: In 2019 Israel came close to landing on the moon. Beresheet reached the moon but crashed during the final landing.
+  tags: [moon]
+- id: sci.space.025
+  skill: science.space.solar_system
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: כמה כוכבי לכת יש במערכת השמש?
+  prompt_en: How many planets are in the solar system?
+  choices:
+  - {he: '5', en: '5'}
+  - {he: '9', en: '9'}
+  - {he: '8', en: '8'}
+  answer: 2
+  explanation_he: יש 8 כוכבי לכת. פלוטו נחשב פעם לכוכב הלכת התשיעי, אבל מאז 2006 הוא מוגדר "כוכב לכת ננסי".
+  explanation_en: There are 8 planets. Pluto was once the ninth, but since 2006 it is classed as a dwarf planet.
+  tags: [solar_system]
+- id: sci.space.026
+  skill: science.space.solar_system
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: מהו כוכב הלכת הגדול ביותר במערכת השמש?
+  prompt_en: Which is the largest planet in the solar system?
+  choices:
+  - {he: צדק, en: Jupiter}
+  - {he: כדור הארץ, en: Earth}
+  - {he: מאדים, en: Mars}
+  answer: 0
+  explanation_he: 'צדק ענק: יותר מ-1,000 כדורי ארץ יכולים להיכנס לתוכו. הוא עשוי בעיקר מגזים.'
+  explanation_en: 'Jupiter is huge: over 1,000 Earths could fit inside. It''s made mostly of gas.'
+  tags: [solar_system]
+- id: sci.space.027
+  skill: science.space.solar_system
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: איזה כוכב לכת נקרא "הכוכב האדום"?
+  prompt_en: Which planet is called the "red planet"?
+  choices:
+  - {he: נוגה, en: Venus}
+  - {he: מאדים, en: Mars}
+  - {he: שבתאי, en: Saturn}
+  answer: 1
+  explanation_he: על מאדים יש הרבה תחמוצת ברזל, כמו חלודה, שצובעת את האבק והסלעים באדום.
+  explanation_en: Mars has lots of iron oxide, like rust, coloring its dust and rocks red.
+  tags: [solar_system]
+- id: sci.space.028
+  skill: science.space.solar_system
+  kind: order
+  grade: 5
+  difficulty: 1.0
+  prompt_he: סדרו את כוכבי הלכת לפי המרחק מהשמש, מהקרוב לרחוק.
+  prompt_en: Order these planets by distance from the sun, closest first.
+  choices:
+  - {he: נוגה, en: Venus}
+  - {he: מאדים, en: Mars}
+  - {he: כדור הארץ, en: Earth}
+  - {he: חמה, en: Mercury}
+  - {he: צדק, en: Jupiter}
+  answer: [3, 0, 2, 1, 4]
+  explanation_he: חמה הכי קרובה לשמש, אחריה נוגה, כדור הארץ, מאדים וצדק. אחרי צדק באים שבתאי, אורנוס ונפטון.
+  explanation_en: Mercury is closest, then Venus, Earth, Mars and Jupiter. After Jupiter come Saturn, Uranus and Neptune.
+  tags: [solar_system]
+- id: sci.space.029
+  skill: science.space.solar_system
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: איזה כוכב לכת מפורסם בטבעות היפות שלו?
+  prompt_en: Which planet is famous for its beautiful rings?
+  choices:
+  - {he: חמה, en: Mercury}
+  - {he: שבתאי, en: Saturn}
+  - {he: כדור הארץ, en: Earth}
+  answer: 1
+  explanation_he: הטבעות של שבתאי בנויות ממיליארדי גושי קרח וסלע שמקיפים אותו. גם לצדק, אורנוס ונפטון יש טבעות חלשות.
+  explanation_en: Saturn's rings are billions of chunks of ice and rock orbiting it. Jupiter, Uranus and Neptune have faint rings too.
+  tags: [solar_system]
+- id: sci.space.030
+  skill: science.space.solar_system
+  kind: true_false
+  grade: 5
+  difficulty: 1.0
+  prompt_he: חמה, הקרוב ביותר לשמש, הוא כוכב הלכת החם ביותר.
+  prompt_en: Mercury, closest to the sun, is the hottest planet.
+  answer: false
+  explanation_he: לא נכון. נוגה הוא החם ביותר. יש לו אטמוספרה עבה של פחמן דו-חמצני שלוכדת חום, וחם עליו יותר מ-400 מעלות.
+  explanation_en: False. Venus is the hottest. Its thick carbon dioxide atmosphere traps heat, and it's over 400 degrees there.
+  tags: [solar_system]
+- id: sci.space.031
+  skill: science.space.solar_system
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: כדור הארץ הוא כוכב הלכת היחיד שאנחנו יודעים שיש עליו חיים.
+  prompt_en: Earth is the only planet we know has life.
+  answer: true
+  explanation_he: נכון. על כדור הארץ יש מים נוזליים, אוויר עם חמצן וטמפרטורה מתאימה. עד היום לא מצאנו חיים במקום אחר.
+  explanation_en: True. Earth has liquid water, air with oxygen and a suitable temperature. So far no life has been found anywhere else.
+  tags: [solar_system]
+- id: sci.space.032
+  skill: science.space.solar_system
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: מה נמצא בין מאדים לצדק?
+  prompt_en: What lies between Mars and Jupiter?
+  choices:
+  - {he: כדור הארץ, en: Earth}
+  - {he: השמש, en: the sun}
+  - {he: חגורת אסטרואידים, en: the asteroid belt}
+  answer: 2
+  explanation_he: בחגורה זו יש מיליוני סלעים שמקיפים את השמש. רובם קטנים, והגדולים ביותר הם בגודל מאות קילומטרים.
+  explanation_en: This belt holds millions of rocks orbiting the sun. Most are small; the largest are hundreds of kilometers across.
+  tags: [solar_system]
+- id: sci.space.033
+  skill: science.space.solar_system
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: מה מחזיק את כוכבי הלכת במסלול סביב השמש?
+  prompt_en: What keeps the planets in orbit around the sun?
+  choices:
+  - {he: הרוח בחלל, en: wind in space}
+  - {he: כוח המשיכה של השמש, en: the sun's gravity}
+  - {he: חוטים בלתי נראים, en: invisible strings}
+  answer: 1
+  explanation_he: השמש מושכת את כוכבי הלכת אליה, והתנועה המהירה שלהם הצידה גורמת להם להקיף אותה ולא ליפול לתוכה.
+  explanation_en: The sun pulls the planets toward it, and their fast sideways motion makes them circle instead of falling in.
+  tags: [solar_system]
+- id: sci.space.034
+  skill: science.space.solar_system
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: מה ההבדל בין כוכב לכת לכוכב?
+  prompt_en: What is the difference between a planet and a star?
+  choices:
+  - {he: אין הבדל, en: no difference}
+  - {he: כוכב לכת תמיד גדול יותר, en: a planet is always bigger}
+  - {he: 'כוכב מפיק אור, כוכב לכת מחזיר אור', en: a star makes light; a planet reflects it}
+  answer: 2
+  explanation_he: כוכבים כמו השמש בוערים ומפיקים אור וחום. כוכבי לכת מקיפים כוכב ונראים לנו בזכות האור שהם מחזירים.
+  explanation_en: Stars like the sun shine with their own light and heat. Planets orbit a star and are seen by reflected light.
+  tags: [solar_system]
+- id: sci.space.035
+  skill: science.space.solar_system
+  kind: true_false
+  grade: 6
+  difficulty: 1.0
+  prompt_he: יום על נוגה ארוך יותר מהשנה שלו.
+  prompt_en: A day on Venus is longer than its year.
+  answer: true
+  explanation_he: 'נכון. נוגה מסתובב סביב עצמו לאט מאוד: סיבוב אחד לוקח כ-243 ימים, והקפה של השמש כ-225 ימים.'
+  explanation_en: 'True. Venus spins very slowly: one turn takes about 243 Earth days, while its orbit takes about 225.'
+  tags: [solar_system]
+- id: sci.space.036
+  skill: science.space.solar_system
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: מיהו אילן רמון?
+  prompt_en: Who was Ilan Ramon?
+  choices:
+  - {he: האדם הראשון על הירח, en: the first man on the moon}
+  - {he: האסטרונאוט הישראלי הראשון, en: the first Israeli astronaut}
+  - {he: ממציא הטלסקופ, en: the telescope's inventor}
+  answer: 1
+  explanation_he: אילן רמון טס לחלל במעבורת קולומביה בשנת 2003 וערך שם ניסויים מדעיים, למשל בחקר סופות אבק מעל הים התיכון.
+  explanation_en: Ilan Ramon flew on the space shuttle Columbia in 2003 and ran science experiments, such as studying dust storms over the Mediterranean.
+  tags: [solar_system]
+- id: sci.space.037
+  skill: science.space.solar_system
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: אילו כוכבי לכת נקראים "ענקי הגז"?
+  prompt_en: Which planets are called the "gas giants"?
+  choices:
+  - {he: כדור הארץ ומאדים, en: Earth and Mars}
+  - {he: צדק ושבתאי, en: Jupiter and Saturn}
+  - {he: חמה ונוגה, en: Mercury and Venus}
+  answer: 1
+  explanation_he: צדק ושבתאי עשויים בעיקר ממימן והליום ואין להם פני קרקע מוצקים. ארבעת הקרובים לשמש עשויים סלע.
+  explanation_en: Jupiter and Saturn are mostly hydrogen and helium with no solid surface. The four inner planets are rocky.
+  tags: [solar_system]
+- id: sci.space.038
+  skill: science.space.solar_system
+  kind: order
+  grade: 6
+  difficulty: 2.0
+  prompt_he: סדרו את הגופים מהקטן לגדול.
+  prompt_en: Order these bodies from smallest to largest.
+  choices:
+  - {he: השמש, en: the Sun}
+  - {he: הירח, en: the Moon}
+  - {he: כדור הארץ, en: Earth}
+  - {he: צדק, en: Jupiter}
+  answer: [1, 2, 3, 0]
+  explanation_he: הירח קטן מכדור הארץ פי 4 בערך בקוטר. צדק רחב פי 11 מכדור הארץ, והשמש רחבה פי 10 בערך מצדק.
+  explanation_en: The Moon is about 4 times narrower than Earth. Jupiter is 11 times wider than Earth, and the Sun about 10 times wider than Jupiter.
+  tags: [solar_system]
+- id: sci.space.039
+  skill: science.space.solar_system
+  kind: order
+  grade: 6
+  difficulty: 1.0
+  prompt_he: סדרו את ארבעת כוכבי הלכת החיצוניים לפי המרחק מהשמש, מהקרוב לרחוק.
+  prompt_en: Order the four outer planets by distance from the sun, closest first.
+  choices:
+  - {he: אורנוס, en: Uranus}
+  - {he: צדק, en: Jupiter}
+  - {he: נפטון, en: Neptune}
+  - {he: שבתאי, en: Saturn}
+  answer: [1, 3, 0, 2]
+  explanation_he: אחרי חגורת האסטרואידים באים צדק, שבתאי, אורנוס ונפטון, הרחוק ביותר מהשמש.
+  explanation_en: After the asteroid belt come Jupiter, Saturn, Uranus and Neptune, the farthest from the sun.
+  tags: [solar_system]
+- id: sci.space.040
+  skill: science.space.stars
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: מהו הכוכב הקרוב ביותר לכדור הארץ?
+  prompt_en: What is the closest star to Earth?
+  choices:
+  - {he: כוכב הצפון, en: the North Star, emoji: 2b50}
+  - {he: השמש, en: the sun, emoji: '2600'}
+  - {he: הירח, en: the moon, emoji: 1f315}
+  answer: 1
+  explanation_he: השמש היא כוכב, והכוכב הקרוב ביותר אלינו. הכוכב הבא הקרוב רחוק פי 270,000 בערך.
+  explanation_en: The sun is a star, the nearest one. The next nearest star is roughly 270,000 times farther away.
+  tags: [stars]
+- id: sci.space.041
+  skill: science.space.stars
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: מהי שנת אור?
+  prompt_en: What is a light-year?
+  choices:
+  - {he: המרחק שאור עובר בשנה, en: the distance light travels in a year}
+  - {he: הזמן שלוקח לשמש לזרוח, en: the time it takes the sun to rise}
+  - {he: שנה שיש בה הרבה שמש, en: a year with lots of sunshine}
+  answer: 0
+  explanation_he: 'שנת אור היא מידה של מרחק, לא של זמן: כ-9.5 טריליון ק"מ. הכוכב הקרוב אחרי השמש רחוק כ-4.2 שנות אור.'
+  explanation_en: 'A light-year measures distance, not time: about 9.5 trillion km. The nearest star after the sun is about 4.2 light-years away.'
+  tags: [stars]
+- id: sci.space.042
+  skill: science.space.stars
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: איך נקראת הגלקסיה שבה נמצאת מערכת השמש?
+  prompt_en: What is the name of the galaxy containing our solar system?
+  choices:
+  - {he: גלקסיית הכנרת, en: the Kinneret Galaxy}
+  - {he: שביל החלב, en: the Milky Way}
+  - {he: טבעת שבתאי, en: the Saturn Ring}
+  answer: 1
+  explanation_he: שביל החלב הוא גלקסיה של מאות מיליארדי כוכבים. בלילה חשוך במדבר אפשר לראות אותו כרצועה בהירה.
+  explanation_en: The Milky Way is a galaxy of hundreds of billions of stars. On a dark desert night you can see it as a pale band.
+  tags: [stars]
+- id: sci.space.043
+  skill: science.space.stars
+  kind: true_false
+  grade: 5
+  difficulty: 0.0
+  prompt_he: '"כוכב נופל" הוא כוכב שנופל מהשמיים.'
+  prompt_en: A "shooting star" is a star falling from the sky.
+  answer: false
+  explanation_he: 'לא נכון. זה מטאור: גרגר קטן של סלע או אבק מהחלל שנשרף באטמוספרה ויוצר פס אור.'
+  explanation_en: 'False. It''s a meteor: a tiny grain of space rock or dust burning up in the atmosphere, leaving a streak of light.'
+  tags: [stars]
+- id: sci.space.044
+  skill: science.space.stars
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: למה כוכבים נראים לנו כנקודות קטנות?
+  prompt_en: Why do stars look like tiny dots?
+  choices:
+  - {he: הם רחוקים מאוד, en: they are extremely far away}
+  - {he: הם באמת קטנים מאוד, en: they are actually tiny}
+  - {he: הם מסתתרים מאחורי עננים, en: they hide behind clouds}
+  answer: 0
+  explanation_he: רבים מהכוכבים גדולים כמו השמש ויותר. הם נראים זעירים רק בגלל המרחק העצום.
+  explanation_en: Many stars are as big as the sun or bigger. They look tiny only because they are so far away.
+  tags: [stars]
+- id: sci.space.045
+  skill: science.space.stars
+  kind: true_false
+  grade: 6
+  difficulty: 1.0
+  prompt_he: יש כוכבים בשמיים גם ביום, אבל אור השמש מסתיר אותם.
+  prompt_en: Stars are in the sky during the day too, but sunlight hides them.
+  answer: true
+  explanation_he: נכון. הכוכבים לא נעלמים. אור השמש שמתפזר בשמיים חזק בהרבה מהאור החלש שלהם.
+  explanation_en: True. The stars don't disappear. Scattered sunlight in the sky is far brighter than their faint light.
+  tags: [stars]
+- id: sci.space.046
+  skill: science.space.stars
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: מהי קבוצת כוכבים (מזל)?
+  prompt_en: What is a constellation?
+  choices:
+  - {he: כוכבים שקשורים בחבל, en: stars tied with a rope}
+  - {he: כוכבים שנראים כמו צורה בשמיים, en: stars that seem to form a shape in the sky}
+  - {he: כוכבים שנמצאים באותו מקום בחלל, en: stars sitting at the same place in space}
+  answer: 1
+  explanation_he: בני אדם חיברו כוכבים לצורות כדי להתמצא בשמיים. הכוכבים בקבוצה יכולים להיות במרחקים שונים מאוד מאיתנו.
+  explanation_en: People linked stars into shapes to find their way in the sky. Stars in a constellation can be at very different distances.
+  tags: [stars]
+- id: sci.space.047
+  skill: science.space.stars
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: איזה צבע של כוכב מעיד שהוא החם ביותר?
+  prompt_en: Which star color shows it is hottest?
+  choices:
+  - {he: אדום, en: red}
+  - {he: צהוב, en: yellow}
+  - {he: כחול-לבן, en: blue-white}
+  answer: 2
+  explanation_he: כוכבים כחולים חמים מאוד, כוכבים צהובים כמו השמש בינוניים, וכוכבים אדומים קרים יותר.
+  explanation_en: Blue stars are very hot, yellow stars like the sun are medium, and red stars are cooler.
+  tags: [stars]
+- id: sci.space.048
+  skill: science.space.stars
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: מה מאפשר לנו לראות גלקסיות רחוקות מאוד?
+  prompt_en: What lets us see very distant galaxies?
+  choices:
+  - {he: 'טלסקופים גדולים, גם בחלל', en: 'large telescopes, including in space', emoji: 1f52d}
+  - {he: מיקרוסקופ, en: a microscope, emoji: 1f52c}
+  - {he: משקפי שמש, en: sunglasses, emoji: 1f576}
+  answer: 0
+  explanation_he: טלסקופים אוספים הרבה אור. טלסקופי החלל, כמו האבל וג'יימס ווב, רואים בלי הפרעה של האטמוספרה.
+  explanation_en: Telescopes gather lots of light. Space telescopes like Hubble and James Webb see without the atmosphere getting in the way.
+  tags: [stars]
+- id: sci.space.049
+  skill: science.space.stars
+  kind: true_false
+  grade: 7
+  difficulty: 1.0
+  prompt_he: כוח המשיכה פועל בין כל שני גופים שיש להם מסה.
+  prompt_en: Gravity acts between any two objects with mass.
+  answer: true
+  explanation_he: נכון. זה החוק של ניוטון. כוח המשיכה גדל עם המסה וקטן עם המרחק, ולכן אנחנו מרגישים בעיקר את המשיכה של כדור הארץ.
+  explanation_en: True. That's Newton's law. Gravity grows with mass and weakens with distance, so we mostly feel Earth's pull.
+  tags: [stars]
+- id: sci.space.050
+  skill: science.space.stars
+  kind: choice
+  grade: 8
+  difficulty: 2.0
+  prompt_he: למה כוכבים מנצנצים, אבל כוכבי לכת כמעט לא?
+  prompt_en: Why do stars twinkle but planets hardly do?
+  choices:
+  - {he: כוכבי לכת קרובים לשמש, en: planets are near the sun}
+  - {he: האוויר הזז מעוות את האור של הכוכב, en: moving air distorts the starlight}
+  - {he: כוכבים נדלקים וכבים, en: stars switch on and off}
+  answer: 1
+  explanation_he: כוכב נראה כנקודה זעירה, והאטמוספרה הזזה מטה את האור שלו כל רגע. כוכב לכת נראה כדסקית קטנה, ולכן יציב יותר.
+  explanation_en: A star is a tiny point, and moving air keeps bending its light. A planet appears as a small disc, so it looks steadier.
+  tags: [stars]
+- id: sci.space.051
+  skill: science.space.stars
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: באיזה כיוון מצביע כוכב הצפון?
+  prompt_en: What direction does the North Star show?
+  choices:
+  - {he: דרום, en: south}
+  - {he: צפון, en: north}
+  - {he: מערב, en: west}
+  answer: 1
+  explanation_he: כוכב הצפון נמצא כמעט בדיוק מעל הקוטב הצפוני של כדור הארץ. במשך דורות נווטים מצאו לפיו את הצפון.
+  explanation_en: The North Star sits almost directly above Earth's North Pole. For generations navigators used it to find north.
+  tags: [stars]
+- id: sci.space.052
+  skill: science.space.stars
+  kind: order
+  grade: 7
+  difficulty: 1.0
+  prompt_he: סדרו מהקטן לגדול.
+  prompt_en: Order from smallest to largest.
+  choices:
+  - {he: כדור הארץ, en: Earth}
+  - {he: מערכת השמש, en: the solar system}
+  - {he: גלקסיית שביל החלב, en: the Milky Way galaxy}
+  - {he: השמש, en: the Sun}
+  answer: [0, 3, 1, 2]
+  explanation_he: כדור הארץ הוא אחד מכוכבי הלכת שמקיפים את השמש. מערכת השמש כולה היא חלק קטן מאוד משביל החלב.
+  explanation_en: Earth is one of the planets orbiting the Sun. The whole solar system is a tiny part of the Milky Way.
+  tags: [stars]
+- id: sci.space.053
+  skill: science.space.stars
+  kind: order
+  grade: 7
+  difficulty: 1.0
+  prompt_he: סדרו לפי המרחק מכדור הארץ, מהקרוב לרחוק.
+  prompt_en: Order by distance from Earth, closest first.
+  choices:
+  - {he: הכוכב הקרוב ביותר אחרי השמש, en: the nearest star after the Sun, emoji: 2b50}
+  - {he: הירח, en: the Moon, emoji: 1f315}
+  - {he: השמש, en: the Sun, emoji: '2600'}
+  - {he: גלקסיית אנדרומדה, en: the Andromeda galaxy, emoji: 1f30c}
+  answer: [1, 2, 0, 3]
+  explanation_he: האור מגיע מהירח בשנייה בערך, מהשמש בכ-8 דקות, מהכוכב הקרוב בכ-4 שנים, ומגלקסיית אנדרומדה בכ-2.5 מיליון שנים.
+  explanation_en: Light takes about a second from the Moon, 8 minutes from the Sun, 4 years from the nearest star, and 2.5 million years from Andromeda.
+  tags: [stars]

@@ -1,0 +1,82 @@
+# Nagmon skill graph - hebrew (bank-backed skills).
+# Format: docs/kids/SDD_CONTENT.md section 2. Each skill draws items from params.bank filtered by params.tags.
+
+subject: hebrew
+skills:
+- id: hebrew.letters.first
+  grade: 0
+  title_he: האות הראשונה במילה
+  title_en: First letter of a word
+  prereq: [hebrew.letters.names]
+  generator: bank
+  params: {bank: hebrew/letters.yaml, tags: [first_letter]}
+- id: hebrew.letters.names
+  grade: 0
+  title_he: שמות האותיות
+  title_en: Letter names
+  prereq: []
+  generator: bank
+  params: {bank: hebrew/letters.yaml, tags: [letter_names]}
+- id: hebrew.words.categories
+  grade: 0
+  title_he: מה לא שייך?
+  title_en: What doesn't belong?
+  prereq: []
+  generator: bank
+  params: {bank: hebrew/words.yaml, tags: [categories]}
+- id: hebrew.letters.final
+  grade: 1
+  title_he: אותיות סופיות
+  title_en: Final letter forms
+  prereq: [hebrew.letters.names]
+  generator: bank
+  params: {bank: hebrew/letters.yaml, tags: [final_letters]}
+- id: hebrew.letters.order
+  grade: 1
+  title_he: סדר האלף-בית
+  title_en: Alphabet order
+  prereq: [hebrew.letters.names]
+  generator: bank
+  params: {bank: hebrew/letters.yaml, tags: [alphabet_order]}
+- id: hebrew.words.opposites
+  grade: 1
+  title_he: הפכים
+  title_en: Opposites
+  prereq: []
+  generator: bank
+  params: {bank: hebrew/words.yaml, tags: [opposites]}
+- id: hebrew.words.rhymes
+  grade: 1
+  title_he: חרוזים
+  title_en: Rhymes
+  prereq: [hebrew.letters.first]
+  generator: bank
+  params: {bank: hebrew/words.yaml, tags: [rhymes]}
+- id: hebrew.reading.order
+  grade: 2
+  title_he: בונים משפט
+  title_en: Building a sentence
+  prereq: [hebrew.reading.sentences]
+  generator: bank
+  params: {bank: hebrew/reading.yaml, tags: [sentence_order]}
+- id: hebrew.reading.sentences
+  grade: 2
+  title_he: 'הבנת הנקרא: משפטים קצרים'
+  title_en: 'Reading: short sentences'
+  prereq: [hebrew.letters.first, hebrew.words.rhymes]
+  generator: bank
+  params: {bank: hebrew/reading.yaml, tags: [reading]}
+- id: hebrew.words.gender
+  grade: 2
+  title_he: זכר ונקבה
+  title_en: Masculine and feminine
+  prereq: [hebrew.words.plural]
+  generator: bank
+  params: {bank: hebrew/words.yaml, tags: [gender]}
+- id: hebrew.words.plural
+  grade: 2
+  title_he: יחיד ורבים
+  title_en: Singular and plural
+  prereq: [hebrew.words.opposites]
+  generator: bank
+  params: {bank: hebrew/words.yaml, tags: [plural]}
