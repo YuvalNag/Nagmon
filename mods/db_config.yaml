@@ -80,6 +80,9 @@ mod_tables:
     - terrain
     - weather
     - flair
+  nagmon:
+    - npc
+    - item
 
 # A dictionary to specify tables that should be excluded for certain mods.
 # For example, a mod might explicitly opt out of providing 'item' data.

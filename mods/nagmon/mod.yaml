@@ -15,8 +15,10 @@ startup_rules:
   - mods.nagmon.rules.NagmonStartupRule
 
 starting_players: ["npc_red"]
-starting_map: "start_tuxemon.tmx"
-starting_position: [0, 0]
+# A new game begins in Hearthrock, in front of the Wise Owl's house
+# (docs/kids/SDD_WORLD.md §2.1).
+starting_map: "classic_hearthrock_city.tmx"
+starting_position: [29, 16]
 starting_money: [500, 500]
 starting_names:
   - npc_red

@@ -23,7 +23,6 @@ logger = logging.getLogger(__name__)
 FALLBACK_LOCALE = "en_US"
 LOCALE_DIR = "l18n"
 LOCALE_CONFIG = CONFIG.locale
-ONE_WEEK = 7 * 24 * 60 * 60  # seconds
 RTL_LOCALES = {"he_IL"}
 
 
@@ -106,9 +105,11 @@ class TranslatorManager:
         elif not mo_path.exists():
             logger.debug(f".mo file missing, compiling: {mo_path}")
             return True
-        elif po_mtime > mo_mtime and delta > ONE_WEEK:
+        elif po_mtime > mo_mtime:
+            # Any newer .po wins: after an update, new strings must show at
+            # once, not as raw msgids for a week (docs/kids/SDD_WORLD.md).
             logger.info(
-                f"Recompiled .mo due to freshness gap ({delta:.2f}s): {mo_path}"
+                f"Recompiled .mo, the .po is newer ({delta:.2f}s): {mo_path}"
             )
             return True
         else:

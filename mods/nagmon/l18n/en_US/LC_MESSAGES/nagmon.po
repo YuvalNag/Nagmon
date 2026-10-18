@@ -293,3 +293,425 @@ msgstr "Play hours on weekdays: {hours}"
 
 msgid "nagmon_hours_any"
 msgstr "Play hours: any time (until bedtime)"
+# World chapter 1: the fog of forgetting (docs/kids/SDD_WORLD.md).
+msgid "nagmon_owl"
+msgstr "Wise Owl"
+
+msgid "nagmon_cashier"
+msgstr "Avi the shopkeeper"
+
+msgid "nagmon_tourist"
+msgstr "Tom the tourist"
+
+msgid "nagmon_gardener"
+msgstr "Michal the gardener"
+
+msgid "nagmon_kid"
+msgstr "Yoav"
+
+msgid "nagmon_kitten"
+msgstr "Pitzi"
+
+msgid "nagmon_granny"
+msgstr "Grandma Rina"
+
+msgid "nagmon_wallet"
+msgstr "Wallet"
+
+msgid "nagmon_route1_trainer"
+msgstr "Danny the mail carrier"
+
+msgid "nagmon_sign_route1"
+msgstr "Sign"
+
+msgid "classic_gym_leader_granite"
+msgstr "Master Granite"
+
+msgid "classic_gym_leader_mila"
+msgstr "Master Mila"
+
+msgid "nagmon_badge_granite"
+msgstr "Stone Badge"
+
+msgid "nagmon_badge_granite_description"
+msgstr "Granite Academy badge. Given for knowing shapes and a friendly duel."
+
+msgid "nagmon_badge_mila"
+msgstr "Number Badge"
+
+msgid "nagmon_badge_mila_description"
+msgstr "Mila Academy badge. Given for practising math and a friendly duel."
+
+msgid "nagmon_world_choice_return"
+msgstr "Return it to Grandma Rina"
+
+msgid "nagmon_world_choice_keep"
+msgstr "Keep it"
+
+msgid "nagmon_world_choice_give"
+msgstr "Give the wallet back"
+
+msgid "nagmon_world_choice_later"
+msgstr "Maybe later"
+
+msgid "nagmon_world_choice_duel"
+msgstr "A friendly duel!"
+
+msgid "nagmon_owl_intro_story"
+msgstr ""
+"Wise Owl: Hello, ${{name}}! I'm glad you came.\n"
+"A grey fog fell on our world. It is called the Fog of Forgetting.\n"
+"Whoever it touches forgets: numbers, words, shapes.\n"
+"Even the monsters forgot their powers, and the world is losing its colors.\n"
+"But there is a way to bring it all back: knowledge! Everything we learn gives power back."
+
+msgid "nagmon_owl_intro_power"
+msgstr ""
+"This is called knowledge power. Here is how it works:\n"
+"In a duel you can answer a question before a move. A right answer makes the move stronger!\n"
+"You can always attack without a question too.\n"
+"And a mistake? That's fine. The move is a normal one, and I will explain."
+
+msgid "nagmon_owl_intro_starter"
+msgstr ""
+"Three little monsters are waiting for a friend.\n"
+"Agnite is a fire monster. It loves math.\n"
+"Rockitten is an earth monster. It loves shapes.\n"
+"Kroki is a water monster. It loves science.\n"
+"Who will be your first friend?"
+
+msgid "nagmon_owl_picked_agnite"
+msgstr ""
+"Agnite jumps for joy!\n"
+"When it attacks, the questions will be about math."
+
+msgid "nagmon_owl_picked_rockitten"
+msgstr ""
+"Rockitten purrs quietly.\n"
+"When it attacks, the questions will be about shapes."
+
+msgid "nagmon_owl_picked_kroki"
+msgstr ""
+"Kroki splashes a little water with joy.\n"
+"When it attacks, the questions will be about science."
+
+msgid "nagmon_owl_gifts"
+msgstr ""
+"Here are 5 capture balls and 3 potions.\n"
+"Monsters live in the tall grass on Route 1. You can make friends with them."
+
+msgid "nagmon_owl_first_q"
+msgstr ""
+"Let's try one question together.\n"
+"No clock and no rush. Take your time."
+
+msgid "nagmon_owl_first_good"
+msgstr ""
+"Very nice! You thought it all the way through.\n"
+"That's how knowledge power charges up."
+
+msgid "nagmon_owl_first_wrong"
+msgstr ""
+"No problem! Mistakes are part of learning.\n"
+"Now we already know something new."
+
+msgid "nagmon_owl_go"
+msgstr ""
+"The people in town need help, and each of them teaches something.\n"
+"Route 1 starts at the north of town.\n"
+"The yellow building on the right is the Granite Academy. The master waits there.\n"
+"And if your monsters are tired, come to me."
+
+msgid "nagmon_owl_heal"
+msgstr ""
+"Your monsters rested and drank some water.\n"
+"They are full of power again!"
+
+msgid "nagmon_owl_tip_granite"
+msgstr ""
+"Tip: the master's test has 3 questions about shapes.\n"
+"Two right answers are enough. And you can try again as often as you like."
+
+msgid "nagmon_owl_tip_mila"
+msgstr ""
+"Your Stone Badge is shining!\n"
+"Next to the Granite Academy there is another one: Mila, the math academy."
+
+msgid "nagmon_owl_tip_all"
+msgstr ""
+"Two badges! Steady, beautiful work.\n"
+"The fog has moved back a little from the town. The adventure is only beginning."
+
+msgid "nagmon_owl_congrats_granite"
+msgstr ""
+"Wise Owl: I saw what happened at the academy!\n"
+"You answered questions about shapes and kept going in the duel.\n"
+"Look, the color is coming back to the town. That's your knowledge!"
+
+msgid "nagmon_owl_congrats_mila"
+msgstr ""
+"Wise Owl: Another badge! You practised math until it worked.\n"
+"The fog moved back a little more."
+
+msgid "nagmon_world_cashier_hello"
+msgstr ""
+"Avi: Hello! I'm counting the money in the till.\n"
+"Can you help me with a little sum?"
+
+msgid "nagmon_world_cashier_good"
+msgstr ""
+"Exactly! You counted right, and the till is in order.\n"
+"Thank you! Here are 20 coins for your help."
+
+msgid "nagmon_world_cashier_free"
+msgstr ""
+"Exactly! You counted right.\n"
+"You already helped me a lot today. Thank you!"
+
+msgid "nagmon_world_cashier_wrong"
+msgstr ""
+"Almost! With money it helps to count slowly, coin after coin.\n"
+"You can try again whenever you like."
+
+msgid "nagmon_world_tourist_hello"
+msgstr ""
+"Hello! I am Tom. I am a tourist.\n"
+"(Tom is visiting. He speaks English.)\n"
+"Let's help him with some English!"
+
+msgid "nagmon_world_tourist_good"
+msgstr ""
+"Thank you very much!\n"
+"You helped Tom understand. Tom gives you a potion."
+
+msgid "nagmon_world_tourist_free"
+msgstr ""
+"Thank you! See you!\n"
+"Tom is happy to practise with you."
+
+msgid "nagmon_world_tourist_wrong"
+msgstr ""
+"Good try!\n"
+"Now we saw the answer. Next time it will be easier."
+
+msgid "nagmon_world_gardener_hello"
+msgstr ""
+"Michal: Hello! My garden is full of questions.\n"
+"Can you help me with a science question?"
+
+msgid "nagmon_world_gardener_good"
+msgstr ""
+"Right! You looked closely at the world.\n"
+"Here is a wood berry from the garden, for you."
+
+msgid "nagmon_world_gardener_free"
+msgstr ""
+"Right! Learning together is fun.\n"
+"The garden is blooming today."
+
+msgid "nagmon_world_gardener_wrong"
+msgstr ""
+"No problem! Scientists make mistakes too, and then they learn.\n"
+"Come back whenever you like."
+
+msgid "nagmon_world_kid_lost"
+msgstr ""
+"Yoav: Oh no... my kitten, Pitzi, ran away!\n"
+"She ran north to Route 1, past the tall grass.\n"
+"Can you help me find her?"
+
+msgid "nagmon_world_kid_waiting"
+msgstr ""
+"Yoav: Pitzi ran to Route 1.\n"
+"She is on the left side, past the tall grass."
+
+msgid "nagmon_world_kitten_found"
+msgstr ""
+"Meow! Pitzi purrs.\n"
+"She jumps into your arms. Now you can bring her back to Yoav."
+
+msgid "nagmon_world_kid_thanks"
+msgstr ""
+"Yoav: Pitzi! You found her! Thank you so much!\n"
+"You went all the way to Route 1 for a friend. That is real kindness."
+
+msgid "nagmon_world_kid_reward"
+msgstr "Yoav gives you 2 potions and 30 coins."
+
+msgid "nagmon_world_kid_happy"
+msgstr ""
+"Yoav: Pitzi and I play all day.\n"
+"Thanks for helping!"
+
+msgid "nagmon_world_kitten_purr"
+msgstr "Pitzi: Meow! Purrrr..."
+
+msgid "nagmon_world_wallet_found"
+msgstr ""
+"You found a wallet on the sidewalk!\n"
+"There is a note inside: \"Grandma Rina's\".\n"
+"What do we do with the wallet?"
+
+msgid "nagmon_world_wallet_return"
+msgstr ""
+"The wallet is in the bag, on its way to Grandma Rina.\n"
+"She lives on the east side of the street."
+
+msgid "nagmon_world_wallet_kept"
+msgstr ""
+"The wallet is in the bag.\n"
+"Hmm... maybe someone is looking for it right now."
+
+msgid "nagmon_world_granny_hello"
+msgstr ""
+"Grandma Rina: Hello, ${{name}}!\n"
+"What a lovely day for a walk in town."
+
+msgid "nagmon_world_granny_thanks"
+msgstr ""
+"Grandma Rina: My wallet! I looked for it all morning.\n"
+"You brought it back, even when nobody was watching. That is honesty."
+
+msgid "nagmon_world_granny_reward"
+msgstr "Grandma Rina gives you 30 coins and a water berry from her garden."
+
+msgid "nagmon_world_granny_value"
+msgstr ""
+"Honesty helps everyone feel safe.\n"
+"Thank you so much!"
+
+msgid "nagmon_world_granny_lost"
+msgstr ""
+"Grandma Rina: Oh, I lost my wallet.\n"
+"It has a photo of my grandchildren..."
+
+msgid "nagmon_world_granny_later"
+msgstr "Grandma Rina: All right. If the wallet turns up, I'll be very happy."
+
+msgid "nagmon_world_granny_happy"
+msgstr ""
+"Grandma Rina: Thanks again for the wallet.\n"
+"My grandchildren say hello!"
+
+msgid "nagmon_world_trainer_hello"
+msgstr ""
+"Danny: Hi! I deliver letters, and I train on my break.\n"
+"Want a friendly duel? Just for fun."
+
+msgid "nagmon_world_trainer_later"
+msgstr "Danny: Sure. I'm here all day."
+
+msgid "nagmon_world_trainer_won"
+msgstr ""
+"Danny: What a nice duel!\n"
+"My monsters got tired, but they had lots of fun."
+
+msgid "nagmon_world_trainer_lost"
+msgstr ""
+"Danny: That was a good duel!\n"
+"Your monsters rested a little. We can duel again whenever you like."
+
+msgid "nagmon_world_trainer_done"
+msgstr ""
+"Danny: A tip from a mail carrier: a question before a move = a strong move.\n"
+"Good luck at the academy!"
+
+msgid "nagmon_world_sign_tree"
+msgstr ""
+"Sign: TREE = a tree\n"
+"A tree gives shade, fruit and a home for birds.\n"
+"TREE. Now this word is yours!"
+
+msgid "nagmon_world_master_next"
+msgstr "Nice. Second question!"
+
+msgid "nagmon_world_master_last"
+msgstr "And now the last question."
+
+msgid "nagmon_world_granite_hello"
+msgstr ""
+"Master Granite: Welcome to the Granite Academy!\n"
+"Here we learn shapes: triangles, squares, circles and more."
+
+msgid "nagmon_world_granite_rules"
+msgstr ""
+"Before a friendly duel there is a little test: 3 questions.\n"
+"Two right answers are enough. There is no clock. Let's begin!"
+
+msgid "nagmon_world_granite_pass"
+msgstr ""
+"You passed the test! I can see you practised.\n"
+"Now, a friendly duel. Good luck!"
+
+msgid "nagmon_world_granite_not_yet"
+msgstr ""
+"Master Granite: It didn't work out this time, and that's fine.\n"
+"A mountain is built stone by stone. You can practise with the people in town.\n"
+"Come back and try again whenever you like."
+
+msgid "nagmon_world_granite_rematch"
+msgstr ""
+"Master Granite: You're back! The test is already behind you.\n"
+"Let's go on to a friendly duel."
+
+msgid "nagmon_world_granite_won"
+msgstr ""
+"Master Granite: An excellent duel!\n"
+"You thought about every step, like someone building a stone house."
+
+msgid "nagmon_world_granite_badge"
+msgstr "You got the Stone Badge and 100 coins!"
+
+msgid "nagmon_world_granite_lost"
+msgstr ""
+"Master Granite: That was a good duel.\n"
+"Your monsters rested a little. You can try again whenever you like."
+
+msgid "nagmon_world_granite_done"
+msgstr ""
+"Master Granite: The Stone Badge shines nicely.\n"
+"Shapes are everywhere. Try looking for them!"
+
+msgid "nagmon_world_mila_hello"
+msgstr ""
+"Master Mila: Welcome to the Mila Academy!\n"
+"Here we practise math: adding, taking away and more."
+
+msgid "nagmon_world_mila_rules"
+msgstr ""
+"Before a friendly duel there is a little test: 3 math questions.\n"
+"Two right answers are enough. There is no clock. Let's begin!"
+
+msgid "nagmon_world_mila_pass"
+msgstr ""
+"You passed the test! You worked it out patiently.\n"
+"Now, a friendly duel. Good luck!"
+
+msgid "nagmon_world_mila_not_yet"
+msgstr ""
+"Master Mila: It didn't work out this time, and that's fine.\n"
+"Every number we practise gets easier.\n"
+"Come back and try again whenever you like."
+
+msgid "nagmon_world_mila_rematch"
+msgstr ""
+"Master Mila: You're back! The test is already behind you.\n"
+"Let's go on to a friendly duel."
+
+msgid "nagmon_world_mila_won"
+msgstr ""
+"Master Mila: An excellent duel!\n"
+"Every step was well thought out."
+
+msgid "nagmon_world_mila_badge"
+msgstr "You got the Number Badge and 100 coins!"
+
+msgid "nagmon_world_mila_lost"
+msgstr ""
+"Master Mila: That was a good duel.\n"
+"Your monsters rested a little. You can try again whenever you like."
+
+msgid "nagmon_world_mila_done"
+msgstr ""
+"Master Mila: The Number Badge is shining!\n"
+"Numbers hide everywhere: in the shop, on the clock, on the road."

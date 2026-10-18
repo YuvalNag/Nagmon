@@ -1,0 +1,104 @@
+# NPCs of the first world chapter (docs/kids/SDD_WORLD.md §2.6).
+# Names are msgids in mods/nagmon/l18n/*/LC_MESSAGES/nagmon.po.
+- slug: nagmon_owl
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: professor
+    combat_sheet: professor
+    slug: professor
+- slug: nagmon_cashier
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: shopkeeper
+    combat_sheet: shopkeeper
+    slug: shopkeeper
+- slug: nagmon_tourist
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: cooldude
+    combat_sheet: cooldude
+    slug: cooldude
+- slug: nagmon_gardener
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: florist
+    combat_sheet: florist
+    slug: florist
+- slug: nagmon_kid
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: childactor
+    combat_sheet: childactor
+    slug: childactor
+- slug: nagmon_kitten
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: rockitten
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_granny
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: granny
+    combat_sheet: granny
+    slug: granny
+- slug: nagmon_route1_trainer
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: postboy
+    combat_sheet: postboy
+    slug: postboy
+- slug: nagmon_wallet
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_wallet
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true
+- slug: nagmon_sign_route1
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: sign
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true

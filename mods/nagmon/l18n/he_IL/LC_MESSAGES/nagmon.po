@@ -292,3 +292,425 @@ msgstr "שעות משחק בימי חול: {hours}"
 
 msgid "nagmon_hours_any"
 msgstr "שעות משחק: בכל שעה (עד שעת השינה)"
+# World chapter 1: the fog of forgetting (docs/kids/SDD_WORLD.md).
+msgid "nagmon_owl"
+msgstr "הינשוף החכם"
+
+msgid "nagmon_cashier"
+msgstr "המוכר אבי"
+
+msgid "nagmon_tourist"
+msgstr "טום התייר"
+
+msgid "nagmon_gardener"
+msgstr "הגננת מיכל"
+
+msgid "nagmon_kid"
+msgstr "יואב"
+
+msgid "nagmon_kitten"
+msgstr "פיצי"
+
+msgid "nagmon_granny"
+msgstr "סבתא רינה"
+
+msgid "nagmon_wallet"
+msgstr "ארנק"
+
+msgid "nagmon_route1_trainer"
+msgstr "הדוור דני"
+
+msgid "nagmon_sign_route1"
+msgstr "שלט"
+
+msgid "classic_gym_leader_granite"
+msgstr "המאסטר גרניט"
+
+msgid "classic_gym_leader_mila"
+msgstr "מאסטר מילה"
+
+msgid "nagmon_badge_granite"
+msgstr "תג האבן"
+
+msgid "nagmon_badge_granite_description"
+msgstr "תג של אקדמיית גרניט. ניתן על ידע בצורות ועל דו-קרב ידידותי."
+
+msgid "nagmon_badge_mila"
+msgstr "תג החשבון"
+
+msgid "nagmon_badge_mila_description"
+msgstr "תג של אקדמיית מילה. ניתן על תרגול חשבון ועל דו-קרב ידידותי."
+
+msgid "nagmon_world_choice_return"
+msgstr "להחזיר לסבתא רינה"
+
+msgid "nagmon_world_choice_keep"
+msgstr "לשמור לעצמי"
+
+msgid "nagmon_world_choice_give"
+msgstr "להחזיר את הארנק"
+
+msgid "nagmon_world_choice_later"
+msgstr "אולי אחר כך"
+
+msgid "nagmon_world_choice_duel"
+msgstr "דו-קרב ידידותי!"
+
+msgid "nagmon_owl_intro_story"
+msgstr ""
+"הינשוף החכם: שלום, ${{name}}! טוב שבאת.\n"
+"ערפל אפור ירד על העולם שלנו. קוראים לו ערפל השכחה.\n"
+"מי שהערפל נוגע בו, שוכח: מספרים, מילים, צורות.\n"
+"גם הנגמונים שכחו את הכוחות שלהם, והעולם מאבד את הצבע.\n"
+"אבל יש דרך להחזיר הכול: ידע! כל דבר שלומדים מחזיר כוח."
+
+msgid "nagmon_owl_intro_power"
+msgstr ""
+"זה נקרא כוח ידע. ככה הוא עובד:\n"
+"בדו-קרב אפשר לענות על שאלה לפני מכה. תשובה נכונה נותנת מכה חזקה יותר!\n"
+"אפשר תמיד לתקוף גם בלי שאלה.\n"
+"וטעות? זה בסדר גמור. המכה יוצאת רגילה, ואני אסביר."
+
+msgid "nagmon_owl_intro_starter"
+msgstr ""
+"שלושה נגמונים קטנים מחכים לחבר.\n"
+"Agnite הוא נגמון אש. הוא אוהב חשבון.\n"
+"Rockitten הוא נגמון אדמה. הוא אוהב צורות.\n"
+"Kroki הוא נגמון מים. הוא אוהב מדעים.\n"
+"מי יהיה החבר הראשון שלך?"
+
+msgid "nagmon_owl_picked_agnite"
+msgstr ""
+"Agnite קופץ משמחה!\n"
+"כשהוא תוקף, השאלות יהיו בחשבון."
+
+msgid "nagmon_owl_picked_rockitten"
+msgstr ""
+"Rockitten מגרגר בשקט.\n"
+"כשהוא תוקף, השאלות יהיו על צורות."
+
+msgid "nagmon_owl_picked_kroki"
+msgstr ""
+"Kroki מתיז קצת מים מרוב שמחה.\n"
+"כשהוא תוקף, השאלות יהיו במדעים."
+
+msgid "nagmon_owl_gifts"
+msgstr ""
+"הנה 5 כדורי לכידה ו-3 שיקויים.\n"
+"בדשא הגבוה בדרך 1 גרים נגמונים. אפשר להתיידד איתם."
+
+msgid "nagmon_owl_first_q"
+msgstr ""
+"בואו ננסה שאלה אחת ביחד.\n"
+"אין שעון ואין לחץ. חושבים בנחת."
+
+msgid "nagmon_owl_first_good"
+msgstr ""
+"יפה מאוד! חשבת עד הסוף.\n"
+"ככה טוענים כוח ידע."
+
+msgid "nagmon_owl_first_wrong"
+msgstr ""
+"לא נורא! טעות היא חלק מהלמידה.\n"
+"עכשיו כבר יודעים משהו חדש."
+
+msgid "nagmon_owl_go"
+msgstr ""
+"האנשים בעיר צריכים עזרה, וכל אחד מלמד משהו.\n"
+"בצפון העיר יוצאים לדרך 1.\n"
+"הבניין הצהוב מימין הוא אקדמיית גרניט. המאסטר מחכה שם.\n"
+"ואם הנגמונים עייפים, בואו אליי."
+
+msgid "nagmon_owl_heal"
+msgstr ""
+"הנגמונים שלך נחו ושתו מים.\n"
+"הם שוב מלאי כוח!"
+
+msgid "nagmon_owl_tip_granite"
+msgstr ""
+"טיפ: במבחן של המאסטר יש 3 שאלות על צורות.\n"
+"מספיק לענות נכון על 2. ואפשר לנסות שוב כמה שרוצים."
+
+msgid "nagmon_owl_tip_mila"
+msgstr ""
+"תג האבן שלך נוצץ!\n"
+"ליד אקדמיית גרניט יש עוד אקדמיה: מילה, אקדמיית החשבון."
+
+msgid "nagmon_owl_tip_all"
+msgstr ""
+"שני תגים! עבודה יפה ומתמידה.\n"
+"הערפל כבר נסוג קצת מהעיר. ההרפתקה רק מתחילה."
+
+msgid "nagmon_owl_congrats_granite"
+msgstr ""
+"הינשוף החכם: ראיתי מה קרה באקדמיה!\n"
+"ענית על שאלות על צורות, ולא ויתרת בדו-קרב.\n"
+"תראו, הצבע חוזר לעיר. זה הידע שלך!"
+
+msgid "nagmon_owl_congrats_mila"
+msgstr ""
+"הינשוף החכם: עוד תג! תרגלת חשבון עד שזה הצליח.\n"
+"הערפל נסוג עוד קצת."
+
+msgid "nagmon_world_cashier_hello"
+msgstr ""
+"המוכר אבי: שלום! אני סופר את הכסף בקופה.\n"
+"אפשר לעזור לי עם חשבון קטן?"
+
+msgid "nagmon_world_cashier_good"
+msgstr ""
+"בדיוק! ספרת נכון, והקופה מסודרת.\n"
+"תודה! הנה 20 מטבעות על העזרה."
+
+msgid "nagmon_world_cashier_free"
+msgstr ""
+"בדיוק! ספרת נכון.\n"
+"היום כבר עזרת לי הרבה. תודה!"
+
+msgid "nagmon_world_cashier_wrong"
+msgstr ""
+"כמעט! עם כסף כדאי לספור לאט, מטבע אחרי מטבע.\n"
+"אפשר לנסות שוב מתי שרוצים."
+
+msgid "nagmon_world_tourist_hello"
+msgstr ""
+"Hello! I am Tom. I am a tourist.\n"
+"(טום הוא תייר. הוא מדבר אנגלית.)\n"
+"בואו נעזור לו עם אנגלית!"
+
+msgid "nagmon_world_tourist_good"
+msgstr ""
+"Thank you very much!\n"
+"(תודה רבה!) עזרת לטום להבין. טום נותן לך שיקוי."
+
+msgid "nagmon_world_tourist_free"
+msgstr ""
+"Thank you! See you!\n"
+"(תודה! להתראות!) טום שמח לתרגל איתך."
+
+msgid "nagmon_world_tourist_wrong"
+msgstr ""
+"Good try!\n"
+"(ניסיון יפה!) עכשיו ראינו את התשובה. בפעם הבאה יהיה קל יותר."
+
+msgid "nagmon_world_gardener_hello"
+msgstr ""
+"הגננת מיכל: שלום! הגינה שלי מלאה בשאלות.\n"
+"אפשר לעזור לי עם שאלה במדעים?"
+
+msgid "nagmon_world_gardener_good"
+msgstr ""
+"נכון! הסתכלת טוב על העולם.\n"
+"הנה פרי עץ מהגינה, בשבילך."
+
+msgid "nagmon_world_gardener_free"
+msgstr ""
+"נכון! איזה כיף ללמוד ביחד.\n"
+"הגינה פורחת היום."
+
+msgid "nagmon_world_gardener_wrong"
+msgstr ""
+"לא נורא! גם מדענים טועים, ואז לומדים.\n"
+"אפשר לחזור מתי שרוצים."
+
+msgid "nagmon_world_kid_lost"
+msgstr ""
+"יואב: אוי... החתולה שלי, פיצי, ברחה!\n"
+"היא רצה צפונה, לדרך 1, מעבר לדשא הגבוה.\n"
+"אפשר לעזור לי למצוא אותה?"
+
+msgid "nagmon_world_kid_waiting"
+msgstr ""
+"יואב: פיצי ברחה לדרך 1.\n"
+"היא בצד השמאלי, מעבר לדשא הגבוה."
+
+msgid "nagmon_world_kitten_found"
+msgstr ""
+"מיאו! פיצי מגרגרת.\n"
+"היא קופצת לזרועות שלך. עכשיו אפשר להחזיר אותה ליואב."
+
+msgid "nagmon_world_kid_thanks"
+msgstr ""
+"יואב: פיצי! מצאת אותה! תודה רבה!\n"
+"הלכת עד דרך 1 בשביל חבר. זה טוב לב אמיתי."
+
+msgid "nagmon_world_kid_reward"
+msgstr "יואב נותן לך 2 שיקויים ו-30 מטבעות."
+
+msgid "nagmon_world_kid_happy"
+msgstr ""
+"יואב: פיצי ואני משחקים כל היום.\n"
+"תודה שעזרת!"
+
+msgid "nagmon_world_kitten_purr"
+msgstr "פיצי: מיאו! פרררר..."
+
+msgid "nagmon_world_wallet_found"
+msgstr ""
+"מצאת ארנק על המדרכה!\n"
+"בפנים יש פתק: \"של סבתא רינה\".\n"
+"מה עושים עם הארנק?"
+
+msgid "nagmon_world_wallet_return"
+msgstr ""
+"הארנק בתיק, בדרך לסבתא רינה.\n"
+"היא גרה בצד המזרחי של הרחוב."
+
+msgid "nagmon_world_wallet_kept"
+msgstr ""
+"הארנק בתיק.\n"
+"הממ... אולי מישהו מחפש אותו עכשיו."
+
+msgid "nagmon_world_granny_hello"
+msgstr ""
+"סבתא רינה: שלום, ${{name}}!\n"
+"איזה יום יפה לטייל בעיר."
+
+msgid "nagmon_world_granny_thanks"
+msgstr ""
+"סבתא רינה: הארנק שלי! חיפשתי אותו כל הבוקר.\n"
+"החזרת אותו, גם כשאף אחד לא ראה. זה יושר."
+
+msgid "nagmon_world_granny_reward"
+msgstr "סבתא רינה נותנת לך 30 מטבעות ופרי מים מהגינה."
+
+msgid "nagmon_world_granny_value"
+msgstr ""
+"יושר עוזר לכולם להרגיש בטוחים.\n"
+"תודה רבה!"
+
+msgid "nagmon_world_granny_lost"
+msgstr ""
+"סבתא רינה: אוי, איבדתי את הארנק שלי.\n"
+"יש בו תמונה של הנכדים שלי..."
+
+msgid "nagmon_world_granny_later"
+msgstr "סבתא רינה: בסדר. אם הארנק יימצא, אשמח מאוד."
+
+msgid "nagmon_world_granny_happy"
+msgstr ""
+"סבתא רינה: שוב תודה על הארנק.\n"
+"הנכדים שלי מוסרים שלום!"
+
+msgid "nagmon_world_trainer_hello"
+msgstr ""
+"הדוור דני: שלום! אני מחלק מכתבים, ובהפסקה מתאמן.\n"
+"רוצה דו-קרב ידידותי? רק בשביל הכיף."
+
+msgid "nagmon_world_trainer_later"
+msgstr "הדוור דני: בכיף. אני כאן כל היום."
+
+msgid "nagmon_world_trainer_won"
+msgstr ""
+"הדוור דני: איזה דו-קרב יפה!\n"
+"הנגמונים שלי התעייפו, אבל נהנו מאוד."
+
+msgid "nagmon_world_trainer_lost"
+msgstr ""
+"הדוור דני: היה דו-קרב טוב!\n"
+"הנגמונים שלך נחו קצת. אפשר עוד דו-קרב מתי שרוצים."
+
+msgid "nagmon_world_trainer_done"
+msgstr ""
+"הדוור דני: טיפ מדוור: שאלה לפני מכה = מכה חזקה.\n"
+"בהצלחה באקדמיה!"
+
+msgid "nagmon_world_sign_tree"
+msgstr ""
+"שלט: TREE = עץ\n"
+"עץ נותן צל, פירות ובית לציפורים.\n"
+"TREE. עכשיו המילה הזו שלך!"
+
+msgid "nagmon_world_master_next"
+msgstr "יפה. שאלה שנייה!"
+
+msgid "nagmon_world_master_last"
+msgstr "ועכשיו השאלה האחרונה."
+
+msgid "nagmon_world_granite_hello"
+msgstr ""
+"המאסטר גרניט: ברוכים הבאים לאקדמיית גרניט!\n"
+"כאן לומדים צורות: משולשים, ריבועים, עיגולים ועוד."
+
+msgid "nagmon_world_granite_rules"
+msgstr ""
+"לפני דו-קרב ידידותי יש מבחן קטן: 3 שאלות.\n"
+"מספיק לענות נכון על 2. אין שעון. מתחילים!"
+
+msgid "nagmon_world_granite_pass"
+msgstr ""
+"עברת את המבחן! רואים שהתאמנת.\n"
+"עכשיו דו-קרב ידידותי. בהצלחה!"
+
+msgid "nagmon_world_granite_not_yet"
+msgstr ""
+"המאסטר גרניט: הפעם זה עוד לא הצליח, וזה בסדר.\n"
+"הר נבנה אבן אחרי אבן. אפשר להתאמן עם תושבי העיר.\n"
+"אפשר לחזור ולנסות שוב מתי שרוצים."
+
+msgid "nagmon_world_granite_rematch"
+msgstr ""
+"המאסטר גרניט: חזרת! המבחן כבר מאחוריך.\n"
+"בואו נמשיך לדו-קרב ידידותי."
+
+msgid "nagmon_world_granite_won"
+msgstr ""
+"המאסטר גרניט: דו-קרב מצוין!\n"
+"חשבת על כל צעד, כמו מי שבונה בית מאבנים."
+
+msgid "nagmon_world_granite_badge"
+msgstr "קיבלת את תג האבן ו-100 מטבעות!"
+
+msgid "nagmon_world_granite_lost"
+msgstr ""
+"המאסטר גרניט: היה דו-קרב טוב.\n"
+"הנגמונים שלך נחו קצת. אפשר לנסות שוב מתי שרוצים."
+
+msgid "nagmon_world_granite_done"
+msgstr ""
+"המאסטר גרניט: תג האבן נוצץ יפה.\n"
+"צורות נמצאות בכל מקום. כדאי לחפש אותן!"
+
+msgid "nagmon_world_mila_hello"
+msgstr ""
+"מאסטר מילה: ברוכים הבאים לאקדמיית מילה!\n"
+"כאן מתאמנים בחשבון: חיבור, חיסור ועוד."
+
+msgid "nagmon_world_mila_rules"
+msgstr ""
+"לפני דו-קרב ידידותי יש מבחן קטן: 3 שאלות בחשבון.\n"
+"מספיק לענות נכון על 2. אין שעון. מתחילים!"
+
+msgid "nagmon_world_mila_pass"
+msgstr ""
+"עברת את המבחן! חישבת בסבלנות.\n"
+"עכשיו דו-קרב ידידותי. בהצלחה!"
+
+msgid "nagmon_world_mila_not_yet"
+msgstr ""
+"מאסטר מילה: הפעם זה עוד לא הצליח, וזה בסדר.\n"
+"כל מספר שמתרגלים נהיה קל יותר.\n"
+"אפשר לחזור ולנסות שוב מתי שרוצים."
+
+msgid "nagmon_world_mila_rematch"
+msgstr ""
+"מאסטר מילה: חזרת! המבחן כבר מאחוריך.\n"
+"בואו נמשיך לדו-קרב ידידותי."
+
+msgid "nagmon_world_mila_won"
+msgstr ""
+"מאסטר מילה: דו-קרב מצוין!\n"
+"כל צעד היה מחושב."
+
+msgid "nagmon_world_mila_badge"
+msgstr "קיבלת את תג החשבון ו-100 מטבעות!"
+
+msgid "nagmon_world_mila_lost"
+msgstr ""
+"מאסטר מילה: היה דו-קרב טוב.\n"
+"הנגמונים שלך נחו קצת. אפשר לנסות שוב מתי שרוצים."
+
+msgid "nagmon_world_mila_done"
+msgstr ""
+"מאסטר מילה: תג החשבון נוצץ!\n"
+"מספרים מסתתרים בכל מקום: בחנות, בשעון, בדרך."
