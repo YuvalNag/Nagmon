@@ -59,6 +59,10 @@ class Hooks:
         self.events.append(("deactivate", None))
 
 
+# Tuesday 21 Nov 2023, 16:30 in Jerusalem: inside the default play window.
+TUESDAY_AFTERNOON = 1_700_577_000.0
+
+
 @pytest.fixture
 def hooks() -> Hooks:
     return Hooks()
@@ -187,3 +191,47 @@ def test_active_engine_helper(rt):
         assert runtime_mod.active_engine() is rt.engine
     finally:
         runtime_mod.set_runtime(None)
+
+
+def test_start_play_activates_and_tracks(rt):
+    rt.clock = lambda: TUESDAY_AFTERNOON
+    p = rt.store.create(name="Avi", avatar="x")
+    decision = rt.start_play(p.id)
+    assert decision.action.name != "MUST_STOP"
+    assert rt.active is not None and rt.tracker.active_profile == p.id
+    rt.stop_play()
+    assert rt.active is None and rt.tracker.active_profile is None
+
+
+def test_start_play_refused_when_limit_used(tmp_path):
+    from nagmon.family.screentime import Action, Reason, ScreenLimits
+
+    rt = NagmonRuntime(
+        tmp_path,
+        learner_from_dict=FakeLearner.from_dict,
+        learner_new=FakeLearner,
+        clock=lambda: TUESDAY_AFTERNOON,
+    )
+    rt.parent.settings.default_limits = ScreenLimits(daily_max_minutes=0)
+    p = rt.store.create(name="Dan", avatar="x")
+    decision = rt.start_play(p.id)
+    assert decision.action is Action.MUST_STOP
+    assert decision.reason is Reason.DAILY_LIMIT
+    assert decision.message_he
+    assert rt.active is None
+
+
+def test_start_play_refused_on_shabbat(tmp_path):
+    from nagmon.family.screentime import Action, Reason
+
+    rt = NagmonRuntime(
+        tmp_path,
+        learner_from_dict=FakeLearner.from_dict,
+        learner_new=FakeLearner,
+        # Saturday 25 Nov 2023, 12:00 in Jerusalem (10:00 UTC).
+        clock=lambda: 1_700_906_400.0,
+    )
+    p = rt.store.create(name="Lea", avatar="x")
+    decision = rt.start_play(p.id)
+    assert decision.action is Action.MUST_STOP
+    assert decision.reason is Reason.SHABBAT

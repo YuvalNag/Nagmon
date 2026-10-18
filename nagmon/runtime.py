@@ -16,8 +16,15 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from nagmon.family.calendar import ShabbatCalendar
 from nagmon.family.parent import ParentStore
 from nagmon.family.profiles import Profile, ProfileStore
+from nagmon.family.screentime import (
+    Action,
+    Decision,
+    ScreenTimePolicy,
+    SessionTracker,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -89,6 +96,57 @@ class NagmonRuntime:
         self.active: Profile | None = None
         self.learner: Any = None
         self.engine: Any = None
+        self.tracker = SessionTracker(self.root, self.policy_for, tz=self.zone)
+
+    # ------------------------------------------------------------ time
+
+    @property
+    def zone(self) -> Any:
+        return self.parent.settings.location.zone
+
+    def now(self) -> datetime:
+        return datetime.fromtimestamp(self.clock(), tz=self.zone)
+
+    def policy_for(self, pid: str) -> ScreenTimePolicy:
+        s = self.parent.settings
+        return ScreenTimePolicy(
+            s.limits_for(pid),
+            calendar=ShabbatCalendar(s.location),
+            shabbat=s.shabbat_mode,
+            holidays=s.holiday_mode,
+            stop_before_minutes=s.shabbat_stop_before_minutes,
+            tz=self.zone,
+        )
+
+    def can_play(self, pid: str) -> Decision:
+        """Whether ``pid`` may start playing now (no session is started)."""
+        tracker = SessionTracker(self.root, self.policy_for, tz=self.zone)
+        decision = tracker.start(pid, self.now())
+        tracker.stop(self.now())
+        return decision
+
+    def start_play(self, pid: str) -> Decision:
+        """
+        Starts a play session for ``pid`` if screen time allows it, and
+        makes them the active child. Returns the screen-time decision.
+        """
+        decision = self.can_play(pid)
+        if decision.action is Action.MUST_STOP:
+            return decision
+        self.activate(pid)
+        return self.tracker.start(pid, self.now())
+
+    def tick(self, *, at_natural_break: bool = False) -> Decision | None:
+        """Counts play time; call about once a minute while playing."""
+        if self.active is None or self.tracker.active_profile is None:
+            return None
+        return self.tracker.tick(self.now(), at_natural_break=at_natural_break)
+
+    def stop_play(self) -> None:
+        """Ends the session and puts the child away."""
+        if self.tracker.active_profile is not None:
+            self.tracker.stop(self.now())
+        self.deactivate()
 
     @property
     def content(self) -> Any:
