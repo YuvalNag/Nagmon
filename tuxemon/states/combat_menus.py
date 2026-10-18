@@ -338,16 +338,31 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
                     open_dialog(self.client, [template], dialog_speed="max")
                     return
 
-            # enqueue the item
-            self.combat_session.enqueue_action(self.character, item, target)
-            self.character.battle_last_used_item_slug = item.slug
-
-            # close all the open menus
-            self.client.remove_state_by_name("MainCombatMenuState")
-            if not item.behaviors.throwable:
-                self.client.remove_state_by_name("MonsterMenuState")
+            self.before_enqueue_item(
+                item, target, partial(self._finish_enqueue_item, item, target)
+            )
 
         choose_item()
+
+    def before_enqueue_item(
+        self, item: Item, target: Monster, proceed: Callable[[], None]
+    ) -> None:
+        """
+        Called once the player picked an item and its target, before the
+        item is queued. Mods override this to run something first (for
+        example a question); they must call ``proceed`` to queue the item.
+        """
+        proceed()
+
+    def _finish_enqueue_item(self, item: Item, target: Monster) -> None:
+        # enqueue the item
+        self.combat_session.enqueue_action(self.character, item, target)
+        self.character.battle_last_used_item_slug = item.slug
+
+        # close all the open menus
+        self.client.remove_state_by_name("MainCombatMenuState")
+        if not item.behaviors.throwable:
+            self.client.remove_state_by_name("MonsterMenuState")
 
     def open_technique_menu(self) -> None:
         """Open menus to choose a Technique to use."""
@@ -616,16 +631,38 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
                 self.session, self.monster, technique, target
             )
 
-            # Enqueue the action
-            self.combat_session.enqueue_action(self.monster, technique, target)
-
-            # close all the open menus
-            if len(self.opponents) > 1:
-                self.client.remove_state_by_name("CombatTargetMenuState")
-            self.client.remove_state_by_name("Menu")
-            self.client.pop_state(self)
+            self.before_enqueue_technique(
+                technique,
+                target,
+                partial(self._finish_enqueue_technique, technique, target),
+            )
 
         choose_technique()
+
+    def before_enqueue_technique(
+        self,
+        technique: Technique,
+        target: Monster,
+        proceed: Callable[[], None],
+    ) -> None:
+        """
+        Called once the player picked a technique and its target, before
+        the action is queued. Mods override this to run something first
+        (for example a question); they must call ``proceed`` to queue it.
+        """
+        proceed()
+
+    def _finish_enqueue_technique(
+        self, technique: Technique, target: Monster
+    ) -> None:
+        # Enqueue the action
+        self.combat_session.enqueue_action(self.monster, technique, target)
+
+        # close all the open menus
+        if len(self.opponents) > 1:
+            self.client.remove_state_by_name("CombatTargetMenuState")
+        self.client.remove_state_by_name("Menu")
+        self.client.pop_state(self)
 
 
 class CombatTargetMenuState(Menu[Monster]):
@@ -665,7 +702,10 @@ class CombatTargetMenuState(Menu[Monster]):
 
         if self.technique.behaviors.bypasses_selection:
             if self.technique.target.get("enemy_monster"):
-                for player, monsters in self.combat_session.field_monsters.get_all_monsters().items():
+                for (
+                    player,
+                    monsters,
+                ) in self.combat_session.field_monsters.get_all_monsters().items():
                     if player != self.character and monsters:
                         yield self._create_menu_item(monsters[0])
                         break
@@ -780,7 +820,6 @@ class CombatTargetMenuState(Menu[Monster]):
         items = [i for i in self.menu_items if i.enabled]
         if len(items) == 1:
             self.on_menu_selection(items[0])
-
 
     def on_menu_selection_change(self) -> None:
         """Handles border updates when selection changes."""
