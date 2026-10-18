@@ -9,6 +9,7 @@ from unittest.mock import patch
 
 import pygame
 import pytest
+
 from nagmon.ui.emoji import EmojiLoader, default_root, normalize_code
 
 os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
@@ -27,7 +28,7 @@ def root(tmp_path: Path) -> Path:
     _png(tmp_path / "1f468-200d-1f469-200d-1f467.png")
     _png(tmp_path / "2764.png")  # Twemoji drops fe0f here
     _png(tmp_path / "1f3f3-fe0f-200d-1f308.png")  # ...but keeps it here
-    _png(tmp_path / "wide.png", size=(144, 72))
+    _png(tmp_path / "1f4cf.png", size=(144, 72))
     return tmp_path
 
 
@@ -97,7 +98,7 @@ def test_cache_is_bounded(root):
 
 
 def test_aspect_ratio_kept_in_square(root):
-    surf = EmojiLoader(root).get("wide", 36)
+    surf = EmojiLoader(root).get("1f4cf", 36)
     assert surf is not None and max(surf.get_size()) == 36
     assert surf.get_size() == (36, 18)
 

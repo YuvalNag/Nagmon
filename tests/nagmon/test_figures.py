@@ -10,6 +10,7 @@ from pathlib import Path
 
 import pygame
 import pytest
+
 from nagmon.ui.figures import (
     DEFAULT_THEME,
     FIGURE_KINDS,
