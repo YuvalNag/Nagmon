@@ -321,6 +321,7 @@ class ParentMenuState(PygameMenuState):
             ("owl", self._owl_title(), self.toggle_owl),
             ("voices", self._voices_title(), self.toggle_voices),
             ("ai", T.translate("nagmon_parent_ai"), self.ai_status),
+            ("hours", self._hours_title(), self.play_hours),
             ("pin", T.translate("nagmon_change_pin"), self.change_pin),
             ("back", T.translate("nagmon_back"), self.close),
         ]
@@ -547,6 +548,45 @@ class ParentMenuState(PygameMenuState):
             [
                 (loc.city_he, lambda k=key: set_city(k))
                 for key, loc in PRESETS.items()
+            ],
+        )
+
+    HOUR_PRESETS: ClassVar[tuple[tuple[str, Any, Any], ...]] = (
+        ("16:00-19:30", ("16:00-19:30",), ("08:00-12:00", "16:00-19:30")),
+        ("14:00-19:30", ("14:00-19:30",), ("08:00-12:00", "14:00-19:30")),
+        ("08:00-20:00", ("08:00-20:00",), ("08:00-20:00",)),
+        ("", None, None),
+    )
+
+    def _hours_title(self) -> str:
+        windows = self.rt.parent.settings.default_limits.weekday_windows
+        if not windows:
+            return T.translate("nagmon_hours_any")
+        return T.format("nagmon_hours", {"hours": ", ".join(windows)})
+
+    def play_hours(self) -> None:
+        import dataclasses
+
+        def set_hours(weekday: Any, weekend: Any) -> None:
+            s = self.rt.parent.settings
+            s.default_limits = dataclasses.replace(
+                s.default_limits,
+                weekday_windows=weekday,
+                weekend_windows=weekend,
+            )
+            self.rt.parent.save()
+            self.rebuild()
+
+        choose(
+            self.client,
+            [
+                (
+                    T.format("nagmon_hours", {"hours": label})
+                    if label
+                    else T.translate("nagmon_hours_any"),
+                    lambda wd=wd, we=we: set_hours(wd, we),
+                )
+                for label, wd, we in self.HOUR_PRESETS
             ],
         )
 

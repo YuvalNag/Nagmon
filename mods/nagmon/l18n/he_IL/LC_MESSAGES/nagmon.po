@@ -286,3 +286,9 @@ msgstr "דקות ביום: ללא הגבלה"
 
 msgid "nagmon_city"
 msgstr "עיר (לזמני שבת): {city}"
+
+msgid "nagmon_hours"
+msgstr "שעות משחק בימי חול: {hours}"
+
+msgid "nagmon_hours_any"
+msgstr "שעות משחק: בכל שעה (עד שעת השינה)"
