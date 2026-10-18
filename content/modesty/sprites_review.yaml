@@ -1,0 +1,842 @@
+# Modesty (tzniut) review of human character sprites -- generated review, no repo files changed.
+# status: flag = must replace; borderline = parent decision. Only flag/borderline entries listed.
+summary:
+  reviewed:
+    overworld: 209
+    portrait: 360
+    monster: 413
+  flag:
+    portrait: 101
+  borderline:
+    portrait: 13
+    overworld: 2
+    monster: 2
+  flagged_or_borderline_in_use_by_npcs: 16
+  classic_campaign_hits: none (classic gym leaders all use monk, which is ok; player uses adventurer/heroine)
+  notes:
+  - Overworld sheets are 16x32 chibi sprites; all humans are fully clothed at that scale except the unused naked/light mannequin bases.
+  - 'Proposed replacements reuse existing portraits in mods/tuxemon/gfx/sprites/player; most modest women options: healer_*, mage_*, dancer*, granny, waternymph; florist_*/homemaker have short sleeves and
+    mid-calf skirts.'
+  - 'heroine (default female player) has no modest variant in the set: recommend a pixel edit lengthening the skirt to below the knee; florist_* is an interim fallback.'
+  - Swaps are done by changing template.combat_sheet in mods/tuxemon/db/npc/*.yaml (and DEFAULT_RACE_MAPPING / appearance_options.yaml for the player).
+entries:
+- file: mods/tuxemon/gfx/sprites/player/beachgoer.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by:
+  - npc:eclipse_bank_lucas (eclipse_bank_npcs.yaml) maps:[eclipse_crystal_bank3.yaml]
+  - npc:eclipse_route7_sylvester (eclipse_route7_npcs.yaml) maps:[eclipse_route7.yaml]
+  - npc:speck (speck.yaml) maps:[route1.tmx, taba_ba_main.tmx]
+  - npc:spyder_routea_connie (spyder_routea_npcs.yaml) maps:[spyder_routea.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/dancer_alt1_blonde.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_alt1.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/dancer_alt1_blonde.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_alt2.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/dancer_alt1_blonde.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_alt2_black.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_black.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_alt2_brown.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_brown.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_alt2_fiery.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_fiery.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_alt2_green.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_green.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_alt2_lapi.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_alt2_rose.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_rose.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_black.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_black.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_brown.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_brown.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_fiery.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_fiery.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_green.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_green.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_lapi.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer.png
+- file: mods/tuxemon/gfx/sprites/player/beachgoer_rose.png
+  kind: portrait
+  status: flag
+  reason: bikini (swimsuit), bare midriff/legs, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_rose.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by:
+  - npc:spyder_searoutec_alpha (spyder_searoutec_npcs.yaml) maps:[spyder_routec.tmx]
+  - npc:spyder_searoutec_beech (spyder_searoutec_npcs.yaml) maps:[spyder_routec.tmx]
+  - npc:spyder_searoutec_beta (spyder_searoutec_npcs.yaml) maps:[spyder_routec.tmx]
+  - npc:spyder_searoutec_gil (spyder_searoutec_npcs.yaml) maps:[spyder_routec.tmx]
+  - npc:spyder_searoutec_leek (spyder_searoutec_npcs.yaml) maps:[spyder_routec.tmx]
+  - npc:spyder_searoutec_more (spyder_searoutec_npcs.yaml) maps:[spyder_routec.tmx]
+  - npc:spyder_searoutec_river (spyder_searoutec_npcs.yaml) maps:[spyder_routec.tmx]
+  - npc:spyder_searoutec_wade (spyder_searoutec_npcs.yaml) maps:[spyder_routec.tmx]
+  - npc:water_swimmer (water_npcs.yaml) maps:[water_route_grass.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt1.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt1_blue.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher_blue.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt1_green.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher_green.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt1_orange.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt1_red.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher_red.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt1_violet.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt1_yellow.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt2.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt3.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt4.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt5.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt6.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt7.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt8.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_alt9.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_blue.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher_blue.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_green.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher_green.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_orange.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_red.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher_red.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_violet.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/swimmer_yellow.png
+  kind: portrait
+  status: flag
+  reason: shirtless man in speedo swim briefs
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/fisher.png
+- file: mods/tuxemon/gfx/sprites/player/beachcomber.png
+  kind: portrait
+  status: flag
+  reason: shirtless man (bare torso)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/farmer.png
+- file: mods/tuxemon/gfx/sprites/player/flex_fanatic.png
+  kind: portrait
+  status: flag
+  reason: shirtless bodybuilder, flexing pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/strongarm.png
+- file: mods/tuxemon/gfx/sprites/player/desert_male.png
+  kind: portrait
+  status: flag
+  reason: open bolero vest over bare chest/midriff
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/farmer.png
+- file: mods/tuxemon/gfx/sprites/player/barmaid.png
+  kind: portrait
+  status: flag
+  reason: sleeveless strappy above-knee dress, hand-on-hip pose
+  used_by:
+  - npc:eclipse_crystal_barmaid (eclipse_crystal_town_npcs.yaml) maps:[eclipse_crystal_town.yaml]
+  - npc:spyder_candycafe_nora (spyder_candy_town_npcs.yaml)
+  - npc:spyder_cottontown_barmaid (spyder_cotton_town_npcs.yaml) maps:[spyder_candy_cafe.yaml, spyder_cotton_artshop.tmx, spyder_cotton_cafe.tmx, spyder_test_map.tmx, spyder_timber_cafe.yaml]
+  - npc:spyder_leather_eula (spyder_leather_town_npcs.yaml) maps:[spyder_leather_town.tmx]
+  - npc:spyder_leathergym_chadine (spyder_leather_town_npcs.yaml) maps:[spyder_leather_gym.yaml]
+  - npc:spyder_mansion_lainey (spyder_mansion_npcs.yaml) maps:[spyder_mansion.tmx]
+  - npc:spyder_mansion_lucy (spyder_mansion_npcs.yaml) maps:[spyder_mansion.tmx]
+  - npc:spyder_top_maura (spyder_mansion_npcs.yaml) maps:[spyder_mansion_top.tmx]
+  - npc:spyder_top_penelope (spyder_mansion_npcs.yaml) maps:[spyder_mansion_top.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/barmaid_alt1.png
+  kind: portrait
+  status: flag
+  reason: sleeveless strappy above-knee dress, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/barmaid_alt2.png
+  kind: portrait
+  status: flag
+  reason: sleeveless strappy above-knee dress, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/barmaid_alt3.png
+  kind: portrait
+  status: flag
+  reason: sleeveless strappy above-knee dress, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/barmaid_blonde.png
+  kind: portrait
+  status: flag
+  reason: sleeveless strappy above-knee dress, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/barmaid_blue.png
+  kind: portrait
+  status: flag
+  reason: sleeveless strappy above-knee dress, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_lapi.png
+- file: mods/tuxemon/gfx/sprites/player/barmaid_brown.png
+  kind: portrait
+  status: flag
+  reason: sleeveless strappy above-knee dress, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_brown.png
+- file: mods/tuxemon/gfx/sprites/player/barmaid_fiery.png
+  kind: portrait
+  status: flag
+  reason: sleeveless strappy above-knee dress, hand-on-hip pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_fiery.png
+- file: mods/tuxemon/gfx/sprites/player/fashionista.png
+  kind: portrait
+  status: flag
+  reason: sleeveless dress with low scoop neckline, kneeling glamour pose
+  used_by:
+  - npc:maple_wren (maple_wren.yaml) maps:[city1_mart_junkyard.tmx, maple_bedroom.yaml]
+  - npc:spyder_billie (spyder_unique_npcs.yaml) maps:[spyder_candy_hospital3.tmx, spyder_cotton_artshop.tmx, spyder_datacenter.tmx, spyder_dojo4.tmx, spyder_paper_daycare.yaml, spyder_paper_rival_downstairs.yaml,
+    spyder_paper_scoop.yaml, spyder_paper_town.tmx, spyder_radiotower.tmx, spyder_route2.tmx, spyder_route4.tmx, spyder_route6.tmx, spyder_routea.tmx, spyder_routeb.tmx, spyder_timber_walledgarden2.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/fashionista_alt1.png
+  kind: portrait
+  status: flag
+  reason: sleeveless dress with low scoop neckline, kneeling glamour pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/fashionista_alt2.png
+  kind: portrait
+  status: flag
+  reason: sleeveless dress with low scoop neckline, kneeling glamour pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/fashionista_alt3.png
+  kind: portrait
+  status: flag
+  reason: sleeveless dress with low scoop neckline, kneeling glamour pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/fashionista_black.png
+  kind: portrait
+  status: flag
+  reason: sleeveless dress with low scoop neckline, kneeling glamour pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_black.png
+- file: mods/tuxemon/gfx/sprites/player/fashionista_blue.png
+  kind: portrait
+  status: flag
+  reason: sleeveless dress with low scoop neckline, kneeling glamour pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_lapi.png
+- file: mods/tuxemon/gfx/sprites/player/fashionista_brown.png
+  kind: portrait
+  status: flag
+  reason: sleeveless dress with low scoop neckline, kneeling glamour pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_brown.png
+- file: mods/tuxemon/gfx/sprites/player/fashionista_fiery.png
+  kind: portrait
+  status: flag
+  reason: sleeveless dress with low scoop neckline, kneeling glamour pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_fiery.png
+- file: mods/tuxemon/gfx/sprites/player/fashionista_rose.png
+  kind: portrait
+  status: flag
+  reason: sleeveless dress with low scoop neckline, kneeling glamour pose
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_rose.png
+- file: mods/tuxemon/gfx/sprites/player/faun.png
+  kind: portrait
+  status: flag
+  reason: 'female faun: sleeveless crop top, bare midriff and shoulders, unclothed goat lower body'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/faun_fiery.png
+  kind: portrait
+  status: flag
+  reason: 'female faun: sleeveless crop top, bare midriff and shoulders, unclothed goat lower body'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_fiery.png
+- file: mods/tuxemon/gfx/sprites/player/faun_green.png
+  kind: portrait
+  status: flag
+  reason: 'female faun: sleeveless crop top, bare midriff and shoulders, unclothed goat lower body'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_green.png
+- file: mods/tuxemon/gfx/sprites/player/faun_lapi.png
+  kind: portrait
+  status: flag
+  reason: 'female faun: sleeveless crop top, bare midriff and shoulders, unclothed goat lower body'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/faun_rose.png
+  kind: portrait
+  status: flag
+  reason: 'female faun: sleeveless crop top, bare midriff and shoulders, unclothed goat lower body'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_rose.png
+- file: mods/tuxemon/gfx/sprites/player/nurse.png
+  kind: portrait
+  status: flag
+  reason: sleeveless above-knee dress (bare arms/shoulders)
+  used_by:
+  - npc:eclipse_cathedral_jada (eclipse_crystal_town_npcs.yaml) maps:[eclipse_crystal_center.yaml]
+  - npc:eclipse_cathedral_nurse (eclipse_crystal_town_npcs.yaml) maps:[eclipse_crystal_center.yaml, eclipse_obsidian_center.yaml]
+  - npc:eclipse_lionmountain_nurse (eclipse_lion_mountain_npcs.yaml) maps:[eclipse_lion_mountain_low.yaml]
+  - npc:eclipse_route7_nurse (eclipse_route7_npcs.yaml) maps:[eclipse_route7.yaml]
+  - npc:nurse1 (nurse1.yaml) maps:[taba_house2.tmx, taba_town.tmx]
+  - npc:nurse2 (nurse2.yaml) maps:[taba_house3.tmx, taba_town.tmx]
+  - npc:spyder_cathedral_nurse (spyder_unique_npcs.yaml) maps:[spyder_candy_center.yaml, spyder_flower_center.yaml, spyder_healing_center.yaml, spyder_leather_center.yaml, spyder_timber_center.yaml]
+  - npc:spyder_citypark_nurse (spyder_citypark_npcs.yaml) maps:[spyder_citypark.tmx]
+  - npc:spyder_cottoncenter_ada (spyder_cotton_town_npcs.yaml) maps:[spyder_healing_center.yaml]
+  - npc:spyder_dragonscave_nurse (spyder_dragonscave_npcs.yaml)
+  - npc:spyder_greenwash_aissa (spyder_greenwash_npcs.yaml) maps:[spyder_greenwash_level2.tmx]
+  - npc:spyder_greenwash_broer (spyder_greenwash_npcs.yaml) maps:[spyder_greenwash.tmx]
+  - npc:spyder_hospital1_audie (spyder_hospital_npcs.yaml) maps:[spyder_candy_hospital3.tmx]
+  - npc:spyder_hospital1_marylyn (spyder_hospital_npcs.yaml) maps:[spyder_candy_hospital1.tmx]
+  - npc:spyder_hospital1_melanie (spyder_hospital_npcs.yaml) maps:[spyder_candy_hospital2.tmx]
+  - npc:spyder_mansion_nurse (spyder_mansion_npcs.yaml) maps:[spyder_mansion.tmx]
+  - npc:spyder_omnichannel_danita (spyder_omnichannel_npcs.yaml) maps:[spyder_omnichannel1.tmx]
+  - npc:spyder_route4_nurse (spyder_route4_npcs.yaml) maps:[spyder_route4.tmx]
+  - npc:spyder_route5_nurse (spyder_route5_npcs.yaml) maps:[spyder_route5.tmx]
+  - npc:spyder_routea_nurse (spyder_routea_npcs.yaml) maps:[spyder_routea.tmx]
+  - npc:spyder_scoop_alyssa (spyder_scoop_npcs.yaml) maps:[spyder_scoop3.tmx]
+  - npc:spyder_scoop_paine (spyder_scoop_npcs.yaml) maps:[spyder_scoop1.tmx]
+  - npc:spyder_scoop_taggart (spyder_scoop_npcs.yaml) maps:[spyder_scoop3.tmx]
+  - npc:spyder_tunnelb_nurse (spyder_tunnelb_npcs.yaml) maps:[spyder_tunnel.tmx]
+  - npc:spyder_wayfarer1_addy (spyder_wayfarer_npcs.yaml) maps:[spyder_wayfarer_inn1.tmx]
+  - npc:spyder_wayfarer1_jessie (spyder_wayfarer_npcs.yaml) maps:[spyder_wayfarer_inn1.tmx]
+  - npc:spyder_wayfarer1_morningstar (spyder_wayfarer_npcs.yaml) maps:[spyder_wayfarer_inn1.tmx]
+  - npc:spyder_wayfarer1_nightshade (spyder_wayfarer_npcs.yaml) maps:[spyder_wayfarer_inn1.tmx]
+  - npc:spyder_wayfarer1_ratcher (spyder_wayfarer_npcs.yaml) maps:[spyder_wayfarer_inn1.tmx]
+  - npc:tabanurse (tabanurse.yaml) maps:[cotton_cathedral.tmx, healing_center.tmx, sphalian_center.tmx]
+  - npc:water_nurse (water_npcs.yaml) maps:[water_lower_village.tmx, water_outskirts.tmx, water_river_village.tmx, water_route_grass.tmx, water_snow_village.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_rose.png
+- file: mods/tuxemon/gfx/sprites/player/nurse_alt1.png
+  kind: portrait
+  status: flag
+  reason: sleeveless above-knee dress (bare arms/shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/nurse_blonde.png
+  kind: portrait
+  status: flag
+  reason: sleeveless above-knee dress (bare arms/shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer.png
+- file: mods/tuxemon/gfx/sprites/player/nurse_blue.png
+  kind: portrait
+  status: flag
+  reason: sleeveless above-knee dress (bare arms/shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer.png
+- file: mods/tuxemon/gfx/sprites/player/nurse_lapi.png
+  kind: portrait
+  status: flag
+  reason: sleeveless above-knee dress (bare arms/shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer.png
+- file: mods/tuxemon/gfx/sprites/player/nurse_violet.png
+  kind: portrait
+  status: flag
+  reason: sleeveless above-knee dress (bare arms/shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer.png
+- file: mods/tuxemon/gfx/sprites/player/med_pair.png
+  kind: portrait
+  status: flag
+  reason: pair portrait that includes the sleeveless nurse
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer.png
+- file: mods/tuxemon/gfx/sprites/player/picnicker.png
+  kind: portrait
+  status: flag
+  reason: sleeveless sundress (bare arms and shoulders)
+  used_by:
+  - npc:eclipse_bank_bob (eclipse_bank_npcs.yaml) maps:[eclipse_crystal_bank1.yaml]
+  - npc:eclipse_route7_conrad (eclipse_route7_npcs.yaml) maps:[eclipse_route7.yaml]
+  - npc:spyder_candyhouse1_tillie (spyder_candy_town_npcs.yaml) maps:[spyder_candy_house1.tmx]
+  - npc:spyder_citypark_edith (spyder_citypark_npcs.yaml) maps:[spyder_citypark.tmx]
+  - npc:spyder_cottonhouse2_neva (spyder_cotton_town_npcs.yaml) maps:[spyder_cotton_house2.tmx]
+  - npc:spyder_flower_teach (spyder_flower_city_npcs.yaml) maps:[spyder_flower_city.tmx]
+  - npc:spyder_mansion_tamara (spyder_mansion_npcs.yaml) maps:[spyder_mansion.tmx]
+  - npc:spyder_outsidewalled_midas (spyder_timber_town_npcs.yaml) maps:[spyder_timber_town.tmx]
+  - npc:spyder_papermart_shirley (spyder_paper_town_npcs.yaml) maps:[spyder_paper_scoop.yaml]
+  - npc:spyder_route2_marion (spyder_route2_npcs.yaml) maps:[spyder_route2.tmx]
+  - npc:spyder_route4_rosamund (spyder_route4_npcs.yaml) maps:[spyder_route4.tmx]
+  - npc:spyder_route5_edith (spyder_route5_npcs.yaml) maps:[spyder_route5.tmx]
+  - npc:spyder_route5_sara (spyder_route5_npcs.yaml) maps:[spyder_route5.tmx]
+  - npc:spyder_route6_ping (spyder_route6_npcs.yaml) maps:[spyder_route6.tmx]
+  - npc:spyder_routea_rosy (spyder_routea_npcs.yaml) maps:[spyder_routea.tmx]
+  - npc:spyder_tunnelb_greta (spyder_tunnelb_npcs.yaml) maps:[spyder_tunnel.tmx]
+  - npc:spyder_walled_ford (spyder_walled_garden_npcs.yaml) maps:[spyder_timber_walledgarden1.tmx]
+  - npc:spyder_walled_midas (spyder_walled_garden_npcs.yaml) maps:[spyder_timber_walledgarden2.tmx]
+  - npc:water_picnicker (water_npcs.yaml) maps:[water_end_of_desert.tmx, water_route_ice.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_brown.png
+- file: mods/tuxemon/gfx/sprites/player/picnicker_alt1.png
+  kind: portrait
+  status: flag
+  reason: sleeveless sundress (bare arms and shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/picnicker_alt1_blonde.png
+  kind: portrait
+  status: flag
+  reason: sleeveless sundress (bare arms and shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/picnicker_alt1_fiery.png
+  kind: portrait
+  status: flag
+  reason: sleeveless sundress (bare arms and shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/picnicker_alt1_green.png
+  kind: portrait
+  status: flag
+  reason: sleeveless sundress (bare arms and shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/picnicker_blonde.png
+  kind: portrait
+  status: flag
+  reason: sleeveless sundress (bare arms and shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/picnicker_fiery.png
+  kind: portrait
+  status: flag
+  reason: sleeveless sundress (bare arms and shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_fiery.png
+- file: mods/tuxemon/gfx/sprites/player/picnicker_green.png
+  kind: portrait
+  status: flag
+  reason: sleeveless sundress (bare arms and shoulders)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_green.png
+- file: mods/tuxemon/gfx/sprites/player/heroine.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by:
+  - player character choice (appearance_options.yaml white_female/black_female, tuxemon/entity/appearance.py DEFAULT_RACE_MAPPING)
+  - npc:37707_female (37707_female.yaml) maps:[37707_town.tmx]
+  - npc:37707_female_missing (37707_female_missing.yaml) maps:[37707_town_missing.tmx]
+  - npc:callie_wren (callie_wren.yaml) maps:[maple_bedroom.yaml, player_house_downstairs.tmx, taba_town.tmx]
+  - npc:christie (christie.yaml) maps:[route1.tmx, taba_ba_main.tmx]
+  - npc:cotton_misa_gramps (cotton_misa_gramps.yaml) maps:[cotton_misa_house.tmx]
+  - npc:eclipse_crystal_homemaker (eclipse_crystal_town_npcs.yaml) maps:[eclipse_crystal_town.yaml]
+  - npc:grace (grace.yaml) maps:[cotton_town.tmx]
+  - npc:liela (liela.yaml) maps:[cotton_town.tmx, manhattan_beach.tmx, route1.tmx]
+  - npc:marissa (marissa.yaml) maps:[route1.tmx]
+  - npc:misa (misa.yaml) maps:[route1.tmx, route2.tmx]
+  - npc:taba_house1_wife (taba_houses.yaml) maps:[taba_house1.tmx]
+  - npc:taba_house2_owner (taba_houses.yaml) maps:[taba_house2.tmx]
+  - npc:taba_house2_reader1 (taba_houses.yaml) maps:[taba_house2_upstairs.tmx]
+  - npc:taba_house2_reader2 (taba_houses.yaml) maps:[taba_house2_upstairs.tmx]
+  - npc:taba_house3_client2 (taba_houses.yaml) maps:[taba_house3_upstairs.tmx]
+  - npc:taba_house3_owner (taba_houses.yaml) maps:[taba_house3.tmx]
+  - npc:timmy (timmy.yaml) maps:[taba_ba_foyer.tmx]
+  - npc:white_female (appearance_options.yaml)
+  - npc:wife_wren (wife_wren.yaml) maps:[maple_house.tmx, taba_town.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_alt1.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_alt1_black.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_alt1_blonde.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_alt1_brown.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_alt1_fiery.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_alt1_green.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_alt1_lapi.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_alt1_rose.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_black.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_black.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_blonde.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_brown.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_brown.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_fiery.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_fiery.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_green.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_green.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_lapi.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_lapi.png
+- file: mods/tuxemon/gfx/sprites/player/heroine_rose.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_rose.png
+- file: mods/tuxemon/gfx/sprites/player/heroineblack.png
+  kind: portrait
+  status: flag
+  reason: 'player-selectable female hero: mini skirt (mid-thigh) with bare legs; back view shows short slit skirt'
+  used_by:
+  - player character choice (appearance_options.yaml white_female/black_female, tuxemon/entity/appearance.py DEFAULT_RACE_MAPPING)
+  - npc:black_female (appearance_options.yaml)
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/earthnymph.png
+  kind: portrait
+  status: flag
+  reason: unclothed female figure covered only by a vine
+  used_by:
+  - npc:spyder_dryadsgrove_petra (spyder_dryadsgrove_npcs.yaml) maps:[spyder_dryadsgrove.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/waternymph.png
+- file: mods/tuxemon/gfx/sprites/player/metalnymph.png
+  kind: portrait
+  status: flag
+  reason: glowing female body silhouette with no clothing (legs/hips contour)
+  used_by:
+  - npc:spyder_dryadsgrove_ferris (spyder_dryadsgrove_npcs.yaml) maps:[spyder_dryadsgrove.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/waternymph.png
+- file: mods/tuxemon/gfx/sprites/player/mermaid.png
+  kind: portrait
+  status: flag
+  reason: shell bikini top, bare midriff
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/waternymph.png
+- file: mods/tuxemon/gfx/sprites/player/settingsun.png
+  kind: portrait
+  status: flag
+  reason: sleeveless strappy gown (bare shoulders and arms)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_alt1.png
+- file: mods/tuxemon/gfx/sprites/player/shiningsun.png
+  kind: portrait
+  status: flag
+  reason: sleeveless strappy gown (bare shoulders and arms) on female sun spirit
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer_fiery.png
+- file: mods/tuxemon/gfx/sprites/player/witch.png
+  kind: portrait
+  status: flag
+  reason: bare legs/thighs exposed, suggestive seated pose
+  used_by:
+  - npc:unknownwitch (azure_npcs.yaml) maps:[tabathas.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/mage.png
+- file: mods/tuxemon/gfx/sprites/player/spinner.png
+  kind: portrait
+  status: flag
+  reason: female figure with no visible clothing (monochrome body contours), legs crossed
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/homemaker.png
+- file: mods/tuxemon/gfx/sprites/player/desert_female.png
+  kind: portrait
+  status: borderline
+  reason: low-cut V/open neckline; otherwise fully covered with long trousers
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/healer.png
+- file: mods/tuxemon/gfx/sprites/player/catgirl.png
+  kind: portrait
+  status: borderline
+  reason: young girl in sleeveless above-knee pinafore dress (bare arms); child character, not suggestive
+  used_by:
+  - npc:spyder_candyhouse3_joanie (spyder_candy_town_npcs.yaml) maps:[spyder_candy_house3.tmx]
+  - npc:spyder_citypark_bobette (spyder_citypark_npcs.yaml) maps:[spyder_citypark.tmx]
+  - npc:spyder_cottonhouse2_sidney (spyder_cotton_town_npcs.yaml) maps:[spyder_cotton_house2.tmx]
+  - npc:spyder_flower_mieke (spyder_flower_city_npcs.yaml) maps:[spyder_flower_city.tmx]
+  - npc:spyder_routea_lexi (spyder_routea_npcs.yaml) maps:[spyder_routea.tmx]
+  - npc:water_catgirl (water_npcs.yaml) maps:[water_river_village.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/catgirl_alt1.png
+  kind: portrait
+  status: borderline
+  reason: young girl in sleeveless above-knee pinafore dress (bare arms); child character, not suggestive
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/catgirl_alt2.png
+  kind: portrait
+  status: borderline
+  reason: young girl in sleeveless above-knee pinafore dress (bare arms); child character, not suggestive
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/catgirl_fiery.png
+  kind: portrait
+  status: borderline
+  reason: young girl in sleeveless above-knee pinafore dress (bare arms); child character, not suggestive
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/catgirl_green.png
+  kind: portrait
+  status: borderline
+  reason: young girl in sleeveless above-knee pinafore dress (bare arms); child character, not suggestive
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/catgirl_lapi.png
+  kind: portrait
+  status: borderline
+  reason: young girl in sleeveless above-knee pinafore dress (bare arms); child character, not suggestive
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/catgirl_violet.png
+  kind: portrait
+  status: borderline
+  reason: young girl in sleeveless above-knee pinafore dress (bare arms); child character, not suggestive
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/little_pair.png
+  kind: portrait
+  status: borderline
+  reason: pair portrait that includes the sleeveless catgirl child
+  used_by:
+  - npc:spyder_route5_cleo (spyder_route5_npcs.yaml) maps:[spyder_route5.tmx, spyder_test_map.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/enthusiast_pair.png
+  kind: portrait
+  status: borderline
+  reason: pair portrait that includes the sleeveless catgirl child
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/florist.png
+- file: mods/tuxemon/gfx/sprites/player/firenymph.png
+  kind: portrait
+  status: borderline
+  reason: female fire spirit, featureless body without clothing details
+  used_by:
+  - npc:spyder_dryadsgrove_ignatia (spyder_dryadsgrove_npcs.yaml) maps:[spyder_dryadsgrove.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/waternymph.png
+- file: mods/tuxemon/gfx/sprites/player/windnymph.png
+  kind: portrait
+  status: borderline
+  reason: featureless unclothed humanoid wind spirit (no anatomy shown)
+  used_by: []
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/waternymph.png
+- file: mods/tuxemon/gfx/sprites/player/woodnymph.png
+  kind: portrait
+  status: borderline
+  reason: bare-torso muscular nature spirit sitting cross-legged
+  used_by:
+  - npc:spyder_dryadsgrove_sylvia (spyder_dryadsgrove_npcs.yaml) maps:[spyder_dryadsgrove.tmx]
+  proposed_replacement: mods/tuxemon/gfx/sprites/player/monk_alt2.png
+- file: mods/tuxemon/sprites/naked.png
+  kind: overworld
+  status: borderline
+  reason: unclothed skin-coloured mannequin base body (no details); not referenced by any NPC/map
+  used_by: []
+  proposed_replacement: mods/tuxemon/sprites/invisible.png
+- file: mods/tuxemon/sprites/light.png
+  kind: overworld
+  status: borderline
+  reason: unclothed skin-coloured mannequin base body (no details); not referenced by any NPC/map
+  used_by: []
+  proposed_replacement: mods/tuxemon/sprites/invisible.png
+- file: mods/tuxemon/gfx/sprites/battle/hotline-sheet.png
+  kind: monster
+  status: borderline
+  reason: telephone creature with legs in fishnet stockings and red high heels (sexualised gag)
+  used_by: []
+  proposed_replacement: null
+- file: mods/tuxemon/gfx/sprites/battle/sumchon-sheet.png
+  kind: monster
+  status: borderline
+  reason: sumo-wrestler style bug with bare belly and mawashi; cartoonish, low priority
+  used_by:
+  - spyder_routeb.tmx
+  - spyder_dryadsgrove.tmx
+  - spyder_leather_gym.yaml
+  proposed_replacement: null
