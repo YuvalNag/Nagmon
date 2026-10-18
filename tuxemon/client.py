@@ -11,6 +11,7 @@ import pygame
 
 from tuxemon.base_client import BaseClient, ClientState
 from tuxemon.config import TuxemonConfig
+from tuxemon.frame_limiter import FrameLimiter
 from tuxemon.map.tuxemon import NullMap
 from tuxemon.map.view import DebugRenderer, MapRenderer, NullRenderer
 from tuxemon.state.draw import EventDebugDrawer, Renderer, StateDrawer
@@ -115,8 +116,11 @@ class LocalPygameClient(BaseClient):
 
         last_time = clock()
         accumulator = 0.0
+        # With vsync the display flip already waits for the screen.
+        limiter = FrameLimiter(0 if self.config.vsync else target_fps)
 
         while self.state != ClientState.DONE:
+            limiter.start_frame()
             if self.state == ClientState.RUNNING:
                 now = clock()
                 dt = now - last_time
@@ -142,6 +146,8 @@ class LocalPygameClient(BaseClient):
             elif self.state == ClientState.EXITING:
                 self.perform_cleanup()
                 self.state = ClientState.DONE
+
+            limiter.end_frame()
 
     def update(self, dt: float) -> None:
         """Main loop for entire game."""

@@ -175,7 +175,7 @@ class TuxemonConfig:
         self.logging = LoggingConfig(self.config_model)
         self.locale = LocaleConfig(self.config_model)
         self.controller = ControllerConfig(self.config_model)
-        self.mods = ["tuxemon"]
+        self.mods = ["nagmon"]
 
     @property
     def resolution(self) -> tuple[int, int]:

@@ -8,6 +8,8 @@ from functools import lru_cache
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+import yaml
+
 from tuxemon.constants import paths
 
 if TYPE_CHECKING:
@@ -36,37 +38,80 @@ def fetch_mod_asset_roots(config: TuxemonConfig, force: bool = False) -> None:
 
     discovered_roots = []
 
-    for mod_name in config.mods:
-        candidates = []
-
-        # Standard mod folder
-        p = paths.mods_folder / mod_name
-        if p.is_dir():
-            candidates.append(p)
-
-        # System-installed folders
-        for root in paths.system_installed_folders:
-            p = root / "mods" / mod_name
-            if p.is_dir():
-                candidates.append(p)
-
-        # BASEDIR fallback
-        p = paths.BASEDIR / "mods" / mod_name
-        if p.is_dir():
-            candidates.append(p)
-
-        if candidates:
-            winner = candidates[-1]
-            discovered_roots.append(winner)
-            logger.info(f"[ModRoot] '{mod_name}' -> {winner}")
+    # Later mods in the list win, and every mod wins over its dependencies.
+    for mod_name in _expand_dependencies(list(reversed(config.mods))):
+        root = _resolve_mod_root(mod_name)
+        if root is not None:
+            discovered_roots.append(root)
+            logger.info(f"[ModRoot] '{mod_name}' -> {root}")
         else:
             logger.warning(
                 f"[ModRoot] '{mod_name}' not found in any expected location"
             )
 
-    _MOD_ASSET_ROOTS = tuple(reversed(discovered_roots))
+    _MOD_ASSET_ROOTS = tuple(discovered_roots)
     _HAS_POPULATED = True
     logger.debug(f"[ModRoots] Final mod asset roots: {_MOD_ASSET_ROOTS}")
+
+
+def _resolve_mod_root(mod_name: str) -> Path | None:
+    """Returns the directory of a mod, preferring the last match found."""
+    candidates = []
+
+    # Standard mod folder
+    p = paths.mods_folder / mod_name
+    if p.is_dir():
+        candidates.append(p)
+
+    # System-installed folders
+    for root in paths.system_installed_folders:
+        p = root / "mods" / mod_name
+        if p.is_dir():
+            candidates.append(p)
+
+    # BASEDIR fallback
+    p = paths.BASEDIR / "mods" / mod_name
+    if p.is_dir():
+        candidates.append(p)
+
+    return candidates[-1] if candidates else None
+
+
+def _read_dependencies(mod_name: str) -> list[str]:
+    """Reads the ``dependencies`` list from a mod's mod.yaml, if any."""
+    root = _resolve_mod_root(mod_name)
+    if root is None:
+        return []
+    meta_path = root / "mod.yaml"
+    if not meta_path.is_file():
+        return []
+    try:
+        with meta_path.open(encoding="utf-8") as f:
+            meta = yaml.safe_load(f) or {}
+    except (OSError, yaml.YAMLError) as e:
+        logger.warning(f"[ModRoot] Could not read {meta_path}: {e}")
+        return []
+    deps = meta.get("dependencies") or []
+    return [str(dep) for dep in deps]
+
+
+def _expand_dependencies(mods: list[str]) -> list[str]:
+    """
+    Returns the mods followed by their dependencies (depth first), each
+    once. Earlier entries win when assets share a name.
+    """
+    ordered: list[str] = []
+
+    def visit(mod_name: str) -> None:
+        if mod_name in ordered:
+            return
+        ordered.append(mod_name)
+        for dep in _read_dependencies(mod_name):
+            visit(dep)
+
+    for mod_name in mods:
+        visit(mod_name)
+    return ordered
 
 
 def fetch_all_l18n_roots() -> list[Path]:

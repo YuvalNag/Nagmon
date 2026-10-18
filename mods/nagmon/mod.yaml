@@ -1,0 +1,24 @@
+# Nagmon: the family learning game, built on top of the tuxemon mod.
+# Assets, maps, data and translations here win over tuxemon's when they
+# share a name (see docs/kids/SDD_MOD_LOADING.md).
+slug: nagmon
+description: Family learning adventure built on Tuxemon.
+name: Nagmon
+version: 0.1.0
+authors:
+  - Nag family
+
+dependencies:
+  - tuxemon
+
+startup_rules: []
+
+starting_players: ["npc_red"]
+starting_map: "start_tuxemon.tmx"
+starting_position: [0, 0]
+starting_money: [500, 500]
+starting_names:
+  - npc_red
+
+sprite: adventurer
+combat_sheet: adventurer

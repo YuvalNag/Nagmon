@@ -1,0 +1,13 @@
+# Nagmon strings (English). Kept in their own domain so they never clash
+# with tuxemon's base.po; see docs/kids/SDD_MOD_LOADING.md.
+msgid ""
+msgstr ""
+"Project-Id-Version: nagmon\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "nagmon_campaign"
+msgstr "Nagmon"

@@ -162,9 +162,26 @@ class TranslatorManager:
             domain=domain,
             localedir=self.localedir,
             fallback_locale=FALLBACK_LOCALE,
+            extra_domains=self._mod_domains() if domain == "base" else (),
         )
         logger.debug(
             f"Translator for domain '{domain}' loaded/reloaded with locale '{actual_locale_name}'."
+        )
+
+    def _mod_domains(self) -> tuple[str, ...]:
+        """
+        Domains other than "base" (mods ship their own strings, e.g.
+        nagmon.po). They are chained in front of "base" so plain
+        T.translate() finds them.
+        """
+        return tuple(
+            sorted(
+                {
+                    info.domain
+                    for info in self.locale_finder.search_locales()
+                    if info.domain != "base"
+                }
+            )
         )
 
     def set_current_translator(self, domain: str) -> None:

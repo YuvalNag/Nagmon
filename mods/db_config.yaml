@@ -46,11 +46,13 @@ default_lookup_table: monster
 # A list of mod directories that are currently enabled and should be loaded.
 active_mods:
   - tuxemon
+  - nagmon
 
 # A dictionary indicating whether specific mods are activated. This offers a more
 # granular control over mod loading beyond just being in 'active_mods'.
 mod_activation:
   tuxemon: true
+  nagmon: true
 
 # This section defines which data tables each mod contributes.
 # The keys are mod names, and the values are lists of table names that the
@@ -85,5 +87,7 @@ mod_tables:
 mod_table_exclusions: {}
 
 # A dictionary defining dependencies between mods. If mod A depends on mod B,
-# mod B will be loaded before mod A. Currently, no dependencies are specified.
-mod_dependencies: {}
+# mod B will be loaded before mod A.
+mod_dependencies:
+  nagmon:
+    - tuxemon
