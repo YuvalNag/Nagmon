@@ -23,7 +23,12 @@ from nagmon.learning.model import CHOICE_KINDS, Question
 from nagmon.quiz_flow import LetterTiles, NumberPad, OrderPicker
 from nagmon.runtime import get_runtime
 from nagmon.ui import game_helpers
-from nagmon.ui.game_helpers import emoji_loader, speech, subject_map
+from nagmon.ui.game_helpers import (
+    emoji_loader,
+    isolate_math,
+    speech,
+    subject_map,
+)
 from tuxemon.constants.asset_loader import fetch_asset
 from tuxemon.locale.locale import T
 from tuxemon.menu.menu import PygameMenuState
@@ -44,7 +49,7 @@ OnResult = Callable[[Any], None]
 def _choice_label(choice: Any, english_first: bool) -> str:
     if english_first and choice.text_en:
         return choice.text_en
-    return choice.text_he or choice.text_en or ""
+    return isolate_math(choice.text_he or choice.text_en or "")
 
 
 class QuizState(PygameMenuState):
@@ -173,7 +178,7 @@ class QuizState(PygameMenuState):
         )
         self._add_prompt(menu)
         menu.add.label(
-            q.explanation_he,
+            isolate_math(q.explanation_he),
             font_size=self.font_type.small,
             max_char=-1,
             wordwrap=True,
@@ -204,7 +209,7 @@ class QuizState(PygameMenuState):
                 label_id="passage",
             )
         menu.add.label(
-            q.prompt_he,
+            isolate_math(q.prompt_he),
             font_size=self.font_type.big,
             max_char=-1,
             wordwrap=True,
@@ -252,7 +257,7 @@ class QuizState(PygameMenuState):
         self._add_prompt(menu)
         if self.hint_text:
             menu.add.label(
-                self.hint_text,
+                isolate_math(self.hint_text),
                 font_size=self.font_type.small,
                 max_char=-1,
                 wordwrap=True,
@@ -511,7 +516,8 @@ class QuizState(PygameMenuState):
         if not out.correct and out.correct_answer:
             menu.add.label(
                 T.format(
-                    "nagmon_feedback_answer", {"answer": out.correct_answer}
+                    "nagmon_feedback_answer",
+                    {"answer": isolate_math(out.correct_answer)},
                 ),
                 font_size=self.font_type.medium,
                 max_char=-1,
@@ -520,7 +526,7 @@ class QuizState(PygameMenuState):
             )
         if out.explanation_he:
             menu.add.label(
-                out.explanation_he,
+                isolate_math(out.explanation_he),
                 font_size=self.font_type.small,
                 max_char=-1,
                 wordwrap=True,

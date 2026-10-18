@@ -10,6 +10,7 @@ the same way in a source checkout and in a frozen Windows build.
 from __future__ import annotations
 
 import logging
+import re
 from collections.abc import Callable, Sequence
 from typing import TYPE_CHECKING, Any
 
@@ -134,3 +135,31 @@ def speech() -> Any:
         logger.exception("Text-to-speech unavailable")
         return None
     return _TTS
+
+
+_HEBREW = re.compile("[\u0590-\u05ff]")
+_ISOLATED = re.compile("\u2066[^\u2069]*\u2069")
+# Two or more numbers joined by math operators (+ - × ÷ * / = < >).
+_MATH = re.compile(r"\d+(?:[.,]\d+)?(?:\s*[-+=×÷*/<>:]\s*\d+(?:[.,]\d+)?)+")
+
+
+def isolate_math(text: str) -> str:
+    """
+    Wraps math expressions in Hebrew text in left-to-right isolates, so
+    "20 - 9 = 11" is not shown as "11 = 9 - 20". Parts that are already
+    isolated, and text without Hebrew, are left alone.
+    """
+    if not text or not _HEBREW.search(text):
+        return text
+    out = []
+    pos = 0
+    for done in _ISOLATED.finditer(text):
+        out.append(_wrap(text[pos : done.start()]))
+        out.append(done.group(0))
+        pos = done.end()
+    out.append(_wrap(text[pos:]))
+    return "".join(out)
+
+
+def _wrap(part: str) -> str:
+    return _MATH.sub(lambda m: f"\u2066{m.group(0)}\u2069", part)
