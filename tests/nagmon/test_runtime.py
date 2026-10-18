@@ -278,3 +278,19 @@ def test_progress_stats_counts_stars_and_mastery(rt):
     stats = rt.progress_stats(p.id)
     assert stats.stars == 3
     assert stats.skills_mastered == frozenset({"math.add"})
+
+
+def test_persist_survives_a_profile_that_cannot_be_saved(rt):
+    # profile.json and its backup are both unreadable: the store hands
+    # back a "recovered" profile without an avatar, which save() rejects.
+    p = rt.store.create(name="Maya", avatar="adventurer")
+    pdir = rt.store.profiles_dir / p.id
+    (pdir / "profile.json").write_text("{broken", encoding="utf-8")
+    (pdir / "profile.json.bak").write_text("{broken", encoding="utf-8")
+    rt.activate(p.id)
+    rt.learner.answers_total = 4
+    rt.persist()  # must not crash the game
+    rt.on_answer()
+    assert rt.store.load_learner_dict(p.id)["answers_total"] == 4
+    rt.stop_play()
+    assert rt.active is None
