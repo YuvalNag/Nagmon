@@ -41,3 +41,26 @@ def test_saving_errors_after_an_answer_do_not_break_the_quiz(no_runtime):
     quiz = _quiz(MagicMock())
     quiz._reward(SimpleNamespace(coins=0))  # must not raise
     rt.on_answer.assert_called_once()
+
+
+def _start_state(on_top: bool):
+    from mods.nagmon.states.nagmon_start import StartState
+
+    state = StartState.__new__(StartState)
+    state.client = MagicMock()
+    state.client.current_state = state if on_top else object()
+    return state
+
+
+def test_idle_title_menu_still_returns_to_the_intro():
+    state = _start_state(on_top=True)
+    state._on_afk_threshold("IntroState")
+    state.client.replace_state.assert_called_once_with("IntroState")
+
+
+def test_idle_child_on_who_plays_is_not_sent_to_the_intro():
+    # "Who is playing?" (or the parent area) sits on top of the title
+    # menu; replacing *it* with the intro stacked a second title menu.
+    state = _start_state(on_top=False)
+    state._on_afk_threshold("IntroState")
+    state.client.replace_state.assert_not_called()

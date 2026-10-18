@@ -60,6 +60,14 @@ class StartState(core_start.StartState):
                 button_id="nagmon_switch_player",
             )
 
+    def _on_afk_threshold(self, level: str) -> None:
+        # The idle timer replaces the *top* state with the intro. Only do
+        # that when the title menu itself is on top: "who is playing?" or
+        # the parent area above it must stay (and not stack a second
+        # title menu once the intro closes).
+        if self.client.current_state is self:
+            super()._on_afk_threshold(level)
+
     def switch_player(self) -> None:
         rt = get_runtime()
         if rt is not None:
