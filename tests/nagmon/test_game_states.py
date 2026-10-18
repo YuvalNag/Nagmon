@@ -64,3 +64,66 @@ def test_idle_child_on_who_plays_is_not_sent_to_the_intro():
     state = _start_state(on_top=False)
     state._on_afk_threshold("IntroState")
     state.client.replace_state.assert_not_called()
+
+
+class _Watcher:
+    def __init__(self, *decisions) -> None:
+        self.decisions = list(decisions)
+
+    def update(self, dt, *, at_natural_break):
+        return self.decisions.pop(0) if self.decisions else None
+
+
+def _world(watcher, *, top: bool, battle: bool):
+    from mods.nagmon.states.nagmon_world import WorldState
+
+    world = WorldState.__new__(WorldState)
+    world.client = MagicMock()
+    world.client.current_state = world if top else object()
+    world.client.active_state_names = (
+        ["CombatState", "WorldState"] if battle else ["WorldState"]
+    )
+    world.watcher = watcher
+    world._pending_stop = None
+    world._pending_note = None
+    return world
+
+
+def _decision(action_name: str, grace: int = 0):
+    from nagmon.family.screentime import Action, Decision
+
+    return Decision(Action[action_name], message_he="msg", grace_seconds=grace)
+
+
+def test_screen_time_stop_waits_for_the_battle_to_end(monkeypatch):
+    from mods.nagmon.states import nagmon_world
+
+    dialogs = MagicMock()
+    monkeypatch.setattr(nagmon_world, "open_dialog", dialogs)
+    world = _world(_Watcher(_decision("MUST_STOP")), top=False, battle=True)
+    world._watch_screen_time(1.0)
+    # No autosave and no stop in the middle of the fight...
+    world.client.event_engine.execute_action.assert_not_called()
+    dialogs.assert_not_called()
+    # ...but as soon as the battle is over.
+    world.client.active_state_names = ["WorldState"]
+    world._watch_screen_time(1.0)
+    world.client.event_engine.execute_action.assert_called_once_with(
+        "autosave"
+    )
+    dialogs.assert_called_once()
+    assert world.watcher is None
+
+
+def test_reminder_waits_for_a_natural_pause(monkeypatch):
+    from mods.nagmon.states import nagmon_world
+
+    dialogs = MagicMock()
+    monkeypatch.setattr(nagmon_world, "open_dialog", dialogs)
+    world = _world(_Watcher(_decision("WARN_SOON")), top=False, battle=True)
+    world._watch_screen_time(1.0)
+    dialogs.assert_not_called()  # not on top of the battle menu
+    world.client.current_state = world
+    world.client.active_state_names = ["WorldState"]
+    world._watch_screen_time(1.0)
+    dialogs.assert_called_once_with(world.client, ["msg"])
