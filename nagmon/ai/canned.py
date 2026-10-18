@@ -9,6 +9,7 @@ from pathlib import Path
 
 import yaml
 
+from nagmon import mod_dir
 from nagmon.ai.safety import find_term, word_matches
 from nagmon.ai.text import normalize_for_compare, tokens, variants
 
@@ -41,13 +42,7 @@ DEFAULT_FALLBACK_HE = (
     "הממ... על זה אני צריך לחשוב. אפשר לשאול את ההורים, או לנסות שאלה אחרת."
 )
 DEFAULT_SLEEPY_HE = "הינשוף נח קצת עכשיו."
-DEFAULT_FAQ_PATH = (
-    Path(__file__).resolve().parents[2]
-    / "mods"
-    / "nagmon"
-    / "learning"
-    / "owl_faq.yaml"
-)
+DEFAULT_FAQ_PATH = mod_dir() / "learning" / "owl_faq.yaml"
 
 
 @dataclass(frozen=True)

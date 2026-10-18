@@ -25,6 +25,7 @@ from typing import Any
 
 import yaml
 
+from nagmon import mod_dir
 from nagmon.ai.config import (
     build_studio_router,
     default_data_root,
@@ -49,9 +50,7 @@ from nagmon.ai.validate import (
 )
 
 SCHEMA_VERSION = 1
-DEFAULT_CONTENT_ROOT = (
-    Path(__file__).resolve().parents[2] / "mods" / "nagmon" / "learning"
-)
+DEFAULT_CONTENT_ROOT = mod_dir() / "learning"
 SUBJECTS_HE = {
     "math": "חשבון",
     "geometry": "גאומטריה",

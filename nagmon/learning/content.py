@@ -18,6 +18,7 @@ from typing import Any
 
 import yaml
 
+from nagmon import mod_dir
 from nagmon.learning.generators import load_builtin_generators
 from nagmon.learning.generators.common import GenContext, Generator
 from nagmon.learning.generators.english import (
@@ -38,9 +39,7 @@ from nagmon.learning.model import (
     true_false_choices,
 )
 
-DEFAULT_CONTENT_DIR = (
-    Path(__file__).resolve().parents[2] / "mods" / "nagmon" / "learning"
-)
+DEFAULT_CONTENT_DIR = mod_dir() / "learning"
 WORDS_FILE = "english/words.yaml"
 NIQQUD = re.compile("[֑-ׇֽֿׁׂׅׄ]")
 HEBREW = re.compile("[א-ת]")
