@@ -293,3 +293,20 @@ def test_map_loads_event_scripts_added_by_other_mods(fake_mods):
         None, SimpleNamespace(scenario=None), str(tmx)
     )
     assert files == [b / "maps" / "town.yaml", a / "maps" / "town.yaml"]
+
+
+def test_replaced_map_does_not_get_the_base_maps_events(fake_mods):
+    # a ships its own town.tmx (a different layout) with its own events:
+    # b's events were written for b's layout and must not be merged in.
+    _make_mod(fake_mods, "a", ["b"])
+    b = _make_mod(fake_mods, "b")
+    a = fake_mods / "a"
+    for mod in (a, b):
+        (mod / "maps").mkdir()
+        (mod / "maps" / "town.tmx").write_text("<map/>")
+        (mod / "maps" / "town.yaml").write_text("events: {}")
+    _populate(["a"])
+    files = MapLoader.resolve_yaml_files(
+        None, SimpleNamespace(scenario=None), str(a / "maps" / "town.tmx")
+    )
+    assert files == [a / "maps" / "town.yaml"]
