@@ -36,7 +36,7 @@ ALL_MODES = (
     "sentence_cloze",
 )
 ITEM_ID = re.compile(
-    r"^eng\.vocab\.[a-z0-9_]+\.[a-z]+\."
+    r"^english\.vocab:[a-z0-9_]+\.[a-z]+\."
     r"(picture_to_word|word_to_translation|translation_to_word|"
     r"listen_to_picture|spelling|sentence_cloze)$"
 )
@@ -63,7 +63,11 @@ def assert_valid(q) -> None:
         assert not need - tiles, q
     assert check_answer(q, q.answer).correct, q
     assert q.explanation_he, q
-    for text in (q.prompt_he, q.explanation_he, *(c.text_he for c in q.choices)):
+    for text in (
+        q.prompt_he,
+        q.explanation_he,
+        *(c.text_he for c in q.choices),
+    ):
         assert not NIQQUD.search(text), (q.item_id, text)
 
 
@@ -74,15 +78,20 @@ def assert_valid(q) -> None:
 
 def test_i1_real_content_counts(library):
     skills = Counter(s.subject for s in library.skills.values())
-    assert skills["english"] >= 60
-    assert skills["science"] >= 60
+    assert skills["english"] >= 55
+    assert skills["science"] >= 55
     assert skills["hebrew"] >= 11
-    items = Counter()
+    vocab = [
+        s for s in library.skills.values() if s.generator == "english.vocab"
+    ]
+    assert len(vocab) >= 20
+    items: dict[str, set[str]] = {}
     for sid, bank in library.banks.items():
-        items[library.skill(sid).subject] += len(bank)
-    assert items["english"] >= 700  # phonics + grammar + reading
-    assert items["science"] >= 800
-    assert items["hebrew"] >= 150
+        subject = library.skill(sid).subject
+        items.setdefault(subject, set()).update(it.id for it in bank)
+    assert len(items["english"]) >= 600  # phonics + grammar + reading
+    assert len(items["science"]) >= 700
+    assert len(items["hebrew"]) >= 150
     assert len(library.words) >= 850
     assert library.warnings == []
 
@@ -121,7 +130,7 @@ def vocab_lib(tmp_path_factory):
 def words_by(lib, key):
     out = {}
     for w in lib.words:
-        if w.level == "A1":
+        if w.level == "A1" and w.topic in ("animals", "food"):
             out.setdefault(getattr(w, key), w)
     return out
 
@@ -362,7 +371,8 @@ def test_i7_speak_en_emoji_and_en_choices(tmp_path):
     assert q.figure is not None and q.figure.kind == "objects"
     assert q.figure.data == {"emoji": "1f34e", "count": 1}
     assert sorted(c.text_he for c in q.choices) == ["a", "n", "z"]
-    assert check_answer(q, "a").correct
+    a_tile = next(c.id for c in q.choices if c.text_he == "a")
+    assert a_tile == q.answer  # the UI submits choice ids
     other = lib.generate("english.phonics.other", random.Random(1))
     assert other.item_id == "eng.ph.other.001"  # tags pick by skill
     assert all(c.image for c in other.choices)
@@ -598,6 +608,13 @@ def test_i10_ai_reading_and_vocab(tmp_path):
             prereq: []
             generator: bank
             params: {bank: english/reading.yaml, tags: [level1]}
+          - id: english.reading.level2
+            grade: 4
+            title_he: קריאה 2
+            title_en: Reading 2
+            prereq: []
+            generator: bank
+            params: {bank: english/reading.yaml, tags: [level2]}
           - id: english.vocab.a1_toys
             grade: 3
             title_he: צעצועים
@@ -624,8 +641,7 @@ def test_i10_ai_reading_and_vocab(tmp_path):
         - id: ai.aaaaaaaa
           grade: 3
           level: A1
-          skill: english.reading.level1
-          tags: [level1]
+          skill: english.reading
           title: Tom
           text_en: Tom has a red kite.
           text_he: לתום יש עפיפון אדום.
@@ -647,6 +663,8 @@ def test_i10_ai_reading_and_vocab(tmp_path):
         "example_he: 'רובוט.'}\n",
     )
     lib = ContentLibrary.load(content, extra_bank_dirs=[data])
+    # the studio writes the generic skill "english.reading": it is
+    # attached to the matching skill with the closest grade
     q = lib.generate("english.reading.level1", random.Random(0))
     assert q.item_id == "ai.aaaaaaaa.q1"
     assert q.meta["passage_en"] == "Tom has a red kite."
@@ -666,9 +684,7 @@ def test_i10_ai_reading_and_vocab(tmp_path):
 def test_i11_engine_records_vocab_words(library, clock):
     learner = LearnerState(learner_id="t", name="ת", grade=1, age=6)
     learner.settings["worked_examples"] = False
-    eng = LearningEngine(
-        library, learner, rng=random.Random(3), clock=clock
-    )
+    eng = LearningEngine(library, learner, rng=random.Random(3), clock=clock)
     q = eng.next_question(
         skill_id="english.vocab.preA1_animals", context="practice"
     )

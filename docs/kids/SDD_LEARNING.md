@@ -470,7 +470,7 @@ symmetry     {shape}
 | I1 | טעינת כל התוכן האמיתי (כל המקצועות) | בלי שגיאות. מספר מיומנויות ופריטים לכל מקצוע מעל סף |
 | I2 | `english.vocab`: כל מצב × 50 זרעים | התשובה בין הבחירות, בחירות ייחודיות (מילה, תרגום, אימוג'י), מסיחים מאותו נושא ורמה, אין "מסגיר" (אימוג'י בכולן או באף אחת) |
 | I3 | `english.vocab` בגיל 5–7 | רק `picture_to_word` / `listen_to_picture`, ורק מילים עם אימוג'י |
-| I4 | `english.vocab`: יציבות | אותו זרע = אותה שאלה. `item_id` = `eng.vocab.<מילה>.<pos>.<מצב>` |
+| I4 | `english.vocab`: יציבות | אותו זרע = אותה שאלה. `item_id` = `english.vocab:<מילה>.<pos>.<מצב>` |
 | I5 | `listen_to_picture` / `spelling` / `sentence_cloze` | `speak["en"]` = המילה, בחירות עם `image`; `letters` עם אריחים שמכילים את אותיות המילה; משפט עם `___` |
 | I6 | עברית במחולל | בלי ניקוד, פנייה ברבים, הסבר עם מילה, תרגום ומשפט |
 | I7 | פריט עם `speak_en` ו־`emoji`, בחירות באנגלית בלבד | `speak["en"]`, `figure=objects`, טקסט הבחירה = `en` |
@@ -496,13 +496,14 @@ symmetry     {shape}
   - בחירה עם `en` בלבד: טקסט הבחירה (`text_he`) הוא ה־`en`. בדיקת כפילויות לפי כל שפה בנפרד (בלי רגישות לאותיות גדולות);
   - `speak_en` בפריט → `Question.speak["en"]` (במקום `prompt_en`). `emoji` בפריט → `Figure("objects", {emoji, count: 1})`. `emoji` בבחירה → `Choice.image`. אם רק לחלק מהבחירות יש אימוג'י — שגיאה (מסגיר את התשובה);
   - רשימת קטעים (`english/reading.yaml`): כל שאלה היא פריט שיורש `skill`, `tags`, `grade`, `level` מהקטע. הטקסט עצמו לא נכנס ל־prompt: `meta["passage_id"]`, `meta["passage_title"]`, `meta["passage_en"]`, `meta["passage_he"]`. הממשק מציג את הקטע מעל השאלה (או בכפתור "קראו שוב");
+  - **בממשק שולחים מזהה בחירה** (`"b"`), לא טקסט: בפריטי פוניקה הטקסט של בחירה יכול להיות `a`/`b`/`c`, והוא מתנגש עם מזהי הבחירות;
   - בלוק `elements:` (`science/monster_facts.yaml`) → `ContentLibrary.element_facts: {element: [{id, he, en}]}` ו־`element_titles: {element: {he, en}}`, לקלפי המדע. הפריטים שבקובץ נטענים כרגיל.
 - **מזהי פריטים:** אין דרישת תחילית לפי מקצוע (גם `ai.1a2b3c4d`, `read.001.q1`, `eng.gr.be.001` תקינים). נדרש רק: תווים `[A-Za-z0-9_.-]`, וייחודיות בכל המאגרים (כולל ai_bank).
-- **ai_bank** (`extra_bank_dirs`): לכל תיקייה (התיקייה עצמה, או `<dir>/ai_bank` אם קיימת) נטענים `<subject>.yaml` (`{items}`) ו־`reading.yaml` (קטעים), וגם `vocab.yaml` (מילים לפי SDD_CONTENT §4, מצטרפות ל־`english.vocab`). כל פריט מצטרף למיומנות לפי השדה `skill`. מיומנות לא מוכרת, פריט לא תקין, id כפול או YAML פגום → אזהרה (`logging` + `library.warnings`) ודילוג. **אף פעם לא קריסה.** פריטים נוספים עוקפים את סינון ה־`tags`. במיומנות של מחולל (לא `bank`) פריט נוסף נבחר בסיכוי `min(0.3, n/(n+20))`.
+- **ai_bank** (`extra_bank_dirs`): לכל תיקייה (התיקייה עצמה, או `<dir>/ai_bank` אם קיימת) נטענים `<subject>.yaml` (`{items}`) ו־`reading.yaml` (קטעים), וגם `vocab.yaml` (מילים לפי SDD_CONTENT §4, מצטרפות ל־`english.vocab`). כל פריט מצטרף למיומנות לפי השדה `skill` (מזהה כללי כמו `english.reading`, שהסטודיו כותב לסיפורים, מצטרף למיומנות שמתחתיו עם הכיתה הקרובה ביותר). מיומנות לא מוכרת, פריט לא תקין, id כפול או YAML פגום → אזהרה (`logging` + `library.warnings`) ודילוג. **אף פעם לא קריסה.** פריטים נוספים עוקפים את סינון ה־`tags`. במיומנות של מחולל (לא `bank`) פריט נוסף נבחר בסיכוי `min(0.3, n/(n+20))`.
 - **אוצר מילים:** `english/words.yaml` נטען ל־`ContentLibrary.words`. `words_he() -> {word: he}` (המופע הראשון של מילה) לסולם השפה של `nagmon.runtime`.
 
 **מחולל `english.vocab`** (`generators/english.py`), `params: {topics, level, modes}`:
-- המאגר: מילים ברמה `level` בנושאים `topics`. בוחרים **מילה** ואז **מצב** מתוך המצבים שמתאימים לה. `item_id = eng.vocab.<slug>.<pos>.<mode>`, ולכן Leitner ו־Elo עובדים לכל צירוף. המיומנות `srs: true` כברירת מחדל.
+- המאגר: מילים ברמה `level` בנושאים `topics`. בוחרים **מילה** ואז **מצב** מתוך המצבים שמתאימים לה. `item_id = english.vocab:<slug>.<pos>.<mode>` (כמו בשאר המחוללים: `<מחולל>:<פריט>`), ולכן Leitner ו־Elo עובדים לכל צירוף. המיומנות `srs: true` כברירת מחדל.
 - מצבים:
 
 | מצב | שאלה | בחירות | תנאי |

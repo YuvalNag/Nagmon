@@ -1,4 +1,4 @@
-"""Procedural question generators (math, geometry, logic).
+"""Procedural question generators (math, geometry, logic, English).
 
 Importing :func:`load_builtin_generators` registers every built-in
 generator in :data:`nagmon.learning.generators.common.GENERATORS`.
@@ -13,6 +13,7 @@ def load_builtin_generators() -> dict[str, Callable]:
     from nagmon.learning.generators import (  # noqa: F401
         algebra,
         arithmetic,
+        english,
         geometry,
         logic,
         rational,

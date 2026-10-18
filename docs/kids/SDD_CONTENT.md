@@ -96,6 +96,10 @@ items:
     - {id: read.001.q1, kind: choice, prompt_en: "What color is Mitzi?", prompt_he: "באיזה צבע מיצי?", choices: [...], answer: 0, explanation_he: ...}
 ```
 
+- שדות נוספים בפריט: `speak_en` (טקסט להקראה באנגלית, למשל האות או המילה ששומעים), `emoji` (תמונה ליד השאלה). בחירה יכולה להיות עם `en` בלבד.
+- שאלות של קטע קריאה יורשות `skill`, `tags`, `grade` ו־`level` מהקטע. הטקסט מגיע לממשק ב־`Question.meta["passage_en"/"passage_he"]` (SDD_LEARNING §16).
+- `science/monster_facts.yaml`: בלוק `elements:` עם עובדות לקלפי המדע (`ContentLibrary.element_facts`), ו־`items:` רגילים.
+
 ## 6. שיוך סוגים למקצועות (`subjects.yaml`)
 
 ```yaml
