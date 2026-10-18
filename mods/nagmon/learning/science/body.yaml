@@ -535,6 +535,23 @@ items:
   explanation_en: False. Medicine is matched to a specific person's body, age and weight. Take medicine only with a parent's or doctor's approval.
   tags: [health]
 - id: sci.body.038
+  skill: science.body.health
+  kind: order
+  grade: 1
+  difficulty: 0.0
+  prompt_he: סדרו את שלבי שטיפת הידיים.
+  prompt_en: Order the steps of handwashing.
+  choices:
+  - {he: מייבשים במגבת, en: dry with a towel}
+  - {he: מרטיבים את הידיים, en: wet your hands}
+  - {he: שוטפים במים, en: rinse with water}
+  - {he: מסבנים, en: apply soap}
+  - {he: משפשפים כ-20 שניות, en: scrub for about 20 seconds}
+  answer: [1, 3, 4, 2, 0]
+  explanation_he: הסבון והשפשוף מורידים את החיידקים, השטיפה מסלקת אותם, ומגבת נקייה מייבשת.
+  explanation_en: Soap and scrubbing loosen germs, rinsing washes them away, and a clean towel dries your hands.
+  tags: [health]
+- id: sci.body.039
   skill: science.body.nutrition
   kind: choice
   grade: 2
@@ -542,14 +559,14 @@ items:
   prompt_he: מה המשקה הכי בריא כשצמאים?
   prompt_en: What is the healthiest drink when you're thirsty?
   choices:
-  - {he: מיץ ממותק, en: sweetened juice, emoji: 1f9c3}
-  - {he: מים, en: water, emoji: 1f4a7}
   - {he: משקה מוגז ממותק, en: sugary soda, emoji: 1f964}
+  - {he: מים, en: water, emoji: 1f4a7}
+  - {he: מיץ ממותק, en: sweetened juice, emoji: 1f9c3}
   answer: 1
   explanation_he: מים מרווים את הצמא בלי סוכר. רוב הגוף שלנו בנוי ממים.
   explanation_en: Water quenches thirst without sugar. Most of our body is made of water.
   tags: [nutrition]
-- id: sci.body.039
+- id: sci.body.040
   skill: science.body.nutrition
   kind: choice
   grade: 3
@@ -557,14 +574,14 @@ items:
   prompt_he: איזה מזון עשיר בסידן, שמחזק את העצמות והשיניים?
   prompt_en: Which food is rich in calcium, which strengthens bones and teeth?
   choices:
+  - {he: צ'יפס, en: fries, emoji: 1f35f}
   - {he: סוכריות, en: candy, emoji: 1f36c}
   - {he: חלב ומוצריו, en: milk and dairy, emoji: 1f95b}
-  - {he: צ'יפס, en: fries, emoji: 1f35f}
-  answer: 1
+  answer: 2
   explanation_he: חלב, גבינה ויוגורט עשירים בסידן. גם שומשום (טחינה), שקדים וירקות ירוקים מכילים סידן.
   explanation_en: Milk, cheese and yogurt are rich in calcium. Sesame (tahini), almonds and green vegetables have calcium too.
   tags: [nutrition]
-- id: sci.body.040
+- id: sci.body.041
   skill: science.body.nutrition
   kind: choice
   grade: 3
@@ -579,7 +596,7 @@ items:
   explanation_he: חלבונים הם אבני הבניין של הגוף. יש הרבה חלבון בביצים, קטניות, דגים, בשר ומוצרי חלב.
   explanation_en: Proteins are the body's building blocks. Eggs, legumes, fish, meat and dairy are rich in protein.
   tags: [nutrition]
-- id: sci.body.041
+- id: sci.body.042
   skill: science.body.nutrition
   kind: choice
   grade: 3
@@ -594,7 +611,7 @@ items:
   explanation_he: פחמימות הן הדלק העיקרי של הגוף. דגנים מלאים נותנים אנרגיה לאורך זמן וגם סיבים.
   explanation_en: Carbohydrates are the body's main fuel. Whole grains give lasting energy and fiber too.
   tags: [nutrition]
-- id: sci.body.042
+- id: sci.body.043
   skill: science.body.nutrition
   kind: true_false
   grade: 3
@@ -605,7 +622,7 @@ items:
   explanation_he: 'נכון. לכן כדאי לאכול צלחת צבעונית: גזר כתום, עגבנייה אדומה, חסה ירוקה ועוד.'
   explanation_en: 'True. That''s why a colorful plate is good: orange carrots, red tomatoes, green lettuce and more.'
   tags: [nutrition]
-- id: sci.body.043
+- id: sci.body.044
   skill: science.body.nutrition
   kind: choice
   grade: 4
@@ -614,13 +631,13 @@ items:
   prompt_en: Which vitamin does the skin make with sunlight?
   choices:
   - {he: ויטמין D, en: vitamin D}
-  - {he: ויטמין A, en: vitamin A}
   - {he: ויטמין C, en: vitamin C}
+  - {he: ויטמין A, en: vitamin A}
   answer: 0
   explanation_he: ויטמין D עוזר לגוף לקלוט סידן לעצמות. מספיק מעט זמן בשמש כדי לייצר אותו.
   explanation_en: Vitamin D helps the body absorb calcium for bones. A little sunshine is enough to make it.
   tags: [nutrition]
-- id: sci.body.044
+- id: sci.body.045
   skill: science.body.nutrition
   kind: choice
   grade: 4
@@ -628,14 +645,14 @@ items:
   prompt_he: באילו מזונות יש הרבה ויטמין C?
   prompt_en: Which foods are rich in vitamin C?
   choices:
-  - {he: 'פלפל אדום, תפוזים וקיווי', en: 'red pepper, oranges and kiwi', emoji: 1fad1}
-  - {he: סוכר לבן, en: white sugar, emoji: 1f36c}
   - {he: שמן, en: oil, emoji: 1fad7}
-  answer: 0
+  - {he: סוכר לבן, en: white sugar, emoji: 1f36c}
+  - {he: 'פלפל אדום, תפוזים וקיווי', en: 'red pepper, oranges and kiwi', emoji: 1fad1}
+  answer: 2
   explanation_he: ויטמין C עוזר לרפא פצעים ולחזק את מערכת החיסון. יש ממנו הרבה בפירות וירקות טריים.
   explanation_en: Vitamin C helps heal wounds and supports the immune system. Fresh fruits and vegetables are full of it.
   tags: [nutrition]
-- id: sci.body.045
+- id: sci.body.046
   skill: science.body.nutrition
   kind: true_false
   grade: 4
@@ -646,7 +663,7 @@ items:
   explanation_he: לא נכון. הגוף צריך מעט שומן בריא, למשל משמן זית, אגוזים ואבוקדו. הבעיה היא כמות גדולה מדי.
   explanation_en: False. The body needs some healthy fat, like olive oil, nuts and avocado. The problem is too much.
   tags: [nutrition]
-- id: sci.body.046
+- id: sci.body.047
   skill: science.body.nutrition
   kind: choice
   grade: 4
@@ -654,14 +671,14 @@ items:
   prompt_he: למה כדאי לאכול מזונות עם סיבים תזונתיים, כמו ירקות ולחם מלא?
   prompt_en: Why eat foods with dietary fiber, like vegetables and whole bread?
   choices:
+  - {he: הם צובעים את העור, en: they color the skin}
   - {he: הם עוזרים למערכת העיכול לעבוד היטב, en: they help the digestive system work well}
   - {he: הם מחליפים מים, en: they replace water}
-  - {he: הם צובעים את העור, en: they color the skin}
-  answer: 0
+  answer: 1
   explanation_he: הסיבים לא מתעכלים, אבל הם עוזרים למזון לעבור במעיים ומזינים חיידקים טובים.
   explanation_en: Fiber isn't digested, but it helps food move through the gut and feeds helpful bacteria.
   tags: [nutrition]
-- id: sci.body.047
+- id: sci.body.048
   skill: science.body.nutrition
   kind: choice
   grade: 5
@@ -670,13 +687,13 @@ items:
   prompt_en: Which mineral is important for blood, and found in lentils and spinach?
   choices:
   - {he: זהב, en: gold}
-  - {he: ברזל, en: iron}
   - {he: כסף, en: silver}
-  answer: 1
+  - {he: ברזל, en: iron}
+  answer: 2
   explanation_he: ברזל הוא חלק מההמוגלובין, החומר בתאי הדם האדומים שנושא חמצן. חסר בברזל גורם לעייפות.
   explanation_en: Iron is part of hemoglobin, the substance in red blood cells that carries oxygen. Too little iron causes tiredness.
   tags: [nutrition]
-- id: sci.body.048
+- id: sci.body.049
   skill: science.body.nutrition
   kind: true_false
   grade: 5
@@ -687,7 +704,7 @@ items:
   explanation_he: נכון. בערך 60 אחוז מגוף האדם הם מים. לכן חשוב לשתות במשך היום, ובמיוחד בחום.
   explanation_en: True. About 60 percent of the body is water, so it's important to drink during the day, especially in the heat.
   tags: [nutrition]
-- id: sci.body.049
+- id: sci.body.050
   skill: science.body.nutrition
   kind: order
   grade: 3
@@ -695,15 +712,15 @@ items:
   prompt_he: סדרו את המזונות מהכי מומלץ לאכול כל יום ועד למזון לפעמים.
   prompt_en: Order these from "eat every day" to "only sometimes".
   choices:
-  - {he: עוגה, en: cake, emoji: 1f370}
   - {he: לחם מלא, en: whole bread, emoji: 1f35e}
-  - {he: ירקות ופירות, en: vegetables and fruit, emoji: 1f966}
+  - {he: עוגה, en: cake, emoji: 1f370}
   - {he: גבינה, en: cheese, emoji: 1f9c0}
-  answer: [2, 1, 3, 0]
+  - {he: ירקות ופירות, en: vegetables and fruit, emoji: 1f966}
+  answer: [3, 0, 2, 1]
   explanation_he: ירקות ופירות כדאי לאכול הרבה, דגנים מלאים כל יום, מוצרי חלב במידה, וממתקים רק לפעמים.
   explanation_en: Eat lots of vegetables and fruit, whole grains daily, dairy in moderation, and sweets only sometimes.
   tags: [nutrition]
-- id: sci.body.050
+- id: sci.body.051
   skill: science.body.systems
   kind: order
   grade: 4
@@ -711,16 +728,16 @@ items:
   prompt_he: סדרו את הדרך של המזון במערכת העיכול.
   prompt_en: Order the path of food through the digestive system.
   choices:
+  - {he: פה, en: mouth}
   - {he: ושט, en: esophagus}
+  - {he: מעי גס, en: large intestine}
   - {he: מעי דק, en: small intestine}
   - {he: קיבה, en: stomach}
-  - {he: פה, en: mouth}
-  - {he: מעי גס, en: large intestine}
-  answer: [3, 0, 2, 1, 4]
+  answer: [0, 1, 4, 3, 2]
   explanation_he: בפה לועסים, הוושט מוביל לקיבה, בקיבה המזון מתפרק, במעי הדק החומרים נספגים לדם, ובמעי הגס נספגים מים.
   explanation_en: We chew in the mouth, the esophagus leads to the stomach, food breaks down there, nutrients are absorbed in the small intestine, and water in the large one.
   tags: [body_systems]
-- id: sci.body.051
+- id: sci.body.052
   skill: science.body.systems
   kind: choice
   grade: 5
@@ -728,14 +745,14 @@ items:
   prompt_he: באיזה איבר נספגים רוב חומרי המזון לדם?
   prompt_en: In which organ are most nutrients absorbed into the blood?
   choices:
+  - {he: בקיבה, en: the stomach}
   - {he: במעי הדק, en: the small intestine}
   - {he: בוושט, en: the esophagus}
-  - {he: בקיבה, en: the stomach}
-  answer: 0
+  answer: 1
   explanation_he: דופן המעי הדק מכוסה בבליטות זעירות שמגדילות את השטח שלו, וכך הוא סופג הרבה חומרי מזון.
   explanation_en: The small intestine's lining is covered in tiny folds that enlarge its surface, so it absorbs lots of nutrients.
   tags: [body_systems]
-- id: sci.body.052
+- id: sci.body.053
   skill: science.body.systems
   kind: choice
   grade: 5
@@ -743,14 +760,14 @@ items:
   prompt_he: מה תפקיד מערכת השלד?
   prompt_en: What is the job of the skeletal system?
   choices:
-  - {he: עיכול מזון, en: digesting food, emoji: 1f354}
   - {he: 'תמיכה, הגנה ותנועה', en: 'support, protection and movement', emoji: 1f9b4}
+  - {he: עיכול מזון, en: digesting food, emoji: 1f354}
   - {he: סינון דם, en: filtering blood, emoji: 1f4a7}
-  answer: 1
+  answer: 0
   explanation_he: השלד נותן לגוף צורה, מגן על איברים כמו המוח והלב, ויחד עם השרירים מאפשר לזוז.
   explanation_en: The skeleton gives the body shape, protects organs like the brain and heart, and with muscles lets us move.
   tags: [body_systems]
-- id: sci.body.053
+- id: sci.body.054
   skill: science.body.systems
   kind: choice
   grade: 5
@@ -759,13 +776,13 @@ items:
   prompt_en: What carries messages from the brain to the muscles?
   choices:
   - {he: עצבים, en: nerves}
-  - {he: עורקים, en: arteries}
   - {he: גידים, en: tendons}
+  - {he: עורקים, en: arteries}
   answer: 0
   explanation_he: מערכת העצבים כוללת את המוח, חוט השדרה והעצבים. העצבים מעבירים אותות חשמליים זעירים במהירות רבה.
   explanation_en: The nervous system includes the brain, spinal cord and nerves. Nerves carry tiny electrical signals very fast.
   tags: [body_systems]
-- id: sci.body.054
+- id: sci.body.055
   skill: science.body.systems
   kind: true_false
   grade: 5
@@ -776,7 +793,7 @@ items:
   explanation_he: נכון. החמצן נחוץ לתאים כדי להפיק אנרגיה מהמזון, והפחמן הדו-חמצני הוא הפסולת של התהליך.
   explanation_en: True. Cells need oxygen to get energy from food, and carbon dioxide is the waste of that process.
   tags: [body_systems]
-- id: sci.body.055
+- id: sci.body.056
   skill: science.body.systems
   kind: choice
   grade: 5
@@ -791,7 +808,7 @@ items:
   explanation_he: הלב שואב דם בעורקים לכל הגוף. הדם מוסר חמצן ומזון לתאים, אוסף פסולת וחוזר בוורידים ללב.
   explanation_en: The heart pumps blood through arteries to the body. It delivers oxygen and food, collects waste and returns in veins.
   tags: [body_systems]
-- id: sci.body.056
+- id: sci.body.057
   skill: science.body.systems
   kind: true_false
   grade: 5
@@ -802,7 +819,7 @@ items:
   explanation_he: 'לא נכון. העיכול מתחיל כבר בפה: השיניים מרסקות את המזון, והרוק מתחיל לפרק עמילן.'
   explanation_en: 'False. Digestion starts in the mouth: teeth crush food and saliva starts breaking down starch.'
   tags: [body_systems]
-- id: sci.body.057
+- id: sci.body.058
   skill: science.body.systems
   kind: choice
   grade: 6
@@ -810,14 +827,14 @@ items:
   prompt_he: מה מחבר שריר לעצם?
   prompt_en: What connects a muscle to a bone?
   choices:
-  - {he: עצב, en: a nerve}
   - {he: גיד, en: a tendon}
+  - {he: עצב, en: a nerve}
   - {he: וריד, en: a vein}
-  answer: 1
+  answer: 0
   explanation_he: הגיד הוא רצועה חזקה. כשהשריר מתכווץ הוא מושך בגיד, והגיד מזיז את העצם.
   explanation_en: A tendon is a tough cord. When a muscle contracts it pulls the tendon, which moves the bone.
   tags: [body_systems]
-- id: sci.body.058
+- id: sci.body.059
   skill: science.body.systems
   kind: choice
   grade: 6
@@ -825,14 +842,14 @@ items:
   prompt_he: מה קורה כשנוגעים בטעות בסיר חם ומיד מושכים את היד?
   prompt_en: What happens when you touch a hot pot and instantly pull your hand away?
   choices:
-  - {he: 'רפלקס: תגובה מהירה דרך חוט השדרה', en: 'a reflex: a fast response through the spinal cord'}
   - {he: הלב מזיז את היד, en: the heart moves the hand}
   - {he: זה קורה רק אחרי מחשבה ארוכה, en: it happens after long thought}
-  answer: 0
+  - {he: 'רפלקס: תגובה מהירה דרך חוט השדרה', en: 'a reflex: a fast response through the spinal cord'}
+  answer: 2
   explanation_he: ברפלקס האות עובר לחוט השדרה וחוזר ישר לשריר, עוד לפני שהמוח מרגיש כאב. זה שומר עלינו.
   explanation_en: In a reflex the signal goes to the spinal cord and straight back to the muscle, even before the brain feels pain. It keeps us safe.
   tags: [body_systems]
-- id: sci.body.059
+- id: sci.body.060
   skill: science.body.systems
   kind: choice
   grade: 4
@@ -841,13 +858,13 @@ items:
   prompt_en: Which system includes the nose, windpipe and lungs?
   choices:
   - {he: מערכת העיכול, en: the digestive system, emoji: 1f354}
-  - {he: מערכת השלד, en: the skeletal system, emoji: 1f9b4}
   - {he: מערכת הנשימה, en: the respiratory system, emoji: 1fac1}
-  answer: 2
+  - {he: מערכת השלד, en: the skeletal system, emoji: 1f9b4}
+  answer: 1
   explanation_he: מערכת הנשימה מכניסה אוויר לריאות. שם החמצן עובר לדם.
   explanation_en: The respiratory system brings air into the lungs, where oxygen passes into the blood.
   tags: [body_systems]
-- id: sci.body.060
+- id: sci.body.061
   skill: science.body.systems
   kind: true_false
   grade: 6
@@ -858,7 +875,7 @@ items:
   explanation_he: נכון. השרירים צריכים יותר חמצן, ולכן הלב שואב דם מהר יותר והנשימה מואצת.
   explanation_en: True. Working muscles need more oxygen, so the heart pumps faster and breathing speeds up.
   tags: [body_systems]
-- id: sci.body.061
+- id: sci.body.062
   skill: science.body.systems
   kind: order
   grade: 5
@@ -866,15 +883,15 @@ items:
   prompt_he: סדרו את הדרך של האוויר כשנושמים פנימה.
   prompt_en: Order the path of air when we breathe in.
   choices:
+  - {he: קנה הנשימה, en: windpipe (trachea)}
   - {he: אף, en: nose}
   - {he: נאדיות הריאה, en: air sacs (alveoli)}
   - {he: סימפונות, en: bronchi}
-  - {he: קנה הנשימה, en: windpipe (trachea)}
-  answer: [0, 3, 2, 1]
+  answer: [1, 0, 3, 2]
   explanation_he: האוויר נכנס באף, יורד בקנה הנשימה, מתפצל לסימפונות ומגיע לשקיקים זעירים בריאות, שם החמצן עובר לדם.
   explanation_en: Air enters the nose, goes down the windpipe, splits into bronchi and reaches tiny sacs in the lungs where oxygen enters the blood.
   tags: [body_systems]
-- id: sci.body.062
+- id: sci.body.063
   skill: science.body.advanced
   kind: choice
   grade: 7
@@ -882,14 +899,14 @@ items:
   prompt_he: מה תפקיד תאי הדם האדומים?
   prompt_en: What do red blood cells do?
   choices:
-  - {he: עוצרים דימום, en: stop bleeding}
   - {he: נושאים חמצן, en: carry oxygen}
+  - {he: עוצרים דימום, en: stop bleeding}
   - {he: נלחמים בחיידקים, en: fight germs}
-  answer: 1
+  answer: 0
   explanation_he: תאי הדם האדומים מלאים בהמוגלובין, שנקשר לחמצן בריאות ומשחרר אותו ברקמות.
   explanation_en: Red blood cells are full of hemoglobin, which picks up oxygen in the lungs and releases it in tissues.
   tags: [body_advanced]
-- id: sci.body.063
+- id: sci.body.064
   skill: science.body.advanced
   kind: choice
   grade: 7
@@ -897,14 +914,14 @@ items:
   prompt_he: מה תפקיד תאי הדם הלבנים?
   prompt_en: What do white blood cells do?
   choices:
-  - {he: מגינים על הגוף מפני חיידקים ונגיפים, en: defend against bacteria and viruses}
   - {he: מעבירים מסרים במוח, en: carry brain messages}
+  - {he: מגינים על הגוף מפני חיידקים ונגיפים, en: defend against bacteria and viruses}
   - {he: נושאים חמצן, en: carry oxygen}
-  answer: 0
+  answer: 1
   explanation_he: תאי הדם הלבנים הם חלק ממערכת החיסון. הם מזהים פולשים ומשמידים אותם.
   explanation_en: White blood cells are part of the immune system. They detect invaders and destroy them.
   tags: [body_advanced]
-- id: sci.body.064
+- id: sci.body.065
   skill: science.body.advanced
   kind: choice
   grade: 8
@@ -913,13 +930,13 @@ items:
   prompt_en: What helps blood clot and stop bleeding from a small cut?
   choices:
   - {he: תאי שומן, en: fat cells}
-  - {he: טסיות הדם, en: platelets}
   - {he: תאי עצב, en: nerve cells}
-  answer: 1
+  - {he: טסיות הדם, en: platelets}
+  answer: 2
   explanation_he: טסיות הדם נצמדות במקום הפצע ויוצרות פקק עם חלבונים בדם. כך נוצר הגלד.
   explanation_en: Platelets stick together at a wound and form a plug with blood proteins, making a scab.
   tags: [body_advanced]
-- id: sci.body.065
+- id: sci.body.066
   skill: science.body.advanced
   kind: choice
   grade: 8
@@ -927,14 +944,14 @@ items:
   prompt_he: כמה חללים יש בלב של האדם?
   prompt_en: How many chambers does the human heart have?
   choices:
-  - {he: '6', en: '6'}
   - {he: '2', en: '2'}
   - {he: '4', en: '4'}
-  answer: 2
+  - {he: '6', en: '6'}
+  answer: 1
   explanation_he: בלב שתי עליות ושני חדרים. צד ימין שולח דם לריאות, וצד שמאל שולח דם עשיר בחמצן לכל הגוף.
   explanation_en: The heart has two atria and two ventricles. The right side sends blood to the lungs; the left sends oxygen-rich blood to the body.
   tags: [body_advanced]
-- id: sci.body.066
+- id: sci.body.067
   skill: science.body.advanced
   kind: true_false
   grade: 8
@@ -945,7 +962,7 @@ items:
   explanation_he: לא נכון. עורקים מובילים דם מהלב אל הגוף, וורידים מחזירים אותו אל הלב. נימים דקים מחברים ביניהם.
   explanation_en: False. Arteries carry blood away from the heart; veins bring it back. Thin capillaries connect them.
   tags: [body_advanced]
-- id: sci.body.067
+- id: sci.body.068
   skill: science.body.advanced
   kind: choice
   grade: 8
@@ -953,14 +970,14 @@ items:
   prompt_he: איך פועל חיסון?
   prompt_en: How does a vaccine work?
   choices:
-  - {he: הורג את כל החיידקים בגוף, en: kills all bacteria in the body}
   - {he: מחליף את הדם, en: replaces the blood}
   - {he: מלמד את מערכת החיסון לזהות מחלה מראש, en: trains the immune system to recognize a disease in advance}
-  answer: 2
+  - {he: הורג את כל החיידקים בגוף, en: kills all bacteria in the body}
+  answer: 1
   explanation_he: החיסון מראה לגוף חלק לא מזיק של החיידק או הנגיף. מערכת החיסון לומדת לזהות אותו ומגיבה מהר אם יגיע באמת.
   explanation_en: A vaccine shows the body a harmless part of a germ. The immune system learns it and responds quickly if the real germ arrives.
   tags: [body_advanced]
-- id: sci.body.068
+- id: sci.body.069
   skill: science.body.advanced
   kind: true_false
   grade: 8
@@ -971,7 +988,7 @@ items:
   explanation_he: נכון. אנטיביוטיקה פוגעת במבנה של חיידקים. לנגיפים אין מבנה כזה, ולכן היא לא עוזרת נגד שפעת או הצטננות.
   explanation_en: True. Antibiotics attack bacterial structures. Viruses lack them, so antibiotics don't help with flu or colds.
   tags: [body_advanced]
-- id: sci.body.069
+- id: sci.body.070
   skill: science.body.advanced
   kind: choice
   grade: 7
@@ -979,14 +996,14 @@ items:
   prompt_he: מה תפקיד הסרעפת בנשימה?
   prompt_en: What role does the diaphragm play in breathing?
   choices:
-  - {he: מתכווצת ויורדת וכך מכניסה אוויר לריאות, en: 'contracts and moves down, drawing air into the lungs'}
-  - {he: מייצרת קול, en: makes the voice}
   - {he: מסננת את האוויר מאבק, en: filters dust from the air}
-  answer: 0
+  - {he: מייצרת קול, en: makes the voice}
+  - {he: מתכווצת ויורדת וכך מכניסה אוויר לריאות, en: 'contracts and moves down, drawing air into the lungs'}
+  answer: 2
   explanation_he: הסרעפת היא שריר מתחת לריאות. כשהיא מתכווצת נוצר מקום בחזה והאוויר נשאב פנימה.
   explanation_en: The diaphragm is a muscle below the lungs. When it contracts the chest gets roomier and air rushes in.
   tags: [body_advanced]
-- id: sci.body.070
+- id: sci.body.071
   skill: science.body.advanced
   kind: choice
   grade: 9
@@ -994,14 +1011,14 @@ items:
   prompt_he: למה הנאדיות בריאות מתאימות כל כך לחילוף גזים?
   prompt_en: Why are the lungs' air sacs so good for gas exchange?
   choices:
-  - {he: הן מלאות בשומן, en: they are full of fat}
   - {he: הן עשויות מעצם, en: they are made of bone}
   - {he: דפנות דקות מאוד ושטח פנים עצום, en: very thin walls and a huge surface area}
-  answer: 2
+  - {he: הן מלאות בשומן, en: they are full of fat}
+  answer: 1
   explanation_he: יש מאות מיליוני נאדיות עם דופן דקה מאוד, מוקפות בנימים. כך חמצן ופחמן דו-חמצני עוברים מהר בין האוויר לדם.
   explanation_en: Hundreds of millions of air sacs with very thin walls are wrapped in capillaries, so gases pass quickly between air and blood.
   tags: [body_advanced]
-- id: sci.body.071
+- id: sci.body.072
   skill: science.body.advanced
   kind: choice
   grade: 9
@@ -1009,14 +1026,14 @@ items:
   prompt_he: איזה איבר מייצר אינסולין, שמווסת את רמת הסוכר בדם?
   prompt_en: Which organ makes insulin, which controls blood sugar?
   choices:
-  - {he: הטחול, en: the spleen}
   - {he: הלבלב, en: the pancreas}
+  - {he: הטחול, en: the spleen}
   - {he: הריאות, en: the lungs}
-  answer: 1
+  answer: 0
   explanation_he: הלבלב משחרר אינסולין כשרמת הסוכר בדם עולה. האינסולין עוזר לתאים לקלוט את הסוכר.
   explanation_en: The pancreas releases insulin when blood sugar rises. Insulin helps cells take in the sugar.
   tags: [body_advanced]
-- id: sci.body.072
+- id: sci.body.073
   skill: science.body.advanced
   kind: true_false
   grade: 9
@@ -1027,7 +1044,7 @@ items:
   explanation_he: 'לא נכון. הדם תמיד אדום: אדום בהיר כשיש בו הרבה חמצן ואדום כהה כשיש בו פחות. הוורידים רק נראים כחולים דרך העור.'
   explanation_en: 'False. Blood is always red: bright red with lots of oxygen, dark red with less. Veins only look blue through the skin.'
   tags: [body_advanced]
-- id: sci.body.073
+- id: sci.body.074
   skill: science.body.advanced
   kind: choice
   grade: 7
@@ -1036,9 +1053,25 @@ items:
   prompt_en: What does the liver do?
   choices:
   - {he: שואב דם, en: pumps blood}
-  - {he: שולט בשרירים, en: controls muscles}
   - {he: מנקה רעלים ועוזר בעיכול שומנים, en: removes toxins and helps digest fats}
-  answer: 2
+  - {he: שולט בשרירים, en: controls muscles}
+  answer: 1
   explanation_he: הכבד הוא האיבר הפנימי הגדול ביותר. הוא מפרק חומרים מזיקים ומייצר מרה, שעוזרת לעכל שומנים.
   explanation_en: The liver is the largest internal organ. It breaks down harmful substances and makes bile, which helps digest fats.
+  tags: [body_advanced]
+- id: sci.body.075
+  skill: science.body.advanced
+  kind: order
+  grade: 8
+  difficulty: 1.0
+  prompt_he: סדרו את מסלול הדם, החל מהצד הימני של הלב.
+  prompt_en: Order the path of blood starting from the right side of the heart.
+  choices:
+  - {he: 'הריאות, שם הדם מקבל חמצן', en: 'the lungs, where blood gains oxygen'}
+  - {he: כל איברי הגוף, en: all the body's organs}
+  - {he: הצד השמאלי של הלב, en: the left side of the heart}
+  - {he: הצד הימני של הלב, en: the right side of the heart}
+  answer: [3, 0, 2, 1]
+  explanation_he: צד ימין של הלב שולח דם לריאות. משם הדם חוזר לצד שמאל, שדוחף אותו לכל הגוף, ומשם הוא חוזר לצד ימין.
+  explanation_en: The right side pumps blood to the lungs. It returns to the left side, which pushes it to the body, and then back to the right.
   tags: [body_advanced]

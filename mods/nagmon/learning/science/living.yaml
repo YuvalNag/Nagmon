@@ -192,6 +192,22 @@ items:
   explanation_en: Every living thing needs water and energy. Animals get energy from food, plants from sunlight. Not all have legs or fur.
   tags: [living_basic]
 - id: sci.living.014
+  skill: science.living.basic
+  kind: order
+  grade: 1
+  difficulty: -1.0
+  prompt_he: סדרו את שלבי הגדילה של אדם.
+  prompt_en: Order the stages of human growth.
+  choices:
+  - {he: נער, en: teenager, emoji: 1f9d1}
+  - {he: תינוק, en: baby, emoji: 1f476}
+  - {he: מבוגר, en: adult, emoji: 1f9d4}
+  - {he: ילד, en: child, emoji: 1f9d2}
+  answer: [1, 3, 0, 2]
+  explanation_he: כל יצור חי גדל ומתפתח. אדם נולד תינוק, גדל לילד ולנער, ונעשה מבוגר.
+  explanation_en: Every living thing grows and develops. A person is born a baby, grows into a child and teen, and becomes an adult.
+  tags: [living_basic]
+- id: sci.living.015
   skill: science.living.needs
   kind: choice
   grade: 1
@@ -199,14 +215,14 @@ items:
   prompt_he: מה כל בעל חיים צריך כדי לחיות?
   prompt_en: What does every animal need to live?
   choices:
+  - {he: צעצועים, en: toys, emoji: 1f9f8}
   - {he: טלוויזיה, en: television, emoji: 1f4fa}
   - {he: מים, en: water, emoji: 1f4a7}
-  - {he: צעצועים, en: toys, emoji: 1f9f8}
-  answer: 1
+  answer: 2
   explanation_he: כל בעלי החיים צריכים מים, מזון, אוויר ומקום מחסה.
   explanation_en: All animals need water, food, air and shelter.
   tags: [living_needs]
-- id: sci.living.015
+- id: sci.living.016
   skill: science.living.needs
   kind: choice
   grade: 1
@@ -214,14 +230,14 @@ items:
   prompt_he: מה צמח צריך כדי לגדול?
   prompt_en: What does a plant need to grow?
   choices:
-  - {he: סוכריות, en: candy}
   - {he: רק אדמה, en: only soil}
+  - {he: סוכריות, en: candy}
   - {he: 'אור, מים ואוויר', en: 'light, water and air'}
   answer: 2
   explanation_he: צמח צריך אור, מים ואוויר כדי לייצר מזון. מהאדמה הוא מקבל מים ומינרלים, אבל לא את המזון עצמו.
   explanation_en: A plant needs light, water and air to make its food. Soil gives water and minerals, not the food itself.
   tags: [living_needs]
-- id: sci.living.016
+- id: sci.living.017
   skill: science.living.needs
   kind: true_false
   grade: 1
@@ -232,7 +248,7 @@ items:
   explanation_he: נכון. דגים נושמים חמצן שמומס במים, בעזרת הזימים.
   explanation_en: True. Fish breathe oxygen dissolved in the water, using their gills.
   tags: [living_needs]
-- id: sci.living.017
+- id: sci.living.018
   skill: science.living.needs
   kind: choice
   grade: 1
@@ -240,14 +256,14 @@ items:
   prompt_he: למה ציפור בונה קן?
   prompt_en: Why does a bird build a nest?
   choices:
+  - {he: כדי לשחק בו, en: to play in it}
   - {he: כדי לאכול אותו, en: to eat it}
   - {he: כדי שיהיה מחסה לביצים ולגוזלים, en: to shelter its eggs and chicks}
-  - {he: כדי לשחק בו, en: to play in it}
-  answer: 1
+  answer: 2
   explanation_he: 'הקן הוא מחסה: הוא שומר על הביצים חמות ומגן על הגוזלים.'
   explanation_en: 'The nest is a shelter: it keeps the eggs warm and protects the chicks.'
   tags: [living_needs]
-- id: sci.living.018
+- id: sci.living.019
   skill: science.living.needs
   kind: choice
   grade: 2
@@ -255,14 +271,14 @@ items:
   prompt_he: מאיפה בעלי חיים מקבלים אנרגיה?
   prompt_en: Where do animals get their energy from?
   choices:
-  - {he: מהאדמה, en: from the soil}
-  - {he: 'מאור השמש, כמו צמחים', en: 'from sunlight, like plants'}
   - {he: מהמזון שהם אוכלים, en: from the food they eat}
-  answer: 2
+  - {he: 'מאור השמש, כמו צמחים', en: 'from sunlight, like plants'}
+  - {he: מהאדמה, en: from the soil}
+  answer: 0
   explanation_he: 'בעלי חיים לא יכולים לייצר מזון בעצמם. הם מקבלים אנרגיה מהמזון: מצמחים או מבעלי חיים אחרים.'
   explanation_en: 'Animals can''t make their own food. They get energy from what they eat: plants or other animals.'
   tags: [living_needs]
-- id: sci.living.019
+- id: sci.living.020
   skill: science.living.needs
   kind: true_false
   grade: 1
@@ -273,7 +289,7 @@ items:
   explanation_he: לא נכון. בלי אור הצמח לא מייצר מזון. הוא נחלש, מצהיב ובסוף מת.
   explanation_en: False. Without light a plant can't make food. It weakens, turns yellow and eventually dies.
   tags: [living_needs]
-- id: sci.living.020
+- id: sci.living.021
   skill: science.living.needs
   kind: choice
   grade: 2
@@ -281,14 +297,14 @@ items:
   prompt_he: גמל יכול להחזיק מעמד ימים רבים בלי לשתות. מה נכון?
   prompt_en: A camel can go many days without drinking. What is true?
   choices:
-  - {he: הדבשת מלאה במים, en: the hump is full of water}
   - {he: 'גם גמל צריך מים, אבל חוסך בהם', en: camels need water too but save it well}
   - {he: גמלים לא צריכים מים בכלל, en: camels don't need water at all}
-  answer: 1
+  - {he: הדבשת מלאה במים, en: the hump is full of water}
+  answer: 0
   explanation_he: 'הדבשת מלאה בשומן, לא במים. הגמל חוסך מים: הוא מזיע מעט ומשתין מעט.'
   explanation_en: 'The hump stores fat, not water. Camels save water: they sweat little and urinate little.'
   tags: [living_needs]
-- id: sci.living.021
+- id: sci.living.022
   skill: science.living.needs
   kind: true_false
   grade: 2
@@ -299,7 +315,7 @@ items:
   explanation_he: נכון. האדם הוא יצור חי. שינה עוזרת לגוף לגדול ולמוח לנוח.
   explanation_en: True. Humans are living things. Sleep helps the body grow and the brain rest.
   tags: [living_needs]
-- id: sci.living.022
+- id: sci.living.023
   skill: science.living.needs
   kind: choice
   grade: 1
@@ -307,14 +323,14 @@ items:
   prompt_he: איזה בית מתאים לדג?
   prompt_en: Which home suits a fish?
   choices:
+  - {he: קן על עץ, en: a nest in a tree}
   - {he: אקווריום עם מים, en: an aquarium with water}
   - {he: כלוב יבש, en: a dry cage}
-  - {he: קן על עץ, en: a nest in a tree}
-  answer: 0
+  answer: 1
   explanation_he: דג חי במים ונושם בעזרת זימים. מחוץ למים הוא לא יכול לנשום.
   explanation_en: Fish live in water and breathe with gills. Out of water they can't breathe.
   tags: [living_needs]
-- id: sci.living.023
+- id: sci.living.024
   skill: science.living.needs
   kind: choice
   grade: 2
@@ -322,15 +338,15 @@ items:
   prompt_he: מה מהבאים אינו צורך של יצורים חיים?
   prompt_en: Which of these is NOT a need of living things?
   choices:
-  - {he: מים, en: water}
   - {he: אור חשמלי, en: electric light}
-  - {he: מזון או אנרגיה, en: food or energy}
+  - {he: מים, en: water}
   - {he: אוויר, en: air}
-  answer: 1
+  - {he: מזון או אנרגיה, en: food or energy}
+  answer: 0
   explanation_he: יצורים חיים צריכים מים, אוויר ומזון. אור חשמלי הוא המצאה של בני אדם, והטבע הסתדר בלעדיו.
   explanation_en: Living things need water, air and food. Electric light is a human invention; nature does fine without it.
   tags: [living_needs]
-- id: sci.living.024
+- id: sci.living.025
   skill: science.living.needs
   kind: choice
   grade: 3
@@ -338,14 +354,14 @@ items:
   prompt_he: מה קורה לצמח בעציץ שלא משקים אותו כמה שבועות?
   prompt_en: What happens to a potted plant that isn't watered for weeks?
   choices:
-  - {he: הוא נובל ומתייבש, en: it wilts and dries out}
   - {he: הוא פורח יותר, en: it blooms more}
+  - {he: הוא נובל ומתייבש, en: it wilts and dries out}
   - {he: הוא גדל מהר יותר, en: it grows faster}
-  answer: 0
+  answer: 1
   explanation_he: המים מחזיקים את הצמח זקוף ומובילים חומרים בתוכו. בלי מים העלים נובלים והצמח מתייבש.
   explanation_en: Water keeps a plant upright and carries materials inside it. Without water the leaves wilt and the plant dries out.
   tags: [living_needs]
-- id: sci.living.025
+- id: sci.living.026
   skill: science.living.needs
   kind: true_false
   grade: 2
@@ -356,7 +372,7 @@ items:
   explanation_he: לא נכון. קקטוס צריך מים, אבל אוגר אותם בגבעול העבה שלו ולכן מסתדר עם מעט מים.
   explanation_en: False. A cactus needs water but stores it in its thick stem, so it manages with little.
   tags: [living_needs]
-- id: sci.living.026
+- id: sci.living.027
   skill: science.living.needs
   kind: choice
   grade: 3
@@ -364,14 +380,30 @@ items:
   prompt_he: למה דוב או קיפוד ישנים חלק מהחורף (תרדמת חורף)?
   prompt_en: Why do bears or hedgehogs sleep through part of winter (hibernation)?
   choices:
-  - {he: כדי לחסוך אנרגיה כשאין הרבה מזון, en: to save energy when food is scarce}
   - {he: כי אין להם בית, en: because they have no home}
   - {he: כי הם עייפים מהקיץ, en: because they are tired from summer}
-  answer: 0
+  - {he: כדי לחסוך אנרגיה כשאין הרבה מזון, en: to save energy when food is scarce}
+  answer: 2
   explanation_he: בחורף קשה למצוא מזון. בתרדמה הגוף מאט מאוד את פעולתו וחוסך אנרגיה מהשומן שנאגר בסתיו.
   explanation_en: In winter food is hard to find. During hibernation the body slows down and saves energy from fat stored in autumn.
   tags: [living_needs]
-- id: sci.living.027
+- id: sci.living.028
+  skill: science.living.needs
+  kind: order
+  grade: 2
+  difficulty: 0.0
+  prompt_he: סדרו מה קורה לצמח בעציץ שלא משקים אותו.
+  prompt_en: Order what happens to a potted plant that isn't watered.
+  choices:
+  - {he: העלים מצהיבים ומתייבשים, en: the leaves yellow and dry up}
+  - {he: העלים נובלים, en: the leaves wilt}
+  - {he: הצמח מת, en: the plant dies}
+  - {he: האדמה מתייבשת, en: the soil dries out}
+  answer: [3, 1, 0, 2]
+  explanation_he: בלי מים הצמח לא יכול להחזיק את עצמו זקוף ולהוביל חומרים, ולכן הוא נובל ובסוף מת.
+  explanation_en: Without water a plant can't stay upright or move materials, so it wilts and finally dies.
+  tags: [living_needs]
+- id: sci.living.029
   skill: science.living.classify
   kind: choice
   grade: 3
@@ -380,13 +412,13 @@ items:
   prompt_en: What is the difference between vertebrates and invertebrates?
   choices:
   - {he: חסרי חוליות חיים רק במים, en: invertebrates live only in water}
-  - {he: לחוליתנים יש כנפיים, en: vertebrates have wings}
   - {he: לחוליתנים יש עמוד שדרה, en: vertebrates have a backbone}
-  answer: 2
+  - {he: לחוליתנים יש כנפיים, en: vertebrates have wings}
+  answer: 1
   explanation_he: חוליתנים, כמו דגים, עופות ויונקים, הם בעלי עמוד שדרה. לחרקים, לתולעים ולחלזונות אין עמוד שדרה.
   explanation_en: Vertebrates, like fish, birds and mammals, have a backbone. Insects, worms and snails don't.
   tags: [classify]
-- id: sci.living.028
+- id: sci.living.030
   skill: science.living.classify
   kind: choice
   grade: 3
@@ -394,14 +426,14 @@ items:
   prompt_he: איזה מבעלי החיים הוא חסר חוליות?
   prompt_en: Which animal is an invertebrate?
   choices:
-  - {he: צב, en: turtle, emoji: 1f422}
-  - {he: ינשוף, en: owl, emoji: 1f989}
   - {he: חילזון, en: snail, emoji: 1f40c}
-  answer: 2
+  - {he: ינשוף, en: owl, emoji: 1f989}
+  - {he: צב, en: turtle, emoji: 1f422}
+  answer: 0
   explanation_he: 'לחילזון אין עמוד שדרה: יש לו גוף רך וקונכייה. צב וינשוף הם חוליתנים.'
   explanation_en: A snail has no backbone, just a soft body and a shell. The turtle and owl are vertebrates.
   tags: [classify]
-- id: sci.living.029
+- id: sci.living.031
   skill: science.living.classify
   kind: choice
   grade: 3
@@ -410,13 +442,13 @@ items:
   prompt_en: How do scientists sort animals into groups?
   choices:
   - {he: לפי הגודל בלבד, en: by size only}
-  - {he: לפי תכונות משותפות של הגוף, en: by shared body features}
   - {he: לפי הצבע בלבד, en: by color only}
-  answer: 1
+  - {he: לפי תכונות משותפות של הגוף, en: by shared body features}
+  answer: 2
   explanation_he: ממיינים לפי תכונות כמו שלד, כיסוי הגוף ודרך הרבייה. לכן לוויתן נחשב יונק ולא דג.
   explanation_en: They sort by features like skeleton, body covering and reproduction. That's why a whale is a mammal, not a fish.
   tags: [classify]
-- id: sci.living.030
+- id: sci.living.032
   skill: science.living.classify
   kind: true_false
   grade: 3
@@ -427,7 +459,7 @@ items:
   explanation_he: לא נכון. לעכביש יש 8 רגליים ושני חלקי גוף. לחרק יש 6 רגליים ושלושה חלקי גוף.
   explanation_en: False. A spider has 8 legs and two body parts. An insect has 6 legs and three body parts.
   tags: [classify]
-- id: sci.living.031
+- id: sci.living.033
   skill: science.living.classify
   kind: choice
   grade: 3
@@ -435,15 +467,15 @@ items:
   prompt_he: כמה רגליים יש לחרק בוגר?
   prompt_en: How many legs does an adult insect have?
   choices:
-  - {he: '10', en: '10'}
-  - {he: '4', en: '4'}
-  - {he: '8', en: '8'}
   - {he: '6', en: '6'}
-  answer: 3
+  - {he: '10', en: '10'}
+  - {he: '8', en: '8'}
+  - {he: '4', en: '4'}
+  answer: 0
   explanation_he: 'לכל החרקים הבוגרים יש 6 רגליים, וגופם בנוי משלושה חלקים: ראש, חזה ובטן.'
   explanation_en: 'All adult insects have 6 legs and a body in three parts: head, thorax and abdomen.'
   tags: [classify]
-- id: sci.living.032
+- id: sci.living.034
   skill: science.living.classify
   kind: choice
   grade: 4
@@ -451,15 +483,15 @@ items:
   prompt_he: איזה מהבאים הוא חרק?
   prompt_en: Which of these is an insect?
   choices:
-  - {he: נמלה, en: ant, emoji: 1f41c}
   - {he: תולעת, en: worm, emoji: 1fab1}
+  - {he: נמלה, en: ant, emoji: 1f41c}
   - {he: חילזון, en: snail, emoji: 1f40c}
   - {he: עכביש, en: spider, emoji: 1f577}
-  answer: 0
+  answer: 1
   explanation_he: לנמלה יש 6 רגליים ושלושה חלקי גוף, ולכן היא חרק.
   explanation_en: An ant has 6 legs and three body parts, so it is an insect.
   tags: [classify]
-- id: sci.living.033
+- id: sci.living.035
   skill: science.living.classify
   kind: choice
   grade: 4
@@ -467,15 +499,15 @@ items:
   prompt_he: מי יוצא דופן?
   prompt_en: Which is the odd one out?
   choices:
-  - {he: כריש, en: shark, emoji: 1f988}
   - {he: עטלף, en: bat, emoji: 1f987}
   - {he: לוויתן, en: whale, emoji: 1f40b}
+  - {he: כריש, en: shark, emoji: 1f988}
   - {he: דולפין, en: dolphin, emoji: 1f42c}
-  answer: 0
+  answer: 2
   explanation_he: 'דולפין, לוויתן ועטלף הם יונקים: הגורים יונקים חלב, והם נושמים אוויר בריאות. כריש הוא דג ונושם בזימים.'
   explanation_en: 'Dolphins, whales and bats are mammals: their young drink milk and they breathe with lungs. A shark is a fish with gills.'
   tags: [classify]
-- id: sci.living.034
+- id: sci.living.036
   skill: science.living.classify
   kind: true_false
   grade: 3
@@ -486,7 +518,7 @@ items:
   explanation_he: 'לא נכון. לפטריות אין כלורופיל והן לא מייצרות מזון מאור. הן קבוצה נפרדת: ממלכת הפטריות.'
   explanation_en: False. Fungi have no chlorophyll and can't make food from light. They are a separate kingdom.
   tags: [classify]
-- id: sci.living.035
+- id: sci.living.037
   skill: science.living.classify
   kind: choice
   grade: 5
@@ -494,14 +526,14 @@ items:
   prompt_he: מה מבדיל בין צמחים לבעלי חיים?
   prompt_en: What distinguishes plants from animals?
   choices:
+  - {he: רק בעלי חיים נושמים, en: only animals breathe}
   - {he: רק צמחים גדלים, en: only plants grow}
   - {he: צמחים מייצרים מזון בעזרת אור, en: plants make food using light}
-  - {he: רק בעלי חיים נושמים, en: only animals breathe}
-  answer: 1
+  answer: 2
   explanation_he: צמחים מייצרים מזון בתהליך הפוטוסינתזה. גם צמחים נושמים, וגם בעלי חיים גדלים.
   explanation_en: Plants make food by photosynthesis. Plants breathe too, and animals grow too.
   tags: [classify]
-- id: sci.living.036
+- id: sci.living.038
   skill: science.living.classify
   kind: true_false
   grade: 4
@@ -512,7 +544,7 @@ items:
   explanation_he: נכון. לוויתן נושם אוויר בריאות, יולד גורים ומניק אותם בחלב.
   explanation_en: True. A whale breathes air with lungs, gives birth and nurses its young with milk.
   tags: [classify]
-- id: sci.living.037
+- id: sci.living.039
   skill: science.living.classify
   kind: choice
   grade: 4
@@ -527,7 +559,7 @@ items:
   explanation_he: דו-חיים מתחילים את חייהם במים ואחר כך יכולים לחיות גם ביבשה. העור שלהם לח וחלק.
   explanation_en: Amphibians start life in water and later can also live on land. Their skin is moist and smooth.
   tags: [classify]
-- id: sci.living.038
+- id: sci.living.040
   skill: science.living.classify
   kind: choice
   grade: 5
@@ -535,14 +567,14 @@ items:
   prompt_he: איזו תכונה משותפת לכל העופות?
   prompt_en: Which feature do all birds share?
   choices:
+  - {he: רגליים ארוכות, en: long legs}
   - {he: נוצות, en: feathers}
   - {he: יכולת לעוף, en: the ability to fly}
-  - {he: רגליים ארוכות, en: long legs}
-  answer: 0
+  answer: 1
   explanation_he: לכל העופות יש נוצות ומקור, והם מטילים ביצים. יש עופות שלא עפים, כמו יען ופינגווין.
   explanation_en: All birds have feathers and a beak and lay eggs. Some birds can't fly, like ostriches and penguins.
   tags: [classify]
-- id: sci.living.039
+- id: sci.living.041
   skill: science.living.classify
   kind: order
   grade: 5
@@ -550,15 +582,15 @@ items:
   prompt_he: סדרו מהקבוצה הגדולה ביותר לקטנה ביותר.
   prompt_en: Order from the largest group to the smallest.
   choices:
-  - {he: בעלי חיים, en: animals}
   - {he: חתולים, en: cats}
+  - {he: בעלי חיים, en: animals}
   - {he: יונקים, en: mammals}
   - {he: חוליתנים, en: vertebrates}
-  answer: [0, 3, 2, 1]
+  answer: [1, 3, 2, 0]
   explanation_he: כל החתולים הם יונקים, כל היונקים הם חוליתנים, וכל החוליתנים הם בעלי חיים.
   explanation_en: All cats are mammals, all mammals are vertebrates, and all vertebrates are animals.
   tags: [classify]
-- id: sci.living.040
+- id: sci.living.042
   skill: science.living.cells
   kind: choice
   grade: 7
@@ -566,14 +598,14 @@ items:
   prompt_he: מהי היחידה הבסיסית של כל יצור חי?
   prompt_en: What is the basic unit of every living thing?
   choices:
-  - {he: האיבר, en: the organ}
-  - {he: התא, en: the cell}
   - {he: האטום, en: the atom}
+  - {he: התא, en: the cell}
+  - {he: האיבר, en: the organ}
   answer: 1
   explanation_he: כל יצור חי בנוי מתא אחד או מתאים רבים. התא הוא היחידה הקטנה ביותר שיש בה חיים.
   explanation_en: Every living thing is made of one or many cells. The cell is the smallest unit that is alive.
   tags: [cells]
-- id: sci.living.041
+- id: sci.living.043
   skill: science.living.cells
   kind: choice
   grade: 6
@@ -581,14 +613,14 @@ items:
   prompt_he: באיזה מכשיר משתמשים כדי לראות תאים?
   prompt_en: Which instrument is used to see cells?
   choices:
-  - {he: טלסקופ, en: telescope, emoji: 1f52d}
   - {he: מצפן, en: compass, emoji: 1f9ed}
   - {he: מיקרוסקופ, en: microscope, emoji: 1f52c}
-  answer: 2
+  - {he: טלסקופ, en: telescope, emoji: 1f52d}
+  answer: 1
   explanation_he: רוב התאים קטנים מדי לעין. מיקרוסקופ מגדיל אותם פי מאות ואלפים.
   explanation_en: Most cells are too small for the eye. A microscope magnifies them hundreds or thousands of times.
   tags: [cells]
-- id: sci.living.042
+- id: sci.living.044
   skill: science.living.cells
   kind: choice
   grade: 7
@@ -596,14 +628,14 @@ items:
   prompt_he: איזה חלק בתא שומר את המידע התורשתי (DNA)?
   prompt_en: Which part of the cell holds the genetic information (DNA)?
   choices:
-  - {he: דופן התא, en: the cell wall}
-  - {he: הגרעין, en: the nucleus}
   - {he: הכלורופלסט, en: the chloroplast}
+  - {he: הגרעין, en: the nucleus}
+  - {he: דופן התא, en: the cell wall}
   answer: 1
   explanation_he: בגרעין נמצא ה-DNA, שהוא כמו ספר הוראות שקובע איך התא נבנה ופועל.
   explanation_en: The nucleus holds the DNA, like an instruction book for how the cell is built and works.
   tags: [cells]
-- id: sci.living.043
+- id: sci.living.045
   skill: science.living.cells
   kind: choice
   grade: 7
@@ -612,13 +644,13 @@ items:
   prompt_en: What does a plant cell have that an animal cell doesn't?
   choices:
   - {he: גרעין, en: a nucleus}
-  - {he: דופן תא וכלורופלסטים, en: a cell wall and chloroplasts}
   - {he: קרום תא, en: a cell membrane}
-  answer: 1
+  - {he: דופן תא וכלורופלסטים, en: a cell wall and chloroplasts}
+  answer: 2
   explanation_he: לתא צמח יש דופן קשיחה שנותנת לו צורה, וכלורופלסטים שבהם מתרחשת הפוטוסינתזה. קרום וגרעין יש בשניהם.
   explanation_en: Plant cells have a stiff wall for shape and chloroplasts for photosynthesis. Both kinds have a membrane and a nucleus.
   tags: [cells]
-- id: sci.living.044
+- id: sci.living.046
   skill: science.living.cells
   kind: choice
   grade: 8
@@ -626,14 +658,14 @@ items:
   prompt_he: מה תפקיד קרום התא?
   prompt_en: What does the cell membrane do?
   choices:
-  - {he: שומר את ה-DNA, en: stores the DNA}
   - {he: קובע מה נכנס לתא ומה יוצא, en: controls what enters and leaves}
+  - {he: שומר את ה-DNA, en: stores the DNA}
   - {he: מייצר אור, en: produces light}
-  answer: 1
+  answer: 0
   explanation_he: קרום התא עוטף את התא ומאפשר רק לחומרים מסוימים לעבור. כך נכנסים חומרי מזון ויוצאת פסולת.
   explanation_en: The membrane wraps the cell and lets only certain materials through, so nutrients get in and waste gets out.
   tags: [cells]
-- id: sci.living.045
+- id: sci.living.047
   skill: science.living.cells
   kind: choice
   grade: 8
@@ -641,14 +673,14 @@ items:
   prompt_he: באיזה חלק של התא משתחררת אנרגיה מסוכר בתהליך הנשימה?
   prompt_en: In which part of the cell is energy released from sugar during respiration?
   choices:
-  - {he: החלולית, en: the vacuole}
   - {he: הגרעין, en: the nucleus}
+  - {he: החלולית, en: the vacuole}
   - {he: המיטוכונדריה, en: the mitochondria}
   answer: 2
   explanation_he: 'במיטוכונדריה מתרחשת הנשימה התאית: סוכר וחמצן מפיקים אנרגיה לתא, ונוצרים פחמן דו-חמצני ומים.'
   explanation_en: In the mitochondria, cellular respiration uses sugar and oxygen to release energy, producing carbon dioxide and water.
   tags: [cells]
-- id: sci.living.046
+- id: sci.living.048
   skill: science.living.cells
   kind: true_false
   grade: 7
@@ -659,7 +691,7 @@ items:
   explanation_he: נכון. חיידקים הם יצורים חד-תאיים. יש חיידקים שגורמים למחלות, אבל רבים מועילים, למשל במעיים שלנו.
   explanation_en: True. Bacteria are single-celled. Some cause illness, but many are helpful, like those in our gut.
   tags: [cells]
-- id: sci.living.047
+- id: sci.living.049
   skill: science.living.cells
   kind: true_false
   grade: 7
@@ -670,7 +702,7 @@ items:
   explanation_he: לא נכון. תאי עצב ארוכים, תאי דם אדומים עגולים ותאי שריר מתכווצים. הצורה של כל תא מתאימה לתפקיד שלו.
   explanation_en: False. Nerve cells are long, red blood cells are round, muscle cells contract. Each cell's shape fits its job.
   tags: [cells]
-- id: sci.living.048
+- id: sci.living.050
   skill: science.living.cells
   kind: order
   grade: 8
@@ -678,15 +710,15 @@ items:
   prompt_he: סדרו מהקטן לגדול את רמות הארגון בגוף.
   prompt_en: Order the levels of body organization from smallest to largest.
   choices:
-  - {he: תא, en: cell}
   - {he: איבר, en: organ}
+  - {he: תא, en: cell}
   - {he: מערכת איברים, en: organ system}
   - {he: רקמה, en: tissue}
-  answer: [0, 3, 1, 2]
+  answer: [1, 3, 0, 2]
   explanation_he: תאים דומים יוצרים רקמה, רקמות יוצרות איבר כמו הלב, ואיברים יוצרים מערכת כמו מערכת הדם.
   explanation_en: Similar cells form tissue, tissues form an organ like the heart, and organs form a system like circulation.
   tags: [cells]
-- id: sci.living.049
+- id: sci.living.051
   skill: science.living.cells
   kind: choice
   grade: 7
@@ -694,14 +726,14 @@ items:
   prompt_he: מי ראה ונתן שם לתאים לראשונה, כשהתבונן בשעם במיקרוסקופ?
   prompt_en: Who first saw and named cells while looking at cork under a microscope?
   choices:
-  - {he: אייזק ניוטון, en: Isaac Newton}
   - {he: רוברט הוק, en: Robert Hooke}
   - {he: אלברט איינשטיין, en: Albert Einstein}
-  answer: 1
+  - {he: אייזק ניוטון, en: Isaac Newton}
+  answer: 0
   explanation_he: בשנת 1665 ראה רוברט הוק חללים קטנים בשעם וקרא להם תאים, כי הם הזכירו לו חדרים קטנים.
   explanation_en: In 1665 Robert Hooke saw tiny spaces in cork and called them cells, because they looked like little rooms.
   tags: [cells]
-- id: sci.living.050
+- id: sci.living.052
   skill: science.living.cells
   kind: true_false
   grade: 8
@@ -712,7 +744,7 @@ items:
   explanation_he: נכון. לפי ההערכות יש בגוף כ-30 עד 40 טריליון תאים, ורובם קטנים מכדי לראות בעין.
   explanation_en: True. Estimates say about 30 to 40 trillion cells, most too small to see with the naked eye.
   tags: [cells]
-- id: sci.living.051
+- id: sci.living.053
   skill: science.living.cells
   kind: choice
   grade: 9
@@ -721,13 +753,13 @@ items:
   prompt_en: What happens when a cell divides?
   choices:
   - {he: נוצרים שני תאים חדשים, en: two new cells form}
-  - {he: התא הופך לאיבר, en: the cell turns into an organ}
   - {he: התא נעלם, en: the cell disappears}
+  - {he: התא הופך לאיבר, en: the cell turns into an organ}
   answer: 0
   explanation_he: בחלוקת תא נוצרים שני תאי בת, וכל אחד מקבל עותק של ה-DNA. כך הגוף גדל ומרפא פצעים.
   explanation_en: When a cell divides, two daughter cells form, each with a copy of the DNA. That's how the body grows and heals.
   tags: [cells]
-- id: sci.living.052
+- id: sci.living.054
   skill: science.living.cells
   kind: true_false
   grade: 9
@@ -738,7 +770,7 @@ items:
   explanation_he: 'לא נכון. לתאי צמח יש גם מיטוכונדריה: הסוכר נוצר בכלורופלסטים, והאנרגיה ממנו משתחררת במיטוכונדריה.'
   explanation_en: 'False. Plant cells have mitochondria too: sugar is made in chloroplasts and its energy is released in mitochondria.'
   tags: [cells]
-- id: sci.living.053
+- id: sci.living.055
   skill: science.living.cells
   kind: choice
   grade: 9
@@ -746,9 +778,9 @@ items:
   prompt_he: מה יוצאת דופן מבחינת מבנה התא?
   prompt_en: Which is the odd one out in terms of cell structure?
   choices:
-  - {he: תא עלה, en: leaf cell}
-  - {he: חיידק, en: bacterium}
   - {he: תא שמרים, en: yeast cell}
+  - {he: חיידק, en: bacterium}
+  - {he: תא עלה, en: leaf cell}
   - {he: תא עור, en: skin cell}
   answer: 1
   explanation_he: 'לחיידק אין גרעין: ה-DNA שלו פזור בתא. לתאי צמחים, בעלי חיים ופטריות (כמו שמרים) יש גרעין.'

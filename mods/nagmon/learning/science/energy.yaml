@@ -367,6 +367,21 @@ items:
   explanation_en: When light passes between materials like water and air it changes direction. This is called refraction.
   tags: [light]
 - id: sci.energy.026
+  skill: science.energy.light
+  kind: order
+  grade: 3
+  difficulty: 0.0
+  prompt_he: סדרו את החומרים לפי כמות האור שעוברת דרכם, מהרבה למעט.
+  prompt_en: Order the materials by how much light passes through, most first.
+  choices:
+  - {he: נייר אפייה, en: baking paper}
+  - {he: זכוכית שקופה, en: clear glass}
+  - {he: קרטון, en: cardboard}
+  answer: [1, 0, 2]
+  explanation_he: זכוכית שקופה מעבירה כמעט את כל האור, נייר אפייה מעביר חלק (שקוף למחצה), וקרטון אטום.
+  explanation_en: Clear glass lets almost all light through, baking paper some (translucent), and cardboard none (opaque).
+  tags: [light]
+- id: sci.energy.027
   skill: science.energy.sound
   kind: choice
   grade: 2
@@ -375,13 +390,13 @@ items:
   prompt_en: How is sound made?
   choices:
   - {he: מאור, en: by light}
-  - {he: מרעידות, en: by vibrations}
   - {he: מצבעים, en: by colors}
-  answer: 1
+  - {he: מרעידות, en: by vibrations}
+  answer: 2
   explanation_he: כל קול נוצר מרעידות. כשמדברים, מיתרי הקול בגרון רועדים. כשמכים בתוף, העור שלו רועד.
   explanation_en: All sound comes from vibrations. When we speak our vocal cords vibrate; when a drum is hit its skin vibrates.
   tags: [sound]
-- id: sci.energy.027
+- id: sci.energy.028
   skill: science.energy.sound
   kind: true_false
   grade: 3
@@ -392,7 +407,7 @@ items:
   explanation_he: לא נכון. קול צריך חומר כדי לעבור, כמו אוויר או מים. בחלל אין כמעט אוויר, ולכן שם שקט מוחלט.
   explanation_en: False. Sound needs a material to travel through, like air or water. Space has almost no air, so it's totally silent.
   tags: [sound]
-- id: sci.energy.028
+- id: sci.energy.029
   skill: science.energy.sound
   kind: choice
   grade: 3
@@ -401,13 +416,13 @@ items:
   prompt_en: When does a guitar string make a higher note?
   choices:
   - {he: כשהוא ארוך ורפוי, en: when it's long and loose}
-  - {he: כשהגיטרה כבדה, en: when the guitar is heavy}
   - {he: כשהוא קצר יותר או מתוח יותר, en: when it's shorter or tighter}
-  answer: 2
+  - {he: כשהגיטרה כבדה, en: when the guitar is heavy}
+  answer: 1
   explanation_he: מיתר קצר ומתוח רועד מהר יותר. רעידות מהירות יוצרות צליל גבוה, ורעידות איטיות צליל נמוך.
   explanation_en: A short tight string vibrates faster. Fast vibrations make a high note; slow ones a low note.
   tags: [sound]
-- id: sci.energy.029
+- id: sci.energy.030
   skill: science.energy.sound
   kind: choice
   grade: 3
@@ -415,14 +430,14 @@ items:
   prompt_he: מהו הד?
   prompt_en: What is an echo?
   choices:
-  - {he: קול שנעלם, en: sound that disappears}
-  - {he: קול שחוזר אחרי שפגע במשטח, en: sound bouncing back off a surface}
   - {he: קול שעובר רק במים, en: sound that travels only in water}
+  - {he: קול שחוזר אחרי שפגע במשטח, en: sound bouncing back off a surface}
+  - {he: קול שנעלם, en: sound that disappears}
   answer: 1
   explanation_he: קול שפוגע בקיר, בצוק או בהר חוזר אלינו. כשהמשטח רחוק, שומעים את ההד אחרי רגע.
   explanation_en: Sound hitting a wall, cliff or mountain bounces back. When the surface is far, we hear the echo a moment later.
   tags: [sound]
-- id: sci.energy.030
+- id: sci.energy.031
   skill: science.energy.sound
   kind: choice
   grade: 4
@@ -430,14 +445,14 @@ items:
   prompt_he: איך עטלפים מוצאים את הדרך בחושך?
   prompt_en: How do bats find their way in the dark?
   choices:
-  - {he: מריחים את הקירות, en: they smell the walls, emoji: 1f443}
-  - {he: משמיעים קולות ומקשיבים להד, en: they make sounds and listen for echoes, emoji: 1f987}
   - {he: רואים בחושך כמו ביום, en: they see in the dark like daytime, emoji: 1f441}
+  - {he: משמיעים קולות ומקשיבים להד, en: they make sounds and listen for echoes, emoji: 1f987}
+  - {he: מריחים את הקירות, en: they smell the walls, emoji: 1f443}
   answer: 1
   explanation_he: רוב העטלפים שאוכלים חרקים משמיעים צלילים גבוהים מאוד. לפי ההד הם יודעים איפה יש מכשולים ואוכל.
   explanation_en: Most insect-eating bats make very high sounds. From the echoes they know where obstacles and food are.
   tags: [sound]
-- id: sci.energy.031
+- id: sci.energy.032
   skill: science.energy.sound
   kind: true_false
   grade: 4
@@ -448,7 +463,7 @@ items:
   explanation_he: נכון. קול עובר אפילו מהר יותר במים ובמוצקים מאשר באוויר. לוויתנים מתקשרים בקולות מתחת למים.
   explanation_en: True. Sound travels even faster in water and solids than in air. Whales communicate with sounds underwater.
   tags: [sound]
-- id: sci.energy.032
+- id: sci.energy.033
   skill: science.energy.sound
   kind: choice
   grade: 4
@@ -456,14 +471,14 @@ items:
   prompt_he: איך יודעים כמה רחוקה סופת ברקים?
   prompt_en: How can you tell how far away a thunderstorm is?
   choices:
+  - {he: מסתכלים על צבע הברק, en: look at the lightning's color}
   - {he: סופרים שניות בין הברק לרעם, en: count seconds between lightning and thunder}
   - {he: מודדים את הגשם, en: measure the rain}
-  - {he: מסתכלים על צבע הברק, en: look at the lightning's color}
-  answer: 0
+  answer: 1
   explanation_he: קול עובר כקילומטר אחד בכל 3 שניות. אם עברו 6 שניות בין הברק לרעם, הסופה רחוקה כ-2 קילומטרים.
   explanation_en: Sound travels about one kilometer every 3 seconds. If 6 seconds pass between flash and thunder, the storm is about 2 km away.
   tags: [sound]
-- id: sci.energy.033
+- id: sci.energy.034
   skill: science.energy.sound
   kind: choice
   grade: 3
@@ -471,14 +486,14 @@ items:
   prompt_he: מה מגן על האוזניים מרעש חזק מאוד?
   prompt_en: What protects ears from very loud noise?
   choices:
-  - {he: מוזיקה חזקה יותר, en: louder music}
-  - {he: אטמי אוזניים או מגיני אוזניים, en: earplugs or ear protectors}
   - {he: משקפיים, en: glasses}
+  - {he: אטמי אוזניים או מגיני אוזניים, en: earplugs or ear protectors}
+  - {he: מוזיקה חזקה יותר, en: louder music}
   answer: 1
   explanation_he: רעש חזק מאוד או ממושך עלול לפגוע בשמיעה לתמיד. אטמים ומגיני אוזניים מחלישים את הקול.
   explanation_en: Very loud or long noise can permanently damage hearing. Earplugs and ear protectors soften the sound.
   tags: [sound]
-- id: sci.energy.034
+- id: sci.energy.035
   skill: science.energy.sound
   kind: choice
   grade: 5
@@ -486,14 +501,14 @@ items:
   prompt_he: מהי בערך מהירות הקול באוויר?
   prompt_en: Roughly what is the speed of sound in air?
   choices:
+  - {he: 'כ-300,000 קילומטר בשנייה', en: 'about 300,000 km per second'}
   - {he: כ-1 מטר בשנייה, en: about 1 meter per second}
   - {he: כ-340 מטר בשנייה, en: about 340 meters per second}
-  - {he: 'כ-300,000 קילומטר בשנייה', en: 'about 300,000 km per second'}
-  answer: 1
+  answer: 2
   explanation_he: קול באוויר עובר כ-340 מטר בשנייה, הרבה יותר לאט מאור. מטוסים על-קוליים טסים מהר יותר מהקול.
   explanation_en: Sound in air travels about 340 meters per second, much slower than light. Supersonic jets fly faster than sound.
   tags: [sound]
-- id: sci.energy.035
+- id: sci.energy.036
   skill: science.energy.sound
   kind: true_false
   grade: 4
@@ -504,7 +519,7 @@ items:
   explanation_he: לא נכון. מכה חזקה יותר עושה קול חזק יותר, כלומר רועש יותר, אבל לא גבוה יותר. גובה הצליל תלוי במהירות הרעידות.
   explanation_en: False. Hitting harder makes a louder sound, not a higher one. Pitch depends on how fast the vibrations are.
   tags: [sound]
-- id: sci.energy.036
+- id: sci.energy.037
   skill: science.energy.sound
   kind: order
   grade: 4
@@ -519,7 +534,7 @@ items:
   explanation_he: בחומר שהחלקיקים שלו צפופים וקשורים חזק, הקול עובר מהר יותר. בפלדה הוא מהיר פי 15 בערך מאשר באוויר.
   explanation_en: Sound travels faster where particles are tightly packed and linked. In steel it's roughly 15 times faster than in air.
   tags: [sound]
-- id: sci.energy.037
+- id: sci.energy.038
   skill: science.energy.sound
   kind: choice
   grade: 5
@@ -534,7 +549,7 @@ items:
   explanation_he: דציבל מודד עד כמה קול חזק. לחישה היא כ-30 דציבל, ורעש מעל 85 דציבל לאורך זמן מזיק לשמיעה.
   explanation_en: Decibels measure how loud a sound is. A whisper is about 30 dB; long exposure above 85 dB harms hearing.
   tags: [sound]
-- id: sci.energy.038
+- id: sci.energy.039
   skill: science.energy.forms
   kind: choice
   grade: 3
@@ -542,14 +557,14 @@ items:
   prompt_he: איזו אנרגיה יש בסוללה?
   prompt_en: What kind of energy is in a battery?
   choices:
-  - {he: אנרגיית אור, en: light energy, emoji: 1f4a1}
   - {he: אנרגיית קול, en: sound energy, emoji: 1f50a}
+  - {he: אנרגיית אור, en: light energy, emoji: 1f4a1}
   - {he: אנרגיה כימית, en: chemical energy, emoji: 1f50b}
   answer: 2
   explanation_he: בסוללה יש חומרים שמגיבים זה עם זה ומפיקים זרם חשמלי. האנרגיה אגורה בהם כאנרגיה כימית.
   explanation_en: A battery contains substances that react to produce electric current. The energy is stored as chemical energy.
   tags: [energy_forms]
-- id: sci.energy.039
+- id: sci.energy.040
   skill: science.energy.forms
   kind: choice
   grade: 4
@@ -557,14 +572,14 @@ items:
   prompt_he: איזו המרת אנרגיה קורית בנורה דולקת?
   prompt_en: What energy change happens in a glowing bulb?
   choices:
-  - {he: אור הופך לחשמל, en: light becomes electricity, emoji: '2600'}
   - {he: קול הופך לאור, en: sound becomes light, emoji: 1f50a}
   - {he: חשמל הופך לאור וחום, en: electricity becomes light and heat, emoji: 1f4a1}
-  answer: 2
+  - {he: אור הופך לחשמל, en: light becomes electricity, emoji: '2600'}
+  answer: 1
   explanation_he: נורה מקבלת אנרגיה חשמלית ומוציאה אור, וגם חום. נורות לד מבזבזות פחות אנרגיה על חום.
   explanation_en: A bulb takes electrical energy and gives out light, and also heat. LED bulbs waste less energy as heat.
   tags: [energy_forms]
-- id: sci.energy.040
+- id: sci.energy.041
   skill: science.energy.forms
   kind: choice
   grade: 4
@@ -572,14 +587,14 @@ items:
   prompt_he: מה עושה תא סולארי (פאנל סולארי)?
   prompt_en: What does a solar panel do?
   choices:
-  - {he: מקרר את הבית, en: cools the house, emoji: 1f9ca}
   - {he: הופך אור שמש לחשמל, en: turns sunlight into electricity, emoji: '2600'}
+  - {he: מקרר את הבית, en: cools the house, emoji: 1f9ca}
   - {he: הופך חשמל לאור שמש, en: turns electricity into sunlight, emoji: 1f4a1}
-  answer: 1
+  answer: 0
   explanation_he: התאים הסולאריים קולטים אור ומייצרים זרם חשמלי. בישראל השמשית יש הרבה מתקנים כאלה.
   explanation_en: Solar cells capture light and produce electric current. Sunny Israel has many such installations.
   tags: [energy_forms]
-- id: sci.energy.041
+- id: sci.energy.042
   skill: science.energy.forms
   kind: true_false
   grade: 4
@@ -590,7 +605,7 @@ items:
   explanation_he: נכון. המזון הוא הדלק שלנו. כשאנחנו רצים, האנרגיה מהמזון הופכת לתנועה, וגם מחממת את הגוף.
   explanation_en: True. Food is our fuel. When we run, food energy becomes motion and also warms the body.
   tags: [energy_forms]
-- id: sci.energy.042
+- id: sci.energy.043
   skill: science.energy.forms
   kind: choice
   grade: 4
@@ -598,14 +613,14 @@ items:
   prompt_he: לאיזה כדור יש יותר אנרגיית גובה (אנרגיה פוטנציאלית)?
   prompt_en: Which ball has more height (potential) energy?
   choices:
-  - {he: כדור על הרצפה, en: a ball on the floor}
   - {he: כדור על המדף העליון, en: a ball on the top shelf}
+  - {he: כדור על הרצפה, en: a ball on the floor}
   - {he: אותה אנרגיה לשניהם, en: both the same}
-  answer: 1
+  answer: 0
   explanation_he: ככל שחפץ גבוה יותר, יש לו יותר אנרגיית גובה. כשהוא נופל, היא הופכת לאנרגיית תנועה.
   explanation_en: The higher an object is, the more height energy it has. When it falls, that becomes motion energy.
   tags: [energy_forms]
-- id: sci.energy.043
+- id: sci.energy.044
   skill: science.energy.forms
   kind: true_false
   grade: 5
@@ -616,7 +631,7 @@ items:
   explanation_he: לא נכון. אנרגיה לא נוצרת יש מאין ולא נעלמת. היא רק עוברת מצורה לצורה, לפעמים לחום שקשה להשתמש בו.
   explanation_en: False. Energy is never created from nothing or destroyed. It only changes form, sometimes into heat that's hard to use.
   tags: [energy_forms]
-- id: sci.energy.044
+- id: sci.energy.045
   skill: science.energy.forms
   kind: choice
   grade: 4
@@ -631,7 +646,7 @@ items:
   explanation_he: הרוח מסובבת את הלהבים, והסיבוב מפעיל גנרטור שמייצר חשמל. ברמת הגולן יש טורבינות רוח.
   explanation_en: Wind spins the blades, and the spinning drives a generator that makes electricity. There are wind turbines on the Golan Heights.
   tags: [energy_forms]
-- id: sci.energy.045
+- id: sci.energy.046
   skill: science.energy.forms
   kind: choice
   grade: 5
@@ -646,7 +661,7 @@ items:
   explanation_he: שמש, רוח ומים זורמים לא נגמרים. נפט, פחם וגז נוצרו במשך מיליוני שנים ובסוף ייגמרו.
   explanation_en: Sun, wind and flowing water don't run out. Oil, coal and gas took millions of years to form and will run out.
   tags: [energy_forms]
-- id: sci.energy.046
+- id: sci.energy.047
   skill: science.energy.forms
   kind: true_false
   grade: 5
@@ -657,7 +672,7 @@ items:
   explanation_he: נכון. מאז שנות ה-80 החוק בישראל מחייב דוד שמש ברוב הבניינים החדשים. הקולטים השחורים בולעים חום מהשמש.
   explanation_en: True. Since the 1980s Israeli law requires solar water heaters on most new buildings. The black collectors absorb the sun's heat.
   tags: [energy_forms]
-- id: sci.energy.047
+- id: sci.energy.048
   skill: science.energy.forms
   kind: order
   grade: 5
@@ -665,14 +680,14 @@ items:
   prompt_he: סדרו את המרות האנרגיה כשמגלשת מים מתחילה למעלה.
   prompt_en: Order the energy changes on a water slide starting at the top.
   choices:
-  - {he: 'מתחילים לגלוש: הגובה הופך לתנועה', en: 'start sliding: height becomes motion'}
   - {he: 'בתחתית: הכי מהר והכי נמוך', en: 'at the bottom: fastest and lowest'}
   - {he: 'עולים במדרגות: הגוף צובר אנרגיית גובה', en: 'climb the stairs: the body gains height energy'}
-  answer: [2, 0, 1]
+  - {he: 'מתחילים לגלוש: הגובה הופך לתנועה', en: 'start sliding: height becomes motion'}
+  answer: [1, 2, 0]
   explanation_he: בעלייה אנחנו משתמשים באנרגיה מהמזון כדי לצבור גובה. בגלישה אנרגיית הגובה הופכת לאנרגיית תנועה.
   explanation_en: Climbing uses food energy to gain height. Sliding turns that height energy into motion energy.
   tags: [energy_forms]
-- id: sci.energy.048
+- id: sci.energy.049
   skill: science.energy.forms
   kind: choice
   grade: 6
@@ -680,14 +695,14 @@ items:
   prompt_he: מה מקור האנרגיה של רוב שרשראות המזון, וגם של נפט ופחם?
   prompt_en: What is the energy source of most food chains, and also of oil and coal?
   choices:
-  - {he: הרוח, en: the wind, emoji: 1f32c}
   - {he: השמש, en: the sun, emoji: '2600'}
+  - {he: הרוח, en: the wind, emoji: 1f32c}
   - {he: הירח, en: the moon, emoji: 1f315}
-  answer: 1
+  answer: 0
   explanation_he: צמחים אוגרים אנרגיה משמש. נפט ופחם נוצרו משרידי יצורים חיים קדומים, ולכן גם בהם אגורה אנרגיית שמש.
   explanation_en: Plants store energy from the sun. Oil and coal formed from the remains of ancient living things, so they hold stored solar energy too.
   tags: [energy_forms]
-- id: sci.energy.049
+- id: sci.energy.050
   skill: science.energy.forms
   kind: choice
   grade: 6
@@ -695,14 +710,14 @@ items:
   prompt_he: מתקן אשלים בנגב משתמש במראות רבות שמרכזות אור שמש למגדל. מה הוא מייצר?
   prompt_en: The Ashalim plant in the Negev uses many mirrors to focus sunlight on a tower. What does it produce?
   choices:
-  - {he: חשמל, en: electricity, emoji: 26a1}
   - {he: גשם, en: rain, emoji: 1f327}
   - {he: מים מתוקים, en: fresh water, emoji: 1f4a7}
-  answer: 0
+  - {he: חשמל, en: electricity, emoji: 26a1}
+  answer: 2
   explanation_he: המראות מרכזות את אור השמש ומחממות מאוד את המגדל. החום יוצר קיטור שמסובב טורבינה ומייצר חשמל.
   explanation_en: The mirrors concentrate sunlight and heat the tower. The heat makes steam that spins a turbine to produce electricity.
   tags: [energy_forms]
-- id: sci.energy.050
+- id: sci.energy.051
   skill: science.energy.heat
   kind: choice
   grade: 3
@@ -710,14 +725,14 @@ items:
   prompt_he: באיזה מכשיר מודדים טמפרטורה?
   prompt_en: What instrument measures temperature?
   choices:
-  - {he: שעון, en: clock, emoji: 23f0}
   - {he: סרגל, en: ruler, emoji: 1f4cf}
+  - {he: שעון, en: clock, emoji: 23f0}
   - {he: מדחום, en: thermometer, emoji: 1f321}
   answer: 2
   explanation_he: מדחום מראה כמה חם או קר. בישראל מודדים טמפרטורה במעלות צלזיוס.
   explanation_en: A thermometer shows how hot or cold something is. In Israel temperature is measured in degrees Celsius.
   tags: [heat]
-- id: sci.energy.051
+- id: sci.energy.052
   skill: science.energy.heat
   kind: true_false
   grade: 3
@@ -728,7 +743,7 @@ items:
   explanation_he: 'לא נכון. המעיל לא מייצר חום. הוא מבודד: שומר על החום שהגוף שלנו מייצר, ולא נותן לו לברוח.'
   explanation_en: False. The coat makes no heat. It insulates, keeping in the heat our body produces so it doesn't escape.
   tags: [heat]
-- id: sci.energy.052
+- id: sci.energy.053
   skill: science.energy.heat
   kind: choice
   grade: 4
@@ -736,14 +751,14 @@ items:
   prompt_he: לאיזה כיוון עובר חום?
   prompt_en: Which way does heat flow?
   choices:
+  - {he: מהחם אל הקר, en: from hot to cold}
   - {he: הוא לא עובר, en: it doesn't move}
   - {he: מהקר אל החם, en: from cold to hot}
-  - {he: מהחם אל הקר, en: from hot to cold}
-  answer: 2
+  answer: 0
   explanation_he: חום תמיד עובר מגוף חם לגוף קר, עד ששניהם באותה טמפרטורה. לכן תה חם מתקרר בחדר.
   explanation_en: Heat always flows from a hotter object to a colder one until both are the same temperature. That's why hot tea cools.
   tags: [heat]
-- id: sci.energy.053
+- id: sci.energy.054
   skill: science.energy.heat
   kind: choice
   grade: 4
@@ -752,13 +767,13 @@ items:
   prompt_en: Which material conducts heat well?
   choices:
   - {he: מתכת, en: metal, emoji: 1f944}
-  - {he: צמר, en: wool, emoji: 1f9f6}
   - {he: עץ, en: wood, emoji: 1fab5}
+  - {he: צמר, en: wool, emoji: 1f9f6}
   answer: 0
   explanation_he: מתכות מעבירות חום מהר. לכן מבשלים בסירים ממתכת, ועץ וצמר משמשים כמבודדים.
   explanation_en: Metals pass heat quickly, so we cook in metal pots, while wood and wool serve as insulators.
   tags: [heat]
-- id: sci.energy.054
+- id: sci.energy.055
   skill: science.energy.heat
   kind: true_false
   grade: 4
@@ -769,7 +784,7 @@ items:
   explanation_he: נכון. המתכת מוליכה חום ומושכת מהר חום מהיד, ולכן מרגישה קרה. העץ מוליך לאט, ולכן מרגיש חמים יותר.
   explanation_en: True. Metal conducts heat and draws it quickly from your hand, so it feels cold. Wood conducts slowly, so it feels warmer.
   tags: [heat]
-- id: sci.energy.055
+- id: sci.energy.056
   skill: science.energy.heat
   kind: choice
   grade: 5
@@ -784,7 +799,7 @@ items:
   explanation_he: אוויר קר צפוף יותר ויורד למטה, ואוויר חם עולה. כך האוויר הקר מתפזר בכל החדר. זו הסעה.
   explanation_en: Cold air is denser and sinks while warm air rises, spreading the cool air through the room. This is convection.
   tags: [heat]
-- id: sci.energy.056
+- id: sci.energy.057
   skill: science.energy.heat
   kind: choice
   grade: 5
@@ -799,7 +814,7 @@ items:
   explanation_he: הולכה והסעה צריכות חומר. קרינה, כמו אור וקרני חום, עוברת גם בחלל הריק.
   explanation_en: Conduction and convection need matter. Radiation, like light and heat rays, travels even through empty space.
   tags: [heat]
-- id: sci.energy.057
+- id: sci.energy.058
   skill: science.energy.heat
   kind: choice
   grade: 5
@@ -814,7 +829,7 @@ items:
   explanation_he: בין שתי הדפנות יש ריק. בלי חומר כמעט אין הולכה והסעה, והדפנות המבריקות מחזירות קרינה.
   explanation_en: There's a vacuum between its walls. Without matter there's almost no conduction or convection, and shiny walls reflect radiation.
   tags: [heat]
-- id: sci.energy.058
+- id: sci.energy.059
   skill: science.energy.heat
   kind: choice
   grade: 4
@@ -822,14 +837,14 @@ items:
   prompt_he: למה ציפורים מנפחות את הנוצות שלהן בקור?
   prompt_en: Why do birds fluff up their feathers in the cold?
   choices:
+  - {he: כדי לעוף מהר, en: to fly faster}
   - {he: כדי להיראות גדולות, en: to look bigger}
   - {he: האוויר בין הנוצות מבודד, en: air trapped between feathers insulates}
-  - {he: כדי לעוף מהר, en: to fly faster}
-  answer: 1
+  answer: 2
   explanation_he: אוויר הוא מבודד טוב. כשהנוצות מנופחות נלכדת ביניהן שכבת אוויר ששומרת על חום הגוף.
   explanation_en: Air is a good insulator. Fluffed feathers trap a layer of air that keeps the body warm.
   tags: [heat]
-- id: sci.energy.059
+- id: sci.energy.060
   skill: science.energy.heat
   kind: order
   grade: 4
@@ -837,14 +852,14 @@ items:
   prompt_he: מוזגים לשלוש כוסות מים בטמפרטורות שונות. סדרו מהקר לחם.
   prompt_en: Order the cups from coldest to hottest.
   choices:
-  - {he: תה רותח, en: boiling tea, emoji: '2615'}
   - {he: מים מהברז, en: tap water, emoji: 1f6b0}
+  - {he: תה רותח, en: boiling tea, emoji: '2615'}
   - {he: מים עם קרח, en: water with ice, emoji: 1f9ca}
-  answer: [2, 1, 0]
+  answer: [2, 0, 1]
   explanation_he: מים עם קרח קרובים ל-0 מעלות, מי ברז בטמפרטורת החדר בערך, ותה רותח קרוב ל-100 מעלות.
   explanation_en: Ice water is near 0 degrees, tap water near room temperature, and boiling tea near 100 degrees.
   tags: [heat]
-- id: sci.energy.060
+- id: sci.energy.061
   skill: science.energy.heat
   kind: true_false
   grade: 4
@@ -855,7 +870,7 @@ items:
   explanation_he: נכון. חום עובר מהחם אל הקר. לכן היד מתחממת והכוס מתקררת מעט.
   explanation_en: True. Heat flows from hot to cold, so your hand warms up and the cup cools a little.
   tags: [heat]
-- id: sci.energy.061
+- id: sci.energy.062
   skill: science.energy.heat
   kind: choice
   grade: 6
@@ -863,14 +878,14 @@ items:
   prompt_he: מה ההבדל בין חום לטמפרטורה?
   prompt_en: What is the difference between heat and temperature?
   choices:
-  - {he: טמפרטורה היא אנרגיה ששוקלת, en: temperature is energy that weighs something}
   - {he: אין הבדל, en: there is no difference}
   - {he: חום הוא אנרגיה שעוברת; טמפרטורה היא מדד, en: heat is energy on the move; temperature is a measure}
-  answer: 2
+  - {he: טמפרטורה היא אנרגיה ששוקלת, en: temperature is energy that weighs something}
+  answer: 1
   explanation_he: טמפרטורה מתארת את מהירות התנועה הממוצעת של החלקיקים. חום הוא אנרגיה שעוברת מחם לקר. אמבטיה פושרת מכילה יותר חום מגפרור דולק.
   explanation_en: Temperature reflects the average motion of particles. Heat is energy moving from hot to cold. A warm bath holds more heat than a lit match.
   tags: [heat]
-- id: sci.energy.062
+- id: sci.energy.063
   skill: science.energy.forces
   kind: choice
   grade: 2
@@ -878,14 +893,14 @@ items:
   prompt_he: מה צריך לעשות כדי להזיז עגלה?
   prompt_en: What do you need to do to move a cart?
   choices:
+  - {he: לחכות שתזוז לבד, en: wait for it to move on its own, emoji: 23f3}
   - {he: להסתכל עליה, en: look at it, emoji: 1f440}
   - {he: לדחוף או למשוך אותה, en: push or pull it, emoji: 1f6d2}
-  - {he: לחכות שתזוז לבד, en: wait for it to move on its own, emoji: 23f3}
-  answer: 1
+  answer: 2
   explanation_he: 'כדי להזיז חפץ צריך להפעיל עליו כוח: דחיפה או משיכה.'
   explanation_en: 'To move something you must apply a force: a push or a pull.'
   tags: [forces]
-- id: sci.energy.063
+- id: sci.energy.064
   skill: science.energy.forces
   kind: choice
   grade: 3
@@ -893,14 +908,14 @@ items:
   prompt_he: איזה כוח מושך את כל החפצים למטה, אל כדור הארץ?
   prompt_en: Which force pulls everything down toward Earth?
   choices:
+  - {he: כוח המשיכה, en: gravity}
   - {he: כוח מגנטי, en: magnetism}
   - {he: כוח החיכוך, en: friction}
-  - {he: כוח המשיכה, en: gravity}
-  answer: 2
+  answer: 0
   explanation_he: כוח המשיכה של כדור הארץ מושך כל דבר כלפי מרכזו. לכן כדור שנזרק למעלה חוזר למטה.
   explanation_en: Earth's gravity pulls everything toward its center, so a ball thrown up comes back down.
   tags: [forces]
-- id: sci.energy.064
+- id: sci.energy.065
   skill: science.energy.forces
   kind: true_false
   grade: 3
@@ -911,7 +926,7 @@ items:
   explanation_he: לא נכון. בלי השפעה גדולה של האוויר, כל החפצים נופלים באותה מהירות. גלילאו הראה זאת לפני כ-400 שנה.
   explanation_en: False. Without much air resistance, all objects fall at the same rate. Galileo showed this about 400 years ago.
   tags: [forces]
-- id: sci.energy.065
+- id: sci.energy.066
   skill: science.energy.forces
   kind: choice
   grade: 3
@@ -920,13 +935,13 @@ items:
   prompt_en: Why is sliding harder in sneakers on carpet than in socks on a smooth floor?
   choices:
   - {he: יש יותר חיכוך, en: there is more friction}
-  - {he: השטיח מגנטי, en: the carpet is magnetic}
   - {he: יש פחות כוח משיכה, en: there is less gravity}
+  - {he: השטיח מגנטי, en: the carpet is magnetic}
   answer: 0
   explanation_he: חיכוך הוא כוח שמאט תנועה בין שני משטחים. משטחים מחוספסים יוצרים יותר חיכוך.
   explanation_en: Friction is a force that slows motion between surfaces. Rough surfaces create more friction.
   tags: [forces]
-- id: sci.energy.066
+- id: sci.energy.067
   skill: science.energy.forces
   kind: choice
   grade: 4
@@ -935,13 +950,13 @@ items:
   prompt_en: What can a force do to an object?
   choices:
   - {he: 'להזיז, לעצור, לשנות כיוון או צורה', en: 'move it, stop it, change its direction or shape'}
-  - {he: רק לצבוע אותו, en: only color it}
   - {he: רק לחמם אותו, en: only heat it}
+  - {he: רק לצבוע אותו, en: only color it}
   answer: 0
   explanation_he: כוח יכול להתחיל תנועה, לעצור אותה, לשנות את כיוונה, ואפילו למעוך חפץ, כמו בצק.
   explanation_en: A force can start motion, stop it, change its direction, and even squash an object, like dough.
   tags: [forces]
-- id: sci.energy.067
+- id: sci.energy.068
   skill: science.energy.forces
   kind: true_false
   grade: 4
@@ -952,7 +967,7 @@ items:
   explanation_he: נכון. למצנח שטח גדול שדוחף הרבה אוויר. האוויר דוחף אותו בחזרה, וכך הנפילה איטית ובטוחה.
   explanation_en: True. A parachute's large area pushes against lots of air, and the air pushes back, so the fall is slow and safe.
   tags: [forces]
-- id: sci.energy.068
+- id: sci.energy.069
   skill: science.energy.forces
   kind: choice
   grade: 4
@@ -960,14 +975,14 @@ items:
   prompt_he: למה צמיגים של מכוניות מחוספסים, עם חריצים?
   prompt_en: Why do car tires have rough treads?
   choices:
+  - {he: כדי להקטין את המשקל, en: to reduce weight}
   - {he: כדי שיהיו יפים, en: to look nice}
   - {he: כדי ליצור חיכוך ולא להחליק, en: to create friction and not skid}
-  - {he: כדי להקטין את המשקל, en: to reduce weight}
-  answer: 1
+  answer: 2
   explanation_he: החריצים אוחזים בכביש ומרחיקים מים בגשם. בלי חיכוך, המכונית לא הייתה יכולה לנסוע או לבלום.
   explanation_en: Treads grip the road and push water away in rain. Without friction a car couldn't drive or brake.
   tags: [forces]
-- id: sci.energy.069
+- id: sci.energy.070
   skill: science.energy.forces
   kind: choice
   grade: 4
@@ -982,7 +997,7 @@ items:
   explanation_he: יחידת הכוח נקראת ניוטון, על שם המדען אייזק ניוטון. ליד כדור הארץ, משקל של ק"ג אחד הוא בערך 10 ניוטון.
   explanation_en: The unit of force is the newton, named after Isaac Newton. Near Earth, the weight of 1 kg is about 10 newtons.
   tags: [forces]
-- id: sci.energy.070
+- id: sci.energy.071
   skill: science.energy.forces
   kind: choice
   grade: 5
@@ -990,14 +1005,14 @@ items:
   prompt_he: כשמשחקים במשיכת חבל ואף קבוצה לא זזה, מה זה אומר על הכוחות?
   prompt_en: In tug of war, when neither team moves, what does that say about the forces?
   choices:
-  - {he: רק קבוצה אחת מושכת, en: only one team pulls}
   - {he: אין בכלל כוחות, en: there are no forces}
   - {he: הכוחות שווים ומאזנים זה את זה, en: the forces are equal and balanced}
-  answer: 2
+  - {he: רק קבוצה אחת מושכת, en: only one team pulls}
+  answer: 1
   explanation_he: כששני כוחות שווים פועלים בכיוונים הפוכים, הם מתאזנים והחבל לא זז.
   explanation_en: When two equal forces pull in opposite directions they balance, so the rope doesn't move.
   tags: [forces]
-- id: sci.energy.071
+- id: sci.energy.072
   skill: science.energy.forces
   kind: true_false
   grade: 4
@@ -1008,7 +1023,7 @@ items:
   explanation_he: לא נכון. הכדור נעצר כי כוח החיכוך עם הדשא והאוויר מאט אותו. על משטח חלק מאוד הוא היה מתגלגל רחוק הרבה יותר.
   explanation_en: False. It stops because friction with the grass and air slows it. On a very smooth surface it would roll much farther.
   tags: [forces]
-- id: sci.energy.072
+- id: sci.energy.073
   skill: science.energy.forces
   kind: order
   grade: 4
@@ -1018,13 +1033,13 @@ items:
   choices:
   - {he: חול, en: sand}
   - {he: קרח, en: ice}
-  - {he: שטיח, en: carpet}
   - {he: רצפת עץ, en: wooden floor}
-  answer: [0, 2, 3, 1]
+  - {he: שטיח, en: carpet}
+  answer: [0, 3, 2, 1]
   explanation_he: ככל שהמשטח חלק יותר, החיכוך קטן יותר והמכונית נוסעת רחוק יותר. בחול החיכוך הכי גדול.
   explanation_en: The smoother the surface, the less friction and the farther the car goes. Sand has the most friction.
   tags: [forces]
-- id: sci.energy.073
+- id: sci.energy.074
   skill: science.energy.forces
   kind: choice
   grade: 5
@@ -1032,14 +1047,14 @@ items:
   prompt_he: משקל של אסטרונאוט על הירח קטן יותר מאשר על כדור הארץ. למה?
   prompt_en: An astronaut weighs less on the moon than on Earth. Why?
   choices:
-  - {he: אין אוויר על הירח, en: there's no air on the moon}
-  - {he: האסטרונאוט רזה יותר, en: the astronaut got thinner}
   - {he: כוח המשיכה של הירח חלש יותר, en: the moon's gravity is weaker}
-  answer: 2
+  - {he: האסטרונאוט רזה יותר, en: the astronaut got thinner}
+  - {he: אין אוויר על הירח, en: there's no air on the moon}
+  answer: 0
   explanation_he: כוח המשיכה על הירח הוא בערך שישית מזה של כדור הארץ. כמות החומר בגוף, המסה, לא משתנה.
   explanation_en: The moon's gravity is about one sixth of Earth's. The amount of matter in the body, its mass, doesn't change.
   tags: [forces]
-- id: sci.energy.074
+- id: sci.energy.075
   skill: science.energy.electricity
   kind: choice
   grade: 3
@@ -1048,13 +1063,13 @@ items:
   prompt_en: Which of these runs on electricity?
   choices:
   - {he: מקרר, en: refrigerator}
-  - {he: אופניים רגילים, en: an ordinary bicycle}
   - {he: מטריה, en: umbrella}
+  - {he: אופניים רגילים, en: an ordinary bicycle}
   answer: 0
   explanation_he: מקרר צריך חשמל כדי לקרר. אופניים רגילים זזים בכוח הרגליים, ומטריה לא צריכה אנרגיה.
   explanation_en: A fridge needs electricity to keep cool. A bicycle moves by leg power, and an umbrella needs no energy.
   tags: [electricity]
-- id: sci.energy.075
+- id: sci.energy.076
   skill: science.energy.electricity
   kind: choice
   grade: 4
@@ -1063,13 +1078,13 @@ items:
   prompt_en: What does a bulb need to light up in a circuit?
   choices:
   - {he: מעגל סגור עם מקור חשמל, en: a closed loop with a power source}
-  - {he: מים, en: water}
   - {he: רק חוט אחד, en: only one wire}
+  - {he: מים, en: water}
   answer: 0
   explanation_he: 'הזרם זורם רק במעגל סגור: מהסוללה, דרך החוטים והנורה, ובחזרה לסוללה.'
   explanation_en: 'Current flows only in a closed loop: from the battery, through the wires and bulb, and back to the battery.'
   tags: [electricity]
-- id: sci.energy.076
+- id: sci.energy.077
   skill: science.energy.electricity
   kind: choice
   grade: 4
@@ -1077,14 +1092,14 @@ items:
   prompt_he: איזה חומר הוא מוליך חשמל?
   prompt_en: Which material conducts electricity?
   choices:
+  - {he: עץ יבש, en: dry wood}
   - {he: נחושת, en: copper}
   - {he: פלסטיק, en: plastic}
-  - {he: עץ יבש, en: dry wood}
-  answer: 0
+  answer: 1
   explanation_he: מתכות כמו נחושת מוליכות חשמל, ולכן חוטי חשמל עשויים מנחושת ומצופים בפלסטיק מבודד.
   explanation_en: Metals like copper conduct electricity, so wires are copper coated in insulating plastic.
   tags: [electricity]
-- id: sci.energy.077
+- id: sci.energy.078
   skill: science.energy.electricity
   kind: true_false
   grade: 3
@@ -1095,7 +1110,7 @@ items:
   explanation_he: לא נכון, לעולם לא! החשמל בשקע חזק מאוד ויכול לגרום לפגיעה קשה. לא נוגעים בשקעים ובחוטים חשופים.
   explanation_en: False, never! The electricity in a socket is very strong and can cause serious injury. Don't touch sockets or bare wires.
   tags: [electricity]
-- id: sci.energy.078
+- id: sci.energy.079
   skill: science.energy.electricity
   kind: choice
   grade: 4
@@ -1103,14 +1118,14 @@ items:
   prompt_he: מה תפקיד המפסק במעגל חשמלי?
   prompt_en: What does a switch do in a circuit?
   choices:
-  - {he: מחליף את הנורה, en: replaces the bulb}
-  - {he: פותח וסוגר את המעגל, en: opens and closes the circuit}
   - {he: מייצר חשמל, en: makes electricity}
+  - {he: פותח וסוגר את המעגל, en: opens and closes the circuit}
+  - {he: מחליף את הנורה, en: replaces the bulb}
   answer: 1
   explanation_he: כשהמפסק סגור הזרם זורם והנורה דולקת. כשהוא פתוח המעגל נקטע והנורה כבה.
   explanation_en: When the switch is closed current flows and the bulb lights. When it's open the circuit breaks and the bulb goes out.
   tags: [electricity]
-- id: sci.energy.079
+- id: sci.energy.080
   skill: science.energy.electricity
   kind: true_false
   grade: 4
@@ -1121,7 +1136,7 @@ items:
   explanation_he: נכון. מים עם מלחים מוליכים חשמל, ולכן ידיים רטובות מגבירות את הסכנה להתחשמל.
   explanation_en: True. Water with dissolved salts conducts electricity, so wet hands raise the risk of electric shock.
   tags: [electricity]
-- id: sci.energy.080
+- id: sci.energy.081
   skill: science.energy.electricity
   kind: choice
   grade: 5
@@ -1136,7 +1151,7 @@ items:
   explanation_he: בשפשוף עוברים אלקטרונים מהשיער לבלון. לבלון יש עכשיו מטען שלילי, והוא נמשך לקיר.
   explanation_en: Rubbing moves electrons from hair to the balloon, giving it a negative charge that attracts it to the wall.
   tags: [electricity]
-- id: sci.energy.081
+- id: sci.energy.082
   skill: science.energy.electricity
   kind: choice
   grade: 5
@@ -1145,13 +1160,13 @@ items:
   prompt_en: In a series circuit with two bulbs, one burns out. What happens to the other?
   choices:
   - {he: היא תדלק חזק יותר, en: it shines brighter}
-  - {he: גם היא תכבה, en: it goes out too}
   - {he: היא תתחיל לנגן, en: it starts to play music}
-  answer: 1
+  - {he: גם היא תכבה, en: it goes out too}
+  answer: 2
   explanation_he: במעגל טורי יש דרך אחת בלבד לזרם. נורה שרופה קוטעת את המעגל, ולכן כל הנורות כבות.
   explanation_en: In a series circuit there's only one path. A burnt-out bulb breaks the loop, so all the bulbs go out.
   tags: [electricity]
-- id: sci.energy.082
+- id: sci.energy.083
   skill: science.energy.electricity
   kind: choice
   grade: 5
@@ -1159,14 +1174,14 @@ items:
   prompt_he: מה מהבאים הוא מבודד חשמלי?
   prompt_en: Which of these is an electrical insulator?
   choices:
-  - {he: כפית מתכת, en: a metal spoon}
   - {he: מטבע, en: a coin}
+  - {he: כפית מתכת, en: a metal spoon}
   - {he: גומי, en: rubber}
   answer: 2
   explanation_he: גומי ופלסטיק לא מעבירים זרם, ולכן מכסים בהם חוטים, תקעים וידיות של כלים חשמליים.
   explanation_en: Rubber and plastic don't carry current, so they cover wires, plugs and the handles of electric tools.
   tags: [electricity]
-- id: sci.energy.083
+- id: sci.energy.084
   skill: science.energy.electricity
   kind: true_false
   grade: 5
@@ -1177,7 +1192,7 @@ items:
   explanation_he: נכון. בענני סערה נוצרים מטענים חשמליים גדולים. הברק הוא פריקה שלהם, ולכן בסופה לא עומדים מתחת לעץ בודד.
   explanation_en: True. Big electric charges build up in storm clouds. Lightning is their discharge, so in a storm don't stand under a lone tree.
   tags: [electricity]
-- id: sci.energy.084
+- id: sci.energy.085
   skill: science.energy.electricity
   kind: order
   grade: 4
@@ -1185,15 +1200,15 @@ items:
   prompt_he: סדרו את הדרך של החשמל מתחנת הכוח עד המנורה בבית.
   prompt_en: Order the path of electricity from power station to lamp.
   choices:
-  - {he: המנורה נדלקת, en: the lamp lights up}
-  - {he: תחנת כוח מייצרת חשמל, en: a power station makes electricity}
   - {he: קווי מתח מובילים אותו, en: power lines carry it}
+  - {he: המנורה נדלקת, en: the lamp lights up}
   - {he: החשמל מגיע לשקע בבית, en: it reaches the home socket}
-  answer: [1, 2, 3, 0]
+  - {he: תחנת כוח מייצרת חשמל, en: a power station makes electricity}
+  answer: [3, 0, 2, 1]
   explanation_he: החשמל מיוצר בתחנת כוח או במתקן סולארי, עובר בקווי חשמל ארוכים, ומגיע לבתים דרך השקעים.
   explanation_en: Electricity is generated at a power station or solar plant, travels on long power lines, and reaches homes through sockets.
   tags: [electricity]
-- id: sci.energy.085
+- id: sci.energy.086
   skill: science.energy.electricity
   kind: choice
   grade: 6
@@ -1201,14 +1216,14 @@ items:
   prompt_he: מה מודדים ביחידה וולט?
   prompt_en: What is measured in volts?
   choices:
+  - {he: מתח חשמלי, en: electric voltage}
   - {he: עוצמת אור, en: light brightness}
   - {he: משקל, en: weight}
-  - {he: מתח חשמלי, en: electric voltage}
-  answer: 2
+  answer: 0
   explanation_he: וולט מודד מתח, כלומר כמה חזק מקור החשמל "דוחף" את הזרם. סוללה קטנה היא 1.5 וולט, ושקע בבית בישראל 230 וולט.
   explanation_en: Volts measure voltage, how hard a source pushes the current. A small battery is 1.5 V; an Israeli home socket is 230 V.
   tags: [electricity]
-- id: sci.energy.086
+- id: sci.energy.087
   skill: science.energy.machines
   kind: choice
   grade: 4
@@ -1216,14 +1231,14 @@ items:
   prompt_he: נדנדה (מתקן שבו יושבים משני הצדדים) היא דוגמה ל...
   prompt_en: A seesaw is an example of...
   choices:
-  - {he: מנוף, en: a lever}
-  - {he: גלגלת, en: a pulley}
   - {he: בורג, en: a screw}
-  answer: 0
+  - {he: גלגלת, en: a pulley}
+  - {he: מנוף, en: a lever}
+  answer: 2
   explanation_he: מנוף הוא מוט שמסתובב סביב נקודת משען. בנדנדה נקודת המשען היא באמצע.
   explanation_en: A lever is a bar that turns around a pivot point. On a seesaw the pivot is in the middle.
   tags: [machines]
-- id: sci.energy.087
+- id: sci.energy.088
   skill: science.energy.machines
   kind: choice
   grade: 4
@@ -1231,14 +1246,14 @@ items:
   prompt_he: איזו מכונה פשוטה עוזרת להעלות דגל לראש התורן?
   prompt_en: Which simple machine helps raise a flag to the top of a pole?
   choices:
-  - {he: טריז, en: a wedge}
   - {he: מישור משופע, en: an inclined plane}
   - {he: גלגלת, en: a pulley}
-  answer: 2
+  - {he: טריז, en: a wedge}
+  answer: 1
   explanation_he: בגלגלת חבל עובר על גלגל. מושכים למטה, והדגל עולה למעלה. קל יותר למשוך כלפי מטה.
   explanation_en: In a pulley a rope runs over a wheel. You pull down and the flag goes up; pulling down is easier.
   tags: [machines]
-- id: sci.energy.088
+- id: sci.energy.089
   skill: science.energy.machines
   kind: choice
   grade: 4
@@ -1253,7 +1268,7 @@ items:
   explanation_he: רמפה היא מישור משופע. הדרך ארוכה יותר, אבל צריך פחות כוח כדי לעלות.
   explanation_en: A ramp is an inclined plane. The path is longer, but you need less force to go up.
   tags: [machines]
-- id: sci.energy.089
+- id: sci.energy.090
   skill: science.energy.machines
   kind: true_false
   grade: 5
@@ -1264,7 +1279,7 @@ items:
   explanation_he: 'נכון. זה הסוד של מנופים, רמפות וגלגלות: מחליפים כוח גדול בדרך קצרה בכוח קטן בדרך ארוכה.'
   explanation_en: 'True. That''s the secret of levers, ramps and pulleys: trading a big force over a short distance for a small force over a long one.'
   tags: [machines]
-- id: sci.energy.090
+- id: sci.energy.091
   skill: science.energy.machines
   kind: choice
   grade: 5
@@ -1272,14 +1287,14 @@ items:
   prompt_he: איזו מכונה פשוטה היא הלהב של גרזן או סכין?
   prompt_en: Which simple machine is the blade of an axe or knife?
   choices:
+  - {he: טריז, en: a wedge}
   - {he: גלגלת, en: a pulley}
   - {he: גלגל וסרן, en: a wheel and axle}
-  - {he: טריז, en: a wedge}
-  answer: 2
+  answer: 0
   explanation_he: טריז הוא חפץ עם קצה חד שהולך ומתרחב. הוא הופך כוח דחיפה לכוח שמפצל לצדדים.
   explanation_en: A wedge is thin at one edge and wider behind. It turns a downward push into a force that splits sideways.
   tags: [machines]
-- id: sci.energy.091
+- id: sci.energy.092
   skill: science.energy.machines
   kind: choice
   grade: 5
@@ -1287,14 +1302,14 @@ items:
   prompt_he: מספריים בנויים משני...
   prompt_en: Scissors are made of two...
   choices:
+  - {he: ברגים, en: screws}
   - {he: מנופים, en: levers}
   - {he: גלגלות, en: pulleys}
-  - {he: ברגים, en: screws}
-  answer: 0
+  answer: 1
   explanation_he: כל להב במספריים הוא מנוף, והבורג באמצע הוא נקודת המשען.
   explanation_en: Each scissor blade is a lever, and the screw in the middle is the pivot.
   tags: [machines]
-- id: sci.energy.092
+- id: sci.energy.093
   skill: science.energy.machines
   kind: choice
   grade: 5
@@ -1302,14 +1317,14 @@ items:
   prompt_he: איך קל יותר להרים אבן כבדה עם מוט?
   prompt_en: How is it easier to lift a heavy stone with a bar?
   choices:
-  - {he: להחזיק את המוט באמצע, en: hold the bar in the middle}
   - {he: לשים את נקודת המשען קרוב לאבן, en: put the pivot close to the stone}
   - {he: לשים את נקודת המשען קרוב לידיים, en: put the pivot close to your hands}
-  answer: 1
+  - {he: להחזיק את המוט באמצע, en: hold the bar in the middle}
+  answer: 0
   explanation_he: ככל שהידיים רחוקות יותר מנקודת המשען והאבן קרובה אליה, צריך פחות כוח כדי להרים.
   explanation_en: The farther your hands are from the pivot and the closer the stone, the less force you need.
   tags: [machines]
-- id: sci.energy.093
+- id: sci.energy.094
   skill: science.energy.machines
   kind: true_false
   grade: 4
@@ -1320,7 +1335,7 @@ items:
   explanation_he: לא נכון. המשקל אותו דבר, אבל הגלגלים מקטינים מאוד את החיכוך עם הרצפה, ולכן קל יותר למשוך.
   explanation_en: False. The weight is the same, but wheels greatly reduce friction with the floor, so it's easier to pull.
   tags: [machines]
-- id: sci.energy.094
+- id: sci.energy.095
   skill: science.energy.machines
   kind: choice
   grade: 6
@@ -1328,14 +1343,14 @@ items:
   prompt_he: איזו מכונה פשוטה מסתתרת בבורג או במכסה של צנצנת?
   prompt_en: Which simple machine is hidden in a screw or a jar lid?
   choices:
-  - {he: מנוף, en: a lever}
   - {he: גלגלת, en: a pulley}
   - {he: מישור משופע מלופף, en: an inclined plane wrapped around}
-  answer: 2
+  - {he: מנוף, en: a lever}
+  answer: 1
   explanation_he: ההברגה היא בעצם רמפה שמלופפת סביב גליל. כל סיבוב מקדם את הבורג קצת, בכוח קטן.
   explanation_en: The thread is really a ramp wrapped around a cylinder. Each turn advances the screw a little with little force.
   tags: [machines]
-- id: sci.energy.095
+- id: sci.energy.096
   skill: science.energy.machines
   kind: choice
   grade: 5
@@ -1350,7 +1365,7 @@ items:
   explanation_he: הגלגל הגדול מסובב את הסרן הקטן שבמרכזו. כוח קטן על הגלגל הגדול יוצר כוח גדול על הסרן.
   explanation_en: The large wheel turns the small axle at its center. A small force on the big wheel makes a big force on the axle.
   tags: [machines]
-- id: sci.energy.096
+- id: sci.energy.097
   skill: science.energy.machines
   kind: order
   grade: 5
@@ -1359,13 +1374,13 @@ items:
   prompt_en: Order the ramps from needing the most force to the least.
   choices:
   - {he: רמפה באורך בינוני, en: a medium-length ramp}
-  - {he: רמפה קצרה ותלולה מאוד, en: a very short steep ramp}
   - {he: רמפה ארוכה ומתונה, en: a long gentle ramp}
-  answer: [1, 0, 2]
+  - {he: רמפה קצרה ותלולה מאוד, en: a very short steep ramp}
+  answer: [2, 0, 1]
   explanation_he: לאותו גובה, ככל שהרמפה ארוכה ומתונה יותר, צריך פחות כוח, אבל הולכים מרחק ארוך יותר.
   explanation_en: For the same height, the longer and gentler the ramp, the less force you need, though you travel farther.
   tags: [machines]
-- id: sci.energy.097
+- id: sci.energy.098
   skill: science.energy.machines
   kind: choice
   grade: 6
@@ -1373,14 +1388,14 @@ items:
   prompt_he: פותחן בקבוקים הוא מנוף. איפה נקודת המשען?
   prompt_en: A bottle opener is a lever. Where is the pivot?
   choices:
-  - {he: בקצה שנשען על המכסה, en: at the end resting on top of the cap}
   - {he: ביד שמחזיקה, en: at the hand holding it}
   - {he: באמצע הבקבוק, en: in the middle of the bottle}
-  answer: 0
+  - {he: בקצה שנשען על המכסה, en: at the end resting on top of the cap}
+  answer: 2
   explanation_he: הקצה של הפותחן נשען על ראש המכסה ומשמש נקודת משען, והשן מרימה את שולי המכסה. היד רחוקה, ולכן צריך מעט כוח.
   explanation_en: The opener's tip rests on top of the cap as the pivot while its lip lifts the cap's edge. Your hand is far away, so little force is needed.
   tags: [machines]
-- id: sci.energy.098
+- id: sci.energy.099
   skill: science.energy.motion
   kind: choice
   grade: 7
@@ -1395,7 +1410,7 @@ items:
   explanation_he: 'מהירות = דרך חלקי זמן: 120 חלקי 2 שווה 60 קילומטר לשעה.'
   explanation_en: 'Speed = distance / time: 120 / 2 = 60 km per hour.'
   tags: [motion]
-- id: sci.energy.099
+- id: sci.energy.100
   skill: science.energy.motion
   kind: choice
   grade: 8
@@ -1403,14 +1418,14 @@ items:
   prompt_he: רץ רץ 100 מטר ב-20 שניות. מה מהירותו?
   prompt_en: A runner covers 100 m in 20 seconds. What is the speed?
   choices:
+  - {he: 5 מטר בשנייה, en: 5 m/s}
   - {he: 2000 מטר בשנייה, en: 2000 m/s}
   - {he: 0.2 מטר בשנייה, en: 0.2 m/s}
-  - {he: 5 מטר בשנייה, en: 5 m/s}
-  answer: 2
+  answer: 0
   explanation_he: 'מהירות = דרך חלקי זמן: 100 מטר חלקי 20 שניות שווה 5 מטר בשנייה.'
   explanation_en: 'Speed = distance / time: 100 m / 20 s = 5 m/s.'
   tags: [motion]
-- id: sci.energy.100
+- id: sci.energy.101
   skill: science.energy.motion
   kind: choice
   grade: 8
@@ -1418,14 +1433,14 @@ items:
   prompt_he: למה חובה לחגור חגורת בטיחות במכונית?
   prompt_en: Why must we wear a seatbelt in a car?
   choices:
+  - {he: כדי שהמכונית תיסע מהר, en: so the car goes faster}
   - {he: בבלימה פתאומית הגוף ממשיך לנוע קדימה, en: in sudden braking the body keeps moving forward}
   - {he: כדי לא להתעייף, en: to avoid getting tired}
-  - {he: כדי שהמכונית תיסע מהר, en: so the car goes faster}
-  answer: 0
+  answer: 1
   explanation_he: 'זה החוק הראשון של ניוטון, ההתמדה: גוף בתנועה ממשיך לנוע עד שכוח עוצר אותו. החגורה היא הכוח שעוצר אותנו בבטחה.'
   explanation_en: 'That''s Newton''s first law, inertia: a moving body keeps moving until a force stops it. The belt is the force that stops us safely.'
   tags: [motion]
-- id: sci.energy.101
+- id: sci.energy.102
   skill: science.energy.motion
   kind: choice
   grade: 8
@@ -1433,14 +1448,14 @@ items:
   prompt_he: מה אומר החוק השלישי של ניוטון?
   prompt_en: What does Newton's third law say?
   choices:
-  - {he: כל גוף נעצר מעצמו, en: everything stops by itself}
   - {he: לכל פעולה יש תגובה שווה והפוכה, en: every action has an equal and opposite reaction}
   - {he: גופים כבדים נופלים מהר יותר, en: heavy things fall faster}
-  answer: 1
+  - {he: כל גוף נעצר מעצמו, en: everything stops by itself}
+  answer: 0
   explanation_he: כשאתה דוחף קיר, הקיר דוחף אותך באותו כוח בכיוון ההפוך. כך גם רקטה דוחפת גזים לאחור ונדחפת קדימה.
   explanation_en: When you push a wall, it pushes you back with the same force. A rocket pushes gas backward and is pushed forward.
   tags: [motion]
-- id: sci.energy.102
+- id: sci.energy.103
   skill: science.energy.motion
   kind: choice
   grade: 9
@@ -1448,14 +1463,14 @@ items:
   prompt_he: לפי החוק השני של ניוטון (F=ma), מה קורה כשמפעילים אותו כוח על גוף בעל מסה כפולה?
   prompt_en: By Newton's second law (F=ma), what happens when the same force acts on double the mass?
   choices:
-  - {he: התאוצה קטנה פי 2, en: the acceleration is halved}
-  - {he: התאוצה גדלה פי 2, en: the acceleration doubles}
   - {he: אין שינוי בתאוצה, en: no change in acceleration}
-  answer: 0
+  - {he: התאוצה גדלה פי 2, en: the acceleration doubles}
+  - {he: התאוצה קטנה פי 2, en: the acceleration is halved}
+  answer: 2
   explanation_he: לפי F=ma, כשהכוח קבוע, הכפלת המסה מקטינה את התאוצה פי 2. לכן קשה יותר להאיץ משאית מאשר אופניים.
   explanation_en: By F=ma, with the same force, doubling the mass halves the acceleration. That's why a truck is harder to speed up than a bike.
   tags: [motion]
-- id: sci.energy.103
+- id: sci.energy.104
   skill: science.energy.motion
   kind: true_false
   grade: 8
@@ -1466,7 +1481,7 @@ items:
   explanation_he: נכון. מסה היא כמות החומר והיא לא משתנה. משקל הוא כוח המשיכה שפועל על הגוף, ועל הירח הוא בערך שישית.
   explanation_en: True. Mass is the amount of matter and doesn't change. Weight is the gravity force on the body, about one sixth on the moon.
   tags: [motion]
-- id: sci.energy.104
+- id: sci.energy.105
   skill: science.energy.motion
   kind: choice
   grade: 9
@@ -1475,13 +1490,13 @@ items:
   prompt_en: What is 36 km/h in meters per second?
   choices:
   - {he: 36 מטר בשנייה, en: 36 m/s}
-  - {he: 3.6 מטר בשנייה, en: 3.6 m/s}
   - {he: 10 מטר בשנייה, en: 10 m/s}
-  answer: 2
+  - {he: 3.6 מטר בשנייה, en: 3.6 m/s}
+  answer: 1
   explanation_he: 'בשעה יש 3,600 שניות ובקילומטר 1,000 מטר. לכן מחלקים ב-3.6: 36 חלקי 3.6 שווה 10.'
   explanation_en: 'An hour has 3,600 seconds and a kilometer 1,000 meters, so divide by 3.6: 36 / 3.6 = 10.'
   tags: [motion]
-- id: sci.energy.105
+- id: sci.energy.106
   skill: science.energy.motion
   kind: choice
   grade: 9
@@ -1496,7 +1511,7 @@ items:
   explanation_he: תאוצה מודדת כמה מהר המהירות משתנה. גוף שנופל חופשי ליד כדור הארץ מאיץ בכ-9.8 מטר לשנייה בכל שנייה.
   explanation_en: Acceleration measures how quickly velocity changes. A freely falling body near Earth accelerates at about 9.8 m/s every second.
   tags: [motion]
-- id: sci.energy.106
+- id: sci.energy.107
   skill: science.energy.motion
   kind: true_false
   grade: 8
@@ -1507,7 +1522,7 @@ items:
   explanation_he: לא נכון. לפי החוק הראשון של ניוטון, בלי כוח שקול גוף ממשיך לנוע במהירות קבועה. בחיים אנחנו צריכים לדחוף רק כדי להתגבר על חיכוך.
   explanation_en: False. By Newton's first law, with no net force a body keeps moving at constant speed. In daily life we push only to overcome friction.
   tags: [motion]
-- id: sci.energy.107
+- id: sci.energy.108
   skill: science.energy.motion
   kind: choice
   grade: 9
@@ -1515,14 +1530,14 @@ items:
   prompt_he: חפץ שנופל מגובה נוחת אחרי 2 שניות. בערך מה מהירותו ברגע הנחיתה (בלי התנגדות אוויר)?
   prompt_en: An object dropped from a height lands after 2 seconds. About how fast is it going on impact (no air resistance)?
   choices:
-  - {he: כ-200 מטר בשנייה, en: about 200 m/s}
-  - {he: כ-20 מטר בשנייה, en: about 20 m/s}
   - {he: כ-2 מטר בשנייה, en: about 2 m/s}
+  - {he: כ-20 מטר בשנייה, en: about 20 m/s}
+  - {he: כ-200 מטר בשנייה, en: about 200 m/s}
   answer: 1
   explanation_he: 'בכל שנייה של נפילה חופשית המהירות גדלה בכ-10 מטר לשנייה. אחרי 2 שניות: בערך 20 מטר לשנייה.'
   explanation_en: 'In free fall speed grows by about 10 m/s each second. After 2 seconds: about 20 m/s.'
   tags: [motion]
-- id: sci.energy.108
+- id: sci.energy.109
   skill: science.energy.motion
   kind: order
   grade: 8
@@ -1530,15 +1545,15 @@ items:
   prompt_he: סדרו לפי המהירות, מהאיטי למהיר.
   prompt_en: Order by speed, slowest first.
   choices:
-  - {he: מטוס נוסעים, en: a passenger jet, emoji: '2708'}
-  - {he: אדם שהולך, en: a person walking, emoji: 1f6b6}
-  - {he: מכונית בכביש עירוני, en: a car in town, emoji: 1f697}
   - {he: חילזון, en: snail, emoji: 1f40c}
-  answer: [3, 1, 2, 0]
+  - {he: אדם שהולך, en: a person walking, emoji: 1f6b6}
+  - {he: מטוס נוסעים, en: a passenger jet, emoji: '2708'}
+  - {he: מכונית בכביש עירוני, en: a car in town, emoji: 1f697}
+  answer: [0, 1, 3, 2]
   explanation_he: חילזון זוחל כמה מטרים בשעה, אדם הולך כ-5 קמ"ש, מכונית בעיר כ-50 קמ"ש ומטוס נוסעים כ-900 קמ"ש.
   explanation_en: A snail crawls a few meters an hour, people walk about 5 km/h, cars in town about 50 km/h, and jets about 900 km/h.
   tags: [motion]
-- id: sci.energy.109
+- id: sci.energy.110
   skill: science.energy.motion
   kind: choice
   grade: 8
@@ -1547,9 +1562,25 @@ items:
   prompt_en: A swimmer pushes water backward. What happens to the swimmer?
   choices:
   - {he: המים דוחפים אותו קדימה, en: the water pushes the swimmer forward}
-  - {he: הוא נע לאחור, en: the swimmer moves backward}
   - {he: הוא שוקע, en: the swimmer sinks}
+  - {he: הוא נע לאחור, en: the swimmer moves backward}
   answer: 0
   explanation_he: 'זה החוק השלישי של ניוטון: השחיין מפעיל כוח על המים, והמים מפעילים עליו כוח שווה בכיוון ההפוך.'
   explanation_en: 'That''s Newton''s third law: the swimmer pushes the water, and the water pushes back equally in the opposite direction.'
+  tags: [motion]
+- id: sci.energy.111
+  skill: science.energy.motion
+  kind: order
+  grade: 8
+  difficulty: 1.0
+  prompt_he: סדרו את הנסיעות לפי המהירות הממוצעת, מהאיטית למהירה.
+  prompt_en: Order the trips by average speed, slowest first.
+  choices:
+  - {he: 80 ק"מ בשעה, en: 80 km in 1 hour}
+  - {he: 150 ק"מ ב-3 שעות, en: 150 km in 3 hours}
+  - {he: 10 ק"מ בשעתיים, en: 10 km in 2 hours}
+  - {he: 60 ק"מ בשעתיים, en: 60 km in 2 hours}
+  answer: [2, 3, 1, 0]
+  explanation_he: 'מחלקים דרך בזמן: 5, 30, 50 ו-80 קמ"ש. כך משווים בין נסיעות באורך ובזמן שונים.'
+  explanation_en: 'Divide distance by time: 5, 30, 50 and 80 km/h. That''s how to compare trips of different lengths and times.'
   tags: [motion]

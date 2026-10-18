@@ -178,6 +178,22 @@ items:
   explanation_en: False. Stoves and ovens can be very hot even without visible flames. Stay away and ask an adult.
   tags: [tech_safety]
 - id: sci.tech.013
+  skill: science.tech.safety
+  kind: order
+  grade: 2
+  difficulty: 0.0
+  prompt_he: סדרו מה עושים כשיש שריפה בבית.
+  prompt_en: Order what to do if there is a fire at home.
+  choices:
+  - {he: מתקשרים ל-102 מבחוץ, en: call 102 from outside}
+  - {he: יוצאים מהבית מהר, en: get out of the house quickly}
+  - {he: מחכים בחוץ ולא חוזרים פנימה, en: wait outside and don't go back in}
+  - {he: מזהירים את כולם בקול, en: warn everyone loudly}
+  answer: [3, 1, 0, 2]
+  explanation_he: קודם כול יוצאים בבטחה. מתקשרים לכבאות רק כשכבר נמצאים בחוץ, ולא חוזרים פנימה בשום מקרה, גם לא בשביל צעצוע.
+  explanation_en: First get out safely. Call the fire service once you're outside, and never go back in, not even for a toy.
+  tags: [tech_safety]
+- id: sci.tech.014
   skill: science.tech.inventions
   kind: choice
   grade: 2
@@ -185,14 +201,14 @@ items:
   prompt_he: איזו המצאה עתיקה עוזרת להזיז דברים כבדים בקלות?
   prompt_en: Which ancient invention helps move heavy things easily?
   choices:
-  - {he: המטריה, en: the umbrella, emoji: '2602'}
   - {he: הגלגל, en: the wheel, emoji: 1f6de}
+  - {he: המטריה, en: the umbrella, emoji: '2602'}
   - {he: המזלג, en: the fork, emoji: 1f374}
-  answer: 1
+  answer: 0
   explanation_he: הגלגל הוא אחת ההמצאות החשובות ביותר. הוא מקטין חיכוך ומאפשר עגלות, מכוניות ומכונות.
   explanation_en: The wheel is one of the most important inventions. It reduces friction and makes carts, cars and machines possible.
   tags: [inventions]
-- id: sci.tech.014
+- id: sci.tech.015
   skill: science.tech.inventions
   kind: choice
   grade: 3
@@ -200,14 +216,14 @@ items:
   prompt_he: מי זכור כממציא של הנורה החשמלית המעשית?
   prompt_en: Who is remembered for inventing the practical electric light bulb?
   choices:
-  - {he: תומס אדיסון, en: Thomas Edison}
-  - {he: אלברט איינשטיין, en: Albert Einstein}
   - {he: לואי פסטר, en: Louis Pasteur}
-  answer: 0
+  - {he: אלברט איינשטיין, en: Albert Einstein}
+  - {he: תומס אדיסון, en: Thomas Edison}
+  answer: 2
   explanation_he: אדיסון וצוותו פיתחו בשנת 1879 נורה שדולקת שעות רבות. גם ממציאים אחרים עבדו על נורות.
   explanation_en: In 1879 Edison and his team developed a bulb that glowed for many hours. Other inventors worked on bulbs too.
   tags: [inventions]
-- id: sci.tech.015
+- id: sci.tech.016
   skill: science.tech.inventions
   kind: choice
   grade: 4
@@ -222,7 +238,7 @@ items:
   explanation_he: דיסק און קי פותח בחברה הישראלית אם-סיסטמס. הוא שומר מידע בשבב קטן בלי חלקים זזים.
   explanation_en: The Disk-on-Key was developed by the Israeli company M-Systems. It stores data on a small chip with no moving parts.
   tags: [inventions]
-- id: sci.tech.016
+- id: sci.tech.017
   skill: science.tech.inventions
   kind: choice
   grade: 3
@@ -230,14 +246,14 @@ items:
   prompt_he: מה עשו האחים רייט בשנת 1903?
   prompt_en: What did the Wright brothers do in 1903?
   choices:
-  - {he: בנו את הרכבת הראשונה, en: built the first train, emoji: 1f682}
   - {he: המציאו את הטלפון, en: invented the telephone, emoji: 260e}
+  - {he: בנו את הרכבת הראשונה, en: built the first train, emoji: 1f682}
   - {he: הטיסו את המטוס הממונע הראשון, en: flew the first powered airplane, emoji: '2708'}
   answer: 2
   explanation_he: הטיסה הראשונה שלהם נמשכה רק 12 שניות. היום מטוסים חוצים אוקיינוסים בכמה שעות.
   explanation_en: Their first flight lasted just 12 seconds. Today planes cross oceans in a few hours.
   tags: [inventions]
-- id: sci.tech.017
+- id: sci.tech.018
   skill: science.tech.inventions
   kind: true_false
   grade: 4
@@ -248,7 +264,7 @@ items:
   explanation_he: נכון. לפני הדפוס העתיקו ספרים ביד, וזה לקח חודשים. הדפוס, לפני כ-600 שנה, הפך ספרים לזולים ונפוצים.
   explanation_en: True. Before printing, books were copied by hand over months. The press, about 600 years ago, made books cheap and common.
   tags: [inventions]
-- id: sci.tech.018
+- id: sci.tech.019
   skill: science.tech.inventions
   kind: order
   grade: 4
@@ -256,15 +272,15 @@ items:
   prompt_he: סדרו את ההמצאות לפי הזמן שבו הומצאו, מהמוקדמת למאוחרת.
   prompt_en: Order the inventions from earliest to latest.
   choices:
-  - {he: דפוס הספרים, en: the printing press}
   - {he: הטלפון, en: the telephone}
   - {he: האינטרנט, en: the internet}
   - {he: הגלגל, en: the wheel}
-  answer: [3, 0, 1, 2]
+  - {he: דפוס הספרים, en: the printing press}
+  answer: [2, 3, 0, 1]
   explanation_he: הגלגל עתיק מאוד, הדפוס בן כ-600 שנה, הטלפון הומצא לפני כ-150 שנה, והאינטרנט התפתח לפני כ-50 שנה.
   explanation_en: The wheel is very ancient, printing about 600 years old, the telephone about 150 years, and the internet about 50 years.
   tags: [inventions]
-- id: sci.tech.019
+- id: sci.tech.020
   skill: science.tech.inventions
   kind: choice
   grade: 4
@@ -279,7 +295,7 @@ items:
   explanation_he: בשנת 1928 פלמינג שם לב שעובש עצר את גדילת החיידקים בצלחת. מזה פותח הפניצילין, שהציל מיליוני אנשים.
   explanation_en: In 1928 Fleming noticed a mold stopped bacteria growing in a dish. Penicillin was developed from it and saved millions.
   tags: [inventions]
-- id: sci.tech.020
+- id: sci.tech.021
   skill: science.tech.inventions
   kind: choice
   grade: 5
@@ -287,14 +303,14 @@ items:
   prompt_he: איזו המצאה ישראלית היא מצלמה קטנה בתוך כמוסה שבולעים?
   prompt_en: Which Israeli invention is a tiny camera in a swallowable capsule?
   choices:
+  - {he: הגלולה המצלמת, en: the camera pill (PillCam)}
   - {he: הטלסקופ, en: the telescope}
   - {he: השעון המעורר, en: the alarm clock}
-  - {he: הגלולה המצלמת, en: the camera pill (PillCam)}
-  answer: 2
+  answer: 0
   explanation_he: הגלולה המצלמת מצלמת את מערכת העיכול מבפנים, והרופאים רואים את התמונות בלי ניתוח.
   explanation_en: The camera pill photographs the digestive system from inside, so doctors see images without surgery.
   tags: [inventions]
-- id: sci.tech.021
+- id: sci.tech.022
   skill: science.tech.inventions
   kind: true_false
   grade: 3
@@ -305,7 +321,7 @@ items:
   explanation_he: 'לא נכון. הטלפון החכם משלב המצאות רבות: טלפון, מחשב, מסך מגע, מצלמה ו-GPS, שפיתחו אנשים רבים במשך שנים.'
   explanation_en: 'False. A smartphone combines many inventions: phone, computer, touchscreen, camera and GPS, developed by many people over years.'
   tags: [inventions]
-- id: sci.tech.022
+- id: sci.tech.023
   skill: science.tech.inventions
   kind: choice
   grade: 3
@@ -314,13 +330,13 @@ items:
   prompt_en: In which country was paper invented?
   choices:
   - {he: אנגליה, en: England}
-  - {he: סין, en: China}
   - {he: ישראל, en: Israel}
-  answer: 1
+  - {he: סין, en: China}
+  answer: 2
   explanation_he: הנייר הומצא בסין לפני כ-1,900 שנה, מסיבי צמחים. לפני כן כתבו על קלף, פפירוס ולוחות.
   explanation_en: Paper was invented in China about 1,900 years ago from plant fibers. Before that people wrote on parchment, papyrus and tablets.
   tags: [inventions]
-- id: sci.tech.023
+- id: sci.tech.024
   skill: science.tech.inventions
   kind: choice
   grade: 5
@@ -329,13 +345,13 @@ items:
   prompt_en: Which navigation app was developed in Israel and uses drivers' reports?
   choices:
   - {he: מפה מנייר, en: a paper map}
-  - {he: מצפן, en: compass}
   - {he: וייז, en: Waze}
-  answer: 2
+  - {he: מצפן, en: compass}
+  answer: 1
   explanation_he: וייז אוספת מידע מנהגים על פקקים ותאונות, ומחשבת את הדרך המהירה ביותר.
   explanation_en: Waze collects drivers' reports on traffic and accidents and calculates the fastest route.
   tags: [inventions]
-- id: sci.tech.024
+- id: sci.tech.025
   skill: science.tech.inventions
   kind: true_false
   grade: 5
@@ -346,7 +362,7 @@ items:
   explanation_he: נכון. לפניהם מסר לקח ימים ושבועות, עם שליח או בדואר. האותות החשמליים עוברים בחוטים כמעט מיד.
   explanation_en: True. Before them a message took days or weeks by messenger or mail. Electric signals travel along wires almost instantly.
   tags: [inventions]
-- id: sci.tech.025
+- id: sci.tech.026
   skill: science.tech.coding
   kind: choice
   grade: 2
@@ -354,14 +370,14 @@ items:
   prompt_he: מהו אלגוריתם?
   prompt_en: What is an algorithm?
   choices:
-  - {he: רשימת הוראות לפי סדר לביצוע משימה, en: a step-by-step list of instructions for a task}
   - {he: סוג של מחשב, en: a kind of computer}
   - {he: משחק כדור, en: a ball game}
-  answer: 0
+  - {he: רשימת הוראות לפי סדר לביצוע משימה, en: a step-by-step list of instructions for a task}
+  answer: 2
   explanation_he: 'מתכון לעוגה הוא אלגוריתם: הוראות מסודרות שמביאות לתוצאה. גם תוכנה היא אוסף של אלגוריתמים.'
   explanation_en: 'A cake recipe is an algorithm: ordered steps leading to a result. Software is a collection of algorithms.'
   tags: [coding]
-- id: sci.tech.026
+- id: sci.tech.027
   skill: science.tech.coding
   kind: order
   grade: 2
@@ -369,15 +385,15 @@ items:
   prompt_he: סדרו את האלגוריתם לצחצוח שיניים.
   prompt_en: Order the algorithm for brushing teeth.
   choices:
-  - {he: לצחצח את כל השיניים, en: brush all your teeth}
-  - {he: לירוק ולשטוף את הפה, en: spit and rinse}
-  - {he: לשטוף את המברשת, en: rinse the brush}
   - {he: לשים משחה על המברשת, en: put toothpaste on the brush}
-  answer: [3, 0, 1, 2]
+  - {he: לצחצח את כל השיניים, en: brush all your teeth}
+  - {he: לשטוף את המברשת, en: rinse the brush}
+  - {he: לירוק ולשטוף את הפה, en: spit and rinse}
+  answer: [0, 1, 3, 2]
   explanation_he: באלגוריתם הסדר חשוב. אי אפשר לצחצח לפני ששמים משחה, ושוטפים את המברשת בסוף.
   explanation_en: In an algorithm order matters. You can't brush before adding paste, and you rinse the brush at the end.
   tags: [coding]
-- id: sci.tech.027
+- id: sci.tech.028
   skill: science.tech.coding
   kind: choice
   grade: 3
@@ -385,14 +401,14 @@ items:
   prompt_he: איך קוראים לטעות בתוכנית מחשב?
   prompt_en: What is a mistake in a computer program called?
   choices:
-  - {he: באג, en: a bug}
   - {he: כפתור, en: a button}
+  - {he: באג, en: a bug}
   - {he: קובץ, en: a file}
-  answer: 0
+  answer: 1
   explanation_he: באג הוא טעות שגורמת לתוכנה לעבוד לא נכון. מציאת באגים ותיקונם נקראים "דיבאג".
   explanation_en: A bug is an error that makes software work wrong. Finding and fixing bugs is called debugging.
   tags: [coding]
-- id: sci.tech.028
+- id: sci.tech.029
   skill: science.tech.coding
   kind: choice
   grade: 3
@@ -407,7 +423,7 @@ items:
   explanation_he: 'זו לולאה: הוראה שחוזרת כמה פעמים. במקום לכתוב "צעד" שלוש פעמים, כותבים פעם אחת עם "חזור".'
   explanation_en: 'That''s a loop: an instruction repeated several times. Instead of writing "step" three times, you write it once with "repeat".'
   tags: [coding]
-- id: sci.tech.029
+- id: sci.tech.030
   skill: science.tech.coding
   kind: choice
   grade: 3
@@ -415,14 +431,14 @@ items:
   prompt_he: רובוט פונה צפונה. הוא פונה ימינה פעמיים. לאן הוא פונה עכשיו?
   prompt_en: A robot faces north. It turns right twice. Which way does it face now?
   choices:
+  - {he: מזרחה, en: east}
   - {he: צפונה, en: north}
   - {he: דרומה, en: south}
-  - {he: מזרחה, en: east}
-  answer: 1
+  answer: 2
   explanation_he: פנייה ימינה אחת מצפון מביאה למזרח, ופנייה נוספת מביאה לדרום. שתי פניות ימינה הן חצי סיבוב.
   explanation_en: One right turn from north faces east; another faces south. Two right turns make a half turn.
   tags: [coding]
-- id: sci.tech.030
+- id: sci.tech.031
   skill: science.tech.coding
   kind: true_false
   grade: 3
@@ -433,7 +449,7 @@ items:
   explanation_he: נכון. המחשב לא מנחש כוונות. לכן חשוב לכתוב הוראות ברורות ומדויקות, ולבדוק אותן.
   explanation_en: True. A computer doesn't guess intentions, so instructions must be clear and exact, and tested.
   tags: [coding]
-- id: sci.tech.031
+- id: sci.tech.032
   skill: science.tech.coding
   kind: choice
   grade: 4
@@ -448,7 +464,7 @@ items:
   explanation_he: תנאי בודק אם משהו נכון, ורק אז מבצע פעולה. בתכנות כותבים זאת עם המילה if.
   explanation_en: A condition checks if something is true and only then acts. In code it's written with "if".
   tags: [coding]
-- id: sci.tech.032
+- id: sci.tech.033
   skill: science.tech.coding
   kind: choice
   grade: 4
@@ -456,14 +472,14 @@ items:
   prompt_he: מהו משתנה בתכנות?
   prompt_en: What is a variable in programming?
   choices:
-  - {he: טעות בתוכנית, en: a mistake in a program}
   - {he: מחשב שמשנה צבע, en: a computer that changes color}
+  - {he: טעות בתוכנית, en: a mistake in a program}
   - {he: שם לתיבה ששומרת ערך שיכול להשתנות, en: a named box storing a value that can change}
   answer: 2
   explanation_he: למשל, במשחק יש משתנה "ניקוד". בכל פעם שעונים נכון, הערך שלו גדל.
   explanation_en: For example, a game has a "score" variable. Each correct answer increases its value.
   tags: [coding]
-- id: sci.tech.033
+- id: sci.tech.034
   skill: science.tech.coding
   kind: true_false
   grade: 4
@@ -474,7 +490,7 @@ items:
   explanation_he: לא נכון. בעומק, המחשב עובד עם הוראות פשוטות מאוד של 0 ו-1. שפות תכנות הן דרך מדויקת לתת לו הוראות.
   explanation_en: False. Deep down a computer works with very simple instructions in 0s and 1s. Programming languages are a precise way to instruct it.
   tags: [coding]
-- id: sci.tech.034
+- id: sci.tech.035
   skill: science.tech.coding
   kind: choice
   grade: 5
@@ -482,14 +498,14 @@ items:
   prompt_he: בשיטה הבינארית משתמשים רק בשתי ספרות. אילו?
   prompt_en: Binary uses only two digits. Which?
   choices:
-  - {he: 1 ו-2, en: 1 and 2}
   - {he: 5 ו-10, en: 5 and 10}
   - {he: 0 ו-1, en: 0 and 1}
-  answer: 2
+  - {he: 1 ו-2, en: 1 and 2}
+  answer: 1
   explanation_he: בתוך המחשב כל מידע נשמר כרצפים של 0 ו-1, כמו מתג כבוי או דולק.
   explanation_en: Inside a computer all data is stored as sequences of 0s and 1s, like switches off or on.
   tags: [coding]
-- id: sci.tech.035
+- id: sci.tech.036
   skill: science.tech.coding
   kind: choice
   grade: 6
@@ -497,14 +513,14 @@ items:
   prompt_he: מה הערך של המספר הבינארי 101 בשיטה העשרונית?
   prompt_en: What is the binary number 101 in decimal?
   choices:
+  - {he: '101', en: '101'}
   - {he: '3', en: '3'}
   - {he: '5', en: '5'}
-  - {he: '101', en: '101'}
-  answer: 1
+  answer: 2
   explanation_he: 'בבינארי כל מקום שווה פי 2 מהקודם: 4, 2, 1. לכן 101 הוא 4 ועוד 0 ועוד 1, כלומר 5.'
   explanation_en: 'In binary each place is worth twice the one before: 4, 2, 1. So 101 is 4 + 0 + 1 = 5.'
   tags: [coding]
-- id: sci.tech.036
+- id: sci.tech.037
   skill: science.tech.coding
   kind: order
   grade: 4
@@ -512,15 +528,15 @@ items:
   prompt_he: רובוט צריך להגיע לכדור שנמצא שני צעדים לפניו ואז צעד ימינה. סדרו את ההוראות.
   prompt_en: A robot must reach a ball two steps ahead and then one step right. Order the commands.
   choices:
-  - {he: צעד קדימה והרם את הכדור, en: step forward and pick up the ball}
   - {he: פנה ימינה, en: turn right}
   - {he: צעד קדימה, en: step forward}
   - {he: צעד קדימה שוב, en: step forward again}
-  answer: [2, 3, 1, 0]
+  - {he: צעד קדימה והרם את הכדור, en: step forward and pick up the ball}
+  answer: [1, 2, 0, 3]
   explanation_he: קודם הולכים שני צעדים קדימה, אחר כך מסתובבים ימינה, ורק אז צועדים לכדור ומרימים אותו.
   explanation_en: First two steps forward, then turn right, and only then step to the ball and pick it up.
   tags: [coding]
-- id: sci.tech.037
+- id: sci.tech.038
   skill: science.tech.coding
   kind: choice
   grade: 5
@@ -528,14 +544,14 @@ items:
   prompt_he: מה נקרא "קלט" במחשב?
   prompt_en: What is "input" for a computer?
   choices:
-  - {he: 'מידע שנכנס למחשב, כמו הקלדה או לחיצה', en: 'information going in, like typing or clicking', emoji: '2328'}
   - {he: צליל מהרמקול, en: sound from the speaker, emoji: 1f50a}
+  - {he: 'מידע שנכנס למחשב, כמו הקלדה או לחיצה', en: 'information going in, like typing or clicking', emoji: '2328'}
   - {he: תמונה שמופיעה על המסך, en: a picture shown on screen, emoji: 1f5bc}
-  answer: 0
+  answer: 1
   explanation_he: קלט נכנס למחשב, למשל ממקלדת, עכבר או מיקרופון. פלט יוצא ממנו, למשל למסך או לרמקול.
   explanation_en: Input goes into the computer, from a keyboard, mouse or microphone. Output comes out, to a screen or speaker.
   tags: [coding]
-- id: sci.tech.038
+- id: sci.tech.039
   skill: science.tech.how
   kind: true_false
   grade: 4
@@ -546,7 +562,7 @@ items:
   explanation_he: לא נכון. המקרר מוציא חום מבפנים ומשחרר אותו מאחור, ולכן החלק האחורי של המקרר חמים.
   explanation_en: False. A fridge removes heat from inside and releases it at the back, which is why the back feels warm.
   tags: [how_things_work]
-- id: sci.tech.039
+- id: sci.tech.040
   skill: science.tech.how
   kind: choice
   grade: 4
@@ -554,14 +570,14 @@ items:
   prompt_he: איך מכשיר ה-GPS בטלפון יודע איפה אנחנו?
   prompt_en: How does a phone's GPS know where we are?
   choices:
-  - {he: לפי הריח של המקום, en: from the smell of the place, emoji: 1f443}
   - {he: לפי צבע השמיים, en: from the color of the sky, emoji: '2601'}
+  - {he: לפי הריח של המקום, en: from the smell of the place, emoji: 1f443}
   - {he: לפי אותות מכמה לוויינים, en: from signals from several satellites, emoji: 1f6f0}
   answer: 2
   explanation_he: לוויינים שמקיפים את כדור הארץ משדרים אותות. הטלפון מחשב את מיקומו לפי הזמן שלקח לאותות להגיע מכמה לוויינים.
   explanation_en: Orbiting satellites send signals. The phone calculates its position from how long signals take to arrive from several satellites.
   tags: [how_things_work]
-- id: sci.tech.040
+- id: sci.tech.041
   skill: science.tech.how
   kind: choice
   grade: 4
@@ -569,14 +585,14 @@ items:
   prompt_he: איך הטלפון הנייד שולח קול למרחקים בלי חוטים?
   prompt_en: How does a mobile phone send voice far without wires?
   choices:
+  - {he: בגלי רדיו לאנטנות, en: by radio waves to antennas}
   - {he: בעזרת ציפורים, en: with birds}
   - {he: בצינורות מים, en: through water pipes}
-  - {he: בגלי רדיו לאנטנות, en: by radio waves to antennas}
-  answer: 2
+  answer: 0
   explanation_he: הטלפון הופך את הקול לאות חשמלי ושולח אותו בגלי רדיו לאנטנה סלולרית, שמעבירה אותו הלאה.
   explanation_en: The phone turns your voice into an electric signal and sends it by radio waves to a cell antenna, which passes it on.
   tags: [how_things_work]
-- id: sci.tech.041
+- id: sci.tech.042
   skill: science.tech.how
   kind: choice
   grade: 5
@@ -584,14 +600,14 @@ items:
   prompt_he: איך צוללת שוקעת ועולה?
   prompt_en: How does a submarine sink and rise?
   choices:
-  - {he: ממלאת מכלים במים או באוויר, en: it fills tanks with water or air}
-  - {he: משנה את צבעה, en: it changes color}
   - {he: מנופפת בסנפירים כמו דג, en: it flaps fins like a fish}
-  answer: 0
+  - {he: משנה את צבעה, en: it changes color}
+  - {he: ממלאת מכלים במים או באוויר, en: it fills tanks with water or air}
+  answer: 2
   explanation_he: כשהמכלים מתמלאים במים הצוללת כבדה יותר ושוקעת. כשדוחסים פנימה אוויר והמים יוצאים, היא קלה יותר ועולה.
   explanation_en: Filling tanks with water makes it heavier so it sinks. Blowing in air to push water out makes it lighter so it rises.
   tags: [how_things_work]
-- id: sci.tech.042
+- id: sci.tech.043
   skill: science.tech.how
   kind: choice
   grade: 5
@@ -600,13 +616,13 @@ items:
   prompt_en: How does a phone touchscreen sense your finger?
   choices:
   - {he: המסך שומע את האצבע, en: the screen hears the finger}
-  - {he: המסך מריח את האצבע, en: the screen smells the finger}
   - {he: האצבע משנה מעט את השדה החשמלי במסך, en: the finger slightly changes the screen's electric field}
-  answer: 2
+  - {he: המסך מריח את האצבע, en: the screen smells the finger}
+  answer: 1
   explanation_he: הגוף שלנו מוליך חשמל. כשנוגעים, משתנה המטען במקום הנגיעה, והטלפון מחשב איפה נגענו. לכן עם כפפה רגילה זה לא עובד.
   explanation_en: Our body conducts electricity. A touch changes the charge at that spot, and the phone computes where. That's why ordinary gloves don't work.
   tags: [how_things_work]
-- id: sci.tech.043
+- id: sci.tech.044
   skill: science.tech.how
   kind: choice
   grade: 4
@@ -614,14 +630,14 @@ items:
   prompt_he: מה מחמם את האוכל בתנור מיקרוגל?
   prompt_en: What heats food in a microwave oven?
   choices:
-  - {he: אש קטנה בפנים, en: a small fire inside}
   - {he: גלים שמרעידים את מולקולות המים באוכל, en: waves that shake the water molecules in food}
+  - {he: אש קטנה בפנים, en: a small fire inside}
   - {he: אור השמש, en: sunlight}
-  answer: 1
+  answer: 0
   explanation_he: גלי המיקרו גורמים למולקולות המים באוכל לנוע מהר, והתנועה הופכת לחום.
   explanation_en: Microwaves make water molecules in food move rapidly, and that motion becomes heat.
   tags: [how_things_work]
-- id: sci.tech.044
+- id: sci.tech.045
   skill: science.tech.how
   kind: true_false
   grade: 5
@@ -632,7 +648,7 @@ items:
   explanation_he: נכון. צורת הכנף והזווית שלה מסיטות אוויר כלפי מטה, והאוויר דוחף את הכנף כלפי מעלה. זה כוח העילוי.
   explanation_en: True. The wing's shape and angle deflect air downward, and the air pushes the wing upward. This is lift.
   tags: [how_things_work]
-- id: sci.tech.045
+- id: sci.tech.046
   skill: science.tech.how
   kind: choice
   grade: 4
@@ -647,7 +663,7 @@ items:
   explanation_he: הילוך קל דורש פחות כוח אבל יותר סיבובים, והילוך כבד הפוך. זה כמו מנוף בצורה של גלגלי שיניים.
   explanation_en: A low gear needs less force but more turns; a high gear the opposite. It works like a lever made of toothed wheels.
   tags: [how_things_work]
-- id: sci.tech.046
+- id: sci.tech.047
   skill: science.tech.how
   kind: choice
   grade: 5
@@ -655,14 +671,14 @@ items:
   prompt_he: מה עושה העדשה במצלמה?
   prompt_en: What does a camera's lens do?
   choices:
-  - {he: מייצרת אור, en: makes light, emoji: 1f4a1}
-  - {he: ממקדת את האור ליצירת תמונה חדה, en: focuses light to make a sharp image, emoji: 1f4f7}
   - {he: מקליטה קול, en: records sound, emoji: 1f3a4}
+  - {he: ממקדת את האור ליצירת תמונה חדה, en: focuses light to make a sharp image, emoji: 1f4f7}
+  - {he: מייצרת אור, en: makes light, emoji: 1f4a1}
   answer: 1
   explanation_he: העדשה מכופפת את קרני האור כך שהן נפגשות על החיישן, וכך נוצרת תמונה. גם בעין שלנו יש עדשה.
   explanation_en: The lens bends light rays to meet on the sensor, forming an image. Our eyes have a lens too.
   tags: [how_things_work]
-- id: sci.tech.047
+- id: sci.tech.048
   skill: science.tech.how
   kind: choice
   grade: 4
@@ -670,14 +686,14 @@ items:
   prompt_he: איך שואב אבק אוסף לכלוך?
   prompt_en: How does a vacuum cleaner collect dirt?
   choices:
-  - {he: הלכלוך קופץ לבד, en: the dirt jumps in by itself}
-  - {he: מאוורר יוצר לחץ נמוך שיונק אוויר ולכלוך, en: 'a fan lowers pressure, sucking in air and dirt'}
   - {he: מגנט מושך את הלכלוך, en: a magnet attracts the dirt}
+  - {he: מאוורר יוצר לחץ נמוך שיונק אוויר ולכלוך, en: 'a fan lowers pressure, sucking in air and dirt'}
+  - {he: הלכלוך קופץ לבד, en: the dirt jumps in by itself}
   answer: 1
   explanation_he: המאוורר מוציא אוויר מהשואב. האוויר בחוץ נדחף פנימה וסוחף איתו אבק, שנלכד במסנן או בשקית.
   explanation_en: The fan pushes air out of the vacuum. Outside air rushes in, carrying dust that is trapped in a filter or bag.
   tags: [how_things_work]
-- id: sci.tech.048
+- id: sci.tech.049
   skill: science.tech.how
   kind: order
   grade: 5
@@ -685,15 +701,15 @@ items:
   prompt_he: סדרו מה קורה כששולחים הודעה בטלפון לחבר.
   prompt_en: Order what happens when you text a friend.
   choices:
-  - {he: הטלפון שולח גלי רדיו לאנטנה, en: the phone sends radio waves to an antenna}
+  - {he: מקלידים ולוחצים "שלח", en: type and press send}
   - {he: הרשת מעבירה את ההודעה, en: the network passes the message on}
   - {he: הטלפון של החבר מקבל ומציג אותה, en: the friend's phone receives and shows it}
-  - {he: מקלידים ולוחצים "שלח", en: type and press send}
-  answer: [3, 0, 1, 2]
+  - {he: הטלפון שולח גלי רדיו לאנטנה, en: the phone sends radio waves to an antenna}
+  answer: [0, 3, 1, 2]
   explanation_he: ההודעה הופכת לאות דיגיטלי, עוברת באוויר לאנטנה, ברשת התקשורת, ומשם לטלפון של החבר.
   explanation_en: The message becomes a digital signal, travels through the air to an antenna, across the network and on to your friend's phone.
   tags: [how_things_work]
-- id: sci.tech.049
+- id: sci.tech.050
   skill: science.tech.how
   kind: choice
   grade: 6
@@ -701,8 +717,8 @@ items:
   prompt_he: מה עושה דוד השמש על הגג?
   prompt_en: What does a solar water heater on the roof do?
   choices:
-  - {he: מקרר מים, en: cools water}
   - {he: מייצר חשמל לכל הבית, en: makes electricity for the whole house}
+  - {he: מקרר מים, en: cools water}
   - {he: קולטים שחורים סופגים חום שמש ומחממים מים, en: black collectors absorb sun heat to warm water}
   answer: 2
   explanation_he: הקולט שחור כי צבע שחור בולע אור היטב. המים החמים עולים לדוד המבודד ונשמרים חמים.

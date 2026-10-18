@@ -907,6 +907,22 @@ items:
   explanation_en: In most places each animal eats several foods and is eaten by several predators, so chains link into a web.
   tags: [food_chains]
 - id: sci.animals.064
+  skill: science.animals.foodchains
+  kind: order
+  grade: 5
+  difficulty: 1.0
+  prompt_he: סדרו את שרשרת המזון בים.
+  prompt_en: Put the ocean food chain in order.
+  choices:
+  - {he: אצות זעירות, en: tiny algae}
+  - {he: דולפין, en: dolphin}
+  - {he: סרטנים זעירים, en: tiny shrimp-like animals}
+  - {he: דגים קטנים, en: small fish}
+  answer: [0, 2, 3, 1]
+  explanation_he: האצות מייצרות מזון מאור, סרטנים זעירים אוכלים אותן, דגים קטנים אוכלים את הסרטנים, והדולפין אוכל את הדגים.
+  explanation_en: Algae make food from light, tiny crustaceans eat them, small fish eat the crustaceans, and the dolphin eats the fish.
+  tags: [food_chains]
+- id: sci.animals.065
   skill: science.animals.israel
   kind: choice
   grade: 2
@@ -914,14 +930,14 @@ items:
   prompt_he: איזו ציפור נבחרה לציפור הלאומית של ישראל?
   prompt_en: Which bird was chosen as Israel's national bird?
   choices:
-  - {he: הדוכיפת, en: the hoopoe}
   - {he: היונה, en: the dove}
+  - {he: הדוכיפת, en: the hoopoe}
   - {he: התוכי, en: the parrot}
-  answer: 0
+  answer: 1
   explanation_he: הדוכיפת נבחרה בשנת 2008. יש לה ציצת נוצות על הראש שהיא פותחת כמו מניפה.
   explanation_en: The hoopoe was chosen in 2008. It has a crest of feathers on its head that it opens like a fan.
   tags: [israel_animals]
-- id: sci.animals.065
+- id: sci.animals.066
   skill: science.animals.israel
   kind: choice
   grade: 3
@@ -929,14 +945,14 @@ items:
   prompt_he: איזה בעל חיים מטפס בקלות על צוקים במדבר יהודה ובעין גדי?
   prompt_en: Which animal easily climbs cliffs in the Judean Desert and Ein Gedi?
   choices:
-  - {he: היפופוטם, en: hippopotamus, emoji: 1f99b}
   - {he: יעל נובי, en: Nubian ibex, emoji: 1f410}
   - {he: פינגווין, en: penguin, emoji: 1f427}
-  answer: 1
+  - {he: היפופוטם, en: hippopotamus, emoji: 1f99b}
+  answer: 0
   explanation_he: ליעל יש פרסות עם כרית גמישה שאוחזת בסלע, ולכן הוא מטפס על צוקים תלולים. לזכרים יש קרניים ארוכות ומעוקלות.
   explanation_en: The ibex has hooves with grippy pads, so it climbs steep cliffs. Males have long curved horns.
   tags: [israel_animals]
-- id: sci.animals.066
+- id: sci.animals.067
   skill: science.animals.israel
   kind: true_false
   grade: 4
@@ -947,7 +963,7 @@ items:
   explanation_he: נכון. למרות שהוא קטן, לפי מבנה הגוף והשיניים השפן קרוב לפילים ולא לארנבים.
   explanation_en: True. Though small, by its body and teeth the hyrax is related to elephants, not rabbits.
   tags: [israel_animals]
-- id: sci.animals.067
+- id: sci.animals.068
   skill: science.animals.israel
   kind: choice
   grade: 3
@@ -956,13 +972,13 @@ items:
   prompt_en: Why is Israel famous among bird watchers?
   choices:
   - {he: יש בה רק פינגווינים, en: it has only penguins}
-  - {he: מיליוני ציפורים נודדות עוברות בה, en: millions of migrating birds pass through it}
   - {he: אין בה ציפורים בכלל, en: there are no birds there}
-  answer: 1
+  - {he: מיליוני ציפורים נודדות עוברות בה, en: millions of migrating birds pass through it}
+  answer: 2
   explanation_he: ישראל נמצאת בין אירופה, אסיה ואפריקה. פעמיים בשנה עוברות כאן מאות מיליוני ציפורים נודדות, כמו חסידות ועגורים.
   explanation_en: Israel lies between Europe, Asia and Africa. Twice a year hundreds of millions of migrating birds, like storks and cranes, pass here.
   tags: [israel_animals]
-- id: sci.animals.068
+- id: sci.animals.069
   skill: science.animals.israel
   kind: choice
   grade: 3
@@ -970,14 +986,14 @@ items:
   prompt_he: באיזה אזור בישראל חונים בחורף עשרות אלפי עגורים?
   prompt_en: Where in Israel do tens of thousands of cranes spend the winter?
   choices:
-  - {he: מכתש רמון, en: Ramon Crater}
   - {he: ים המלח, en: the Dead Sea}
   - {he: עמק החולה, en: the Hula Valley}
-  answer: 2
+  - {he: מכתש רמון, en: Ramon Crater}
+  answer: 1
   explanation_he: בעמק החולה יש מים ושדות עם מזון, ולכן עגורים רבים נשארים שם כל החורף במקום להמשיך לאפריקה.
   explanation_en: The Hula Valley has water and fields with food, so many cranes stay all winter instead of flying on to Africa.
   tags: [israel_animals]
-- id: sci.animals.069
+- id: sci.animals.070
   skill: science.animals.israel
   kind: choice
   grade: 4
@@ -985,14 +1001,14 @@ items:
   prompt_he: אילו בעלי חיים הוחזרו לטבע בישראל אחרי שנעלמו ממנה?
   prompt_en: Which animals were returned to the wild in Israel after disappearing?
   choices:
+  - {he: זברה וג'ירפה, en: zebra and giraffe}
   - {he: אריה ונמר, en: lion and tiger}
   - {he: 'פרא, ראם ויחמור', en: 'wild ass, oryx and fallow deer'}
-  - {he: זברה וג'ירפה, en: zebra and giraffe}
-  answer: 1
+  answer: 2
   explanation_he: רשות הטבע והגנים גידלה פראים, ראמים ויחמורים בחי-בר, ושחררה אותם לנגב, לערבה ולכרמל.
   explanation_en: The Nature and Parks Authority bred wild asses, oryxes and fallow deer at Hai-Bar and released them in the Negev, Arava and Carmel.
   tags: [israel_animals]
-- id: sci.animals.070
+- id: sci.animals.071
   skill: science.animals.israel
   kind: choice
   grade: 3
@@ -1000,14 +1016,14 @@ items:
   prompt_he: איזה בעל חיים לילי עם קוצים ארוכים חי בישראל?
   prompt_en: Which nocturnal animal with long quills lives in Israel?
   choices:
-  - {he: קואלה, en: koala}
   - {he: זאב ים, en: sea lion}
+  - {he: קואלה, en: koala}
   - {he: דורבן, en: porcupine}
   answer: 2
   explanation_he: הדורבן הוא מכרסם גדול עם קולמוסים ארוכים. כשהוא מאוים הוא מרעיש בהם ומזדקף כדי להרחיק טורפים.
   explanation_en: The porcupine is a big rodent with long quills. When threatened it rattles and raises them to scare predators away.
   tags: [israel_animals]
-- id: sci.animals.071
+- id: sci.animals.072
   skill: science.animals.israel
   kind: choice
   grade: 4
@@ -1015,14 +1031,14 @@ items:
   prompt_he: איזו סלמנדרה צבעונית חיה ביערות הכרמל והגליל?
   prompt_en: Which colorful salamander lives in the forests of Carmel and the Galilee?
   choices:
-  - {he: סלמנדרה כחולה, en: blue salamander}
   - {he: סלמנדרה ירוקה מעופפת, en: flying green salamander}
+  - {he: סלמנדרה כחולה, en: blue salamander}
   - {he: סלמנדרה כתומה, en: fire salamander}
   answer: 2
   explanation_he: הסלמנדרה הכתומה היא דו-חי שחור עם כתמים כתומים או צהובים. היא יוצאת בלילות גשומים בחורף.
   explanation_en: The fire salamander is a black amphibian with orange or yellow spots. It comes out on rainy winter nights.
   tags: [israel_animals]
-- id: sci.animals.072
+- id: sci.animals.073
   skill: science.animals.israel
   kind: true_false
   grade: 3
@@ -1033,7 +1049,7 @@ items:
   explanation_he: לא נכון. בישראל חיים כ-30 מיני עטלפים. העטלף הנפוץ ביותר הוא עטלף הפירות, שאוכל פירות וצוף.
   explanation_en: False. About 30 bat species live in Israel. The most common is the fruit bat, which eats fruit and nectar.
   tags: [israel_animals]
-- id: sci.animals.073
+- id: sci.animals.074
   skill: science.animals.israel
   kind: choice
   grade: 3
@@ -1041,14 +1057,14 @@ items:
   prompt_he: מה אוכלת הצופית, ציפור קטנה ומבריקה שנפוצה בגינות בישראל?
   prompt_en: What does the sunbird, a small shiny bird common in Israeli gardens, eat?
   choices:
-  - {he: זרעים קשים בלבד, en: only hard seeds}
   - {he: צוף מפרחים וחרקים קטנים, en: flower nectar and small insects}
+  - {he: זרעים קשים בלבד, en: only hard seeds}
   - {he: דגים, en: fish}
-  answer: 1
+  answer: 0
   explanation_he: לצופית מקור דק ומעוקל ולשון ארוכה. היא שותה צוף, ותוך כך עוזרת להאביק פרחים.
   explanation_en: The sunbird has a thin curved beak and long tongue. It sips nectar and helps pollinate flowers along the way.
   tags: [israel_animals]
-- id: sci.animals.074
+- id: sci.animals.075
   skill: science.animals.israel
   kind: true_false
   grade: 4
@@ -1059,7 +1075,7 @@ items:
   explanation_he: נכון. הנשר המקראי (Griffon vulture) מנקה את הטבע מפגרים. הוא נדיר היום בישראל ושומרים עליו.
   explanation_en: True. The griffon vulture cleans nature of carcasses. It is rare in Israel today and protected.
   tags: [israel_animals]
-- id: sci.animals.075
+- id: sci.animals.076
   skill: science.animals.israel
   kind: choice
   grade: 2
@@ -1074,7 +1090,7 @@ items:
   explanation_he: בים התיכון ובים סוף שליד חופי ישראל חיים דולפינים. גמלים וצבאים חיים ביבשה.
   explanation_en: Dolphins live in the Mediterranean and Red Sea off Israel's coasts. Camels and gazelles live on land.
   tags: [israel_animals]
-- id: sci.animals.076
+- id: sci.animals.077
   skill: science.animals.israel
   kind: order
   grade: 3
@@ -1082,11 +1098,11 @@ items:
   prompt_he: סדרו מהצפון לדרום את המקומות שבהם אפשר לראות את בעלי החיים.
   prompt_en: Order these animal-watching places from north to south.
   choices:
-  - {he: עגורים בעמק החולה, en: cranes in the Hula Valley}
   - {he: ראמים בערבה, en: oryx in the Arava}
-  - {he: יעלים בעין גדי, en: ibex at Ein Gedi}
   - {he: דגי אלמוגים באילת, en: reef fish in Eilat}
-  answer: [0, 2, 1, 3]
+  - {he: יעלים בעין גדי, en: ibex at Ein Gedi}
+  - {he: עגורים בעמק החולה, en: cranes in the Hula Valley}
+  answer: [3, 2, 0, 1]
   explanation_he: עמק החולה בגליל העליון, עין גדי ליד ים המלח, הערבה מדרום לו, ואילת בקצה הדרומי של ישראל.
   explanation_en: The Hula Valley is in the Upper Galilee, Ein Gedi by the Dead Sea, the Arava south of it, and Eilat at Israel's southern tip.
   tags: [israel_animals]

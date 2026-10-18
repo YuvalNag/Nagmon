@@ -552,6 +552,22 @@ items:
   explanation_en: The Moon is about 4 times narrower than Earth. Jupiter is 11 times wider than Earth, and the Sun about 10 times wider than Jupiter.
   tags: [solar_system]
 - id: sci.space.039
+  skill: science.space.solar_system
+  kind: order
+  grade: 6
+  difficulty: 1.0
+  prompt_he: סדרו את ארבעת כוכבי הלכת החיצוניים לפי המרחק מהשמש, מהקרוב לרחוק.
+  prompt_en: Order the four outer planets by distance from the sun, closest first.
+  choices:
+  - {he: אורנוס, en: Uranus}
+  - {he: צדק, en: Jupiter}
+  - {he: נפטון, en: Neptune}
+  - {he: שבתאי, en: Saturn}
+  answer: [1, 3, 0, 2]
+  explanation_he: אחרי חגורת האסטרואידים באים צדק, שבתאי, אורנוס ונפטון, הרחוק ביותר מהשמש.
+  explanation_en: After the asteroid belt come Jupiter, Saturn, Uranus and Neptune, the farthest from the sun.
+  tags: [solar_system]
+- id: sci.space.040
   skill: science.space.stars
   kind: choice
   grade: 5
@@ -559,14 +575,14 @@ items:
   prompt_he: מהו הכוכב הקרוב ביותר לכדור הארץ?
   prompt_en: What is the closest star to Earth?
   choices:
-  - {he: הירח, en: the moon, emoji: 1f315}
   - {he: כוכב הצפון, en: the North Star, emoji: 2b50}
   - {he: השמש, en: the sun, emoji: '2600'}
-  answer: 2
+  - {he: הירח, en: the moon, emoji: 1f315}
+  answer: 1
   explanation_he: השמש היא כוכב, והכוכב הקרוב ביותר אלינו. הכוכב הבא הקרוב רחוק פי 270,000 בערך.
   explanation_en: The sun is a star, the nearest one. The next nearest star is roughly 270,000 times farther away.
   tags: [stars]
-- id: sci.space.040
+- id: sci.space.041
   skill: science.space.stars
   kind: choice
   grade: 6
@@ -574,14 +590,14 @@ items:
   prompt_he: מהי שנת אור?
   prompt_en: What is a light-year?
   choices:
-  - {he: הזמן שלוקח לשמש לזרוח, en: the time it takes the sun to rise}
   - {he: המרחק שאור עובר בשנה, en: the distance light travels in a year}
+  - {he: הזמן שלוקח לשמש לזרוח, en: the time it takes the sun to rise}
   - {he: שנה שיש בה הרבה שמש, en: a year with lots of sunshine}
-  answer: 1
+  answer: 0
   explanation_he: 'שנת אור היא מידה של מרחק, לא של זמן: כ-9.5 טריליון ק"מ. הכוכב הקרוב אחרי השמש רחוק כ-4.2 שנות אור.'
   explanation_en: 'A light-year measures distance, not time: about 9.5 trillion km. The nearest star after the sun is about 4.2 light-years away.'
   tags: [stars]
-- id: sci.space.041
+- id: sci.space.042
   skill: science.space.stars
   kind: choice
   grade: 5
@@ -589,14 +605,14 @@ items:
   prompt_he: איך נקראת הגלקסיה שבה נמצאת מערכת השמש?
   prompt_en: What is the name of the galaxy containing our solar system?
   choices:
-  - {he: שביל החלב, en: the Milky Way}
   - {he: גלקסיית הכנרת, en: the Kinneret Galaxy}
+  - {he: שביל החלב, en: the Milky Way}
   - {he: טבעת שבתאי, en: the Saturn Ring}
-  answer: 0
+  answer: 1
   explanation_he: שביל החלב הוא גלקסיה של מאות מיליארדי כוכבים. בלילה חשוך במדבר אפשר לראות אותו כרצועה בהירה.
   explanation_en: The Milky Way is a galaxy of hundreds of billions of stars. On a dark desert night you can see it as a pale band.
   tags: [stars]
-- id: sci.space.042
+- id: sci.space.043
   skill: science.space.stars
   kind: true_false
   grade: 5
@@ -607,7 +623,7 @@ items:
   explanation_he: 'לא נכון. זה מטאור: גרגר קטן של סלע או אבק מהחלל שנשרף באטמוספרה ויוצר פס אור.'
   explanation_en: 'False. It''s a meteor: a tiny grain of space rock or dust burning up in the atmosphere, leaving a streak of light.'
   tags: [stars]
-- id: sci.space.043
+- id: sci.space.044
   skill: science.space.stars
   kind: choice
   grade: 6
@@ -615,14 +631,14 @@ items:
   prompt_he: למה כוכבים נראים לנו כנקודות קטנות?
   prompt_en: Why do stars look like tiny dots?
   choices:
-  - {he: הם מסתתרים מאחורי עננים, en: they hide behind clouds}
-  - {he: הם באמת קטנים מאוד, en: they are actually tiny}
   - {he: הם רחוקים מאוד, en: they are extremely far away}
-  answer: 2
+  - {he: הם באמת קטנים מאוד, en: they are actually tiny}
+  - {he: הם מסתתרים מאחורי עננים, en: they hide behind clouds}
+  answer: 0
   explanation_he: רבים מהכוכבים גדולים כמו השמש ויותר. הם נראים זעירים רק בגלל המרחק העצום.
   explanation_en: Many stars are as big as the sun or bigger. They look tiny only because they are so far away.
   tags: [stars]
-- id: sci.space.044
+- id: sci.space.045
   skill: science.space.stars
   kind: true_false
   grade: 6
@@ -633,7 +649,7 @@ items:
   explanation_he: נכון. הכוכבים לא נעלמים. אור השמש שמתפזר בשמיים חזק בהרבה מהאור החלש שלהם.
   explanation_en: True. The stars don't disappear. Scattered sunlight in the sky is far brighter than their faint light.
   tags: [stars]
-- id: sci.space.045
+- id: sci.space.046
   skill: science.space.stars
   kind: choice
   grade: 6
@@ -642,13 +658,13 @@ items:
   prompt_en: What is a constellation?
   choices:
   - {he: כוכבים שקשורים בחבל, en: stars tied with a rope}
-  - {he: כוכבים שנמצאים באותו מקום בחלל, en: stars sitting at the same place in space}
   - {he: כוכבים שנראים כמו צורה בשמיים, en: stars that seem to form a shape in the sky}
-  answer: 2
+  - {he: כוכבים שנמצאים באותו מקום בחלל, en: stars sitting at the same place in space}
+  answer: 1
   explanation_he: בני אדם חיברו כוכבים לצורות כדי להתמצא בשמיים. הכוכבים בקבוצה יכולים להיות במרחקים שונים מאוד מאיתנו.
   explanation_en: People linked stars into shapes to find their way in the sky. Stars in a constellation can be at very different distances.
   tags: [stars]
-- id: sci.space.046
+- id: sci.space.047
   skill: science.space.stars
   kind: choice
   grade: 7
@@ -657,13 +673,13 @@ items:
   prompt_en: Which star color shows it is hottest?
   choices:
   - {he: אדום, en: red}
-  - {he: כחול-לבן, en: blue-white}
   - {he: צהוב, en: yellow}
-  answer: 1
+  - {he: כחול-לבן, en: blue-white}
+  answer: 2
   explanation_he: כוכבים כחולים חמים מאוד, כוכבים צהובים כמו השמש בינוניים, וכוכבים אדומים קרים יותר.
   explanation_en: Blue stars are very hot, yellow stars like the sun are medium, and red stars are cooler.
   tags: [stars]
-- id: sci.space.047
+- id: sci.space.048
   skill: science.space.stars
   kind: choice
   grade: 7
@@ -671,14 +687,14 @@ items:
   prompt_he: מה מאפשר לנו לראות גלקסיות רחוקות מאוד?
   prompt_en: What lets us see very distant galaxies?
   choices:
+  - {he: 'טלסקופים גדולים, גם בחלל', en: 'large telescopes, including in space', emoji: 1f52d}
   - {he: מיקרוסקופ, en: a microscope, emoji: 1f52c}
   - {he: משקפי שמש, en: sunglasses, emoji: 1f576}
-  - {he: 'טלסקופים גדולים, גם בחלל', en: 'large telescopes, including in space', emoji: 1f52d}
-  answer: 2
+  answer: 0
   explanation_he: טלסקופים אוספים הרבה אור. טלסקופי החלל, כמו האבל וג'יימס ווב, רואים בלי הפרעה של האטמוספרה.
   explanation_en: Telescopes gather lots of light. Space telescopes like Hubble and James Webb see without the atmosphere getting in the way.
   tags: [stars]
-- id: sci.space.048
+- id: sci.space.049
   skill: science.space.stars
   kind: true_false
   grade: 7
@@ -689,7 +705,7 @@ items:
   explanation_he: נכון. זה החוק של ניוטון. כוח המשיכה גדל עם המסה וקטן עם המרחק, ולכן אנחנו מרגישים בעיקר את המשיכה של כדור הארץ.
   explanation_en: True. That's Newton's law. Gravity grows with mass and weakens with distance, so we mostly feel Earth's pull.
   tags: [stars]
-- id: sci.space.049
+- id: sci.space.050
   skill: science.space.stars
   kind: choice
   grade: 8
@@ -697,14 +713,14 @@ items:
   prompt_he: למה כוכבים מנצנצים, אבל כוכבי לכת כמעט לא?
   prompt_en: Why do stars twinkle but planets hardly do?
   choices:
-  - {he: כוכבים נדלקים וכבים, en: stars switch on and off}
-  - {he: האוויר הזז מעוות את האור של הכוכב, en: moving air distorts the starlight}
   - {he: כוכבי לכת קרובים לשמש, en: planets are near the sun}
+  - {he: האוויר הזז מעוות את האור של הכוכב, en: moving air distorts the starlight}
+  - {he: כוכבים נדלקים וכבים, en: stars switch on and off}
   answer: 1
   explanation_he: כוכב נראה כנקודה זעירה, והאטמוספרה הזזה מטה את האור שלו כל רגע. כוכב לכת נראה כדסקית קטנה, ולכן יציב יותר.
   explanation_en: A star is a tiny point, and moving air keeps bending its light. A planet appears as a small disc, so it looks steadier.
   tags: [stars]
-- id: sci.space.050
+- id: sci.space.051
   skill: science.space.stars
   kind: choice
   grade: 6
@@ -712,14 +728,14 @@ items:
   prompt_he: באיזה כיוון מצביע כוכב הצפון?
   prompt_en: What direction does the North Star show?
   choices:
-  - {he: מערב, en: west}
-  - {he: צפון, en: north}
   - {he: דרום, en: south}
+  - {he: צפון, en: north}
+  - {he: מערב, en: west}
   answer: 1
   explanation_he: כוכב הצפון נמצא כמעט בדיוק מעל הקוטב הצפוני של כדור הארץ. במשך דורות נווטים מצאו לפיו את הצפון.
   explanation_en: The North Star sits almost directly above Earth's North Pole. For generations navigators used it to find north.
   tags: [stars]
-- id: sci.space.051
+- id: sci.space.052
   skill: science.space.stars
   kind: order
   grade: 7
@@ -727,11 +743,27 @@ items:
   prompt_he: סדרו מהקטן לגדול.
   prompt_en: Order from smallest to largest.
   choices:
-  - {he: גלקסיית שביל החלב, en: the Milky Way galaxy}
-  - {he: מערכת השמש, en: the solar system}
   - {he: כדור הארץ, en: Earth}
+  - {he: מערכת השמש, en: the solar system}
+  - {he: גלקסיית שביל החלב, en: the Milky Way galaxy}
   - {he: השמש, en: the Sun}
-  answer: [2, 3, 1, 0]
+  answer: [0, 3, 1, 2]
   explanation_he: כדור הארץ הוא אחד מכוכבי הלכת שמקיפים את השמש. מערכת השמש כולה היא חלק קטן מאוד משביל החלב.
   explanation_en: Earth is one of the planets orbiting the Sun. The whole solar system is a tiny part of the Milky Way.
+  tags: [stars]
+- id: sci.space.053
+  skill: science.space.stars
+  kind: order
+  grade: 7
+  difficulty: 1.0
+  prompt_he: סדרו לפי המרחק מכדור הארץ, מהקרוב לרחוק.
+  prompt_en: Order by distance from Earth, closest first.
+  choices:
+  - {he: הכוכב הקרוב ביותר אחרי השמש, en: the nearest star after the Sun, emoji: 2b50}
+  - {he: הירח, en: the Moon, emoji: 1f315}
+  - {he: השמש, en: the Sun, emoji: '2600'}
+  - {he: גלקסיית אנדרומדה, en: the Andromeda galaxy, emoji: 1f30c}
+  answer: [1, 2, 0, 3]
+  explanation_he: האור מגיע מהירח בשנייה בערך, מהשמש בכ-8 דקות, מהכוכב הקרוב בכ-4 שנים, ומגלקסיית אנדרומדה בכ-2.5 מיליון שנים.
+  explanation_en: Light takes about a second from the Moon, 8 minutes from the Sun, 4 years from the nearest star, and 2.5 million years from Andromeda.
   tags: [stars]

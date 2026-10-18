@@ -536,6 +536,22 @@ items:
   explanation_en: Rising air cools, and cool air holds less vapor, so clouds and rain form on the windward slopes.
   tags: [water_cycle]
 - id: sci.earth.038
+  skill: science.earth.water_cycle
+  kind: order
+  grade: 2
+  difficulty: -1.0
+  prompt_he: סדרו מה קורה לשלולית ביום שמשי.
+  prompt_en: Order what happens to a puddle on a sunny day.
+  choices:
+  - {he: השלולית נעלמת, en: the puddle is gone}
+  - {he: השמש מחממת את המים, en: the sun warms the water}
+  - {he: המים מתאדים והשלולית קטנה, en: the water evaporates and the puddle shrinks}
+  - {he: שלולית גדולה בבוקר, en: a big puddle in the morning}
+  answer: [3, 1, 2, 0]
+  explanation_he: חום השמש הופך את המים לאדים שעולים לאוויר. המים לא נעלמו, הם עברו לאוויר.
+  explanation_en: The sun's heat turns the water into vapor that rises into the air. The water didn't vanish; it went into the air.
+  tags: [water_cycle]
+- id: sci.earth.039
   skill: science.earth.rocks_soil
   kind: choice
   grade: 3
@@ -543,14 +559,14 @@ items:
   prompt_he: ממה מורכבת האדמה בגינה?
   prompt_en: What is garden soil made of?
   choices:
-  - {he: רק מים, en: only water}
   - {he: רק חול, en: only sand}
   - {he: 'גרגרי סלע, שאריות צמחים, מים ואוויר', en: 'rock bits, plant remains, water and air'}
-  answer: 2
+  - {he: רק מים, en: only water}
+  answer: 1
   explanation_he: הקרקע נוצרת מסלעים שהתפוררו, מעורבבים בשאריות של צמחים ובעלי חיים שהתפרקו (רקבובית), מים ואוויר.
   explanation_en: Soil forms from crumbled rock mixed with decayed plant and animal remains (humus), water and air.
   tags: [rocks_soil]
-- id: sci.earth.039
+- id: sci.earth.040
   skill: science.earth.rocks_soil
   kind: choice
   grade: 3
@@ -565,7 +581,7 @@ items:
   explanation_he: התולעים מאווררות את הקרקע ומפרקות עלים מתים לחומרים שמזינים צמחים.
   explanation_en: Worms loosen the soil and break down dead leaves into nutrients for plants.
   tags: [rocks_soil]
-- id: sci.earth.040
+- id: sci.earth.041
   skill: science.earth.rocks_soil
   kind: choice
   grade: 3
@@ -573,14 +589,14 @@ items:
   prompt_he: איזה סוג אדמה מחזיק מים הכי הרבה זמן?
   prompt_en: Which soil holds water the longest?
   choices:
+  - {he: חצץ, en: gravel}
   - {he: חול, en: sand}
   - {he: חרסית (טין), en: clay}
-  - {he: חצץ, en: gravel}
-  answer: 1
+  answer: 2
   explanation_he: בחרסית הגרגרים זעירים וצפופים, והמים נשארים ביניהם. בחול הגרגרים גדולים והמים מחלחלים מהר.
   explanation_en: Clay has tiny packed grains that hold water. Sand has large grains, so water drains fast.
   tags: [rocks_soil]
-- id: sci.earth.041
+- id: sci.earth.042
   skill: science.earth.rocks_soil
   kind: choice
   grade: 4
@@ -588,14 +604,14 @@ items:
   prompt_he: מאיזה סלע עשויה "אבן ירושלמית" שבונים בה בירושלים?
   prompt_en: What rock is "Jerusalem stone" used in Jerusalem buildings?
   choices:
+  - {he: אבן גיר ודולומיט, en: limestone and dolomite}
   - {he: זכוכית, en: glass}
   - {he: גרניט, en: granite}
-  - {he: אבן גיר ודולומיט, en: limestone and dolomite}
-  answer: 2
+  answer: 0
   explanation_he: אבן ירושלמית היא סלע משקע בהיר, בעיקר גיר ודולומיט. בירושלים נהוג לצפות בה בניינים.
   explanation_en: Jerusalem stone is a pale sedimentary rock, mainly limestone and dolomite. Buildings in Jerusalem are traditionally faced with it.
   tags: [rocks_soil]
-- id: sci.earth.042
+- id: sci.earth.043
   skill: science.earth.rocks_soil
   kind: choice
   grade: 4
@@ -603,14 +619,14 @@ items:
   prompt_he: מה הסלע השחור שמכסה חלקים גדולים ברמת הגולן?
   prompt_en: What black rock covers much of the Golan Heights?
   choices:
-  - {he: בזלת, en: basalt}
   - {he: שיש, en: marble}
   - {he: גיר, en: limestone}
-  answer: 0
+  - {he: בזלת, en: basalt}
+  answer: 2
   explanation_he: בזלת היא סלע יסוד שנוצר מלבה שהתקררה. בגולן יש הרי געש כבויים, כמו הר בנטל.
   explanation_en: Basalt is an igneous rock formed from cooled lava. The Golan has extinct volcanoes like Mount Bental.
   tags: [rocks_soil]
-- id: sci.earth.043
+- id: sci.earth.044
   skill: science.earth.rocks_soil
   kind: true_false
   grade: 4
@@ -621,7 +637,7 @@ items:
   explanation_he: נכון. סלעי משקע נוצרים משכבות של חול ובוץ שהצטברו. שרידים של צדפים ויצורים נלכדו בשכבות ונשמרו.
   explanation_en: True. Sedimentary rocks form from built-up layers of sand and mud. Remains of shells and creatures were trapped in the layers and preserved.
   tags: [rocks_soil]
-- id: sci.earth.044
+- id: sci.earth.045
   skill: science.earth.rocks_soil
   kind: choice
   grade: 4
@@ -629,14 +645,14 @@ items:
   prompt_he: מהי בליה?
   prompt_en: What is weathering?
   choices:
-  - {he: צביעה של סלעים, en: rocks being painted}
   - {he: 'התפוררות סלעים ממים, רוח, חום וקור', en: 'rocks breaking down by water, wind, heat and cold'}
   - {he: צמיחה של סלעים, en: rocks growing}
-  answer: 1
+  - {he: צביעה של סלעים, en: rocks being painted}
+  answer: 0
   explanation_he: לאט לאט סלעים נסדקים ומתפוררים. מים שקופאים בסדקים, שורשים ורוח עם חול מפוררים אותם.
   explanation_en: Slowly rocks crack and crumble. Water freezing in cracks, roots, and sandy wind break them apart.
   tags: [rocks_soil]
-- id: sci.earth.045
+- id: sci.earth.046
   skill: science.earth.rocks_soil
   kind: true_false
   grade: 3
@@ -647,7 +663,7 @@ items:
   explanation_he: לא נכון. חול הוא גרגרים קטנים של סלע שהתפורר במשך זמן רב, בעיקר מינרל שנקרא קוורץ.
   explanation_en: False. Sand is tiny grains of rock that crumbled over a long time, mostly a mineral called quartz.
   tags: [rocks_soil]
-- id: sci.earth.046
+- id: sci.earth.047
   skill: science.earth.rocks_soil
   kind: choice
   grade: 5
@@ -655,14 +671,14 @@ items:
   prompt_he: מהם שלושת סוגי הסלעים העיקריים?
   prompt_en: What are the three main types of rock?
   choices:
-  - {he: 'קטנים, בינוניים וגדולים', en: 'small, medium and large'}
   - {he: 'אדומים, לבנים ושחורים', en: 'red, white and black'}
+  - {he: 'קטנים, בינוניים וגדולים', en: 'small, medium and large'}
   - {he: 'יסוד (געשי), משקע ומותמר', en: 'igneous, sedimentary and metamorphic'}
   answer: 2
   explanation_he: סלעי יסוד נוצרים מלבה או מגמה שהתקררה, סלעי משקע משכבות שהצטברו, וסלעים מותמרים משינוי בחום ובלחץ.
   explanation_en: Igneous rocks form from cooled lava or magma, sedimentary from built-up layers, and metamorphic from heat and pressure.
   tags: [rocks_soil]
-- id: sci.earth.047
+- id: sci.earth.048
   skill: science.earth.rocks_soil
   kind: choice
   grade: 5
@@ -670,14 +686,14 @@ items:
   prompt_he: שיש נוצר מאבן גיר שנחשפה לחום ולחץ גדולים. לאיזה סוג סלע הוא שייך?
   prompt_en: Marble forms from limestone exposed to great heat and pressure. What type of rock is it?
   choices:
-  - {he: סלע יסוד, en: igneous rock}
   - {he: סלע משקע, en: sedimentary rock}
+  - {he: סלע יסוד, en: igneous rock}
   - {he: סלע מותמר, en: metamorphic rock}
   answer: 2
   explanation_he: הוראת המילה "מותמר" היא שהשתנה. בעומק האדמה, חום ולחץ משנים את גבישי הגיר והופכים אותו לשיש.
   explanation_en: '"Metamorphic" means changed. Deep underground, heat and pressure change limestone''s crystals into marble.'
   tags: [rocks_soil]
-- id: sci.earth.048
+- id: sci.earth.049
   skill: science.earth.rocks_soil
   kind: choice
   grade: 5
@@ -685,14 +701,14 @@ items:
   prompt_he: למה חשוב לשתול צמחים במדרונות חשופים?
   prompt_en: Why is it important to plant on bare slopes?
   choices:
-  - {he: כדי שיהיה יותר אבק, en: to make more dust}
-  - {he: כדי שהמים יזרמו מהר יותר, en: so water flows faster}
   - {he: השורשים מחזיקים את הקרקע ומונעים סחף, en: roots hold the soil and prevent erosion}
-  answer: 2
+  - {he: כדי שהמים יזרמו מהר יותר, en: so water flows faster}
+  - {he: כדי שיהיה יותר אבק, en: to make more dust}
+  answer: 0
   explanation_he: בלי צמחים, הגשם והרוח סוחפים את שכבת הקרקע הפורייה. השורשים קושרים את האדמה.
   explanation_en: Without plants, rain and wind wash away fertile topsoil. Roots bind the soil together.
   tags: [rocks_soil]
-- id: sci.earth.049
+- id: sci.earth.050
   skill: science.earth.rocks_soil
   kind: order
   grade: 4
@@ -700,15 +716,31 @@ items:
   prompt_he: סדרו את הגרגרים מהגדול לקטן.
   prompt_en: Order the grains from largest to smallest.
   choices:
-  - {he: חול, en: sand}
   - {he: סלע, en: boulder}
+  - {he: חול, en: sand}
   - {he: חצץ, en: gravel}
   - {he: חרסית, en: clay}
-  answer: [1, 2, 0, 3]
+  answer: [0, 2, 1, 3]
   explanation_he: סלעים מתפוררים לחצץ, החצץ לחול, וגרגרי החרסית הם הקטנים ביותר, קטנים מכדי לראות אותם בעין.
   explanation_en: Boulders break into gravel, gravel into sand, and clay grains are smallest, too small to see.
   tags: [rocks_soil]
-- id: sci.earth.050
+- id: sci.earth.051
+  skill: science.earth.rocks_soil
+  kind: order
+  grade: 4
+  difficulty: 1.0
+  prompt_he: סדרו את שלבי היווצרות הקרקע.
+  prompt_en: Order the stages of soil formation.
+  choices:
+  - {he: נוצרים גרגרים קטנים, en: small grains form}
+  - {he: סלע גדול ושלם, en: a big solid rock}
+  - {he: מצטרפות שאריות צמחים ונוצרת קרקע, en: plant remains mix in and soil forms}
+  - {he: הסלע נסדק ומתפורר, en: the rock cracks and crumbles}
+  answer: [1, 3, 0, 2]
+  explanation_he: מים, חום, קור ושורשים מפוררים את הסלע לאט. כשמצטרפים חומרים מצמחים ובעלי חיים, נוצרת קרקע פורייה.
+  explanation_en: Water, heat, cold and roots slowly break rock apart. When plant and animal matter mixes in, fertile soil forms.
+  tags: [rocks_soil]
+- id: sci.earth.052
   skill: science.earth.israel
   kind: choice
   grade: 3
@@ -723,7 +755,7 @@ items:
   explanation_he: חוף ים המלח נמצא כ-430 מטר מתחת לפני הים, הנמוך ביותר על היבשה בעולם.
   explanation_en: The Dead Sea shore is about 430 m below sea level, the lowest place on land on Earth.
   tags: [israel_nature]
-- id: sci.earth.051
+- id: sci.earth.053
   skill: science.earth.israel
   kind: true_false
   grade: 3
@@ -734,7 +766,7 @@ items:
   explanation_he: לא נכון. המים מלוחים כל כך שדגים וצמחים לא יכולים לחיות בהם. חיים בו רק יצורים זעירים מאוד, כמו חיידקים מסוימים.
   explanation_en: False. The water is so salty that fish and plants can't live in it. Only tiny life forms like certain bacteria survive.
   tags: [israel_nature]
-- id: sci.earth.052
+- id: sci.earth.054
   skill: science.earth.israel
   kind: choice
   grade: 4
@@ -749,7 +781,7 @@ items:
   explanation_he: מכתש הוא תופעה מיוחדת לנגב ולסיני. מים סחפו סלעים רכים מתחת לשכבה קשה, ונוצר עמק עמוק מוקף צוקים.
   explanation_en: A makhtesh is special to the Negev and Sinai. Water washed away soft rock beneath a hard layer, leaving a deep valley ringed by cliffs.
   tags: [israel_nature]
-- id: sci.earth.053
+- id: sci.earth.055
   skill: science.earth.israel
   kind: choice
   grade: 4
@@ -757,14 +789,14 @@ items:
   prompt_he: איזה חלק משטח ישראל הוא מדבר הנגב?
   prompt_en: What part of Israel's area is the Negev desert?
   choices:
-  - {he: כמעט כלום, en: almost none}
   - {he: עשירית, en: a tenth}
+  - {he: כמעט כלום, en: almost none}
   - {he: יותר ממחצית, en: more than half}
   answer: 2
   explanation_he: הנגב משתרע על כ-60 אחוז משטח המדינה, אבל רק חלק קטן מהתושבים גרים בו.
   explanation_en: The Negev covers about 60 percent of the country, but only a small share of people live there.
   tags: [israel_nature]
-- id: sci.earth.054
+- id: sci.earth.056
   skill: science.earth.israel
   kind: choice
   grade: 4
@@ -772,14 +804,14 @@ items:
   prompt_he: לאן זורם נהר הירדן?
   prompt_en: Where does the Jordan River flow?
   choices:
-  - {he: מהצפון לכנרת ומשם לים המלח, en: 'from the north into the Kinneret, then to the Dead Sea'}
   - {he: מאילת לחרמון, en: from Eilat to the Hermon}
   - {he: מים המלח לים התיכון, en: from the Dead Sea to the Mediterranean}
-  answer: 0
+  - {he: מהצפון לכנרת ומשם לים המלח, en: 'from the north into the Kinneret, then to the Dead Sea'}
+  answer: 2
   explanation_he: הירדן מתחיל ממעיינות למרגלות החרמון, זורם לכנרת, וממנה דרומה עד ים המלח.
   explanation_en: The Jordan starts from springs at the foot of the Hermon, flows into the Kinneret, and on south to the Dead Sea.
   tags: [israel_nature]
-- id: sci.earth.055
+- id: sci.earth.057
   skill: science.earth.israel
   kind: true_false
   grade: 4
@@ -790,7 +822,7 @@ items:
   explanation_he: נכון. פחות מים מגיעים אליו מהירדן, והמים מתאדים בחום. בגלל הירידה נוצרים בולענים לאורך החוף.
   explanation_en: True. Less water arrives from the Jordan and water evaporates in the heat. The drop causes sinkholes along the shore.
   tags: [israel_nature]
-- id: sci.earth.056
+- id: sci.earth.058
   skill: science.earth.israel
   kind: choice
   grade: 5
@@ -798,14 +830,14 @@ items:
   prompt_he: מה צריך לעשות במדבר ביום חורף כשיש סכנת שיטפון?
   prompt_en: What should you do in the desert on a winter day with a flood warning?
   choices:
-  - {he: להיכנס לתוך המים, en: go into the water}
   - {he: לשבת באפיק הנחל ולחכות, en: sit in the stream bed and wait}
   - {he: 'להתרחק מאפיקי נחלים, גם בלי גשם במקום', en: 'stay out of stream beds, even if it''s not raining there'}
-  answer: 2
+  - {he: להיכנס לתוך המים, en: go into the water}
+  answer: 1
   explanation_he: גשם שיורד רחוק יכול ליצור שיטפון שמגיע פתאום לנחל יבש. לכן בימים כאלה לא נכנסים לאפיקי נחלים.
   explanation_en: Rain far away can send a sudden flood down a dry stream bed, so on such days stay out of stream beds.
   tags: [israel_nature]
-- id: sci.earth.057
+- id: sci.earth.059
   skill: science.earth.israel
   kind: choice
   grade: 5
@@ -820,7 +852,7 @@ items:
   explanation_he: לאורך השבר נפגשים שני לוחות של קרום כדור הארץ. לכן העמק נמוך כל כך, ולכן יש באזור רעידות אדמה.
   explanation_en: Two plates of Earth's crust meet along the rift. That's why the valley is so low and why the region has earthquakes.
   tags: [israel_nature]
-- id: sci.earth.058
+- id: sci.earth.060
   skill: science.earth.israel
   kind: choice
   grade: 4
@@ -829,13 +861,13 @@ items:
   prompt_en: Which sea is near Eilat?
   choices:
   - {he: הים התיכון, en: the Mediterranean}
-  - {he: ים סוף, en: the Red Sea}
   - {he: ים המלח, en: the Dead Sea}
-  answer: 1
+  - {he: ים סוף, en: the Red Sea}
+  answer: 2
   explanation_he: אילת נמצאת על חוף מפרץ אילת בים סוף, שם יש שונית אלמוגים. חופי מרכז הארץ נמצאים על הים התיכון.
   explanation_en: Eilat sits on the Gulf of Eilat in the Red Sea, home to a coral reef. Central Israel's coast is on the Mediterranean.
   tags: [israel_nature]
-- id: sci.earth.059
+- id: sci.earth.061
   skill: science.earth.israel
   kind: true_false
   grade: 5
@@ -846,7 +878,7 @@ items:
   explanation_he: נכון. פני הכנרת נמצאים כ-210 מטר מתחת לפני הים. היא מקור מים חשוב לישראל.
   explanation_en: True. The Kinneret's surface is about 210 m below sea level. It's an important water source for Israel.
   tags: [israel_nature]
-- id: sci.earth.060
+- id: sci.earth.062
   skill: science.earth.israel
   kind: choice
   grade: 6
@@ -855,13 +887,13 @@ items:
   prompt_en: What do you do if you feel an earthquake at home?
   choices:
   - {he: נכנסים למעלית, en: get into the elevator}
-  - {he: עומדים ליד חלון, en: stand by a window}
   - {he: יוצאים לשטח פתוח או נכנסים לממ"ד, en: go to an open area or into the safe room}
-  answer: 2
+  - {he: עומדים ליד חלון, en: stand by a window}
+  answer: 1
   explanation_he: אם אפשר לצאת מהר, יוצאים לשטח פתוח הרחק מבניינים. אחרת נכנסים לממ"ד או מתחת לשולחן חזק. לא משתמשים במעלית.
   explanation_en: If you can get out quickly, go to an open area away from buildings. Otherwise use the safe room or get under a sturdy table. Never use the elevator.
   tags: [israel_nature]
-- id: sci.earth.061
+- id: sci.earth.063
   skill: science.earth.israel
   kind: choice
   grade: 5
@@ -869,14 +901,14 @@ items:
   prompt_he: מה מיוחד בהרים האדומים ליד אילת ובתמנע?
   prompt_en: What's special about the red mountains near Eilat and Timna?
   choices:
-  - {he: יש בהם גרניט וסלעים עם נחושת, en: they have granite and copper-bearing rocks}
-  - {he: הם עשויים מקרח, en: they are made of ice}
   - {he: הם הרי געש פעילים, en: they are active volcanoes}
-  answer: 0
+  - {he: הם עשויים מקרח, en: they are made of ice}
+  - {he: יש בהם גרניט וסלעים עם נחושת, en: they have granite and copper-bearing rocks}
+  answer: 2
   explanation_he: בתמנע כרו בני אדם נחושת כבר בימי קדם. האבן הירוקה-כחולה, "אבן אילת", מכילה מינרלים של נחושת.
   explanation_en: People mined copper at Timna in ancient times. The green-blue "Eilat stone" contains copper minerals.
   tags: [israel_nature]
-- id: sci.earth.062
+- id: sci.earth.064
   skill: science.earth.israel
   kind: order
   grade: 5
@@ -884,15 +916,15 @@ items:
   prompt_he: סדרו את המקומות מהגבוה לנמוך.
   prompt_en: Order the places from highest to lowest.
   choices:
-  - {he: תל אביב, en: Tel Aviv}
   - {he: ים המלח, en: the Dead Sea}
-  - {he: פסגת החרמון, en: the Hermon summit}
+  - {he: תל אביב, en: Tel Aviv}
   - {he: ירושלים, en: Jerusalem}
-  answer: [2, 3, 0, 1]
+  - {he: פסגת החרמון, en: the Hermon summit}
+  answer: [3, 2, 1, 0]
   explanation_he: החרמון גבוה יותר מ-2,000 מטר, ירושלים כ-800 מטר, תל אביב על חוף הים, וים המלח כ-430 מטר מתחת לפני הים.
   explanation_en: The Hermon is over 2,000 m, Jerusalem about 800 m, Tel Aviv at sea level, and the Dead Sea about 430 m below sea level.
   tags: [israel_nature]
-- id: sci.earth.063
+- id: sci.earth.065
   skill: science.earth.structure
   kind: order
   grade: 6
@@ -900,15 +932,15 @@ items:
   prompt_he: סדרו את שכבות כדור הארץ מבחוץ פנימה.
   prompt_en: Order Earth's layers from outside in.
   choices:
-  - {he: גלעין חיצוני, en: outer core}
-  - {he: גלעין פנימי, en: inner core}
   - {he: מעטפת, en: mantle}
+  - {he: גלעין פנימי, en: inner core}
+  - {he: גלעין חיצוני, en: outer core}
   - {he: קרום, en: crust}
-  answer: [3, 2, 0, 1]
+  answer: [3, 0, 2, 1]
   explanation_he: אנחנו חיים על הקרום הדק. מתחתיו המעטפת העבה, ובמרכז הגלעין, החם ביותר, שבנוי בעיקר מברזל וניקל.
   explanation_en: We live on the thin crust. Beneath is the thick mantle, and at the center the hottest part, the core, mostly iron and nickel.
   tags: [earth_structure]
-- id: sci.earth.064
+- id: sci.earth.066
   skill: science.earth.structure
   kind: choice
   grade: 6
@@ -916,14 +948,14 @@ items:
   prompt_he: מהי לבה?
   prompt_en: What is lava?
   choices:
-  - {he: עשן שחור, en: black smoke, emoji: 1f525}
-  - {he: מים חמים ממעיין, en: hot spring water, emoji: '2668'}
   - {he: סלע מותך שיוצא מהר געש, en: molten rock coming out of a volcano, emoji: 1f30b}
-  answer: 2
+  - {he: מים חמים ממעיין, en: hot spring water, emoji: '2668'}
+  - {he: עשן שחור, en: black smoke, emoji: 1f525}
+  answer: 0
   explanation_he: מתחת לפני הקרקע הסלע המותך נקרא מגמה. כשהוא פורץ החוצה בהר געש הוא נקרא לבה, וכשהוא מתקרר הוא נעשה סלע.
   explanation_en: Underground, molten rock is called magma. When it erupts from a volcano it's lava, and when it cools it becomes rock.
   tags: [earth_structure]
-- id: sci.earth.065
+- id: sci.earth.067
   skill: science.earth.structure
   kind: choice
   grade: 6
@@ -931,14 +963,14 @@ items:
   prompt_he: מה גורם לרוב רעידות האדמה?
   prompt_en: What causes most earthquakes?
   choices:
+  - {he: תזוזה פתאומית של לוחות בקרום כדור הארץ, en: sudden movement of plates in Earth's crust}
   - {he: רוחות חזקות, en: strong winds}
   - {he: גלים בים, en: ocean waves}
-  - {he: תזוזה פתאומית של לוחות בקרום כדור הארץ, en: sudden movement of plates in Earth's crust}
-  answer: 2
+  answer: 0
   explanation_he: קרום כדור הארץ מחולק ללוחות שזזים לאט. לפעמים הם נתקעים, ואז משתחררים בבת אחת, והאדמה רועדת.
   explanation_en: Earth's crust is split into slowly moving plates. Sometimes they stick, then slip all at once, and the ground shakes.
   tags: [earth_structure]
-- id: sci.earth.066
+- id: sci.earth.068
   skill: science.earth.structure
   kind: true_false
   grade: 6
@@ -949,7 +981,7 @@ items:
   explanation_he: נכון. זו בערך המהירות שבה צומחות הציפורניים שלנו. לא מרגישים את התנועה, אבל מכשירים מדויקים מודדים אותה.
   explanation_en: True. That's about how fast our fingernails grow. We can't feel it, but precise instruments measure it.
   tags: [earth_structure]
-- id: sci.earth.067
+- id: sci.earth.069
   skill: science.earth.structure
   kind: choice
   grade: 6
@@ -964,7 +996,7 @@ items:
   explanation_he: הקרום דק מאוד ביחס לכדור הארץ, כמו קליפה של תפוח ביחס לתפוח כולו.
   explanation_en: The crust is very thin compared to the whole Earth, like an apple's skin compared to the apple.
   tags: [earth_structure]
-- id: sci.earth.068
+- id: sci.earth.070
   skill: science.earth.structure
   kind: choice
   grade: 7
@@ -972,14 +1004,14 @@ items:
   prompt_he: מה תפקיד שכבת האוזון באטמוספרה?
   prompt_en: What does the ozone layer in the atmosphere do?
   choices:
-  - {he: מסננת חלק גדול מהקרינה העל-סגולה של השמש, en: filters much of the sun's ultraviolet radiation}
   - {he: מאירה בלילה, en: glows at night}
+  - {he: מסננת חלק גדול מהקרינה העל-סגולה של השמש, en: filters much of the sun's ultraviolet radiation}
   - {he: מייצרת גשם, en: makes rain}
-  answer: 0
+  answer: 1
   explanation_he: האוזון בולע את רוב הקרינה העל-סגולה המזיקה. בלעדיו היו הרבה יותר כוויות ונזקים לעור ולעיניים.
   explanation_en: Ozone absorbs most harmful ultraviolet radiation. Without it there'd be far more sunburn and damage to skin and eyes.
   tags: [earth_structure]
-- id: sci.earth.069
+- id: sci.earth.071
   skill: science.earth.structure
   kind: true_false
   grade: 6
@@ -990,7 +1022,7 @@ items:
   explanation_he: לא נכון. הגלעין חם מאוד, כמו פני השמש בערך. הגלעין הפנימי מוצק רק בגלל הלחץ העצום.
   explanation_en: False. The core is extremely hot, roughly as hot as the sun's surface. The inner core is solid only because of the huge pressure.
   tags: [earth_structure]
-- id: sci.earth.070
+- id: sci.earth.072
   skill: science.earth.structure
   kind: choice
   grade: 7
@@ -998,14 +1030,14 @@ items:
   prompt_he: מה מודד מד רעידות (סיסמוגרף)?
   prompt_en: What does a seismograph measure?
   choices:
+  - {he: כמות גשם, en: amount of rain}
   - {he: גובה של הר, en: height of a mountain}
   - {he: רעידות של הקרקע, en: ground vibrations}
-  - {he: כמות גשם, en: amount of rain}
-  answer: 1
+  answer: 2
   explanation_he: הסיסמוגרף רושם את הרעידות. לפי הרישום מחשבים את עוצמת הרעידה ואת מקום המוקד שלה.
   explanation_en: A seismograph records shaking. From the record scientists work out an earthquake's strength and where it started.
   tags: [earth_structure]
-- id: sci.earth.071
+- id: sci.earth.073
   skill: science.earth.structure
   kind: choice
   grade: 7
@@ -1020,7 +1052,7 @@ items:
   explanation_he: התפרצויות חוזרות ונשנות על קרקעית הים יוצרות הר געש. כשהוא גבוה מספיק, ראשו בולט מעל פני הים כאי.
   explanation_en: Repeated eruptions on the seafloor build a volcano. When tall enough, its top rises above the sea as an island.
   tags: [earth_structure]
-- id: sci.earth.072
+- id: sci.earth.074
   skill: science.earth.structure
   kind: choice
   grade: 6
@@ -1028,14 +1060,14 @@ items:
   prompt_he: באיזה חלק של כדור הארץ אנחנו חיים?
   prompt_en: On which layer of Earth do we live?
   choices:
-  - {he: בתוך המעטפת, en: inside the mantle, emoji: 1f30b}
   - {he: בגלעין, en: in the core, emoji: 1f525}
+  - {he: בתוך המעטפת, en: inside the mantle, emoji: 1f30b}
   - {he: על הקרום, en: on the crust, emoji: 1f30d}
   answer: 2
   explanation_he: הקרום הוא השכבה החיצונית והמוצקה, שעליה יש יבשות, ימים, הרים ועמקים.
   explanation_en: The crust is the solid outer layer, holding continents, seas, mountains and valleys.
   tags: [earth_structure]
-- id: sci.earth.073
+- id: sci.earth.075
   skill: science.earth.structure
   kind: true_false
   grade: 7
