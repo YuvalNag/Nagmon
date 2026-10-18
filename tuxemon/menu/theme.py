@@ -4,7 +4,7 @@ from pathlib import Path
 
 from pygame.surface import Surface
 from pygame_menu.baseimage import BaseImage
-from pygame_menu.locals import ALIGN_LEFT, SCROLLAREA_POSITION_NONE
+from pygame_menu.locals import SCROLLAREA_POSITION_NONE
 from pygame_menu.sound import SOUND_TYPE_WIDGET_SELECTION, Sound
 from pygame_menu.themes import Theme
 from pygame_menu.widgets.core.selection import Selection
@@ -12,6 +12,8 @@ from pygame_menu.widgets.core.widget import Widget
 from pygame_menu.widgets.widget.menubar import MENUBAR_STYLE_ADAPTIVE
 
 from tuxemon.constants.asset_loader import fetch_asset
+from tuxemon.locale.locale import T
+from tuxemon.menu.rtl import install_pygame_menu_bidi, start_menu_alignment
 from tuxemon.platform.const.graphics import (
     FONT_COLOR,
     FONT_SHADOW_COLOR,
@@ -23,13 +25,28 @@ from tuxemon.platform.const.graphics import (
 )
 from tuxemon.scaling import ScalingStrategy
 from tuxemon.tools import transform_resource_filename
+from tuxemon.ui import bidi
 from tuxemon.user_config import CONFIG
 
 _theme: Theme | None = None
 
 
+def reset_theme_cache(_locale_name: str | None = None) -> None:
+    """
+    Drop the cached theme so the next ``get_theme`` picks up the current
+    language (font, alignment, cursor side). Registered as a language
+    change callback.
+    """
+    global _theme
+    _theme = None
+
+
+T.language_changed_callbacks.append(reset_theme_cache)
+install_pygame_menu_bidi()
+
+
 class TuxemonArrowSelection(Selection):
-    def __init__(self, scale_factor: int) -> None:
+    def __init__(self, scale_factor: int, rtl: bool = False) -> None:
         # Call the constructor of the Selection providing the left, right,
         # top and bottom margins of your Selection effect box.
         #
@@ -44,14 +61,18 @@ class TuxemonArrowSelection(Selection):
         arrow = BaseImage(
             image_path=transform_resource_filename(CONFIG.menu_cursor),
         ).scale(scale_factor, scale_factor, smooth=False)
+        if rtl:
+            # RTL: the arrow sits right of the widget and points left
+            arrow = arrow.flip(True, False)
 
         super().__init__(
-            margin_left=arrow.get_width(),
-            margin_right=0,
+            margin_left=0 if rtl else arrow.get_width(),
+            margin_right=arrow.get_width() if rtl else 0,
             margin_top=0,
             margin_bottom=0,
         )
         self.arrow = arrow
+        self.rtl = rtl
 
     def draw(self, surface: Surface, widget: Widget) -> Selection:
         """
@@ -60,10 +81,13 @@ class TuxemonArrowSelection(Selection):
         object from widget should be used.
         """
         widget_rect = widget.get_rect()
-        position = (
-            widget_rect.topleft[0] - self.arrow.get_width(),
-            widget_rect.topleft[1],
-        )
+        if self.rtl:
+            position = (widget_rect.topright[0], widget_rect.topright[1])
+        else:
+            position = (
+                widget_rect.topleft[0] - self.arrow.get_width(),
+                widget_rect.topleft[1],
+            )
 
         self.arrow.draw(
             surface,
@@ -98,9 +122,11 @@ def get_theme(scaling: ScalingStrategy) -> Theme:
 
     theme = Theme(
         background_color=tuxemon_background,
-        widget_alignment=ALIGN_LEFT,
+        widget_alignment=start_menu_alignment(),
         title=False,
-        widget_selection_effect=TuxemonArrowSelection(scale_factor),
+        widget_selection_effect=TuxemonArrowSelection(
+            scale_factor, rtl=bidi.locale_is_rtl()
+        ),
         border_color=tuxemon_border,
         scrollarea_position=SCROLLAREA_POSITION_NONE,
         widget_padding=(scaling.scale_int(2), scaling.scale_int(4)),

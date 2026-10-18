@@ -11,7 +11,7 @@ FONT_DIR = mods_folder / "tuxemon/font"
 HEBREW_LETTERS = "".join(chr(c) for c in range(0x05D0, 0x05EB))
 FINAL_FORMS = "ךםןףץ"
 LATIN = "".join(chr(c) for c in range(0x20, 0x7F))
-EXTRA = "₪…·→←×״׳"
+EXTRA = "\u20aa…·×״׳"
 
 
 @pytest.fixture(scope="module")

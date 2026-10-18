@@ -12,6 +12,7 @@ from pygame.surface import Surface
 
 from tuxemon.graphics import ColorLike
 from tuxemon.platform.const.graphics import FONT_SHADOW_COLOR, FONT_SIZE
+from tuxemon.ui.bidi import ensure_visual
 
 if TYPE_CHECKING:
     from tuxemon.scaling import ScalingStrategy
@@ -75,6 +76,14 @@ class TextRenderer:
         fg: ColorLike | None = None,
         offset: tuple[float, ...] | None = None,
     ) -> Surface:
+        """
+        Render a single line with a drop shadow.
+
+        Logical RTL text is converted to visual order here; text that is
+        already a ``VisualStr`` (converted after wrapping) is not converted
+        again.
+        """
+        text = ensure_visual(text)
         fg = fg or self.font_color
         bg = bg or self.font_shadow_color
 

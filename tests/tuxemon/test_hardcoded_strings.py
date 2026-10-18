@@ -28,7 +28,9 @@ from tuxemon.ui.menu_options import ChoiceOption
 def hebrew(monkeypatch):
     """Route T.translate/T.format to the Hebrew catalogue."""
     monkeypatch.setattr(
-        T, "translate", lambda msgid, domain=None: T.translate_in(msgid, "he_IL")
+        T,
+        "translate",
+        lambda msgid, domain=None: T.translate_in(msgid, "he_IL"),
     )
     monkeypatch.setattr(
         T,
@@ -48,7 +50,7 @@ def test_level_labels_english():
 def test_level_labels_hebrew(hebrew):
     assert level_label(5) == "רמה 5"
     assert T.format("level_up_range", {"start": 3, "end": 4}) == (
-        "רמה 3 ← רמה 4"
+        "מרמה 3 לרמה 4"
     )
 
 

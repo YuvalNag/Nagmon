@@ -14,6 +14,8 @@ from tuxemon.constants import paths
 from tuxemon.database.rules import config_monster
 from tuxemon.database.yaml_utils import load_yaml
 from tuxemon.locale.locale import T
+from tuxemon.locale.units import level_label
+from tuxemon.menu.formatter import currency_symbol
 from tuxemon.menu.interface import MenuItem
 from tuxemon.monster.monster import Monster
 from tuxemon.monster.renderer import MonsterRenderer
@@ -181,7 +183,8 @@ class ShopTrainingMenuState(ShopMenuState[Monster]):
             return target_level * base
 
     def _format_monster_label(self, monster: Monster, cost: int) -> str:
-        return f"{monster.name} Lv.{monster.level} (${cost})"
+        level = level_label(monster.level)
+        return f"{monster.name} {level} ({currency_symbol()}{cost})"
 
     def _calculate_training_cost(self, monster: Monster) -> int:
         """Calculates the cost to level up a monster."""

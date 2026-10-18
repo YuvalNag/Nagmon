@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import logging
 from collections.abc import Callable, Mapping
+from gettext import GNUTranslations, NullTranslations, translation
 from pathlib import Path
 from typing import Any
 
@@ -23,6 +24,7 @@ FALLBACK_LOCALE = "en_US"
 LOCALE_DIR = "l18n"
 LOCALE_CONFIG = CONFIG.locale
 ONE_WEEK = 7 * 24 * 60 * 60  # seconds
+RTL_LOCALES = {"he_IL"}
 
 
 class TranslatorManager:
@@ -41,6 +43,11 @@ class TranslatorManager:
         self._translators: dict[str, TranslatorPo] = {}
         self._current_translator_key: str = "base"
         self.language_changed_callbacks: list[Callable[[str], None]] = []
+        # translators for explicit locales (translate_in), never active
+        self._translators_in: dict[tuple[str, str], TranslatorPo] = {}
+        self._strict_catalogs: dict[
+            tuple[str, str], GNUTranslations | NullTranslations
+        ] = {}
         self.collect_and_compile_translations()
         self.clean_stale_translations()
         self.load_translator_for_domain(
@@ -282,6 +289,73 @@ class TranslatorManager:
             return ""
 
         return self._get_translator_for_domain(domain).maybe_translate(text)
+
+    def is_rtl(self) -> bool:
+        """True when the active language is written right to left."""
+        return self.get_current_language() in RTL_LOCALES
+
+    def _translator_in(
+        self, locale_name: str, domain: str | None
+    ) -> TranslatorPo:
+        """
+        Cached translator for an explicit locale. It is never made the
+        active translator, so the current language does not change.
+        """
+        domain = domain or self._current_translator_key
+        if not self.locale_finder.has_locale(locale_name):
+            locale_name = FALLBACK_LOCALE
+        key = (locale_name, domain)
+        translator = self._translators_in.get(key)
+        if translator is None:
+            translator = TranslatorPo(
+                locale_name=locale_name,
+                domain=domain,
+                localedir=self.localedir,
+                fallback_locale=FALLBACK_LOCALE,
+            )
+            self._translators_in[key] = translator
+        return translator
+
+    def translate_in(
+        self, msgid: str, locale_name: str, domain: str | None = None
+    ) -> str:
+        """
+        Translate a message into a specific locale without changing the
+        active language. Falls back to English like ``translate``.
+        """
+        return self._translator_in(locale_name, domain).translate(msgid)
+
+    def format_in(
+        self,
+        text: str,
+        locale_name: str,
+        parameters: Mapping[str, Any] | None = None,
+        domain: str | None = None,
+    ) -> str:
+        """``format`` in a specific locale, without changing the language."""
+        return self._translator_in(locale_name, domain).format(
+            text, parameters
+        )
+
+    def lookup_in(
+        self, msgid: str, locale_name: str, domain: str | None = None
+    ) -> str | None:
+        """
+        Strict lookup in the catalogue of ``locale_name`` only (no English
+        fallback). Returns None when the locale has no entry for msgid.
+        """
+        domain = domain or self._current_translator_key
+        key = (locale_name, domain)
+        catalog = self._strict_catalogs.get(key)
+        if catalog is None:
+            catalog = translation(
+                domain, self.localedir, [locale_name], fallback=True
+            )
+            self._strict_catalogs[key] = catalog
+        if not isinstance(catalog, GNUTranslations):
+            return None
+        value = catalog._catalog.get(msgid.replace(r"\n", "\n"))
+        return value or None
 
     def get_current_language(self) -> str:
         """

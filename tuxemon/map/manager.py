@@ -12,6 +12,7 @@ from typing import TYPE_CHECKING, Any
 from tuxemon.constants import paths
 from tuxemon.database.yaml_utils import load_yaml
 from tuxemon.db import Direction
+from tuxemon.locale.locale import T
 
 if TYPE_CHECKING:
     from tuxemon.db import EventObject
@@ -77,9 +78,9 @@ class MapManager:
     @property
     def map_name(self) -> str:
         """The translated name of the current map."""
-        return (
-            self.current_map.name if self.current_map else "Unknown Location"
-        )
+        if self.current_map:
+            return self.current_map.name
+        return T.translate("unknown_location")
 
     @property
     def map_desc(self) -> str:

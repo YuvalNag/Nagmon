@@ -6,13 +6,14 @@ from collections.abc import Callable
 from functools import partial
 from typing import TYPE_CHECKING, Any, ClassVar
 
-from pygame_menu.locals import ALIGN_CENTER, ALIGN_LEFT, POSITION_EAST
+from pygame_menu.locals import ALIGN_CENTER, POSITION_EAST
 from pygame_menu.menu import Menu
 
 from tuxemon.db import MissionStatus
 from tuxemon.entity.npc import NPC
 from tuxemon.locale.locale import T
 from tuxemon.menu.menu import PygameMenuState
+from tuxemon.menu.rtl import start_menu_alignment
 from tuxemon.mission.mission import Mission
 from tuxemon.platform.const import buttons
 from tuxemon.platform.const.graphics import BG_MISSIONS
@@ -136,7 +137,7 @@ class SingleMissionState(PygameMenuState):
             title=f"{self.mission.name}",
             label_id="name",
             font_size=self.font_type.small,
-            align=ALIGN_LEFT,
+            align=start_menu_alignment(),
             float=False,
         )
 
@@ -144,7 +145,7 @@ class SingleMissionState(PygameMenuState):
             title=self.mission.description,
             label_id="description",
             font_size=self.font_type.small,
-            align=ALIGN_LEFT,
+            align=start_menu_alignment(),
             float=False,
         )
 
@@ -152,7 +153,7 @@ class SingleMissionState(PygameMenuState):
             menu.add.label(
                 title=T.translate("mission_repeatable"),
                 font_size=self.font_type.small,
-                align=ALIGN_LEFT,
+                align=start_menu_alignment(),
             )
 
         next_missions = (
@@ -164,7 +165,7 @@ class SingleMissionState(PygameMenuState):
             title=f"{T.translate('mission_next')}: {next_missions}",
             label_id="next_missions",
             font_size=self.font_type.small,
-            align=ALIGN_LEFT,
+            align=start_menu_alignment(),
             float=False,
         )
 
@@ -173,7 +174,7 @@ class SingleMissionState(PygameMenuState):
             title=T.translate("mission_progress"),
             default=progress,
             font_size=self.font_type.small,
-            align=ALIGN_LEFT,
+            align=start_menu_alignment(),
             float=False,
         )
 

@@ -4877,6 +4877,9 @@ msgstr "Finnish"
 msgid "language_fr_fr"
 msgstr "French"
 
+msgid "language_he_il"
+msgstr "עברית"
+
 msgid "language_it_it"
 msgstr "Italian"
 
@@ -19269,3 +19272,55 @@ msgstr "Town Hall"
 
 msgid "flower_lady"
 msgstr "Flower Lady"
+
+# FORMERLY HARD-CODED STRINGS (Nagmon WP3) ##
+msgid "currency_symbol"
+msgstr "$"
+
+msgid "level_short"
+msgstr "Lv.{level}"
+
+msgid "level_short_spaced"
+msgstr "Lv. {level}"
+
+msgid "level_up_range"
+msgstr "Lv.{start} → Lv.{end}"
+
+msgid "measure_value"
+msgstr "{value}{unit}"
+
+msgid "menu_option_default"
+msgstr "Option {key}"
+
+msgid "menu_option_unnamed"
+msgstr "Unnamed"
+
+msgid "quantity_symbol"
+msgstr "x"
+
+msgid "unit_cm"
+msgstr "cm"
+
+msgid "unit_ft"
+msgstr "ft"
+
+msgid "unit_kg"
+msgstr "kg"
+
+msgid "unit_km"
+msgstr "km"
+
+msgid "unit_lb"
+msgstr "lb"
+
+msgid "unit_m"
+msgstr "m"
+
+msgid "unit_mi"
+msgstr "mi"
+
+msgid "unit_t"
+msgstr "t"
+
+msgid "unknown_location"
+msgstr "Unknown Location"

@@ -82,7 +82,7 @@ def start_alignment() -> HorizontalAlignment   # RIGHT ב־RTL, אחרת LEFT
 |---|---|---|---|
 | `Lv.{level}` | `level_short` | `Lv.{level}` | `רמה {level}` |
 | `Lv. {level}` (monster_info) | `level_short_spaced` | `Lv. {level}` | `רמה {level}` |
-| `Lv.{a} → Lv.{b}` | `level_up_range` | `Lv.{start} → Lv.{end}` | `רמה {start} ← רמה {end}` |
+| `Lv.{a} → Lv.{b}` | `level_up_range` | `Lv.{start} → Lv.{end}` | `מרמה {start} לרמה {end}` (ב־Rubik אין חצים) |
 | `Unknown Location` | `unknown_location` | `Unknown Location` | `מקום לא ידוע` |
 | `$` | `currency_symbol` | `$` | `₪` |
 | `x` (כמות) | `quantity_symbol` | `x` | `×` |
