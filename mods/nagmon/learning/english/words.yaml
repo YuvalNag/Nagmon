@@ -1,0 +1,9108 @@
+# Nagmon English vocabulary bank (SDD_CONTENT section 4).
+#
+# Levels follow the CEFR young-learner bands:
+#   preA1 ~ Cambridge Pre A1 Starters  (grades 0-2)
+#   A1    ~ Cambridge A1 Movers        (grades 3-4)
+#   A2    ~ Cambridge A2 Flyers        (grades 5-6)
+#   B1    ~ useful B1 / Israeli MoE Band II words (grades 7-9)
+#
+# Sources used to choose and level the words:
+#   - Cambridge English, "Pre A1 Starters, A1 Movers and A2 Flyers Wordlists" (2018 exam format),
+#     https://www.cambridgeenglish.org/Images/149681-yle-flyers-word-list.pdf
+#   - Israel Ministry of Education, English Curriculum 2020 (CEFR-aligned, Pre-A1..B2),
+#     https://meyda.education.gov.il/files/Mazkirut_Pedagogit/English/Curriculum2020.pdf
+#   - Israel Ministry of Education, Band I / Band II core vocabulary lists ("bandsLists"),
+#     https://meyda.education.gov.il/files/Pop/0files/english/Chativa-Elyona/Bagrut/bandsLists.pdf
+#   - Israel Ministry of Education, Pre-foundation can-do statements and lexical list,
+#     https://meyda.education.gov.il/files/Mazkirut_Pedagogit/English/prefoundationcando.pdf
+#   Local adaptations: American spelling, Israeli context (falafel, synagogue, Shabbat, Negev),
+#   family-friendly and modest vocabulary only.
+#
+# Field notes:
+#   - (word, pos) is unique; a few words appear twice with different parts of speech
+#     (orange: color/fruit, answer: noun/verb, fly: insect/verb ...).
+#   - he: the most common sense; when a word has two very common senses both are given,
+#     separated by "; " (for example old: "ישן; זקן"). No niqqud.
+#   - emoji: Twemoji file code (lowercase hex code points joined by "-"; U+FE0F is dropped
+#     unless the sequence contains a ZWJ, as in Twemoji file names). null when no clear,
+#     unambiguous picture exists.
+
+# ===== preA1 =====
+- word: "hello"
+  he: "שלום"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 0
+  emoji: "1f44b"
+  example_en: "Hello, Dan!"
+  example_he: "שלום, דן!"
+- word: "hi"
+  he: "היי"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "Hi, I am Noa."
+  example_he: "היי, אני נועה."
+- word: "goodbye"
+  he: "להתראות"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "Goodbye, Grandma!"
+  example_he: "להתראות, סבתא!"
+- word: "yes"
+  he: "כן"
+  pos: other
+  topic: greetings
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "Yes, I like it."
+  example_he: "כן, אני אוהב את זה."
+- word: "no"
+  he: "לא"
+  pos: other
+  topic: greetings
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "No, thank you."
+  example_he: "לא, תודה."
+- word: "please"
+  he: "בבקשה"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "Water, please."
+  example_he: "מים, בבקשה."
+- word: "thank you"
+  he: "תודה"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "Thank you, Mom!"
+  example_he: "תודה, אמא!"
+- word: "sorry"
+  he: "סליחה"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Sorry, I am late."
+  example_he: "סליחה, אני מאחר."
+- word: "good morning"
+  he: "בוקר טוב"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Good morning, teacher!"
+  example_he: "בוקר טוב, המורה!"
+- word: "good night"
+  he: "לילה טוב"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Good night, Dad."
+  example_he: "לילה טוב, אבא."
+- word: "how are you?"
+  he: "מה שלומך?"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Hi, Tom! How are you?"
+  example_he: "היי, טום! מה שלומך?"
+- word: "I'm fine"
+  he: "אני בסדר"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I'm fine, thank you."
+  example_he: "אני בסדר, תודה."
+- word: "my name is"
+  he: "קוראים לי"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "My name is Yael."
+  example_he: "קוראים לי יעל."
+- word: "what's your name?"
+  he: "איך קוראים לך?"
+  pos: phrase
+  topic: greetings
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Hello! What's your name?"
+  example_he: "שלום! איך קוראים לך?"
+- word: "zero"
+  he: "אפס"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 1
+  emoji: "30-20e3"
+  example_en: "I have zero apples."
+  example_he: "יש לי אפס תפוחים."
+- word: "one"
+  he: "אחת"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 0
+  emoji: "31-20e3"
+  example_en: "One cat is sleeping."
+  example_he: "חתול אחד ישן."
+- word: "two"
+  he: "שתיים"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 0
+  emoji: "32-20e3"
+  example_en: "I have two eyes."
+  example_he: "יש לי שתי עיניים."
+- word: "three"
+  he: "שלוש"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 0
+  emoji: "33-20e3"
+  example_en: "I see three cats."
+  example_he: "אני רואה שלושה חתולים."
+- word: "four"
+  he: "ארבע"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 0
+  emoji: "34-20e3"
+  example_en: "A dog has four legs."
+  example_he: "לכלב יש ארבע רגליים."
+- word: "five"
+  he: "חמש"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 0
+  emoji: "35-20e3"
+  example_en: "I have five fingers on my hand."
+  example_he: "יש לי חמש אצבעות ביד."
+- word: "six"
+  he: "שש"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 0
+  emoji: "36-20e3"
+  example_en: "I am six years old."
+  example_he: "אני בן שש."
+- word: "seven"
+  he: "שבע"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 0
+  emoji: "37-20e3"
+  example_en: "There are seven days in a week."
+  example_he: "יש שבעה ימים בשבוע."
+- word: "eight"
+  he: "שמונה"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 0
+  emoji: "38-20e3"
+  example_en: "A spider has eight legs."
+  example_he: "לעכביש יש שמונה רגליים."
+- word: "nine"
+  he: "תשע"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 0
+  emoji: "39-20e3"
+  example_en: "I have nine balls."
+  example_he: "יש לי תשעה כדורים."
+- word: "ten"
+  he: "עשר"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 0
+  emoji: "1f51f"
+  example_en: "I have ten toes."
+  example_he: "יש לי עשר אצבעות ברגליים."
+- word: "eleven"
+  he: "אחת עשרה"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "My brother is eleven."
+  example_he: "אחי בן אחת עשרה."
+- word: "twelve"
+  he: "שתים עשרה"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "There are twelve eggs in the box."
+  example_he: "יש שתים עשרה ביצים בקופסה."
+- word: "thirteen"
+  he: "שלוש עשרה"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I have thirteen books."
+  example_he: "יש לי שלושה עשר ספרים."
+- word: "fourteen"
+  he: "ארבע עשרה"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "We have fourteen chairs."
+  example_he: "יש לנו ארבעה עשר כיסאות."
+- word: "fifteen"
+  he: "חמש עשרה"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "My sister is fifteen."
+  example_he: "אחותי בת חמש עשרה."
+- word: "sixteen"
+  he: "שש עשרה"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "There are sixteen pencils."
+  example_he: "יש שישה עשר עפרונות."
+- word: "seventeen"
+  he: "שבע עשרה"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I see seventeen birds."
+  example_he: "אני רואה שבע עשרה ציפורים."
+- word: "eighteen"
+  he: "שמונה עשרה"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "There are eighteen boys."
+  example_he: "יש שמונה עשר בנים."
+- word: "nineteen"
+  he: "תשע עשרה"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I have nineteen stickers."
+  example_he: "יש לי תשע עשרה מדבקות."
+- word: "twenty"
+  he: "עשרים"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "There are twenty children in the class."
+  example_he: "יש עשרים ילדים בכיתה."
+- word: "thirty"
+  he: "שלושים"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "There are thirty days in June."
+  example_he: "ביוני יש שלושים ימים."
+- word: "forty"
+  he: "ארבעים"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "My dad is forty."
+  example_he: "אבא שלי בן ארבעים."
+- word: "fifty"
+  he: "חמישים"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "I have fifty shekels."
+  example_he: "יש לי חמישים שקלים."
+- word: "sixty"
+  he: "שישים"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "There are sixty minutes in an hour."
+  example_he: "בשעה יש שישים דקות."
+- word: "seventy"
+  he: "שבעים"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "My grandpa is seventy."
+  example_he: "סבא שלי בן שבעים."
+- word: "eighty"
+  he: "שמונים"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "The book has eighty pages."
+  example_he: "בספר יש שמונים עמודים."
+- word: "ninety"
+  he: "תשעים"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "My great-grandma is ninety."
+  example_he: "סבתא רבא שלי בת תשעים."
+- word: "one hundred"
+  he: "מאה"
+  pos: num
+  topic: numbers
+  level: preA1
+  grade: 2
+  emoji: "1f4af"
+  example_en: "I can count to one hundred."
+  example_he: "אני יודע לספור עד מאה."
+- word: "red"
+  he: "אדום"
+  pos: adj
+  topic: colors
+  level: preA1
+  grade: 0
+  emoji: "2764"
+  example_en: "The apple is red."
+  example_he: "התפוח אדום."
+- word: "blue"
+  he: "כחול"
+  pos: adj
+  topic: colors
+  level: preA1
+  grade: 0
+  emoji: "1f499"
+  example_en: "The sky is blue."
+  example_he: "השמיים כחולים."
+- word: "green"
+  he: "ירוק"
+  pos: adj
+  topic: colors
+  level: preA1
+  grade: 0
+  emoji: "1f49a"
+  example_en: "The grass is green."
+  example_he: "הדשא ירוק."
+- word: "yellow"
+  he: "צהוב"
+  pos: adj
+  topic: colors
+  level: preA1
+  grade: 0
+  emoji: "1f49b"
+  example_en: "The sun is yellow."
+  example_he: "השמש צהובה."
+- word: "orange"
+  he: "כתום"
+  pos: adj
+  topic: colors
+  level: preA1
+  grade: 0
+  emoji: "1f9e1"
+  example_en: "My ball is orange."
+  example_he: "הכדור שלי כתום."
+- word: "purple"
+  he: "סגול"
+  pos: adj
+  topic: colors
+  level: preA1
+  grade: 0
+  emoji: "1f49c"
+  example_en: "The grapes are purple."
+  example_he: "הענבים סגולים."
+- word: "pink"
+  he: "ורוד"
+  pos: adj
+  topic: colors
+  level: preA1
+  grade: 0
+  emoji: "1fa77"
+  example_en: "The flower is pink."
+  example_he: "הפרח ורוד."
+- word: "brown"
+  he: "חום"
+  pos: adj
+  topic: colors
+  level: preA1
+  grade: 0
+  emoji: "1f90e"
+  example_en: "The bear is brown."
+  example_he: "הדוב חום."
+- word: "black"
+  he: "שחור"
+  pos: adj
+  topic: colors
+  level: preA1
+  grade: 0
+  emoji: "1f5a4"
+  example_en: "My cat is black."
+  example_he: "החתול שלי שחור."
+- word: "white"
+  he: "לבן"
+  pos: adj
+  topic: colors
+  level: preA1
+  grade: 0
+  emoji: "1f90d"
+  example_en: "The snow is white."
+  example_he: "השלג לבן."
+- word: "gray"
+  he: "אפור"
+  pos: adj
+  topic: colors
+  level: preA1
+  grade: 1
+  emoji: "1fa76"
+  example_en: "The elephant is gray."
+  example_he: "הפיל אפור."
+- word: "color"
+  he: "צבע"
+  pos: noun
+  topic: colors
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "What color is your bag?"
+  example_he: "באיזה צבע התיק שלך?"
+- word: "circle"
+  he: "עיגול"
+  pos: noun
+  topic: shapes
+  level: preA1
+  grade: 1
+  emoji: "2b55"
+  example_en: "Draw a circle."
+  example_he: "צייר עיגול."
+- word: "square"
+  he: "ריבוע"
+  pos: noun
+  topic: shapes
+  level: preA1
+  grade: 1
+  emoji: "1f7e6"
+  example_en: "A square has four sides."
+  example_he: "לריבוע יש ארבע צלעות."
+- word: "triangle"
+  he: "משולש"
+  pos: noun
+  topic: shapes
+  level: preA1
+  grade: 1
+  emoji: "1f53a"
+  example_en: "A triangle has three sides."
+  example_he: "למשולש יש שלוש צלעות."
+- word: "star"
+  he: "כוכב"
+  pos: noun
+  topic: shapes
+  level: preA1
+  grade: 0
+  emoji: "2b50"
+  example_en: "I can see a star in the sky."
+  example_he: "אני רואה כוכב בשמיים."
+- word: "heart"
+  he: "לב"
+  pos: noun
+  topic: shapes
+  level: preA1
+  grade: 0
+  emoji: "2764"
+  example_en: "I draw a red heart."
+  example_he: "אני מצייר לב אדום."
+- word: "animal"
+  he: "חיה"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "A lion is a big animal."
+  example_he: "אריה הוא חיה גדולה."
+- word: "dog"
+  he: "כלב"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f415"
+  example_en: "The dog is happy."
+  example_he: "הכלב שמח."
+- word: "cat"
+  he: "חתול"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f408"
+  example_en: "The cat is sleeping."
+  example_he: "החתול ישן."
+- word: "bird"
+  he: "ציפור"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f426"
+  example_en: "The bird can fly."
+  example_he: "הציפור יודעת לעוף."
+- word: "fish"
+  he: "דג"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f41f"
+  example_en: "The fish is in the water."
+  example_he: "הדג במים."
+- word: "horse"
+  he: "סוס"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f40e"
+  example_en: "I can ride a horse."
+  example_he: "אני יודע לרכוב על סוס."
+- word: "cow"
+  he: "פרה"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f404"
+  example_en: "The cow gives milk."
+  example_he: "הפרה נותנת חלב."
+- word: "sheep"
+  he: "כבשה"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f411"
+  example_en: "The sheep is white."
+  example_he: "הכבשה לבנה."
+- word: "goat"
+  he: "עז"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f410"
+  example_en: "The goat is on the hill."
+  example_he: "העז על הגבעה."
+- word: "chicken"
+  he: "תרנגולת"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f414"
+  example_en: "The chicken has an egg."
+  example_he: "לתרנגולת יש ביצה."
+- word: "duck"
+  he: "ברווז"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f986"
+  example_en: "The duck can swim."
+  example_he: "הברווז יודע לשחות."
+- word: "frog"
+  he: "צפרדע"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f438"
+  example_en: "The frog is green."
+  example_he: "הצפרדע ירוקה."
+- word: "lion"
+  he: "אריה"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f981"
+  example_en: "The lion is big."
+  example_he: "האריה גדול."
+- word: "tiger"
+  he: "נמר"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f405"
+  example_en: "The tiger is orange and black."
+  example_he: "הנמר כתום ושחור."
+- word: "elephant"
+  he: "פיל"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f418"
+  example_en: "The elephant has big ears."
+  example_he: "לפיל יש אוזניים גדולות."
+- word: "monkey"
+  he: "קוף"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f412"
+  example_en: "The monkey likes bananas."
+  example_he: "הקוף אוהב בננות."
+- word: "giraffe"
+  he: "ג'ירפה"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f992"
+  example_en: "The giraffe has a long neck."
+  example_he: "לג'ירפה יש צוואר ארוך."
+- word: "zebra"
+  he: "זברה"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f993"
+  example_en: "The zebra is black and white."
+  example_he: "הזברה שחורה ולבנה."
+- word: "bear"
+  he: "דוב"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f43b"
+  example_en: "The bear is brown."
+  example_he: "הדוב חום."
+- word: "rabbit"
+  he: "ארנב"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 0
+  emoji: "1f407"
+  example_en: "The rabbit has long ears."
+  example_he: "לארנב יש אוזניים ארוכות."
+- word: "mouse"
+  he: "עכבר"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f401"
+  example_en: "The mouse is small."
+  example_he: "העכבר קטן."
+- word: "snake"
+  he: "נחש"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f40d"
+  example_en: "The snake is long."
+  example_he: "הנחש ארוך."
+- word: "spider"
+  he: "עכביש"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f577"
+  example_en: "The spider has eight legs."
+  example_he: "לעכביש יש שמונה רגליים."
+- word: "bee"
+  he: "דבורה"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f41d"
+  example_en: "The bee makes honey."
+  example_he: "הדבורה מכינה דבש."
+- word: "butterfly"
+  he: "פרפר"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f98b"
+  example_en: "The butterfly is beautiful."
+  example_he: "הפרפר יפה."
+- word: "ant"
+  he: "נמלה"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f41c"
+  example_en: "The ant is very small."
+  example_he: "הנמלה קטנה מאוד."
+- word: "turtle"
+  he: "צב"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f422"
+  example_en: "The turtle is slow."
+  example_he: "הצב איטי."
+- word: "crocodile"
+  he: "תנין"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f40a"
+  example_en: "The crocodile is in the river."
+  example_he: "התנין בנהר."
+- word: "hippo"
+  he: "היפופוטם"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 2
+  emoji: "1f99b"
+  example_en: "The hippo is in the water."
+  example_he: "ההיפופוטם במים."
+- word: "snail"
+  he: "חילזון"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 2
+  emoji: "1f40c"
+  example_en: "The snail is very slow."
+  example_he: "החילזון איטי מאוד."
+- word: "owl"
+  he: "ינשוף"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f989"
+  example_en: "The owl can see at night."
+  example_he: "הינשוף רואה בלילה."
+- word: "penguin"
+  he: "פינגווין"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 1
+  emoji: "1f427"
+  example_en: "The penguin is black and white."
+  example_he: "הפינגווין שחור ולבן."
+- word: "whale"
+  he: "לווייתן"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 2
+  emoji: "1f433"
+  example_en: "The whale is very big."
+  example_he: "הלווייתן גדול מאוד."
+- word: "shark"
+  he: "כריש"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 2
+  emoji: "1f988"
+  example_en: "The shark lives in the sea."
+  example_he: "הכריש חי בים."
+- word: "dolphin"
+  he: "דולפין"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 2
+  emoji: "1f42c"
+  example_en: "The dolphin can jump."
+  example_he: "הדולפין יודע לקפוץ."
+- word: "camel"
+  he: "גמל"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 2
+  emoji: "1f42a"
+  example_en: "The camel lives in the desert."
+  example_he: "הגמל חי במדבר."
+- word: "donkey"
+  he: "חמור"
+  pos: noun
+  topic: animals
+  level: preA1
+  grade: 2
+  emoji: "1facf"
+  example_en: "The donkey is gray."
+  example_he: "החמור אפור."
+- word: "family"
+  he: "משפחה"
+  pos: noun
+  topic: family
+  level: preA1
+  grade: 0
+  emoji: "1f46a"
+  example_en: "I love my family."
+  example_he: "אני אוהב את המשפחה שלי."
+- word: "mom"
+  he: "אמא"
+  pos: noun
+  topic: family
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "My mom is happy."
+  example_he: "אמא שלי שמחה."
+- word: "dad"
+  he: "אבא"
+  pos: noun
+  topic: family
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "My dad is tall."
+  example_he: "אבא שלי גבוה."
+- word: "brother"
+  he: "אח"
+  pos: noun
+  topic: family
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "My brother is ten."
+  example_he: "אחי בן עשר."
+- word: "sister"
+  he: "אחות"
+  pos: noun
+  topic: family
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "My sister has a doll."
+  example_he: "לאחותי יש בובה."
+- word: "baby"
+  he: "תינוק"
+  pos: noun
+  topic: family
+  level: preA1
+  grade: 0
+  emoji: "1f476"
+  example_en: "The baby is sleeping."
+  example_he: "התינוק ישן."
+- word: "grandma"
+  he: "סבתא"
+  pos: noun
+  topic: family
+  level: preA1
+  grade: 0
+  emoji: "1f475"
+  example_en: "My grandma makes a cake."
+  example_he: "סבתא שלי מכינה עוגה."
+- word: "grandpa"
+  he: "סבא"
+  pos: noun
+  topic: family
+  level: preA1
+  grade: 0
+  emoji: "1f474"
+  example_en: "My grandpa reads a book."
+  example_he: "סבא שלי קורא ספר."
+- word: "boy"
+  he: "ילד"
+  pos: noun
+  topic: people
+  level: preA1
+  grade: 0
+  emoji: "1f466"
+  example_en: "The boy is running."
+  example_he: "הילד רץ."
+- word: "girl"
+  he: "ילדה"
+  pos: noun
+  topic: people
+  level: preA1
+  grade: 0
+  emoji: "1f467"
+  example_en: "The girl is singing."
+  example_he: "הילדה שרה."
+- word: "man"
+  he: "איש"
+  pos: noun
+  topic: people
+  level: preA1
+  grade: 1
+  emoji: "1f468"
+  example_en: "The man has a hat."
+  example_he: "לאיש יש כובע."
+- word: "woman"
+  he: "אישה"
+  pos: noun
+  topic: people
+  level: preA1
+  grade: 1
+  emoji: "1f469"
+  example_en: "The woman is reading."
+  example_he: "האישה קוראת."
+- word: "friend"
+  he: "חבר"
+  pos: noun
+  topic: people
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "Dan is my friend."
+  example_he: "דן הוא חבר שלי."
+- word: "people"
+  he: "אנשים"
+  pos: noun
+  topic: people
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "There are many people in the park."
+  example_he: "יש הרבה אנשים בפארק."
+- word: "body"
+  he: "גוף"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I wash my body."
+  example_he: "אני רוחץ את הגוף שלי."
+- word: "head"
+  he: "ראש"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "I have a hat on my head."
+  example_he: "יש לי כובע על הראש."
+- word: "face"
+  he: "פנים"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "I wash my face."
+  example_he: "אני שוטף את הפנים."
+- word: "eye"
+  he: "עין"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 0
+  emoji: "1f441"
+  example_en: "My eyes are brown."
+  example_he: "העיניים שלי חומות."
+- word: "ear"
+  he: "אוזן"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 0
+  emoji: "1f442"
+  example_en: "I hear with my ears."
+  example_he: "אני שומע עם האוזניים."
+- word: "nose"
+  he: "אף"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 0
+  emoji: "1f443"
+  example_en: "I smell with my nose."
+  example_he: "אני מריח עם האף."
+- word: "mouth"
+  he: "פה"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 0
+  emoji: "1f444"
+  example_en: "I eat with my mouth."
+  example_he: "אני אוכל עם הפה."
+- word: "tooth"
+  he: "שן"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 1
+  emoji: "1f9b7"
+  example_en: "I have a loose tooth."
+  example_he: "יש לי שן מתנדנדת."
+- word: "tongue"
+  he: "לשון"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 1
+  emoji: "1f445"
+  example_en: "My tongue is pink."
+  example_he: "הלשון שלי ורודה."
+- word: "hair"
+  he: "שיער"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "My hair is long."
+  example_he: "השיער שלי ארוך."
+- word: "hand"
+  he: "יד"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 0
+  emoji: "270b"
+  example_en: "I have two hands."
+  example_he: "יש לי שתי ידיים."
+- word: "arm"
+  he: "זרוע"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "My arm is strong."
+  example_he: "הזרוע שלי חזקה."
+- word: "finger"
+  he: "אצבע"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I have ten fingers."
+  example_he: "יש לי עשר אצבעות."
+- word: "leg"
+  he: "רגל"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 0
+  emoji: "1f9b5"
+  example_en: "A bird has two legs."
+  example_he: "לציפור יש שתי רגליים."
+- word: "foot"
+  he: "כף רגל"
+  pos: noun
+  topic: body
+  level: preA1
+  grade: 1
+  emoji: "1f9b6"
+  example_en: "I kick the ball with my foot."
+  example_he: "אני בועט בכדור עם כף הרגל."
+- word: "food"
+  he: "אוכל"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I like this food."
+  example_he: "אני אוהב את האוכל הזה."
+- word: "apple"
+  he: "תפוח"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 0
+  emoji: "1f34e"
+  example_en: "I eat an apple."
+  example_he: "אני אוכל תפוח."
+- word: "banana"
+  he: "בננה"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 0
+  emoji: "1f34c"
+  example_en: "The banana is yellow."
+  example_he: "הבננה צהובה."
+- word: "orange"
+  he: "תפוז"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 0
+  emoji: "1f34a"
+  example_en: "I want an orange."
+  example_he: "אני רוצה תפוז."
+- word: "grapes"
+  he: "ענבים"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f347"
+  example_en: "The grapes are green."
+  example_he: "הענבים ירוקים."
+- word: "lemon"
+  he: "לימון"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f34b"
+  example_en: "The lemon is yellow."
+  example_he: "הלימון צהוב."
+- word: "watermelon"
+  he: "אבטיח"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f349"
+  example_en: "I eat watermelon in summer."
+  example_he: "אני אוכל אבטיח בקיץ."
+- word: "strawberry"
+  he: "תות"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f353"
+  example_en: "The strawberry is red."
+  example_he: "התות אדום."
+- word: "pear"
+  he: "אגס"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 2
+  emoji: "1f350"
+  example_en: "The pear is green."
+  example_he: "האגס ירוק."
+- word: "bread"
+  he: "לחם"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 0
+  emoji: "1f35e"
+  example_en: "I eat bread with cheese."
+  example_he: "אני אוכל לחם עם גבינה."
+- word: "milk"
+  he: "חלב"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 0
+  emoji: "1f95b"
+  example_en: "I drink milk."
+  example_he: "אני שותה חלב."
+- word: "water"
+  he: "מים"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 0
+  emoji: "1f4a7"
+  example_en: "I drink water."
+  example_he: "אני שותה מים."
+- word: "juice"
+  he: "מיץ"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I like orange juice."
+  example_he: "אני אוהב מיץ תפוזים."
+- word: "egg"
+  he: "ביצה"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 0
+  emoji: "1f95a"
+  example_en: "I eat an egg for breakfast."
+  example_he: "אני אוכל ביצה בארוחת הבוקר."
+- word: "cheese"
+  he: "גבינה"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f9c0"
+  example_en: "I like cheese."
+  example_he: "אני אוהב גבינה."
+- word: "cake"
+  he: "עוגה"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 0
+  emoji: "1f370"
+  example_en: "Mom makes a cake."
+  example_he: "אמא מכינה עוגה."
+- word: "ice cream"
+  he: "גלידה"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 0
+  emoji: "1f366"
+  example_en: "I love ice cream."
+  example_he: "אני אוהב גלידה."
+- word: "cookie"
+  he: "עוגייה"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f36a"
+  example_en: "Can I have a cookie?"
+  example_he: "אפשר לקבל עוגייה?"
+- word: "candy"
+  he: "ממתק"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f36c"
+  example_en: "Too much candy is bad for your teeth."
+  example_he: "יותר מדי ממתקים מזיק לשיניים."
+- word: "chocolate"
+  he: "שוקולד"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f36b"
+  example_en: "I like chocolate."
+  example_he: "אני אוהב שוקולד."
+- word: "pizza"
+  he: "פיצה"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 0
+  emoji: "1f355"
+  example_en: "We eat pizza on Friday."
+  example_he: "אנחנו אוכלים פיצה ביום שישי."
+- word: "rice"
+  he: "אורז"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f35a"
+  example_en: "I eat rice and chicken."
+  example_he: "אני אוכל אורז ועוף."
+- word: "pasta"
+  he: "פסטה"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f35d"
+  example_en: "I like pasta with tomato."
+  example_he: "אני אוהב פסטה עם עגבנייה."
+- word: "soup"
+  he: "מרק"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "The soup is hot."
+  example_he: "המרק חם."
+- word: "salad"
+  he: "סלט"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f957"
+  example_en: "I eat salad every day."
+  example_he: "אני אוכל סלט כל יום."
+- word: "sandwich"
+  he: "כריך"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f96a"
+  example_en: "I have a sandwich for school."
+  example_he: "יש לי כריך לבית הספר."
+- word: "carrot"
+  he: "גזר"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f955"
+  example_en: "The rabbit eats a carrot."
+  example_he: "הארנב אוכל גזר."
+- word: "tomato"
+  he: "עגבנייה"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f345"
+  example_en: "The tomato is red."
+  example_he: "העגבנייה אדומה."
+- word: "potato"
+  he: "תפוח אדמה"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f954"
+  example_en: "I like potatoes."
+  example_he: "אני אוהב תפוחי אדמה."
+- word: "cucumber"
+  he: "מלפפון"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f952"
+  example_en: "The cucumber is green."
+  example_he: "המלפפון ירוק."
+- word: "corn"
+  he: "תירס"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 2
+  emoji: "1f33d"
+  example_en: "The corn is yellow."
+  example_he: "התירס צהוב."
+- word: "honey"
+  he: "דבש"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 2
+  emoji: "1f36f"
+  example_en: "We eat apples with honey."
+  example_he: "אנחנו אוכלים תפוחים בדבש."
+- word: "fries"
+  he: "צ'יפס"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f35f"
+  example_en: "I want fries, please."
+  example_he: "אני רוצה צ'יפס, בבקשה."
+- word: "hamburger"
+  he: "המבורגר"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f354"
+  example_en: "Dad makes hamburgers."
+  example_he: "אבא מכין המבורגרים."
+- word: "falafel"
+  he: "פלאפל"
+  pos: noun
+  topic: food
+  level: preA1
+  grade: 1
+  emoji: "1f9c6"
+  example_en: "I eat falafel in a pita."
+  example_he: "אני אוכל פלאפל בפיתה."
+- word: "clothes"
+  he: "בגדים"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "My clothes are in the closet."
+  example_he: "הבגדים שלי בארון."
+- word: "shirt"
+  he: "חולצה"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 0
+  emoji: "1f455"
+  example_en: "My shirt is blue."
+  example_he: "החולצה שלי כחולה."
+- word: "dress"
+  he: "שמלה"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 1
+  emoji: "1f457"
+  example_en: "She has a long dress."
+  example_he: "יש לה שמלה ארוכה."
+- word: "skirt"
+  he: "חצאית"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Her skirt is green."
+  example_he: "החצאית שלה ירוקה."
+- word: "pants"
+  he: "מכנסיים"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 1
+  emoji: "1f456"
+  example_en: "My pants are black."
+  example_he: "המכנסיים שלי שחורים."
+- word: "shorts"
+  he: "מכנסיים קצרים"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 2
+  emoji: "1fa73"
+  example_en: "I wear shorts in summer."
+  example_he: "אני לובש מכנסיים קצרים בקיץ."
+- word: "shoes"
+  he: "נעליים"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 0
+  emoji: "1f45f"
+  example_en: "My shoes are new."
+  example_he: "הנעליים שלי חדשות."
+- word: "socks"
+  he: "גרביים"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 1
+  emoji: "1f9e6"
+  example_en: "I have red socks."
+  example_he: "יש לי גרביים אדומים."
+- word: "hat"
+  he: "כובע"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 0
+  emoji: "1f452"
+  example_en: "I wear a hat in the sun."
+  example_he: "אני חובש כובע בשמש."
+- word: "coat"
+  he: "מעיל"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 1
+  emoji: "1f9e5"
+  example_en: "It is cold. Wear your coat!"
+  example_he: "קר. תלבש את המעיל!"
+- word: "scarf"
+  he: "צעיף"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 2
+  emoji: "1f9e3"
+  example_en: "My scarf is warm."
+  example_he: "הצעיף שלי חם."
+- word: "gloves"
+  he: "כפפות"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 2
+  emoji: "1f9e4"
+  example_en: "I wear gloves in winter."
+  example_he: "אני לובש כפפות בחורף."
+- word: "boots"
+  he: "מגפיים"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 2
+  emoji: "1f97e"
+  example_en: "I wear boots in the rain."
+  example_he: "אני נועל מגפיים בגשם."
+- word: "glasses"
+  he: "משקפיים"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 1
+  emoji: "1f453"
+  example_en: "My grandpa wears glasses."
+  example_he: "סבא שלי מרכיב משקפיים."
+- word: "bag"
+  he: "תיק"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 1
+  emoji: "1f45c"
+  example_en: "My bag is heavy."
+  example_he: "התיק שלי כבד."
+- word: "watch"
+  he: "שעון יד"
+  pos: noun
+  topic: clothes
+  level: preA1
+  grade: 2
+  emoji: "231a"
+  example_en: "My watch is new."
+  example_he: "שעון היד שלי חדש."
+- word: "house"
+  he: "בית"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 0
+  emoji: "1f3e0"
+  example_en: "This is my house."
+  example_he: "זה הבית שלי."
+- word: "room"
+  he: "חדר"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "My room is small."
+  example_he: "החדר שלי קטן."
+- word: "door"
+  he: "דלת"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 0
+  emoji: "1f6aa"
+  example_en: "Please close the door."
+  example_he: "בבקשה סגור את הדלת."
+- word: "window"
+  he: "חלון"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: "1fa9f"
+  example_en: "Open the window, please."
+  example_he: "פתח את החלון, בבקשה."
+- word: "bed"
+  he: "מיטה"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 0
+  emoji: "1f6cf"
+  example_en: "I sleep in my bed."
+  example_he: "אני ישן במיטה שלי."
+- word: "chair"
+  he: "כיסא"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 0
+  emoji: "1fa91"
+  example_en: "Sit on the chair."
+  example_he: "שב על הכיסא."
+- word: "table"
+  he: "שולחן"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "The cake is on the table."
+  example_he: "העוגה על השולחן."
+- word: "sofa"
+  he: "ספה"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: "1f6cb"
+  example_en: "Dad is on the sofa."
+  example_he: "אבא על הספה."
+- word: "TV"
+  he: "טלוויזיה"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: "1f4fa"
+  example_en: "We watch TV after dinner."
+  example_he: "אנחנו צופים בטלוויזיה אחרי ארוחת הערב."
+- word: "phone"
+  he: "טלפון"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: "1f4f1"
+  example_en: "Mom's phone is on the table."
+  example_he: "הטלפון של אמא על השולחן."
+- word: "clock"
+  he: "שעון"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: "23f0"
+  example_en: "The clock is on the wall."
+  example_he: "השעון על הקיר."
+- word: "key"
+  he: "מפתח"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: "1f511"
+  example_en: "Where is the key?"
+  example_he: "איפה המפתח?"
+- word: "box"
+  he: "קופסה"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: "1f4e6"
+  example_en: "The toys are in the box."
+  example_he: "הצעצועים בקופסה."
+- word: "cup"
+  he: "כוס"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I drink from a cup."
+  example_he: "אני שותה מכוס."
+- word: "spoon"
+  he: "כף"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: "1f944"
+  example_en: "I eat soup with a spoon."
+  example_he: "אני אוכל מרק בכף."
+- word: "bath"
+  he: "אמבטיה"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: "1f6c1"
+  example_en: "The baby is in the bath."
+  example_he: "התינוק באמבטיה."
+- word: "shower"
+  he: "מקלחת"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 2
+  emoji: "1f6bf"
+  example_en: "I take a shower every day."
+  example_he: "אני מתקלח כל יום."
+- word: "mirror"
+  he: "מראה"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 2
+  emoji: "1fa9e"
+  example_en: "I look in the mirror."
+  example_he: "אני מסתכל במראה."
+- word: "garden"
+  he: "גינה"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "There are flowers in the garden."
+  example_he: "יש פרחים בגינה."
+- word: "kitchen"
+  he: "מטבח"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Mom is in the kitchen."
+  example_he: "אמא במטבח."
+- word: "bedroom"
+  he: "חדר שינה"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "My bed is in the bedroom."
+  example_he: "המיטה שלי בחדר השינה."
+- word: "bathroom"
+  he: "חדר אמבטיה"
+  pos: noun
+  topic: home
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "The bathroom is next to my room."
+  example_he: "חדר האמבטיה ליד החדר שלי."
+- word: "school"
+  he: "בית ספר"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 0
+  emoji: "1f3eb"
+  example_en: "I go to school."
+  example_he: "אני הולך לבית הספר."
+- word: "teacher"
+  he: "מורה"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 0
+  emoji: "1f9d1-200d-1f3eb"
+  example_en: "My teacher is nice."
+  example_he: "המורה שלי נחמדה."
+- word: "student"
+  he: "תלמיד"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 1
+  emoji: "1f9d1-200d-1f393"
+  example_en: "I am a student."
+  example_he: "אני תלמיד."
+- word: "book"
+  he: "ספר"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 0
+  emoji: "1f4d6"
+  example_en: "I read a book."
+  example_he: "אני קורא ספר."
+- word: "pen"
+  he: "עט"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 0
+  emoji: "1f58a"
+  example_en: "I write with a pen."
+  example_he: "אני כותב בעט."
+- word: "pencil"
+  he: "עיפרון"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 0
+  emoji: "270f"
+  example_en: "I draw with a pencil."
+  example_he: "אני מצייר בעיפרון."
+- word: "crayon"
+  he: "צבע פסטל"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 1
+  emoji: "1f58d"
+  example_en: "I have a red crayon."
+  example_he: "יש לי צבע פסטל אדום."
+- word: "ruler"
+  he: "סרגל"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 1
+  emoji: "1f4cf"
+  example_en: "I need a ruler."
+  example_he: "אני צריך סרגל."
+- word: "eraser"
+  he: "מחק"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Can I have your eraser?"
+  example_he: "אפשר את המחק שלך?"
+- word: "scissors"
+  he: "מספריים"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 1
+  emoji: "2702"
+  example_en: "Cut the paper with scissors."
+  example_he: "גזור את הנייר במספריים."
+- word: "notebook"
+  he: "מחברת"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 1
+  emoji: "1f4d3"
+  example_en: "Write in your notebook."
+  example_he: "כתוב במחברת שלך."
+- word: "backpack"
+  he: "תיק גב"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 1
+  emoji: "1f392"
+  example_en: "My backpack is blue."
+  example_he: "תיק הגב שלי כחול."
+- word: "computer"
+  he: "מחשב"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 1
+  emoji: "1f4bb"
+  example_en: "We have a computer in class."
+  example_he: "יש לנו מחשב בכיתה."
+- word: "paper"
+  he: "נייר"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I draw on paper."
+  example_he: "אני מצייר על נייר."
+- word: "desk"
+  he: "שולחן כתיבה"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "My book is on my desk."
+  example_he: "הספר שלי על שולחן הכתיבה."
+- word: "board"
+  he: "לוח"
+  pos: noun
+  topic: school
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "The teacher writes on the board."
+  example_he: "המורה כותבת על הלוח."
+- word: "toy"
+  he: "צעצוע"
+  pos: noun
+  topic: toys
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "This is my new toy."
+  example_he: "זה הצעצוע החדש שלי."
+- word: "ball"
+  he: "כדור"
+  pos: noun
+  topic: toys
+  level: preA1
+  grade: 0
+  emoji: "26bd"
+  example_en: "Throw the ball!"
+  example_he: "זרוק את הכדור!"
+- word: "doll"
+  he: "בובה"
+  pos: noun
+  topic: toys
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "My sister has a doll."
+  example_he: "לאחותי יש בובה."
+- word: "teddy bear"
+  he: "דובי"
+  pos: noun
+  topic: toys
+  level: preA1
+  grade: 0
+  emoji: "1f9f8"
+  example_en: "I sleep with my teddy bear."
+  example_he: "אני ישן עם הדובי שלי."
+- word: "kite"
+  he: "עפיפון"
+  pos: noun
+  topic: toys
+  level: preA1
+  grade: 1
+  emoji: "1fa81"
+  example_en: "My kite is in the sky."
+  example_he: "העפיפון שלי בשמיים."
+- word: "balloon"
+  he: "בלון"
+  pos: noun
+  topic: toys
+  level: preA1
+  grade: 0
+  emoji: "1f388"
+  example_en: "I have a red balloon."
+  example_he: "יש לי בלון אדום."
+- word: "robot"
+  he: "רובוט"
+  pos: noun
+  topic: toys
+  level: preA1
+  grade: 1
+  emoji: "1f916"
+  example_en: "My robot can walk."
+  example_he: "הרובוט שלי יודע ללכת."
+- word: "puzzle"
+  he: "פאזל"
+  pos: noun
+  topic: toys
+  level: preA1
+  grade: 1
+  emoji: "1f9e9"
+  example_en: "We make a puzzle together."
+  example_he: "אנחנו מרכיבים פאזל ביחד."
+- word: "game"
+  he: "משחק"
+  pos: noun
+  topic: toys
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Let's play a game!"
+  example_he: "בואו נשחק משחק!"
+- word: "car"
+  he: "מכונית"
+  pos: noun
+  topic: transport
+  level: preA1
+  grade: 0
+  emoji: "1f697"
+  example_en: "Dad's car is red."
+  example_he: "המכונית של אבא אדומה."
+- word: "bus"
+  he: "אוטובוס"
+  pos: noun
+  topic: transport
+  level: preA1
+  grade: 0
+  emoji: "1f68c"
+  example_en: "I go to school by bus."
+  example_he: "אני נוסע לבית הספר באוטובוס."
+- word: "train"
+  he: "רכבת"
+  pos: noun
+  topic: transport
+  level: preA1
+  grade: 0
+  emoji: "1f686"
+  example_en: "The train is fast."
+  example_he: "הרכבת מהירה."
+- word: "plane"
+  he: "מטוס"
+  pos: noun
+  topic: transport
+  level: preA1
+  grade: 0
+  emoji: "2708"
+  example_en: "The plane is in the sky."
+  example_he: "המטוס בשמיים."
+- word: "boat"
+  he: "סירה"
+  pos: noun
+  topic: transport
+  level: preA1
+  grade: 0
+  emoji: "26f5"
+  example_en: "The boat is on the sea."
+  example_he: "הסירה על הים."
+- word: "bike"
+  he: "אופניים"
+  pos: noun
+  topic: transport
+  level: preA1
+  grade: 0
+  emoji: "1f6b2"
+  example_en: "I ride my bike."
+  example_he: "אני רוכב על האופניים שלי."
+- word: "truck"
+  he: "משאית"
+  pos: noun
+  topic: transport
+  level: preA1
+  grade: 1
+  emoji: "1f69a"
+  example_en: "The truck is big."
+  example_he: "המשאית גדולה."
+- word: "helicopter"
+  he: "מסוק"
+  pos: noun
+  topic: transport
+  level: preA1
+  grade: 1
+  emoji: "1f681"
+  example_en: "The helicopter is loud."
+  example_he: "המסוק רועש."
+- word: "taxi"
+  he: "מונית"
+  pos: noun
+  topic: transport
+  level: preA1
+  grade: 1
+  emoji: "1f695"
+  example_en: "The taxi is yellow."
+  example_he: "המונית צהובה."
+- word: "scooter"
+  he: "קורקינט"
+  pos: noun
+  topic: transport
+  level: preA1
+  grade: 1
+  emoji: "1f6f4"
+  example_en: "I ride my scooter to the park."
+  example_he: "אני נוסע על הקורקינט לפארק."
+- word: "rocket"
+  he: "רקטה"
+  pos: noun
+  topic: transport
+  level: preA1
+  grade: 2
+  emoji: "1f680"
+  example_en: "The rocket goes to the moon."
+  example_he: "הרקטה טסה לירח."
+- word: "sun"
+  he: "שמש"
+  pos: noun
+  topic: nature
+  level: preA1
+  grade: 0
+  emoji: "2600"
+  example_en: "The sun is hot."
+  example_he: "השמש חמה."
+- word: "moon"
+  he: "ירח"
+  pos: noun
+  topic: nature
+  level: preA1
+  grade: 0
+  emoji: "1f319"
+  example_en: "I see the moon at night."
+  example_he: "אני רואה את הירח בלילה."
+- word: "sky"
+  he: "שמיים"
+  pos: noun
+  topic: nature
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "The sky is blue."
+  example_he: "השמיים כחולים."
+- word: "tree"
+  he: "עץ"
+  pos: noun
+  topic: nature
+  level: preA1
+  grade: 0
+  emoji: "1f333"
+  example_en: "The bird is in the tree."
+  example_he: "הציפור על העץ."
+- word: "flower"
+  he: "פרח"
+  pos: noun
+  topic: nature
+  level: preA1
+  grade: 0
+  emoji: "1f337"
+  example_en: "This flower is pink."
+  example_he: "הפרח הזה ורוד."
+- word: "leaf"
+  he: "עלה"
+  pos: noun
+  topic: nature
+  level: preA1
+  grade: 1
+  emoji: "1f343"
+  example_en: "The leaf is green."
+  example_he: "העלה ירוק."
+- word: "sea"
+  he: "ים"
+  pos: noun
+  topic: nature
+  level: preA1
+  grade: 0
+  emoji: "1f30a"
+  example_en: "We swim in the sea."
+  example_he: "אנחנו שוחים בים."
+- word: "beach"
+  he: "חוף"
+  pos: noun
+  topic: nature
+  level: preA1
+  grade: 1
+  emoji: "1f3d6"
+  example_en: "We play on the beach."
+  example_he: "אנחנו משחקים על החוף."
+- word: "mountain"
+  he: "הר"
+  pos: noun
+  topic: nature
+  level: preA1
+  grade: 1
+  emoji: "26f0"
+  example_en: "The mountain is high."
+  example_he: "ההר גבוה."
+- word: "stone"
+  he: "אבן"
+  pos: noun
+  topic: nature
+  level: preA1
+  grade: 1
+  emoji: "1faa8"
+  example_en: "I have a white stone."
+  example_he: "יש לי אבן לבנה."
+- word: "rainbow"
+  he: "קשת בענן"
+  pos: noun
+  topic: nature
+  level: preA1
+  grade: 1
+  emoji: "1f308"
+  example_en: "Look, a rainbow!"
+  example_he: "תראו, קשת בענן!"
+- word: "cloud"
+  he: "ענן"
+  pos: noun
+  topic: weather
+  level: preA1
+  grade: 1
+  emoji: "2601"
+  example_en: "There is a cloud in the sky."
+  example_he: "יש ענן בשמיים."
+- word: "rain"
+  he: "גשם"
+  pos: noun
+  topic: weather
+  level: preA1
+  grade: 0
+  emoji: "1f327"
+  example_en: "I like the rain."
+  example_he: "אני אוהב את הגשם."
+- word: "snow"
+  he: "שלג"
+  pos: noun
+  topic: weather
+  level: preA1
+  grade: 1
+  emoji: "2744"
+  example_en: "The snow is cold."
+  example_he: "השלג קר."
+- word: "wind"
+  he: "רוח"
+  pos: noun
+  topic: weather
+  level: preA1
+  grade: 1
+  emoji: "1f32c"
+  example_en: "The wind is strong today."
+  example_he: "הרוח חזקה היום."
+- word: "hot"
+  he: "חם"
+  pos: adj
+  topic: weather
+  level: preA1
+  grade: 0
+  emoji: "1f975"
+  example_en: "It is hot today."
+  example_he: "חם היום."
+- word: "cold"
+  he: "קר"
+  pos: adj
+  topic: weather
+  level: preA1
+  grade: 0
+  emoji: "1f976"
+  example_en: "The water is cold."
+  example_he: "המים קרים."
+- word: "day"
+  he: "יום"
+  pos: noun
+  topic: time
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Have a nice day!"
+  example_he: "שיהיה לך יום נעים!"
+- word: "night"
+  he: "לילה"
+  pos: noun
+  topic: time
+  level: preA1
+  grade: 1
+  emoji: "1f303"
+  example_en: "I sleep at night."
+  example_he: "אני ישן בלילה."
+- word: "morning"
+  he: "בוקר"
+  pos: noun
+  topic: time
+  level: preA1
+  grade: 1
+  emoji: "1f305"
+  example_en: "I eat breakfast in the morning."
+  example_he: "אני אוכל ארוחת בוקר בבוקר."
+- word: "today"
+  he: "היום"
+  pos: adv
+  topic: time
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Today is my birthday."
+  example_he: "היום יום ההולדת שלי."
+- word: "happy"
+  he: "שמח"
+  pos: adj
+  topic: feelings
+  level: preA1
+  grade: 0
+  emoji: "1f600"
+  example_en: "I am happy today."
+  example_he: "אני שמח היום."
+- word: "sad"
+  he: "עצוב"
+  pos: adj
+  topic: feelings
+  level: preA1
+  grade: 0
+  emoji: "1f622"
+  example_en: "The boy is sad."
+  example_he: "הילד עצוב."
+- word: "angry"
+  he: "כועס"
+  pos: adj
+  topic: feelings
+  level: preA1
+  grade: 1
+  emoji: "1f620"
+  example_en: "Why are you angry?"
+  example_he: "למה אתה כועס?"
+- word: "tired"
+  he: "עייף"
+  pos: adj
+  topic: feelings
+  level: preA1
+  grade: 1
+  emoji: "1f62b"
+  example_en: "I am tired. I want to sleep."
+  example_he: "אני עייף. אני רוצה לישון."
+- word: "hungry"
+  he: "רעב"
+  pos: adj
+  topic: feelings
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I am hungry. Can I have a sandwich?"
+  example_he: "אני רעב. אפשר כריך?"
+- word: "big"
+  he: "גדול"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "The elephant is big."
+  example_he: "הפיל גדול."
+- word: "small"
+  he: "קטן"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "The mouse is small."
+  example_he: "העכבר קטן."
+- word: "long"
+  he: "ארוך"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "The snake is long."
+  example_he: "הנחש ארוך."
+- word: "short"
+  he: "קצר"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "My hair is short."
+  example_he: "השיער שלי קצר."
+- word: "tall"
+  he: "גבוה"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "My dad is tall."
+  example_he: "אבא שלי גבוה."
+- word: "new"
+  he: "חדש"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I have a new bike."
+  example_he: "יש לי אופניים חדשים."
+- word: "old"
+  he: "ישן; זקן"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "This book is very old."
+  example_he: "הספר הזה ישן מאוד."
+- word: "young"
+  he: "צעיר"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "My aunt is young."
+  example_he: "הדודה שלי צעירה."
+- word: "good"
+  he: "טוב"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "This is a good book."
+  example_he: "זה ספר טוב."
+- word: "bad"
+  he: "רע"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Candy is bad for your teeth."
+  example_he: "ממתקים רעים לשיניים."
+- word: "beautiful"
+  he: "יפה"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "The flower is beautiful."
+  example_he: "הפרח יפה."
+- word: "nice"
+  he: "נחמד"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "My friend is very nice."
+  example_he: "החבר שלי נחמד מאוד."
+- word: "fast"
+  he: "מהיר"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "The car is fast."
+  example_he: "המכונית מהירה."
+- word: "slow"
+  he: "איטי"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "The turtle is slow."
+  example_he: "הצב איטי."
+- word: "clean"
+  he: "נקי"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "My room is clean."
+  example_he: "החדר שלי נקי."
+- word: "dirty"
+  he: "מלוכלך"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "My shoes are dirty."
+  example_he: "הנעליים שלי מלוכלכות."
+- word: "funny"
+  he: "מצחיק"
+  pos: adj
+  topic: describing
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "The clown is funny."
+  example_he: "הליצן מצחיק."
+- word: "in"
+  he: "בתוך"
+  pos: prep
+  topic: position
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "The cat is in the box."
+  example_he: "החתול בתוך הקופסה."
+- word: "on"
+  he: "על"
+  pos: prep
+  topic: position
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "The book is on the table."
+  example_he: "הספר על השולחן."
+- word: "under"
+  he: "מתחת ל־"
+  pos: prep
+  topic: position
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "The ball is under the bed."
+  example_he: "הכדור מתחת למיטה."
+- word: "next to"
+  he: "ליד"
+  pos: prep
+  topic: position
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I sit next to my friend."
+  example_he: "אני יושב ליד החבר שלי."
+- word: "behind"
+  he: "מאחורי"
+  pos: prep
+  topic: position
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "The dog is behind the door."
+  example_he: "הכלב מאחורי הדלת."
+- word: "in front of"
+  he: "מול"
+  pos: prep
+  topic: position
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "The car is in front of the house."
+  example_he: "המכונית מול הבית."
+- word: "what"
+  he: "מה"
+  pos: other
+  topic: questions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "What is this?"
+  example_he: "מה זה?"
+- word: "who"
+  he: "מי"
+  pos: other
+  topic: questions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Who is your teacher?"
+  example_he: "מי המורה שלך?"
+- word: "where"
+  he: "איפה"
+  pos: other
+  topic: questions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Where is my bag?"
+  example_he: "איפה התיק שלי?"
+- word: "how many"
+  he: "כמה"
+  pos: other
+  topic: questions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "How many cats do you have?"
+  example_he: "כמה חתולים יש לך?"
+- word: "how old"
+  he: "בן כמה"
+  pos: other
+  topic: questions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "How old are you?"
+  example_he: "בן כמה אתה?"
+- word: "I"
+  he: "אני"
+  pos: pron
+  topic: basics
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "I am a boy."
+  example_he: "אני ילד."
+- word: "you"
+  he: "אתה; את; אתם"
+  pos: pron
+  topic: basics
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "You are my friend."
+  example_he: "אתה החבר שלי."
+- word: "he"
+  he: "הוא"
+  pos: pron
+  topic: basics
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "He is my brother."
+  example_he: "הוא אח שלי."
+- word: "she"
+  he: "היא"
+  pos: pron
+  topic: basics
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "She is my sister."
+  example_he: "היא אחותי."
+- word: "we"
+  he: "אנחנו"
+  pos: pron
+  topic: basics
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "We are a family."
+  example_he: "אנחנו משפחה."
+- word: "they"
+  he: "הם; הן"
+  pos: pron
+  topic: basics
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "They are my friends."
+  example_he: "הם החברים שלי."
+- word: "it"
+  he: "זה (דבר או חיה)"
+  pos: pron
+  topic: basics
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "It is a cat."
+  example_he: "זה חתול."
+- word: "this"
+  he: "זה; זאת"
+  pos: pron
+  topic: basics
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "This is my book."
+  example_he: "זה הספר שלי."
+- word: "and"
+  he: "ו־ (וגם)"
+  pos: other
+  topic: basics
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I have a cat and a dog."
+  example_he: "יש לי חתול וכלב."
+- word: "run"
+  he: "לרוץ"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 0
+  emoji: "1f3c3"
+  example_en: "I run in the park."
+  example_he: "אני רץ בפארק."
+- word: "walk"
+  he: "ללכת ברגל"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 0
+  emoji: "1f6b6"
+  example_en: "I walk to school."
+  example_he: "אני הולך ברגל לבית הספר."
+- word: "jump"
+  he: "לקפוץ"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "The frog can jump."
+  example_he: "הצפרדע יודעת לקפוץ."
+- word: "swim"
+  he: "לשחות"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Fish swim in the water."
+  example_he: "דגים שוחים במים."
+- word: "eat"
+  he: "לאכול"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "I eat an apple."
+  example_he: "אני אוכל תפוח."
+- word: "drink"
+  he: "לשתות"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "I drink water."
+  example_he: "אני שותה מים."
+- word: "sleep"
+  he: "לישון"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 0
+  emoji: "1f634"
+  example_en: "I sleep in my bed."
+  example_he: "אני ישן במיטה שלי."
+- word: "read"
+  he: "לקרוא"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I read a book every day."
+  example_he: "אני קורא ספר כל יום."
+- word: "write"
+  he: "לכתוב"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: "270d"
+  example_en: "I write my name."
+  example_he: "אני כותב את השם שלי."
+- word: "sing"
+  he: "לשיר"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "We sing a song."
+  example_he: "אנחנו שרים שיר."
+- word: "dance"
+  he: "לרקוד"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "We dance at the party."
+  example_he: "אנחנו רוקדים במסיבה."
+- word: "play"
+  he: "לשחק"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "I play with my friends."
+  example_he: "אני משחק עם החברים שלי."
+- word: "draw"
+  he: "לצייר"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 0
+  emoji: null
+  example_en: "I draw a cat."
+  example_he: "אני מצייר חתול."
+- word: "sit"
+  he: "לשבת"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Sit on the chair, please."
+  example_he: "שב על הכיסא, בבקשה."
+- word: "stand"
+  he: "לעמוד"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Stand in line, please."
+  example_he: "עמדו בתור, בבקשה."
+- word: "open"
+  he: "לפתוח"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Open your book."
+  example_he: "פתח את הספר שלך."
+- word: "close"
+  he: "לסגור"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Close the door, please."
+  example_he: "סגור את הדלת, בבקשה."
+- word: "look"
+  he: "להסתכל"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Look at the bird!"
+  example_he: "תסתכל על הציפור!"
+- word: "see"
+  he: "לראות"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I can see a plane."
+  example_he: "אני רואה מטוס."
+- word: "like"
+  he: "לחבב"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I like ice cream."
+  example_he: "אני אוהב גלידה."
+- word: "go"
+  he: "ללכת; לנסוע"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "We go to the park."
+  example_he: "אנחנו הולכים לפארק."
+- word: "come"
+  he: "לבוא"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Come here, please."
+  example_he: "בוא הנה, בבקשה."
+- word: "want"
+  he: "לרצות"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "I want a cookie."
+  example_he: "אני רוצה עוגייה."
+- word: "give"
+  he: "לתת"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Give me the ball, please."
+  example_he: "תן לי את הכדור, בבקשה."
+- word: "take"
+  he: "לקחת"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Take an apple."
+  example_he: "קח תפוח."
+- word: "throw"
+  he: "לזרוק"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Throw the ball to me."
+  example_he: "זרוק לי את הכדור."
+- word: "catch"
+  he: "לתפוס"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Can you catch the ball?"
+  example_he: "אתה יכול לתפוס את הכדור?"
+- word: "kick"
+  he: "לבעוט"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Kick the ball!"
+  example_he: "תבעט בכדור!"
+- word: "clap"
+  he: "למחוא כפיים"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: "1f44f"
+  example_en: "Clap your hands!"
+  example_he: "מחאו כפיים!"
+- word: "wash"
+  he: "לשטוף; לרחוץ"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Wash your hands."
+  example_he: "שטוף את הידיים."
+- word: "cry"
+  he: "לבכות"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "The baby is crying."
+  example_he: "התינוק בוכה."
+- word: "laugh"
+  he: "לצחוק"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "We laugh at the funny story."
+  example_he: "אנחנו צוחקים מהסיפור המצחיק."
+- word: "smile"
+  he: "לחייך"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Smile for the photo!"
+  example_he: "חייכו לתמונה!"
+- word: "listen"
+  he: "להקשיב"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Listen to the teacher."
+  example_he: "הקשב למורה."
+- word: "count"
+  he: "לספור"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Let's count to ten."
+  example_he: "בואו נספור עד עשר."
+- word: "climb"
+  he: "לטפס"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 2
+  emoji: "1f9d7"
+  example_en: "The monkey can climb trees."
+  example_he: "הקוף יודע לטפס על עצים."
+- word: "fly"
+  he: "לעוף"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Birds can fly."
+  example_he: "ציפורים יודעות לעוף."
+- word: "ride"
+  he: "לרכוב"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "I ride a horse."
+  example_he: "אני רוכב על סוס."
+- word: "cook"
+  he: "לבשל"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "Grandma cooks soup."
+  example_he: "סבתא מבשלת מרק."
+- word: "help"
+  he: "לעזור"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: null
+  example_en: "Can you help me?"
+  example_he: "אתה יכול לעזור לי?"
+- word: "stop"
+  he: "לעצור"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 1
+  emoji: "1f6d1"
+  example_en: "Stop! The light is red."
+  example_he: "עצור! הרמזור אדום."
+- word: "make"
+  he: "להכין; לעשות"
+  pos: verb
+  topic: actions
+  level: preA1
+  grade: 2
+  emoji: null
+  example_en: "Let's make a cake."
+  example_he: "בואו נכין עוגה."
+
+# ===== A1 =====
+- word: "excuse me"
+  he: "סליחה (לפנות למישהו)"
+  pos: phrase
+  topic: greetings
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Excuse me, where is the library?"
+  example_he: "סליחה, איפה הספרייה?"
+- word: "you're welcome"
+  he: "על לא דבר"
+  pos: phrase
+  topic: greetings
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Thank you! - You're welcome."
+  example_he: "תודה! - על לא דבר."
+- word: "see you later"
+  he: "נתראה אחר כך"
+  pos: phrase
+  topic: greetings
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Bye, Ben! See you later."
+  example_he: "ביי, בן! נתראה אחר כך."
+- word: "good afternoon"
+  he: "צהריים טובים"
+  pos: phrase
+  topic: greetings
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Good afternoon, Mrs. Cohen."
+  example_he: "צהריים טובים, גברת כהן."
+- word: "good evening"
+  he: "ערב טוב"
+  pos: phrase
+  topic: greetings
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Good evening, everyone!"
+  example_he: "ערב טוב לכולם!"
+- word: "happy birthday"
+  he: "יום הולדת שמח"
+  pos: phrase
+  topic: greetings
+  level: A1
+  grade: 3
+  emoji: "1f382"
+  example_en: "Happy birthday, Maya!"
+  example_he: "יום הולדת שמח, מאיה!"
+- word: "well done"
+  he: "כל הכבוד"
+  pos: phrase
+  topic: greetings
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Well done! You are right."
+  example_he: "כל הכבוד! אתה צודק."
+- word: "let's go"
+  he: "בואו נלך"
+  pos: phrase
+  topic: greetings
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Let's go to the park!"
+  example_he: "בואו נלך לפארק!"
+- word: "of course"
+  he: "כמובן"
+  pos: phrase
+  topic: greetings
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Can I come? - Of course!"
+  example_he: "אפשר לבוא? - כמובן!"
+- word: "I don't know"
+  he: "אני לא יודע"
+  pos: phrase
+  topic: greetings
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Where is Tom? - I don't know."
+  example_he: "איפה טום? - אני לא יודע."
+- word: "fox"
+  he: "שועל"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: "1f98a"
+  example_en: "The fox is orange."
+  example_he: "השועל כתום."
+- word: "wolf"
+  he: "זאב"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: "1f43a"
+  example_en: "The wolf lives in the forest."
+  example_he: "הזאב חי ביער."
+- word: "kangaroo"
+  he: "קנגורו"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: "1f998"
+  example_en: "The kangaroo can jump very far."
+  example_he: "הקנגורו יכול לקפוץ רחוק מאוד."
+- word: "panda"
+  he: "פנדה"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: "1f43c"
+  example_en: "The panda eats bamboo."
+  example_he: "הפנדה אוכלת במבוק."
+- word: "koala"
+  he: "קואלה"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: "1f428"
+  example_en: "The koala sleeps in a tree."
+  example_he: "הקואלה ישנה על עץ."
+- word: "parrot"
+  he: "תוכי"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: "1f99c"
+  example_en: "The parrot can talk."
+  example_he: "התוכי יודע לדבר."
+- word: "eagle"
+  he: "עיט"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1f985"
+  example_en: "The eagle flies high."
+  example_he: "העיט עף גבוה."
+- word: "bat"
+  he: "עטלף"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1f987"
+  example_en: "The bat flies at night."
+  example_he: "העטלף עף בלילה."
+- word: "deer"
+  he: "אייל"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1f98c"
+  example_en: "The deer runs in the forest."
+  example_he: "האייל רץ ביער."
+- word: "squirrel"
+  he: "סנאי"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The squirrel likes nuts."
+  example_he: "הסנאי אוהב אגוזים."
+- word: "octopus"
+  he: "תמנון"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: "1f419"
+  example_en: "The octopus has eight arms."
+  example_he: "לתמנון יש שמונה זרועות."
+- word: "crab"
+  he: "סרטן"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1f980"
+  example_en: "The crab walks on the beach."
+  example_he: "הסרטן הולך על החוף."
+- word: "jellyfish"
+  he: "מדוזה"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1fabc"
+  example_en: "There are jellyfish in the sea in summer."
+  example_he: "בקיץ יש מדוזות בים."
+- word: "swan"
+  he: "ברבור"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1f9a2"
+  example_en: "The swan is white."
+  example_he: "הברבור לבן."
+- word: "peacock"
+  he: "טווס"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1f99a"
+  example_en: "The peacock is very colorful."
+  example_he: "הטווס צבעוני מאוד."
+- word: "flamingo"
+  he: "פלמינגו"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1f9a9"
+  example_en: "The flamingo is pink."
+  example_he: "הפלמינגו ורוד."
+- word: "hedgehog"
+  he: "קיפוד"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1f994"
+  example_en: "The hedgehog is small and round."
+  example_he: "הקיפוד קטן ועגול."
+- word: "ladybug"
+  he: "פרת משה רבנו"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: "1f41e"
+  example_en: "The ladybug is red and black."
+  example_he: "פרת משה רבנו אדומה ושחורה."
+- word: "beetle"
+  he: "חיפושית"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1fab2"
+  example_en: "The beetle is on the leaf."
+  example_he: "החיפושית על העלה."
+- word: "worm"
+  he: "תולעת"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1fab1"
+  example_en: "The bird eats a worm."
+  example_he: "הציפור אוכלת תולעת."
+- word: "rooster"
+  he: "תרנגול"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: "1f413"
+  example_en: "The rooster wakes us up."
+  example_he: "התרנגול מעיר אותנו."
+- word: "lizard"
+  he: "לטאה"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1f98e"
+  example_en: "The lizard is on the wall."
+  example_he: "הלטאה על הקיר."
+- word: "dinosaur"
+  he: "דינוזאור"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: "1f995"
+  example_en: "Dinosaurs lived a long time ago."
+  example_he: "דינוזאורים חיו לפני הרבה זמן."
+- word: "fly"
+  he: "זבוב"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1fab0"
+  example_en: "There is a fly in the kitchen."
+  example_he: "יש זבוב במטבח."
+- word: "pet"
+  he: "חיית מחמד"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Do you have a pet?"
+  example_he: "יש לך חיית מחמד?"
+- word: "tail"
+  he: "זנב"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The dog has a long tail."
+  example_he: "לכלב יש זנב ארוך."
+- word: "wing"
+  he: "כנף"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: "1fabd"
+  example_en: "A bird has two wings."
+  example_he: "לציפור יש שתי כנפיים."
+- word: "gazelle"
+  he: "צבי"
+  pos: noun
+  topic: animals
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Gazelles live in the hills of Israel."
+  example_he: "צבאים חיים בגבעות של ישראל."
+- word: "mother"
+  he: "אם"
+  pos: noun
+  topic: family
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My mother is a doctor."
+  example_he: "אמא שלי רופאה."
+- word: "father"
+  he: "אב"
+  pos: noun
+  topic: family
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My father is a teacher."
+  example_he: "אבא שלי מורה."
+- word: "parents"
+  he: "הורים"
+  pos: noun
+  topic: family
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My parents love me."
+  example_he: "ההורים שלי אוהבים אותי."
+- word: "son"
+  he: "בן"
+  pos: noun
+  topic: family
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "They have one son."
+  example_he: "יש להם בן אחד."
+- word: "daughter"
+  he: "בת"
+  pos: noun
+  topic: family
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "They have two daughters."
+  example_he: "יש להם שתי בנות."
+- word: "aunt"
+  he: "דודה"
+  pos: noun
+  topic: family
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My aunt lives in Haifa."
+  example_he: "הדודה שלי גרה בחיפה."
+- word: "uncle"
+  he: "דוד"
+  pos: noun
+  topic: family
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My uncle has a big dog."
+  example_he: "לדוד שלי יש כלב גדול."
+- word: "cousin"
+  he: "בן דוד; בת דודה"
+  pos: noun
+  topic: family
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My cousin is my best friend."
+  example_he: "בן הדוד שלי הוא החבר הכי טוב שלי."
+- word: "grandparents"
+  he: "סבא וסבתא"
+  pos: noun
+  topic: family
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I visit my grandparents on Saturday."
+  example_he: "אני מבקר את סבא וסבתא בשבת."
+- word: "twin"
+  he: "תאום"
+  pos: noun
+  topic: family
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Noa and Tal are twins."
+  example_he: "נועה וטל תאומות."
+- word: "child"
+  he: "ילד (ילדה)"
+  pos: noun
+  topic: people
+  level: A1
+  grade: 3
+  emoji: "1f9d2"
+  example_en: "Every child likes to play."
+  example_he: "כל ילד אוהב לשחק."
+- word: "children"
+  he: "ילדים"
+  pos: noun
+  topic: people
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The children are in the park."
+  example_he: "הילדים בפארק."
+- word: "neighbor"
+  he: "שכן"
+  pos: noun
+  topic: people
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Our neighbor has a cat."
+  example_he: "לשכן שלנו יש חתול."
+- word: "name"
+  he: "שם"
+  pos: noun
+  topic: people
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "What is your name?"
+  example_he: "מה השם שלך?"
+- word: "neck"
+  he: "צוואר"
+  pos: noun
+  topic: body
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The giraffe has a long neck."
+  example_he: "לג'ירפה יש צוואר ארוך."
+- word: "shoulder"
+  he: "כתף"
+  pos: noun
+  topic: body
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Put your hand on my shoulder."
+  example_he: "שים את היד על הכתף שלי."
+- word: "knee"
+  he: "ברך"
+  pos: noun
+  topic: body
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I hurt my knee."
+  example_he: "קיבלתי מכה בברך."
+- word: "toe"
+  he: "בוהן"
+  pos: noun
+  topic: body
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I have ten toes."
+  example_he: "יש לי עשר בהונות."
+- word: "back"
+  he: "גב"
+  pos: noun
+  topic: body
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "My bag is on my back."
+  example_he: "התיק שלי על הגב."
+- word: "stomach"
+  he: "בטן"
+  pos: noun
+  topic: body
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "My stomach is full."
+  example_he: "הבטן שלי מלאה."
+- word: "beard"
+  he: "זקן (שיער)"
+  pos: noun
+  topic: body
+  level: A1
+  grade: 4
+  emoji: "1f9d4"
+  example_en: "My grandpa has a white beard."
+  example_he: "לסבא שלי יש זקן לבן."
+- word: "sick"
+  he: "חולה"
+  pos: adj
+  topic: health
+  level: A1
+  grade: 3
+  emoji: "1f912"
+  example_en: "I am sick today."
+  example_he: "אני חולה היום."
+- word: "headache"
+  he: "כאב ראש"
+  pos: noun
+  topic: health
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I have a headache."
+  example_he: "יש לי כאב ראש."
+- word: "toothache"
+  he: "כאב שיניים"
+  pos: noun
+  topic: health
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I have a toothache. I need a dentist."
+  example_he: "כואבות לי השיניים. אני צריך רופא שיניים."
+- word: "stomachache"
+  he: "כאב בטן"
+  pos: noun
+  topic: health
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Too much candy gives me a stomachache."
+  example_he: "יותר מדי ממתקים עושים לי כאב בטן."
+- word: "medicine"
+  he: "תרופה"
+  pos: noun
+  topic: health
+  level: A1
+  grade: 4
+  emoji: "1f48a"
+  example_en: "Take your medicine, please."
+  example_he: "קח את התרופה, בבקשה."
+- word: "breakfast"
+  he: "ארוחת בוקר"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I eat eggs for breakfast."
+  example_he: "אני אוכל ביצים בארוחת הבוקר."
+- word: "lunch"
+  he: "ארוחת צהריים"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We eat lunch at one o'clock."
+  example_he: "אנחנו אוכלים ארוחת צהריים באחת."
+- word: "dinner"
+  he: "ארוחת ערב"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We have dinner together."
+  example_he: "אנחנו אוכלים ארוחת ערב ביחד."
+- word: "meat"
+  he: "בשר"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: "1f969"
+  example_en: "I don't eat meat."
+  example_he: "אני לא אוכל בשר."
+- word: "fruit"
+  he: "פרי"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Apples and bananas are fruit."
+  example_he: "תפוחים ובננות הם פירות."
+- word: "vegetables"
+  he: "ירקות"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Eat your vegetables!"
+  example_he: "תאכל את הירקות שלך!"
+- word: "sugar"
+  he: "סוכר"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I don't want sugar in my tea."
+  example_he: "אני לא רוצה סוכר בתה שלי."
+- word: "salt"
+  he: "מלח"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1f9c2"
+  example_en: "Can you pass the salt, please?"
+  example_he: "אתה יכול להעביר את המלח, בבקשה?"
+- word: "butter"
+  he: "חמאה"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1f9c8"
+  example_en: "I like bread and butter."
+  example_he: "אני אוהב לחם וחמאה."
+- word: "pancake"
+  he: "פנקייק"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: "1f95e"
+  example_en: "We make pancakes on Friday morning."
+  example_he: "אנחנו מכינים פנקייקים ביום שישי בבוקר."
+- word: "popcorn"
+  he: "פופקורן"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: "1f37f"
+  example_en: "We eat popcorn at the movies."
+  example_he: "אנחנו אוכלים פופקורן בקולנוע."
+- word: "tea"
+  he: "תה"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: "1f375"
+  example_en: "Grandma drinks tea."
+  example_he: "סבתא שותה תה."
+- word: "coffee"
+  he: "קפה"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "2615"
+  example_en: "Dad drinks coffee in the morning."
+  example_he: "אבא שותה קפה בבוקר."
+- word: "olive"
+  he: "זית"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1fad2"
+  example_en: "I like green olives."
+  example_he: "אני אוהב זיתים ירוקים."
+- word: "pepper"
+  he: "פלפל"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1fad1"
+  example_en: "The pepper is red."
+  example_he: "הפלפל אדום."
+- word: "onion"
+  he: "בצל"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1f9c5"
+  example_en: "Mom cuts an onion."
+  example_he: "אמא חותכת בצל."
+- word: "mushroom"
+  he: "פטרייה"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1f344"
+  example_en: "I like pizza with mushrooms."
+  example_he: "אני אוהב פיצה עם פטריות."
+- word: "broccoli"
+  he: "ברוקולי"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1f966"
+  example_en: "Broccoli is good for you."
+  example_he: "ברוקולי בריא לך."
+- word: "pineapple"
+  he: "אננס"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: "1f34d"
+  example_en: "The pineapple is sweet."
+  example_he: "האננס מתוק."
+- word: "cherry"
+  he: "דובדבן"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 3
+  emoji: "1f352"
+  example_en: "The cherry is small and red."
+  example_he: "הדובדבן קטן ואדום."
+- word: "coconut"
+  he: "קוקוס"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1f965"
+  example_en: "There is water in a coconut."
+  example_he: "יש מים בתוך קוקוס."
+- word: "mango"
+  he: "מנגו"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1f96d"
+  example_en: "The mango is sweet and orange."
+  example_he: "המנגו מתוק וכתום."
+- word: "avocado"
+  he: "אבוקדו"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1f951"
+  example_en: "I eat avocado on bread."
+  example_he: "אני אוכל אבוקדו על לחם."
+- word: "nuts"
+  he: "אגוזים"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1f95c"
+  example_en: "Squirrels eat nuts."
+  example_he: "סנאים אוכלים אגוזים."
+- word: "garlic"
+  he: "שום"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1f9c4"
+  example_en: "The soup has garlic in it."
+  example_he: "במרק יש שום."
+- word: "bean"
+  he: "שעועית"
+  pos: noun
+  topic: food
+  level: A1
+  grade: 4
+  emoji: "1fad8"
+  example_en: "I like rice and beans."
+  example_he: "אני אוהב אורז ושעועית."
+- word: "jacket"
+  he: "ז'קט"
+  pos: noun
+  topic: clothes
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Take your jacket. It is cold."
+  example_he: "קח את הז'קט שלך. קר."
+- word: "jeans"
+  he: "ג'ינס"
+  pos: noun
+  topic: clothes
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I wear blue jeans."
+  example_he: "אני לובש ג'ינס כחול."
+- word: "sweater"
+  he: "סוודר"
+  pos: noun
+  topic: clothes
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Grandma made me a sweater."
+  example_he: "סבתא סרגה לי סוודר."
+- word: "pajamas"
+  he: "פיג'מה"
+  pos: noun
+  topic: clothes
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I put on my pajamas at night."
+  example_he: "אני לובש פיג'מה בלילה."
+- word: "cap"
+  he: "כובע מצחייה"
+  pos: noun
+  topic: clothes
+  level: A1
+  grade: 4
+  emoji: "1f9e2"
+  example_en: "My cap is red."
+  example_he: "כובע המצחייה שלי אדום."
+- word: "umbrella"
+  he: "מטרייה"
+  pos: noun
+  topic: clothes
+  level: A1
+  grade: 3
+  emoji: "2602"
+  example_en: "Take an umbrella. It is raining."
+  example_he: "קח מטרייה. יורד גשם."
+- word: "belt"
+  he: "חגורה"
+  pos: noun
+  topic: clothes
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "My belt is brown."
+  example_he: "החגורה שלי חומה."
+- word: "pocket"
+  he: "כיס"
+  pos: noun
+  topic: clothes
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The key is in my pocket."
+  example_he: "המפתח בכיס שלי."
+- word: "sandals"
+  he: "סנדלים"
+  pos: noun
+  topic: clothes
+  level: A1
+  grade: 4
+  emoji: "1f461"
+  example_en: "I wear sandals in summer."
+  example_he: "אני נועל סנדלים בקיץ."
+- word: "uniform"
+  he: "תלבושת אחידה"
+  pos: noun
+  topic: clothes
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "We wear a uniform at school."
+  example_he: "אנחנו לובשים תלבושת אחידה בבית הספר."
+- word: "button"
+  he: "כפתור"
+  pos: noun
+  topic: clothes
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "My shirt has five buttons."
+  example_he: "לחולצה שלי יש חמישה כפתורים."
+- word: "living room"
+  he: "סלון"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We watch TV in the living room."
+  example_he: "אנחנו צופים בטלוויזיה בסלון."
+- word: "roof"
+  he: "גג"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "There is a cat on the roof."
+  example_he: "יש חתול על הגג."
+- word: "stairs"
+  he: "מדרגות"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Go up the stairs."
+  example_he: "עלה במדרגות."
+- word: "floor"
+  he: "רצפה; קומה"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The toys are on the floor."
+  example_he: "הצעצועים על הרצפה."
+- word: "wall"
+  he: "קיר"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "There is a picture on the wall."
+  example_he: "יש תמונה על הקיר."
+- word: "lamp"
+  he: "מנורה"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Turn on the lamp, please."
+  example_he: "הדלק את המנורה, בבקשה."
+- word: "fridge"
+  he: "מקרר"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The milk is in the fridge."
+  example_he: "החלב במקרר."
+- word: "oven"
+  he: "תנור"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The cake is in the oven."
+  example_he: "העוגה בתנור."
+- word: "blanket"
+  he: "שמיכה"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I have a warm blanket."
+  example_he: "יש לי שמיכה חמה."
+- word: "pillow"
+  he: "כרית"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "My pillow is soft."
+  example_he: "הכרית שלי רכה."
+- word: "towel"
+  he: "מגבת"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Here is a clean towel."
+  example_he: "הנה מגבת נקייה."
+- word: "closet"
+  he: "ארון"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My clothes are in the closet."
+  example_he: "הבגדים שלי בארון."
+- word: "shelf"
+  he: "מדף"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The books are on the shelf."
+  example_he: "הספרים על המדף."
+- word: "toothbrush"
+  he: "מברשת שיניים"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 3
+  emoji: "1faa5"
+  example_en: "My toothbrush is blue."
+  example_he: "מברשת השיניים שלי כחולה."
+- word: "soap"
+  he: "סבון"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 3
+  emoji: "1f9fc"
+  example_en: "Wash your hands with soap."
+  example_he: "שטוף ידיים עם סבון."
+- word: "basket"
+  he: "סל"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 4
+  emoji: "1f9fa"
+  example_en: "The apples are in the basket."
+  example_he: "התפוחים בסל."
+- word: "bottle"
+  he: "בקבוק"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I have a bottle of water."
+  example_he: "יש לי בקבוק מים."
+- word: "picture"
+  he: "תמונה"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 3
+  emoji: "1f5bc"
+  example_en: "This is a picture of my family."
+  example_he: "זאת תמונה של המשפחה שלי."
+- word: "candle"
+  he: "נר"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 3
+  emoji: "1f56f"
+  example_en: "We light candles on Friday night."
+  example_he: "אנחנו מדליקים נרות ביום שישי בערב."
+- word: "apartment"
+  he: "דירה"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "We live in an apartment."
+  example_he: "אנחנו גרים בדירה."
+- word: "balcony"
+  he: "מרפסת"
+  pos: noun
+  topic: home
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "There are plants on our balcony."
+  example_he: "יש צמחים במרפסת שלנו."
+- word: "class"
+  he: "כיתה"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "There are thirty children in my class."
+  example_he: "יש שלושים ילדים בכיתה שלי."
+- word: "lesson"
+  he: "שיעור"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The English lesson is fun."
+  example_he: "השיעור באנגלית כיפי."
+- word: "homework"
+  he: "שיעורי בית"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I do my homework after lunch."
+  example_he: "אני מכין שיעורי בית אחרי ארוחת הצהריים."
+- word: "break"
+  he: "הפסקה"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We play ball at break."
+  example_he: "אנחנו משחקים בכדור בהפסקה."
+- word: "test"
+  he: "מבחן"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I have an English test tomorrow."
+  example_he: "יש לי מבחן באנגלית מחר."
+- word: "question"
+  he: "שאלה"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: "2753"
+  example_en: "Can I ask a question?"
+  example_he: "אפשר לשאול שאלה?"
+- word: "answer"
+  he: "תשובה"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "What is the answer?"
+  example_he: "מה התשובה?"
+- word: "word"
+  he: "מילה"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "How do you spell this word?"
+  example_he: "איך מאייתים את המילה הזאת?"
+- word: "sentence"
+  he: "משפט"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Read the sentence."
+  example_he: "קרא את המשפט."
+- word: "letter"
+  he: "אות; מכתב"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "A is the first letter."
+  example_he: "A היא האות הראשונה."
+- word: "page"
+  he: "עמוד"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Open your book to page ten."
+  example_he: "פתחו את הספר בעמוד עשר."
+- word: "story"
+  he: "סיפור"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Dad reads me a story."
+  example_he: "אבא מקריא לי סיפור."
+- word: "map"
+  he: "מפה"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 4
+  emoji: "1f5fa"
+  example_en: "Look at the map."
+  example_he: "תסתכל על המפה."
+- word: "math"
+  he: "חשבון; מתמטיקה"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I like math."
+  example_he: "אני אוהב חשבון."
+- word: "English"
+  he: "אנגלית"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We learn English at school."
+  example_he: "אנחנו לומדים אנגלית בבית הספר."
+- word: "Hebrew"
+  he: "עברית"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I speak Hebrew."
+  example_he: "אני מדבר עברית."
+- word: "science"
+  he: "מדעים"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "We do experiments in science."
+  example_he: "אנחנו עושים ניסויים במדעים."
+- word: "art"
+  he: "אמנות"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 4
+  emoji: "1f3a8"
+  example_en: "In art we paint pictures."
+  example_he: "בשיעור אמנות אנחנו מציירים."
+- word: "library"
+  he: "ספרייה"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I take books from the library."
+  example_he: "אני לוקח ספרים מהספרייה."
+- word: "dictionary"
+  he: "מילון"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Look for the word in the dictionary."
+  example_he: "חפש את המילה במילון."
+- word: "pencil case"
+  he: "קלמר"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My pencils are in my pencil case."
+  example_he: "העפרונות שלי בקלמר."
+- word: "glue"
+  he: "דבק"
+  pos: noun
+  topic: school
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I need glue for my project."
+  example_he: "אני צריך דבק לעבודה שלי."
+- word: "yo-yo"
+  he: "יויו"
+  pos: noun
+  topic: toys
+  level: A1
+  grade: 3
+  emoji: "1fa80"
+  example_en: "I can play with a yo-yo."
+  example_he: "אני יודע לשחק ביויו."
+- word: "present"
+  he: "מתנה"
+  pos: noun
+  topic: toys
+  level: A1
+  grade: 3
+  emoji: "1f381"
+  example_en: "This present is for you."
+  example_he: "המתנה הזאת בשבילך."
+- word: "party"
+  he: "מסיבה"
+  pos: noun
+  topic: toys
+  level: A1
+  grade: 3
+  emoji: "1f389"
+  example_en: "Come to my birthday party!"
+  example_he: "בוא למסיבת יום ההולדת שלי!"
+- word: "movie"
+  he: "סרט"
+  pos: noun
+  topic: toys
+  level: A1
+  grade: 3
+  emoji: "1f3ac"
+  example_en: "We watch a movie on Saturday night."
+  example_he: "אנחנו צופים בסרט במוצאי שבת."
+- word: "comic"
+  he: "חוברת קומיקס"
+  pos: noun
+  topic: toys
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I read a funny comic."
+  example_he: "אני קורא חוברת קומיקס מצחיקה."
+- word: "hobby"
+  he: "תחביב"
+  pos: noun
+  topic: toys
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "My hobby is drawing."
+  example_he: "התחביב שלי הוא ציור."
+- word: "music"
+  he: "מוזיקה"
+  pos: noun
+  topic: music
+  level: A1
+  grade: 3
+  emoji: "1f3b5"
+  example_en: "I listen to music."
+  example_he: "אני מקשיב למוזיקה."
+- word: "song"
+  he: "שיר"
+  pos: noun
+  topic: music
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "This is my favorite song."
+  example_he: "זה השיר האהוב עליי."
+- word: "drum"
+  he: "תוף"
+  pos: noun
+  topic: music
+  level: A1
+  grade: 3
+  emoji: "1f941"
+  example_en: "My brother plays the drum."
+  example_he: "אחי מתופף על תוף."
+- word: "guitar"
+  he: "גיטרה"
+  pos: noun
+  topic: music
+  level: A1
+  grade: 3
+  emoji: "1f3b8"
+  example_en: "I play the guitar."
+  example_he: "אני מנגן בגיטרה."
+- word: "piano"
+  he: "פסנתר"
+  pos: noun
+  topic: music
+  level: A1
+  grade: 3
+  emoji: "1f3b9"
+  example_en: "My sister plays the piano."
+  example_he: "אחותי מנגנת בפסנתר."
+- word: "violin"
+  he: "כינור"
+  pos: noun
+  topic: music
+  level: A1
+  grade: 4
+  emoji: "1f3bb"
+  example_en: "The violin sounds beautiful."
+  example_he: "הכינור נשמע יפה."
+- word: "trumpet"
+  he: "חצוצרה"
+  pos: noun
+  topic: music
+  level: A1
+  grade: 4
+  emoji: "1f3ba"
+  example_en: "The trumpet is loud."
+  example_he: "החצוצרה רועשת."
+- word: "flute"
+  he: "חליל"
+  pos: noun
+  topic: music
+  level: A1
+  grade: 4
+  emoji: "1fa88"
+  example_en: "I play the flute."
+  example_he: "אני מנגן בחליל."
+- word: "ship"
+  he: "ספינה"
+  pos: noun
+  topic: transport
+  level: A1
+  grade: 3
+  emoji: "1f6a2"
+  example_en: "The ship is very big."
+  example_he: "הספינה גדולה מאוד."
+- word: "motorbike"
+  he: "אופנוע"
+  pos: noun
+  topic: transport
+  level: A1
+  grade: 3
+  emoji: "1f3cd"
+  example_en: "The motorbike is fast."
+  example_he: "האופנוע מהיר."
+- word: "tractor"
+  he: "טרקטור"
+  pos: noun
+  topic: transport
+  level: A1
+  grade: 4
+  emoji: "1f69c"
+  example_en: "The farmer drives a tractor."
+  example_he: "החקלאי נוהג בטרקטור."
+- word: "ambulance"
+  he: "אמבולנס"
+  pos: noun
+  topic: transport
+  level: A1
+  grade: 4
+  emoji: "1f691"
+  example_en: "The ambulance goes to the hospital."
+  example_he: "האמבולנס נוסע לבית החולים."
+- word: "fire engine"
+  he: "כבאית"
+  pos: noun
+  topic: transport
+  level: A1
+  grade: 4
+  emoji: "1f692"
+  example_en: "The fire engine is red."
+  example_he: "הכבאית אדומה."
+- word: "park"
+  he: "פארק"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We play in the park."
+  example_he: "אנחנו משחקים בפארק."
+- word: "zoo"
+  he: "גן חיות"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We see lions at the zoo."
+  example_he: "אנחנו רואים אריות בגן החיות."
+- word: "shop"
+  he: "חנות"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: "1f3ea"
+  example_en: "I buy milk at the shop."
+  example_he: "אני קונה חלב בחנות."
+- word: "supermarket"
+  he: "סופרמרקט"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Mom buys food at the supermarket."
+  example_he: "אמא קונה אוכל בסופרמרקט."
+- word: "hospital"
+  he: "בית חולים"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: "1f3e5"
+  example_en: "The doctor works in a hospital."
+  example_he: "הרופא עובד בבית חולים."
+- word: "movie theater"
+  he: "קולנוע"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 4
+  emoji: "1f3a6"
+  example_en: "We go to the movie theater."
+  example_he: "אנחנו הולכים לקולנוע."
+- word: "restaurant"
+  he: "מסעדה"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "We eat at a restaurant."
+  example_he: "אנחנו אוכלים במסעדה."
+- word: "playground"
+  he: "גן שעשועים"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: "1f6dd"
+  example_en: "The children are at the playground."
+  example_he: "הילדים בגן השעשועים."
+- word: "city"
+  he: "עיר"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: "1f3d9"
+  example_en: "Tel Aviv is a big city."
+  example_he: "תל אביב היא עיר גדולה."
+- word: "village"
+  he: "כפר"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "My grandparents live in a village."
+  example_he: "סבא וסבתא שלי גרים בכפר."
+- word: "farm"
+  he: "חווה"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "There are cows on the farm."
+  example_he: "יש פרות בחווה."
+- word: "street"
+  he: "רחוב"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I live on this street."
+  example_he: "אני גר ברחוב הזה."
+- word: "road"
+  he: "כביש"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 4
+  emoji: "1f6e3"
+  example_en: "Don't play on the road."
+  example_he: "אל תשחק על הכביש."
+- word: "bridge"
+  he: "גשר"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 4
+  emoji: "1f309"
+  example_en: "We walk over the bridge."
+  example_he: "אנחנו הולכים על הגשר."
+- word: "market"
+  he: "שוק"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "We buy fruit at the market."
+  example_he: "אנחנו קונים פירות בשוק."
+- word: "swimming pool"
+  he: "בריכה"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We swim in the swimming pool."
+  example_he: "אנחנו שוחים בבריכה."
+- word: "station"
+  he: "תחנה"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 4
+  emoji: "1f689"
+  example_en: "The train is at the station."
+  example_he: "הרכבת בתחנה."
+- word: "castle"
+  he: "טירה"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: "1f3f0"
+  example_en: "The king lives in a castle."
+  example_he: "המלך גר בטירה."
+- word: "tent"
+  he: "אוהל"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 4
+  emoji: "26fa"
+  example_en: "We sleep in a tent."
+  example_he: "אנחנו ישנים באוהל."
+- word: "synagogue"
+  he: "בית כנסת"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 4
+  emoji: "1f54d"
+  example_en: "We go to the synagogue on Saturday."
+  example_he: "אנחנו הולכים לבית הכנסת בשבת."
+- word: "Israel"
+  he: "ישראל"
+  pos: noun
+  topic: places
+  level: A1
+  grade: 3
+  emoji: "1f1ee-1f1f1"
+  example_en: "I live in Israel."
+  example_he: "אני גר בישראל."
+- word: "river"
+  he: "נהר"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The Jordan is a river."
+  example_he: "הירדן הוא נהר."
+- word: "lake"
+  he: "אגם"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "There are ducks on the lake."
+  example_he: "יש ברווזים על האגם."
+- word: "forest"
+  he: "יער"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Many trees grow in the forest."
+  example_he: "הרבה עצים גדלים ביער."
+- word: "desert"
+  he: "מדבר"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 3
+  emoji: "1f3dc"
+  example_en: "The Negev is a desert."
+  example_he: "הנגב הוא מדבר."
+- word: "island"
+  he: "אי"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 4
+  emoji: "1f3dd"
+  example_en: "There is a small island in the sea."
+  example_he: "יש אי קטן בים."
+- word: "cave"
+  he: "מערה"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The bats sleep in the cave."
+  example_he: "העטלפים ישנים במערה."
+- word: "hill"
+  he: "גבעה"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Our house is on a hill."
+  example_he: "הבית שלנו על גבעה."
+- word: "sand"
+  he: "חול"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I play in the sand."
+  example_he: "אני משחק בחול."
+- word: "grass"
+  he: "דשא"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The grass is green."
+  example_he: "הדשא ירוק."
+- word: "plant"
+  he: "צמח"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 3
+  emoji: "1fab4"
+  example_en: "I water the plant."
+  example_he: "אני משקה את הצמח."
+- word: "ocean"
+  he: "אוקיינוס"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The whale lives in the ocean."
+  example_he: "הלווייתן חי באוקיינוס."
+- word: "volcano"
+  he: "הר געש"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 4
+  emoji: "1f30b"
+  example_en: "The volcano is very hot."
+  example_he: "הר הגעש חם מאוד."
+- word: "waterfall"
+  he: "מפל"
+  pos: noun
+  topic: nature
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The waterfall is beautiful."
+  example_he: "המפל יפה."
+- word: "weather"
+  he: "מזג אוויר"
+  pos: noun
+  topic: weather
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "What's the weather like today?"
+  example_he: "איך מזג האוויר היום?"
+- word: "sunny"
+  he: "שמשי"
+  pos: adj
+  topic: weather
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "It is sunny today."
+  example_he: "היום שמשי."
+- word: "rainy"
+  he: "גשום"
+  pos: adj
+  topic: weather
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "It is a rainy day."
+  example_he: "זה יום גשום."
+- word: "windy"
+  he: "יש רוח"
+  pos: adj
+  topic: weather
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "It is windy. Hold your hat!"
+  example_he: "יש רוח. תחזיק את הכובע!"
+- word: "cloudy"
+  he: "מעונן"
+  pos: adj
+  topic: weather
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "It is cloudy today."
+  example_he: "היום מעונן."
+- word: "storm"
+  he: "סערה"
+  pos: noun
+  topic: weather
+  level: A1
+  grade: 4
+  emoji: "26c8"
+  example_en: "There is a big storm tonight."
+  example_he: "יש סערה גדולה הלילה."
+- word: "warm"
+  he: "חמים"
+  pos: adj
+  topic: weather
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "It is warm in spring."
+  example_he: "באביב חמים."
+- word: "Sunday"
+  he: "יום ראשון"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We go to school on Sunday."
+  example_he: "אנחנו הולכים לבית הספר ביום ראשון."
+- word: "Monday"
+  he: "יום שני"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I have a test on Monday."
+  example_he: "יש לי מבחן ביום שני."
+- word: "Tuesday"
+  he: "יום שלישי"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "On Tuesday I go to the library."
+  example_he: "ביום שלישי אני הולך לספרייה."
+- word: "Wednesday"
+  he: "יום רביעי"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We have art on Wednesday."
+  example_he: "ביום רביעי יש לנו אמנות."
+- word: "Thursday"
+  he: "יום חמישי"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "On Thursday we play soccer."
+  example_he: "ביום חמישי אנחנו משחקים כדורגל."
+- word: "Friday"
+  he: "יום שישי"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "On Friday we make challah."
+  example_he: "ביום שישי אנחנו מכינים חלה."
+- word: "Saturday"
+  he: "שבת"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "On Saturday we rest."
+  example_he: "בשבת אנחנו נחים."
+- word: "week"
+  he: "שבוע"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "There are seven days in a week."
+  example_he: "יש שבעה ימים בשבוע."
+- word: "weekend"
+  he: "סוף שבוע"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "What do you do on the weekend?"
+  example_he: "מה אתה עושה בסוף השבוע?"
+- word: "month"
+  he: "חודש"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My birthday is next month."
+  example_he: "יום ההולדת שלי בחודש הבא."
+- word: "year"
+  he: "שנה"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I am nine years old."
+  example_he: "אני בן תשע."
+- word: "hour"
+  he: "שעה"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The movie is two hours long."
+  example_he: "הסרט באורך שעתיים."
+- word: "minute"
+  he: "דקה"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Wait a minute, please."
+  example_he: "חכה דקה, בבקשה."
+- word: "tomorrow"
+  he: "מחר"
+  pos: adv
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "See you tomorrow!"
+  example_he: "נתראה מחר!"
+- word: "yesterday"
+  he: "אתמול"
+  pos: adv
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Yesterday I was at the beach."
+  example_he: "אתמול הייתי בחוף."
+- word: "afternoon"
+  he: "אחר הצהריים"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I play in the afternoon."
+  example_he: "אני משחק אחר הצהריים."
+- word: "evening"
+  he: "ערב"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We eat dinner in the evening."
+  example_he: "אנחנו אוכלים ארוחת ערב בערב."
+- word: "birthday"
+  he: "יום הולדת"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: "1f382"
+  example_en: "When is your birthday?"
+  example_he: "מתי יום ההולדת שלך?"
+- word: "holiday"
+  he: "חג; חופשה"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Hanukkah is a happy holiday."
+  example_he: "חנוכה הוא חג שמח."
+- word: "summer"
+  he: "קיץ"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "It is very hot in summer."
+  example_he: "בקיץ חם מאוד."
+- word: "winter"
+  he: "חורף"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "It rains in winter."
+  example_he: "בחורף יורד גשם."
+- word: "spring"
+  he: "אביב"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Flowers grow in spring."
+  example_he: "באביב פרחים גדלים."
+- word: "fall"
+  he: "סתיו"
+  pos: noun
+  topic: time
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The leaves fall in the fall."
+  example_he: "בסתיו העלים נושרים."
+- word: "sport"
+  he: "ספורט"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "What is your favorite sport?"
+  example_he: "מה הספורט האהוב עליך?"
+- word: "soccer"
+  he: "כדורגל"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 3
+  emoji: "26bd"
+  example_en: "We play soccer at break."
+  example_he: "אנחנו משחקים כדורגל בהפסקה."
+- word: "basketball"
+  he: "כדורסל"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 3
+  emoji: "1f3c0"
+  example_en: "He plays basketball very well."
+  example_he: "הוא משחק כדורסל טוב מאוד."
+- word: "tennis"
+  he: "טניס"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 3
+  emoji: "1f3be"
+  example_en: "I play tennis with my dad."
+  example_he: "אני משחק טניס עם אבא שלי."
+- word: "volleyball"
+  he: "כדורעף"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 4
+  emoji: "1f3d0"
+  example_en: "We play volleyball on the beach."
+  example_he: "אנחנו משחקים כדורעף על החוף."
+- word: "table tennis"
+  he: "טניס שולחן"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 4
+  emoji: "1f3d3"
+  example_en: "Let's play table tennis!"
+  example_he: "בוא נשחק טניס שולחן!"
+- word: "chess"
+  he: "שחמט"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 4
+  emoji: "265f"
+  example_en: "My grandpa teaches me chess."
+  example_he: "סבא שלי מלמד אותי שחמט."
+- word: "team"
+  he: "קבוצה"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Our team is the best."
+  example_he: "הקבוצה שלנו הכי טובה."
+- word: "player"
+  he: "שחקן (בספורט)"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "He is a good player."
+  example_he: "הוא שחקן טוב."
+- word: "goal"
+  he: "שער"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 4
+  emoji: "1f945"
+  example_en: "What a goal!"
+  example_he: "איזה שער!"
+- word: "medal"
+  he: "מדליה"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 4
+  emoji: "1f3c5"
+  example_en: "She won a gold medal."
+  example_he: "היא זכתה במדליית זהב."
+- word: "trophy"
+  he: "גביע"
+  pos: noun
+  topic: sports
+  level: A1
+  grade: 4
+  emoji: "1f3c6"
+  example_en: "Our team got a trophy."
+  example_he: "הקבוצה שלנו קיבלה גביע."
+- word: "job"
+  he: "עבודה; מקצוע"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "What is your mom's job?"
+  example_he: "מה המקצוע של אמא שלך?"
+- word: "doctor"
+  he: "רופא"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 3
+  emoji: "1f9d1-200d-2695-fe0f"
+  example_en: "The doctor helps sick people."
+  example_he: "הרופא עוזר לאנשים חולים."
+- word: "nurse"
+  he: "אח; אחות (בבית חולים)"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The nurse is very kind."
+  example_he: "האחות נחמדה מאוד."
+- word: "farmer"
+  he: "חקלאי"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 3
+  emoji: "1f9d1-200d-1f33e"
+  example_en: "The farmer has many cows."
+  example_he: "לחקלאי יש הרבה פרות."
+- word: "cook"
+  he: "טבח"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 3
+  emoji: "1f9d1-200d-1f373"
+  example_en: "The cook makes great soup."
+  example_he: "הטבח מכין מרק מצוין."
+- word: "police officer"
+  he: "שוטר"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 3
+  emoji: "1f46e"
+  example_en: "The police officer helps us cross the road."
+  example_he: "השוטר עוזר לנו לחצות את הכביש."
+- word: "firefighter"
+  he: "כבאי"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 3
+  emoji: "1f9d1-200d-1f692"
+  example_en: "The firefighter is brave."
+  example_he: "הכבאי אמיץ."
+- word: "pilot"
+  he: "טייס"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 3
+  emoji: "1f9d1-200d-2708-fe0f"
+  example_en: "The pilot flies the plane."
+  example_he: "הטייס מטיס את המטוס."
+- word: "driver"
+  he: "נהג"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The bus driver is nice."
+  example_he: "נהג האוטובוס נחמד."
+- word: "dentist"
+  he: "רופא שיניים"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The dentist looks at my teeth."
+  example_he: "רופא השיניים בודק לי את השיניים."
+- word: "singer"
+  he: "זמר"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 3
+  emoji: "1f9d1-200d-1f3a4"
+  example_en: "She is a famous singer."
+  example_he: "היא זמרת מפורסמת."
+- word: "artist"
+  he: "אמן"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 4
+  emoji: "1f9d1-200d-1f3a8"
+  example_en: "The artist paints a picture."
+  example_he: "האמן מצייר תמונה."
+- word: "vet"
+  he: "וטרינר"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The vet helps my sick dog."
+  example_he: "הווטרינר עוזר לכלב החולה שלי."
+- word: "astronaut"
+  he: "אסטרונאוט"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 4
+  emoji: "1f9d1-200d-1f680"
+  example_en: "The astronaut goes to space."
+  example_he: "האסטרונאוט טס לחלל."
+- word: "scientist"
+  he: "מדען"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 4
+  emoji: "1f9d1-200d-1f52c"
+  example_en: "The scientist works in a lab."
+  example_he: "המדען עובד במעבדה."
+- word: "builder"
+  he: "בנאי"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 4
+  emoji: "1f477"
+  example_en: "The builder builds a house."
+  example_he: "הבנאי בונה בית."
+- word: "mechanic"
+  he: "מכונאי"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 4
+  emoji: "1f9d1-200d-1f527"
+  example_en: "The mechanic fixes cars."
+  example_he: "המכונאי מתקן מכוניות."
+- word: "waiter"
+  he: "מלצר"
+  pos: noun
+  topic: jobs
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The waiter brings our food."
+  example_he: "המלצר מביא לנו את האוכל."
+- word: "buy"
+  he: "לקנות"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I want to buy a new ball."
+  example_he: "אני רוצה לקנות כדור חדש."
+- word: "sell"
+  he: "למכור"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "They sell fruit at the market."
+  example_he: "הם מוכרים פירות בשוק."
+- word: "carry"
+  he: "לסחוב; לשאת"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Can you carry my bag?"
+  example_he: "אתה יכול לסחוב את התיק שלי?"
+- word: "drive"
+  he: "לנהוג"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My mom drives a red car."
+  example_he: "אמא שלי נוהגת במכונית אדומה."
+- word: "fall"
+  he: "ליפול"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Be careful! Don't fall."
+  example_he: "זהירות! אל תיפול."
+- word: "find"
+  he: "למצוא"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I can't find my pen."
+  example_he: "אני לא מוצא את העט שלי."
+- word: "lose"
+  he: "לאבד; להפסיד"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Don't lose your key."
+  example_he: "אל תאבד את המפתח שלך."
+- word: "win"
+  he: "לנצח; לזכות"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Our team wants to win."
+  example_he: "הקבוצה שלנו רוצה לנצח."
+- word: "send"
+  he: "לשלוח"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I send a message to my friend."
+  example_he: "אני שולח הודעה לחבר שלי."
+- word: "shout"
+  he: "לצעוק"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Please don't shout."
+  example_he: "בבקשה אל תצעק."
+- word: "wait"
+  he: "לחכות"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Wait for me!"
+  example_he: "חכה לי!"
+- word: "learn"
+  he: "ללמוד"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I learn English at school."
+  example_he: "אני לומד אנגלית בבית הספר."
+- word: "teach"
+  he: "ללמד"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "My mom teaches math."
+  example_he: "אמא שלי מלמדת חשבון."
+- word: "think"
+  he: "לחשוב"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: "1f914"
+  example_en: "I think it is a good idea."
+  example_he: "אני חושב שזה רעיון טוב."
+- word: "know"
+  he: "לדעת; להכיר"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I know the answer!"
+  example_he: "אני יודע את התשובה!"
+- word: "understand"
+  he: "להבין"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I don't understand the question."
+  example_he: "אני לא מבין את השאלה."
+- word: "remember"
+  he: "לזכור"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I remember your name."
+  example_he: "אני זוכר את השם שלך."
+- word: "forget"
+  he: "לשכוח"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Don't forget your lunch!"
+  example_he: "אל תשכח את האוכל שלך!"
+- word: "try"
+  he: "לנסות"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Try again!"
+  example_he: "נסה שוב!"
+- word: "use"
+  he: "להשתמש"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Can I use your pencil?"
+  example_he: "אפשר להשתמש בעיפרון שלך?"
+- word: "need"
+  he: "להצטרך"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I need a pencil."
+  example_he: "אני צריך עיפרון."
+- word: "live"
+  he: "לגור; לחיות"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I live in Jerusalem."
+  example_he: "אני גר בירושלים."
+- word: "work"
+  he: "לעבוד"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My dad works in an office."
+  example_he: "אבא שלי עובד במשרד."
+- word: "start"
+  he: "להתחיל"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The lesson starts at eight."
+  example_he: "השיעור מתחיל בשמונה."
+- word: "finish"
+  he: "לסיים"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I finish my homework."
+  example_he: "אני מסיים את שיעורי הבית."
+- word: "build"
+  he: "לבנות"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Let's build a sandcastle."
+  example_he: "בואו נבנה ארמון חול."
+- word: "break"
+  he: "לשבור"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Be careful, don't break the cup."
+  example_he: "זהירות, אל תשבור את הכוס."
+- word: "call"
+  he: "להתקשר; לקרוא"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Call me after school."
+  example_he: "תתקשר אליי אחרי בית הספר."
+- word: "push"
+  he: "לדחוף"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Push the door."
+  example_he: "תדחוף את הדלת."
+- word: "pull"
+  he: "למשוך"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Pull the rope!"
+  example_he: "תמשוך את החבל!"
+- word: "put"
+  he: "לשים"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Put the book on the table."
+  example_he: "שים את הספר על השולחן."
+- word: "show"
+  he: "להראות"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Show me your picture."
+  example_he: "תראה לי את הציור שלך."
+- word: "tell"
+  he: "לספר"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Tell me a story."
+  example_he: "ספר לי סיפור."
+- word: "visit"
+  he: "לבקר"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "We visit Grandma every week."
+  example_he: "אנחנו מבקרים את סבתא כל שבוע."
+- word: "wear"
+  he: "ללבוש"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I wear a coat in winter."
+  example_he: "אני לובש מעיל בחורף."
+- word: "brush"
+  he: "לצחצח; להבריש"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I brush my teeth every morning."
+  example_he: "אני מצחצח שיניים כל בוקר."
+- word: "choose"
+  he: "לבחור"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Choose a color."
+  example_he: "בחר צבע."
+- word: "practice"
+  he: "להתאמן"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I practice the piano every day."
+  example_he: "אני מתאמן בפסנתר כל יום."
+- word: "grow"
+  he: "לגדול"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Plants need water to grow."
+  example_he: "צמחים צריכים מים כדי לגדול."
+- word: "hide"
+  he: "להתחבא"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Let's hide behind the tree!"
+  example_he: "בואו נתחבא מאחורי העץ!"
+- word: "bring"
+  he: "להביא"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Bring your book tomorrow."
+  example_he: "תביא את הספר שלך מחר."
+- word: "get"
+  he: "לקבל"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I get a present on my birthday."
+  example_he: "אני מקבל מתנה ביום ההולדת שלי."
+- word: "speak"
+  he: "לדבר (שפה)"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I speak Hebrew and English."
+  example_he: "אני מדבר עברית ואנגלית."
+- word: "talk"
+  he: "לשוחח"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "We talk on the phone."
+  example_he: "אנחנו משוחחים בטלפון."
+- word: "ask"
+  he: "לשאול"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Ask the teacher."
+  example_he: "תשאל את המורה."
+- word: "answer"
+  he: "לענות"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Answer the question."
+  example_he: "ענה על השאלה."
+- word: "say"
+  he: "להגיד"
+  pos: verb
+  topic: actions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "What did you say?"
+  example_he: "מה אמרת?"
+- word: "love"
+  he: "לאהוב"
+  pos: verb
+  topic: feelings
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I love my family."
+  example_he: "אני אוהב את המשפחה שלי."
+- word: "thirsty"
+  he: "צמא"
+  pos: adj
+  topic: feelings
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I am thirsty. Can I have some water?"
+  example_he: "אני צמא. אפשר מים?"
+- word: "scared"
+  he: "מפחד"
+  pos: adj
+  topic: feelings
+  level: A1
+  grade: 3
+  emoji: "1f628"
+  example_en: "The kitten is scared of the dog."
+  example_he: "החתלתול מפחד מהכלב."
+- word: "surprised"
+  he: "מופתע"
+  pos: adj
+  topic: feelings
+  level: A1
+  grade: 3
+  emoji: "1f62e"
+  example_en: "I was surprised by the party."
+  example_he: "הופתעתי מהמסיבה."
+- word: "bored"
+  he: "משועמם"
+  pos: adj
+  topic: feelings
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I am bored. Let's play!"
+  example_he: "משעמם לי. בוא נשחק!"
+- word: "easy"
+  he: "קל (לא קשה)"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The test is easy."
+  example_he: "המבחן קל."
+- word: "difficult"
+  he: "קשה (לא קל)"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "This puzzle is difficult."
+  example_he: "הפאזל הזה קשה."
+- word: "quiet"
+  he: "שקט"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Please be quiet in the library."
+  example_he: "בבקשה לשמור על שקט בספרייה."
+- word: "loud"
+  he: "רועש"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The music is too loud."
+  example_he: "המוזיקה רועשת מדי."
+- word: "strong"
+  he: "חזק"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: "1f4aa"
+  example_en: "The horse is strong."
+  example_he: "הסוס חזק."
+- word: "weak"
+  he: "חלש"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I feel weak today."
+  example_he: "אני מרגיש חלש היום."
+- word: "heavy"
+  he: "כבד"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The box is heavy."
+  example_he: "הקופסה כבדה."
+- word: "light"
+  he: "קל (במשקל)"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "A feather is light."
+  example_he: "נוצה קלה."
+- word: "full"
+  he: "מלא"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The glass is full."
+  example_he: "הכוס מלאה."
+- word: "empty"
+  he: "ריק"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The box is empty."
+  example_he: "הקופסה ריקה."
+- word: "wet"
+  he: "רטוב"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My shoes are wet."
+  example_he: "הנעליים שלי רטובות."
+- word: "dry"
+  he: "יבש"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The towel is dry."
+  example_he: "המגבת יבשה."
+- word: "dark"
+  he: "חשוך"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "It is dark at night."
+  example_he: "חשוך בלילה."
+- word: "right"
+  he: "נכון; ימין"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Your answer is right."
+  example_he: "התשובה שלך נכונה."
+- word: "wrong"
+  he: "לא נכון; שגוי"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Sorry, that is wrong."
+  example_he: "סליחה, זה לא נכון."
+- word: "different"
+  he: "שונה"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The twins look different."
+  example_he: "התאומים נראים שונים."
+- word: "same"
+  he: "אותו; זהה"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "We are in the same class."
+  example_he: "אנחנו באותה כיתה."
+- word: "brave"
+  he: "אמיץ"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The firefighter is brave."
+  example_he: "הכבאי אמיץ."
+- word: "clever"
+  he: "חכם"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Owls are clever birds."
+  example_he: "ינשופים הם ציפורים חכמות."
+- word: "kind"
+  he: "טוב לב"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My teacher is very kind."
+  example_he: "המורה שלי טובת לב מאוד."
+- word: "friendly"
+  he: "ידידותי"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Our dog is friendly."
+  example_he: "הכלב שלנו ידידותי."
+- word: "busy"
+  he: "עסוק"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Mom is busy now."
+  example_he: "אמא עסוקה עכשיו."
+- word: "careful"
+  he: "זהיר"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Be careful on the road!"
+  example_he: "היזהר על הכביש!"
+- word: "sweet"
+  he: "מתוק"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Honey is sweet."
+  example_he: "דבש מתוק."
+- word: "soft"
+  he: "רך"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "My cat is soft."
+  example_he: "החתול שלי רך."
+- word: "hard"
+  he: "קשה; נוקשה"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The stone is hard."
+  example_he: "האבן קשה."
+- word: "cheap"
+  he: "זול"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "This pen is cheap."
+  example_he: "העט הזה זול."
+- word: "expensive"
+  he: "יקר"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The bike is expensive."
+  example_he: "האופניים יקרים."
+- word: "famous"
+  he: "מפורסם"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "He is a famous singer."
+  example_he: "הוא זמר מפורסם."
+- word: "cute"
+  he: "חמוד"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The puppy is so cute!"
+  example_he: "הגור כל כך חמוד!"
+- word: "delicious"
+  he: "טעים"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The cake is delicious."
+  example_he: "העוגה טעימה."
+- word: "favorite"
+  he: "אהוב ביותר"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Blue is my favorite color."
+  example_he: "כחול הוא הצבע האהוב עליי."
+- word: "first"
+  he: "ראשון"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 3
+  emoji: "1f947"
+  example_en: "I am first in line."
+  example_he: "אני ראשון בתור."
+- word: "last"
+  he: "אחרון"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "This is the last cookie."
+  example_he: "זאת העוגייה האחרונה."
+- word: "ready"
+  he: "מוכן"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Are you ready?"
+  example_he: "אתה מוכן?"
+- word: "late"
+  he: "מאוחר; מאחר"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Hurry, we are late!"
+  example_he: "מהר, אנחנו מאחרים!"
+- word: "early"
+  he: "מוקדם"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I get up early."
+  example_he: "אני קם מוקדם."
+- word: "round"
+  he: "עגול"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The ball is round."
+  example_he: "הכדור עגול."
+- word: "lovely"
+  he: "נהדר; מקסים"
+  pos: adj
+  topic: describing
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "What a lovely day!"
+  example_he: "איזה יום מקסים!"
+- word: "between"
+  he: "בין"
+  pos: prep
+  topic: position
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I sit between Dan and Tom."
+  example_he: "אני יושב בין דן לטום."
+- word: "above"
+  he: "מעל"
+  pos: prep
+  topic: position
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The lamp is above the table."
+  example_he: "המנורה מעל השולחן."
+- word: "near"
+  he: "קרוב ל־"
+  pos: prep
+  topic: position
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The school is near my house."
+  example_he: "בית הספר קרוב לבית שלי."
+- word: "inside"
+  he: "בפנים"
+  pos: adv
+  topic: position
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "It is raining. Let's play inside."
+  example_he: "יורד גשם. בואו נשחק בפנים."
+- word: "outside"
+  he: "בחוץ"
+  pos: adv
+  topic: position
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "The children are playing outside."
+  example_he: "הילדים משחקים בחוץ."
+- word: "here"
+  he: "כאן"
+  pos: adv
+  topic: position
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Come here!"
+  example_he: "בוא הנה!"
+- word: "there"
+  he: "שם"
+  pos: adv
+  topic: position
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Your bag is over there."
+  example_he: "התיק שלך שם."
+- word: "upstairs"
+  he: "למעלה (בקומה)"
+  pos: adv
+  topic: position
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "My room is upstairs."
+  example_he: "החדר שלי למעלה."
+- word: "when"
+  he: "מתי"
+  pos: other
+  topic: questions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "When is your birthday?"
+  example_he: "מתי יום ההולדת שלך?"
+- word: "why"
+  he: "למה"
+  pos: other
+  topic: questions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Why are you sad?"
+  example_he: "למה אתה עצוב?"
+- word: "how"
+  he: "איך"
+  pos: other
+  topic: questions
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "How do you spell your name?"
+  example_he: "איך מאייתים את השם שלך?"
+- word: "which"
+  he: "איזה"
+  pos: other
+  topic: questions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Which color do you like?"
+  example_he: "איזה צבע אתה אוהב?"
+- word: "whose"
+  he: "של מי"
+  pos: other
+  topic: questions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Whose bag is this?"
+  example_he: "של מי התיק הזה?"
+- word: "how much"
+  he: "כמה (כמות או מחיר)"
+  pos: other
+  topic: questions
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "How much is this ball?"
+  example_he: "כמה עולה הכדור הזה?"
+- word: "very"
+  he: "מאוד"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "The elephant is very big."
+  example_he: "הפיל גדול מאוד."
+- word: "also"
+  he: "גם"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I also like pizza."
+  example_he: "גם אני אוהב פיצה."
+- word: "again"
+  he: "שוב"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Say it again, please."
+  example_he: "תגיד את זה שוב, בבקשה."
+- word: "now"
+  he: "עכשיו"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Do it now!"
+  example_he: "תעשה את זה עכשיו!"
+- word: "always"
+  he: "תמיד"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I always brush my teeth."
+  example_he: "אני תמיד מצחצח שיניים."
+- word: "never"
+  he: "אף פעם"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I never eat meat."
+  example_he: "אני אף פעם לא אוכל בשר."
+- word: "sometimes"
+  he: "לפעמים"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Sometimes I walk to school."
+  example_he: "לפעמים אני הולך ברגל לבית הספר."
+- word: "often"
+  he: "לעתים קרובות"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "We often go to the beach."
+  example_he: "אנחנו הולכים לעתים קרובות לחוף."
+- word: "together"
+  he: "ביחד"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Let's play together."
+  example_he: "בואו נשחק ביחד."
+- word: "only"
+  he: "רק"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I have only one brother."
+  example_he: "יש לי רק אח אחד."
+- word: "maybe"
+  he: "אולי"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Maybe it will rain."
+  example_he: "אולי ירד גשם."
+- word: "quickly"
+  he: "מהר"
+  pos: adv
+  topic: basics
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Come quickly!"
+  example_he: "בוא מהר!"
+- word: "but"
+  he: "אבל"
+  pos: other
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I like cats, but I don't like snakes."
+  example_he: "אני אוהב חתולים, אבל אני לא אוהב נחשים."
+- word: "or"
+  he: "או"
+  pos: other
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Do you want tea or juice?"
+  example_he: "אתה רוצה תה או מיץ?"
+- word: "because"
+  he: "כי"
+  pos: other
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I am happy because it is my birthday."
+  example_he: "אני שמח כי היום יום ההולדת שלי."
+- word: "with"
+  he: "עם"
+  pos: prep
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I play with my sister."
+  example_he: "אני משחק עם אחותי."
+- word: "without"
+  he: "בלי"
+  pos: prep
+  topic: basics
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I drink tea without sugar."
+  example_he: "אני שותה תה בלי סוכר."
+- word: "from"
+  he: "מ־; מן"
+  pos: prep
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "I am from Israel."
+  example_he: "אני מישראל."
+- word: "for"
+  he: "בשביל"
+  pos: prep
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "This present is for you."
+  example_he: "המתנה הזאת בשבילך."
+- word: "after"
+  he: "אחרי"
+  pos: prep
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "We play after school."
+  example_he: "אנחנו משחקים אחרי בית הספר."
+- word: "before"
+  he: "לפני"
+  pos: prep
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "Wash your hands before dinner."
+  example_he: "שטוף ידיים לפני ארוחת הערב."
+- word: "that"
+  he: "ההוא; ההיא"
+  pos: pron
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: null
+  example_en: "That house is very big."
+  example_he: "הבית ההוא גדול מאוד."
+- word: "these"
+  he: "אלה"
+  pos: pron
+  topic: basics
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "These are my shoes."
+  example_he: "אלה הנעליים שלי."
+- word: "everyone"
+  he: "כולם"
+  pos: pron
+  topic: basics
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "Everyone is here."
+  example_he: "כולם כאן."
+- word: "something"
+  he: "משהו"
+  pos: pron
+  topic: basics
+  level: A1
+  grade: 4
+  emoji: null
+  example_en: "I want to eat something."
+  example_he: "אני רוצה לאכול משהו."
+- word: "money"
+  he: "כסף"
+  pos: noun
+  topic: basics
+  level: A1
+  grade: 3
+  emoji: "1f4b0"
+  example_en: "I have money for ice cream."
+  example_he: "יש לי כסף לגלידה."
+- word: "idea"
+  he: "רעיון"
+  pos: noun
+  topic: basics
+  level: A1
+  grade: 4
+  emoji: "1f4a1"
+  example_en: "That is a great idea!"
+  example_he: "זה רעיון מצוין!"
+
+# ===== A2 =====
+- word: "January"
+  he: "ינואר"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "It is cold in January."
+  example_he: "בינואר קר."
+- word: "February"
+  he: "פברואר"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "February is a short month."
+  example_he: "פברואר הוא חודש קצר."
+- word: "March"
+  he: "מרץ"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "My birthday is in March."
+  example_he: "יום ההולדת שלי במרץ."
+- word: "April"
+  he: "אפריל"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We have a holiday in April."
+  example_he: "יש לנו חופשה באפריל."
+- word: "May"
+  he: "מאי"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The weather is nice in May."
+  example_he: "במאי מזג האוויר נעים."
+- word: "June"
+  he: "יוני"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "School ends in June."
+  example_he: "בית הספר נגמר ביוני."
+- word: "July"
+  he: "יולי"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We go to camp in July."
+  example_he: "אנחנו נוסעים למחנה ביולי."
+- word: "August"
+  he: "אוגוסט"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "August is very hot in Israel."
+  example_he: "באוגוסט חם מאוד בישראל."
+- word: "September"
+  he: "ספטמבר"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "School starts in September."
+  example_he: "בית הספר מתחיל בספטמבר."
+- word: "October"
+  he: "אוקטובר"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The first rain often comes in October."
+  example_he: "הגשם הראשון מגיע לעתים קרובות באוקטובר."
+- word: "November"
+  he: "נובמבר"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "It gets cooler in November."
+  example_he: "בנובמבר מתקרר."
+- word: "December"
+  he: "דצמבר"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Hanukkah is often in December."
+  example_he: "חנוכה חל לעתים קרובות בדצמבר."
+- word: "calendar"
+  he: "לוח שנה"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: "1f4c5"
+  example_en: "Look at the calendar."
+  example_he: "תסתכל בלוח השנה."
+- word: "date"
+  he: "תאריך"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "What is the date today?"
+  example_he: "מה התאריך היום?"
+- word: "century"
+  he: "מאה (100 שנה)"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "We live in the twenty-first century."
+  example_he: "אנחנו חיים במאה העשרים ואחת."
+- word: "future"
+  he: "עתיד"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "In the future, I want to be a pilot."
+  example_he: "בעתיד אני רוצה להיות טייס."
+- word: "past"
+  he: "עבר"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "In the past, people had no phones."
+  example_he: "בעבר לאנשים לא היו טלפונים."
+- word: "moment"
+  he: "רגע"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Wait a moment, please."
+  example_he: "חכה רגע, בבקשה."
+- word: "half"
+  he: "חצי"
+  pos: noun
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I ate half of the pizza."
+  example_he: "אכלתי חצי מהפיצה."
+- word: "already"
+  he: "כבר"
+  pos: adv
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I have already finished my homework."
+  example_he: "כבר סיימתי את שיעורי הבית."
+- word: "yet"
+  he: "עדיין"
+  pos: adv
+  topic: time
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "I haven't eaten yet."
+  example_he: "עדיין לא אכלתי."
+- word: "ago"
+  he: "לפני (זמן)"
+  pos: adv
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I saw him two days ago."
+  example_he: "ראיתי אותו לפני יומיים."
+- word: "soon"
+  he: "בקרוב"
+  pos: adv
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "See you soon!"
+  example_he: "נתראה בקרוב!"
+- word: "later"
+  he: "מאוחר יותר"
+  pos: adv
+  topic: time
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I will call you later."
+  example_he: "אתקשר אליך מאוחר יותר."
+- word: "important"
+  he: "חשוב"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Water is important for plants."
+  example_he: "מים חשובים לצמחים."
+- word: "interesting"
+  he: "מעניין"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "This book is very interesting."
+  example_he: "הספר הזה מעניין מאוד."
+- word: "boring"
+  he: "משעמם"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The movie was boring."
+  example_he: "הסרט היה משעמם."
+- word: "excellent"
+  he: "מצוין"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "You did an excellent job!"
+  example_he: "עשית עבודה מצוינת!"
+- word: "terrible"
+  he: "נורא"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The weather was terrible."
+  example_he: "מזג האוויר היה נורא."
+- word: "possible"
+  he: "אפשרי"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Is it possible to fly to the moon?"
+  example_he: "האם אפשר לטוס לירח?"
+- word: "impossible"
+  he: "בלתי אפשרי"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Nothing is impossible!"
+  example_he: "שום דבר אינו בלתי אפשרי!"
+- word: "comfortable"
+  he: "נוח"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "This chair is comfortable."
+  example_he: "הכיסא הזה נוח."
+- word: "special"
+  he: "מיוחד"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Today is a special day."
+  example_he: "היום הוא יום מיוחד."
+- word: "popular"
+  he: "פופולרי"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Soccer is a popular sport."
+  example_he: "כדורגל הוא ספורט פופולרי."
+- word: "polite"
+  he: "מנומס"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "It is polite to say thank you."
+  example_he: "מנומס להגיד תודה."
+- word: "honest"
+  he: "ישר; כן"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "An honest person tells the truth."
+  example_he: "אדם ישר אומר את האמת."
+- word: "patient"
+  he: "סבלני"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Be patient. Your turn will come."
+  example_he: "תהיה סבלני. התור שלך יגיע."
+- word: "generous"
+  he: "נדיב"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "My friend is generous. He shares everything."
+  example_he: "החבר שלי נדיב. הוא חולק הכול."
+- word: "curious"
+  he: "סקרן"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Cats are curious animals."
+  example_he: "חתולים הם חיות סקרניות."
+- word: "creative"
+  he: "יצירתי"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "She is very creative. She makes amazing art."
+  example_he: "היא מאוד יצירתית. היא יוצרת אמנות מדהימה."
+- word: "healthy"
+  he: "בריא"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Fruit is healthy food."
+  example_he: "פירות הם אוכל בריא."
+- word: "similar"
+  he: "דומה"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "My sister and I look similar."
+  example_he: "אחותי ואני נראות דומות."
+- word: "modern"
+  he: "מודרני"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "This is a modern building."
+  example_he: "זה בניין מודרני."
+- word: "ancient"
+  he: "עתיק"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Jerusalem is an ancient city."
+  example_he: "ירושלים היא עיר עתיקה."
+- word: "huge"
+  he: "ענקי"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The whale is huge."
+  example_he: "הלווייתן ענקי."
+- word: "tiny"
+  he: "זעיר"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The ant is tiny."
+  example_he: "הנמלה זעירה."
+- word: "wild"
+  he: "פראי"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Lions are wild animals."
+  example_he: "אריות הם חיות פרא."
+- word: "strange"
+  he: "מוזר"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "I heard a strange noise."
+  example_he: "שמעתי רעש מוזר."
+- word: "real"
+  he: "אמיתי"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Is this a real diamond?"
+  example_he: "האם זה יהלום אמיתי?"
+- word: "free"
+  he: "חופשי; בחינם"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The concert in the park is free."
+  example_he: "ההופעה בפארק בחינם."
+- word: "deep"
+  he: "עמוק"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The sea is very deep."
+  example_he: "הים עמוק מאוד."
+- word: "wide"
+  he: "רחב"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "The river is wide."
+  example_he: "הנהר רחב."
+- word: "narrow"
+  he: "צר"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "The street is narrow."
+  example_he: "הרחוב צר."
+- word: "low"
+  he: "נמוך"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The table is low."
+  example_he: "השולחן נמוך."
+- word: "sharp"
+  he: "חד"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "The pencil is sharp."
+  example_he: "העיפרון מחודד."
+- word: "amazing"
+  he: "מדהים"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The view is amazing!"
+  example_he: "הנוף מדהים!"
+- word: "dangerous"
+  he: "מסוכן"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "It is dangerous to play near the road."
+  example_he: "מסוכן לשחק ליד הכביש."
+- word: "safe"
+  he: "בטוח"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Wear a helmet to stay safe."
+  example_he: "חבוש קסדה כדי להישאר בטוח."
+- word: "lucky"
+  he: "בר מזל"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I am lucky to have good friends."
+  example_he: "יש לי מזל שיש לי חברים טובים."
+- word: "lazy"
+  he: "עצלן"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "My cat is lazy. It sleeps all day."
+  example_he: "החתול שלי עצלן. הוא ישן כל היום."
+- word: "noisy"
+  he: "רועש (מלא רעש)"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "The classroom is noisy."
+  example_he: "הכיתה רועשת."
+- word: "bright"
+  he: "בהיר; מבריק"
+  pos: adj
+  topic: describing
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "The room is bright and sunny."
+  example_he: "החדר בהיר ושטוף שמש."
+- word: "excited"
+  he: "נרגש"
+  pos: adj
+  topic: feelings
+  level: A2
+  grade: 5
+  emoji: "1f929"
+  example_en: "I am excited about the trip."
+  example_he: "אני נרגש לקראת הטיול."
+- word: "worried"
+  he: "מודאג"
+  pos: adj
+  topic: feelings
+  level: A2
+  grade: 5
+  emoji: "1f61f"
+  example_en: "Mom is worried because it is late."
+  example_he: "אמא מודאגת כי מאוחר."
+- word: "proud"
+  he: "גאה"
+  pos: adj
+  topic: feelings
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I am proud of you!"
+  example_he: "אני גאה בך!"
+- word: "nervous"
+  he: "לחוץ; עצבני"
+  pos: adj
+  topic: feelings
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "I am nervous before the test."
+  example_he: "אני לחוץ לפני המבחן."
+- word: "lonely"
+  he: "בודד"
+  pos: adj
+  topic: feelings
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "The new boy feels lonely."
+  example_he: "הילד החדש מרגיש בודד."
+- word: "upset"
+  he: "נסער"
+  pos: adj
+  topic: feelings
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "She was upset when she lost her ring."
+  example_he: "היא הייתה נסערת כשאיבדה את הטבעת."
+- word: "calm"
+  he: "רגוע"
+  pos: adj
+  topic: feelings
+  level: A2
+  grade: 5
+  emoji: "1f60c"
+  example_en: "Stay calm and breathe."
+  example_he: "הישאר רגוע ונשום."
+- word: "embarrassed"
+  he: "נבוך"
+  pos: adj
+  topic: feelings
+  level: A2
+  grade: 6
+  emoji: "1f633"
+  example_en: "I was embarrassed when I fell."
+  example_he: "הייתי נבוך כשנפלתי."
+- word: "confident"
+  he: "בטוח בעצמו"
+  pos: adj
+  topic: feelings
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "She is confident when she speaks English."
+  example_he: "היא בטוחה בעצמה כשהיא מדברת אנגלית."
+- word: "grateful"
+  he: "אסיר תודה"
+  pos: adj
+  topic: feelings
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "I am grateful for your help."
+  example_he: "אני אסיר תודה על העזרה שלך."
+- word: "feeling"
+  he: "רגש; הרגשה"
+  pos: noun
+  topic: feelings
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "It is OK to talk about your feelings."
+  example_he: "זה בסדר לדבר על הרגשות שלך."
+- word: "arrive"
+  he: "להגיע"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The train arrives at nine."
+  example_he: "הרכבת מגיעה בתשע."
+- word: "borrow"
+  he: "לשאול (חפץ)"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Can I borrow your pen?"
+  example_he: "אפשר לשאול את העט שלך?"
+- word: "lend"
+  he: "להשאיל"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Can you lend me your book?"
+  example_he: "אתה יכול להשאיל לי את הספר שלך?"
+- word: "decide"
+  he: "להחליט"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I can't decide what to wear."
+  example_he: "אני לא מצליח להחליט מה ללבוש."
+- word: "describe"
+  he: "לתאר"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Describe your best friend."
+  example_he: "תאר את החבר הכי טוב שלך."
+- word: "explain"
+  he: "להסביר"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Can you explain the rule?"
+  example_he: "אתה יכול להסביר את הכלל?"
+- word: "invite"
+  he: "להזמין"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I want to invite you to my party."
+  example_he: "אני רוצה להזמין אותך למסיבה שלי."
+- word: "prefer"
+  he: "להעדיף"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "I prefer tea to coffee."
+  example_he: "אני מעדיף תה על פני קפה."
+- word: "protect"
+  he: "להגן"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "We must protect the animals."
+  example_he: "אנחנו חייבים להגן על החיות."
+- word: "collect"
+  he: "לאסוף"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I collect stickers."
+  example_he: "אני אוסף מדבקות."
+- word: "discover"
+  he: "לגלות"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Scientists discover new things."
+  example_he: "מדענים מגלים דברים חדשים."
+- word: "invent"
+  he: "להמציא"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Who invented the telephone?"
+  example_he: "מי המציא את הטלפון?"
+- word: "imagine"
+  he: "לדמיין"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Imagine you can fly!"
+  example_he: "דמיין שאתה יכול לעוף!"
+- word: "agree"
+  he: "להסכים"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I agree with you."
+  example_he: "אני מסכים איתך."
+- word: "compare"
+  he: "להשוות"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Compare the two pictures."
+  example_he: "השווה בין שתי התמונות."
+- word: "repeat"
+  he: "לחזור על"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Please repeat after me."
+  example_he: "בבקשה חזרו אחריי."
+- word: "prepare"
+  he: "להכין (מראש)"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "We prepare for the holiday."
+  example_he: "אנחנו מתכוננים לחג."
+- word: "return"
+  he: "לחזור; להחזיר"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Please return the book to the library."
+  example_he: "בבקשה החזר את הספר לספרייה."
+- word: "save"
+  he: "לחסוך; להציל"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "I save money for a new bike."
+  example_he: "אני חוסך כסף לאופניים חדשים."
+- word: "spend"
+  he: "להוציא (כסף); לבלות (זמן)"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "We spend the weekend at the beach."
+  example_he: "אנחנו מבלים את סוף השבוע בחוף."
+- word: "believe"
+  he: "להאמין"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I believe you."
+  example_he: "אני מאמין לך."
+- word: "happen"
+  he: "לקרות"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "What happened?"
+  example_he: "מה קרה?"
+- word: "hope"
+  he: "לקוות"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I hope you feel better."
+  example_he: "אני מקווה שתרגיש טוב יותר."
+- word: "fix"
+  he: "לתקן"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Dad can fix my bike."
+  example_he: "אבא יכול לתקן את האופניים שלי."
+- word: "join"
+  he: "להצטרף"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Do you want to join our team?"
+  example_he: "אתה רוצה להצטרף לקבוצה שלנו?"
+- word: "miss"
+  he: "להתגעגע; לפספס"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "I miss my grandma."
+  example_he: "אני מתגעגע לסבתא שלי."
+- word: "worry"
+  he: "לדאוג"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Don't worry, it's OK."
+  example_he: "אל תדאג, זה בסדר."
+- word: "recycle"
+  he: "למחזר"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: "267b"
+  example_en: "We recycle bottles and paper."
+  example_he: "אנחנו ממחזרים בקבוקים ונייר."
+- word: "pack"
+  he: "לארוז"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Pack your bag for the trip."
+  example_he: "ארוז את התיק לטיול."
+- word: "check"
+  he: "לבדוק"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Check your answers."
+  example_he: "בדוק את התשובות שלך."
+- word: "follow"
+  he: "לעקוב; ללכת אחרי"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Follow me, please."
+  example_he: "לכו אחריי, בבקשה."
+- word: "guess"
+  he: "לנחש"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Guess what I have!"
+  example_he: "נחש מה יש לי!"
+- word: "improve"
+  he: "לשפר"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "I want to improve my English."
+  example_he: "אני רוצה לשפר את האנגלית שלי."
+- word: "measure"
+  he: "למדוד"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Measure the table with a ruler."
+  example_he: "מדוד את השולחן בסרגל."
+- word: "offer"
+  he: "להציע (לתת)"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "She offered me a cookie."
+  example_he: "היא הציעה לי עוגייה."
+- word: "share"
+  he: "לחלוק; לשתף"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Let's share the cake."
+  example_he: "בואו נחלוק את העוגה."
+- word: "solve"
+  he: "לפתור"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Can you solve this riddle?"
+  example_he: "אתה יכול לפתור את החידה הזאת?"
+- word: "mix"
+  he: "לערבב"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Mix the eggs and the sugar."
+  example_he: "ערבב את הביצים והסוכר."
+- word: "smell"
+  he: "להריח"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Smell the flowers!"
+  example_he: "הרח את הפרחים!"
+- word: "taste"
+  he: "לטעום"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Taste the soup."
+  example_he: "טעם את המרק."
+- word: "touch"
+  he: "לגעת"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Don't touch the hot oven!"
+  example_he: "אל תיגע בתנור החם!"
+- word: "hear"
+  he: "לשמוע"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Can you hear the birds?"
+  example_he: "אתה שומע את הציפורים?"
+- word: "feel"
+  he: "להרגיש"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I feel happy today."
+  example_he: "אני מרגיש שמח היום."
+- word: "explore"
+  he: "לחקור; לסייר"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Let's explore the cave."
+  example_he: "בואו נחקור את המערה."
+- word: "celebrate"
+  he: "לחגוג"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We celebrate Purim in costumes."
+  example_he: "אנחנו חוגגים את פורים בתחפושות."
+- word: "travel"
+  he: "לטייל; לנסוע"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I love to travel with my family."
+  example_he: "אני אוהב לטייל עם המשפחה שלי."
+- word: "plant"
+  he: "לשתול"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We plant trees on Tu BiShvat."
+  example_he: "אנחנו שותלים עצים בט\"ו בשבט."
+- word: "hurry"
+  he: "למהר"
+  pos: verb
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Hurry up! The bus is here."
+  example_he: "מהר! האוטובוס כאן."
+- word: "laugh at"
+  he: "לצחוק על"
+  pos: phrase
+  topic: actions
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "It is not nice to laugh at people."
+  example_he: "לא יפה לצחוק על אנשים."
+- word: "look for"
+  he: "לחפש"
+  pos: phrase
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Can you help me look for my keys?"
+  example_he: "אתה יכול לעזור לי לחפש את המפתחות שלי?"
+- word: "wake up"
+  he: "להתעורר"
+  pos: phrase
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I wake up at seven."
+  example_he: "אני מתעורר בשבע."
+- word: "get up"
+  he: "לקום"
+  pos: phrase
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Get up! It is late."
+  example_he: "קום! מאוחר."
+- word: "put on"
+  he: "ללבוש (לשים על עצמך)"
+  pos: phrase
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Put on your coat."
+  example_he: "תלבש את המעיל."
+- word: "turn off"
+  he: "לכבות"
+  pos: phrase
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Turn off the light, please."
+  example_he: "כבה את האור, בבקשה."
+- word: "turn on"
+  he: "להדליק"
+  pos: phrase
+  topic: actions
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Turn on the TV."
+  example_he: "הדלק את הטלוויזיה."
+- word: "airport"
+  he: "שדה תעופה"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We go to the airport by taxi."
+  example_he: "אנחנו נוסעים לשדה התעופה במונית."
+- word: "museum"
+  he: "מוזיאון"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We visited the science museum."
+  example_he: "ביקרנו במוזיאון המדע."
+- word: "factory"
+  he: "מפעל"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 6
+  emoji: "1f3ed"
+  example_en: "They make cars in this factory."
+  example_he: "במפעל הזה מייצרים מכוניות."
+- word: "office"
+  he: "משרד"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "My mom works in an office."
+  example_he: "אמא שלי עובדת במשרד."
+- word: "hotel"
+  he: "מלון"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: "1f3e8"
+  example_en: "We stayed in a hotel in Eilat."
+  example_he: "התארחנו במלון באילת."
+- word: "stadium"
+  he: "אצטדיון"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 6
+  emoji: "1f3df"
+  example_en: "The game is at the stadium."
+  example_he: "המשחק באצטדיון."
+- word: "palace"
+  he: "ארמון"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "The queen lives in a palace."
+  example_he: "המלכה גרה בארמון."
+- word: "country"
+  he: "מדינה; ארץ"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Israel is a small country."
+  example_he: "ישראל היא מדינה קטנה."
+- word: "capital"
+  he: "עיר בירה"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Jerusalem is the capital of Israel."
+  example_he: "ירושלים היא בירת ישראל."
+- word: "world"
+  he: "עולם"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: "1f30e"
+  example_en: "There are many countries in the world."
+  example_he: "יש הרבה מדינות בעולם."
+- word: "neighborhood"
+  he: "שכונה"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "There is a park in our neighborhood."
+  example_he: "יש פארק בשכונה שלנו."
+- word: "north"
+  he: "צפון"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Haifa is in the north."
+  example_he: "חיפה נמצאת בצפון."
+- word: "south"
+  he: "דרום"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Eilat is in the south."
+  example_he: "אילת נמצאת בדרום."
+- word: "east"
+  he: "מזרח"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The sun rises in the east."
+  example_he: "השמש זורחת במזרח."
+- word: "west"
+  he: "מערב"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The sun sets in the west."
+  example_he: "השמש שוקעת במערב."
+- word: "corner"
+  he: "פינה"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The shop is on the corner."
+  example_he: "החנות בפינה."
+- word: "building"
+  he: "בניין"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We live in a tall building."
+  example_he: "אנחנו גרים בבניין גבוה."
+- word: "center"
+  he: "מרכז"
+  pos: noun
+  topic: places
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "The library is in the city center."
+  example_he: "הספרייה במרכז העיר."
+- word: "subject"
+  he: "מקצוע (לימוד)"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "My favorite subject is science."
+  example_he: "המקצוע האהוב עליי הוא מדעים."
+- word: "history"
+  he: "היסטוריה"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We learn about the past in history."
+  example_he: "בהיסטוריה לומדים על העבר."
+- word: "geography"
+  he: "גאוגרפיה"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "In geography we learn about countries."
+  example_he: "בגאוגרפיה לומדים על מדינות."
+- word: "project"
+  he: "פרויקט; עבודה"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We are making a project about space."
+  example_he: "אנחנו מכינים עבודה על החלל."
+- word: "mistake"
+  he: "טעות"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Everyone makes mistakes."
+  example_he: "כולם עושים טעויות."
+- word: "example"
+  he: "דוגמה"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Can you give me an example?"
+  example_he: "אתה יכול לתת לי דוגמה?"
+- word: "rule"
+  he: "כלל"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "What is the rule?"
+  example_he: "מה הכלל?"
+- word: "information"
+  he: "מידע"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "I need information for my project."
+  example_he: "אני צריך מידע לעבודה שלי."
+- word: "language"
+  he: "שפה"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "How many languages do you speak?"
+  example_he: "כמה שפות אתה מדבר?"
+- word: "meaning"
+  he: "משמעות; פירוש"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "What is the meaning of this word?"
+  example_he: "מה הפירוש של המילה הזאת?"
+- word: "list"
+  he: "רשימה"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Make a shopping list."
+  example_he: "הכן רשימת קניות."
+- word: "competition"
+  he: "תחרות"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "I won the spelling competition."
+  example_he: "ניצחתי בתחרות האיות."
+- word: "grade"
+  he: "ציון; כיתה (שכבה)"
+  pos: noun
+  topic: school
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I am in fifth grade."
+  example_he: "אני בכיתה ה'."
+- word: "environment"
+  he: "סביבה"
+  pos: noun
+  topic: nature
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "We must keep the environment clean."
+  example_he: "אנחנו חייבים לשמור על הסביבה נקייה."
+- word: "pollution"
+  he: "זיהום"
+  pos: noun
+  topic: nature
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Cars make air pollution."
+  example_he: "מכוניות יוצרות זיהום אוויר."
+- word: "energy"
+  he: "אנרגיה"
+  pos: noun
+  topic: nature
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "The sun gives us energy."
+  example_he: "השמש נותנת לנו אנרגיה."
+- word: "plastic"
+  he: "פלסטיק"
+  pos: noun
+  topic: nature
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Don't throw plastic into the sea."
+  example_he: "אל תזרוק פלסטיק לים."
+- word: "trash"
+  he: "זבל; אשפה"
+  pos: noun
+  topic: nature
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Put the trash in the bin."
+  example_he: "שים את הזבל בפח."
+- word: "air"
+  he: "אוויר"
+  pos: noun
+  topic: nature
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We need clean air."
+  example_he: "אנחנו צריכים אוויר נקי."
+- word: "valley"
+  he: "עמק"
+  pos: noun
+  topic: nature
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "There are many fields in the valley."
+  example_he: "יש הרבה שדות בעמק."
+- word: "nest"
+  he: "קן"
+  pos: noun
+  topic: nature
+  level: A2
+  grade: 5
+  emoji: "1fab9"
+  example_en: "The bird is in its nest."
+  example_he: "הציפור בקן שלה."
+- word: "feather"
+  he: "נוצה"
+  pos: noun
+  topic: nature
+  level: A2
+  grade: 5
+  emoji: "1fab6"
+  example_en: "The bird has blue feathers."
+  example_he: "לציפור יש נוצות כחולות."
+- word: "seed"
+  he: "זרע"
+  pos: noun
+  topic: nature
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Plant the seed in the ground."
+  example_he: "שתול את הזרע באדמה."
+- word: "temperature"
+  he: "טמפרטורה"
+  pos: noun
+  topic: weather
+  level: A2
+  grade: 6
+  emoji: "1f321"
+  example_en: "The temperature today is 30 degrees."
+  example_he: "הטמפרטורה היום 30 מעלות."
+- word: "fog"
+  he: "ערפל"
+  pos: noun
+  topic: weather
+  level: A2
+  grade: 6
+  emoji: "1f32b"
+  example_en: "There is fog in the morning."
+  example_he: "יש ערפל בבוקר."
+- word: "thunder"
+  he: "רעם"
+  pos: noun
+  topic: weather
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "I hear thunder."
+  example_he: "אני שומע רעם."
+- word: "lightning"
+  he: "ברק"
+  pos: noun
+  topic: weather
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Lightning comes before thunder."
+  example_he: "הברק מגיע לפני הרעם."
+- word: "space"
+  he: "חלל"
+  pos: noun
+  topic: space
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Astronauts travel into space."
+  example_he: "אסטרונאוטים טסים לחלל."
+- word: "planet"
+  he: "כוכב לכת"
+  pos: noun
+  topic: space
+  level: A2
+  grade: 5
+  emoji: "1fa90"
+  example_en: "Earth is a planet."
+  example_he: "כדור הארץ הוא כוכב לכת."
+- word: "Earth"
+  he: "כדור הארץ"
+  pos: noun
+  topic: space
+  level: A2
+  grade: 5
+  emoji: "1f30d"
+  example_en: "We live on Earth."
+  example_he: "אנחנו חיים על כדור הארץ."
+- word: "telescope"
+  he: "טלסקופ"
+  pos: noun
+  topic: space
+  level: A2
+  grade: 6
+  emoji: "1f52d"
+  example_en: "I look at the stars with a telescope."
+  example_he: "אני מסתכל על הכוכבים בטלסקופ."
+- word: "comet"
+  he: "שביט"
+  pos: noun
+  topic: space
+  level: A2
+  grade: 6
+  emoji: "2604"
+  example_en: "A comet has a long tail."
+  example_he: "לשביט יש זנב ארוך."
+- word: "galaxy"
+  he: "גלקסיה"
+  pos: noun
+  topic: space
+  level: A2
+  grade: 6
+  emoji: "1f30c"
+  example_en: "Our galaxy is called the Milky Way."
+  example_he: "הגלקסיה שלנו נקראת שביל החלב."
+- word: "satellite"
+  he: "לוויין"
+  pos: noun
+  topic: space
+  level: A2
+  grade: 6
+  emoji: "1f6f0"
+  example_en: "The satellite goes around the Earth."
+  example_he: "הלוויין מקיף את כדור הארץ."
+- word: "sunset"
+  he: "שקיעה"
+  pos: noun
+  topic: space
+  level: A2
+  grade: 5
+  emoji: "1f307"
+  example_en: "We watch the sunset at the beach."
+  example_he: "אנחנו צופים בשקיעה בחוף."
+- word: "sunrise"
+  he: "זריחה"
+  pos: noun
+  topic: space
+  level: A2
+  grade: 5
+  emoji: "1f304"
+  example_en: "I woke up early to see the sunrise."
+  example_he: "קמתי מוקדם כדי לראות את הזריחה."
+- word: "internet"
+  he: "אינטרנט"
+  pos: noun
+  topic: technology
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I look for information on the internet."
+  example_he: "אני מחפש מידע באינטרנט."
+- word: "website"
+  he: "אתר אינטרנט"
+  pos: noun
+  topic: technology
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Our school has a website."
+  example_he: "לבית הספר שלנו יש אתר."
+- word: "email"
+  he: "דואר אלקטרוני"
+  pos: noun
+  topic: technology
+  level: A2
+  grade: 5
+  emoji: "1f4e7"
+  example_en: "I sent an email to my teacher."
+  example_he: "שלחתי דואר אלקטרוני למורה שלי."
+- word: "camera"
+  he: "מצלמה"
+  pos: noun
+  topic: technology
+  level: A2
+  grade: 5
+  emoji: "1f4f7"
+  example_en: "Take a photo with the camera."
+  example_he: "צלם תמונה במצלמה."
+- word: "keyboard"
+  he: "מקלדת"
+  pos: noun
+  topic: technology
+  level: A2
+  grade: 5
+  emoji: "2328"
+  example_en: "I type on the keyboard."
+  example_he: "אני מקליד במקלדת."
+- word: "screen"
+  he: "מסך"
+  pos: noun
+  topic: technology
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The screen is too bright."
+  example_he: "המסך בהיר מדי."
+- word: "battery"
+  he: "סוללה"
+  pos: noun
+  topic: technology
+  level: A2
+  grade: 5
+  emoji: "1f50b"
+  example_en: "My phone battery is empty."
+  example_he: "הסוללה של הטלפון שלי ריקה."
+- word: "app"
+  he: "אפליקציה"
+  pos: noun
+  topic: technology
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "This app teaches English."
+  example_he: "האפליקציה הזאת מלמדת אנגלית."
+- word: "password"
+  he: "סיסמה"
+  pos: noun
+  topic: technology
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Don't tell anyone your password."
+  example_he: "אל תגלה לאף אחד את הסיסמה שלך."
+- word: "message"
+  he: "הודעה"
+  pos: noun
+  topic: technology
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I got a message from Dad."
+  example_he: "קיבלתי הודעה מאבא."
+- word: "video"
+  he: "סרטון"
+  pos: noun
+  topic: technology
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We watched a video about whales."
+  example_he: "צפינו בסרטון על לווייתנים."
+- word: "engineer"
+  he: "מהנדס"
+  pos: noun
+  topic: jobs
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "An engineer designs bridges."
+  example_he: "מהנדס מתכנן גשרים."
+- word: "journalist"
+  he: "עיתונאי"
+  pos: noun
+  topic: jobs
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "The journalist writes for a newspaper."
+  example_he: "העיתונאי כותב לעיתון."
+- word: "photographer"
+  he: "צלם"
+  pos: noun
+  topic: jobs
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The photographer takes beautiful pictures."
+  example_he: "הצלם מצלם תמונות יפות."
+- word: "programmer"
+  he: "מתכנת"
+  pos: noun
+  topic: jobs
+  level: A2
+  grade: 6
+  emoji: "1f9d1-200d-1f4bb"
+  example_en: "The programmer writes computer games."
+  example_he: "המתכנת כותב משחקי מחשב."
+- word: "architect"
+  he: "אדריכל"
+  pos: noun
+  topic: jobs
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "The architect draws plans for houses."
+  example_he: "האדריכל משרטט תוכניות לבתים."
+- word: "writer"
+  he: "סופר"
+  pos: noun
+  topic: jobs
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "My favorite writer writes funny books."
+  example_he: "הסופר האהוב עליי כותב ספרים מצחיקים."
+- word: "actor"
+  he: "שחקן (בהצגה או בסרט)"
+  pos: noun
+  topic: jobs
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The actor is in a new movie."
+  example_he: "השחקן משחק בסרט חדש."
+- word: "guide"
+  he: "מדריך"
+  pos: noun
+  topic: jobs
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "The guide shows us the old city."
+  example_he: "המדריך מראה לנו את העיר העתיקה."
+- word: "inventor"
+  he: "ממציא"
+  pos: noun
+  topic: jobs
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "Thomas Edison was a famous inventor."
+  example_he: "תומס אדיסון היה ממציא מפורסם."
+- word: "volunteer"
+  he: "מתנדב"
+  pos: noun
+  topic: jobs
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "My sister is a volunteer at the animal shelter."
+  example_he: "אחותי מתנדבת במקלט לבעלי חיים."
+- word: "guest"
+  he: "אורח"
+  pos: noun
+  topic: people
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "We have guests for dinner."
+  example_he: "יש לנו אורחים לארוחת ערב."
+- word: "adult"
+  he: "מבוגר"
+  pos: noun
+  topic: people
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Ask an adult for help."
+  example_he: "בקש עזרה ממבוגר."
+- word: "teenager"
+  he: "נער; נערה"
+  pos: noun
+  topic: people
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "My brother is a teenager."
+  example_he: "אחי נער."
+- word: "classmate"
+  he: "חבר לכיתה"
+  pos: noun
+  topic: people
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "My classmate sits next to me."
+  example_he: "החבר שלי לכיתה יושב לידי."
+- word: "leader"
+  he: "מנהיג"
+  pos: noun
+  topic: people
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "A good leader listens to everyone."
+  example_he: "מנהיג טוב מקשיב לכולם."
+- word: "exercise"
+  he: "פעילות גופנית"
+  pos: noun
+  topic: health
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Exercise is good for your body."
+  example_he: "פעילות גופנית טובה לגוף."
+- word: "fever"
+  he: "חום (מחלה)"
+  pos: noun
+  topic: health
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "He has a fever."
+  example_he: "יש לו חום."
+- word: "cough"
+  he: "שיעול"
+  pos: noun
+  topic: health
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I have a bad cough."
+  example_he: "יש לי שיעול חזק."
+- word: "brain"
+  he: "מוח"
+  pos: noun
+  topic: health
+  level: A2
+  grade: 5
+  emoji: "1f9e0"
+  example_en: "The brain helps us think."
+  example_he: "המוח עוזר לנו לחשוב."
+- word: "bone"
+  he: "עצם"
+  pos: noun
+  topic: health
+  level: A2
+  grade: 5
+  emoji: "1f9b4"
+  example_en: "The dog has a bone."
+  example_he: "לכלב יש עצם."
+- word: "champion"
+  he: "אלוף"
+  pos: noun
+  topic: sports
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "She is the chess champion."
+  example_he: "היא אלופת השחמט."
+- word: "score"
+  he: "תוצאה"
+  pos: noun
+  topic: sports
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "What is the score?"
+  example_he: "מה התוצאה?"
+- word: "coach"
+  he: "מאמן"
+  pos: noun
+  topic: sports
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "Our coach is very good."
+  example_he: "המאמן שלנו טוב מאוד."
+- word: "skateboard"
+  he: "סקייטבורד"
+  pos: noun
+  topic: sports
+  level: A2
+  grade: 5
+  emoji: "1f6f9"
+  example_en: "I ride my skateboard in the park."
+  example_he: "אני רוכב על הסקייטבורד שלי בפארק."
+- word: "skiing"
+  he: "סקי"
+  pos: noun
+  topic: sports
+  level: A2
+  grade: 6
+  emoji: "1f3bf"
+  example_en: "We went skiing on Mount Hermon."
+  example_he: "נסענו לעשות סקי בחרמון."
+- word: "match"
+  he: "משחק (תחרות)"
+  pos: noun
+  topic: sports
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "We won the match!"
+  example_he: "ניצחנו במשחק!"
+- word: "race"
+  he: "מרוץ"
+  pos: noun
+  topic: sports
+  level: A2
+  grade: 5
+  emoji: null
+  example_en: "I came first in the race."
+  example_he: "הגעתי ראשון במרוץ."
+- word: "fair"
+  he: "הוגן"
+  pos: adj
+  topic: sports
+  level: A2
+  grade: 6
+  emoji: null
+  example_en: "That's not fair!"
+  example_he: "זה לא הוגן!"
+
+# ===== B1 =====
+- word: "opinion"
+  he: "דעה"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "In my opinion, this book is great."
+  example_he: "לדעתי, הספר הזה מצוין."
+- word: "advantage"
+  he: "יתרון"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "One advantage of a bike is that it is cheap."
+  example_he: "יתרון אחד של אופניים הוא שהם זולים."
+- word: "disadvantage"
+  he: "חיסרון"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "The disadvantage is that it takes time."
+  example_he: "החיסרון הוא שזה לוקח זמן."
+- word: "argument"
+  he: "טיעון; ויכוח"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "She gave a strong argument for her idea."
+  example_he: "היא הציגה טיעון חזק בעד הרעיון שלה."
+- word: "experience"
+  he: "ניסיון; חוויה"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "The trip was a great experience."
+  example_he: "הטיול היה חוויה נהדרת."
+- word: "knowledge"
+  he: "ידע"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Reading gives you knowledge."
+  example_he: "קריאה נותנת לך ידע."
+- word: "solution"
+  he: "פתרון"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "We found a solution to the problem."
+  example_he: "מצאנו פתרון לבעיה."
+- word: "problem"
+  he: "בעיה"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "There is a problem with my computer."
+  example_he: "יש בעיה עם המחשב שלי."
+- word: "responsibility"
+  he: "אחריות"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Feeding the dog is my responsibility."
+  example_he: "להאכיל את הכלב זו האחריות שלי."
+- word: "opportunity"
+  he: "הזדמנות"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "This is a great opportunity to learn."
+  example_he: "זאת הזדמנות מצוינת ללמוד."
+- word: "ability"
+  he: "יכולת"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Dolphins have the ability to hear very well."
+  example_he: "לדולפינים יש יכולת לשמוע טוב מאוד."
+- word: "attention"
+  he: "תשומת לב"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "Pay attention to the teacher."
+  example_he: "שימו לב למורה."
+- word: "behavior"
+  he: "התנהגות"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "His behavior in class was excellent."
+  example_he: "ההתנהגות שלו בכיתה הייתה מצוינת."
+- word: "challenge"
+  he: "אתגר"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "Learning a new language is a challenge."
+  example_he: "ללמוד שפה חדשה זה אתגר."
+- word: "evidence"
+  he: "ראיה; הוכחה"
+  pos: noun
+  topic: ideas
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "Scientists need evidence for their ideas."
+  example_he: "מדענים צריכים ראיות לרעיונות שלהם."
+- word: "community"
+  he: "קהילה"
+  pos: noun
+  topic: society
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Our community helps families in need."
+  example_he: "הקהילה שלנו עוזרת למשפחות שזקוקות לעזרה."
+- word: "culture"
+  he: "תרבות"
+  pos: noun
+  topic: society
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Music is an important part of our culture."
+  example_he: "מוזיקה היא חלק חשוב מהתרבות שלנו."
+- word: "tradition"
+  he: "מסורת"
+  pos: noun
+  topic: society
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "Lighting candles on Hanukkah is a tradition."
+  example_he: "הדלקת נרות בחנוכה היא מסורת."
+- word: "government"
+  he: "ממשלה"
+  pos: noun
+  topic: society
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "The government builds new roads."
+  example_he: "הממשלה בונה כבישים חדשים."
+- word: "population"
+  he: "אוכלוסייה"
+  pos: noun
+  topic: society
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "The population of the city is growing."
+  example_he: "האוכלוסייה של העיר גדלה."
+- word: "experiment"
+  he: "ניסוי"
+  pos: noun
+  topic: science
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "We did an experiment with magnets."
+  example_he: "עשינו ניסוי עם מגנטים."
+- word: "research"
+  he: "מחקר"
+  pos: noun
+  topic: science
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "She does research on bees."
+  example_he: "היא חוקרת דבורים."
+- word: "technology"
+  he: "טכנולוגיה"
+  pos: noun
+  topic: science
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "Technology changes our lives."
+  example_he: "הטכנולוגיה משנה את החיים שלנו."
+- word: "invention"
+  he: "המצאה"
+  pos: noun
+  topic: science
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "The wheel was an important invention."
+  example_he: "הגלגל היה המצאה חשובה."
+- word: "discovery"
+  he: "תגלית"
+  pos: noun
+  topic: science
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "The discovery of a new planet is exciting."
+  example_he: "התגלית של כוכב לכת חדש מרגשת."
+- word: "climate"
+  he: "אקלים"
+  pos: noun
+  topic: science
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Israel has a warm climate."
+  example_he: "לישראל יש אקלים חם."
+- word: "gravity"
+  he: "כוח המשיכה"
+  pos: noun
+  topic: science
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Gravity keeps us on the ground."
+  example_he: "כוח המשיכה שומר אותנו על הקרקע."
+- word: "orbit"
+  he: "מסלול (בחלל)"
+  pos: noun
+  topic: science
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "The Moon is in orbit around the Earth."
+  example_he: "הירח נמצא במסלול סביב כדור הארץ."
+- word: "resource"
+  he: "משאב"
+  pos: noun
+  topic: science
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "Water is a very important resource."
+  example_he: "מים הם משאב חשוב מאוד."
+- word: "achieve"
+  he: "להשיג"
+  pos: verb
+  topic: actions
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Work hard and you will achieve your goals."
+  example_he: "תעבוד קשה ותשיג את המטרות שלך."
+- word: "communicate"
+  he: "לתקשר"
+  pos: verb
+  topic: actions
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Dolphins communicate with sounds."
+  example_he: "דולפינים מתקשרים בעזרת צלילים."
+- word: "consider"
+  he: "לשקול"
+  pos: verb
+  topic: actions
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "Please consider my idea."
+  example_he: "בבקשה שקלו את הרעיון שלי."
+- word: "develop"
+  he: "לפתח"
+  pos: verb
+  topic: actions
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "They develop new games."
+  example_he: "הם מפתחים משחקים חדשים."
+- word: "encourage"
+  he: "לעודד"
+  pos: verb
+  topic: actions
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "My parents encourage me to read."
+  example_he: "ההורים שלי מעודדים אותי לקרוא."
+- word: "influence"
+  he: "להשפיע"
+  pos: verb
+  topic: actions
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "Friends can influence our choices."
+  example_he: "חברים יכולים להשפיע על הבחירות שלנו."
+- word: "include"
+  he: "לכלול"
+  pos: verb
+  topic: actions
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "The price includes breakfast."
+  example_he: "המחיר כולל ארוחת בוקר."
+- word: "increase"
+  he: "להגדיל; לגדול"
+  pos: verb
+  topic: actions
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "The number of students increased."
+  example_he: "מספר התלמידים גדל."
+- word: "reduce"
+  he: "להפחית"
+  pos: verb
+  topic: actions
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "We should reduce plastic waste."
+  example_he: "כדאי שנפחית את פסולת הפלסטיק."
+- word: "suggest"
+  he: "להציע (רעיון)"
+  pos: verb
+  topic: actions
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "I suggest we go to the park."
+  example_he: "אני מציע שנלך לפארק."
+- word: "survive"
+  he: "לשרוד"
+  pos: verb
+  topic: actions
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Camels can survive without water for days."
+  example_he: "גמלים יכולים לשרוד בלי מים ימים שלמים."
+- word: "although"
+  he: "אף על פי ש־"
+  pos: other
+  topic: connectors
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Although it was raining, we played outside."
+  example_he: "אף על פי שירד גשם, שיחקנו בחוץ."
+- word: "however"
+  he: "עם זאת"
+  pos: adv
+  topic: connectors
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "The test was hard. However, I passed."
+  example_he: "המבחן היה קשה. עם זאת, עברתי."
+- word: "therefore"
+  he: "לכן"
+  pos: adv
+  topic: connectors
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "It was late; therefore, we went home."
+  example_he: "היה מאוחר, לכן הלכנו הביתה."
+- word: "unless"
+  he: "אלא אם כן"
+  pos: other
+  topic: connectors
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "We will go to the beach unless it rains."
+  example_he: "נלך לחוף אלא אם כן ירד גשם."
+- word: "instead"
+  he: "במקום זאת"
+  pos: adv
+  topic: connectors
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "There was no juice, so I drank water instead."
+  example_he: "לא היה מיץ, אז שתיתי מים במקום."
+- word: "eventually"
+  he: "בסופו של דבר"
+  pos: adv
+  topic: connectors
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "Eventually, we found the way home."
+  example_he: "בסופו של דבר מצאנו את הדרך הביתה."
+- word: "recently"
+  he: "לאחרונה"
+  pos: adv
+  topic: connectors
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "I recently started learning the piano."
+  example_he: "לאחרונה התחלתי ללמוד פסנתר."
+- word: "probably"
+  he: "כנראה"
+  pos: adv
+  topic: connectors
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "It will probably rain tomorrow."
+  example_he: "מחר כנראה ירד גשם."
+- word: "especially"
+  he: "במיוחד"
+  pos: adv
+  topic: connectors
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "I love fruit, especially mangoes."
+  example_he: "אני אוהב פירות, במיוחד מנגו."
+- word: "actually"
+  he: "בעצם; למעשה"
+  pos: adv
+  topic: connectors
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Actually, I don't like pizza."
+  example_he: "בעצם, אני לא אוהב פיצה."
+- word: "necessary"
+  he: "הכרחי; נחוץ"
+  pos: adj
+  topic: describing
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Water is necessary for life."
+  example_he: "מים הכרחיים לחיים."
+- word: "available"
+  he: "זמין; פנוי"
+  pos: adj
+  topic: describing
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "Is this seat available?"
+  example_he: "המקום הזה פנוי?"
+- word: "independent"
+  he: "עצמאי"
+  pos: adj
+  topic: describing
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "She is very independent for her age."
+  example_he: "היא עצמאית מאוד לגילה."
+- word: "responsible"
+  he: "אחראי"
+  pos: adj
+  topic: describing
+  level: B1
+  grade: 7
+  emoji: null
+  example_en: "A responsible pet owner feeds the pet every day."
+  example_he: "בעל חיה אחראי מאכיל אותה כל יום."
+- word: "successful"
+  he: "מצליח"
+  pos: adj
+  topic: describing
+  level: B1
+  grade: 8
+  emoji: null
+  example_en: "The school fair was very successful."
+  example_he: "היריד בבית הספר היה מוצלח מאוד."
+- word: "obvious"
+  he: "ברור; מובן מאליו"
+  pos: adj
+  topic: describing
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "The answer is obvious."
+  example_he: "התשובה ברורה."
+- word: "accurate"
+  he: "מדויק"
+  pos: adj
+  topic: describing
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "This clock is very accurate."
+  example_he: "השעון הזה מדויק מאוד."
+- word: "efficient"
+  he: "יעיל"
+  pos: adj
+  topic: describing
+  level: B1
+  grade: 9
+  emoji: null
+  example_en: "LED lamps are more efficient."
+  example_he: "נורות לד יעילות יותר."
