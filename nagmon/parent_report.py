@@ -15,6 +15,22 @@ WEEK_S = 7 * 24 * 3600
 MAX_STRUGGLES = 3
 
 
+def fmt_minutes(seconds: float) -> str:
+    minutes = int(round(float(seconds) / 60))
+    if minutes < 1:
+        return "פחות מדקה"
+    if minutes == 1:
+        return "דקה אחת"
+    return f"{minutes} דקות"
+
+
+def fmt_percent(value: object) -> str:
+    if value is None:
+        return "-"
+    v = float(value)  # type: ignore[arg-type]
+    return f"{round(v * 100) if v <= 1 else round(v)}%"
+
+
 @dataclass(frozen=True)
 class ReportLine:
     text: str
@@ -51,7 +67,7 @@ def child_report(rt: NagmonRuntime, pid: str) -> list[ReportLine]:
         data = build_dashboard(learner, content, rt.clock())
         lines.append(
             ReportLine(
-                f"זמן תרגול השבוע: {data.time_7d_s.value}",
+                f"זמן תרגול השבוע: {fmt_minutes(data.time_7d_s.value)}",
                 data.time_7d_s.explanation_he,
             )
         )
@@ -61,7 +77,8 @@ def child_report(rt: NagmonRuntime, pid: str) -> list[ReportLine]:
             practised.append(stats.title_he)
             lines.append(
                 ReportLine(
-                    f"{stats.title_he}: {stats.accuracy_7d.value} הצלחה, "
+                    f"{stats.title_he}: {fmt_percent(stats.accuracy_7d.value)}"
+                    " הצלחה, "
                     f"{stats.mastered.value} מיומנויות נשלטו",
                     f"{stats.accuracy_7d.explanation_he} "
                     f"{stats.mastered.explanation_he}",
@@ -74,7 +91,8 @@ def child_report(rt: NagmonRuntime, pid: str) -> list[ReportLine]:
             why = "; ".join(m.text_he for m in skill.misconceptions)
             lines.append(
                 ReportLine(
-                    f"מתקשה ב: {skill.title_he} ({skill.accuracy.value})",
+                    f"מתקשה ב: {skill.title_he} "
+                    f"({fmt_percent(skill.accuracy.value)})",
                     why or skill.accuracy.explanation_he,
                 )
             )

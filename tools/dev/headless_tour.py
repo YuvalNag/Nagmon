@@ -140,3 +140,33 @@ if rt.engine is not None:
     quiz_shot("11_geometry", subject="geometry", context="quest")
     quiz_shot("12_english", subject="english", context="quest")
     quiz_shot("13_science", subject="science", context="quest")
+
+# Parent area: report for the playing child, then the owl (offline).
+client.push_state("ParentMenuState")
+step(20)
+shot("20_parent_menu")
+parent = client.get_state_by_name("ParentMenuState")
+parent.toggle_owl()
+from nagmon.parent_report import child_report  # noqa: E402
+
+client.push_state(
+    "TextListState",
+    title=rt.active.name,
+    lines=[(ln.text, ln.explanation) for ln in child_report(rt, rt.active.id)],
+)
+step(20)
+shot("21_parent_report")
+client.pop_state()
+client.pop_state()
+step(10)
+client.push_state("OwlState")
+step(20)
+shot("30_owl_menu")
+owl = client.get_state_by_name("OwlState")
+owl.ask(owl.owl.menu(owl.age)[0])
+for _ in range(100):
+    step(3)
+    if owl.answer is not None:
+        break
+step(10)
+shot("31_owl_answer")

@@ -205,3 +205,48 @@ msgstr "רצף! מכת-על!"
 
 msgid "quiz_capture_boost"
 msgstr "הידע עוזר בלכידה!"
+
+msgid "nagmon_parent_report"
+msgstr "דוח התקדמות"
+
+msgid "nagmon_parent_owl_log"
+msgstr "שיחות עם הינשוף"
+
+msgid "nagmon_owl_log_empty"
+msgstr "עוד אין שיחות."
+
+msgid "nagmon_owl_on"
+msgstr "הינשוף החכם: פועל"
+
+msgid "nagmon_owl_off"
+msgstr "הינשוף החכם: כבוי"
+
+msgid "nagmon_voices_on"
+msgstr "קולות מהאינטרנט: פועל"
+
+msgid "nagmon_voices_off"
+msgstr "קולות מהאינטרנט: כבוי"
+
+msgid "nagmon_parent_ai"
+msgstr "בינה מלאכותית"
+
+msgid "nagmon_no_players"
+msgstr "עוד אין שחקנים."
+
+msgid "nagmon_ai_no_keys"
+msgstr "לא הוגדר מפתח AI. הינשוף עונה מתשובות מוכנות."
+
+msgid "nagmon_ai_how_to_keys"
+msgstr "להוספת מפתח: מריצים במחשב 'python -m nagmon.keys_cli set groq KEY', או מגדירים GROQ_API_KEY."
+
+msgid "nagmon_owl_title"
+msgstr "שאלו את הינשוף"
+
+msgid "nagmon_owl_thinking"
+msgstr "הינשוף חושב..."
+
+msgid "nagmon_owl_my_question"
+msgstr "שאלה משלי"
+
+msgid "nagmon_owl_another"
+msgstr "שאלה נוספת"

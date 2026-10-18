@@ -206,3 +206,48 @@ msgstr "Combo! Super strike!"
 
 msgid "quiz_capture_boost"
 msgstr "Knowledge helps the capture!"
+
+msgid "nagmon_parent_report"
+msgstr "Progress report"
+
+msgid "nagmon_parent_owl_log"
+msgstr "Owl conversations"
+
+msgid "nagmon_owl_log_empty"
+msgstr "No conversations yet."
+
+msgid "nagmon_owl_on"
+msgstr "Wise owl: on"
+
+msgid "nagmon_owl_off"
+msgstr "Wise owl: off"
+
+msgid "nagmon_voices_on"
+msgstr "Voices from the internet: on"
+
+msgid "nagmon_voices_off"
+msgstr "Voices from the internet: off"
+
+msgid "nagmon_parent_ai"
+msgstr "Artificial intelligence"
+
+msgid "nagmon_no_players"
+msgstr "No players yet."
+
+msgid "nagmon_ai_no_keys"
+msgstr "No AI key is set. The owl answers from its ready answers."
+
+msgid "nagmon_ai_how_to_keys"
+msgstr "To add a key: run 'python -m nagmon.keys_cli set groq KEY' on this computer, or set GROQ_API_KEY."
+
+msgid "nagmon_owl_title"
+msgstr "Ask the wise owl"
+
+msgid "nagmon_owl_thinking"
+msgstr "The owl is thinking..."
+
+msgid "nagmon_owl_my_question"
+msgstr "My own question"
+
+msgid "nagmon_owl_another"
+msgstr "Another question"

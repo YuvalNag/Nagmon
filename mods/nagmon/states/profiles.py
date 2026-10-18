@@ -373,6 +373,11 @@ class ParentMenuState(PygameMenuState):
                 ),
                 self.daily_minutes,
             ),
+            ("report", T.translate("nagmon_parent_report"), self.report),
+            ("owl_log", T.translate("nagmon_parent_owl_log"), self.owl_log),
+            ("owl", self._owl_title(), self.toggle_owl),
+            ("voices", self._voices_title(), self.toggle_voices),
+            ("ai", T.translate("nagmon_parent_ai"), self.ai_status),
             ("pin", T.translate("nagmon_change_pin"), self.change_pin),
             ("back", T.translate("nagmon_back"), self.close),
         ]
@@ -390,6 +395,114 @@ class ParentMenuState(PygameMenuState):
     def resume(self) -> None:
         super().resume()
         self.rebuild()
+
+    # -------------------------------------------------------- new items
+
+    def _owl_title(self) -> str:
+        from nagmon.owl_service import load_ai_settings
+
+        on = load_ai_settings(self.rt.root).owl_enabled
+        return T.translate("nagmon_owl_on" if on else "nagmon_owl_off")
+
+    def toggle_owl(self) -> None:
+        from nagmon.owl_service import load_ai_settings, save_ai_settings
+
+        import dataclasses
+
+        settings = load_ai_settings(self.rt.root)
+        save_ai_settings(
+            self.rt.root,
+            dataclasses.replace(
+                settings, owl_enabled=not settings.owl_enabled
+            ),
+        )
+        self.rebuild()
+
+    def _voices_online(self) -> bool:
+        profiles = self.rt.store.list()
+        return bool(profiles) and all(
+            (p.settings.get("tts") or {}).get("allow_online") for p in profiles
+        )
+
+    def _voices_title(self) -> str:
+        return T.translate(
+            "nagmon_voices_on"
+            if self._voices_online()
+            else "nagmon_voices_off"
+        )
+
+    def toggle_voices(self) -> None:
+        """Online neural voices: same choice for every child."""
+        allow = not self._voices_online()
+        for p in self.rt.store.list():
+            tts = dict(p.settings.get("tts") or {})
+            tts["allow_online"] = allow
+            p.settings["tts"] = tts
+            self.rt.store.save(p)
+        self.rebuild()
+
+    def _pick_child(self, then: Callable[[str], None]) -> None:
+        profiles = self.rt.store.list()
+        if not profiles:
+            say(self.client, T.translate("nagmon_no_players"))
+            return
+        choose(
+            self.client,
+            [(p.name, lambda pid=p.id: then(pid)) for p in profiles],
+        )
+
+    def report(self) -> None:
+        from nagmon.parent_report import child_report
+
+        def show(pid: str) -> None:
+            lines = child_report(self.rt, pid)
+            self.client.push_state(
+                "TextListState",
+                title=self.rt.store.get(pid).name,
+                lines=[(line.text, line.explanation) for line in lines],
+            )
+
+        self._pick_child(show)
+
+    def owl_log(self) -> None:
+        from nagmon.owl_service import owl_log_lines
+
+        def show(pid: str) -> None:
+            lines = owl_log_lines(self.rt.root, pid) or [
+                T.translate("nagmon_owl_log_empty")
+            ]
+            self.client.push_state(
+                "TextListState",
+                title=T.translate("nagmon_parent_owl_log"),
+                lines=[(line, "") for line in lines],
+            )
+
+        self._pick_child(show)
+
+    def ai_status(self) -> None:
+        from nagmon.ai.config import (
+            GEMINI_KID_WARNING_HE,
+            GROQ_ZDR_NOTE_HE,
+            build_kid_router,
+            load_keys,
+        )
+        from nagmon.owl_service import load_ai_settings
+
+        keys = load_keys(self.rt.root)
+        lines: list[tuple[str, str]] = []
+        if keys:
+            router = build_kid_router(
+                keys, self.rt.root, load_ai_settings(self.rt.root)
+            )
+            lines += [(str(st), "") for st in router.status_report()]
+        else:
+            lines.append((T.translate("nagmon_ai_no_keys"), ""))
+        lines.append((T.translate("nagmon_ai_how_to_keys"), ""))
+        lines.append((GROQ_ZDR_NOTE_HE, ""))
+        lines.append((GEMINI_KID_WARNING_HE, ""))
+        self.client.push_state(
+            "TextListState", title=T.translate("nagmon_parent_ai"), lines=lines
+        )
 
     def close(self) -> None:
         self.client.pop_state(self)
@@ -517,3 +630,47 @@ def avatar_template(avatar_key: str) -> tuple[str, str, str]:
     """(sprite, combat sheet, gender) for ``set_template``."""
     avatar = avatar_by_key(avatar_key)
     return avatar.sprite, avatar.combat_sheet, avatar.gender
+
+
+class TextListState(PygameMenuState):
+    """A scrollable list of lines, each with an optional explanation."""
+
+    name: ClassVar[str] = "TextListState"
+
+    def __init__(
+        self,
+        client: BaseClient,
+        title: str = "",
+        lines: Sequence[tuple[str, str]] = (),
+        **kwargs: Any,
+    ) -> None:
+        width, height = client.context.resolution
+        super().__init__(client=client, height=height, width=width, **kwargs)
+        theme = self._setup_theme(BG_START_SCREEN)
+        theme.scrollarea_position = POSITION_EAST
+        theme.widget_alignment = ALIGN_CENTER
+        self._menu_config["theme"] = theme
+        menu = self.menu
+        menu.add.label(title, font_size=self.font_type.big)
+        for text, explanation in lines:
+            menu.add.label(
+                text,
+                font_size=self.font_type.medium,
+                max_char=-1,
+                wordwrap=True,
+            )
+            if explanation:
+                menu.add.label(
+                    explanation,
+                    font_size=self.font_type.small,
+                    max_char=-1,
+                    wordwrap=True,
+                    font_color=(90, 90, 90),
+                )
+        menu.add.button(
+            T.translate("nagmon_back"),
+            lambda: self.client.pop_state(self),
+            font_size=self.font_type.medium,
+            button_id="list_back",
+        )
+        self.reset_theme()

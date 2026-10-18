@@ -20,6 +20,12 @@ if TYPE_CHECKING:
     from tuxemon.base_client import BaseClient
 
 
+def _owl_on(rt: Any) -> bool:
+    from nagmon.owl_service import load_ai_settings
+
+    return load_ai_settings(rt.root).owl_enabled
+
+
 class StartState(core_start.StartState):
     """Tuxemon's title menu, opened for the child who is playing."""
 
@@ -39,6 +45,13 @@ class StartState(core_start.StartState):
             )
             self._shown_for = rt.active.id
         super().add_menu_items(menu)
+        if rt is not None and rt.active is not None and _owl_on(rt):
+            menu.add.button(
+                T.translate("nagmon_owl_title"),
+                lambda: self.client.push_state("OwlState"),
+                font_size=self.font_type.medium,
+                button_id="nagmon_owl",
+            )
         if rt is not None:
             menu.add.button(
                 T.translate("nagmon_switch_player"),

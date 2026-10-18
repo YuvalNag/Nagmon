@@ -76,3 +76,36 @@ def test_report_for_inactive_child_loads_saved_learner(rt):
     rt.activate(b.id)  # a is saved
     lines = child_report(rt, a.id)
     assert any("חשבון" in line.text for line in lines)
+
+
+@pytest.mark.parametrize(
+    ("seconds", "text"),
+    [
+        pytest.param(20, "פחות מדקה", id="seconds"),
+        pytest.param(65, "דקה אחת", id="one"),
+        pytest.param(600, "10 דקות", id="ten"),
+    ],
+)
+def test_fmt_minutes(seconds, text):
+    from nagmon.parent_report import fmt_minutes
+
+    assert fmt_minutes(seconds) == text
+
+
+def test_fmt_percent():
+    from nagmon.parent_report import fmt_percent
+
+    assert fmt_percent(1.0) == "100%"
+    assert fmt_percent(0.756) == "76%"
+    assert fmt_percent(None) == "-"
+
+
+def test_report_has_no_raw_floats(rt):
+    import re
+
+    p = rt.store.create(name="Avi", avatar="x", grade=3)
+    rt.activate(p.id)
+    q = rt.engine.next_question(subject="math")
+    rt.engine.submit(q, q.answer, elapsed_s=3.3)
+    texts = " ".join(line.text for line in child_report(rt, p.id))
+    assert not re.search(r"\d\.\d{3,}", texts)
