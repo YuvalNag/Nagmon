@@ -54,7 +54,7 @@ include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["tuxemon*"]
+include = ["tuxemon*", "nagmon*"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = "requirements.txt"}
@@ -123,7 +123,7 @@ select = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["tuxemon"]
+known-first-party = ["tuxemon", "nagmon"]
 
 [tool.ruff.lint.pyupgrade]
 keep-runtime-typing = true

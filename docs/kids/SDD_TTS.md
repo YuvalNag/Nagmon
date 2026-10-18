@@ -238,3 +238,4 @@ python -m nagmon.tts.cli --list-voices
 | T33 | `Pyttsx3Backend` עם מנוע מזויף | זיהוי קול עברי לפי languages/id/name, `save_to_file` ו־`runAndWait`, וחריגה ב־init ← לא זמין |
 | T34 | CLI עם מנועים מוזרקים | יוצא עם 0, מדפיס מנוע ונתיב. בלי `--online` המנוע המקוון לא נקרא |
 | T35 | `split` כבוי בהגדרות | מקטע אחד בשפת הבסיס |
+| T36 | `PygamePlayer` עם `SDL_AUDIODRIVER=dummy` | משמיע ועוצר בלי חריגה. קובץ פגום זורק חריגה, והשירות תופס אותה (T30) |
