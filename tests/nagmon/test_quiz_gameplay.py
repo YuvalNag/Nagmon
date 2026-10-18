@@ -312,3 +312,15 @@ def test_world_state_is_watched_for_screen_time():
     repo = StateRepository.from_loader(StateLoader("tuxemon.states", LIBDIR))
     world = repo.get_state("WorldState")
     assert world.__module__ == "mods.nagmon.states.nagmon_world"
+
+
+def test_unused_boost_does_not_carry_into_an_unasked_attack(active_runtime):
+    # A boosted attack that never happened (the monster fainted first)
+    # must not power up a later attack once the question budget is spent.
+    menu, combat = _menu()
+    combat.set_variable(quiz_mult_key(menu.monster), 1.5)
+    combat.set_variable(ASKED_KEY, 2)  # budget used up
+    proceed = MagicMock()
+    menu.before_enqueue_technique(_tech(), MagicMock(), proceed)
+    proceed.assert_called_once()
+    assert combat.get_variable(quiz_mult_key(menu.monster)) is None
