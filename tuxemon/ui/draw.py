@@ -20,6 +20,7 @@ from tuxemon.ui.bidi import (
     needs_bidi,
     paragraph_is_rtl,
     reorder,
+    strip_bidi_controls,
 )
 from tuxemon.ui.text_alignment import HorizontalAlignment, VerticalAlignment
 from tuxemon.ui.text_renderer import TextRenderer
@@ -439,6 +440,8 @@ def iter_render_text(
             )
             continue
 
+        # no glyph for bidi controls (e.g. the isolates around math)
+        line = strip_bidi_controls(line)
         line_width = font.size(line)[0]
 
         offset_x_for_line, _ = calculate_alignment_offset(
