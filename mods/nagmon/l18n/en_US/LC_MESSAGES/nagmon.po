@@ -140,3 +140,69 @@ msgstr "English, Hebrew on request"
 
 msgid "nagmon_language_level_5"
 msgstr "English only"
+
+msgid "nagmon_quiz_no_question"
+msgstr "No question right now."
+
+msgid "nagmon_continue"
+msgstr "Continue"
+
+msgid "nagmon_owl_shows"
+msgstr "The wise owl shows how:"
+
+msgid "nagmon_lets_try"
+msgstr "Got it, let's try!"
+
+msgid "nagmon_erase"
+msgstr "Erase"
+
+msgid "nagmon_check_answer"
+msgstr "Check"
+
+msgid "nagmon_order_hint"
+msgstr "Tap the items in the right order"
+
+msgid "nagmon_undo"
+msgstr "Undo"
+
+msgid "nagmon_hint"
+msgstr "Hint"
+
+msgid "nagmon_dont_know"
+msgstr "I don't know"
+
+msgid "nagmon_read_aloud"
+msgstr "Read aloud"
+
+msgid "nagmon_skip"
+msgstr "Attack without a question"
+
+msgid "nagmon_feedback_super"
+msgstr "Super! Fast and right!"
+
+msgid "nagmon_feedback_correct"
+msgstr "Correct! Well done!"
+
+msgid "nagmon_feedback_wrong"
+msgstr "Nice try! Here is how:"
+
+msgid "nagmon_feedback_answer"
+msgstr "The answer: {answer}"
+
+msgid "nagmon_feedback_coins"
+msgstr "+{coins} coins"
+
+msgid "nagmon_feedback_star"
+msgstr "New star! You mastered: {skill}"
+
+msgid "quiz_super"
+msgstr "Super power attack!"
+
+msgid "quiz_critical"
+msgstr "Knowledge power! A critical hit!"
+
+msgid "quiz_combo"
+msgstr "Combo! Super strike!"
+
+msgid "quiz_capture_boost"
+msgstr "Knowledge helps the capture!"

@@ -139,3 +139,69 @@ msgstr "אנגלית, ועברית בלחיצה"
 
 msgid "nagmon_language_level_5"
 msgstr "אנגלית בלבד"
+
+msgid "nagmon_quiz_no_question"
+msgstr "אין שאלה כרגע."
+
+msgid "nagmon_continue"
+msgstr "המשך"
+
+msgid "nagmon_owl_shows"
+msgstr "הינשוף מראה איך:"
+
+msgid "nagmon_lets_try"
+msgstr "הבנתי, בואו ננסה!"
+
+msgid "nagmon_erase"
+msgstr "מחק"
+
+msgid "nagmon_check_answer"
+msgstr "בדיקה"
+
+msgid "nagmon_order_hint"
+msgstr "לחצו על הפריטים לפי הסדר הנכון"
+
+msgid "nagmon_undo"
+msgstr "בטל"
+
+msgid "nagmon_hint"
+msgstr "רמז"
+
+msgid "nagmon_dont_know"
+msgstr "לא יודע/ת"
+
+msgid "nagmon_read_aloud"
+msgstr "הקראה"
+
+msgid "nagmon_skip"
+msgstr "התקפה בלי שאלה"
+
+msgid "nagmon_feedback_super"
+msgstr "סופר! מהר ונכון!"
+
+msgid "nagmon_feedback_correct"
+msgstr "נכון! כל הכבוד!"
+
+msgid "nagmon_feedback_wrong"
+msgstr "יפה שניסית! ככה פותרים:"
+
+msgid "nagmon_feedback_answer"
+msgstr "התשובה: {answer}"
+
+msgid "nagmon_feedback_coins"
+msgstr "+{coins} מטבעות"
+
+msgid "nagmon_feedback_star"
+msgstr "כוכב חדש! שלטת ב: {skill}"
+
+msgid "quiz_super"
+msgstr "מתקפת סופר!"
+
+msgid "quiz_critical"
+msgstr "כוח הידע! מכה קריטית!"
+
+msgid "quiz_combo"
+msgstr "רצף! מכת-על!"
+
+msgid "quiz_capture_boost"
+msgstr "הידע עוזר בלכידה!"
