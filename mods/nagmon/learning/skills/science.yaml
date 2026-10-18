@@ -1,0 +1,117 @@
+# Nagmon skill graph - science (bank-backed skills).
+# Format: docs/kids/SDD_CONTENT.md section 2. Each skill draws items from params.bank filtered by params.tags.
+# Curriculum alignment: Israeli MoE "מדע וטכנולוגיה" (science and technology) strands -
+#   materials, energy and interactions, systems and processes in living things, earth and universe, technology.
+# Sources consulted:
+#   - Elementary curriculum (grades 1-6): https://pop.education.gov.il/tchumey_daat/mada-tehnologia/yesodi/technology-science-pedagogy/curriculum
+#   - Elementary curriculum PDF (2009 draft): https://meyda.education.gov.il/files/Tochniyot_Limudim/KdamYesodi/MadaTechnologia.pdf
+#   - Middle school (grades 7-9): https://pop.education.gov.il/tchumey_daat/mada-tehnologia/chativat-beynayim/mada-technologia-pedagogia/curriculum
+#   - Grade 8/9 test specifications (Meitzav/RAMA): https://meyda.education.gov.il/files/Rama/Mifrat_sci_9_H_2027.pdf
+
+subject: science
+skills:
+- id: science.living.basic
+  grade: 1
+  title_he: חי, צומח ודומם
+  title_en: Animals, plants and non-living things
+  prereq: []
+  generator: bank
+  params: {bank: science/living.yaml, tags: [living_basic]}
+- id: science.living.needs
+  grade: 1
+  title_he: מה צריך יצור חי
+  title_en: What living things need
+  prereq: [science.living.basic]
+  generator: bank
+  params: {bank: science/living.yaml, tags: [living_needs]}
+- id: science.plants.parts
+  grade: 1
+  title_he: חלקי הצמח
+  title_en: Parts of a plant
+  prereq: [science.living.basic]
+  generator: bank
+  params: {bank: science/plants.yaml, tags: [plant_parts]}
+- id: science.animals.groups
+  grade: 2
+  title_he: קבוצות של בעלי חיים
+  title_en: Animal groups
+  prereq: [science.living.basic]
+  generator: bank
+  params: {bank: science/animals.yaml, tags: [animal_groups]}
+- id: science.plants.needs
+  grade: 2
+  title_he: 'צמחים: גדילה וצרכים'
+  title_en: How plants grow
+  prereq: [science.plants.parts, science.living.needs]
+  generator: bank
+  params: {bank: science/plants.yaml, tags: [plant_needs]}
+- id: science.plants.seeds
+  grade: 2
+  title_he: זרעים ונביטה
+  title_en: Seeds and germination
+  prereq: [science.plants.parts]
+  generator: bank
+  params: {bank: science/plants.yaml, tags: [seeds]}
+- id: science.animals.habitats
+  grade: 3
+  title_he: בתי גידול
+  title_en: Habitats
+  prereq: [science.animals.groups, science.living.needs]
+  generator: bank
+  params: {bank: science/animals.yaml, tags: [habitats]}
+- id: science.animals.israel
+  grade: 3
+  title_he: בעלי חיים בישראל
+  title_en: Animals of Israel
+  prereq: [science.animals.groups]
+  generator: bank
+  params: {bank: science/animals.yaml, tags: [israel_animals]}
+- id: science.animals.lifecycles
+  grade: 3
+  title_he: מחזורי חיים
+  title_en: Life cycles
+  prereq: [science.animals.groups]
+  generator: bank
+  params: {bank: science/animals.yaml, tags: [lifecycles]}
+- id: science.living.classify
+  grade: 3
+  title_he: מיון יצורים חיים
+  title_en: Classifying living things
+  prereq: [science.living.basic, science.animals.groups]
+  generator: bank
+  params: {bank: science/living.yaml, tags: [classify]}
+- id: science.plants.israel
+  grade: 3
+  title_he: צמחי ארץ ישראל וט"ו בשבט
+  title_en: Plants of Israel and Tu BiShvat
+  prereq: [science.plants.parts]
+  generator: bank
+  params: {bank: science/plants.yaml, tags: [israel_plants]}
+- id: science.animals.adaptations
+  grade: 4
+  title_he: התאמה לסביבה
+  title_en: Adaptations
+  prereq: [science.animals.habitats]
+  generator: bank
+  params: {bank: science/animals.yaml, tags: [adaptations]}
+- id: science.animals.foodchains
+  grade: 4
+  title_he: שרשראות מזון
+  title_en: Food chains
+  prereq: [science.animals.habitats, science.living.needs]
+  generator: bank
+  params: {bank: science/animals.yaml, tags: [food_chains]}
+- id: science.plants.photosynthesis
+  grade: 5
+  title_he: פוטוסינתזה
+  title_en: Photosynthesis
+  prereq: [science.plants.needs]
+  generator: bank
+  params: {bank: science/plants.yaml, tags: [photosynthesis]}
+- id: science.living.cells
+  grade: 7
+  title_he: 'התא: יחידת החיים'
+  title_en: 'The cell: the unit of life'
+  prereq: [science.living.classify]
+  generator: bank
+  params: {bank: science/living.yaml, tags: [cells]}
