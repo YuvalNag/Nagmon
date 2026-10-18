@@ -27,6 +27,9 @@ class NetworkManager:
         if self.server or self.client:
             logger.warning("NetworkManager: Already initialized.")
             return
+        if not getattr(self.parent.config, "network_enabled", False):
+            logger.info("NetworkManager: networking disabled in config.")
+            return
         self.server = TuxemonServer(self.parent)
         self.client = TuxemonClient(self.parent)
 

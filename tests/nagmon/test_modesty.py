@@ -25,13 +25,17 @@ def _flagged_portraits() -> list[str]:
 
 
 FLAGGED = _flagged_portraits()
+FLAGGED_PARAMS = [pytest.param(n, id=n) for n in FLAGGED]
+HEROINES = [
+    pytest.param(p.name, id=p.name) for p in sorted(SRC.glob("heroine*.png"))
+]
 
 
 def test_review_lists_portraits():
     assert len(FLAGGED) >= 100
 
 
-@pytest.mark.parametrize("name", FLAGGED)
+@pytest.mark.parametrize("name", FLAGGED_PARAMS)
 def test_flagged_portrait_has_overlay_of_same_size(name):
     original = pygame.image.load(SRC / name)
     overlay = pygame.image.load(DST / name)
@@ -39,7 +43,7 @@ def test_flagged_portrait_has_overlay_of_same_size(name):
     assert (DST / name).read_bytes() != (SRC / name).read_bytes()
 
 
-@pytest.mark.parametrize("name", FLAGGED)
+@pytest.mark.parametrize("name", FLAGGED_PARAMS)
 def test_overlay_wins_over_original_by_asset_lookup(name):
     import tuxemon.locale.locale  # noqa: F401  (populates asset roots)
     from tuxemon.constants.asset_loader import fetch_asset
@@ -61,9 +65,7 @@ def _luma(c: tuple[int, int, int]) -> float:
     return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
 
 
-@pytest.mark.parametrize(
-    "name", sorted(p.name for p in SRC.glob("heroine*.png"))
-)
+@pytest.mark.parametrize("name", HEROINES)
 def test_heroine_legs_are_covered(name):
     original = pygame.image.load(SRC / name)
     fixed = pygame.image.load(DST / name)
@@ -71,10 +73,6 @@ def test_heroine_legs_are_covered(name):
     rows, xs = range(44, 52), range(86, 103)
     skirt = _colors(original, range(35, 40), xs)
     # Skin tones are the light leg colours; dark ones are shared outlines.
-    skin = {
-        c
-        for c in _colors(original, rows, xs) - skirt
-        if _luma(c) >= 100
-    }
+    skin = {c for c in _colors(original, rows, xs) - skirt if _luma(c) >= 100}
     assert skin, "expected bare legs in the original"
     assert not skin & _colors(fixed, rows, xs)

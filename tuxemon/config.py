@@ -50,6 +50,8 @@ class GameConfig(BaseModel):
     data: str = "tuxemon"
     cli_enabled: bool = False
     net_controller_enabled: bool = False
+    # Multiplayer is unfinished; keep the game from opening a port.
+    network_enabled: bool = False
     dev_tools: bool = False
     recompile_translations: bool = True
     skip_titlescreen: bool = False
@@ -189,6 +191,10 @@ class TuxemonConfig:
     @property
     def fullscreen(self) -> bool:
         return self.config_model.display.fullscreen
+
+    @property
+    def network_enabled(self) -> bool:
+        return self.config_model.game.network_enabled
 
     @property
     def fps(self) -> float:
@@ -476,6 +482,7 @@ class LocaleConfig:
     @property
     def minimal_font_file(self) -> str:
         return self._model.minimal_font_file
+
 
 class InputConfig:
     """Reactive input configuration wrapper with cached keymap."""
