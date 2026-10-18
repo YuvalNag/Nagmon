@@ -413,3 +413,30 @@ def test_contact_sheet_builds(tmp_path):
     module.build_contact_sheet(out)
     img = pygame.image.load(str(out))
     assert img.get_width() >= 800 and img.get_height() >= 600
+
+
+@pytest.mark.parametrize(
+    "name", ["pyramid_3", "pyramid_4", "pyramid_6", "prism_3", "prism_5"]
+)
+def test_generator_solids_with_n_sided_base_are_drawn(name, caplog):
+    # geometry.solid_count asks about "pyramid_4", "prism_5"...; these
+    # used to fall through to "unknown solid" and showed an empty frame.
+    surf = render("solid", {"name": name})
+    assert "not drawn" not in caplog.text
+    assert opaque(surf) > 50
+
+
+def test_solid_count_figures_are_known():
+    import random
+
+    from nagmon.learning.content import ContentLibrary
+
+    lib = ContentLibrary.load()
+    rng = random.Random(3)
+    names = set()
+    for _ in range(60):
+        q = lib.generate("geometry.solids.count", rng)
+        names.add(q.figure.data["name"])
+    for name in names:
+        surf = render("solid", {"name": name})
+        assert opaque(surf) > 50, name
