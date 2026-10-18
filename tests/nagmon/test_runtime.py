@@ -235,3 +235,19 @@ def test_start_play_refused_on_shabbat(tmp_path):
     decision = rt.start_play(p.id)
     assert decision.action is Action.MUST_STOP
     assert decision.reason is Reason.SHABBAT
+
+
+def test_on_answer_records_practice_day(rt):
+    rt.clock = lambda: TUESDAY_AFTERNOON
+    p = rt.store.create(name="Shira", avatar="x")
+    rt.activate(p.id)
+    rt.on_answer()
+    status = rt.practice.weekly_status(p.id, rt.now(), target_days=3)
+    assert status.practised_days == 1
+
+
+def test_saturday_is_a_rest_day(rt):
+    from datetime import date
+
+    assert rt.is_rest_day(date(2023, 11, 25))  # Saturday
+    assert not rt.is_rest_day(date(2023, 11, 21))  # Tuesday

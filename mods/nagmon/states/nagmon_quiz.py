@@ -618,7 +618,7 @@ class QuizState(PygameMenuState):
     def _reward(self, outcome: Any) -> None:
         rt = get_runtime()
         if rt is not None:
-            rt.persist()
+            rt.on_answer()
         if not outcome.coins:
             return
         try:

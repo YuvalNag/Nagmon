@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from nagmon.family.calendar import ShabbatCalendar
+from nagmon.family.goals import PracticeLog
 from nagmon.family.parent import ParentStore
 from nagmon.family.profiles import Profile, ProfileStore
 from nagmon.family.screentime import (
@@ -98,6 +99,7 @@ class NagmonRuntime:
         self.learner: Any = None
         self.engine: Any = None
         self.tracker = SessionTracker(self.root, self.policy_for, tz=self.zone)
+        self.practice = PracticeLog(self.root, tz=self.zone)
 
     # ------------------------------------------------------------ time
 
@@ -193,6 +195,18 @@ class NagmonRuntime:
             return
         self.store.save_learner(self.active.id, self.learner)
         self.store.save(self.active)
+
+    def on_answer(self) -> None:
+        """After every answer: save, and count today as a practice day."""
+        if self.active is None:
+            return
+        self.persist()
+        self.practice.record(self.active.id, self.now())
+
+    def is_rest_day(self, d: Any) -> bool:
+        """Shabbat and Yom Tov never count as days a child had to practise."""
+        s = self.parent.settings
+        return ShabbatCalendar(s.location).is_restricted_day(d)
 
     def ladder(self) -> tuple[int, dict[str, str]]:
         """
