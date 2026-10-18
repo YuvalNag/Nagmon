@@ -220,7 +220,9 @@ def _fallback_reorder(
             j += 1
         before = strong(types[i - 1]) if i > 0 else base_dir
         after = strong(types[j]) if j < size else base_dir
-        direction = before if before == after else base_dir
+        direction = (
+            before if before is not None and before == after else base_dir
+        )
         for m in range(i, j):
             resolved[m] = direction
         i = j

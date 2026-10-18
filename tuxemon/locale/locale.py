@@ -354,7 +354,8 @@ class TranslatorManager:
             self._strict_catalogs[key] = catalog
         if not isinstance(catalog, GNUTranslations):
             return None
-        value = catalog._catalog.get(msgid.replace(r"\n", "\n"))
+        entries: dict[Any, str] = getattr(catalog, "_catalog", {})
+        value = entries.get(msgid.replace(r"\n", "\n"))
         return value or None
 
     def get_current_language(self) -> str:

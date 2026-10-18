@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import Callable, Mapping
+from functools import partial
 from typing import Any
 
 from tuxemon.locale.locale import T
@@ -173,9 +174,13 @@ def annotate_known_words(text: str, known_words: Mapping[str, str]) -> str:
             rf"(?<!\w)([{_HEBREW_PREFIXES}]{{0,2}}{re.escape(hebrew)})(?!\w)"
         )
         text = pattern.sub(
-            lambda m, en=english: f"{m.group(1)} ({en})", text, count=1
+            partial(_annotate_match, english=english), text, count=1
         )
     return text
+
+
+def _annotate_match(match: re.Match[str], english: str) -> str:
+    return f"{match.group(1)} ({english})"
 
 
 def _pair_lines(english: str, hebrew: str) -> str:
