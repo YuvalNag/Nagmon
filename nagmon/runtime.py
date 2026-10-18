@@ -75,7 +75,7 @@ class NagmonRuntime:
         on_deactivate: Hook | None = None,
         avatars: Any = None,
         clock: Callable[[], float] = time.time,
-        words_he: Mapping[str, str] | None = None,
+        words_he: dict[str, str] | None = None,
     ) -> None:
         self.root = Path(root)
         self.clock = clock
@@ -92,7 +92,8 @@ class NagmonRuntime:
         self._engine_factory = engine_factory
         self._on_activate = on_activate
         self._on_deactivate = on_deactivate
-        self._words_he = dict(words_he or {})
+        # Kept by reference: the loader fills it once content is loaded.
+        self._words_he = words_he if words_he is not None else {}
         self.active: Profile | None = None
         self.learner: Any = None
         self.engine: Any = None

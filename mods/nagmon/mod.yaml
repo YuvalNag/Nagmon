@@ -11,7 +11,8 @@ authors:
 dependencies:
   - tuxemon
 
-startup_rules: []
+startup_rules:
+  - mods.nagmon.rules.NagmonStartupRule
 
 starting_players: ["npc_red"]
 starting_map: "start_tuxemon.tmx"

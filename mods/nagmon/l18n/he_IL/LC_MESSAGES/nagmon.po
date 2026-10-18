@@ -10,3 +10,132 @@ msgstr ""
 
 msgid "nagmon_campaign"
 msgstr "נגמון"
+
+msgid "nagmon_who_plays"
+msgstr "מי משחק היום?"
+
+msgid "nagmon_child_button"
+msgstr "{name} - {stars} כוכבים"
+
+msgid "nagmon_new_child"
+msgstr "+ שחקן חדש"
+
+msgid "nagmon_parents"
+msgstr "הורים"
+
+msgid "nagmon_hello"
+msgstr "שלום, {name}!"
+
+msgid "nagmon_switch_player"
+msgstr "החלפת שחקן"
+
+msgid "nagmon_pin_prompt"
+msgstr "קוד הורים"
+
+msgid "nagmon_set_pin_prompt"
+msgstr "הורה: בחרו קוד של 4 ספרות"
+
+msgid "nagmon_pin_invalid"
+msgstr "הקוד צריך להיות 4 ספרות."
+
+msgid "nagmon_pin_saved"
+msgstr "קוד ההורים נשמר."
+
+msgid "nagmon_pin_wrong"
+msgstr "קוד שגוי."
+
+msgid "nagmon_pin_locked"
+msgstr "יותר מדי ניסיונות. חכו {seconds} שניות."
+
+msgid "nagmon_child_name_prompt"
+msgstr "איך קוראים לשחקן?"
+
+msgid "nagmon_name_invalid"
+msgstr "השם צריך להיות 1 עד 16 אותיות בעברית או באנגלית."
+
+msgid "nagmon_child_created"
+msgstr "הכול מוכן, {name}! אפשר לשחק."
+
+msgid "nagmon_parent_players"
+msgstr "שחקנים"
+
+msgid "nagmon_shabbat_on"
+msgstr "מצב שבת וחג: פועל"
+
+msgid "nagmon_shabbat_off"
+msgstr "מצב שבת וחג: כבוי"
+
+msgid "nagmon_daily_minutes"
+msgstr "דקות ביום: {minutes}"
+
+msgid "nagmon_change_pin"
+msgstr "שינוי קוד הורים"
+
+msgid "nagmon_back"
+msgstr "חזרה"
+
+msgid "nagmon_restore_player"
+msgstr "שחזור שחקן שנמחק"
+
+msgid "nagmon_trash_empty"
+msgstr "אין שחקנים שנמחקו."
+
+msgid "nagmon_set_grade"
+msgstr "כיתה"
+
+msgid "nagmon_set_language_level"
+msgstr "רמת שפה"
+
+msgid "nagmon_delete_player"
+msgstr "מחיקת שחקן"
+
+msgid "nagmon_player_deleted"
+msgstr "{name} הועבר לסל. אפשר לשחזר."
+
+msgid "nagmon_grade_0"
+msgstr "גן"
+
+msgid "nagmon_grade_1"
+msgstr "כיתה א"
+
+msgid "nagmon_grade_2"
+msgstr "כיתה ב"
+
+msgid "nagmon_grade_3"
+msgstr "כיתה ג"
+
+msgid "nagmon_grade_4"
+msgstr "כיתה ד"
+
+msgid "nagmon_grade_5"
+msgstr "כיתה ה"
+
+msgid "nagmon_grade_6"
+msgstr "כיתה ו"
+
+msgid "nagmon_grade_7"
+msgstr "כיתה ז"
+
+msgid "nagmon_grade_8"
+msgstr "כיתה ח"
+
+msgid "nagmon_grade_9"
+msgstr "כיתה ט"
+
+msgid "nagmon_language_level_0"
+msgstr "עברית בלבד"
+
+msgid "nagmon_language_level_1"
+msgstr "עברית ושמות באנגלית"
+
+msgid "nagmon_language_level_2"
+msgstr "עברית ומילים שלמדתי באנגלית"
+
+msgid "nagmon_language_level_3"
+msgstr "שורה באנגלית ושורה בעברית"
+
+msgid "nagmon_language_level_4"
+msgstr "אנגלית, ועברית בלחיצה"
+
+msgid "nagmon_language_level_5"
+msgstr "אנגלית בלבד"

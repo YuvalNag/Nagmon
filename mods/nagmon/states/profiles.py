@@ -194,7 +194,10 @@ def new_child_wizard(
         choose(
             client,
             [
-                (a.label_he + f" {i + 1}", lambda a=a: got_avatar(name, grade, a.key))
+                (
+                    a.label_he + f" {i + 1}",
+                    lambda a=a: got_avatar(name, grade, a.key),
+                )
                 for i, a in enumerate(AVATARS)
             ],
             escape_key_exits=False,
@@ -346,7 +349,9 @@ class ParentMenuState(PygameMenuState):
             (
                 "shabbat",
                 T.translate(
-                    "nagmon_shabbat_on" if s.shabbat_mode else "nagmon_shabbat_off"
+                    "nagmon_shabbat_on"
+                    if s.shabbat_mode
+                    else "nagmon_shabbat_off"
                 ),
                 self.toggle_shabbat,
             ),

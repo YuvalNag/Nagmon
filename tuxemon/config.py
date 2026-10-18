@@ -184,6 +184,7 @@ class TuxemonConfig:
             )
             self.config_model = TuxemonFullConfig()
 
+        self._sync_locale_fonts()
         self.input = InputConfig(self.config_model)
         self.logging = LoggingConfig(self.config_model)
         self.locale = LocaleConfig(self.config_model)
@@ -414,6 +415,20 @@ class TuxemonConfig:
     def update_control(self, value: str, key: int) -> None:
         self.input.update_key(value, pygame.key.name(key))
         self.save_config()
+
+    def _sync_locale_fonts(self) -> None:
+        """
+        Gives a language its own fonts when the config still names the
+        default ones (e.g. a config that only sets ``locale: he_IL``), so
+        the text never renders as empty boxes.
+        """
+        game = self.config_model.game
+        fonts = LOCALE_FONT_MAP.get(game.locale)
+        if fonts is None or game.font_file != LOCALE_FONT_MAP["default"][0]:
+            return
+        game.language_font = game.font_file = fonts[0]
+        game.thin_font_file = fonts[1]
+        game.minimal_font_file = fonts[2]
 
     def update_locale(self, value: str) -> None:
         """
