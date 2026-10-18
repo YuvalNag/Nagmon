@@ -70,6 +70,22 @@ def test_nested_dependencies_are_flattened_once(fake_mods):
     assert _populate(["a"]) == (a, b, c)
 
 
+def test_shared_dependency_comes_after_every_mod(fake_mods):
+    # Two campaigns on the same base: the later one wins, and both win
+    # over the base they share.
+    a = _make_mod(fake_mods, "a", ["base"])
+    b = _make_mod(fake_mods, "b", ["base"])
+    base = _make_mod(fake_mods, "base")
+    assert _populate(["a", "b"]) == (b, a, base)
+
+
+def test_listed_dependency_still_loses_to_its_mod(fake_mods):
+    a = _make_mod(fake_mods, "a", ["base"])
+    base = _make_mod(fake_mods, "base")
+    assert _populate(["a", "base"]) == (a, base)
+    assert _populate(["base", "a"]) == (a, base)
+
+
 def test_asset_only_in_dependency_is_found(fake_mods):
     _make_mod(fake_mods, "a", ["b"])
     b = _make_mod(fake_mods, "b")
