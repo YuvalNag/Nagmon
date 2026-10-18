@@ -220,6 +220,17 @@ def new_child_wizard(
     ask_name()
 
 
+def rebuild_menu(state: PygameMenuState) -> None:
+    """
+    Rebuilds a menu state's widgets with a fresh pygame_menu Menu.
+    Clearing and refilling the old Menu keeps drawing its first layout.
+    """
+    state._menu = None
+    state.add_menu_items(state.menu)
+    state.reset_theme()
+    state._set_open()
+
+
 def grade_name(grade: int) -> str:
     return T.translate(f"nagmon_grade_{grade}")
 
@@ -286,8 +297,7 @@ class ProfileSelectState(PygameMenuState):
         )
 
     def rebuild(self) -> None:
-        self.menu.clear()
-        self.add_menu_items(self.menu)
+        rebuild_menu(self)
 
     def pick(self, pid: str) -> None:
         decision = self.rt.start_play(pid)
@@ -375,8 +385,7 @@ class ParentMenuState(PygameMenuState):
             )
 
     def rebuild(self) -> None:
-        self.menu.clear()
-        self.add_menu_items(self.menu)
+        rebuild_menu(self)
 
     def resume(self) -> None:
         super().resume()

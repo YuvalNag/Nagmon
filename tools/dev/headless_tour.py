@@ -40,9 +40,10 @@ from tuxemon.locale.locale import T  # noqa: E402
 from tuxemon.session import local_session  # noqa: E402
 from tuxemon.user_config import CONFIG  # noqa: E402
 
+CONFIG.update_locale(locale)
+T.change_language(locale)
 config = CONFIG.copy()
 config.config_model.display.splash = False
-T.change_language(locale)
 client = LocalPygameClient.create(config, context)
 local_session.set_client(client)
 tm.configure_game_states(client, config, None)
@@ -87,6 +88,18 @@ shot("01_who_plays_empty")
 
 rt = get_runtime()
 assert rt is not None
+# Open limits, so the tour works at any hour (the defaults would stop
+# play at bedtime, outside play windows, on Shabbat).
+from nagmon.family.screentime import ScreenLimits  # noqa: E402
+
+rt.parent.settings.default_limits = ScreenLimits(
+    daily_max_minutes=None,
+    weekday_windows=None,
+    weekend_windows=None,
+    bedtime=None,
+)
+rt.parent.settings.shabbat_mode = False
+rt.parent.settings.holiday_mode = False
 if not rt.store.list():
     from nagmon.game_flow import defaults_for_grade
 
