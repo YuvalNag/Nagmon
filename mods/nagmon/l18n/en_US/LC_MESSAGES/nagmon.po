@@ -715,3 +715,6 @@ msgid "nagmon_world_mila_done"
 msgstr ""
 "Master Mila: The Number Badge is shining!\n"
 "Numbers hide everywhere: in the shop, on the clock, on the road."
+
+msgid "nagmon_restore_failed"
+msgstr "This player can't come back right now: another player has the same name, or there are already 8 players."

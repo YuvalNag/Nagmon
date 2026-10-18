@@ -129,10 +129,16 @@ class MapLoader:
     ) -> list[Path]:
         own_yaml = Path(normalized_path).with_suffix(".yaml")
         yaml_files = [own_yaml]
-        # Other mods may add events to this map with a same-named script.
-        for extra in fetch_all_assets("maps", own_yaml.name):
-            if Path(extra).resolve() != own_yaml.resolve():
-                yaml_files.append(Path(extra))
+        # Mods that build on the map's mod may add events to it with a
+        # same-named script. Scripts of the mods below it are left out:
+        # when a mod replaces a map, their events fit the old layout.
+        extras = [Path(p) for p in fetch_all_assets("maps", own_yaml.name)]
+        resolved = [p.resolve() for p in extras]
+        own = own_yaml.resolve()
+        start = resolved.index(own) + 1 if own in resolved else 0
+        for extra, extra_resolved in zip(extras[start:], resolved[start:]):
+            if extra_resolved != own:
+                yaml_files.append(extra)
         if txmn_map.scenario:
             _scenario = fetch_asset("maps", f"{txmn_map.scenario}.yaml")
             yaml_files.append(Path(_scenario))

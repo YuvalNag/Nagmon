@@ -989,11 +989,42 @@ def _box_solid(l: float, h: float, d: float):
     return verts, faces
 
 
+def _ngon_solid(kind: str, n: int):
+    """Upright prism or pyramid on a regular n-sided base."""
+    r, h = 1.0, 1.6
+    # Rotated so that no base edge points straight at the viewer.
+    start = math.pi / 2 + math.pi / n
+    base = [
+        (
+            r + r * math.cos(start + 2 * math.pi * i / n),
+            0.0,
+            r + r * math.sin(start + 2 * math.pi * i / n),
+        )
+        for i in range(n)
+    ]
+    ring = list(range(n))
+    if kind == "pyramid":
+        verts = [*base, (r, h, r)]
+        faces = [ring] + [[i, (i + 1) % n, n] for i in ring]
+    else:
+        verts = base + [(x, h, z) for x, _, z in base]
+        faces = [ring, [n + i for i in ring]] + [
+            [i, (i + 1) % n, n + (i + 1) % n, n + i] for i in ring
+        ]
+    return verts, faces
+
+
 def _solid(ctx: _Ctx, data: Mapping) -> None:
     name = _name(data.get("name"))
     raw = data.get("dims")
     if name in ("sphere", "cylinder", "cone"):
         _round_solid(ctx, name, raw)
+        return
+    base, _, sides = name.rpartition("_")
+    if base in ("prism", "pyramid") and sides.isdigit():
+        # "pyramid_4", "prism_5": a regular n-sided base (solid_count).
+        verts, faces = _ngon_solid(base, max(3, min(12, int(sides))))
+        _draw_polyhedron(ctx, verts, faces, {})
         return
     if name == "cube":
         (a,) = _dims(raw, [("a", "edge", "side", "s", "l", "length")])

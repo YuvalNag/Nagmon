@@ -97,21 +97,25 @@ def _read_dependencies(mod_name: str) -> list[str]:
 
 def _expand_dependencies(mods: list[str]) -> list[str]:
     """
-    Returns the mods followed by their dependencies (depth first), each
-    once. Earlier entries win when assets share a name.
+    Returns the mods (highest priority first) with their dependencies,
+    each once and highest priority first. A dependency always comes after
+    every mod that needs it, so two mods built on the same base both win
+    over that base.
     """
-    ordered: list[str] = []
+    seen: set[str] = set()
+    lowest_first: list[str] = []
 
     def visit(mod_name: str) -> None:
-        if mod_name in ordered:
+        if mod_name in seen:
             return
-        ordered.append(mod_name)
+        seen.add(mod_name)
         for dep in _read_dependencies(mod_name):
             visit(dep)
+        lowest_first.append(mod_name)
 
-    for mod_name in mods:
+    for mod_name in reversed(mods):
         visit(mod_name)
-    return ordered
+    return list(reversed(lowest_first))
 
 
 def fetch_all_assets(*args: str) -> list[str]:

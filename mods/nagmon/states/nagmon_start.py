@@ -11,8 +11,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, ClassVar
 
 import tuxemon.states.start as core_start
+from nagmon.family.screentime import Action
 from nagmon.runtime import get_runtime
+from nagmon.screen_watch import ScreenTimeWatcher
 from tuxemon.locale.locale import T
+from tuxemon.tools import open_dialog
 
 if TYPE_CHECKING:
     from pygame_menu.menu import Menu
@@ -33,6 +36,9 @@ class StartState(core_start.StartState):
 
     def __init__(self, client: BaseClient, **kwargs: Any) -> None:
         self._shown_for: str | None = None
+        self._watcher: Any = None
+        self._pending_note: str | None = None
+        self._stop_message: str | None = None
         super().__init__(client, **kwargs)
 
     def add_menu_items(self, menu: Menu) -> None:
@@ -60,6 +66,67 @@ class StartState(core_start.StartState):
                 button_id="nagmon_switch_player",
             )
 
+    def update(self, dt: float) -> None:
+        super().update(dt)
+        self._watch_screen_time(dt)
+
+    def _watch_screen_time(self, dt: float) -> None:
+        """
+        The title menu's minigame, the owl and the menu itself are screen
+        time too (the world watches its own time while it is open).
+        """
+        rt = get_runtime()
+        if rt is None or rt.active is None:
+            self._watcher = None
+            return
+        if "WorldState" in self.client.active_state_names:
+            return
+        if self._watcher is None:
+            self._watcher = ScreenTimeWatcher(rt)
+        at_break = self.client.current_state is self
+        decision = self._watcher.update(dt, at_natural_break=at_break)
+        if decision is not None:
+            if decision.action is Action.MUST_STOP:
+                self._watcher = None
+                message = decision.message_he
+                # Not while the state stack is being updated.
+                self.client.queue_command(lambda: self._time_up(rt, message))
+                return
+            if decision.message_he:
+                self._pending_note = decision.message_he
+        if self._pending_note and at_break:
+            note, self._pending_note = self._pending_note, None
+            open_dialog(self.client, [note])
+
+    def _time_up(self, rt: Any, message: str) -> None:
+        rt.stop_play()
+        self._stop_message = message
+        above = []
+        for state in self.client.active_states:
+            if state is self:
+                break
+            above.append(state)
+        for state in above:
+            self.client.pop_state(state)
+        if not above:
+            self._show_who_plays()
+        # Otherwise resume() shows it, once the screens above are closed.
+
+    def _show_who_plays(self) -> None:
+        """'Who is playing?', with the reason play stopped on top."""
+        self.client.push_state("ProfileSelectState")
+        if self._stop_message:
+            open_dialog(self.client, [self._stop_message])
+            self._stop_message = None
+
+    def _on_afk_threshold(self, level: str) -> None:
+        # The idle timer replaces the *top* state with the intro. Only do
+        # that when the title menu itself is on top: "who is playing?" or
+        # the parent area above it must stay (and not stack a second
+        # title menu once the intro closes).
+        if self.client.current_state is self:
+            super()._on_afk_threshold(level)
+
     def switch_player(self) -> None:
         rt = get_runtime()
         if rt is not None:
@@ -72,7 +139,7 @@ class StartState(core_start.StartState):
         if rt is None:
             return
         if rt.active is None:
-            self.client.push_state("ProfileSelectState")
+            self._show_who_plays()
         elif rt.active.id != self._shown_for:
             # A child was chosen: their saves and greeting differ.
             from nagmon.ui.game_helpers import rebuild_menu

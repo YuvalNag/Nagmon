@@ -79,10 +79,13 @@ class MainCombatMenuState(core_combat.MainCombatMenuState):
         target: Monster,
         proceed: Callable[[], None],
     ) -> None:
+        monster = self.monster
         if not technique.has_effect("damage") or not self._quiz_allowed():
+            # A boost earned for an attack that never happened (e.g. the
+            # monster fainted first) is not carried into this one.
+            self.combat_session.set_variable(quiz_mult_key(monster), None)
             proceed()
             return
-        monster = self.monster
 
         def done(outcome: Any) -> None:
             mult = 1.0

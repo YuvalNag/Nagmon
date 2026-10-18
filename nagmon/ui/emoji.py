@@ -16,6 +16,8 @@ from pathlib import Path
 
 import pygame
 
+from nagmon import mod_dir
+
 logger = logging.getLogger(__name__)
 
 FE0F = "fe0f"
@@ -23,8 +25,8 @@ _HEX = re.compile(r"[0-9a-f]{1,6}")
 
 
 def default_root() -> Path:
-    """``mods/nagmon/gfx/emoji`` of this repository."""
-    return Path(__file__).resolve().parents[2] / "mods/nagmon/gfx/emoji"
+    """``mods/nagmon/gfx/emoji`` (source checkout or frozen build)."""
+    return mod_dir() / "gfx" / "emoji"
 
 
 def normalize_code(code: str) -> str:

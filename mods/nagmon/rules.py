@@ -6,6 +6,7 @@ Tuxemon (save folder per child, language ladder).
 
 from __future__ import annotations
 
+import atexit
 import logging
 from typing import TYPE_CHECKING, Any, ClassVar
 
@@ -110,9 +111,23 @@ class NagmonStartupRule(StartupRule):
     def apply(self) -> None:
         first_run = not data_root().exists()
         set_runtime(build_runtime())
+        # Closing the window (or a crash) must still count the last
+        # minutes of play and save the child's learning.
+        atexit.register(stop_play_at_exit)
         if first_run:
             switch_to_hebrew()
         logger.info("Nagmon runtime ready")
+
+
+def stop_play_at_exit() -> None:
+    """Ends the playing child's session when the game closes."""
+    rt = get_runtime()
+    if rt is None:
+        return
+    try:
+        rt.stop_play()
+    except Exception:
+        logger.exception("Could not end the play session at exit")
 
 
 def switch_to_hebrew() -> None:

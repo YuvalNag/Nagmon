@@ -195,8 +195,17 @@ class NagmonRuntime:
         """Writes the playing child's profile and learning state."""
         if self.active is None or self.learner is None:
             return
-        self.store.save_learner(self.active.id, self.learner)
-        self.store.save(self.active)
+        # Called after every answer: a full disk or a profile the store
+        # will not accept (e.g. one recovered from a corrupt file) must
+        # never crash the game. The learner is written first and alone.
+        try:
+            self.store.save_learner(self.active.id, self.learner)
+        except (OSError, ValueError, KeyError):
+            logger.exception("Could not save learning of %s", self.active.id)
+        try:
+            self.store.save(self.active)
+        except (OSError, ValueError, KeyError):
+            logger.exception("Could not save profile %s", self.active.id)
 
     def on_answer(self) -> list[Suggestion]:
         """

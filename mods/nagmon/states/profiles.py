@@ -693,12 +693,18 @@ class ParentMenuState(PygameMenuState):
         if not trash:
             say(self.client, T.translate("nagmon_trash_empty"))
             return
+
+        def restore(entry: str) -> None:
+            try:
+                self.rt.store.restore(entry)
+            except ProfileError as e:
+                # Its name is taken again, or there are already 8 players.
+                logger.warning("Could not restore %s: %s", entry, e)
+                say(self.client, T.translate("nagmon_restore_failed"))
+
         choose(
             self.client,
-            [
-                (e.name, lambda e=e: self.rt.store.restore(e.entry))
-                for e in trash
-            ],
+            [(e.name, lambda e=e: restore(e.entry)) for e in trash],
         )
 
 
