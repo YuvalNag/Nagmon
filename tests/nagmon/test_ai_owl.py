@@ -309,3 +309,31 @@ def test_owl_log_adapter_uses_family_signature():
     assert calls[0][0] == "p1"
     assert calls[1][2] == "ת"
     assert calls[1][3]["source"] == "ai"
+
+
+def test_every_faq_question_matches_its_own_answer():
+    canned = CannedAnswers.load(FAQ)
+    for item in canned.items:
+        assert canned.match(item.q_he) is item, item.id
+
+
+CANNED_MATCHES = [
+    pytest.param("מה זה ברק?", "faq.thunder", id="short-word-not-stopword"),
+    pytest.param("ולמה השמיים כחולים?", "faq.sky_blue", id="prefixed-why"),
+    pytest.param("למה יש שלג?", "faq.snow", id="one-keyword"),
+    pytest.param("למה הים כחול?", None, id="half-match-is-no-match"),
+    pytest.param("איך עפים מטוסים?", None, id="planes-are-not-birds"),
+]
+
+
+@pytest.mark.parametrize("question,expected", CANNED_MATCHES)
+def test_canned_matching_examples(question, expected):
+    item = CannedAnswers.load(FAQ).match(question)
+    assert (item.id if item else None) == expected
+
+
+def test_missing_faq_file_gives_fallback_only(tmp_path):
+    canned = CannedAnswers.load(tmp_path / "missing.yaml")
+    assert canned.items == []
+    assert canned.match("למה השמיים כחולים?") is None
+    assert canned.fallback_he

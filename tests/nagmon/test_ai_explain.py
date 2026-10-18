@@ -87,7 +87,9 @@ def test_offline_falls_back_to_item_explanation(tmp_path):
 
 
 def test_unsafe_output_falls_back_and_is_not_cached(tmp_path):
-    router = FakeRouter(reply("See https://x.example for a gun"), reply("טוב."))
+    router = FakeRouter(
+        reply("See https://x.example for a gun"), reply("טוב.")
+    )
     explainer = Explainer(router, Safety(), tmp_path / "cache.json")
     assert explainer.explain_again(BANK_ITEM, 1, 7).source == "canned"
     assert explainer.explain_again(BANK_ITEM, 1, 7).text_he == "טוב."

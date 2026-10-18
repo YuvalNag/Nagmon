@@ -36,9 +36,7 @@ def names(router):
 
 
 def test_studio_chain_order(tmp_path):
-    router = build_studio_router(
-        ALL_KEYS, tmp_path, transport=FakeTransport()
-    )
+    router = build_studio_router(ALL_KEYS, tmp_path, transport=FakeTransport())
     assert names(router) == [
         "gemini",
         "groq",
@@ -83,7 +81,9 @@ BASE_URLS = [
     ),
     pytest.param("groq", "https://api.groq.com/openai/v1", id="groq"),
     pytest.param("cerebras", "https://api.cerebras.ai/v1", id="cerebras"),
-    pytest.param("openrouter", "https://openrouter.ai/api/v1", id="openrouter"),
+    pytest.param(
+        "openrouter", "https://openrouter.ai/api/v1", id="openrouter"
+    ),
     pytest.param("mistral", "https://api.mistral.ai/v1", id="mistral"),
 ]
 
@@ -117,9 +117,7 @@ def test_openrouter_prefers_free_models():
 
 
 def test_router_state_files_live_in_data_root(tmp_path):
-    studio = build_studio_router(
-        ALL_KEYS, tmp_path, transport=FakeTransport()
-    )
+    studio = build_studio_router(ALL_KEYS, tmp_path, transport=FakeTransport())
     kid = build_kid_router(
         ALL_KEYS, tmp_path, AISettings(), transport=FakeTransport()
     )

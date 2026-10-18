@@ -30,6 +30,8 @@ nagmon/ai/
   owl.py         # Owl, OwlAnswer, OwlLogAdapter, OWL_NOTICE_HE
   explain.py     # Explainer.explain_again
   studio.py      # Studio + CLI ‏(python -m nagmon.ai.studio)
+  text.py        # clean_text, ניקוד, tokens/variants (הסרת אותיות שימוש)
+  fakes.py       # FakeTransport, FakeClock, FakeRouter — לבדיקות ולמסכי UI בלי רשת
 mods/nagmon/learning/owl_faq.yaml   # כ־60 שאלות ותשובות מוכנות
 ```
 
@@ -37,7 +39,8 @@ mods/nagmon/learning/owl_faq.yaml   # כ־60 שאלות ותשובות מוכנ�
 
 ```
 data_root/
-  ai_state.json              # מצב הנתב: מנוחות, סטטוס ספקים, מטמון מודלים, שימוש יומי
+  ai_state_studio.json       # מצב נתב הסטודיו: מנוחות, סטטוס ספקים, מטמון מודלים, שימוש יומי
+  ai_state_kid.json          # מצב נתב הילדים (קובץ נפרד, כדי ששני נתבים לא ידרסו זה את זה)
   ai_pending/<stamp>.yaml    # פריטים שמחכים לאישור ההורה
   ai_pending/rejected.jsonl  # רישום של מה שנדחה
   ai_bank/<subject>.yaml     # {items: [...]} — פריטי §3 שאושרו (מאגר נוסף למנוע הלמידה)
@@ -126,9 +129,9 @@ class Router:
 | timeout / רשת | הספק הבא |
 | `bad_request` / `bad_response` | המודל הבא |
 
-- **זמנים:** timeout לבקשה 45 שניות; דדליין כולל 120 שניות. ה־timeout של כל ניסיון הוא `min(timeout, הזמן שנשאר)`.
+- **זמנים:** timeout לבקשה 45 שניות; דדליין כולל 120 שניות (בנתב הילדים: 15 ו־30). ה־timeout של כל ניסיון הוא `min(timeout, הזמן שנשאר)`.
 - **תקציב יומי** (`Budget(studio_per_day=300, kid_per_child_per_day=60)`): נספרת כל בקשה **שהצליחה**. ‏`kid` נספר לפי `budget_key` (מזהה ילד, נשמר מקומית בלבד). אם נגמר → `BudgetExceeded(message_he)` לפני כל קריאה. היום נקבע לפי `budget_tz`.
-- **מצב שמור** ב־`ai_state.json` עם `schema_version: 1`. קובץ פגום → מתחילים ממצב ריק. כתיבה אטומית.
+- **מצב שמור** ב־`ai_state_studio.json` / `ai_state_kid.json` עם `schema_version: 1`. קובץ פגום → מתחילים ממצב ריק. כתיבה אטומית.
 - **הודעות סטטוס בעברית פשוטה** (אף פעם לא "429" גולמי): `ProviderStatus(name, label_he, state, message_he)`, ‏`state` ∈ `ok | no_key | key_problem | resting | daily_quota | unavailable | unknown`.
 - **כשכולם נכשלו:** `AllProvidersFailed(message_he, errors)`.
 
@@ -203,7 +206,7 @@ OWL_NOTICE_HE = "ההורים יכולים לקרוא את השיחות עם ה�
 class OwlAnswer:
     text_he: str
     source: Literal["ai", "canned", "blocked"]
-    reason: str | None = None   # faq, pii, distress, topic, too_long, model_refusal, output_filter, offline, budget, disabled
+    reason: str | None = None   # faq, pii, distress, topic, too_long, empty, model_refusal, output_filter, offline, budget, disabled, error
     alert: bool = False
 class Owl:
     def __init__(self, router, safety, log_store, canned, *, clock=time.time)
@@ -222,14 +225,14 @@ class Owl:
 7. **כל** שאלה ותשובה נרשמות: `log_store.append({ts, profile_id, age, question, answer, source, reason, alert, provider, model, latency_ms})`. ב־PII השאלה נרשמת כ־"[הוסר: פרטים אישיים]".
 
 - `OwlLogAdapter(owl_log, pid)` מתאים ל־`OwlLog.append(pid, role, text, meta=)` של WP8 (רשומת child ורשומת owl).
-- **canned** (`canned.py`): `mods/nagmon/learning/owl_faq.yaml` — כ־60 שאלות מדע נפוצות, `{id, q_he, keywords, a_he, min_age, topic}`. התאמה: חפיפת מילות מפתח (אחרי הסרת אותיות שימוש). אין התאמה → `fallback_he`.
+- **canned** (`canned.py`): `mods/nagmon/learning/owl_faq.yaml` — 67 שאלות מדע נפוצות, `{id, q_he, keywords, a_he, min_age, topic}`. התאמה: לפחות מילת מפתח אחת, **וגם** לפחות 60% ממילות התוכן של השאלה (בלי "למה", "איך"...) נמצאות במילות המפתח או בשאלה של הפריט. כך "למה הים כחול?" לא יקבל את התשובה על מלח. אין התאמה → `fallback_he`.
 
 ## 9. הסבר נוסף (`explain.py`)
 
 ```python
 class Explainer:
     def __init__(self, router, safety, cache_path=None, *, log_store=None)
-    def explain_again(self, question_dict, given_answer, age) -> OwlAnswer
+    def explain_again(self, question_dict, given_answer, age, *, profile_id=None) -> OwlAnswer
 ```
 
 - מקבל פריט §3 (`id`, ‏`choices[].he`, ‏`answer` אינדקס) או `Question` כ־dict (`item_id`, ‏`choices[].text_he`, ‏`answer` מזהה).
