@@ -131,16 +131,21 @@ def menu_label(msgid, level, max_chars=None) -> str
 | `tests/tuxemon/test_bilingual.py` | `compose` לכל רמה 0–5, `term`, הערת known word בהופעה ראשונה בלבד ועם תחילית, זיווג עמודים ברמה 3, `TextPaginator` משאיר את רמה 3 בעמוד אחד, `Bilingual`, fallbacks בשני הכיוונים, provider, ו־`paginate_translation` עם provider |
 | `tests/tuxemon/test_hardcoded_strings.py` | ב־en_US הפלט זהה לקודם: `Lv.5`, `Lv. 5`, `Lv.3 → Lv.4`, `Unknown Location`, `$  10`, `x 3`, `12kg`, `Option a`, `Option Unnamed`. בעברית: `₪`, `רמה 5` |
 | `tests/tuxemon/test_rtl_layout.py` | `start_alignment` לפי שפה. `VisualSpriteList` ב־RTL מיישר לימין והופך עמודות. החץ מימין לפריט. `InputDisplay` עוגן לימין. theme ב־RTL עם ALIGN_RIGHT. איפוס cache בהחלפת שפה. `Menu.font_filename` נפתר בזמן ריצה. עטיפת pygame_menu ממירה תווית עברית |
-| `tests/tuxemon/test_rtl_smoke.py` | `DialogState` עם טקסט עברי (headless) מצויר בלי חריגות |
+| `tests/tuxemon/test_rtl_smoke.py` | `DialogState` עם טקסט עברי (headless) מצויר בלי חריגות, ומיושר לימין |
+| `tests/tuxemon/conftest.py` | fixture ברמת session שבונה מחדש את קובצי ה־`.mo` (ראו סעיף 9) |
 
 ## 8. צילומי מסך
 
-`docs/kids/img/rtl_dialog.png`, `rtl_menu.png`, `rtl_bilingual.png` נוצרים ב־`scripts/rtl_screenshots.py` (SDL dummy, שמירת משטח התצוגה).
+`docs/kids/img/rtl_dialog.png`, `rtl_menu.png` ו־`rtl_bilingual.png` נוצרים ב־`scripts/rtl_screenshots.py` (SDL dummy, שמירת משטח התצוגה). קובץ ה־po העברי הוא עדיין שלד, ולכן תוויות התפריט והחצי העברי של ההודעה הדו־לשונית הן מחרוזות הדגמה בתוך התהליך בלבד (`DEMO_HEBREW`). שום דבר לא נכתב ל־po או לקובץ ההגדרות.
 
 ## 9. פערים ידועים
 
-- מסכים עם רקע מצויר וווידג'טים `float` (monster_info, journal_info, character) לא משוקפים.
+- מסכים עם רקע מצויר וווידג'טים `float` (monster_info, journal_info, party, character, monster_moves) לא משוקפים. הטקסט עובר bidi, אבל המיקום נשאר כמו ב־LTR. כדי לשקף צריך רקע משוקף ו־`translate(-x, y)`.
+- בתווית pygame_menu עם `wordwrap` (התיאור ב־journal_info) כל שורה עוברת bidi, אבל השורות מיושרות לשמאל בתוך המסגרת.
+- ברמה 3 גם השורה האנגלית מיושרת לימין (היישור הוא של ה־TextArea כולו, לא של כל פסקה).
 - `AlertManager` עם `split_lines=True` משתמש ב־`splitlines()`, שמפצל גם ב־U+2028. לכן ברמה 3 השורות יוצגו בזו אחר זו.
 - `TextPaginator` עם `max_line_length` (לא בשימוש במשחק) לא מכיר את U+2028.
 - אין תמיכה בניקוד (רינדור אות־אות). מצב TOKEN חושף מילים מימין לשמאל ולא לפי סדר לוגי מלא.
-- חשיפת `.secondary` ברמה 4 (כפתור "?") שייכת ל־UI עתידי.
+- חשיפת `.secondary` ברמה 4 (כפתור "?") שייכת ל־UI עתידי. `menu_label` עוד לא מחובר לתפריטים.
+- ב־Rubik אין חצים (`→`, `←`), ולכן ב־`level_up_range` בעברית אין חץ.
+- **מטמון התרגום:** קובצי ה־`.mo` נשמרים ב־`~/.tuxemon/cache/l18n`. בזמן import הם נבנים מחדש רק כשהם חסרים, או כשה־po חדש מהם ביותר משבוע. לכן ב־`tests/tuxemon/conftest.py` נוסף fixture ברמת session, שבונה מחדש וטוען את המתרגמים. כמה worktrees שחולקים את אותו `HOME` דורסים זה לזה את המטמון (ו־`clean_stale_translations` מוחק את `he_IL/base.mo` של worktree אחר). לכן הרצה מקבילה צריכה `HOME` נפרד.
