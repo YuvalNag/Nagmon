@@ -1,0 +1,609 @@
+# Math skills, kindergarten (grade 0) to grade 9.
+# Aligned with the Israeli Ministry of Education math curriculum:
+#   K: counting and number sense to 10; 1st: numbers to 100, + and - within 20;
+#   2nd: numbers to 1000, + and - within 100, intro to multiplication, clock;
+#   3rd: multiplication table, division, numbers to 10,000, unit fractions;
+#   4th: long multiplication and division, fractions, intro to decimals;
+#   5th: fraction operations, decimals, divisibility, average;
+#   6th: percent, ratio, decimal operations;
+#   7th: negative numbers, powers, algebraic expressions, equations;
+#   8th: equations, roots, linear functions; 9th: scientific notation,
+#   exponent laws, linear functions and estimation of roots.
+# Owner: WP2. Schema: docs/kids/SDD_CONTENT.md section 2.
+subject: math
+skills:
+  # ---------------------------------------------------------------- grade 0
+  - id: math.count.objects_5
+    grade: 0
+    title_he: ספירה עד 5
+    title_en: Counting to 5
+    prereq: []
+    generator: arithmetic.count
+    params: {min: 2, max: 5}
+    mastery: {min_attempts: 8, threshold: 0.8}
+  - id: math.count.objects_10
+    grade: 0
+    title_he: ספירה עד 10
+    title_en: Counting to 10
+    prereq: [math.count.objects_5]
+    generator: arithmetic.count
+    params: {min: 3, max: 10}
+  - id: math.number.recognize_10
+    grade: 0
+    title_he: זיהוי מספרים עד 10
+    title_en: Recognizing numbers to 10
+    prereq: [math.count.objects_5]
+    generator: arithmetic.recognize
+    params: {max: 10}
+    srs: true
+  - id: math.compare.within_10
+    grade: 0
+    title_he: גדול וקטן עד 10
+    title_en: Comparing numbers to 10
+    prereq: [math.number.recognize_10]
+    generator: arithmetic.compare
+    params: {max: 10}
+  - id: math.add.within_5
+    grade: 0
+    title_he: חיבור עד 5
+    title_en: Addition within 5
+    prereq: [math.count.objects_5]
+    generator: arithmetic.add
+    params: {max_sum: 5, min_sum: 2}
+    srs: true
+  # ---------------------------------------------------------------- grade 1
+  - id: math.count.objects_20
+    grade: 1
+    title_he: ספירה עד 20
+    title_en: Counting to 20
+    prereq: [math.count.objects_10]
+    generator: arithmetic.count
+    params: {min: 8, max: 20}
+  - id: math.number.to_100
+    grade: 1
+    title_he: מספרים עד 100, לפני ואחרי
+    title_en: Numbers to 100, before and after
+    prereq: [math.count.objects_20]
+    generator: arithmetic.neighbors
+    params: {max: 100}
+  - id: math.compare.within_100
+    grade: 1
+    title_he: השוואת מספרים עד 100
+    title_en: Comparing numbers to 100
+    prereq: [math.compare.within_10, math.number.to_100]
+    generator: arithmetic.compare
+    params: {max: 100}
+  - id: math.add.within_10
+    grade: 1
+    title_he: חיבור עד 10
+    title_en: Addition within 10
+    prereq: [math.add.within_5]
+    generator: arithmetic.add
+    params: {max_sum: 10, min_sum: 3}
+    srs: true
+  - id: math.sub.within_10
+    grade: 1
+    title_he: חיסור עד 10
+    title_en: Subtraction within 10
+    prereq: [math.add.within_5]
+    generator: arithmetic.sub
+    params: {max: 10, min: 3}
+    srs: true
+  - id: math.add.missing_10
+    grade: 1
+    title_he: המספר החסר בחיבור עד 10
+    title_en: Missing addend within 10
+    prereq: [math.add.within_10, math.sub.within_10]
+    generator: arithmetic.missing_addend
+    params: {max_sum: 10}
+  - id: math.add.within_20
+    grade: 1
+    title_he: חיבור עד 20
+    title_en: Addition within 20
+    prereq: [math.add.within_10]
+    generator: arithmetic.add
+    params: {max_sum: 20, min_sum: 8, carry: allowed}
+    srs: true
+  - id: math.sub.within_20
+    grade: 1
+    title_he: חיסור עד 20
+    title_en: Subtraction within 20
+    prereq: [math.sub.within_10]
+    generator: arithmetic.sub
+    params: {max: 20, min: 9, borrow: allowed}
+    srs: true
+  - id: math.even_odd.basic
+    grade: 1
+    title_he: זוגי ואי־זוגי
+    title_en: Even and odd
+    prereq: [math.count.objects_20]
+    generator: arithmetic.even_odd
+    params: {max: 20}
+  - id: math.place_value.tens_ones
+    grade: 1
+    title_he: עשרות ואחדות
+    title_en: Tens and ones
+    prereq: [math.number.to_100]
+    generator: arithmetic.place_value
+    params: {max: 99}
+  - id: math.money.coins
+    grade: 1
+    title_he: מטבעות ושקלים
+    title_en: Counting coins
+    prereq: [math.add.within_20]
+    generator: arithmetic.money_count
+    params: {max: 20}
+  - id: math.wp.add_sub_20
+    grade: 1
+    title_he: בעיות מילוליות בחיבור ובחיסור עד 20
+    title_en: Word problems within 20
+    prereq: [math.add.within_20, math.sub.within_20]
+    generator: word.problem
+    params: {ops: [add, sub], max: 20}
+  # ---------------------------------------------------------------- grade 2
+  - id: math.add.within_100_no_carry
+    grade: 2
+    title_he: חיבור עד 100 בלי המרה
+    title_en: Addition within 100, no regrouping
+    prereq: [math.add.within_20, math.place_value.tens_ones]
+    generator: arithmetic.add
+    params: {max_sum: 99, min_sum: 20, carry: none}
+  - id: math.add.within_100
+    grade: 2
+    title_he: חיבור עד 100 עם המרה
+    title_en: Addition within 100 with regrouping
+    prereq: [math.add.within_100_no_carry]
+    generator: arithmetic.add
+    params: {max_sum: 100, min_sum: 20, carry: required}
+  - id: math.sub.within_100_no_borrow
+    grade: 2
+    title_he: חיסור עד 100 בלי פריטה
+    title_en: Subtraction within 100, no regrouping
+    prereq: [math.sub.within_20, math.place_value.tens_ones]
+    generator: arithmetic.sub
+    params: {max: 100, min: 20, borrow: none}
+  - id: math.sub.within_100
+    grade: 2
+    title_he: חיסור עד 100 עם פריטה
+    title_en: Subtraction within 100 with regrouping
+    prereq: [math.sub.within_100_no_borrow]
+    generator: arithmetic.sub
+    params: {max: 100, min: 20, borrow: required}
+  - id: math.add.missing_100
+    grade: 2
+    title_he: המספר החסר בחיבור עד 100
+    title_en: Missing addend within 100
+    prereq: [math.add.missing_10, math.add.within_100]
+    generator: arithmetic.missing_addend
+    params: {max_sum: 100}
+  - id: math.number.to_1000
+    grade: 2
+    title_he: מספרים עד 1000 וערך המקום
+    title_en: Numbers to 1000 and place value
+    prereq: [math.place_value.tens_ones]
+    generator: arithmetic.place_value
+    params: {min: 100, max: 999}
+  - id: math.compare.within_1000
+    grade: 2
+    title_he: השוואת מספרים עד 1000
+    title_en: Comparing numbers to 1000
+    prereq: [math.compare.within_100, math.number.to_1000]
+    generator: arithmetic.compare
+    params: {max: 1000}
+  - id: math.mul.intro
+    grade: 2
+    title_he: כפל ב־2, 5 ו־10
+    title_en: Multiplying by 2, 5 and 10
+    prereq: [math.add.within_100_no_carry]
+    generator: arithmetic.mul_facts
+    params: {tables: [2, 5, 10]}
+    srs: true
+  - id: math.time.hours
+    grade: 2
+    title_he: שעון, שעות שלמות וחצאי שעות
+    title_en: Clock, hours and half hours
+    prereq: [math.number.to_100]
+    generator: arithmetic.clock
+    params: {step: 30}
+  - id: math.patterns.skip_count
+    grade: 2
+    title_he: ספירה בקפיצות
+    title_en: Skip counting
+    prereq: [math.add.within_100_no_carry]
+    generator: arithmetic.pattern
+    params: {kind: skip, steps: [2, 5, 10]}
+  - id: math.money.change_20
+    grade: 2
+    title_he: עודף עד 50 ₪
+    title_en: Making change up to 50 ₪
+    prereq: [math.money.coins, math.sub.within_100_no_borrow]
+    generator: arithmetic.money_change
+    params: {max: 50}
+  # ---------------------------------------------------------------- grade 3
+  - id: math.mul.facts_basic
+    grade: 3
+    title_he: לוח הכפל של 2, 3, 4, 5 ו־10
+    title_en: Times tables 2, 3, 4, 5, 10
+    prereq: [math.mul.intro]
+    generator: arithmetic.mul_facts
+    params: {tables: [2, 3, 4, 5, 10]}
+    srs: true
+  - id: math.mul.facts_all
+    grade: 3
+    title_he: לוח הכפל המלא
+    title_en: Full times table
+    prereq: [math.mul.facts_basic]
+    generator: arithmetic.mul_facts
+    params: {tables: [2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    srs: true
+  - id: math.div.facts
+    grade: 3
+    title_he: חילוק בלוח הכפל
+    title_en: Division facts
+    prereq: [math.mul.facts_basic]
+    generator: arithmetic.div_facts
+    params: {tables: [2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    srs: true
+  - id: math.add.within_1000
+    grade: 3
+    title_he: חיבור עד 1000
+    title_en: Addition within 1000
+    prereq: [math.add.within_100, math.number.to_1000]
+    generator: arithmetic.add
+    params: {max_sum: 1000, min_sum: 120, carry: allowed}
+  - id: math.sub.within_1000
+    grade: 3
+    title_he: חיסור עד 1000
+    title_en: Subtraction within 1000
+    prereq: [math.sub.within_100, math.number.to_1000]
+    generator: arithmetic.sub
+    params: {max: 1000, min: 120, borrow: allowed}
+  - id: math.round.tens
+    grade: 3
+    title_he: עיגול לעשרות
+    title_en: Rounding to tens
+    prereq: [math.number.to_1000]
+    generator: arithmetic.rounding
+    params: {to: [10], max: 999}
+  - id: math.time.minutes
+    grade: 3
+    title_he: שעון, דקות
+    title_en: Clock, minutes
+    prereq: [math.time.hours, math.mul.intro]
+    generator: arithmetic.clock
+    params: {step: 5}
+  - id: math.fraction.identify
+    grade: 3
+    title_he: זיהוי שברים
+    title_en: Identifying fractions
+    prereq: [math.div.facts]
+    generator: fractions.identify
+    params: {max_den: 8, figure: mixed}
+  - id: math.wp.mul_div
+    grade: 3
+    title_he: בעיות מילוליות בכפל ובחילוק
+    title_en: Multiplication and division word problems
+    prereq: [math.mul.facts_basic, math.div.facts]
+    generator: word.problem
+    params: {ops: [mul, div], max: 100}
+  - id: math.number.to_10000
+    grade: 3
+    title_he: מספרים עד 10,000
+    title_en: Numbers to 10,000
+    prereq: [math.number.to_1000]
+    generator: arithmetic.place_value
+    params: {min: 1000, max: 9999}
+  - id: math.order_ops.basic
+    grade: 3
+    title_he: "סדר פעולות: כפל לפני חיבור"
+    title_en: Order of operations, basic
+    prereq: [math.mul.facts_basic]
+    generator: arithmetic.order_ops
+    params: {level: 1}
+  - id: math.even_odd.large
+    grade: 3
+    title_he: זוגי ואי־זוגי במספרים גדולים
+    title_en: Even and odd, large numbers
+    prereq: [math.even_odd.basic, math.number.to_1000]
+    generator: arithmetic.even_odd
+    params: {max: 9999}
+  # ---------------------------------------------------------------- grade 4
+  - id: math.mul.multi_digit
+    grade: 4
+    title_he: כפל דו־ספרתי בחד־ספרתי
+    title_en: Two-digit by one-digit multiplication
+    prereq: [math.mul.facts_all, math.add.within_1000]
+    generator: arithmetic.mul_multi
+    params: {a_digits: 2, b_digits: 1}
+  - id: math.mul.three_by_one
+    grade: 4
+    title_he: כפל תלת־ספרתי בחד־ספרתי
+    title_en: Three-digit by one-digit multiplication
+    prereq: [math.mul.multi_digit]
+    generator: arithmetic.mul_multi
+    params: {a_digits: 3, b_digits: 1}
+  - id: math.mul.two_by_two
+    grade: 4
+    title_he: כפל דו־ספרתי בדו־ספרתי
+    title_en: Two-digit by two-digit multiplication
+    prereq: [math.mul.multi_digit]
+    generator: arithmetic.mul_multi
+    params: {a_digits: 2, b_digits: 2}
+  - id: math.div.remainder
+    grade: 4
+    title_he: חילוק עם שארית
+    title_en: Division with remainder
+    prereq: [math.div.facts]
+    generator: arithmetic.div_remainder
+    params: {max_divisor: 9, max_quotient: 10}
+  - id: math.div.long
+    grade: 4
+    title_he: חילוק ארוך
+    title_en: Long division
+    prereq: [math.div.remainder, math.mul.multi_digit]
+    generator: arithmetic.div_long
+    params: {dividend_digits: 3}
+  - id: math.round.hundreds
+    grade: 4
+    title_he: עיגול למאות ולאלפים
+    title_en: Rounding to hundreds and thousands
+    prereq: [math.round.tens, math.number.to_10000]
+    generator: arithmetic.rounding
+    params: {to: [100, 1000], max: 99999}
+  - id: math.fraction.compare
+    grade: 4
+    title_he: השוואת שברים
+    title_en: Comparing fractions
+    prereq: [math.fraction.identify]
+    generator: fractions.compare
+    params: {mode: mixed}
+  - id: math.fraction.equivalent
+    grade: 4
+    title_he: שברים שווים וצמצום
+    title_en: Equivalent fractions and simplifying
+    prereq: [math.fraction.identify, math.mul.facts_all]
+    generator: fractions.equivalent
+    params: {max_den: 10}
+  - id: math.fraction.of_quantity
+    grade: 4
+    title_he: שבר מכמות
+    title_en: Fraction of a quantity
+    prereq: [math.fraction.identify, math.div.facts]
+    generator: fractions.of_quantity
+    params: {max_den: 10}
+  - id: math.decimal.compare
+    grade: 4
+    title_he: מספרים עשרוניים, השוואה
+    title_en: Comparing decimals
+    prereq: [math.fraction.identify, math.number.to_10000]
+    generator: decimals.compare
+    params: {}
+  - id: math.money.change
+    grade: 4
+    title_he: עודף בשקלים ובאגורות
+    title_en: Change with shekels and agorot
+    prereq: [math.money.change_20, math.sub.within_1000]
+    generator: arithmetic.money_change
+    params: {max: 200, agorot: true}
+  - id: math.wp.multi_step
+    grade: 4
+    title_he: בעיות מילוליות דו־שלביות
+    title_en: Two-step word problems
+    prereq: [math.wp.mul_div, math.sub.within_1000]
+    generator: word.problem
+    params: {ops: [two_step, mul, div], max: 100}
+  - id: math.number.large
+    grade: 4
+    title_he: מספרים גדולים, עד מיליונים
+    title_en: Large numbers, up to millions
+    prereq: [math.number.to_10000]
+    generator: arithmetic.place_value
+    params: {min: 10000, max: 9999999}
+  # ---------------------------------------------------------------- grade 5
+  - id: math.fraction.add_same
+    grade: 5
+    title_he: חיבור וחיסור שברים עם מכנה זהה
+    title_en: Adding fractions, same denominator
+    prereq: [math.fraction.equivalent]
+    generator: fractions.addsub
+    params: {same_den: true}
+  - id: math.fraction.add_diff
+    grade: 5
+    title_he: חיבור וחיסור שברים עם מכנים שונים
+    title_en: Adding fractions, different denominators
+    prereq: [math.fraction.add_same]
+    generator: fractions.addsub
+    params: {same_den: false}
+  - id: math.fraction.mul_whole
+    grade: 5
+    title_he: כפל שבר במספר שלם
+    title_en: Fraction times a whole number
+    prereq: [math.fraction.add_same]
+    generator: fractions.mul_whole
+    params: {}
+  - id: math.decimal.add_sub
+    grade: 5
+    title_he: חיבור וחיסור עשרוניים
+    title_en: Adding and subtracting decimals
+    prereq: [math.decimal.compare]
+    generator: decimals.addsub
+    params: {}
+  - id: math.decimal.mul10
+    grade: 5
+    title_he: כפל וחילוק ב־10, 100 ו־1000
+    title_en: Multiplying and dividing by 10, 100, 1000
+    prereq: [math.decimal.compare]
+    generator: decimals.mul_pow10
+    params: {}
+  - id: math.order_ops.parens
+    grade: 5
+    title_he: סדר פעולות עם סוגריים
+    title_en: Order of operations with brackets
+    prereq: [math.order_ops.basic, math.div.facts]
+    generator: arithmetic.order_ops
+    params: {level: 2}
+  - id: math.divisibility
+    grade: 5
+    title_he: סימני התחלקות
+    title_en: Divisibility rules
+    prereq: [math.div.remainder]
+    generator: arithmetic.divisibility
+    params: {divisors: [2, 3, 4, 5, 6, 9, 10]}
+  - id: math.average
+    grade: 5
+    title_he: ממוצע
+    title_en: Average
+    prereq: [math.div.long]
+    generator: arithmetic.average
+    params: {count: 5, max: 50}
+  # ---------------------------------------------------------------- grade 6
+  - id: math.percent.of
+    grade: 6
+    title_he: אחוז מכמות
+    title_en: Percent of a quantity
+    prereq: [math.fraction.of_quantity, math.decimal.mul10]
+    generator: percent.of
+    params: {}
+  - id: math.percent.discount
+    grade: 6
+    title_he: הנחות ומבצעים
+    title_en: Discounts
+    prereq: [math.percent.of]
+    generator: percent.discount
+    params: {}
+  - id: math.ratio.share
+    grade: 6
+    title_he: יחס וחלוקה לפי יחס
+    title_en: Ratio and sharing
+    prereq: [math.fraction.of_quantity, math.div.long]
+    generator: ratio.share
+    params: {}
+  - id: math.decimal.mul_div
+    grade: 6
+    title_he: כפל וחילוק עשרוניים
+    title_en: Multiplying and dividing decimals
+    prereq: [math.decimal.add_sub, math.decimal.mul10]
+    generator: decimals.muldiv
+    params: {}
+  - id: math.wp.percent
+    grade: 6
+    title_he: בעיות מילוליות באחוזים
+    title_en: Percent word problems
+    prereq: [math.percent.discount, math.wp.multi_step]
+    generator: word.problem
+    params: {ops: [percent, two_step], max: 300}
+  # ---------------------------------------------------------------- grade 7
+  - id: math.negative.compare
+    grade: 7
+    title_he: מספרים מכוונים, השוואה
+    title_en: Comparing negative numbers
+    prereq: [math.compare.within_1000]
+    generator: algebra.negative
+    params: {op: compare}
+  - id: math.negative.add_sub
+    grade: 7
+    title_he: חיבור וחיסור מספרים מכוונים
+    title_en: Adding and subtracting negatives
+    prereq: [math.negative.compare]
+    generator: algebra.negative
+    params: {op: addsub}
+  - id: math.negative.mul_div
+    grade: 7
+    title_he: כפל וחילוק מספרים מכוונים
+    title_en: Multiplying and dividing negatives
+    prereq: [math.negative.add_sub, math.mul.facts_all]
+    generator: algebra.negative
+    params: {op: muldiv}
+  - id: math.powers.basic
+    grade: 7
+    title_he: חזקות
+    title_en: Powers
+    prereq: [math.mul.facts_all]
+    generator: algebra.powers
+    params: {kind: power}
+  - id: math.algebra.substitute
+    grade: 7
+    title_he: הצבה בביטוי אלגברי
+    title_en: Substituting into expressions
+    prereq: [math.order_ops.parens]
+    generator: algebra.substitute
+    params: {}
+  - id: math.equation.one_step
+    grade: 7
+    title_he: משוואה בצעד אחד
+    title_en: One-step equations
+    prereq: [math.add.missing_100, math.div.facts]
+    generator: algebra.equation
+    params: {kind: one_step}
+  - id: math.equation.two_step
+    grade: 7
+    title_he: משוואה בשני צעדים
+    title_en: Two-step equations
+    prereq: [math.equation.one_step]
+    generator: algebra.equation
+    params: {kind: two_step}
+  # ---------------------------------------------------------------- grade 8
+  - id: math.roots.square
+    grade: 8
+    title_he: שורש ריבועי
+    title_en: Square roots
+    prereq: [math.powers.basic]
+    generator: algebra.powers
+    params: {kind: sqrt}
+  - id: math.equation.negatives
+    grade: 8
+    title_he: משוואות עם מספרים מכוונים
+    title_en: Equations with negative numbers
+    prereq: [math.equation.two_step, math.negative.mul_div]
+    generator: algebra.equation
+    params: {kind: two_step, negatives: true}
+  - id: math.equation.both_sides
+    grade: 8
+    title_he: משוואה עם נעלם בשני האגפים
+    title_en: Variables on both sides
+    prereq: [math.equation.two_step]
+    generator: algebra.equation
+    params: {kind: both_sides}
+  - id: math.percent.change
+    grade: 8
+    title_he: אחוז שינוי
+    title_en: Percent change
+    prereq: [math.percent.discount]
+    generator: percent.change
+    params: {}
+  - id: math.function.linear_value
+    grade: 8
+    title_he: פונקציה קווית, הצבה
+    title_en: Linear functions, evaluating
+    prereq: [math.algebra.substitute, math.negative.mul_div]
+    generator: algebra.linear
+    params: {kind: value}
+  # ---------------------------------------------------------------- grade 9
+  - id: math.powers.laws
+    grade: 9
+    title_he: חוקי חזקות
+    title_en: Laws of exponents
+    prereq: [math.powers.basic, math.equation.one_step]
+    generator: algebra.powers
+    params: {kind: laws}
+  - id: math.powers.scientific
+    grade: 9
+    title_he: כתיב מדעי
+    title_en: Scientific notation
+    prereq: [math.powers.basic, math.decimal.mul10]
+    generator: algebra.powers
+    params: {kind: scientific}
+  - id: math.roots.estimate
+    grade: 9
+    title_he: הערכת שורש
+    title_en: Estimating square roots
+    prereq: [math.roots.square]
+    generator: algebra.root_estimate
+    params: {}
+  - id: math.function.slope
+    grade: 9
+    title_he: שיפוע ונקודת חיתוך
+    title_en: Slope and intercept
+    prereq: [math.function.linear_value]
+    generator: algebra.linear
+    params: {kind: mixed}
