@@ -14,6 +14,7 @@ from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import pytest
+
 from nagmon.family.calendar import Location, ShabbatCalendar
 
 TZ = ZoneInfo("Asia/Jerusalem")

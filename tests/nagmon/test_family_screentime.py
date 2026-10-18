@@ -4,6 +4,7 @@ from datetime import date, datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
 import pytest
+
 from nagmon.family.calendar import Location, ShabbatCalendar
 from nagmon.family.screentime import (
     Action,
@@ -461,7 +462,7 @@ def test_week_minutes(tmp_path):
 
 
 def test_switching_profiles_stops_previous(tmp_path):
-    tr = make_tracker(tmp_path, free_limits())
+    tr = make_tracker(tmp_path, free_limits(), max_tick_gap_s=600)
     tr.start("p1", at(*MON, 17))
     tr.tick(at(*MON, 17, 5))
     tr.start("p2", at(*MON, 17, 6))

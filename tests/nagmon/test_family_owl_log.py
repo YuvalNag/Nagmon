@@ -1,6 +1,7 @@
 import json
 
 import pytest
+
 from nagmon.family.owl_log import MAX_ENTRIES, OwlLog
 
 

@@ -2,6 +2,7 @@ import json
 import re
 
 import pytest
+
 from nagmon.family.profiles import (
     MAX_PROFILES,
     SCHEMA_VERSION,

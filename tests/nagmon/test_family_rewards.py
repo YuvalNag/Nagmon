@@ -2,6 +2,7 @@ import json
 from datetime import date
 
 import pytest
+
 from nagmon.family.goals import FamilyWeekStatus
 from nagmon.family.rewards import (
     VISIBLE_GOALS_WARNING_HE,

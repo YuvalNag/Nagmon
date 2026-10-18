@@ -4,6 +4,7 @@ from datetime import date, datetime
 from zoneinfo import ZoneInfo
 
 import pytest
+
 from nagmon.family.calendar import Location, ShabbatCalendar
 from nagmon.family.goals import (
     PracticeLog,

@@ -1,4 +1,5 @@
 import pytest
+
 from nagmon.family.dashboard import WeekSummary, conversation_prompt
 
 

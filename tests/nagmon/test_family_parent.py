@@ -5,6 +5,7 @@ import stat
 import sys
 
 import pytest
+
 from nagmon.family.calendar import Location
 from nagmon.family.parent import (
     LOCKOUT_SECONDS,
