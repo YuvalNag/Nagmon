@@ -17,6 +17,13 @@ skills:
   prereq: [science.living.basic]
   generator: bank
   params: {bank: science/body.yaml, tags: [senses]}
+- id: science.earth.seasons
+  grade: 1
+  title_he: עונות השנה
+  title_en: Seasons
+  prereq: [science.living.basic]
+  generator: bank
+  params: {bank: science/earth.yaml, tags: [seasons]}
 - id: science.living.basic
   grade: 1
   title_he: חי, צומח ודומם
@@ -45,6 +52,13 @@ skills:
   prereq: [science.living.basic]
   generator: bank
   params: {bank: science/plants.yaml, tags: [plant_parts]}
+- id: science.space.day_night
+  grade: 1
+  title_he: יום ולילה והשמש
+  title_en: Day, night and the sun
+  prereq: [science.earth.seasons]
+  generator: bank
+  params: {bank: science/space.yaml, tags: [day_night]}
 - id: science.animals.groups
   grade: 2
   title_he: קבוצות של בעלי חיים
@@ -66,6 +80,13 @@ skills:
   prereq: [science.body.senses]
   generator: bank
   params: {bank: science/body.yaml, tags: [body_parts]}
+- id: science.earth.weather
+  grade: 2
+  title_he: מזג אוויר
+  title_en: Weather
+  prereq: [science.earth.seasons]
+  generator: bank
+  params: {bank: science/earth.yaml, tags: [weather]}
 - id: science.energy.magnets
   grade: 2
   title_he: מגנטים
@@ -115,6 +136,20 @@ skills:
   prereq: [science.body.health]
   generator: bank
   params: {bank: science/body.yaml, tags: [nutrition]}
+- id: science.earth.rocks_soil
+  grade: 3
+  title_he: סלעים וקרקע
+  title_en: Rocks and soil
+  prereq: [science.matter.materials]
+  generator: bank
+  params: {bank: science/earth.yaml, tags: [rocks_soil]}
+- id: science.earth.water_cycle
+  grade: 3
+  title_he: מחזור המים
+  title_en: The water cycle
+  prereq: [science.earth.weather, science.matter.states]
+  generator: bank
+  params: {bank: science/earth.yaml, tags: [water_cycle]}
 - id: science.energy.light
   grade: 3
   title_he: אור וצל
@@ -150,6 +185,13 @@ skills:
   prereq: [science.plants.parts]
   generator: bank
   params: {bank: science/plants.yaml, tags: [israel_plants]}
+- id: science.space.moon
+  grade: 3
+  title_he: הירח ומופעיו
+  title_en: The moon and its phases
+  prereq: [science.space.day_night]
+  generator: bank
+  params: {bank: science/space.yaml, tags: [moon]}
 - id: science.animals.adaptations
   grade: 4
   title_he: התאמה לסביבה
@@ -164,6 +206,13 @@ skills:
   prereq: [science.animals.habitats, science.living.needs]
   generator: bank
   params: {bank: science/animals.yaml, tags: [food_chains]}
+- id: science.earth.israel
+  grade: 4
+  title_he: תופעות טבע בישראל
+  title_en: Natural wonders of Israel
+  prereq: [science.earth.rocks_soil, science.earth.weather]
+  generator: bank
+  params: {bank: science/earth.yaml, tags: [israel_nature]}
 - id: science.energy.forces
   grade: 4
   title_he: כוחות ותנועה
@@ -234,6 +283,27 @@ skills:
   prereq: [science.plants.needs]
   generator: bank
   params: {bank: science/plants.yaml, tags: [photosynthesis]}
+- id: science.space.solar_system
+  grade: 5
+  title_he: מערכת השמש
+  title_en: The solar system
+  prereq: [science.space.moon]
+  generator: bank
+  params: {bank: science/space.yaml, tags: [solar_system]}
+- id: science.earth.structure
+  grade: 6
+  title_he: מבנה כדור הארץ
+  title_en: Inside the Earth
+  prereq: [science.earth.rocks_soil]
+  generator: bank
+  params: {bank: science/earth.yaml, tags: [earth_structure]}
+- id: science.space.stars
+  grade: 6
+  title_he: כוכבים, גלקסיות וכוח המשיכה
+  title_en: Stars, galaxies and gravity
+  prereq: [science.space.solar_system]
+  generator: bank
+  params: {bank: science/space.yaml, tags: [stars]}
 - id: science.living.cells
   grade: 7
   title_he: 'התא: יחידת החיים'

@@ -1,0 +1,1048 @@
+# Nagmon learning content - science / earth sciences (seasons, weather, water cycle, rocks and soil, Israel's natural phenomena, inside the Earth)
+# Format: docs/kids/SDD_CONTENT.md section 3. Generated from curated sources; reviewed by a parent.
+# Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
+# Curriculum alignment: Israeli MoE "מדע וטכנולוגיה" (science and technology) strands -
+#   materials, energy and interactions, systems and processes in living things, earth and universe, technology.
+# Sources consulted:
+#   - Elementary curriculum (grades 1-6): https://pop.education.gov.il/tchumey_daat/mada-tehnologia/yesodi/technology-science-pedagogy/curriculum
+#   - Elementary curriculum PDF (2009 draft): https://meyda.education.gov.il/files/Tochniyot_Limudim/KdamYesodi/MadaTechnologia.pdf
+#   - Middle school (grades 7-9): https://pop.education.gov.il/tchumey_daat/mada-tehnologia/chativat-beynayim/mada-technologia-pedagogia/curriculum
+#   - Grade 8/9 test specifications (Meitzav/RAMA): https://meyda.education.gov.il/files/Rama/Mifrat_sci_9_H_2027.pdf
+# Topics: seasons (1-5), weather and climate (2-5), water cycle (2-5), rocks and soil (3-5), natural phenomena of Israel (3-6), Earth structure (5-7).
+# Israel figures (rounded): Dead Sea shore about 430 m below sea level, falling about 1 m per year; Kinneret about 210 m below sea level; Negev about 60% of Israel's area.
+
+skill: science.earth.seasons
+items:
+- id: sci.earth.001
+  skill: science.earth.seasons
+  kind: order
+  grade: 1
+  difficulty: -1.0
+  prompt_he: סדרו את עונות השנה לפי הסדר, החל מהחורף.
+  prompt_en: Order the seasons starting with winter.
+  choices:
+  - {he: סתיו, en: autumn, emoji: 1f342}
+  - {he: אביב, en: spring, emoji: 1f337}
+  - {he: חורף, en: winter, emoji: '2744'}
+  - {he: קיץ, en: summer, emoji: '2600'}
+  answer: [2, 1, 3, 0]
+  explanation_he: אחרי החורף הגשום מגיע האביב הפורח, אחריו הקיץ החם, ואז הסתיו, ושוב חורף.
+  explanation_en: After rainy winter comes blooming spring, then hot summer, then autumn, and winter again.
+  tags: [seasons]
+- id: sci.earth.002
+  skill: science.earth.seasons
+  kind: choice
+  grade: 1
+  difficulty: 0.0
+  prompt_he: באיזו עונה יורד הכי הרבה גשם בישראל?
+  prompt_en: In which season does Israel get the most rain?
+  choices:
+  - {he: חורף, en: winter, emoji: 1f327}
+  - {he: קיץ, en: summer, emoji: '2600'}
+  - {he: אביב, en: spring, emoji: 1f337}
+  answer: 0
+  explanation_he: בישראל רוב הגשם יורד בחורף. בקיץ כמעט אין גשם בכלל.
+  explanation_en: In Israel most rain falls in winter. In summer there's almost no rain at all.
+  tags: [seasons]
+- id: sci.earth.003
+  skill: science.earth.seasons
+  kind: choice
+  grade: 1
+  difficulty: 0.0
+  prompt_he: באיזו עונה עלים של עצים רבים מצהיבים ונושרים?
+  prompt_en: In which season do many trees' leaves turn yellow and fall?
+  choices:
+  - {he: אביב, en: spring, emoji: 1f337}
+  - {he: סתיו, en: autumn, emoji: 1f342}
+  - {he: קיץ, en: summer, emoji: '2600'}
+  answer: 1
+  explanation_he: בסתיו הימים מתקצרים ומתקררים. עצים נשירים משירים את העלים כדי לעבור את החורף.
+  explanation_en: In autumn days get shorter and cooler. Deciduous trees drop their leaves to get through winter.
+  tags: [seasons]
+- id: sci.earth.004
+  skill: science.earth.seasons
+  kind: true_false
+  grade: 1
+  difficulty: 0.0
+  prompt_he: בקיץ הימים ארוכים יותר והלילות קצרים יותר.
+  prompt_en: In summer days are longer and nights shorter.
+  answer: true
+  explanation_he: 'נכון. בקיץ השמש זורחת מוקדם ושוקעת מאוחר. בחורף זה הפוך: הלילות ארוכים.'
+  explanation_en: 'True. In summer the sun rises early and sets late. In winter it''s the opposite: long nights.'
+  tags: [seasons]
+- id: sci.earth.005
+  skill: science.earth.seasons
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: איזה חג נקרא "חג האביב"?
+  prompt_en: Which holiday is called the "spring festival"?
+  choices:
+  - {he: חנוכה, en: Hanukkah}
+  - {he: סוכות, en: Sukkot}
+  - {he: פסח, en: Passover}
+  answer: 2
+  explanation_he: פסח חל תמיד באביב. סוכות חל בסתיו, וחנוכה בחורף.
+  explanation_en: Passover always falls in spring. Sukkot is in autumn and Hanukkah in winter.
+  tags: [seasons]
+- id: sci.earth.006
+  skill: science.earth.seasons
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: מתי בישראל היום הארוך ביותר בשנה?
+  prompt_en: When is the longest day of the year in Israel?
+  choices:
+  - {he: בסוף דצמבר, en: in late December}
+  - {he: בסוף יוני, en: in late June}
+  - {he: בתחילת אפריל, en: in early April}
+  answer: 1
+  explanation_he: ביום הארוך ביותר, בסביבות 21 ביוני, השמש נמצאת הכי גבוה בשמיים בצהריים. הקצר ביותר הוא בסביבות 21 בדצמבר.
+  explanation_en: On the longest day, around June 21, the noon sun is highest. The shortest is around December 21.
+  tags: [seasons]
+- id: sci.earth.007
+  skill: science.earth.seasons
+  kind: true_false
+  grade: 4
+  difficulty: 1.0
+  prompt_he: בקיץ חם כי כדור הארץ קרוב יותר לשמש.
+  prompt_en: It's hot in summer because Earth is closer to the sun.
+  answer: false
+  explanation_he: לא נכון. העונות נוצרות בגלל הנטייה של ציר כדור הארץ. בקיץ קרני השמש פוגעות בנו ישר יותר והיום ארוך יותר.
+  explanation_en: False. Seasons come from the tilt of Earth's axis. In summer sunlight hits us more directly and days are longer.
+  tags: [seasons]
+- id: sci.earth.008
+  skill: science.earth.seasons
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: כשבישראל חורף, איזו עונה באוסטרליה?
+  prompt_en: When it's winter in Israel, what season is it in Australia?
+  choices:
+  - {he: גם חורף, en: also winter}
+  - {he: אביב, en: spring}
+  - {he: קיץ, en: summer}
+  answer: 2
+  explanation_he: אוסטרליה נמצאת בחצי הדרומי של כדור הארץ. כשהחצי הצפוני נוטה הרחק מהשמש, החצי הדרומי נוטה אליה.
+  explanation_en: Australia is in the Southern Hemisphere. When the north tilts away from the sun, the south tilts toward it.
+  tags: [seasons]
+- id: sci.earth.009
+  skill: science.earth.seasons
+  kind: choice
+  grade: 5
+  difficulty: 2.0
+  prompt_he: מה גורם לעונות השנה?
+  prompt_en: What causes the seasons?
+  choices:
+  - {he: הירח מסתיר את השמש, en: the moon blocks the sun}
+  - {he: ציר כדור הארץ נוטה ביחס למסלולו, en: Earth's axis is tilted relative to its orbit}
+  - {he: השמש מתחממת ומתקררת, en: the sun heats up and cools down}
+  answer: 1
+  explanation_he: הציר נוטה בכ-23.5 מעלות. במהלך השנה כל חצי של כדור הארץ נוטה פעם לכיוון השמש ופעם ממנה.
+  explanation_en: The axis tilts about 23.5 degrees. Through the year each hemisphere tilts toward the sun and then away.
+  tags: [seasons]
+- id: sci.earth.010
+  skill: science.earth.seasons
+  kind: choice
+  grade: 2
+  difficulty: -1.0
+  prompt_he: באיזו עונה פורחים הכי הרבה פרחי בר בישראל?
+  prompt_en: In which season do the most wildflowers bloom in Israel?
+  choices:
+  - {he: סתיו, en: autumn, emoji: 1f342}
+  - {he: אביב, en: spring, emoji: 1f337}
+  - {he: קיץ, en: summer, emoji: '2600'}
+  answer: 1
+  explanation_he: אחרי גשמי החורף האדמה רטובה והימים מתחממים, ולכן באביב השדות מתמלאים פרחים.
+  explanation_en: After winter rains the soil is moist and days warm up, so in spring the fields fill with flowers.
+  tags: [seasons]
+- id: sci.earth.011
+  skill: science.earth.seasons
+  kind: true_false
+  grade: 3
+  difficulty: 1.0
+  prompt_he: בישראל יש עונה גשומה ועונה יבשה.
+  prompt_en: Israel has a rainy season and a dry season.
+  answer: true
+  explanation_he: נכון. הגשם יורד בערך מאוקטובר עד אפריל. בקיץ כמעט לא יורד גשם, ולכן חשוב לשמור על המים.
+  explanation_en: True. Rain falls roughly from October to April. In summer it hardly rains, so saving water matters.
+  tags: [seasons]
+- id: sci.earth.012
+  skill: science.earth.seasons
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איך נקרא הגשם הראשון של הסתיו?
+  prompt_en: What is the first rain of autumn called?
+  choices:
+  - {he: הברד, en: hail}
+  - {he: המלקוש, en: malkosh (last rain)}
+  - {he: היורה, en: yoreh (first rain)}
+  answer: 2
+  explanation_he: היורה הוא הגשם הראשון אחרי הקיץ, והמלקוש הוא הגשם האחרון באביב. שתי המילים מופיעות כבר בתנ"ך.
+  explanation_en: The yoreh is the first rain after summer, and the malkosh the last rain in spring. Both words appear in the Bible.
+  tags: [seasons]
+- id: sci.earth.013
+  skill: science.earth.weather
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: ממה עשויים העננים?
+  prompt_en: What are clouds made of?
+  choices:
+  - {he: טיפות מים זעירות או גבישי קרח, en: tiny water droplets or ice crystals, emoji: '2601'}
+  - {he: עשן, en: smoke, emoji: 1f525}
+  - {he: צמר גפן, en: cotton wool, emoji: 1f9f6}
+  answer: 0
+  explanation_he: עננים נוצרים כשאדי מים באוויר מתקררים ומתעבים לטיפות זעירות. כשהטיפות גדלות, יורד גשם.
+  explanation_en: Clouds form when water vapor cools and condenses into tiny droplets. When the drops grow big, it rains.
+  tags: [weather]
+- id: sci.earth.014
+  skill: science.earth.weather
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: מה מודד מד גשם?
+  prompt_en: What does a rain gauge measure?
+  choices:
+  - {he: מאיפה נושבת הרוח, en: where the wind comes from, emoji: 1f32c}
+  - {he: כמה חם בחוץ, en: how hot it is, emoji: 1f321}
+  - {he: כמה גשם ירד, en: how much rain fell, emoji: 1f327}
+  answer: 2
+  explanation_he: מד גשם הוא כלי שאוסף מי גשם. לפי גובה המים בו יודעים כמה מילימטרים של גשם ירדו.
+  explanation_en: A rain gauge collects rainwater. The water's height tells how many millimeters of rain fell.
+  tags: [weather]
+- id: sci.earth.015
+  skill: science.earth.weather
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מה מראה שבשבת הרוח (שבשבת על הגג)?
+  prompt_en: What does a weather vane show?
+  choices:
+  - {he: את כיוון הרוח, en: the wind direction}
+  - {he: את הטמפרטורה, en: the temperature}
+  - {he: את השעה, en: the time}
+  answer: 0
+  explanation_he: השבשבת מסתובבת עם הרוח ומצביעה לכיוון שממנו הרוח נושבת.
+  explanation_en: A weather vane turns with the wind and points to where the wind is coming from.
+  tags: [weather]
+- id: sci.earth.016
+  skill: science.earth.weather
+  kind: true_false
+  grade: 2
+  difficulty: 0.0
+  prompt_he: ברד הוא גושי קרח שיורדים מהעננים.
+  prompt_en: Hail is lumps of ice falling from clouds.
+  answer: true
+  explanation_he: נכון. בתוך ענני סערה גבוהים טיפות מים קופאות ונעשות גושי קרח, ונופלות כברד, גם בישראל.
+  explanation_en: True. Inside tall storm clouds water drops freeze into ice lumps and fall as hail, in Israel too.
+  tags: [weather]
+- id: sci.earth.017
+  skill: science.earth.weather
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: מה זה שרב (חמסין)?
+  prompt_en: What is a sharav (hamsin)?
+  choices:
+  - {he: שלג בירושלים, en: snow in Jerusalem}
+  - {he: מזג אוויר חם ויבש עם רוח מהמדבר, en: 'hot, dry weather with wind from the desert'}
+  - {he: גשם חזק בקיץ, en: heavy rain in summer}
+  answer: 1
+  explanation_he: בשרב נושבת רוח חמה ויבשה מהמדבר, ולעיתים יש אובך. חשוב לשתות הרבה ולהישאר בצל.
+  explanation_en: In a sharav hot dry desert winds blow, sometimes with dust haze. Drink plenty and stay in the shade.
+  tags: [weather]
+- id: sci.earth.018
+  skill: science.earth.weather
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מה גורם לרעם?
+  prompt_en: What causes thunder?
+  choices:
+  - {he: גשם נופל על גגות, en: rain hitting roofs, emoji: 1f327}
+  - {he: עננים מתנגשים זה בזה, en: clouds bump into each other, emoji: '2601'}
+  - {he: ברק מחמם את האוויר שמתרחב בבת אחת, en: 'lightning heats the air, which expands suddenly', emoji: 26a1}
+  answer: 2
+  explanation_he: הברק מחמם את האוויר לטמפרטורה עצומה. האוויר מתרחב בבת אחת ויוצר את הקול החזק של הרעם.
+  explanation_en: Lightning heats the air enormously. The air expands all at once, making the loud boom of thunder.
+  tags: [weather]
+- id: sci.earth.019
+  skill: science.earth.weather
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מזג אוויר ואקלים הם אותו דבר.
+  prompt_en: Weather and climate are the same thing.
+  answer: false
+  explanation_he: לא נכון. מזג אוויר הוא מה שקורה היום או השבוע. אקלים הוא מזג האוויר הממוצע של אזור לאורך שנים רבות.
+  explanation_en: False. Weather is what happens today or this week. Climate is an area's average weather over many years.
+  tags: [weather]
+- id: sci.earth.020
+  skill: science.earth.weather
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מה עושה מטאורולוג?
+  prompt_en: What does a meteorologist do?
+  choices:
+  - {he: חוקר וחוזה את מזג האוויר, en: studies and forecasts the weather}
+  - {he: חוקר מטאורים בלבד, en: studies only meteors}
+  - {he: בונה מטוסים, en: builds airplanes}
+  answer: 0
+  explanation_he: מטאורולוגים משתמשים בתחנות מדידה, בלוויינים ובמחשבים כדי לחזות מה יהיה מזג האוויר.
+  explanation_en: Meteorologists use weather stations, satellites and computers to forecast the weather.
+  tags: [weather]
+- id: sci.earth.021
+  skill: science.earth.weather
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: איפה בישראל יורד שלג כמעט בכל חורף?
+  prompt_en: Where in Israel does it snow almost every winter?
+  choices:
+  - {he: בתל אביב, en: in Tel Aviv, emoji: 1f3d9}
+  - {he: בחרמון, en: on Mount Hermon, emoji: 1f3d4}
+  - {he: באילת, en: in Eilat, emoji: 1f3d6}
+  answer: 1
+  explanation_he: בחרמון, ההר הגבוה ביותר בישראל, קר מספיק בחורף לשלג. ככל שעולים גבוה יותר, האוויר קר יותר.
+  explanation_en: On Mount Hermon, Israel's highest mountain, winter is cold enough for snow. The higher you go, the colder the air.
+  tags: [weather]
+- id: sci.earth.022
+  skill: science.earth.weather
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: איזה אקלים יש בדרום ישראל, בנגב ובערבה?
+  prompt_en: What climate do southern Israel, the Negev and Arava, have?
+  choices:
+  - {he: אקלים קוטבי, en: polar climate, emoji: '2744'}
+  - {he: אקלים של יער גשם, en: rainforest climate, emoji: 1f334}
+  - {he: 'אקלים מדברי, חם ויבש', en: 'desert climate, hot and dry', emoji: 1f3dc}
+  answer: 2
+  explanation_he: בצפון ובמרכז הארץ האקלים ים-תיכוני, עם חורף גשום. בדרום יורד מעט מאוד גשם, והאקלים מדברי.
+  explanation_en: The north and center have a Mediterranean climate with rainy winters. The south gets very little rain and has a desert climate.
+  tags: [weather]
+- id: sci.earth.023
+  skill: science.earth.weather
+  kind: true_false
+  grade: 4
+  difficulty: 1.0
+  prompt_he: באוויר החם יש מקום ליותר אדי מים מאשר באוויר קר.
+  prompt_en: Warm air can hold more water vapor than cold air.
+  answer: true
+  explanation_he: נכון. לכן כשאוויר חם ולח מתקרר, למשל כשהוא עולה למעלה, האדים מתעבים ונוצרים עננים וגשם.
+  explanation_en: True. So when warm humid air cools, for example as it rises, the vapor condenses into clouds and rain.
+  tags: [weather]
+- id: sci.earth.024
+  skill: science.earth.weather
+  kind: order
+  grade: 3
+  difficulty: 0.0
+  prompt_he: סדרו את הטמפרטורות מהקר לחם.
+  prompt_en: Order these temperatures from coldest to hottest.
+  choices:
+  - {he: 'בוקר חורף בתל אביב: 12 מעלות', en: 'winter morning in Tel Aviv: 12 degrees'}
+  - {he: 'שרב באילת: 42 מעלות', en: 'sharav in Eilat: 42 degrees'}
+  - {he: 'יום אביב נעים: 22 מעלות', en: 'pleasant spring day: 22 degrees'}
+  - {he: 'שלג בחרמון: מינוס 2 מעלות', en: 'snow on the Hermon: minus 2 degrees'}
+  answer: [3, 0, 2, 1]
+  explanation_he: מינוס 2 קר מנקודת הקיפאון, 12 קריר, 22 נעים ו-42 חם מאוד.
+  explanation_en: Minus 2 is below freezing, 12 is cool, 22 is pleasant and 42 is very hot.
+  tags: [weather]
+- id: sci.earth.025
+  skill: science.earth.weather
+  kind: choice
+  grade: 2
+  difficulty: -1.0
+  prompt_he: מה כדאי לקחת כשיוצאים ביום גשום?
+  prompt_en: What should you take on a rainy day?
+  choices:
+  - {he: מטריה ומעיל גשם, en: an umbrella and a raincoat, emoji: '2614'}
+  - {he: משקפי שמש וכובע קש, en: sunglasses and a straw hat, emoji: 1f576}
+  - {he: בגד ים, en: a swimsuit, emoji: 1f459}
+  answer: 0
+  explanation_he: מטריה ומעיל גשם עשויים מחומרים שלא נותנים למים לעבור, ושומרים עלינו יבשים.
+  explanation_en: Umbrellas and raincoats are made of waterproof materials that keep us dry.
+  tags: [weather]
+- id: sci.earth.026
+  skill: science.earth.water_cycle
+  kind: order
+  grade: 3
+  difficulty: 0.0
+  prompt_he: סדרו את שלבי מחזור המים.
+  prompt_en: Order the stages of the water cycle.
+  choices:
+  - {he: המים זורמים בנחלים חזרה לים, en: water flows in streams back to the sea}
+  - {he: האדים מתקררים ונוצרים עננים, en: the vapor cools and forms clouds}
+  - {he: מים בים מתאדים, en: sea water evaporates}
+  - {he: יורד גשם, en: rain falls}
+  answer: [2, 1, 3, 0]
+  explanation_he: השמש מחממת ומאדה מים, האדים מתעבים לעננים, הגשם יורד ומגיע בסוף שוב לים. וכך שוב ושוב.
+  explanation_en: The sun evaporates water, the vapor condenses into clouds, rain falls and eventually returns to the sea, over and over.
+  tags: [water_cycle]
+- id: sci.earth.027
+  skill: science.earth.water_cycle
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מה מניע את מחזור המים?
+  prompt_en: What drives the water cycle?
+  choices:
+  - {he: הירח, en: the moon, emoji: 1f315}
+  - {he: החום של השמש, en: the sun's heat, emoji: '2600'}
+  - {he: הרוח בלבד, en: the wind alone, emoji: 1f32c}
+  answer: 1
+  explanation_he: אנרגיית השמש מאדה מים מהים, מהאגמים ומהצמחים. בלי השמש לא היו עננים וגשם.
+  explanation_en: The sun's energy evaporates water from seas, lakes and plants. Without the sun there'd be no clouds or rain.
+  tags: [water_cycle]
+- id: sci.earth.028
+  skill: science.earth.water_cycle
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איך נקרא השלב שבו אדי מים הופכים לטיפות בענן?
+  prompt_en: What is the stage when water vapor turns into droplets in a cloud called?
+  choices:
+  - {he: המסה, en: dissolving}
+  - {he: אידוי, en: evaporation}
+  - {he: התעבות, en: condensation}
+  answer: 2
+  explanation_he: כשהאוויר עולה ומתקרר, האדים מתעבים לטיפות זעירות. מיליארדי טיפות כאלה יוצרות ענן.
+  explanation_en: As air rises and cools, vapor condenses into tiny droplets. Billions of them make a cloud.
+  tags: [water_cycle]
+- id: sci.earth.029
+  skill: science.earth.water_cycle
+  kind: true_false
+  grade: 3
+  difficulty: 1.0
+  prompt_he: המים שאנחנו שותים היום הם אותם מים שהיו בכדור הארץ גם לפני אלפי שנים.
+  prompt_en: The water we drink today is the same water that was on Earth thousands of years ago.
+  answer: true
+  explanation_he: נכון. המים לא נעלמים. הם רק עוברים כל הזמן בין ים, עננים, גשם, נהרות ומי תהום.
+  explanation_en: True. Water doesn't disappear. It keeps moving between sea, clouds, rain, rivers and groundwater.
+  tags: [water_cycle]
+- id: sci.earth.030
+  skill: science.earth.water_cycle
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מה קורה לחלק ממי הגשם שנספגים באדמה?
+  prompt_en: What happens to rain that soaks into the ground?
+  choices:
+  - {he: הם נעלמים לתמיד, en: it disappears forever}
+  - {he: הם הופכים לאבן, en: it turns into stone}
+  - {he: הם מחלחלים ויוצרים מי תהום, en: it seeps down and forms groundwater}
+  answer: 2
+  explanation_he: מים מחלחלים דרך סדקים בסלעים ונאגרים מתחת לאדמה. בישראל שואבים מי תהום בבארות.
+  explanation_en: Water seeps through cracks in rocks and collects underground. In Israel groundwater is pumped from wells.
+  tags: [water_cycle]
+- id: sci.earth.031
+  skill: science.earth.water_cycle
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: מי הגשם מלוחים, כי הם מתאדים מהים.
+  prompt_en: Rainwater is salty because it evaporates from the sea.
+  answer: false
+  explanation_he: לא נכון. כשמים מתאדים, המלח נשאר בים. רק המים עולים כאדים, ולכן הגשם מתוק.
+  explanation_en: False. When water evaporates the salt stays in the sea. Only water rises as vapor, so rain is fresh.
+  tags: [water_cycle]
+- id: sci.earth.032
+  skill: science.earth.water_cycle
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'איך נקרא מים שיורדים מהעננים: גשם, שלג או ברד?'
+  prompt_en: What do we call water falling from clouds as rain, snow or hail?
+  choices:
+  - {he: משקעים, en: precipitation}
+  - {he: אדים, en: vapor}
+  - {he: טל, en: dew}
+  answer: 0
+  explanation_he: משקעים הם כל צורת מים שנופלת מהענן. בישראל רוב המשקעים הם גשם.
+  explanation_en: Precipitation is any form of water falling from clouds. In Israel it's mostly rain.
+  tags: [water_cycle]
+- id: sci.earth.033
+  skill: science.earth.water_cycle
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: איזה חלק מהמים על כדור הארץ הם מים מלוחים?
+  prompt_en: What fraction of Earth's water is salty?
+  choices:
+  - {he: כ-97 אחוז, en: about 97 percent}
+  - {he: כ-10 אחוז, en: about 10 percent}
+  - {he: כ-50 אחוז, en: about 50 percent}
+  answer: 0
+  explanation_he: רוב המים נמצאים באוקיינוסים. מתוך המים המתוקים, רובם קפואים בקרחונים. לכן מים מתוקים הם משאב יקר.
+  explanation_en: Most water is in the oceans, and most fresh water is frozen in glaciers. That's why fresh water is precious.
+  tags: [water_cycle]
+- id: sci.earth.034
+  skill: science.earth.water_cycle
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: גם צמחים משתתפים במחזור המים. איך?
+  prompt_en: Plants take part in the water cycle too. How?
+  choices:
+  - {he: הם שותים את העננים, en: they drink the clouds, emoji: '2601'}
+  - {he: הם פולטים אדי מים מהעלים, en: they release water vapor from their leaves, emoji: 1f343}
+  - {he: הם מייצרים גשם בשורשים, en: they make rain in their roots, emoji: 1f327}
+  answer: 1
+  explanation_he: צמחים מוצצים מים מהאדמה ומשחררים אדים דרך הפיוניות בעלים. יער גדול משחרר כמויות עצומות של אדים.
+  explanation_en: Plants pull water from the soil and release vapor through leaf openings. A big forest releases huge amounts of vapor.
+  tags: [water_cycle]
+- id: sci.earth.035
+  skill: science.earth.water_cycle
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מאיפה מגיע הטל על הדשא בבוקר?
+  prompt_en: Where does morning dew on grass come from?
+  choices:
+  - {he: טיפות שירדו מהירח, en: drops from the moon}
+  - {he: הדשא בוכה, en: the grass cries}
+  - {he: אדי מים באוויר מתעבים על הדשא הקר, en: water vapor condenses on the cold grass}
+  answer: 2
+  explanation_he: בלילה הדשא מתקרר, ואדי מים מהאוויר מתעבים עליו לטיפות, כמו על כוס קרה.
+  explanation_en: At night the grass cools, and water vapor from the air condenses on it as drops, like on a cold glass.
+  tags: [water_cycle]
+- id: sci.earth.036
+  skill: science.earth.water_cycle
+  kind: true_false
+  grade: 5
+  difficulty: 1.0
+  prompt_he: בכנרת, האגם המתוק הגדול בישראל, מפלס המים יורד בשנים שחונות.
+  prompt_en: In the Kinneret, Israel's large freshwater lake, the water level falls in dry years.
+  answer: true
+  explanation_he: נכון. כשיורד מעט גשם, פחות מים זורמים לכנרת, ומים מתאדים ונשאבים. לכן עוקבים אחרי המפלס בכל שנה.
+  explanation_en: True. With little rain less water flows in, while water evaporates and is pumped out, so the level is watched every year.
+  tags: [water_cycle]
+- id: sci.earth.037
+  skill: science.earth.water_cycle
+  kind: choice
+  grade: 6
+  difficulty: 2.0
+  prompt_he: מה קורה לאוויר לח שעולה במעלה הר?
+  prompt_en: What happens to humid air that rises up a mountain?
+  choices:
+  - {he: 'הוא מתקרר, האדים מתעבים, ויורד גשם', en: 'it cools, the vapor condenses, and rain falls'}
+  - {he: הוא הופך לשלג בכל מצב, en: it always turns into snow}
+  - {he: הוא מתחמם ונעשה יבש, en: it heats up and dries out}
+  answer: 0
+  explanation_he: ככל שהאוויר עולה הוא מתקרר. אוויר קר מחזיק פחות אדים, ולכן נוצרים עננים וגשם במורדות ההר שפונים לרוח.
+  explanation_en: Rising air cools, and cool air holds less vapor, so clouds and rain form on the windward slopes.
+  tags: [water_cycle]
+- id: sci.earth.038
+  skill: science.earth.rocks_soil
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: ממה מורכבת האדמה בגינה?
+  prompt_en: What is garden soil made of?
+  choices:
+  - {he: רק מים, en: only water}
+  - {he: רק חול, en: only sand}
+  - {he: 'גרגרי סלע, שאריות צמחים, מים ואוויר', en: 'rock bits, plant remains, water and air'}
+  answer: 2
+  explanation_he: הקרקע נוצרת מסלעים שהתפוררו, מעורבבים בשאריות של צמחים ובעלי חיים שהתפרקו (רקבובית), מים ואוויר.
+  explanation_en: Soil forms from crumbled rock mixed with decayed plant and animal remains (humus), water and air.
+  tags: [rocks_soil]
+- id: sci.earth.039
+  skill: science.earth.rocks_soil
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איך תולעי אדמה עוזרות לקרקע?
+  prompt_en: How do earthworms help soil?
+  choices:
+  - {he: אוכלות את כל הצמחים, en: eat all the plants, emoji: 1f331}
+  - {he: חופרות מנהרות שמכניסות אוויר ומים, en: dig tunnels that let in air and water, emoji: 1fab1}
+  - {he: הופכות את האדמה לאבן, en: turn soil into stone, emoji: 1faa8}
+  answer: 1
+  explanation_he: התולעים מאווררות את הקרקע ומפרקות עלים מתים לחומרים שמזינים צמחים.
+  explanation_en: Worms loosen the soil and break down dead leaves into nutrients for plants.
+  tags: [rocks_soil]
+- id: sci.earth.040
+  skill: science.earth.rocks_soil
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: איזה סוג אדמה מחזיק מים הכי הרבה זמן?
+  prompt_en: Which soil holds water the longest?
+  choices:
+  - {he: חול, en: sand}
+  - {he: חרסית (טין), en: clay}
+  - {he: חצץ, en: gravel}
+  answer: 1
+  explanation_he: בחרסית הגרגרים זעירים וצפופים, והמים נשארים ביניהם. בחול הגרגרים גדולים והמים מחלחלים מהר.
+  explanation_en: Clay has tiny packed grains that hold water. Sand has large grains, so water drains fast.
+  tags: [rocks_soil]
+- id: sci.earth.041
+  skill: science.earth.rocks_soil
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מאיזה סלע עשויה "אבן ירושלמית" שבונים בה בירושלים?
+  prompt_en: What rock is "Jerusalem stone" used in Jerusalem buildings?
+  choices:
+  - {he: זכוכית, en: glass}
+  - {he: גרניט, en: granite}
+  - {he: אבן גיר ודולומיט, en: limestone and dolomite}
+  answer: 2
+  explanation_he: אבן ירושלמית היא סלע משקע בהיר, בעיקר גיר ודולומיט. בירושלים נהוג לצפות בה בניינים.
+  explanation_en: Jerusalem stone is a pale sedimentary rock, mainly limestone and dolomite. Buildings in Jerusalem are traditionally faced with it.
+  tags: [rocks_soil]
+- id: sci.earth.042
+  skill: science.earth.rocks_soil
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מה הסלע השחור שמכסה חלקים גדולים ברמת הגולן?
+  prompt_en: What black rock covers much of the Golan Heights?
+  choices:
+  - {he: בזלת, en: basalt}
+  - {he: שיש, en: marble}
+  - {he: גיר, en: limestone}
+  answer: 0
+  explanation_he: בזלת היא סלע יסוד שנוצר מלבה שהתקררה. בגולן יש הרי געש כבויים, כמו הר בנטל.
+  explanation_en: Basalt is an igneous rock formed from cooled lava. The Golan has extinct volcanoes like Mount Bental.
+  tags: [rocks_soil]
+- id: sci.earth.043
+  skill: science.earth.rocks_soil
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: מאובנים נמצאים בדרך כלל בסלעי משקע.
+  prompt_en: Fossils are usually found in sedimentary rocks.
+  answer: true
+  explanation_he: נכון. סלעי משקע נוצרים משכבות של חול ובוץ שהצטברו. שרידים של צדפים ויצורים נלכדו בשכבות ונשמרו.
+  explanation_en: True. Sedimentary rocks form from built-up layers of sand and mud. Remains of shells and creatures were trapped in the layers and preserved.
+  tags: [rocks_soil]
+- id: sci.earth.044
+  skill: science.earth.rocks_soil
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מהי בליה?
+  prompt_en: What is weathering?
+  choices:
+  - {he: צביעה של סלעים, en: rocks being painted}
+  - {he: 'התפוררות סלעים ממים, רוח, חום וקור', en: 'rocks breaking down by water, wind, heat and cold'}
+  - {he: צמיחה של סלעים, en: rocks growing}
+  answer: 1
+  explanation_he: לאט לאט סלעים נסדקים ומתפוררים. מים שקופאים בסדקים, שורשים ורוח עם חול מפוררים אותם.
+  explanation_en: Slowly rocks crack and crumble. Water freezing in cracks, roots, and sandy wind break them apart.
+  tags: [rocks_soil]
+- id: sci.earth.045
+  skill: science.earth.rocks_soil
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: חול ואבנים הם חומרים שונים לגמרי שאין ביניהם קשר.
+  prompt_en: Sand and rocks are totally different, unrelated materials.
+  answer: false
+  explanation_he: לא נכון. חול הוא גרגרים קטנים של סלע שהתפורר במשך זמן רב, בעיקר מינרל שנקרא קוורץ.
+  explanation_en: False. Sand is tiny grains of rock that crumbled over a long time, mostly a mineral called quartz.
+  tags: [rocks_soil]
+- id: sci.earth.046
+  skill: science.earth.rocks_soil
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: מהם שלושת סוגי הסלעים העיקריים?
+  prompt_en: What are the three main types of rock?
+  choices:
+  - {he: 'קטנים, בינוניים וגדולים', en: 'small, medium and large'}
+  - {he: 'אדומים, לבנים ושחורים', en: 'red, white and black'}
+  - {he: 'יסוד (געשי), משקע ומותמר', en: 'igneous, sedimentary and metamorphic'}
+  answer: 2
+  explanation_he: סלעי יסוד נוצרים מלבה או מגמה שהתקררה, סלעי משקע משכבות שהצטברו, וסלעים מותמרים משינוי בחום ובלחץ.
+  explanation_en: Igneous rocks form from cooled lava or magma, sedimentary from built-up layers, and metamorphic from heat and pressure.
+  tags: [rocks_soil]
+- id: sci.earth.047
+  skill: science.earth.rocks_soil
+  kind: choice
+  grade: 5
+  difficulty: 2.0
+  prompt_he: שיש נוצר מאבן גיר שנחשפה לחום ולחץ גדולים. לאיזה סוג סלע הוא שייך?
+  prompt_en: Marble forms from limestone exposed to great heat and pressure. What type of rock is it?
+  choices:
+  - {he: סלע יסוד, en: igneous rock}
+  - {he: סלע משקע, en: sedimentary rock}
+  - {he: סלע מותמר, en: metamorphic rock}
+  answer: 2
+  explanation_he: הוראת המילה "מותמר" היא שהשתנה. בעומק האדמה, חום ולחץ משנים את גבישי הגיר והופכים אותו לשיש.
+  explanation_en: '"Metamorphic" means changed. Deep underground, heat and pressure change limestone''s crystals into marble.'
+  tags: [rocks_soil]
+- id: sci.earth.048
+  skill: science.earth.rocks_soil
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: למה חשוב לשתול צמחים במדרונות חשופים?
+  prompt_en: Why is it important to plant on bare slopes?
+  choices:
+  - {he: כדי שיהיה יותר אבק, en: to make more dust}
+  - {he: כדי שהמים יזרמו מהר יותר, en: so water flows faster}
+  - {he: השורשים מחזיקים את הקרקע ומונעים סחף, en: roots hold the soil and prevent erosion}
+  answer: 2
+  explanation_he: בלי צמחים, הגשם והרוח סוחפים את שכבת הקרקע הפורייה. השורשים קושרים את האדמה.
+  explanation_en: Without plants, rain and wind wash away fertile topsoil. Roots bind the soil together.
+  tags: [rocks_soil]
+- id: sci.earth.049
+  skill: science.earth.rocks_soil
+  kind: order
+  grade: 4
+  difficulty: 0.0
+  prompt_he: סדרו את הגרגרים מהגדול לקטן.
+  prompt_en: Order the grains from largest to smallest.
+  choices:
+  - {he: חול, en: sand}
+  - {he: סלע, en: boulder}
+  - {he: חצץ, en: gravel}
+  - {he: חרסית, en: clay}
+  answer: [1, 2, 0, 3]
+  explanation_he: סלעים מתפוררים לחצץ, החצץ לחול, וגרגרי החרסית הם הקטנים ביותר, קטנים מכדי לראות אותם בעין.
+  explanation_en: Boulders break into gravel, gravel into sand, and clay grains are smallest, too small to see.
+  tags: [rocks_soil]
+- id: sci.earth.050
+  skill: science.earth.israel
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מהו המקום הנמוך ביותר על פני היבשה בעולם?
+  prompt_en: What is the lowest place on land in the world?
+  choices:
+  - {he: ים המלח, en: the Dead Sea}
+  - {he: מכתש רמון, en: Ramon Crater}
+  - {he: הכנרת, en: the Kinneret (Sea of Galilee)}
+  answer: 0
+  explanation_he: חוף ים המלח נמצא כ-430 מטר מתחת לפני הים, הנמוך ביותר על היבשה בעולם.
+  explanation_en: The Dead Sea shore is about 430 m below sea level, the lowest place on land on Earth.
+  tags: [israel_nature]
+- id: sci.earth.051
+  skill: science.earth.israel
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: בים המלח חיים הרבה דגים.
+  prompt_en: Many fish live in the Dead Sea.
+  answer: false
+  explanation_he: לא נכון. המים מלוחים כל כך שדגים וצמחים לא יכולים לחיות בהם. חיים בו רק יצורים זעירים מאוד, כמו חיידקים מסוימים.
+  explanation_en: False. The water is so salty that fish and plants can't live in it. Only tiny life forms like certain bacteria survive.
+  tags: [israel_nature]
+- id: sci.earth.052
+  skill: science.earth.israel
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: איך נוצר מכתש רמון?
+  prompt_en: How was Ramon Crater formed?
+  choices:
+  - {he: בסחיפה של מים לאורך זמן רב, en: by water erosion over a long time}
+  - {he: מפיצוץ של הר געש, en: by a volcanic explosion}
+  - {he: מנפילה של מטאוריט, en: by a meteorite impact}
+  answer: 0
+  explanation_he: מכתש הוא תופעה מיוחדת לנגב ולסיני. מים סחפו סלעים רכים מתחת לשכבה קשה, ונוצר עמק עמוק מוקף צוקים.
+  explanation_en: A makhtesh is special to the Negev and Sinai. Water washed away soft rock beneath a hard layer, leaving a deep valley ringed by cliffs.
+  tags: [israel_nature]
+- id: sci.earth.053
+  skill: science.earth.israel
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: איזה חלק משטח ישראל הוא מדבר הנגב?
+  prompt_en: What part of Israel's area is the Negev desert?
+  choices:
+  - {he: כמעט כלום, en: almost none}
+  - {he: עשירית, en: a tenth}
+  - {he: יותר ממחצית, en: more than half}
+  answer: 2
+  explanation_he: הנגב משתרע על כ-60 אחוז משטח המדינה, אבל רק חלק קטן מהתושבים גרים בו.
+  explanation_en: The Negev covers about 60 percent of the country, but only a small share of people live there.
+  tags: [israel_nature]
+- id: sci.earth.054
+  skill: science.earth.israel
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: לאן זורם נהר הירדן?
+  prompt_en: Where does the Jordan River flow?
+  choices:
+  - {he: מהצפון לכנרת ומשם לים המלח, en: 'from the north into the Kinneret, then to the Dead Sea'}
+  - {he: מאילת לחרמון, en: from Eilat to the Hermon}
+  - {he: מים המלח לים התיכון, en: from the Dead Sea to the Mediterranean}
+  answer: 0
+  explanation_he: הירדן מתחיל ממעיינות למרגלות החרמון, זורם לכנרת, וממנה דרומה עד ים המלח.
+  explanation_en: The Jordan starts from springs at the foot of the Hermon, flows into the Kinneret, and on south to the Dead Sea.
+  tags: [israel_nature]
+- id: sci.earth.055
+  skill: science.earth.israel
+  kind: true_false
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מפלס ים המלח יורד בכמטר בכל שנה.
+  prompt_en: The Dead Sea's level drops about a meter every year.
+  answer: true
+  explanation_he: נכון. פחות מים מגיעים אליו מהירדן, והמים מתאדים בחום. בגלל הירידה נוצרים בולענים לאורך החוף.
+  explanation_en: True. Less water arrives from the Jordan and water evaporates in the heat. The drop causes sinkholes along the shore.
+  tags: [israel_nature]
+- id: sci.earth.056
+  skill: science.earth.israel
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: מה צריך לעשות במדבר ביום חורף כשיש סכנת שיטפון?
+  prompt_en: What should you do in the desert on a winter day with a flood warning?
+  choices:
+  - {he: להיכנס לתוך המים, en: go into the water}
+  - {he: לשבת באפיק הנחל ולחכות, en: sit in the stream bed and wait}
+  - {he: 'להתרחק מאפיקי נחלים, גם בלי גשם במקום', en: 'stay out of stream beds, even if it''s not raining there'}
+  answer: 2
+  explanation_he: גשם שיורד רחוק יכול ליצור שיטפון שמגיע פתאום לנחל יבש. לכן בימים כאלה לא נכנסים לאפיקי נחלים.
+  explanation_en: Rain far away can send a sudden flood down a dry stream bed, so on such days stay out of stream beds.
+  tags: [israel_nature]
+- id: sci.earth.057
+  skill: science.earth.israel
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: לאיזה שבר גדול בקרום כדור הארץ שייכים עמק הירדן, ים המלח והערבה?
+  prompt_en: Which great fault in Earth's crust includes the Jordan Valley, Dead Sea and Arava?
+  choices:
+  - {he: השבר הסורי-אפריקאי, en: the Syrian-African Rift}
+  - {he: המכתש הגדול, en: the Great Makhtesh}
+  - {he: רכס האנדים, en: the Andes range}
+  answer: 0
+  explanation_he: לאורך השבר נפגשים שני לוחות של קרום כדור הארץ. לכן העמק נמוך כל כך, ולכן יש באזור רעידות אדמה.
+  explanation_en: Two plates of Earth's crust meet along the rift. That's why the valley is so low and why the region has earthquakes.
+  tags: [israel_nature]
+- id: sci.earth.058
+  skill: science.earth.israel
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: איזה ים נמצא ליד אילת?
+  prompt_en: Which sea is near Eilat?
+  choices:
+  - {he: הים התיכון, en: the Mediterranean}
+  - {he: ים סוף, en: the Red Sea}
+  - {he: ים המלח, en: the Dead Sea}
+  answer: 1
+  explanation_he: אילת נמצאת על חוף מפרץ אילת בים סוף, שם יש שונית אלמוגים. חופי מרכז הארץ נמצאים על הים התיכון.
+  explanation_en: Eilat sits on the Gulf of Eilat in the Red Sea, home to a coral reef. Central Israel's coast is on the Mediterranean.
+  tags: [israel_nature]
+- id: sci.earth.059
+  skill: science.earth.israel
+  kind: true_false
+  grade: 5
+  difficulty: 1.0
+  prompt_he: הכנרת היא אגם המים המתוקים הנמוך ביותר בעולם.
+  prompt_en: The Kinneret is the lowest freshwater lake in the world.
+  answer: true
+  explanation_he: נכון. פני הכנרת נמצאים כ-210 מטר מתחת לפני הים. היא מקור מים חשוב לישראל.
+  explanation_en: True. The Kinneret's surface is about 210 m below sea level. It's an important water source for Israel.
+  tags: [israel_nature]
+- id: sci.earth.060
+  skill: science.earth.israel
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: מה עושים כשמרגישים רעידת אדמה בבית?
+  prompt_en: What do you do if you feel an earthquake at home?
+  choices:
+  - {he: נכנסים למעלית, en: get into the elevator}
+  - {he: עומדים ליד חלון, en: stand by a window}
+  - {he: יוצאים לשטח פתוח או נכנסים לממ"ד, en: go to an open area or into the safe room}
+  answer: 2
+  explanation_he: אם אפשר לצאת מהר, יוצאים לשטח פתוח הרחק מבניינים. אחרת נכנסים לממ"ד או מתחת לשולחן חזק. לא משתמשים במעלית.
+  explanation_en: If you can get out quickly, go to an open area away from buildings. Otherwise use the safe room or get under a sturdy table. Never use the elevator.
+  tags: [israel_nature]
+- id: sci.earth.061
+  skill: science.earth.israel
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: מה מיוחד בהרים האדומים ליד אילת ובתמנע?
+  prompt_en: What's special about the red mountains near Eilat and Timna?
+  choices:
+  - {he: יש בהם גרניט וסלעים עם נחושת, en: they have granite and copper-bearing rocks}
+  - {he: הם עשויים מקרח, en: they are made of ice}
+  - {he: הם הרי געש פעילים, en: they are active volcanoes}
+  answer: 0
+  explanation_he: בתמנע כרו בני אדם נחושת כבר בימי קדם. האבן הירוקה-כחולה, "אבן אילת", מכילה מינרלים של נחושת.
+  explanation_en: People mined copper at Timna in ancient times. The green-blue "Eilat stone" contains copper minerals.
+  tags: [israel_nature]
+- id: sci.earth.062
+  skill: science.earth.israel
+  kind: order
+  grade: 5
+  difficulty: 1.0
+  prompt_he: סדרו את המקומות מהגבוה לנמוך.
+  prompt_en: Order the places from highest to lowest.
+  choices:
+  - {he: תל אביב, en: Tel Aviv}
+  - {he: ים המלח, en: the Dead Sea}
+  - {he: פסגת החרמון, en: the Hermon summit}
+  - {he: ירושלים, en: Jerusalem}
+  answer: [2, 3, 0, 1]
+  explanation_he: החרמון גבוה יותר מ-2,000 מטר, ירושלים כ-800 מטר, תל אביב על חוף הים, וים המלח כ-430 מטר מתחת לפני הים.
+  explanation_en: The Hermon is over 2,000 m, Jerusalem about 800 m, Tel Aviv at sea level, and the Dead Sea about 430 m below sea level.
+  tags: [israel_nature]
+- id: sci.earth.063
+  skill: science.earth.structure
+  kind: order
+  grade: 6
+  difficulty: 0.0
+  prompt_he: סדרו את שכבות כדור הארץ מבחוץ פנימה.
+  prompt_en: Order Earth's layers from outside in.
+  choices:
+  - {he: גלעין חיצוני, en: outer core}
+  - {he: גלעין פנימי, en: inner core}
+  - {he: מעטפת, en: mantle}
+  - {he: קרום, en: crust}
+  answer: [3, 2, 0, 1]
+  explanation_he: אנחנו חיים על הקרום הדק. מתחתיו המעטפת העבה, ובמרכז הגלעין, החם ביותר, שבנוי בעיקר מברזל וניקל.
+  explanation_en: We live on the thin crust. Beneath is the thick mantle, and at the center the hottest part, the core, mostly iron and nickel.
+  tags: [earth_structure]
+- id: sci.earth.064
+  skill: science.earth.structure
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: מהי לבה?
+  prompt_en: What is lava?
+  choices:
+  - {he: עשן שחור, en: black smoke, emoji: 1f525}
+  - {he: מים חמים ממעיין, en: hot spring water, emoji: '2668'}
+  - {he: סלע מותך שיוצא מהר געש, en: molten rock coming out of a volcano, emoji: 1f30b}
+  answer: 2
+  explanation_he: מתחת לפני הקרקע הסלע המותך נקרא מגמה. כשהוא פורץ החוצה בהר געש הוא נקרא לבה, וכשהוא מתקרר הוא נעשה סלע.
+  explanation_en: Underground, molten rock is called magma. When it erupts from a volcano it's lava, and when it cools it becomes rock.
+  tags: [earth_structure]
+- id: sci.earth.065
+  skill: science.earth.structure
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: מה גורם לרוב רעידות האדמה?
+  prompt_en: What causes most earthquakes?
+  choices:
+  - {he: רוחות חזקות, en: strong winds}
+  - {he: גלים בים, en: ocean waves}
+  - {he: תזוזה פתאומית של לוחות בקרום כדור הארץ, en: sudden movement of plates in Earth's crust}
+  answer: 2
+  explanation_he: קרום כדור הארץ מחולק ללוחות שזזים לאט. לפעמים הם נתקעים, ואז משתחררים בבת אחת, והאדמה רועדת.
+  explanation_en: Earth's crust is split into slowly moving plates. Sometimes they stick, then slip all at once, and the ground shakes.
+  tags: [earth_structure]
+- id: sci.earth.066
+  skill: science.earth.structure
+  kind: true_false
+  grade: 6
+  difficulty: 1.0
+  prompt_he: הלוחות של קרום כדור הארץ זזים כל הזמן, בערך כמה סנטימטרים בשנה.
+  prompt_en: Earth's crustal plates move all the time, about a few centimeters a year.
+  answer: true
+  explanation_he: נכון. זו בערך המהירות שבה צומחות הציפורניים שלנו. לא מרגישים את התנועה, אבל מכשירים מדויקים מודדים אותה.
+  explanation_en: True. That's about how fast our fingernails grow. We can't feel it, but precise instruments measure it.
+  tags: [earth_structure]
+- id: sci.earth.067
+  skill: science.earth.structure
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: איזו שכבה של כדור הארץ היא הדקה ביותר?
+  prompt_en: Which layer of Earth is the thinnest?
+  choices:
+  - {he: הקרום, en: the crust}
+  - {he: המעטפת, en: the mantle}
+  - {he: הגלעין, en: the core}
+  answer: 0
+  explanation_he: הקרום דק מאוד ביחס לכדור הארץ, כמו קליפה של תפוח ביחס לתפוח כולו.
+  explanation_en: The crust is very thin compared to the whole Earth, like an apple's skin compared to the apple.
+  tags: [earth_structure]
+- id: sci.earth.068
+  skill: science.earth.structure
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: מה תפקיד שכבת האוזון באטמוספרה?
+  prompt_en: What does the ozone layer in the atmosphere do?
+  choices:
+  - {he: מסננת חלק גדול מהקרינה העל-סגולה של השמש, en: filters much of the sun's ultraviolet radiation}
+  - {he: מאירה בלילה, en: glows at night}
+  - {he: מייצרת גשם, en: makes rain}
+  answer: 0
+  explanation_he: האוזון בולע את רוב הקרינה העל-סגולה המזיקה. בלעדיו היו הרבה יותר כוויות ונזקים לעור ולעיניים.
+  explanation_en: Ozone absorbs most harmful ultraviolet radiation. Without it there'd be far more sunburn and damage to skin and eyes.
+  tags: [earth_structure]
+- id: sci.earth.069
+  skill: science.earth.structure
+  kind: true_false
+  grade: 6
+  difficulty: 0.0
+  prompt_he: מרכז כדור הארץ קר וקפוא.
+  prompt_en: The center of Earth is cold and frozen.
+  answer: false
+  explanation_he: לא נכון. הגלעין חם מאוד, כמו פני השמש בערך. הגלעין הפנימי מוצק רק בגלל הלחץ העצום.
+  explanation_en: False. The core is extremely hot, roughly as hot as the sun's surface. The inner core is solid only because of the huge pressure.
+  tags: [earth_structure]
+- id: sci.earth.070
+  skill: science.earth.structure
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: מה מודד מד רעידות (סיסמוגרף)?
+  prompt_en: What does a seismograph measure?
+  choices:
+  - {he: גובה של הר, en: height of a mountain}
+  - {he: רעידות של הקרקע, en: ground vibrations}
+  - {he: כמות גשם, en: amount of rain}
+  answer: 1
+  explanation_he: הסיסמוגרף רושם את הרעידות. לפי הרישום מחשבים את עוצמת הרעידה ואת מקום המוקד שלה.
+  explanation_en: A seismograph records shaking. From the record scientists work out an earthquake's strength and where it started.
+  tags: [earth_structure]
+- id: sci.earth.071
+  skill: science.earth.structure
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: איך נוצרים איים געשיים כמו איי הוואי?
+  prompt_en: How do volcanic islands like Hawaii form?
+  choices:
+  - {he: לבה מצטברת בקרקעית הים עד מעל המים, en: lava builds up from the seafloor until it rises above water}
+  - {he: חול נערם בגלים, en: waves pile up sand}
+  - {he: קרחונים נמסים, en: glaciers melt}
+  answer: 0
+  explanation_he: התפרצויות חוזרות ונשנות על קרקעית הים יוצרות הר געש. כשהוא גבוה מספיק, ראשו בולט מעל פני הים כאי.
+  explanation_en: Repeated eruptions on the seafloor build a volcano. When tall enough, its top rises above the sea as an island.
+  tags: [earth_structure]
+- id: sci.earth.072
+  skill: science.earth.structure
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: באיזה חלק של כדור הארץ אנחנו חיים?
+  prompt_en: On which layer of Earth do we live?
+  choices:
+  - {he: בתוך המעטפת, en: inside the mantle, emoji: 1f30b}
+  - {he: בגלעין, en: in the core, emoji: 1f525}
+  - {he: על הקרום, en: on the crust, emoji: 1f30d}
+  answer: 2
+  explanation_he: הקרום הוא השכבה החיצונית והמוצקה, שעליה יש יבשות, ימים, הרים ועמקים.
+  explanation_en: The crust is the solid outer layer, holding continents, seas, mountains and valleys.
+  tags: [earth_structure]
+- id: sci.earth.073
+  skill: science.earth.structure
+  kind: true_false
+  grade: 7
+  difficulty: 1.0
+  prompt_he: רמת הגולן נוצרה בעיקר מפעילות של הרי געש.
+  prompt_en: The Golan Heights formed mainly from volcanic activity.
+  answer: true
+  explanation_he: נכון. לבה שזרמה בעבר כיסתה את האזור בבזלת. בגולן אפשר לראות הרי געש כבויים בצורת חרוט, כמו הר בנטל.
+  explanation_en: True. Past lava flows covered the area with basalt. Extinct cone-shaped volcanoes like Mount Bental can be seen there.
+  tags: [earth_structure]
