@@ -60,11 +60,7 @@ def _row_colors(
 def _opaque_span(
     img: pygame.Surface, y: int, x_range: tuple[int, int]
 ) -> tuple[int, int] | None:
-    xs = [
-        x
-        for x in range(x_range[0], x_range[1] + 1)
-        if img.get_at((x, y)).a
-    ]
+    xs = [x for x in range(x_range[0], x_range[1] + 1) if img.get_at((x, y)).a]
     return (min(xs), max(xs)) if xs else None
 
 

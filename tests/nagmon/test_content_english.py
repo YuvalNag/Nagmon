@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import re
 from collections import Counter, defaultdict
-from functools import lru_cache
+from functools import cache
 from pathlib import Path
 from typing import Any
 
@@ -37,7 +37,9 @@ PICTURE_MODES = {"picture_to_word", "listen_to_picture"}
 NIQQUD = re.compile("[֑-ׇ]")
 HEBREW = re.compile("[א-ת]")
 EMOJI = re.compile(r"^[0-9a-f]{2,6}(-[0-9a-f]{2,6})*$")
-SKILL_ID = re.compile(r"^english\.(phonics|vocab|grammar|reading)\.[A-Za-z0-9_]+$")
+SKILL_ID = re.compile(
+    r"^english\.(phonics|vocab|grammar|reading)\.[A-Za-z0-9_]+$"
+)
 
 MAX_PROMPT_HE = 140
 MAX_CHOICE = 40
@@ -46,7 +48,7 @@ MIN_ITEMS_PER_TAG = 8
 MIN_WORDS_PER_TOPIC_LEVEL = 4
 
 
-@lru_cache(maxsize=None)
+@cache
 def load(rel: str) -> Any:
     with open(ROOT / rel, encoding="utf-8") as fh:
         return yaml.safe_load(fh)
@@ -67,7 +69,11 @@ def bank_items(rel: str) -> list[dict[str, Any]]:
         out = []
         for passage in data:
             for q in passage["questions"]:
-                item = {k: passage[k] for k in ("grade", "skill", "tags") if k in passage}
+                item = {
+                    k: passage[k]
+                    for k in ("grade", "skill", "tags")
+                    if k in passage
+                }
                 item.update(q)
                 out.append(item)
         return out
@@ -81,7 +87,11 @@ def bank_items(rel: str) -> list[dict[str, Any]]:
 
 
 def all_bank_items() -> list[tuple[str, dict[str, Any]]]:
-    return [(rel, it) for rel in (*BANK_FILES, READING_FILE) for it in bank_items(rel)]
+    return [
+        (rel, it)
+        for rel in (*BANK_FILES, READING_FILE)
+        for it in bank_items(rel)
+    ]
 
 
 def all_strings(obj: Any):
@@ -96,10 +106,14 @@ def all_strings(obj: Any):
 
 
 def check_emoji(code: str) -> None:
-    assert isinstance(code, str) and EMOJI.match(code), f"bad emoji code {code!r}"
+    assert isinstance(code, str) and EMOJI.match(code), (
+        f"bad emoji code {code!r}"
+    )
     cps = [int(part, 16) for part in code.split("-")]
     for cp in cps:
-        assert cp <= 0x10FFFF and not 0xD800 <= cp <= 0xDFFF, f"bad code point in {code}"
+        assert cp <= 0x10FFFF and not 0xD800 <= cp <= 0xDFFF, (
+            f"bad code point in {code}"
+        )
     # Twemoji file names drop U+FE0F unless the sequence has a ZWJ.
     if 0xFE0F in cps:
         assert 0x200D in cps, f"{code}: fe0f only allowed in ZWJ sequences"
@@ -136,21 +150,46 @@ def test_words_count_and_levels() -> None:
 
 
 def test_word_entries_schema() -> None:
-    required = ("word", "he", "pos", "topic", "level", "grade", "emoji", "example_en", "example_he")
+    required = (
+        "word",
+        "he",
+        "pos",
+        "topic",
+        "level",
+        "grade",
+        "emoji",
+        "example_en",
+        "example_he",
+    )
     for w in words():
         for key in required:
             assert key in w, f"{w.get('word')}: missing {key}"
-        assert isinstance(w["word"], str) and w["word"].strip() == w["word"] and w["word"]
+        assert (
+            isinstance(w["word"], str)
+            and w["word"].strip() == w["word"]
+            and w["word"]
+        )
         assert w["pos"] in POS, f"{w['word']}: pos {w['pos']}"
         assert w["level"] in LEVELS, f"{w['word']}: level {w['level']}"
         assert isinstance(w["grade"], int) and 0 <= w["grade"] <= 9
         lo, hi = LEVEL_GRADES[w["level"]]
-        assert lo <= w["grade"] <= hi, f"{w['word']}: grade {w['grade']} vs {w['level']}"
-        assert isinstance(w["topic"], str) and re.match(r"^[a-z]+$", w["topic"])
-        assert HEBREW.search(w["he"]) and HEBREW.search(w["example_he"]), w["word"]
+        assert lo <= w["grade"] <= hi, (
+            f"{w['word']}: grade {w['grade']} vs {w['level']}"
+        )
+        assert isinstance(w["topic"], str) and re.match(
+            r"^[a-z]+$", w["topic"]
+        )
+        assert HEBREW.search(w["he"]) and HEBREW.search(w["example_he"]), w[
+            "word"
+        ]
         assert not HEBREW.search(w["word"] + w["example_en"]), w["word"]
-        assert len(w["word"]) <= MAX_CHOICE and len(w["he"]) <= MAX_CHOICE, w["word"]
-        assert len(w["example_en"]) <= MAX_PROMPT_HE and len(w["example_he"]) <= MAX_PROMPT_HE
+        assert len(w["word"]) <= MAX_CHOICE and len(w["he"]) <= MAX_CHOICE, w[
+            "word"
+        ]
+        assert (
+            len(w["example_en"]) <= MAX_PROMPT_HE
+            and len(w["example_he"]) <= MAX_PROMPT_HE
+        )
         if w["emoji"] is not None:
             check_emoji(w["emoji"])
 
@@ -184,14 +223,19 @@ def test_translations_unambiguous_within_group() -> None:
         if key in seen:
             clashes.append((seen[key], w["word"], w["he"]))
         seen[key] = w["word"]
-    assert not clashes, f"same Hebrew for two words in one topic/level: {clashes}"
+    assert not clashes, (
+        f"same Hebrew for two words in one topic/level: {clashes}"
+    )
 
 
 # --------------------------------------------------------------------------- bank items
 
 
 def _choice_texts(item: dict[str, Any]) -> list[dict[str, Any]]:
-    return [c if isinstance(c, dict) else {"en": c} for c in item.get("choices", [])]
+    return [
+        c if isinstance(c, dict) else {"en": c}
+        for c in item.get("choices", [])
+    ]
 
 
 def test_bank_item_ids_unique() -> None:
@@ -204,22 +248,36 @@ def test_bank_items_schema() -> None:
     skill_ids = {s["id"] for s in skills()}
     for rel, it in all_bank_items():
         where = f"{rel}:{it.get('id')}"
-        for key in ("id", "kind", "prompt_he", "answer", "explanation_he", "skill"):
+        for key in (
+            "id",
+            "kind",
+            "prompt_he",
+            "answer",
+            "explanation_he",
+            "skill",
+        ):
             assert key in it, f"{where}: missing {key}"
         assert it["kind"] in KINDS, where
-        assert it["skill"] in skill_ids, f"{where}: unknown skill {it['skill']}"
+        assert it["skill"] in skill_ids, (
+            f"{where}: unknown skill {it['skill']}"
+        )
         grade = it.get("grade")
         assert isinstance(grade, int) and 0 <= grade <= 9, where
         diff = it.get("difficulty", 0.0)
         assert isinstance(diff, (int, float)) and -2 <= diff <= 2, where
         assert HEBREW.search(it["prompt_he"]), where
         assert len(it["prompt_he"]) <= MAX_PROMPT_HE, where
-        assert it["explanation_he"] and len(it["explanation_he"]) <= MAX_EXPLANATION, where
+        assert (
+            it["explanation_he"]
+            and len(it["explanation_he"]) <= MAX_EXPLANATION
+        ), where
         assert isinstance(it.get("tags", []), list), where
         if "emoji" in it:
             check_emoji(it["emoji"])
         if "speak_en" in it:
-            assert isinstance(it["speak_en"], str) and it["speak_en"].strip(), where
+            assert (
+                isinstance(it["speak_en"], str) and it["speak_en"].strip()
+            ), where
 
         choices = _choice_texts(it)
         if it["kind"] == "true_false":
@@ -232,19 +290,31 @@ def test_bank_items_schema() -> None:
             for lang in ("en", "he"):
                 if c.get(lang) is not None:
                     assert isinstance(c[lang], str), where
-                    assert len(c[lang]) <= MAX_CHOICE, f"{where}: choice too long {c[lang]!r}"
+                    assert len(c[lang]) <= MAX_CHOICE, (
+                        f"{where}: choice too long {c[lang]!r}"
+                    )
             if c.get("emoji"):
                 check_emoji(c["emoji"])
         for lang in ("en", "he"):
             texts = [c[lang].strip().lower() for c in choices if c.get(lang)]
-            assert len(texts) == len(set(texts)), f"{where}: duplicate choices {texts}"
+            assert len(texts) == len(set(texts)), (
+                f"{where}: duplicate choices {texts}"
+            )
         if it["kind"] == "choice":
             assert len(choices) <= 4, where
-            assert isinstance(it["answer"], int) and not isinstance(it["answer"], bool), where
-            assert 0 <= it["answer"] < len(choices), f"{where}: answer out of range"
+            assert isinstance(it["answer"], int) and not isinstance(
+                it["answer"], bool
+            ), where
+            assert 0 <= it["answer"] < len(choices), (
+                f"{where}: answer out of range"
+            )
         else:  # order
-            assert sorted(it["answer"]) == list(range(len(choices))), f"{where}: bad order answer"
-            assert it["answer"] != list(range(len(choices))), f"{where}: tiles not shuffled"
+            assert sorted(it["answer"]) == list(range(len(choices))), (
+                f"{where}: bad order answer"
+            )
+            assert it["answer"] != list(range(len(choices))), (
+                f"{where}: tiles not shuffled"
+            )
 
 
 def test_grammar_items_have_english_prompt() -> None:
@@ -269,7 +339,9 @@ def test_phonics_listening_items_have_speech() -> None:
             "initial_sounds",
             "digraphs",
         }:
-            assert it.get("speak_en"), f"{it['id']}: listening item needs speak_en"
+            assert it.get("speak_en"), (
+                f"{it['id']}: listening item needs speak_en"
+            )
 
 
 # --------------------------------------------------------------------------- reading
@@ -285,12 +357,23 @@ def test_reading_passages_schema() -> None:
     ids = Counter(p["id"] for p in passages)
     assert all(n == 1 for n in ids.values()), ids
     for p in passages:
-        for key in ("id", "grade", "level", "title", "text_en", "text_he", "questions", "skill"):
+        for key in (
+            "id",
+            "grade",
+            "level",
+            "title",
+            "text_en",
+            "text_he",
+            "questions",
+            "skill",
+        ):
             assert key in p, f"{p.get('id')}: missing {key}"
         assert p["level"] in LEVELS, p["id"]
         assert 3 <= p["grade"] <= 9, p["id"]
         assert re.match(r"^english\.reading\.level\d+$", p["skill"]), p["id"]
-        assert HEBREW.search(p["text_he"]) and not HEBREW.search(p["text_en"]), p["id"]
+        assert HEBREW.search(p["text_he"]) and not HEBREW.search(
+            p["text_en"]
+        ), p["id"]
         assert 25 <= _word_count(p["text_en"]) <= 200, p["id"]
         assert 3 <= len(p["questions"]) <= 4, p["id"]
         for q in p["questions"]:
@@ -315,10 +398,20 @@ def test_skills_schema() -> None:
     data = load("skills/english.yaml")
     assert data["subject"] == "english"
     ids = Counter(s["id"] for s in skills())
-    assert all(n == 1 for n in ids.values()), [i for i, n in ids.items() if n > 1]
+    assert all(n == 1 for n in ids.values()), [
+        i for i, n in ids.items() if n > 1
+    ]
     assert len(ids) >= 40
     for s in skills():
-        for key in ("id", "grade", "title_he", "title_en", "prereq", "generator", "params"):
+        for key in (
+            "id",
+            "grade",
+            "title_he",
+            "title_en",
+            "prereq",
+            "generator",
+            "params",
+        ):
             assert key in s, f"{s.get('id')}: missing {key}"
         assert SKILL_ID.match(s["id"]), s["id"]
         assert isinstance(s["grade"], int) and 0 <= s["grade"] <= 9, s["id"]
@@ -332,7 +425,9 @@ def test_prereqs_exist_and_not_later_grade() -> None:
         for p in s["prereq"]:
             assert p in by_id, f"{s['id']}: unknown prereq {p}"
             assert p != s["id"], s["id"]
-            assert by_id[p]["grade"] <= s["grade"], f"{s['id']}: prereq {p} has a later grade"
+            assert by_id[p]["grade"] <= s["grade"], (
+                f"{s['id']}: prereq {p} has a later grade"
+            )
 
 
 def test_skill_graph_has_no_cycles() -> None:
@@ -361,7 +456,9 @@ def test_bank_skills_reference_existing_banks_and_tags() -> None:
         items = bank_items(rel)
         for tag in s["params"].get("tags", []):
             n = sum(1 for it in items if tag in it.get("tags", []))
-            assert n >= MIN_ITEMS_PER_TAG, f"{s['id']}: tag {tag} has only {n} items"
+            assert n >= MIN_ITEMS_PER_TAG, (
+                f"{s['id']}: tag {tag} has only {n} items"
+            )
         if not s["params"].get("tags"):
             assert any(it["skill"] == s["id"] for it in items), s["id"]
 
@@ -373,7 +470,9 @@ def test_every_bank_tag_is_used_by_a_skill() -> None:
             used[s["params"]["bank"]].update(s["params"].get("tags", []))
     for rel in (*BANK_FILES, READING_FILE):
         tags = {t for it in bank_items(rel) for t in it.get("tags", [])}
-        assert tags <= used[rel], f"{rel}: tags without a skill: {sorted(tags - used[rel])}"
+        assert tags <= used[rel], (
+            f"{rel}: tags without a skill: {sorted(tags - used[rel])}"
+        )
 
 
 def test_vocab_skills_match_word_list() -> None:
@@ -390,9 +489,15 @@ def test_vocab_skills_match_word_list() -> None:
         pics = 0
         for topic in params["topics"]:
             group = groups.get((params["level"], topic))
-            assert group, f"{s['id']}: no {params['level']} words for topic {topic}"
+            assert group, (
+                f"{s['id']}: no {params['level']} words for topic {topic}"
+            )
             pics += sum(1 for w in group if w["emoji"])
             covered.add((params["level"], topic))
         if PICTURE_MODES & set(params["modes"]):
-            assert pics >= 4, f"{s['id']}: picture modes need at least 4 words with emoji"
-    assert covered == set(groups), f"word groups without a skill: {sorted(set(groups) - covered)}"
+            assert pics >= 4, (
+                f"{s['id']}: picture modes need at least 4 words with emoji"
+            )
+    assert covered == set(groups), (
+        f"word groups without a skill: {sorted(set(groups) - covered)}"
+    )
