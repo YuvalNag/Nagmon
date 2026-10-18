@@ -48,6 +48,7 @@ class TranslatorManager:
         self._strict_catalogs: dict[
             tuple[str, str], GNUTranslations | NullTranslations
         ] = {}
+        self._strict_mod_domains: tuple[str, ...] | None = None
         self.collect_and_compile_translations()
         self.clean_stale_translations()
         self.load_translator_for_domain(
@@ -312,6 +313,7 @@ class TranslatorManager:
                 domain=domain,
                 localedir=self.localedir,
                 fallback_locale=FALLBACK_LOCALE,
+                extra_domains=self._mod_domains() if domain == "base" else (),
             )
             self._translators_in[key] = translator
         return translator
@@ -343,20 +345,31 @@ class TranslatorManager:
         """
         Strict lookup in the catalogue of ``locale_name`` only (no English
         fallback). Returns None when the locale has no entry for msgid.
+        For "base", mod domains are searched first, like ``translate``.
         """
         domain = domain or self._current_translator_key
-        key = (locale_name, domain)
-        catalog = self._strict_catalogs.get(key)
-        if catalog is None:
-            catalog = translation(
-                domain, self.localedir, [locale_name], fallback=True
-            )
-            self._strict_catalogs[key] = catalog
-        if not isinstance(catalog, GNUTranslations):
-            return None
-        entries: dict[Any, str] = getattr(catalog, "_catalog", {})
-        value = entries.get(msgid.replace(r"\n", "\n"))
-        return value or None
+        if domain == "base":
+            if self._strict_mod_domains is None:
+                self._strict_mod_domains = self._mod_domains()
+            domains = [*self._strict_mod_domains, domain]
+        else:
+            domains = [domain]
+        msgid = msgid.replace(r"\n", "\n")
+        for name in domains:
+            key = (locale_name, name)
+            catalog = self._strict_catalogs.get(key)
+            if catalog is None:
+                catalog = translation(
+                    name, self.localedir, [locale_name], fallback=True
+                )
+                self._strict_catalogs[key] = catalog
+            if not isinstance(catalog, GNUTranslations):
+                continue
+            entries: dict[Any, str] = getattr(catalog, "_catalog", {})
+            value = entries.get(msgid)
+            if value:
+                return value
+        return None
 
     def get_current_language(self) -> str:
         """
