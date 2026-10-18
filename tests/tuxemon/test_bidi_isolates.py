@@ -63,7 +63,14 @@ def test_isolated_negative_number_stays_together():
     assert not CONTROLS & set(visual)
 
 
-@pytest.mark.parametrize("opener", [LRI, RLI, FSI])
+@pytest.mark.parametrize(
+    "opener",
+    [
+        pytest.param(LRI, id="lri"),
+        pytest.param(RLI, id="rli"),
+        pytest.param(FSI, id="fsi"),
+    ],
+)
 def test_all_isolate_kinds(opener):
     visual = to_visual(f"א {opener}1 + 2{PDI} ב", True)
     assert not CONTROLS & set(visual)
@@ -74,7 +81,7 @@ def test_ltr_only_line_is_stripped():
     visual, mapping = reorder(f"{LRI}7{PDI}", False)
     assert visual == "7" and mapping == (1,)
     assert ensure_visual(f"{LRI}3 + 4{PDI}") == "3 + 4"
-    assert ensure_visual(MATH_HE) == ensure_visual(PLAIN_HE)
+    assert ensure_visual(MATH_HE) == "? 12 - 5 הז המכ"
 
 
 def test_font_has_no_glyph_for_isolates(font):
@@ -84,7 +91,12 @@ def test_font_has_no_glyph_for_isolates(font):
 
 
 @pytest.mark.parametrize(
-    "mode", [RenderMode.CHARACTER, RenderMode.TOKEN, RenderMode.LINE]
+    "mode",
+    [
+        pytest.param(RenderMode.CHARACTER, id="character"),
+        pytest.param(RenderMode.TOKEN, id="token"),
+        pytest.param(RenderMode.LINE, id="line"),
+    ],
 )
 def test_render_without_tofu(rtl_locale, font, mode):
     scaling = DefaultScaling(1)

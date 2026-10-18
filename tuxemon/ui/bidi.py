@@ -56,6 +56,44 @@ _MIRROR = {
 }
 
 
+# Explicit directional formatting characters. The learning generators wrap
+# math in LRI ... PDI (U+2066 ... U+2069). The pure-Python UBA in
+# ``python-bidi`` predates isolates (it fails on them), so they are mapped
+# to the matching embeddings (same length, so logical indexes stay valid).
+# None of these has a glyph in the game font (Rubik): they are always
+# removed from the visual text that gets drawn.
+_ISOLATE_TO_EMBEDDING = str.maketrans(
+    {
+        "\u2066": "\u202a",  # LRI -> LRE
+        "\u2067": "\u202b",  # RLI -> RLE
+        "\u2068": "\u202a",  # FSI -> LRE (math is the only user)
+        "\u2069": "\u202c",  # PDI -> PDF
+    }
+)
+_BIDI_CONTROLS = frozenset(
+    "\u200e\u200f\u061c\u202a\u202b\u202c\u202d\u202e\u2066\u2067\u2068\u2069"
+)
+
+
+def strip_bidi_controls(text: str) -> str:
+    """Remove invisible bidi control characters (marks, embeddings, isolates)."""
+    if not any(char in _BIDI_CONTROLS for char in text):
+        return text
+    return "".join(char for char in text if char not in _BIDI_CONTROLS)
+
+
+def _drop_controls(
+    visual: str, mapping: tuple[int, ...]
+) -> tuple[str, tuple[int, ...]]:
+    keep = [i for i, char in enumerate(visual) if char not in _BIDI_CONTROLS]
+    if len(keep) == len(visual):
+        return visual, mapping
+    return (
+        "".join(visual[i] for i in keep),
+        tuple(mapping[i] for i in keep),
+    )
+
+
 class VisualStr(str):
     """A string that is already in visual (display) order."""
 
@@ -281,13 +319,19 @@ def reorder(line: str, base_rtl: bool) -> tuple[VisualStr, tuple[int, ...]]:
     """
     Convert ONE already-wrapped logical line to visual order.
 
+    Bidi control characters (marks, embeddings and isolates) are honoured
+    by the reordering and then removed, since the font has no glyph for
+    them.
+
     Returns:
         The visual string and a tuple mapping each visual index to the
         logical index of the character drawn there.
     """
     if not needs_bidi(line, base_rtl):
-        return VisualStr(line), tuple(range(len(line)))
-    visual, mapping = _reorder_impl(str(line), base_rtl)
+        visual, mapping = _drop_controls(line, tuple(range(len(line))))
+        return VisualStr(visual), mapping
+    prepared = str(line).translate(_ISOLATE_TO_EMBEDDING)
+    visual, mapping = _drop_controls(*_reorder_impl(prepared, base_rtl))
     return VisualStr(visual), mapping
 
 
@@ -300,9 +344,11 @@ def ensure_visual(text: str) -> str:
     """
     Visual form of a single-line label.
 
-    No-op for a :class:`VisualStr` (already converted) and for text
-    without RTL letters, so LTR text is never touched.
+    No-op for a :class:`VisualStr` (already converted). Text without RTL
+    letters is not reordered; only invisible bidi controls are removed.
     """
-    if isinstance(text, VisualStr) or not is_rtl_text(text):
+    if isinstance(text, VisualStr):
         return text
+    if not is_rtl_text(text):
+        return strip_bidi_controls(text)
     return to_visual(text, paragraph_is_rtl(text))
