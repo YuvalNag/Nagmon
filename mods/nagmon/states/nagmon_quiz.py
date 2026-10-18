@@ -80,12 +80,8 @@ class QuizState(PygameMenuState):
             allow_skip if allow_skip is not None else context == "battle"
         )
         if question is None and self.engine is not None:
-            question = self.engine.next_question(
-                subject=subject,
-                skill_id=skill_id,
-                skill_ids=skill_ids,
-                context=context,
-                max_choices=self._max_choices(),
+            question = self._next_question(
+                subject, skill_id, skill_ids, context
             )
         self.question = question
         self.started = time.monotonic()
@@ -108,6 +104,33 @@ class QuizState(PygameMenuState):
             self.speak()
 
     # ------------------------------------------------------------ setup
+
+    def _next_question(
+        self,
+        subject: str | None,
+        skill_id: str | None,
+        skill_ids: Sequence[str] | None,
+        context: str,
+    ) -> Question | None:
+        """
+        A question from the engine, or None (the screen then just lets
+        the child continue). A typo in a map script's skill id or a
+        broken generator must not crash the game.
+        """
+        assert self.engine is not None
+        try:
+            return self.engine.next_question(
+                subject=subject,
+                skill_id=skill_id,
+                skill_ids=skill_ids,
+                context=context,
+                max_choices=self._max_choices(),
+            )
+        except Exception:
+            logger.exception(
+                "No question for subject=%s skill=%s", subject, skill_id
+            )
+            return None
 
     def _max_choices(self) -> int | None:
         rt = get_runtime()
@@ -585,7 +608,10 @@ class QuizState(PygameMenuState):
     def _reward(self, outcome: Any) -> None:
         rt = get_runtime()
         if rt is not None:
-            rt.on_answer()
+            try:
+                rt.on_answer()
+            except Exception:  # saving must never break the question
+                logger.exception("Could not record the answer")
         if not outcome.coins:
             return
         try:
