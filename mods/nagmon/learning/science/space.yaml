@@ -517,8 +517,8 @@ items:
   - {he: האסטרונאוט הישראלי הראשון, en: the first Israeli astronaut}
   - {he: ממציא הטלסקופ, en: the telescope's inventor}
   answer: 1
-  explanation_he: אילן רמון טס לחלל במעבורת קולומביה בשנת 2003 וערך שם ניסויים מדעיים. מכתש רמון ושמו אינם קשורים.
-  explanation_en: Ilan Ramon flew on the space shuttle Columbia in 2003 and ran science experiments. His name and Ramon Crater are unrelated.
+  explanation_he: אילן רמון טס לחלל במעבורת קולומביה בשנת 2003 וערך שם ניסויים מדעיים, למשל בחקר סופות אבק מעל הים התיכון.
+  explanation_en: Ilan Ramon flew on the space shuttle Columbia in 2003 and ran science experiments, such as studying dust storms over the Mediterranean.
   tags: [solar_system]
 - id: sci.space.037
   skill: science.space.solar_system

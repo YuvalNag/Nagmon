@@ -24,6 +24,13 @@ skills:
   prereq: [science.living.basic]
   generator: bank
   params: {bank: science/earth.yaml, tags: [seasons]}
+- id: science.ecology.recycling
+  grade: 1
+  title_he: מיחזור וצמצום פסולת
+  title_en: Recycling and reducing waste
+  prereq: [science.living.basic]
+  generator: bank
+  params: {bank: science/ecology.yaml, tags: [recycling]}
 - id: science.living.basic
   grade: 1
   title_he: חי, צומח ודומם
@@ -59,6 +66,13 @@ skills:
   prereq: [science.earth.seasons]
   generator: bank
   params: {bank: science/space.yaml, tags: [day_night]}
+- id: science.tech.safety
+  grade: 1
+  title_he: בטיחות בבית ובמסך
+  title_en: Safety at home and online
+  prereq: [science.living.basic]
+  generator: bank
+  params: {bank: science/technology.yaml, tags: [tech_safety]}
 - id: science.animals.groups
   grade: 2
   title_he: קבוצות של בעלי חיים
@@ -87,6 +101,13 @@ skills:
   prereq: [science.earth.seasons]
   generator: bank
   params: {bank: science/earth.yaml, tags: [weather]}
+- id: science.ecology.water
+  grade: 2
+  title_he: חיסכון במים
+  title_en: Saving water
+  prereq: [science.earth.seasons]
+  generator: bank
+  params: {bank: science/ecology.yaml, tags: [water_saving]}
 - id: science.energy.magnets
   grade: 2
   title_he: מגנטים
@@ -150,6 +171,13 @@ skills:
   prereq: [science.earth.weather, science.matter.states]
   generator: bank
   params: {bank: science/earth.yaml, tags: [water_cycle]}
+- id: science.ecology.environment
+  grade: 3
+  title_he: שמירה על הסביבה
+  title_en: Caring for the environment
+  prereq: [science.ecology.recycling]
+  generator: bank
+  params: {bank: science/ecology.yaml, tags: [environment]}
 - id: science.energy.light
   grade: 3
   title_he: אור וצל
@@ -192,6 +220,20 @@ skills:
   prereq: [science.space.day_night]
   generator: bank
   params: {bank: science/space.yaml, tags: [moon]}
+- id: science.tech.coding
+  grade: 3
+  title_he: יסודות התכנות
+  title_en: Coding basics
+  prereq: [science.tech.safety]
+  generator: bank
+  params: {bank: science/technology.yaml, tags: [coding]}
+- id: science.tech.inventions
+  grade: 3
+  title_he: המצאות שינו את העולם
+  title_en: Inventions that changed the world
+  prereq: [science.tech.safety]
+  generator: bank
+  params: {bank: science/technology.yaml, tags: [inventions]}
 - id: science.animals.adaptations
   grade: 4
   title_he: התאמה לסביבה
@@ -241,6 +283,13 @@ skills:
   prereq: [science.matter.states]
   generator: bank
   params: {bank: science/matter.yaml, tags: [changes]}
+- id: science.tech.how
+  grade: 4
+  title_he: איך דברים עובדים
+  title_en: How things work
+  prereq: [science.tech.inventions, science.energy.forms]
+  generator: bank
+  params: {bank: science/technology.yaml, tags: [how_things_work]}
 - id: science.body.systems
   grade: 5
   title_he: מערכות בגוף
@@ -297,6 +346,13 @@ skills:
   prereq: [science.earth.rocks_soil]
   generator: bank
   params: {bank: science/earth.yaml, tags: [earth_structure]}
+- id: science.ecology.ecosystems
+  grade: 6
+  title_he: מערכות אקולוגיות
+  title_en: Ecosystems
+  prereq: [science.animals.foodchains, science.ecology.environment]
+  generator: bank
+  params: {bank: science/ecology.yaml, tags: [ecosystems]}
 - id: science.space.stars
   grade: 6
   title_he: כוכבים, גלקסיות וכוח המשיכה
