@@ -299,6 +299,11 @@ class ParentMenuState(PygameMenuState):
                 self.toggle_shabbat,
             ),
             (
+                "city",
+                T.format("nagmon_city", {"city": s.location.city_he}),
+                self.choose_city,
+            ),
+            (
                 "minutes",
                 (
                     T.format(
@@ -527,6 +532,23 @@ class ParentMenuState(PygameMenuState):
         s.holiday_mode = s.shabbat_mode
         self.rt.parent.save()
         self.rebuild()
+
+    def choose_city(self) -> None:
+        """Shabbat times follow the family's city."""
+        from nagmon.family.calendar import PRESETS
+
+        def set_city(key: str) -> None:
+            self.rt.parent.settings.location = PRESETS[key]
+            self.rt.parent.save()
+            self.rebuild()
+
+        choose(
+            self.client,
+            [
+                (loc.city_he, lambda k=key: set_city(k))
+                for key, loc in PRESETS.items()
+            ],
+        )
 
     def daily_minutes(self) -> None:
         import dataclasses

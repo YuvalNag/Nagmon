@@ -284,3 +284,6 @@ msgstr "After {n} weekly goals"
 
 msgid "nagmon_daily_unlimited"
 msgstr "Minutes per day: no limit"
+
+msgid "nagmon_city"
+msgstr "City (for Shabbat times): {city}"

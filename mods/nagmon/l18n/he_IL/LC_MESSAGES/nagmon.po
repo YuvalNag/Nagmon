@@ -283,3 +283,6 @@ msgstr "אחרי {n} יעדים שבועיים"
 
 msgid "nagmon_daily_unlimited"
 msgstr "דקות ביום: ללא הגבלה"
+
+msgid "nagmon_city"
+msgstr "עיר (לזמני שבת): {city}"
