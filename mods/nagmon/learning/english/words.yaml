@@ -2549,7 +2549,7 @@
   example_en: "The book is on the table."
   example_he: "הספר על השולחן."
 - word: "under"
-  he: "מתחת ל־"
+  he: "מתחת ל-"
   pos: prep
   topic: position
   level: preA1
@@ -2702,7 +2702,7 @@
   example_en: "This is my book."
   example_he: "זה הספר שלי."
 - word: "and"
-  he: "ו־ (וגם)"
+  he: "ו- (וגם)"
   pos: other
   topic: basics
   level: preA1
@@ -6241,7 +6241,7 @@
   example_en: "The lamp is above the table."
   example_he: "המנורה מעל השולחן."
 - word: "near"
-  he: "קרוב ל־"
+  he: "קרוב ל-"
   pos: prep
   topic: position
   level: A1
@@ -6502,7 +6502,7 @@
   example_en: "I drink tea without sugar."
   example_he: "אני שותה תה בלי סוכר."
 - word: "from"
-  he: "מ־; מן"
+  he: "מ-; מן"
   pos: prep
   topic: basics
   level: A1
@@ -8945,7 +8945,7 @@
   example_en: "Camels can survive without water for days."
   example_he: "גמלים יכולים לשרוד בלי מים ימים שלמים."
 - word: "although"
-  he: "אף על פי ש־"
+  he: "אף על פי ש-"
   pos: other
   topic: connectors
   level: B1

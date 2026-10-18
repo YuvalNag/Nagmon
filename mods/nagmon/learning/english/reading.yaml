@@ -500,9 +500,9 @@
       prompt_en: In which year did they fly the first plane?
       prompt_he: באיזו שנה הם הטיסו את המטוס הראשון?
       choices:
-        - {en: 1903, he: 1903}
-        - {en: 1803, he: 1803}
-        - {en: 1953, he: 1953}
+        - {en: "1903", he: "1903"}
+        - {en: "1803", he: "1803"}
+        - {en: "1953", he: "1953"}
       answer: 0
       explanation_he: 'בטקסט כתוב: In 1903, they built a plane with an engine.'
 
@@ -626,7 +626,7 @@
         - {en: His students didn't like sports., he: התלמידים לא אהבו ספורט.}
         - {en: He wanted to sell baskets., he: הוא רצה למכור סלים.}
       answer: 0
-      explanation_he: 'היה חורף, ו־his students could not play outside.'
+      explanation_he: 'היה חורף, ו-his students could not play outside.'
     - id: read.014.q2
       kind: choice
       prompt_en: What did he put on the walls?
@@ -706,7 +706,7 @@
   text_en: >-
     Louis Braille was born in France in 1809. When he was three years old, he had an accident in his father's workshop, and later he became blind. Louis was a bright boy and he wanted to read, but there were very few books for blind people, and they were big and heavy. At school, he learned about a code of raised dots that people could read in the dark. Louis made the code simpler. He used just six dots. When he was only fifteen, he finished his new alphabet. Today, blind people all over the world read with their fingers using the Braille system.
   text_he: >-
-    לואי ברייל נולד בצרפת בשנת 1809. כשהיה בן שלוש, קרתה לו תאונה בבית המלאכה של אביו, ומאוחר יותר הוא התעוור. לואי היה ילד נבון והוא רצה לקרוא, אבל היו מעט מאוד ספרים לעיוורים, והם היו גדולים וכבדים. בבית הספר הוא למד על קוד של נקודות בולטות שאפשר לקרוא בחושך. לואי פישט את הקוד. הוא השתמש רק בשש נקודות. כשהיה רק בן חמש עשרה, הוא סיים את האלף־בית החדש שלו. היום אנשים עיוורים בכל העולם קוראים באצבעות בעזרת כתב ברייל.
+    לואי ברייל נולד בצרפת בשנת 1809. כשהיה בן שלוש, קרתה לו תאונה בבית המלאכה של אביו, ומאוחר יותר הוא התעוור. לואי היה ילד נבון והוא רצה לקרוא, אבל היו מעט מאוד ספרים לעיוורים, והם היו גדולים וכבדים. בבית הספר הוא למד על קוד של נקודות בולטות שאפשר לקרוא בחושך. לואי פישט את הקוד. הוא השתמש רק בשש נקודות. כשהיה רק בן חמש עשרה, הוא סיים את האלף-בית החדש שלו. היום אנשים עיוורים בכל העולם קוראים באצבעות בעזרת כתב ברייל.
   questions:
     - id: read.016.q1
       kind: choice
@@ -731,7 +731,7 @@
     - id: read.016.q3
       kind: choice
       prompt_en: How old was Louis when he finished his alphabet?
-      prompt_he: בן כמה היה לואי כשסיים את האלף־בית שלו?
+      prompt_he: בן כמה היה לואי כשסיים את האלף-בית שלו?
       choices:
         - {en: fifteen, he: חמש עשרה}
         - {en: three, he: שלוש}
@@ -779,7 +779,7 @@
         - {en: They carry pollen between flowers., he: הן מעבירות אבקנים בין פרחים.}
         - {en: They eat the leaves., he: הן אוכלות את העלים.}
       answer: 1
-      explanation_he: 'הדבורה לוקחת אבקנים מפרח לפרח, ו־This helps plants make fruit and seeds.'
+      explanation_he: 'הדבורה לוקחת אבקנים מפרח לפרח, ו-This helps plants make fruit and seeds.'
     - id: read.017.q3
       kind: true_false
       prompt_en: A bee visits only one flower a day.
@@ -858,7 +858,7 @@
   text_en: >-
     The International Space Station, or ISS, flies around the Earth about 400 kilometers above us. It goes around the planet about sixteen times every day, so the astronauts see sixteen sunrises and sixteen sunsets! Living in space is not easy. Everything floats, so astronauts sleep in sleeping bags tied to the wall. They drink from special bags with straws, because water floats away in little balls. They also exercise for about two hours every day to keep their muscles and bones strong. Astronauts from many different countries live and work together on the ISS.
   text_he: >-
-    תחנת החלל הבינלאומית, או בקיצור ISS, מקיפה את כדור הארץ בגובה של כ־400 קילומטר מעלינו. היא מקיפה את כדור הארץ בערך שש עשרה פעמים בכל יום, ולכן האסטרונאוטים רואים שש עשרה זריחות ושש עשרה שקיעות! לחיות בחלל זה לא קל. הכול מרחף, ולכן האסטרונאוטים ישנים בשקי שינה שקשורים לקיר. הם שותים משקיות מיוחדות עם קשיות, כי המים מרחפים בכדורים קטנים. הם גם מתאמנים כשעתיים בכל יום כדי לשמור על השרירים והעצמות שלהם חזקים. אסטרונאוטים מהרבה מדינות שונות חיים ועובדים ביחד בתחנה.
+    תחנת החלל הבינלאומית, או בקיצור ISS, מקיפה את כדור הארץ בגובה של כ-400 קילומטר מעלינו. היא מקיפה את כדור הארץ בערך שש עשרה פעמים בכל יום, ולכן האסטרונאוטים רואים שש עשרה זריחות ושש עשרה שקיעות! לחיות בחלל זה לא קל. הכול מרחף, ולכן האסטרונאוטים ישנים בשקי שינה שקשורים לקיר. הם שותים משקיות מיוחדות עם קשיות, כי המים מרחפים בכדורים קטנים. הם גם מתאמנים כשעתיים בכל יום כדי לשמור על השרירים והעצמות שלהם חזקים. אסטרונאוטים מהרבה מדינות שונות חיים ועובדים ביחד בתחנה.
   questions:
     - id: read.019.q1
       kind: choice
@@ -1001,7 +1001,7 @@
   text_en: >-
     The Dead Sea is the lowest place on land on Earth. Its shore is more than 430 meters below sea level. The water of the Dead Sea is almost ten times saltier than the ocean. Because of all the salt, fish and plants cannot live in it, and that is why it is called "dead". But the salt also makes the water heavy, so people float on it easily. You can lie on your back and read a newspaper! The mud of the Dead Sea is full of minerals, and many tourists put it on their skin. Sadly, the Dead Sea is getting smaller. Its level drops by about one meter every year, because people use the water of the Jordan River before it reaches the sea.
   text_he: >-
-    ים המלח הוא המקום הנמוך ביותר ביבשה על פני כדור הארץ. החוף שלו נמצא יותר מ־430 מטר מתחת לפני הים. המים של ים המלח מלוחים כמעט פי עשרה מהאוקיינוס. בגלל כל המלח, דגים וצמחים לא יכולים לחיות בו, ולכן קוראים לו "ים המוות" באנגלית. אבל המלח גם הופך את המים לכבדים, ולכן אנשים צפים עליהם בקלות. אפשר לשכב על הגב ולקרוא עיתון! הבוץ של ים המלח מלא במינרלים, והרבה תיירים מורחים אותו על העור. לצערנו, ים המלח הולך וקטן. המפלס שלו יורד בכמטר בכל שנה, כי אנשים משתמשים במים של נהר הירדן לפני שהם מגיעים לים.
+    ים המלח הוא המקום הנמוך ביותר ביבשה על פני כדור הארץ. החוף שלו נמצא יותר מ-430 מטר מתחת לפני הים. המים של ים המלח מלוחים כמעט פי עשרה מהאוקיינוס. בגלל כל המלח, דגים וצמחים לא יכולים לחיות בו, ולכן באנגלית קוראים לו "הים המת". אבל המלח גם הופך את המים לכבדים, ולכן אנשים צפים עליהם בקלות. אפשר לשכב על הגב ולקרוא עיתון! הבוץ של ים המלח מלא במינרלים, והרבה תיירים מורחים אותו על העור. לצערנו, ים המלח הולך וקטן. המפלס שלו יורד בכמטר בכל שנה, כי אנשים משתמשים במים של נהר הירדן לפני שהם מגיעים לים.
   questions:
     - id: read.022.q1
       kind: choice
@@ -1122,7 +1122,7 @@
         - {en: It got more sun., he: הוא קיבל יותר שמש.}
         - {en: A leaking pipe watered its roots., he: צינור דולף השקה את שורשיו.}
       answer: 2
-      explanation_he: 'צינור מתחתיו דלף, ו־The tree was getting water right at its roots!'
+      explanation_he: 'צינור מתחתיו דלף, ו-The tree was getting water right at its roots!'
     - id: read.024.q3
       kind: choice
       prompt_en: Who started Netafim with Simcha Blass?
@@ -1192,12 +1192,12 @@
   text_en: >-
     For almost two thousand years, Hebrew was used mostly for prayer and study, but people did not speak it at home. Eliezer Ben-Yehuda believed that the Jewish people needed a living language. In 1881, he arrived in Jerusalem with his wife, Dvora, and they decided to speak only Hebrew at home. When their son Ben-Zion was born, he became the first child in modern times to grow up with Hebrew as his first language. At first, many people laughed at him, but slowly more and more families began to speak Hebrew with their children. However, there was a problem: many everyday words did not exist. How do you say "ice cream", "towel" or "newspaper" in Hebrew? Ben-Yehuda created hundreds of new words, often from old Hebrew roots. He also began a huge dictionary, which was finished many years after his death. Today, millions of people speak Hebrew every day, and some of the words they use were created by Ben-Yehuda.
   text_he: >-
-    במשך כמעט אלפיים שנה השתמשו בעברית בעיקר לתפילה וללימוד, אבל אנשים לא דיברו אותה בבית. אליעזר בן־יהודה האמין שהעם היהודי צריך שפה חיה. בשנת 1881 הוא הגיע לירושלים עם אשתו, דבורה, והם החליטו לדבר בבית רק עברית. כשנולד בנם בן־ציון, הוא היה לילד הראשון בעת החדשה שגדל כשהעברית היא שפת האם שלו. בהתחלה הרבה אנשים צחקו עליו, אבל לאט לאט עוד ועוד משפחות התחילו לדבר עברית עם הילדים שלהן. אבל הייתה בעיה: הרבה מילים יומיומיות לא היו קיימות. איך אומרים בעברית "ice cream", "towel" או "newspaper"? בן־יהודה חידש מאות מילים, לרוב משורשים עבריים עתיקים. הוא גם התחיל לכתוב מילון ענק, שהושלם שנים רבות אחרי מותו. היום מיליוני אנשים מדברים עברית בכל יום, וחלק מהמילים שהם משתמשים בהן חודשו על ידי בן־יהודה.
+    במשך כמעט אלפיים שנה השתמשו בעברית בעיקר לתפילה וללימוד, אבל אנשים לא דיברו אותה בבית. אליעזר בן-יהודה האמין שהעם היהודי צריך שפה חיה. בשנת 1881 הוא הגיע לירושלים עם אשתו, דבורה, והם החליטו לדבר בבית רק עברית. כשנולד בנם בן-ציון, הוא היה לילד הראשון בעת החדשה שגדל כשהעברית היא שפת האם שלו. בהתחלה הרבה אנשים צחקו עליו, אבל לאט לאט עוד ועוד משפחות התחילו לדבר עברית עם הילדים שלהן. אבל הייתה בעיה: הרבה מילים יומיומיות לא היו קיימות. איך אומרים בעברית "ice cream", "towel" או "newspaper"? בן-יהודה חידש מאות מילים, לרוב משורשים עבריים עתיקים. הוא גם התחיל לכתוב מילון ענק, שהושלם שנים רבות אחרי מותו. היום מיליוני אנשים מדברים עברית בכל יום, וחלק מהמילים שהם משתמשים בהן חודשו על ידי בן-יהודה.
   questions:
     - id: read.026.q1
       kind: choice
       prompt_en: How was Hebrew used before Ben-Yehuda?
-      prompt_he: איך השתמשו בעברית לפני בן־יהודה?
+      prompt_he: איך השתמשו בעברית לפני בן-יהודה?
       choices:
         - {en: mostly for prayer and study, he: בעיקר לתפילה וללימוד}
         - {en: only for songs, he: רק לשירים}
@@ -1207,7 +1207,7 @@
     - id: read.026.q2
       kind: choice
       prompt_en: What was special about Ben-Zion?
-      prompt_he: מה היה מיוחד בבן־ציון?
+      prompt_he: מה היה מיוחד בבן-ציון?
       choices:
         - {en: He wrote the dictionary., he: הוא כתב את המילון.}
         - {en: Hebrew was his first language., he: העברית הייתה שפת האם שלו.}
@@ -1217,7 +1217,7 @@
     - id: read.026.q3
       kind: choice
       prompt_en: What problem did Ben-Yehuda have?
-      prompt_he: איזו בעיה הייתה לבן־יהודה?
+      prompt_he: איזו בעיה הייתה לבן-יהודה?
       choices:
         - {en: Nobody wanted to learn., he: אף אחד לא רצה ללמוד.}
         - {en: He had no paper., he: לא היה לו נייר.}
@@ -1227,7 +1227,7 @@
     - id: read.026.q4
       kind: true_false
       prompt_en: Ben-Yehuda finished his dictionary before he died.
-      prompt_he: 'נכון או לא נכון: בן־יהודה סיים את המילון לפני מותו.'
+      prompt_he: 'נכון או לא נכון: בן-יהודה סיים את המילון לפני מותו.'
       answer: false
       explanation_he: 'בטקסט כתוב: which was finished many years after his death.'
 
@@ -1396,7 +1396,7 @@
   text_en: >-
     Every year, people around the world produce hundreds of millions of tons of plastic. Plastic is cheap, light and strong, so it is used for almost everything: bottles, bags, toys and even clothes. The problem is that plastic can take hundreds of years to break down. Much of it ends up in the oceans, where sea turtles may mistake plastic bags for jellyfish and try to eat them. Tiny pieces of plastic, called microplastics, have been found everywhere, from the deepest oceans to the tops of mountains. So what can we do? Experts talk about the "three Rs": Reduce, Reuse and Recycle. Reduce means using less, for example, carrying a cloth bag to the supermarket. Reuse means using things again, like filling the same water bottle every day. Recycle means sorting our waste so that it can be made into new products. In Israel, the orange bins are for packaging and the purple bins are for glass. Small actions, done by millions of people, can make a big difference. So next time you finish a drink, think before you throw the bottle away.
   text_he: >-
-    בכל שנה אנשים ברחבי העולם מייצרים מאות מיליוני טונות של פלסטיק. פלסטיק הוא זול, קל וחזק, ולכן משתמשים בו כמעט לכל דבר: בקבוקים, שקיות, צעצועים ואפילו בגדים. הבעיה היא שלפלסטיק יכולות לקחת מאות שנים להתפרק. הרבה ממנו מגיע לאוקיינוסים, שם צבי ים עלולים לחשוב ששקיות פלסטיק הן מדוזות ולנסות לאכול אותן. חתיכות פלסטיק זעירות, שנקראות מיקרו־פלסטיק, נמצאו בכל מקום, מהאוקיינוסים העמוקים ביותר ועד פסגות ההרים. אז מה אפשר לעשות? מומחים מדברים על "שלושת ה־R": להפחית, לעשות שימוש חוזר ולמחזר. להפחית פירושו להשתמש בפחות, למשל לקחת שקית בד לסופרמרקט. שימוש חוזר פירושו להשתמש בדברים שוב, כמו למלא את אותו בקבוק מים בכל יום. למחזר פירושו למיין את הפסולת שלנו כדי שאפשר יהיה להפוך אותה למוצרים חדשים. בישראל הפחים הכתומים מיועדים לאריזות והפחים הסגולים לזכוכית. פעולות קטנות, שמיליוני אנשים עושים, יכולות לעשות הבדל גדול. אז בפעם הבאה שתסיימו לשתות, תחשבו רגע לפני שאתם זורקים את הבקבוק.
+    בכל שנה אנשים ברחבי העולם מייצרים מאות מיליוני טונות של פלסטיק. פלסטיק הוא זול, קל וחזק, ולכן משתמשים בו כמעט לכל דבר: בקבוקים, שקיות, צעצועים ואפילו בגדים. הבעיה היא שלפלסטיק יכולות לקחת מאות שנים להתפרק. הרבה ממנו מגיע לאוקיינוסים, שם צבי ים עלולים לחשוב ששקיות פלסטיק הן מדוזות ולנסות לאכול אותן. חתיכות פלסטיק זעירות, שנקראות מיקרו-פלסטיק, נמצאו בכל מקום, מהאוקיינוסים העמוקים ביותר ועד פסגות ההרים. אז מה אפשר לעשות? מומחים מדברים על "שלושת ה-R": להפחית, לעשות שימוש חוזר ולמחזר. להפחית פירושו להשתמש בפחות, למשל לקחת שקית בד לסופרמרקט. שימוש חוזר פירושו להשתמש בדברים שוב, כמו למלא את אותו בקבוק מים בכל יום. למחזר פירושו למיין את הפסולת שלנו כדי שאפשר יהיה להפוך אותה למוצרים חדשים. בישראל הפחים הכתומים מיועדים לאריזות והפחים הסגולים לזכוכית. פעולות קטנות, שמיליוני אנשים עושים, יכולות לעשות הבדל גדול. אז בפעם הבאה שתסיימו לשתות, תחשבו רגע לפני שאתם זורקים את הבקבוק.
   questions:
     - id: read.030.q1
       kind: choice
@@ -1421,7 +1421,7 @@
     - id: read.030.q3
       kind: choice
       prompt_en: Which example shows "Reuse"?
-      prompt_he: איזו דוגמה מתאימה ל־Reuse (שימוש חוזר)?
+      prompt_he: איזו דוגמה מתאימה ל-Reuse (שימוש חוזר)?
       choices:
         - {en: buying a new bottle every day, he: לקנות בקבוק חדש כל יום}
         - {en: throwing bottles in the sea, he: לזרוק בקבוקים לים}

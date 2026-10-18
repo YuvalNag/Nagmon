@@ -17,7 +17,7 @@ items:
       - {en: "am"}
       - {en: "is"}
     answer: 1
-    explanation_he: "עם I משתמשים ב־am. לדוגמה: I am happy."
+    explanation_he: "עם I משתמשים ב-am. לדוגמה: I am happy."
     tags: [be]
   - id: eng.gr.be.002
     skill: english.grammar.be
@@ -31,7 +31,7 @@ items:
       - {en: "am"}
       - {en: "is"}
     answer: 2
-    explanation_he: "עם he, she, it משתמשים ב־is. לדוגמה: She is my sister."
+    explanation_he: "עם he, she, it משתמשים ב-is. לדוגמה: She is my sister."
     tags: [be]
   - id: eng.gr.be.003
     skill: english.grammar.be
@@ -45,7 +45,7 @@ items:
       - {en: "am"}
       - {en: "is"}
     answer: 0
-    explanation_he: "עם we, you, they משתמשים ב־are. לדוגמה: They are in the park."
+    explanation_he: "עם we, you, they משתמשים ב-are. לדוגמה: They are in the park."
     tags: [be]
   - id: eng.gr.be.004
     skill: english.grammar.be
@@ -73,7 +73,7 @@ items:
       - {en: "are"}
       - {en: "am"}
     answer: 1
-    explanation_he: "עם we משתמשים ב־are. לדוגמה: We are friends."
+    explanation_he: "עם we משתמשים ב-are. לדוגמה: We are friends."
     tags: [be]
   - id: eng.gr.be.006
     skill: english.grammar.be
@@ -87,7 +87,7 @@ items:
       - {en: "is"}
       - {en: "am"}
     answer: 0
-    explanation_he: "עם you (גם ליחיד) משתמשים ב־are. לדוגמה: You are my friend."
+    explanation_he: "עם you (גם ליחיד) משתמשים ב-are. לדוגמה: You are my friend."
     tags: [be]
   - id: eng.gr.be.007
     skill: english.grammar.be
@@ -115,7 +115,7 @@ items:
       - {en: "am"}
       - {en: "are"}
     answer: 0
-    explanation_he: "עם it משתמשים ב־is. לדוגמה: It is a sunny day."
+    explanation_he: "עם it משתמשים ב-is. לדוגמה: It is a sunny day."
     tags: [be]
   - id: eng.gr.be.009
     skill: english.grammar.be
@@ -157,7 +157,7 @@ items:
       - {en: "Am"}
       - {en: "Are"}
     answer: 0
-    explanation_he: "בשאלה הפועל בא לפני הנושא, ועם he משתמשים ב־is: Is he your brother?"
+    explanation_he: "בשאלה הפועל בא לפני הנושא, ועם he משתמשים ב-is: Is he your brother?"
     tags: [be]
   - id: eng.gr.be.012
     skill: english.grammar.be
@@ -181,7 +181,7 @@ items:
     prompt_he: "האם המשפט נכון?"
     prompt_en: "He are my friend."
     answer: false
-    explanation_he: "עם he משתמשים ב־is, לכן המשפט הנכון: He is my friend."
+    explanation_he: "עם he משתמשים ב-is, לכן המשפט הנכון: He is my friend."
     tags: [be]
   - id: eng.gr.be.014
     skill: english.grammar.be
@@ -191,7 +191,7 @@ items:
     prompt_he: "האם המשפט נכון?"
     prompt_en: "We are in class three."
     answer: true
-    explanation_he: "עם we משתמשים ב־are, לכן המשפט נכון."
+    explanation_he: "עם we משתמשים ב-are, לכן המשפט נכון."
     tags: [be]
   - id: eng.gr.have_has.001
     skill: english.grammar.have_has
@@ -205,7 +205,7 @@ items:
       - {en: "has"}
       - {en: "is"}
     answer: 0
-    explanation_he: "עם I, you, we, they משתמשים ב־have. לדוגמה: I have a dog."
+    explanation_he: "עם I, you, we, they משתמשים ב-have. לדוגמה: I have a dog."
     tags: [have_has]
   - id: eng.gr.have_has.002
     skill: english.grammar.have_has
@@ -219,7 +219,7 @@ items:
       - {en: "is"}
       - {en: "have"}
     answer: 0
-    explanation_he: "עם he, she, it משתמשים ב־has. לדוגמה: She has long hair."
+    explanation_he: "עם he, she, it משתמשים ב-has. לדוגמה: She has long hair."
     tags: [have_has]
   - id: eng.gr.have_has.003
     skill: english.grammar.have_has
@@ -233,7 +233,7 @@ items:
       - {en: "are"}
       - {en: "have"}
     answer: 2
-    explanation_he: "עם they משתמשים ב־have. לדוגמה: They have two cats."
+    explanation_he: "עם they משתמשים ב-have. לדוגמה: They have two cats."
     tags: [have_has]
   - id: eng.gr.have_has.004
     skill: english.grammar.have_has
@@ -261,7 +261,7 @@ items:
       - {en: "have"}
       - {en: "are"}
     answer: 1
-    explanation_he: "עם we משתמשים ב־have. לדוגמה: We have English today."
+    explanation_he: "עם we משתמשים ב-have. לדוגמה: We have English today."
     tags: [have_has]
   - id: eng.gr.have_has.006
     skill: english.grammar.have_has
@@ -289,7 +289,7 @@ items:
       - {en: "are"}
       - {en: "has"}
     answer: 0
-    explanation_he: "עם you משתמשים ב־have. לדוגמה: You have a nice smile."
+    explanation_he: "עם you משתמשים ב-have. לדוגמה: You have a nice smile."
     tags: [have_has]
   - id: eng.gr.have_has.008
     skill: english.grammar.have_has
@@ -317,7 +317,7 @@ items:
       - {en: "Are"}
       - {en: "Do"}
     answer: 2
-    explanation_he: "שאלה עם have פותחים ב־Do (ועם he/she ב־Does): Do you have a pencil?"
+    explanation_he: "שאלה עם have פותחים ב-Do (ועם he/she ב-Does): Do you have a pencil?"
     tags: [have_has]
   - id: eng.gr.have_has.010
     skill: english.grammar.have_has
@@ -450,7 +450,7 @@ items:
       - {en: "is"}
       - {en: "are"}
     answer: 0
-    explanation_he: "milk אי אפשר לספור, ולכן משתמשים ב־is: There is some milk."
+    explanation_he: "milk אי אפשר לספור, ולכן משתמשים ב-is: There is some milk."
     tags: [there_is_are]
   - id: eng.gr.there_is_are.008
     skill: english.grammar.there_is_are
@@ -553,7 +553,7 @@ items:
       - {en: "a"}
       - {en: "an"}
     answer: 1
-    explanation_he: "elephant מתחיל ב־e (תנועה), לכן an elephant."
+    explanation_he: "elephant מתחיל ב-e (תנועה), לכן an elephant."
     tags: [articles]
   - id: eng.gr.articles.004
     skill: english.grammar.articles
@@ -566,7 +566,7 @@ items:
       - {en: "a"}
       - {en: "an"}
     answer: 0
-    explanation_he: "bird מתחיל ב־b (עיצור), לכן a bird."
+    explanation_he: "bird מתחיל ב-b (עיצור), לכן a bird."
     tags: [articles]
   - id: eng.gr.articles.005
     skill: english.grammar.articles
@@ -579,7 +579,7 @@ items:
       - {en: "a"}
       - {en: "an"}
     answer: 1
-    explanation_he: "egg מתחיל ב־e (תנועה), לכן an egg."
+    explanation_he: "egg מתחיל ב-e (תנועה), לכן an egg."
     tags: [articles]
   - id: eng.gr.articles.006
     skill: english.grammar.articles
@@ -592,7 +592,7 @@ items:
       - {en: "an"}
       - {en: "a"}
     answer: 0
-    explanation_he: "umbrella מתחיל ב־u בצליל תנועה, לכן an umbrella."
+    explanation_he: "umbrella מתחיל ב-u בצליל תנועה, לכן an umbrella."
     tags: [articles]
   - id: eng.gr.articles.007
     skill: english.grammar.articles
@@ -618,7 +618,7 @@ items:
       - {en: "a"}
       - {en: "an"}
     answer: 1
-    explanation_he: "ב־hour האות h שקטה והמילה מתחילה בצליל תנועה, לכן an hour."
+    explanation_he: "ב-hour האות h שקטה והמילה מתחילה בצליל תנועה, לכן an hour."
     tags: [articles]
   - id: eng.gr.articles.009
     skill: english.grammar.articles
@@ -644,7 +644,7 @@ items:
       - {en: "an"}
       - {en: "a"}
     answer: 0
-    explanation_he: "orange מתחיל ב־o (תנועה), לכן an orange."
+    explanation_he: "orange מתחיל ב-o (תנועה), לכן an orange."
     tags: [articles]
   - id: eng.gr.articles.011
     skill: english.grammar.articles
@@ -657,7 +657,7 @@ items:
       - {en: "an"}
       - {en: "a"}
     answer: 0
-    explanation_he: "owl מתחיל ב־o (תנועה), לכן an owl."
+    explanation_he: "owl מתחיל ב-o (תנועה), לכן an owl."
     tags: [articles]
   - id: eng.gr.articles.012
     skill: english.grammar.articles
@@ -712,7 +712,7 @@ items:
       - {en: "box"}
       - {en: "boxes"}
     answer: 2
-    explanation_he: "מילה שמסתיימת ב־x, s, sh, ch מקבלת es: box ← boxes."
+    explanation_he: "מילה שמסתיימת ב-x, s, sh, ch מקבלת es: box ← boxes."
     tags: [plurals]
   - id: eng.gr.plurals.003
     skill: english.grammar.plurals
@@ -726,7 +726,7 @@ items:
       - {en: "babies"}
       - {en: "babys"}
     answer: 1
-    explanation_he: "עיצור ואחריו y: מחליפים את y ב־ies. baby ← babies."
+    explanation_he: "עיצור ואחריו y: מחליפים את y ב-ies. baby ← babies."
     tags: [plurals]
   - id: eng.gr.plurals.004
     skill: english.grammar.plurals
@@ -810,7 +810,7 @@ items:
       - {en: "bus"}
       - {en: "buses"}
     answer: 2
-    explanation_he: "מילה שמסתיימת ב־s מקבלת es: bus ← buses."
+    explanation_he: "מילה שמסתיימת ב-s מקבלת es: bus ← buses."
     tags: [plurals]
   - id: eng.gr.plurals.010
     skill: english.grammar.plurals
@@ -838,7 +838,7 @@ items:
       - {en: "leaves"}
       - {en: "leafs"}
     answer: 1
-    explanation_he: "במילים כמו leaf מחליפים f ב־ves: leaf ← leaves."
+    explanation_he: "במילים כמו leaf מחליפים f ב-ves: leaf ← leaves."
     tags: [plurals]
   - id: eng.gr.plurals.012
     skill: english.grammar.plurals
@@ -880,7 +880,7 @@ items:
       - {en: "tomatos"}
       - {en: "tomato"}
     answer: 0
-    explanation_he: "tomato ו־potato מקבלות es: tomato ← tomatoes."
+    explanation_he: "tomato ו-potato מקבלות es: tomato ← tomatoes."
     tags: [plurals]
   - id: eng.gr.pronouns.001
     skill: english.grammar.pronouns
@@ -1020,7 +1020,7 @@ items:
       - {en: "they"}
       - {en: "them"}
     answer: 2
-    explanation_he: "אחרי מילת יחס (with) משתמשים ב־them."
+    explanation_he: "אחרי מילת יחס (with) משתמשים ב-them."
     tags: [pronouns]
   - id: eng.gr.pronouns.011
     skill: english.grammar.pronouns
@@ -1530,7 +1530,7 @@ items:
       - {en: "watchs"}
       - {en: "watches"}
     answer: 2
-    explanation_he: "פעלים שמסתיימים ב־ch, sh, s, x, o מקבלים es: watch ← watches."
+    explanation_he: "פעלים שמסתיימים ב-ch, sh, s, x, o מקבלים es: watch ← watches."
     tags: [present_simple]
   - id: eng.gr.present_simple.007
     skill: english.grammar.present_simple
@@ -1572,7 +1572,7 @@ items:
       - {en: "Does"}
       - {en: "Do"}
     answer: 2
-    explanation_he: "שאלה בהווה פשוט עם you פותחת ב־Do: Do you like pizza?"
+    explanation_he: "שאלה בהווה פשוט עם you פותחת ב-Do: Do you like pizza?"
     tags: [present_simple]
   - id: eng.gr.present_simple.010
     skill: english.grammar.present_simple
@@ -1586,7 +1586,7 @@ items:
       - {en: "Do"}
       - {en: "Does"}
     answer: 2
-    explanation_he: "שאלה עם he/she/it פותחת ב־Does: Does he play...?"
+    explanation_he: "שאלה עם he/she/it פותחת ב-Does: Does he play...?"
     tags: [present_simple]
   - id: eng.gr.present_simple.011
     skill: english.grammar.present_simple
@@ -1628,7 +1628,7 @@ items:
       - {en: "cries"}
       - {en: "crys"}
     answer: 1
-    explanation_he: "עיצור ואחריו y: מחליפים ל־ies. cry ← cries."
+    explanation_he: "עיצור ואחריו y: מחליפים ל-ies. cry ← cries."
     tags: [present_simple]
   - id: eng.gr.present_simple.014
     skill: english.grammar.present_simple
@@ -1766,7 +1766,7 @@ items:
       - {en: "make"}
       - {en: "making"}
     answer: 2
-    explanation_he: "make ← making: ה־e בסוף נופלת לפני ing."
+    explanation_he: "make ← making: ה-e בסוף נופלת לפני ing."
     tags: [present_continuous]
   - id: eng.gr.present_continuous.008
     skill: english.grammar.present_continuous
@@ -1861,7 +1861,7 @@ items:
     prompt_he: "האם המשפט נכון?"
     prompt_en: "They is sleeping now."
     answer: false
-    explanation_he: "עם they משתמשים ב־are: They are sleeping now."
+    explanation_he: "עם they משתמשים ב-are: They are sleeping now."
     tags: [present_continuous]
   - id: eng.gr.question_words.001
     skill: english.grammar.question_words
@@ -1931,7 +1931,7 @@ items:
       - {en: "How"}
       - {en: "Why"}
     answer: 2
-    explanation_he: "Why = למה. התשובה מתחילה ב־Because."
+    explanation_he: "Why = למה. התשובה מתחילה ב-Because."
     tags: [question_words]
   - id: eng.gr.question_words.006
     skill: english.grammar.question_words
@@ -2236,7 +2236,7 @@ items:
       - {en: "cryed"}
       - {en: "cries"}
     answer: 0
-    explanation_he: "עיצור ואחריו y: מחליפים ל־ied. cry ← cried."
+    explanation_he: "עיצור ואחריו y: מחליפים ל-ied. cry ← cried."
     tags: [past_regular]
   - id: eng.gr.past_regular.005
     skill: english.grammar.past_regular
@@ -2264,7 +2264,7 @@ items:
       - {en: "closed"}
       - {en: "closeed"}
     answer: 1
-    explanation_he: "פועל שנגמר ב־e מקבל רק d: close ← closed."
+    explanation_he: "פועל שנגמר ב-e מקבל רק d: close ← closed."
     tags: [past_regular]
   - id: eng.gr.past_regular.007
     skill: english.grammar.past_regular
@@ -2278,7 +2278,7 @@ items:
       - {en: "baked"}
       - {en: "bakes"}
     answer: 1
-    explanation_he: "bake נגמר ב־e, לכן מוסיפים d: baked."
+    explanation_he: "bake נגמר ב-e, לכן מוסיפים d: baked."
     tags: [past_regular]
   - id: eng.gr.past_regular.008
     skill: english.grammar.past_regular
@@ -2348,7 +2348,7 @@ items:
       - {en: "Were"}
       - {en: "Did"}
     answer: 2
-    explanation_he: "שאלה בעבר פשוט פותחת ב־Did: Did you play...?"
+    explanation_he: "שאלה בעבר פשוט פותחת ב-Did: Did you play...?"
     tags: [past_regular]
   - id: eng.gr.past_regular.013
     skill: english.grammar.past_regular
@@ -2554,7 +2554,7 @@ items:
       - {en: "am"}
       - {en: "were"}
     answer: 0
-    explanation_he: "was עם I/he/she/it, ו־were עם you/we/they."
+    explanation_he: "was עם I/he/she/it, ו-were עם you/we/they."
     tags: [past_irregular]
   - id: eng.gr.past_irregular.014
     skill: english.grammar.past_irregular
@@ -2568,7 +2568,7 @@ items:
       - {en: "are"}
       - {en: "were"}
     answer: 2
-    explanation_he: "עם they בעבר משתמשים ב־were."
+    explanation_he: "עם they בעבר משתמשים ב-were."
     tags: [past_irregular]
   - id: eng.gr.past_irregular.015
     skill: english.grammar.past_irregular
@@ -2610,7 +2610,7 @@ items:
       - {en: "is"}
       - {en: "will"}
     answer: 2
-    explanation_he: "לניבוי על העתיד משתמשים ב־will + פועל: it will rain."
+    explanation_he: "לניבוי על העתיד משתמשים ב-will + פועל: it will rain."
     tags: [future]
   - id: eng.gr.future.002
     skill: english.grammar.future
@@ -2674,13 +2674,13 @@ items:
     grade: 6
     difficulty: 0.5
     prompt_he: "בחרו את המילה החסרה"
-    prompt_en: "I ___ go to the party. I'm too tired."
+    prompt_en: "I ___ go to the party tomorrow. I'm too tired."
     choices:
       - {en: "not"}
       - {en: "won't"}
       - {en: "don't"}
     answer: 1
-    explanation_he: "won't = will not. לא אלך, כי אני עייף."
+    explanation_he: "won't = will not, עתיד בשלילה. tomorrow = מחר, לכן won't go."
     tags: [future]
   - id: eng.gr.future.007
     skill: english.grammar.future
@@ -2888,7 +2888,7 @@ items:
       - {en: "easier"}
       - {en: "easyer"}
     answer: 1
-    explanation_he: "easy ← easier: ה־y הופכת ל־i."
+    explanation_he: "easy ← easier: ה-y הופכת ל-i."
     tags: [comparatives]
   - id: eng.gr.comparatives.008
     skill: english.grammar.comparatives
@@ -2972,7 +2972,7 @@ items:
       - {en: "heavier"}
       - {en: "more heavy"}
     answer: 1
-    explanation_he: "heavy ← heavier: ה־y הופכת ל־i."
+    explanation_he: "heavy ← heavier: ה-y הופכת ל-i."
     tags: [comparatives]
   - id: eng.gr.comparatives.014
     skill: english.grammar.comparatives
@@ -3136,7 +3136,7 @@ items:
       - {en: "easyest"}
       - {en: "most easy"}
     answer: 0
-    explanation_he: "easy ← the easiest: ה־y הופכת ל־i."
+    explanation_he: "easy ← the easiest: ה-y הופכת ל-i."
     tags: [superlatives]
   - id: eng.gr.superlatives.012
     skill: english.grammar.superlatives
@@ -3150,7 +3150,7 @@ items:
       - {en: "larger"}
       - {en: "most large"}
     answer: 0
-    explanation_he: "large ← the largest (נגמר ב־e, מוסיפים st)."
+    explanation_he: "large ← the largest (נגמר ב-e, מוסיפים st)."
     tags: [superlatives]
   - id: eng.gr.superlatives.013
     skill: english.grammar.superlatives
@@ -3202,7 +3202,7 @@ items:
       - {en: "any"}
       - {en: "some"}
     answer: 1
-    explanation_he: "בשלילה ובשאלה משתמשים ב־any: There aren't any cookies."
+    explanation_he: "בשלילה ובשאלה משתמשים ב-any: There aren't any cookies."
     tags: [countable]
   - id: eng.gr.countable.004
     skill: english.grammar.countable
@@ -3216,7 +3216,7 @@ items:
       - {en: "some"}
       - {en: "much"}
     answer: 1
-    explanation_he: "במשפט חיובי משתמשים ב־some: I have some friends."
+    explanation_he: "במשפט חיובי משתמשים ב-some: I have some friends."
     tags: [countable]
   - id: eng.gr.countable.005
     skill: english.grammar.countable
@@ -3244,7 +3244,7 @@ items:
       - {en: "a"}
       - {en: "many"}
     answer: 0
-    explanation_he: "bread אי אפשר לספור. בבקשה משתמשים ב־some."
+    explanation_he: "bread אי אפשר לספור. בבקשה משתמשים ב-some."
     tags: [countable]
   - id: eng.gr.countable.007
     skill: english.grammar.countable
@@ -3424,7 +3424,7 @@ items:
       - {en: "must"}
       - {en: "should"}
     answer: 0
-    explanation_he: "have to = חייב. אחרי must ו־should לא כותבים to."
+    explanation_he: "have to = חייב. אחרי must ו-should לא כותבים to."
     tags: [modals]
   - id: eng.gr.modals.007
     skill: english.grammar.modals
@@ -3546,7 +3546,7 @@ items:
       - {en: "has"}
       - {en: "have"}
     answer: 2
-    explanation_he: "עם they משתמשים ב־have: They have been..."
+    explanation_he: "עם they משתמשים ב-have: They have been..."
     tags: [present_perfect]
   - id: eng.gr.present_perfect.004
     skill: english.grammar.present_perfect
@@ -3560,7 +3560,7 @@ items:
       - {en: "have"}
       - {en: "has"}
     answer: 2
-    explanation_he: "עם he משתמשים ב־has: He has never eaten..."
+    explanation_he: "עם he משתמשים ב-has: He has never eaten..."
     tags: [present_perfect]
   - id: eng.gr.present_perfect.005
     skill: english.grammar.present_perfect
@@ -3830,13 +3830,13 @@ items:
     grade: 9
     difficulty: 1.5
     prompt_he: "בחרו את המילה החסרה"
-    prompt_en: "We will go to the park ___ it rains."
+    prompt_en: "We will play outside ___ it rains. Then we will stay home."
     choices:
       - {en: "because"}
       - {en: "if"}
       - {en: "unless"}
     answer: 2
-    explanation_he: "unless = אלא אם כן. נלך לפארק, אלא אם כן ירד גשם."
+    explanation_he: "unless = אלא אם כן. נשחק בחוץ, אלא אם כן ירד גשם (ואז נישאר בבית)."
     tags: [conditionals]
   - id: eng.gr.conditionals.011
     skill: english.grammar.conditionals

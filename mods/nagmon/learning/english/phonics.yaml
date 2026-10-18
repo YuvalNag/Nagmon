@@ -2242,7 +2242,7 @@ items:
       - {en: "sh"}
       - {en: "wh"}
     answer: 1
-    explanation_he: "ship (ספינה) מתחילה ב־sh (כמו ש')."
+    explanation_he: "ship (ספינה) מתחילה ב-sh (כמו ש')."
     tags: [digraphs]
   - id: eng.ph.digraphs.002
     skill: english.phonics.digraphs
@@ -2258,7 +2258,7 @@ items:
       - {en: "ch"}
       - {en: "sh"}
     answer: 2
-    explanation_he: "shoe (נעל) מתחילה ב־sh (כמו ש')."
+    explanation_he: "shoe (נעל) מתחילה ב-sh (כמו ש')."
     tags: [digraphs]
   - id: eng.ph.digraphs.003
     skill: english.phonics.digraphs
@@ -2274,7 +2274,7 @@ items:
       - {en: "ch"}
       - {en: "wh"}
     answer: 0
-    explanation_he: "sheep (כבשה) מתחילה ב־sh (כמו ש')."
+    explanation_he: "sheep (כבשה) מתחילה ב-sh (כמו ש')."
     tags: [digraphs]
   - id: eng.ph.digraphs.004
     skill: english.phonics.digraphs
@@ -2290,7 +2290,7 @@ items:
       - {en: "ch"}
       - {en: "sh"}
     answer: 2
-    explanation_he: "shark (כריש) מתחילה ב־sh (כמו ש')."
+    explanation_he: "shark (כריש) מתחילה ב-sh (כמו ש')."
     tags: [digraphs]
   - id: eng.ph.digraphs.005
     skill: english.phonics.digraphs
@@ -2306,7 +2306,7 @@ items:
       - {en: "wh"}
       - {en: "sh"}
     answer: 2
-    explanation_he: "shell (צדף) מתחילה ב־sh (כמו ש')."
+    explanation_he: "shell (צדף) מתחילה ב-sh (כמו ש')."
     tags: [digraphs]
   - id: eng.ph.digraphs.006
     skill: english.phonics.digraphs
@@ -2322,7 +2322,7 @@ items:
       - {en: "wh"}
       - {en: "ch"}
     answer: 0
-    explanation_he: "shirt (חולצה) מתחילה ב־sh (כמו ש')."
+    explanation_he: "shirt (חולצה) מתחילה ב-sh (כמו ש')."
     tags: [digraphs]
   - id: eng.ph.digraphs.007
     skill: english.phonics.digraphs
@@ -2338,7 +2338,7 @@ items:
       - {en: "ch"}
       - {en: "th"}
     answer: 1
-    explanation_he: "chair (כיסא) מתחילה ב־ch (כמו צ')."
+    explanation_he: "chair (כיסא) מתחילה ב-ch (כמו צ')."
     tags: [digraphs]
   - id: eng.ph.digraphs.008
     skill: english.phonics.digraphs
@@ -2354,7 +2354,7 @@ items:
       - {en: "wh"}
       - {en: "ch"}
     answer: 2
-    explanation_he: "cheese (גבינה) מתחילה ב־ch (כמו צ')."
+    explanation_he: "cheese (גבינה) מתחילה ב-ch (כמו צ')."
     tags: [digraphs]
   - id: eng.ph.digraphs.009
     skill: english.phonics.digraphs
@@ -2370,7 +2370,7 @@ items:
       - {en: "th"}
       - {en: "ch"}
     answer: 2
-    explanation_he: "cherry (דובדבן) מתחילה ב־ch (כמו צ')."
+    explanation_he: "cherry (דובדבן) מתחילה ב-ch (כמו צ')."
     tags: [digraphs]
   - id: eng.ph.digraphs.010
     skill: english.phonics.digraphs
@@ -2386,7 +2386,7 @@ items:
       - {en: "ch"}
       - {en: "sh"}
     answer: 1
-    explanation_he: "chicken (תרנגולת) מתחילה ב־ch (כמו צ')."
+    explanation_he: "chicken (תרנגולת) מתחילה ב-ch (כמו צ')."
     tags: [digraphs]
   - id: eng.ph.digraphs.011
     skill: english.phonics.digraphs
@@ -2402,7 +2402,7 @@ items:
       - {en: "th"}
       - {en: "wh"}
     answer: 0
-    explanation_he: "chocolate (שוקולד) מתחילה ב־ch (כמו צ')."
+    explanation_he: "chocolate (שוקולד) מתחילה ב-ch (כמו צ')."
     tags: [digraphs]
   - id: eng.ph.digraphs.012
     skill: english.phonics.digraphs
@@ -2418,7 +2418,7 @@ items:
       - {en: "th"}
       - {en: "wh"}
     answer: 0
-    explanation_he: "chess (שחמט) מתחילה ב־ch (כמו צ')."
+    explanation_he: "chess (שחמט) מתחילה ב-ch (כמו צ')."
     tags: [digraphs]
   - id: eng.ph.digraphs.013
     skill: english.phonics.digraphs
@@ -2434,7 +2434,7 @@ items:
       - {en: "th"}
       - {en: "wh"}
     answer: 1
-    explanation_he: "thumb (אגודל) מתחילה ב־th (הלשון בין השיניים)."
+    explanation_he: "thumb (אגודל) מתחילה ב-th (הלשון בין השיניים)."
     tags: [digraphs]
   - id: eng.ph.digraphs.014
     skill: english.phonics.digraphs
@@ -2450,7 +2450,7 @@ items:
       - {en: "ch"}
       - {en: "th"}
     answer: 2
-    explanation_he: "three (שלוש) מתחילה ב־th (הלשון בין השיניים)."
+    explanation_he: "three (שלוש) מתחילה ב-th (הלשון בין השיניים)."
     tags: [digraphs]
   - id: eng.ph.digraphs.015
     skill: english.phonics.digraphs
@@ -2466,7 +2466,7 @@ items:
       - {en: "th"}
       - {en: "ch"}
     answer: 1
-    explanation_he: "thermometer (מדחום) מתחילה ב־th (הלשון בין השיניים)."
+    explanation_he: "thermometer (מדחום) מתחילה ב-th (הלשון בין השיניים)."
     tags: [digraphs]
   - id: eng.ph.digraphs.016
     skill: english.phonics.digraphs
@@ -2482,7 +2482,7 @@ items:
       - {en: "ch"}
       - {en: "wh"}
     answer: 2
-    explanation_he: "whale (לווייתן) מתחילה ב־wh (כמו ו')."
+    explanation_he: "whale (לווייתן) מתחילה ב-wh (כמו ו')."
     tags: [digraphs]
   - id: eng.ph.digraphs.017
     skill: english.phonics.digraphs
@@ -2498,7 +2498,7 @@ items:
       - {en: "wh"}
       - {en: "ch"}
     answer: 1
-    explanation_he: "wheel (גלגל) מתחילה ב־wh (כמו ו')."
+    explanation_he: "wheel (גלגל) מתחילה ב-wh (כמו ו')."
     tags: [digraphs]
   - id: eng.ph.digraphs.018
     skill: english.phonics.digraphs
@@ -2514,7 +2514,7 @@ items:
       - {en: "th"}
       - {en: "wh"}
     answer: 2
-    explanation_he: "wheat (חיטה) מתחילה ב־wh (כמו ו')."
+    explanation_he: "wheat (חיטה) מתחילה ב-wh (כמו ו')."
     tags: [digraphs]
   - id: eng.ph.digraphs.019
     skill: english.phonics.digraphs
@@ -2530,7 +2530,7 @@ items:
       - {en: "ch"}
       - {en: "sh"}
     answer: 2
-    explanation_he: "fish (דג) מסתיימת ב־sh (כמו ש')."
+    explanation_he: "fish (דג) מסתיימת ב-sh (כמו ש')."
     tags: [digraphs]
   - id: eng.ph.digraphs.020
     skill: english.phonics.digraphs
@@ -2546,7 +2546,7 @@ items:
       - {en: "th"}
       - {en: "sh"}
     answer: 2
-    explanation_he: "toothbrush (מברשת שיניים) מסתיימת ב־sh (כמו ש')."
+    explanation_he: "toothbrush (מברשת שיניים) מסתיימת ב-sh (כמו ש')."
     tags: [digraphs]
   - id: eng.ph.digraphs.021
     skill: english.phonics.digraphs
@@ -2562,7 +2562,7 @@ items:
       - {en: "th"}
       - {en: "sh"}
     answer: 1
-    explanation_he: "bath (אמבטיה) מסתיימת ב־th (הלשון בין השיניים)."
+    explanation_he: "bath (אמבטיה) מסתיימת ב-th (הלשון בין השיניים)."
     tags: [digraphs]
   - id: eng.ph.digraphs.022
     skill: english.phonics.digraphs
@@ -2578,7 +2578,7 @@ items:
       - {en: "sh"}
       - {en: "th"}
     answer: 2
-    explanation_he: "tooth (שן) מסתיימת ב־th (הלשון בין השיניים)."
+    explanation_he: "tooth (שן) מסתיימת ב-th (הלשון בין השיניים)."
     tags: [digraphs]
   - id: eng.ph.digraphs.023
     skill: english.phonics.digraphs
@@ -2594,7 +2594,7 @@ items:
       - {en: "ch"}
       - {en: "wh"}
     answer: 1
-    explanation_he: "watch (שעון יד) מסתיימת ב־ch (כמו צ')."
+    explanation_he: "watch (שעון יד) מסתיימת ב-ch (כמו צ')."
     tags: [digraphs]
   - id: eng.ph.sight_words_preprimer.001
     skill: english.phonics.sight_words_preprimer

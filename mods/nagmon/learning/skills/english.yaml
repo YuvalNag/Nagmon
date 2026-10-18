@@ -1,0 +1,407 @@
+# Nagmon English skill graph (SDD_CONTENT section 2).
+# Phonics (grades 0-2) -> vocabulary by CEFR level and topic -> grammar (grades 3-9) -> reading.
+# Vocabulary skills use the english.vocab generator over english/words.yaml (distractors come from
+# the same topic and level). Picture modes are listed only where the topic group has at least
+# four words with an emoji. Bank skills select items by tag.
+
+subject: english
+skills:
+  - id: english.phonics.letter_match
+    grade: 0
+    title_he: "אותיות גדולות וקטנות"
+    title_en: "Capital and small letters"
+    prereq: []
+    generator: bank
+    params: {bank: english/phonics.yaml, tags: [letter_match]}
+  - id: english.phonics.letter_names
+    grade: 0
+    title_he: "שמות האותיות"
+    title_en: "Letter names"
+    prereq: []
+    generator: bank
+    params: {bank: english/phonics.yaml, tags: [letter_names]}
+  - id: english.phonics.initial_sounds
+    grade: 1
+    title_he: "הצליל הראשון במילה"
+    title_en: "Initial sounds"
+    prereq: [english.phonics.letter_names, english.phonics.letter_match]
+    generator: bank
+    params: {bank: english/phonics.yaml, tags: [initial_sounds]}
+  - id: english.phonics.sight_words_preprimer
+    grade: 1
+    title_he: "מילים במבט ראשון: שלב א"
+    title_en: "Sight words: pre-primer"
+    prereq: [english.phonics.letter_match]
+    generator: bank
+    params: {bank: english/phonics.yaml, tags: [sight_words_preprimer]}
+  - id: english.phonics.cvc
+    grade: 1
+    title_he: "מילים קצרות: עיצור-תנועה-עיצור"
+    title_en: "CVC words"
+    prereq: [english.phonics.initial_sounds]
+    generator: bank
+    params: {bank: english/phonics.yaml, tags: [cvc]}
+  - id: english.phonics.digraphs
+    grade: 2
+    title_he: "צמדי אותיות: sh, ch, th, wh"
+    title_en: "Digraphs sh, ch, th, wh"
+    prereq: [english.phonics.cvc]
+    generator: bank
+    params: {bank: english/phonics.yaml, tags: [digraphs]}
+  - id: english.phonics.sight_words_primer
+    grade: 2
+    title_he: "מילים במבט ראשון: שלב ב"
+    title_en: "Sight words: primer"
+    prereq: [english.phonics.sight_words_preprimer]
+    generator: bank
+    params: {bank: english/phonics.yaml, tags: [sight_words_primer]}
+  - id: english.vocab.preA1_colors_shapes
+    grade: 0
+    title_he: "צבעים וצורות"
+    title_en: "Colors and shapes"
+    prereq: []
+    generator: english.vocab
+    params: {topics: [colors, shapes], level: preA1, modes: [listen_to_picture, picture_to_word]}
+  - id: english.vocab.preA1_numbers
+    grade: 0
+    title_he: "מספרים"
+    title_en: "Numbers"
+    prereq: []
+    generator: english.vocab
+    params: {topics: [numbers], level: preA1, modes: [listen_to_picture, picture_to_word, word_to_translation]}
+  - id: english.vocab.preA1_animals
+    grade: 0
+    title_he: "חיות"
+    title_en: "Animals"
+    prereq: []
+    generator: english.vocab
+    params: {topics: [animals], level: preA1, modes: [listen_to_picture, picture_to_word]}
+  - id: english.vocab.preA1_people_body
+    grade: 1
+    title_he: "משפחה, אנשים וגוף"
+    title_en: "Family, people and body"
+    prereq: [english.vocab.preA1_animals]
+    generator: english.vocab
+    params: {topics: [family, people, body], level: preA1, modes: [listen_to_picture, picture_to_word, word_to_translation]}
+  - id: english.vocab.preA1_food
+    grade: 1
+    title_he: "אוכל"
+    title_en: "Food"
+    prereq: [english.vocab.preA1_animals]
+    generator: english.vocab
+    params: {topics: [food], level: preA1, modes: [listen_to_picture, picture_to_word, word_to_translation]}
+  - id: english.vocab.preA1_things
+    grade: 1
+    title_he: "בגדים, צעצועים, בית ובית ספר"
+    title_en: "Clothes, toys, home and school"
+    prereq: [english.vocab.preA1_colors_shapes]
+    generator: english.vocab
+    params: {topics: [clothes, toys, home, school], level: preA1, modes: [listen_to_picture, picture_to_word, word_to_translation]}
+  - id: english.vocab.preA1_world
+    grade: 1
+    title_he: "טבע, מזג אוויר ותחבורה"
+    title_en: "Nature, weather and transport"
+    prereq: [english.vocab.preA1_colors_shapes]
+    generator: english.vocab
+    params: {topics: [nature, weather, transport, time], level: preA1, modes: [listen_to_picture, picture_to_word, word_to_translation]}
+  - id: english.vocab.preA1_words
+    grade: 2
+    title_he: "פעלים, תארים ומילים שימושיות"
+    title_en: "Verbs, adjectives and useful words"
+    prereq: [english.vocab.preA1_people_body, english.phonics.sight_words_preprimer]
+    generator: english.vocab
+    params: {topics: [actions, describing, feelings, greetings, basics, questions, position], level: preA1, modes: [picture_to_word, word_to_translation, listen_to_picture, spelling, sentence_cloze]}
+  - id: english.vocab.A1_animals_food
+    grade: 3
+    title_he: "חיות ואוכל (A1)"
+    title_en: "Animals and food (A1)"
+    prereq: [english.vocab.preA1_animals, english.vocab.preA1_food]
+    generator: english.vocab
+    params: {topics: [animals, food], level: A1, modes: [picture_to_word, word_to_translation, listen_to_picture, spelling, sentence_cloze]}
+  - id: english.vocab.A1_people_body
+    grade: 3
+    title_he: "אנשים, גוף ובריאות (A1)"
+    title_en: "People, body and health (A1)"
+    prereq: [english.vocab.preA1_people_body]
+    generator: english.vocab
+    params: {topics: [family, people, body, health, greetings], level: A1, modes: [picture_to_word, word_to_translation, listen_to_picture, spelling, sentence_cloze]}
+  - id: english.vocab.A1_home_school
+    grade: 3
+    title_he: "בית, בגדים ובית ספר (A1)"
+    title_en: "Home, clothes and school (A1)"
+    prereq: [english.vocab.preA1_things]
+    generator: english.vocab
+    params: {topics: [home, clothes, school, toys, music], level: A1, modes: [picture_to_word, word_to_translation, listen_to_picture, spelling, sentence_cloze]}
+  - id: english.vocab.A1_world
+    grade: 3
+    title_he: "זמן, מקומות וטבע (A1)"
+    title_en: "Time, places and nature (A1)"
+    prereq: [english.vocab.preA1_world]
+    generator: english.vocab
+    params: {topics: [time, weather, places, transport, nature], level: A1, modes: [picture_to_word, word_to_translation, listen_to_picture, spelling, sentence_cloze]}
+  - id: english.vocab.A1_jobs_sports
+    grade: 4
+    title_he: "מקצועות וספורט (A1)"
+    title_en: "Jobs and sports (A1)"
+    prereq: [english.vocab.A1_people_body]
+    generator: english.vocab
+    params: {topics: [jobs, sports], level: A1, modes: [picture_to_word, word_to_translation, listen_to_picture, spelling, sentence_cloze]}
+  - id: english.vocab.A1_actions
+    grade: 4
+    title_he: "פעלים (A1)"
+    title_en: "Verbs (A1)"
+    prereq: [english.vocab.preA1_words]
+    generator: english.vocab
+    params: {topics: [actions], level: A1, modes: [word_to_translation, spelling, sentence_cloze]}
+  - id: english.vocab.A1_words
+    grade: 4
+    title_he: "תארים, רגשות ומילות קישור (A1)"
+    title_en: "Adjectives, feelings and function words (A1)"
+    prereq: [english.vocab.preA1_words]
+    generator: english.vocab
+    params: {topics: [describing, feelings, basics, position, questions], level: A1, modes: [picture_to_word, word_to_translation, listen_to_picture, spelling, sentence_cloze]}
+  - id: english.vocab.A2_time_school_tech
+    grade: 5
+    title_he: "זמן, לימודים וטכנולוגיה (A2)"
+    title_en: "Time, school and technology (A2)"
+    prereq: [english.vocab.A1_world, english.vocab.A1_home_school]
+    generator: english.vocab
+    params: {topics: [time, school, technology], level: A2, modes: [picture_to_word, word_to_translation, listen_to_picture, spelling, sentence_cloze]}
+  - id: english.vocab.A2_describing
+    grade: 5
+    title_he: "תארים ורגשות (A2)"
+    title_en: "Adjectives and feelings (A2)"
+    prereq: [english.vocab.A1_words]
+    generator: english.vocab
+    params: {topics: [describing, feelings], level: A2, modes: [picture_to_word, word_to_translation, listen_to_picture, spelling, sentence_cloze]}
+  - id: english.vocab.A2_actions
+    grade: 5
+    title_he: "פעלים (A2)"
+    title_en: "Verbs (A2)"
+    prereq: [english.vocab.A1_actions]
+    generator: english.vocab
+    params: {topics: [actions], level: A2, modes: [word_to_translation, spelling, sentence_cloze]}
+  - id: english.vocab.A2_world
+    grade: 6
+    title_he: "מקומות, סביבה וחלל (A2)"
+    title_en: "Places, environment and space (A2)"
+    prereq: [english.vocab.A1_world]
+    generator: english.vocab
+    params: {topics: [places, nature, weather, space], level: A2, modes: [picture_to_word, word_to_translation, listen_to_picture, spelling, sentence_cloze]}
+  - id: english.vocab.A2_people_health
+    grade: 6
+    title_he: "אנשים, מקצועות ובריאות (A2)"
+    title_en: "People, jobs and health (A2)"
+    prereq: [english.vocab.A1_jobs_sports, english.vocab.A1_people_body]
+    generator: english.vocab
+    params: {topics: [people, jobs, health, sports], level: A2, modes: [picture_to_word, word_to_translation, listen_to_picture, spelling, sentence_cloze]}
+  - id: english.vocab.B1_ideas_society
+    grade: 7
+    title_he: "רעיונות, חברה ומדע (B1)"
+    title_en: "Ideas, society and science (B1)"
+    prereq: [english.vocab.A2_time_school_tech]
+    generator: english.vocab
+    params: {topics: [ideas, society, science], level: B1, modes: [word_to_translation, spelling, sentence_cloze]}
+  - id: english.vocab.B1_actions_describing
+    grade: 8
+    title_he: "פעלים ותארים (B1)"
+    title_en: "Verbs and adjectives (B1)"
+    prereq: [english.vocab.A2_actions, english.vocab.A2_describing]
+    generator: english.vocab
+    params: {topics: [actions, describing], level: B1, modes: [word_to_translation, spelling, sentence_cloze]}
+  - id: english.vocab.B1_connectors
+    grade: 8
+    title_he: "מילות קישור (B1)"
+    title_en: "Linking words (B1)"
+    prereq: [english.vocab.A2_describing]
+    generator: english.vocab
+    params: {topics: [connectors], level: B1, modes: [word_to_translation, spelling, sentence_cloze]}
+  - id: english.grammar.be
+    grade: 3
+    title_he: "הפועל to be: am, is, are"
+    title_en: "am / is / are"
+    prereq: []
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [be]}
+  - id: english.grammar.have_has
+    grade: 3
+    title_he: "have ו-has"
+    title_en: "have / has"
+    prereq: [english.grammar.be]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [have_has]}
+  - id: english.grammar.there_is_are
+    grade: 3
+    title_he: "there is ו-there are"
+    title_en: "there is / there are"
+    prereq: [english.grammar.be]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [there_is_are]}
+  - id: english.grammar.articles
+    grade: 3
+    title_he: "a ו-an"
+    title_en: "a / an / the"
+    prereq: []
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [articles]}
+  - id: english.grammar.plurals
+    grade: 3
+    title_he: "רבים"
+    title_en: "Plurals"
+    prereq: [english.grammar.articles]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [plurals]}
+  - id: english.grammar.pronouns
+    grade: 4
+    title_he: "כינויי גוף"
+    title_en: "Pronouns"
+    prereq: [english.grammar.be]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [pronouns]}
+  - id: english.grammar.possessives
+    grade: 4
+    title_he: "שייכות: my, his, 's"
+    title_en: "Possessives"
+    prereq: [english.grammar.pronouns]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [possessives]}
+  - id: english.grammar.prepositions
+    grade: 4
+    title_he: "מילות יחס"
+    title_en: "Prepositions"
+    prereq: [english.grammar.there_is_are]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [prepositions]}
+  - id: english.grammar.present_simple
+    grade: 4
+    title_he: "הווה פשוט"
+    title_en: "Present simple"
+    prereq: [english.grammar.have_has, english.grammar.pronouns]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [present_simple]}
+  - id: english.grammar.present_continuous
+    grade: 4
+    title_he: "הווה מתמשך"
+    title_en: "Present continuous"
+    prereq: [english.grammar.present_simple]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [present_continuous]}
+  - id: english.grammar.question_words
+    grade: 4
+    title_he: "מילות שאלה"
+    title_en: "Question words"
+    prereq: [english.grammar.present_simple]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [question_words]}
+  - id: english.grammar.can
+    grade: 4
+    title_he: "can ו-can't"
+    title_en: "can / can't"
+    prereq: [english.grammar.present_simple]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [can]}
+  - id: english.grammar.past_regular
+    grade: 5
+    title_he: "עבר פשוט: פעלים רגילים"
+    title_en: "Past simple: regular verbs"
+    prereq: [english.grammar.present_simple]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [past_regular]}
+  - id: english.grammar.past_irregular
+    grade: 5
+    title_he: "עבר פשוט: פעלים יוצאי דופן"
+    title_en: "Past simple: irregular verbs"
+    prereq: [english.grammar.past_regular]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [past_irregular]}
+  - id: english.grammar.future
+    grade: 6
+    title_he: "עתיד: will ו-going to"
+    title_en: "Future: will / going to"
+    prereq: [english.grammar.present_continuous, english.grammar.past_irregular]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [future]}
+  - id: english.grammar.comparatives
+    grade: 6
+    title_he: "השוואה: bigger, more"
+    title_en: "Comparatives"
+    prereq: [english.grammar.articles]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [comparatives]}
+  - id: english.grammar.superlatives
+    grade: 6
+    title_he: "הפלגה: the biggest, the most"
+    title_en: "Superlatives"
+    prereq: [english.grammar.comparatives]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [superlatives]}
+  - id: english.grammar.countable
+    grade: 6
+    title_he: "נספר ולא נספר: much, many, some, any"
+    title_en: "Countable and uncountable nouns"
+    prereq: [english.grammar.plurals, english.grammar.there_is_are]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [countable]}
+  - id: english.grammar.modals
+    grade: 6
+    title_he: "חובה ועצה: must, should"
+    title_en: "must / should / have to"
+    prereq: [english.grammar.can]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [modals]}
+  - id: english.grammar.present_perfect
+    grade: 8
+    title_he: "הווה מושלם"
+    title_en: "Present perfect"
+    prereq: [english.grammar.past_irregular]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [present_perfect]}
+  - id: english.grammar.conditionals
+    grade: 8
+    title_he: "משפטי תנאי (סוג 1)"
+    title_en: "First conditional"
+    prereq: [english.grammar.future]
+    generator: bank
+    params: {bank: english/sentences.yaml, tags: [conditionals]}
+  - id: english.reading.level1
+    grade: 3
+    title_he: "הבנת הנקרא: שלב 1"
+    title_en: "Reading: level 1"
+    prereq: [english.phonics.sight_words_primer, english.grammar.be]
+    generator: bank
+    params: {bank: english/reading.yaml, tags: [level1]}
+  - id: english.reading.level2
+    grade: 4
+    title_he: "הבנת הנקרא: שלב 2"
+    title_en: "Reading: level 2"
+    prereq: [english.reading.level1, english.grammar.present_simple]
+    generator: bank
+    params: {bank: english/reading.yaml, tags: [level2]}
+  - id: english.reading.level3
+    grade: 5
+    title_he: "הבנת הנקרא: שלב 3"
+    title_en: "Reading: level 3"
+    prereq: [english.reading.level2, english.grammar.past_regular]
+    generator: bank
+    params: {bank: english/reading.yaml, tags: [level3]}
+  - id: english.reading.level4
+    grade: 6
+    title_he: "הבנת הנקרא: שלב 4"
+    title_en: "Reading: level 4"
+    prereq: [english.reading.level3, english.grammar.past_irregular]
+    generator: bank
+    params: {bank: english/reading.yaml, tags: [level4]}
+  - id: english.reading.level5
+    grade: 7
+    title_he: "הבנת הנקרא: שלב 5"
+    title_en: "Reading: level 5"
+    prereq: [english.reading.level4]
+    generator: bank
+    params: {bank: english/reading.yaml, tags: [level5]}
+  - id: english.reading.level6
+    grade: 8
+    title_he: "הבנת הנקרא: שלב 6"
+    title_en: "Reading: level 6"
+    prereq: [english.reading.level5, english.grammar.present_perfect]
+    generator: bank
+    params: {bank: english/reading.yaml, tags: [level6]}
