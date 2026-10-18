@@ -13,7 +13,10 @@ nagmon/family/
   parent.py       # ParentSettings, ParentStore (PIN, נעילה), SecretStore, GateChallenge, redact
   screentime.py   # ScreenLimits, TimeWindow, ScreenTimePolicy, SessionTracker, Decision
   calendar.py     # Location, ShabbatCalendar, Holiday, Restriction
-  rewards.py      # Reward, RewardsBoard, Redemption, FamilyGoal
+  goals.py        # PracticeLog, WeeklyStatus, יעד שבועי עם מרווח, יעד משפחתי
+  rewards.py      # Celebration, RewardsBoard, Suggestion (חגיגות הפתעה)
+  dashboard.py    # WeekSummary, conversation_prompt (שאלה לשיחה עם הילד)
+  owl_log.py      # OwlLog: יומן שיחות הינשוף, להורים
   values.py       # FamilyValues
 ```
 
@@ -24,10 +27,12 @@ root/
   parent.json                 # ParentSettings (בלי סודות)
   secrets.json                # מפתח API בלבד. הרשאות 0600 איפה שאפשר
   usage.json                  # שניות משחק לכל יום ולכל פרופיל
-  rewards.json                # פרסים, בקשות מימוש, יומן כוכבים שבועי
+  practice.json               # באילו ימים כל ילד תרגל
+  rewards.json                # חגיגות, הצעות להורה, מצב תצוגה, יעד משפחתי
   profiles/<id>/profile.json
   profiles/<id>/learning.json # dict אטום. מבנה LearnerState מוגדר ב־nagmon.learning
   profiles/<id>/saves/
+  profiles/<id>/owl_log.jsonl # append-only, 500 רשומות אחרונות
   trash/<id>-<stamp>/         # פרופיל שנמחק. אפשר לשחזר
 ```
 
@@ -93,7 +98,9 @@ class ParentSettings:
     default_limits: ScreenLimits
     profile_limits: dict[str, ScreenLimits]
     values: FamilyValues
+    weekly_days: dict[str, int]                    # K לכל ילד (עקיפה של ברירת המחדל לפי גיל)
     def limits_for(pid) -> ScreenLimits
+    def weekly_days_for(pid, age) -> int
 
 class ParentStore:
     def __init__(self, root: Path, *, clock=time.time, iterations=PBKDF2_ITERATIONS)
@@ -135,7 +142,7 @@ class ScreenLimits:
     weekend_days = (4, 5)                            # שישי ושבת (Python weekday)
     bedtime: time | None = 20:00; wake_time: time = 06:00
     break_every_minutes = 20; break_minutes = 5
-    warn_minutes = 5; grace_minutes = 2
+    warn_minutes = 5; grace_minutes = 3
 
 @dataclass(frozen=True)
 class Decision:
@@ -148,7 +155,8 @@ class ScreenTimePolicy:                             # טהור
 
 class SessionTracker:
     def __init__(self, root, policy_for: Callable[[str], ScreenTimePolicy], *, tz, max_tick_gap_s=120)
-    def start(pid, now) -> Decision; def tick(now) -> Decision; def stop(now) -> None
+    def start(pid, now) -> Decision; def tick(now, *, at_natural_break=False) -> Decision
+    def stop(now) -> None
     def ack_break(now) -> None
     def used_seconds(pid, day: date) -> float; def week_minutes(pid, now) -> int
 ```
@@ -157,7 +165,9 @@ class SessionTracker:
 
 - `minutes_left` = המינימום בין: מה שנשאר מהמכסה, הזמן עד סוף החלון, עד שעת השינה, ועד תחילת שבת/חג (פחות `stop_before_minutes`). WARN_SOON כש־`minutes_left <= warn_minutes`.
 - **שבת וחג:** ה־policy שואל את `calendar.restriction_at(now)`. עם `stop_before_minutes` ההגבלה מתחילה מוקדם יותר.
-- **grace:** כש־MUST_STOP מופיע **באמצע** סשן, ה־tracker קובע מועד סגירה (`now + grace_minutes`), ו־`grace_seconds` יורד בכל tick עד 0 (סגירה מחייבת). ניסיון `start` כשאסור מחזיר MUST_STOP עם `grace_seconds=0`.
+- **אזהרה:** WARN_SOON מתחיל 5 דקות לפני הגבול (`warn_minutes`).
+- **grace ונקודת עצירה טבעית:** כש־MUST_STOP מופיע **באמצע** סשן, הילד לא נקטע באמצע קרב או שאלה. ה־tracker קובע מועד סגירה (`now + grace_minutes`, ברירת מחדל 3 דקות), ו־`grace_seconds` יורד בכל tick. המשחק מעביר `at_natural_break=True` כשהוא בנקודה טבעית (סוף קרב, מפה, דיאלוג). אז `grace_seconds=0`, כלומר לשמור ולסגור עכשיו. אם לא הגיעה נקודה טבעית, אחרי 3 דקות `grace_seconds=0` בכל מקרה. ניסיון `start` כשאסור מחזיר MUST_STOP עם `grace_seconds=0`.
+- **זמן מסך הוא לא פרס ולא עונש.** אין שום API שמוסיף או מוריד דקות לפי ביצועים.
 - **הפסקה:** BREAK_SUGGESTED מוחזר פעם אחת כשעוברים `break_every_minutes` של משחק רצוף. אחר כך המונה מתאפס. גם `ack_break` או הפסקה (stop→start) של `break_minutes` לפחות מאפסים אותו.
 - **שימוש יומי** נשמר ב־`usage.json` לפי תאריך מקומי. tick שחוצה חצות מתחלק בין שני הימים. נשמרים 35 יום אחרונים.
 - **שינויי שעון:** tick עם הפרש שלילי (השעון זז אחורה) נספר כ־0. הפרש גדול מ־`max_tick_gap_s` (המחשב נרדם או השעון קפץ קדימה) נחתך ל־`max_tick_gap_s`.
@@ -198,41 +208,108 @@ class ShabbatCalendar:
 - **חלון הגבלה:** רצף ימים אסורים (למשל חג שנכנס ביום שישי ומתחבר לשבת) הוא חלון אחד: מהדלקת נרות בערב היום הראשון עד צאת היום האחרון. `kind` נקבע לפי היום שבו `now` נמצא (`holiday` אם הוא יום טוב, אחרת `shabbat`).
 - **חגים למשחק:** כל החגים מ־pyluach שרלוונטיים (ראש השנה, יום כיפור, סוכות וחול המועד, שמחת תורה, חנוכה 8 ימים, ט"ו בשבט, פורים ושושן פורים, פסח, ל"ג בעומר, שבועות, ט"ו באב) + צומות (צום גדליה, י' בטבת, תענית אסתר, י"ז בתמוז, ט' באב). מחושבים בנפרד, כי pyluach לא כולל אותם: יום השואה, יום הזיכרון, יום העצמאות ויום ירושלים, עם כללי ההקדמה והדחייה (יום העצמאות: ה' באייר. ביום שישי או בשבת הוא מוקדם ליום חמישי, ובשני נדחה לשלישי). `solemn=True` לצומות, ליום השואה וליום הזיכרון: המשחק לא יציג בהם אירוע חגיגי.
 
-## 7. פרסים (`rewards.py`)
+## 7. יעד שבועי עם מרווח (`goals.py`)
 
 ```python
-class RewardKind(StrEnum): MILESTONE_SURPRISE, GOAL
-@dataclass
-class Reward: id; title_he; cost: int; currency: "stars" | "coins"; kind: RewardKind
-              profile_id: str | None = None   # None = כל ילד יכול
-              repeatable: bool = True; active: bool = True; emoji: str = ""
-@dataclass
-class Redemption: id; profile_id; reward_id; status: "pending" | "approved" | "declined"
-                  source: "request" | "milestone"; created_at; decided_at; note_he
-@dataclass
-class FamilyGoal: title_he: str; target_stars: int; week_starts_on: int = 6   # יום ראשון
+def week_start(d: date) -> date                    # יום ראשון
+def age_on(today, birth_year, grade) -> int | None # לפי שנת לידה, אחרת כיתה + 6 (גן = 5)
+def default_weekly_days(age) -> int                # 3 לגילאי 5–7 (וכשלא ידוע), 4 למבוגרים יותר
 
-class RewardsBoard:
-    def __init__(self, root: Path, *, tz, clock=time.time)
-    def add_reward(**fields) -> Reward; def update_reward(r); def remove_reward(rid)   # remove = active=False
-    def record_earned(pid, *, stars=0, coins=0, now) -> list[Redemption]   # מחזיר הפתעות שנפתחו
-    def totals(pid) -> Totals                      # lifetime stars/coins. אף פעם לא יורד
-    def status(pid) -> list[RewardStatus]          # התקדמות, זמינות, title מוסתר להפתעה
-    def request(pid, reward_id, now) -> Redemption
-    def approve(redemption_id, now) -> Redemption; def decline(redemption_id, now, note_he="")
-    def pending() -> list[Redemption]
-    def set_family_goal(goal | None); def family_progress(now) -> FamilyGoalStatus
+@dataclass(frozen=True)
+class WeeklyStatus: week_start; practised_days; target_days; available_days; met; message_he
+
+class PracticeLog:                                 # root/practice.json
+    def __init__(self, root, *, tz)
+    def record(pid, now) -> bool                   # True אם זה יום חדש
+    def practised_on(pid, d) -> bool; def total_days(pid) -> int
+    def weekly_status(pid, now, *, target_days, is_rest_day=None) -> WeeklyStatus
+    def weeks_met(pid, now, *, target_days, is_rest_day=None) -> int   # רק שבועות שהסתיימו
+
+@dataclass(frozen=True)
+class FamilyWeekStatus: week_start; met; children_met: tuple[str, ...]; children_total
+def family_week_status(statuses: Mapping[str, WeeklyStatus]) -> FamilyWeekStatus
 ```
 
-**רציונל (מחקר מוטיבציה):** פרסים חיצוניים צפויים ותלויי ביצוע עלולים להחליש מוטיבציה פנימית (Deci, Koestner & Ryan, 1999). לכן:
+- **במקום רצף יומי:** יעד של K ימי תרגול בשבוע (ראשון עד שבת). אין שום שדה `streak` ואין הודעה על "רצף שנשבר". שבוע שלא עמד ביעד פשוט נגמר, ושבוע חדש מתחיל.
+- **שבת ויום טוב לא נספרים** במכנה: `available_days` = ימי השבוע שאינם `is_rest_day` (מגיע מ־`ShabbatCalendar.is_restricted_day`). היעד בפועל = `min(K, available_days)`.
+- **ההורה יכול לשנות את K** לכל ילד (`ParentSettings.weekly_days`).
+- **יעד משפחתי שיתופי:** מתקיים כש**כל** ילד עומד ביעד האישי שלו. לא סכום כוכבים, שמעדיף את הגדול.
 
-1. **כוכבים ומטבעות לא יורדים לעולם.** הם סימן להתקדמות, לא מטבע שמוציאים. המימוש נקבע לפי סף מצטבר: הפרס ה־n זמין כשהסך המצטבר ≥ n × מחיר. הילד לא "מפסיד" כוכבים כשהוא מקבל גלידה.
-2. **פרס הוא חגיגה ומידע** ("הגעת ל־100 כוכבים!"), לא תשלום על משימה. הכוכבים באים משליטה במיומנות (מנוע הלמידה), לא מכמות זמן מסך.
-3. **הפתעת אבן דרך:** פרס לא צפוי פוגע פחות במוטיבציה. הכותרת מוסתרת עד שהסף מגיע ("🎁 הפתעה!"), ואז נוצרת בקשה שממתינה להורה.
-4. **מטרה משפחתית שבועית:** סכום הכוכבים של כל הילדים בשבוע מול יעד. שיתוף פעולה, לא תחרות בין אחים בגילאים שונים. אין טבלת דירוג בין ילדים.
-5. **כל מימוש דורש אישור הורה.** סירוב לא מוריד דבר.
+## 8. חגיגות (`rewards.py`)
 
-## 8. ערכים (`values.py`)
+```python
+class RewardsMode(StrEnum): SURPRISE = "surprise"; VISIBLE_GOALS = "visible_goals"
+VISIBLE_GOALS_WARNING_HE: str                      # הסבר המחקר, מוצג להורה לפני שמפעיל
+class MilestoneKind(StrEnum):                      # רק אבני דרך של מאמץ. אין "דקות מסך"
+    PRACTICE_DAYS, SKILLS_MASTERED, SKILL, ACADEMY, WEEKLY_GOALS, STARS
+
+@dataclass
+class Celebration: id; title_he; milestone: MilestoneKind; threshold: int = 1
+                   target_id: str | None = None   # חובה ל־SKILL ול־ACADEMY
+                   profile_id: str | None = None  # None = לכל ילד
+                   repeatable: bool = False; secret: bool = False; active: bool = True
+@dataclass(frozen=True)
+class ProgressStats: practice_days; skills_mastered: frozenset; academies: frozenset
+                     weekly_goals_met; stars; titles: Mapping[str, str]
+@dataclass
+class Suggestion: id; profile_id | None; celebration_id | None; level
+                  status: "pending" | "celebrated" | "dismissed"
+                  source: "milestone" | "kid_request" | "family_goal"
+                  message_he; created_at; decided_at; week_start
+
+class RewardsBoard:                                # root/rewards.json
+    def __init__(self, root, *, clock=time.time)
+    mode; def set_mode(mode)
+    def add_celebration(**f) -> Celebration; def update_celebration(c); def remove_celebration(cid)
+    def celebrations(profile_id=None, *, include_inactive=False) -> list[Celebration]
+    def evaluate(pid, stats) -> list[Suggestion]   # אבני דרך חדשות → הצעות להורה
+    def pending() -> list[Suggestion]; def history(pid) -> list[Suggestion]
+    def mark_celebrated(sid) -> Suggestion; def dismiss(sid) -> Suggestion
+    def kid_view(pid, stats) -> list[GoalView]     # [] במצב הפתעה
+    def request(pid, cid, stats) -> Suggestion     # רק במצב יעדים גלויים, ורק כשהיעד הושג
+    family_goal; def set_family_goal(title_he | None)
+    def evaluate_family(status: FamilyWeekStatus) -> Suggestion | None   # פעם אחת בשבוע
+```
+
+**רציונל (מחקר מוטיבציה):** פרס מוחשי שמובטח מראש ותלוי בביצוע מחליש מוטיבציה פנימית (Deci, Koestner & Ryan, 1999). פרס לא צפוי, ומשוב מידעי, כמעט לא פוגעים בה. לכן:
+
+1. **ברירת המחדל היא "חגיגות הפתעה".** ההורה מגדיר חגיגות בפרטיות. כשילד מגיע לאבן דרך של מאמץ (ימי תרגול, מיומנות שנשלטה, אקדמיה שהסתיימה, יעדים שבועיים), המערכת **מציעה להורה** שהגיע זמן לחגוג. הילד לא רואה מחירון.
+2. **ההודעה לילד היא מידע**, לא תשלום: "עבדת קשה על שברים והצלחת!". שם הפרס לא מופיע בה.
+3. **שום דבר לא נשלל.** אין "מחיר" שיורד מהכוכבים. ירידה בנתונים לא מבטלת חגיגה. דחייה (`dismiss`) רק מסירה את ההצעה, ואותה רמה לא תוצע שוב.
+4. **זמן מסך לא משמש פרס ולא עונש.** אין סוג אבן דרך כזה.
+5. **מצב "יעדים גלויים"** אופציונלי, וההורה מפעיל אותו אחרי שהוא רואה את `VISIBLE_GOALS_WARNING_HE`. במצב הזה הילד רואה את היעדים וההתקדמות (חוץ מ־`secret`), ויכול לבקש מימוש כשהגיע. כל מימוש דורש אישור הורה.
+6. **אבן דרך שחוזרת** (`repeatable`) מוצעת פעם אחת לכל רמה (`value // threshold`). קפיצה של כמה רמות יוצרת הצעה אחת, לא מבול.
+7. **יעד משפחתי** (`set_family_goal("ערב פיצה")`) מוצע להורה פעם אחת בשבוע שבו כל הילדים עמדו ביעד האישי.
+
+## 9. דשבורד: שאלה לשיחה (`dashboard.py`)
+
+```python
+@dataclass(frozen=True)
+class WeekSummary: mastered: tuple[str, ...] = (); practised = (); struggles = (); days_practised: int = 0
+    @classmethod from_dict(d) -> WeekSummary
+def conversation_prompt(name: str, summary: WeekSummary, *, variant: int = 0) -> str
+```
+
+פונקציה טהורה שמחזירה משפט אחד בעברית להורה. העדיפות: מיומנות שנשלטה ("בקשו מנועה להסביר לכם את שטח המשולש") > קושי (ניסוח עדין: "מה היה מאתגר?", לנסות יחד) > נושא שתורגל > שבוע שקט (בלי אשמה: "מה הכי כיף במשחק?"). `variant` (למשל מספר השבוע) מחליף בין ניסוחים, באופן דטרמיניסטי.
+
+## 10. יומן הינשוף (`owl_log.py`)
+
+```python
+MAX_ENTRIES = 500
+@dataclass(frozen=True)
+class OwlEntry: ts: float; role: "child" | "owl" | "system"; text: str; meta: dict
+class OwlLog:
+    def __init__(self, root, *, clock=time.time)
+    def append(pid, role, text, *, meta=None) -> OwlEntry
+    def read(pid, *, limit=None) -> list[OwlEntry]          # מהישן לחדש
+```
+
+- קובץ JSONL לכל פרופיל, `profiles/<id>/owl_log.jsonl`. כל שיחה עם הינשוף (WP9) נרשמת, וההורה קורא אותה בדשבורד.
+- append-only: אין API לעריכה או למחיקה (המחיקה היחידה היא מחיקת הפרופיל כולו).
+- שמירה: 500 הרשומות האחרונות. כשעוברים את הגבול, הקובץ נכתב מחדש באופן אטומי. שורה פגומה מדולגת.
+- מזהה פרופיל נבדק (אין `..`), והפרופיל חייב להתקיים.
+
+## 11. ערכים (`values.py`)
 
 ```python
 @dataclass
@@ -241,7 +318,7 @@ class FamilyValues:
     emphasis: list[str] = ["giving", "respect", "honesty", "responsibility", "helping"]
 ```
 
-## 9. טבלת בדיקות
+## 12. טבלת בדיקות
 
 | # | קובץ | בדיקה |
 |---|---|---|
@@ -287,11 +364,24 @@ class FamilyValues:
 | S8 | | שעון אחורה → 0. קפיצה קדימה → חיתוך |
 | S9 | | usage.json נשמר ונטען. פגום → ריק עם גיבוי. ימים ישנים נמחקים |
 | S10 | | start כשאסור → MUST_STOP עם grace 0 |
-| R1 | test_family_rewards | add/status, פרס לפרופיל אחר לא מוצג |
-| R2 | | request → pending → approve. הכוכבים לא יורדים. ה־n דורש n×מחיר |
-| R3 | | request בלי מספיק כוכבים נדחה. בקשה כפולה נדחית. decline לא משנה כלום |
-| R4 | | הפתעה: כותרת מוסתרת, נפתחת ביצירת בקשה אוטומטית אחת |
-| R5 | | מטרה משפחתית שבועית: סכום, נפתחת, מתאפסת בשבוע הבא (ראשון) |
-| R6 | | round-trip לקובץ, פגום → ברירות מחדל |
+| S11 | | `at_natural_break` מסיים את ה־grace מיד. לפני הגבול הוא לא משנה כלום |
+| G1 | test_family_goals | שבוע מתחיל בראשון. K לפי גיל. גיל לפי שנת לידה או כיתה |
+| G2 | | יום תרגול נרשם פעם אחת, לפי התאריך המקומי |
+| G3 | | שבת ויום טוב יוצאים מהמכנה (שבוע פסח 2027: 5 ימים), היעד מוגבל ל־available |
+| G4 | | אין `streak` בשום שדה או הודעה |
+| G5 | | `weeks_met` סופר רק שבועות שהסתיימו |
+| G6 | | יעד משפחתי: רק כשכל ילד עמד ביעד. ריק = לא |
+| G7 | | שמירה, טעינה, קובץ פגום |
+| R1 | test_family_rewards | ברירת מחדל: הפתעה. אזהרה בעברית ליעדים גלויים |
+| R2 | | אימות חגיגה: כותרת, סף, target ל־skill, אין סוג "screen" |
+| R3 | | אבן דרך → הצעה אחת להורה. הודעה מידעית בלי שם הפרס |
+| R4 | | חוזרת: הצעה אחת לכל רמה, קפיצה של רמות = אחת |
+| R5 | | לפי פרופיל. ירידה בנתונים לא שוללת. celebrate/dismiss, dismiss לא חוזר |
+| R6 | | kid_view ריק במצב הפתעה. במצב גלוי: התקדמות, בלי secret |
+| R7 | | request: רק במצב גלוי ורק כשהושג. כפול מחזיר את הקיים |
+| R8 | | יעד משפחתי: פעם אחת בשבוע |
+| R9 | | round-trip, קובץ פגום → ברירות מחדל |
+| D1 | test_family_dashboard | עדיפויות: נשלט > קושי > תרגול > שבוע שקט. ניסוח עדין. variant דטרמיניסטי |
+| O1 | test_family_owl_log | append/read, limit, שמירת 500, תפקיד לא חוקי, פרופיל לא קיים, שורה פגומה |
 | V1 | test_family_values | ברירות מחדל פועלות, round-trip, מפתחות לא מוכרים נשמרים |
 | X1 | test_family_purity | אף מודול ב־`nagmon.family` לא מייבא pygame או tuxemon |
