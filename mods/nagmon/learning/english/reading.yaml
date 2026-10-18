@@ -1,0 +1,1440 @@
+# Nagmon English reading passages (SDD_CONTENT section 5).
+# Grades 3-9, passages grow from about 30 to about 180 words.
+# Each passage names its skill (english.reading.level<N>) and tags; the questions are regular
+# bank items (section 3) and inherit grade, level, skill and tags from their passage.
+#   level1: grade 3 (A1, 30-45 words)    level4: grade 6 (A2, 100-125 words)
+#   level2: grade 4 (A1, 55-70 words)    level5: grade 7 (A2/B1, 125-150 words)
+#   level3: grade 5 (A2, 75-100 words)   level6: grade 8-9 (B1, 150-180 words)
+# Facts in non-fiction passages were checked against standard encyclopedic sources.
+
+# ===== level1 =====
+- id: read.001
+  grade: 3
+  level: A1
+  skill: english.reading.level1
+  tags: [level1]
+  title: My Cat
+  text_en: >-
+    I have a cat. Her name is Mitzi. She is black and white. Mitzi likes milk and fish. She sleeps on my bed. In the morning, she plays with a red ball. I love my cat!
+  text_he: >-
+    יש לי חתולה. קוראים לה מיצי. היא שחורה ולבנה. מיצי אוהבת חלב ודגים. היא ישנה על המיטה שלי. בבוקר היא משחקת עם כדור אדום. אני אוהב את החתולה שלי!
+  questions:
+    - id: read.001.q1
+      kind: choice
+      prompt_en: What color is Mitzi?
+      prompt_he: באיזה צבע מיצי?
+      choices:
+        - {en: black and white, he: שחורה ולבנה}
+        - {en: orange, he: כתומה}
+        - {en: gray, he: אפורה}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: She is black and white.'
+    - id: read.001.q2
+      kind: choice
+      prompt_en: Where does Mitzi sleep?
+      prompt_he: איפה מיצי ישנה?
+      choices:
+        - {en: in a box, he: בקופסה}
+        - {en: on my bed, he: על המיטה שלי}
+        - {en: in the garden, he: בגינה}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: She sleeps on my bed.'
+    - id: read.001.q3
+      kind: choice
+      prompt_en: What does Mitzi play with?
+      prompt_he: עם מה מיצי משחקת?
+      choices:
+        - {en: a doll, he: בובה}
+        - {en: a kite, he: עפיפון}
+        - {en: a red ball, he: כדור אדום}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: she plays with a red ball.'
+
+- id: read.002
+  grade: 3
+  level: A1
+  skill: english.reading.level1
+  tags: [level1]
+  title: At the Beach
+  text_en: >-
+    It is summer. Dan and his sister Noa go to the beach. The sun is hot. Noa swims in the sea. Dan makes a big sandcastle. Then they eat cold watermelon. It is a happy day.
+  text_he: >-
+    קיץ. דן ואחותו נועה הולכים לחוף הים. השמש חמה. נועה שוחה בים. דן בונה ארמון חול גדול. אחר כך הם אוכלים אבטיח קר. זה יום שמח.
+  questions:
+    - id: read.002.q1
+      kind: choice
+      prompt_en: Who goes to the beach?
+      prompt_he: מי הולך לחוף הים?
+      choices:
+        - {en: Dan and Noa, he: דן ונועה}
+        - {en: Dan and his mom, he: דן ואמא שלו}
+        - {en: Noa and Grandma, he: נועה וסבתא}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: Dan and his sister Noa go to the beach.'
+    - id: read.002.q2
+      kind: choice
+      prompt_en: What does Dan make?
+      prompt_he: מה דן בונה?
+      choices:
+        - {en: a kite, he: עפיפון}
+        - {en: a sandcastle, he: ארמון חול}
+        - {en: a cake, he: עוגה}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: Dan makes a big sandcastle.'
+    - id: read.002.q3
+      kind: choice
+      prompt_en: What do they eat?
+      prompt_he: מה הם אוכלים?
+      choices:
+        - {en: pizza, he: פיצה}
+        - {en: ice cream, he: גלידה}
+        - {en: watermelon, he: אבטיח}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: they eat cold watermelon.'
+    - id: read.002.q4
+      kind: true_false
+      prompt_en: It is winter.
+      prompt_he: 'נכון או לא נכון: עכשיו חורף.'
+      answer: false
+      explanation_he: 'המשפט הראשון הוא It is summer, כלומר עכשיו קיץ.'
+
+- id: read.003
+  grade: 3
+  level: A1
+  skill: english.reading.level1
+  tags: [level1]
+  title: My Robot
+  text_en: >-
+    I have a new robot. It is small and blue. It has two big eyes and four wheels. My robot can talk and sing, but it can't swim! I play with my robot after school.
+  text_he: >-
+    יש לי רובוט חדש. הוא קטן וכחול. יש לו שתי עיניים גדולות וארבעה גלגלים. הרובוט שלי יודע לדבר ולשיר, אבל הוא לא יודע לשחות! אני משחק עם הרובוט שלי אחרי בית הספר.
+  questions:
+    - id: read.003.q1
+      kind: choice
+      prompt_en: What color is the robot?
+      prompt_he: באיזה צבע הרובוט?
+      choices:
+        - {en: red, he: אדום}
+        - {en: blue, he: כחול}
+        - {en: green, he: ירוק}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: It is small and blue.'
+    - id: read.003.q2
+      kind: choice
+      prompt_en: How many wheels does it have?
+      prompt_he: כמה גלגלים יש לרובוט?
+      choices:
+        - {en: two, he: שניים}
+        - {en: three, he: שלושה}
+        - {en: four, he: ארבעה}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: four wheels. לרובוט יש שתי עיניים, אבל ארבעה גלגלים.'
+    - id: read.003.q3
+      kind: choice
+      prompt_en: What can't the robot do?
+      prompt_he: מה הרובוט לא יודע לעשות?
+      choices:
+        - {en: swim, he: לשחות}
+        - {en: talk, he: לדבר}
+        - {en: sing, he: לשיר}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: it can''t swim. הרובוט כן יודע לדבר ולשיר.'
+
+- id: read.004
+  grade: 3
+  level: A1
+  skill: english.reading.level1
+  tags: [level1]
+  title: The Hungry Bird
+  text_en: >-
+    A little bird is hungry. It looks for food. It sees a red apple on a tree. It eats the apple. Now the bird is not hungry. It is happy, and it sings a song.
+  text_he: >-
+    ציפור קטנה רעבה. היא מחפשת אוכל. היא רואה תפוח אדום על עץ. היא אוכלת את התפוח. עכשיו הציפור לא רעבה. היא שמחה, והיא שרה שיר.
+  questions:
+    - id: read.004.q1
+      kind: choice
+      prompt_en: How does the bird feel at the start?
+      prompt_he: איך הציפור מרגישה בהתחלה?
+      choices:
+        - {en: tired, he: עייפה}
+        - {en: hungry, he: רעבה}
+        - {en: cold, he: קר לה}
+      answer: 1
+      explanation_he: 'המשפט הראשון: A little bird is hungry.'
+    - id: read.004.q2
+      kind: choice
+      prompt_en: What does the bird eat?
+      prompt_he: מה הציפור אוכלת?
+      choices:
+        - {en: an apple, he: תפוח}
+        - {en: a worm, he: תולעת}
+        - {en: bread, he: לחם}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: It eats the apple.'
+    - id: read.004.q3
+      kind: choice
+      prompt_en: What does the bird do at the end?
+      prompt_he: מה הציפור עושה בסוף?
+      choices:
+        - {en: It sleeps., he: היא ישנה.}
+        - {en: It flies away., he: היא עפה משם.}
+        - {en: It sings a song., he: היא שרה שיר.}
+      answer: 2
+      explanation_he: 'בסוף כתוב: it sings a song.'
+
+- id: read.005
+  grade: 3
+  level: A1
+  skill: english.reading.level1
+  tags: [level1]
+  title: My Family
+  text_en: >-
+    This is my family. My dad is a doctor and my mom is a teacher. I have one brother and two sisters. My brother is five. We have a dog. His name is Max. We are a happy family.
+  text_he: >-
+    זאת המשפחה שלי. אבא שלי רופא ואמא שלי מורה. יש לי אח אחד ושתי אחיות. אחי בן חמש. יש לנו כלב. קוראים לו מקס. אנחנו משפחה שמחה.
+  questions:
+    - id: read.005.q1
+      kind: choice
+      prompt_en: What is Mom's job?
+      prompt_he: מה המקצוע של אמא?
+      choices:
+        - {en: a doctor, he: רופאה}
+        - {en: a teacher, he: מורה}
+        - {en: a pilot, he: טייסת}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: my mom is a teacher. אבא הוא הרופא.'
+    - id: read.005.q2
+      kind: choice
+      prompt_en: How many sisters does the writer have?
+      prompt_he: כמה אחיות יש לכותב?
+      choices:
+        - {en: one, he: אחת}
+        - {en: two, he: שתיים}
+        - {en: five, he: חמש}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: one brother and two sisters.'
+    - id: read.005.q3
+      kind: choice
+      prompt_en: What is the dog's name?
+      prompt_he: איך קוראים לכלב?
+      choices:
+        - {en: Max, he: מקס}
+        - {en: Mitzi, he: מיצי}
+        - {en: Dan, he: דן}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: His name is Max.'
+
+# ===== level2 =====
+- id: read.006
+  grade: 4
+  level: A1
+  skill: english.reading.level2
+  tags: [level2]
+  title: A New Friend
+  text_en: >-
+    Yoni is in fourth grade. One day, a new girl comes to his class. Her name is Lia. She doesn't know anyone, and she looks sad. At break, Yoni walks over to her and asks, "Do you want to play with us?" Lia smiles and says yes. They play soccer together. Now Lia and Yoni are good friends.
+  text_he: >-
+    יוני בכיתה ד'. יום אחד מגיעה לכיתה שלו ילדה חדשה. קוראים לה ליה. היא לא מכירה אף אחד, והיא נראית עצובה. בהפסקה יוני ניגש אליה ושואל: "את רוצה לשחק איתנו?" ליה מחייכת ואומרת כן. הם משחקים כדורגל ביחד. עכשיו ליה ויוני חברים טובים.
+  questions:
+    - id: read.006.q1
+      kind: choice
+      prompt_en: Who is new in the class?
+      prompt_he: מי חדש בכיתה?
+      choices:
+        - {en: Yoni, he: יוני}
+        - {en: Lia, he: ליה}
+        - {en: the teacher, he: המורה}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: a new girl comes to his class. Her name is Lia.'
+    - id: read.006.q2
+      kind: choice
+      prompt_en: How does Lia feel at first?
+      prompt_he: איך ליה מרגישה בהתחלה?
+      choices:
+        - {en: sad, he: עצובה}
+        - {en: angry, he: כועסת}
+        - {en: excited, he: נרגשת}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: she looks sad, כי היא לא מכירה אף אחד.'
+    - id: read.006.q3
+      kind: choice
+      prompt_en: What do they play?
+      prompt_he: מה הם משחקים?
+      choices:
+        - {en: basketball, he: כדורסל}
+        - {en: tennis, he: טניס}
+        - {en: soccer, he: כדורגל}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: They play soccer together.'
+    - id: read.006.q4
+      kind: true_false
+      prompt_en: At the end, Yoni and Lia are friends.
+      prompt_he: 'נכון או לא נכון: בסוף, יוני וליה חברים.'
+      answer: true
+      explanation_he: 'המשפט האחרון: Now Lia and Yoni are good friends.'
+
+- id: read.007
+  grade: 4
+  level: A1
+  skill: english.reading.level2
+  tags: [level2]
+  title: The Hoopoe
+  text_en: >-
+    The hoopoe is the national bird of Israel. It has orange, black and white feathers. On its head, it has a beautiful crown of feathers. The hoopoe has a long, thin beak. It uses its beak to find worms and insects in the ground. You can see hoopoes in parks and gardens all over Israel.
+  text_he: >-
+    הדוכיפת היא הציפור הלאומית של ישראל. יש לה נוצות כתומות, שחורות ולבנות. על הראש יש לה כתר יפה של נוצות. לדוכיפת יש מקור ארוך ודק. היא משתמשת במקור כדי למצוא תולעים וחרקים באדמה. אפשר לראות דוכיפות בפארקים ובגינות בכל רחבי ישראל.
+  questions:
+    - id: read.007.q1
+      kind: choice
+      prompt_en: What is special about the hoopoe?
+      prompt_he: מה מיוחד בדוכיפת?
+      choices:
+        - {en: It is Israel's national bird., he: היא הציפור הלאומית של ישראל}
+        - {en: It can talk., he: היא יודעת לדבר}
+        - {en: It lives in the sea., he: היא חיה בים}
+      answer: 0
+      explanation_he: 'המשפט הראשון: The hoopoe is the national bird of Israel.'
+    - id: read.007.q2
+      kind: choice
+      prompt_en: What does the hoopoe have on its head?
+      prompt_he: מה יש לדוכיפת על הראש?
+      choices:
+        - {en: a hat, he: כובע}
+        - {en: a crown of feathers, he: כתר של נוצות}
+        - {en: two horns, he: שתי קרניים}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: On its head, it has a beautiful crown of feathers.'
+    - id: read.007.q3
+      kind: choice
+      prompt_en: What does the hoopoe eat?
+      prompt_he: מה הדוכיפת אוכלת?
+      choices:
+        - {en: fish, he: דגים}
+        - {en: apples, he: תפוחים}
+        - {en: worms and insects, he: תולעים וחרקים}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: to find worms and insects in the ground.'
+
+- id: read.008
+  grade: 4
+  level: A1
+  skill: english.reading.level2
+  tags: [level2]
+  title: A Day at the Zoo
+  text_en: >-
+    Today our class visits the zoo. First, we see the lions. They are sleeping in the sun. Then we see the monkeys. They are jumping and eating bananas. My favorite animal is the giraffe. It is very tall and it has a long neck. At the end of the day, we are tired but happy.
+  text_he: >-
+    היום הכיתה שלנו מבקרת בגן החיות. קודם אנחנו רואים את האריות. הם ישנים בשמש. אחר כך אנחנו רואים את הקופים. הם קופצים ואוכלים בננות. החיה האהובה עליי היא הג'ירפה. היא גבוהה מאוד ויש לה צוואר ארוך. בסוף היום אנחנו עייפים אבל שמחים.
+  questions:
+    - id: read.008.q1
+      kind: choice
+      prompt_en: What are the lions doing?
+      prompt_he: מה האריות עושים?
+      choices:
+        - {en: eating, he: אוכלים}
+        - {en: sleeping, he: ישנים}
+        - {en: running, he: רצים}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: They are sleeping in the sun.'
+    - id: read.008.q2
+      kind: choice
+      prompt_en: What are the monkeys eating?
+      prompt_he: מה הקופים אוכלים?
+      choices:
+        - {en: bananas, he: בננות}
+        - {en: apples, he: תפוחים}
+        - {en: carrots, he: גזרים}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: They are jumping and eating bananas.'
+    - id: read.008.q3
+      kind: choice
+      prompt_en: What is the writer's favorite animal?
+      prompt_he: מה החיה האהובה על הכותב?
+      choices:
+        - {en: the lion, he: האריה}
+        - {en: the monkey, he: הקוף}
+        - {en: the giraffe, he: הג'ירפה}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: My favorite animal is the giraffe.'
+
+- id: read.009
+  grade: 4
+  level: A1
+  skill: english.reading.level2
+  tags: [level2]
+  title: Sports Day
+  text_en: >-
+    Today is Sports Day at school. All the children wear white shirts. There are many races. Maya runs very fast and wins the first race. Ben jumps very far. Our class plays basketball against class 4B. We don't win, but we have a lot of fun. After the games, we drink cold water and eat oranges.
+  text_he: >-
+    היום יום ספורט בבית הספר. כל הילדים לובשים חולצות לבנות. יש הרבה מרוצים. מאיה רצה מהר מאוד ומנצחת במרוץ הראשון. בן קופץ רחוק מאוד. הכיתה שלנו משחקת כדורסל נגד כיתה ד'2. אנחנו לא מנצחים, אבל נהנים מאוד. אחרי המשחקים אנחנו שותים מים קרים ואוכלים תפוזים.
+  questions:
+    - id: read.009.q1
+      kind: choice
+      prompt_en: What color are the children's shirts?
+      prompt_he: באיזה צבע החולצות של הילדים?
+      choices:
+        - {en: white, he: לבן}
+        - {en: blue, he: כחול}
+        - {en: yellow, he: צהוב}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: All the children wear white shirts.'
+    - id: read.009.q2
+      kind: choice
+      prompt_en: Who wins the first race?
+      prompt_he: מי מנצח במרוץ הראשון?
+      choices:
+        - {en: Ben, he: בן}
+        - {en: Maya, he: מאיה}
+        - {en: the teacher, he: המורה}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: Maya runs very fast and wins the first race.'
+    - id: read.009.q3
+      kind: true_false
+      prompt_en: Our class wins the basketball game.
+      prompt_he: 'נכון או לא נכון: הכיתה שלנו מנצחת במשחק הכדורסל.'
+      answer: false
+      explanation_he: 'בטקסט כתוב: We don''t win, but we have a lot of fun.'
+    - id: read.009.q4
+      kind: choice
+      prompt_en: What do they eat after the games?
+      prompt_he: מה הם אוכלים אחרי המשחקים?
+      choices:
+        - {en: sandwiches, he: כריכים}
+        - {en: ice cream, he: גלידה}
+        - {en: oranges, he: תפוזים}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: we drink cold water and eat oranges.'
+
+- id: read.010
+  grade: 4
+  level: A1
+  skill: english.reading.level2
+  tags: [level2]
+  title: The Moon
+  text_en: >-
+    Look at the sky at night. You can see the Moon. The Moon goes around the Earth. It has no light of its own. It looks bright because the Sun shines on it. There is no air and no water on the Moon, so there are no plants or animals there. In 1969, two astronauts walked on the Moon for the first time.
+  text_he: >-
+    הסתכלו על השמיים בלילה. אפשר לראות את הירח. הירח מקיף את כדור הארץ. אין לו אור משלו. הוא נראה מואר כי השמש מאירה עליו. על הירח אין אוויר ואין מים, ולכן אין שם צמחים או בעלי חיים. בשנת 1969 שני אסטרונאוטים הלכו על הירח בפעם הראשונה.
+  questions:
+    - id: read.010.q1
+      kind: choice
+      prompt_en: What does the Moon go around?
+      prompt_he: סביב מה הירח מסתובב?
+      choices:
+        - {en: the Earth, he: כדור הארץ}
+        - {en: the stars, he: הכוכבים}
+        - {en: Mars, he: מאדים}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: The Moon goes around the Earth.'
+    - id: read.010.q2
+      kind: choice
+      prompt_en: Why does the Moon look bright?
+      prompt_he: למה הירח נראה מואר?
+      choices:
+        - {en: It has lamps., he: יש עליו מנורות.}
+        - {en: The Sun shines on it., he: השמש מאירה עליו.}
+        - {en: It is very hot., he: הוא חם מאוד.}
+      answer: 1
+      explanation_he: 'לירח אין אור משלו. הוא נראה מואר because the Sun shines on it.'
+    - id: read.010.q3
+      kind: true_false
+      prompt_en: There are animals on the Moon.
+      prompt_he: 'נכון או לא נכון: יש בעלי חיים על הירח.'
+      answer: false
+      explanation_he: 'על הירח אין אוויר ואין מים, ולכן there are no plants or animals there.'
+    - id: read.010.q4
+      kind: choice
+      prompt_en: When did astronauts first walk on the Moon?
+      prompt_he: מתי אסטרונאוטים הלכו על הירח בפעם הראשונה?
+      choices:
+        - {en: in 1869, he: בשנת 1869}
+        - {en: in 2019, he: בשנת 2019}
+        - {en: in 1969, he: בשנת 1969}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: In 1969, two astronauts walked on the Moon.'
+
+# ===== level3 =====
+- id: read.011
+  grade: 5
+  level: A2
+  skill: english.reading.level3
+  tags: [level3]
+  title: The Wright Brothers
+  text_en: >-
+    Orville and Wilbur Wright were two brothers from the United States. When they were children, their father gave them a small toy helicopter. They loved it and played with it until it broke. Then they built their own! When they grew up, they opened a bicycle shop. But they still dreamed about flying. In 1903, they built a plane with an engine. Orville flew it for twelve seconds. It was the first plane flight in history.
+  text_he: >-
+    אורוויל ווילבר רייט היו שני אחים מארצות הברית. כשהיו ילדים, אבא שלהם נתן להם מסוק צעצוע קטן. הם אהבו אותו ושיחקו בו עד שהוא נשבר. אז הם בנו מסוק משלהם! כשגדלו, הם פתחו חנות אופניים. אבל הם עדיין חלמו לעוף. בשנת 1903 הם בנו מטוס עם מנוע. אורוויל הטיס אותו במשך שתים עשרה שניות. זו הייתה טיסת המטוס הראשונה בהיסטוריה.
+  questions:
+    - id: read.011.q1
+      kind: choice
+      prompt_en: What toy did their father give them?
+      prompt_he: איזה צעצוע אבא שלהם נתן להם?
+      choices:
+        - {en: a toy helicopter, he: מסוק צעצוע}
+        - {en: a toy car, he: מכונית צעצוע}
+        - {en: a kite, he: עפיפון}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: their father gave them a small toy helicopter.'
+    - id: read.011.q2
+      kind: choice
+      prompt_en: What kind of shop did the brothers open?
+      prompt_he: איזו חנות האחים פתחו?
+      choices:
+        - {en: a toy shop, he: חנות צעצועים}
+        - {en: a bicycle shop, he: חנות אופניים}
+        - {en: a book shop, he: חנות ספרים}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: they opened a bicycle shop.'
+    - id: read.011.q3
+      kind: choice
+      prompt_en: How long was the first flight?
+      prompt_he: כמה זמן נמשכה הטיסה הראשונה?
+      choices:
+        - {en: twelve minutes, he: שתים עשרה דקות}
+        - {en: two hours, he: שעתיים}
+        - {en: twelve seconds, he: שתים עשרה שניות}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: Orville flew it for twelve seconds.'
+    - id: read.011.q4
+      kind: choice
+      prompt_en: In which year did they fly the first plane?
+      prompt_he: באיזו שנה הם הטיסו את המטוס הראשון?
+      choices:
+        - {en: 1903, he: 1903}
+        - {en: 1803, he: 1803}
+        - {en: 1953, he: 1953}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: In 1903, they built a plane with an engine.'
+
+- id: read.012
+  grade: 5
+  level: A2
+  skill: english.reading.level3
+  tags: [level3]
+  title: Dolphins
+  text_en: >-
+    Dolphins live in seas and oceans all over the world. They look like fish, but they are mammals. This means that they breathe air and feed their babies milk. Dolphins must come up to the surface of the water to breathe. They are very clever animals. They live in groups and talk to each other with clicks and whistles. Dolphins can also swim very fast, up to 40 kilometers an hour. Sometimes you can see dolphins near the coast of Israel.
+  text_he: >-
+    דולפינים חיים בימים ובאוקיינוסים בכל העולם. הם נראים כמו דגים, אבל הם יונקים. זה אומר שהם נושמים אוויר ומניקים את הגורים שלהם בחלב. דולפינים חייבים לעלות אל פני המים כדי לנשום. הם חיות חכמות מאוד. הם חיים בקבוצות ומדברים זה עם זה בעזרת נקישות ושריקות. דולפינים גם יודעים לשחות מהר מאוד, עד 40 קילומטר בשעה. לפעמים אפשר לראות דולפינים ליד החוף של ישראל.
+  questions:
+    - id: read.012.q1
+      kind: choice
+      prompt_en: What are dolphins?
+      prompt_he: מה הם דולפינים?
+      choices:
+        - {en: fish, he: דגים}
+        - {en: mammals, he: יונקים}
+        - {en: birds, he: ציפורים}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: They look like fish, but they are mammals.'
+    - id: read.012.q2
+      kind: choice
+      prompt_en: Why do dolphins come up to the surface?
+      prompt_he: למה דולפינים עולים אל פני המים?
+      choices:
+        - {en: to breathe, he: כדי לנשום}
+        - {en: to sleep, he: כדי לישון}
+        - {en: to find fish, he: כדי למצוא דגים}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: Dolphins must come up to the surface of the water to breathe.'
+    - id: read.012.q3
+      kind: choice
+      prompt_en: How do dolphins talk to each other?
+      prompt_he: איך דולפינים מדברים זה עם זה?
+      choices:
+        - {en: with words, he: במילים}
+        - {en: with colors, he: בעזרת צבעים}
+        - {en: with clicks and whistles, he: בנקישות ושריקות}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: talk to each other with clicks and whistles.'
+    - id: read.012.q4
+      kind: choice
+      prompt_en: How fast can dolphins swim?
+      prompt_he: כמה מהר דולפינים יכולים לשחות?
+      choices:
+        - {en: up to 4 km an hour, he: עד 4 קמ"ש}
+        - {en: up to 40 km an hour, he: עד 40 קמ"ש}
+        - {en: up to 400 km an hour, he: עד 400 קמ"ש}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: up to 40 kilometers an hour.'
+
+- id: read.013
+  grade: 5
+  level: A2
+  skill: english.reading.level3
+  tags: [level3]
+  title: The Lost Wallet
+  text_en: >-
+    On Friday morning, Tamar went to the market with her mother. Near a fruit stand, she saw a brown wallet on the ground. Inside it there was money and a card with a name: David Levi. "What should we do?" asked Tamar. "Let's find him," said her mother. They asked the fruit seller. He knew David! He called him, and ten minutes later an old man arrived. He was very happy. "Thank you, young lady," he said. "You are very honest."
+  text_he: >-
+    ביום שישי בבוקר הלכה תמר לשוק עם אמא שלה. ליד דוכן פירות היא ראתה ארנק חום על הרצפה. בתוכו היו כסף וכרטיס עם שם: דוד לוי. "מה כדאי לעשות?" שאלה תמר. "בואי נמצא אותו," אמרה אמא שלה. הן שאלו את מוכר הפירות. הוא הכיר את דוד! הוא התקשר אליו, ואחרי עשר דקות הגיע איש מבוגר. הוא שמח מאוד. "תודה לך, גברת צעירה," הוא אמר. "את ישרה מאוד."
+  questions:
+    - id: read.013.q1
+      kind: choice
+      prompt_en: Where did Tamar find the wallet?
+      prompt_he: איפה תמר מצאה את הארנק?
+      choices:
+        - {en: near a fruit stand, he: ליד דוכן פירות}
+        - {en: at school, he: בבית הספר}
+        - {en: on the bus, he: באוטובוס}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: Near a fruit stand, she saw a brown wallet.'
+    - id: read.013.q2
+      kind: choice
+      prompt_en: How did they find David Levi?
+      prompt_he: איך הן מצאו את דוד לוי?
+      choices:
+        - {en: They called the police., he: הן התקשרו למשטרה.}
+        - {en: The fruit seller called him., he: מוכר הפירות התקשר אליו.}
+        - {en: They sent him a letter., he: הן שלחו לו מכתב.}
+      answer: 1
+      explanation_he: 'מוכר הפירות הכיר את דוד: He called him.'
+    - id: read.013.q3
+      kind: choice
+      prompt_en: What did David say about Tamar?
+      prompt_he: מה דוד אמר על תמר?
+      choices:
+        - {en: She is very funny., he: היא מצחיקה מאוד.}
+        - {en: She is very tall., he: היא גבוהה מאוד.}
+        - {en: She is very honest., he: היא ישרה מאוד.}
+      answer: 2
+      explanation_he: 'בסוף כתוב: You are very honest.'
+    - id: read.013.q4
+      kind: true_false
+      prompt_en: Tamar kept the money.
+      prompt_he: 'נכון או לא נכון: תמר השאירה את הכסף לעצמה.'
+      answer: false
+      explanation_he: 'תמר ואמא שלה מצאו את בעל הארנק והחזירו לו אותו.'
+
+- id: read.014
+  grade: 5
+  level: A2
+  skill: english.reading.level3
+  tags: [level3]
+  title: The First Basketball Game
+  text_en: >-
+    In 1891, a teacher named James Naismith had a problem. It was winter in the United States, and his students could not play outside. They were bored. Naismith wanted a new game that they could play inside. He put two peach baskets on the walls of the gym, high above the floor. The players had to throw a soccer ball into the baskets. After every goal, someone climbed a ladder to get the ball out! Today, basketball is one of the most popular sports in the world.
+  text_he: >-
+    בשנת 1891 למורה בשם ג'יימס נייסמית' הייתה בעיה. היה חורף בארצות הברית, והתלמידים שלו לא יכלו לשחק בחוץ. היה להם משעמם. נייסמית' רצה משחק חדש שאפשר לשחק בפנים. הוא תלה שני סלים של אפרסקים על הקירות של אולם הספורט, גבוה מעל הרצפה. השחקנים היו צריכים לזרוק כדורגל לתוך הסלים. אחרי כל סל, מישהו טיפס על סולם כדי להוציא את הכדור! היום כדורסל הוא אחד מענפי הספורט הפופולריים ביותר בעולם.
+  questions:
+    - id: read.014.q1
+      kind: choice
+      prompt_en: Why did Naismith want a new game?
+      prompt_he: למה נייסמית' רצה משחק חדש?
+      choices:
+        - {en: His students couldn't play outside., he: התלמידים לא יכלו לשחק בחוץ.}
+        - {en: His students didn't like sports., he: התלמידים לא אהבו ספורט.}
+        - {en: He wanted to sell baskets., he: הוא רצה למכור סלים.}
+      answer: 0
+      explanation_he: 'היה חורף, ו־his students could not play outside.'
+    - id: read.014.q2
+      kind: choice
+      prompt_en: What did he put on the walls?
+      prompt_he: מה הוא תלה על הקירות?
+      choices:
+        - {en: two pictures, he: שתי תמונות}
+        - {en: two peach baskets, he: שני סלים של אפרסקים}
+        - {en: two clocks, he: שני שעונים}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: He put two peach baskets on the walls of the gym.'
+    - id: read.014.q3
+      kind: choice
+      prompt_en: How did they get the ball out of the basket?
+      prompt_he: איך הוציאו את הכדור מהסל?
+      choices:
+        - {en: They used a long stick., he: בעזרת מקל ארוך.}
+        - {en: The ball fell out., he: הכדור נפל לבד.}
+        - {en: Someone climbed a ladder., he: מישהו טיפס על סולם.}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: someone climbed a ladder to get the ball out!'
+
+- id: read.015
+  grade: 5
+  level: A2
+  skill: english.reading.level3
+  tags: [level3]
+  title: Ein Gedi
+  text_en: >-
+    Ein Gedi is a green oasis near the Dead Sea. All around it is a hot, dry desert, but in Ein Gedi there are springs, waterfalls and many trees. Animals come to drink the fresh water. You can often see ibex climbing on the rocks. Ibex are wild goats with long, curved horns. You can also see rock hyraxes. They are small brown animals that like to lie in the sun. Many families visit Ein Gedi to walk and to enjoy the cool pools.
+  text_he: >-
+    עין גדי היא נווה מדבר ירוק ליד ים המלח. מסביב יש מדבר חם ויבש, אבל בעין גדי יש מעיינות, מפלים והרבה עצים. בעלי חיים באים לשתות את המים המתוקים. לעתים קרובות אפשר לראות יעלים מטפסים על הסלעים. יעלים הם עזים פראיות עם קרניים ארוכות ומעוקלות. אפשר לראות גם שפני סלע. הם בעלי חיים קטנים וחומים שאוהבים לשכב בשמש. הרבה משפחות מבקרות בעין גדי כדי לטייל וליהנות מהבריכות הקרירות.
+  questions:
+    - id: read.015.q1
+      kind: choice
+      prompt_en: Where is Ein Gedi?
+      prompt_he: איפה נמצאת עין גדי?
+      choices:
+        - {en: near the Dead Sea, he: ליד ים המלח}
+        - {en: in Tel Aviv, he: בתל אביב}
+        - {en: on a high mountain, he: על הר גבוה}
+      answer: 0
+      explanation_he: 'המשפט הראשון: Ein Gedi is a green oasis near the Dead Sea.'
+    - id: read.015.q2
+      kind: choice
+      prompt_en: What are ibex?
+      prompt_he: מה הם יעלים?
+      choices:
+        - {en: small birds, he: ציפורים קטנות}
+        - {en: wild goats, he: עזים פראיות}
+        - {en: big fish, he: דגים גדולים}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: Ibex are wild goats with long, curved horns.'
+    - id: read.015.q3
+      kind: choice
+      prompt_en: What do rock hyraxes like to do?
+      prompt_he: מה שפני הסלע אוהבים לעשות?
+      choices:
+        - {en: swim in the pools, he: לשחות בבריכות}
+        - {en: climb trees, he: לטפס על עצים}
+        - {en: lie in the sun, he: לשכב בשמש}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: They are small brown animals that like to lie in the sun.'
+    - id: read.015.q4
+      kind: true_false
+      prompt_en: Ein Gedi is in the middle of a cold forest.
+      prompt_he: 'נכון או לא נכון: עין גדי נמצאת באמצע יער קר.'
+      answer: false
+      explanation_he: 'מסביב לעין גדי יש a hot, dry desert, כלומר מדבר חם ויבש.'
+
+# ===== level4 =====
+- id: read.016
+  grade: 6
+  level: A2
+  skill: english.reading.level4
+  tags: [level4]
+  title: Louis Braille
+  text_en: >-
+    Louis Braille was born in France in 1809. When he was three years old, he had an accident in his father's workshop, and later he became blind. Louis was a bright boy and he wanted to read, but there were very few books for blind people, and they were big and heavy. At school, he learned about a code of raised dots that people could read in the dark. Louis made the code simpler. He used just six dots. When he was only fifteen, he finished his new alphabet. Today, blind people all over the world read with their fingers using the Braille system.
+  text_he: >-
+    לואי ברייל נולד בצרפת בשנת 1809. כשהיה בן שלוש, קרתה לו תאונה בבית המלאכה של אביו, ומאוחר יותר הוא התעוור. לואי היה ילד נבון והוא רצה לקרוא, אבל היו מעט מאוד ספרים לעיוורים, והם היו גדולים וכבדים. בבית הספר הוא למד על קוד של נקודות בולטות שאפשר לקרוא בחושך. לואי פישט את הקוד. הוא השתמש רק בשש נקודות. כשהיה רק בן חמש עשרה, הוא סיים את האלף־בית החדש שלו. היום אנשים עיוורים בכל העולם קוראים באצבעות בעזרת כתב ברייל.
+  questions:
+    - id: read.016.q1
+      kind: choice
+      prompt_en: Where was Louis Braille born?
+      prompt_he: איפה נולד לואי ברייל?
+      choices:
+        - {en: in England, he: באנגליה}
+        - {en: in France, he: בצרפת}
+        - {en: in Israel, he: בישראל}
+      answer: 1
+      explanation_he: 'המשפט הראשון: Louis Braille was born in France in 1809.'
+    - id: read.016.q2
+      kind: choice
+      prompt_en: How many dots did Louis use?
+      prompt_he: בכמה נקודות השתמש לואי?
+      choices:
+        - {en: three, he: שלוש}
+        - {en: fifteen, he: חמש עשרה}
+        - {en: six, he: שש}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: He used just six dots.'
+    - id: read.016.q3
+      kind: choice
+      prompt_en: How old was Louis when he finished his alphabet?
+      prompt_he: בן כמה היה לואי כשסיים את האלף־בית שלו?
+      choices:
+        - {en: fifteen, he: חמש עשרה}
+        - {en: three, he: שלוש}
+        - {en: thirty, he: שלושים}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: When he was only fifteen, he finished his new alphabet.'
+    - id: read.016.q4
+      kind: choice
+      prompt_en: How do people read Braille?
+      prompt_he: איך קוראים כתב ברייל?
+      choices:
+        - {en: with their ears, he: באוזניים}
+        - {en: with their fingers, he: באצבעות}
+        - {en: with a computer only, he: רק במחשב}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: blind people all over the world read with their fingers.'
+
+- id: read.017
+  grade: 6
+  level: A2
+  skill: english.reading.level4
+  tags: [level4]
+  title: Busy Bees
+  text_en: >-
+    Bees are small, but they are very important. When a bee visits a flower, it drinks a sweet juice called nectar. At the same time, a yellow powder called pollen sticks to its body. When the bee flies to the next flower, it carries the pollen with it. This helps plants make fruit and seeds. Without bees, we would have far fewer apples, cherries and almonds. Bees also make honey from nectar. A busy bee can visit hundreds of flowers in one day. Sadly, there are fewer bees today than in the past. We can help them by planting flowers and by not using harmful chemicals in our gardens.
+  text_he: >-
+    דבורים הן קטנות, אבל הן חשובות מאוד. כשדבורה מבקרת בפרח, היא שותה מיץ מתוק שנקרא צוף. באותו זמן, אבקה צהובה שנקראת אבקנים נדבקת לגוף שלה. כשהדבורה עפה לפרח הבא, היא לוקחת איתה את האבקנים. זה עוזר לצמחים לייצר פירות וזרעים. בלי דבורים היו לנו הרבה פחות תפוחים, דובדבנים ושקדים. דבורים גם מכינות דבש מהצוף. דבורה חרוצה יכולה לבקר במאות פרחים ביום אחד. לצערנו, יש היום פחות דבורים מאשר בעבר. אנחנו יכולים לעזור להן אם נשתול פרחים ולא נשתמש בחומרים מזיקים בגינות שלנו.
+  questions:
+    - id: read.017.q1
+      kind: choice
+      prompt_en: What is nectar?
+      prompt_he: מה זה צוף?
+      choices:
+        - {en: a sweet juice in flowers, he: מיץ מתוק בפרחים}
+        - {en: a yellow powder, he: אבקה צהובה}
+        - {en: a kind of bee, he: סוג של דבורה}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: it drinks a sweet juice called nectar.'
+    - id: read.017.q2
+      kind: choice
+      prompt_en: How do bees help plants?
+      prompt_he: איך דבורים עוזרות לצמחים?
+      choices:
+        - {en: They give them water., he: הן משקות אותם.}
+        - {en: They carry pollen between flowers., he: הן מעבירות אבקנים בין פרחים.}
+        - {en: They eat the leaves., he: הן אוכלות את העלים.}
+      answer: 1
+      explanation_he: 'הדבורה לוקחת אבקנים מפרח לפרח, ו־This helps plants make fruit and seeds.'
+    - id: read.017.q3
+      kind: true_false
+      prompt_en: A bee visits only one flower a day.
+      prompt_he: 'נכון או לא נכון: דבורה מבקרת רק בפרח אחד ביום.'
+      answer: false
+      explanation_he: 'בטקסט כתוב: A busy bee can visit hundreds of flowers in one day.'
+    - id: read.017.q4
+      kind: choice
+      prompt_en: How can we help bees?
+      prompt_he: איך אפשר לעזור לדבורים?
+      choices:
+        - {en: by eating more honey, he: לאכול יותר דבש}
+        - {en: by cutting flowers, he: לקטוף פרחים}
+        - {en: by planting flowers, he: לשתול פרחים}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: We can help them by planting flowers.'
+
+- id: read.018
+  grade: 6
+  level: A2
+  skill: english.reading.level4
+  tags: [level4]
+  title: The Big Match
+  text_en: >-
+    Omer and Itai were best friends. They played on the same soccer team. Before the big match, the coach chose Itai to be the captain. Omer was jealous, and he didn't talk to Itai for two days. During the match, Omer got the ball near the goal, but a player from the other team was in front of him. Then he saw Itai alone on the right side. Omer had a choice: shoot or pass. He passed the ball to Itai, and Itai scored! After the game, Itai hugged him. "That goal was yours too," he said. Omer smiled. He understood that a good friend is more important than being the captain.
+  text_he: >-
+    עומר ואיתי היו חברים הכי טובים. הם שיחקו באותה קבוצת כדורגל. לפני המשחק הגדול, המאמן בחר באיתי להיות הקפטן. עומר קינא, והוא לא דיבר עם איתי יומיים. במהלך המשחק, עומר קיבל את הכדור ליד השער, אבל שחקן מהקבוצה השנייה עמד מולו. אז הוא ראה את איתי לבד בצד ימין. לעומר הייתה בחירה: לבעוט לשער או למסור. הוא מסר את הכדור לאיתי, ואיתי הבקיע! אחרי המשחק איתי חיבק אותו. "השער הזה הוא גם שלך," הוא אמר. עומר חייך. הוא הבין שחבר טוב חשוב יותר מלהיות הקפטן.
+  questions:
+    - id: read.018.q1
+      kind: choice
+      prompt_en: Who did the coach choose to be the captain?
+      prompt_he: את מי המאמן בחר להיות הקפטן?
+      choices:
+        - {en: Omer, he: את עומר}
+        - {en: Itai, he: את איתי}
+        - {en: a new player, he: שחקן חדש}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: the coach chose Itai to be the captain.'
+    - id: read.018.q2
+      kind: choice
+      prompt_en: How did Omer feel about the coach's choice?
+      prompt_he: איך עומר הרגיש לגבי הבחירה של המאמן?
+      choices:
+        - {en: jealous, he: קינא}
+        - {en: happy, he: שמח}
+        - {en: bored, he: השתעמם}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: Omer was jealous.'
+    - id: read.018.q3
+      kind: choice
+      prompt_en: What did Omer do with the ball?
+      prompt_he: מה עומר עשה עם הכדור?
+      choices:
+        - {en: He kicked it out., he: הוא בעט אותו החוצה.}
+        - {en: He scored a goal., he: הוא הבקיע שער.}
+        - {en: He passed it to Itai., he: הוא מסר אותו לאיתי.}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: He passed the ball to Itai, and Itai scored!'
+    - id: read.018.q4
+      kind: choice
+      prompt_en: What did Omer understand at the end?
+      prompt_he: מה עומר הבין בסוף?
+      choices:
+        - {en: Friends matter more than being captain., he: חבר חשוב יותר מלהיות קפטן.}
+        - {en: He wants to be a goalkeeper., he: הוא רוצה להיות שוער.}
+        - {en: Soccer is boring., he: כדורגל משעמם.}
+      answer: 0
+      explanation_he: 'בסוף כתוב: a good friend is more important than being the captain.'
+
+- id: read.019
+  grade: 6
+  level: A2
+  skill: english.reading.level4
+  tags: [level4]
+  title: Life on the Space Station
+  text_en: >-
+    The International Space Station, or ISS, flies around the Earth about 400 kilometers above us. It goes around the planet about sixteen times every day, so the astronauts see sixteen sunrises and sixteen sunsets! Living in space is not easy. Everything floats, so astronauts sleep in sleeping bags tied to the wall. They drink from special bags with straws, because water floats away in little balls. They also exercise for about two hours every day to keep their muscles and bones strong. Astronauts from many different countries live and work together on the ISS.
+  text_he: >-
+    תחנת החלל הבינלאומית, או בקיצור ISS, מקיפה את כדור הארץ בגובה של כ־400 קילומטר מעלינו. היא מקיפה את כדור הארץ בערך שש עשרה פעמים בכל יום, ולכן האסטרונאוטים רואים שש עשרה זריחות ושש עשרה שקיעות! לחיות בחלל זה לא קל. הכול מרחף, ולכן האסטרונאוטים ישנים בשקי שינה שקשורים לקיר. הם שותים משקיות מיוחדות עם קשיות, כי המים מרחפים בכדורים קטנים. הם גם מתאמנים כשעתיים בכל יום כדי לשמור על השרירים והעצמות שלהם חזקים. אסטרונאוטים מהרבה מדינות שונות חיים ועובדים ביחד בתחנה.
+  questions:
+    - id: read.019.q1
+      kind: choice
+      prompt_en: How many sunrises do the astronauts see every day?
+      prompt_he: כמה זריחות רואים האסטרונאוטים בכל יום?
+      choices:
+        - {en: one, he: אחת}
+        - {en: sixteen, he: שש עשרה}
+        - {en: four hundred, he: ארבע מאות}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: the astronauts see sixteen sunrises and sixteen sunsets!'
+    - id: read.019.q2
+      kind: choice
+      prompt_en: Where do the astronauts sleep?
+      prompt_he: איפה האסטרונאוטים ישנים?
+      choices:
+        - {en: in sleeping bags on the wall, he: בשקי שינה על הקיר}
+        - {en: in normal beds, he: במיטות רגילות}
+        - {en: on the floor, he: על הרצפה}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: astronauts sleep in sleeping bags tied to the wall.'
+    - id: read.019.q3
+      kind: choice
+      prompt_en: Why do the astronauts exercise every day?
+      prompt_he: למה האסטרונאוטים מתאמנים בכל יום?
+      choices:
+        - {en: to win a race, he: כדי לנצח במרוץ}
+        - {en: because they are bored, he: כי משעמם להם}
+        - {en: to keep muscles and bones strong, he: כדי לשמור על שרירים ועצמות}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: to keep their muscles and bones strong.'
+
+- id: read.020
+  grade: 6
+  level: A2
+  skill: english.reading.level4
+  tags: [level4]
+  title: Birds over Israel
+  text_en: >-
+    Twice a year, the sky over Israel fills with birds. In the autumn, about 500 million birds fly from Europe and Asia to Africa, where it is warm in winter. In the spring, they fly back north. Israel is like a bridge between three continents, so a huge number of birds pass over it. Storks, cranes, pelicans and eagles stop here to rest and eat. In the Hula Valley, thousands of cranes stay for the whole winter. Farmers give them food so that they don't eat the crops in the fields. People come from all over the world to watch this amazing show.
+  text_he: >-
+    פעמיים בשנה השמיים מעל ישראל מתמלאים בציפורים. בסתיו, כחמש מאות מיליון ציפורים עפות מאירופה ומאסיה לאפריקה, שם חם בחורף. באביב הן עפות בחזרה צפונה. ישראל היא כמו גשר בין שלוש יבשות, ולכן מספר עצום של ציפורים עובר מעליה. חסידות, עגורים, שקנאים ועיטים עוצרים כאן כדי לנוח ולאכול. בעמק החולה אלפי עגורים נשארים כל החורף. החקלאים נותנים להם אוכל כדי שלא יאכלו את היבולים בשדות. אנשים מגיעים מכל העולם כדי לצפות במופע המדהים הזה.
+  questions:
+    - id: read.020.q1
+      kind: choice
+      prompt_en: Where do the birds fly in the autumn?
+      prompt_he: לאן הציפורים עפות בסתיו?
+      choices:
+        - {en: to Europe, he: לאירופה}
+        - {en: to Africa, he: לאפריקה}
+        - {en: to the North Pole, he: לקוטב הצפוני}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: birds fly from Europe and Asia to Africa, where it is warm in winter.'
+    - id: read.020.q2
+      kind: choice
+      prompt_en: Why do so many birds pass over Israel?
+      prompt_he: למה כל כך הרבה ציפורים עוברות מעל ישראל?
+      choices:
+        - {en: It is a bridge between continents., he: היא גשר בין יבשות.}
+        - {en: It is very cold there., he: קר שם מאוד.}
+        - {en: There are no trees there., he: אין שם עצים.}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: Israel is like a bridge between three continents.'
+    - id: read.020.q3
+      kind: choice
+      prompt_en: Which birds stay in the Hula Valley all winter?
+      prompt_he: אילו ציפורים נשארות בעמק החולה כל החורף?
+      choices:
+        - {en: eagles, he: עיטים}
+        - {en: pelicans, he: שקנאים}
+        - {en: cranes, he: עגורים}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: In the Hula Valley, thousands of cranes stay for the whole winter.'
+    - id: read.020.q4
+      kind: choice
+      prompt_en: Why do farmers give the cranes food?
+      prompt_he: למה החקלאים נותנים אוכל לעגורים?
+      choices:
+        - {en: so they don't eat the crops, he: כדי שלא יאכלו את היבולים}
+        - {en: so they fly away, he: כדי שיעופו משם}
+        - {en: to sell them, he: כדי למכור אותם}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: so that they don''t eat the crops in the fields.'
+
+# ===== level5 =====
+- id: read.021
+  grade: 7
+  level: A2
+  skill: english.reading.level5
+  tags: [level5]
+  title: Marie Curie
+  text_en: >-
+    Marie Curie was born in Poland in 1867. In those days, women in Poland could not study at university, so she moved to Paris. She was poor, and sometimes she studied in a cold room with very little food, but she never gave up. In Paris she met Pierre Curie, a scientist, and they worked together. They discovered two new elements, polonium and radium. In 1903, Marie became the first woman to win a Nobel Prize. In 1911, she won a second Nobel Prize, this time in chemistry. She is still the only person who has won Nobel Prizes in two different sciences. Marie Curie showed the world that girls can be great scientists.
+  text_he: >-
+    מארי קירי נולדה בפולין בשנת 1867. באותם ימים נשים בפולין לא יכלו ללמוד באוניברסיטה, ולכן היא עברה לפריז. היא הייתה ענייה, ולפעמים למדה בחדר קר עם מעט מאוד אוכל, אבל היא אף פעם לא ויתרה. בפריז היא פגשה את פייר קירי, מדען, והם עבדו יחד. הם גילו שני יסודות חדשים, פולוניום ורדיום. בשנת 1903 מארי הייתה לאישה הראשונה שזכתה בפרס נובל. בשנת 1911 היא זכתה בפרס נובל שני, הפעם בכימיה. היא עדיין האדם היחיד שזכה בפרסי נובל בשני מדעים שונים. מארי קירי הראתה לעולם שבנות יכולות להיות מדעניות גדולות.
+  questions:
+    - id: read.021.q1
+      kind: choice
+      prompt_en: Why did Marie move to Paris?
+      prompt_he: למה מארי עברה לפריז?
+      choices:
+        - {en: She couldn't study in Poland., he: היא לא יכלה ללמוד בפולין.}
+        - {en: She wanted to be a singer., he: היא רצתה להיות זמרת.}
+        - {en: Her parents lived there., he: ההורים שלה גרו שם.}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: women in Poland could not study at university, so she moved to Paris.'
+    - id: read.021.q2
+      kind: choice
+      prompt_en: What did Marie and Pierre discover?
+      prompt_he: מה מארי ופייר גילו?
+      choices:
+        - {en: a new planet, he: כוכב לכת חדש}
+        - {en: two new elements, he: שני יסודות חדשים}
+        - {en: a new medicine, he: תרופה חדשה}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: They discovered two new elements, polonium and radium.'
+    - id: read.021.q3
+      kind: choice
+      prompt_en: What makes Marie Curie's prizes special?
+      prompt_he: מה מיוחד בפרסים של מארי קירי?
+      choices:
+        - {en: She won them in one year., he: היא זכתה בהם באותה שנה.}
+        - {en: She won them as a child., he: היא זכתה בהם כילדה.}
+        - {en: They were in two different sciences., he: הם היו בשני מדעים שונים.}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: the only person who has won Nobel Prizes in two different sciences.'
+    - id: read.021.q4
+      kind: true_false
+      prompt_en: Marie Curie gave up when life was hard.
+      prompt_he: 'נכון או לא נכון: מארי קירי ויתרה כשהיה לה קשה.'
+      answer: false
+      explanation_he: 'בטקסט כתוב: but she never gave up, כלומר היא אף פעם לא ויתרה.'
+
+- id: read.022
+  grade: 7
+  level: A2
+  skill: english.reading.level5
+  tags: [level5]
+  title: The Dead Sea
+  text_en: >-
+    The Dead Sea is the lowest place on land on Earth. Its shore is more than 430 meters below sea level. The water of the Dead Sea is almost ten times saltier than the ocean. Because of all the salt, fish and plants cannot live in it, and that is why it is called "dead". But the salt also makes the water heavy, so people float on it easily. You can lie on your back and read a newspaper! The mud of the Dead Sea is full of minerals, and many tourists put it on their skin. Sadly, the Dead Sea is getting smaller. Its level drops by about one meter every year, because people use the water of the Jordan River before it reaches the sea.
+  text_he: >-
+    ים המלח הוא המקום הנמוך ביותר ביבשה על פני כדור הארץ. החוף שלו נמצא יותר מ־430 מטר מתחת לפני הים. המים של ים המלח מלוחים כמעט פי עשרה מהאוקיינוס. בגלל כל המלח, דגים וצמחים לא יכולים לחיות בו, ולכן קוראים לו "ים המוות" באנגלית. אבל המלח גם הופך את המים לכבדים, ולכן אנשים צפים עליהם בקלות. אפשר לשכב על הגב ולקרוא עיתון! הבוץ של ים המלח מלא במינרלים, והרבה תיירים מורחים אותו על העור. לצערנו, ים המלח הולך וקטן. המפלס שלו יורד בכמטר בכל שנה, כי אנשים משתמשים במים של נהר הירדן לפני שהם מגיעים לים.
+  questions:
+    - id: read.022.q1
+      kind: choice
+      prompt_en: Why is it called the "Dead" Sea?
+      prompt_he: למה באנגלית קוראים לו "הים המת"?
+      choices:
+        - {en: Fish and plants can't live in it., he: דגים וצמחים לא חיים בו.}
+        - {en: It is very old., he: הוא עתיק מאוד.}
+        - {en: Nobody visits it., he: אף אחד לא מבקר בו.}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: fish and plants cannot live in it, and that is why it is called "dead".'
+    - id: read.022.q2
+      kind: choice
+      prompt_en: Why do people float easily in the Dead Sea?
+      prompt_he: למה אנשים צפים בקלות בים המלח?
+      choices:
+        - {en: The water is very hot., he: המים חמים מאוד.}
+        - {en: The salt makes the water heavy., he: המלח הופך את המים לכבדים.}
+        - {en: There are no waves., he: אין גלים.}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: the salt also makes the water heavy, so people float on it easily.'
+    - id: read.022.q3
+      kind: choice
+      prompt_en: How much saltier is the Dead Sea than the ocean?
+      prompt_he: פי כמה ים המלח מלוח יותר מהאוקיינוס?
+      choices:
+        - {en: two times, he: פי שניים}
+        - {en: a hundred times, he: פי מאה}
+        - {en: almost ten times, he: כמעט פי עשרה}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: almost ten times saltier than the ocean.'
+    - id: read.022.q4
+      kind: choice
+      prompt_en: Why is the Dead Sea getting smaller?
+      prompt_he: למה ים המלח הולך וקטן?
+      choices:
+        - {en: People use the Jordan River's water., he: משתמשים במי נהר הירדן.}
+        - {en: Tourists take the mud home., he: תיירים לוקחים את הבוץ.}
+        - {en: Fish drink the water., he: דגים שותים את המים.}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: people use the water of the Jordan River before it reaches the sea.'
+
+- id: read.023
+  grade: 7
+  level: A2
+  skill: english.reading.level5
+  tags: [level5]
+  title: Kindness Week
+  text_en: >-
+    Last month our school had a "Kindness Week". Every student got a card with one kind act for each day. On Sunday, I said good morning to the school guard and asked him how he was. On Monday, I helped my little brother with his homework without complaining. On Tuesday, I wrote a thank-you note to the cleaner at our school. She was so surprised that she hung it on the wall. On Wednesday, I sat with a boy who always eats lunch alone. We discovered that we both love chess! On Thursday, I collected old books for children in the hospital. At the end of the week, I noticed something: I felt happier than usual. Our teacher explained that helping others is good for us, too.
+  text_he: >-
+    בחודש שעבר היה בבית הספר שלנו "שבוע החסד". כל תלמיד קיבל כרטיס עם מעשה טוב אחד לכל יום. ביום ראשון אמרתי בוקר טוב לשומר של בית הספר ושאלתי מה שלומו. ביום שני עזרתי לאחי הקטן בשיעורי הבית בלי להתלונן. ביום שלישי כתבתי מכתב תודה לעובדת הניקיון של בית הספר. היא הופתעה כל כך שהיא תלתה אותו על הקיר. ביום רביעי ישבתי עם ילד שתמיד אוכל לבד. גילינו ששנינו אוהבים שחמט! ביום חמישי אספתי ספרים ישנים לילדים בבית החולים. בסוף השבוע שמתי לב למשהו: הרגשתי שמח יותר מהרגיל. המורה שלנו הסבירה שלעזור לאחרים טוב גם לנו.
+  questions:
+    - id: read.023.q1
+      kind: choice
+      prompt_en: What did the writer do on Tuesday?
+      prompt_he: מה הכותב עשה ביום שלישי?
+      choices:
+        - {en: helped his brother, he: עזר לאחיו}
+        - {en: wrote a thank-you note, he: כתב מכתב תודה}
+        - {en: collected old books, he: אסף ספרים ישנים}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: On Tuesday, I wrote a thank-you note to the cleaner.'
+    - id: read.023.q2
+      kind: choice
+      prompt_en: What did the writer and the boy discover?
+      prompt_he: מה הכותב והילד גילו?
+      choices:
+        - {en: They both love chess., he: ששניהם אוהבים שחמט.}
+        - {en: They live on the same street., he: שהם גרים באותו רחוב.}
+        - {en: They have the same birthday., he: שיש להם אותו יום הולדת.}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: We discovered that we both love chess!'
+    - id: read.023.q3
+      kind: choice
+      prompt_en: How did the writer feel at the end of the week?
+      prompt_he: איך הכותב הרגיש בסוף השבוע?
+      choices:
+        - {en: tired, he: עייף}
+        - {en: bored, he: משועמם}
+        - {en: happier than usual, he: שמח יותר מהרגיל}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: I felt happier than usual.'
+    - id: read.023.q4
+      kind: true_false
+      prompt_en: Kindness Week lasted a whole month.
+      prompt_he: 'נכון או לא נכון: שבוע החסד נמשך חודש שלם.'
+      answer: false
+      explanation_he: 'זה היה שבוע אחד (Kindness Week) בחודש שעבר, מיום ראשון עד יום חמישי.'
+
+- id: read.024
+  grade: 7
+  level: A2
+  skill: english.reading.level5
+  tags: [level5]
+  title: Drop by Drop
+  text_en: >-
+    Water is very precious in Israel, because a large part of the country is desert. In the 1930s, an engineer named Simcha Blass noticed something interesting. One tree in a row of trees was much bigger than the others. He found that a pipe under it was leaking, slowly, drop by drop. The tree was getting water right at its roots! This gave him an idea. Instead of watering the whole field, why not give each plant only the water it needs, one drop at a time? Years later, in 1965, he and the members of Kibbutz Hatzerim started a company called Netafim. Today, farmers in more than one hundred countries use drip irrigation. It saves a lot of water and helps to grow more food.
+  text_he: >-
+    מים הם דבר יקר מאוד בישראל, כי חלק גדול מהארץ הוא מדבר. בשנות השלושים של המאה העשרים, מהנדס בשם שמחה בלאס שם לב למשהו מעניין. עץ אחד בשורת עצים היה גדול הרבה יותר מהאחרים. הוא גילה שצינור מתחתיו דלף, לאט, טיפה אחר טיפה. העץ קיבל מים ישר לשורשים! זה נתן לו רעיון. במקום להשקות את כל השדה, למה לא לתת לכל צמח רק את המים שהוא צריך, טיפה אחר טיפה? שנים אחר כך, בשנת 1965, הוא וחברי קיבוץ חצרים הקימו חברה בשם נטפים. היום חקלאים ביותר ממאה מדינות משתמשים בהשקיה בטפטוף. היא חוסכת הרבה מים ועוזרת לגדל יותר מזון.
+  questions:
+    - id: read.024.q1
+      kind: choice
+      prompt_en: Why is water precious in Israel?
+      prompt_he: למה מים הם דבר יקר בישראל?
+      choices:
+        - {en: Much of the country is desert., he: חלק גדול מהארץ הוא מדבר.}
+        - {en: The water is very salty., he: המים מלוחים מאוד.}
+        - {en: There are too many trees., he: יש יותר מדי עצים.}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: a large part of the country is desert.'
+    - id: read.024.q2
+      kind: choice
+      prompt_en: Why was one tree bigger than the others?
+      prompt_he: למה עץ אחד היה גדול יותר מהאחרים?
+      choices:
+        - {en: It was older., he: הוא היה זקן יותר.}
+        - {en: It got more sun., he: הוא קיבל יותר שמש.}
+        - {en: A leaking pipe watered its roots., he: צינור דולף השקה את שורשיו.}
+      answer: 2
+      explanation_he: 'צינור מתחתיו דלף, ו־The tree was getting water right at its roots!'
+    - id: read.024.q3
+      kind: choice
+      prompt_en: Who started Netafim with Simcha Blass?
+      prompt_he: מי הקים את נטפים יחד עם שמחה בלאס?
+      choices:
+        - {en: a group of scientists, he: קבוצת מדענים}
+        - {en: members of Kibbutz Hatzerim, he: חברי קיבוץ חצרים}
+        - {en: his children, he: הילדים שלו}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: he and the members of Kibbutz Hatzerim started a company called Netafim.'
+
+- id: read.025
+  grade: 7
+  level: A2
+  skill: english.reading.level5
+  tags: [level5]
+  title: The Clever Octopus
+  text_en: >-
+    The octopus may be the cleverest animal without bones. It has eight arms, three hearts and blue blood. Each arm has hundreds of suckers that can taste and feel. An octopus can change the color of its skin in less than a second to hide from enemies. It can also squeeze its soft body through a hole as small as a coin. Scientists have seen octopuses solve puzzles and open jars to get food. Some have even escaped from their tanks at night! Most octopuses live a short life, usually only one or two years. In that time, they learn very quickly. Scientists study octopuses to learn more about how brains work.
+  text_he: >-
+    ייתכן שהתמנון הוא החיה החכמה ביותר שאין לה עצמות. יש לו שמונה זרועות, שלושה לבבות ודם כחול. בכל זרוע יש מאות פטמות יניקה שיכולות לטעום ולחוש. תמנון יכול לשנות את צבע העור שלו בפחות משנייה כדי להסתתר מאויבים. הוא גם יכול לדחוס את הגוף הרך שלו דרך חור קטן כמו מטבע. מדענים ראו תמנונים פותרים חידות ופותחים צנצנות כדי להשיג אוכל. כמה תמנונים אפילו ברחו מהאקווריום שלהם בלילה! רוב התמנונים חיים חיים קצרים, בדרך כלל רק שנה או שנתיים. בזמן הזה הם לומדים מהר מאוד. מדענים חוקרים תמנונים כדי ללמוד עוד על הדרך שבה המוח עובד.
+  questions:
+    - id: read.025.q1
+      kind: choice
+      prompt_en: How many hearts does an octopus have?
+      prompt_he: כמה לבבות יש לתמנון?
+      choices:
+        - {en: one, he: אחד}
+        - {en: three, he: שלושה}
+        - {en: eight, he: שמונה}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: eight arms, three hearts and blue blood. שמונה הן הזרועות.'
+    - id: read.025.q2
+      kind: choice
+      prompt_en: Why does an octopus change its color?
+      prompt_he: למה תמנון משנה את הצבע שלו?
+      choices:
+        - {en: to hide from enemies, he: כדי להסתתר מאויבים}
+        - {en: to look beautiful, he: כדי להיראות יפה}
+        - {en: because it is cold, he: כי קר לו}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: change the color of its skin ... to hide from enemies.'
+    - id: read.025.q3
+      kind: choice
+      prompt_en: What have scientists seen octopuses do?
+      prompt_he: מה מדענים ראו תמנונים עושים?
+      choices:
+        - {en: sing songs, he: שרים שירים}
+        - {en: build houses, he: בונים בתים}
+        - {en: open jars, he: פותחים צנצנות}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: Scientists have seen octopuses solve puzzles and open jars.'
+    - id: read.025.q4
+      kind: true_false
+      prompt_en: Most octopuses live for fifty years.
+      prompt_he: 'נכון או לא נכון: רוב התמנונים חיים חמישים שנה.'
+      answer: false
+      explanation_he: 'בטקסט כתוב: usually only one or two years.'
+
+# ===== level6 =====
+- id: read.026
+  grade: 8
+  level: B1
+  skill: english.reading.level6
+  tags: [level6]
+  title: A Language Comes Back to Life
+  text_en: >-
+    For almost two thousand years, Hebrew was used mostly for prayer and study, but people did not speak it at home. Eliezer Ben-Yehuda believed that the Jewish people needed a living language. In 1881, he arrived in Jerusalem with his wife, Dvora, and they decided to speak only Hebrew at home. When their son Ben-Zion was born, he became the first child in modern times to grow up with Hebrew as his first language. At first, many people laughed at him, but slowly more and more families began to speak Hebrew with their children. However, there was a problem: many everyday words did not exist. How do you say "ice cream", "towel" or "newspaper" in Hebrew? Ben-Yehuda created hundreds of new words, often from old Hebrew roots. He also began a huge dictionary, which was finished many years after his death. Today, millions of people speak Hebrew every day, and some of the words they use were created by Ben-Yehuda.
+  text_he: >-
+    במשך כמעט אלפיים שנה השתמשו בעברית בעיקר לתפילה וללימוד, אבל אנשים לא דיברו אותה בבית. אליעזר בן־יהודה האמין שהעם היהודי צריך שפה חיה. בשנת 1881 הוא הגיע לירושלים עם אשתו, דבורה, והם החליטו לדבר בבית רק עברית. כשנולד בנם בן־ציון, הוא היה לילד הראשון בעת החדשה שגדל כשהעברית היא שפת האם שלו. בהתחלה הרבה אנשים צחקו עליו, אבל לאט לאט עוד ועוד משפחות התחילו לדבר עברית עם הילדים שלהן. אבל הייתה בעיה: הרבה מילים יומיומיות לא היו קיימות. איך אומרים בעברית "ice cream", "towel" או "newspaper"? בן־יהודה חידש מאות מילים, לרוב משורשים עבריים עתיקים. הוא גם התחיל לכתוב מילון ענק, שהושלם שנים רבות אחרי מותו. היום מיליוני אנשים מדברים עברית בכל יום, וחלק מהמילים שהם משתמשים בהן חודשו על ידי בן־יהודה.
+  questions:
+    - id: read.026.q1
+      kind: choice
+      prompt_en: How was Hebrew used before Ben-Yehuda?
+      prompt_he: איך השתמשו בעברית לפני בן־יהודה?
+      choices:
+        - {en: mostly for prayer and study, he: בעיקר לתפילה וללימוד}
+        - {en: only for songs, he: רק לשירים}
+        - {en: at home with the family, he: בבית עם המשפחה}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: Hebrew was used mostly for prayer and study, but people did not speak it at home.'
+    - id: read.026.q2
+      kind: choice
+      prompt_en: What was special about Ben-Zion?
+      prompt_he: מה היה מיוחד בבן־ציון?
+      choices:
+        - {en: He wrote the dictionary., he: הוא כתב את המילון.}
+        - {en: Hebrew was his first language., he: העברית הייתה שפת האם שלו.}
+        - {en: He was born in Jerusalem in 1700., he: הוא נולד בירושלים בשנת 1700.}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: the first child in modern times to grow up with Hebrew as his first language.'
+    - id: read.026.q3
+      kind: choice
+      prompt_en: What problem did Ben-Yehuda have?
+      prompt_he: איזו בעיה הייתה לבן־יהודה?
+      choices:
+        - {en: Nobody wanted to learn., he: אף אחד לא רצה ללמוד.}
+        - {en: He had no paper., he: לא היה לו נייר.}
+        - {en: Many everyday words didn't exist., he: הרבה מילים יומיומיות לא היו.}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: many everyday words did not exist.'
+    - id: read.026.q4
+      kind: true_false
+      prompt_en: Ben-Yehuda finished his dictionary before he died.
+      prompt_he: 'נכון או לא נכון: בן־יהודה סיים את המילון לפני מותו.'
+      answer: false
+      explanation_he: 'בטקסט כתוב: which was finished many years after his death.'
+
+- id: read.027
+  grade: 8
+  level: B1
+  skill: english.reading.level6
+  tags: [level6]
+  title: Why Sleep Matters
+  text_en: >-
+    Many teenagers think that sleep is a waste of time. There is so much to do: homework, sports, friends and screens. However, scientists say that sleep is one of the most important things for a growing body and brain. While you sleep, your brain is busy. It sorts the information that you learned during the day and stores it in your memory. This is why a good night's sleep before a test is often more helpful than studying until midnight. Sleep also helps your body grow, fight illness and stay in a good mood. Experts recommend that children aged six to twelve sleep nine to twelve hours a night, and teenagers eight to ten hours. Unfortunately, many young people sleep much less. One reason is the light from phones and tablets, which tells the brain that it is still daytime. A simple tip: put your screen away an hour before bed and read a book instead.
+  text_he: >-
+    הרבה בני נוער חושבים ששינה היא בזבוז זמן. יש כל כך הרבה מה לעשות: שיעורי בית, ספורט, חברים ומסכים. עם זאת, מדענים אומרים ששינה היא אחד הדברים החשובים ביותר לגוף ולמוח שגדלים. בזמן שאתם ישנים, המוח שלכם עסוק. הוא ממיין את המידע שלמדתם במשך היום ושומר אותו בזיכרון. לכן לילה של שינה טובה לפני מבחן עוזר לעתים קרובות יותר מאשר ללמוד עד חצות. השינה גם עוזרת לגוף לגדול, להילחם במחלות ולשמור על מצב רוח טוב. מומחים ממליצים שילדים בני שש עד שתים עשרה יישנו תשע עד שתים עשרה שעות בלילה, ובני נוער שמונה עד עשר שעות. לצערנו, הרבה צעירים ישנים הרבה פחות. אחת הסיבות היא האור מהטלפונים ומהטאבלטים, שאומר למוח שעדיין יום. טיפ פשוט: הניחו את המסך בצד שעה לפני השינה, וקראו ספר במקום.
+  questions:
+    - id: read.027.q1
+      kind: choice
+      prompt_en: What does the brain do while you sleep?
+      prompt_he: מה המוח עושה בזמן השינה?
+      choices:
+        - {en: It sorts and stores information., he: ממיין ושומר מידע.}
+        - {en: It stops working., he: מפסיק לעבוד.}
+        - {en: It forgets everything., he: שוכח הכול.}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: It sorts the information ... and stores it in your memory.'
+    - id: read.027.q2
+      kind: choice
+      prompt_en: How many hours should teenagers sleep?
+      prompt_he: כמה שעות כדאי לבני נוער לישון?
+      choices:
+        - {en: five to six, he: חמש עד שש}
+        - {en: eight to ten, he: שמונה עד עשר}
+        - {en: twelve to fourteen, he: שתים עשרה עד ארבע עשרה}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: and teenagers eight to ten hours.'
+    - id: read.027.q3
+      kind: choice
+      prompt_en: Why do screens make it harder to sleep?
+      prompt_he: למה מסכים מקשים להירדם?
+      choices:
+        - {en: They are too loud., he: הם רועשים מדי.}
+        - {en: They are too heavy., he: הם כבדים מדי.}
+        - {en: Their light tells the brain it's day., he: האור שלהם אומר למוח שיום.}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: the light from phones ... tells the brain that it is still daytime.'
+    - id: read.027.q4
+      kind: choice
+      prompt_en: Before a test, what is often more helpful?
+      prompt_he: לפני מבחן, מה עוזר לעתים קרובות יותר?
+      choices:
+        - {en: a good night's sleep, he: לילה של שינה טובה}
+        - {en: studying until midnight, he: ללמוד עד חצות}
+        - {en: playing on the phone, he: לשחק בטלפון}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: a good night''s sleep before a test is often more helpful than studying until midnight.'
+
+- id: read.028
+  grade: 8
+  level: B1
+  skill: english.reading.level6
+  tags: [level6]
+  title: Is Pluto a Planet?
+  text_en: >-
+    When your grandparents were at school, they learned that there were nine planets in our solar system. The ninth and smallest was Pluto, discovered in 1930 by a young American astronomer, Clyde Tombaugh. But in 2006, scientists decided that Pluto was not a planet after all. Why? Astronomers had discovered other objects far away, and some of them were almost as big as Pluto. They needed a clear definition of a planet. According to the new rules, a planet must go around the Sun, be round, and clear its path of other objects. Pluto follows the first two rules but not the third, so it is now called a "dwarf planet". In 2015, a spacecraft named New Horizons flew past Pluto and sent back amazing photos. They showed mountains of ice and a large area shaped like a heart. Planet or not, Pluto is still a fascinating world.
+  text_he: >-
+    כשסבא וסבתא שלכם היו בבית הספר, הם למדו שיש תשעה כוכבי לכת במערכת השמש שלנו. התשיעי והקטן ביותר היה פלוטו, שהתגלה בשנת 1930 על ידי אסטרונום אמריקאי צעיר, קלייד טומבו. אבל בשנת 2006 מדענים החליטו שפלוטו בכל זאת אינו כוכב לכת. למה? אסטרונומים גילו גופים אחרים רחוקים, וחלק מהם היו כמעט גדולים כמו פלוטו. הם היו צריכים הגדרה ברורה לכוכב לכת. לפי הכללים החדשים, כוכב לכת חייב להקיף את השמש, להיות עגול, ולפנות את המסלול שלו מגופים אחרים. פלוטו עומד בשני הכללים הראשונים אבל לא בשלישי, ולכן היום קוראים לו "כוכב לכת ננסי". בשנת 2015 חללית בשם ניו הורייזנס חלפה ליד פלוטו ושלחה תמונות מדהימות. הן הראו הרי קרח ואזור גדול בצורת לב. כוכב לכת או לא, פלוטו הוא עדיין עולם מרתק.
+  questions:
+    - id: read.028.q1
+      kind: choice
+      prompt_en: Who discovered Pluto?
+      prompt_he: מי גילה את פלוטו?
+      choices:
+        - {en: Galileo, he: גלילאו}
+        - {en: Clyde Tombaugh, he: קלייד טומבו}
+        - {en: New Horizons, he: ניו הורייזנס}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: discovered in 1930 by a young American astronomer, Clyde Tombaugh.'
+    - id: read.028.q2
+      kind: choice
+      prompt_en: Which rule does Pluto NOT follow?
+      prompt_he: באיזה כלל פלוטו לא עומד?
+      choices:
+        - {en: clear its path of other objects, he: לפנות את המסלול שלו}
+        - {en: go around the Sun, he: להקיף את השמש}
+        - {en: be round, he: להיות עגול}
+      answer: 0
+      explanation_he: 'פלוטו עומד בשני הכללים הראשונים but not the third, כלומר לא מפנה את המסלול שלו.'
+    - id: read.028.q3
+      kind: choice
+      prompt_en: What did the photos from New Horizons show?
+      prompt_he: מה הראו התמונות של ניו הורייזנס?
+      choices:
+        - {en: oceans and forests, he: אוקיינוסים ויערות}
+        - {en: a big volcano, he: הר געש גדול}
+        - {en: an area shaped like a heart, he: אזור בצורת לב}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: mountains of ice and a large area shaped like a heart.'
+    - id: read.028.q4
+      kind: choice
+      prompt_en: What is Pluto called today?
+      prompt_he: איך קוראים לפלוטו היום?
+      choices:
+        - {en: a dwarf planet, he: כוכב לכת ננסי}
+        - {en: a star, he: כוכב}
+        - {en: a moon, he: ירח}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: it is now called a "dwarf planet".'
+
+- id: read.029
+  grade: 9
+  level: B1
+  skill: english.reading.level6
+  tags: [level6]
+  title: Shadow
+  text_en: >-
+    When Noam turned thirteen, his parents told him that he could choose a volunteer project for the year. Noam loved animals, so he chose the dog shelter near his town. At first, the work was harder than he expected. He cleaned cages, carried heavy bags of food and washed muddy dogs. Some days he came home tired and wanted to quit. Some of the dogs were afraid of people and hid in the corner when he came in. One of them, a small black dog named Shadow, would not come near anyone. Noam decided to be patient. Every day he sat next to Shadow's cage and read aloud from a book, without looking at him. After two weeks, Shadow came a little closer. After a month, he took a treat from Noam's hand. Noam was so happy that he told everyone at dinner. By the end of the year, Shadow was playing happily with the other dogs, and a kind family adopted him. "I didn't only help Shadow," Noam said. "He taught me that trust takes time."
+  text_he: >-
+    כשנועם הגיע לגיל שלוש עשרה, ההורים שלו אמרו לו שהוא יכול לבחור פרויקט התנדבות לשנה. נועם אהב בעלי חיים, ולכן בחר במקלט הכלבים ליד העיר שלו. בהתחלה העבודה הייתה קשה יותר ממה שציפה. הוא ניקה כלובים, סחב שקי אוכל כבדים ורחץ כלבים מלוכלכים בבוץ. היו ימים שהוא חזר הביתה עייף ורצה לוותר. חלק מהכלבים פחדו מאנשים והתחבאו בפינה כשנכנס. אחד מהם, כלב שחור וקטן בשם צל, לא הסכים להתקרב לאף אחד. נועם החליט להיות סבלני. כל יום הוא ישב ליד הכלוב של צל וקרא בקול מתוך ספר, בלי להסתכל עליו. אחרי שבועיים צל התקרב קצת. אחרי חודש הוא לקח חטיף מהיד של נועם. נועם שמח כל כך שהוא סיפר על זה לכולם בארוחת הערב. עד סוף השנה צל כבר שיחק בשמחה עם הכלבים האחרים, ומשפחה טובה אימצה אותו. "לא רק אני עזרתי לצל," אמר נועם. "הוא לימד אותי שאמון לוקח זמן."
+  questions:
+    - id: read.029.q1
+      kind: choice
+      prompt_en: Why did Noam choose the dog shelter?
+      prompt_he: למה נועם בחר במקלט הכלבים?
+      choices:
+        - {en: It was near his school., he: הוא היה ליד בית הספר.}
+        - {en: His friend worked there., he: חבר שלו עבד שם.}
+        - {en: He loved animals., he: הוא אהב בעלי חיים.}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: Noam loved animals, so he chose the dog shelter.'
+    - id: read.029.q2
+      kind: choice
+      prompt_en: What did Noam do every day next to Shadow's cage?
+      prompt_he: מה נועם עשה כל יום ליד הכלוב של צל?
+      choices:
+        - {en: He read aloud from a book., he: קרא בקול מתוך ספר.}
+        - {en: He played loud music., he: השמיע מוזיקה רועשת.}
+        - {en: He called Shadow's name., he: קרא לצל בשמו.}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: he sat next to Shadow''s cage and read aloud from a book.'
+    - id: read.029.q3
+      kind: choice
+      prompt_en: What happened to Shadow at the end of the year?
+      prompt_he: מה קרה לצל בסוף השנה?
+      choices:
+        - {en: He ran away., he: הוא ברח.}
+        - {en: A family adopted him., he: משפחה אימצה אותו.}
+        - {en: He stayed alone in the corner., he: הוא נשאר לבד בפינה.}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: a kind family adopted him.'
+    - id: read.029.q4
+      kind: choice
+      prompt_en: What did Noam learn from Shadow?
+      prompt_he: מה נועם למד מצל?
+      choices:
+        - {en: Dogs don't like books., he: כלבים לא אוהבים ספרים.}
+        - {en: Trust takes time., he: אמון לוקח זמן.}
+        - {en: Volunteering is boring., he: התנדבות משעממת.}
+      answer: 1
+      explanation_he: 'בסוף נועם אומר: He taught me that trust takes time.'
+
+- id: read.030
+  grade: 9
+  level: B1
+  skill: english.reading.level6
+  tags: [level6]
+  title: Reduce, Reuse, Recycle
+  text_en: >-
+    Every year, people around the world produce hundreds of millions of tons of plastic. Plastic is cheap, light and strong, so it is used for almost everything: bottles, bags, toys and even clothes. The problem is that plastic can take hundreds of years to break down. Much of it ends up in the oceans, where sea turtles may mistake plastic bags for jellyfish and try to eat them. Tiny pieces of plastic, called microplastics, have been found everywhere, from the deepest oceans to the tops of mountains. So what can we do? Experts talk about the "three Rs": Reduce, Reuse and Recycle. Reduce means using less, for example, carrying a cloth bag to the supermarket. Reuse means using things again, like filling the same water bottle every day. Recycle means sorting our waste so that it can be made into new products. In Israel, the orange bins are for packaging and the purple bins are for glass. Small actions, done by millions of people, can make a big difference. So next time you finish a drink, think before you throw the bottle away.
+  text_he: >-
+    בכל שנה אנשים ברחבי העולם מייצרים מאות מיליוני טונות של פלסטיק. פלסטיק הוא זול, קל וחזק, ולכן משתמשים בו כמעט לכל דבר: בקבוקים, שקיות, צעצועים ואפילו בגדים. הבעיה היא שלפלסטיק יכולות לקחת מאות שנים להתפרק. הרבה ממנו מגיע לאוקיינוסים, שם צבי ים עלולים לחשוב ששקיות פלסטיק הן מדוזות ולנסות לאכול אותן. חתיכות פלסטיק זעירות, שנקראות מיקרו־פלסטיק, נמצאו בכל מקום, מהאוקיינוסים העמוקים ביותר ועד פסגות ההרים. אז מה אפשר לעשות? מומחים מדברים על "שלושת ה־R": להפחית, לעשות שימוש חוזר ולמחזר. להפחית פירושו להשתמש בפחות, למשל לקחת שקית בד לסופרמרקט. שימוש חוזר פירושו להשתמש בדברים שוב, כמו למלא את אותו בקבוק מים בכל יום. למחזר פירושו למיין את הפסולת שלנו כדי שאפשר יהיה להפוך אותה למוצרים חדשים. בישראל הפחים הכתומים מיועדים לאריזות והפחים הסגולים לזכוכית. פעולות קטנות, שמיליוני אנשים עושים, יכולות לעשות הבדל גדול. אז בפעם הבאה שתסיימו לשתות, תחשבו רגע לפני שאתם זורקים את הבקבוק.
+  questions:
+    - id: read.030.q1
+      kind: choice
+      prompt_en: Why is plastic a problem?
+      prompt_he: למה פלסטיק הוא בעיה?
+      choices:
+        - {en: It takes centuries to break down., he: לוקח לו מאות שנים להתפרק.}
+        - {en: It is too expensive., he: הוא יקר מדי.}
+        - {en: It is too heavy., he: הוא כבד מדי.}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: plastic can take hundreds of years to break down.'
+    - id: read.030.q2
+      kind: choice
+      prompt_en: What do sea turtles think plastic bags are?
+      prompt_he: מה צבי ים חושבים ששקיות פלסטיק הן?
+      choices:
+        - {en: fish, he: דגים}
+        - {en: jellyfish, he: מדוזות}
+        - {en: rocks, he: סלעים}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: sea turtles may mistake plastic bags for jellyfish.'
+    - id: read.030.q3
+      kind: choice
+      prompt_en: Which example shows "Reuse"?
+      prompt_he: איזו דוגמה מתאימה ל־Reuse (שימוש חוזר)?
+      choices:
+        - {en: buying a new bottle every day, he: לקנות בקבוק חדש כל יום}
+        - {en: throwing bottles in the sea, he: לזרוק בקבוקים לים}
+        - {en: filling the same bottle every day, he: למלא את אותו בקבוק כל יום}
+      answer: 2
+      explanation_he: 'בטקסט כתוב: Reuse means using things again, like filling the same water bottle every day.'
+    - id: read.030.q4
+      kind: choice
+      prompt_en: In Israel, which bin is for glass?
+      prompt_he: בישראל, איזה פח מיועד לזכוכית?
+      choices:
+        - {en: the purple bin, he: הפח הסגול}
+        - {en: the orange bin, he: הפח הכתום}
+        - {en: the green bin, he: הפח הירוק}
+      answer: 0
+      explanation_he: 'בטקסט כתוב: the orange bins are for packaging and the purple bins are for glass.'
