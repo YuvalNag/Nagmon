@@ -1,0 +1,82 @@
+# Hebrew translation of Tuxemon (Nagmon).
+#
+# Skeleton created by WP3 (RTL infrastructure). The full translation is
+# added by WP4 into this same file. Keep sections and order:
+#   1. INTERFACE / LANGUAGE
+#   2. FORMERLY HARD-CODED STRINGS (alphabetical)
+# No niqqud: the renderer draws glyph by glyph.
+msgid ""
+msgstr ""
+"Project-Id-Version: Tuxemon\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-18 00:00+0000\n"
+"PO-Revision-Date: 2026-10-18 00:00+0000\n"
+"Last-Translator: Nagmon\n"
+"Language-Team: Hebrew\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# INTERFACE / LANGUAGE ##
+msgid "language_he_il"
+msgstr "עברית"
+
+# Name keyboard: letters, final forms, digits, space, punctuation.
+msgid "menu_alphabet"
+msgstr "אבגדהוזחטיכךלמםנןסעפףצץקרשת1234567890 .-!?"
+
+# FORMERLY HARD-CODED STRINGS ##
+msgid "currency_symbol"
+msgstr "₪"
+
+msgid "level_short"
+msgstr "רמה {level}"
+
+msgid "level_short_spaced"
+msgstr "רמה {level}"
+
+# No arrow: Rubik has no arrow glyphs, and "from level X to level Y"
+# reads naturally in Hebrew.
+msgid "level_up_range"
+msgstr "מרמה {start} לרמה {end}"
+
+msgid "measure_value"
+msgstr "{value} {unit}"
+
+msgid "menu_option_default"
+msgstr "אפשרות {key}"
+
+msgid "menu_option_unnamed"
+msgstr "ללא שם"
+
+msgid "quantity_symbol"
+msgstr "×"
+
+msgid "unit_cm"
+msgstr "ס״מ"
+
+msgid "unit_ft"
+msgstr "רגל"
+
+msgid "unit_kg"
+msgstr "ק״ג"
+
+msgid "unit_km"
+msgstr "ק״מ"
+
+msgid "unit_lb"
+msgstr "ליברה"
+
+msgid "unit_m"
+msgstr "מ׳"
+
+msgid "unit_mi"
+msgstr "מייל"
+
+msgid "unit_t"
+msgstr "טון"
+
+msgid "unknown_location"
+msgstr "מקום לא ידוע"

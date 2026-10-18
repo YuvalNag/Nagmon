@@ -8,6 +8,29 @@ import pytest
 from _pytest.mark.structures import ParameterSet
 
 
+@pytest.fixture(scope="session", autouse=True)
+def fresh_translation_catalogs():
+    """
+    Recompile the .po files once per session and reload the translators.
+
+    The compiled .mo files live in the shared user cache and are only
+    rebuilt at import when missing (or a week stale), so tests that read
+    newly added msgids would otherwise see an old catalogue.
+    """
+    import gettext
+
+    from tuxemon.locale.locale import T
+
+    T.collect_and_compile_translations(recompile_translations=True)
+    gettext._translations.clear()  # type: ignore[attr-defined]
+    T._translators_in.clear()
+    T._strict_catalogs.clear()
+    language = T.get_current_language()
+    for domain in list(T._translators):
+        T.load_translator_for_domain(domain, language)
+    yield
+
+
 @pytest.fixture(scope="module", autouse=True)
 def pygame_init():
     pygame.init()

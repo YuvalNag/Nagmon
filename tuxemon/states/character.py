@@ -13,6 +13,7 @@ from tuxemon.db import MonsterModel
 from tuxemon.entity.npc import NPC
 from tuxemon.graphics import scale_surface
 from tuxemon.locale.locale import T
+from tuxemon.locale.units import unit_label
 from tuxemon.menu.formatter import CurrencyFormatter
 from tuxemon.menu.menu import PygameMenuState
 from tuxemon.platform.const import buttons
@@ -105,7 +106,10 @@ class CharacterState(PygameMenuState):
         else:
             walked = formula.convert_mi(steps)
             unit_walked = U_MI
-        _msg_walked = {"distance": str(walked), "unit": unit_walked}
+        _msg_walked = {
+            "distance": str(walked),
+            "unit": unit_label(unit_walked),
+        }
         msg_walked = T.format("player_walked", _msg_walked)
         # name
         menu._auto_centering = False

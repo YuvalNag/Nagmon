@@ -11,6 +11,7 @@ from tuxemon import formula
 from tuxemon.database.runtime import db
 from tuxemon.db import MonsterModel, TasteModel
 from tuxemon.locale.locale import T
+from tuxemon.locale.units import format_measure, level_label
 from tuxemon.menu.menu import PygameMenuState
 from tuxemon.menu.theme import get_theme
 from tuxemon.monster.monster import Monster
@@ -64,16 +65,22 @@ class MonsterInfoState(PygameMenuState):
         unit = self.client.config.unit_measure
         if unit == "metric":
             if monster.weight >= 1000:
-                mon_weight = f"{monster.weight / 1000:.1f}{U_T}"
+                mon_weight = format_measure(
+                    f"{monster.weight / 1000:.1f}", U_T
+                )
             else:
-                mon_weight = f"{round(monster.weight)}{U_KG}"
+                mon_weight = format_measure(round(monster.weight), U_KG)
             if monster.height >= 100:
-                mon_height = f"{monster.height / 100:.1f}{U_M}"
+                mon_height = format_measure(f"{monster.height / 100:.1f}", U_M)
             else:
-                mon_height = f"{round(monster.height)}{U_CM}"
+                mon_height = format_measure(round(monster.height), U_CM)
         else:
-            mon_weight = f"{formula.convert_lbs(monster.weight)}{U_LB}"
-            mon_height = f"{formula.convert_ft(monster.height)}{U_FT}"
+            mon_weight = format_measure(
+                formula.convert_lbs(monster.weight), U_LB
+            )
+            mon_height = format_measure(
+                formula.convert_ft(monster.height), U_FT
+            )
         # name
         menu._auto_centering = False
         thin_font_path = transform_resource_filename(
@@ -92,7 +99,7 @@ class MonsterInfoState(PygameMenuState):
         lab1.translate(fxw(37 / 256), fxh(9.8 / 144))
         # level + exp
         lab2: Any = menu.add.label(
-            title=f"Lv. {monster.level}",
+            title=level_label(monster.level, spaced=True),
             label_id="level",
             font_size=self.font_type.biggest,
             align=ALIGN_LEFT,

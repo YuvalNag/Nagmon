@@ -14,6 +14,7 @@ from typing import TYPE_CHECKING
 from tuxemon.combat.combat_context import CombatType
 from tuxemon.db import BattleMusicModel, OutputBattle
 from tuxemon.locale.locale import T
+from tuxemon.locale.units import level_label
 from tuxemon.menu.formatter import CurrencyFormatter
 
 if TYPE_CHECKING:
@@ -342,6 +343,7 @@ def build_hud_text(
         symbol = "◉"
 
     return {
-        "line1": f"{monster.name}{monster.gender_symbol} Lv.{monster.level}{symbol}",
+        "line1": f"{monster.name}{monster.gender_symbol} "
+        f"{level_label(monster.level)}{symbol}",
         "line2": "",
     }

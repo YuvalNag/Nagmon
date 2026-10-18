@@ -16,7 +16,6 @@ from pygame.rect import Rect
 from pygame.surface import Surface
 from pygame_menu.baseimage import BaseImage
 from pygame_menu.locals import (
-    ALIGN_LEFT,
     POSITION_CENTER,
     SCROLLAREA_POSITION_NONE,
 )
@@ -36,6 +35,7 @@ from tuxemon.menu.input_handler import (
 )
 from tuxemon.menu.interface import MenuItem
 from tuxemon.menu.layout_engine import MenuLayoutEngine
+from tuxemon.menu.rtl import start_menu_alignment
 from tuxemon.menu.theme import get_sound_engine, get_theme
 from tuxemon.menu.transitions import EaseOut, MenuTransition
 from tuxemon.platform.const.graphics import (
@@ -69,6 +69,15 @@ if TYPE_CHECKING:
     from tuxemon.prepare import DisplayContext
 
 logger = logging.getLogger(__name__)
+
+
+def resolve_menu_font(font_filename: str | None) -> str:
+    """
+    Path of the menu font. ``None`` means the font of the current language,
+    looked up at runtime (not at import time) so a language change applies
+    to menus opened afterwards.
+    """
+    return fetch_asset("font", font_filename or CONFIG.locale.font_file)
 
 
 @dataclass(frozen=True)
@@ -321,7 +330,7 @@ class PygameMenuState(State):
         theme = self._copy_theme(get_theme(self.client.context.scaling))
         theme.scrollarea_position = SCROLLAREA_POSITION_NONE
         theme.background_color = BACKGROUND_COLOR
-        theme.widget_alignment = ALIGN_LEFT
+        theme.widget_alignment = start_menu_alignment()
         theme.title = False
 
         self._menu._theme = theme
@@ -415,7 +424,8 @@ class Menu(Generic[T], State):
     # File to load for image background
     background_filename: str | None = None
     menu_select_sound_filename = CONFIG.menu_sound
-    font_filename = CONFIG.locale.font_file
+    # None: resolved at runtime from the current language (resolve_menu_font)
+    font_filename: str | None = None
     borders_filename = CONFIG.menu_border
     cursor_filename = CONFIG.menu_cursor
     cursor_move_duration = 0.20
@@ -485,7 +495,7 @@ class Menu(Generic[T], State):
 
     def setup_resources(self) -> None:
         """Centralized asset loading."""
-        self.font_filename = fetch_asset("font", self.font_filename)
+        self.font_filename = resolve_menu_font(self.font_filename)
         self.set_font()
         self.load_graphics()
         self.reload_sounds()
@@ -957,7 +967,11 @@ class Menu(Generic[T], State):
         cursor_margin = self.cursor_controller.get_margin()
         inner = self.calc_internal_rect()
         menu_rect = inner.inflate(*cursor_margin)
-        menu_rect.bottomright = inner.bottomright
+        if self.cursor_controller.rtl:
+            # RTL: the cursor sits right of the items
+            menu_rect.bottomleft = inner.bottomleft
+        else:
+            menu_rect.bottomright = inner.bottomright
         return menu_rect
 
     def compute_layout_rect(self) -> Rect:

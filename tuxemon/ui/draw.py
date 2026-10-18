@@ -14,6 +14,13 @@ from pygame.rect import Rect
 from pygame.surface import Surface
 
 from tuxemon.graphics import ColorLike
+from tuxemon.ui.bidi import (
+    BILINGUAL_LINE_BREAK,
+    VisualStr,
+    needs_bidi,
+    paragraph_is_rtl,
+    reorder,
+)
 from tuxemon.ui.text_alignment import HorizontalAlignment, VerticalAlignment
 from tuxemon.ui.text_renderer import TextRenderer
 
@@ -127,26 +134,56 @@ def _prepare_text_lines(
     """
     Prepares and returns a list of text lines based on overflow behavior.
     """
-    if not text.strip():
-        return [""]
-    if overflow_behavior == TextOverflow.WRAP:
-        return list(
-            break_text_into_lines(
-                text, font, rect_width, allow_word_overflow=True
-            )
+    return [
+        line
+        for line, _ in _prepare_text_lines_with_direction(
+            text, font, rect_width, overflow_behavior
         )
-    elif overflow_behavior in (
+    ]
+
+
+def _prepare_text_lines_with_direction(
+    text: str,
+    font: Font,
+    rect_width: int,
+    overflow_behavior: TextOverflow,
+) -> list[tuple[str, bool]]:
+    """
+    Wraps logical text into lines and tags each line with the base
+    direction of the paragraph it came from (True = RTL).
+
+    Lines are produced exactly like ``break_text_into_lines`` on the whole
+    text; the direction is computed per paragraph so a bilingual message
+    (English paragraph, Hebrew paragraph) gets the right base for each.
+    """
+    if not text.strip():
+        return [("", False)]
+    paragraphs = list(iterate_paragraphs(text))
+    if overflow_behavior not in (
+        TextOverflow.WRAP,
         TextOverflow.CLIP,
         TextOverflow.EXPAND,
         TextOverflow.ELLIPSIS,
     ):
-        return list(
-            break_text_into_lines(
-                text, font, rect_width, allow_word_overflow=False
-            )
-        )
-    else:
-        return list(iterate_paragraphs(text))
+        return [(p, paragraph_is_rtl(p)) for p in paragraphs]
+
+    allow_word_overflow = overflow_behavior == TextOverflow.WRAP
+    lines: list[tuple[str, bool]] = []
+    for index, paragraph in enumerate(paragraphs):
+        if not paragraph.strip():
+            if index == 0:
+                continue
+            lines.append(("", False))
+            continue
+        base_rtl = paragraph_is_rtl(paragraph)
+        for line in break_text_into_lines(
+            paragraph,
+            font,
+            rect_width,
+            allow_word_overflow=allow_word_overflow,
+        ):
+            lines.append((line, base_rtl))
+    return lines
 
 
 def _iter_chars_for_line(
@@ -227,6 +264,123 @@ def _iter_tokens_for_line(
         x_position += token_width
 
 
+def _bidi_line_start(
+    rect: Rect,
+    width: int,
+    h_alignment: HorizontalAlignment,
+    base_rtl: bool,
+) -> int:
+    """x of the left edge of a visual line of the given width."""
+    if width > rect.width and base_rtl:
+        # an RTL line that does not fit overflows on its end (the left)
+        if h_alignment == HorizontalAlignment.LEFT:
+            return rect.left
+        return rect.right - width
+    offset_x, _ = calculate_alignment_offset(
+        rect, width, 0, h_alignment, VerticalAlignment.TOP
+    )
+    return rect.left + offset_x
+
+
+def _iter_bidi_line(
+    line: str,
+    base_rtl: bool,
+    mode: RenderMode,
+    font: Font,
+    fg: ColorLike,
+    bg: ColorLike,
+    top: int,
+    rect: Rect,
+    h_alignment: HorizontalAlignment,
+    overflow_behavior: TextOverflow,
+    text_renderer: TextRenderer,
+) -> Generator[RenderedChar, None, None]:
+    """
+    Renders one wrapped line that needs bidi reordering.
+
+    Glyphs are placed on the *visual* line, but in CHARACTER mode they are
+    yielded in *logical* order, so the typewriter effect reveals the text
+    in reading order (right to left for Hebrew, left to right for an
+    English word inside a Hebrew sentence).
+    """
+    visual, visual_to_logical = reorder(line, base_rtl)
+    ellipsis = "…"
+    ellipsis_width = font.size(ellipsis)[0]
+
+    if mode == RenderMode.LINE:
+        surface = text_renderer.shadow_text(visual, bg=bg, fg=fg)
+        width = surface.get_width()
+        left = _bidi_line_start(rect, width, h_alignment, base_rtl)
+        yield RenderedChar(
+            rect=surface.get_rect(top=top, left=left),
+            surface=surface,
+            char=visual,
+        )
+        return
+
+    if mode == RenderMode.TOKEN:
+        pieces = tokenize_preserving_spacing(visual)
+    else:
+        pieces = list(visual)
+    advances = [font.size(piece)[0] for piece in pieces]
+    total_width = sum(advances)
+    x = _bidi_line_start(rect, total_width, h_alignment, base_rtl)
+    positions = []
+    for advance in advances:
+        positions.append(x)
+        x += advance
+
+    def fits(index: int, reserve: int = 0) -> bool:
+        if overflow_behavior == TextOverflow.EXPAND:
+            return True
+        left = positions[index]
+        right = left + advances[index]
+        if base_rtl:
+            return left >= rect.left + reserve and right <= rect.right
+        return left >= rect.left and right <= rect.right - reserve
+
+    clipped = any(
+        piece.strip() and not fits(index) for index, piece in enumerate(pieces)
+    )
+    reserve = (
+        ellipsis_width
+        if clipped and overflow_behavior == TextOverflow.ELLIPSIS
+        else 0
+    )
+
+    if mode == RenderMode.TOKEN:
+        indices = list(range(len(pieces)))
+        if base_rtl:
+            indices.reverse()
+    else:
+        indices = sorted(
+            range(len(pieces)), key=lambda i: visual_to_logical[i]
+        )
+
+    for index in indices:
+        piece = pieces[index]
+        if not piece.strip() or not fits(index, reserve):
+            continue
+        if mode == RenderMode.TOKEN:
+            surface = text_renderer.shadow_text(VisualStr(piece), bg=bg, fg=fg)
+        else:
+            surface = text_renderer.get_glyph(piece, fg, bg)
+        yield RenderedChar(
+            rect=surface.get_rect(top=top, left=positions[index]),
+            surface=surface,
+            char=piece,
+        )
+
+    if reserve:
+        surface = text_renderer.shadow_text(ellipsis, bg=bg, fg=fg)
+        left = rect.left if base_rtl else rect.right - ellipsis_width
+        yield RenderedChar(
+            rect=surface.get_rect(top=top, left=left),
+            surface=surface,
+            char=ellipsis,
+        )
+
+
 def iter_render_text(
     text: str,
     font: Font,
@@ -241,8 +395,16 @@ def iter_render_text(
     overflow_behavior: TextOverflow = TextOverflow.CLIP,
     line_spacing: int = 0,
 ) -> Generator[RenderedChar, None, None]:
+    """
+    Yields the rendered pieces of a text, in reveal order.
 
-    lines = _prepare_text_lines(text, font, rect.width, overflow_behavior)
+    Text is wrapped in logical order; lines that contain RTL text (or
+    belong to an RTL paragraph) are reordered after wrapping, see
+    ``_iter_bidi_line``. Pure LTR lines take the original code path.
+    """
+    lines = _prepare_text_lines_with_direction(
+        text, font, rect.width, overflow_behavior
+    )
     if not lines:
         return
 
@@ -258,8 +420,25 @@ def iter_render_text(
             scaling=scaling, font_color=fg, font_shadow_color=bg, font=font
         )
 
-    for line_index, line in enumerate(lines):
+    for line_index, (line, base_rtl) in enumerate(lines):
         current_line_y = rect.top + line_index * line_height + vertical_offset
+
+        if line and needs_bidi(line, base_rtl):
+            yield from _iter_bidi_line(
+                line,
+                base_rtl,
+                mode,
+                font,
+                fg,
+                bg,
+                current_line_y,
+                rect,
+                h_alignment,
+                overflow_behavior,
+                text_renderer,
+            )
+            continue
+
         line_width = font.size(line)[0]
 
         offset_x_for_line, _ = calculate_alignment_offset(
@@ -379,7 +558,9 @@ def iterate_lines(text: str) -> Generator[str, None, None]:
 
 
 def iterate_paragraphs(text: str) -> Generator[str, None, None]:
-    yield from text.split("\n")
+    # U+2028 (BILINGUAL_LINE_BREAK) is a line break that does not start a
+    # new dialog page.
+    yield from text.replace(BILINGUAL_LINE_BREAK, "\n").split("\n")
 
 
 def iterate_word_lines(text: str) -> Generator[Iterable[str], None, None]:

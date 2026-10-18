@@ -17,3 +17,4 @@ astral>=3.2
 tzdata
 edge-tts>=7.0
 pyttsx3>=2.90
+python-bidi==0.6.11

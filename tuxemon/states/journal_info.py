@@ -11,7 +11,9 @@ from tuxemon import formula
 from tuxemon.database.runtime import db
 from tuxemon.db import MonsterModel
 from tuxemon.locale.locale import T
+from tuxemon.locale.units import unit_label
 from tuxemon.menu.menu import PygameMenuState
+from tuxemon.menu.rtl import start_menu_alignment
 from tuxemon.monster.sprite import MonsterSpriteHandler, SpriteLoader
 from tuxemon.platform.const import buttons
 from tuxemon.platform.const.graphics import BG_JOURNAL_INFO, SEA_BLUE_COLOR
@@ -98,7 +100,9 @@ class JournalInfoState(PygameMenuState):
         lab1.translate(fxw(119), fxh(8))
 
         # weight
-        _weight = f"{T.translate('weight')}: {mon_weight} {unit_weight}"
+        _weight = (
+            f"{T.translate('weight')}: {mon_weight} {unit_label(unit_weight)}"
+        )
         lab2: Any = menu.add.label(
             title=_weight,
             label_id="weight",
@@ -111,7 +115,9 @@ class JournalInfoState(PygameMenuState):
         )
         lab2.translate(fxw(119), fxh(32))
         # height
-        _height = f"{T.translate('height')}: {mon_height} {unit_height}"
+        _height = (
+            f"{T.translate('height')}: {mon_height} {unit_label(unit_height)}"
+        )
         lab3: Any = menu.add.label(
             title=_height,
             label_id="height",
@@ -263,7 +269,7 @@ class JournalInfoState(PygameMenuState):
             font_size=self.font_type.biggest,
             wordwrap=True,
             leading=fxh(10),
-            align=ALIGN_LEFT,
+            align=start_menu_alignment(),
             padding=0,
         )
 
@@ -271,7 +277,7 @@ class JournalInfoState(PygameMenuState):
         # frame instead of the full menu width. Starting at x=8 with a width of
         # 243 nominal px, the text ends at x=251 -- 2px inside the background
         # panel's right-hand border (which sits at x=253).
-        desc_frame.pack(lab9, align=ALIGN_LEFT)
+        desc_frame.pack(lab9, align=start_menu_alignment())
 
         # evolution monsters
         slugs = [ele.monster_slug for ele in monster.evolutions]

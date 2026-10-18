@@ -21,10 +21,21 @@ from tuxemon.platform.const import buttons, events
 
 Animation.default_transition = "out_quint"
 
-LOCALE_FONT_MAP = {
-    "zh_CN": ("SourceHanSerifCN-Bold.otf", "SourceHanSerifCN-Bold.otf"),
-    "ja": ("SourceHanSerifJP-Bold.otf", "SourceHanSerifJP-Bold.otf"),
-    "default": ("PressStart2P.ttf", "Pizel.ttf"),
+# locale -> (font_file, thin_font_file, minimal_font_file)
+LOCALE_FONT_MAP: dict[str, tuple[str, str, str]] = {
+    "zh_CN": (
+        "SourceHanSerifCN-Bold.otf",
+        "SourceHanSerifCN-Bold.otf",
+        "SourceHanSerifCN-Bold.otf",
+    ),
+    "ja": (
+        "SourceHanSerifJP-Bold.otf",
+        "SourceHanSerifJP-Bold.otf",
+        "SourceHanSerifJP-Bold.otf",
+    ),
+    # Rubik (OFL): Hebrew + Latin, readable at small sizes
+    "he_IL": ("Rubik-Medium.ttf", "Rubik-Medium.ttf", "Rubik-Medium.ttf"),
+    "default": ("PressStart2P.ttf", "Pizel.ttf", "Minimal3x5.ttf"),
 }
 
 
@@ -410,7 +421,7 @@ class TuxemonConfig:
         """
         self.config_model.game.locale = value
 
-        font_file, thin_font = LOCALE_FONT_MAP.get(
+        font_file, thin_font, minimal_font = LOCALE_FONT_MAP.get(
             value, LOCALE_FONT_MAP["default"]
         )
 
@@ -418,6 +429,7 @@ class TuxemonConfig:
         game.language_font = font_file
         game.font_file = font_file
         game.thin_font_file = thin_font
+        game.minimal_font_file = minimal_font
         self.save_config()
 
     def reset_controls_to_default(self) -> None:

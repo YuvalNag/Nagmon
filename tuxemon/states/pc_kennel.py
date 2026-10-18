@@ -15,6 +15,7 @@ from pygame_menu.widgets.selection.highlight import HighlightSelection
 
 from tuxemon.graphics import scale_surface
 from tuxemon.locale.locale import T
+from tuxemon.locale.units import level_label
 from tuxemon.menu.interface import MenuItem
 from tuxemon.menu.menu import PygameMenuState
 from tuxemon.menu.transitions import SlideRight
@@ -304,7 +305,7 @@ class MonsterTakeState(PygameMenuState):
                 selection_effect=HighlightSelection(),
             )
             diff = round((monster.hp_ratio) * 100, 1)
-            level = f"Lv.{monster.level}"
+            level = level_label(monster.level)
             menu.add.progress_bar(
                 level,
                 default=diff,

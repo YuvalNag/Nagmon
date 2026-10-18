@@ -25,7 +25,8 @@ class ChoiceOption:
         self.key = self.key.lower().strip()
 
         if not self.display_text:
-            self.display_text = f"Option {self.key or 'Unnamed'}"
+            key = self.key or T.translate("menu_option_unnamed")
+            self.display_text = T.format("menu_option_default", {"key": key})
 
 
 class MenuOptions:
