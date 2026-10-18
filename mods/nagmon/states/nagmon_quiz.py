@@ -327,7 +327,11 @@ class QuizState(PygameMenuState):
         visible = [c for c in q.choices if c.id not in self.hidden]
         with_images = any(c.image for c in visible)
         row = self._row(menu, "choices")
-        for n, choice in enumerate(visible, start=1):
+        numbered = list(enumerate(visible, start=1))
+        if T.is_rtl():
+            # Rows fill left to right; in Hebrew choice 1 belongs on the right.
+            numbered.reverse()
+        for n, choice in numbered:
             label = _choice_label(choice, english_first) or str(n)
             if with_images:
                 image = self._emoji_surface(choice.image, 72)
@@ -521,6 +525,8 @@ class QuizState(PygameMenuState):
         buttons.append(("speak", T.translate("nagmon_read_aloud"), self.speak))
         if self.allow_skip:
             buttons.append(("skip", T.translate("nagmon_skip"), self.skip))
+        if T.is_rtl():
+            buttons.reverse()
         for key, title, action in buttons:
             row.pack(
                 menu.add.button(
@@ -528,7 +534,8 @@ class QuizState(PygameMenuState):
                     action,
                     font_size=self.font_type.small,
                     button_id=f"footer_{key}",
-                )
+                ),
+                align=ALIGN_CENTER,
             )
 
     def _add_feedback(self, menu: Menu) -> None:

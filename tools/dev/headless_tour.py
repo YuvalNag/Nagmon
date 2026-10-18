@@ -114,3 +114,29 @@ client.get_state_by_name("ProfileSelectState").pick(first.id)
 step(60)
 shot("03_title_for_child")
 print("active:", rt.active.name if rt.active else None)
+
+
+def quiz_shot(name: str, **kwargs) -> None:
+    client.push_state("QuizState", **kwargs)
+    step(40)
+    quiz = client.get_state_by_name("QuizState")
+    q = quiz.question
+    print("question:", q.skill_id if q else None, q.kind if q else None)
+    if q is not None and q.meta.get("worked_example"):
+        shot(f"{name}_example")
+        quiz._example_done()
+        step(20)
+    shot(f"{name}_question")
+    if q is not None:
+        quiz.answer(q.answer)
+        step(30)
+        shot(f"{name}_feedback")
+        quiz.finish()
+        step(10)
+
+
+if rt.engine is not None:
+    quiz_shot("10_math", subject="math", context="quest")
+    quiz_shot("11_geometry", subject="geometry", context="quest")
+    quiz_shot("12_english", subject="english", context="quest")
+    quiz_shot("13_science", subject="science", context="quest")
