@@ -175,3 +175,73 @@ def test_restoring_a_player_whose_name_is_taken_does_not_crash(monkeypatch):
         runtime_mod.set_runtime(None)
     store.restore.assert_called_once_with("p1-1")
     assert said == [profiles.T.translate("nagmon_restore_failed")]
+
+
+def _title(decision, *, above=(), world=False):
+    from mods.nagmon.states.nagmon_start import StartState
+
+    state = StartState.__new__(StartState)
+    state.client = MagicMock()
+    top = list(above) or [state]
+    state.client.current_state = top[0]
+    state.client.active_states = [*above, state]
+    state.client.active_state_names = ["StartState"] + (
+        ["WorldState"] if world else []
+    )
+    state._watcher = _Watcher(decision)
+    state._pending_note = None
+    state._stop_message = None
+    state.client.queue_command.side_effect = lambda fn: fn()
+    rt = MagicMock()
+    rt.active = SimpleNamespace(id="p1")
+    runtime_mod.set_runtime(rt)
+    return state, rt
+
+
+def test_time_is_up_while_playing_the_title_minigame(monkeypatch):
+    # Minigame / owl / idle title menu are screen time too: before, only
+    # the world watched the clock, so these never stopped (even on Shabbat).
+    from mods.nagmon.states import nagmon_start
+
+    dialogs = MagicMock()
+    monkeypatch.setattr(nagmon_start, "open_dialog", dialogs)
+    minigame = SimpleNamespace(name="MinigameState")
+    state, rt = _title(_decision("MUST_STOP"), above=[minigame])
+    try:
+        state._watch_screen_time(1.0)
+    finally:
+        runtime_mod.set_runtime(None)
+    rt.stop_play.assert_called_once()
+    state.client.pop_state.assert_called_once_with(minigame)
+    # resume() then opens "who is playing?" with the message on top.
+    state._show_who_plays()
+    state.client.push_state.assert_called_once_with("ProfileSelectState")
+    dialogs.assert_called_once_with(state.client, ["msg"])
+
+
+def test_time_is_up_on_the_idle_title_menu(monkeypatch):
+    from mods.nagmon.states import nagmon_start
+
+    dialogs = MagicMock()
+    monkeypatch.setattr(nagmon_start, "open_dialog", dialogs)
+    state, rt = _title(_decision("MUST_STOP"))
+    try:
+        state._watch_screen_time(1.0)
+    finally:
+        runtime_mod.set_runtime(None)
+    rt.stop_play.assert_called_once()
+    state.client.pop_state.assert_not_called()
+    state.client.push_state.assert_called_once_with("ProfileSelectState")
+    dialogs.assert_called_once_with(state.client, ["msg"])
+
+
+def test_title_does_not_double_watch_a_world_on_top(monkeypatch):
+    from mods.nagmon.states import nagmon_start
+
+    monkeypatch.setattr(nagmon_start, "open_dialog", MagicMock())
+    state, rt = _title(_decision("MUST_STOP"), world=True)
+    try:
+        state._watch_screen_time(1.0)
+    finally:
+        runtime_mod.set_runtime(None)
+    rt.stop_play.assert_not_called()
