@@ -7,6 +7,7 @@ plain-Hebrew lines, each with an explanation of how it was computed
 from __future__ import annotations
 
 from dataclasses import dataclass
+
 from nagmon.family.dashboard import WeekSummary, conversation_prompt
 from nagmon.runtime import NagmonRuntime, age_from_profile
 
