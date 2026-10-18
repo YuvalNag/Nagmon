@@ -20,8 +20,10 @@ from pygame_menu.locals import ALIGN_CENTER, POSITION_EAST
 from pygame_menu.menu import Menu
 
 from nagmon.learning.model import CHOICE_KINDS, Question
-from nagmon.quiz_flow import LetterTiles, NumberPad, OrderPicker, SubjectMap
+from nagmon.quiz_flow import LetterTiles, NumberPad, OrderPicker
 from nagmon.runtime import get_runtime
+from nagmon.ui import game_helpers
+from nagmon.ui.game_helpers import emoji_loader, speech, subject_map
 from tuxemon.constants.asset_loader import fetch_asset
 from tuxemon.locale.locale import T
 from tuxemon.menu.menu import PygameMenuState
@@ -37,48 +39,6 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 OnResult = Callable[[Any], None]
-_SUBJECTS: SubjectMap | None = None
-_EMOJI: Any = None
-_TTS: Any = None
-
-
-def subject_map() -> SubjectMap:
-    global _SUBJECTS
-    if _SUBJECTS is None:
-        _SUBJECTS = SubjectMap.load(
-            fetch_asset("learning", "subjects.yaml")  # type: ignore[arg-type]
-        )
-    return _SUBJECTS
-
-
-def emoji_loader() -> Any:
-    global _EMOJI
-    if _EMOJI is None:
-        from nagmon.ui.emoji import EmojiLoader, default_root
-
-        _EMOJI = EmojiLoader(default_root())
-    return _EMOJI
-
-
-def speech() -> Any:
-    """The text-to-speech service for the playing child, or None."""
-    global _TTS
-    rt = get_runtime()
-    if rt is None or rt.active is None:
-        return None
-    try:
-        from nagmon.tts.factory import create_service
-        from nagmon.tts.settings import TTSSettings
-
-        settings = TTSSettings.from_dict(rt.active.settings.get("tts") or {})
-        if _TTS is None:
-            _TTS = create_service(settings)
-        else:
-            _TTS.apply_settings(settings)
-    except Exception:  # speech must never break the game
-        logger.exception("Text-to-speech unavailable")
-        return None
-    return _TTS
 
 
 def _choice_label(choice: Any, english_first: bool) -> str:
@@ -655,7 +615,7 @@ class QuizState(PygameMenuState):
         self._close(self.outcome)
 
     def _close(self, result: Any) -> None:
-        tts = _TTS
+        tts = game_helpers._TTS
         if tts is not None:
             try:
                 tts.stop()

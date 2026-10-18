@@ -122,7 +122,7 @@ class OwlState(PygameMenuState):
         )
 
     def ask_free_text(self) -> None:
-        from mods.nagmon.states.profiles import ask_text
+        from nagmon.ui.game_helpers import ask_text
 
         ask_text(
             self.client,
@@ -162,7 +162,7 @@ class OwlState(PygameMenuState):
             self._read_aloud(self.answer.text_he)
 
     def _read_aloud(self, text: str) -> None:
-        from mods.nagmon.states.nagmon_quiz import speech
+        from nagmon.ui.game_helpers import speech
 
         tts = speech()
         if tts is not None:

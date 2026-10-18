@@ -25,11 +25,10 @@ from nagmon.game_flow import (
     defaults_for_grade,
 )
 from nagmon.runtime import NagmonRuntime, get_runtime
+from nagmon.ui.game_helpers import ask_text, choose, rebuild_menu, say
 from tuxemon.locale.locale import T
 from tuxemon.menu.menu import PygameMenuState
 from tuxemon.platform.const.graphics import BG_START_SCREEN
-from tuxemon.tools import open_choice_dialog, open_dialog
-from tuxemon.ui.menu_options import ChoiceOption, MenuOptions
 
 if TYPE_CHECKING:
     from tuxemon.base_client import BaseClient
@@ -37,61 +36,6 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 PIN_LENGTH = 4
-
-
-def _later(client: BaseClient, fn: Callable[[], None]) -> None:
-    """Runs ``fn`` on the next frame, after the current state closed."""
-    client.queue_command(fn)
-
-
-def say(client: BaseClient, text: str, then: Callable[[], None] | None = None):
-    open_dialog(
-        client,
-        [text],
-        dialog_speed="max",
-        on_complete=(lambda: _later(client, then)) if then else None,
-    )
-
-
-def choose(
-    client: BaseClient,
-    options: Sequence[tuple[str, Callable[[], None]]],
-    *,
-    escape_key_exits: bool = True,
-) -> None:
-    """Shows a list of choices; the chosen action runs after it closes."""
-
-    def wrap(fn: Callable[[], None]) -> Callable[[], None]:
-        def run() -> None:
-            client.pop_state()
-            _later(client, fn)
-
-        return run
-
-    menu = MenuOptions(
-        [
-            ChoiceOption(key=f"o{i}", display_text=text, action=wrap(fn))
-            for i, (text, fn) in enumerate(options)
-        ]
-    )
-    open_choice_dialog(client, menu, escape_key_exits=escape_key_exits)
-
-
-def ask_text(
-    client: BaseClient,
-    prompt: str,
-    on_text: Callable[[str], None],
-    *,
-    char_limit: int = 16,
-    initial: str = "",
-) -> None:
-    client.push_state(
-        "InputMenu",
-        prompt=prompt,
-        callback=lambda text: _later(client, lambda: on_text(text)),
-        char_limit=char_limit,
-        initial=initial,
-    )
 
 
 # ---------------------------------------------------------------- parents
@@ -218,17 +162,6 @@ def new_child_wizard(
         )
 
     ask_name()
-
-
-def rebuild_menu(state: PygameMenuState) -> None:
-    """
-    Rebuilds a menu state's widgets with a fresh pygame_menu Menu.
-    Clearing and refilling the old Menu keeps drawing its first layout.
-    """
-    state._menu = None
-    state.add_menu_items(state.menu)
-    state.reset_theme()
-    state._set_open()
 
 
 def grade_name(grade: int) -> str:
@@ -367,9 +300,13 @@ class ParentMenuState(PygameMenuState):
             ),
             (
                 "minutes",
-                T.format(
-                    "nagmon_daily_minutes",
-                    {"minutes": s.default_limits.daily_max_minutes or 0},
+                (
+                    T.format(
+                        "nagmon_daily_minutes",
+                        {"minutes": s.default_limits.daily_max_minutes},
+                    )
+                    if s.default_limits.daily_max_minutes is not None
+                    else T.translate("nagmon_daily_unlimited")
                 ),
                 self.daily_minutes,
             ),
@@ -406,9 +343,9 @@ class ParentMenuState(PygameMenuState):
         return T.translate("nagmon_owl_on" if on else "nagmon_owl_off")
 
     def toggle_owl(self) -> None:
-        from nagmon.owl_service import load_ai_settings, save_ai_settings
-
         import dataclasses
+
+        from nagmon.owl_service import load_ai_settings, save_ai_settings
 
         settings = load_ai_settings(self.rt.root)
         save_ai_settings(

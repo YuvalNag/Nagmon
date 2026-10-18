@@ -75,6 +75,6 @@ class StartState(core_start.StartState):
             self.client.push_state("ProfileSelectState")
         elif rt.active.id != self._shown_for:
             # A child was chosen: their saves and greeting differ.
-            from mods.nagmon.states.profiles import rebuild_menu
+            from nagmon.ui.game_helpers import rebuild_menu
 
             rebuild_menu(self)

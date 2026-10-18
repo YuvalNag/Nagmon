@@ -62,7 +62,7 @@ class MainCombatMenuState(core_combat.MainCombatMenuState):
         return True
 
     def _subject_for(self, technique: Technique) -> str:
-        from mods.nagmon.states.nagmon_quiz import subject_map
+        from nagmon.ui.game_helpers import subject_map
 
         rt = get_runtime()
         override = None

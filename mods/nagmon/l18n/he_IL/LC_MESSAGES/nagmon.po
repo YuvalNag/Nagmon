@@ -280,3 +280,6 @@ msgstr "אחרי {n} כוכבי ידע"
 
 msgid "nagmon_milestone_weekly_goals"
 msgstr "אחרי {n} יעדים שבועיים"
+
+msgid "nagmon_daily_unlimited"
+msgstr "דקות ביום: ללא הגבלה"
