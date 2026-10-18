@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import importlib
-import os
 import wave
 
 import pytest
@@ -76,16 +75,20 @@ def test_build_backends_order():
     ]
 
 
-def test_default_cache_dir_windows(monkeypatch, tmp_path):
-    monkeypatch.setattr(os, "name", "nt")
-    monkeypatch.setenv("LOCALAPPDATA", str(tmp_path))
-    assert default_cache_dir() == tmp_path / "Nagmon" / "tts_cache"
+def test_default_cache_dir_windows(tmp_path):
+    env = {"LOCALAPPDATA": str(tmp_path)}
+    assert (
+        default_cache_dir(windows=True, env=env)
+        == tmp_path / "Nagmon" / "tts_cache"
+    )
 
 
-def test_default_cache_dir_linux(monkeypatch, tmp_path):
-    monkeypatch.setattr(os, "name", "posix")
-    monkeypatch.setenv("XDG_CACHE_HOME", str(tmp_path))
-    assert default_cache_dir() == tmp_path / "nagmon" / "tts"
+def test_default_cache_dir_linux(tmp_path):
+    env = {"XDG_CACHE_HOME": str(tmp_path)}
+    assert (
+        default_cache_dir(windows=False, env=env)
+        == tmp_path / "nagmon" / "tts"
+    )
 
 
 # T36: pygame player smoke test (dummy audio driver) -------------------------

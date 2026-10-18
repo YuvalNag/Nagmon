@@ -193,6 +193,15 @@ def test_failed_backend_is_paused_until_retry_time(make):
     assert len(broken.calls) == 2
 
 
+def test_no_voice_hint_mentions_connection_when_online_allowed(make):
+    broken = FakeBackend("edge", online=True, fail=OSError("no network"))
+    svc = make([broken, NullBackend()], allow_online=True)
+    svc.speak("שלום", "he")
+    assert svc.wait_idle()
+    assert svc.last_error.code == "no_voice"
+    assert "אין חיבור" in svc.last_error.message_he
+
+
 def test_all_backends_failing_never_raises(make):
     broken = FakeBackend("broken", fail=RuntimeError("boom"))
     player = FakePlayer()
@@ -280,10 +289,11 @@ def test_no_interrupt_waits_for_current_to_finish(make):
     svc = make([FakeBackend("fake"), NullBackend()], player)
     svc.speak("אחת", "he")
     assert _wait(lambda: len(player.played) == 1)
+    stops = player.stops
     svc.speak("שתיים", "he", interrupt=False)
     time.sleep(0.1)
     assert len(player.played) == 1
-    assert player.stops == 0
+    assert player.stops == stops
     player.finish()
     assert _wait(lambda: len(player.played) == 2)
     assert player.texts == ["fake:he:אחת", "fake:he:שתיים"]
