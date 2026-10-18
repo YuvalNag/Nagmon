@@ -141,6 +141,10 @@ class QuizState(PygameMenuState):
         rt = get_runtime()
         if rt is None or rt.active is None:
             return None
+        # Only the youngest are held to multiple choice; from grade 2 the
+        # engine may also ask for a typed answer (number pad, tiles).
+        if rt.active.grade >= 2:
+            return None
         learning = rt.active.settings.get("learning") or {}
         return learning.get("max_choices")
 
@@ -256,9 +260,11 @@ class QuizState(PygameMenuState):
 
         q = self.question
         assert q is not None and q.figure is not None
+        # Leave room for the number pad or tiles under a picture.
+        tall = q.kind in CHOICE_KINDS
         size = (
             int(self.client.context.resolution[0] * 0.45),
-            int(self.client.context.resolution[1] * 0.32),
+            int(self.client.context.resolution[1] * (0.32 if tall else 0.24)),
         )
         try:
             font = fetch_asset("font", self.client.config.locale.font_file)
@@ -366,40 +372,43 @@ class QuizState(PygameMenuState):
             font_size=self.font_type.big,
             label_id="pad_display",
         )
-        for r, keys in enumerate(
-            (("7", "8", "9"), ("4", "5", "6"), ("1", "2", "3"))
-        ):
-            row = self._row(menu, f"pad_row_{r}")
-            for key in keys:
-                row.pack(
-                    menu.add.button(
-                        key,
-                        lambda k=key: self.press_key(k),
-                        font_size=self.font_type.big,
-                        button_id=f"pad_{key}",
-                    )
-                )
-        row = self._row(menu, "pad_row_3")
-        for key, title in (
+        digits = [str(d) for d in (1, 2, 3, 4, 5, 6, 7, 8, 9, 0)]
+        tools = [
             ("-", "-"),
-            ("0", "0"),
             (".", "."),
             ("/", "/"),
             ("back", T.translate("nagmon_erase")),
-        ):
+        ]
+        row = self._row(menu, "pad_digits")
+        for key in digits:
+            row.pack(
+                menu.add.button(
+                    key,
+                    lambda k=key: self.press_key(k),
+                    font_size=self.font_type.big,
+                    button_id=f"pad_{key}",
+                ),
+                align=ALIGN_CENTER,
+            )
+        row = self._row(menu, "pad_tools")
+        for key, title in tools:
             row.pack(
                 menu.add.button(
                     title,
                     lambda k=key: self.press_key(k),
-                    font_size=self.font_type.big,
+                    font_size=self.font_type.medium,
                     button_id=f"pad_{key}",
-                )
+                ),
+                align=ALIGN_CENTER,
             )
-        menu.add.button(
-            T.translate("nagmon_check_answer"),
-            lambda: self.answer(self.pad.text) if self.pad.text else None,
-            font_size=self.font_type.big,
-            button_id="pad_ok",
+        row.pack(
+            menu.add.button(
+                T.translate("nagmon_check_answer"),
+                lambda: self.answer(self.pad.text) if self.pad.text else None,
+                font_size=self.font_type.medium,
+                button_id="pad_ok",
+            ),
+            align=ALIGN_CENTER,
         )
 
     def press_key(self, key: str) -> None:

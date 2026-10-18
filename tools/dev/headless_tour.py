@@ -170,3 +170,22 @@ for _ in range(100):
         break
 step(10)
 shot("31_owl_answer")
+
+# An older child gets typed answers too: show the number pad.
+client.pop_state()  # owl
+step(5)
+older = [p for p in rt.store.list() if p.grade >= 2][-1]
+rt.stop_play()
+rt.start_play(older.id)
+nq = None
+for sid in [s.id for s in rt.engine.content.skills.values()]:
+    if not sid.startswith("math."):
+        continue
+    for _ in range(5):
+        cand = rt.engine.next_question(skill_id=sid)
+        if cand.kind == "number" and not cand.meta.get("worked_example"):
+            nq = cand
+            break
+    if nq is not None:
+        break
+quiz_shot("14_number_pad", question=nq, context="quest")

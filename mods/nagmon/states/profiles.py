@@ -16,7 +16,11 @@ from typing import TYPE_CHECKING, Any, ClassVar
 from pygame_menu.locals import ALIGN_CENTER, POSITION_EAST
 from pygame_menu.menu import Menu
 
-from nagmon.family.profiles import ProfileError, validate_name
+from nagmon.family.profiles import (
+    ProfileError,
+    ProfileLimitError,
+    validate_name,
+)
 from nagmon.family.screentime import Action
 from nagmon.game_flow import (
     AVATARS,
@@ -151,6 +155,9 @@ def new_child_wizard(
         fields = defaults_for_grade(grade)
         try:
             rt.store.create(name=name, avatar=avatar, **fields)
+        except ProfileLimitError:
+            say(client, T.translate("nagmon_too_many_players"))
+            return
         except ProfileError as e:
             logger.warning("Could not create profile: %s", e)
             say(client, T.translate("nagmon_name_invalid"), then=ask_name)

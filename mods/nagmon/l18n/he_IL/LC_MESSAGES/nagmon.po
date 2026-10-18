@@ -717,3 +717,6 @@ msgstr ""
 
 msgid "nagmon_restore_failed"
 msgstr "אי אפשר לשחזר את השחקן כרגע: יש כבר שחקן עם אותו שם, או שיש כבר 8 שחקנים."
+
+msgid "nagmon_too_many_players"
+msgstr "כבר יש 8 שחקנים. כדי להוסיף שחקן חדש, מוחקים אחד באזור ההורים."

@@ -116,8 +116,9 @@ class LocalPygameClient(BaseClient):
 
         last_time = clock()
         accumulator = 0.0
-        # With vsync the display flip already waits for the screen.
-        limiter = FrameLimiter(0 if self.config.vsync else target_fps)
+        # Vsync may be unavailable (no hardware renderer), so cap anyway;
+        # with working vsync the flip already waits and this sleeps ~0.
+        limiter = FrameLimiter(target_fps)
 
         while self.state != ClientState.DONE:
             limiter.start_frame()

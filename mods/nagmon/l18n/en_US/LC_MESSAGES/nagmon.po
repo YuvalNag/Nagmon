@@ -718,3 +718,6 @@ msgstr ""
 
 msgid "nagmon_restore_failed"
 msgstr "This player can't come back right now: another player has the same name, or there are already 8 players."
+
+msgid "nagmon_too_many_players"
+msgstr "There are already 8 players. Delete one in the parent area to add a new one."
