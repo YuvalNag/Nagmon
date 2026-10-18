@@ -71,8 +71,10 @@ def test_c2_duplicate_id(tmp_path):
 
 
 def test_c3_unknown_generator(tmp_path):
-    bad = GOOD.replace("generator: arithmetic.add\n    params: {max_sum: 20}",
-                       "generator: arithmetic.nope\n    params: {}")
+    bad = GOOD.replace(
+        "generator: arithmetic.add\n    params: {max_sum: 20}",
+        "generator: arithmetic.nope\n    params: {}",
+    )
     expect_error(tmp_path, bad, "unknown generator")
 
 
@@ -87,7 +89,9 @@ def test_c5_cycle(tmp_path):
 
 
 def test_bad_grade_and_subject(tmp_path):
-    bad = GOOD.replace("grade: 1\n    title_he: חיבור\n", "grade: 12\n    title_he: חיבור\n")
+    bad = GOOD.replace(
+        "grade: 1\n    title_he: חיבור\n", "grade: 12\n    title_he: חיבור\n"
+    )
     expect_error(tmp_path, bad, "grade")
     bad2 = GOOD.replace("id: math.add.a", "id: geometry.add.a").replace(
         "prereq: [math.add.a]", "prereq: [geometry.add.a]"
@@ -164,11 +168,15 @@ def test_c6_bank(tmp_path):
     ("old", "new", "needle"),
     [
         ("answer: 0\n", "answer: 5\n", "answer"),
-        ("{he: אבן, en: stone, emoji: 1faa8}", "{he: חתול, en: stone}", "duplicate choice"),
+        (
+            "{he: אבן, en: stone, emoji: 1faa8}",
+            "{he: חתול, en: stone}",
+            "duplicate choice",
+        ),
         ("id: sci.living.002", "id: sci.living.001", "duplicate"),
         ("answer: true", "answer: 3", "true_false"),
         ("prompt_he: עץ הוא יצור חי.", "prompt_he: " + "א" * 141, "prompt_he"),
-        ("prompt_he: עץ הוא יצור חי.", "prompt_he: עֵץ", "niqqud"),
+        ("prompt_he: עץ הוא יצור חי.", "prompt_he: ע\u05b5ץ", "niqqud"),
     ],
 )
 def test_c6_bank_errors(tmp_path, old, new, needle):

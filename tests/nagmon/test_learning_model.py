@@ -47,7 +47,7 @@ def choice_q() -> Question:
     )
 
 
-@pytest.mark.parametrize("given", ["7", "07", " 7 ", "+7", "7.0", "‏7"])
+@pytest.mark.parametrize("given", ["7", "07", " 7 ", "+7", "7.0", "\u200f7"])
 def test_m1_integer_normalization(given):
     res = check_answer(num_q("7"), given)
     assert res.correct
@@ -61,7 +61,7 @@ def test_m1_integer_normalization(given):
         ("3,5", "3.5"),
         ("1,000", "1000"),
         ("12,500", "12500"),
-        ("−3", "-3"),
+        ("\u22123", "-3"),
         ("-0", "0"),
         (".5", "0.5"),
         ("12 ₪", "12"),
@@ -78,7 +78,7 @@ def test_m2_normalize_number(raw, expected):
 def test_m2_decimal_equal():
     assert check_answer(num_q("3.5"), "3.50").correct
     assert check_answer(num_q("1000"), "1,000").correct
-    assert check_answer(num_q("-3"), "−3").correct
+    assert check_answer(num_q("-3"), "\u22123").correct
 
 
 def test_m3_fraction_value_policy():
@@ -138,7 +138,10 @@ def test_m7_true_false(given):
 
 
 def test_m8_text_trimming():
-    assert normalize_text("  ‏שָׁלוֹם   עולם. ") == "שלום עולם"
+    assert (
+        normalize_text("  \u200fש\u05b8\u05c1לו\u05b9ם   עולם. ")
+        == "שלום עולם"
+    )
     q = Question(
         item_id="t:4",
         skill_id="english.test",

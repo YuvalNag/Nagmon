@@ -15,8 +15,15 @@ def engine(library, clock, *, age=9, grade=3, seed=3, worked=False, **st):
     learner = LearnerState(learner_id="s", grade=grade, age=age)
     learner.settings["worked_examples"] = worked
     learner.settings.update(st)
-    return LearningEngine(library, learner, rng=random.Random(seed),
-                          clock=clock)
+    return LearningEngine(
+        library, learner, rng=random.Random(seed), clock=clock
+    )
+
+
+def wrong_given(q):
+    if q.kind == "number":
+        return "999999"
+    return next(c.id for c in q.choices if c.id != q.answer)
 
 
 def seed_due_cards(eng, library, clock, n=300):
@@ -25,8 +32,9 @@ def seed_due_cards(eng, library, clock, n=300):
     for _ in range(n):
         s = rng.getrandbits(32)
         q = library.generate(skill.id, random.Random(s))
-        eng.learner.srs.review(q.item_id, skill.id, s, True,
-                               now=clock.now - 10 * DAY)
+        eng.learner.srs.review(
+            q.item_id, skill.id, s, True, now=clock.now - 10 * DAY
+        )
 
 
 def test_sel1_distribution(library, clock):
@@ -67,12 +75,13 @@ def test_sel4_no_recent_repeat(library, clock):
         for _ in range(200)
     ]
     for i in range(len(items)):
-        assert items[i] not in items[max(0, i - 8):i]
+        assert items[i] not in items[max(0, i - 8) : i]
 
 
-@pytest.mark.parametrize(("age", "theta", "target"),
-                         [(10, 1.0, 0.80), (10, 1.8, 0.80),
-                          (6, 2.6, 0.875)])
+@pytest.mark.parametrize(
+    ("age", "theta", "target"),
+    [(10, 1.0, 0.80), (10, 1.8, 0.80), (6, 2.6, 0.875)],
+)
 def test_sel5_targets(library, clock, age, theta, target):
     eng = engine(library, clock, age=age, grade=3)
     assert eng.learner.target_frontier == pytest.approx(target)
@@ -86,7 +95,8 @@ def test_sel5_targets(library, clock, age, theta, target):
         st = eng.learner.skills[sid]
         b = q.difficulty
         assert q.meta["expected"] == pytest.approx(
-            p_correct(st.theta, b, question_guess(q)), abs=1e-6)
+            p_correct(st.theta, b, question_guess(q)), abs=1e-6
+        )
     mean = sum(exp) / len(exp)
     assert abs(mean - target) < 0.07, mean
 
@@ -104,7 +114,9 @@ def test_sel6_locked_not_chosen(library, clock):
         q = eng.next_question()
         skill = library.skill(q.skill_id)
         assert set(skill.prereq) <= grade0 | set(eng.learner.mastered), (
-            q.skill_id, q.meta["bucket"])
+            q.skill_id,
+            q.meta["bucket"],
+        )
 
 
 def test_sel7_simulated_success_rate(library, clock):
@@ -117,10 +129,10 @@ def test_sel7_simulated_success_rate(library, clock):
     results = []
     for _ in range(600):
         q = eng.next_question()
-        p = p_correct(true_theta[q.skill_id], q.difficulty,
-                      question_guess(q))
+        p = p_correct(true_theta[q.skill_id], q.difficulty, question_guess(q))
         ok = rng.random() < p
-        eng.submit(q, q.answer if ok else None, elapsed_s=6)
+        # A real wrong answer ("I don't know" is half-weight by design).
+        eng.submit(q, q.answer if ok else wrong_given(q), elapsed_s=6)
         results.append(ok)
         clock.advance(20)
     rate = sum(results[-300:]) / 300
@@ -164,7 +176,8 @@ def test_sel10_worked_example_once(library, clock):
     out = eng.submit(q1, q1.answer, elapsed_s=3)
     assert out.correct
     assert eng.learner.skills.get(sid) is None or (
-        eng.learner.skills[sid].n == 0)
+        eng.learner.skills[sid].n == 0
+    )
     q2 = eng.next_question(skill_id=sid)
     assert not q2.meta.get("worked_example")
     assert sid in eng.learner.worked_examples

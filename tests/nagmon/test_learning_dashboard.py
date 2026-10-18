@@ -11,8 +11,7 @@ from nagmon.learning.srs import DAY
 def engine(library, clock):
     learner = LearnerState(learner_id="d", grade=3, age=9)
     learner.settings["worked_examples"] = False
-    return LearningEngine(library, learner, rng=random.Random(2),
-                          clock=clock)
+    return LearningEngine(library, learner, rng=random.Random(2), clock=clock)
 
 
 def answer(eng, sid, ok, elapsed=10.0):
@@ -43,8 +42,14 @@ def test_d1_accuracy_and_time(library, clock):
     assert d.time_7d_s.value == 120
     assert d.subjects["geometry"].accuracy_7d.value == 1.0
     for s in d.subjects.values():
-        for stat in (s.accuracy_7d, s.accuracy_30d, s.answered_7d,
-                     s.time_7d_s, s.mastered, s.stars):
+        for stat in (
+            s.accuracy_7d,
+            s.accuracy_30d,
+            s.answered_7d,
+            s.time_7d_s,
+            s.mastered,
+            s.stars,
+        ):
             assert stat.explanation_he
     assert d.time_30d_s.explanation_he
 

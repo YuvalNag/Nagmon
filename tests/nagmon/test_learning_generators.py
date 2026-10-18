@@ -11,11 +11,23 @@ from nagmon.learning.generators.common import GenContext
 from nagmon.learning.generators.misconceptions import MISCONCEPTIONS
 from nagmon.learning.model import check_answer, parse_number
 
-NIQQUD = re.compile("[֑-ׇ]")
+NIQQUD = re.compile("[\u0591-\u05bd\u05bf\u05c1\u05c2\u05c4\u05c5\u05c7]")
 FIGURE_KINDS = {
-    "polygon", "angle", "grid_area", "circle", "solid", "number_line",
-    "clock", "bar_model", "objects", "pie", "grid_path", "coordinate",
-    "symmetry", "pattern", "grid_numbers",
+    "polygon",
+    "angle",
+    "grid_area",
+    "circle",
+    "solid",
+    "number_line",
+    "clock",
+    "bar_model",
+    "objects",
+    "pie",
+    "grid_path",
+    "coordinate",
+    "symmetry",
+    "pattern",
+    "grid_numbers",
 }
 KINDS = {"choice", "number", "true_false", "order", "tap_figure", "letters"}
 SEEDS = range(200)
@@ -44,7 +56,10 @@ def validate(q):
     assert q.item_id and ":" in q.item_id
     assert 0 < len(q.prompt_he) <= 140, q.prompt_he
     assert q.explanation_he.strip(), q.item_id
-    assert len(q.explanation_he) <= 200, (len(q.explanation_he), q.explanation_he)
+    assert len(q.explanation_he) <= 200, (
+        len(q.explanation_he),
+        q.explanation_he,
+    )
     assert math.isfinite(q.difficulty) and -3.5 <= q.difficulty <= 3.5
     for text in all_texts(q):
         assert not NIQQUD.search(text), text
@@ -93,8 +108,16 @@ def recompute(expr):
         assert r * r == x
         return r
 
-    env = {"F": Fraction, "sqrt": sqrt, "divmod": divmod, "abs": abs,
-           "round": round, "max": max, "min": min, "__builtins__": {}}
+    env = {
+        "F": Fraction,
+        "sqrt": sqrt,
+        "divmod": divmod,
+        "abs": abs,
+        "round": round,
+        "max": max,
+        "min": min,
+        "__builtins__": {},
+    }
     return eval(expr, env)  # noqa: S307 (test-only, generator-built)
 
 
@@ -117,7 +140,10 @@ def test_g1_g2_all_skills(library):
                         assert tuple(got[: len(expected)]) == expected, q
                     else:
                         assert got and got[0] == Fraction(expected), (
-                            skill.id, calc, answer_text(q))
+                            skill.id,
+                            calc,
+                            answer_text(q),
+                        )
                     checked_calc += 1
     assert checked_calc > 10000
 
@@ -135,22 +161,26 @@ def test_g3_deterministic(library):
 def test_g4_borrow_misconception(library):
     found_num = found_choice = 0
     for seed in range(100):
-        q = make(library, library.skill("math.sub.within_100"), seed,
-                 {"age": 9})
+        q = make(
+            library, library.skill("math.sub.within_100"), seed, {"age": 9}
+        )
         calc = q.meta["calc"]
         a, b = calc["a"], calc["b"]
-        wrong = int("".join(
-            str(abs(int(x) - int(y)))
-            for x, y in zip(f"{a:02d}", f"{b:02d}")
-        ))
+        wrong = int(
+            "".join(
+                str(abs(int(x) - int(y)))
+                for x, y in zip(f"{a:02d}", f"{b:02d}")
+            )
+        )
         tags = q.misconceptions
         if q.kind == "number":
             assert tags.get(str(wrong)) == "smaller_from_larger"
             found_num += 1
         else:
             texts = {c.id: c.text_he for c in q.choices}
-            tagged = [texts[k] for k, v in tags.items()
-                      if v == "smaller_from_larger"]
+            tagged = [
+                texts[k] for k, v in tags.items() if v == "smaller_from_larger"
+            ]
             if tagged:
                 assert tagged == [str(wrong)]
                 found_choice += 1
@@ -162,8 +192,9 @@ def test_word_problem_names(library):
 
     names = {n for n, _ in NAMES}
     for seed in range(50):
-        q = make(library, library.skill("math.wp.add_sub_20"), seed,
-                 {"age": 7})
+        q = make(
+            library, library.skill("math.wp.add_sub_20"), seed, {"age": 7}
+        )
         assert any(n in q.prompt_he for n in names), q.prompt_he
 
 
@@ -185,11 +216,15 @@ def test_figures_present(library):
 
 def test_kind_preferences(library):
     skill = library.skill("math.add.within_20")
-    kinds = {make(library, skill, s, {"age": 12, "prefer_kind": "number"}).kind
-             for s in range(20)}
+    kinds = {
+        make(library, skill, s, {"age": 12, "prefer_kind": "number"}).kind
+        for s in range(20)
+    }
     assert kinds == {"number"}
-    kinds = {make(library, skill, s, {"age": 12, "max_choices": 4}).kind
-             for s in range(20)}
+    kinds = {
+        make(library, skill, s, {"age": 12, "max_choices": 4}).kind
+        for s in range(20)
+    }
     assert kinds == {"choice"}
     young = make(library, skill, 1, {"age": 5})
     assert young.kind == "choice" and len(young.choices) == 3

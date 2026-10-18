@@ -3,8 +3,6 @@
 import random
 import time
 
-import pytest
-
 from nagmon.learning.engine import LearningEngine, super_threshold_s
 from nagmon.learning.generators.misconceptions import MISCONCEPTIONS
 from nagmon.learning.learner import LearnerState
@@ -21,8 +19,9 @@ def make_engine(library, clock, *, age=10, grade=5, seed=1, **settings):
     learner = LearnerState(learner_id="t", name="ת", grade=grade, age=age)
     learner.settings["worked_examples"] = False
     learner.settings.update(settings)
-    return LearningEngine(library, learner, rng=random.Random(seed),
-                          clock=clock)
+    return LearningEngine(
+        library, learner, rng=random.Random(seed), clock=clock
+    )
 
 
 def wrong_given(q):
@@ -82,8 +81,7 @@ def test_e3_hint(library, clock):
     assert out.correct and out.quality == "correct"
     assert 1 <= out.coins < plain.coins or plain.coins == 1
     assert out.streak == 2
-    nq = eng.next_question(skill_id="math.add.within_100",
-                           max_choices=None)
+    nq = eng.next_question(skill_id="math.add.within_100", max_choices=None)
     if nq.kind != "choice":
         assert eng.hint(nq).text_he
 
@@ -129,17 +127,21 @@ def custom_q(skill_id, subject, difficulty, item):
 def test_e4_coins(library, clock):
     eng = make_engine(library, clock, timer=False)
     eng.learner.skill("math.add.within_100", skill_grade=2).theta = 0.0
-    easy = eng.submit(custom_q("math.add.within_100", "math", -3.0, "e"),
-                      "4", elapsed_s=5)
+    easy = eng.submit(
+        custom_q("math.add.within_100", "math", -3.0, "e"), "4", elapsed_s=5
+    )
     eng.learner.skill("math.add.within_100").theta = 0.0
-    hard = eng.submit(custom_q("math.add.within_100", "math", 2.5, "h"),
-                      "4", elapsed_s=5)
+    hard = eng.submit(
+        custom_q("math.add.within_100", "math", 2.5, "h"), "4", elapsed_s=5
+    )
     assert hard.coins > easy.coins
     # Weak subject: geometry far behind math.
-    eng = make_engine(library, clock, timer=False,
-                      subjects=["math", "geometry"])
-    math_skills = [s.id for s in library.by_subject("math")
-                   if s.grade <= 5][:20]
+    eng = make_engine(
+        library, clock, timer=False, subjects=["math", "geometry"]
+    )
+    math_skills = [s.id for s in library.by_subject("math") if s.grade <= 5][
+        :20
+    ]
     for sid in math_skills:
         eng.learner.mastered[sid] = clock.now
     g = library.by_subject("geometry")[0]
@@ -217,8 +219,7 @@ def test_e10_performance(library, clock):
         t0 = time.perf_counter()
         q = eng.next_question()
         total += time.perf_counter() - t0
-        eng.submit(q, q.answer if rng.random() < 0.8 else None,
-                   elapsed_s=5)
+        eng.submit(q, q.answer if rng.random() < 0.8 else None, elapsed_s=5)
     assert total / n < 0.005, total / n
 
 
