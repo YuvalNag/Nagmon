@@ -148,3 +148,30 @@ def test_closing_the_window_ends_the_session(monkeypatch, tmp_path):
         rules.stop_play_at_exit()
     finally:
         runtime_mod.set_runtime(None)
+
+
+def test_restoring_a_player_whose_name_is_taken_does_not_crash(monkeypatch):
+    from mods.nagmon.states import profiles
+    from nagmon.family.profiles import ProfileError
+
+    store = MagicMock()
+    store.list_trash.return_value = [
+        SimpleNamespace(entry="p1-1", name="נועה")
+    ]
+    store.restore.side_effect = ProfileError("name taken")
+    runtime_mod.set_runtime(SimpleNamespace(store=store))
+    said = []
+    monkeypatch.setattr(
+        profiles, "choose", lambda client, options, **kw: options[0][1]()
+    )
+    monkeypatch.setattr(
+        profiles, "say", lambda client, text, then=None: said.append(text)
+    )
+    try:
+        menu = profiles.ParentMenuState.__new__(profiles.ParentMenuState)
+        menu.client = MagicMock()
+        menu.restore()
+    finally:
+        runtime_mod.set_runtime(None)
+    store.restore.assert_called_once_with("p1-1")
+    assert said == [profiles.T.translate("nagmon_restore_failed")]

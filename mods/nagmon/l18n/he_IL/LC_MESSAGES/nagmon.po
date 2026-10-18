@@ -292,3 +292,6 @@ msgstr "שעות משחק בימי חול: {hours}"
 
 msgid "nagmon_hours_any"
 msgstr "שעות משחק: בכל שעה (עד שעת השינה)"
+
+msgid "nagmon_restore_failed"
+msgstr "אי אפשר לשחזר את השחקן כרגע: יש כבר שחקן עם אותו שם, או שיש כבר 8 שחקנים."

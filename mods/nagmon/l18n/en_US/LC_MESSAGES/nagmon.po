@@ -293,3 +293,6 @@ msgstr "Play hours on weekdays: {hours}"
 
 msgid "nagmon_hours_any"
 msgstr "Play hours: any time (until bedtime)"
+
+msgid "nagmon_restore_failed"
+msgstr "This player can't come back right now: another player has the same name, or there are already 8 players."
