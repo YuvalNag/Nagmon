@@ -108,6 +108,13 @@ skills:
   prereq: [science.earth.seasons]
   generator: bank
   params: {bank: science/ecology.yaml, tags: [water_saving]}
+- id: science.elements.cards
+  grade: 2
+  title_he: קלפי מדע של נגמונים
+  title_en: Monster science cards
+  prereq: [science.living.basic]
+  generator: bank
+  params: {bank: science/monster_facts.yaml, tags: [elements]}
 - id: science.energy.magnets
   grade: 2
   title_he: מגנטים
