@@ -13,7 +13,7 @@ import pytmx
 from natsort import natsorted
 
 from tuxemon.compat import Rect
-from tuxemon.constants.asset_loader import fetch_asset
+from tuxemon.constants.asset_loader import fetch_all_assets, fetch_asset
 from tuxemon.constants.paths import mods_folder
 from tuxemon.database.yaml_utils import load_yaml
 from tuxemon.db import BoundingBox, Direction, EventObject, Orientation
@@ -127,7 +127,12 @@ class MapLoader:
     def resolve_yaml_files(
         self, txmn_map: AbstractMap, normalized_path: str
     ) -> list[Path]:
-        yaml_files = [Path(normalized_path).with_suffix(".yaml")]
+        own_yaml = Path(normalized_path).with_suffix(".yaml")
+        yaml_files = [own_yaml]
+        # Other mods may add events to this map with a same-named script.
+        for extra in fetch_all_assets("maps", own_yaml.name):
+            if Path(extra).resolve() != own_yaml.resolve():
+                yaml_files.append(Path(extra))
         if txmn_map.scenario:
             _scenario = fetch_asset("maps", f"{txmn_map.scenario}.yaml")
             yaml_files.append(Path(_scenario))

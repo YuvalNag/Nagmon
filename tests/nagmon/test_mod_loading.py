@@ -15,6 +15,7 @@ from tuxemon.constants import asset_loader, paths
 from tuxemon.database.config import ModMetadata
 from tuxemon.frame_limiter import FrameLimiter
 from tuxemon.locale.translator import TranslatorPo
+from tuxemon.map.loader import MapLoader
 
 REPO = Path(__file__).resolve().parents[2]
 
@@ -245,3 +246,34 @@ def test_database_loads_with_nagmon_active():
     data.load()
     assert data.mod_metadata.get_mod_metadata("nagmon").slug == "nagmon"
     assert data.lookup("rockitten", table="monster").slug == "rockitten"
+
+
+def test_fetch_all_assets_lists_every_copy_lowest_priority_first(fake_mods):
+    a = _make_mod(fake_mods, "a", ["b"])
+    b = _make_mod(fake_mods, "b")
+    for mod in (a, b):
+        (mod / "maps").mkdir()
+        (mod / "maps" / "town.yaml").write_text("events: {}")
+    _populate(["a"])
+    assert asset_loader.fetch_all_assets("maps", "town.yaml") == [
+        (b / "maps" / "town.yaml").as_posix(),
+        (a / "maps" / "town.yaml").as_posix(),
+    ]
+    assert asset_loader.fetch_all_assets("maps", "nothing.yaml") == []
+
+
+def test_map_loads_event_scripts_added_by_other_mods(fake_mods):
+    _make_mod(fake_mods, "a", ["b"])
+    b = _make_mod(fake_mods, "b")
+    a = fake_mods / "a"
+    (b / "maps").mkdir()
+    (a / "maps").mkdir()
+    tmx = b / "maps" / "town.tmx"
+    tmx.write_text("<map/>")
+    (b / "maps" / "town.yaml").write_text("events: {}")
+    (a / "maps" / "town.yaml").write_text("events: {}")
+    _populate(["a"])
+    files = MapLoader.resolve_yaml_files(
+        None, SimpleNamespace(scenario=None), str(tmx)
+    )
+    assert files == [b / "maps" / "town.yaml", a / "maps" / "town.yaml"]

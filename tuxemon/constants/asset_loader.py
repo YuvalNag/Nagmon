@@ -114,6 +114,29 @@ def _expand_dependencies(mods: list[str]) -> list[str]:
     return ordered
 
 
+def fetch_all_assets(*args: str) -> list[str]:
+    """
+    Returns every mod's copy of an asset, lowest priority first.
+
+    Useful for files that are merged rather than replaced, such as the
+    event scripts a mod adds to another mod's map.
+
+    Parameters:
+        *args: Path components to join into a relative path
+
+    Returns:
+        POSIX paths of the existing copies, dependencies before the mods
+        that build on them.
+    """
+    relative = Path(*args)
+    found = [
+        (root / relative).as_posix()
+        for root in _MOD_ASSET_ROOTS
+        if (root / relative).exists()
+    ]
+    return list(reversed(found))
+
+
 def fetch_all_l18n_roots() -> list[Path]:
     """
     Returns a list of all discovered 'l18n' directories within mod asset roots.
