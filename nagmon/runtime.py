@@ -20,6 +20,7 @@ from nagmon.family.calendar import ShabbatCalendar
 from nagmon.family.goals import PracticeLog
 from nagmon.family.parent import ParentStore
 from nagmon.family.profiles import Profile, ProfileStore
+from nagmon.family.rewards import ProgressStats, RewardsBoard, Suggestion
 from nagmon.family.screentime import (
     Action,
     Decision,
@@ -100,6 +101,7 @@ class NagmonRuntime:
         self.engine: Any = None
         self.tracker = SessionTracker(self.root, self.policy_for, tz=self.zone)
         self.practice = PracticeLog(self.root, tz=self.zone)
+        self.rewards = RewardsBoard(self.root, clock=clock)
 
     # ------------------------------------------------------------ time
 
@@ -196,12 +198,42 @@ class NagmonRuntime:
         self.store.save_learner(self.active.id, self.learner)
         self.store.save(self.active)
 
-    def on_answer(self) -> None:
-        """After every answer: save, and count today as a practice day."""
+    def on_answer(self) -> list[Suggestion]:
+        """
+        After every answer: save, count today as a practice day, and see
+        whether a celebration is due (the parent is told, not the child).
+        """
         if self.active is None:
-            return
+            return []
         self.persist()
         self.practice.record(self.active.id, self.now())
+        return self.rewards.evaluate(
+            self.active.id, self.progress_stats(self.active.id)
+        )
+
+    def progress_stats(self, pid: str) -> ProgressStats:
+        """A child's effort so far, for celebrations."""
+        if self.active is not None and self.active.id == pid:
+            learner = self.learner
+        else:
+            learner = self.store.load_learner(pid)
+        profile = self.store.get(pid)
+        target = self.parent.settings.weekly_days_for(
+            pid, age_from_profile(profile, self.clock())
+        )
+        mastered = getattr(learner, "mastered", {}) or {}
+        stars = getattr(learner, "stars", {}) or {}
+        return ProgressStats(
+            practice_days=self.practice.total_days(pid),
+            skills_mastered=frozenset(mastered),
+            weekly_goals_met=self.practice.weeks_met(
+                pid,
+                self.now(),
+                target_days=target,
+                is_rest_day=self.is_rest_day,
+            ),
+            stars=sum(stars.values()),
+        )
 
     def is_rest_day(self, d: Any) -> bool:
         """Shabbat and Yom Tov never count as days a child had to practise."""

@@ -374,6 +374,7 @@ class ParentMenuState(PygameMenuState):
                 self.daily_minutes,
             ),
             ("report", T.translate("nagmon_parent_report"), self.report),
+            ("celebrate", self._celebrations_title(), self.celebrations),
             ("owl_log", T.translate("nagmon_parent_owl_log"), self.owl_log),
             ("owl", self._owl_title(), self.toggle_owl),
             ("voices", self._voices_title(), self.toggle_voices),
@@ -463,6 +464,82 @@ class ParentMenuState(PygameMenuState):
             )
 
         self._pick_child(show)
+
+    # -------------------------------------------------------- celebrations
+
+    MILESTONES: ClassVar[tuple[tuple[str, int], ...]] = (
+        ("practice_days", 5),
+        ("practice_days", 15),
+        ("skills_mastered", 3),
+        ("skills_mastered", 10),
+        ("stars", 10),
+        ("weekly_goals", 2),
+    )
+
+    def _celebrations_title(self) -> str:
+        pending = len(self.rt.rewards.pending())
+        return T.format("nagmon_celebrations", {"count": pending})
+
+    def celebrations(self) -> None:
+        board = self.rt.rewards
+        names = {p.id: p.name for p in self.rt.store.list()}
+        options: list[tuple[str, Callable[[], None]]] = []
+        for sug in board.pending():
+            who = names.get(sug.profile_id or "", "")
+            options.append(
+                (
+                    f"{who}: {sug.message_he}" if who else sug.message_he,
+                    lambda sid=sug.id: self._decide(sid),
+                )
+            )
+        options.append(
+            (T.translate("nagmon_add_celebration"), self._add_celebration)
+        )
+        choose(self.client, options)
+
+    def _decide(self, sid: str) -> None:
+        board = self.rt.rewards
+        choose(
+            self.client,
+            [
+                (
+                    T.translate("nagmon_celebrated"),
+                    lambda: (board.mark_celebrated(sid), self.rebuild()),
+                ),
+                (
+                    T.translate("nagmon_not_now"),
+                    lambda: (board.dismiss(sid), self.rebuild()),
+                ),
+            ],
+        )
+
+    def _add_celebration(self) -> None:
+        def with_milestone(kind: str, threshold: int) -> None:
+            ask_text(
+                self.client,
+                T.translate("nagmon_celebration_title_prompt"),
+                lambda title: self._store_celebration(title, kind, threshold),
+                char_limit=24,
+            )
+
+        choose(
+            self.client,
+            [
+                (
+                    T.format(f"nagmon_milestone_{kind}", {"n": n}),
+                    lambda k=kind, n=n: with_milestone(k, n),
+                )
+                for kind, n in self.MILESTONES
+            ],
+        )
+
+    def _store_celebration(self, title: str, kind: str, n: int) -> None:
+        if not title.strip():
+            return
+        self.rt.rewards.add_celebration(
+            title_he=title.strip(), milestone=kind, threshold=n
+        )
+        say(self.client, T.translate("nagmon_celebration_saved"))
 
     def owl_log(self) -> None:
         from nagmon.owl_service import owl_log_lines

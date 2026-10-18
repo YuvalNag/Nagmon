@@ -250,3 +250,33 @@ msgstr "שאלה משלי"
 
 msgid "nagmon_owl_another"
 msgstr "שאלה נוספת"
+
+msgid "nagmon_celebrations"
+msgstr "חגיגות ({count} ממתינות)"
+
+msgid "nagmon_add_celebration"
+msgstr "+ הוספת חגיגת הפתעה"
+
+msgid "nagmon_celebrated"
+msgstr "חגגנו!"
+
+msgid "nagmon_not_now"
+msgstr "לא עכשיו"
+
+msgid "nagmon_celebration_title_prompt"
+msgstr "מה החגיגה? (רק ההורים רואים)"
+
+msgid "nagmon_celebration_saved"
+msgstr "נשמר. נודיע לכם כשהחגיגה תגיע."
+
+msgid "nagmon_milestone_practice_days"
+msgstr "אחרי תרגול ב-{n} ימים"
+
+msgid "nagmon_milestone_skills_mastered"
+msgstr "אחרי שליטה ב-{n} מיומנויות"
+
+msgid "nagmon_milestone_stars"
+msgstr "אחרי {n} כוכבי ידע"
+
+msgid "nagmon_milestone_weekly_goals"
+msgstr "אחרי {n} יעדים שבועיים"

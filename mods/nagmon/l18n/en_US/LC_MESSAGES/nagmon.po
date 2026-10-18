@@ -251,3 +251,33 @@ msgstr "My own question"
 
 msgid "nagmon_owl_another"
 msgstr "Another question"
+
+msgid "nagmon_celebrations"
+msgstr "Celebrations ({count} waiting)"
+
+msgid "nagmon_add_celebration"
+msgstr "+ Add a surprise celebration"
+
+msgid "nagmon_celebrated"
+msgstr "We celebrated!"
+
+msgid "nagmon_not_now"
+msgstr "Not now"
+
+msgid "nagmon_celebration_title_prompt"
+msgstr "What is the celebration? (only parents see it)"
+
+msgid "nagmon_celebration_saved"
+msgstr "Saved. We will tell you when it is earned."
+
+msgid "nagmon_milestone_practice_days"
+msgstr "After practising on {n} days"
+
+msgid "nagmon_milestone_skills_mastered"
+msgstr "After mastering {n} skills"
+
+msgid "nagmon_milestone_stars"
+msgstr "After {n} knowledge stars"
+
+msgid "nagmon_milestone_weekly_goals"
+msgstr "After {n} weekly goals"

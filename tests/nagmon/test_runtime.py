@@ -22,6 +22,8 @@ class FakeLearner:
     settings: dict[str, Any] = field(default_factory=dict)
     words: dict[str, float] = field(default_factory=dict)
     answers_total: int = 0
+    stars: dict[str, int] = field(default_factory=dict)
+    mastered: dict[str, float] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -251,3 +253,28 @@ def test_saturday_is_a_rest_day(rt):
 
     assert rt.is_rest_day(date(2023, 11, 25))  # Saturday
     assert not rt.is_rest_day(date(2023, 11, 21))  # Tuesday
+
+
+def test_celebration_suggested_to_parent_after_practice(rt):
+    rt.clock = lambda: TUESDAY_AFTERNOON
+    rt.rewards.add_celebration(
+        title_he="ערב פיצה", milestone="practice_days", threshold=1
+    )
+    p = rt.store.create(name="Rina", avatar="x")
+    rt.activate(p.id)
+    suggestions = rt.on_answer()
+    assert len(suggestions) == 1
+    assert rt.rewards.pending()[0].profile_id == p.id
+    # Kids never see it in surprise mode.
+    assert rt.rewards.kid_view(p.id, rt.progress_stats(p.id)) == []
+
+
+def test_progress_stats_counts_stars_and_mastery(rt):
+    rt.clock = lambda: TUESDAY_AFTERNOON
+    p = rt.store.create(name="Eli", avatar="x")
+    rt.activate(p.id)
+    rt.learner.stars = {"math": 2, "english": 1}
+    rt.learner.mastered = {"math.add": 1.0}
+    stats = rt.progress_stats(p.id)
+    assert stats.stars == 3
+    assert stats.skills_mastered == frozenset({"math.add"})
