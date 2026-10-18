@@ -69,9 +69,11 @@ def test_translate_in_caches_translators():
     assert T._translator_in("he_IL", None) is first
 
 
-def test_translate_in_falls_back_to_english():
-    # "cosmic_berry" is not (yet) translated to Hebrew
-    assert T.translate_in("cosmic_berry", "he_IL") == "Cosmic Berry"
+def test_translate_in_reads_hebrew_and_falls_back():
+    assert T.translate_in("cosmic_berry", "he_IL") != "Cosmic Berry"
+    assert T.translate_in("cosmic_berry", "en_US") == "Cosmic Berry"
+    # A key nobody translated comes back unchanged.
+    assert T.translate_in("no_such_msgid_xyz", "he_IL") == "no_such_msgid_xyz"
 
 
 def test_format_in():
@@ -81,7 +83,7 @@ def test_format_in():
 
 def test_lookup_in_strict():
     assert T.lookup_in("language_he_il", "he_IL") == "עברית"
-    assert T.lookup_in("cosmic_berry", "he_IL") is None
+    assert T.lookup_in("no_such_msgid_xyz", "he_IL") is None
     assert T.lookup_in("cosmic_berry", "en_US") == "Cosmic Berry"
     assert T.lookup_in("no_such_msgid_xyz", "en_US") is None
 
@@ -95,7 +97,9 @@ def test_he_po_header_and_scope():
     assert str(catalog.locale) == "he"
     assert catalog.plural_forms == "nplurals=2; plural=(n != 1);"
     ids = {m.id for m in catalog if m.id}
-    assert ids <= ALLOWED_HE_MSGIDS
+    english = {m.id for m in _catalog(EN_PO) if m.id}
+    # Every Hebrew entry translates an English one; nothing is invented.
+    assert ids <= english | ALLOWED_HE_MSGIDS
     assert NEW_MSGIDS <= ids
     assert "language_he_il" in ids
 
