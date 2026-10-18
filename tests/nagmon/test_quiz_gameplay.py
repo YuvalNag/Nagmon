@@ -302,3 +302,13 @@ def test_game_loads_nagmon_states():
         "StartState",
     ):
         assert repo.get_state(name).__module__.startswith("mods.nagmon")
+
+
+def test_world_state_is_watched_for_screen_time():
+    from tuxemon.constants.paths import LIBDIR
+    from tuxemon.state.loader import StateLoader
+    from tuxemon.state.repository import StateRepository
+
+    repo = StateRepository.from_loader(StateLoader("tuxemon.states", LIBDIR))
+    world = repo.get_state("WorldState")
+    assert world.__module__ == "mods.nagmon.states.nagmon_world"
