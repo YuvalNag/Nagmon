@@ -30,7 +30,11 @@ def pytest_collection_modifyitems(items):
     """Checks every test for missing pytest.param IDs"""
     errors = set()
 
+    here = Path(__file__).resolve().parent
     for item in items:
+        # Collection hooks see every test; only enforce this folder's rule.
+        if here not in Path(str(item.fspath)).resolve().parents:
+            continue
         for marker in item.iter_markers(name="parametrize"):
             params = marker.args[1]
             for i, param in enumerate(params):
