@@ -1,0 +1,1211 @@
+# Nagmon learning content - science / materials and matter (properties, states, changes, mixtures, density, particles, reactions)
+# Format: docs/kids/SDD_CONTENT.md section 3. Generated from curated sources; reviewed by a parent.
+# Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
+# Curriculum alignment: Israeli MoE "מדע וטכנולוגיה" (science and technology) strands -
+#   materials, energy and interactions, systems and processes in living things, earth and universe, technology.
+# Sources consulted:
+#   - Elementary curriculum (grades 1-6): https://pop.education.gov.il/tchumey_daat/mada-tehnologia/yesodi/technology-science-pedagogy/curriculum
+#   - Elementary curriculum PDF (2009 draft): https://meyda.education.gov.il/files/Tochniyot_Limudim/KdamYesodi/MadaTechnologia.pdf
+#   - Middle school (grades 7-9): https://pop.education.gov.il/tchumey_daat/mada-tehnologia/chativat-beynayim/mada-technologia-pedagogia/curriculum
+#   - Grade 8/9 test specifications (Meitzav/RAMA): https://meyda.education.gov.il/files/Rama/Mifrat_sci_9_H_2027.pdf
+# Topics: materials and properties (1-3), states of matter (2-4), changes (3-6), mixtures and solutions (4-6), density (4-7), atoms and molecules (7-8), chemical reactions (8-9).
+
+skill: science.matter.materials
+items:
+- id: sci.matter.001
+  skill: science.matter.materials
+  kind: choice
+  grade: 1
+  difficulty: -1.0
+  prompt_he: מאיזה חומר עשוי החלון, כדי שנוכל לראות דרכו?
+  prompt_en: What is a window made of so we can see through it?
+  choices:
+  - {he: עץ, en: wood, emoji: 1fab5}
+  - {he: אבן, en: stone, emoji: 1faa8}
+  - {he: זכוכית, en: glass, emoji: 1fa9f}
+  answer: 2
+  explanation_he: 'זכוכית היא חומר שקוף: אור עובר דרכה, ולכן רואים דרכה החוצה.'
+  explanation_en: 'Glass is transparent: light passes through, so we can see outside.'
+  tags: [materials]
+- id: sci.matter.002
+  skill: science.matter.materials
+  kind: choice
+  grade: 1
+  difficulty: 0.0
+  prompt_he: איזה חומר מתאים למעיל גשם?
+  prompt_en: Which material suits a raincoat?
+  choices:
+  - {he: נייר, en: paper}
+  - {he: ניילון שלא נותן למים לעבור, en: nylon that keeps water out}
+  - {he: צמר גפן, en: cotton wool}
+  answer: 1
+  explanation_he: מעיל גשם צריך להיות עמיד למים. ניילון ופלסטיק לא סופגים מים, ונייר וצמר גפן סופגים.
+  explanation_en: A raincoat must be waterproof. Nylon and plastic don't absorb water; paper and cotton wool do.
+  tags: [materials]
+- id: sci.matter.003
+  skill: science.matter.materials
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: למה הידית של סיר עשויה בדרך כלל מפלסטיק או מעץ?
+  prompt_en: Why is a pot handle usually made of plastic or wood?
+  choices:
+  - {he: הם כבדים יותר ממתכת, en: they are heavier than metal}
+  - {he: הם יפים יותר, en: they look nicer}
+  - {he: 'הם לא מעבירים חום טוב, ולא נכווה', en: 'they don''t conduct heat well, so we don''t get burned'}
+  answer: 2
+  explanation_he: מתכת מוליכה חום היטב, ולכן הסיר עצמו מתכתי. עץ ופלסטיק הם מבודדים, ולכן הידית נשארת קרירה.
+  explanation_en: Metal conducts heat well, so the pot is metal. Wood and plastic are insulators, so the handle stays cool.
+  tags: [materials]
+- id: sci.matter.004
+  skill: science.matter.materials
+  kind: choice
+  grade: 1
+  difficulty: 0.0
+  prompt_he: איזה חומר נמתח וחוזר לצורתו?
+  prompt_en: Which material stretches and springs back?
+  choices:
+  - {he: זכוכית, en: glass}
+  - {he: גומי, en: rubber}
+  - {he: חימר יבש, en: dry clay}
+  answer: 1
+  explanation_he: גומי הוא חומר גמיש ואלסטי. לכן עושים ממנו גומיות, צמיגים וכדורים קופצים.
+  explanation_en: Rubber is flexible and elastic, so we use it for rubber bands, tires and bouncy balls.
+  tags: [materials]
+- id: sci.matter.005
+  skill: science.matter.materials
+  kind: true_false
+  grade: 1
+  difficulty: 0.0
+  prompt_he: עץ, צמר וכותנה הם חומרים שמקורם בטבע.
+  prompt_en: Wood, wool and cotton are materials from nature.
+  answer: true
+  explanation_he: נכון. עץ מגיע מעצים, צמר מכבשים וכותנה מצמח הכותנה.
+  explanation_en: True. Wood comes from trees, wool from sheep and cotton from the cotton plant.
+  tags: [materials]
+- id: sci.matter.006
+  skill: science.matter.materials
+  kind: true_false
+  grade: 2
+  difficulty: 0.0
+  prompt_he: פלסטיק הוא חומר שגדל על עצים.
+  prompt_en: Plastic is a material that grows on trees.
+  answer: false
+  explanation_he: לא נכון. פלסטיק הוא חומר מלאכותי שבני אדם מייצרים, בעיקר מנפט.
+  explanation_en: False. Plastic is a man-made material, mostly produced from oil.
+  tags: [materials]
+- id: sci.matter.007
+  skill: science.matter.materials
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: מה מהבאים יימשך למגנט?
+  prompt_en: Which of these will a magnet attract?
+  choices:
+  - {he: כוס זכוכית, en: a glass cup}
+  - {he: מטבע נייר (שטר), en: a banknote}
+  - {he: מסמר ברזל, en: an iron nail}
+  answer: 2
+  explanation_he: מגנט מושך חפצים מברזל ומעט מתכות נוספות. נייר, זכוכית ורוב המתכות האחרות לא נמשכים.
+  explanation_en: Magnets attract iron things and a few other metals. Paper, glass and most other metals are not attracted.
+  tags: [materials]
+- id: sci.matter.008
+  skill: science.matter.materials
+  kind: choice
+  grade: 2
+  difficulty: 1.0
+  prompt_he: איזה חומר סופג הכי הרבה מים?
+  prompt_en: Which material absorbs the most water?
+  choices:
+  - {he: מטבע, en: a coin, emoji: 1fa99}
+  - {he: כפית מתכת, en: a metal spoon, emoji: 1f944}
+  - {he: ספוג, en: a sponge, emoji: 1f9fd}
+  answer: 2
+  explanation_he: בספוג יש הרבה חורים קטנים שהמים נכנסים אליהם. מתכת לא סופגת מים.
+  explanation_en: A sponge has many tiny holes that fill with water. Metal doesn't absorb water.
+  tags: [materials]
+- id: sci.matter.009
+  skill: science.matter.materials
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: למה בונים גשרים מפלדה ולא מקרטון?
+  prompt_en: Why are bridges built from steel, not cardboard?
+  choices:
+  - {he: פלדה קלה יותר, en: steel is lighter}
+  - {he: פלדה חזקה ועמידה מאוד, en: steel is very strong and durable}
+  - {he: קרטון יקר יותר, en: cardboard costs more}
+  answer: 1
+  explanation_he: בוחרים חומר לפי התכונות שצריך. גשר צריך לשאת משקל רב, ופלדה חזקה מאוד.
+  explanation_en: We choose materials by the properties needed. A bridge carries heavy loads, and steel is very strong.
+  tags: [materials]
+- id: sci.matter.010
+  skill: science.matter.materials
+  kind: true_false
+  grade: 3
+  difficulty: 1.0
+  prompt_he: אותו חפץ יכול להיות עשוי מחומרים שונים, למשל כוס מזכוכית או מפלסטיק.
+  prompt_en: The same object can be made of different materials, e.g. a glass or plastic cup.
+  answer: true
+  explanation_he: 'נכון. מתכננים בוחרים חומר לפי השימוש: כוס זכוכית שקופה ויפה, וכוס פלסטיק קלה ולא נשברת.'
+  explanation_en: 'True. Designers pick materials for the use: a glass cup is clear and nice; a plastic one is light and unbreakable.'
+  tags: [materials]
+- id: sci.matter.011
+  skill: science.matter.materials
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: מה קורה לברזל שנשאר זמן רב בחוץ בגשם?
+  prompt_en: What happens to iron left outside in the rain for a long time?
+  choices:
+  - {he: הוא מחליד, en: it rusts}
+  - {he: הוא נעשה שקוף, en: it becomes transparent}
+  - {he: הוא נמס, en: it melts}
+  answer: 0
+  explanation_he: ברזל מגיב עם חמצן ומים ונוצרת חלודה כתומה-חומה ומתפוררת. צבע מגן על הברזל מחלודה.
+  explanation_en: Iron reacts with oxygen and water to form crumbly orange-brown rust. Paint protects iron from rusting.
+  tags: [materials]
+- id: sci.matter.012
+  skill: science.matter.materials
+  kind: order
+  grade: 2
+  difficulty: 0.0
+  prompt_he: סדרו את החומרים מהרך ביותר לקשה ביותר.
+  prompt_en: Order the materials from softest to hardest.
+  choices:
+  - {he: חימר רטוב, en: wet clay}
+  - {he: צמר גפן, en: cotton wool}
+  - {he: עץ, en: wood}
+  - {he: יהלום, en: diamond}
+  answer: [1, 0, 2, 3]
+  explanation_he: את צמר הגפן קל ללחוץ, חימר רטוב נמעך, עץ קשה יותר, ויהלום הוא החומר הטבעי הקשה ביותר.
+  explanation_en: Cotton wool squashes easily, wet clay dents, wood is harder, and diamond is the hardest natural material.
+  tags: [materials]
+- id: sci.matter.013
+  skill: science.matter.states
+  kind: choice
+  grade: 2
+  difficulty: -1.0
+  prompt_he: באיזה מצב צבירה נמצא קרח?
+  prompt_en: What state of matter is ice?
+  choices:
+  - {he: נוזל, en: liquid}
+  - {he: גז, en: gas}
+  - {he: מוצק, en: solid}
+  answer: 2
+  explanation_he: קרח הוא מים במצב מוצק. יש לו צורה קבועה.
+  explanation_en: Ice is water in its solid state. It has a fixed shape.
+  tags: [states]
+- id: sci.matter.014
+  skill: science.matter.states
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מה קורה לנוזל שמוזגים לכלי חדש?
+  prompt_en: What happens to a liquid poured into a new container?
+  choices:
+  - {he: הוא הופך לגז, en: it turns into a gas}
+  - {he: הוא מקבל את צורת הכלי, en: it takes the container's shape}
+  - {he: הוא שומר על צורתו הקודמת, en: it keeps its old shape}
+  answer: 1
+  explanation_he: לנוזל יש נפח קבוע אבל אין לו צורה קבועה, ולכן הוא מתפשט בתחתית הכלי ומקבל את צורתו.
+  explanation_en: A liquid has a fixed volume but no fixed shape, so it spreads in the container and takes its shape.
+  tags: [states]
+- id: sci.matter.015
+  skill: science.matter.states
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מה מהבאים הוא גז?
+  prompt_en: Which of these is a gas?
+  choices:
+  - {he: האוויר בתוך בלון, en: the air inside a balloon, emoji: 1f388}
+  - {he: האבן בחצר, en: the stone in the yard, emoji: 1faa8}
+  - {he: המיץ בכוס, en: the juice in a cup, emoji: 1f9c3}
+  answer: 0
+  explanation_he: גז ממלא כל כלי שהוא נמצא בו, ולכן האוויר מתפשט בכל הבלון.
+  explanation_en: A gas fills any container it is in, so air spreads through the whole balloon.
+  tags: [states]
+- id: sci.matter.016
+  skill: science.matter.states
+  kind: order
+  grade: 3
+  difficulty: 0.0
+  prompt_he: סדרו את מצבי הצבירה של מים מהקר ביותר לחם ביותר.
+  prompt_en: Order water's states from coldest to hottest.
+  choices:
+  - {he: אדי מים, en: water vapor, emoji: '2668'}
+  - {he: קרח, en: ice, emoji: 1f9ca}
+  - {he: מים, en: water, emoji: 1f4a7}
+  answer: [1, 2, 0]
+  explanation_he: מתחת ל-0 מעלות המים קפואים, בין 0 ל-100 הם נוזל, ובחימום מספיק הם הופכים לאדים.
+  explanation_en: Below 0 degrees water is frozen, between 0 and 100 it's liquid, and when heated enough it turns into vapor.
+  tags: [states]
+- id: sci.matter.017
+  skill: science.matter.states
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: באיזו טמפרטורה מים קופאים?
+  prompt_en: At what temperature does water freeze?
+  choices:
+  - {he: 100 מעלות צלזיוס, en: 100 degrees Celsius}
+  - {he: 37 מעלות צלזיוס, en: 37 degrees Celsius}
+  - {he: 0 מעלות צלזיוס, en: 0 degrees Celsius}
+  answer: 2
+  explanation_he: מים קופאים ב-0 מעלות ורותחים ב-100 מעלות בגובה פני הים. 37 מעלות הוא חום הגוף.
+  explanation_en: Water freezes at 0 and boils at 100 degrees at sea level. 37 degrees is body temperature.
+  tags: [states]
+- id: sci.matter.018
+  skill: science.matter.states
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: לגז אין צורה קבועה ואין לו נפח קבוע.
+  prompt_en: A gas has no fixed shape and no fixed volume.
+  answer: true
+  explanation_he: נכון. הגז מתפשט וממלא את כל החלל שעומד לרשותו, ואפשר גם לדחוס אותו.
+  explanation_en: True. A gas spreads to fill all the space it has, and it can also be compressed.
+  tags: [states]
+- id: sci.matter.019
+  skill: science.matter.states
+  kind: true_false
+  grade: 3
+  difficulty: 1.0
+  prompt_he: כשמים קופאים לקרח, משקלם יורד.
+  prompt_en: When water freezes into ice, it gets lighter.
+  answer: false
+  explanation_he: לא נכון. כמות החומר לא משתנה, ולכן המשקל נשאר זהה. משתנים רק הצורה והנפח.
+  explanation_en: False. The amount of matter stays the same, so the weight is unchanged. Only shape and volume change.
+  tags: [states]
+- id: sci.matter.020
+  skill: science.matter.states
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: למה בקבוק זכוכית מלא מים עלול להיסדק במקפיא?
+  prompt_en: Why might a full glass bottle of water crack in the freezer?
+  choices:
+  - {he: הזכוכית נמסה, en: the glass melts}
+  - {he: הקור מכווץ את המים, en: cold shrinks the water}
+  - {he: מים מתפשטים כשהם קופאים, en: water expands when it freezes}
+  answer: 2
+  explanation_he: 'מים הם חומר מיוחד: כשהם קופאים נפחם גדל בערך בעשירית, והקרח דוחף את הדפנות.'
+  explanation_en: 'Water is special: when it freezes its volume grows by about a tenth, and the ice pushes on the walls.'
+  tags: [states]
+- id: sci.matter.021
+  skill: science.matter.states
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מעל סיר רותח רואים "עשן" לבן. מה הוא באמת?
+  prompt_en: Above a boiling pot we see white "smoke". What is it really?
+  choices:
+  - {he: אוויר חם בצבע לבן, en: white hot air}
+  - {he: עשן מאש, en: smoke from fire}
+  - {he: טיפות מים זעירות שהתעבו באוויר, en: tiny water droplets that condensed in the air}
+  answer: 2
+  explanation_he: אדי מים הם שקופים ולא רואים אותם. כשהם פוגשים אוויר קריר הם מתעבים לטיפונות, ואותן אנחנו רואים.
+  explanation_en: Water vapor is invisible. When it meets cooler air it condenses into tiny droplets, which is what we see.
+  tags: [states]
+- id: sci.matter.022
+  skill: science.matter.states
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: איזה מצב צבירה יש לחלב?
+  prompt_en: What state of matter is milk?
+  choices:
+  - {he: נוזל, en: liquid}
+  - {he: מוצק, en: solid}
+  - {he: גז, en: gas}
+  answer: 0
+  explanation_he: חלב זורם ומקבל את צורת הכוס, ולכן הוא נוזל.
+  explanation_en: Milk flows and takes the shape of the glass, so it's a liquid.
+  tags: [states]
+- id: sci.matter.023
+  skill: science.matter.states
+  kind: true_false
+  grade: 5
+  difficulty: 1.0
+  prompt_he: במקום גבוה מאוד, כמו על הר גבוה, מים רותחים בפחות מ-100 מעלות.
+  prompt_en: High up, such as on a tall mountain, water boils below 100 degrees.
+  answer: true
+  explanation_he: נכון. למעלה לחץ האוויר נמוך יותר, ולכן המים רותחים בטמפרטורה נמוכה יותר. בפסגת האוורסט הם רותחים בכ-70 מעלות.
+  explanation_en: True. Air pressure is lower up high, so water boils at a lower temperature. On Everest's summit it boils at about 70 degrees.
+  tags: [states]
+- id: sci.matter.024
+  skill: science.matter.states
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: באיזה מצב צבירה החלקיקים הכי רחוקים זה מזה ונעים הכי מהר?
+  prompt_en: In which state are particles farthest apart and moving fastest?
+  choices:
+  - {he: נוזל, en: liquid}
+  - {he: גז, en: gas}
+  - {he: מוצק, en: solid}
+  answer: 1
+  explanation_he: במוצק החלקיקים צפופים ורק רוטטים, בנוזל הם קרובים ומחליקים זה על זה, ובגז הם רחוקים ונעים מהר לכל כיוון.
+  explanation_en: In a solid particles are packed and just vibrate; in a liquid they slide past each other; in a gas they're far apart and fly around fast.
+  tags: [states]
+- id: sci.matter.025
+  skill: science.matter.changes
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איך נקרא המעבר ממוצק לנוזל, כמו קרח שהופך למים?
+  prompt_en: What is the change from solid to liquid, like ice to water, called?
+  choices:
+  - {he: התעבות, en: condensation}
+  - {he: התכה, en: melting}
+  - {he: קפיאה, en: freezing}
+  answer: 1
+  explanation_he: בהתכה המוצק מקבל חום והופך לנוזל. התהליך ההפוך, מנוזל למוצק, נקרא קפיאה.
+  explanation_en: In melting a solid gains heat and becomes a liquid. The reverse, liquid to solid, is freezing.
+  tags: [changes]
+- id: sci.matter.026
+  skill: science.matter.changes
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: כביסה רטובה שנתלתה בשמש התייבשה. לאן נעלמו המים?
+  prompt_en: Wet laundry dried in the sun. Where did the water go?
+  choices:
+  - {he: נעלמו לגמרי מהעולם, en: they vanished from the world}
+  - {he: נבלעו בבגדים, en: they soaked into the clothes}
+  - {he: התאדו והפכו לאדים באוויר, en: they evaporated into the air}
+  answer: 2
+  explanation_he: החום גרם למים להתאדות. אדי המים התערבבו באוויר, והם לא נעלמו.
+  explanation_en: The heat made the water evaporate. The vapor mixed into the air; it didn't vanish.
+  tags: [changes]
+- id: sci.matter.027
+  skill: science.matter.changes
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: טיפות מים מופיעות על כוס קרה ביום חם. מאיפה הן הגיעו?
+  prompt_en: Drops appear on a cold glass on a hot day. Where did they come from?
+  choices:
+  - {he: הכוס מזיעה כמו אדם, en: the glass sweats like a person}
+  - {he: אדי מים מהאוויר התעבו על הכוס, en: water vapor in the air condensed on the glass}
+  - {he: המים חלחלו דרך הזכוכית, en: water leaked through the glass}
+  answer: 1
+  explanation_he: באוויר יש אדי מים. כשהם פוגשים את הכוס הקרה הם מתקררים ומתעבים לטיפות.
+  explanation_en: Air contains water vapor. When it touches the cold glass it cools and condenses into drops.
+  tags: [changes]
+- id: sci.matter.028
+  skill: science.matter.changes
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: שריפת נייר היא שינוי כימי.
+  prompt_en: Burning paper is a chemical change.
+  answer: true
+  explanation_he: 'נכון. בשריפה נוצרים חומרים חדשים: אפר, עשן וגזים. אי אפשר להחזיר אותם לנייר.'
+  explanation_en: 'True. Burning makes new substances: ash, smoke and gases. They can''t be turned back into paper.'
+  tags: [changes]
+- id: sci.matter.029
+  skill: science.matter.changes
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: איזה מהשינויים הוא שינוי פיזיקלי (לא נוצר חומר חדש)?
+  prompt_en: Which change is physical (no new substance forms)?
+  choices:
+  - {he: החלדת מסמר, en: a nail rusting}
+  - {he: אפיית עוגה, en: baking a cake}
+  - {he: המסת קרח, en: melting ice}
+  - {he: טיגון ביצה, en: frying an egg}
+  answer: 2
+  explanation_he: קרח שנמס הוא עדיין מים, ואפשר להקפיא אותו שוב. באפייה, בחלודה ובטיגון נוצרים חומרים חדשים.
+  explanation_en: Melted ice is still water and can be frozen again. Baking, rusting and frying make new substances.
+  tags: [changes]
+- id: sci.matter.030
+  skill: science.matter.changes
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: איזה סימן מראה שהתרחש שינוי כימי?
+  prompt_en: Which sign shows a chemical change happened?
+  choices:
+  - {he: החומר נעשה רטוב, en: the material got wet}
+  - {he: החומר נחתך לחתיכות, en: the material was cut into pieces}
+  - {he: נוצרו בועות גז וריח חדש, en: gas bubbles and a new smell appeared}
+  answer: 2
+  explanation_he: 'בשינוי כימי נוצר חומר חדש. סימנים לכך: בועות גז, שינוי צבע, ריח חדש, או שחרור חום ואור.'
+  explanation_en: A chemical change makes a new substance. Signs include gas bubbles, color change, a new smell, or heat and light.
+  tags: [changes]
+- id: sci.matter.031
+  skill: science.matter.changes
+  kind: true_false
+  grade: 4
+  difficulty: 1.0
+  prompt_he: כשסוכר נמס בתה, הוא נעלם ואיננו יותר.
+  prompt_en: When sugar dissolves in tea, it is gone completely.
+  answer: false
+  explanation_he: לא נכון. הסוכר התפרק לחלקיקים זעירים שמפוזרים בתה. הוא עדיין שם, ולכן התה מתוק.
+  explanation_en: False. The sugar broke into tiny particles spread through the tea. It's still there, which is why the tea is sweet.
+  tags: [changes]
+- id: sci.matter.032
+  skill: science.matter.changes
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: איך נקרא מעבר ישיר ממוצק לגז, כמו אצל קרח יבש?
+  prompt_en: What is the direct change from solid to gas, as in dry ice, called?
+  choices:
+  - {he: התכה, en: melting}
+  - {he: התעבות, en: condensation}
+  - {he: המראה (סובלימציה), en: sublimation}
+  answer: 2
+  explanation_he: קרח יבש הוא פחמן דו-חמצני מוצק. בטמפרטורת החדר הוא הופך ישר לגז, בלי להיות נוזל.
+  explanation_en: Dry ice is solid carbon dioxide. At room temperature it turns straight into gas without becoming liquid.
+  tags: [changes]
+- id: sci.matter.033
+  skill: science.matter.changes
+  kind: order
+  grade: 4
+  difficulty: 0.0
+  prompt_he: סדרו מה קורה לנר דולק.
+  prompt_en: Order what happens to a burning candle.
+  choices:
+  - {he: מדליקים את הפתיל, en: the wick is lit}
+  - {he: השעווה הנוזלית עולה בפתיל, en: liquid wax rises up the wick}
+  - {he: השעווה ליד הלהבה נמסה, en: wax near the flame melts}
+  - {he: השעווה בוערת בלהבה, en: the wax burns in the flame}
+  answer: [0, 2, 1, 3]
+  explanation_he: בנר יש גם שינוי פיזיקלי, התכה של שעווה, וגם שינוי כימי, בעירה. השעווה היא הדלק של הלהבה.
+  explanation_en: A candle shows both a physical change, wax melting, and a chemical change, burning. Wax is the flame's fuel.
+  tags: [changes]
+- id: sci.matter.034
+  skill: science.matter.changes
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: מה קורה לשוקולד שמשאירים בשמש?
+  prompt_en: What happens to chocolate left in the sun?
+  choices:
+  - {he: הוא הופך לגז, en: it turns to gas}
+  - {he: הוא קופא, en: it freezes}
+  - {he: הוא נמס, en: it melts}
+  answer: 2
+  explanation_he: החום מהשמש ממיס את השוקולד. אם נקרר אותו הוא יתמצק שוב, ולכן זה שינוי פיזיקלי.
+  explanation_en: Heat from the sun melts the chocolate. Cooling makes it solid again, so it's a physical change.
+  tags: [changes]
+- id: sci.matter.035
+  skill: science.matter.changes
+  kind: true_false
+  grade: 5
+  difficulty: 0.0
+  prompt_he: כשמבשלים ביצה, החלבון השקוף הופך ללבן, וזה שינוי שאי אפשר להחזיר.
+  prompt_en: When an egg is cooked, the clear white turns white, a change that can't be reversed.
+  answer: true
+  explanation_he: נכון. החום משנה את מבנה החלבונים בביצה. זה שינוי כימי, ולכן אי אפשר להחזיר ביצה מבושלת להיות נוזלית.
+  explanation_en: True. Heat changes the structure of the proteins in the egg. It's a chemical change, so a cooked egg can't become runny again.
+  tags: [changes]
+- id: sci.matter.036
+  skill: science.matter.changes
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: מה ההבדל בין אידוי לרתיחה?
+  prompt_en: What is the difference between evaporation and boiling?
+  choices:
+  - {he: ברתיחה המים נעשים קרים, en: in boiling the water gets cold}
+  - {he: אידוי קורה בכל טמפרטורה ורק בפני השטח, en: 'evaporation happens at any temperature, at the surface'}
+  - {he: אין הבדל, en: there is no difference}
+  answer: 1
+  explanation_he: אידוי מתרחש לאט מפני השטח של הנוזל, גם בטמפרטורת החדר. ברתיחה נוצרות בועות אדים בכל הנוזל.
+  explanation_en: Evaporation happens slowly at the surface, even at room temperature. In boiling, vapor bubbles form throughout the liquid.
+  tags: [changes]
+- id: sci.matter.037
+  skill: science.matter.mixtures
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: איך אפשר להפריד חול ממים?
+  prompt_en: How can you separate sand from water?
+  choices:
+  - {he: להוסיף עוד מים, en: add more water}
+  - {he: לסנן דרך פילטר, en: filter it}
+  - {he: לנער חזק, en: shake it hard}
+  answer: 1
+  explanation_he: המסנן מעביר את המים אבל עוצר את גרגרי החול הגדולים יותר.
+  explanation_en: A filter lets water through but stops the larger grains of sand.
+  tags: [mixtures]
+- id: sci.matter.038
+  skill: science.matter.mixtures
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: איך אפשר לקבל בחזרה מלח שהומס במים?
+  prompt_en: How can you get back salt dissolved in water?
+  choices:
+  - {he: לסנן במסנן נייר, en: filter it through paper}
+  - {he: להקפיא את המים, en: freeze the water}
+  - {he: לאדות את המים, en: evaporate the water}
+  answer: 2
+  explanation_he: המלח עובר דרך המסנן כי הוא מומס. כשהמים מתאדים, גבישי המלח נשארים. כך מפיקים מלח בבריכות אידוי.
+  explanation_en: Dissolved salt passes through a filter. When the water evaporates, salt crystals remain. That's how evaporation ponds make salt.
+  tags: [mixtures]
+- id: sci.matter.039
+  skill: science.matter.mixtures
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: מה מהבאים הוא תמיסה?
+  prompt_en: Which of these is a solution?
+  choices:
+  - {he: סוכר מומס במים, en: sugar dissolved in water}
+  - {he: חול ומים, en: sand and water}
+  - {he: שמן ומים, en: oil and water}
+  answer: 0
+  explanation_he: בתמיסה חומר אחד מתפזר בשני עד שלא רואים אותו, והתערובת נראית אחידה. חול ושמן לא מתמוססים במים.
+  explanation_en: In a solution one substance spreads through another until it's invisible and the mix looks uniform. Sand and oil don't dissolve in water.
+  tags: [mixtures]
+- id: sci.matter.040
+  skill: science.matter.mixtures
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: שמן ומים לא מתערבבים, והשמן צף מעל המים.
+  prompt_en: Oil and water don't mix, and the oil floats on top.
+  answer: true
+  explanation_he: נכון. השמן לא מתמוסס במים, והוא קל יותר מאותו נפח של מים, ולכן הוא צף בשכבה למעלה.
+  explanation_en: True. Oil doesn't dissolve in water and is less dense, so it floats as a layer on top.
+  tags: [mixtures]
+- id: sci.matter.041
+  skill: science.matter.mixtures
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: באיזה מים סוכר יתמוסס הכי מהר?
+  prompt_en: In which water will sugar dissolve fastest?
+  choices:
+  - {he: מים קפואים, en: frozen water}
+  - {he: מים חמים, en: warm water}
+  - {he: מים קרים, en: cold water}
+  answer: 1
+  explanation_he: בחום החלקיקים נעים מהר יותר ומתנגשים בסוכר, ולכן הוא מתמוסס מהר יותר. גם ערבוב עוזר.
+  explanation_en: When warm, particles move faster and hit the sugar more, so it dissolves faster. Stirring helps too.
+  tags: [mixtures]
+- id: sci.matter.042
+  skill: science.matter.mixtures
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: יש תערובת של חול וגרגרי ברזל. מה הכי קל להפריד ביניהם?
+  prompt_en: You have a mix of sand and iron filings. What's easiest for separating them?
+  choices:
+  - {he: מים חמים, en: hot water}
+  - {he: מגנט, en: a magnet}
+  - {he: מסננת רגילה, en: an ordinary strainer}
+  answer: 1
+  explanation_he: המגנט מושך את גרגרי הברזל ומשאיר את החול. בוחרים שיטת הפרדה לפי תכונה שונה של החומרים.
+  explanation_en: The magnet pulls out the iron filings and leaves the sand. We pick a separation method by a property that differs.
+  tags: [mixtures]
+- id: sci.matter.043
+  skill: science.matter.mixtures
+  kind: true_false
+  grade: 5
+  difficulty: 1.0
+  prompt_he: האוויר הוא תערובת של כמה גזים.
+  prompt_en: Air is a mixture of several gases.
+  answer: true
+  explanation_he: נכון. באוויר יש בערך 78 אחוז חנקן ו-21 אחוז חמצן, ועוד מעט גזים אחרים, כמו ארגון ופחמן דו-חמצני.
+  explanation_en: True. Air is about 78 percent nitrogen and 21 percent oxygen, plus small amounts of others like argon and carbon dioxide.
+  tags: [mixtures]
+- id: sci.matter.044
+  skill: science.matter.mixtures
+  kind: true_false
+  grade: 5
+  difficulty: 0.0
+  prompt_he: בתמיסה של מלח במים, המלח שוקע תמיד לתחתית.
+  prompt_en: In salt water, the salt always sinks to the bottom.
+  answer: false
+  explanation_he: לא נכון. מלח מומס מתפזר באופן שווה בכל המים. רק אם מוסיפים יותר מלח ממה שהמים יכולים להמיס, העודף שוקע.
+  explanation_en: False. Dissolved salt spreads evenly through the water. Only when you add more than the water can dissolve does the extra sink.
+  tags: [mixtures]
+- id: sci.matter.045
+  skill: science.matter.mixtures
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: איך נקראת תמיסה שלא יכולה להמיס עוד חומר?
+  prompt_en: What is a solution that can't dissolve any more called?
+  choices:
+  - {he: תמיסה קפואה, en: frozen solution}
+  - {he: תמיסה ריקה, en: empty solution}
+  - {he: תמיסה רוויה, en: saturated solution}
+  answer: 2
+  explanation_he: לכל כמות מים יש גבול לכמות החומר שהיא יכולה להמיס. כשמגיעים לגבול, התמיסה רוויה.
+  explanation_en: Any amount of water can dissolve only so much. At that limit the solution is saturated.
+  tags: [mixtures]
+- id: sci.matter.046
+  skill: science.matter.mixtures
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: איך ישראל מקבלת חלק גדול ממי השתייה שלה מהים?
+  prompt_en: How does Israel get much of its drinking water from the sea?
+  choices:
+  - {he: הקפאת הים, en: freezing the sea}
+  - {he: שתייה ישירה ממי הים, en: drinking seawater directly}
+  - {he: 'התפלה: הוצאת המלח ממי הים', en: 'desalination: removing salt from seawater'}
+  answer: 2
+  explanation_he: במתקני התפלה לאורך החוף דוחסים מי ים דרך קרום מיוחד שעוצר את המלח. כך מקבלים מים מתוקים.
+  explanation_en: Desalination plants along the coast push seawater through special membranes that block salt, producing fresh water.
+  tags: [mixtures]
+- id: sci.matter.047
+  skill: science.matter.mixtures
+  kind: order
+  grade: 5
+  difficulty: 1.0
+  prompt_he: סדרו את השלבים להפקת מלח ממי ים.
+  prompt_en: Order the steps for getting salt from seawater.
+  choices:
+  - {he: השמש מחממת את המים, en: the sun heats the water}
+  - {he: המים מתאדים, en: the water evaporates}
+  - {he: מזרימים מי ים לבריכה רדודה, en: pour seawater into a shallow pond}
+  - {he: נשארים גבישי מלח, en: salt crystals remain}
+  answer: [2, 0, 1, 3]
+  explanation_he: בבריכות אידוי, כמו בים המלח ובאילת, השמש מאדה את המים והמלח נשאר ונאסף.
+  explanation_en: In evaporation ponds, like at the Dead Sea and Eilat, the sun evaporates the water and the salt is left to collect.
+  tags: [mixtures]
+- id: sci.matter.048
+  skill: science.matter.mixtures
+  kind: choice
+  grade: 6
+  difficulty: 2.0
+  prompt_he: בתמיסת סוכר במים, איך נקרא הסוכר?
+  prompt_en: In a sugar-water solution, what is the sugar called?
+  choices:
+  - {he: המומס, en: the solute}
+  - {he: המסנן, en: the filter}
+  - {he: הממס, en: the solvent}
+  answer: 0
+  explanation_he: החומר שמתמוסס נקרא המומס, והנוזל שבו הוא מתמוסס נקרא הממס. מים הם הממס הנפוץ ביותר.
+  explanation_en: The substance that dissolves is the solute; the liquid it dissolves in is the solvent. Water is the most common solvent.
+  tags: [mixtures]
+- id: sci.matter.049
+  skill: science.matter.density
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: מה יצוף במים?
+  prompt_en: Which will float in water?
+  choices:
+  - {he: אבן, en: a stone}
+  - {he: מסמר, en: a nail}
+  - {he: פקק שעם, en: a cork}
+  answer: 2
+  explanation_he: שעם קל מאוד ביחס לגודלו, כלומר צפיפותו קטנה מזו של מים, ולכן הוא צף.
+  explanation_en: Cork is very light for its size, meaning less dense than water, so it floats.
+  tags: [density]
+- id: sci.matter.050
+  skill: science.matter.density
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: חפצים כבדים תמיד שוקעים וחפצים קלים תמיד צפים.
+  prompt_en: Heavy objects always sink and light ones always float.
+  answer: false
+  explanation_he: 'לא נכון. בול עץ כבד צף, ומסמר קטן וקל שוקע. מה שקובע הוא הצפיפות: כמה כבד החפץ ביחס לגודלו.'
+  explanation_en: 'False. A heavy log floats and a tiny light nail sinks. What matters is density: how heavy something is for its size.'
+  tags: [density]
+- id: sci.matter.051
+  skill: science.matter.density
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: למה קל כל כך לצוף בים המלח?
+  prompt_en: Why is it so easy to float in the Dead Sea?
+  choices:
+  - {he: יש שם גלים גדולים, en: there are big waves}
+  - {he: המים מלוחים מאוד ולכן צפופים יותר, en: the water is very salty and so denser}
+  - {he: המים חמים, en: the water is warm}
+  answer: 1
+  explanation_he: בים המלח יש כמות עצומה של מלח מומס. מים מלוחים צפופים יותר, ודוחפים את הגוף למעלה בחוזקה.
+  explanation_en: The Dead Sea holds a huge amount of dissolved salt. Salty water is denser and pushes the body up strongly.
+  tags: [density]
+- id: sci.matter.052
+  skill: science.matter.density
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: איך אונייה כבדה מפלדה צפה על המים?
+  prompt_en: How does a heavy steel ship float?
+  choices:
+  - {he: המנוע מחזיק אותה למעלה, en: the engine holds it up}
+  - {he: צורתה החלולה דוחקת הרבה מים ומכילה אוויר, en: its hollow shape pushes aside lots of water and holds air}
+  - {he: פלדה קלה ממים, en: steel is lighter than water}
+  answer: 1
+  explanation_he: גוש פלדה שוקע, אבל אונייה היא קליפה גדולה מלאה אוויר. הצפיפות הממוצעת שלה קטנה מזו של מים.
+  explanation_en: A lump of steel sinks, but a ship is a big shell full of air, so its average density is less than water's.
+  tags: [density]
+- id: sci.matter.053
+  skill: science.matter.density
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: קרח צף על מים.
+  prompt_en: Ice floats on water.
+  answer: true
+  explanation_he: נכון. מים מתפשטים כשהם קופאים, ולכן הקרח פחות צפוף מהמים. בגלל זה אגמים קופאים מלמעלה, והדגים חיים מתחת לקרח.
+  explanation_en: True. Water expands when it freezes, so ice is less dense than water. Lakes freeze from the top and fish live under the ice.
+  tags: [density]
+- id: sci.matter.054
+  skill: science.matter.density
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: מהי צפיפות?
+  prompt_en: What is density?
+  choices:
+  - {he: המסה של חומר ביחס לנפח שלו, en: a substance's mass per unit of volume}
+  - {he: הגובה של החפץ, en: an object's height}
+  - {he: הצבע של החומר, en: the color of a material}
+  answer: 0
+  explanation_he: צפיפות היא מסה חלקי נפח. לחומר צפוף יש הרבה מסה בנפח קטן, כמו ברזל.
+  explanation_en: Density is mass divided by volume. A dense material packs a lot of mass into a small volume, like iron.
+  tags: [density]
+- id: sci.matter.055
+  skill: science.matter.density
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: גוש בנפח 10 סמ"ק שוקל 50 גרם. מה הצפיפות שלו?
+  prompt_en: A block with a volume of 10 cm³ has a mass of 50 g. What is its density?
+  choices:
+  - {he: 0.2 גרם לסמ"ק, en: 0.2 g/cm³}
+  - {he: 5 גרם לסמ"ק, en: 5 g/cm³}
+  - {he: 500 גרם לסמ"ק, en: 500 g/cm³}
+  answer: 1
+  explanation_he: 'צפיפות = מסה חלקי נפח: 50 חלקי 10 שווה 5 גרם לסמ"ק. זה יותר ממים (1), ולכן הגוש ישקע.'
+  explanation_en: 'Density = mass / volume: 50 / 10 = 5 g/cm³. That''s more than water (1), so the block sinks.'
+  tags: [density]
+- id: sci.matter.056
+  skill: science.matter.density
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: מהי הצפיפות של מים?
+  prompt_en: What is the density of water?
+  choices:
+  - {he: '0', en: '0'}
+  - {he: בערך 1 גרם לסמ"ק, en: about 1 g/cm³}
+  - {he: בערך 10 גרם לסמ"ק, en: about 10 g/cm³}
+  answer: 1
+  explanation_he: סמ"ק אחד של מים שוקל בערך גרם אחד. חומר שצפיפותו קטנה מ-1 יצוף במים, וגדולה מ-1 ישקע.
+  explanation_en: One cubic centimeter of water weighs about one gram. Materials below 1 float in water; above 1 they sink.
+  tags: [density]
+- id: sci.matter.057
+  skill: science.matter.density
+  kind: true_false
+  grade: 5
+  difficulty: 1.0
+  prompt_he: אם נחתוך תפוח לחצי, כל חצי ישקע כי הוא קטן יותר.
+  prompt_en: Cut an apple in half and each half will sink because it's smaller.
+  answer: false
+  explanation_he: לא נכון. חיתוך לא משנה את הצפיפות של החומר. אם תפוח שלם צף, גם החצאים יצופו.
+  explanation_en: False. Cutting doesn't change a material's density. If the whole apple floats, the halves float too.
+  tags: [density]
+- id: sci.matter.058
+  skill: science.matter.density
+  kind: order
+  grade: 6
+  difficulty: 1.0
+  prompt_he: שופכים לכוס דבש, מים ושמן. סדרו את השכבות מלמטה למעלה.
+  prompt_en: Honey, water and oil are poured into a glass. Order the layers from bottom to top.
+  choices:
+  - {he: שמן, en: oil, emoji: 1fad7}
+  - {he: דבש, en: honey, emoji: 1f36f}
+  - {he: מים, en: water, emoji: 1f4a7}
+  answer: [1, 2, 0]
+  explanation_he: החומר הצפוף ביותר שוקע לתחתית. דבש צפוף ממים, ושמן פחות צפוף ממים, ולכן הוא למעלה.
+  explanation_en: The densest liquid sinks to the bottom. Honey is denser than water, and oil is less dense, so it's on top.
+  tags: [density]
+- id: sci.matter.059
+  skill: science.matter.density
+  kind: choice
+  grade: 7
+  difficulty: 2.0
+  prompt_he: ביצה שוקעת במים מתוקים. מה יקרה אם נמיס הרבה מלח במים?
+  prompt_en: An egg sinks in fresh water. What happens if we dissolve lots of salt in it?
+  choices:
+  - {he: הביצה תתמוסס, en: the egg dissolves}
+  - {he: הביצה תשקע מהר יותר, en: the egg sinks faster}
+  - {he: הביצה תצוף, en: the egg will float}
+  answer: 2
+  explanation_he: המלח מגדיל את צפיפות המים. כשהמים צפופים יותר מהביצה, היא צפה, כמו אדם בים המלח.
+  explanation_en: Salt raises the water's density. Once the water is denser than the egg, it floats, like a person in the Dead Sea.
+  tags: [density]
+- id: sci.matter.060
+  skill: science.matter.density
+  kind: true_false
+  grade: 7
+  difficulty: 1.0
+  prompt_he: בלון מלא הליום עולה למעלה כי הליום פחות צפוף מאוויר.
+  prompt_en: A helium balloon rises because helium is less dense than air.
+  answer: true
+  explanation_he: 'נכון. גם באוויר יש ציפה: גוף שצפיפותו קטנה מזו של האוויר מסביב נדחף למעלה.'
+  explanation_en: 'True. Buoyancy works in air too: anything less dense than the surrounding air is pushed up.'
+  tags: [density]
+- id: sci.matter.061
+  skill: science.matter.particles
+  kind: choice
+  grade: 7
+  difficulty: 0.0
+  prompt_he: ממה בנוי כל החומר בעולם?
+  prompt_en: What is all matter made of?
+  choices:
+  - {he: 'מאש, מים, אוויר ואדמה', en: 'fire, water, air and earth'}
+  - {he: מחלקיקים זעירים שנקראים אטומים, en: tiny particles called atoms}
+  - {he: מאור, en: light}
+  answer: 1
+  explanation_he: כל החומרים בנויים מאטומים, קטנים כל כך שבנקודה אחת של עיפרון יש מיליארדים מהם.
+  explanation_en: Everything is made of atoms, so small that a pencil dot holds billions of them.
+  tags: [particles]
+- id: sci.matter.062
+  skill: science.matter.particles
+  kind: choice
+  grade: 7
+  difficulty: 0.0
+  prompt_he: מה הנוסחה הכימית של מים?
+  prompt_en: What is the chemical formula of water?
+  choices:
+  - {he: CO2, en: CO2}
+  - {he: O2, en: O2}
+  - {he: H2O, en: H2O}
+  answer: 2
+  explanation_he: מולקולת מים בנויה משני אטומי מימן (H) ואטום חמצן אחד (O).
+  explanation_en: A water molecule has two hydrogen atoms (H) and one oxygen atom (O).
+  tags: [particles]
+- id: sci.matter.063
+  skill: science.matter.particles
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: מהי מולקולה?
+  prompt_en: What is a molecule?
+  choices:
+  - {he: אטום שבור, en: a broken atom}
+  - {he: סוג של תא, en: a kind of cell}
+  - {he: קבוצה של אטומים שקשורים יחד, en: a group of atoms bonded together}
+  answer: 2
+  explanation_he: במולקולה אטומים מחוברים בקשרים כימיים. למשל, מולקולת חמצן O2 היא שני אטומי חמצן.
+  explanation_en: In a molecule atoms are joined by chemical bonds. For example, an oxygen molecule O2 is two oxygen atoms.
+  tags: [particles]
+- id: sci.matter.064
+  skill: science.matter.particles
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: איך נקראת הטבלה שמסדרת את כל היסודות הכימיים?
+  prompt_en: What is the table that arranges all chemical elements called?
+  choices:
+  - {he: לוח הכפל, en: the multiplication table}
+  - {he: טבלת המזון, en: the food table}
+  - {he: הטבלה המחזורית, en: the periodic table}
+  answer: 2
+  explanation_he: בטבלה המחזורית יש 118 יסודות ידועים, מסודרים לפי מספר הפרוטונים באטום.
+  explanation_en: The periodic table lists 118 known elements, ordered by the number of protons in the atom.
+  tags: [particles]
+- id: sci.matter.065
+  skill: science.matter.particles
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: מה הסמל הכימי של ברזל?
+  prompt_en: What is the chemical symbol for iron?
+  choices:
+  - {he: Ir, en: Ir}
+  - {he: B, en: B}
+  - {he: Fe, en: Fe}
+  answer: 2
+  explanation_he: Fe בא מהמילה הלטינית לברזל, ferrum. Ir הוא אירידיום ו-B הוא בור.
+  explanation_en: Fe comes from the Latin word for iron, ferrum. Ir is iridium and B is boron.
+  tags: [particles]
+- id: sci.matter.066
+  skill: science.matter.particles
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: מה נמצא בגרעין של האטום?
+  prompt_en: What is in the nucleus of an atom?
+  choices:
+  - {he: פרוטונים ונויטרונים, en: protons and neutrons}
+  - {he: אלקטרונים בלבד, en: only electrons}
+  - {he: מולקולות, en: molecules}
+  answer: 0
+  explanation_he: בגרעין, במרכז האטום, יש פרוטונים חיוביים ונויטרונים ניטרליים. האלקטרונים השליליים נעים סביבו.
+  explanation_en: The nucleus at the atom's center holds positive protons and neutral neutrons. Negative electrons move around it.
+  tags: [particles]
+- id: sci.matter.067
+  skill: science.matter.particles
+  kind: true_false
+  grade: 7
+  difficulty: 0.0
+  prompt_he: כשמחממים חומר, החלקיקים שלו נעים מהר יותר.
+  prompt_en: When a substance is heated, its particles move faster.
+  answer: true
+  explanation_he: נכון. חום הוא אנרגיית התנועה של החלקיקים. ככל שהטמפרטורה עולה, הם נעים ורוטטים מהר יותר.
+  explanation_en: True. Heat is the motion energy of particles. As temperature rises they move and vibrate faster.
+  tags: [particles]
+- id: sci.matter.068
+  skill: science.matter.particles
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: למה ריח של בושם מתפשט בכל החדר?
+  prompt_en: Why does perfume's smell spread through the whole room?
+  choices:
+  - {he: האוויר עומד במקום, en: the air stays still}
+  - {he: הבושם מושך את האף, en: perfume pulls the nose}
+  - {he: חלקיקי הבושם נעים ומתפזרים באוויר, en: perfume particles move and spread through the air}
+  answer: 2
+  explanation_he: החלקיקים של גזים נעים כל הזמן ומתנגשים בחלקיקי האוויר, וכך מתפזרים לכל מקום. זה נקרא פעפוע.
+  explanation_en: Gas particles keep moving and bumping into air particles, spreading everywhere. This is called diffusion.
+  tags: [particles]
+- id: sci.matter.069
+  skill: science.matter.particles
+  kind: true_false
+  grade: 8
+  difficulty: 1.0
+  prompt_he: מים ומיץ הם יסודות כימיים.
+  prompt_en: Water and juice are chemical elements.
+  answer: false
+  explanation_he: לא נכון. יסוד בנוי מסוג אחד של אטומים, כמו זהב או חמצן. מים הם תרכובת, ומיץ הוא תערובת.
+  explanation_en: False. An element has only one kind of atom, like gold or oxygen. Water is a compound and juice is a mixture.
+  tags: [particles]
+- id: sci.matter.070
+  skill: science.matter.particles
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: למה משאירים רווחים קטנים בין חלקים של מסילת רכבת?
+  prompt_en: Why are small gaps left between rail sections?
+  choices:
+  - {he: כדי לחסוך בברזל, en: to save iron}
+  - {he: המתכת מתפשטת בחום, en: metal expands in heat}
+  - {he: כדי שהרכבת תרעיש, en: so the train is noisy}
+  answer: 1
+  explanation_he: בחום חלקיקי המתכת רוטטים יותר ותופסים יותר מקום. בלי רווחים המסילה הייתה מתעקמת בקיץ.
+  explanation_en: In heat metal particles vibrate more and take up more room. Without gaps the rails would buckle in summer.
+  tags: [particles]
+- id: sci.matter.071
+  skill: science.matter.particles
+  kind: choice
+  grade: 8
+  difficulty: 2.0
+  prompt_he: מה מטען החשמלי של אלקטרון?
+  prompt_en: What is the electric charge of an electron?
+  choices:
+  - {he: שלילי, en: negative}
+  - {he: חיובי, en: positive}
+  - {he: אין לו מטען, en: it has no charge}
+  answer: 0
+  explanation_he: לאלקטרון יש מטען שלילי, לפרוטון מטען חיובי, ולנויטרון אין מטען. באטום רגיל מספרם של האלקטרונים והפרוטונים שווה.
+  explanation_en: Electrons are negative, protons positive and neutrons neutral. A normal atom has equal numbers of electrons and protons.
+  tags: [particles]
+- id: sci.matter.072
+  skill: science.matter.particles
+  kind: order
+  grade: 8
+  difficulty: 1.0
+  prompt_he: סדרו מהקטן לגדול.
+  prompt_en: Order from smallest to largest.
+  choices:
+  - {he: תא חי, en: living cell}
+  - {he: אטום, en: atom}
+  - {he: מולקולת מים, en: water molecule}
+  - {he: אלקטרון, en: electron}
+  answer: [3, 1, 2, 0]
+  explanation_he: אלקטרון הוא חלק מהאטום, כמה אטומים יוצרים מולקולה, ותא חי בנוי ממיליארדי מולקולות.
+  explanation_en: An electron is part of an atom, atoms form molecules, and a living cell holds billions of molecules.
+  tags: [particles]
+- id: sci.matter.073
+  skill: science.matter.particles
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: מה הסמל של היסוד נתרן, שנמצא במלח בישול (NaCl)?
+  prompt_en: What is the symbol for sodium, found in table salt (NaCl)?
+  choices:
+  - {he: S, en: S}
+  - {he: N, en: N}
+  - {he: Na, en: Na}
+  answer: 2
+  explanation_he: 'מלח בישול הוא נתרן כלורי: אטום נתרן (Na) ואטום כלור (Cl). S הוא גופרית ו-N הוא חנקן.'
+  explanation_en: 'Table salt is sodium chloride: sodium (Na) and chlorine (Cl). S is sulfur and N is nitrogen.'
+  tags: [particles]
+- id: sci.matter.074
+  skill: science.matter.reactions
+  kind: choice
+  grade: 8
+  difficulty: 0.0
+  prompt_he: מה שלושת הדברים שאש צריכה כדי לבעור?
+  prompt_en: What three things does a fire need to burn?
+  choices:
+  - {he: 'רוח, קור ואבנים', en: 'wind, cold and stones', emoji: 1f32c}
+  - {he: 'חומר בעירה, חמצן וחום', en: 'fuel, oxygen and heat', emoji: 1f525}
+  - {he: 'מים, חול ואור', en: 'water, sand and light', emoji: 1f4a7}
+  answer: 1
+  explanation_he: 'זה משולש האש. כדי לכבות אש מורידים אחד מהם: מים מקררים, ושמיכה או חול חוסמים את החמצן.'
+  explanation_en: 'That''s the fire triangle. To put out a fire remove one: water cools it, a blanket or sand blocks oxygen.'
+  tags: [reactions]
+- id: sci.matter.075
+  skill: science.matter.reactions
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: מערבבים חומץ וסודה לשתייה, ונוצרות הרבה בועות. מה הגז שנוצר?
+  prompt_en: Vinegar and baking soda make lots of bubbles. Which gas forms?
+  choices:
+  - {he: פחמן דו-חמצני, en: carbon dioxide}
+  - {he: הליום, en: helium}
+  - {he: חמצן, en: oxygen}
+  answer: 0
+  explanation_he: זו תגובה כימית בין חומצה (חומץ) לבסיס (סודה לשתייה). אחד התוצרים הוא גז פחמן דו-חמצני.
+  explanation_en: It's a chemical reaction between an acid (vinegar) and a base (baking soda). One product is carbon dioxide gas.
+  tags: [reactions]
+- id: sci.matter.076
+  skill: science.matter.reactions
+  kind: true_false
+  grade: 8
+  difficulty: 1.0
+  prompt_he: בתגובה כימית במערכת סגורה, המסה הכוללת לא משתנה.
+  prompt_en: In a chemical reaction in a closed system, the total mass doesn't change.
+  answer: true
+  explanation_he: 'נכון. זה חוק שימור המסה: האטומים רק מתחברים מחדש בצורה אחרת, ואף אטום לא נוצר או נעלם.'
+  explanation_en: 'True. This is the law of conservation of mass: atoms just rearrange, and none are created or destroyed.'
+  tags: [reactions]
+- id: sci.matter.077
+  skill: science.matter.reactions
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: מה מהבאים חומצי?
+  prompt_en: Which of these is acidic?
+  choices:
+  - {he: סבון, en: soap, emoji: 1f9fc}
+  - {he: מים מזוקקים, en: distilled water, emoji: 1f4a7}
+  - {he: מיץ לימון, en: lemon juice, emoji: 1f34b}
+  answer: 2
+  explanation_he: חומצות טעמן חמוץ. מיץ לימון וחומץ הם חומצות. סבון הוא בסיסי, ומים מזוקקים הם ניטרליים.
+  explanation_en: Acids taste sour. Lemon juice and vinegar are acids. Soap is basic and distilled water is neutral.
+  tags: [reactions]
+- id: sci.matter.078
+  skill: science.matter.reactions
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: מה ערך ה-pH של חומר ניטרלי, כמו מים טהורים?
+  prompt_en: What is the pH of a neutral substance like pure water?
+  choices:
+  - {he: '0', en: '0'}
+  - {he: '7', en: '7'}
+  - {he: '14', en: '14'}
+  answer: 1
+  explanation_he: סולם ה-pH הוא בערך בין 0 ל-14. מתחת ל-7 חומצי, מעל 7 בסיסי, ו-7 בדיוק ניטרלי.
+  explanation_en: The pH scale runs roughly 0 to 14. Below 7 is acidic, above 7 basic, and exactly 7 neutral.
+  tags: [reactions]
+- id: sci.matter.079
+  skill: science.matter.reactions
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: מה נוצר כשברזל מגיב עם חמצן ומים?
+  prompt_en: What forms when iron reacts with oxygen and water?
+  choices:
+  - {he: מלח בישול, en: table salt}
+  - {he: חלודה, en: rust}
+  - {he: זהב, en: gold}
+  answer: 1
+  explanation_he: חלודה היא תרכובת של ברזל וחמצן. זו תגובה כימית איטית, ולכן מגינים על ברזל בצבע או בציפוי.
+  explanation_en: Rust is a compound of iron and oxygen. It's a slow chemical reaction, so iron is protected with paint or coating.
+  tags: [reactions]
+- id: sci.matter.080
+  skill: science.matter.reactions
+  kind: true_false
+  grade: 9
+  difficulty: 1.0
+  prompt_he: כל תגובה כימית משחררת חום.
+  prompt_en: Every chemical reaction gives off heat.
+  answer: false
+  explanation_he: לא נכון. יש תגובות שמשחררות חום, כמו בעירה, ויש שקולטות חום. למשל, חומץ וסודה לשתייה מקררים מעט את הכלי.
+  explanation_en: False. Some reactions release heat, like burning, and some absorb it. Vinegar and baking soda, for example, make the cup slightly colder.
+  tags: [reactions]
+- id: sci.matter.081
+  skill: science.matter.reactions
+  kind: choice
+  grade: 9
+  difficulty: 2.0
+  prompt_he: איך נקראים החומרים שנכנסים לתגובה כימית?
+  prompt_en: What are the substances that go into a chemical reaction called?
+  choices:
+  - {he: תוצרים, en: products}
+  - {he: מגיבים, en: reactants}
+  - {he: מזרזים, en: catalysts}
+  answer: 1
+  explanation_he: המגיבים נכנסים לתגובה, והתוצרים הם החומרים החדשים שנוצרים בה. מזרז מאיץ תגובה בלי להשתנות.
+  explanation_en: Reactants go in, products are the new substances that form. A catalyst speeds up a reaction without being used up.
+  tags: [reactions]
+- id: sci.matter.082
+  skill: science.matter.reactions
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: איך אפשר לבדוק בבית אם נוזל חומצי או בסיסי?
+  prompt_en: How can you test at home if a liquid is acidic or basic?
+  choices:
+  - {he: מריחים את הנוזל, en: smell the liquid}
+  - {he: מיץ של כרוב סגול משנה צבע, en: red cabbage juice changes color}
+  - {he: טועמים את כל הנוזלים, en: taste every liquid}
+  answer: 1
+  explanation_he: 'מיץ כרוב סגול הוא אינדיקטור: הוא נעשה ורוד באדום בחומצה, וירקרק בבסיס. אסור לטעום חומרים לא מוכרים!'
+  explanation_en: 'Red cabbage juice is an indicator: pinkish-red in acid and greenish in base. Never taste unknown substances!'
+  tags: [reactions]
+- id: sci.matter.083
+  skill: science.matter.reactions
+  kind: true_false
+  grade: 9
+  difficulty: 2.0
+  prompt_he: בעירה של עץ היא תגובה של העץ עם חמצן, שמשחררת אנרגיה כחום ואור.
+  prompt_en: Burning wood is a reaction with oxygen that releases energy as heat and light.
+  answer: true
+  explanation_he: נכון. בבעירה החומרים בעץ מגיבים עם חמצן. נוצרים פחמן דו-חמצני ואדי מים, ומשתחררת אנרגיה.
+  explanation_en: True. In burning, substances in the wood react with oxygen, forming carbon dioxide and water vapor and releasing energy.
+  tags: [reactions]
+- id: sci.matter.084
+  skill: science.matter.reactions
+  kind: order
+  grade: 9
+  difficulty: 1.0
+  prompt_he: סדרו את שלבי הניסוי עם חומץ וסודה לשתייה.
+  prompt_en: Order the steps of the vinegar and baking soda experiment.
+  choices:
+  - {he: שופכים פנימה חומץ, en: pour in vinegar}
+  - {he: שמים סודה לשתייה בבקבוק, en: put baking soda in a bottle}
+  - {he: הבלון שעל הפתח מתנפח, en: the balloon on top inflates}
+  - {he: נוצרות בועות גז, en: gas bubbles form}
+  answer: [1, 0, 3, 2]
+  explanation_he: החומץ והסודה מגיבים ויוצרים פחמן דו-חמצני. הגז ממלא את הבקבוק ומנפח את הבלון.
+  explanation_en: Vinegar and baking soda react to make carbon dioxide, which fills the bottle and inflates the balloon.
+  tags: [reactions]
+- id: sci.matter.085
+  skill: science.matter.reactions
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: למה מזון נשמר יותר זמן במקרר?
+  prompt_en: Why does food keep longer in the fridge?
+  choices:
+  - {he: האור במקרר שומר עליו, en: the fridge light preserves it}
+  - {he: בקור התגובות והחיידקים פועלים לאט, en: 'in the cold, reactions and bacteria slow down'}
+  - {he: הקור הורג את כל החיידקים, en: the cold kills all bacteria}
+  answer: 1
+  explanation_he: ככל שהטמפרטורה נמוכה יותר, התגובות הכימיות וגדילת החיידקים איטיות יותר. הקור לא הורג את כולם.
+  explanation_en: The lower the temperature, the slower chemical reactions and bacterial growth. Cold doesn't kill them all.
+  tags: [reactions]

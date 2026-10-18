@@ -652,7 +652,7 @@ items:
   choices:
   - {he: נשימה מתרחשת רק בשורשים, en: respiration only happens in roots}
   - {he: אין הבדל, en: there is no difference}
-  - {he: 'בפוטוסינתזה נוצר סוכר, בנשימה הוא מתפרק לאנרגיה', en: photosynthesis makes sugar; respiration breaks it down}
+  - {he: 'פוטוסינתזה בונה סוכר, נשימה מפרקת אותו', en: photosynthesis builds sugar; respiration breaks it down}
   answer: 2
   explanation_he: בפוטוסינתזה נאגרת אנרגיה בסוכר וחמצן משתחרר. בנשימה הסוכר מתפרק בעזרת חמצן ומשחרר אנרגיה לתא.
   explanation_en: Photosynthesis stores energy in sugar and releases oxygen. Respiration breaks sugar down with oxygen to release energy.
