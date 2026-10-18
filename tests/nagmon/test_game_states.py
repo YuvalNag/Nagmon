@@ -127,3 +127,24 @@ def test_reminder_waits_for_a_natural_pause(monkeypatch):
     world.client.active_state_names = ["WorldState"]
     world._watch_screen_time(1.0)
     dialogs.assert_called_once_with(world.client, ["msg"])
+
+
+def test_closing_the_window_ends_the_session(monkeypatch, tmp_path):
+    from mods.nagmon import rules
+
+    registered = []
+    monkeypatch.setattr(rules.atexit, "register", registered.append)
+    monkeypatch.setattr(rules, "data_root", lambda: tmp_path / "nagmon")
+    monkeypatch.setattr(rules, "build_runtime", lambda: MagicMock())
+    monkeypatch.setattr(rules, "switch_to_hebrew", lambda: None)
+    try:
+        rules.NagmonStartupRule(MagicMock(), MagicMock()).apply()
+        assert registered == [rules.stop_play_at_exit]
+        rt = runtime_mod.get_runtime()
+        rules.stop_play_at_exit()
+        rt.stop_play.assert_called_once()
+        # Errors at exit are logged, never raised.
+        rt.stop_play.side_effect = OSError("disk full")
+        rules.stop_play_at_exit()
+    finally:
+        runtime_mod.set_runtime(None)
