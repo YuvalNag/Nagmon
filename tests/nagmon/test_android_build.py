@@ -444,6 +444,10 @@ def test_the_compiled_app_boots_before_the_long_build():
     assert (
         "-OO -m compileall -b" in script and "-name '*.py' -delete" in script
     )
+    # Some phones refuse to run git (PermissionError, build 18): the boot
+    # puts a git that cannot run first on PATH.
+    assert 'chmod 644 "$work/bin/git"' in script
+    assert 'PATH="$work/bin:' in script
 
 
 def test_every_build_is_signed_with_one_kept_key():

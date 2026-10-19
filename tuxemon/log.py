@@ -5,17 +5,25 @@ import subprocess
 
 
 def get_git_hash() -> str:
-    """Gets the current Git hash."""
+    """
+    Gets the current Git hash, or "N/A" when git cannot run (not
+    installed, or refused, as on Android phones where running it raises
+    PermissionError).
+    """
     try:
         githash = (
-            subprocess.check_output(["git", "describe", "--always"])
+            subprocess.check_output(
+                ["git", "describe", "--always"],
+                stderr=subprocess.DEVNULL,
+                timeout=5,
+            )
             .strip()
             .decode()
         )
         return f"Git Hash: {githash}"
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
         logging.warning("Git command failed. Git hash not available.")
         return "N/A"
-    except FileNotFoundError:
-        logging.warning("Git not found. Git hash not available.")
+    except OSError as exc:
+        logging.warning("Git cannot run (%s). Git hash not available.", exc)
         return "N/A"

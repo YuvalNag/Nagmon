@@ -203,6 +203,8 @@ class AndroidTTSBackend:   # id="android", online=False, extension=".wav"
 | המתכונים נטענים כמודולים, ושמות הגרסאות תואמים ל־`requirements` | `tests/nagmon/test_android_build_config.py` |
 | דוח קריסה: שגיאה לפני עליית המשחק ובתוכו, קריסה מקומפלת מהפעם הקודמת, מפתחות מוסתרים, בלי לחיצה אין שיתוף | `tests/nagmon/test_crash_report.py` |
 | האמולטור: כל APK נפתח באנדרואיד 11 (x86_64) ונשאר פתוח 6 דקות | `.github/workflows/android-smoke.yml` |
+| הפעלה מקומפלת: רק `.pyc` עם `-OO`, ובלי מסך. ב־PATH יש `git` שאי אפשר להריץ, כמו בטלפון של בנייה 18 (`PermissionError`). המשחק רץ 30 שניות | `tools/android/compiled_boot.sh` |
+| `get_git_hash` מחזיר "N/A" כש־git חסר, נחסם, נכשל או נתקע | `tests/tuxemon/test_git_hash.py` |
 | סיור מגע: מסך 2400×1080, ובלי מקלדת בכלל. PIN, אשף שחקן בעברית, בחירת ילד, שאלה, משחק חדש, בחירת מפלצת והליכה עם החיצים | `tools/dev/touch_tour.py` |
 
 **בדיקת קבלה אמיתית (בטלפון):**
