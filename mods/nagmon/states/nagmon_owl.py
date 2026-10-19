@@ -29,20 +29,22 @@ logger = logging.getLogger(__name__)
 
 MAX_READY_QUESTIONS = 6
 
-#: The owner's owl, 64x64 pixel art (docs/kids/SDD_ART.md §2.2).
+#: The owner's owl, HD (docs/kids/SDD_ART.md §2.2).
 OWL_PORTRAIT = mod_dir() / "gfx" / "owl" / "owl_portrait.png"
 
 
 def owl_portrait(screen_height: int) -> pygame.Surface | None:
-    """The portrait at a whole-number zoom, about a fifth of the screen."""
+    """The portrait, smoothly scaled to a fifth of the screen's height."""
     try:
         image = pygame.image.load(str(OWL_PORTRAIT))
     except (OSError, pygame.error):
         logger.warning("No owl portrait at %s", OWL_PORTRAIT)
         return None
-    zoom = max(1, screen_height // 5 // image.get_height())
-    size = (image.get_width() * zoom, image.get_height() * zoom)
-    return pygame.transform.scale(image, size)
+    height = max(1, screen_height // 5)
+    width = round(image.get_width() * height / image.get_height())
+    if image.get_bitsize() < 24:
+        return pygame.transform.scale(image, (width, height))
+    return pygame.transform.smoothscale(image, (width, height))
 
 
 class OwlState(PygameMenuState):

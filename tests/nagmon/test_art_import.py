@@ -253,3 +253,100 @@ def test_intro_frames_command():
     assert args[0] == "ffmpeg"
     assert "fps=12" in text and "scale=960:540" in text
     assert "-an" in args
+
+
+# ------------------------------------------- 30-33 map sheets and HD
+
+
+def grid_sheet(cols=3, rows=4, cell=(60, 90)) -> np.ndarray:
+    """Magenta, one figure per cell; its colour says where it came from,
+    and figures of different cells have different heights."""
+    rgb = np.zeros((rows * cell[1], cols * cell[0], 3), np.uint8)
+    rgb[...] = ia.MAGENTA
+    for r in range(rows):
+        for c in range(cols):
+            x0, y0 = c * cell[0] + 20, r * cell[1] + 20
+            height = 40 + 5 * c
+            rgb[y0 : y0 + height, x0 : x0 + 20] = (
+                40 * r + 10,
+                60 * c + 10,
+                90,
+            )
+    return rgb
+
+
+def test_map_layout_takes_cells_from_where_the_manifest_says():
+    sheet = Image.fromarray(grid_sheet())
+    plain = ia.Entry("m", "s", "o", ia.MAP, {}, grid=(3, 4))
+    swapped = ia.Entry(
+        "m",
+        "s",
+        "o",
+        ia.MAP,
+        {},
+        grid=(3, 4),
+        take={"r2c3": "r3c3", "r3c3": "r2c3"},
+    )
+    boxes = plain.resolve_boxes(sheet.size)
+    assert boxes["r1c1"] == (0, 0, 60, 90) and boxes["r4c3"] == (
+        120,
+        270,
+        180,
+        360,
+    )
+    out = swapped.resolve_boxes(sheet.size)
+    assert out["r2c3"] == boxes["r3c3"] and out["r3c3"] == boxes["r2c3"]
+    assert out["r2c1"] == boxes["r2c1"]
+    built = np.asarray(ia.build(swapped, sheet))
+    # r2c3 (row 2, column 3 of 16x32 cells) has the colour of source r3c3.
+    cell = built[32:64, 32:48]
+    colors = {tuple(p[:3]) for p in cell.reshape(-1, 4) if p[3] == 255}
+    assert (90, 130, 90) in colors and (50, 130, 90) not in colors
+
+
+def test_fill_sets_the_tallest_figure_height():
+    parts = {
+        name: solid(20, 40 + 5 * (int(name[-1]) - 1)) for name in ia.MAP.cells
+    }
+    sheet = np.asarray(ia.assemble(ia.MAP.scaled(8), parts, "hd", fill=0.75))
+    heights = []
+    for name, cell in ia.MAP.scaled(8).cells.items():
+        alpha = sheet[cell.y : cell.y + cell.h, cell.x : cell.x + cell.w, 3]
+        ys = np.nonzero(alpha.any(1))[0]
+        heights.append(ys.max() - ys.min() + 1)
+        assert (
+            ys.max() == cell.h - 1 - 1 or ys.max() == cell.h - 1
+        )  # feet down
+    assert max(heights) in range(190, 193)  # 0.75 of 256, less the edge
+    assert min(heights) < max(heights)  # one scale, not one per frame
+
+
+def test_hd_resample_is_hard_eroded_and_never_pink():
+    img = np.zeros((100, 100, 4), np.uint8)
+    img[10:90, 10:90] = (60, 120, 200, 255)
+    img[10:90, 10:12] = (250, 30, 250, 255)  # a magenta-tinted rim
+    out = np.asarray(ia.place(Image.fromarray(img), (100, 100), resample="hd"))
+    alpha = out[..., 3]
+    assert set(np.unique(alpha)) <= {0, 255}
+    opaque = out[alpha == 255][:, :3].astype(int)
+    pink = (opaque[:, 0] - opaque[:, 1] > 30) & (
+        opaque[:, 2] - opaque[:, 1] > 30
+    )
+    assert not pink.any()
+    # one pixel eroded at the edge
+    assert (
+        ia.place(Image.fromarray(img), (100, 100), resample="hd").getbbox()[1]
+        > np.nonzero(img[..., 3].any(1))[0].min()
+    )
+
+
+def test_game_sheets_are_whole_multiples_of_their_layout():
+    for entry in ia.load_manifest():
+        with Image.open(REPO / entry.output) as img:
+            assert img.size == entry.layout.size, entry.name
+        if entry.k > 1:
+            native = (
+                entry.layout.size[0] // entry.k,
+                entry.layout.size[1] // entry.k,
+            )
+            assert native in {(48, 128), (128, 64), (128, 88)}, entry.name

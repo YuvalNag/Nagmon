@@ -2,8 +2,12 @@
 # (docs/kids/SDD_ART.md). Re-import everything with:
 #   python tools/art/import_art.py --preview /tmp/art-preview
 # Boxes are approximate [x0, y0, x1, y1] on the source: the tool takes
-# every sprite piece that lies mostly inside, and nothing else.
-# Sources live in art_sources/ (not shipped in the app).
+# every sprite piece that lies mostly inside, and nothing else. A grid
+# source ("grid: [columns, rows]") is cut into equal cells r<row>c<col>,
+# and "take" maps an output cell to another source cell.
+# "k" makes an HD sheet, k times the game size, that the game scales
+# once to the screen (SDD_ART §2.6); "fill" is the figure height as a
+# share of its cell. Sources live in art_sources/ (not shipped).
 outputs:
 
   # ------------------------------------------------------------ the owl
@@ -19,8 +23,9 @@ outputs:
   - name: owl_portrait
     source: owl_sheet.jpg
     layout: single
-    size: [64, 64]
+    size: [192, 192]
     align: bottom
+    resample: hd
     boxes:
       image: [105, 160, 580, 610]
     output: mods/nagmon/gfx/owl/owl_portrait.png
@@ -30,6 +35,8 @@ outputs:
   - name: nagmon_owl
     source: owl_sheet.jpg
     layout: combat
+    k: 3
+    resample: hd
     boxes:
       back: [690, 180, 1100, 610]
       front: [105, 160, 580, 610]
@@ -39,6 +46,8 @@ outputs:
   - name: geometrion
     source: monsters_math_english.jpg
     layout: monster
+    k: 3
+    resample: hd
     options: {drop_white: true}
     boxes:
       front: [30, 100, 215, 270]
@@ -50,6 +59,8 @@ outputs:
   - name: polygonos
     source: monsters_math_english.jpg
     layout: monster
+    k: 3
+    resample: hd
     options: {drop_white: true}
     boxes:
       front: [483, 89, 658, 274]
@@ -61,6 +72,8 @@ outputs:
   - name: alphabel
     source: monsters_math_english.jpg
     layout: monster
+    k: 3
+    resample: hd
     options: {drop_white: true}
     boxes:
       front: [29, 700, 199, 879]
@@ -72,6 +85,8 @@ outputs:
   - name: lexicon
     source: monsters_math_english.jpg
     layout: monster
+    k: 3
+    resample: hd
     options: {drop_white: true}
     boxes:
       front: [468, 667, 678, 876]
@@ -86,7 +101,9 @@ outputs:
   - name: nagmon_shopkeeper
     source: teachers.jpg
     layout: combat
-    options: {lines: true, holes: 120}
+    k: 3
+    resample: hd
+    options: {lines: true, holes: 120, min_area: 80}
     boxes:
       back: [508, 132, 690, 330]
       front: [692, 132, 885, 330]
@@ -95,7 +112,9 @@ outputs:
   - name: nagmon_traveler
     source: teachers.jpg
     layout: combat
-    options: {lines: true, holes: 120}
+    k: 3
+    resample: hd
+    options: {lines: true, holes: 120, min_area: 80}
     boxes:
       back: [505, 532, 680, 720]
       front: [688, 532, 872, 720]
@@ -104,8 +123,56 @@ outputs:
   - name: nagmon_teacher
     source: teachers.jpg
     layout: combat
-    options: {lines: true, holes: 120}
+    k: 3
+    resample: hd
+    options: {lines: true, holes: 120, min_area: 80}
     boxes:
       back: [505, 903, 680, 1096]
       front: [690, 903, 872, 1096]
     output: mods/nagmon/gfx/sprites/player/nagmon_teacher.png
+
+  # ------------------------------------------------------ map sheets
+  # 3 columns (step, stand, step) x 4 rows (front, left, right, back),
+  # flat magenta. In the shopkeeper, tourist and caped owl sources the
+  # third column of rows 2 and 3 faces the wrong way: swapped by "take".
+  - name: nagmon_owl_map
+    source: owl_map.png
+    layout: map
+    k: 8
+    fill: 0.625
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_owl.png
+
+  # The owl after the first badge (SDD_ART §2.8). A caped battle portrait
+  # will come later: add an entry with layout: combat for
+  # mods/nagmon/gfx/sprites/player/nagmon_owl_caped.png then.
+  - name: nagmon_owl_caped_map
+    source: owl_caped_map.png
+    layout: map
+    k: 8
+    fill: 0.625
+    resample: hd
+    grid: [3, 4]
+    take: {r2c3: r3c3, r3c3: r2c3}
+    output: mods/nagmon/sprites/nagmon_owl_caped.png
+
+  - name: nagmon_shopkeeper_map
+    source: shopkeeper_map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    take: {r2c3: r3c3, r3c3: r2c3}
+    output: mods/nagmon/sprites/nagmon_shopkeeper.png
+
+  - name: nagmon_tourist_map
+    source: tourist_map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    take: {r2c3: r3c3, r3c3: r2c3}
+    output: mods/nagmon/sprites/nagmon_tourist.png

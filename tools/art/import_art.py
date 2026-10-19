@@ -60,6 +60,20 @@ class Layout:
     size: tuple[int, int]
     cells: Mapping[str, Cell]
 
+    def scaled(self, k: int) -> Layout:
+        """The same layout k times larger: an HD sheet (SDD_ART §2.6)."""
+        if k == 1:
+            return self
+        return Layout(
+            (self.size[0] * k, self.size[1] * k),
+            {
+                name: Cell(
+                    c.x * k, c.y * k, c.w * k, c.h * k, c.group, c.align
+                )
+                for name, c in self.cells.items()
+            },
+        )
+
 
 #: Tuxemon's monster sheet: front and back 64x64 on top, two 24x24 menu
 #: frames below (MonsterSpritesModel in tuxemon/db.py).
@@ -83,7 +97,36 @@ COMBAT = Layout(
     },
 )
 
-LAYOUTS: dict[str, Layout] = {"monster": MONSTER, "combat": COMBAT}
+#: A map sheet: 3 columns (step, stand, step) x 4 rows (front, left,
+#: right, back) of 16x32, as Tuxemon's sprites/professor.png. Cells are
+#: named r<row>c<column>, from 1.
+MAP = Layout(
+    (48, 128),
+    {
+        f"r{r + 1}c{c + 1}": Cell(c * 16, r * 32, 16, 32, "map")
+        for r in range(4)
+        for c in range(3)
+    },
+)
+
+LAYOUTS: dict[str, Layout] = {"monster": MONSTER, "combat": COMBAT, "map": MAP}
+
+
+def grid_boxes(
+    size: tuple[int, int], columns: int, rows: int
+) -> dict[str, Box]:
+    """A source sheet cut into equal cells, named r<row>c<column>."""
+    w, h = size
+    return {
+        f"r{r + 1}c{c + 1}": (
+            c * w // columns,
+            r * h // rows,
+            (c + 1) * w // columns,
+            (r + 1) * h // rows,
+        )
+        for r in range(rows)
+        for c in range(columns)
+    }
 
 
 def single(width: int, height: int, align: str = "center") -> Layout:
@@ -221,6 +264,7 @@ def find_part(
     drop_white: bool = False,
     opening: int = 1,
     holes: int = 0,
+    merge: int = 0,
     margin: int = 12,
 ) -> Part:
     """
@@ -230,13 +274,18 @@ def find_part(
     union of those components, with them as the only opaque pixels.
     Enclosed gaps up to ``holes`` pixels are filled back: grey details
     inside a sprite (the keys of a cash register) look like background.
+    ``merge`` groups pieces closer than that many pixels into one figure
+    (a hat over a head), so a figure is taken or left whole.
     """
     h, w = rgb.shape[:2]
     x0, y0, x1, y1 = region
-    # Look a little beyond the region, so a sprite touching its edge is
-    # cut whole and the "inside" share can be measured.
-    wx0, wy0 = max(0, x0 - margin), max(0, y0 - margin)
-    wx1, wy1 = min(w, x1 + margin), min(h, y1 + margin)
+    # Look well beyond the region (half its size), so a sprite touching
+    # its edge is seen whole: cut whole, and its "inside" share measured
+    # on all of it, not on the part that happens to be in the window.
+    mx = max(margin, (x1 - x0) // 2)
+    my = max(margin, (y1 - y0) // 2)
+    wx0, wy0 = max(0, x0 - mx), max(0, y0 - my)
+    wx1, wy1 = min(w, x1 + mx), min(h, y1 + my)
     sub = rgb[wy0:wy1, wx0:wx1]
     fg = ~background_mask(sub, background)
     if drop_white:
@@ -245,7 +294,14 @@ def find_part(
         fg = remove_lines(fg, sub)
     if opening:
         fg = ndimage.binary_opening(fg, iterations=opening)
-    labels, count = ndimage.label(fg, structure=np.ones((3, 3)))
+    if merge:
+        groups, count = ndimage.label(
+            ndimage.binary_dilation(fg, iterations=merge),
+            structure=np.ones((3, 3)),
+        )
+        labels = np.where(fg, groups, 0)
+    else:
+        labels, count = ndimage.label(fg, structure=np.ones((3, 3)))
     if count == 0:
         raise ValueError(f"nothing found in {region}")
     ids = np.arange(1, count + 1)
@@ -303,6 +359,8 @@ def place(
     h = max(1, min(cell[1], round(image.height * scale)))
     if resample == "box":
         small = _box(image, (w, h))
+    elif resample == "hd":
+        small = _hd(image, (w, h))
     else:
         filters = {"nearest": Image.NEAREST, "lanczos": Image.LANCZOS}
         small = image.resize((w, h), filters[resample])
@@ -323,34 +381,71 @@ def _box(image: Image.Image, size: tuple[int, int]) -> Image.Image:
     only opaque ones: the JPEG noise and the thin fringe at the edges
     (less than half a pixel) disappear, the colours stay the sprite's.
     """
+    out = _premultiplied_resize(image, size, Image.BOX)
+    return Image.fromarray(np.clip(out + 0.5, 0, 255).astype(np.uint8))
+
+
+def _premultiplied_resize(
+    image: Image.Image, size: tuple[int, int], method: int
+) -> np.ndarray:
+    """Resizes colour weighted by opacity: the background never bleeds in."""
     rgba = np.asarray(image.convert("RGBA")).astype(np.float32)
     alpha = rgba[..., 3:] / 255.0
     premul = np.concatenate([rgba[..., :3] * alpha, alpha * 255.0], -1)
     channels = [
-        np.asarray(
-            Image.fromarray(premul[..., i], "F").resize(size, Image.BOX)
-        )
+        np.asarray(Image.fromarray(premul[..., i], "F").resize(size, method))
         for i in range(4)
     ]
     out = np.stack(channels, -1)
-    a = out[..., 3:]
+    a = np.clip(out[..., 3:], 0, 255)
     rgb = np.where(a > 0, out[..., :3] * 255.0 / np.maximum(a, 1e-6), 0)
-    result = np.concatenate([rgb, a], -1)
-    return Image.fromarray(np.clip(result + 0.5, 0, 255).astype(np.uint8))
+    return np.concatenate([np.clip(rgb, 0, 255), a], -1)
+
+
+def despill(rgba: np.ndarray, edge: np.ndarray, lean: int = 30) -> np.ndarray:
+    """Edge pixels that lean magenta (red and blue over green) lose it."""
+    out = rgba.astype(np.int16)
+    r, g, b = out[..., 0], out[..., 1], out[..., 2]
+    spill = np.minimum(r, b) - g
+    pink = edge & (r - g > lean) & (b - g > lean) & (spill > 0)
+    out[..., 0] = np.where(pink, r - spill, r)
+    out[..., 2] = np.where(pink, b - spill, b)
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+
+def _hd(image: Image.Image, size: tuple[int, int]) -> Image.Image:
+    """
+    For HD sheets: LANCZOS on opacity-weighted colour, then hard alpha
+    (0/255), one pixel eroded from the edge (the magenta or checker
+    fringe), and the colours left on the new edge cleaned of magenta.
+    """
+    out = _premultiplied_resize(image, size, Image.LANCZOS)
+    mask = out[..., 3] >= 128
+    mask = ndimage.binary_erosion(mask, iterations=1)
+    edge = mask & ~ndimage.binary_erosion(mask, iterations=2)
+    rgba = np.clip(out + 0.5, 0, 255).astype(np.uint8)
+    rgba[..., 3] = np.where(mask, 255, 0)
+    rgba = despill(rgba, edge)
+    rgba[~mask, :3] = 0
+    return Image.fromarray(rgba, "RGBA")
 
 
 def assemble(
     layout: Layout,
     parts: Mapping[str, Image.Image],
     resample: str = "box",
+    fill: float = 1.0,
 ) -> Image.Image:
-    """Builds the output sheet; parts of one group share a scale."""
+    """
+    Builds the output sheet; parts of one group share a scale. ``fill``:
+    the tallest part of a group takes that share of its cell's height.
+    """
     missing = set(layout.cells) - set(parts)
     if missing:
         raise ValueError(f"missing parts: {sorted(missing)}")
     scales: dict[str, float] = {}
     for name, cell in layout.cells.items():
-        s = fit_scale(parts[name].size, (cell.w, cell.h))
+        s = fit_scale(parts[name].size, (cell.w, cell.h * fill))
         if cell.group:
             scales[cell.group] = min(scales.get(cell.group, s), s)
     sheet = Image.new("RGBA", layout.size, (0, 0, 0, 0))
@@ -387,6 +482,26 @@ class Entry:
     resample: str = "box"
     #: Also written to these paths (the same picture).
     copies: list[str] = field(default_factory=list)
+    #: An HD sheet: the layout k times larger (SDD_ART §2.6).
+    k: int = 1
+    #: Height of a group's tallest part, as a share of its cell.
+    fill: float = 1.0
+    #: Cut the source into equal cells: [columns, rows].
+    grid: tuple[int, int] | None = None
+    #: Output cell -> source cell, where the source has them elsewhere.
+    take: dict[str, str] = field(default_factory=dict)
+
+    def resolve_boxes(self, size: tuple[int, int]) -> dict[str, Box]:
+        """The source box of every part, for a source of ``size``."""
+        if self.grid is None:
+            return dict(self.boxes)
+        cells = grid_boxes(size, *self.grid)
+        boxes = {
+            name: cells[self.take.get(name, name)]
+            for name in self.layout.cells
+        }
+        boxes.update(self.boxes)
+        return boxes
 
 
 def _layout(data: Mapping) -> Layout:
@@ -403,17 +518,26 @@ def load_manifest(path: Path = MANIFEST) -> list[Entry]:
     data = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
     entries = []
     for item in data["outputs"]:
-        boxes = {k: tuple(int(n) for n in v) for k, v in item["boxes"].items()}
+        boxes = {
+            k: tuple(int(n) for n in v)
+            for k, v in (item.get("boxes") or {}).items()
+        }
+        k = int(item.get("k", 1))
+        grid = item.get("grid")
         entries.append(
             Entry(
                 name=item["name"],
                 source=item["source"],
                 output=item["output"],
-                layout=_layout(item),
+                layout=_layout(item).scaled(k),
                 boxes=boxes,  # type: ignore[arg-type]
                 options=dict(item.get("options", {})),
                 resample=item.get("resample", "box"),
                 copies=list(item.get("copies", [])),
+                k=k,
+                fill=float(item.get("fill", 1.0)),
+                grid=(int(grid[0]), int(grid[1])) if grid else None,
+                take=dict(item.get("take") or {}),
             )
         )
     return entries
@@ -425,9 +549,9 @@ def build(entry: Entry, sheet: Image.Image) -> Image.Image:
     background = detect_background(rgb)
     parts = {
         name: find_part(rgb, background, box, **entry.options).image
-        for name, box in entry.boxes.items()
+        for name, box in entry.resolve_boxes(sheet.size).items()
     }
-    return assemble(entry.layout, parts, entry.resample)
+    return assemble(entry.layout, parts, entry.resample, entry.fill)
 
 
 def run(
