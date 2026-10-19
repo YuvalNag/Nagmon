@@ -9,7 +9,8 @@ Usage:
 Use a throwaway HOME: the game writes its config, saves and profiles
 there. With OUTDIR it saves world_*.png screenshots: the intro dialog,
 the Wise Owl in town, a quiz at the shop, a wild battle with the new
-subject monsters, and the academy master. With
+subject monsters, the academy master, and the owl in its cape after
+the first badge. With
 --smoke it only checks that a new game starts in Hearthrock with the
 child's name, and prints one JSON line.
 """
@@ -302,3 +303,33 @@ print(
         if "nagmon" in k or "academy" in k
     },
 )
+
+# The first badge: back in town the owl congratulates and wears its cape
+# (docs/kids/SDD_ART.md §2.8).
+for _ in range(5):
+    if names()[0] == "WorldState":
+        break
+    client.pop_state()
+    step(2)
+player().game_variables.set("academy_granite_done", "yes")
+ex(
+    "transition_teleport",
+    ["player", "classic_hearthrock_city.tmx", 29, 17, 0.3],
+)
+for _ in range(80):
+    if dialog_text() and "DialogState" in names():
+        break
+    step(10)
+press()  # page 2 of the congratulation
+step(120)
+for _ in range(6):
+    if client.get_npc("nagmon_owl") is not None and "cape" in str(
+        client.get_npc("nagmon_owl").appearance_manager.state.sprite_name
+    ):
+        break
+    close_dialogs(1)
+    step(30)
+step(120)
+shot("world_09_owl_cape")
+owl = client.get_npc("nagmon_owl")
+print("owl sprite:", owl.appearance_manager.state.sprite_name if owl else None)
