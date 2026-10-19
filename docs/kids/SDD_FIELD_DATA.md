@@ -105,3 +105,34 @@
 ## 4. מחוץ לתוכנית הזו
 - עדכון עצמי מ־Releases. יש לו SDD משלו (ריפו הקוד ציבורי, ולכן בלי טוקן).
 - שליחה אוטומטית בלי לחיצה.
+
+## 5. הערות מימוש
+### מה נבנה
+- **`nagmon/field_data/github.py`:** `GitHubAccess` (ה־`repr` מסתיר את הטוקן), `load_access`/`save_access`/`forget_access` על `secrets.json["github"]`, ו־`GitHubClient` עם `check()` ו־`put()`. כל תוצאה היא `Code`, ולכל קוד יש משפט בעברית ובאנגלית (`nagmon_github_<code>`).
+- **`nagmon/ai/config.py`:** `read_secrets`/`write_secrets` הוצאו מ־`save_keys`, ושני הצדדים משתמשים בהם (read-merge-write, 0600).
+- **`nagmon/field_data/uploads.py`:** `install_id`, `upload_path`, `FieldData` (חיבור, סטטוס, שליחת לוג/התקדמות/תקלה), ו־`send_crash_or_share` לחלון הקריסה. `install_id` ו"איזה דוח תקלה כבר נשלח" (טביעת sha256 קצרה) נשמרים ב־`device.json`.
+- **`nagmon/field_data/app_log.py`:** `RingLog`, `install`/`save`/`note_crash`/`tail`. מופעל ב־`rules.NagmonStartupRule.apply` (ובטלפון כבר ב־`main.py`), נשמר במעבר לרקע (`pause_play`) וביציאה (`stop_play_at_exit`).
+- **`nagmon/field_data/snapshot.py`:** `progress_snapshot(rt)`.
+- **`nagmon/field_data/clipboard.py`** ו־**`nagmon/android/clipboard.py`** (pyjnius, רץ על ה־UI thread של אנדרואיד).
+- **`mods/nagmon/states/field_data.py`:** המסך `FieldDataState`. הכפתור באזור ההורים: "GitHub ושליחת נתונים". `nagmon/ui/game_helpers.run_in_background` מריץ את הרשת ב־thread ומחזיר את התוצאה דרך `client.queue_command`.
+- **דוח קריסה:** `build_report(..., log=)` ו־`CrashGuard(log=)`. בטלפון `main.py` מעביר את 100 השורות האחרונות, מסתיר גם את הטוקן, ו"שליחה" בחלון עוברת דרך `send_crash_or_share`.
+- **`tools/field/latest.py`.**
+
+### סטיות מהתוכנית, ולמה
+1. **בדיקה טרייה לפני כל שליחה.** המטמון של שעה משמש רק לסטטוס במסך. לפני כל `PUT` בודקים שוב, כדי שריפו שהפך לציבורי לפני דקה לא יקבל כלום. המטמון בזיכרון בלבד, לפי sha256 של הטוקן, ולא בדיסק.
+2. **`permissions.push` הוא הרשאת המשתמש, לא של הטוקן.** טוקן fine-grained בלי Contents: Read and write יעבור את הבדיקה, וייכשל ב־403 בשליחה הראשונה עם ההודעה "לטוקן אין הרשאת Contents: Read and write".
+3. **טוקן תקין לריפו ציבורי נשמר**, כדי שההורה רק יהפוך את הריפו לפרטי ולא יעתיק שוב. שום דבר לא נשלח עד אז. טוקן שנכשל (401/403/404/רשת) לא נשמר.
+4. **"נשלח ✓" הפך ל"נשלח בהצלחה."** בגופן Rubik אין ✓ (ייצא ריבוע). גם המקף העברי (־) לא נכנס ל־po, כי `test_no_niqqud_in_hebrew` אוסר את U+05BE; לכן "ב-GitHub".
+5. **האישור:** חלון עם המשפט ("יישלח: ... לריפו הנתונים הפרטי ..."), ואחריו "שליחה" / "ביטול". לילד אחד יש נוסח ביחיד.
+6. **שינוי הריפו:** נשמר עם הטוקן ב־`secrets.json`, וברירת המחדל `YuvalNag/nagmon-data`. אין במסך כפתור לשינוי.
+7. **הטקסטים בחלון הקריסה** כתובים בעברית בתוך `crash_dialog.py` ולא ב־po, כמו הטקסטים הקיימים שם: החלון מופיע גם כשהמשחק לא עלה ואין `T`.
+8. **סיבת היציאה הקודמת:** "normal" אחרי יציאה או שמירה ברקע (גם אם אנדרואיד סגר את האפליקציה ברקע), "crash" אחרי חלון הקריסה, "unknown" אם לא נשמר כלום. במחשב, שגיאה שתופסת `handle_fatal_error` נרשמת כרגילה, כי רק `main.py` של אנדרואיד קורא ל־`note_crash`.
+9. **שעות בלוג ב־UTC**, כמו שמות הקבצים ודוח הקריסה.
+10. **בתמונת ההתקדמות** גם: `language_level`, סכומי תשובות, ימי תרגול, והספק של ה־AI (בלי כתובת ומפתח). מזהי הפרופילים לא נכנסים, כי הם מקשרים לתיקיות בטלפון.
+11. **בדוח הקריסה** קטע הלוג מוגבל ל־8,000 תווים, כדי שהשגיאה תמיד תיכנס ב־20,000.
+12. **הלוג לא מגביר את Tuxemon:** ה־handlers של Tuxemon שומרים על הרמה שלהם (ERROR בטלפון). רק הלוגרים `nagmon` ו־`mods.nagmon` עולים ל־INFO, וה־root ל־WARNING.
+
+### מה לבדוק בטלפון (pyjnius, לא רץ כאן)
+- `nagmon/android/clipboard.py`: `cast("android.content.ClipboardManager", ...)`, `getPrimaryClip`, `coerceToText`, וההרצה ב־`run_on_ui_thread`.
+- `nagmon/android/crash_dialog.py`: הטקסט עם שם הריפו, ושהשליחה ל־GitHub רצה אחרי "שליחה" לפני שהמשחק נסגר.
+- `buildconfig/android/main.py`: `start_log()` מייבא את `tuxemon.constants.paths` לפני שהמשחק עולה.
