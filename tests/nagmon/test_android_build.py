@@ -42,6 +42,7 @@ def _fake_repo(root: Path) -> Path:
         "mods/tuxemon/music/patches/Xsynth_8bit": "x",
         "mods/nagmon/l18n/he_IL/LC_MESSAGES/nagmon.po": "msgid",
         "mods/nagmon/gfx/emoji/1f989.png": "png",
+        "mods/nagmon/gfx/owl/owl_icon.png": "owl icon png",
         "tests/test_x.py": "",
         "docs/kids/GAME_PLAN.md": "",
         "tools/dev/tour.py": "",
@@ -105,6 +106,22 @@ def test_entry_point_and_recipes_are_in_place(staged):
     assert (out / "recipes/pygame_ce/__init__.py").is_file()
     assert (out / "icon.png").is_file()
     assert (out / "presplash.png").is_file()
+
+
+def test_icon_and_presplash_are_the_wise_owl(staged):
+    # docs/kids/SDD_ART.md §3 row 21: the owl the owner drew.
+    _, out, _ = staged
+    assert (out / "icon.png").read_text() == "owl icon png"
+    assert (out / "presplash.png").read_text() == "owl icon png"
+
+
+def test_the_owl_icon_is_512_square():
+    from PIL import Image
+
+    assert stage.ICON == Path("mods/nagmon/gfx/owl/owl_icon.png")
+    with Image.open(REPO / stage.ICON) as icon:
+        assert icon.size == (512, 512)
+        assert icon.format == "PNG"
 
 
 def _spec(out: Path) -> configparser.ConfigParser:
