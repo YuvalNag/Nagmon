@@ -1,6 +1,51 @@
 # Route 1: a friendly duel, a bilingual sign and Pitzi the lost kitten.
-# The wild encounters of the tmx stay as they are (docs/kids/SDD_WORLD.md §2.4).
+# The wild encounters are the tmx's, in the same grass, from our own table
+# (nagmon_route1: Tuxemon's monsters and the first subject monsters,
+# docs/kids/SDD_ART.md §2.3).
 events:
+
+  # ------------------------------------------------ wild encounters
+  Nagmon Encounters 1:
+    type: event
+    replaces: Random Encounters 1
+    x: 2
+    y: 5
+    width: 9
+    height: 10
+    actions:
+    - random_encounter nagmon_route1,11
+    - play_map_animation grass,0.1,noloop,player
+    conditions:
+    - is char_at player
+    - is char_moved player
+
+  Nagmon Encounters 2:
+    type: event
+    replaces: Random Encounters 2
+    x: 15
+    y: 5
+    width: 10
+    height: 10
+    actions:
+    - random_encounter nagmon_route1,11
+    - play_map_animation grass,0.1,noloop,player
+    conditions:
+    - is char_at player
+    - is char_moved player
+
+  Nagmon Encounters 3:
+    type: event
+    replaces: Random Encounters 3
+    x: 29
+    y: 5
+    width: 9
+    height: 10
+    actions:
+    - random_encounter nagmon_route1,11
+    - play_map_animation grass,0.1,noloop,player
+    conditions:
+    - is char_at player
+    - is char_moved player
 
   # ------------------------------------------------ Danny: friendly duel
   Create Trainer:

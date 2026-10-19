@@ -57,7 +57,8 @@
 
 - `mods/nagmon/db/monster/*.yaml`, באותה סכמה של Tuxemon. ‏`txmn_id` ‏394–397 (אחרי האחרון של Tuxemon).
 - המהלכים לקוחים מטכניקות קיימות של הסוג, כדי שהשאלה בקרב תהיה מהמקצוע של המפלצת: `slice`, ‏`perfect_cut`, ‏`stonehenge` לצורות; ‏`strike`, ‏`lantern`, ‏`beam`, ‏`radiance` לאנגלית. ‏`struggle` הוא ה־fallback.
-- **איפה פוגשים אותם:** מפגשים אקראיים בדרך 1 (`spyder_citypark`, הטבלה שה־TMX של דרך 1 משתמש בה). nagmon דורס את הטבלה באותו slug: כל הרשומות המקוריות נשארות, ונוספים Geometrion ו־Alphabel ברמות 5–8, בכל שעה. כך הנגמון הראשון לא משתנה, ואין שינוי במבחני הפתיחה.
+- **איפה פוגשים אותם:** מפגשים אקראיים בדרך 1, ברמות 5–8, בכל שעה. לדרך 1 שלנו יש טבלה משלה, `nagmon_route1`: כל הרשומות של `spyder_citypark` (הטבלה שה־TMX משתמש בה, ושמפות Spyder חולקות), ועוד Geometrion ו־Alphabel. הטבלה המשותפת לא משתנה. הנגמון הראשון לא משתנה, ואין שינוי במבחני הפתיחה.
+  - **`replaces` בסקריפט מפה** (תיקון קטן במנוע, `MapLoader`): אירוע של mod עם `replaces: <שם>` מחליף את אירוע ה־TMX באותו שם. ‏`mods/nagmon/maps/classic_route_1.yaml` מחליף כך את שלושת "Random Encounters", באותו דשא, ב־`random_encounter nagmon_route1,11`. בלי `replaces` אירועים רק מתווספים, כמו קודם.
 - **שמות** נשארים באנגלית גם בעברית (SDD_WORLD §2.8). תיאור וסוג (`cat_*`) בשתי השפות ב־`nagmon.po`.
 
 ### 2.4 הפתיח: `NagmonIntroState`
@@ -142,7 +143,8 @@
 | 15 | ארבע המפלצות ב־ModData | נטענות, הגיליון HD ‏384×264, והתפתחות ברמה 16 |
 | 16 | הסוגים | Geometrion ו־Polygonos → גאומטריה. Alphabel ו־Lexicon → אנגלית. כל מהלך קיים |
 | 17 | מחרוזות | שם, תיאור וסוג (`cat_*`) ב־nagmon.po של שתי השפות |
-| 18 | דרך 1 | `spyder_citypark` כולל את כל הרשומות של Tuxemon, ועוד Geometrion ו־Alphabel |
+| 18 | דרך 1 | `nagmon_route1` כולל את כל הרשומות של `spyder_citypark` ועוד Geometrion ו־Alphabel. ‏`spyder_citypark` כמו ב־Tuxemon. בסקריפט של דרך 1, שלושת אירועי המפגש מחליפים את אלה של ה־TMX, באותם אזורים |
+| 18א | `replaces` (`tests/tuxemon/test_map_event_replaces.py`) | אירוע ה־TMX באותו שם יוצא, והאירוע של הסקריפט נכנס. בלי `replaces`: רק הוספה |
 | 19 | ה־NPC של פרק 1 | הינשוף, המוכר, התייר והגננת עם גיליון קרב חדש (HD, ‏384×192) |
 | 20 | הדיאלוגים | כל שורה של ארבעתם מציגה את ה־avatar שלהם |
 | 21 | `stage.py` | ‏`icon.png` ו־`presplash.png` הם `owl_icon.png`, ‏512×512 |

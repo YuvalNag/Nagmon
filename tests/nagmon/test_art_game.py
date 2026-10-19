@@ -115,16 +115,60 @@ def test_new_monster_strings_in_both_languages(moddata, slug):
 
 
 def test_route_1_meets_the_new_monsters_and_keeps_the_old(moddata):
-    table = moddata.database["encounter"]["spyder_citypark"]
-    found = [m.monster for m in table.monsters]
     original = yaml.safe_load(
         (TUXEMON / "db/encounter/spyder_citypark.yaml").read_text()
     )
+    ours = [
+        m.monster
+        for m in moddata.database["encounter"]["nagmon_route1"].monsters
+    ]
     for entry in original["monsters"]:
-        assert entry["monster"] in found
-    assert {"geometrion", "alphabel"} <= set(found)
-    tmx = (TUXEMON / "maps/classic_route_1.tmx").read_text()
-    assert "random_encounter spyder_citypark" in tmx
+        assert entry["monster"] in ours
+    assert {"geometrion", "alphabel"} <= set(ours)
+    # The table the Spyder maps share stays Tuxemon's.
+    shared = moddata.database["encounter"]["spyder_citypark"].monsters
+    assert [m.monster for m in shared] == [
+        e["monster"] for e in original["monsters"]
+    ]
+    assert not (NAGMON / "db/encounter/spyder_citypark.yaml").exists()
+
+
+def _tmx_encounters() -> dict[str, tuple[int, int, int, int]]:
+    import xml.etree.ElementTree as ET
+
+    root = ET.parse(TUXEMON / "maps/classic_route_1.tmx").getroot()
+    tile = int(root.get("tilewidth"))
+    out = {}
+    for obj in root.iter("object"):
+        acts = [
+            p.get("value")
+            for p in obj.iter("property")
+            if p.get("name", "").startswith("act")
+        ]
+        if any(a.startswith("random_encounter") for a in acts):
+            box = [
+                int(float(obj.get(k))) // tile
+                for k in ("x", "y", "width", "height")
+            ]
+            out[obj.get("name")] = tuple(box)
+    return out
+
+
+def test_only_our_route_1_uses_our_table():
+    tmx = _tmx_encounters()
+    assert len(tmx) == 3
+    doc = yaml.safe_load((NAGMON / "maps/classic_route_1.yaml").read_text())
+    replaced = {}
+    for name, data in doc["events"].items():
+        if "replaces" not in data:
+            continue
+        acts = data["actions"]
+        assert any(
+            a.startswith("random_encounter nagmon_route1,") for a in acts
+        )
+        box = (data["x"], data["y"], data["width"], data["height"])
+        replaced[data["replaces"]] = box
+    assert replaced == tmx
 
 
 # ------------------------------------------------------------------ NPCs

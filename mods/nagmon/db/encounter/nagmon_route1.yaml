@@ -1,6 +1,8 @@
-# Route 1's wild encounters (classic_route_1.tmx uses this table): every
-# entry of mods/tuxemon/db/encounter/spyder_citypark.yaml, plus the first
-# subject monsters, day and night (docs/kids/SDD_ART.md §2.3).
+# Route 1's own wild encounters (docs/kids/SDD_ART.md §2.3): every entry
+# of mods/tuxemon/db/encounter/spyder_citypark.yaml (the table the TMX
+# uses, shared with the Spyder maps), plus the first subject monsters,
+# day and night. mods/nagmon/maps/classic_route_1.yaml points our Route 1
+# here; the Spyder maps keep Tuxemon's table.
 monsters:
 - encounter_rate: 3
   exp_req_mod: 3
@@ -98,4 +100,4 @@ monsters:
   - 8
   monster: alphabel
   variables: []
-slug: spyder_citypark
+slug: nagmon_route1

@@ -165,7 +165,29 @@ class MapLoader:
             yaml_files: List of YAML file paths to load events from.
         """
         yaml_collision, events = self._process_events(yaml_files)
+        # A script event with "replaces: <name>" takes the place of the
+        # map's (TMX) event of that name, e.g. a mod's own encounters.
+        replaced = self._replaced_names(yaml_files)
+        for event in [e for e in txmn_map.events if e.name in replaced]:
+            txmn_map.remove_event(event)
         self._merge_events(txmn_map, yaml_collision, events)
+
+    @staticmethod
+    def _replaced_names(yaml_files: list[Path]) -> set[str]:
+        """The map events that the scripts' events replace, by name."""
+        names: set[str] = set()
+        for yaml_file in yaml_files:
+            if not yaml_file.exists():
+                continue
+            try:
+                data = load_yaml(yaml_file) or {}
+            except Exception as e:
+                logger.error(f"Failed to read {yaml_file}: {e}")
+                continue
+            for event in (data.get("events") or {}).values():
+                if isinstance(event, dict) and event.get("replaces"):
+                    names.add(str(event["replaces"]))
+        return names
 
     def _process_events(
         self, yaml_files: list[Path]
