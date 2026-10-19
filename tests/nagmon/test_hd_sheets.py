@@ -227,3 +227,27 @@ def test_crisp_enlargement_keeps_edges_sharper():
     assert blurred(smooth_resize(hd, (448, 448))) < blurred(
         smoothscale(hd, (448, 448))
     )
+
+
+# ------------------------------------------ the real HD combat sheets
+
+
+@pytest.mark.parametrize(
+    ("sheet_name", "back", "front"),
+    [
+        ("nagmon_hero_boy", (64, 128), (64, 64)),  # player: tall back
+        ("nagmon_hero_girl", (64, 128), (64, 64)),
+        ("nagmon_granite", (64, 64), (64, 64)),
+        ("nagmon_shopkeeper", (64, 64), (64, 64)),
+    ],
+)
+def test_real_hd_combat_sheets_slice_at_native_size(sheet_name, back, front):
+    import tuxemon.database.runtime  # noqa: F401  (asset roots)
+    from tuxemon.entity.sheet import CombatSheet
+
+    cs = CombatSheet(f"gfx/sprites/player/{sheet_name}.png", 64, 64)
+    assert cs.k == 3
+    assert cs.back().get_size() == back
+    assert cs.front().get_size() == front
+    assert cs.back(7).get_size() == (back[0] * 7, back[1] * 7)
+    assert cs.front(7).get_size() == (front[0] * 7, front[1] * 7)
