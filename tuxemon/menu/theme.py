@@ -14,6 +14,7 @@ from pygame_menu.widgets.widget.menubar import MENUBAR_STYLE_ADAPTIVE
 from tuxemon.constants.asset_loader import fetch_asset
 from tuxemon.locale.locale import T
 from tuxemon.menu.rtl import install_pygame_menu_bidi, start_menu_alignment
+from tuxemon.platform import mobile
 from tuxemon.platform.const.graphics import (
     FONT_COLOR,
     FONT_SHADOW_COLOR,
@@ -97,6 +98,18 @@ class TuxemonArrowSelection(Selection):
         return self
 
 
+def widget_padding(
+    scaling: ScalingStrategy, *, touch: bool
+) -> tuple[int, int]:
+    """
+    Space around each button. On a phone buttons are taller, so a
+    five-year-old's finger finds them (SDD_ANDROID §2.3).
+    """
+    if touch:
+        return scaling.scale_int(4), scaling.scale_int(6)
+    return scaling.scale_int(2), scaling.scale_int(4)
+
+
 def get_theme(scaling: ScalingStrategy) -> Theme:
     """Get Tuxemon default theme."""
     global _theme
@@ -129,7 +142,7 @@ def get_theme(scaling: ScalingStrategy) -> Theme:
         ),
         border_color=tuxemon_border,
         scrollarea_position=SCROLLAREA_POSITION_NONE,
-        widget_padding=(scaling.scale_int(2), scaling.scale_int(4)),
+        widget_padding=widget_padding(scaling, touch=mobile.is_android()),
         title_close_button=False,
         title_bar_style=MENUBAR_STYLE_ADAPTIVE,
         widget_font_shadow=True,

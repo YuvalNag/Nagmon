@@ -14,6 +14,7 @@ from tuxemon.config import TuxemonConfig
 from tuxemon.frame_limiter import FrameLimiter
 from tuxemon.map.tuxemon import NullMap
 from tuxemon.map.view import DebugRenderer, MapRenderer, NullRenderer
+from tuxemon.platform import mobile
 from tuxemon.state.draw import EventDebugDrawer, Renderer, StateDrawer
 
 if TYPE_CHECKING:
@@ -153,6 +154,10 @@ class LocalPygameClient(BaseClient):
     def update(self, dt: float) -> None:
         """Main loop for entire game."""
         self.update_states(dt)
+        state = self.current_state
+        self.input_manager.show_touch_arrows(
+            mobile.wants_touch_arrows(state.name if state else None)
+        )
 
     def queue_command(self, command: Callable[[], None]) -> None:
         self.command_queue.put(command)

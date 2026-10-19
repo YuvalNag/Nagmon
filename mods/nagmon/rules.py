@@ -13,6 +13,7 @@ from typing import TYPE_CHECKING, Any, ClassVar
 from nagmon.game_flow import avatar_keys
 from nagmon.runtime import NagmonRuntime, get_runtime, set_runtime
 from tuxemon.constants import paths
+from tuxemon.platform import mobile
 from tuxemon.startup_rules import StartupRule
 
 if TYPE_CHECKING:
@@ -114,9 +115,23 @@ class NagmonStartupRule(StartupRule):
         # Closing the window (or a crash) must still count the last
         # minutes of play and save the child's learning.
         atexit.register(stop_play_at_exit)
+        # On a phone: switching to another app stops the clock and saves.
+        mobile.on_app_switch(pause_play, resume_play)
         if first_run:
             switch_to_hebrew()
         logger.info("Nagmon runtime ready")
+
+
+def pause_play() -> None:
+    rt = get_runtime()
+    if rt is not None:
+        rt.pause()
+
+
+def resume_play() -> None:
+    rt = get_runtime()
+    if rt is not None:
+        rt.resume()
 
 
 def stop_play_at_exit() -> None:

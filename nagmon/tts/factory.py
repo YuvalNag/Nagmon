@@ -34,8 +34,21 @@ def default_cache_dir(
     return Path(base) / "nagmon" / "tts"
 
 
-def build_backends(settings: TTSSettings) -> list[Backend]:
-    """Online neural voices first (used only with consent), then OS voices."""
+def build_backends(
+    settings: TTSSettings, *, android: bool | None = None
+) -> list[Backend]:
+    """
+    Online neural voices first (used only with consent), then OS voices.
+    On a phone: Android's own voices (SDD_ANDROID §2.3).
+    """
+    if android is None:
+        from nagmon.android import is_android
+
+        android = is_android()
+    if android:
+        from nagmon.android.tts import AndroidTTSBackend
+
+        return [AndroidTTSBackend(settings=settings), NullBackend()]
     return [
         EdgeTTSBackend(settings),
         Pyttsx3Backend(settings),

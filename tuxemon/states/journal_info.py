@@ -393,9 +393,10 @@ class JournalInfoState(PygameMenuState):
             )
             return None
 
-        # A / B / BACK → close (pressed only)
+        # A / B / BACK / a tap → close (pressed only)
         elif (
-            event.button in (buttons.BACK, buttons.B, buttons.A)
+            event.button
+            in (buttons.BACK, buttons.B, buttons.A, buttons.MOUSELEFT)
             and event.pressed
         ):
             client.remove_state_by_name("JournalInfoState")

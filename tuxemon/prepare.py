@@ -7,6 +7,7 @@ from __future__ import annotations
 import logging
 import os
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 import pygame as pg
 
@@ -18,6 +19,9 @@ from tuxemon.scaling import (
     make_default_scaling,
 )
 from tuxemon.user_config import CONFIG
+
+if TYPE_CHECKING:
+    from tuxemon.config import TuxemonConfig
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +52,23 @@ DISPLAY_CONTEXT: DisplayContext = DisplayContext(
 DEV_TOOLS = CONFIG.dev_tools
 
 
+def fit_to_phone_screen(config: TuxemonConfig) -> int:
+    """
+    On a phone, draws on a surface with the screen's shape (720 high) that
+    SDL scales to the whole screen and maps touches back onto
+    (docs/kids/SDD_ANDROID.md §2.3). Returns the extra display flags.
+    """
+    from tuxemon.platform import mobile
+
+    if not mobile.is_android():
+        return 0
+    info = pg.display.Info()
+    width, height = mobile.logical_resolution(info.current_w, info.current_h)
+    config.config_model.display.resolution_x = width
+    config.config_model.display.resolution_y = height
+    return pg.FULLSCREEN | pg.SCALED
+
+
 def pygame_init() -> DisplayContext:
     """Initializes Pygame, display, translations, and databases."""
     global DISPLAY_CONTEXT
@@ -58,17 +79,13 @@ def pygame_init() -> DisplayContext:
     pg.init()
     pg.display.set_caption(CONFIG.window_caption)
 
+    phone_flags = fit_to_phone_screen(CONFIG)
     scaling = make_default_scaling(CONFIG, NATIVE_RESOLUTION)
 
     # Fullscreen flags
     fullscreen = pg.FULLSCREEN if CONFIG.fullscreen else 0
 
-    from tuxemon.platform import platform
-
-    if platform.is_android():
-        fullscreen = pg.FULLSCREEN
-
-    flags = pg.HWSURFACE | pg.DOUBLEBUF | fullscreen
+    flags = pg.HWSURFACE | pg.DOUBLEBUF | fullscreen | phone_flags
 
     if CONFIG.vsync:
         pg.display.set_allow_screensaver()

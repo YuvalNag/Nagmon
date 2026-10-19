@@ -245,3 +245,58 @@ def test_title_does_not_double_watch_a_world_on_top(monkeypatch):
     finally:
         runtime_mod.set_runtime(None)
     rt.stop_play.assert_not_called()
+
+
+def test_switching_apps_on_the_phone_pauses_the_child(monkeypatch, tmp_path):
+    from mods.nagmon import rules
+    from tuxemon.platform import mobile
+
+    monkeypatch.setattr(rules.atexit, "register", lambda f: None)
+    monkeypatch.setattr(rules, "data_root", lambda: tmp_path / "nagmon")
+    monkeypatch.setattr(rules, "build_runtime", lambda: MagicMock())
+    monkeypatch.setattr(rules, "switch_to_hebrew", lambda: None)
+    monkeypatch.setattr(mobile, "_switch_listeners", [])
+    try:
+        rules.NagmonStartupRule(MagicMock(), MagicMock()).apply()
+        rt = runtime_mod.get_runtime()
+        mobile.app_switched(to_background=True)
+        rt.pause.assert_called_once()
+        mobile.app_switched(to_background=False)
+        rt.resume.assert_called_once()
+    finally:
+        runtime_mod.set_runtime(None)
+
+
+def test_a_failing_switch_listener_does_not_stop_the_others(monkeypatch):
+    from tuxemon.platform import mobile
+
+    monkeypatch.setattr(mobile, "_switch_listeners", [])
+    seen = []
+
+    def boom():
+        raise OSError("disk full")
+
+    mobile.on_app_switch(boom, boom)
+    remove = mobile.on_app_switch(lambda: seen.append("bg"), lambda: None)
+    mobile.app_switched(to_background=True)
+    assert seen == ["bg"]
+    remove()
+    mobile.app_switched(to_background=True)
+    assert seen == ["bg"]
+
+
+def test_sdl_background_events_reach_the_listeners(monkeypatch):
+    import pygame
+
+    from tuxemon.platform import mobile
+    from tuxemon.platform.platform_pygame.events import PygameEventQueueHandler
+
+    monkeypatch.setattr(mobile, "_switch_listeners", [])
+    seen = []
+    mobile.on_app_switch(lambda: seen.append("bg"), lambda: seen.append("fg"))
+    pygame.display.init()
+    pygame.event.clear()
+    pygame.event.post(pygame.event.Event(pygame.APP_WILLENTERBACKGROUND))
+    pygame.event.post(pygame.event.Event(pygame.APP_DIDENTERFOREGROUND))
+    list(PygameEventQueueHandler().process_events())
+    assert seen == ["bg", "fg"]

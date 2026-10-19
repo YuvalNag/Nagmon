@@ -6,6 +6,8 @@ import logging
 import time
 from typing import TYPE_CHECKING, Protocol, TypeVar
 
+import pygame
+
 from tuxemon.menu.events import playerinput_to_event
 from tuxemon.platform.const import buttons, intentions
 
@@ -167,35 +169,39 @@ class MenuInputHandler(InputHandler, PressLogicMixin):
 
         mouse_pos = event.value
         if not isinstance(mouse_pos, (tuple, list)) or len(mouse_pos) != 2:
-            raise ValueError(f"Invalid mouse_pos received: {mouse_pos}")
-
-        if hasattr(self._menu.menu_items, "update_rect_from_parent"):
-            self._menu.menu_items.update_rect_from_parent()
-
-        group_rect = self._menu.menu_items.rect
-
-        if not group_rect.collidepoint(mouse_pos):
+            # The release of a click or tap carries no position; the menu
+            # acted on the press.
+            return False
+        index = self._item_at((mouse_pos[0], mouse_pos[1]))
+        if index is None:
             return False  # allow propagation
+        if not event.pressed:
+            # Held down: one tap is one choice, not one per frame.
+            return True
 
-        local_pos = (
-            mouse_pos[0] - group_rect.left,
-            mouse_pos[1] - group_rect.top,
-        )
+        self._menu.change_selection(index)
+        selected = self._menu.get_selected_item()
+        if not selected:
+            raise RuntimeError(
+                "Menu selection was None despite enabled item being clicked"
+            )
+        self._menu.on_menu_selection(selected)
+        return True
 
-        for index, item in enumerate(self._menu.menu_items):
-            if not item.enabled:
-                continue
-            if item.rect.collidepoint(local_pos):
-                self._menu.change_selection(index)
-                selected = self._menu.get_selected_item()
-                if not selected:
-                    raise RuntimeError(
-                        "Menu selection was None despite enabled item being clicked"
-                    )
-                self._menu.on_menu_selection(selected)
-                return True
-
-        return False
+    def _item_at(self, pos: tuple[int, int]) -> int | None:
+        """
+        The enabled item under ``pos``. Items are hit-tested one by one:
+        the group's own rect can miss the last row (the on-screen
+        keyboard's END key).
+        """
+        items = self._menu.menu_items
+        if hasattr(items, "update_rect_from_parent"):
+            items.update_rect_from_parent()
+        local_pos = (pos[0] - items.rect.left, pos[1] - items.rect.top)
+        for index, item in enumerate(items):
+            if item.enabled and item.rect.collidepoint(local_pos):
+                return index
+        return None
 
 
 class PygameMenuInputHandler(InputHandler, PressLogicMixin):
@@ -251,6 +257,12 @@ class PygameMenuInputHandler(InputHandler, PressLogicMixin):
                     )
             return None
 
+        # Clicks and taps: both the press and the release go to the menu
+        # (a button fires when both land on it). Outside the menu they
+        # pass on, e.g. to the touch arrows.
+        if event.button == buttons.MOUSELEFT:
+            return self._handle_pointer(event, pygame_event)
+
         # All other buttons: pressed only (A, B, BACK, HOME, etc.)
         if self._state.open and event.pressed:
             try:
@@ -261,6 +273,21 @@ class PygameMenuInputHandler(InputHandler, PressLogicMixin):
             except Exception as e:
                 logger.error(f"Unexpected error in menu event processing: {e}")
 
+        return None
+
+    def _handle_pointer(
+        self, event: PlayerInput, pygame_event: Event
+    ) -> PlayerInput | None:
+        menu = self._state.menu
+        inside = menu.get_rect().collidepoint(pygame_event.pos)
+        if pygame_event.type == pygame.MOUSEBUTTONDOWN and not inside:
+            return event
+        if self._state.open:
+            try:
+                menu.update([pygame_event])
+                self._state.selected_widget = menu.get_selected_widget()
+            except Exception as e:
+                logger.error(f"Unexpected error in menu event processing: {e}")
         return None
 
     def _escape_consumes(self, event: PlayerInput) -> bool:

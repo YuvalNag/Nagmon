@@ -153,6 +153,23 @@ class NagmonRuntime:
             self.tracker.stop(self.now())
         self.deactivate()
 
+    def pause(self) -> None:
+        """
+        The phone went to another app: save, and stop counting play time.
+        The child stays chosen (SDD_ANDROID §2.5).
+        """
+        if self.active is None:
+            return
+        self.persist()
+        if self.tracker.active_profile is not None:
+            self.tracker.stop(self.now())
+
+    def resume(self) -> None:
+        """Back in the game: count play time again from now."""
+        if self.active is None or self.tracker.active_profile is not None:
+            return
+        self.tracker.start(self.active.id, self.now())
+
     @property
     def content(self) -> Any:
         if self._content is None and self._content_loader is not None:

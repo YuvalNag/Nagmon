@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field, ValidationError, field_validator
 from tuxemon.animation import Animation
 from tuxemon.constants import paths
 from tuxemon.database.yaml_utils import dump_yaml_io, load_yaml
+from tuxemon.platform import mobile
 from tuxemon.platform.const import buttons, events
 
 Animation.default_transition = "out_quint"
@@ -117,7 +118,8 @@ class ControlsConfig(BaseModel):
     right: str = "right"
     a: str = "return"
     b: str = "rshift, lshift"
-    back: str = "escape"
+    # AC_BACK: the phone's back button or gesture.
+    back: str = "escape, ac_back"
     backspace: str = "backspace"
 
 
@@ -125,7 +127,8 @@ class ControllerConfigModel(BaseModel):
     type: str | None = None
     overlay: bool = False
     transparency: int = 45
-    hide_mouse: bool = True
+    # Nagmon: children click (and tap) answers, so the mouse is on.
+    hide_mouse: bool = False
     show_input_visualizer: bool = False
     combo_window_seconds: float = 5.0
 
@@ -165,6 +168,8 @@ class TuxemonConfig:
         self.config_path = config_path
 
         config_data: dict[str, Any] = TuxemonFullConfig().model_dump()
+        if mobile.is_android():
+            mobile.touch_defaults(config_data)
 
         if config_path and config_path.exists():
             loaded_config = load_yaml(config_path) or {}

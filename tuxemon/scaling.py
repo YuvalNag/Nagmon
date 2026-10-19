@@ -17,7 +17,14 @@ def make_default_scaling(
     if config.large_gui:
         scale = 2
     elif config.scaling:
-        scale = int(config.resolution[0] / native_resolution[0])
+        # The shorter fit wins, so a wide phone screen (20:9) still shows
+        # whole menus vertically.
+        scale = int(
+            min(
+                config.resolution[0] / native_resolution[0],
+                config.resolution[1] / native_resolution[1],
+            )
+        )
     else:
         scale = 1
 

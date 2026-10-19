@@ -177,10 +177,11 @@ def test_mouse_click_hits_no_item_propagates(handler, menu):
     assert handler.handle_event(event) is event
 
 
-def test_mouse_invalid_position_raises(handler, menu):
+def test_mouse_without_position_passes_on(handler, menu):
+    # A mouse release (value 0) has no position; it must not crash the
+    # game (docs/kids/SDD_ANDROID.md §1.2).
     event = make_event(buttons.MOUSELEFT, value="invalid")
-    with pytest.raises(ValueError):
-        handler.handle_event(event)
+    assert handler.handle_event(event) is event
 
 
 def test_valid_press_on_pressed(handler, menu):

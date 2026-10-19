@@ -294,3 +294,37 @@ def test_persist_survives_a_profile_that_cannot_be_saved(rt):
     assert rt.store.load_learner_dict(p.id)["answers_total"] == 4
     rt.stop_play()
     assert rt.active is None
+
+
+# ------------------------------------------------- phone in the background
+
+
+def test_background_stops_counting_and_saves(rt):
+    rt.clock = lambda: TUESDAY_AFTERNOON
+    p = rt.store.create(name="Avi", avatar="x")
+    rt.start_play(p.id)
+    rt.learner.answers_total = 7
+    rt.pause()
+    assert rt.active is not None  # still the same child
+    assert rt.tracker.active_profile is None
+    assert rt.store.load_learner(p.id).answers_total == 7
+
+
+def test_foreground_counts_again_from_now(rt):
+    now = [TUESDAY_AFTERNOON]
+    rt.clock = lambda: now[0]
+    p = rt.store.create(name="Avi", avatar="x")
+    rt.start_play(p.id)
+    rt.pause()
+    now[0] += 3 * 3600  # three hours on another app
+    rt.resume()
+    assert rt.tracker.active_profile == p.id
+    now[0] += 60
+    rt.tick()
+    assert rt.tracker.used_seconds(p.id, rt.now().date()) < 5 * 60
+
+
+def test_pause_and_resume_without_a_child_do_nothing(rt):
+    rt.pause()
+    rt.resume()
+    assert rt.active is None and rt.tracker.active_profile is None

@@ -193,6 +193,11 @@ class InputMenu(Menu[InputMenuObj]):
             self._handle_unicode_event(event.value)
             return None
 
+        if event.pressed and event.button == buttons.MOUSELEFT:
+            # The first-event guard is for the release of the key that
+            # opened this menu; a tap or click is always meant.
+            self._suppress_first_event = False
+
         return super().process_event(event)
 
     def empty(self) -> None:

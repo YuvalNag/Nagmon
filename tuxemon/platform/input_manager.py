@@ -78,6 +78,11 @@ class InputManager:
                         self.extra_devices[name] = device
             except Exception as e:
                 logger.error(f"Error setting up {name}: {e}")
+        overlay, mouse = self.core_devices.overlay, self.core_devices.mouse
+        if overlay is not None and mouse is not None:
+            mouse.ignore_at = lambda pos: (
+                overlay.get_touched_button(pos) is not None
+            )
 
     def process_events(self) -> Generator[PlayerInput, None, None]:
         """Processes the input events."""
@@ -108,6 +113,10 @@ class InputManager:
         self.input_history.update(dt)
         self.event_queue.update_handlers(dt)
         self.afk_manager.update(dt)
+
+    def show_touch_arrows(self, shown: bool) -> None:
+        if self.core_devices.overlay:
+            self.core_devices.overlay.set_active(shown)
 
     def draw_overlay(self, screen: Surface) -> None:
         if self.core_devices.overlay:
