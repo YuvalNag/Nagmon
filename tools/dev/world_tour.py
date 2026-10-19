@@ -8,7 +8,8 @@ Usage:
 
 Use a throwaway HOME: the game writes its config, saves and profiles
 there. With OUTDIR it saves world_*.png screenshots: the intro dialog,
-the Wise Owl in town, a quiz at the shop, and the academy master. With
+the Wise Owl in town, a quiz at the shop, a wild battle with the new
+subject monsters, and the academy master. With
 --smoke it only checks that a new game starts in Hearthrock with the
 child's name, and prints one JSON line.
 """
@@ -262,6 +263,28 @@ if quiz is not None:
         quiz.skip()
 step(10)
 close_dialogs()
+
+# A wild battle with the new subject monsters (docs/kids/SDD_ART.md).
+close_dialogs()
+step(10)
+ex("add_monster", ["alphabel", "10"])
+party = player().monsters
+party.insert(0, party.pop())
+# skip: the action waits for the battle to end; let the frames run it.
+ex("wild_encounter", ["geometrion", "6"], True)
+for _ in range(60):
+    if "CombatState" in names():
+        break
+    step(10)
+step(240)
+shot("world_08_battle")
+print("battle:", names())
+for _ in range(5):
+    if names()[0] == "WorldState":
+        break
+    client.pop_state()
+    step(2)
+step(10)
 
 # The academy master.
 ex("teleport", ["player", "classic_gym_granite.tmx", 10, 6])
