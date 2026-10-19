@@ -134,6 +134,9 @@ class DialogState(PopUpMenu[None]):
                     avatar_rect.left,
                     avatar_rect.top,
                 )
+            # Who is speaking, standing on the top edge of the box.
+            if self.avatar not in self.sprites:
+                self.sprites.add(self.avatar)
 
         self.next_text()
 

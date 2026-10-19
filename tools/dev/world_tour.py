@@ -161,6 +161,17 @@ def map_slug() -> str:
     return Path(str(getattr(current, "filename", ""))).stem if current else ""
 
 
+def dialog_avatar() -> list[int] | None:
+    """Size of the speaker's portrait on the open dialog, if it is drawn."""
+    if "DialogState" not in names():
+        return None
+    dialog = client.get_state_by_name("DialogState")
+    avatar = dialog.avatar
+    if avatar is None or avatar not in dialog.sprites:
+        return None
+    return list(avatar.rect.size)
+
+
 if SMOKE:
     result = {
         "map": map_slug(),
@@ -169,6 +180,7 @@ if SMOKE:
         "owl": client.get_npc("nagmon_owl") is not None,
         "started": var("nagmon_started"),
         "dialog": "DialogState" in names(),
+        "avatar": dialog_avatar(),
         "engine": rt.engine is not None,
     }
     print(json.dumps(result, ensure_ascii=False))

@@ -50,7 +50,8 @@ def get_avatar(session: Session, avatar: str) -> Sprite | None:
     if avatar in db.database.get("npc", {}):
         sheet = get_combat_sheet(NpcModel.lookup(avatar, db).template)
         sprite = load_surface(sheet.front())
-        scale_sprite(sprite, 0.5)
+        # Half the size of the battle portrait, at the screen's scale.
+        scale_sprite(sprite, 0.5 * scale_int)
         return sprite
 
     return None

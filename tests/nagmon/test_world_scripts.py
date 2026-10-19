@@ -611,6 +611,11 @@ def test_new_game_starts_in_hearthrock_with_the_child_name(tmp_path):
     assert result["map"] == "classic_hearthrock_city"
     assert result["player_name"] == result["profile_name"] == "נועה"
     assert result["owl"] is True
+    # The owl's portrait stands on the dialog (SDD_ART §2.2): half the
+    # battle portrait, at the screen's scale.
+    assert result["avatar"] is not None
+    width, height = result["avatar"]
+    assert width == height >= 64
     assert result["started"] == "yes"
 
 
