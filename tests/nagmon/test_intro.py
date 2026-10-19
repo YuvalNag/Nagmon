@@ -200,3 +200,56 @@ def test_the_intro_assets_are_in_the_mod():
         sum(p.stat().st_size for p in paths) + intro.INTRO_AUDIO.stat().st_size
     )
     assert total < 12_000_000
+
+
+# ---------------------------------------------------- broken frames (review)
+
+
+def test_a_broken_frame_is_tried_once_and_logged_once(tmp_path, caplog):
+    paths = fake_frames(tmp_path, 12)
+    paths[3].write_bytes(b"not an image")
+    loads: list[str] = []
+
+    def loader(path):
+        loads.append(Path(path).name)
+        return pygame.image.load(path)
+
+    movie = intro.IntroMovie(paths, fps=12, loader=loader)
+    movie.frame()
+    for _ in range(3):
+        movie.advance(1 / 12)
+    with caplog.at_level("WARNING"):
+        first = movie.frame()  # frame 4 is broken: frame 1 stays
+        for _ in range(60):  # a second of drawing
+            assert movie.frame() is first
+    assert loads.count("0004.png") == 1
+    assert len([r for r in caplog.records if "0004" in r.getMessage()]) == 1
+    assert movie.shown_index == 0
+    assert not movie.finished
+
+
+def test_the_movie_stops_after_repeated_failures(tmp_path):
+    paths = fake_frames(tmp_path, 12)
+    for p in paths[2:]:
+        p.write_bytes(b"broken")
+    movie = intro.IntroMovie(paths, fps=12)
+    for _ in range(intro.MAX_FAILURES + 2):
+        movie.frame()
+        movie.advance(1 / 12)
+    assert movie.finished
+
+
+def test_start_intro_checks_the_phone_can_decode_the_frames(
+    tmp_path, monkeypatch
+):
+    frames = fake_frames(tmp_path, 3)
+    monkeypatch.setattr(intro, "frame_paths", lambda folder=None: frames)
+    frames[0].write_bytes(b"no decoder for this")
+    client = FakeClient(["SplashState", "IntroState"])
+    assert not intro.start_intro(client, driver="x11", env={})
+    assert client.pushed == [] and client.removed == []
+
+    frames = fake_frames(tmp_path, 3)
+    monkeypatch.setattr(intro, "frame_paths", lambda folder=None: frames)
+    monkeypatch.setattr(intro.pygame.image, "get_extended", lambda: False)
+    assert not intro.start_intro(FakeClient(), driver="x11", env={})

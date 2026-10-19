@@ -27,6 +27,8 @@ INTRO_AUDIO = INTRO_DIR / "intro.ogg"
 FPS = 12
 #: A long frame (the game still loading) moves the movie this much only.
 MAX_STEP = 0.25
+#: After this many frames that would not load, the movie ends.
+MAX_FAILURES = 3
 #: Set to anything to start without the intro.
 NO_INTRO_ENV = "NAGMON_NO_INTRO"
 #: SDL video drivers without a screen to watch.
@@ -98,14 +100,21 @@ class IntroMovie:
         self.elapsed = 0.0
         self._index: int | None = None
         self._frame: pygame.Surface | None = None
+        self._failed: set[int] = set()
 
     @property
     def index(self) -> int | None:
+        """The frame due now (None once the movie is over)."""
         return frame_at(self.elapsed, self.fps, len(self.paths))
 
     @property
+    def shown_index(self) -> int | None:
+        """The frame actually on screen (an earlier one if one failed)."""
+        return self._index
+
+    @property
     def finished(self) -> bool:
-        return self.index is None
+        return self.index is None or len(self._failed) >= MAX_FAILURES
 
     def advance(self, dt: float) -> None:
         self.elapsed += max(0.0, min(dt, MAX_STEP))
@@ -114,11 +123,16 @@ class IntroMovie:
         index = self.index
         if index is None:
             return None
-        if index != self._index:
+        if index != self._index and index not in self._failed:
             try:
                 frame = self.loader(str(self.paths[index]))
             except (OSError, pygame.error):
-                logger.warning("Intro frame %s missing", self.paths[index])
+                # Once per frame: the previous one stays on screen, and
+                # after a few the movie ends instead of logging every draw.
+                self._failed.add(index)
+                logger.warning(
+                    "Intro frame %s did not load", self.paths[index]
+                )
                 return self._frame
             if pygame.display.get_surface() is not None:
                 frame = frame.convert()
@@ -200,7 +214,7 @@ class IntroPlayer:
             surface.fill(BLACK)
             return
         screen = surface.get_size()
-        key = (self.movie._index, screen)
+        key = (self.movie.shown_index, screen)
         if self._scaled is None or self._scaled[0] != key:
             rect = letterbox(frame.get_size(), screen)
             scaled = pygame.transform.scale(frame, rect.size)
@@ -209,6 +223,20 @@ class IntroPlayer:
         _, scaled, rect, color = self._scaled
         surface.fill(color)
         surface.blit(scaled, rect)
+
+
+def can_decode(path: Path) -> bool:
+    """
+    Whether this build of pygame reads the frames (JPEG needs SDL_image
+    with JPEG; the phone's build is checked here, at launch, once).
+    """
+    if not pygame.image.get_extended():
+        return False
+    try:
+        pygame.image.load(str(path))
+    except (OSError, pygame.error):
+        return False
+    return True
 
 
 def start_intro(
@@ -229,6 +257,9 @@ def start_intro(
     if not should_play(
         driver, os.environ if env is None else env, len(frames)
     ):
+        return False
+    if not can_decode(frames[0]):
+        logger.warning("This build cannot read the intro frames: no intro")
         return False
     names = [state.name for state in client.active_states]
     for name in ("FadeInTransition", "SplashState"):
