@@ -437,22 +437,34 @@ def test_the_compiled_app_boots_before_the_long_build():
     build = yaml.safe_load((REPO / ".github/workflows/android.yml").read_text())
     names = [s.get("name", "") for s in build["jobs"]["apk"]["steps"]]
     boot = names.index("Boot the app the way the phone holds it")
-    assert boot < names.index("Build (debug)")
+    assert boot < names.index("Build")
     script = (REPO / "tools/android/compiled_boot.sh").read_text()
     assert "-OO -m compileall -b" in script and "-name '*.py' -delete" in script
 
 
-def test_debug_builds_keep_one_signing_key():
+def test_every_build_is_signed_with_one_kept_key():
     """
     Without one key, every build needs an uninstall on the phone, which
-    deletes the children's progress (SDD_ANDROID.md §2.4).
+    deletes the children's progress (SDD_ANDROID.md §2.4). The build owns
+    the key (Gradle's own debug key lives where no cache can keep it) and
+    fails when the APK is signed with anything else.
     """
     import yaml
 
-    build = yaml.safe_load((REPO / ".github/workflows/android.yml").read_text())
+    text = (REPO / ".github/workflows/android.yml").read_text()
+    build = yaml.safe_load(text)
     steps = build["jobs"]["apk"]["steps"]
     names = [s.get("name", "") for s in steps]
-    keep = steps[names.index("Keep one debug key for every build")]
+    keep = steps[names.index("Keep one signing key for every build")]
     assert keep["uses"].startswith("actions/cache@")
-    assert keep["with"]["path"] == "~/.android/debug.keystore"
-    assert names.index("Keep one debug key for every build") < names.index("Build (debug)")
+    assert keep["with"]["path"] == "~/.nagmon-signing"
+    assert (
+        names.index("Keep one signing key for every build")
+        < names.index("Signing key")
+        < names.index("Build")
+        < names.index("Signing key fingerprint")
+    )
+    assert "buildozer android release" in text
+    assert "buildozer android debug" not in text
+    fingerprint = steps[names.index("Signing key fingerprint")]["run"]
+    assert "exit 1" in fingerprint and "$P4A_RELEASE_KEYSTORE" in fingerprint

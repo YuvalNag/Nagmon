@@ -82,38 +82,51 @@ jobs:
         pip install -r requirements.txt
         tools/android/compiled_boot.sh build/app 30
 
-    - name: Release key
-      if: env.HAS_KEY == 'true'
-      env:
-        KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-      run: echo "$KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/nagmon.keystore"
-
-    - name: Build (signed release)
-      if: env.HAS_KEY == 'true'
-      working-directory: build/app
-      env:
-        P4A_RELEASE_KEYSTORE: ${{ runner.temp }}/nagmon.keystore
-        P4A_RELEASE_KEYSTORE_PASSWD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-        P4A_RELEASE_KEYALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-        P4A_RELEASE_KEYALIAS_PASSWD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-      run: yes | buildozer android release
-
-    - name: Keep one debug key for every build
-      # Gradle makes ~/.android/debug.keystore when it is missing, so each
-      # fresh runner signed with a new key and the phone refused to update
-      # (uninstalling deletes the children's progress). The cache keeps the
-      # first one. GitHub drops a cache unused for 7 days; the secrets
-      # above are the permanent answer.
+    - name: Keep one signing key for every build
+      # Every build is signed with the same key, so the phone installs it
+      # over the previous one and keeps the children's progress
+      # (uninstalling deletes it). With the ANDROID_KEYSTORE_* secrets that
+      # key is the owner's; without them the build makes one key the first
+      # time and the Actions cache keeps it (GitHub drops a cache unused
+      # for 7 days, so the secrets are the permanent way).
       if: env.HAS_KEY != 'true'
       uses: actions/cache@v4
       with:
-        path: ~/.android/debug.keystore
-        key: android-debug-keystore-${{ matrix.arch }}-v1
+        path: ~/.nagmon-signing
+        key: nagmon-signing-${{ matrix.arch }}-v1
 
-    - name: Build (debug)
-      if: env.HAS_KEY != 'true'
+    - name: Signing key
+      env:
+        KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      run: |
+        if [ "$HAS_KEY" = "true" ]; then
+          keystore="$RUNNER_TEMP/nagmon.keystore"
+          echo "$KEYSTORE_B64" | base64 --decode > "$keystore"
+          password="$KEYSTORE_PASSWORD"; alias="$KEY_ALIAS"
+        else
+          keystore="$HOME/.nagmon-signing/nagmon.keystore"
+          password="nagmon-ci"; alias="nagmon"
+          if [ ! -f "$keystore" ]; then
+            mkdir -p "$(dirname "$keystore")"
+            keytool -genkeypair -keystore "$keystore" -storetype PKCS12 \
+              -alias "$alias" -keyalg RSA -keysize 2048 -validity 25000 \
+              -storepass "$password" -keypass "$password" \
+              -dname "CN=Nagmon, O=Nagmon"
+            echo "Made a new signing key (first build, or the cache expired)."
+          fi
+        fi
+        {
+          echo "P4A_RELEASE_KEYSTORE=$keystore"
+          echo "P4A_RELEASE_KEYSTORE_PASSWD=$password"
+          echo "P4A_RELEASE_KEYALIAS=$alias"
+          echo "P4A_RELEASE_KEYALIAS_PASSWD=$password"
+        } >> "$GITHUB_ENV"
+
+    - name: Build
       working-directory: build/app
-      run: yes | buildozer android debug
+      run: yes | buildozer android release
 
     - name: Summary
       if: always()
@@ -123,8 +136,8 @@ jobs:
           ls -la build/app/bin 2>/dev/null || echo "No APK was built."
           if [ "$HAS_KEY" != "true" ]; then
             echo
-            echo "Debug build, signed with the cached debug key: it installs over the previous build."
-            echo "Add the ANDROID_KEYSTORE_* secrets for builds that update in place (docs/kids/HOW_TO_PLAY.md)."
+            echo "Signed with the key kept in the Actions cache: it installs over the previous build."
+            echo "The cache drops the key after 7 days without a build; the ANDROID_KEYSTORE_* secrets keep one for good (docs/kids/HOW_TO_PLAY.md)."
           fi
         } >> "$GITHUB_STEP_SUMMARY"
 
@@ -138,12 +151,20 @@ jobs:
         retention-days: 3
 
     - name: Signing key fingerprint
-      # The same fingerprint on every build means the phone installs it
-      # over the previous one.
+      # The APK must carry the key above: the same fingerprint on every
+      # build means the phone installs it over the previous one.
       run: |
         apksigner=$(ls ~/.buildozer/android/platform/android-sdk/build-tools/*/apksigner | tail -1)
-        "$apksigner" verify --print-certs build/app/bin/*.apk | grep -i "SHA-256" \
-          | tee -a "$GITHUB_STEP_SUMMARY"
+        signed=$("$apksigner" verify --print-certs build/app/bin/*.apk \
+          | grep -m1 "certificate SHA-256 digest" | awk '{print $NF}')
+        expected=$(keytool -list -v -keystore "$P4A_RELEASE_KEYSTORE" \
+          -storepass "$P4A_RELEASE_KEYSTORE_PASSWD" -alias "$P4A_RELEASE_KEYALIAS" \
+          | grep -m1 "SHA256:" | sed 's/.*SHA256: //; s/://g' | tr 'A-F' 'a-f')
+        echo "signing key SHA-256: $signed" | tee -a "$GITHUB_STEP_SUMMARY"
+        if [ -z "$signed" ] || [ "$signed" != "$expected" ]; then
+          echo "::error::The APK is not signed with the build's signing key ($signed vs $expected)"
+          exit 1
+        fi
 
     - name: Check what is inside the APK
       run: python tools/android/check_apk.py build/app/bin/*.apk --layout
