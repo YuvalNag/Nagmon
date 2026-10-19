@@ -308,32 +308,43 @@ def test_pygame_ce_without_a_build_fails_loudly(monkeypatch, tmp_path):
 import check_apk  # noqa: E402
 
 
+def _tar(members) -> bytes:
+    data = io.BytesIO()
+    with tarfile.open(fileobj=data, mode="w:gz") as tf:
+        for name in members:
+            info = tarfile.TarInfo(name)
+            info.size = 0
+            tf.addfile(info, io.BytesIO(b""))
+    return data.getvalue()
+
+
 def _apk(tmp_path, *, drop=(), extra=()):
-    """A fake APK shaped like python-for-android's (app in a tar)."""
+    """
+    A fake APK shaped like python-for-android's: the byte-compiled app in
+    assets/private.tar, the libraries in lib/arm64-v8a/libpybundle.so.
+    """
     site = "_python_bundle/site-packages"
-    members = [
-        "main.py",
-        "run_tuxemon.py",
+    app = [
+        "main.pyc",
+        "run_tuxemon.pyc",
         "tuxemon/__init__.pyc",
         "nagmon/__init__.pyc",
         "mods/tuxemon/mod.yaml",
         "mods/nagmon/mod.yaml",
         "mods/db_config.yaml",
+    ]
+    libs = [
         f"{site}/pygame/base.cpython-314-aarch64-linux-android.so",
         f"{site}/pydantic_core/_pydantic_core.cpython-314.so",
     ]
-    members += [f"{site}/{lib}/__init__.pyc" for lib in check_apk.LIBRARIES]
-    members = [m for m in members if not any(d in m for d in drop)]
-    members += list(extra)
-    tar_bytes = io.BytesIO()
-    with tarfile.open(fileobj=tar_bytes, mode="w:gz") as tf:
-        for name in members:
-            info = tarfile.TarInfo(name)
-            info.size = 0
-            tf.addfile(info, io.BytesIO(b""))
+    libs += [f"{site}/{lib}/__init__.pyc" for lib in check_apk.LIBRARIES]
+    keep = lambda names: [m for m in names if not any(d in m for d in drop)]  # noqa: E731
     apk = tmp_path / "nagmon.apk"
     with zipfile.ZipFile(apk, "w") as zf:
-        zf.writestr("assets/private.tar", tar_bytes.getvalue())
+        zf.writestr("assets/private.tar", _tar(keep(app)))
+        zf.writestr(
+            "lib/arm64-v8a/libpybundle.so", _tar(keep(libs) + list(extra))
+        )
         zf.writestr("lib/arm64-v8a/libSDL2.so", b"")
         zf.writestr("lib/arm64-v8a/libpython3.14.so", b"")
     return apk
@@ -354,6 +365,9 @@ def test_complete_apk_passes(tmp_path):
         pytest.param(("/yaml/",), "missing library yaml", id="no-yaml"),
         pytest.param(
             ("base.cpython",), "missing compiled pygame", id="pygame-not-built"
+        ),
+        pytest.param(
+            ("main.pyc",), "missing app file main.py", id="no-entry-point"
         ),
     ],
 )

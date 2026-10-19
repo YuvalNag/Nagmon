@@ -6,8 +6,9 @@ library it imports, with the compiled parts built for the phone.
 Usage:
     python tools/android/check_apk.py path/to/nagmon.apk [--layout]
 
-python-for-android puts the app and its Python libraries into tar files
-under ``assets/``; this looks inside them too. Exits non-zero and names
+python-for-android puts the app into ``assets/private.tar`` and the
+Python libraries into ``lib/<arch>/libpybundle.so`` (a tar file with a
+library's name); this looks inside both. Exits non-zero and names
 what is missing.
 """
 
@@ -71,13 +72,20 @@ NATIVE = {
 PURE_ONLY = {"bidi": re.compile(r"bidi/[^/]*\.so$")}
 
 
+def _is_bundle(name: str) -> bool:
+    """The app (assets/private.tar) and the libraries (libpybundle.so)."""
+    return (name.startswith("assets/") and ".tar" in name) or name.endswith(
+        "/libpybundle.so"
+    )
+
+
 def names_in_apk(apk: Path) -> list[str]:
     """Every file name in the APK, including inside its asset tar files."""
     names: list[str] = []
     with zipfile.ZipFile(apk) as zf:
         for name in zf.namelist():
             names.append(name)
-            if name.startswith("assets/") and ".tar" in name:
+            if _is_bundle(name):
                 data = zf.read(name)
                 with tarfile.open(fileobj=io.BytesIO(data), mode="r:*") as tf:
                     names.extend(m.name.lstrip("./") for m in tf.getmembers())
@@ -96,7 +104,8 @@ def problems(names: list[str]) -> list[str]:
         if path.endswith("/"):
             if not any(n.startswith(path) for n in names):
                 found.append(f"missing app folder {path}")
-        elif path not in names:
+        elif path not in names and path + "c" not in names:
+            # Python files are byte-compiled: main.py ships as main.pyc.
             found.append(f"missing app file {path}")
     for lib in LIBRARIES:
         if not _has_library(names, lib):
@@ -110,7 +119,7 @@ def problems(names: list[str]) -> list[str]:
     return found
 
 
-def layout(names: list[str], depth: int = 3) -> dict[str, int]:
+def layout(names: list[str], depth: int = 2) -> dict[str, int]:
     """File counts per folder, a few levels deep (for the build log)."""
     counts: dict[str, int] = {}
     for name in names:
