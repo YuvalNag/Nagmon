@@ -10,6 +10,7 @@ import atexit
 import logging
 from typing import TYPE_CHECKING, Any, ClassVar
 
+from nagmon.field_data import app_log
 from nagmon.game_flow import avatar_keys
 from nagmon.runtime import NagmonRuntime, get_runtime, set_runtime
 from tuxemon.constants import paths
@@ -111,6 +112,7 @@ class NagmonStartupRule(StartupRule):
 
     def apply(self) -> None:
         first_run = not data_root().exists()
+        start_app_log()
         set_runtime(build_runtime())
         # Closing the window (or a crash) must still count the last
         # minutes of play and save the child's learning.
@@ -122,10 +124,20 @@ class NagmonStartupRule(StartupRule):
         logger.info("Nagmon runtime ready")
 
 
+def start_app_log() -> None:
+    """The app's own log (SDD_FIELD_DATA §2.2); on the phone ``main.py``
+    already started it, and this only restores its levels."""
+    try:
+        app_log.install(data_root())
+    except Exception:  # the log must never stop the game
+        logger.exception("Could not start the app log")
+
+
 def pause_play() -> None:
     rt = get_runtime()
     if rt is not None:
         rt.pause()
+    app_log.save(ending="background")
 
 
 def resume_play() -> None:
@@ -137,12 +149,12 @@ def resume_play() -> None:
 def stop_play_at_exit() -> None:
     """Ends the playing child's session when the game closes."""
     rt = get_runtime()
-    if rt is None:
-        return
-    try:
-        rt.stop_play()
-    except Exception:
-        logger.exception("Could not end the play session at exit")
+    if rt is not None:
+        try:
+            rt.stop_play()
+        except Exception:
+            logger.exception("Could not end the play session at exit")
+    app_log.save()
 
 
 def switch_to_hebrew() -> None:

@@ -28,6 +28,17 @@ def clock() -> FakeClock:
     return FakeClock()
 
 
+@pytest.fixture(autouse=True)
+def _no_app_log_after_the_test():
+    """Starting the game (rules.apply) starts the app's log on the root
+    logger; it must not outlive the test."""
+    yield
+    from nagmon.field_data import app_log
+
+    if app_log.current() is not None:
+        app_log.uninstall()
+
+
 @pytest.fixture(scope="session")
 def library():
     from nagmon.learning.content import ContentLibrary
