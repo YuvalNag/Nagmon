@@ -387,3 +387,18 @@ def test_native_bidi_is_caught(tmp_path):
 def test_layout_counts_files_per_folder():
     counts = check_apk.layout(["a/b/c.py", "a/b/d.py", "a/e.py"], depth=2)
     assert counts == {"a/b": 2, "a/e.py": 1}
+
+
+def test_every_apk_is_opened_on_an_emulator():
+    import yaml
+
+    workflows = REPO / ".github" / "workflows"
+    build = yaml.safe_load((workflows / "android.yml").read_text())
+    job = build["jobs"]["emulator"]
+    assert job["needs"] == "apk"
+    assert job["uses"] == "./.github/workflows/android-smoke.yml"
+    smoke = (workflows / "android-smoke.yml").read_text()
+    assert "bash tools/android/smoke.sh apk" in smoke
+    script = (REPO / "tools" / "android" / "smoke.sh").read_text()
+    # It fails on a stopped app or a Python error, not only on install.
+    assert "the app stopped" in script and "Traceback" in script

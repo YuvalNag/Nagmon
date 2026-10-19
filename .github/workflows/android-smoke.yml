@@ -1,0 +1,93 @@
+name: Android on an emulator
+
+# Opens the built APK on an Android emulator and checks it keeps running
+# (docs/kids/SDD_ANDROID.md §5). The log and screenshots are uploaded as
+# "android-smoke-<run>". The app is built for arm64; Android 11 emulator
+# images run it through ARM translation (slower than a phone).
+
+on:
+  workflow_call:
+    inputs:
+      same-run:
+        type: boolean
+        default: false
+  workflow_dispatch:
+    inputs:
+      apk-run:
+        description: "Run id of the Android APK build (empty: latest that passed)"
+        required: false
+  push:
+    paths:
+      - "tools/android/smoke.sh"
+      - ".github/workflows/android-smoke.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  emulator:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Which build to test
+      id: which
+      if: ${{ !inputs.same-run }}
+      env:
+        GH_TOKEN: ${{ github.token }}
+        APK_RUN: ${{ inputs.apk-run }}
+      run: |
+        run="$APK_RUN"
+        if [ -z "$run" ]; then
+          run=$(gh run list -R "$GITHUB_REPOSITORY" --workflow android.yml \
+                --status success --limit 1 --json databaseId -q '.[0].databaseId')
+        fi
+        echo "testing the APK from run $run"
+        echo "run=$run" >> "$GITHUB_OUTPUT"
+
+    - name: Get the APK (this run)
+      if: ${{ inputs.same-run }}
+      uses: actions/download-artifact@v4
+      with:
+        pattern: nagmon-android-*
+        path: apk
+        merge-multiple: true
+
+    - name: Get the APK (earlier run)
+      if: ${{ !inputs.same-run }}
+      uses: actions/download-artifact@v4
+      with:
+        pattern: nagmon-android-*
+        path: apk
+        merge-multiple: true
+        run-id: ${{ steps.which.outputs.run }}
+        github-token: ${{ github.token }}
+
+    - name: Enable KVM
+      run: |
+        echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+          | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+        sudo udevadm control --reload-rules
+        sudo udevadm trigger --name-match=kvm
+
+    - name: Open the app on the emulator
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 30
+        arch: x86_64
+        target: google_apis
+        ram-size: 4096M
+        disk-size: 6000M
+        disable-animations: true
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+        script: bash tools/android/smoke.sh apk 360
+
+    - name: Upload the log and screenshots
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-smoke-${{ github.run_number }}
+        path: smoke/
+        if-no-files-found: ignore

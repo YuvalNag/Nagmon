@@ -113,3 +113,13 @@ jobs:
         name: buildozer-log-${{ github.run_number }}
         path: build/app/.buildozer/android/platform/build-*/*.log
         if-no-files-found: ignore
+
+  emulator:
+    # Opens this APK on an Android emulator: a crash fails the build.
+    needs: apk
+    permissions:
+      actions: read
+      contents: read
+    uses: ./.github/workflows/android-smoke.yml
+    with:
+      same-run: true
