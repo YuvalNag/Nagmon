@@ -40,7 +40,7 @@
   combat: {}
   audio: {}
   template:
-    sprite_name: florist
+    sprite_name: nagmon_teacher
     combat_sheet: nagmon_teacher
     slug: florist
 - slug: nagmon_kid
@@ -105,3 +105,21 @@
     combat_sheet: noclass
     slug: noclass
     is_static_prop: true
+# Master Granite of our geometry academy (SDD_WORLD §2.5). Only the
+# academy creates him; this replaces Tuxemon's entry of the same slug,
+# with the same words and the owner's art (SDD_ART §2.9). The other
+# masters keep "monk".
+- slug: classic_gym_leader_granite
+  speech:
+    profile:
+      default:
+        pre_battle: classic_gym_leader_granite_pre
+        post_battle_win: null
+        post_battle_lose: classic_gym_leader_granite_post
+        post_battle_draw: null
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_granite
+    combat_sheet: nagmon_granite
+    slug: monk

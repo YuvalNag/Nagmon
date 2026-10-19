@@ -25,13 +25,13 @@ FAMILIES = (
 )
 NEW_MONSTERS = [m for base, evo, _ in FAMILIES for m in (base, evo)]
 
-#: NPC slug -> its new combat sheet, and its map sheet (SDD_ART §2.7;
-#: the kindergarten teacher keeps Tuxemon's until hers comes).
+#: NPC slug -> its new combat sheet, and its map sheet (SDD_ART §2.7,
+#: §2.9).
 NPC_SHEETS = {
     "nagmon_owl": ("nagmon_owl", "nagmon_owl"),
     "nagmon_cashier": ("nagmon_shopkeeper", "nagmon_shopkeeper"),
     "nagmon_tourist": ("nagmon_traveler", "nagmon_tourist"),
-    "nagmon_gardener": ("nagmon_teacher", "florist"),
+    "nagmon_gardener": ("nagmon_teacher", "nagmon_teacher"),
 }
 HD_MAP = (384, 1024)  # 8 x 48x128 (SDD_ART §2.6)
 
@@ -274,3 +274,59 @@ def test_the_cape_line_and_the_caped_sheet_exist():
         assert img.size == HD_MAP
     text = TOWN.read_text(encoding="utf-8")
     assert text.count(CAPE) == 2
+
+
+# ------------------------------------------ second batch (SDD_ART §2.9)
+
+
+@pytest.mark.parametrize(
+    ("slug", "sprite", "sheet"),
+    [
+        ("nagmon_gardener", "nagmon_teacher", "nagmon_teacher"),
+        ("classic_gym_leader_granite", "nagmon_granite", "nagmon_granite"),
+    ],
+)
+def test_teacher_and_granite_wear_their_new_sheets(
+    moddata, slug, sprite, sheet
+):
+    template = moddata.database["npc"][slug].template
+    assert (template.sprite_name, template.combat_sheet) == (sprite, sheet)
+    with Image.open(NAGMON / "sprites" / f"{sprite}.png") as img:
+        assert img.size == HD_MAP
+    with Image.open(NAGMON / "gfx/sprites/player" / f"{sheet}.png") as img:
+        assert img.size == (384, 192)
+
+
+def test_granite_keeps_his_words_and_other_monks_stay(moddata):
+    granite = moddata.database["npc"]["classic_gym_leader_granite"]
+    words = granite.speech.model_dump(mode="json")["profile"]["default"]
+    assert words["pre_battle"] == "classic_gym_leader_granite_pre"
+    assert words["post_battle_lose"] == "classic_gym_leader_granite_post"
+    pyra = moddata.database["npc"]["classic_gym_leader_pyra"].template
+    assert (pyra.sprite_name, pyra.combat_sheet) == ("monk", "monk")
+
+
+def test_the_new_heroes_come_first_and_old_keys_stay():
+    from nagmon.game_flow import AVATARS, avatar_by_key
+
+    keys = [a.key for a in AVATARS]
+    assert keys[:2] == ["boy_blue", "girl_teal"]
+    old = {
+        "boy_light": ("adventurer", "adventurer"),
+        "boy_dark": ("adventurerblack", "adventurerblack"),
+        "girl_light": ("heroine", "heroine"),
+        "girl_dark": ("brownheroine_brown", "heroineblack"),
+    }
+    for key, (sprite, sheet) in old.items():
+        a = avatar_by_key(key)
+        assert (a.key, a.sprite, a.combat_sheet) == (key, sprite, sheet)
+    for key, name in (
+        ("boy_blue", "nagmon_hero_boy"),
+        ("girl_teal", "nagmon_hero_girl"),
+    ):
+        a = avatar_by_key(key)
+        assert a.sprite == a.combat_sheet == name
+        with Image.open(NAGMON / "sprites" / f"{name}.png") as img:
+            assert img.size == HD_MAP
+        with Image.open(NAGMON / "gfx/sprites/player" / f"{name}.png") as img:
+            assert img.size == (384, 384)  # HD 3 x 128x128, like heroine

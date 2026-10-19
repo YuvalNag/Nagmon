@@ -19,7 +19,13 @@ class Avatar:
 
 
 #: Characters a child may pick. All are modest (see SDD_MODESTY.md).
+#: The owner's HD heroes come first (SDD_ART §2.9); the older keys stay,
+#: since profiles store them.
 AVATARS: tuple[Avatar, ...] = (
+    Avatar("boy_blue", "nagmon_hero_boy", "nagmon_hero_boy", "male", "בן"),
+    Avatar(
+        "girl_teal", "nagmon_hero_girl", "nagmon_hero_girl", "female", "בת"
+    ),
     Avatar("boy_light", "adventurer", "adventurer", "male", "בן"),
     Avatar("boy_dark", "adventurerblack", "adventurerblack", "male", "בן"),
     Avatar("girl_light", "heroine", "heroine", "female", "בת"),
