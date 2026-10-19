@@ -45,6 +45,9 @@ jobs:
             Start-Process -FilePath $setup -ArgumentList "/S" -Wait
           }
           echo "$nsisPath" | Out-File -Append $env:GITHUB_PATH
+          # A failed choco attempt leaves its exit code behind; the next step
+          # is the real check.
+          exit 0
 
       - name: Check NSIS availability
         run: |
