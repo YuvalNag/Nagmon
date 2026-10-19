@@ -3,7 +3,7 @@ Boots the game headless, starts a new game for a child and walks through
 the first world chapter (docs/kids/SDD_WORLD.md §4).
 
 Usage:
-    HOME=/tmp/nagmon-home python tools/dev/world_tour.py OUTDIR
+    HOME=/tmp/nagmon-home python tools/dev/world_tour.py OUTDIR [--avatar=KEY]
     HOME=/tmp/nagmon-home python tools/dev/world_tour.py --smoke
 
 Use a throwaway HOME: the game writes its config, saves and profiles
@@ -29,6 +29,11 @@ sys.path.insert(0, str(REPO))
 os.chdir(REPO)
 
 SMOKE = "--smoke" in sys.argv
+#: --avatar=KEY: the child's character (nagmon/game_flow.py AVATARS).
+AVATAR = next(
+    (a.split("=", 1)[1] for a in sys.argv if a.startswith("--avatar=")),
+    "girl_light",
+)
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
 out = Path(args[0]) if args else None
 if out is not None:
@@ -139,7 +144,7 @@ rt.parent.settings.holiday_mode = False
 if not rt.store.list():
     from nagmon.game_flow import defaults_for_grade
 
-    rt.store.create(name="נועה", avatar="girl_light", **defaults_for_grade(2))
+    rt.store.create(name="נועה", avatar=AVATAR, **defaults_for_grade(2))
 child = rt.store.list()[0]
 client.get_state_by_name("ProfileSelectState").pick(child.id)
 assert wait_for("StartState"), names()
@@ -277,7 +282,9 @@ for _ in range(60):
     if "CombatState" in names():
         break
     step(10)
-step(240)
+step(40)
+shot("world_08a_battle_start")  # the child's back view comes in
+step(200)
 shot("world_08_battle")
 print("battle:", names())
 for _ in range(5):
@@ -295,6 +302,24 @@ step(10)
 press()
 step(240)
 shot("world_07_academy_master")
+# A duel with the master: his battle portrait.
+for _ in range(5):
+    if names()[0] == "WorldState":
+        break
+    client.pop_state()
+    step(2)
+ex("start_battle", ["player", "classic_gym_leader_granite"], True)
+for _ in range(60):
+    if "CombatState" in names():
+        break
+    step(10)
+step(60)
+shot("world_07b_granite_duel")
+for _ in range(6):
+    if names()[0] == "WorldState":
+        break
+    client.pop_state()
+    step(2)
 print(
     "variables:",
     {
