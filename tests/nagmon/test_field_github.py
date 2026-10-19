@@ -583,3 +583,23 @@ def test_a_passing_github_failure_is_not_kept_for_an_hour():
     assert gh.check().code is Code.FAILED
     assert gh.cached() is None
     assert gh.check().code is Code.OK
+
+
+@pytest.mark.parametrize(
+    "repo", ["a/b/../../user", "a/b?x=1", "a b/c", "/x", "owner/", "x"]
+)
+def test_an_odd_repo_in_the_secrets_file_falls_back_to_the_data_repo(
+    tmp_path, repo
+):
+    """The repo goes into the API URL as is: only owner/name is used."""
+    (tmp_path / "secrets.json").write_text(
+        json.dumps({"github": {"token": TOKEN, "repo": repo}})
+    )
+    assert load_access(tmp_path) == GitHubAccess(TOKEN, DEFAULT_REPO)
+
+
+def test_another_data_repo_can_be_set(tmp_path):
+    (tmp_path / "secrets.json").write_text(
+        json.dumps({"github": {"token": TOKEN, "repo": "Other-1/my.data_2"}})
+    )
+    assert load_access(tmp_path).repo == "Other-1/my.data_2"

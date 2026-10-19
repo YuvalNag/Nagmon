@@ -15,6 +15,7 @@ import base64
 import hashlib
 import json
 import logging
+import re
 import time
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -43,6 +44,8 @@ CHECK_TTL = 3600.0
 #: PUT attempts in all when the branch moved (409/422).
 MAX_TRIES = 3
 SECRETS_KEY = "github"
+#: owner/name: the repo goes into the API URL as is.
+_REPO = re.compile(r"[A-Za-z0-9-]+/[A-Za-z0-9._-]+")
 
 
 class Code(str, Enum):
@@ -102,7 +105,7 @@ def load_access(data_root: Path) -> GitHubAccess | None:
     token, repo = stored.get("token"), stored.get("repo")
     if not isinstance(token, str) or not token.strip():
         return None
-    if not isinstance(repo, str) or "/" not in repo:
+    if not isinstance(repo, str) or not _REPO.fullmatch(repo.strip()):
         repo = DEFAULT_REPO
     return GitHubAccess(token.strip(), repo.strip())
 
