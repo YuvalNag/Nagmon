@@ -142,7 +142,8 @@ class RingLog(logging.Handler):
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
         tmp = path.with_name(path.name + ".tmp")
-        tmp.write_text(text, encoding="utf-8")
+        # A lone surrogate (a path read with surrogateescape) becomes "?".
+        tmp.write_text(text, encoding="utf-8", errors="replace")
         os.replace(tmp, path)
 
     def load(self, path: Path) -> str | None:
@@ -297,7 +298,7 @@ def save(*, ending: str | None = None) -> None:
         ending = "crash" if _crashed else (ending or "exit")
     try:
         _current.save(_root / LOG_FILE, ending=ending)
-    except OSError as exc:
+    except Exception as exc:  # runs on the game's thread and at exit
         logging.getLogger(__name__).warning("Could not save the log: %s", exc)
 
 

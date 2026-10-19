@@ -565,3 +565,10 @@ def test_the_names_to_hide(tmp_path):
     assert set(data.names()) == {"נועה", "Zephyrine"}
     rt.store.delete(rt.store.list()[0].id)
     assert set(data.names()) == {"נועה", "Zephyrine"}
+
+
+def test_a_log_with_an_odd_character_is_still_sent(tmp_path):
+    transport = fake(created())
+    data = _service(tmp_path, transport)
+    data.connect(TOKEN)
+    assert data.send_log("12:00:00 WARNING nagmon.x: no file a\udcffb\n").ok

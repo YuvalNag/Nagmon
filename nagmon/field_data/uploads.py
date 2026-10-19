@@ -198,7 +198,9 @@ class FieldData:
         now = datetime.fromtimestamp(self._clock(), tz=timezone.utc)
         path = upload_path(install_id(self.root), kind, now)
         result = self._client(access).put(
-            path, clean.encode("utf-8"), f"Field data: {kind}"
+            path,
+            clean.encode("utf-8", errors="replace"),
+            f"Field data: {kind}",
         )
         logger.info("Upload of %s: %s", kind, result.code.value)
         return result

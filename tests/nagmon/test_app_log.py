@@ -243,3 +243,25 @@ def test_the_game_starts_and_saves_the_log(monkeypatch, tmp_path):
     finally:
         runtime_mod.set_runtime(None)
         app_log.uninstall()
+
+
+def test_an_odd_character_does_not_stop_saving(tmp_path, ring):
+    """A path read with surrogateescape can carry a lone surrogate; UTF-8
+    cannot write it. save() runs when the app goes to the background, on
+    the game's thread, so it must never raise."""
+    ring.emit(_record("nagmon.x", logging.WARNING, "no file %s", "a\udcffb"))
+    ring.save(tmp_path / "log.txt")
+    assert "no file a" in (tmp_path / "log.txt").read_text("utf-8")
+
+
+def test_saving_never_raises(tmp_path, monkeypatch):
+    try:
+        ring = app_log.install(tmp_path, clock=lambda: NOW)
+
+        def broken(*a, **k):
+            raise ValueError("odd")
+
+        monkeypatch.setattr(ring, "save", broken)
+        app_log.save(ending="background")  # does not raise
+    finally:
+        app_log.uninstall()
