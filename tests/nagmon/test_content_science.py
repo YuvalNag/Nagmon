@@ -6,7 +6,6 @@ Only yaml + stdlib, so the checks run fast and without pygame.
 from __future__ import annotations
 
 import re
-import unicodedata
 from collections import Counter
 from pathlib import Path
 
@@ -60,6 +59,7 @@ MIN_ITEMS_PER_SKILL = 10
 
 NIQQUD = re.compile("[֑-ׇ]")
 HEBREW_LETTER = re.compile("[א-ת]")
+EMOJI_DIR = LEARNING.parent / "gfx" / "emoji"
 EMOJI_HEX = re.compile(r"[0-9a-f]{4,6}(-[0-9a-f]{4,6})*")
 ID_RE = re.compile(r"[a-z0-9_]+(\.[a-z0-9_]+)+")
 
@@ -240,12 +240,12 @@ def _emoji_valid(code) -> bool:
         cp = int(part, 16)
         if part in ("200d", "fe0f"):
             continue
-        # Twemoji file names: emoji code points are >= U+00A9; names must exist (or be in the newest emoji block).
-        if cp < 0xA9 or (
-            unicodedata.name(chr(cp), None) is None and cp < 0x1FA70
-        ):
+        # Twemoji file names: emoji code points are >= U+00A9.
+        if cp < 0xA9:
             return False
-    return True
+    # The picture must ship with the game. (Python's own Unicode tables
+    # are too old on 3.10 for newer emoji such as U+1F6DE.)
+    return (EMOJI_DIR / f"{code}.png").is_file()
 
 
 @pytest.mark.parametrize("entry", ITEMS, ids=_item_param_id)

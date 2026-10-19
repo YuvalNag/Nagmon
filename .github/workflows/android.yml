@@ -47,7 +47,8 @@ jobs:
         sudo apt-get install -y --no-install-recommends \
           autoconf automake libtool libltdl-dev pkg-config cmake \
           zip unzip libffi-dev libssl-dev zlib1g-dev ccache
-        pip install buildozer==1.6.0 "cython>=3.0,<3.2" setuptools pyyaml
+        # buildozer brings the Cython it needs (<3).
+        pip install buildozer==1.6.0 setuptools pyyaml
         # pydantic-core is Rust.
         rustup target add aarch64-linux-android
 
