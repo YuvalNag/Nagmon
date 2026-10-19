@@ -145,7 +145,7 @@
 | 16 | הסוגים | Geometrion ו־Polygonos → גאומטריה. Alphabel ו־Lexicon → אנגלית. כל מהלך קיים |
 | 17 | מחרוזות | שם, תיאור וסוג (`cat_*`) ב־nagmon.po של שתי השפות |
 | 18 | דרך 1 | `nagmon_route1` כולל את כל הרשומות של `spyder_citypark` ועוד Geometrion ו־Alphabel. ‏`spyder_citypark` כמו ב־Tuxemon. בסקריפט של דרך 1, שלושת אירועי המפגש מחליפים את אלה של ה־TMX, באותם אזורים |
-| 18א | `replaces` (`tests/tuxemon/test_map_event_replaces.py`) | אירוע ה־TMX באותו שם יוצא, והאירוע של הסקריפט נכנס. בלי `replaces`: רק הוספה |
+| 18א | `replaces` (`tests/tuxemon/test_map_event_replaces.py`) | אירוע ה־TMX באותו שם יוצא, והאירוע של הסקריפט נכנס. בלי `replaces`: רק הוספה. אירוע מחליף שלא נבנה: ה־TMX נשאר. שם שלא נמצא: אזהרה. קובץ פגום: נרשם, והמפה נטענת |
 | 19 | ה־NPC של פרק 1 | הינשוף, המוכר, התייר והגננת עם גיליון קרב חדש (HD, ‏384×192) |
 | 20 | הדיאלוגים | כל שורה של ארבעתם מציגה את ה־avatar שלהם |
 | 21 | `stage.py` | ‏`icon.png` ו־`presplash.png` הם `owl_icon.png`, ‏512×512 |
