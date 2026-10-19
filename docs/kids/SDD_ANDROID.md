@@ -166,6 +166,24 @@ class AndroidTTSBackend:   # id="android", online=False, extension=".wav"
   - שלוש שעות ב־YouTube לא נספרות. (בלי זה, `max_tick_gap_s` היה מגביל את הנזק ל־2 דקות.)
 - **סגירה בכוח:** הנתונים נשמרים אחרי כל תשובה (`on_answer` → `persist`), ולכן אין אובדן.
 
+### 2.6 דוח קריסה בטלפון
+בטלפון אין מסוף ואין logcat בלי מחשב. כשהמשחק קורס, הדוח צריך להגיע אליי בלי כלים ובלי מפתחות.
+- **מה נתפס:**
+  - שגיאת Python, גם לפני שהמשחק עלה: `main.py` עוטף את `launch_game`.
+  - שגיאה בתוך המשחק: `handle_fatal_error` קורא ל־`run_tuxemon.on_fatal_error`.
+  - קריסה של קוד מקומפל (SIGSEGV וכדומה): `faulthandler` כותב את מחסנית ה־Python לקובץ. הדוח מוצג בפתיחה הבאה.
+- **מה בדוח:** גרסה ומספר בנייה (`build_info.json` מ־`stage.py`), דגם הטלפון וגרסת אנדרואיד, גרסת Python, זמן ב־UTC וה־traceback.
+- **מה לא בדוח:**
+  - מפתחות: `redact_secrets` מסתיר מפתחות Groq, Gemini, GitHub, OpenAI ו־`Bearer`, וגם כל מפתח שנשמר ב־`secrets.json`.
+  - תוכן שיחות, תשובות ונתוני ילדים, שלא נכנסים אליו בכלל.
+- **איך הוא יוצא מהטלפון:**
+  - חלון אנדרואיד שואל "המשחק נעצר. לשלוח את הפרטים?". "שליחה" פותחת את חלון השיתוף של אנדרואיד (WhatsApp, Gmail וכו').
+  - ההורה רואה את הטקסט לפני השליחה. בלי לחיצה שום דבר לא יוצא (PLAYBOOK: פרטיות).
+- **איפה הוא נשמר:** `ANDROID_PRIVATE/crash/last_crash.txt`, אחרון בלבד. זה הבסיס ל"שליחת לוג" מאזור ההורים (`GAME_PLAN.md` §12.5).
+- **הקבצים:**
+  - `nagmon/crash_report.py`: בניית הדוח, הסתרה ושמירה. בלי אנדרואיד, ונבדק במחשב.
+  - `nagmon/android/crash_dialog.py`: החלון והשיתוף דרך pyjnius.
+
 ## 3. בדיקות (TDD)
 
 | בדיקה | קובץ |
@@ -180,6 +198,8 @@ class AndroidTTSBackend:   # id="android", online=False, extension=".wav"
 | החיצים: פעילים רק במפה, משחררים חץ לחוץ, לא מצוירים כשהם כבויים, ולא שולחים גם לחיצת עכבר | `test_touch_menus.py` |
 | `stage.py`: מה נכנס ומה לא, ו־`main.py` במקום | `tests/nagmon/test_android_stage.py` |
 | המתכונים נטענים כמודולים, ושמות הגרסאות תואמים ל־`requirements` | `tests/nagmon/test_android_build_config.py` |
+| דוח קריסה: שגיאה לפני עליית המשחק ובתוכו, קריסה מקומפלת מהפעם הקודמת, מפתחות מוסתרים, בלי לחיצה אין שיתוף | `tests/nagmon/test_crash_report.py` |
+| האמולטור: כל APK נפתח באנדרואיד 11 (x86_64) ונשאר פתוח 6 דקות | `.github/workflows/android-smoke.yml` |
 | סיור מגע: מסך 2400×1080, ובלי מקלדת בכלל. PIN, אשף שחקן בעברית, בחירת ילד, שאלה, משחק חדש, בחירת מפלצת והליכה עם החיצים | `tools/dev/touch_tour.py` |
 
 **בדיקת קבלה אמיתית (בטלפון):**

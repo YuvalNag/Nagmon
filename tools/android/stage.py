@@ -12,6 +12,8 @@ Then, in OUTDIR: ``buildozer android debug`` (or ``release``).
 from __future__ import annotations
 
 import argparse
+import json
+import os
 import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -170,7 +172,7 @@ def stage(
     if out.exists():
         shutil.rmtree(out)
     out.mkdir(parents=True)
-    report = StageReport(extensions=["py"])
+    report = StageReport(extensions=["json", "py"])
 
     for name in GAME_DIRS:
         _copy_tree(repo / name, out, repo, report)
@@ -188,6 +190,18 @@ def stage(
     shutil.copy2(repo / ICON, out / "icon.png")
     shutil.copy2(repo / ICON, out / "presplash.png")
 
+    # Named in crash reports (docs/kids/SDD_ANDROID.md §2.6).
+    (out / "build_info.json").write_text(
+        json.dumps(
+            {
+                "version": _version(repo),
+                "build": str(build_number),
+                "arch": arch,
+                "commit": os.environ.get("GITHUB_SHA", "local")[:10],
+            }
+        ),
+        encoding="utf-8",
+    )
     (out / "buildozer.spec").write_text(
         SPEC.format(
             exts=",".join(report.extensions),

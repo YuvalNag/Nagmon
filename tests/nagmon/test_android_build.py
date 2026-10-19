@@ -139,6 +139,17 @@ def test_spec_targets_the_phone_and_keeps_data_private(staged):
     assert app["p4a.local_recipes"] == "./recipes"
 
 
+def test_build_details_for_crash_reports(staged, monkeypatch):
+    import json
+
+    _, out, _ = staged
+    info = json.loads((out / "build_info.json").read_text())
+    assert info["version"] == "1.2.3"
+    assert info["build"] == "7"
+    assert info["arch"] == "arm64-v8a"
+    assert "commit" in info
+
+
 def test_an_emulator_build_targets_x86_64(tmp_path):
     repo = _fake_repo(tmp_path / "repo")
     stage.stage(repo, tmp_path / "app", arch="x86_64")

@@ -7,6 +7,7 @@ import logging
 import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
+from collections.abc import Callable
 from typing import TYPE_CHECKING
 
 from tuxemon.log import get_git_hash
@@ -16,6 +17,10 @@ if TYPE_CHECKING:
     from tuxemon.prepare import DisplayContext
 
 logger = logging.getLogger(__name__)
+
+#: Called with the full error text before the game exits on an error (the
+#: phone app uses it for its crash report, docs/kids/SDD_ANDROID.md §2.6).
+on_fatal_error: Callable[[str], object] | None = None
 
 
 def build_parser() -> ArgumentParser:
@@ -109,6 +114,12 @@ def handle_fatal_error(e: Exception) -> None:
         print(f"Error details saved to: {error_log}", file=sys.stderr)
     except Exception:
         pass
+
+    if on_fatal_error is not None:
+        try:
+            on_fatal_error(full_error)
+        except Exception:
+            logger.exception("on_fatal_error failed")
 
     if sys.platform == "win32" and hasattr(sys, "frozen"):
         try:
