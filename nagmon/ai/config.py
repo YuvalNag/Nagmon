@@ -200,7 +200,8 @@ def _secrets_path(data_root: Path) -> Path:
     return Path(data_root) / "secrets.json"
 
 
-def _read_secrets(data_root: Path) -> dict[str, Any]:
+def read_secrets(data_root: Path) -> dict[str, Any]:
+    """Everything in ``secrets.json`` ({} if missing or broken)."""
     try:
         data = json.loads(_secrets_path(data_root).read_text(encoding="utf-8"))
     except (OSError, ValueError):
@@ -213,7 +214,7 @@ def load_keys(
 ) -> dict[str, str]:
     """Environment variables first, then ``secrets.json["ai_keys"]``."""
     env = os.environ if environ is None else environ
-    stored = _read_secrets(data_root).get("ai_keys")
+    stored = read_secrets(data_root).get("ai_keys")
     stored = stored if isinstance(stored, dict) else {}
     keys: dict[str, str] = {}
     for name, var in ENV_KEYS.items():
@@ -228,7 +229,7 @@ def load_keys(
 
 def save_keys(data_root: Path, keys: Mapping[str, str | None]) -> None:
     """Merge keys into ``secrets.json`` (0600). Empty value removes."""
-    data = _read_secrets(data_root)
+    data = read_secrets(data_root)
     ai_keys = data.get("ai_keys")
     ai_keys = dict(ai_keys) if isinstance(ai_keys, dict) else {}
     for name, value in keys.items():
@@ -237,12 +238,20 @@ def save_keys(data_root: Path, keys: Mapping[str, str | None]) -> None:
         else:
             ai_keys.pop(name, None)
     data["ai_keys"] = ai_keys
+    write_secrets(data_root, data)
+
+
+def write_secrets(data_root: Path, data: Mapping[str, Any]) -> None:
+    """
+    Writes the whole ``secrets.json`` (0600, atomic). Callers read it
+    first and change only their own part (read-merge-write).
+    """
     path = _secrets_path(data_root)
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_name(path.name + ".tmp")
     fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
     with os.fdopen(fd, "w", encoding="utf-8") as fh:
-        json.dump(data, fh, ensure_ascii=False, indent=1)
+        json.dump(dict(data), fh, ensure_ascii=False, indent=1)
     os.replace(tmp, path)
     try:
         os.chmod(path, 0o600)

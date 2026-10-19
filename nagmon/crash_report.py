@@ -23,6 +23,10 @@ logger = logging.getLogger(__name__)
 
 #: Fits in a WhatsApp or e-mail message.
 MAX_CHARS = 20_000
+#: The app's last log lines (SDD_FIELD_DATA §2.5) follow this line; at
+#: most LOG_CHARS of them, so the error always has room.
+LOG_MARKER = "--- app log (last lines) ---"
+LOG_CHARS = 8_000
 
 #: Keys by their shape: Groq, Gemini/Google, GitHub, OpenAI, HTTP auth.
 _KEY_PATTERNS = (
@@ -47,20 +51,52 @@ def redact_secrets(text: str, secrets: Iterable[str] = ()) -> str:
     return text
 
 
-def build_report(error: str, info: Mapping[str, str], *, now: datetime) -> str:
+#: What a child's name becomes in a log or a report.
+NAME_MARK = "<child>"
+
+
+def hide_names(text: str, names: Iterable[str] = ()) -> str:
     """
-    A header (build, phone, time) and the error. A long error keeps its
-    end, where the traceback names what went wrong.
+    ``text`` without the children's names (the game names the player
+    after the child, and Tuxemon's warnings name the player). A Latin
+    name is matched as a whole word, in any case; a Hebrew one also
+    after a prefix letter (לנועה). One-letter names are left alone.
+    """
+    wanted = {n.strip() for n in names if isinstance(n, str)}
+    for name in sorted(
+        (n for n in wanted if len(n) >= 2), key=len, reverse=True
+    ):
+        pattern = re.compile(
+            r"(?<![A-Za-z])" + re.escape(name) + r"(?![A-Za-z])",
+            re.IGNORECASE,
+        )
+        text = pattern.sub(NAME_MARK, text)
+    return text
+
+
+def build_report(
+    error: str, info: Mapping[str, str], *, now: datetime, log: str = ""
+) -> str:
+    """
+    A header (build, phone, time), the error and the app's last log
+    lines. A long error or log keeps its end, where the traceback names
+    what went wrong.
     """
     header = ["Nagmon crash report"]
     header += [f"{key}: {value}" for key, value in info.items()]
     header.append(f"time: {now.astimezone(timezone.utc):%Y-%m-%d %H:%M} UTC")
     head = "\n".join(header) + "\n\n"
-    room = MAX_CHARS - len(head) - 1  # the final newline
+    tail = ""
+    log = log.strip()
+    if log:
+        if len(log) > LOG_CHARS:
+            log = "...\n" + log[-(LOG_CHARS - 4) :]
+        tail = f"\n\n{LOG_MARKER}\n{log}"
+    room = MAX_CHARS - len(head) - len(tail) - 1  # the final newline
     body = error.strip()
     if len(body) > room:
         body = "...\n" + body[-(room - 4) :]
-    return head + body + "\n"
+    return head + body + tail + "\n"
 
 
 class CrashReports:
@@ -111,7 +147,9 @@ class CrashGuard:
 
     ``info`` gives the build and phone details, ``offer`` shows the report
     to the parent (and shares it only on their tap), ``secrets`` gives the
-    saved keys to hide.
+    saved keys to hide, ``log`` the app's last log lines, ``names`` the
+    children's names to hide. ``on_crash`` runs first when this session
+    broke (not for last time's native crash), e.g. to note it in the log.
     """
 
     def __init__(
@@ -121,16 +159,30 @@ class CrashGuard:
         info: Callable[[], Mapping[str, str]],
         offer: Callable[[str], None],
         secrets: Callable[[], Iterable[str]] = tuple,
+        log: Callable[[], str] = str,
+        names: Callable[[], Iterable[str]] = tuple,
+        on_crash: Callable[[], object] = lambda: None,
         clock: Callable[[], datetime] = lambda: datetime.now(timezone.utc),
     ) -> None:
         self.reports = reports
         self._info = info
         self._offer = offer
         self._secrets = secrets
+        self._log = log
+        self._names = names
+        self._on_crash = on_crash
         self._clock = clock
 
-    def report(self, error: str) -> str:
-        """Saves and offers a report for ``error`` (a traceback)."""
+    def report(self, error: str, *, previous: bool = False) -> str:
+        """
+        Saves and offers a report for ``error`` (a traceback); ``previous``
+        when it is about an earlier session.
+        """
+        if not previous:
+            try:
+                self._on_crash()
+            except Exception as exc:
+                logger.error("Could not note the crash: %s", exc)
         try:
             info = dict(self._info())
         except Exception as exc:
@@ -139,8 +191,19 @@ class CrashGuard:
             secrets = list(self._secrets())
         except Exception:
             secrets = []
-        text = redact_secrets(
-            build_report(error, info, now=self._clock()), secrets
+        try:
+            log = self._log()
+        except Exception as exc:
+            log = f"(log unavailable: {exc})"
+        try:
+            names = list(self._names())
+        except Exception:
+            names = []
+        text = hide_names(
+            redact_secrets(
+                build_report(error, info, now=self._clock(), log=log), secrets
+            ),
+            names,
         )
         try:
             self.reports.save(text)
@@ -156,7 +219,8 @@ class CrashGuard:
         native = self.reports.take_native()
         if native:
             self.report(
-                "The game stopped last time (native crash):\n" + native
+                "The game stopped last time (native crash):\n" + native,
+                previous=True,
             )
         self.reports.watch_native()
         try:

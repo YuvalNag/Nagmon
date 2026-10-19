@@ -721,3 +721,90 @@ msgstr "This player can't come back right now: another player has the same name,
 
 msgid "nagmon_too_many_players"
 msgstr "There are already 8 players. Delete one in the parent area to add a new one."
+
+msgid "nagmon_parent_github"
+msgstr "GitHub and sending data"
+
+msgid "nagmon_github_ok"
+msgstr "Connected · private data repo {repo}"
+
+msgid "nagmon_github_public"
+msgstr "The data repo {repo} is public, so nothing is sent. On GitHub open the repo's Settings, choose Private under Change visibility, and try again."
+
+msgid "nagmon_github_bad_token"
+msgstr "The token is wrong or has expired. Create a new token on GitHub and paste it again."
+
+msgid "nagmon_github_no_permission"
+msgstr "The token has no Contents: Read and write permission for {repo}. Add it in the token's settings on GitHub and try again."
+
+msgid "nagmon_github_not_found"
+msgstr "The data repo {repo} was not found, or the token may not use it. Choose this repo in the token's settings on GitHub and try again."
+
+msgid "nagmon_github_offline"
+msgstr "No internet. Connect to a network and try again."
+
+msgid "nagmon_github_timeout"
+msgstr "GitHub did not answer in time. Check the internet and try again."
+
+msgid "nagmon_github_conflict"
+msgstr "GitHub was busy and did not save the file. Try again in a minute."
+
+msgid "nagmon_github_failed"
+msgstr "GitHub did not accept the request. Try again later."
+
+msgid "nagmon_github_not_connected"
+msgstr "Not connected. Sending needs a GitHub token for the data repo. Tap Connect: paste token."
+
+msgid "nagmon_github_checking"
+msgstr "Checking the connection to GitHub..."
+
+msgid "nagmon_github_sending"
+msgstr "Sending..."
+
+msgid "nagmon_github_connect"
+msgstr "Connect: paste token"
+
+msgid "nagmon_github_send_log"
+msgstr "Send the log"
+
+msgid "nagmon_github_send_progress"
+msgstr "Send progress"
+
+msgid "nagmon_github_send_crash"
+msgstr "Send the last crash report"
+
+msgid "nagmon_github_disconnect"
+msgstr "Disconnect"
+
+msgid "nagmon_github_disconnected"
+msgstr "Disconnected. The token was deleted from this device."
+
+msgid "nagmon_github_clipboard_empty"
+msgstr "The clipboard is empty. On GitHub create a fine-grained token for the data repo only, with one permission: Contents: Read and write. Copy it, come back here and tap again."
+
+msgid "nagmon_github_clipboard_not_token"
+msgstr "The clipboard holds something that is not a GitHub token. Copy the token (it starts with github_pat_) and try again."
+
+msgid "nagmon_github_confirm_log"
+msgstr "To be sent: the game's log, without keys, to the private data repo {repo}."
+
+msgid "nagmon_github_confirm_progress"
+msgstr "To be sent: progress of {count} children, without names, to the private data repo {repo}."
+
+msgid "nagmon_github_confirm_crash"
+msgstr "To be sent: the last crash report, without keys, to the private data repo {repo}."
+
+msgid "nagmon_github_send"
+msgstr "Send"
+
+msgid "nagmon_github_cancel"
+msgstr "Cancel"
+
+msgid "nagmon_github_sent"
+msgstr "Sent."
+
+msgid "nagmon_github_log_empty"
+msgstr "There is no log to send yet."
+
+msgid "nagmon_github_confirm_progress_one"
+msgstr "To be sent: progress of one child, without the name, to the private data repo {repo}."
