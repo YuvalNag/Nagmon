@@ -102,6 +102,8 @@ jobs:
         name: nagmon-android-${{ github.run_number }}
         path: build/app/bin/*.apk
         if-no-files-found: error
+        # A private repo has 500MB of free storage; an APK is ~220MB.
+        retention-days: 3
 
     - name: Check what is inside the APK
       run: python tools/android/check_apk.py build/app/bin/*.apk --layout
@@ -113,6 +115,7 @@ jobs:
         name: buildozer-log-${{ github.run_number }}
         path: build/app/.buildozer/android/platform/build-*/*.log
         if-no-files-found: ignore
+        retention-days: 3
 
   emulator:
     # Opens this APK on an Android emulator: a crash fails the build.

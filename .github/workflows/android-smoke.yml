@@ -91,3 +91,4 @@ jobs:
         name: android-smoke-${{ github.run_number }}
         path: smoke/
         if-no-files-found: ignore
+        retention-days: 3
