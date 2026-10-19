@@ -247,3 +247,120 @@ def test_android_entry_point_uses_the_guard():
     assert "CrashGuard" in main
     assert "run_tuxemon.on_fatal_error = guard.report" in main
     assert "guard.run(start)" in main
+
+
+# ---------------------------------------------- the log and GitHub (SDD_FIELD_DATA §2.5)
+
+
+LOG_LINES = "\n".join(f"14:{i:02d}:00 INFO nagmon.x: step {i}" for i in range(60))
+
+
+def test_the_report_ends_with_the_apps_log():
+    report = build_report("ValueError: bad", INFO, now=NOW, log=LOG_LINES)
+    error_at = report.index("ValueError: bad")
+    log_at = report.index(crash_report.LOG_MARKER)
+    assert error_at < log_at
+    assert report.rstrip().endswith("step 59")
+
+
+def test_a_long_log_keeps_its_end_and_the_error():
+    huge = "\n".join(f"line {i}" for i in range(20000))
+    error = "\n".join(f"frame {i}" for i in range(20000)) + "\nKeyError: 'end'"
+    report = build_report(error, INFO, now=NOW, log=huge)
+    assert len(report) <= crash_report.MAX_CHARS
+    assert "KeyError: 'end'" in report
+    assert report.rstrip().endswith("line 19999")
+    assert "0.4.35" in report
+
+
+def test_without_a_log_the_report_is_unchanged():
+    assert build_report("E", INFO, now=NOW) == build_report("E", INFO, now=NOW, log="")
+    assert crash_report.LOG_MARKER not in build_report("E", INFO, now=NOW)
+
+
+def test_the_guard_adds_the_log_with_keys_hidden(tmp_path):
+    offers = Offers()
+    guard = CrashGuard(
+        CrashReports(tmp_path / "crash"),
+        info=lambda: INFO,
+        offer=offers,
+        log=lambda: f"14:00:00 INFO nagmon.x: key {GROQ}\n14:00:01 INFO nagmon.x: last",
+        clock=lambda: NOW,
+    )
+    with pytest.raises(SystemExit):
+        guard.run(lambda: 1 / 0)
+    shown = offers.shown[0]
+    assert "ZeroDivisionError" in shown and "nagmon.x: last" in shown
+    assert GROQ not in shown
+
+
+def test_a_broken_log_does_not_hide_the_crash(tmp_path):
+    offers = Offers()
+
+    def broken():
+        raise RuntimeError("no log")
+
+    guard = CrashGuard(
+        CrashReports(tmp_path / "crash"),
+        info=lambda: INFO,
+        offer=offers,
+        log=broken,
+        clock=lambda: NOW,
+    )
+    with pytest.raises(SystemExit):
+        guard.run(lambda: 1 / 0)
+    assert "ZeroDivisionError" in offers.shown[0]
+
+
+class Field:
+    """Stands in for FieldData: connected or not, sends or fails."""
+
+    def __init__(self, *, connected=True, works=True, repo="YuvalNag/nagmon-data"):
+        self.connected = connected
+        self.works = works
+        self.repo = repo
+        self.sent: list[str] = []
+
+    def send_crash(self, text):
+        from nagmon.field_data.github import Code, Upload
+
+        self.sent.append(text)
+        return Upload(Code.OK if self.works else Code.OFFLINE)
+
+
+def test_a_connected_phone_sends_the_crash_to_github():
+    from nagmon.field_data.uploads import send_crash_or_share
+
+    field, shared = Field(), []
+    assert send_crash_or_share("report", field, shared.append) == "github"
+    assert field.sent == ["report"] and shared == []
+
+
+@pytest.mark.parametrize(
+    "field", [None, Field(connected=False), Field(works=False)]
+)
+def test_otherwise_the_share_sheet_opens(field):
+    from nagmon.field_data.uploads import send_crash_or_share
+
+    shared = []
+    assert send_crash_or_share("report", field, shared.append) == "share"
+    assert shared == ["report"]
+
+
+def test_a_broken_upload_still_opens_the_share_sheet():
+    from nagmon.field_data.uploads import send_crash_or_share
+
+    class Broken(Field):
+        def send_crash(self, text):
+            raise OSError("disk")
+
+    shared = []
+    assert send_crash_or_share("report", Broken(), shared.append) == "share"
+    assert shared == ["report"]
+
+
+def test_android_entry_point_sends_to_github_and_adds_the_log():
+    main = (REPO / "buildconfig" / "android" / "main.py").read_text()
+    assert "send_crash_or_share" in main
+    assert "app_log.install" in main and "app_log.tail(100)" in main
+    assert "app_log.note_crash()" in main

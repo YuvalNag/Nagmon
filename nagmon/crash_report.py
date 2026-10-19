@@ -23,6 +23,10 @@ logger = logging.getLogger(__name__)
 
 #: Fits in a WhatsApp or e-mail message.
 MAX_CHARS = 20_000
+#: The app's last log lines (SDD_FIELD_DATA §2.5) follow this line; at
+#: most LOG_CHARS of them, so the error always has room.
+LOG_MARKER = "--- app log (last lines) ---"
+LOG_CHARS = 8_000
 
 #: Keys by their shape: Groq, Gemini/Google, GitHub, OpenAI, HTTP auth.
 _KEY_PATTERNS = (
@@ -48,21 +52,28 @@ def redact_secrets(text: str, secrets: Iterable[str] = ()) -> str:
 
 
 def build_report(
-    error: str, info: Mapping[str, str], *, now: datetime
+    error: str, info: Mapping[str, str], *, now: datetime, log: str = ""
 ) -> str:
     """
-    A header (build, phone, time) and the error. A long error keeps its
-    end, where the traceback names what went wrong.
+    A header (build, phone, time), the error and the app's last log
+    lines. A long error or log keeps its end, where the traceback names
+    what went wrong.
     """
     header = ["Nagmon crash report"]
     header += [f"{key}: {value}" for key, value in info.items()]
     header.append(f"time: {now.astimezone(timezone.utc):%Y-%m-%d %H:%M} UTC")
     head = "\n".join(header) + "\n\n"
-    room = MAX_CHARS - len(head) - 1  # the final newline
+    tail = ""
+    log = log.strip()
+    if log:
+        if len(log) > LOG_CHARS:
+            log = "...\n" + log[-(LOG_CHARS - 4) :]
+        tail = f"\n\n{LOG_MARKER}\n{log}"
+    room = MAX_CHARS - len(head) - len(tail) - 1  # the final newline
     body = error.strip()
     if len(body) > room:
         body = "...\n" + body[-(room - 4) :]
-    return head + body + "\n"
+    return head + body + tail + "\n"
 
 
 class CrashReports:
@@ -111,7 +122,7 @@ class CrashGuard:
 
     ``info`` gives the build and phone details, ``offer`` shows the report
     to the parent (and shares it only on their tap), ``secrets`` gives the
-    saved keys to hide.
+    saved keys to hide, ``log`` the app's last log lines.
     """
 
     def __init__(
@@ -121,12 +132,14 @@ class CrashGuard:
         info: Callable[[], Mapping[str, str]],
         offer: Callable[[str], None],
         secrets: Callable[[], Iterable[str]] = tuple,
+        log: Callable[[], str] = str,
         clock: Callable[[], datetime] = lambda: datetime.now(timezone.utc),
     ) -> None:
         self.reports = reports
         self._info = info
         self._offer = offer
         self._secrets = secrets
+        self._log = log
         self._clock = clock
 
     def report(self, error: str) -> str:
@@ -139,8 +152,12 @@ class CrashGuard:
             secrets = list(self._secrets())
         except Exception:
             secrets = []
+        try:
+            log = self._log()
+        except Exception as exc:
+            log = f"(log unavailable: {exc})"
         text = redact_secrets(
-            build_report(error, info, now=self._clock()), secrets
+            build_report(error, info, now=self._clock(), log=log), secrets
         )
         try:
             self.reports.save(text)
