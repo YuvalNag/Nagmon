@@ -40,7 +40,11 @@ def test_no_code_looks_only_for_py_files():
         f"{path.relative_to(REPO)}:{n}"
         for top in ("tuxemon", "nagmon", "mods")
         for path in (REPO / top).rglob("*.py")
-        for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1)
+        for n, line in enumerate(
+            path.read_text(encoding="utf-8").splitlines(), 1
+        )
         if pattern.search(line)
     ]
-    assert offenders == [], "use tuxemon.plugin.module_stems: " + ", ".join(offenders)
+    assert offenders == [], "use tuxemon.plugin.module_stems: " + ", ".join(
+        offenders
+    )

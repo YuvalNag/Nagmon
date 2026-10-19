@@ -122,7 +122,9 @@ class CrashReports:
     def take_native(self) -> str | None:
         """What faulthandler wrote when the game last died, once."""
         try:
-            text = self.native_file.read_text(encoding="utf-8", errors="replace")
+            text = self.native_file.read_text(
+                encoding="utf-8", errors="replace"
+            )
         except OSError:
             return None
         self.native_file.write_text("", encoding="utf-8")

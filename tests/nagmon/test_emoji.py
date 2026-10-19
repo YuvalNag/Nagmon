@@ -130,7 +130,6 @@ def test_bundled_twemoji_assets():
     assert loader.get("emoji:2764-fe0f", 24) is not None
 
 
-
 # --------------------------------------------- sharp pictures at any size
 
 RED_SVG = (

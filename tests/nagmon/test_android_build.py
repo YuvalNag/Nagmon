@@ -434,12 +434,16 @@ def test_every_apk_is_opened_on_an_emulator():
 def test_the_compiled_app_boots_before_the_long_build():
     import yaml
 
-    build = yaml.safe_load((REPO / ".github/workflows/android.yml").read_text())
+    build = yaml.safe_load(
+        (REPO / ".github/workflows/android.yml").read_text()
+    )
     names = [s.get("name", "") for s in build["jobs"]["apk"]["steps"]]
     boot = names.index("Boot the app the way the phone holds it")
     assert boot < names.index("Build (debug)")
     script = (REPO / "tools/android/compiled_boot.sh").read_text()
-    assert "-OO -m compileall -b" in script and "-name '*.py' -delete" in script
+    assert (
+        "-OO -m compileall -b" in script and "-name '*.py' -delete" in script
+    )
 
 
 def test_debug_builds_keep_one_signing_key():
@@ -449,10 +453,14 @@ def test_debug_builds_keep_one_signing_key():
     """
     import yaml
 
-    build = yaml.safe_load((REPO / ".github/workflows/android.yml").read_text())
+    build = yaml.safe_load(
+        (REPO / ".github/workflows/android.yml").read_text()
+    )
     steps = build["jobs"]["apk"]["steps"]
     names = [s.get("name", "") for s in steps]
     keep = steps[names.index("Keep one debug key for every build")]
     assert keep["uses"].startswith("actions/cache@")
     assert keep["with"]["path"] == "~/.android/debug.keystore"
-    assert names.index("Keep one debug key for every build") < names.index("Build (debug)")
+    assert names.index("Keep one debug key for every build") < names.index(
+        "Build (debug)"
+    )

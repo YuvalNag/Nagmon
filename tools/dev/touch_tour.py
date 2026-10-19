@@ -170,7 +170,10 @@ def wait_for(state: str, frames: int = 2400) -> bool:
 
 
 print("drawing size:", context.resolution, "scale:", context.scale)
-check(context.resolution == (2400, 1080), "20:9 screen draws at its own 2400x1080")
+check(
+    context.resolution == (2400, 1080),
+    "20:9 screen draws at its own 2400x1080",
+)
 check(CONFIG.controller.overlay, "touch arrows are on")
 
 from nagmon.runtime import get_runtime  # noqa: E402
