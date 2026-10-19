@@ -28,7 +28,7 @@ from typing import Any, Protocol
 
 from nagmon.ai.config import load_keys
 from nagmon.ai.providers import Transport
-from nagmon.crash_report import CrashReports, redact_secrets
+from nagmon.crash_report import CrashReports, hide_names, redact_secrets
 from nagmon.family._jsonio import atomic_write_json, load_json
 from nagmon.field_data.github import (
     DEFAULT_REPO,
@@ -175,13 +175,26 @@ class FieldData:
             values.append(access.token)
         return values
 
+    def names(self) -> list[str]:
+        """The children's names (deleted ones too), to hide in what is sent."""
+        from nagmon.family.profiles import ProfileStore
+
+        if not (self.root / "profiles").is_dir():
+            return []
+        store = ProfileStore(self.root)
+        names = [p.name for p in store.list()]
+        names += [e.name for e in store.list_trash() if e.name]
+        return names
+
     # ----------------------------------------------------------- uploads
 
-    def _send(self, kind: str, text: str) -> Upload:
+    def _send(self, kind: str, text: str, *, names: bool = True) -> Upload:
         access = self.access
         if access is None:
             return Upload(Code.NOT_CONNECTED)
         clean = redact_secrets(text, self.secrets())
+        if names:
+            clean = hide_names(clean, self.names())
         now = datetime.fromtimestamp(self._clock(), tz=timezone.utc)
         path = upload_path(install_id(self.root), kind, now)
         result = self._client(access).put(
@@ -195,7 +208,8 @@ class FieldData:
 
     def send_progress(self, snapshot: Mapping[str, Any]) -> Upload:
         text = json.dumps(snapshot, ensure_ascii=False, indent=1)
-        return self._send("progress", text + "\n")
+        # Built without names (snapshot.py); its skill ids stay intact.
+        return self._send("progress", text + "\n", names=False)
 
     def pending_crash(self) -> str | None:
         """The last crash report, unless it was already sent."""

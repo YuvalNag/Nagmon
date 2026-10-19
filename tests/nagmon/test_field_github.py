@@ -525,3 +525,43 @@ def test_saved_secrets_include_the_token_and_the_ai_keys(tmp_path):
     data = _service(tmp_path, fake())
     data.connect(TOKEN)
     assert set(data.secrets()) >= {TOKEN, "gsk_" + "k" * 30}
+
+
+def _children(root, *names):
+    from nagmon.runtime import NagmonRuntime
+
+    rt = NagmonRuntime(root)
+    for name in names:
+        rt.store.create(name=name, avatar="girl", grade=2)
+    return rt
+
+
+def test_childrens_names_are_not_in_an_uploaded_log_or_crash(tmp_path):
+    """The game names the player after the child, and Tuxemon's warnings
+    name the player: the log and the crash report go without names."""
+    rt = _children(tmp_path, "נועה", "Zephyrine")
+    gone = rt.store.list()[1]
+    rt.store.delete(gone.id)  # a deleted child's name is hidden too
+    transport = fake(created())
+    data = _service(tmp_path, transport)
+    data.connect(TOKEN)
+    data.send_log(
+        "12:00:00 WARNING tuxemon.event: נועה has no monsters\n"
+        "12:00:01 ERROR tuxemon.combat: Cannot start battle, "
+        "Zephyrine has no monsters!\n"
+    )
+    data.send_crash("Nagmon crash report\nKeyError: 'נועה'\n")
+    put = [c for c in transport.calls if c.method == "PUT"]
+    assert len(put) == 2
+    for call in put:
+        sent = base64.b64decode(_put_body(call)["content"]).decode()
+        assert "נועה" not in sent and "Zephyrine" not in sent
+        assert "has no monsters" in sent or "KeyError" in sent
+
+
+def test_the_names_to_hide(tmp_path):
+    rt = _children(tmp_path, "נועה", "Zephyrine")
+    data = _service(tmp_path, fake())
+    assert set(data.names()) == {"נועה", "Zephyrine"}
+    rt.store.delete(rt.store.list()[0].id)
+    assert set(data.names()) == {"נועה", "Zephyrine"}

@@ -364,3 +364,66 @@ def test_android_entry_point_sends_to_github_and_adds_the_log():
     assert "send_crash_or_share" in main
     assert "app_log.install" in main and "app_log.tail(100)" in main
     assert "app_log.note_crash()" in main
+
+
+# ------------------------------------------------- children's names
+
+
+def test_names_are_hidden_in_any_alphabet():
+    text = (
+        "WARNING tuxemon: נועה has no monsters\n"
+        "ERROR tuxemon: Cannot start battle, Zephyrine has no monsters!\n"
+        "ERROR tuxemon: zephyrine's owner not found (לנועה)\n"
+    )
+    hidden = crash_report.hide_names(text, ["נועה", "Zephyrine"])
+    assert "נועה" not in hidden
+    assert "zephyrine" not in hidden.lower()
+    assert hidden.count(crash_report.NAME_MARK) == 4
+
+
+def test_a_name_inside_an_english_word_is_left_alone():
+    hidden = crash_report.hide_names("Danger at the dance, Dan", ["Dan"])
+    assert hidden == f"Danger at the dance, {crash_report.NAME_MARK}"
+
+
+def test_one_letter_and_empty_names_are_ignored():
+    assert crash_report.hide_names("a map", ["a", "", "  "]) == "a map"
+
+
+def test_the_guard_hides_the_childrens_names(tmp_path):
+    offers = Offers()
+    guard = CrashGuard(
+        CrashReports(tmp_path / "crash"),
+        info=lambda: INFO,
+        offer=offers,
+        log=lambda: "14:00:00 WARNING tuxemon: נועה has no monsters\n",
+        names=lambda: ["נועה"],
+        clock=lambda: NOW,
+    )
+    with pytest.raises(SystemExit):
+        guard.run(lambda: 1 / 0)
+    assert "נועה" not in offers.shown[0]
+    assert "נועה" not in (tmp_path / "crash" / "last_crash.txt").read_text()
+
+
+def test_broken_names_do_not_hide_the_crash(tmp_path):
+    offers = Offers()
+
+    def broken():
+        raise OSError("no profiles")
+
+    guard = CrashGuard(
+        CrashReports(tmp_path / "crash"),
+        info=lambda: INFO,
+        offer=offers,
+        names=broken,
+        clock=lambda: NOW,
+    )
+    with pytest.raises(SystemExit):
+        guard.run(lambda: 1 / 0)
+    assert "ZeroDivisionError" in offers.shown[0]
+
+
+def test_android_entry_point_hides_the_names():
+    main = (REPO / "buildconfig" / "android" / "main.py").read_text()
+    assert "names=" in main and ".names()" in main

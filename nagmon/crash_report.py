@@ -51,6 +51,29 @@ def redact_secrets(text: str, secrets: Iterable[str] = ()) -> str:
     return text
 
 
+#: What a child's name becomes in a log or a report.
+NAME_MARK = "<child>"
+
+
+def hide_names(text: str, names: Iterable[str] = ()) -> str:
+    """
+    ``text`` without the children's names (the game names the player
+    after the child, and Tuxemon's warnings name the player). A Latin
+    name is matched as a whole word, in any case; a Hebrew one also
+    after a prefix letter (לנועה). One-letter names are left alone.
+    """
+    wanted = {n.strip() for n in names if isinstance(n, str)}
+    for name in sorted(
+        (n for n in wanted if len(n) >= 2), key=len, reverse=True
+    ):
+        pattern = re.compile(
+            r"(?<![A-Za-z])" + re.escape(name) + r"(?![A-Za-z])",
+            re.IGNORECASE,
+        )
+        text = pattern.sub(NAME_MARK, text)
+    return text
+
+
 def build_report(
     error: str, info: Mapping[str, str], *, now: datetime, log: str = ""
 ) -> str:
@@ -122,7 +145,8 @@ class CrashGuard:
 
     ``info`` gives the build and phone details, ``offer`` shows the report
     to the parent (and shares it only on their tap), ``secrets`` gives the
-    saved keys to hide, ``log`` the app's last log lines.
+    saved keys to hide, ``log`` the app's last log lines, ``names`` the
+    children's names to hide.
     """
 
     def __init__(
@@ -133,6 +157,7 @@ class CrashGuard:
         offer: Callable[[str], None],
         secrets: Callable[[], Iterable[str]] = tuple,
         log: Callable[[], str] = str,
+        names: Callable[[], Iterable[str]] = tuple,
         clock: Callable[[], datetime] = lambda: datetime.now(timezone.utc),
     ) -> None:
         self.reports = reports
@@ -140,6 +165,7 @@ class CrashGuard:
         self._offer = offer
         self._secrets = secrets
         self._log = log
+        self._names = names
         self._clock = clock
 
     def report(self, error: str) -> str:
@@ -156,8 +182,15 @@ class CrashGuard:
             log = self._log()
         except Exception as exc:
             log = f"(log unavailable: {exc})"
-        text = redact_secrets(
-            build_report(error, info, now=self._clock(), log=log), secrets
+        try:
+            names = list(self._names())
+        except Exception:
+            names = []
+        text = hide_names(
+            redact_secrets(
+                build_report(error, info, now=self._clock(), log=log), secrets
+            ),
+            names,
         )
         try:
             self.reports.save(text)

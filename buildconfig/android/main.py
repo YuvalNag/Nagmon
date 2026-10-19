@@ -95,12 +95,18 @@ def saved_keys():
     return field_data().secrets()
 
 
+def child_names():
+    """The children's names, hidden in the report (and its log lines)."""
+    return field_data().names()
+
+
 guard = CrashGuard(
     CrashReports(CRASH_DIR),
     info=build_details,
     offer=offer,
     secrets=saved_keys,
     log=log_tail,
+    names=child_names,
 )
 
 
