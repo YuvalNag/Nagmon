@@ -804,3 +804,6 @@ msgstr "נשלח בהצלחה."
 
 msgid "nagmon_github_log_empty"
 msgstr "אין עדיין לוג לשליחה."
+
+msgid "nagmon_github_confirm_progress_one"
+msgstr "יישלח: ההתקדמות של ילד אחד, בלי שם, לריפו הנתונים הפרטי {repo}."

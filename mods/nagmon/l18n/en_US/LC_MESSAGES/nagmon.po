@@ -805,3 +805,6 @@ msgstr "Sent."
 
 msgid "nagmon_github_log_empty"
 msgstr "There is no log to send yet."
+
+msgid "nagmon_github_confirm_progress_one"
+msgstr "To be sent: progress of one child, without the name, to the private data repo {repo}."

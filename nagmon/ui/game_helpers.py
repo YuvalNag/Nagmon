@@ -11,8 +11,9 @@ from __future__ import annotations
 
 import logging
 import re
+import threading
 from collections.abc import Callable, Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from nagmon.quiz_flow import SubjectMap
 from nagmon.runtime import get_runtime
@@ -25,6 +26,8 @@ if TYPE_CHECKING:
     from tuxemon.menu.menu import PygameMenuState
 
 logger = logging.getLogger(__name__)
+
+R = TypeVar("R")
 
 
 def later(client: BaseClient, fn: Callable[[], None]) -> None:
@@ -80,6 +83,28 @@ def ask_text(
         char_limit=char_limit,
         initial=initial,
     )
+
+
+def run_in_background(
+    client: BaseClient,
+    work: Callable[[], R],
+    done: Callable[[R | None], None],
+) -> None:
+    """
+    Runs ``work`` (network, disk) in its own thread so the game never
+    freezes, then ``done`` with its result on the game's thread. A
+    failure is logged and ``done`` gets None.
+    """
+
+    def run() -> None:
+        try:
+            result: R | None = work()
+        except Exception:
+            logger.exception("Background work failed")
+            result = None
+        client.queue_command(lambda: done(result))
+
+    threading.Thread(target=run, name="nagmon-background", daemon=True).start()
 
 
 def rebuild_menu(state: PygameMenuState) -> None:

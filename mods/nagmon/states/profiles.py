@@ -268,7 +268,7 @@ class ProfileSelectState(PygameMenuState):
 
 
 class ParentMenuState(PygameMenuState):
-    """The parent area: players, PIN, Shabbat mode, voices."""
+    """The parent area: players, PIN, Shabbat mode, voices, GitHub."""
 
     name: ClassVar[str] = "ParentMenuState"
 
@@ -328,6 +328,7 @@ class ParentMenuState(PygameMenuState):
             ("owl", self._owl_title(), self.toggle_owl),
             ("voices", self._voices_title(), self.toggle_voices),
             ("ai", T.translate("nagmon_parent_ai"), self.ai_status),
+            ("github", T.translate("nagmon_parent_github"), self.field_data),
             ("hours", self._hours_title(), self.play_hours),
             ("pin", T.translate("nagmon_change_pin"), self.change_pin),
             ("back", T.translate("nagmon_back"), self.close),
@@ -530,6 +531,10 @@ class ParentMenuState(PygameMenuState):
         self.client.push_state(
             "TextListState", title=T.translate("nagmon_parent_ai"), lines=lines
         )
+
+    def field_data(self) -> None:
+        """GitHub and sending data (SDD_FIELD_DATA §2.4)."""
+        self.client.push_state("FieldDataState")
 
     def close(self) -> None:
         self.client.pop_state(self)
