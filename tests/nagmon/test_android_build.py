@@ -472,3 +472,14 @@ def test_every_build_is_signed_with_one_kept_key():
     assert "buildozer android debug" not in text
     fingerprint = steps[names.index("Signing key fingerprint")]["run"]
     assert "exit 1" in fingerprint and "$P4A_RELEASE_KEYSTORE" in fingerprint
+
+
+def test_android_builds_on_a_branch_never_overlap():
+    """Two builds at once would each make a signing key; one is lost."""
+    import yaml
+
+    build = yaml.safe_load(
+        (REPO / ".github/workflows/android.yml").read_text()
+    )
+    assert build["concurrency"]["group"] == "android-${{ github.ref }}"
+    assert build["concurrency"]["cancel-in-progress"] is False

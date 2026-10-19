@@ -20,6 +20,12 @@ on:
 permissions:
   contents: read
 
+# One build at a time per branch: two builds started together each made
+# their own signing key and only one could be kept (builds 15 and 17).
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   apk:
     runs-on: ubuntu-24.04
