@@ -274,3 +274,27 @@ def test_pure_yaml_copy(monkeypatch, tmp_path):
     module.install_pure_yaml(sdist, site)
     assert (site / "yaml" / "__init__.py").read_text() == "X = 1\n"
     assert (site / "yaml" / "cyaml.py").is_file()
+
+
+def test_pygame_ce_installs_what_setup_py_built(monkeypatch, tmp_path):
+    # pip install . would start a native meson build of pygame-ce.
+    module = _load_recipe("pygame_ce", monkeypatch)
+    assert module.recipe.build_cmd == "build"
+    built = (
+        tmp_path / "src" / "build" / "lib.linux-aarch64-cpython-314" / "pygame"
+    )
+    (built / "_sdl2").mkdir(parents=True)
+    (built / "__init__.py").write_text("")
+    (built / "base.so").write_text("elf")
+    (built / "_sdl2" / "video.so").write_text("elf")
+    install = tmp_path / "python-installs"
+    target = module.install_built_package(tmp_path / "src", install)
+    assert target == install / "pygame"
+    assert (install / "pygame" / "base.so").is_file()
+    assert (install / "pygame" / "_sdl2" / "video.so").is_file()
+
+
+def test_pygame_ce_without_a_build_fails_loudly(monkeypatch, tmp_path):
+    module = _load_recipe("pygame_ce", monkeypatch)
+    with pytest.raises(RuntimeError):
+        module.install_built_package(tmp_path, tmp_path / "out")
