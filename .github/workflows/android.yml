@@ -98,6 +98,18 @@ jobs:
         P4A_RELEASE_KEYALIAS_PASSWD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
       run: yes | buildozer android release
 
+    - name: Keep one debug key for every build
+      # Gradle makes ~/.android/debug.keystore when it is missing, so each
+      # fresh runner signed with a new key and the phone refused to update
+      # (uninstalling deletes the children's progress). The cache keeps the
+      # first one. GitHub drops a cache unused for 7 days; the secrets
+      # above are the permanent answer.
+      if: env.HAS_KEY != 'true'
+      uses: actions/cache@v4
+      with:
+        path: ~/.android/debug.keystore
+        key: android-debug-keystore-${{ matrix.arch }}-v1
+
     - name: Build (debug)
       if: env.HAS_KEY != 'true'
       working-directory: build/app
@@ -111,7 +123,7 @@ jobs:
           ls -la build/app/bin 2>/dev/null || echo "No APK was built."
           if [ "$HAS_KEY" != "true" ]; then
             echo
-            echo "Debug build: to update it, uninstall the old one first (this deletes the children's progress)."
+            echo "Debug build, signed with the cached debug key: it installs over the previous build."
             echo "Add the ANDROID_KEYSTORE_* secrets for builds that update in place (docs/kids/HOW_TO_PLAY.md)."
           fi
         } >> "$GITHUB_STEP_SUMMARY"
@@ -124,6 +136,14 @@ jobs:
         if-no-files-found: error
         # A private repo has 500MB of free storage; an APK is ~220MB.
         retention-days: 3
+
+    - name: Signing key fingerprint
+      # The same fingerprint on every build means the phone installs it
+      # over the previous one.
+      run: |
+        apksigner=$(ls ~/.buildozer/android/platform/android-sdk/build-tools/*/apksigner | tail -1)
+        "$apksigner" verify --print-certs build/app/bin/*.apk | grep -i "SHA-256" \
+          | tee -a "$GITHUB_STEP_SUMMARY"
 
     - name: Check what is inside the APK
       run: python tools/android/check_apk.py build/app/bin/*.apk --layout

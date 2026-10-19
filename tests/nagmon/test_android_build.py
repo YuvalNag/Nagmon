@@ -440,3 +440,19 @@ def test_the_compiled_app_boots_before_the_long_build():
     assert boot < names.index("Build (debug)")
     script = (REPO / "tools/android/compiled_boot.sh").read_text()
     assert "-OO -m compileall -b" in script and "-name '*.py' -delete" in script
+
+
+def test_debug_builds_keep_one_signing_key():
+    """
+    Without one key, every build needs an uninstall on the phone, which
+    deletes the children's progress (SDD_ANDROID.md §2.4).
+    """
+    import yaml
+
+    build = yaml.safe_load((REPO / ".github/workflows/android.yml").read_text())
+    steps = build["jobs"]["apk"]["steps"]
+    names = [s.get("name", "") for s in steps]
+    keep = steps[names.index("Keep one debug key for every build")]
+    assert keep["uses"].startswith("actions/cache@")
+    assert keep["with"]["path"] == "~/.android/debug.keystore"
+    assert names.index("Keep one debug key for every build") < names.index("Build (debug)")

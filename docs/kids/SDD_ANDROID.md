@@ -146,7 +146,7 @@ class AndroidTTSBackend:   # id="android", online=False, extension=".wav"
 **חתימה:**
 - לעדכון גרסה בלי למחוק את המשחק צריך תמיד את אותו מפתח, כי מחיקה מוחקת את תיקיית הנתונים, כולל פרופילים והתקדמות.
 - **עם המפתח:** ב־Actions מגדירים `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD` ו־`ANDROID_KEY_ALIAS`, והבנייה חותמת release.
-- **בלי המפתח:** נבנה debug APK עם אזהרה בסיכום הריצה.
+- **בלי המפתח:** נבנה debug APK. מפתח ה־debug נשמר ב־cache של Actions (`~/.android/debug.keystore`), ולכן כל בנייה מתעדכנת מעל הקודמת. GitHub מוחק cache שלא היה בשימוש 7 ימים, ואז המפתח מתחלף פעם אחת. הסודות הם הפתרון הקבוע.
 - **אף פעם לא שומרים מפתח בריפו** (PLAYBOOK: סודות).
 
 **פרטיות:**
