@@ -34,7 +34,13 @@ def paste(*, timeout: float = 5.0) -> str:
             clip = manager.getPrimaryClip() if manager else None
             if clip is not None and clip.getItemCount() > 0:
                 text = clip.getItemAt(0).coerceToText(activity)
-                found["text"] = text.toString() if text is not None else ""
+                # A CharSequence; pyjnius may already give a str.
+                if text is None:
+                    found["text"] = ""
+                elif isinstance(text, str):
+                    found["text"] = text
+                else:
+                    found["text"] = text.toString()
         finally:
             done.set()
 

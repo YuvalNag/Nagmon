@@ -3,8 +3,9 @@
 The phone's side of the crash report (docs/kids/SDD_ANDROID.md §2.6):
 the phone's details, a window that asks the parent, and Android's share
 sheet; when the parent connected GitHub, "send" goes to the private data
-repo instead (SDD_FIELD_DATA.md §2.5). Uses pyjnius, so it runs only on the phone; the logic it serves
-is in ``nagmon/crash_report.py`` and tested there.
+repo instead (SDD_FIELD_DATA.md §2.5). Uses pyjnius, so it runs only on
+the phone; the logic it serves is in ``nagmon/crash_report.py`` and
+tested there.
 """
 
 from __future__ import annotations
