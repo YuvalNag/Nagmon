@@ -448,6 +448,11 @@ msgstr ""
 "You answered questions about shapes and kept going in the duel.\n"
 "Look, the color is coming back to the town. That's your knowledge!"
 
+msgid "nagmon_owl_cape"
+msgstr ""
+"Wise Owl: And look what I got, a blue cape for your badge!\n"
+"I will wear it proudly. We took this step together."
+
 msgid "nagmon_owl_congrats_mila"
 msgstr ""
 "Wise Owl: Another badge! You practised math until it worked.\n"

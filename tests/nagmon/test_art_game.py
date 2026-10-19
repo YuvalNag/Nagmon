@@ -25,13 +25,15 @@ FAMILIES = (
 )
 NEW_MONSTERS = [m for base, evo, _ in FAMILIES for m in (base, evo)]
 
-#: NPC slug -> its new combat sheet, and the overworld sprite it keeps.
+#: NPC slug -> its new combat sheet, and its map sheet (SDD_ART §2.7;
+#: the kindergarten teacher keeps Tuxemon's until hers comes).
 NPC_SHEETS = {
-    "nagmon_owl": ("nagmon_owl", "professor"),
-    "nagmon_cashier": ("nagmon_shopkeeper", "shopkeeper"),
-    "nagmon_tourist": ("nagmon_traveler", "cooldude"),
+    "nagmon_owl": ("nagmon_owl", "nagmon_owl"),
+    "nagmon_cashier": ("nagmon_shopkeeper", "nagmon_shopkeeper"),
+    "nagmon_tourist": ("nagmon_traveler", "nagmon_tourist"),
     "nagmon_gardener": ("nagmon_teacher", "florist"),
 }
+HD_MAP = (384, 1024)  # 8 x 48x128 (SDD_ART §2.6)
 
 
 @pytest.fixture(scope="module")
@@ -73,7 +75,7 @@ def test_new_monster_loads_with_its_sheet(moddata, slug):
     assert monster.sprites.sheet == f"gfx/sprites/battle/{slug}-sheet"
     sheet = NAGMON / "gfx" / "sprites" / "battle" / f"{slug}-sheet.png"
     with Image.open(sheet) as img:
-        assert img.size == (128, 88)
+        assert img.size == (384, 264)  # HD: 3 x 128x88
 
 
 @pytest.mark.parametrize(("base", "evo", "subject"), FAMILIES)
@@ -134,12 +136,15 @@ def test_chapter_one_npc_has_the_new_portraits(moddata, slug):
     template = moddata.database["npc"][slug].template
     assert template.combat_sheet == sheet
     assert template.sprite_name == sprite
+    if sprite.startswith("nagmon_"):
+        with Image.open(NAGMON / "sprites" / f"{sprite}.png") as img:
+            assert img.size == HD_MAP
     with Image.open(NAGMON / "gfx/sprites/player" / f"{sheet}.png") as img:
-        assert img.size == (128, 64)
+        assert img.size == (384, 192)  # HD: 3 x 128x64
         # Both views are drawn (the owl's back is its second portrait).
         alpha = img.getchannel("A")
-        assert alpha.crop((0, 0, 64, 64)).getbbox() is not None
-        assert alpha.crop((64, 0, 128, 64)).getbbox() is not None
+        assert alpha.crop((0, 0, 192, 192)).getbbox() is not None
+        assert alpha.crop((192, 0, 384, 192)).getbbox() is not None
 
 
 def _speaker(msgid: str) -> str | None:
@@ -178,4 +183,94 @@ def test_owl_screen_portrait_exists():
     from mods.nagmon.states import nagmon_owl
 
     with Image.open(nagmon_owl.OWL_PORTRAIT) as img:
-        assert img.size == (64, 64)
+        assert img.size == (192, 192)
+    surf = nagmon_owl.owl_portrait(1080)
+    assert surf is not None and surf.get_height() == 1080 // 5
+
+
+# --------------------------------------------- the owl's cape (§2.8)
+
+TOWN = NAGMON / "maps" / "classic_hearthrock_city.yaml"
+CAPE = "set_template nagmon_owl,nagmon_owl_caped,nagmon_owl"
+
+
+def _town_events():
+    from tuxemon.script.parser import parse_condition_string
+
+    doc = yaml.safe_load(TOWN.read_text(encoding="utf-8"))
+    out = []
+    for name, data in doc["events"].items():
+        conds = [
+            parse_condition_string(c) for c in data.get("conditions") or []
+        ]
+        out.append((name, conds, list(data.get("actions") or []), data))
+    return out
+
+
+def _holds(state: dict, op: str, cond: str, args: list[str]) -> bool | None:
+    if cond == "variable_set":
+        key, _, value = args[0].partition(":")
+        vars_ = state["vars"]
+        held = vars_.get(key) == value if value else key in vars_
+    elif cond == "char_exists" and args[0] == "nagmon_owl":
+        held = state["owl"] is not None
+    else:
+        return None  # not modelled: the event does not fire here
+    return held == (op == "is")
+
+
+def simulate(state: dict, rounds: int = 5) -> dict:
+    """
+    The town's owl events, run as the event engine would: an event whose
+    conditions hold runs its actions. Only what the cape needs is
+    modelled (variables, the owl existing, its map sprite); events with
+    other conditions or a talk behaviour never fire here.
+    """
+    for _ in range(rounds):
+        for _name, conds, actions, data in _town_events():
+            if data.get("behav"):
+                continue
+            if not all(_holds(state, *c) for c in conds):
+                continue
+            for text in actions:
+                act, args = parse_action_string(text)
+                if act == "create_npc" and args[0] == "nagmon_owl":
+                    state["owl"] = "nagmon_owl"  # its template's sprite
+                elif act == "set_template" and args[0] == "nagmon_owl":
+                    state["owl"] = args[1]
+                elif act == "set_variable":
+                    key, _, value = args[0].partition(":")
+                    state["vars"][key] = value
+                elif act == "translated_dialog":
+                    state["said"].append(args[0])
+    return state
+
+
+def test_the_owl_wears_its_cape_after_the_first_badge():
+    # Before the badge: the owl as it was.
+    state = {"vars": {"nagmon_started": "yes"}, "owl": None, "said": []}
+    state = simulate(state)
+    assert state["owl"] == "nagmon_owl"
+    # The badge: the owl congratulates, talks about its cape, wears it.
+    state["vars"]["academy_granite_done"] = "yes"
+    state = simulate(state)
+    assert state["owl"] == "nagmon_owl_caped"
+    assert state["said"][-2:] == [
+        "nagmon_owl_congrats_granite",
+        "nagmon_owl_cape",
+    ]
+    # Reloading the town (or a save): the owl is created again, caped.
+    state["owl"] = None
+    state["said"] = []
+    state = simulate(state)
+    assert state["owl"] == "nagmon_owl_caped"
+    assert state["said"] == []
+
+
+def test_the_cape_line_and_the_caped_sheet_exist():
+    for locale in ("en_US", "he_IL"):
+        assert po(locale).get("nagmon_owl_cape"), locale
+    with Image.open(NAGMON / "sprites" / "nagmon_owl_caped.png") as img:
+        assert img.size == HD_MAP
+    text = TOWN.read_text(encoding="utf-8")
+    assert text.count(CAPE) == 2

@@ -21,9 +21,23 @@ events:
     type: event
     conditions:
     - not char_exists nagmon_owl
+    - not variable_set academy_granite_done:yes
     actions:
     - create_npc nagmon_owl,29,15
     - char_face nagmon_owl,down
+
+  # After the first badge the owl wears its cape. NPCs are made again on
+  # every load of the map, so the cape goes on each time it is created
+  # (docs/kids/SDD_ART.md §2.8).
+  Create Owl Caped:
+    type: event
+    conditions:
+    - not char_exists nagmon_owl
+    - is variable_set academy_granite_done:yes
+    actions:
+    - create_npc nagmon_owl,29,15
+    - char_face nagmon_owl,down
+    - set_template nagmon_owl,nagmon_owl_caped,nagmon_owl
 
   Owl Intro:
     type: event
@@ -170,6 +184,8 @@ events:
     - is char_exists nagmon_owl
     actions:
     - translated_dialog nagmon_owl_congrats_granite,nagmon_owl
+    - set_template nagmon_owl,nagmon_owl_caped,nagmon_owl
+    - translated_dialog nagmon_owl_cape,nagmon_owl
     - set_variable nagmon_owl_congrats_granite:yes
 
   Owl Congrats Mila:
