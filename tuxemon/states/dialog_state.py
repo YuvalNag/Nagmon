@@ -171,14 +171,12 @@ class DialogState(PopUpMenu[None]):
         return None
 
     def update(self, dt: float) -> None:
-        """Update dialog text, avatar, and auto-close timer each frame."""
+        """Update dialog text and auto-close timer each frame."""
+        # The avatar is one of self.sprites (on_open), updated by super().
         super().update(dt)
 
         if self.dialog_box.drawing_text:
             self.dialog.update(dt)
-
-        if self.avatar:
-            self.avatar.update(dt)
 
         # Handle auto-close countdown
         if self._timer_active and self.close_after is not None:
