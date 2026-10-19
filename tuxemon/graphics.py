@@ -338,12 +338,23 @@ def hd_factor(size: Sequence[int], native: Sequence[int]) -> int:
     return k if k > 1 and h // nh == k else 1
 
 
-def smooth_resize(surface: Surface, size: Sequence[int]) -> Surface:
-    """Smooth scaling where pygame can do it (24/32 bit), else nearest."""
-    size = (max(1, int(size[0])), max(1, int(size[1])))
+def smooth_resize(surface: Surface, size: Sequence[float]) -> Surface:
+    """
+    ``surface`` at ``size``, smoothly. Enlarging by 2x or more goes first
+    by the whole factor with nearest neighbour, then smoothly by the rest:
+    pixel-art edges stay crisp instead of blurring (SDD_ART §2.6).
+    Surfaces pygame cannot smooth (under 24 bit) are scaled nearest.
+    """
+    target = (max(1, round(size[0])), max(1, round(size[1])))
     if surface.get_bitsize() < 24:
-        return scale(surface, size)
-    return smoothscale(surface, size)
+        return scale(surface, target)
+    w, h = surface.get_size()
+    whole = min(target[0] // w, target[1] // h)
+    if whole >= 2:
+        surface = scale(surface, (w * whole, h * whole))
+        if surface.get_size() == target:
+            return surface
+    return smoothscale(surface, target)
 
 
 def scale_sheet(

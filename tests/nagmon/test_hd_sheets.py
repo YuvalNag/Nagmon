@@ -181,3 +181,49 @@ def test_monster_sheet_slices_and_scales(monkeypatch, k):
         "menu01": (48, 48),
         "menu02": (48, 48),
     }
+
+
+# ------------------------------------------- review: crisp enlargement
+
+
+def test_enlarging_hd_goes_nearest_then_smooth(monkeypatch):
+    from tuxemon import graphics
+
+    calls = []
+    real_scale, real_smooth = graphics.scale, graphics.smoothscale
+
+    def spy_scale(surface, size):
+        calls.append(("nearest", tuple(size)))
+        return real_scale(surface, size)
+
+    def spy_smooth(surface, size):
+        calls.append(("smooth", tuple(size)))
+        return real_smooth(surface, size)
+
+    monkeypatch.setattr(graphics, "scale", spy_scale)
+    monkeypatch.setattr(graphics, "smoothscale", spy_smooth)
+    hd = sheet((64, 64), k=3)  # a 3x frame shown at scale 7
+    out = graphics.smooth_resize(hd, (448, 448))
+    assert out.get_size() == (448, 448)
+    assert calls == [("nearest", (384, 384)), ("smooth", (448, 448))]
+    # Shrinking (a map sheet at 8x shown at 7x) stays one smooth step.
+    calls.clear()
+    graphics.smooth_resize(sheet((48, 128), k=8), (336, 896))
+    assert calls == [("smooth", (336, 896))]
+
+
+def test_crisp_enlargement_keeps_edges_sharper():
+    from tuxemon.graphics import smooth_resize, smoothscale
+
+    hd = pygame.Surface((192, 192), pygame.SRCALPHA)
+    hd.fill((0, 0, 0, 255))
+    for x in range(0, 192, 6):  # stripes 3 px wide: pixel-art detail
+        hd.fill((255, 255, 255, 255), (x, 0, 3, 192))
+
+    def blurred(surface):
+        row = [surface.get_at((x, 10))[0] for x in range(surface.get_width())]
+        return sum(1 for v in row if 40 < v < 215)
+
+    assert blurred(smooth_resize(hd, (448, 448))) < blurred(
+        smoothscale(hd, (448, 448))
+    )
