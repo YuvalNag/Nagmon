@@ -103,6 +103,9 @@ jobs:
         path: build/app/bin/*.apk
         if-no-files-found: error
 
+    - name: Check what is inside the APK
+      run: python tools/android/check_apk.py build/app/bin/*.apk --layout
+
     - name: Upload build log on failure
       if: failure()
       uses: actions/upload-artifact@v4

@@ -7,9 +7,12 @@ from __future__ import annotations
 
 import configparser
 import importlib.util
+import io
 import subprocess
 import sys
+import tarfile
 import types
+import zipfile
 from pathlib import Path
 
 import pytest
@@ -298,3 +301,75 @@ def test_pygame_ce_without_a_build_fails_loudly(monkeypatch, tmp_path):
     module = _load_recipe("pygame_ce", monkeypatch)
     with pytest.raises(RuntimeError):
         module.install_built_package(tmp_path, tmp_path / "out")
+
+
+# --------------------------------------------------- what the APK must hold
+
+import check_apk  # noqa: E402
+
+
+def _apk(tmp_path, *, drop=(), extra=()):
+    """A fake APK shaped like python-for-android's (app in a tar)."""
+    site = "_python_bundle/site-packages"
+    members = [
+        "main.py",
+        "run_tuxemon.py",
+        "tuxemon/__init__.pyc",
+        "nagmon/__init__.pyc",
+        "mods/tuxemon/mod.yaml",
+        "mods/nagmon/mod.yaml",
+        "mods/db_config.yaml",
+        f"{site}/pygame/base.cpython-314-aarch64-linux-android.so",
+        f"{site}/pydantic_core/_pydantic_core.cpython-314.so",
+    ]
+    members += [f"{site}/{lib}/__init__.pyc" for lib in check_apk.LIBRARIES]
+    members = [m for m in members if not any(d in m for d in drop)]
+    members += list(extra)
+    tar_bytes = io.BytesIO()
+    with tarfile.open(fileobj=tar_bytes, mode="w:gz") as tf:
+        for name in members:
+            info = tarfile.TarInfo(name)
+            info.size = 0
+            tf.addfile(info, io.BytesIO(b""))
+    apk = tmp_path / "nagmon.apk"
+    with zipfile.ZipFile(apk, "w") as zf:
+        zf.writestr("assets/private.tar", tar_bytes.getvalue())
+        zf.writestr("lib/arm64-v8a/libSDL2.so", b"")
+        zf.writestr("lib/arm64-v8a/libpython3.14.so", b"")
+    return apk
+
+
+def test_complete_apk_passes(tmp_path):
+    assert check_apk.problems(check_apk.names_in_apk(_apk(tmp_path))) == []
+
+
+@pytest.mark.parametrize(
+    ("drop", "expected"),
+    [
+        pytest.param(
+            ("mods/nagmon/",),
+            "missing app folder mods/nagmon/",
+            id="no-content",
+        ),
+        pytest.param(("/yaml/",), "missing library yaml", id="no-yaml"),
+        pytest.param(
+            ("base.cpython",), "missing compiled pygame", id="pygame-not-built"
+        ),
+    ],
+)
+def test_incomplete_apk_is_named(tmp_path, drop, expected):
+    found = check_apk.problems(
+        check_apk.names_in_apk(_apk(tmp_path, drop=drop))
+    )
+    assert expected in found
+
+
+def test_native_bidi_is_caught(tmp_path):
+    apk = _apk(tmp_path, extra=["_python_bundle/site-packages/bidi/bidi.so"])
+    found = check_apk.problems(check_apk.names_in_apk(apk))
+    assert "bidi has native code (expected pure Python)" in found
+
+
+def test_layout_counts_files_per_folder():
+    counts = check_apk.layout(["a/b/c.py", "a/b/d.py", "a/e.py"], depth=2)
+    assert counts == {"a/b": 2, "a/e.py": 1}
