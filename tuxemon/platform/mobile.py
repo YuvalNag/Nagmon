@@ -21,6 +21,7 @@ logger = logging.getLogger(__name__)
 P4A_VARIABLES = ("ANDROID_ARGUMENT", "ANDROID_PRIVATE", "ANDROID_APP_PATH")
 
 BASE_HEIGHT = 720
+MAX_HEIGHT = 1080
 MIN_WIDTH = 1280
 
 
@@ -38,18 +39,23 @@ def logical_resolution(
     screen_w: int,
     screen_h: int,
     *,
-    height: int = BASE_HEIGHT,
+    min_height: int = BASE_HEIGHT,
+    max_height: int = MAX_HEIGHT,
     min_width: int = MIN_WIDTH,
 ) -> tuple[int, int]:
     """
-    A landscape drawing surface with the screen's shape, 720 pixels high,
-    which SDL scales up to the whole screen. Screens squarer than 16:9
-    keep a width of 1280 and grow taller instead, so no menu is squeezed.
+    A landscape drawing surface with the screen's shape. It uses the
+    screen's own pixels up to 1080 high, so nothing is stretched (a 1.5x
+    stretch made text and pictures blurry); sharper screens are drawn 1080
+    high and scaled up a little, which looks the same and keeps the game
+    fast. Small or square screens keep the 1280x720 the menus are made
+    for.
     """
     long_side, short_side = max(screen_w, screen_h), min(screen_w, screen_h)
     if short_side <= 0:
-        return min_width, height
+        return min_width, min_height
     aspect = long_side / short_side
+    height = _even(min(max(short_side, min_height), max_height))
     width = _even(height * aspect)
     if width >= min_width:
         return width, height

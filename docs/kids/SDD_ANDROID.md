@@ -65,11 +65,14 @@ tools/android/stage.py            # בונה תיקיית app נקייה לבנ�
 def is_android(env: Mapping[str, str] = os.environ) -> bool
     # p4a מגדיר ANDROID_ARGUMENT / ANDROID_PRIVATE / ANDROID_APP_PATH
 
-def logical_resolution(screen_w: int, screen_h: int, *, height: int = 720,
-                       min_width: int = 1280) -> tuple[int, int]
-    # תמיד לרוחב. גובה 720, והרוחב לפי יחס המסך.
-    # מסך צר יותר מ־16:9 (טאבלט 4:3) מקבל רוחב 1280 ומגדיל את הגובה.
-    # מספרים זוגיים. Poco F3: 2400×1080 → 1600×720.
+def logical_resolution(screen_w: int, screen_h: int, *, min_height: int = 720,
+                       max_height: int = 1080, min_width: int = 1280) -> tuple[int, int]
+    # תמיד לרוחב, ביחס של המסך.
+    # הפיקסלים של המסך עצמו, עד גובה 1080, כדי ששום דבר לא יימתח.
+    #   מתיחה של פי 1.5 (מ־1600×720) טשטשה טקסט ותמונות בטלפון.
+    # מסך חד יותר (1440p) מצויר בגובה 1080 ומוגדל מעט, כדי לא להאט.
+    # מסך קטן או ריבועי שומר על המינימום של 1280×720.
+    # מספרים זוגיים. Poco F3: 2400×1080 → 2400×1080, וקנה מידה 7.
 
 def touch_defaults(config: dict) -> None
     # controller.overlay=True, hide_mouse=False, transparency=150, display.fullscreen=True
@@ -119,7 +122,7 @@ class AndroidTTSBackend:   # id="android", online=False, extension=".wav"
 **תצוגה** (`tuxemon/prepare.py`): באנדרואיד:
 - `resolution = logical_resolution(*desktop_size)`.
 - `flags = FULLSCREEN | SCALED`.
-- כל השאר כמו במחשב (`Scaling` עובד מגובה 720).
+- כל השאר כמו במחשב. `Scaling` הוא המספר השלם הגדול ביותר שנכנס ב־256×144: ב־Poco F3 זה 7.
 
 **הקראה** (`nagmon/tts/factory.py`):
 - `build_backends(settings, android=None)`.

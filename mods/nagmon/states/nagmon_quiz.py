@@ -46,6 +46,14 @@ logger = logging.getLogger(__name__)
 OnResult = Callable[[Any], None]
 
 
+def answer_picture_size(menu_height: float) -> int:
+    """
+    Answer pictures are a tenth of the menu's height (72px at 720), so
+    they keep their size on sharper screens.
+    """
+    return max(48, int(menu_height * 0.1))
+
+
 def _choice_label(choice: Any, english_first: bool) -> str:
     if english_first and choice.text_en:
         return choice.text_en
@@ -328,7 +336,9 @@ class QuizState(PygameMenuState):
         for n, choice in numbered:
             label = _choice_label(choice, english_first) or str(n)
             if with_images:
-                image = self._emoji_surface(choice.image, 72)
+                image = self._emoji_surface(
+                    choice.image, answer_picture_size(menu._height)
+                )
                 card = menu.add.frame_v(
                     fix_measure(menu._width, 0.2),
                     fix_measure(menu._height, 0.22),

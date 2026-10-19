@@ -66,6 +66,10 @@ render_figure(kind, data, size, *, theme=DEFAULT_THEME, font_path=None,
   1. הקוד כמו שהוא;
   2. בלי כל `fe0f`;
   3. עם `fe0f` אחרי הרכיב הראשון, אם הוא חסר.
+- **תמונה חדה בכל גודל:**
+  - קודם `svg/<code>.svg`, ציור וקטורי בגודל המבוקש (`pygame.image.load_sized_svg`).
+  - אם אין SVG, או שהוא פגום, או ש־SDL_image בלי SVG, נטען ה־PNG של 72px ומוגדל. ה־PNG מיטשטש כשמגדילים אותו בטלפון.
+  - כ־3,720 קבצים, כ־8MB. ל־118 התמונות של Twemoji 15.1 אין SVG, והן נשארות PNG.
 - **מטמון:**
   - LRU על `(code, size)`: הקובץ נטען ומוקטן פעם אחת. גם החמצה (`None`) נשמרת;
   - `smoothscale` שומר על יחס הגובה־רוחב;

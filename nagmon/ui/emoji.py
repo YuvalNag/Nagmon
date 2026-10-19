@@ -78,6 +78,17 @@ class EmojiLoader:
                 return path
         return None
 
+    def svg_path_for(self, code: str) -> Path | None:
+        """The vector picture for ``code`` (``svg/<stem>.svg``), or ``None``."""
+        folder = self.root / "svg"
+        if not folder.is_dir():
+            return None
+        for stem in candidates(code):
+            path = folder / f"{stem}.svg"
+            if path.is_file():
+                return path
+        return None
+
     def get(self, code: str, size: int) -> pygame.Surface | None:
         """The emoji scaled so its longer side is ``size`` pixels."""
         if size <= 0:
@@ -93,6 +104,9 @@ class EmojiLoader:
         return surf
 
     def _load(self, code: str, size: int) -> pygame.Surface | None:
+        sharp = self._load_svg(code, size)
+        if sharp is not None:
+            return sharp
         path = self.path_for(code)
         if path is None:
             return None
@@ -109,3 +123,21 @@ class EmojiLoader:
         if image.get_bitsize() not in (24, 32):
             image = image.convert(32, pygame.SRCALPHA)
         return pygame.transform.smoothscale(image, new)
+
+    def _load_svg(self, code: str, size: int) -> pygame.Surface | None:
+        """
+        The vector picture drawn at ``size``: sharp at any size, where the
+        72px PNGs blur when stretched on a phone. ``None`` falls back to
+        the PNG (no svg, a broken one, or SDL_image without SVG).
+        """
+        path = self.svg_path_for(code)
+        if path is None:
+            return None
+        try:
+            image = pygame.image.load_sized_svg(str(path), (size, size))
+        except (pygame.error, OSError, AttributeError, ValueError) as exc:
+            logger.warning("emoji %s: no vector picture (%s)", path, exc)
+            return None
+        if pygame.display.get_init() and pygame.display.get_surface():
+            image = image.convert_alpha()
+        return image

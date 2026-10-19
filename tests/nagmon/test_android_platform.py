@@ -31,12 +31,19 @@ def test_is_android(env, expected):
 @pytest.mark.parametrize(
     ("screen", "expected"),
     [
-        pytest.param((2400, 1080), (1600, 720), id="poco-f3-20-9"),
-        pytest.param((1080, 2400), (1600, 720), id="portrait-is-turned"),
-        pytest.param((1920, 1080), (1280, 720), id="16-9"),
-        pytest.param((2048, 1536), (1280, 960), id="tablet-4-3"),
-        pytest.param((2340, 1080), (1560, 720), id="19.5-9"),
-        pytest.param((2000, 1200), (1280, 768), id="16-10"),
+        # The phone's own pixels: nothing is scaled up, so text and
+        # pictures stay sharp (a 1.5x stretch made everything blurry).
+        pytest.param((2400, 1080), (2400, 1080), id="poco-f3-20-9"),
+        pytest.param((1080, 2400), (2400, 1080), id="portrait-is-turned"),
+        pytest.param((1920, 1080), (1920, 1080), id="16-9"),
+        pytest.param((2340, 1080), (2340, 1080), id="19.5-9"),
+        # Sharper screens are drawn 1080 high and scaled up a little:
+        # more pixels would slow the game for no visible gain.
+        pytest.param((3200, 1440), (2400, 1080), id="1440p-phone"),
+        pytest.param((2048, 1536), (1440, 1080), id="tablet-4-3"),
+        pytest.param((2000, 1200), (1800, 1080), id="16-10"),
+        # Small screens keep the 1280x720 minimum the menus are made for.
+        pytest.param((854, 480), (1280, 720), id="small-phone"),
     ],
 )
 def test_logical_resolution(screen, expected):
@@ -93,7 +100,8 @@ def test_config_on_a_pc(monkeypatch):
     ("resolution", "scale"),
     [
         pytest.param((1280, 720), 5, id="16-9"),
-        pytest.param((1600, 720), 5, id="poco-f3-wide"),
+        pytest.param((1600, 720), 5, id="wide"),
+        pytest.param((2400, 1080), 7, id="poco-f3"),
         pytest.param((1280, 960), 5, id="tablet-tall"),
         pytest.param((2560, 1440), 10, id="2k"),
     ],

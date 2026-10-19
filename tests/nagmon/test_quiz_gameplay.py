@@ -324,3 +324,18 @@ def test_unused_boost_does_not_carry_into_an_unasked_attack(active_runtime):
     menu.before_enqueue_technique(_tech(), MagicMock(), proceed)
     proceed.assert_called_once()
     assert combat.get_variable(quiz_mult_key(menu.monster)) is None
+
+
+@pytest.mark.parametrize(
+    ("menu_height", "size"),
+    [
+        pytest.param(720, 72, id="pc-720"),
+        pytest.param(1080, 108, id="poco-f3-1080"),
+        pytest.param(300, 48, id="never-tiny"),
+    ],
+)
+def test_answer_pictures_grow_with_the_screen(menu_height, size):
+    """A fixed 72px picture would shrink on a sharper phone screen."""
+    from mods.nagmon.states.nagmon_quiz import answer_picture_size
+
+    assert answer_picture_size(menu_height) == size

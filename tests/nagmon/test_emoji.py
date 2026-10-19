@@ -128,3 +128,48 @@ def test_bundled_twemoji_assets():
         assert loader.get(code, 24) is not None, code
     # Twemoji file name keeps fe0f inside ZWJ sequences, drops it otherwise
     assert loader.get("emoji:2764-fe0f", 24) is not None
+
+
+
+# --------------------------------------------- sharp pictures at any size
+
+RED_SVG = (
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">'
+    '<rect width="36" height="36" fill="#ff0000"/></svg>'
+)
+
+
+def test_svg_is_drawn_at_the_size_asked(root):
+    """The vector picture, not a 72px one stretched (blurry on a phone)."""
+    (root / "svg").mkdir()
+    (root / "svg" / "1f436.svg").write_text(RED_SVG)
+    surf = EmojiLoader(root).get("1f436", 300)
+    assert surf.get_size() == (300, 300)
+    assert surf.get_at((150, 150))[:3] == (255, 0, 0)  # the svg, not the png
+
+
+def test_png_when_there_is_no_svg(root):
+    (root / "svg").mkdir()
+    surf = EmojiLoader(root).get("1f436", 100)
+    assert surf.get_at((50, 50))[:3] == (200, 50, 50)
+
+
+def test_png_when_the_svg_is_broken(root):
+    (root / "svg").mkdir()
+    (root / "svg" / "1f436.svg").write_text("not svg")
+    surf = EmojiLoader(root).get("1f436", 100)
+    assert surf is not None and surf.get_at((50, 50))[:3] == (200, 50, 50)
+
+
+def test_svg_keeps_the_fe0f_rules(root):
+    (root / "svg").mkdir()
+    (root / "svg" / "2764.svg").write_text(RED_SVG)
+    assert EmojiLoader(root).get("❤️", 64).get_at((32, 32))[:3] == (255, 0, 0)
+
+
+def test_shipped_pictures_have_sharp_versions():
+    pygame.init()
+    svg = default_root() / "svg"
+    assert len(list(svg.glob("*.svg"))) > 3000
+    owl = EmojiLoader(default_root()).get("1f989", 256)  # the wise owl
+    assert owl.get_size() == (256, 256)
