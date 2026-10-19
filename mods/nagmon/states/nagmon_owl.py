@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import logging
 import threading
+from functools import lru_cache
 from typing import TYPE_CHECKING, Any, ClassVar
 
 import pygame
@@ -33,8 +34,12 @@ MAX_READY_QUESTIONS = 6
 OWL_PORTRAIT = mod_dir() / "gfx" / "owl" / "owl_portrait.png"
 
 
+@lru_cache(maxsize=4)
 def owl_portrait(screen_height: int) -> pygame.Surface | None:
-    """The portrait, smoothly scaled to a fifth of the screen's height."""
+    """
+    The portrait, smoothly scaled to a fifth of the screen's height;
+    loaded once, as the screen rebuilds on every question.
+    """
     try:
         image = pygame.image.load(str(OWL_PORTRAIT))
     except (OSError, pygame.error):

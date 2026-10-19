@@ -374,3 +374,23 @@ def test_the_new_heroes_come_first_and_old_keys_stay():
             assert img.size == HD_MAP
         with Image.open(NAGMON / "gfx/sprites/player" / f"{name}.png") as img:
             assert img.size == (384, 384)  # HD 3 x 128x128, like heroine
+
+
+def test_owl_screen_loads_its_portrait_once(monkeypatch):
+    import pygame
+
+    from mods.nagmon.states import nagmon_owl
+
+    loads = []
+    real = pygame.image.load
+
+    def counting(path, *args):
+        loads.append(path)
+        return real(path, *args)
+
+    nagmon_owl.owl_portrait.cache_clear()
+    monkeypatch.setattr(pygame.image, "load", counting)
+    first = nagmon_owl.owl_portrait(720)
+    for _ in range(5):  # the screen rebuilds on every question
+        assert nagmon_owl.owl_portrait(720) is first
+    assert len(loads) == 1
