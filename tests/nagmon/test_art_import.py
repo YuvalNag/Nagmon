@@ -349,7 +349,9 @@ def test_game_sheets_are_whole_multiples_of_their_layout():
                 entry.layout.size[0] // entry.k,
                 entry.layout.size[1] // entry.k,
             )
-            assert native in {(48, 128), (128, 64), (128, 88), (128, 128)}, entry.name
+            assert native in {(48, 128), (128, 64), (128, 88), (128, 128)}, (
+                entry.name
+            )
 
 
 def test_a_frame_line_counts_against_the_box_not_the_window():
