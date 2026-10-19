@@ -139,6 +139,12 @@ def test_spec_targets_the_phone_and_keeps_data_private(staged):
     assert app["p4a.local_recipes"] == "./recipes"
 
 
+def test_an_emulator_build_targets_x86_64(tmp_path):
+    repo = _fake_repo(tmp_path / "repo")
+    stage.stage(repo, tmp_path / "app", arch="x86_64")
+    assert _spec(tmp_path / "app")["app"]["android.archs"] == "x86_64"
+
+
 def test_requirements_use_the_android_builds():
     reqs = stage.REQUIREMENTS
     names = {r.split("==")[0] for r in reqs}
@@ -318,7 +324,7 @@ def _tar(members) -> bytes:
     return data.getvalue()
 
 
-def _apk(tmp_path, *, drop=(), extra=()):
+def _apk(tmp_path, *, drop=(), extra=(), arch="arm64-v8a"):
     """
     A fake APK shaped like python-for-android's: the byte-compiled app in
     assets/private.tar, the libraries in lib/arm64-v8a/libpybundle.so.
@@ -343,10 +349,10 @@ def _apk(tmp_path, *, drop=(), extra=()):
     with zipfile.ZipFile(apk, "w") as zf:
         zf.writestr("assets/private.tar", _tar(keep(app)))
         zf.writestr(
-            "lib/arm64-v8a/libpybundle.so", _tar(keep(libs) + list(extra))
+            f"lib/{arch}/libpybundle.so", _tar(keep(libs) + list(extra))
         )
-        zf.writestr("lib/arm64-v8a/libSDL2.so", b"")
-        zf.writestr("lib/arm64-v8a/libpython3.14.so", b"")
+        zf.writestr(f"lib/{arch}/libSDL2.so", b"")
+        zf.writestr(f"lib/{arch}/libpython3.14.so", b"")
     return apk
 
 
@@ -378,6 +384,11 @@ def test_incomplete_apk_is_named(tmp_path, drop, expected):
     assert expected in found
 
 
+def test_emulator_apk_passes(tmp_path):
+    apk = _apk(tmp_path, arch="x86_64")
+    assert check_apk.problems(check_apk.names_in_apk(apk)) == []
+
+
 def test_native_bidi_is_caught(tmp_path):
     apk = _apk(tmp_path, extra=["_python_bundle/site-packages/bidi/bidi.so"])
     found = check_apk.problems(check_apk.names_in_apk(apk))
@@ -399,6 +410,11 @@ def test_every_apk_is_opened_on_an_emulator():
     assert job["uses"] == "./.github/workflows/android-smoke.yml"
     smoke = (workflows / "android-smoke.yml").read_text()
     assert "bash tools/android/smoke.sh apk" in smoke
+    # The emulator cannot run the phone's arm64 code (its ARM translator
+    # stops on some instructions), so it gets its own x86_64 build.
+    legs = build["jobs"]["apk"]["strategy"]["matrix"]["include"]
+    assert {leg["arch"] for leg in legs} == {"arm64-v8a", "x86_64"}
+    assert "pattern: nagmon-emulator-*" in smoke
     script = (REPO / "tools" / "android" / "smoke.sh").read_text()
     # It fails on a stopped app or a Python error, not only on install.
     assert "the app stopped" in script and "Traceback" in script

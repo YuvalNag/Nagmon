@@ -24,6 +24,16 @@ jobs:
   apk:
     runs-on: ubuntu-24.04
     timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # The phone (Poco F3 and every phone since ~2017).
+          - arch: arm64-v8a
+            artifact: nagmon-android
+          # The same app for the emulator check (android-smoke.yml).
+          - arch: x86_64
+            artifact: nagmon-emulator
     env:
       HAS_KEY: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
 
@@ -50,17 +60,20 @@ jobs:
         # buildozer brings the Cython it needs (<3).
         pip install buildozer==1.6.0 setuptools pyyaml
         # pydantic-core is Rust.
-        rustup target add aarch64-linux-android
+        rustup target add aarch64-linux-android x86_64-linux-android
 
     - name: Cache Android SDK and NDK
       uses: actions/cache@v4
       with:
         path: ~/.buildozer
-        key: buildozer-${{ runner.os }}-${{ hashFiles('tools/android/stage.py', 'buildconfig/android/recipes/**') }}
-        restore-keys: buildozer-${{ runner.os }}-
+        key: buildozer-${{ runner.os }}-${{ matrix.arch }}-${{ hashFiles('tools/android/stage.py', 'buildconfig/android/recipes/**') }}
+        # The SDK and NDK are the same for both; an older cache still helps.
+        restore-keys: |
+          buildozer-${{ runner.os }}-${{ matrix.arch }}-
+          buildozer-${{ runner.os }}-
 
     - name: Stage the app
-      run: python tools/android/stage.py build/app --build-number ${{ github.run_number }}
+      run: python tools/android/stage.py build/app --build-number ${{ github.run_number }} --arch ${{ matrix.arch }}
 
     - name: Release key
       if: env.HAS_KEY == 'true'
@@ -87,7 +100,7 @@ jobs:
       if: always()
       run: |
         {
-          echo "### Nagmon for Android (build ${{ github.run_number }})"
+          echo "### Nagmon for Android (build ${{ github.run_number }}, ${{ matrix.arch }})"
           ls -la build/app/bin 2>/dev/null || echo "No APK was built."
           if [ "$HAS_KEY" != "true" ]; then
             echo
@@ -99,7 +112,7 @@ jobs:
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: nagmon-android-${{ github.run_number }}
+        name: ${{ matrix.artifact }}-${{ github.run_number }}
         path: build/app/bin/*.apk
         if-no-files-found: error
         # A private repo has 500MB of free storage; an APK is ~220MB.
@@ -112,7 +125,7 @@ jobs:
       if: failure()
       uses: actions/upload-artifact@v4
       with:
-        name: buildozer-log-${{ github.run_number }}
+        name: buildozer-log-${{ matrix.arch }}-${{ github.run_number }}
         path: build/app/.buildozer/android/platform/build-*/*.log
         if-no-files-found: ignore
         retention-days: 3

@@ -59,12 +59,12 @@ LIBRARIES = (
     "yaml",
 )
 
-#: Compiled pieces that must exist (built for arm64): pattern in any name.
+#: Compiled pieces that must exist (for the APK's one architecture).
 NATIVE = {
     "pygame": re.compile(r"pygame/base[^/]*\.so$"),
     "pydantic_core": re.compile(r"pydantic_core/_pydantic_core[^/]*\.so$"),
-    "SDL2": re.compile(r"lib/arm64-v8a/libSDL2\.so$"),
-    "python": re.compile(r"lib/arm64-v8a/libpython3\.\d+\.so$"),
+    "SDL2": re.compile(r"lib/[^/]+/libSDL2\.so$"),
+    "python": re.compile(r"lib/[^/]+/libpython3\.\d+\.so$"),
 }
 
 #: Libraries that must stay pure Python (their native parts do not exist

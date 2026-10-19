@@ -4,7 +4,7 @@ entry point, the local recipes and a generated ``buildozer.spec``
 (docs/kids/SDD_ANDROID.md §2.4).
 
 Usage:
-    python tools/android/stage.py OUTDIR [--build-number N]
+    python tools/android/stage.py OUTDIR [--build-number N] [--arch ARCH]
 
 Then, in OUTDIR: ``buildozer android debug`` (or ``release``).
 """
@@ -103,7 +103,7 @@ android.presplash_color = #FFFFFF
 android.permissions = INTERNET
 android.api = 35
 android.minapi = 24
-android.archs = arm64-v8a
+android.archs = {arch}
 android.numeric_version = {build_number}
 android.allow_backup = False
 android.accept_sdk_license = True
@@ -155,8 +155,17 @@ def _version(repo: Path) -> str:
     return str(data.get("version", "0.0.0"))
 
 
-def stage(repo: Path, out: Path, *, build_number: int = 1) -> StageReport:
-    """Fills ``out`` with everything buildozer needs. Returns a report."""
+def stage(
+    repo: Path,
+    out: Path,
+    *,
+    build_number: int = 1,
+    arch: str = "arm64-v8a",
+) -> StageReport:
+    """
+    Fills ``out`` with everything buildozer needs. Returns a report.
+    ``arch`` is arm64-v8a for phones, x86_64 for the emulator check.
+    """
     repo, out = Path(repo), Path(out)
     if out.exists():
         shutil.rmtree(out)
@@ -186,6 +195,7 @@ def stage(repo: Path, out: Path, *, build_number: int = 1) -> StageReport:
             requirements=",".join(REQUIREMENTS),
             build_number=build_number,
             p4a_commit=P4A_COMMIT,
+            arch=arch,
         ),
         encoding="utf-8",
     )
@@ -196,8 +206,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[1])
     parser.add_argument("out", type=Path)
     parser.add_argument("--build-number", type=int, default=1)
+    parser.add_argument("--arch", default="arm64-v8a")
     args = parser.parse_args()
-    report = stage(REPO, args.out, build_number=args.build_number)
+    report = stage(
+        REPO, args.out, build_number=args.build_number, arch=args.arch
+    )
     print(
         f"staged {report.files} files, {report.bytes / 1e6:.0f} MB, "
         f"types: {','.join(report.extensions)}"
