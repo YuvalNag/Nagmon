@@ -5,7 +5,8 @@ Usage:
     HOME=/tmp/nagmon-home python tools/dev/headless_tour.py OUTDIR [he_IL]
 
 Use a throwaway HOME: the game writes its config, saves and profiles
-there. Steps: splash -> "who is playing" (empty) -> a parent creates two
+there. Steps: the intro movie (first and last frame) -> splash ->
+"who is playing" (empty) -> a parent creates two
 children -> "who is playing" -> pick the first -> title menu.
 """
 
@@ -81,6 +82,23 @@ def wait_for(state: str, frames: int = 2400) -> bool:
 
 
 from nagmon.runtime import get_runtime  # noqa: E402
+from nagmon.ui.intro import start_intro  # noqa: E402
+
+# The intro never starts by itself headless (SDD_ART §2.4): start it as
+# on a real screen, look at its first and last frame, let it end.
+step(5)
+assert start_intro(client, driver="tour", env={}), "no intro frames"
+step(2)
+shot("00_intro_first")
+intro = client.get_state_by_name("NagmonIntroState")
+while intro.player.movie.index not in (
+    None,
+    len(intro.player.movie.paths) - 1,
+):
+    step(6)
+shot("00_intro_last")
+step(30)
+assert "NagmonIntroState" not in names(), names()
 
 assert wait_for("ProfileSelectState"), names()
 step(30)
