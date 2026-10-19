@@ -370,3 +370,79 @@ def test_android_clipboard_uses_the_phone(monkeypatch):
     monkeypatch.setitem(sys.modules, "nagmon.android.clipboard", fake)
     monkeypatch.setattr(clipboard, "_on_android", lambda: True)
     assert clipboard.read_clipboard() == "from the phone"
+
+
+# ------------------------------------------------------ one at a time
+
+
+def test_a_second_send_waits_for_the_first(ui, monkeypatch):
+    """A double tap must not send twice (or race two files into one
+    second's path)."""
+    connect(ui)
+    pending = []
+    monkeypatch.setattr(
+        screen,
+        "run_in_background",
+        lambda client, work, done: pending.append((work, done)),
+    )
+    ui.state.send_log()
+    ui.tap("nagmon_github_send")
+    assert ui.state.status_text() == T.translate("nagmon_github_sending")
+    offered = len(ui.offers)
+    for again in (ui.state.send_log, ui.state.send_progress):
+        again()
+        assert ui.said[-1] == T.translate("nagmon_github_sending")
+    assert len(ui.offers) == offered and len(pending) == 1
+    work, done = pending.pop()
+    done(work())
+    assert ui.said[-1] == T.translate("nagmon_github_sent")
+    ui.state.send_progress()
+    assert len(ui.offers) == offered + 1
+
+
+def test_a_failed_send_frees_the_screen(ui, monkeypatch):
+    connect(ui)
+    monkeypatch.setattr(
+        screen, "run_in_background", lambda client, work, done: done(None)
+    )
+    ui.state.send_log()
+    ui.tap("nagmon_github_send")
+    ui.state.send_log()
+    assert ui.said[-1] == T.format(
+        "nagmon_github_confirm_log", {"repo": DATA_REPO}
+    )
+
+
+def test_a_broken_result_handler_does_not_stop_the_game():
+    """The result runs on the game's thread from the command queue, which
+    Tuxemon runs without a guard: a failure there must not crash."""
+    import queue
+
+    from nagmon.ui.game_helpers import run_in_background
+
+    commands: queue.Queue = queue.Queue()
+
+    class Client:
+        queue_command = staticmethod(commands.put)
+
+    def done(result):
+        raise RuntimeError("screen already closed")
+
+    run_in_background(Client(), lambda: 42, done)
+    command = commands.get(timeout=5)
+    command()  # does not raise
+
+
+def test_a_snapshot_that_breaks_says_so_and_the_game_goes_on(ui, monkeypatch):
+    """The "send" runs from the command queue: an error there would stop the
+    game."""
+    connect(ui)
+
+    def broken(rt):
+        raise ValueError("odd learner file")
+
+    monkeypatch.setattr(screen, "progress_snapshot", broken)
+    ui.state.send_progress()
+    ui.tap("nagmon_github_send")
+    assert ui.said[-1] == T.format("nagmon_github_failed", {"repo": DATA_REPO})
+    assert ui.puts == [] and not ui.state.sending

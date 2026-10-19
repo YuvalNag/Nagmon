@@ -59,6 +59,8 @@ class FieldDataState(PygameMenuState):
     """Status, connect, send log / progress / crash report, disconnect."""
 
     name: ClassVar[str] = "FieldDataState"
+    #: An upload is on its way: another one waits (no double sends).
+    sending: bool = False
 
     def __init__(self, client: BaseClient, **kwargs: Any) -> None:
         width, height = client.context.resolution
@@ -84,6 +86,8 @@ class FieldDataState(PygameMenuState):
     # ------------------------------------------------------------ the menu
 
     def status_text(self) -> str:
+        if self.sending:
+            return T.translate("nagmon_github_sending")
         if not self.data.connected:
             return T.translate("nagmon_github_not_connected")
         if self.status is None:
@@ -199,13 +203,26 @@ class FieldDataState(PygameMenuState):
         ``prepare`` (on the game's thread) gives the upload to run in the
         background, or None when there is nothing to send.
         """
+        if self.sending:
+            say(self.client, T.translate("nagmon_github_sending"))
+            return
         if not self.data.connected:
             say(self.client, T.translate("nagmon_github_not_connected"))
             return
 
         def go() -> None:
-            upload = prepare()
+            if self.sending:  # two confirmations were open
+                say(self.client, T.translate("nagmon_github_sending"))
+                return
+            try:
+                upload = prepare()
+            except Exception:  # runs from the command queue: never raise
+                logger.exception("Could not prepare the upload")
+                self._sent(None)
+                return
             if upload is not None:
+                self.sending = True
+                self.rebuild()
                 run_in_background(self.client, upload, self._sent)
 
         say(
@@ -221,6 +238,7 @@ class FieldDataState(PygameMenuState):
         )
 
     def _sent(self, result: Upload | None) -> None:
+        self.sending = False
         repo = self.data.repo
         result = result or Upload(Code.FAILED)
         if result.code in STATUS_CODES:

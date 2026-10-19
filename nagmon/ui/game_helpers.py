@@ -93,8 +93,16 @@ def run_in_background(
     """
     Runs ``work`` (network, disk) in its own thread so the game never
     freezes, then ``done`` with its result on the game's thread. A
-    failure is logged and ``done`` gets None.
+    failure is logged and ``done`` gets None; a failure in ``done`` (the
+    screen may have closed meanwhile) is logged too, since the command
+    queue runs it unguarded and would stop the game.
     """
+
+    def finish(result: R | None) -> None:
+        try:
+            done(result)
+        except Exception:
+            logger.exception("Finishing background work failed")
 
     def run() -> None:
         try:
@@ -102,7 +110,7 @@ def run_in_background(
         except Exception:
             logger.exception("Background work failed")
             result = None
-        client.queue_command(lambda: done(result))
+        client.queue_command(lambda: finish(result))
 
     threading.Thread(target=run, name="nagmon-background", daemon=True).start()
 
