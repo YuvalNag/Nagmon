@@ -24,6 +24,9 @@ YAML_ATTR = [
     "y",
     "width",
     "height",
+    # a mod's event taking the place of the TMX event of that name
+    # (MapLoader.process_and_merge_events)
+    "replaces",
 ]
 YAML_TYPES = ["init", "collision", "event"]
 
