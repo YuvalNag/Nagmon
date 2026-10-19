@@ -1,0 +1,103 @@
+# Route 1's own wild encounters (docs/kids/SDD_ART.md §2.3): every entry
+# of mods/tuxemon/db/encounter/spyder_citypark.yaml (the table the TMX
+# uses, shared with the Spyder maps), plus the first subject monsters,
+# day and night. mods/nagmon/maps/classic_route_1.yaml points our Route 1
+# here; the Spyder maps keep Tuxemon's table.
+monsters:
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 5
+  - 8
+  monster: cardiling
+  variables:
+    - key: daytime
+      value: "true"
+- encounter_rate: 1
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 8
+  - 11
+  monster: cardiwing
+  variables:
+    - key: daytime
+      value: "true"
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 6
+  - 9
+  monster: cataspike
+  variables:
+    - key: daytime
+      value: "true"
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 5
+  - 8
+  monster: eyenemy
+  variables:
+    - key: daytime
+      value: "true"
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 8
+  - 12
+  monster: axolightl
+  variables:
+    - key: daytime
+      value: "false"
+- encounter_rate: 1
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 8
+  - 12
+  monster: tourbidi
+  variables:
+    - key: daytime
+      value: "false"
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 8
+  - 12
+  monster: squabbit
+  variables:
+    - key: daytime
+      value: "false"
+- encounter_rate: 1
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 9
+  - 14
+  monster: puparmor
+  variables:
+    - key: daytime
+      value: "false"
+- encounter_rate: 2
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 5
+  - 8
+  monster: geometrion
+  variables: []
+- encounter_rate: 2
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 5
+  - 8
+  monster: alphabel
+  variables: []
+slug: nagmon_route1

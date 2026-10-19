@@ -19,7 +19,13 @@ class Avatar:
 
 
 #: Characters a child may pick. All are modest (see SDD_MODESTY.md).
+#: The owner's HD heroes come first (SDD_ART §2.9); the older keys stay,
+#: since profiles store them.
 AVATARS: tuple[Avatar, ...] = (
+    Avatar("boy_blue", "nagmon_hero_boy", "nagmon_hero_boy", "male", "בן"),
+    Avatar(
+        "girl_teal", "nagmon_hero_girl", "nagmon_hero_girl", "female", "בת"
+    ),
     Avatar("boy_light", "adventurer", "adventurer", "male", "בן"),
     Avatar("boy_dark", "adventurerblack", "adventurerblack", "male", "בן"),
     Avatar("girl_light", "heroine", "heroine", "female", "בת"),
@@ -40,11 +46,14 @@ GRADE_NAMES_HE: tuple[str, ...] = (
 )
 
 
+#: What an unknown or corrupt key shows: the character such profiles
+#: always had, not the newest first choice.
+FALLBACK_AVATAR = "boy_light"
+
+
 def avatar_by_key(key: str) -> Avatar:
-    for avatar in AVATARS:
-        if avatar.key == key:
-            return avatar
-    return AVATARS[0]
+    by_key = {avatar.key: avatar for avatar in AVATARS}
+    return by_key.get(key) or by_key[FALLBACK_AVATAR]
 
 
 def avatar_keys() -> set[str]:

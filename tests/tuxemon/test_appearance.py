@@ -18,6 +18,12 @@ class DummyTemplate:
     combat_frame_height: int = 32
     combat_back_frame_height: int | None = None
     is_static_prop: bool = False
+    # The map sheet layout, as NpcTemplateModel has it (an HD sheet is a
+    # whole multiple of it: docs/kids/SDD_ART.md §2.6).
+    frame_width: int = 16
+    frame_height: int = 32
+    rows: int = 4
+    columns: int = 3
 
 
 def test_from_template():

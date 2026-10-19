@@ -448,6 +448,11 @@ msgstr ""
 "You answered questions about shapes and kept going in the duel.\n"
 "Look, the color is coming back to the town. That's your knowledge!"
 
+msgid "nagmon_owl_cape"
+msgstr ""
+"Wise Owl: And look what I got, a blue cape for your badge!\n"
+"I will wear it proudly. We took this step together."
+
 msgid "nagmon_owl_congrats_mila"
 msgstr ""
 "Wise Owl: Another badge! You practised math until it worked.\n"
@@ -808,3 +813,40 @@ msgstr "There is no log to send yet."
 
 msgid "nagmon_github_confirm_progress_one"
 msgstr "To be sent: progress of one child, without the name, to the private data repo {repo}."
+
+# The first subject monsters (docs/kids/SDD_ART.md §2.3).
+msgid "geometrion"
+msgstr "Geometrion"
+
+msgid "geometrion_description"
+msgstr "A little pyramid that loves corners. Count its sides and it glows."
+
+msgid "cat_pyramid"
+msgstr "Pyramid"
+
+msgid "polygonos"
+msgstr "Polygonos"
+
+msgid "polygonos_description"
+msgstr "Many shapes held together by light. Every face is a different polygon."
+
+msgid "cat_polyhedron"
+msgstr "Polyhedron"
+
+msgid "alphabel"
+msgstr "Alphabel"
+
+msgid "alphabel_description"
+msgstr "A fox with letters in its fur. It wags its tail at every new word."
+
+msgid "cat_letter_fox"
+msgstr "Letter Fox"
+
+msgid "lexicon"
+msgstr "Lexicon"
+
+msgid "lexicon_description"
+msgstr "A winged lion with words in its mane. It knows a word for everything."
+
+msgid "cat_word_lion"
+msgstr "Word Lion"

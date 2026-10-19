@@ -165,6 +165,19 @@ class MapLoader:
             yaml_files: List of YAML file paths to load events from.
         """
         yaml_collision, events = self._process_events(yaml_files)
+        # A script event with "replaces: <name>" takes the place of the
+        # map's (TMX) event of that name, e.g. a mod's own encounters;
+        # only when the replacing event was actually built.
+        replaced = self._replaced
+        matched: set[str] = set()
+        for event in [e for e in txmn_map.events if e.name in replaced]:
+            txmn_map.remove_event(event)
+            matched.add(event.name)
+        for name in sorted(replaced - matched):
+            logger.warning(
+                f"A script event replaces '{name}', but the map has no "
+                "event of that name"
+            )
         self._merge_events(txmn_map, yaml_collision, events)
 
     def _process_events(
@@ -186,6 +199,8 @@ class MapLoader:
             tuple[int, int], RegionProperties | None
         ] = {}
         events: defaultdict[str, list[EventObject]] = defaultdict(list)
+        #: Names of map events that the built script events replace.
+        self._replaced: set[str] = set()
 
         for yaml_file in yaml_files:
             if yaml_file.exists():
@@ -198,9 +213,11 @@ class MapLoader:
                             "event"
                         ]
                     )
+                    self._replaced |= self.yaml_loader.replaced
                     events["init"].extend(
                         self.yaml_loader.load_events(yaml_file, "init")["init"]
                     )
+                    self._replaced |= self.yaml_loader.replaced
                 except Exception as e:
                     logger.error(
                         f"Failed to load events from {yaml_file}: {e}"
@@ -284,6 +301,10 @@ class MapLoader:
 class YAMLEventLoader:
     """Support for reading game events from a YAML file."""
 
+    def __init__(self) -> None:
+        #: After load_events: the map events its events replace.
+        self.replaced: set[str] = set()
+
     def load_collision(
         self, path: Path
     ) -> MutableMapping[tuple[int, int], RegionProperties | None]:
@@ -336,6 +357,7 @@ class YAMLEventLoader:
             of EventObject instances.
         """
         event_parser = EventParser()
+        self.replaced = set()
         yaml_data: dict[str, dict[str, dict[str, Any]]] = load_yaml(path)
 
         events_dict: dict[str, list[EventObject]] = {"event": [], "init": []}
@@ -368,6 +390,8 @@ class YAMLEventLoader:
                     event_data, name, box, priority, timeout, delay
                 )
                 events_dict[event_type].append(event)
+                if event_data.get("replaces"):
+                    self.replaced.add(str(event_data["replaces"]))
         return events_dict
 
 

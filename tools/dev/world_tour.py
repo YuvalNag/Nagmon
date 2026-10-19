@@ -3,12 +3,14 @@ Boots the game headless, starts a new game for a child and walks through
 the first world chapter (docs/kids/SDD_WORLD.md §4).
 
 Usage:
-    HOME=/tmp/nagmon-home python tools/dev/world_tour.py OUTDIR
+    HOME=/tmp/nagmon-home python tools/dev/world_tour.py OUTDIR [--avatar=KEY]
     HOME=/tmp/nagmon-home python tools/dev/world_tour.py --smoke
 
 Use a throwaway HOME: the game writes its config, saves and profiles
 there. With OUTDIR it saves world_*.png screenshots: the intro dialog,
-the Wise Owl in town, a quiz at the shop, and the academy master. With
+the Wise Owl in town, a quiz at the shop, a wild battle with the new
+subject monsters, the academy master, and the owl in its cape after
+the first badge. With
 --smoke it only checks that a new game starts in Hearthrock with the
 child's name, and prints one JSON line.
 """
@@ -27,6 +29,11 @@ sys.path.insert(0, str(REPO))
 os.chdir(REPO)
 
 SMOKE = "--smoke" in sys.argv
+#: --avatar=KEY: the child's character (nagmon/game_flow.py AVATARS).
+AVATAR = next(
+    (a.split("=", 1)[1] for a in sys.argv if a.startswith("--avatar=")),
+    "girl_light",
+)
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
 out = Path(args[0]) if args else None
 if out is not None:
@@ -137,7 +144,7 @@ rt.parent.settings.holiday_mode = False
 if not rt.store.list():
     from nagmon.game_flow import defaults_for_grade
 
-    rt.store.create(name="נועה", avatar="girl_light", **defaults_for_grade(2))
+    rt.store.create(name="נועה", avatar=AVATAR, **defaults_for_grade(2))
 child = rt.store.list()[0]
 client.get_state_by_name("ProfileSelectState").pick(child.id)
 assert wait_for("StartState"), names()
@@ -161,6 +168,22 @@ def map_slug() -> str:
     return Path(str(getattr(current, "filename", ""))).stem if current else ""
 
 
+def dialog_avatar() -> list[int] | None:
+    """Size of the speaker's portrait on the open dialog, if it is drawn."""
+    if "DialogState" not in names():
+        return None
+    dialog = client.get_state_by_name("DialogState")
+    avatar = dialog.avatar
+    if avatar is None or avatar not in dialog.sprites:
+        return None
+    return list(avatar.rect.size)
+
+
+def owl_sprite() -> str | None:
+    owl = client.get_npc("nagmon_owl")
+    return owl.appearance_manager.state.sprite_name if owl else None
+
+
 if SMOKE:
     result = {
         "map": map_slug(),
@@ -169,8 +192,17 @@ if SMOKE:
         "owl": client.get_npc("nagmon_owl") is not None,
         "started": var("nagmon_started"),
         "dialog": "DialogState" in names(),
+        "avatar": dialog_avatar(),
         "engine": rt.engine is not None,
+        "owl_sprite": owl_sprite(),
     }
+    # The cape (SDD_ART §2.8), by the real event engine: the town makes
+    # the owl again (as on every load) once the first badge is earned.
+    player().game_variables.set("academy_granite_done", "yes")
+    player().game_variables.set("nagmon_owl_congrats_granite", "yes")
+    client.event_engine.execute_action("remove_npc", ["nagmon_owl"])
+    step(30)
+    result["owl_sprite_after_badge"] = owl_sprite()
     print(json.dumps(result, ensure_ascii=False))
     sys.exit(0)
 
@@ -251,6 +283,30 @@ if quiz is not None:
 step(10)
 close_dialogs()
 
+# A wild battle with the new subject monsters (docs/kids/SDD_ART.md).
+close_dialogs()
+step(10)
+ex("add_monster", ["alphabel", "10"])
+party = player().monsters
+party.insert(0, party.pop())
+# skip: the action waits for the battle to end; let the frames run it.
+ex("wild_encounter", ["geometrion", "6"], True)
+for _ in range(60):
+    if "CombatState" in names():
+        break
+    step(10)
+step(40)
+shot("world_08a_battle_start")  # the child's back view comes in
+step(200)
+shot("world_08_battle")
+print("battle:", names())
+for _ in range(5):
+    if names()[0] == "WorldState":
+        break
+    client.pop_state()
+    step(2)
+step(10)
+
 # The academy master.
 ex("teleport", ["player", "classic_gym_granite.tmx", 10, 6])
 step(60)
@@ -259,6 +315,24 @@ step(10)
 press()
 step(240)
 shot("world_07_academy_master")
+# A duel with the master: his battle portrait.
+for _ in range(5):
+    if names()[0] == "WorldState":
+        break
+    client.pop_state()
+    step(2)
+ex("start_battle", ["player", "classic_gym_leader_granite"], True)
+for _ in range(60):
+    if "CombatState" in names():
+        break
+    step(10)
+step(60)
+shot("world_07b_granite_duel")
+for _ in range(6):
+    if names()[0] == "WorldState":
+        break
+    client.pop_state()
+    step(2)
 print(
     "variables:",
     {
@@ -267,3 +341,33 @@ print(
         if "nagmon" in k or "academy" in k
     },
 )
+
+# The first badge: back in town the owl congratulates and wears its cape
+# (docs/kids/SDD_ART.md §2.8).
+for _ in range(5):
+    if names()[0] == "WorldState":
+        break
+    client.pop_state()
+    step(2)
+player().game_variables.set("academy_granite_done", "yes")
+ex(
+    "transition_teleport",
+    ["player", "classic_hearthrock_city.tmx", 29, 17, 0.3],
+)
+for _ in range(80):
+    if dialog_text() and "DialogState" in names():
+        break
+    step(10)
+press()  # page 2 of the congratulation
+step(120)
+for _ in range(6):
+    if client.get_npc("nagmon_owl") is not None and "cape" in str(
+        client.get_npc("nagmon_owl").appearance_manager.state.sprite_name
+    ):
+        break
+    close_dialogs(1)
+    step(30)
+step(120)
+shot("world_09_owl_cape")
+owl = client.get_npc("nagmon_owl")
+print("owl sprite:", owl.appearance_manager.state.sprite_name if owl else None)

@@ -85,7 +85,7 @@ REQUIREMENTS = (
 #: python-for-android, pinned so a build today equals a build next month.
 P4A_COMMIT = "8ef9d1dbbf769d2c14681dbc3c116c85e2e93bae"
 
-ICON = Path("mods/nagmon/gfx/emoji/1f989.png")  # the Wise Owl (Twemoji)
+ICON = Path("mods/nagmon/gfx/owl/owl_icon.png")  # the Wise Owl (SDD_ART)
 
 SPEC = """\
 [app]

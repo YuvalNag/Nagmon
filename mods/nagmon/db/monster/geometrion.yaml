@@ -1,0 +1,71 @@
+# Geometrion: the math Nagmon (docs/kids/SDD_ART.md §2.3). Metal = geometry.
+slug: geometrion
+species: pyramid
+moveset:
+- level_learned: 1
+  technique: struggle
+  learning_method: fallback
+- level_learned: 1
+  technique: ram
+- level_learned: 1
+  technique: slice
+- level_learned: 4
+  technique: rock
+- level_learned: 7
+  technique: bullet
+- level_learned: 10
+  technique: perfect_cut
+- level_learned: 13
+  technique: sand_spray
+- level_learned: 16
+  technique: stonehenge
+- level_learned: 20
+  technique: platinum
+- level_learned: 26
+  technique: shrapnel
+- level_learned: 30
+  technique: grinding
+- level_learned: 36
+  technique: harpoon
+- level_learned: 42
+  technique: adamantine
+evolutions:
+- at_level: 16
+  monster_slug: polygonos
+history:
+- slug: geometrion
+  stage: basic
+  evolves_from: []
+  evolves_into:
+  - polygonos
+- slug: polygonos
+  stage: stage1
+  evolves_from:
+  - geometrion
+  evolves_into: []
+terrains:
+- mountains
+- urban
+tags:
+- rock
+- metal
+shape: blob
+stage: basic
+types:
+- metal
+gender_weights:
+  male: 0.5
+  female: 0.5
+txmn_id: 394
+height: 40
+weight: 12
+sounds:
+  combat_call:
+    sfx: sound_retro_beep_05
+    volume: 1.5
+  faint_call:
+    sfx: sound_retro_beep_05_faint
+    volume: 1.5
+catch_rate: 100.0
+lower_catch_resistance: 0.95
+upper_catch_resistance: 1.25

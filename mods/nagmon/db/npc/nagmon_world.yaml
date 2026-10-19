@@ -1,5 +1,8 @@
 # NPCs of the first world chapter (docs/kids/SDD_WORLD.md §2.6).
 # Names are msgids in mods/nagmon/l18n/*/LC_MESSAGES/nagmon.po.
+# The owl and the three teaching NPCs wear the owner's portraits in
+# dialogue and battle; the owl, the shopkeeper and the tourist also his
+# HD map sheets (docs/kids/SDD_ART.md §2.2, §2.7).
 - slug: nagmon_owl
   speech:
     profile:
@@ -7,8 +10,8 @@
   combat: {}
   audio: {}
   template:
-    sprite_name: professor
-    combat_sheet: professor
+    sprite_name: nagmon_owl
+    combat_sheet: nagmon_owl
     slug: professor
 - slug: nagmon_cashier
   speech:
@@ -17,8 +20,8 @@
   combat: {}
   audio: {}
   template:
-    sprite_name: shopkeeper
-    combat_sheet: shopkeeper
+    sprite_name: nagmon_shopkeeper
+    combat_sheet: nagmon_shopkeeper
     slug: shopkeeper
 - slug: nagmon_tourist
   speech:
@@ -27,8 +30,8 @@
   combat: {}
   audio: {}
   template:
-    sprite_name: cooldude
-    combat_sheet: cooldude
+    sprite_name: nagmon_tourist
+    combat_sheet: nagmon_traveler
     slug: cooldude
 - slug: nagmon_gardener
   speech:
@@ -37,8 +40,8 @@
   combat: {}
   audio: {}
   template:
-    sprite_name: florist
-    combat_sheet: florist
+    sprite_name: nagmon_teacher
+    combat_sheet: nagmon_teacher
     slug: florist
 - slug: nagmon_kid
   speech:
@@ -102,3 +105,21 @@
     combat_sheet: noclass
     slug: noclass
     is_static_prop: true
+# Master Granite of our geometry academy (SDD_WORLD §2.5). Only the
+# academy creates him; this replaces Tuxemon's entry of the same slug,
+# with the same words and the owner's art (SDD_ART §2.9). The other
+# masters keep "monk".
+- slug: classic_gym_leader_granite
+  speech:
+    profile:
+      default:
+        pre_battle: classic_gym_leader_granite_pre
+        post_battle_win: null
+        post_battle_lose: classic_gym_leader_granite_post
+        post_battle_draw: null
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_granite
+    combat_sheet: nagmon_granite
+    slug: monk

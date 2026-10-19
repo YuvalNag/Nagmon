@@ -121,7 +121,18 @@ class NagmonStartupRule(StartupRule):
         mobile.on_app_switch(pause_play, resume_play)
         if first_run:
             switch_to_hebrew()
+        start_intro_movie(self.client)
         logger.info("Nagmon runtime ready")
+
+
+def start_intro_movie(client: Any) -> None:
+    """The intro, once per launch, on a real screen (SDD_ART §2.4)."""
+    from nagmon.ui.intro import start_intro
+
+    try:
+        start_intro(client)
+    except Exception:  # the intro must never stop the game
+        logger.exception("Could not start the intro")
 
 
 def start_app_log() -> None:

@@ -22,9 +22,12 @@ def test_ten_grades_from_kindergarten_to_ninth():
     assert GRADE_NAMES_HE[0] == "גן"
 
 
-def test_avatar_lookup_falls_back_to_first():
+def test_avatar_lookup_falls_back_to_the_old_first_boy():
     assert avatar_by_key("girl_light").combat_sheet == "heroine"
-    assert avatar_by_key("nope") is AVATARS[0]
+    # An unknown or corrupt key looks as it always did: the first boy of
+    # the original list, not the newest first choice.
+    assert avatar_by_key("nope").key == "boy_light"
+    assert avatar_by_key("").sprite == "adventurer"
     assert "boy_dark" in avatar_keys()
 
 

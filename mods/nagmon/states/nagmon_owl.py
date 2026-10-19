@@ -8,11 +8,14 @@ from __future__ import annotations
 
 import logging
 import threading
+from functools import lru_cache
 from typing import TYPE_CHECKING, Any, ClassVar
 
+import pygame
 from pygame_menu.locals import ALIGN_CENTER, POSITION_EAST
 from pygame_menu.menu import Menu
 
+from nagmon import mod_dir
 from nagmon.ai.owl import OWL_NOTICE_HE
 from nagmon.owl_service import build_owl, load_ai_settings
 from nagmon.runtime import age_from_profile, get_runtime
@@ -26,6 +29,27 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 MAX_READY_QUESTIONS = 6
+
+#: The owner's owl, HD (docs/kids/SDD_ART.md §2.2).
+OWL_PORTRAIT = mod_dir() / "gfx" / "owl" / "owl_portrait.png"
+
+
+@lru_cache(maxsize=4)
+def owl_portrait(screen_height: int) -> pygame.Surface | None:
+    """
+    The portrait, smoothly scaled to a fifth of the screen's height;
+    loaded once, as the screen rebuilds on every question.
+    """
+    try:
+        image = pygame.image.load(str(OWL_PORTRAIT))
+    except (OSError, pygame.error):
+        logger.warning("No owl portrait at %s", OWL_PORTRAIT)
+        return None
+    height = max(1, screen_height // 5)
+    width = round(image.get_width() * height / image.get_height())
+    if image.get_bitsize() < 24:
+        return pygame.transform.scale(image, (width, height))
+    return pygame.transform.smoothscale(image, (width, height))
 
 
 class OwlState(PygameMenuState):
@@ -56,6 +80,9 @@ class OwlState(PygameMenuState):
     def show(self) -> None:
         self._menu = None
         menu = self.menu
+        portrait = owl_portrait(self.client.context.resolution[1])
+        if portrait is not None:
+            menu.add.surface(portrait, surface_id="owl_portrait")
         menu.add.label(
             T.translate("nagmon_owl_title"), font_size=self.font_type.big
         )

@@ -41,6 +41,9 @@ test = [
     "pytest",
     "pytest-mock",
     "pytest-cov",
+    # tools/art (the game never imports them)
+    "numpy",
+    "scipy",
 ]
 dev = [
     "tuxemon[test]",

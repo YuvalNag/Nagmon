@@ -705,8 +705,7 @@ class CombatAnimations(Menu[None], ABC):
         # Spawn Entities
         if self.combat_session.is_trainer_battle:
             enemy_pos = layout.get_combatant_pos("enemy", back_island.rect)
-            enemy_surface = opponent.combat_sheet.front()
-            enemy_surface = graphics.scale_surface(enemy_surface, self.factor)
+            enemy_surface = opponent.combat_sheet.front(self.factor)
             enemy = self.load_surface(enemy_surface, **enemy_pos)
             self.sprite_map.add_sprite(opponent, enemy)
         else:
@@ -726,8 +725,7 @@ class CombatAnimations(Menu[None], ABC):
         # island rather than floating above it. 64 is a nominal value, scaled
         # to the current display.
         player_pos["bottom"] += self.scale_int(64)
-        player_surface = player.combat_sheet.back()
-        player_surface = graphics.scale_surface(player_surface, self.factor)
+        player_surface = player.combat_sheet.back(self.factor)
         player_back = self.load_surface(player_surface, **player_pos)
 
         self.sprites.add(enemy, player_back)

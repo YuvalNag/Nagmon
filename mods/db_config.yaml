@@ -83,6 +83,8 @@ mod_tables:
   nagmon:
     - npc
     - item
+    - monster
+    - encounter
 
 # A dictionary to specify tables that should be excluded for certain mods.
 # For example, a mod might explicitly opt out of providing 'item' data.
