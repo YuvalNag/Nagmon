@@ -13,7 +13,6 @@ from pygame_menu.widgets.selection.highlight import HighlightSelection
 from tuxemon.database.runtime import db
 from tuxemon.db import NpcModel
 from tuxemon.entity.sheet import get_combat_sheet
-from tuxemon.graphics import scale_surface
 from tuxemon.menu.menu import PygameMenuState
 from tuxemon.menu.theme import get_theme
 from tuxemon.menu.transitions import PopInClamped
@@ -87,8 +86,7 @@ class ChoiceNpc(PygameMenuState):
     ) -> None:
         npc = NpcModel.lookup(slug, db)
         sheet = get_combat_sheet(npc.template)
-        surface = sheet.front()
-        scaled = scale_surface(surface, self.factor * self.config.scale_sprite)
+        scaled = sheet.front(self.factor * self.config.scale_sprite)
         new_image = self._create_image_from_surface(scaled)
         self.menu.add.image(new_image, align=ALIGN_CENTER)
         # replace slug not translated

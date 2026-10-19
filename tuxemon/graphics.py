@@ -19,7 +19,7 @@ from pygame.color import Color
 from pygame.image import load
 from pygame.rect import Rect
 from pygame.surface import Surface
-from pygame.transform import scale
+from pygame.transform import scale, smoothscale
 from pytmx.pytmx import TileFlags
 from pytmx.util_pygame import handle_transformation, smart_convert
 
@@ -324,6 +324,39 @@ def scale_surface(surface: Surface, factor: float) -> Surface:
         surface,
         [int(i * factor) for i in surface.get_size()],
     )
+
+
+def hd_factor(size: Sequence[int], native: Sequence[int]) -> int:
+    """
+    ``k`` when ``size`` is exactly ``k`` times ``native`` (an HD sheet,
+    docs/kids/SDD_ART.md §2.6) for a whole ``k`` > 1, otherwise 1.
+    """
+    (w, h), (nw, nh) = size, native
+    if nw <= 0 or nh <= 0 or w % nw or h % nh:
+        return 1
+    k = w // nw
+    return k if k > 1 and h // nh == k else 1
+
+
+def smooth_resize(surface: Surface, size: Sequence[int]) -> Surface:
+    """Smooth scaling where pygame can do it (24/32 bit), else nearest."""
+    size = (max(1, int(size[0])), max(1, int(size[1])))
+    if surface.get_bitsize() < 24:
+        return scale(surface, size)
+    return smoothscale(surface, size)
+
+
+def scale_sheet(
+    surface: Surface, native: Sequence[int], factor: float
+) -> Surface:
+    """
+    A sheet at ``native`` size times ``factor``. An HD sheet (a whole
+    multiple of ``native``) is scaled once, smoothly, straight to that
+    size; a native sheet is scaled as always (nearest).
+    """
+    if hd_factor(surface.get_size(), native) > 1:
+        return smooth_resize(surface, (native[0] * factor, native[1] * factor))
+    return scale_surface(surface, factor)
 
 
 def load_frames_files(directory: str, name: str) -> Iterable[Surface]:

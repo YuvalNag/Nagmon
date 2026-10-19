@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from tuxemon.graphics import load_raw_image
+from tuxemon.graphics import load_raw_image, scale_surface, smooth_resize
 
 if TYPE_CHECKING:
     from pygame.surface import Surface
@@ -69,28 +69,56 @@ class CombatSheet:
         sheet = load_raw_image(self.file_path)
         w, h = sheet.get_size()
 
+        # An HD sheet (docs/kids/SDD_ART.md §2.6) is a whole multiple k of
+        # the native layout; it is sliced at its size and scaled once.
+        expected_w = self.frame_w * 2
+        k = w // expected_w if w % expected_w == 0 else 1
+        if k > 1 and h % k:
+            k = 1
+        self.k = max(k, 1)
+        native_h = h // self.k
+
         # The sheet is laid out back|front side-by-side. The back fills the
         # full image height while the front is top-aligned within its column
         # (any extra height below the front is transparent padding).
-        back_h = self.back_frame_h if self.back_frame_h is not None else h
-        expected_w = self.frame_w * 2
+        back_h = (
+            self.back_frame_h if self.back_frame_h is not None else native_h
+        )
         expected_h = max(self.frame_h, back_h)
 
-        if w != expected_w or h != expected_h:
+        if w != expected_w * self.k or native_h != expected_h:
             raise ValueError(
                 f"Combat sheet '{self.file_path}' must be "
-                f"{expected_w}x{expected_h}, but is {w}x{h}"
+                f"{expected_w}x{expected_h} (or a whole multiple), "
+                f"but is {w}x{h}"
             )
 
+        k = self.k
+        self.native = {
+            "back": (self.frame_w, back_h),
+            "front": (self.frame_w, self.frame_h),
+        }
         return {
-            "back": sheet.subsurface((0, 0, self.frame_w, back_h)),
+            "back": sheet.subsurface((0, 0, self.frame_w * k, back_h * k)),
             "front": sheet.subsurface(
-                (self.frame_w, 0, self.frame_w, self.frame_h)
+                (self.frame_w * k, 0, self.frame_w * k, self.frame_h * k)
             ),
         }
 
-    def front(self) -> Surface:
-        return self.frames["front"]
+    def _frame(self, key: str, scale: float | None) -> Surface:
+        """
+        The frame at its native size times ``scale``; without ``scale``,
+        at its native size, as before.
+        """
+        frame = self.frames[key]
+        if self.k == 1:
+            return frame if scale is None else scale_surface(frame, scale)
+        w, h = self.native[key]
+        factor = 1 if scale is None else scale
+        return smooth_resize(frame, (w * factor, h * factor))
 
-    def back(self) -> Surface:
-        return self.frames["back"]
+    def front(self, scale: float | None = None) -> Surface:
+        return self._frame("front", scale)
+
+    def back(self, scale: float | None = None) -> Surface:
+        return self._frame("back", scale)

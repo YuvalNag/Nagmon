@@ -22,6 +22,8 @@ from tuxemon.graphics import (
     ColorLike,
     apply_cinema_bars,
     load_and_scale,
+    load_image,
+    scale_sheet,
     slice_spritesheet_surface,
 )
 from tuxemon.map.map import get_pos_from_tilepos
@@ -75,17 +77,36 @@ _drop_shadow_cache: Surface | None = None
 _drop_shadow_loaded = False
 
 
-def load_and_scale_with_cache(file_path: str) -> Surface:
+def load_and_scale_with_cache(
+    file_path: str, native: tuple[int, int] | None = None
+) -> Surface:
     """
     Load and scale an image, using a cache to avoid redundant file operations.
+
+    With ``native`` (the sheet's size in game pixels), an HD sheet that is
+    a whole multiple of it is scaled once, smoothly, to the screen
+    (``scale_sheet``); any other image is scaled as always.
     """
     if file_path not in sprite_cache:
         try:
-            sprite_cache[file_path] = load_and_scale(file_path)
+            if native is None:
+                sprite_cache[file_path] = load_and_scale(file_path)
+            else:
+                sprite_cache[file_path] = scale_sheet(
+                    load_image(file_path), native, DISPLAY_CONTEXT.scale
+                )
         except Exception as e:
             logger.error(f"Failed to load sprite: {file_path} - {e}")
             raise
     return sprite_cache[file_path]
+
+
+def native_sheet_size(template: NpcTemplateModel) -> tuple[int, int]:
+    """A map sheet's size in game pixels: columns x rows of frames."""
+    return (
+        template.frame_width * template.columns,
+        template.frame_height * template.rows,
+    )
 
 
 def load_drop_shadow() -> Surface | None:
@@ -274,7 +295,9 @@ class SpriteRenderer:
             sheet = self.npc.sprite_controller.composited_sheet
         else:
             sheet_path = f"sprites/{template.sprite_name}.png"
-            sheet = load_and_scale_with_cache(sheet_path)
+            sheet = load_and_scale_with_cache(
+                sheet_path, native_sheet_size(template)
+            )
 
         scaled_fw = template.frame_width * DISPLAY_CONTEXT.scale
         scaled_fh = template.frame_height * DISPLAY_CONTEXT.scale
