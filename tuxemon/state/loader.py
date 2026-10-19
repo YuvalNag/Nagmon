@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from tuxemon.constants.paths import get_plugin_paths, mods_folder
-from tuxemon.plugin import PluginManager
+from tuxemon.plugin import PluginManager, module_stems
 from tuxemon.state.state import State
 
 if TYPE_CHECKING:
@@ -64,9 +64,7 @@ class StateLoader:
         if state_folder.is_dir():
             plugin_folders.append(state_folder)
             core_includes = [
-                f.stem
-                for f in state_folder.glob("*.py")
-                if f.is_file() and f.stem != "State"
+                stem for stem in module_stems(state_folder) if stem != "State"
             ]
         else:
             logger.warning(
@@ -80,10 +78,10 @@ class StateLoader:
         )
 
         mod_includes = [
-            f.stem
+            stem
             for folder in mod_state_folders
-            for f in folder.glob("*.py")
-            if f.is_file() and f.stem != "__init__"
+            for stem in module_stems(folder)
+            if stem != "__init__"
         ]
 
         core_pm = self._build_plugin_manager(

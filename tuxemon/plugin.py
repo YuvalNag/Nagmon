@@ -67,6 +67,22 @@ class PluginDiscovery(ABC):
         """Sets the folders to search for plugins."""
 
 
+def module_stems(folder: Path) -> list[str]:
+    """
+    Names of the modules in ``folder``, from ``.py`` or ``.pyc`` files.
+    The phone app ships only ``.pyc`` files (docs/kids/SDD_ANDROID.md).
+    """
+    if not folder.is_dir():
+        return []
+    return sorted(
+        {
+            f.stem
+            for f in folder.iterdir()
+            if f.suffix in (".py", ".pyc") and f.is_file()
+        }
+    )
+
+
 class FileSystemPluginDiscovery(PluginDiscovery):
     def __init__(
         self,

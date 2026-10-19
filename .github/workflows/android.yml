@@ -75,6 +75,13 @@ jobs:
     - name: Stage the app
       run: python tools/android/stage.py build/app --build-number ${{ github.run_number }} --arch ${{ matrix.arch }}
 
+    - name: Boot the app the way the phone holds it
+      # Byte-compiled, .pyc only: fails in a minute instead of an hour.
+      if: matrix.arch == 'arm64-v8a'
+      run: |
+        pip install -r requirements.txt
+        tools/android/compiled_boot.sh build/app 30
+
     - name: Release key
       if: env.HAS_KEY == 'true'
       env:

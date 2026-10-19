@@ -429,3 +429,14 @@ def test_every_apk_is_opened_on_an_emulator():
     script = (REPO / "tools" / "android" / "smoke.sh").read_text()
     # It fails on a stopped app or a Python error, not only on install.
     assert "the app stopped" in script and "Traceback" in script
+
+
+def test_the_compiled_app_boots_before_the_long_build():
+    import yaml
+
+    build = yaml.safe_load((REPO / ".github/workflows/android.yml").read_text())
+    names = [s.get("name", "") for s in build["jobs"]["apk"]["steps"]]
+    boot = names.index("Boot the app the way the phone holds it")
+    assert boot < names.index("Build (debug)")
+    script = (REPO / "tools/android/compiled_boot.sh").read_text()
+    assert "-OO -m compileall -b" in script and "-name '*.py' -delete" in script
