@@ -210,19 +210,25 @@ def white_mask(rgb: np.ndarray, white: int = 225) -> np.ndarray:
 
 
 def remove_lines(
-    fg: np.ndarray, rgb: np.ndarray, min_frac: float = 0.5, dark: int = 90
+    fg: np.ndarray,
+    rgb: np.ndarray,
+    min_frac: float = 0.5,
+    dark: int = 90,
+    box: tuple[int, int] | None = None,
 ) -> np.ndarray:
     """
     Clears straight dark frame lines: rows (and columns) holding a run of
-    dark pixels longer than ``min_frac`` of the box, with the blurred
-    pixel on each side of the line.
+    dark pixels longer than ``min_frac`` of the box (``box``: its width
+    and height; the whole picture by default), with the blurred pixel on
+    each side of the line.
     """
     fg = fg.copy()
     is_dark = rgb.max(-1) < dark
+    width, height = box or (fg.shape[1], fg.shape[0])
     for axis in (0, 1):
         grid = is_dark if axis == 0 else is_dark.T
         out = fg if axis == 0 else fg.T
-        need = int(grid.shape[1] * min_frac)
+        need = int((width if axis == 0 else height) * min_frac)
         for i, row in enumerate(grid):
             run = _longest_run(row)
             if run is None or run[1] - run[0] < need:
@@ -291,7 +297,7 @@ def find_part(
     if drop_white:
         fg &= ~white_mask(sub)
     if lines:
-        fg = remove_lines(fg, sub)
+        fg = remove_lines(fg, sub, box=(x1 - x0, y1 - y0))
     if opening:
         fg = ndimage.binary_opening(fg, iterations=opening)
     if merge:

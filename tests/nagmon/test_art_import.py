@@ -350,3 +350,14 @@ def test_game_sheets_are_whole_multiples_of_their_layout():
                 entry.layout.size[1] // entry.k,
             )
             assert native in {(48, 128), (128, 64), (128, 88)}, entry.name
+
+
+def test_a_frame_line_counts_against_the_box_not_the_window():
+    # A 60 px line in a 200 px window: short for the window, long for a
+    # 100 px box, so it is a frame line of that box.
+    fg = np.zeros((200, 200), bool)
+    rgb = np.full((200, 200, 3), 150, np.int16)
+    fg[100:103, 70:130] = True
+    rgb[100:103, 70:130] = 20
+    assert ia.remove_lines(fg, rgb)[101].any()
+    assert not ia.remove_lines(fg, rgb, box=(100, 100))[101].any()
