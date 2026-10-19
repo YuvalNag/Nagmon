@@ -35,3 +35,36 @@ def test_an_animated_avatar_advances_once_per_update(monkeypatch):
     )
     dialog.update(0.1)
     assert avatar.updates == 1
+
+
+class Sprites(list):
+    def add(self, sprite):
+        self.append(sprite)
+
+
+def test_opening_the_dialog_adds_the_avatar_to_its_sprites(monkeypatch):
+    # So the avatar is drawn, and animated by the sprite update.
+    import pygame
+
+    from tuxemon.menu.menu import PopUpMenu
+    from tuxemon.sprite import Sprite
+
+    monkeypatch.setattr(PopUpMenu, "on_open", lambda self: None)
+    avatar = Sprite(image=pygame.Surface((32, 32)))
+    dialog = DialogState.__new__(DialogState)
+    dialog.__dict__.update(
+        sprites=Sprites(),
+        avatar=avatar,
+        dialog_box=SimpleNamespace(
+            rect=None, image=None, _render_background=lambda: None
+        ),
+        text_queue=[],
+        auto_close=True,
+    )
+    dialog.calc_internal_rect = lambda: pygame.Rect(10, 50, 100, 20)
+    dialog.calc_final_rect = lambda: pygame.Rect(0, 40, 120, 40)
+    dialog.next_text = lambda: None
+    dialog.on_open()
+    dialog.on_open()  # opening again does not add it twice
+    assert dialog.sprites.count(avatar) == 1
+    assert avatar.rect.bottom == 40  # standing on the box
