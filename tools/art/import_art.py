@@ -29,7 +29,7 @@ from pathlib import Path
 
 import numpy as np
 import yaml
-from PIL import Image
+from PIL import Image, ImageOps
 from scipy import ndimage
 
 REPO = Path(__file__).resolve().parents[2]
@@ -52,7 +52,7 @@ class Cell:
     #: Parts with the same group share one scale (front and back of a
     #: monster stay the same size).
     group: str = ""
-    align: str = "bottom"  # bottom | center
+    align: str = "bottom"  # bottom | center | top
 
 
 @dataclass(frozen=True)
@@ -97,6 +97,17 @@ COMBAT = Layout(
     },
 )
 
+#: The player's combat sheet, as Tuxemon's heroine.png: a tall back
+#: (64x128) on the left, the front (64x64) on the right. Combat draws the
+#: player 64 lower, so the back stands at the top of its cell.
+PLAYER = Layout(
+    (128, 128),
+    {
+        "back": Cell(0, 0, 64, 128, "back", "top"),
+        "front": Cell(64, 0, 64, 64, "front"),
+    },
+)
+
 #: A map sheet: 3 columns (step, stand, step) x 4 rows (front, left,
 #: right, back) of 16x32, as Tuxemon's sprites/professor.png. Cells are
 #: named r<row>c<column>, from 1.
@@ -109,7 +120,15 @@ MAP = Layout(
     },
 )
 
-LAYOUTS: dict[str, Layout] = {"monster": MONSTER, "combat": COMBAT, "map": MAP}
+LAYOUTS: dict[str, Layout] = {
+    "monster": MONSTER,
+    "combat": COMBAT,
+    "player": PLAYER,
+    "map": MAP,
+}
+
+#: In "take": the source cell, mirrored left to right.
+FLIP = "flip:"
 
 
 def grid_boxes(
@@ -376,7 +395,12 @@ def place(
         small.putalpha(alpha)
     out = Image.new("RGBA", cell, (0, 0, 0, 0))
     x = (cell[0] - w) // 2
-    y = cell[1] - h if align == "bottom" else (cell[1] - h) // 2
+    if align == "bottom":
+        y = cell[1] - h
+    elif align == "top":
+        y = 0
+    else:
+        y = (cell[1] - h) // 2
     out.alpha_composite(small, (x, y))
     return out
 
@@ -494,8 +518,14 @@ class Entry:
     fill: float = 1.0
     #: Cut the source into equal cells: [columns, rows].
     grid: tuple[int, int] | None = None
-    #: Output cell -> source cell, where the source has them elsewhere.
+    #: Output cell -> source cell, where the source has them elsewhere;
+    #: "flip:r3c1" mirrors that cell (a step facing the other way).
     take: dict[str, str] = field(default_factory=dict)
+
+    @property
+    def flipped(self) -> set[str]:
+        """Output cells whose picture is mirrored."""
+        return {k for k, v in self.take.items() if v.startswith(FLIP)}
 
     def resolve_boxes(self, size: tuple[int, int]) -> dict[str, Box]:
         """The source box of every part, for a source of ``size``."""
@@ -503,7 +533,7 @@ class Entry:
             return dict(self.boxes)
         cells = grid_boxes(size, *self.grid)
         boxes = {
-            name: cells[self.take.get(name, name)]
+            name: cells[self.take.get(name, name).removeprefix(FLIP)]
             for name in self.layout.cells
         }
         boxes.update(self.boxes)
@@ -557,6 +587,8 @@ def build(entry: Entry, sheet: Image.Image) -> Image.Image:
         name: find_part(rgb, background, box, **entry.options).image
         for name, box in entry.resolve_boxes(sheet.size).items()
     }
+    for name in entry.flipped:
+        parts[name] = ImageOps.mirror(parts[name])
     return assemble(entry.layout, parts, entry.resample, entry.fill)
 
 

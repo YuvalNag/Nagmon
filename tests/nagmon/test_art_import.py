@@ -349,7 +349,7 @@ def test_game_sheets_are_whole_multiples_of_their_layout():
                 entry.layout.size[0] // entry.k,
                 entry.layout.size[1] // entry.k,
             )
-            assert native in {(48, 128), (128, 64), (128, 88)}, entry.name
+            assert native in {(48, 128), (128, 64), (128, 88), (128, 128)}, entry.name
 
 
 def test_a_frame_line_counts_against_the_box_not_the_window():
@@ -361,3 +361,34 @@ def test_a_frame_line_counts_against_the_box_not_the_window():
     rgb[100:103, 70:130] = 20
     assert ia.remove_lines(fg, rgb)[101].any()
     assert not ia.remove_lines(fg, rgb, box=(100, 100))[101].any()
+
+
+def test_take_can_mirror_a_cell():
+    rgb = grid_sheet()
+    # Make source r2c3 lopsided: a notch on its left side.
+    rgb[90 + 20 : 90 + 30, 120 + 20 : 120 + 25] = ia.MAGENTA
+    sheet = Image.fromarray(rgb)
+    plain = ia.Entry("m", "s", "o", ia.MAP, {}, grid=(3, 4))
+    flipped = ia.Entry(
+        "m", "s", "o", ia.MAP, {}, grid=(3, 4), take={"r2c3": "flip:r2c3"}
+    )
+
+    def figure(entry):
+        alpha = np.asarray(ia.build(entry, sheet))[32:64, 32:48, 3]
+        ys, xs = np.nonzero(alpha)
+        return alpha[ys.min() : ys.max() + 1, xs.min() : xs.max() + 1]
+
+    a, b = figure(plain), figure(flipped)
+    assert not (a == b).all()
+    assert (a == b[:, ::-1]).all()
+
+
+def test_player_layout_puts_the_back_on_top_of_a_tall_cell():
+    parts = {"back": solid(60, 60), "front": solid(60, 60)}
+    sheet = np.asarray(ia.assemble(ia.PLAYER, parts))
+    assert sheet.shape[:2] == (128, 128)
+    back = sheet[:, :64, 3]
+    ys = np.nonzero(back.any(1))[0]
+    assert ys.min() == 0 and ys.max() < 64  # stands on the island
+    front = sheet[:, 64:, 3]
+    assert front[64:].sum() == 0

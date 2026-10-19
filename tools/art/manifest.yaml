@@ -176,3 +176,78 @@ outputs:
     grid: [3, 4]
     take: {r2c3: r3c3, r3c3: r2c3}
     output: mods/nagmon/sprites/nagmon_tourist.png
+
+  # ------------------------------------- second batch (SDD_ART §2.9)
+  # Battle sources are two halves: back on the left, front on the right.
+  - name: nagmon_teacher_map
+    source: teacher_map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    take: {r2c3: r3c3, r3c3: r2c3}
+    output: mods/nagmon/sprites/nagmon_teacher.png
+
+  # Row 2 has only two left steps (its third frame faces right, as all
+  # of row 3 does): the second left step is that frame, mirrored.
+  - name: nagmon_granite_map
+    source: granite_map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    take: {r2c3: "flip:r2c3"}
+    output: mods/nagmon/sprites/nagmon_granite.png
+
+  - name: nagmon_granite
+    source: granite_battle.png
+    layout: combat
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_granite.png
+
+  - name: nagmon_hero_boy_map
+    source: hero_boy_map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    take: {r2c3: r3c3, r3c3: r2c3}
+    output: mods/nagmon/sprites/nagmon_hero_boy.png
+
+  - name: nagmon_hero_boy
+    source: hero_boy_battle.png
+    layout: player
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_hero_boy.png
+
+  - name: nagmon_hero_girl_map
+    source: hero_girl_map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    take: {r2c3: r3c3, r3c3: r2c3}
+    output: mods/nagmon/sprites/nagmon_hero_girl.png
+
+  - name: nagmon_hero_girl
+    source: hero_girl_battle.png
+    layout: player
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_hero_girl.png
+
+  # Not in the game yet (SDD_ART §4): girl_curly_battle.png has no map
+  # sheet (girl_curly_poses_a/b.png are free pose pages), girl_braid_map.png
+  # has no battle sheet, girls_5_variants.png is a page of ideas.
