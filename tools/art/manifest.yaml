@@ -1,0 +1,111 @@
+# Which box of which source sheet becomes which game file
+# (docs/kids/SDD_ART.md). Re-import everything with:
+#   python tools/art/import_art.py --preview /tmp/art-preview
+# Boxes are approximate [x0, y0, x1, y1] on the source: the tool takes
+# every sprite piece that lies mostly inside, and nothing else.
+# Sources live in art_sources/ (not shipped in the app).
+outputs:
+
+  # ------------------------------------------------------------ the owl
+  - name: owl_icon
+    source: owl_sheet.jpg
+    layout: single
+    size: [512, 512]
+    resample: lanczos
+    boxes:
+      image: [110, 1790, 665, 2350]
+    output: mods/nagmon/gfx/owl/owl_icon.png
+
+  - name: owl_portrait
+    source: owl_sheet.jpg
+    layout: single
+    size: [64, 64]
+    align: bottom
+    boxes:
+      image: [105, 160, 580, 610]
+    output: mods/nagmon/gfx/owl/owl_portrait.png
+
+  # The owl's dialogue avatar (an NPC avatar is its combat front). The
+  # owl never fights, so the second portrait stands in for a back view.
+  - name: nagmon_owl
+    source: owl_sheet.jpg
+    layout: combat
+    boxes:
+      back: [690, 180, 1100, 610]
+      front: [105, 160, 580, 610]
+    output: mods/nagmon/gfx/sprites/player/nagmon_owl.png
+
+  # ---------------------------------------------------- math + English
+  - name: geometrion
+    source: monsters_math_english.jpg
+    layout: monster
+    options: {drop_white: true}
+    boxes:
+      front: [30, 100, 215, 270]
+      back: [240, 105, 415, 270]
+      menu1: [75, 385, 185, 476]
+      menu2: [255, 385, 365, 476]
+    output: mods/nagmon/gfx/sprites/battle/geometrion-sheet.png
+
+  - name: polygonos
+    source: monsters_math_english.jpg
+    layout: monster
+    options: {drop_white: true}
+    boxes:
+      front: [483, 89, 658, 274]
+      back: [688, 89, 862, 275]
+      menu1: [525, 370, 650, 495]
+      menu2: [705, 370, 830, 495]
+    output: mods/nagmon/gfx/sprites/battle/polygonos-sheet.png
+
+  - name: alphabel
+    source: monsters_math_english.jpg
+    layout: monster
+    options: {drop_white: true}
+    boxes:
+      front: [29, 700, 199, 879]
+      back: [242, 701, 418, 875]
+      menu1: [80, 980, 185, 1072]
+      menu2: [250, 980, 355, 1072]
+    output: mods/nagmon/gfx/sprites/battle/alphabel-sheet.png
+
+  - name: lexicon
+    source: monsters_math_english.jpg
+    layout: monster
+    options: {drop_white: true}
+    boxes:
+      front: [468, 667, 678, 876]
+      back: [683, 680, 893, 875]
+      menu1: [525, 960, 645, 1075]
+      menu2: [705, 960, 830, 1075]
+    output: mods/nagmon/gfx/sprites/battle/lexicon-sheet.png
+
+  # ------------------------------------------- the three chapter-1 NPCs
+  # Battle sheets only: back view left, front view right, inside a drawn
+  # frame (lines: true clears it).
+  - name: nagmon_shopkeeper
+    source: teachers.jpg
+    layout: combat
+    options: {lines: true, holes: 120}
+    boxes:
+      back: [508, 132, 690, 330]
+      front: [692, 132, 885, 330]
+    output: mods/nagmon/gfx/sprites/player/nagmon_shopkeeper.png
+
+  - name: nagmon_traveler
+    source: teachers.jpg
+    layout: combat
+    options: {lines: true, holes: 120}
+    boxes:
+      back: [505, 532, 680, 720]
+      front: [688, 532, 872, 720]
+    output: mods/nagmon/gfx/sprites/player/nagmon_traveler.png
+
+  - name: nagmon_teacher
+    source: teachers.jpg
+    layout: combat
+    options: {lines: true, holes: 120}
+    boxes:
+      back: [505, 903, 680, 1096]
+      front: [690, 903, 872, 1096]
+    output: mods/nagmon/gfx/sprites/player/nagmon_teacher.png
