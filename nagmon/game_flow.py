@@ -46,11 +46,14 @@ GRADE_NAMES_HE: tuple[str, ...] = (
 )
 
 
+#: What an unknown or corrupt key shows: the character such profiles
+#: always had, not the newest first choice.
+FALLBACK_AVATAR = "boy_light"
+
+
 def avatar_by_key(key: str) -> Avatar:
-    for avatar in AVATARS:
-        if avatar.key == key:
-            return avatar
-    return AVATARS[0]
+    by_key = {avatar.key: avatar for avatar in AVATARS}
+    return by_key.get(key) or by_key[FALLBACK_AVATAR]
 
 
 def avatar_keys() -> set[str]:
