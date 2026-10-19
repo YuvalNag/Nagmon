@@ -55,7 +55,11 @@ def _guard(tmp_path, offers, *, secrets=()):
 def test_known_kinds_of_keys_are_hidden():
     text = (
         f"groq={GROQ} gemini={GEMINI} gh={GITHUB} "
-        "ghp_" + "x" * 36 + " sk-" + "y" * 40 + " Authorization: Bearer abc.def"
+        "ghp_"
+        + "x" * 36
+        + " sk-"
+        + "y" * 40
+        + " Authorization: Bearer abc.def"
     )
     clean = crash_report.redact_secrets(text)
     for secret in (GROQ, GEMINI, GITHUB, "x" * 36, "y" * 40, "abc.def"):
@@ -64,7 +68,9 @@ def test_known_kinds_of_keys_are_hidden():
 
 
 def test_saved_keys_are_hidden_even_without_a_known_shape():
-    clean = crash_report.redact_secrets("key is plainsecret123456", ["plainsecret123456"])
+    clean = crash_report.redact_secrets(
+        "key is plainsecret123456", ["plainsecret123456"]
+    )
     assert "plainsecret123456" not in clean
     assert "key is" in clean
 
@@ -202,7 +208,9 @@ def test_a_clean_exit_is_not_a_crash(tmp_path):
     assert offers.shown == []
 
 
-def test_last_times_native_crash_is_offered_and_the_game_still_starts(tmp_path):
+def test_last_times_native_crash_is_offered_and_the_game_still_starts(
+    tmp_path,
+):
     reports = CrashReports(tmp_path / "crash")
     reports.native_file.parent.mkdir(parents=True, exist_ok=True)
     reports.native_file.write_text("Fatal Python error: Illegal instruction")

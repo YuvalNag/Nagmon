@@ -47,9 +47,7 @@ def redact_secrets(text: str, secrets: Iterable[str] = ()) -> str:
     return text
 
 
-def build_report(
-    error: str, info: Mapping[str, str], *, now: datetime
-) -> str:
+def build_report(error: str, info: Mapping[str, str], *, now: datetime) -> str:
     """
     A header (build, phone, time) and the error. A long error keeps its
     end, where the traceback names what went wrong.
@@ -88,7 +86,9 @@ class CrashReports:
     def take_native(self) -> str | None:
         """What faulthandler wrote when the game last died, once."""
         try:
-            text = self.native_file.read_text(encoding="utf-8", errors="replace")
+            text = self.native_file.read_text(
+                encoding="utf-8", errors="replace"
+            )
         except OSError:
             return None
         self.native_file.write_text("", encoding="utf-8")
@@ -155,7 +155,9 @@ class CrashGuard:
     def run(self, start: Callable[[], object]) -> None:
         native = self.reports.take_native()
         if native:
-            self.report("The game stopped last time (native crash):\n" + native)
+            self.report(
+                "The game stopped last time (native crash):\n" + native
+            )
         self.reports.watch_native()
         try:
             start()
