@@ -224,7 +224,8 @@ class GitHubClient:
         except TransportError as err:
             return Check(self._network_code(err), self.repo)  # not kept
         check = Check(self._classify(resp), self.repo)
-        self._checks[self._cache_key] = (self._clock(), check)
+        if check.code is not Code.FAILED:  # a 5xx or a rate limit passes
+            self._checks[self._cache_key] = (self._clock(), check)
         return check
 
     def _classify(self, resp: HttpResponse) -> Code:

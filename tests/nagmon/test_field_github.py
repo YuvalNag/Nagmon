@@ -572,3 +572,14 @@ def test_a_log_with_an_odd_character_is_still_sent(tmp_path):
     data = _service(tmp_path, transport)
     data.connect(TOKEN)
     assert data.send_log("12:00:00 WARNING nagmon.x: no file a\udcffb\n").ok
+
+
+def test_a_passing_github_failure_is_not_kept_for_an_hour():
+    """A 502 while the screen opened must not show "GitHub did not accept
+    the request" for the next hour."""
+    transport = FakeTransport()
+    transport.add("GET", API, json_response(502, {}), repo_info())
+    gh = client(transport)
+    assert gh.check().code is Code.FAILED
+    assert gh.cached() is None
+    assert gh.check().code is Code.OK
