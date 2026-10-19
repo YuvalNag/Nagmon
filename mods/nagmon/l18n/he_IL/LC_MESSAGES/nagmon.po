@@ -720,3 +720,87 @@ msgstr "אי אפשר לשחזר את השחקן כרגע: יש כבר שחקן 
 
 msgid "nagmon_too_many_players"
 msgstr "כבר יש 8 שחקנים. כדי להוסיף שחקן חדש, מוחקים אחד באזור ההורים."
+
+msgid "nagmon_parent_github"
+msgstr "GitHub ושליחת נתונים"
+
+msgid "nagmon_github_ok"
+msgstr "מחובר · ריפו נתונים פרטי {repo}"
+
+msgid "nagmon_github_public"
+msgstr "ריפו הנתונים {repo} ציבורי, ולכן לא נשלח כלום. ב-GitHub נכנסים ל-Settings של הריפו, ב-Change visibility בוחרים Private, ומנסים שוב."
+
+msgid "nagmon_github_bad_token"
+msgstr "הטוקן שגוי או שפג תוקפו. יוצרים טוקן חדש ב-GitHub ומדביקים אותו שוב."
+
+msgid "nagmon_github_no_permission"
+msgstr "לטוקן אין הרשאת Contents: Read and write לריפו {repo}. מוסיפים אותה בהגדרות הטוקן ב-GitHub ומנסים שוב."
+
+msgid "nagmon_github_not_found"
+msgstr "ריפו הנתונים {repo} לא נמצא, או שהטוקן לא מורשה אליו. בהגדרות הטוקן ב-GitHub בוחרים את הריפו הזה ומנסים שוב."
+
+msgid "nagmon_github_offline"
+msgstr "אין אינטרנט. מתחברים לרשת ומנסים שוב."
+
+msgid "nagmon_github_timeout"
+msgstr "GitHub לא ענה בזמן. בודקים את האינטרנט ומנסים שוב."
+
+msgid "nagmon_github_conflict"
+msgstr "GitHub היה עסוק ולא שמר את הקובץ. מנסים שוב בעוד דקה."
+
+msgid "nagmon_github_failed"
+msgstr "GitHub לא קיבל את הבקשה. מנסים שוב מאוחר יותר."
+
+msgid "nagmon_github_not_connected"
+msgstr "לא מחובר. כדי לשלוח צריך טוקן של GitHub לריפו הנתונים. לוחצים על חיבור: הדבקת טוקן."
+
+msgid "nagmon_github_checking"
+msgstr "בודק את החיבור ל-GitHub..."
+
+msgid "nagmon_github_sending"
+msgstr "שולח..."
+
+msgid "nagmon_github_connect"
+msgstr "חיבור: הדבקת טוקן"
+
+msgid "nagmon_github_send_log"
+msgstr "שליחת לוג"
+
+msgid "nagmon_github_send_progress"
+msgstr "שליחת התקדמות"
+
+msgid "nagmon_github_send_crash"
+msgstr "שליחת דוח התקלה האחרון"
+
+msgid "nagmon_github_disconnect"
+msgstr "ניתוק"
+
+msgid "nagmon_github_disconnected"
+msgstr "נותק. הטוקן נמחק מהמכשיר."
+
+msgid "nagmon_github_clipboard_empty"
+msgstr "הלוח ריק. ב-GitHub יוצרים Fine-grained token לריפו הנתונים בלבד, עם הרשאה אחת: Contents: Read and write. מעתיקים אותו, חוזרים לכאן ולוחצים שוב."
+
+msgid "nagmon_github_clipboard_not_token"
+msgstr "בלוח יש משהו שהוא לא טוקן של GitHub. מעתיקים את הטוקן (הוא מתחיל ב-github_pat_) ומנסים שוב."
+
+msgid "nagmon_github_confirm_log"
+msgstr "יישלח: הלוג של המשחק, בלי מפתחות, לריפו הנתונים הפרטי {repo}."
+
+msgid "nagmon_github_confirm_progress"
+msgstr "יישלח: התקדמות של {count} ילדים, בלי שמות, לריפו הנתונים הפרטי {repo}."
+
+msgid "nagmon_github_confirm_crash"
+msgstr "יישלח: דוח התקלה האחרון, בלי מפתחות, לריפו הנתונים הפרטי {repo}."
+
+msgid "nagmon_github_send"
+msgstr "שליחה"
+
+msgid "nagmon_github_cancel"
+msgstr "ביטול"
+
+msgid "nagmon_github_sent"
+msgstr "נשלח בהצלחה."
+
+msgid "nagmon_github_log_empty"
+msgstr "אין עדיין לוג לשליחה."
