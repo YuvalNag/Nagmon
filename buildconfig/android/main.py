@@ -70,14 +70,20 @@ def field_data():
     return FieldData(data_root(), crash_dir=CRASH_DIR)
 
 
-def offer(text: str) -> None:
-    from nagmon.android.crash_dialog import offer as ask_and_send
-    from nagmon.android.crash_dialog import share
+def mark_crash() -> None:
+    """This session broke: the saved log says so at the next start (not
+    for last time's native crash, which this session only reports)."""
     from nagmon.field_data import app_log
-    from nagmon.field_data.uploads import send_crash_or_share
 
     app_log.note_crash()
     app_log.save()
+
+
+def offer(text: str) -> None:
+    from nagmon.android.crash_dialog import offer as ask_and_send
+    from nagmon.android.crash_dialog import share
+    from nagmon.field_data.uploads import send_crash_or_share
+
     try:
         field = field_data()
         repo = field.repo if field.connected else None
@@ -107,6 +113,7 @@ guard = CrashGuard(
     secrets=saved_keys,
     log=log_tail,
     names=child_names,
+    on_crash=mark_crash,
 )
 
 

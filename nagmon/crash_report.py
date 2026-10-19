@@ -146,7 +146,8 @@ class CrashGuard:
     ``info`` gives the build and phone details, ``offer`` shows the report
     to the parent (and shares it only on their tap), ``secrets`` gives the
     saved keys to hide, ``log`` the app's last log lines, ``names`` the
-    children's names to hide.
+    children's names to hide. ``on_crash`` runs first when this session
+    broke (not for last time's native crash), e.g. to note it in the log.
     """
 
     def __init__(
@@ -158,6 +159,7 @@ class CrashGuard:
         secrets: Callable[[], Iterable[str]] = tuple,
         log: Callable[[], str] = str,
         names: Callable[[], Iterable[str]] = tuple,
+        on_crash: Callable[[], object] = lambda: None,
         clock: Callable[[], datetime] = lambda: datetime.now(timezone.utc),
     ) -> None:
         self.reports = reports
@@ -166,10 +168,19 @@ class CrashGuard:
         self._secrets = secrets
         self._log = log
         self._names = names
+        self._on_crash = on_crash
         self._clock = clock
 
-    def report(self, error: str) -> str:
-        """Saves and offers a report for ``error`` (a traceback)."""
+    def report(self, error: str, *, previous: bool = False) -> str:
+        """
+        Saves and offers a report for ``error`` (a traceback); ``previous``
+        when it is about an earlier session.
+        """
+        if not previous:
+            try:
+                self._on_crash()
+            except Exception as exc:
+                logger.error("Could not note the crash: %s", exc)
         try:
             info = dict(self._info())
         except Exception as exc:
@@ -205,7 +216,10 @@ class CrashGuard:
     def run(self, start: Callable[[], object]) -> None:
         native = self.reports.take_native()
         if native:
-            self.report("The game stopped last time (native crash):\n" + native)
+            self.report(
+                "The game stopped last time (native crash):\n" + native,
+                previous=True,
+            )
         self.reports.watch_native()
         try:
             start()

@@ -427,3 +427,63 @@ def test_broken_names_do_not_hide_the_crash(tmp_path):
 def test_android_entry_point_hides_the_names():
     main = (REPO / "buildconfig" / "android" / "main.py").read_text()
     assert "names=" in main and ".names()" in main
+
+
+# ------------------------------------------- how this session ended
+
+
+def _marking_guard(tmp_path, offers, marks):
+    return CrashGuard(
+        CrashReports(tmp_path / "crash"),
+        info=lambda: INFO,
+        offer=offers,
+        on_crash=lambda: marks.append(len(offers.shown)),
+        clock=lambda: NOW,
+    )
+
+
+def test_last_times_native_crash_does_not_mark_this_session(tmp_path):
+    """Else the next start would say this good session crashed."""
+    offers, marks = Offers(), []
+    (tmp_path / "crash").mkdir()
+    (tmp_path / "crash" / "native_crash.txt").write_text("Fatal Python error")
+    _marking_guard(tmp_path, offers, marks).run(lambda: None)
+    assert len(offers.shown) == 1 and marks == []
+
+
+def test_a_crash_now_is_marked_before_the_window(tmp_path):
+    offers, marks = Offers(), []
+    with pytest.raises(SystemExit):
+        _marking_guard(tmp_path, offers, marks).run(lambda: 1 / 0)
+    assert marks == [0] and len(offers.shown) == 1
+
+
+def test_a_fatal_error_inside_the_game_is_marked(tmp_path):
+    offers, marks = Offers(), []
+    _marking_guard(tmp_path, offers, marks).report("Tuxemon Error: boom")
+    assert marks == [0]
+
+
+def test_a_broken_mark_does_not_hide_the_crash(tmp_path):
+    offers = Offers()
+
+    def broken():
+        raise OSError("disk full")
+
+    guard = CrashGuard(
+        CrashReports(tmp_path / "crash"),
+        info=lambda: INFO,
+        offer=offers,
+        on_crash=broken,
+        clock=lambda: NOW,
+    )
+    with pytest.raises(SystemExit):
+        guard.run(lambda: 1 / 0)
+    assert "ZeroDivisionError" in offers.shown[0]
+
+
+def test_android_entry_point_marks_only_this_sessions_crash():
+    main = (REPO / "buildconfig" / "android" / "main.py").read_text()
+    assert "on_crash=" in main
+    offer = main.split("def offer", 1)[1].split("\ndef ", 1)[0]
+    assert "note_crash" not in offer
