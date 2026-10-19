@@ -16,7 +16,7 @@ os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
 def display():
     pygame.init()
     if pygame.display.get_surface() is None:
-        pygame.display.set_mode((64, 64))
+        pygame.display.set_mode((640, 480))
     yield
 
 
