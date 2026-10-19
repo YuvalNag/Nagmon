@@ -807,3 +807,40 @@ msgstr "אין עדיין לוג לשליחה."
 
 msgid "nagmon_github_confirm_progress_one"
 msgstr "יישלח: ההתקדמות של ילד אחד, בלי שם, לריפו הנתונים הפרטי {repo}."
+
+# The first subject monsters (docs/kids/SDD_ART.md §2.3).
+msgid "geometrion"
+msgstr "Geometrion"
+
+msgid "geometrion_description"
+msgstr "פירמידה קטנה שאוהבת פינות. סופרים את הצלעות שלה, והיא זוהרת."
+
+msgid "cat_pyramid"
+msgstr "פירמידה"
+
+msgid "polygonos"
+msgstr "Polygonos"
+
+msgid "polygonos_description"
+msgstr "הרבה צורות שאור מחזיק יחד. כל פאה היא מצולע אחר."
+
+msgid "cat_polyhedron"
+msgstr "גוף הנדסי"
+
+msgid "alphabel"
+msgstr "Alphabel"
+
+msgid "alphabel_description"
+msgstr "שועל עם אותיות בפרווה. הוא מכשכש בזנב על כל מילה חדשה."
+
+msgid "cat_letter_fox"
+msgstr "שועל אותיות"
+
+msgid "lexicon"
+msgstr "Lexicon"
+
+msgid "lexicon_description"
+msgstr "אריה עם כנפיים ומילים ברעמה. יש לו מילה לכל דבר."
+
+msgid "cat_word_lion"
+msgstr "אריה מילים"

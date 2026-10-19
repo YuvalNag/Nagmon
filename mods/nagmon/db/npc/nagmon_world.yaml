@@ -1,5 +1,7 @@
 # NPCs of the first world chapter (docs/kids/SDD_WORLD.md §2.6).
 # Names are msgids in mods/nagmon/l18n/*/LC_MESSAGES/nagmon.po.
+# The owl and the three teaching NPCs keep their map sprite and wear the
+# owner's portraits in dialogue and battle (docs/kids/SDD_ART.md §2.2).
 - slug: nagmon_owl
   speech:
     profile:
@@ -8,7 +10,7 @@
   audio: {}
   template:
     sprite_name: professor
-    combat_sheet: professor
+    combat_sheet: nagmon_owl
     slug: professor
 - slug: nagmon_cashier
   speech:
@@ -18,7 +20,7 @@
   audio: {}
   template:
     sprite_name: shopkeeper
-    combat_sheet: shopkeeper
+    combat_sheet: nagmon_shopkeeper
     slug: shopkeeper
 - slug: nagmon_tourist
   speech:
@@ -28,7 +30,7 @@
   audio: {}
   template:
     sprite_name: cooldude
-    combat_sheet: cooldude
+    combat_sheet: nagmon_traveler
     slug: cooldude
 - slug: nagmon_gardener
   speech:
@@ -38,7 +40,7 @@
   audio: {}
   template:
     sprite_name: florist
-    combat_sheet: florist
+    combat_sheet: nagmon_teacher
     slug: florist
 - slug: nagmon_kid
   speech:

@@ -33,9 +33,9 @@ events:
     - is char_exists nagmon_owl
     actions:
     - char_face player,up
-    - translated_dialog nagmon_owl_intro_story
-    - translated_dialog nagmon_owl_intro_power
-    - translated_dialog nagmon_owl_intro_starter
+    - translated_dialog nagmon_owl_intro_story,nagmon_owl
+    - translated_dialog nagmon_owl_intro_power,nagmon_owl
+    - translated_dialog nagmon_owl_intro_starter,nagmon_owl
     - set_variable nagmon_intro_seen:yes
 
   Owl Starter Choice:
@@ -53,7 +53,7 @@ events:
     - not variable_set nagmon_has_starter
     actions:
     - add_monster agnite,7
-    - translated_dialog nagmon_owl_picked_agnite
+    - translated_dialog nagmon_owl_picked_agnite,nagmon_owl
     - set_variable nagmon_has_starter:yes
 
   Starter Rockitten:
@@ -63,7 +63,7 @@ events:
     - not variable_set nagmon_has_starter
     actions:
     - add_monster rockitten,7
-    - translated_dialog nagmon_owl_picked_rockitten
+    - translated_dialog nagmon_owl_picked_rockitten,nagmon_owl
     - set_variable nagmon_has_starter:yes
 
   Starter Kroki:
@@ -73,7 +73,7 @@ events:
     - not variable_set nagmon_has_starter
     actions:
     - add_monster kroki,7
-    - translated_dialog nagmon_owl_picked_kroki
+    - translated_dialog nagmon_owl_picked_kroki,nagmon_owl
     - set_variable nagmon_has_starter:yes
 
   Owl Gifts:
@@ -85,8 +85,8 @@ events:
     - set_variable nagmon_gifts:yes
     - add_item tuxeball,5
     - add_item potion,3
-    - translated_dialog nagmon_owl_gifts
-    - translated_dialog nagmon_owl_first_q
+    - translated_dialog nagmon_owl_gifts,nagmon_owl
+    - translated_dialog nagmon_owl_first_q,nagmon_owl
     - ask_quiz math,nagmon_owl_q1
 
   Owl First Good:
@@ -95,8 +95,8 @@ events:
     - is one_of nagmon_owl_q1,correct:super:skip
     actions:
     - clear_variable nagmon_owl_q1
-    - translated_dialog nagmon_owl_first_good
-    - translated_dialog nagmon_owl_go
+    - translated_dialog nagmon_owl_first_good,nagmon_owl
+    - translated_dialog nagmon_owl_go,nagmon_owl
     - set_variable nagmon_intro_done:yes
 
   Owl First Wrong:
@@ -105,8 +105,8 @@ events:
     - is variable_set nagmon_owl_q1:wrong
     actions:
     - clear_variable nagmon_owl_q1
-    - translated_dialog nagmon_owl_first_wrong
-    - translated_dialog nagmon_owl_go
+    - translated_dialog nagmon_owl_first_wrong,nagmon_owl
+    - translated_dialog nagmon_owl_go,nagmon_owl
     - set_variable nagmon_intro_done:yes
 
   # A save from the middle of the intro: the owl simply goes on.
@@ -119,7 +119,7 @@ events:
     - not variable_set nagmon_intro_done
     - not variable_set nagmon_owl_q1
     actions:
-    - translated_dialog nagmon_owl_go
+    - translated_dialog nagmon_owl_go,nagmon_owl
     - set_variable nagmon_intro_done:yes
 
   # ------------------------------------------------- the owl, later on
@@ -133,8 +133,8 @@ events:
     actions:
     - set_monster_health
     - set_monster_status
-    - translated_dialog nagmon_owl_heal
-    - translated_dialog nagmon_owl_tip_granite
+    - translated_dialog nagmon_owl_heal,nagmon_owl
+    - translated_dialog nagmon_owl_tip_granite,nagmon_owl
 
   Owl Talk Mila:
     type: event
@@ -146,8 +146,8 @@ events:
     actions:
     - set_monster_health
     - set_monster_status
-    - translated_dialog nagmon_owl_heal
-    - translated_dialog nagmon_owl_tip_mila
+    - translated_dialog nagmon_owl_heal,nagmon_owl
+    - translated_dialog nagmon_owl_tip_mila,nagmon_owl
 
   Owl Talk All:
     type: event
@@ -159,8 +159,8 @@ events:
     actions:
     - set_monster_health
     - set_monster_status
-    - translated_dialog nagmon_owl_heal
-    - translated_dialog nagmon_owl_tip_all
+    - translated_dialog nagmon_owl_heal,nagmon_owl
+    - translated_dialog nagmon_owl_tip_all,nagmon_owl
 
   Owl Congrats Granite:
     type: event
@@ -169,7 +169,7 @@ events:
     - not variable_set nagmon_owl_congrats_granite
     - is char_exists nagmon_owl
     actions:
-    - translated_dialog nagmon_owl_congrats_granite
+    - translated_dialog nagmon_owl_congrats_granite,nagmon_owl
     - set_variable nagmon_owl_congrats_granite:yes
 
   Owl Congrats Mila:
@@ -180,7 +180,7 @@ events:
     - not variable_set nagmon_owl_congrats_mila
     - is char_exists nagmon_owl
     actions:
-    - translated_dialog nagmon_owl_congrats_mila
+    - translated_dialog nagmon_owl_congrats_mila,nagmon_owl
     - set_variable nagmon_owl_congrats_mila:yes
 
   # ------------------------------------- Avi the shopkeeper: money math
@@ -199,7 +199,7 @@ events:
     conditions:
     - not profile_grade_at_least 1
     actions:
-    - translated_dialog nagmon_world_cashier_hello
+    - translated_dialog nagmon_world_cashier_hello,nagmon_cashier
     - ask_quiz math,nagmon_cashier_q,shop
 
   Cashier Talk Coins:
@@ -210,7 +210,7 @@ events:
     - is profile_grade_at_least 1
     - not profile_grade_at_least 2
     actions:
-    - translated_dialog nagmon_world_cashier_hello
+    - translated_dialog nagmon_world_cashier_hello,nagmon_cashier
     - ask_quiz math.money.coins,nagmon_cashier_q,shop
 
   Cashier Talk Change:
@@ -220,7 +220,7 @@ events:
     conditions:
     - is profile_grade_at_least 2
     actions:
-    - translated_dialog nagmon_world_cashier_hello
+    - translated_dialog nagmon_world_cashier_hello,nagmon_cashier
     - ask_quiz math.money.change_20,nagmon_cashier_q,shop
 
   Cashier Good:
@@ -232,7 +232,7 @@ events:
     - clear_variable nagmon_cashier_q
     - modify_money player,20
     - nagmon_daily_count cashier
-    - translated_dialog nagmon_world_cashier_good
+    - translated_dialog nagmon_world_cashier_good,nagmon_cashier
 
   Cashier Good Free:
     type: event
@@ -241,7 +241,7 @@ events:
     - not nagmon_daily_below cashier,3
     actions:
     - clear_variable nagmon_cashier_q
-    - translated_dialog nagmon_world_cashier_free
+    - translated_dialog nagmon_world_cashier_free,nagmon_cashier
 
   Cashier Wrong:
     type: event
@@ -249,7 +249,7 @@ events:
     - is variable_set nagmon_cashier_q:wrong
     actions:
     - clear_variable nagmon_cashier_q
-    - translated_dialog nagmon_world_cashier_wrong
+    - translated_dialog nagmon_world_cashier_wrong,nagmon_cashier
 
   # -------------------------------------------- Tom the tourist: English
   Create Tourist:
@@ -265,7 +265,7 @@ events:
     behav:
     - talk nagmon_tourist
     actions:
-    - translated_dialog nagmon_world_tourist_hello
+    - translated_dialog nagmon_world_tourist_hello,nagmon_tourist
     - ask_quiz english,nagmon_tourist_q
 
   Tourist Good:
@@ -277,7 +277,7 @@ events:
     - clear_variable nagmon_tourist_q
     - add_item potion,1
     - nagmon_daily_count tourist
-    - translated_dialog nagmon_world_tourist_good
+    - translated_dialog nagmon_world_tourist_good,nagmon_tourist
 
   Tourist Good Free:
     type: event
@@ -286,7 +286,7 @@ events:
     - not nagmon_daily_below tourist,3
     actions:
     - clear_variable nagmon_tourist_q
-    - translated_dialog nagmon_world_tourist_free
+    - translated_dialog nagmon_world_tourist_free,nagmon_tourist
 
   Tourist Wrong:
     type: event
@@ -294,7 +294,7 @@ events:
     - is variable_set nagmon_tourist_q:wrong
     actions:
     - clear_variable nagmon_tourist_q
-    - translated_dialog nagmon_world_tourist_wrong
+    - translated_dialog nagmon_world_tourist_wrong,nagmon_tourist
 
   # ----------------------------------------- Michal the gardener: science
   Create Gardener:
@@ -310,7 +310,7 @@ events:
     behav:
     - talk nagmon_gardener
     actions:
-    - translated_dialog nagmon_world_gardener_hello
+    - translated_dialog nagmon_world_gardener_hello,nagmon_gardener
     - ask_quiz science,nagmon_gardener_q
 
   Gardener Good:
@@ -322,7 +322,7 @@ events:
     - clear_variable nagmon_gardener_q
     - add_item wood_berry,1
     - nagmon_daily_count gardener
-    - translated_dialog nagmon_world_gardener_good
+    - translated_dialog nagmon_world_gardener_good,nagmon_gardener
 
   Gardener Good Free:
     type: event
@@ -331,7 +331,7 @@ events:
     - not nagmon_daily_below gardener,3
     actions:
     - clear_variable nagmon_gardener_q
-    - translated_dialog nagmon_world_gardener_free
+    - translated_dialog nagmon_world_gardener_free,nagmon_gardener
 
   Gardener Wrong:
     type: event
@@ -339,7 +339,7 @@ events:
     - is variable_set nagmon_gardener_q:wrong
     actions:
     - clear_variable nagmon_gardener_q
-    - translated_dialog nagmon_world_gardener_wrong
+    - translated_dialog nagmon_world_gardener_wrong,nagmon_gardener
 
   # -------------------------------- Yoav and Pitzi the kitten: kindness
   Create Kid:

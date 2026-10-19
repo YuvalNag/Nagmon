@@ -10,9 +10,11 @@ import logging
 import threading
 from typing import TYPE_CHECKING, Any, ClassVar
 
+import pygame
 from pygame_menu.locals import ALIGN_CENTER, POSITION_EAST
 from pygame_menu.menu import Menu
 
+from nagmon import mod_dir
 from nagmon.ai.owl import OWL_NOTICE_HE
 from nagmon.owl_service import build_owl, load_ai_settings
 from nagmon.runtime import age_from_profile, get_runtime
@@ -26,6 +28,21 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 MAX_READY_QUESTIONS = 6
+
+#: The owner's owl, 64x64 pixel art (docs/kids/SDD_ART.md §2.2).
+OWL_PORTRAIT = mod_dir() / "gfx" / "owl" / "owl_portrait.png"
+
+
+def owl_portrait(screen_height: int) -> pygame.Surface | None:
+    """The portrait at a whole-number zoom, about a fifth of the screen."""
+    try:
+        image = pygame.image.load(str(OWL_PORTRAIT))
+    except (OSError, pygame.error):
+        logger.warning("No owl portrait at %s", OWL_PORTRAIT)
+        return None
+    zoom = max(1, screen_height // 5 // image.get_height())
+    size = (image.get_width() * zoom, image.get_height() * zoom)
+    return pygame.transform.scale(image, size)
 
 
 class OwlState(PygameMenuState):
@@ -56,6 +73,9 @@ class OwlState(PygameMenuState):
     def show(self) -> None:
         self._menu = None
         menu = self.menu
+        portrait = owl_portrait(self.client.context.resolution[1])
+        if portrait is not None:
+            menu.add.surface(portrait, surface_id="owl_portrait")
         menu.add.label(
             T.translate("nagmon_owl_title"), font_size=self.font_type.big
         )
