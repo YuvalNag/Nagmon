@@ -179,6 +179,11 @@ def dialog_avatar() -> list[int] | None:
     return list(avatar.rect.size)
 
 
+def owl_sprite() -> str | None:
+    owl = client.get_npc("nagmon_owl")
+    return owl.appearance_manager.state.sprite_name if owl else None
+
+
 if SMOKE:
     result = {
         "map": map_slug(),
@@ -189,7 +194,15 @@ if SMOKE:
         "dialog": "DialogState" in names(),
         "avatar": dialog_avatar(),
         "engine": rt.engine is not None,
+        "owl_sprite": owl_sprite(),
     }
+    # The cape (SDD_ART §2.8), by the real event engine: the town makes
+    # the owl again (as on every load) once the first badge is earned.
+    player().game_variables.set("academy_granite_done", "yes")
+    player().game_variables.set("nagmon_owl_congrats_granite", "yes")
+    client.event_engine.execute_action("remove_npc", ["nagmon_owl"])
+    step(30)
+    result["owl_sprite_after_badge"] = owl_sprite()
     print(json.dumps(result, ensure_ascii=False))
     sys.exit(0)
 

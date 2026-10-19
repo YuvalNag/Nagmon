@@ -617,6 +617,10 @@ def test_new_game_starts_in_hearthrock_with_the_child_name(tmp_path):
     width, height = result["avatar"]
     assert width == height >= 64
     assert result["started"] == "yes"
+    # The owl's cape (SDD_ART §2.8): none before the first badge; after
+    # it, the owl the town makes again wears it.
+    assert result["owl_sprite"] == "nagmon_owl"
+    assert result["owl_sprite_after_badge"] == "nagmon_owl_caped"
 
 
 # ------------------------------------------- new strings show at once
