@@ -532,3 +532,14 @@ def test_a_twin_of_another_size_is_not_used(three_mods, display):
     _save(_checker((6, 6), 4), nagmon / "gfx" / "box@4x.png")
     assert fetch_hd_twin("gfx/box.png") is None
     assert load_and_scale("gfx/box.png", 7).get_size() == (56, 42)
+
+
+def test_tuxemons_intro_animation_is_replaced_by_a_modest_frame():
+    # The animation table checks its sheet exists, and Tuxemon's (a girl
+    # in a short skirt) is not packed into the app: Nagmon's own frame of
+    # its intro takes its name (SDD_ANDROID §2.7).
+    from PIL import Image
+
+    path = REPO / "mods/nagmon/animations/intro/intro.png"
+    with Image.open(path) as image:
+        assert image.size == (256, 144)  # one whole frame of the table

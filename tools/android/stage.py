@@ -44,6 +44,21 @@ SKIP_SUFFIXES = {
     ".mid",
 }
 
+#: Tuxemon images that are not modest (the family's rule) and that Nagmon
+#: never draws: they are not packed into the app (SDD_ANDROID §2.7).
+NOT_SHIPPED = (
+    # the "press a key" screen: a girl in a short skirt (Nagmon has its
+    # own IntroState)
+    "mods/tuxemon/animations/intro/intro.png",
+    # character choice: girls in short skirts; no state uses it
+    "mods/tuxemon/gfx/ui/background/choice_gender.png",
+    "mods/tuxemon/gfx/ui/background/choice_gender_240.png",
+)
+#: Portraits Nagmon replaces with modest ones of the same name: Tuxemon's
+#: copy is never drawn (mod order), so it is not packed either.
+PORTRAITS = Path("mods/tuxemon/gfx/sprites/player")
+MODEST_PORTRAITS = Path("mods/nagmon/gfx/sprites/player")
+
 #: What python-for-android builds for the phone. Recipes (python3, sdl2,
 #: pygame_ce, ...) are compiled; the rest are pure-Python wheels from PyPI,
 #: pinned to what the game is tested with.
@@ -118,6 +133,7 @@ package.domain = org.nagmon
 source.dir = .
 source.include_exts = {exts}
 source.exclude_dirs = bin, .buildozer, recipes, {res_dir}
+source.exclude_patterns = presplash.jpg, icon.png
 version = {version}
 requirements = {requirements}
 orientation = landscape, landscape-reverse
@@ -158,6 +174,13 @@ class StageReport:
 def _wanted(path: Path, root: Path) -> bool:
     rel = path.relative_to(root)
     if any(part in SKIP_DIRS for part in rel.parts):
+        return False
+    if rel.as_posix() in NOT_SHIPPED:
+        return False
+    if (
+        rel.parent == PORTRAITS
+        and (root / MODEST_PORTRAITS / rel.name).is_file()
+    ):
         return False
     return path.suffix != "" and path.suffix.lower() not in SKIP_SUFFIXES
 

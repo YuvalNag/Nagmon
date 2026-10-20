@@ -294,6 +294,14 @@ def keyboard_layout(area: Rect, chars: int, *, gap: int,
 - תמונות אחרות של Tuxemon במסך הפתיחה: לוגו pygame ו־Creative Commons ב־`SplashState`,
   שהפתיח של נגמון מסיר. אין בהם דמויות.
 
+**לא באפליקציה** (`NOT_SHIPPED` ב־`tools/android/stage.py`, כלל הצניעות):
+- `animations/intro/intro.png` של Tuxemon. טבלת האנימציות בודקת שהקובץ קיים,
+  ולכן `mods/nagmon/animations/intro/intro.png` (פריים אחד, 256×144, מהפתיח של נגמון) תופס את שמו.
+- `gfx/ui/background/choice_gender.png` ו־`choice_gender_240.png`: בנות בחצאיות קצרות. אף מסך לא משתמש בהם.
+- דיוקן ב־`mods/tuxemon/gfx/sprites/player/X.png` כשיש `mods/nagmon/gfx/sprites/player/X.png` (הצנוע מנצח לפי סדר המודים, והישן לא מצויר). רק בתיקייה הזו.
+- **`hotline-sheet.png` נשאר:** טבלת המפלצות בודקת שהגיליון קיים, ובלעדיו המשחק לא עולה (נבדק). הוא "גבולי" ב־`content/modesty`, ושום מפה או NPC לא משתמשים בו.
+- `source.exclude_patterns`: גם `presplash.jpg` ו־`icon.png` לא נארזים כקבצי משחק.
+
 **ה־presplash** (מה שאנדרואיד מראה בזמן ש־Python נטען):
 - היה האייקון (512×512) על לבן, לאורך.
 - **לאורך:** ב־manifest היה "unspecified" (שני כיוונים ב־`orientation`).
@@ -385,6 +393,8 @@ def keyboard_layout(area: Rect, chars: int, *, gap: int,
 | `bleed`: פיקסל שקוף מקבל את צבע השכן הנראה, והשקיפות לא משתנה; בתאום של ה־HUD הפיקסלים השקופים בקצה בצבע של הקצה | `tests/nagmon/test_phone_look.py` |
 | כל תאום בריפו הוא בדיוק פי 4 מהמקור, וכל תמונה ברשימה של הכלי יש לה תאום | `tests/nagmon/test_phone_look.py` |
 | מסגרת 9 חלקים: חלק הצלע וחלק המרכז חוזרים בלי שקע (העמודה הראשונה שווה לשכנה שלה בחזרה) | `tests/nagmon/test_phone_look.py` |
+| `stage.py`: הקבצים של `NOT_SHIPPED` והדיוקנאות שיש להם תחליף צנוע לא נארזים; דיוקן בלי תחליף ותיקיות אחרות כן | `tests/nagmon/test_android_build.py` |
+| העץ האמיתי בלי הקבצים האלה עולה: מקומפל, בלי מסך, 30 שניות (`compiled_boot.sh`) | `tests/nagmon/test_android_build.py` |
 | ה־spec: ‏`sensorLandscape`, ‏presplash ‏JPEG ‏2400×1080 עד 350KB, צבע הרקע מהתמונה, והמשאב של Android 12 | `tests/nagmon/test_android_build.py` |
 | סיור המגע: הפתיח של נגמון מצולם (`t00_intro`), `IntroState` של Tuxemon אף פעם לא במחסנית, ובקרב אין עמודה שחורה בקצה הימני, ורשימת ההתקפות לא על ה־HUD | `tools/dev/touch_tour.py` |
 

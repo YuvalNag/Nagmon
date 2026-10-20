@@ -8,6 +8,7 @@ from __future__ import annotations
 import configparser
 import importlib.util
 import io
+import os
 import subprocess
 import sys
 import tarfile
@@ -151,6 +152,9 @@ def test_the_first_screen_is_landscape_and_full_screen(staged):
     src, dest = app["android.add_resources"].split(":")
     assert dest == "values-v31/styles.xml"
     assert "android_res" in app["source.exclude_dirs"]
+    # the pictures Android shows are not game files as well
+    patterns = {p.strip() for p in app["source.exclude_patterns"].split(",")}
+    assert {"presplash.jpg", "icon.png"} <= patterns
     styles = (out / src).read_text()
     assert '<style name="KivySupportCutout">' in styles
     assert '"android:windowFullscreen">true<' in styles
@@ -582,3 +586,72 @@ def test_the_emulator_is_phone_shaped_and_checks_sideways():
     assert "requestedOrientation=(1|7|9|12)" in script
     assert "frame rate:" in script
     assert "adb logcat -G 16M" in script  # the start is not rolled away
+
+
+# ------------------------------------------- modesty: not in the APK
+
+
+def _modesty_repo(root: Path) -> Path:
+    repo = _fake_repo(root)
+    for rel in (
+        "mods/tuxemon/animations/intro/intro.png",
+        "mods/tuxemon/gfx/ui/background/choice_gender.png",
+        "mods/tuxemon/gfx/ui/background/choice_gender_240.png",
+        "mods/tuxemon/gfx/ui/background/gradient_blue.png",
+        "mods/tuxemon/gfx/sprites/player/heroine.png",
+        "mods/tuxemon/gfx/sprites/player/monk.png",
+        "mods/nagmon/gfx/sprites/player/heroine.png",
+        "mods/tuxemon/sprites/heroine.png",
+    ):
+        path = repo / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(rel)
+    return repo
+
+
+def test_immodest_images_stay_out_of_the_app(tmp_path):
+    repo = _modesty_repo(tmp_path / "repo")
+    out = tmp_path / "app"
+    stage.stage(repo, out)
+    for rel in stage.NOT_SHIPPED:
+        assert not (out / rel).exists(), rel
+    # Tuxemon's portrait is replaced by Nagmon's modest one of that name
+    assert not (out / "mods/tuxemon/gfx/sprites/player/heroine.png").exists()
+    assert (out / "mods/nagmon/gfx/sprites/player/heroine.png").is_file()
+    # others stay: a portrait with no replacement, another folder, the rest
+    for rel in (
+        "mods/tuxemon/gfx/sprites/player/monk.png",
+        "mods/tuxemon/sprites/heroine.png",
+        "mods/tuxemon/gfx/ui/background/gradient_blue.png",
+    ):
+        assert (out / rel).is_file(), rel
+
+
+def test_not_shipped_names_the_immodest_tuxemon_images():
+    assert {
+        "mods/tuxemon/animations/intro/intro.png",
+        "mods/tuxemon/gfx/ui/background/choice_gender.png",
+        "mods/tuxemon/gfx/ui/background/choice_gender_240.png",
+    } <= set(stage.NOT_SHIPPED)
+    for rel in stage.NOT_SHIPPED:
+        assert (REPO / rel).is_file(), f"{rel} is gone: drop it from the list"
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="a bash script")
+def test_the_app_without_them_boots(tmp_path):
+    # the real game, staged, compiled and booted headless for 30 s
+    # (tools/android/compiled_boot.sh)
+    out = tmp_path / "app"
+    stage.stage(REPO, out)
+    assert not (out / "mods/tuxemon/animations/intro/intro.png").exists()
+    result = subprocess.run(
+        [str(REPO / "tools/android/compiled_boot.sh"), str(out), "30"],
+        capture_output=True,
+        text=True,
+        env={**os.environ, "PYTHON": sys.executable},
+        timeout=600,
+    )
+    assert result.returncode == 0, (
+        result.stdout[-3000:] + result.stderr[-2000:]
+    )
+    assert "ran for 30s" in result.stdout
