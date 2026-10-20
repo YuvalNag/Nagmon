@@ -69,7 +69,8 @@ class MainCombatMenuState(core_combat.MainCombatMenuState):
         if rt is not None and rt.active is not None:
             override = rt.active.settings.get("element_subjects")
         types = [t.slug for t in technique.types.current]
-        return subject_map().subject_for(types, override)
+        monster = getattr(self.monster, "slug", None)
+        return subject_map().subject_for(types, override, monster)
 
     # -------------------------------------------------------- hooks
 

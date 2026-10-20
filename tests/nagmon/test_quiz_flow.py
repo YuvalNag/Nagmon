@@ -43,6 +43,17 @@ def test_child_override_wins(smap):
     assert smap.subject_for(["fire"], {"fire": "english"}) == "english"
 
 
+def test_a_monster_can_have_its_own_subject(smap):
+    # Hebrew has no element (docs/kids/SDD_ART.md §2.10): its monsters
+    # ask Hebrew whatever their technique's type.
+    assert smap.subject_for(["normal"], monster="scrollo") == "hebrew"
+    assert smap.subject_for(["fire"], {"fire": "english"}, "megillon") == (
+        "hebrew"
+    )
+    assert smap.subject_for(["normal"], monster="alphabel") == "english"
+    assert smap.subject_for(["normal"]) == "english"
+
+
 def test_subject_titles_and_colors(smap):
     assert smap.title("science") == "מדעים"
     assert smap.color("math").startswith("#")
