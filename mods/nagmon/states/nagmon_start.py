@@ -8,6 +8,7 @@ register Tuxemon's StartState a second time from this file.
 
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING, Any, ClassVar
 
 import tuxemon.states.start as core_start
@@ -24,6 +25,8 @@ if TYPE_CHECKING:
     from pygame_menu.menu import Menu
 
     from tuxemon.base_client import BaseClient
+
+logger = logging.getLogger(__name__)
 
 
 def _owl_on(rt: Any) -> bool:
@@ -136,12 +139,18 @@ class StartState(core_start.StartState):
             self._stop_message = None
 
     def _on_afk_threshold(self, level: str) -> None:
-        # The idle timer replaces the *top* state with the intro. Only do
-        # that when the title menu itself is on top: "who is playing?" or
-        # the parent area above it must stay (and not stack a second
-        # title menu once the intro closes).
-        if self.client.current_state is self:
-            super()._on_afk_threshold(level)
+        # Tuxemon's idle timer replaced the title with its "press a key"
+        # screen. Nagmon plays its own intro over the title instead, once,
+        # and only when the title itself is on top: "who is playing?" or
+        # the parent area above it must stay (SDD_ANDROID §2.7).
+        if level != "IntroState" or self.client.current_state is not self:
+            return
+        from nagmon.ui import intro
+
+        try:
+            intro.start_intro(self.client)
+        except Exception:  # the intro must never stop the game
+            logger.exception("Could not play the intro")
 
     def switch_player(self) -> None:
         rt = get_runtime()

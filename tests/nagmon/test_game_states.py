@@ -52,18 +52,43 @@ def _start_state(on_top: bool):
     return state
 
 
-def test_idle_title_menu_still_returns_to_the_intro():
+def test_idle_title_menu_plays_nagmons_intro_over_it(monkeypatch):
+    # Tuxemon's "press a key" screen never shows in Nagmon (its girl wears
+    # a short skirt): the idle title plays Nagmon's intro, and the title
+    # stays under it (SDD_ANDROID §2.7).
+    from nagmon.ui import intro
+
+    started = []
+    monkeypatch.setattr(intro, "start_intro", started.append)
     state = _start_state(on_top=True)
     state._on_afk_threshold("IntroState")
-    state.client.replace_state.assert_called_once_with("IntroState")
+    assert started == [state.client]
+    state.client.replace_state.assert_not_called()
 
 
-def test_idle_child_on_who_plays_is_not_sent_to_the_intro():
+def test_idle_title_without_an_intro_stays(monkeypatch):
+    from nagmon.ui import intro
+
+    def broken(client):
+        raise RuntimeError("no screen")
+
+    monkeypatch.setattr(intro, "start_intro", broken)
+    state = _start_state(on_top=True)
+    state._on_afk_threshold("IntroState")  # must not raise
+    state.client.replace_state.assert_not_called()
+
+
+def test_idle_child_on_who_plays_is_not_sent_to_the_intro(monkeypatch):
     # "Who is playing?" (or the parent area) sits on top of the title
     # menu; replacing *it* with the intro stacked a second title menu.
+    from nagmon.ui import intro
+
+    started = []
+    monkeypatch.setattr(intro, "start_intro", started.append)
     state = _start_state(on_top=False)
     state._on_afk_threshold("IntroState")
     state.client.replace_state.assert_not_called()
+    assert started == []
 
 
 class _Watcher:
