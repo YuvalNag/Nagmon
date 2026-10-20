@@ -1,0 +1,113 @@
+{
+ "files": [
+  {
+   "file": "english/phonics.json",
+   "source": "learning/english/phonics.yaml"
+  },
+  {
+   "file": "english/reading.json",
+   "source": "learning/english/reading.yaml"
+  },
+  {
+   "file": "english/sentences.json",
+   "source": "learning/english/sentences.yaml"
+  },
+  {
+   "file": "english/words.json",
+   "source": "learning/english/words.yaml"
+  },
+  {
+   "file": "hebrew/letters.json",
+   "source": "learning/hebrew/letters.yaml"
+  },
+  {
+   "file": "hebrew/reading.json",
+   "source": "learning/hebrew/reading.yaml"
+  },
+  {
+   "file": "hebrew/words.json",
+   "source": "learning/hebrew/words.yaml"
+  },
+  {
+   "file": "owl_faq.json",
+   "source": "learning/owl_faq.yaml"
+  },
+  {
+   "file": "science/animals.json",
+   "source": "learning/science/animals.yaml"
+  },
+  {
+   "file": "science/body.json",
+   "source": "learning/science/body.yaml"
+  },
+  {
+   "file": "science/earth.json",
+   "source": "learning/science/earth.yaml"
+  },
+  {
+   "file": "science/ecology.json",
+   "source": "learning/science/ecology.yaml"
+  },
+  {
+   "file": "science/energy.json",
+   "source": "learning/science/energy.yaml"
+  },
+  {
+   "file": "science/living.json",
+   "source": "learning/science/living.yaml"
+  },
+  {
+   "file": "science/matter.json",
+   "source": "learning/science/matter.yaml"
+  },
+  {
+   "file": "science/monster_facts.json",
+   "source": "learning/science/monster_facts.yaml"
+  },
+  {
+   "file": "science/plants.json",
+   "source": "learning/science/plants.yaml"
+  },
+  {
+   "file": "science/space.json",
+   "source": "learning/science/space.yaml"
+  },
+  {
+   "file": "science/technology.json",
+   "source": "learning/science/technology.yaml"
+  },
+  {
+   "file": "skills/english.json",
+   "source": "learning/skills/english.yaml"
+  },
+  {
+   "file": "skills/geometry.json",
+   "source": "learning/skills/geometry.yaml"
+  },
+  {
+   "file": "skills/hebrew.json",
+   "source": "learning/skills/hebrew.yaml"
+  },
+  {
+   "file": "skills/logic.json",
+   "source": "learning/skills/logic.yaml"
+  },
+  {
+   "file": "skills/math.json",
+   "source": "learning/skills/math.yaml"
+  },
+  {
+   "file": "skills/science.json",
+   "source": "learning/skills/science.yaml"
+  },
+  {
+   "file": "subjects.json",
+   "source": "learning/subjects.yaml"
+  }
+ ],
+ "counts": {
+  "skills": 260,
+  "bank_items": 1533,
+  "words": 1008
+ }
+}

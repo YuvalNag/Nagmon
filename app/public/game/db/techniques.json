@@ -1,0 +1,6738 @@
+{
+ "adamantine": {
+  "tech_id": 120,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "very_slow",
+  "potency": 0.0,
+  "power": 3,
+  "range": "touch",
+  "recharge": 2,
+  "slug": "adamantine",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "reserved",
+  "tags": [
+   "reserved"
+  ],
+  "types": [
+   "metal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "amethyst",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_forcefield",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/adamantine.yaml"
+  ]
+ },
+ "all_in": {
+  "tech_id": 54,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "recover",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "slow",
+  "potency": 1,
+  "power": 3,
+  "range": "touch",
+  "recharge": 3,
+  "slug": "all_in",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "leadership",
+   "fury"
+  ],
+  "types": [
+   "heroic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "sparks_gold_alt",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shine",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/all_in.yaml"
+  ]
+ },
+ "amnesia": {
+  "tech_id": 53,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "exhausted",
+     "enemy_monster:own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 2.25,
+  "range": "reach",
+  "recharge": 2,
+  "slug": "amnesia",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "mental"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": "combat_amnesia_get",
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "sparks_gold_alt",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_pulse",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/amnesia.yaml"
+  ]
+ },
+ "ants": {
+  "tech_id": 131,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "switch",
+    "parameters": [
+     "enemy_monster",
+     "earth"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 4,
+  "slug": "ants",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "bug",
+   "shapeshifter"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "slash_power",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_squeak",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/ants.yaml"
+  ]
+ },
+ "arcane_eye": {
+  "tech_id": 158,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "elementalshield",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 1,
+  "slug": "arcane_eye",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": false,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": true,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "gaze",
+   "summoner"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "crystal_absorb",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_pulse",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/arcane_eye.yaml"
+  ]
+ },
+ "assault": {
+  "tech_id": 94,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "fast",
+  "potency": 0.0,
+  "power": 1.7,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "assault",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "speed",
+   "fury"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pound",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/assault.yaml"
+  ]
+ },
+ "battery_discharge": {
+  "tech_id": 83,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "healing",
+    "parameters": [
+     "own_monster"
+    ]
+   }
+  ],
+  "healing_power": 1.5,
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.5,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "battery_discharge",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "machine"
+  ],
+  "types": [
+   "lightning"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "disintegrate_83",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/battery_discharge.yaml"
+  ]
+ },
+ "beam": {
+  "tech_id": 18,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "blinded",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.75,
+  "power": 1.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "beam",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "light"
+  ],
+  "types": [
+   "heroic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "beam",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_laser_beam",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/beam.yaml"
+  ]
+ },
+ "berserk": {
+  "tech_id": 44,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "enraged",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "slow",
+  "potency": 1,
+  "power": 2.25,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "berserk",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "fury"
+  ],
+  "types": [
+   "heroic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "constantburn",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_growl",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/berserk.yaml"
+  ]
+ },
+ "biting_winds": {
+  "tech_id": 24,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "softened",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "slow",
+  "potency": 1,
+  "power": 1.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "biting_winds",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "weather"
+  ],
+  "types": [
+   "sky"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "explosion_ice_112",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_tornado",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/biting_winds.yaml"
+  ]
+ },
+ "blade": {
+  "tech_id": 7,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "extremely_fast",
+  "potency": 0.0,
+  "power": 1.25,
+  "range": "melee",
+  "recharge": 1,
+  "slug": "blade",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "sharp",
+   "steel"
+  ],
+  "types": [
+   "metal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "slash_200",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/blade.yaml"
+  ]
+ },
+ "blossom": {
+  "tech_id": 26,
+  "accuracy": 0.85,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "healing",
+    "parameters": [
+     "own_monster"
+    ]
+   }
+  ],
+  "healing_power": 2.0,
+  "speed": "normal",
+  "potency": 1,
+  "power": 1.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "blossom",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "bug",
+   "plant",
+   "healing"
+  ],
+  "types": [
+   "wood"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "gloop_orange",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_squeak",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/blossom.yaml"
+  ]
+ },
+ "boulder": {
+  "tech_id": 11,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "statchange",
+    "parameters": [
+     "own_monster"
+    ]
+   }
+  ],
+  "stat_modifiers": {
+   "armour": {
+    "step": 1
+   }
+  },
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 2,
+  "slug": "boulder",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": false,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": true,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "rock",
+   "bug",
+   "shielded"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "shield_rock",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_crumble1",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/boulder.yaml"
+  ]
+ },
+ "breath": {
+  "tech_id": 122,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "noddingoff",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 3,
+  "slug": "breath",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "mental"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "crystal_radiate",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_pulse",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/breath.yaml"
+  ]
+ },
+ "breathe_fire": {
+  "tech_id": 64,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 2.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "breathe_fire",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "flame"
+  ],
+  "types": [
+   "fire"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "firelion_right",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_flames2",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/breathe_fire.yaml"
+  ]
+ },
+ "bubble_trap": {
+  "tech_id": 57,
+  "accuracy": 0.75,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "grabbed",
+     "enemy_monster:own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 2.25,
+  "range": "reach",
+  "recharge": 3,
+  "slug": "bubble_trap",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "summoner",
+   "mental"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "bomb_bright",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/bubble_trap.yaml"
+  ]
+ },
+ "bubbles": {
+  "tech_id": 214,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.4,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "bubbles",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "amphibian",
+   "water"
+  ],
+  "types": [
+   "water"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "bubbleattack",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/bubbles.yaml"
+  ]
+ },
+ "bullet": {
+  "tech_id": 8,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "extremely_fast",
+  "potency": 0.0,
+  "power": 1.25,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "bullet",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "soldier"
+  ],
+  "types": [
+   "metal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "rollingball",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/bullet.yaml"
+  ]
+ },
+ "burrow_blast": {
+  "tech_id": 204,
+  "accuracy": 0.8,
+  "conditions": [
+   {
+    "type": "status",
+    "parameters": [
+     "grabbed"
+    ],
+    "operator": "not"
+   },
+   {
+    "type": "status",
+    "parameters": [
+     "stuck"
+    ],
+    "operator": "not"
+   }
+  ],
+  "effects": [
+   {
+    "type": "disappear",
+    "parameters": [
+     "strike"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 1,
+  "range": "melee",
+  "recharge": 4,
+  "slug": "burrow_blast",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "ground"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "burrow_blast_fail",
+  "use_success": "burrow_blast_success",
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": null,
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_crumble1",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/burrow_blast.yaml"
+  ]
+ },
+ "buzz": {
+  "tech_id": 197,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "flinching",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.5,
+  "power": 1.2,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "buzz",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "electricity",
+   "bug"
+  ],
+  "types": [
+   "lightning"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "disintegrate_83",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_lightning2",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/buzz.yaml"
+  ]
+ },
+ "caustic_spray": {
+  "tech_id": 153,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 2.2,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "caustic_spray",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "toxic"
+  ],
+  "types": [
+   "venom"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "emerald_absorb",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/caustic_spray.yaml"
+  ]
+ },
+ "chameleon": {
+  "tech_id": 97,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "hardshell",
+     "own_monster"
+    ]
+   },
+   {
+    "type": "switch",
+    "parameters": [
+     "own_monster",
+     "wood"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 4,
+  "slug": "chameleon",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": false,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": true,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "shapeshifter"
+  ],
+  "types": [
+   "wood"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "red_circle",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shpring",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/chameleon.yaml"
+  ]
+ },
+ "clamp_on": {
+  "tech_id": 17,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "diehard",
+     "own_monster"
+    ]
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "grabbed",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 3,
+  "slug": "clamp_on",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "bug",
+   "bite",
+   "fury"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "bite",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_squeak",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/clamp_on.yaml"
+  ]
+ },
+ "conjurer": {
+  "tech_id": 127,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "grabbed",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 2,
+  "slug": "conjurer",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "summoner"
+  ],
+  "types": [
+   "shadow"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pound_bright",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_pulse",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/conjurer.yaml"
+  ]
+ },
+ "constrict": {
+  "tech_id": 75,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "grabbed",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "very_slow",
+  "potency": 0.75,
+  "power": 1.25,
+  "range": "reliable",
+  "recharge": 2,
+  "slug": "constrict",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "pseudopod"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "icetacle",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_squeak",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/constrict.yaml"
+  ]
+ },
+ "crystal": {
+  "tech_id": 128,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "crystal",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "gemstone"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "crystal",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shine",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/crystal.yaml"
+  ]
+ },
+ "divinity_beam": {
+  "tech_id": 192,
+  "accuracy": 0.95,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "blinded",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.5,
+  "power": 3,
+  "range": "ranged",
+  "recharge": 4,
+  "slug": "divinity_beam",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "celestial",
+   "calamity"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "divinity_beam",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_blaster",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/divinity_beam.yaml"
+  ]
+ },
+ "dreamwalk": {
+  "tech_id": 211,
+  "accuracy": 1.0,
+  "conditions": [
+   {
+    "type": "status",
+    "parameters": [
+     "noddingoff"
+    ],
+    "operator": "is"
+   }
+  ],
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 2.8,
+  "range": "reliable",
+  "recharge": 2,
+  "slug": "dreamwalk",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "mental"
+  ],
+  "types": [
+   "cosmic",
+   "shadow"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "debian_64",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_pulse",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/dreamwalk.yaml"
+  ]
+ },
+ "earthquake": {
+  "tech_id": 168,
+  "accuracy": 0.7,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "extremely_slow",
+  "potency": 0.0,
+  "power": 2.9,
+  "range": "touch",
+  "recharge": 2,
+  "slug": "earthquake",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": false,
+   "enemy_team": true,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "calamity",
+   "ground"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "rockfall_264",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_crumble1",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/earthquake.yaml"
+  ]
+ },
+ "electrical_storm": {
+  "tech_id": 76,
+  "accuracy": 0.75,
+  "effects": [
+   {
+    "type": "splash",
+    "parameters": [
+     "8"
+    ]
+   }
+  ],
+  "speed": "very_slow",
+  "potency": 0.0,
+  "power": 3,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "electrical_storm",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "electricity",
+   "weather"
+  ],
+  "types": [
+   "lightning"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "lightning_claw_large",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_tornado",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/electrical_storm.yaml"
+  ]
+ },
+ "energy_beam": {
+  "tech_id": 191,
+  "accuracy": 0.95,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "burn",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.5,
+  "power": 3,
+  "range": "ranged",
+  "recharge": 4,
+  "slug": "energy_beam",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "calamity",
+   "fury"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "energy_beam",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_blaster",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/energy_beam.yaml"
+  ]
+ },
+ "energy_claws": {
+  "tech_id": 31,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "sniping",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 2.25,
+  "range": "melee",
+  "recharge": 3,
+  "slug": "energy_claws",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "claws"
+  ],
+  "types": [
+   "lightning"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "slash_double_188",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/energy_claws.yaml"
+  ]
+ },
+ "eyebite": {
+  "tech_id": 35,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "exhausted",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "very_fast",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 3,
+  "slug": "eyebite",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "gaze"
+  ],
+  "types": [
+   "shadow"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": null,
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bite",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/eyebite.yaml"
+  ]
+ },
+ "feint": {
+  "tech_id": 36,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "remove",
+    "parameters": [
+     "positive",
+     "enemy_monster"
+    ]
+   },
+   {
+    "type": "damage"
+   },
+   {
+    "type": "statchange",
+    "parameters": [
+     "own_monster"
+    ]
+   }
+  ],
+  "stat_modifiers": {
+   "dodge": {
+    "step": 1
+   }
+  },
+  "speed": "normal",
+  "potency": 1,
+  "power": 1,
+  "range": "melee",
+  "recharge": 1,
+  "slug": "feint",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "sharp"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "lightning_bolt_138",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/feint.yaml"
+  ]
+ },
+ "fester": {
+  "tech_id": 78,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "festering",
+     "own_team:enemy_team"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.8,
+  "power": 2.25,
+  "range": "reach",
+  "recharge": 2,
+  "slug": "fester",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": false,
+   "enemy_team": true,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "toxic"
+  ],
+  "types": [
+   "venom"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "drip_green",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/fester.yaml"
+  ]
+ },
+ "fiery": {
+  "tech_id": 98,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "switch",
+    "parameters": [
+     "enemy_monster",
+     "fire"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 4,
+  "slug": "fiery",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "shapeshifter"
+  ],
+  "types": [
+   "fire"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pound_bright",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_flames1",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/fiery.yaml"
+  ]
+ },
+ "fire_ball": {
+  "tech_id": 4,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "appear"
+   },
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.2,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "fire_ball",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "bomber",
+   "flame"
+  ],
+  "types": [
+   "fire"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "fire_big_dark_96",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_flames2",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/fire_ball.yaml"
+  ]
+ },
+ "fire_claw": {
+  "tech_id": 3,
+  "accuracy": 0.75,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "burn",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.2,
+  "power": 1.75,
+  "range": "reach",
+  "recharge": 2,
+  "slug": "fire_claw",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "flame",
+   "claws"
+  ],
+  "types": [
+   "fire"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "slash_double_188",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/fire_claw.yaml"
+  ]
+ },
+ "flamethrower": {
+  "tech_id": 73,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "burn",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.5,
+  "power": 2.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "flamethrower",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "flame",
+   "gadgets"
+  ],
+  "types": [
+   "fire"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "firelion_right",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_flames1",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/flamethrower.yaml"
+  ]
+ },
+ "fledgling": {
+  "tech_id": 117,
+  "accuracy": 0.75,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.7,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "fledgling",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "bird"
+  ],
+  "types": [
+   "sky"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "turquoise_circle",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_tornado",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/fledgling.yaml"
+  ]
+ },
+ "flood": {
+  "tech_id": 10,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "splash",
+    "parameters": [
+     "8"
+    ]
+   }
+  ],
+  "speed": "extremely_slow",
+  "potency": 0.0,
+  "power": 1.5,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "flood",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": false,
+   "enemy_team": true,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "water"
+  ],
+  "types": [
+   "water"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "watershot",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/flood.yaml"
+  ]
+ },
+ "flow": {
+  "tech_id": 9,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "splash",
+    "parameters": [
+     "8"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.8,
+  "range": "melee",
+  "recharge": 1,
+  "slug": "flow",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "water"
+  ],
+  "types": [
+   "water"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "waterspurt",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/flow.yaml"
+  ]
+ },
+ "flower_bloom": {
+  "tech_id": 227,
+  "accuracy": 0.95,
+  "effects": [
+   {
+    "type": "splash",
+    "parameters": [
+     "8"
+    ]
+   }
+  ],
+  "speed": "slow",
+  "potency": 0.0,
+  "power": 3.0,
+  "range": "ranged",
+  "recharge": 3,
+  "slug": "flower_bloom",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "plant"
+  ],
+  "types": [
+   "wood"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "flower",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shpring",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/flower_bloom.yaml"
+  ]
+ },
+ "font": {
+  "tech_id": 48,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "recover",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 1.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "font",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "water",
+   "healing"
+  ],
+  "types": [
+   "water"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "waterspurt",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shine",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/font.yaml"
+  ]
+ },
+ "frighten": {
+  "tech_id": 244,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "sniping",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "fast",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 2,
+  "slug": "frighten",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "ghost",
+   "mental"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "skull",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sound_yehehe",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/frighten.yaml"
+  ]
+ },
+ "frostbite": {
+  "tech_id": 87,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "poison",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.5,
+  "power": 3,
+  "range": "reach",
+  "recharge": 3,
+  "slug": "frostbite",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "ice",
+   "bite"
+  ],
+  "types": [
+   "frost"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "lance_ice",
+   "flip_axes": "xy",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bite",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/frostbite.yaml"
+  ]
+ },
+ "fume": {
+  "tech_id": 28,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "enraged",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 1,
+  "slug": "fume",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": false,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": true,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "fury"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "buff_rage",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_growl",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/fume.yaml"
+  ]
+ },
+ "geyser": {
+  "tech_id": 91,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "switch",
+    "parameters": [
+     "enemy_monster",
+     "water"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 4,
+  "slug": "geyser",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "shapeshifter"
+  ],
+  "types": [
+   "water"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "smokebomb_plume",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/geyser.yaml"
+  ]
+ },
+ "glower": {
+  "tech_id": 13,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "statchange",
+    "parameters": [
+     "enemy_monster"
+    ]
+   }
+  ],
+  "stat_modifiers": {
+   "armour": {
+    "step": -1
+   }
+  },
+  "speed": "very_fast",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 2,
+  "slug": "glower",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "gaze",
+   "fury"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "green_circle",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shine",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/glower.yaml"
+  ]
+ },
+ "gnaw": {
+  "tech_id": 215,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "fast",
+  "potency": 0.0,
+  "power": 1.0,
+  "range": "touch",
+  "recharge": 1,
+  "slug": "gnaw",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "bite"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "gnaw",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bite",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/gnaw.yaml"
+  ]
+ },
+ "goad": {
+  "tech_id": 39,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "enraged",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "very_fast",
+  "potency": 0.8,
+  "power": 1.75,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "goad",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "speed",
+   "shielded"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "buff_rage",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/goad.yaml"
+  ]
+ },
+ "greenstone": {
+  "tech_id": 106,
+  "accuracy": 0.6,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "slow",
+  "potency": 0.0,
+  "power": 2.5,
+  "range": "touch",
+  "recharge": 2,
+  "slug": "greenstone",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "gemstone"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "emerald_radiate",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_crumble2",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/greenstone.yaml"
+  ]
+ },
+ "grinding": {
+  "tech_id": 109,
+  "accuracy": 0.75,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "slow",
+  "potency": 0.0,
+  "power": 2.2,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "grinding",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "rock"
+  ],
+  "types": [
+   "earth",
+   "metal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "bite_zombie",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_crumble1",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/grinding.yaml"
+  ]
+ },
+ "hibernate": {
+  "tech_id": 45,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "noddingoff",
+     "own_monster"
+    ]
+   },
+   {
+    "type": "prop_healing",
+    "parameters": [
+     "own_monster",
+     "0.66"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 3,
+  "slug": "hibernate",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": false,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": true,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "megafauna"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": null,
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_growl",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/hibernate.yaml"
+  ]
+ },
+ "ice_claw": {
+  "tech_id": 21,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.25,
+  "range": "melee",
+  "recharge": 1,
+  "slug": "ice_claw",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "ice",
+   "claws"
+  ],
+  "types": [
+   "frost"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "icetacle",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/ice_claw.yaml"
+  ]
+ },
+ "ice_shield": {
+  "tech_id": 172,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "elementalshield",
+     "own_monster"
+    ]
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "slow",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 2,
+  "slug": "ice_shield",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "soldier",
+   "ice",
+   "shielded"
+  ],
+  "types": [
+   "frost"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "wall_ice",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_freeze",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/ice_shield.yaml"
+  ]
+ },
+ "invictus": {
+  "tech_id": 63,
+  "accuracy": 0.95,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "enraged",
+     "own_monster"
+    ]
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "grabbed",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "slow",
+  "potency": 1,
+  "power": 1.25,
+  "range": "touch",
+  "recharge": 2,
+  "slug": "invictus",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "bite",
+   "fists",
+   "leadership",
+   "fury"
+  ],
+  "types": [
+   "heroic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "triforce_163",
+   "flip_axes": "xy",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bite",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/invictus.yaml"
+  ]
+ },
+ "kindling_flame": {
+  "tech_id": 30,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "enraged",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 2.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "kindling_flame",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "flame"
+  ],
+  "types": [
+   "fire"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "constantburn",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_flames1",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/kindling_flame.yaml"
+  ]
+ },
+ "kraken": {
+  "tech_id": 132,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "extremely_slow",
+  "potency": 0.0,
+  "power": 2.5,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "kraken",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "pseudopod",
+   "summoner"
+  ],
+  "types": [
+   "water"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "icetacle",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_squeak",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/kraken.yaml"
+  ]
+ },
+ "lantern": {
+  "tech_id": 133,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "lantern",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "light",
+   "gadgets",
+   "leadership"
+  ],
+  "types": [
+   "heroic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "gloop_orange",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shine",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/lantern.yaml"
+  ]
+ },
+ "laser_beam": {
+  "tech_id": 238,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "blinded",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "extremely_fast",
+  "potency": 0.3,
+  "power": 3.0,
+  "range": "ranged",
+  "recharge": 4,
+  "slug": "laser_beam",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "machine",
+   "electricity"
+  ],
+  "types": [
+   "lightning"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "energy_beam",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_blaster",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/laser_beam.yaml"
+  ]
+ },
+ "leaf_barrage": {
+  "tech_id": 223,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "multiattack",
+    "parameters": [
+     "2"
+    ]
+   }
+  ],
+  "speed": "slow",
+  "potency": 0.0,
+  "power": 1.3,
+  "range": "reach",
+  "recharge": 1,
+  "slug": "leaf_barrage",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "plant"
+  ],
+  "types": [
+   "wood"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "leafstab",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shpring",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/leaf_barrage.yaml"
+  ]
+ },
+ "lightning_spheres": {
+  "tech_id": 163,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.2,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "lightning_spheres",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "electricity"
+  ],
+  "types": [
+   "lightning"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "lightning_spheres",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_lightning2",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/lightning_spheres.yaml"
+  ]
+ },
+ "lineage": {
+  "tech_id": 135,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.5,
+  "range": "reach",
+  "recharge": 3,
+  "slug": "lineage",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "ghost",
+   "leadership"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "yellow_circle",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_pulse",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/lineage.yaml"
+  ]
+ },
+ "magnetic_body": {
+  "tech_id": 237,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "grabbed",
+     "own_monster:enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.8,
+  "power": 3.0,
+  "range": "melee",
+  "recharge": 3,
+  "slug": "magnetic_body",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "machine",
+   "steel",
+   "electricity"
+  ],
+  "types": [
+   "metal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "disintegrate_83",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_machine_beep",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/magnetic_body.yaml"
+  ]
+ },
+ "midnight_mantle": {
+  "tech_id": 55,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "splash",
+    "parameters": [
+     "2"
+    ]
+   }
+  ],
+  "speed": "very_fast",
+  "potency": 0.0,
+  "power": 1.25,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "midnight_mantle",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "darkness",
+   "celestial"
+  ],
+  "types": [
+   "shadow"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "claw_blue",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_pulse",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/midnight_mantle.yaml"
+  ]
+ },
+ "muck": {
+  "tech_id": 138,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 2,
+  "range": "reach",
+  "recharge": 2,
+  "slug": "muck",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "toxic"
+  ],
+  "types": [
+   "venom"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "x_attack",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/muck.yaml"
+  ]
+ },
+ "muddle": {
+  "tech_id": 43,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "focused",
+     "own_team:enemy_team"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 1,
+  "range": "reach",
+  "recharge": 1,
+  "slug": "muddle",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "ghost",
+   "mental"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "sparks_white",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_sand",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/muddle.yaml"
+  ]
+ },
+ "mudslide": {
+  "tech_id": 89,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "statchange",
+    "parameters": [
+     "enemy_monster"
+    ]
+   }
+  ],
+  "stat_modifiers": {
+   "speed": {
+    "step": -1
+   }
+  },
+  "speed": "extremely_slow",
+  "potency": 1,
+  "power": 2.25,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "mudslide",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "ground"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "spikes_rock",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_sand",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/mudslide.yaml"
+  ]
+ },
+ "one_two": {
+  "tech_id": 52,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "multiattack",
+    "parameters": [
+     "2"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 2,
+  "range": "touch",
+  "recharge": 2,
+  "slug": "one_two",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "fists"
+  ],
+  "types": [
+   "heroic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "triple_whammy_80",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/one_two.yaml"
+  ]
+ },
+ "overgrowth": {
+  "tech_id": 27,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "grabbed",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "very_slow",
+  "potency": 1,
+  "power": 2.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "overgrowth",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "plant",
+   "summoner"
+  ],
+  "types": [
+   "wood"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "snake_right",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shpring",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/overgrowth.yaml"
+  ]
+ },
+ "peregrine": {
+  "tech_id": 65,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "extremely_fast",
+  "potency": 0.0,
+  "power": 1.75,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "peregrine",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "bird",
+   "speed"
+  ],
+  "types": [
+   "sky"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pound_bright",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_tornado",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/peregrine.yaml"
+  ]
+ },
+ "perfect_cut": {
+  "tech_id": 61,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.6,
+  "range": "reliable",
+  "recharge": 2,
+  "slug": "perfect_cut",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "sharp"
+  ],
+  "types": [
+   "metal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "slash_power",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/perfect_cut.yaml"
+  ]
+ },
+ "phantasmal_force": {
+  "tech_id": 162,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.1,
+  "range": "melee",
+  "recharge": 1,
+  "slug": "phantasmal_force",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "ghost"
+  ],
+  "types": [
+   "shadow"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "sparks_green",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_pulse",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/phantasmal_force.yaml"
+  ]
+ },
+ "platinum": {
+  "tech_id": 143,
+  "accuracy": 0.7,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "focused",
+     "own_monster"
+    ]
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "softened",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.7,
+  "power": 1.7,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "platinum",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "gemstone",
+   "machine",
+   "shielded",
+   "steel"
+  ],
+  "types": [
+   "metal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "blue_circle",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shine",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/platinum.yaml"
+  ]
+ },
+ "pollen_blast": {
+  "tech_id": 212,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "confused",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.3,
+  "power": 1.5,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "pollen_blast",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "plant"
+  ],
+  "types": [
+   "wood"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pollenbullet",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shpring",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/pollen_blast.yaml"
+  ]
+ },
+ "proboscis": {
+  "tech_id": 47,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "lifeleech",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.5,
+  "power": 1,
+  "range": "reach",
+  "recharge": 1,
+  "slug": "proboscis",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "bug"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "lance_ice",
+   "flip_axes": "xy",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_squeak",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/proboscis.yaml"
+  ]
+ },
+ "punch": {
+  "tech_id": 182,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.5,
+  "range": "melee",
+  "recharge": 1,
+  "slug": "punch",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "fists"
+  ],
+  "types": [
+   "heroic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pound",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/punch.yaml"
+  ]
+ },
+ "quicksand": {
+  "tech_id": 90,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "stuck",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "very_slow",
+  "potency": 1,
+  "power": 2.25,
+  "range": "touch",
+  "recharge": 2,
+  "slug": "quicksand",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "ground"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "spikes_rock",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_sand",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/quicksand.yaml"
+  ]
+ },
+ "radiance": {
+  "tech_id": 144,
+  "accuracy": 0.95,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 2.5,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "radiance",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "light",
+   "leadership"
+  ],
+  "types": [
+   "heroic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pulse_radiate",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shine",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/radiance.yaml"
+  ]
+ },
+ "ram": {
+  "tech_id": 5,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.5,
+  "range": "melee",
+  "recharge": 1,
+  "slug": "ram",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "fury"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pound",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/ram.yaml"
+  ]
+ },
+ "ring": {
+  "tech_id": 145,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "recover",
+     "own_monster"
+    ]
+   },
+   {
+    "type": "splash",
+    "parameters": [
+     "8"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 2,
+  "range": "reach",
+  "recharge": 2,
+  "slug": "ring",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "reserved",
+  "tags": [
+   "reserved"
+  ],
+  "types": [
+   "wood"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pulse_absorb",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_forcefield",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/ring.yaml"
+  ]
+ },
+ "rock": {
+  "tech_id": 6,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.5,
+  "range": "touch",
+  "recharge": 1,
+  "slug": "rock",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "rock"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "crushingball",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_crumble2",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/rock.yaml"
+  ]
+ },
+ "rocky_barrage": {
+  "tech_id": 241,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "multiattack",
+    "parameters": [
+     "3"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1,
+  "range": "ranged",
+  "recharge": 3,
+  "slug": "rocky_barrage",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "ground",
+   "rock"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "rockfall_193",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_crumble2",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/rocky_barrage.yaml"
+  ]
+ },
+ "rot": {
+  "tech_id": 38,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "poison",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 2,
+  "slug": "rot",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "toxic"
+  ],
+  "types": [
+   "venom"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "drip_green",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/rot.yaml"
+  ]
+ },
+ "saber": {
+  "tech_id": 102,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 2.2,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "saber",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "sharp",
+   "steel"
+  ],
+  "types": [
+   "metal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "x_attack",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/saber.yaml"
+  ]
+ },
+ "sand_spray": {
+  "tech_id": 32,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "blinded",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.2,
+  "power": 1.25,
+  "range": "touch",
+  "recharge": 1,
+  "slug": "sand_spray",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "ground"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "explosion_dusty_96",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_sand",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/sand_spray.yaml"
+  ]
+ },
+ "shadow_blast": {
+  "tech_id": 193,
+  "accuracy": 0.95,
+  "effects": [
+   {
+    "type": "prop_healing",
+    "parameters": [
+     "own_monster",
+     "0.2"
+    ]
+   },
+   {
+    "type": "damage"
+   }
+  ],
+  "healing_power": 0.2,
+  "speed": "very_fast",
+  "potency": 1,
+  "power": 2.8,
+  "range": "ranged",
+  "recharge": 4,
+  "slug": "shadow_blast",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "ghost",
+   "darkness"
+  ],
+  "types": [
+   "shadow"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "shadow_blast",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_pulse",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/shadow_blast.yaml"
+  ]
+ },
+ "shadow_boxing": {
+  "tech_id": 51,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.25,
+  "range": "touch",
+  "recharge": 1,
+  "slug": "shadow_boxing",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "fists",
+   "darkness"
+  ],
+  "types": [
+   "heroic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "triple_whammy_80",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_pulse",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/shadow_boxing.yaml"
+  ]
+ },
+ "shrapnel": {
+  "tech_id": 60,
+  "accuracy": 0.6,
+  "effects": [
+   {
+    "type": "splash",
+    "parameters": [
+     "8"
+    ]
+   }
+  ],
+  "speed": "fast",
+  "potency": 0.0,
+  "power": 2.5,
+  "range": "ranged",
+  "recharge": 3,
+  "slug": "shrapnel",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "bomber",
+   "steel"
+  ],
+  "types": [
+   "metal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "explosion_small",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_tornado",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/shrapnel.yaml"
+  ]
+ },
+ "shuriken": {
+  "tech_id": 16,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "diehard",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 2.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "shuriken",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "soldier",
+   "steel"
+  ],
+  "types": [
+   "metal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "explosion_big_126",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/shuriken.yaml"
+  ]
+ },
+ "sleep_bomb": {
+  "tech_id": 59,
+  "accuracy": 0.75,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "noddingoff",
+     "own_team:enemy_team"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 2.25,
+  "range": "reach",
+  "recharge": 2,
+  "slug": "sleep_bomb",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "bomber"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "sparks_white",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_tornado",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/sleep_bomb.yaml"
+  ]
+ },
+ "sleeping_powder": {
+  "tech_id": 49,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "noddingoff",
+     "enemy_team"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.8,
+  "power": 0,
+  "range": "special",
+  "recharge": 3,
+  "slug": "sleeping_powder",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "bug"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "explosion_dusty_96",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_squeak",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/sleeping_powder.yaml"
+  ]
+ },
+ "slice": {
+  "tech_id": 101,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.2,
+  "range": "melee",
+  "recharge": 1,
+  "slug": "slice",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "sharp"
+  ],
+  "types": [
+   "metal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "claw_yellow_169",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_freeze",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/slice.yaml"
+  ]
+ },
+ "snowstorm": {
+  "tech_id": 25,
+  "accuracy": 0.6,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "exhausted",
+     "enemy_monster"
+    ]
+   },
+   {
+    "type": "splash",
+    "parameters": [
+     "8"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 3,
+  "range": "melee",
+  "recharge": 3,
+  "slug": "snowstorm",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "calamity",
+   "weather"
+  ],
+  "types": [
+   "frost"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "explosion_ice_112",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_tornado",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/snowstorm.yaml"
+  ]
+ },
+ "solar_synthesis": {
+  "tech_id": 189,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "photogenesis",
+    "parameters": [
+     "6",
+     "12",
+     "18"
+    ]
+   }
+  ],
+  "healing_power": 2,
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 2,
+  "slug": "solar_synthesis",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": false,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": true,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "plant",
+   "light"
+  ],
+  "types": [
+   "wood"
+  ],
+  "use_failure": "solar_synthesis_fail",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "green_circle",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shine",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/solar_synthesis.yaml"
+  ]
+ },
+ "spit_poison": {
+  "tech_id": 2,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "poison",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.2,
+  "power": 1.25,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "spit_poison",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "bug",
+   "toxic"
+  ],
+  "types": [
+   "venom"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "purple_explosion",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/spit_poison.yaml"
+  ]
+ },
+ "stabilo": {
+  "tech_id": 108,
+  "accuracy": 0.75,
+  "effects": [
+   {
+    "type": "multiattack",
+    "parameters": [
+     "3"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 0.8,
+  "range": "reliable",
+  "recharge": 2,
+  "slug": "stabilo",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "sharp",
+   "plant"
+  ],
+  "types": [
+   "wood"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "amethyst_absorb",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/stabilo.yaml"
+  ]
+ },
+ "stampede": {
+  "tech_id": 14,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "remove",
+    "parameters": [
+     "positive",
+     "own_monster"
+    ]
+   },
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 1.25,
+  "range": "melee",
+  "recharge": 3,
+  "slug": "stampede",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "megafauna",
+   "fury"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "explosion_dusty_96",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_growl",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/stampede.yaml"
+  ]
+ },
+ "starfall": {
+  "tech_id": 56,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "remove",
+    "parameters": [
+     "positive",
+     "enemy_monster"
+    ]
+   },
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "focused",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 1.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "starfall",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "darkness",
+   "celestial",
+   "weather"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "starfall",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shine",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/starfall.yaml"
+  ]
+ },
+ "static_field": {
+  "tech_id": 15,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "exhausted",
+     "enemy_monster"
+    ]
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "hardshell",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 3,
+  "slug": "static_field",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "shielded"
+  ],
+  "types": [
+   "lightning"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "disintegrate_83",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_forcefield",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/static_field.yaml"
+  ]
+ },
+ "stick": {
+  "tech_id": 221,
+  "accuracy": 0.95,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.4,
+  "range": "reach",
+  "recharge": 1,
+  "slug": "stick",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "plant",
+   "staff"
+  ],
+  "types": [
+   "wood"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "staffstrike",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shpring",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/stick.yaml"
+  ]
+ },
+ "stonehenge": {
+  "tech_id": 107,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "splash",
+    "parameters": [
+     "8"
+    ]
+   }
+  ],
+  "speed": "very_slow",
+  "potency": 0.0,
+  "power": 2.6,
+  "range": "reach",
+  "recharge": 2,
+  "slug": "stonehenge",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "rock",
+   "summoner"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pound_rock",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_crumble2",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/stonehenge.yaml"
+  ]
+ },
+ "strike": {
+  "tech_id": 74,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "appear"
+   },
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 1.25,
+  "range": "reliable",
+  "recharge": 1,
+  "slug": "strike",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "fists"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "slash_power",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_kick",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/strike.yaml"
+  ]
+ },
+ "struggle": {
+  "tech_id": 268,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 0.5,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "struggle",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "basic",
+  "tags": [
+   "universal"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "staffstrike",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": null,
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/struggle.yaml"
+  ]
+ },
+ "suck_poison": {
+  "tech_id": 58,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "transfer",
+    "parameters": [
+     "poison",
+     "user_to_target"
+    ]
+   },
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 2.0,
+  "range": "melee",
+  "recharge": 1,
+  "slug": "suck_poison",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "reserved",
+  "tags": [
+   "reserved"
+  ],
+  "types": [
+   "venom"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "drip_blue",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/suck_poison.yaml"
+  ]
+ },
+ "supernova": {
+  "tech_id": 81,
+  "accuracy": 0.75,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "chargedup",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "extremely_slow",
+  "potency": 1,
+  "power": 3,
+  "range": "ranged",
+  "recharge": 3,
+  "slug": "supernova",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "light",
+   "celestial"
+  ],
+  "types": [
+   "fire"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "fire_big_dark_96",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shine",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/supernova.yaml"
+  ]
+ },
+ "surf": {
+  "tech_id": 174,
+  "accuracy": 0.6,
+  "effects": [
+   {
+    "type": "splash",
+    "parameters": [
+     "8"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 2.6,
+  "range": "ranged",
+  "recharge": 3,
+  "slug": "surf",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": false,
+   "enemy_team": true,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "water"
+  ],
+  "types": [
+   "water"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "waterfall",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/surf.yaml"
+  ]
+ },
+ "surge": {
+  "tech_id": 19,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "remove",
+    "parameters": [
+     "positive",
+     "own_monster"
+    ]
+   },
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 1.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "surge",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "electricity"
+  ],
+  "types": [
+   "lightning"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "lightning_bolt_138",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_lightning2",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/surge.yaml"
+  ]
+ },
+ "sylvan": {
+  "tech_id": 148,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "switch",
+    "parameters": [
+     "enemy_monster",
+     "wood"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 4,
+  "slug": "sylvan",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "plant",
+   "shapeshifter"
+  ],
+  "types": [
+   "wood"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "emerald",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_shpring",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/sylvan.yaml"
+  ]
+ },
+ "ten_thousand_feathers": {
+  "tech_id": 188,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "charging",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 3,
+  "range": "ranged",
+  "recharge": 3,
+  "slug": "ten_thousand_feathers",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "bird"
+  ],
+  "types": [
+   "sky"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": null,
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_tornado",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/ten_thousand_feathers.yaml"
+  ]
+ },
+ "thunderball": {
+  "tech_id": 12,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "flinching",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.1,
+  "power": 2.25,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "thunderball",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "rock"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "rollingball",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_lightning2",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/thunderball.yaml"
+  ]
+ },
+ "thunderclap": {
+  "tech_id": 20,
+  "accuracy": 0.95,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "exhausted",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.75,
+  "power": 1.25,
+  "range": "ranged",
+  "recharge": 2,
+  "slug": "thunderclap",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "electricity"
+  ],
+  "types": [
+   "lightning"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "thunderstrike",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_lightning2",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/thunderclap.yaml"
+  ]
+ },
+ "time_crisis": {
+  "tech_id": 104,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "slow",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "very_fast",
+  "potency": 0.6,
+  "power": 2.5,
+  "range": "ranged",
+  "recharge": 3,
+  "slug": "time_crisis",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "summoner",
+   "mental"
+  ],
+  "types": [
+   "cosmic"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "x_attack",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_pulse",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/time_crisis.yaml"
+  ]
+ },
+ "tinder": {
+  "tech_id": 178,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "give",
+    "parameters": [
+     "burn",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 0,
+  "range": "special",
+  "recharge": 1,
+  "slug": "tinder",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "condition_imposer",
+  "tags": [
+   "flame",
+   "gadgets"
+  ],
+  "types": [
+   "fire"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "fire_charge",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_flames1",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/tinder.yaml"
+  ]
+ },
+ "tooth_for_tooth": {
+  "tech_id": 242,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "prop_damage",
+    "parameters": [
+     "own_monster",
+     "0.5"
+    ]
+   },
+   {
+    "type": "prop_damage",
+    "parameters": [
+     "enemy_monster",
+     "0.5"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 0.0,
+  "range": "melee",
+  "recharge": 3,
+  "slug": "tooth_for_tooth",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "reserved",
+  "tags": [
+   "reserved"
+  ],
+  "types": [
+   "normal"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "horn",
+   "flip_axes": "xy",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bite",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/tooth_for_tooth.yaml"
+  ]
+ },
+ "torch": {
+  "tech_id": 150,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "flinching",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.2,
+  "power": 1.4,
+  "range": "reach",
+  "recharge": 1,
+  "slug": "torch",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "flame",
+   "gadgets"
+  ],
+  "types": [
+   "fire"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pulse",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_flames1",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/torch.yaml"
+  ]
+ },
+ "tornado": {
+  "tech_id": 194,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "slow",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.5,
+  "power": 2.9,
+  "range": "ranged",
+  "recharge": 3,
+  "slug": "tornado",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "weather",
+   "calamity"
+  ],
+  "types": [
+   "sky"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "tornado_bulk",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_tornado",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/tornado.yaml"
+  ]
+ },
+ "tsunami": {
+  "tech_id": 170,
+  "accuracy": 0.75,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "extremely_slow",
+  "potency": 0.0,
+  "power": 2.7,
+  "range": "reach",
+  "recharge": 3,
+  "slug": "tsunami",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": false,
+   "enemy_team": true,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "water",
+   "calamity"
+  ],
+  "types": [
+   "water"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "waterfall",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/tsunami.yaml"
+  ]
+ },
+ "viper": {
+  "tech_id": 154,
+  "accuracy": 0.8,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 2.9,
+  "range": "reliable",
+  "recharge": 3,
+  "slug": "viper",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "powerful",
+  "tags": [
+   "toxic"
+  ],
+  "types": [
+   "venom"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "emerald_radiate",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/viper.yaml"
+  ]
+ },
+ "walls": {
+  "tech_id": 156,
+  "accuracy": 1.0,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "hardshell",
+     "own_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.9,
+  "power": 1,
+  "range": "touch",
+  "recharge": 2,
+  "slug": "walls",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "summoner",
+   "shielded"
+  ],
+  "types": [
+   "earth"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "wall_wood",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_forcefield",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/walls.yaml"
+  ]
+ },
+ "water_blast": {
+  "tech_id": 195,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "normal",
+  "potency": 0.0,
+  "power": 2.3,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "water_blast",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "water"
+  ],
+  "types": [
+   "water"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "beam",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/water_blast.yaml"
+  ]
+ },
+ "water_bullet": {
+  "tech_id": 213,
+  "accuracy": 0.9,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "very_fast",
+  "potency": 0.0,
+  "power": 1.25,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "water_bullet",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "soldier",
+   "water"
+  ],
+  "types": [
+   "water"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "waterbullet",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_bubbles",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/water_bullet.yaml"
+  ]
+ },
+ "web": {
+  "tech_id": 42,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "grabbed",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "normal",
+  "potency": 1,
+  "power": 1.25,
+  "range": "melee",
+  "recharge": 2,
+  "slug": "web",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "bug"
+  ],
+  "types": [
+   "venom"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "stickyweb",
+   "flip_axes": "x",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_squeak",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/web.yaml"
+  ]
+ },
+ "wicked_wind": {
+  "tech_id": 250,
+  "accuracy": 0.85,
+  "effects": [
+   {
+    "type": "damage"
+   },
+   {
+    "type": "give",
+    "parameters": [
+     "festering",
+     "enemy_monster"
+    ]
+   }
+  ],
+  "speed": "fast",
+  "potency": 1.0,
+  "power": 2.4,
+  "range": "ranged",
+  "recharge": 1,
+  "slug": "wicked_wind",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "exotic",
+  "tags": [
+   "weather"
+  ],
+  "types": [
+   "shadow",
+   "sky"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "tornado_basic",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": null,
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/wicked_wind.yaml"
+  ]
+ },
+ "wing_tip": {
+  "tech_id": 69,
+  "accuracy": 1,
+  "effects": [
+   {
+    "type": "damage"
+   }
+  ],
+  "speed": "fast",
+  "potency": 0.0,
+  "power": 1.25,
+  "range": "melee",
+  "recharge": 1,
+  "slug": "wing_tip",
+  "sort": "damage",
+  "modifiers": [],
+  "behaviors": {},
+  "target": {
+   "enemy_monster": true,
+   "enemy_team": false,
+   "enemy_trainer": false,
+   "own_monster": false,
+   "own_team": false,
+   "own_trainer": false
+  },
+  "category": "simple",
+  "tags": [
+   "bird"
+  ],
+  "types": [
+   "sky"
+  ],
+  "use_failure": "combat_miss",
+  "use_success": null,
+  "use_tech": "combat_used_x",
+  "visuals": {
+   "animation": "pound",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": "sfx_tornado",
+   "volume": 1.5
+  },
+  "_source": [
+   "mods/tuxemon/db/technique/wing_tip.yaml"
+  ]
+ }
+}

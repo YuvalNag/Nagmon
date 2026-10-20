@@ -1,0 +1,795 @@
+{
+ "cosmic": {
+  "slug": "cosmic",
+  "icon": "sprites/ui/element/cosmic_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 1
+   },
+   {
+    "against": "fire",
+    "multiplier": 1
+   },
+   {
+    "against": "frost",
+    "multiplier": 1
+   },
+   {
+    "against": "heroic",
+    "multiplier": 2
+   },
+   {
+    "against": "lightning",
+    "multiplier": 1
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 1
+   },
+   {
+    "against": "metal",
+    "multiplier": 1
+   },
+   {
+    "against": "normal",
+    "multiplier": 1
+   },
+   {
+    "against": "shadow",
+    "multiplier": 0.5
+   },
+   {
+    "against": "sky",
+    "multiplier": 1
+   },
+   {
+    "against": "venom",
+    "multiplier": 2
+   },
+   {
+    "against": "water",
+    "multiplier": 1
+   },
+   {
+    "against": "wood",
+    "multiplier": 1
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/cosmic.yaml"
+  ]
+ },
+ "earth": {
+  "slug": "earth",
+  "icon": "sprites/ui/element/earth_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 1
+   },
+   {
+    "against": "fire",
+    "multiplier": 2
+   },
+   {
+    "against": "frost",
+    "multiplier": 1
+   },
+   {
+    "against": "heroic",
+    "multiplier": 1
+   },
+   {
+    "against": "lightning",
+    "multiplier": 2
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 1
+   },
+   {
+    "against": "metal",
+    "multiplier": 1
+   },
+   {
+    "against": "normal",
+    "multiplier": 1
+   },
+   {
+    "against": "shadow",
+    "multiplier": 1
+   },
+   {
+    "against": "sky",
+    "multiplier": 0.5
+   },
+   {
+    "against": "venom",
+    "multiplier": 1
+   },
+   {
+    "against": "water",
+    "multiplier": 1
+   },
+   {
+    "against": "wood",
+    "multiplier": 0.5
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/earth.yaml"
+  ]
+ },
+ "fire": {
+  "slug": "fire",
+  "icon": "sprites/ui/element/fire_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 0.5
+   },
+   {
+    "against": "fire",
+    "multiplier": 0.5
+   },
+   {
+    "against": "frost",
+    "multiplier": 0.5
+   },
+   {
+    "against": "heroic",
+    "multiplier": 1
+   },
+   {
+    "against": "lightning",
+    "multiplier": 1
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 1
+   },
+   {
+    "against": "metal",
+    "multiplier": 2
+   },
+   {
+    "against": "normal",
+    "multiplier": 1
+   },
+   {
+    "against": "shadow",
+    "multiplier": 1
+   },
+   {
+    "against": "sky",
+    "multiplier": 1
+   },
+   {
+    "against": "venom",
+    "multiplier": 2
+   },
+   {
+    "against": "water",
+    "multiplier": 0.5
+   },
+   {
+    "against": "wood",
+    "multiplier": 2
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/fire.yaml"
+  ]
+ },
+ "frost": {
+  "slug": "frost",
+  "icon": "sprites/ui/element/frost_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 2
+   },
+   {
+    "against": "fire",
+    "multiplier": 1
+   },
+   {
+    "against": "frost",
+    "multiplier": 0.5
+   },
+   {
+    "against": "heroic",
+    "multiplier": 1
+   },
+   {
+    "against": "lightning",
+    "multiplier": 1
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 1
+   },
+   {
+    "against": "metal",
+    "multiplier": 0.5
+   },
+   {
+    "against": "normal",
+    "multiplier": 1
+   },
+   {
+    "against": "shadow",
+    "multiplier": 0.5
+   },
+   {
+    "against": "sky",
+    "multiplier": 2
+   },
+   {
+    "against": "venom",
+    "multiplier": 1
+   },
+   {
+    "against": "water",
+    "multiplier": 0.5
+   },
+   {
+    "against": "wood",
+    "multiplier": 2
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/frost.yaml"
+  ]
+ },
+ "heroic": {
+  "slug": "heroic",
+  "icon": "sprites/ui/element/heroic_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 1
+   },
+   {
+    "against": "fire",
+    "multiplier": 1
+   },
+   {
+    "against": "frost",
+    "multiplier": 2
+   },
+   {
+    "against": "heroic",
+    "multiplier": 1
+   },
+   {
+    "against": "lightning",
+    "multiplier": 1
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 0.5
+   },
+   {
+    "against": "metal",
+    "multiplier": 1
+   },
+   {
+    "against": "normal",
+    "multiplier": 2
+   },
+   {
+    "against": "shadow",
+    "multiplier": 2
+   },
+   {
+    "against": "sky",
+    "multiplier": 1
+   },
+   {
+    "against": "venom",
+    "multiplier": 0.5
+   },
+   {
+    "against": "water",
+    "multiplier": 1
+   },
+   {
+    "against": "wood",
+    "multiplier": 1
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/heroic.yaml"
+  ]
+ },
+ "lightning": {
+  "slug": "lightning",
+  "icon": "sprites/ui/element/lightning_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 0.5
+   },
+   {
+    "against": "fire",
+    "multiplier": 1
+   },
+   {
+    "against": "frost",
+    "multiplier": 1
+   },
+   {
+    "against": "heroic",
+    "multiplier": 1
+   },
+   {
+    "against": "lightning",
+    "multiplier": 0.5
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 1
+   },
+   {
+    "against": "metal",
+    "multiplier": 2
+   },
+   {
+    "against": "normal",
+    "multiplier": 1
+   },
+   {
+    "against": "shadow",
+    "multiplier": 1
+   },
+   {
+    "against": "sky",
+    "multiplier": 2
+   },
+   {
+    "against": "venom",
+    "multiplier": 1
+   },
+   {
+    "against": "water",
+    "multiplier": 2
+   },
+   {
+    "against": "wood",
+    "multiplier": 0.5
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/lightning.yaml"
+  ]
+ },
+ "metal": {
+  "slug": "metal",
+  "icon": "sprites/ui/element/metal_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 2
+   },
+   {
+    "against": "fire",
+    "multiplier": 0.5
+   },
+   {
+    "against": "frost",
+    "multiplier": 1
+   },
+   {
+    "against": "heroic",
+    "multiplier": 1
+   },
+   {
+    "against": "lightning",
+    "multiplier": 1
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 2
+   },
+   {
+    "against": "metal",
+    "multiplier": 0.5
+   },
+   {
+    "against": "normal",
+    "multiplier": 1
+   },
+   {
+    "against": "shadow",
+    "multiplier": 1
+   },
+   {
+    "against": "sky",
+    "multiplier": 1
+   },
+   {
+    "against": "venom",
+    "multiplier": 1
+   },
+   {
+    "against": "water",
+    "multiplier": 0.5
+   },
+   {
+    "against": "wood",
+    "multiplier": 1
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/metal.yaml"
+  ]
+ },
+ "normal": {
+  "slug": "normal",
+  "icon": "sprites/ui/element/normal_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 1
+   },
+   {
+    "against": "fire",
+    "multiplier": 1
+   },
+   {
+    "against": "frost",
+    "multiplier": 1
+   },
+   {
+    "against": "heroic",
+    "multiplier": 1
+   },
+   {
+    "against": "lightning",
+    "multiplier": 1
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 1
+   },
+   {
+    "against": "metal",
+    "multiplier": 0.5
+   },
+   {
+    "against": "normal",
+    "multiplier": 1
+   },
+   {
+    "against": "shadow",
+    "multiplier": 1
+   },
+   {
+    "against": "sky",
+    "multiplier": 1
+   },
+   {
+    "against": "venom",
+    "multiplier": 1
+   },
+   {
+    "against": "water",
+    "multiplier": 1
+   },
+   {
+    "against": "wood",
+    "multiplier": 1
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/normal.yaml"
+  ]
+ },
+ "shadow": {
+  "slug": "shadow",
+  "icon": "sprites/ui/element/shadow_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 0.5
+   },
+   {
+    "against": "fire",
+    "multiplier": 1
+   },
+   {
+    "against": "frost",
+    "multiplier": 1
+   },
+   {
+    "against": "heroic",
+    "multiplier": 0.5
+   },
+   {
+    "against": "lightning",
+    "multiplier": 1
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 2
+   },
+   {
+    "against": "metal",
+    "multiplier": 1
+   },
+   {
+    "against": "normal",
+    "multiplier": 0.5
+   },
+   {
+    "against": "shadow",
+    "multiplier": 1
+   },
+   {
+    "against": "sky",
+    "multiplier": 2
+   },
+   {
+    "against": "venom",
+    "multiplier": 1
+   },
+   {
+    "against": "water",
+    "multiplier": 1
+   },
+   {
+    "against": "wood",
+    "multiplier": 1
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/shadow.yaml"
+  ]
+ },
+ "sky": {
+  "slug": "sky",
+  "icon": "sprites/ui/element/sky_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 2
+   },
+   {
+    "against": "fire",
+    "multiplier": 0.5
+   },
+   {
+    "against": "frost",
+    "multiplier": 1
+   },
+   {
+    "against": "heroic",
+    "multiplier": 2
+   },
+   {
+    "against": "lightning",
+    "multiplier": 1
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 1
+   },
+   {
+    "against": "metal",
+    "multiplier": 1
+   },
+   {
+    "against": "normal",
+    "multiplier": 1
+   },
+   {
+    "against": "shadow",
+    "multiplier": 1
+   },
+   {
+    "against": "sky",
+    "multiplier": 1
+   },
+   {
+    "against": "venom",
+    "multiplier": 1
+   },
+   {
+    "against": "water",
+    "multiplier": 1
+   },
+   {
+    "against": "wood",
+    "multiplier": 2
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/sky.yaml"
+  ]
+ },
+ "venom": {
+  "slug": "venom",
+  "icon": "sprites/ui/element/venom_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 0.5
+   },
+   {
+    "against": "fire",
+    "multiplier": 1
+   },
+   {
+    "against": "frost",
+    "multiplier": 1
+   },
+   {
+    "against": "heroic",
+    "multiplier": 1
+   },
+   {
+    "against": "lightning",
+    "multiplier": 1
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 1
+   },
+   {
+    "against": "metal",
+    "multiplier": 0.5
+   },
+   {
+    "against": "normal",
+    "multiplier": 2
+   },
+   {
+    "against": "shadow",
+    "multiplier": 1
+   },
+   {
+    "against": "sky",
+    "multiplier": 1
+   },
+   {
+    "against": "venom",
+    "multiplier": 0.5
+   },
+   {
+    "against": "water",
+    "multiplier": 0.5
+   },
+   {
+    "against": "wood",
+    "multiplier": 2
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/venom.yaml"
+  ]
+ },
+ "water": {
+  "slug": "water",
+  "icon": "sprites/ui/element/water_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 1
+   },
+   {
+    "against": "fire",
+    "multiplier": 2
+   },
+   {
+    "against": "frost",
+    "multiplier": 0.5
+   },
+   {
+    "against": "heroic",
+    "multiplier": 1
+   },
+   {
+    "against": "lightning",
+    "multiplier": 1
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 1
+   },
+   {
+    "against": "metal",
+    "multiplier": 1
+   },
+   {
+    "against": "normal",
+    "multiplier": 1
+   },
+   {
+    "against": "shadow",
+    "multiplier": 1
+   },
+   {
+    "against": "sky",
+    "multiplier": 1
+   },
+   {
+    "against": "venom",
+    "multiplier": 1
+   },
+   {
+    "against": "water",
+    "multiplier": 0.5
+   },
+   {
+    "against": "wood",
+    "multiplier": 0.5
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/water.yaml"
+  ]
+ },
+ "wood": {
+  "slug": "wood",
+  "icon": "sprites/ui/element/wood_type.png",
+  "types": [
+   {
+    "against": "earth",
+    "multiplier": 2
+   },
+   {
+    "against": "fire",
+    "multiplier": 0.5
+   },
+   {
+    "against": "frost",
+    "multiplier": 1
+   },
+   {
+    "against": "heroic",
+    "multiplier": 1
+   },
+   {
+    "against": "lightning",
+    "multiplier": 1
+   },
+   {
+    "against": "cosmic",
+    "multiplier": 1
+   },
+   {
+    "against": "metal",
+    "multiplier": 1
+   },
+   {
+    "against": "normal",
+    "multiplier": 1
+   },
+   {
+    "against": "shadow",
+    "multiplier": 1
+   },
+   {
+    "against": "sky",
+    "multiplier": 1
+   },
+   {
+    "against": "venom",
+    "multiplier": 0.5
+   },
+   {
+    "against": "water",
+    "multiplier": 2
+   },
+   {
+    "against": "wood",
+    "multiplier": 0.5
+   }
+  ],
+  "_source": [
+   "mods/tuxemon/db/element/wood.yaml"
+  ]
+ }
+}

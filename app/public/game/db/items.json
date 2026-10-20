@@ -1,0 +1,254 @@
+{
+ "nagmon_badge_granite": {
+  "slug": "nagmon_badge_granite",
+  "sort": "utility",
+  "sprite": "sprites/items/nagmon_badge_granite.png",
+  "category": "badge",
+  "usable_in": [],
+  "conditions": [],
+  "effects": [],
+  "modifiers": [],
+  "behaviors": {},
+  "use_failure": "generic_failure",
+  "use_item": "combat_used_x",
+  "use_success": "generic_success",
+  "visuals": {
+   "animation": null,
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": null,
+   "volume": 0.0
+  },
+  "_source": [
+   "mods/nagmon/db/item/nagmon_badge_granite.yaml"
+  ]
+ },
+ "nagmon_badge_mila": {
+  "slug": "nagmon_badge_mila",
+  "sort": "utility",
+  "sprite": "sprites/items/nagmon_badge_mila.png",
+  "category": "badge",
+  "usable_in": [],
+  "conditions": [],
+  "effects": [],
+  "modifiers": [],
+  "behaviors": {},
+  "use_failure": "generic_failure",
+  "use_item": "combat_used_x",
+  "use_success": "generic_success",
+  "visuals": {
+   "animation": null,
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": null,
+   "volume": 0.0
+  },
+  "_source": [
+   "mods/nagmon/db/item/nagmon_badge_mila.yaml"
+  ]
+ },
+ "potion": {
+  "conditions": [
+   {
+    "type": "current_hp",
+    "parameters": [
+     "<",
+     "1.0"
+    ],
+    "operator": "is"
+   },
+   {
+    "type": "current_hp",
+    "parameters": [
+     ">",
+     "0"
+    ],
+    "operator": "is"
+   }
+  ],
+  "effects": [
+   {
+    "type": "heal",
+    "parameters": [
+     "50",
+     "fixed"
+    ]
+   }
+  ],
+  "slug": "potion",
+  "sort": "potion",
+  "sprite": "sprites/items/potion.png",
+  "category": "potion",
+  "cost": 100,
+  "usable_in": [
+   "MainCombatMenuState",
+   "WorldState"
+  ],
+  "modifiers": [],
+  "behaviors": {
+   "resellable": true
+  },
+  "use_failure": "generic_failure",
+  "use_item": "combat_used_x",
+  "use_success": "generic_success",
+  "visuals": {
+   "animation": null,
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": null,
+   "volume": 0.0
+  },
+  "_source": [
+   "mods/tuxemon/db/item/potion.yaml"
+  ]
+ },
+ "tuxeball": {
+  "conditions": [
+   {
+    "type": "wild_monster",
+    "operator": "is"
+   },
+   {
+    "type": "base",
+    "parameters": [
+     "species",
+     "!threat"
+    ],
+    "operator": "is"
+   }
+  ],
+  "effects": [
+   {
+    "type": "capture"
+   }
+  ],
+  "slug": "tuxeball",
+  "sort": "utility",
+  "sprite": "sprites/items/tuxeball.png",
+  "category": "capture",
+  "cost": 100,
+  "usable_in": [
+   "MainCombatMenuState"
+  ],
+  "modifiers": [],
+  "behaviors": {
+   "throwable": true,
+   "resellable": true
+  },
+  "use_failure": "generic_failure",
+  "use_item": "combat_used_x",
+  "use_success": "generic_success",
+  "visuals": {
+   "animation": "tuxeball",
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": null,
+   "volume": 0.0
+  },
+  "_source": [
+   "mods/tuxemon/db/item/tuxeball.yaml"
+  ]
+ },
+ "water_berry": {
+  "conditions": [
+   {
+    "type": "base",
+    "parameters": [
+     "types",
+     "water"
+    ],
+    "operator": "not"
+   }
+  ],
+  "effects": [
+   {
+    "type": "switch_type",
+    "parameters": [
+     "water"
+    ]
+   }
+  ],
+  "slug": "water_berry",
+  "sort": "utility",
+  "sprite": "sprites/items/water_berry.png",
+  "category": "elements",
+  "cost": 450,
+  "usable_in": [
+   "MainCombatMenuState"
+  ],
+  "modifiers": [],
+  "behaviors": {
+   "resellable": true
+  },
+  "use_failure": "generic_failure",
+  "use_item": "combat_used_x",
+  "use_success": "generic_success",
+  "visuals": {
+   "animation": null,
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": null,
+   "volume": 0.0
+  },
+  "_source": [
+   "mods/tuxemon/db/item/water_berry.yaml"
+  ]
+ },
+ "wood_berry": {
+  "conditions": [
+   {
+    "type": "base",
+    "parameters": [
+     "types",
+     "wood"
+    ],
+    "operator": "not"
+   }
+  ],
+  "effects": [
+   {
+    "type": "switch_type",
+    "parameters": [
+     "wood"
+    ]
+   }
+  ],
+  "slug": "wood_berry",
+  "sort": "utility",
+  "sprite": "sprites/items/wood_berry.png",
+  "category": "elements",
+  "cost": 450,
+  "usable_in": [
+   "MainCombatMenuState"
+  ],
+  "modifiers": [],
+  "behaviors": {
+   "resellable": true
+  },
+  "use_failure": "generic_failure",
+  "use_item": "combat_used_x",
+  "use_success": "generic_success",
+  "visuals": {
+   "animation": null,
+   "flip_axes": "",
+   "loop": 0
+  },
+  "sound": {
+   "sfx": null,
+   "volume": 0.0
+  },
+  "_source": [
+   "mods/tuxemon/db/item/wood_berry.yaml"
+  ]
+ }
+}
