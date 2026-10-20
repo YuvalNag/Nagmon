@@ -17,6 +17,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 from PIL import Image
 
 REPO = Path(__file__).resolve().parents[2]
@@ -59,9 +60,46 @@ def json_bytes(obj: Any, *, compact: bool = False) -> bytes:
 
 
 def png_bytes(image: Image.Image) -> bytes:
+    """
+    The PNG of ``image``, the smaller of two lossless encodings: as it
+    is, and (with at most 256 colours) as a palette with per-entry alpha.
+    """
+    candidates = [_encode(image)]
+    palette = palette_image(image)
+    if palette is not None:
+        candidates.append(_encode(palette))
+    return min(candidates, key=len)
+
+
+def _encode(image: Image.Image) -> bytes:
     buf = io.BytesIO()
-    image.save(buf, format="PNG", optimize=True)
+    params: dict[str, Any] = {"optimize": True}
+    if image.mode == "P" and "transparency" in image.info:
+        params["transparency"] = image.info["transparency"]
+    image.save(buf, format="PNG", **params)
     return buf.getvalue()
+
+
+def palette_image(image: Image.Image) -> Image.Image | None:
+    """
+    ``image`` as a palette picture with exactly the same RGBA pixels,
+    or None when it has more than 256 colours. The palette is sorted,
+    so the same pixels always give the same bytes.
+    """
+    if image.mode != "RGBA":
+        return None
+    if image.getcolors(256) is None:
+        return None
+    pixels = np.asarray(image, dtype=np.uint8).reshape(-1, 4)
+    palette, index = np.unique(pixels, axis=0, return_inverse=True)
+    out = Image.fromarray(
+        index.reshape(image.height, image.width).astype(np.uint8), "P"
+    )
+    out.putpalette(palette[:, :3].tobytes())
+    alphas = palette[:, 3].tobytes()
+    if any(a != 255 for a in alphas):
+        out.info["transparency"] = alphas
+    return out
 
 
 @dataclass
@@ -72,6 +110,9 @@ class Asset:
     sources: list[str]
     kind: str
     note: str = ""
+    #: How the picture was changed, for its licence: "xBRZ x4" (an
+    #: upscale by tools/app/hd.py), or "" for a picture as it is.
+    adapted: str = ""
 
 
 @dataclass
@@ -98,12 +139,18 @@ class Output:
         self.data[rel] = json_bytes(obj, compact=compact)
 
     def add_image(
-        self, rel: str, image: Image.Image, sources: Iterable[Path], kind: str
+        self,
+        rel: str,
+        image: Image.Image,
+        sources: Iterable[Path],
+        kind: str,
+        *,
+        adapted: str = "",
     ) -> None:
         self._claim(rel)
         self.images[rel] = image
         self.assets[rel] = Asset(
-            rel, sorted({rel_repo(p) for p in sources}), kind
+            rel, sorted({rel_repo(p) for p in sources}), kind, adapted=adapted
         )
 
     def add_copy(
@@ -185,13 +232,18 @@ def _digest(path: Path) -> str:
 
 
 def _same_pixels(path: Path, image: Image.Image) -> bool:
+    """The file shows the same pixels (it may be stored as a palette)."""
     try:
         with Image.open(path) as old:
             old.load()
-            return (
-                old.size == image.size
-                and old.mode == image.mode
-                and old.tobytes() == image.tobytes()
-            )
+            if old.size != image.size:
+                return False
+            if old.mode == image.mode and old.tobytes() == image.tobytes():
+                return True
+            return _rgba(old) == _rgba(image)
     except OSError:
         return False
+
+
+def _rgba(image: Image.Image) -> bytes:
+    return image.convert("RGBA").tobytes()
