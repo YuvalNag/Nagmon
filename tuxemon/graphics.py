@@ -23,6 +23,7 @@ from pygame.transform import scale, smoothscale
 from pytmx.pytmx import TileFlags
 from pytmx.util_pygame import handle_transformation, smart_convert
 
+from tuxemon.constants.asset_loader import resolve_mod_path
 from tuxemon.platform.const.graphics import FUCHSIA_COLOR
 from tuxemon.prepare import DISPLAY_CONTEXT
 from tuxemon.scaling import ScalingStrategy
@@ -496,8 +497,22 @@ def scaled_image_loader(
 
     colorkey_color = Color(f"#{colorkey}") if colorkey else None
 
-    # load the tileset image
-    image = load(filename)
+    # A tileset's image is the copy that wins by mod order: an HD sheet
+    # in mods/nagmon (SDD_ART §2.11). Other images (image layers, tile
+    # images) load as before, and so does a tileset with a colorkey:
+    # smoothing before the colorkey would leave fringes of its colour.
+    tileset = kwargs.get("tileset")
+    native = (
+        (int(tileset.width), int(tileset.height))
+        if tileset is not None
+        and getattr(tileset, "width", None)
+        and colorkey_color is None
+        else None
+    )
+    image = load(resolve_mod_path(filename) if native else filename)
+    k = hd_factor(image.get_size(), native) if native else 1
+    if k > 1:
+        return _hd_tile_loader(image, k, colorkey_color, pixelalpha, scaling)
 
     # scale the tileset image to match game scale
     scaled_size = scaling.scale_tuple(image.get_size())
@@ -523,6 +538,45 @@ def scaled_image_loader(
 
         tile = smart_convert(tile, colorkey_color, pixelalpha)
         return tile
+
+    return load_image
+
+
+def _hd_tile_loader(
+    image: Surface,
+    k: int,
+    colorkey: Color | None,
+    pixelalpha: bool,
+    scaling: ScalingStrategy,
+) -> LoaderProtocol:
+    """
+    Tiles from an HD tileset, ``k`` times its TSX size (SDD_ART §2.11):
+    each tile is cut at k times its rect and scaled once, smoothly, to
+    its size on the screen, then flipped as pytmx asks. pytmx asks for
+    every flip of a tile in a row, so only the last tile is kept.
+    """
+    scaled: dict[tuple[int, int, int, int], Surface] = {}
+
+    def load_image(
+        rect: tuple[int, int, int, int] | None = None,
+        flags: TileFlags | None = None,
+    ) -> Surface:
+        if rect is None:
+            rect = (0, 0, image.get_width() // k, image.get_height() // k)
+        rect = tuple(rect)  # type: ignore[assignment]
+        if rect not in scaled:
+            scaled.clear()
+            x, y, w, h = rect
+            try:
+                hd = image.subsurface((x * k, y * k, w * k, h * k))
+            except ValueError:
+                logger.error("Tile bounds outside bounds of tileset image")
+                raise
+            scaled[rect] = smooth_resize(hd, scaling.scale_tuple((w, h)))
+        tile = scaled[rect]
+        if flags:
+            tile = handle_transformation(tile, flags)
+        return smart_convert(tile, colorkey, pixelalpha)
 
     return load_image
 

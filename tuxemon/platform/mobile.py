@@ -15,6 +15,8 @@ import os
 from collections.abc import Callable, Mapping
 from typing import Any
 
+from tuxemon.platform.const.sizes import ANDROID_MAP_CACHE_SIZE, MAP_CACHE_SIZE
+
 logger = logging.getLogger(__name__)
 
 #: Set by python-for-android's launcher before Python starts.
@@ -29,6 +31,15 @@ def is_android(env: Mapping[str, str] | None = None) -> bool:
     """Whether the game runs inside a python-for-android app."""
     env = os.environ if env is None else env
     return any(env.get(name) for name in P4A_VARIABLES)
+
+
+def map_cache_size(env: Mapping[str, str] | None = None) -> int:
+    """
+    How many maps the game keeps loaded. With HD tiles an outdoor map
+    holds ~190MB at scale 7 (docs/kids/SDD_ART.md §2.12), so a phone
+    keeps two: the map and the one just left.
+    """
+    return ANDROID_MAP_CACHE_SIZE if is_android(env) else MAP_CACHE_SIZE
 
 
 def _even(value: float) -> int:
