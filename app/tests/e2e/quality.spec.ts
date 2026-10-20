@@ -113,6 +113,8 @@ async function audit(page: Page, label: string, shot: (name: string) => Promise<
 
 for (const scale of [1, 1.3]) {
   test(`every screen of the flow passes axe, 48dp and no clipping, at ${scale * 100}% text`, async ({ page }, info) => {
+    // the whole flow, the map and its learning content included, on a busy machine
+    test.setTimeout(120_000);
     if (scale !== 1) {
       await page.addInitScript((s) => {
         const set = () => document.documentElement?.style.setProperty("--font-scale", String(s));
