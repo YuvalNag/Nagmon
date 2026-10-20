@@ -39,7 +39,7 @@ def test_every_portrait_shows_the_character_of_its_map_sprite(built):
         rows.append((name, d, coherence.verdict(name, d)))
     table = "\n".join(f"{n:28s} {d:.3f} {v}" for n, d, v in rows)
     print("\nmap front vs portrait front (Hellinger):\n" + table)
-    assert len(rows) == 17, table  # 12 + the solar-system cast
+    assert len(rows) == 20, table  # 12 + the solar-system cast + 3 in houses
     assert {n for n, _, v in rows if v == "approved"} == {"nagmon_owl"}
     assert not [n for n, _, v in rows if v.isupper()], table
 
@@ -63,7 +63,7 @@ def test_the_guard_flags_exactly_the_portraits_built_from_the_map(built):
     rebuilt = {
         n for n, (_, p) in pairs.items() if _combat(p) in db.PORTRAIT_FROM_MAP
     }
-    assert len(rebuilt) == 3
+    assert len(rebuilt) == 5  # 3 + the nurse and the shop keeper in houses
     assert flagged == rebuilt | set(db.COHERENCE_APPROVED), "\n".join(rows)
 
 

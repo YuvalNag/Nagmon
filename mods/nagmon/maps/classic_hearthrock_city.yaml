@@ -3,36 +3,67 @@
 #
 # Rule of thumb: an event that hands over to the next step sets the
 # "next step" variable as its LAST action, so two dialogs never overlap.
-# Houses with no inside: their doors lead nowhere, so they are closed
-# (otherwise the hero walks in and stands on the roof).
-collisions:
-- type: collision
-  x: 5
-  y: 5
-  width: 1
-  height: 1
-- type: collision
-  x: 10
-  y: 5
-  width: 1
-  height: 1
-- type: collision
-  x: 15
-  y: 5
-  width: 1
-  height: 1
-- type: collision
-  x: 8
-  y: 13
-  width: 1
-  height: 1
-- type: collision
-  x: 13
-  y: 13
-  width: 1
-  height: 1
+# The five doors on this map lead to the houses' insides (nagmon_home,
+# nagmon_lab, nagmon_friend_house, nagmon_rest_center, nagmon_shop). A door
+# that leads nowhere must stay a wall (tests/app/test_app_maps.py).
 
 events:
+
+  # ----------------------------------------- the houses' doors
+  Teleport to Home:
+    type: event
+    x: 5
+    y: 5
+    conditions:
+    - is char_at player
+    - is char_facing player,up
+    actions:
+    - transition_teleport player,nagmon_home.tmx,4,6,0.3
+    - char_face player,up
+
+  Teleport to Lab:
+    type: event
+    x: 10
+    y: 5
+    conditions:
+    - is char_at player
+    - is char_facing player,up
+    actions:
+    - transition_teleport player,nagmon_lab.tmx,6,17,0.3
+    - char_face player,up
+
+  Teleport to Friend House:
+    type: event
+    x: 15
+    y: 5
+    conditions:
+    - is char_at player
+    - is char_facing player,up
+    actions:
+    - transition_teleport player,nagmon_friend_house.tmx,5,7,0.3
+    - char_face player,up
+
+  Teleport to Rest Center:
+    type: event
+    x: 8
+    y: 13
+    conditions:
+    - is char_at player
+    - is char_facing player,up
+    actions:
+    - transition_teleport player,nagmon_rest_center.tmx,6,10,0.3
+    - char_face player,up
+
+  Teleport to Shop:
+    type: event
+    x: 13
+    y: 13
+    conditions:
+    - is char_at player
+    - is char_facing player,up
+    actions:
+    - transition_teleport player,nagmon_shop.tmx,6,10,0.3
+    - char_face player,up
 
   # ------------------------------------------------------------ new game
   Nagmon Start:
@@ -234,7 +265,7 @@ events:
     conditions:
     - not char_exists nagmon_cashier
     actions:
-    - create_npc nagmon_cashier,13,14
+    - create_npc nagmon_cashier,14,14
     - char_face nagmon_cashier,down
 
   Cashier Talk Small:

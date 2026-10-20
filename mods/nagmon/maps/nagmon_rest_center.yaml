@@ -1,0 +1,40 @@
+# Inside a house of Hearthrock: the Rest Center: the nurse stands in the gap of the counter.
+# The map is a copy of a Tuxemon interior with its events removed
+# (mods/nagmon/maps/nagmon_rest_center.tmx); the way out, the NPC and the greeting are
+# here. The way in is an event of classic_hearthrock_city.yaml.
+# Placeholder behaviour only: shop, bag and rest logic come later.
+
+events:
+
+  Environment:
+    type: event
+    conditions:
+    - not environment_is interior
+    actions:
+    - set_environment interior
+
+  Go Outside:
+    type: event
+    x: 6
+    y: 10
+    conditions:
+    - is char_at player
+    - is char_facing player,down
+    actions:
+    - transition_teleport player,classic_hearthrock_city.tmx,8,14,0.3
+    - char_face player,down
+
+  Create Host:
+    type: event
+    conditions:
+    - not char_exists nagmon_house_nurse
+    actions:
+    - create_npc nagmon_house_nurse,6,5
+    - char_face nagmon_house_nurse,down
+
+  Host Talk:
+    type: event
+    behav:
+    - talk nagmon_house_nurse
+    actions:
+    - translated_dialog nagmon_world_rest_nurse,nagmon_house_nurse

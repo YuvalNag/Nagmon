@@ -619,6 +619,46 @@ msgstr ""
 "Grandma Rina: Thanks again for the wallet.\n"
 "My grandchildren say hello!"
 
+# --- the insides of the houses of Hearthrock ---
+
+msgid "nagmon_house_pet"
+msgstr "The little friend"
+
+msgid "nagmon_house_nurse"
+msgstr "Nurse Dana"
+
+msgid "nagmon_house_shopkeeper"
+msgstr "Avi the shopkeeper"
+
+msgid "nagmon_house_tutor"
+msgstr "The tutor"
+
+msgid "nagmon_house_neighbor"
+msgstr "The neighbour"
+
+msgid "nagmon_world_home_pet"
+msgstr "Purr! Your little friend is happy you are home."
+
+msgid "nagmon_world_rest_nurse"
+msgstr ""
+"Nurse Dana: Welcome to the Rest Center!\n"
+"You can rest here any time."
+
+msgid "nagmon_world_shop_keeper"
+msgstr ""
+"Avi: Welcome to the shop!\n"
+"Look around, the shelves will be full soon."
+
+msgid "nagmon_world_lab_tutor"
+msgstr ""
+"Tutor: Welcome to the learning room!\n"
+"Soon there will be questions and tips here."
+
+msgid "nagmon_world_friend_neighbor"
+msgstr ""
+"Neighbour: Hello, and welcome to my house!\n"
+"Come again soon."
+
 msgid "nagmon_world_trainer_hello"
 msgstr ""
 "Danny: Hi! I deliver letters, and I train on my break.\n"

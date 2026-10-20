@@ -1,0 +1,59 @@
+# Inside a house of Hearthrock: the home: a bedroom with a pet; the free tile (7,4) is kept for the future daily chest.
+# The map is a copy of a Tuxemon interior with its events removed
+# (mods/nagmon/maps/nagmon_home.tmx); the way out, the NPC and the greeting are
+# here. The way in is an event of classic_hearthrock_city.yaml.
+# Placeholder behaviour only: shop, bag and rest logic come later.
+#
+# The staircase tile at (7,2) led upstairs in the old game: closed, and the
+# nooks at (2,2) and (5,2) behind the furniture.
+collisions:
+- type: collision
+  x: 2
+  y: 2
+  width: 1
+  height: 1
+- type: collision
+  x: 5
+  y: 2
+  width: 1
+  height: 1
+- type: collision
+  x: 7
+  y: 2
+  width: 1
+  height: 1
+
+events:
+
+  Environment:
+    type: event
+    conditions:
+    - not environment_is interior
+    actions:
+    - set_environment interior
+
+  Go Outside:
+    type: event
+    x: 4
+    y: 6
+    conditions:
+    - is char_at player
+    - is char_facing player,down
+    actions:
+    - transition_teleport player,classic_hearthrock_city.tmx,5,6,0.3
+    - char_face player,down
+
+  Create Host:
+    type: event
+    conditions:
+    - not char_exists nagmon_house_pet
+    actions:
+    - create_npc nagmon_house_pet,5,4
+    - char_face nagmon_house_pet,down
+
+  Host Talk:
+    type: event
+    behav:
+    - talk nagmon_house_pet
+    actions:
+    - translated_dialog nagmon_world_home_pet,nagmon_house_pet

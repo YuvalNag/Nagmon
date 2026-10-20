@@ -110,15 +110,15 @@ export async function steps(page: Page, dir: string, n: number) {
   await c.detach();
 }
 
-/** From the start (29,16) to (13,15), facing the cashier at (13,14). */
+/** From the start (29,16) to (14,15), facing the cashier at (14,14) (the shop door at (13,13) stays free). */
 export async function toCashier(page: Page) {
   expect((await debug(page))!.player).toMatchObject({ x: 29, y: 16 });
   // nobody to talk to at the start: the owl's words wait for M5
   await expect(page.locator(id("map_talk"))).toHaveCount(0);
-  await steps(page, "left", 16);
+  await steps(page, "left", 15);
   await steps(page, "up", 1);
   const d = (await debug(page))!;
-  expect(d.player).toMatchObject({ x: 13, y: 15, facing: "up" });
+  expect(d.player).toMatchObject({ x: 14, y: 15, facing: "up" });
   expect(d.inFront).toBe("nagmon_cashier");
   await expect(page.locator(id("map_talk"))).toBeVisible();
 }

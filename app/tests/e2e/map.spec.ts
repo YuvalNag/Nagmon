@@ -384,7 +384,7 @@ test("hold an arrow to walk, let go to stop; the owl, walls and the closed way h
 
   // to the closed way to route 8 (39, 15-17), the long way round the
   // one-way fences: west to the gardener, up the alley at column 5 to row
-  // 9 (the house doors at (8,13) and (13,13) are closed, and (18,13) and
+  // 9 (the doors at (8,13) and (13,13) lead into the Rest Center and the shop, (18,13) and
   // (23,13) lead into the academies), east along the fence of row 9, down
   // the east edge and to the exit
   d = await toWall(page, "left");
