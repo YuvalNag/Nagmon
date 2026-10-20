@@ -368,8 +368,11 @@ async function mapWalk() {
     Math.abs(d.canvas.width - d.canvas.cssWidth * k) <= 1 && Math.abs(d.canvas.height - d.canvas.cssHeight * k) <= 1,
     `the map's canvas has the pixels of its resolution (${d.canvas.width}x${d.canvas.height})`,
   );
+  // measured from the canvas as it is: its whole-pixel size (915.05 CSS px
+  // x 2 is a 1830 px canvas) moves the ratio by a few hundredths of a percent
+  const SCALE_SLACK = 1.005;
   const worst = Math.max(...d.scales.map((s) => s.ratio));
-  check(d.scales.length > 0 && worst <= 2 + 1e-9, `no picture over twice its pixels (largest ${worst.toFixed(2)}x)`);
+  check(d.scales.length > 0 && worst <= 2 * SCALE_SLACK, `no picture over twice its pixels (largest ${worst.toFixed(4)}x)`);
 
   // a thumb held on the left arrow for 1.5 s
   const start = d.player;
@@ -399,7 +402,7 @@ async function mapWalk() {
   // software GL here is far under 45 fps: the map tries fewer pixels
   check(frames.avgFps >= 45 || later.resolution.changes.length > 0, `a slow map tries a lower resolution (now ${later.resolution.dpr})`);
   const largest = Math.max(...later.scales.map((s) => s.ratio));
-  check(largest <= 2 + 1e-9, `still no picture over twice its pixels (largest ${largest.toFixed(2)}x)`);
+  check(largest <= 2 * SCALE_SLACK, `still no picture over twice its pixels (largest ${largest.toFixed(4)}x)`);
 
   // Android's back on the map: the pause menu, and back again closes it
   key("KEYCODE_BACK");
