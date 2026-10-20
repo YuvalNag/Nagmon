@@ -50,8 +50,36 @@ async function webview() {
   throw new Error("the app's WebView never opened a DevTools socket");
 }
 
-// the family's phone is set to Hebrew
-adb("shell", "cmd", "locale", "set-system-locales", "he-IL");
+/**
+ * The family's phone is set to Hebrew. `cmd locale` exists only on newer
+ * Android; the emulator image is rooted, so set the property and restart
+ * the system's Java side instead.
+ */
+async function setHebrew() {
+  try {
+    adb("shell", "cmd", "locale", "set-system-locales", "he-IL");
+  } catch {
+    adb("root");
+    await sleep(3000);
+    adb("wait-for-device");
+    adb("shell", "setprop", "persist.sys.locale", "he-IL");
+    adb("shell", "setprop", "ctl.restart", "zygote");
+    await sleep(5000);
+    for (let i = 0; i < 120; i++) {
+      try {
+        if (adb("shell", "getprop", "sys.boot_completed") === "1") break;
+      } catch {
+        // adb drops while the system restarts
+      }
+      await sleep(1000);
+    }
+  }
+  const locale = adb("shell", "getprop", "persist.sys.locale");
+  console.log("system locale:", locale);
+  check(locale.startsWith("he"), "the emulator is set to Hebrew");
+}
+
+await setHebrew();
 adb("shell", "am", "force-stop", PACKAGE);
 adb("shell", "monkey", "-p", PACKAGE, "-c", "android.intent.category.LAUNCHER", "1");
 
