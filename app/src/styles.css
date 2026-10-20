@@ -71,7 +71,11 @@ button {
 
 button:active {
   transform: translateY(1px);
-  filter: brightness(0.95);
+  filter: brightness(0.92);
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
 }
 
 button.primary {
@@ -103,4 +107,202 @@ button.primary {
   gap: var(--gap);
   flex-wrap: wrap;
   justify-content: center;
+}
+
+button:disabled {
+  opacity: 0.45;
+}
+
+button.quiet {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink-soft);
+}
+
+.hint,
+.notice {
+  margin: 0;
+  max-width: 34em;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.notice {
+  color: var(--ink);
+  font-size: calc(var(--text) * 1.15);
+}
+
+.message {
+  margin: 0;
+  min-height: 1.3em;
+  color: #b3261e;
+  font-weight: 600;
+}
+
+.bar,
+.board-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.bar .title,
+.board-top .title {
+  font-size: calc(var(--text) * 1.2);
+}
+
+/* ---------------------------------------------------- cards and choices */
+
+.cards {
+  display: flex;
+  gap: var(--gap);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: calc(var(--gap) / 2);
+  padding: var(--gap);
+  min-width: 18vh;
+  height: 40vh;
+}
+
+.card img {
+  height: 26vh;
+  image-rendering: auto;
+  object-fit: contain;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--gap);
+  width: 100%;
+}
+
+.choice {
+  min-height: var(--touch);
+}
+
+/* ------------------------------------------------------- the code pad */
+
+.screen.pin {
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.pin-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+  max-width: 50%;
+}
+
+.dots {
+  display: flex;
+  gap: calc(var(--gap) * 1.5);
+}
+
+.dot {
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+}
+
+.dot.full {
+  background: var(--accent);
+}
+
+.pad {
+  display: grid;
+  grid-template-columns: repeat(3, 20vh);
+  grid-auto-rows: 19vh;
+  gap: 2.5vh;
+}
+
+.key {
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  font-size: calc(var(--text) * 1.3);
+  font-weight: 600;
+}
+
+.key.delete {
+  background: #fde2e1;
+  border-color: #d35b54;
+  font-size: var(--text);
+}
+
+.key.done {
+  background: #d9f2d9;
+  border-color: #3f9142;
+}
+
+/* ---------------------------------------------------- the letter board */
+
+.screen.board {
+  justify-content: space-between;
+}
+
+.typed {
+  flex: 1;
+  min-height: var(--touch);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--gap);
+  border-bottom: 3px solid var(--accent);
+  font-size: calc(var(--text) * 1.3);
+  font-weight: 600;
+}
+
+.caret {
+  width: 3px;
+  height: 1.1em;
+  background: var(--accent);
+  margin-inline-start: 2px;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.letters {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+  grid-auto-rows: 19vh;
+  gap: 1.5vh;
+}
+
+.actions {
+  width: 100%;
+  display: grid;
+  /* done, space, an empty cell, delete at the far end */
+  grid-template-columns: 2fr 4fr 1fr 2fr;
+  grid-template-areas: "done space . delete";
+  grid-auto-rows: var(--touch);
+  gap: var(--gap);
+}
+
+.actions .done {
+  grid-area: done;
+}
+
+.actions .space {
+  grid-area: space;
+}
+
+.actions .delete {
+  grid-area: delete;
 }
