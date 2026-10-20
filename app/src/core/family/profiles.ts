@@ -22,6 +22,7 @@ import {
   isJsonObject,
   joinPath,
   readJson,
+  withPathLock,
   writeJson,
 } from "../../platform/storage";
 
@@ -249,14 +250,17 @@ export class ProfileStore<L = unknown> {
   private idFactory: () => string;
   private warn: (message: string) => void;
   // Changes run one at a time: two taps on "add" must not both pass the
-  // limit or pick the same id.
-  private queue: Promise<unknown> = Promise.resolve();
+  // limit or pick the same id. The queue is a lock of the file store, so
+  // the background flush (storage.pendingWrites) waits for a save that is
+  // still queued, not only for one already writing.
+  private queueKey: string;
 
   constructor(fs: FileStore, options: ProfileStoreOptions<L> = {}) {
     this.fs = fs;
     const root = options.root ?? "";
     this.profilesDir = joinPath(root, "profiles");
     this.trashDir = joinPath(root, "trash");
+    this.queueKey = joinPath(this.profilesDir, ".queue");
     this.avatars = options.avatars;
     this.learnerFromDict = options.learnerFromDict;
     this.learnerNew = options.learnerNew;
@@ -266,9 +270,7 @@ export class ProfileStore<L = unknown> {
   }
 
   private serial<T>(task: () => Promise<T>): Promise<T> {
-    const run = this.queue.then(task, task);
-    this.queue = run.catch(() => undefined);
-    return run;
+    return withPathLock(this.fs, this.queueKey, task);
   }
 
   // ------------------------------------------------------------ queries
@@ -465,6 +467,27 @@ export class ProfileStore<L = unknown> {
 
   async saveLearner(id: string, state: L & ToDict): Promise<void> {
     await this.saveLearnerDict(id, state.toDict());
+  }
+
+  // ------------------------------------------------------------ the world
+
+  /** saves/world.json of a profile (the coins, the map's variables); `{}` when there is none. */
+  loadWorldDict(id: string): Promise<JsonObject> {
+    return this.serial(async () => {
+      await this.mustExist(id);
+      const res = await readJson(this.fs, joinPath(this.dir(id), "saves", "world.json"));
+      if (res.recovered) this.warn(`world.json of ${id} recovered (${res.status})`);
+      return res.data ?? {};
+    });
+  }
+
+  /** Saves saves/world.json; throws {@link ProfileNotFoundError} for a deleted profile. */
+  saveWorldDict(id: string, data: JsonObject): Promise<void> {
+    const snapshot = structuredClone(data);
+    return this.serial(async () => {
+      await this.mustExist(id);
+      await writeJson(this.fs, joinPath(this.dir(id), "saves", "world.json"), snapshot);
+    });
   }
 
   // ------------------------------------------------------------ helpers

@@ -75,6 +75,7 @@ export const DATA_FILES = {
   profile: (id: string) => `profiles/${id}/profile.json`,
   learning: (id: string) => `profiles/${id}/learning.json`,
   saves: (id: string) => `profiles/${id}/saves`,
+  world: (id: string) => `profiles/${id}/saves/world.json`,
   owlLog: (id: string) => `profiles/${id}/owl_log.jsonl`,
 } as const;
 
