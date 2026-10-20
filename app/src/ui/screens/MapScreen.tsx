@@ -136,10 +136,11 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             const pad = edge(".dpad");
             return pad ? pad.right + PAD_GAP : 0;
           },
-          // and left of the talk button's place (bottom right)
+          // and left of the talk button while it shows (bottom right); with
+          // nobody to talk to the camera stops at the map's edge as before
           reservedRight: () => {
-            const slot = edge(".map-talk-slot");
-            return slot ? window.innerWidth - slot.left + PAD_GAP : 0;
+            const talk = edge(".map-talk");
+            return talk ? window.innerWidth - talk.left + PAD_GAP : 0;
           },
           onFacing: (who) => alive && setFacing(who),
           onMap: (w) => alive && setWorld(w),
