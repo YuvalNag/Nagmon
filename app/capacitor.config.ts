@@ -10,6 +10,15 @@ const config: CapacitorConfig = {
     // no remote content, no mixed content
     allowMixedContent: false,
   },
+  plugins: {
+    SystemBars: {
+      // MainActivity hides the system bars and draws into the camera
+      // cutout; Capacitor's own handling padded the page on older WebViews
+      // (the emulator's), so the game did not cover the screen there and
+      // taps landed a key off. The page keeps its own side gutter.
+      insetsHandling: "disable",
+    },
+  },
 };
 
 export default config;
