@@ -1039,3 +1039,51 @@ msgstr "Rabbitosaur"
 
 msgid "tourbidi"
 msgstr "Tourbidi"
+
+# Descriptions a child reads, with the Hebrew names and gentle words
+# (docs/kids/SDD_ANDROID.md §2.7).
+
+msgid "ampystoma_description"
+msgstr "AMPYSTOMA's bright colours say \"look out!\". It hides in murky water, and likes to come on land during thunderstorms."
+
+msgid "arthrobolt_description"
+msgstr "It feels uncomfortable giving orders to its friends NUT and BOLT, and sometimes runs away. Then NUT and BOLT have no one to guide them."
+
+msgid "bolt_description"
+msgstr "When a BOLT is near, a NUT holds on tighter and makes more sparks of energy."
+
+msgid "nut_description"
+msgstr "In the great ships that cross the oceans, thousands of NUT and BOLT give power and hold the steel plates together."
+
+msgid "jemuar_description"
+msgstr "The gems on its back are the kind found where it was born. That is why many ROCKITTEN grow up over diamond veins."
+
+msgid "kroki_description"
+msgstr "KROKI spends most of its time in shallow water, and likes to clack its strong jaws."
+
+msgid "krokivip_description"
+msgstr "This crocodilian likes to hide in the water and surprise. As it grows closer to evolution, it looks for bigger waters."
+
+msgid "leviadile_description"
+msgstr "LEVIADILE is huge and swims in the deep sea. Everyone down there knows it is the king of the deep water."
+
+msgid "puparmor_description"
+msgstr "Its cocoon is hard as stone. If a PUPARMOR falls on someone, they get a bump on the head for days."
+
+msgid "tourbidi_description"
+msgstr "If you find a circle of mushrooms or clover, it is a place where TOURBIDI dance."
+
+msgid "cardiwing_description"
+msgstr "Its song is remarkable, and warm sparks fly from it at the end of every song."
+
+msgid "cardinale_description"
+msgstr "It guards its nest and its small neighbours, and chases off anyone who bothers them."
+
+msgid "rabbitosaur_description"
+msgstr "Its tunnels are long and wide, and neighbours from other burrows come to visit."
+
+msgid "nudikill_description"
+msgstr "They are called Hatters, because their heads look like a tall pointed hat."
+
+msgid "dandicub_description"
+msgstr "After a litter is born, they float all over the world, looking for a new place to grow."

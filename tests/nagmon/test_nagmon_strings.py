@@ -51,7 +51,7 @@ MODS = REPO / "mods"
 HEBREW = re.compile("[א-ת]")
 #: Hard words (tests/nagmon/test_art_game.py) and religious symbols.
 NOT_IN_A_NAME = ("חנק", "קבר", "קללה", "מוות", "הרג", "דם", "לפיתה", "צלב")
-NOT_IN_A_NAME += ("כנסי", "כומר", "קדוש", "מקדש", "אליל")
+NOT_IN_A_NAME += ("כנסי", "כומר", "קדוש", "מקדש", "אליל", "קרדינ")
 
 
 def _monster_file(slug: str) -> Path | None:
@@ -128,3 +128,64 @@ def test_hebrew_monster_names_are_short_and_gentle():
     for name in names:
         assert len(name) <= 10, name
         assert not any(word in name for word in NOT_IN_A_NAME), name
+
+
+# The descriptions a child reads (the monster's page, a long dialog) use
+# the Hebrew names and gentle words too.
+
+HARSH = ("טרף", "טורף", "רעיל", "ארס", "מלחמ", "תותח", "לארוב", "מתפוצצ")
+HARSH += ("מוות", "קבר", "הרג", "קללה", "צלב", "בישופ")
+
+
+def _po_text(path: Path, msgid: str) -> str:
+    """A msgstr, also one split over several quoted lines."""
+    found = re.search(
+        r'^msgid "'
+        + re.escape(msgid)
+        + r'"\nmsgstr ((?:"(?:[^"\\]|\\.)*"\n?)+)',
+        path.read_text("utf-8"),
+        re.M,
+    )
+    if found is None:
+        return ""
+    parts = re.findall(r'"((?:[^"\\]|\\.)*)"', found.group(1))
+    return "".join(parts)
+
+
+def _hebrew_text(msgid: str) -> str:
+    """What the game shows in Hebrew: nagmon.po first, then Tuxemon's."""
+    return _po_text(PO / "he_IL" / "LC_MESSAGES" / "nagmon.po", msgid) or (
+        _po_text(
+            MODS / "tuxemon" / "l18n" / "he_IL" / "LC_MESSAGES" / "base.po",
+            msgid,
+        )
+    )
+
+
+def _english_names() -> list[str]:
+    en = _po_names("en_US")
+    return [en[slug] for slug in met_in_nagmon()]
+
+
+def test_descriptions_a_child_reads_use_the_hebrew_names():
+    names = re.compile(
+        r"(?<![A-Za-z])(" + "|".join(_english_names()) + r")(?![A-Za-z])",
+        re.I,
+    )
+    english = {}
+    for slug in met_in_nagmon():
+        text = _hebrew_text(f"{slug}_description")
+        assert text, slug
+        if names.search(text):
+            english[slug] = names.search(text).group(0)
+    assert not english, english
+
+
+def test_descriptions_a_child_reads_are_gentle():
+    harsh = {}
+    for slug in met_in_nagmon():
+        text = _hebrew_text(f"{slug}_description")
+        words = [w for w in HARSH if w in text]
+        if words:
+            harsh[slug] = words
+    assert not harsh, harsh
