@@ -76,7 +76,8 @@ jobs:
     - run: npx cap sync android
     - name: Build the APK
       working-directory: app/android
-      run: ./gradlew --no-daemon assembleDebug
+      # benchmark: not debuggable, for the cold start (app/android/app/build.gradle)
+      run: ./gradlew --no-daemon assembleDebug assembleBenchmark
     # docs/app/SDD.md §10: no lint errors (each warning kept is explained
     # in app/android/app/lint.xml)
     - name: Android Lint
@@ -98,6 +99,12 @@ jobs:
         name: nagmon-app-apk-${{ github.run_number }}
         path: app/android/app/build/outputs/apk/debug/app-debug.apk
         retention-days: 14
+    # only for the emulator's cold start; not for the family
+    - uses: actions/upload-artifact@v4
+      with:
+        name: nagmon-app-benchmark-apk-${{ github.run_number }}
+        path: app/android/app/build/outputs/apk/benchmark/app-benchmark.apk
+        retention-days: 3
 
   emulator:
     needs: apk
@@ -114,6 +121,10 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: nagmon-app-apk-${{ github.run_number }}
+        path: app/apk
+    - uses: actions/download-artifact@v4
+      with:
+        name: nagmon-app-benchmark-apk-${{ github.run_number }}
         path: app/apk
     - name: Enable KVM
       run: |
@@ -133,7 +144,7 @@ jobs:
         disable-animations: true
         working-directory: app
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-        script: node tests/android/run.mjs apk/app-debug.apk android-e2e
+        script: node tests/android/run.mjs apk/app-debug.apk android-e2e apk/app-benchmark.apk
     - name: Show the screenshots in the log
       if: always()
       working-directory: .

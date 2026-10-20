@@ -9,7 +9,7 @@
  * console.
  *
  * Usage (on the CI host, emulator booted):
- *   node tests/android/run.mjs APK OUTDIR
+ *   node tests/android/run.mjs APK OUTDIR [BENCHMARK_APK]
  */
 import { execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -21,6 +21,8 @@ const PACKAGE = "org.nagmon.app";
 const MAX_TAP_MS = 300;
 const apk = process.argv[2];
 const out = process.argv[3] ?? "android-e2e";
+// optional: a release build signed with the debug key, for the cold start
+const benchmarkApk = process.argv[4];
 mkdirSync(out, { recursive: true });
 
 // every adb call has a time limit: a stuck adb fails the part, never hangs the run
@@ -416,13 +418,20 @@ async function killedInBackground() {
   shot("d01_after_kill");
 }
 
-/** Cold starts to who-plays, as Android measures them. */
-async function coldStart() {
-  const parse = (line) => {
-    const m = line.match(/Fully drawn org\.nagmon\.app\/\.MainActivity: \+(?:(\d+)s)?(\d+)ms/);
-    return m ? Number(m[1] ?? 0) * 1000 + Number(m[2]) : null;
-  };
-  const drawnLines = () => logcat("-s", "ActivityTaskManager:I", "ActivityManager:I").split("\n").filter((l) => parse(l) !== null);
+const parseDrawn = (line) => {
+  const m = line.match(/Fully drawn org\.nagmon\.app\/\.MainActivity: \+(?:(\d+)s)?(\d+)ms/);
+  return m ? Number(m[1] ?? 0) * 1000 + Number(m[2]) : null;
+};
+const drawnLines = () => logcat("-s", "ActivityTaskManager:I", "ActivityManager:I").split("\n").filter((l) => parseDrawn(l) !== null);
+const median = (xs) => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)];
+
+/**
+ * Three cold starts of the installed build: `am start -W` TotalTime (the
+ * first frame) and Android's "Fully drawn" (who-plays readable, from
+ * reportFullyDrawn). `pageTimes`: also where the time went in the page
+ * (needs DevTools, so the debug build only).
+ */
+async function threeColdStarts(label, { pageTimes }) {
   const total = [];
   const drawn = [];
   for (let i = 0; i < 3; i++) {
@@ -437,27 +446,55 @@ async function coldStart() {
     for (let w = 0; w < 40 && ms === null; w++) {
       await sleep(500);
       const lines = drawnLines();
-      if (lines.length > seen) ms = parse(lines.at(-1));
+      if (lines.length > seen) ms = parseDrawn(lines.at(-1));
     }
     drawn.push(ms);
-    // where the time went, as the page saw it (ms from the page's own start)
+    let inPage = "";
+    if (pageTimes) {
+      // where the time went, as the page saw it (ms from the page's own start)
+      try {
+        await attach();
+        inPage = `; in the page: ${JSON.stringify(await page.eval(`({ ...window.__startTimes?.(), loaded: Math.round(performance.getEntriesByType("navigation")[0]?.domContentLoadedEventEnd ?? -1) })`))}`;
+      } catch (e) {
+        inPage = `; no page times (${String(e).split("\n")[0]})`;
+      }
+    }
+    console.log(`${label} start ${i + 1}: TotalTime ${total.at(-1)} ms, fully drawn ${ms ?? "none"} ms${inPage}`);
+  }
+  check(drawn.every((d) => d !== null), `${label}: the app reported who-plays drawn on every start`);
+  const m = median(drawn.map((d) => d ?? Infinity));
+  console.log(`${label} cold start: first frame (TotalTime) ${total.join(" ")} ms; to who-plays (fully drawn) ${drawn.join(" ")} ms, median ${m} ms`);
+  return m;
+}
+
+/**
+ * Cold starts to who-plays. The limit is checked on the benchmark build:
+ * a release build, not debuggable, as the phone runs it (a debuggable app
+ * runs its Java code, the WebView's too, much slower). The debug build's
+ * numbers are printed too, with the page's own times.
+ */
+async function coldStart() {
+  const before = await cards();
+  const debugMs = await threeColdStarts("debug build", { pageTimes: true });
+  let gated = debugMs;
+  let which = "debug build";
+  if (benchmarkApk) {
+    // same key and version: it installs over the debug build and keeps the data
+    adb("install", "-r", benchmarkApk);
     try {
-      await attach();
-      const t = await page.eval(`({ ...window.__startTimes?.(), loaded: Math.round(performance.getEntriesByType("navigation")[0]?.domContentLoadedEventEnd ?? -1) })`);
-      console.log(`start ${i + 1}: TotalTime ${total.at(-1)} ms, fully drawn ${ms} ms; in the page: ${JSON.stringify(t)}`);
-    } catch (e) {
-      console.log(`start ${i + 1}: no page times (${String(e).split("\n")[0]})`);
+      gated = await threeColdStarts("benchmark build", { pageTimes: false });
+      which = "benchmark build (release, not debuggable)";
+    } finally {
+      adb("install", "-r", apk);
     }
   }
-  const median = (xs) => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)];
-  console.log(`cold start, first frame (am start -W TotalTime), ms: ${total.join(" ")}`);
-  console.log(`cold start to who-plays (reportFullyDrawn), ms: ${drawn.map((d) => d ?? "none").join(" ")}`);
-  check(drawn.every((d) => d !== null), "the app reported who-plays drawn on every start");
-  const m = median(drawn.map((d) => d ?? Infinity));
-  console.log(`cold start to who-plays: median ${m} ms (phone target 2000 ms, CI limit ${MAX_COLD_START_MS} ms)`);
-  check(m <= MAX_COLD_START_MS, `cold start to who-plays within ${MAX_COLD_START_MS} ms (median ${m} ms)`);
+  console.log(`cold start to who-plays: ${which} median ${gated} ms (debug build ${debugMs} ms; phone target 2000 ms, CI limit ${MAX_COLD_START_MS} ms)`);
+  check(gated <= MAX_COLD_START_MS, `cold start to who-plays within ${MAX_COLD_START_MS} ms on the ${which} (median ${gated} ms)`);
+  await launch();
   await attach();
   await onScreen("who-plays", "a cold start opens", 30_000);
+  const kids = await cards();
+  check(JSON.stringify(kids) === JSON.stringify(before), `the children are still there after the builds were swapped (${kids.join(", ")})`);
 }
 
 /**

@@ -28,6 +28,17 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        // The cold start is measured on this one (tests/android/run.mjs,
+        // docs/app/SDD.md §10): a release build, so not debuggable (a
+        // debuggable app runs its Java code, the WebView's included, much
+        // slower). Signed with the debug key only so that it installs over
+        // the debug build and keeps its data. Never given to the family.
+        benchmark {
+            initWith release
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ['release']
+            debuggable false
+        }
     }
 }
 
