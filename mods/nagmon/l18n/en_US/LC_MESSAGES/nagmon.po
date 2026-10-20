@@ -31,10 +31,10 @@ msgid "nagmon_switch_player"
 msgstr "Switch player"
 
 msgid "nagmon_pin_prompt"
-msgstr "Parent code"
+msgstr "Parent code\nType the parent code (4 digits)."
 
 msgid "nagmon_set_pin_prompt"
-msgstr "Parent: choose a 4-digit code"
+msgstr "Parent code\nChoose 4 digits. The code guards the parent area and adding players."
 
 msgid "nagmon_pin_invalid"
 msgstr "The code must be 4 digits."
@@ -42,8 +42,26 @@ msgstr "The code must be 4 digits."
 msgid "nagmon_pin_saved"
 msgstr "The parent code was saved."
 
+msgid "nagmon_confirm_pin_prompt"
+msgstr "Parent code\nType the same 4 digits again."
+
+msgid "nagmon_pin_mismatch"
+msgstr "The codes are not the same. Starting again."
+
+msgid "nagmon_github_where"
+msgstr "The GitHub token goes in the parent area, under \"Send data to the developer (GitHub)\"."
+
+msgid "nagmon_share_log"
+msgstr "Send log"
+
+msgid "nagmon_share_log_title"
+msgstr "Send the Nagmon log"
+
+msgid "nagmon_share_log_empty"
+msgstr "The log is still empty."
+
 msgid "nagmon_pin_wrong"
-msgstr "Wrong code."
+msgstr "Wrong code. Try again."
 
 msgid "nagmon_pin_locked"
 msgstr "Too many tries. Please wait {seconds} seconds."
@@ -728,7 +746,7 @@ msgid "nagmon_too_many_players"
 msgstr "There are already 8 players. Delete one in the parent area to add a new one."
 
 msgid "nagmon_parent_github"
-msgstr "GitHub and sending data"
+msgstr "Send data to the developer (GitHub)"
 
 msgid "nagmon_github_ok"
 msgstr "Connected · private data repo {repo}"

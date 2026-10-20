@@ -61,6 +61,8 @@ KEY_COLORS: dict[str, tuple[ColorLike, ColorLike]] = {
     "delete": ((255, 214, 214), (186, 72, 72)),
     "done": ((212, 244, 212), (64, 146, 64)),
 }
+#: What a hidden character shows (a code); a letter of both fonts.
+MASK = "\u2022"
 
 
 class InputMenu(Menu[InputMenuObj]):
@@ -93,6 +95,7 @@ class InputMenu(Menu[InputMenuObj]):
             ]
         ) = None,
         char_manager: CharacterSetManager | None = None,
+        secret: bool = False,
         **kwargs: Any,
     ) -> None:
         """
@@ -108,6 +111,7 @@ class InputMenu(Menu[InputMenuObj]):
                 additional MenuItem buttons into the layout.
             char_manager: Optional CharacterSetManager to control the active character
                 set and variant mappings; falls back to defaults if not provided.
+            secret: Shows a dot for each character (a code).
             **kwargs: Additional arguments passed to the base Menu.
         """
         self.button_injectors = button_injectors or []
@@ -117,6 +121,9 @@ class InputMenu(Menu[InputMenuObj]):
             initial_string=initial, char_limit=char_limit
         )
         self.char_manager = char_manager or CharacterSetManager()
+        self.secret = secret
+        #: The prompt's lines: each ``\n`` starts one (SDD_ANDROID §2.7).
+        self.prompt_lines = prompt.count("\n") + 1
         #: A phone: big square keys and a row of their own for "done",
         #: "space" and "delete" (SDD_ANDROID §2.3).
         self.big_keys = mobile.is_android()
@@ -155,24 +162,26 @@ class InputMenu(Menu[InputMenuObj]):
 
     def _phone_display_config(self) -> InputDisplayConfig:
         """
-        The prompt and the typed text across the whole width, one line
-        each, above the keys; the counter at the other end of the text.
+        The prompt (a line for each ``\n``) and the typed text across the
+        whole width, above the keys; the counter at the other end of the
+        text.
         """
         scale = max(1, self.client.context.scaling.scale_int(1))
         width = self.rect.width // scale
         line = -(-self.font.get_linesize() // scale) + 1
+        prompt = line * self.prompt_lines
         counter = self.font.size("000")
         return InputDisplayConfig(
             prompt_offset_x=6,
             prompt_offset_y=3,
             prompt_width=width - 12,
-            prompt_height=line,
+            prompt_height=prompt,
             text_area_offset_x=6,
-            text_area_offset_y=4 + line,
+            text_area_offset_y=4 + prompt,
             text_area_width=width - 12 - 2 * (counter[0] // scale + 1),
             text_area_height=line,
             char_counter_offset_x=6 + counter[0] // scale + 1,
-            char_counter_offset_y=4 + line,
+            char_counter_offset_y=4 + prompt,
             char_counter_size=(counter[0], self.font.get_linesize()),
         )
 
@@ -181,7 +190,13 @@ class InputMenu(Menu[InputMenuObj]):
         scaling = self.client.context.scaling
         line = self.font.get_linesize()
         side = scaling.scale_int(6)
-        top = scaling.scale_int(6) + 2 * (line + scaling.scale_int(1))
+        lines = self.prompt_lines + 1
+        # a game pixel more for each extra prompt line (rounded up above)
+        top = (
+            scaling.scale_int(6)
+            + lines * (line + scaling.scale_int(1))
+            + (lines - 2) * scaling.scale_int(1)
+        )
         bottom = scaling.scale_int(3)
         return Rect(
             self.rect.left + side,
@@ -332,8 +347,10 @@ class InputMenu(Menu[InputMenuObj]):
     ) -> tuple[list[str | None], KeyboardLayout]:
         """
         The keys with the digits on a row of their own: a "1" next to
-        the last letter reads as a letter. None is an empty cell.
+        the last letter reads as a letter. None is an empty cell. Digits
+        alone (a number pad) read left to right, in Hebrew too.
         """
+        chars_rtl = False if self.char_manager.digits_only else None
         first_digit = next(
             (i for i, c in enumerate(chars) if c.isdigit()), len(chars)
         )
@@ -345,6 +362,7 @@ class InputMenu(Menu[InputMenuObj]):
                 len(cells),
                 gap=gap,
                 rtl=bidi.locale_is_rtl(),
+                chars_rtl=chars_rtl,
             )
             pad = -len(letters) % layout.columns if letters and rest else 0
             wanted: list[str | None] = [*letters, *[None] * pad, *rest]
@@ -501,6 +519,10 @@ class InputMenu(Menu[InputMenuObj]):
         """Return the input string padded with underscores to fill remaining slots."""
         s = self.input_controller.current_string
         limit = self.input_controller.char_limit
+        if self.secret:
+            slots = [MASK] * len(s)
+            slots += ["_"] * self.input_controller.remaining_chars
+            return " ".join(slots)
         if limit <= 20:
             return s + "_" * self.input_controller.remaining_chars
         return s

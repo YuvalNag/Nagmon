@@ -49,60 +49,125 @@ PIN_LENGTH = 4
 # ---------------------------------------------------------------- parents
 
 
+# The parent code (SDD_ANDROID §2.7): a pad with digits only, which says
+# what the code is for; after a mistake the parent is back on the pad.
+
+
+def _ask_pin(
+    client: BaseClient, msgid: str, on_pin: Callable[[str], None]
+) -> None:
+    ask_text(
+        client,
+        T.translate(msgid),
+        lambda text: on_pin(text.strip()),
+        char_limit=PIN_LENGTH,
+        digits=True,
+        secret=True,
+    )
+
+
+def _pin_shape_ok(pin: str) -> bool:
+    return len(pin) == PIN_LENGTH and pin.isascii() and pin.isdigit()
+
+
+def _say_locked(client: BaseClient, seconds: float) -> None:
+    say(client, T.format("nagmon_pin_locked", {"seconds": int(seconds)}))
+
+
+def _ask_current_pin(
+    client: BaseClient, rt: NagmonRuntime, on_ok: Callable[[str], None]
+) -> None:
+    """The code the parent set; ``on_ok`` gets it. Only a lockout closes
+    the pad: a wrong or short code says so and asks again."""
+    wait = rt.parent.lockout_remaining()
+    if wait > 0:
+        _say_locked(client, wait)
+        return
+
+    def again() -> None:
+        _ask_pin(client, "nagmon_pin_prompt", check)
+
+    def check(pin: str) -> None:
+        if not _pin_shape_ok(pin):  # not a try: nothing was compared
+            say(client, T.translate("nagmon_pin_invalid"), then=again)
+            return
+        result = rt.parent.verify_pin(pin)
+        if result.ok:
+            on_ok(pin)
+        elif result.locked:
+            _say_locked(client, result.retry_after_s)
+        else:
+            say(client, T.translate("nagmon_pin_wrong"), then=again)
+
+    again()
+
+
 def with_parent(
     client: BaseClient, rt: NagmonRuntime, on_ok: Callable[[], None]
 ) -> None:
     """Runs ``on_ok`` once the parent proved it is them (PIN)."""
     if not rt.parent.has_pin():
-        _set_pin(client, rt, on_ok)
+        _set_pin(client, rt, on_ok, first=True)
         return
-    wait = rt.parent.lockout_remaining()
-    if wait > 0:
-        say(client, T.format("nagmon_pin_locked", {"seconds": int(wait)}))
-        return
+    _ask_current_pin(client, rt, lambda _pin: on_ok())
 
-    def check(text: str) -> None:
-        result = rt.parent.verify_pin(text.strip())
-        if result.ok:
-            on_ok()
-        elif result.locked_for > 0:
-            say(
-                client,
-                T.format(
-                    "nagmon_pin_locked", {"seconds": int(result.locked_for)}
-                ),
-            )
-        else:
-            say(client, T.translate("nagmon_pin_wrong"))
 
-    ask_text(
-        client, T.translate("nagmon_pin_prompt"), check, char_limit=PIN_LENGTH
+def change_pin(client: BaseClient, rt: NagmonRuntime) -> None:
+    """The current code, then the new one twice."""
+    _ask_current_pin(
+        client, rt, lambda current: _set_pin(client, rt, current=current)
     )
 
 
 def _set_pin(
-    client: BaseClient, rt: NagmonRuntime, then: Callable[[], None]
+    client: BaseClient,
+    rt: NagmonRuntime,
+    then: Callable[[], None] | None = None,
+    *,
+    current: str | None = None,
+    first: bool = False,
 ) -> None:
-    def store(text: str) -> None:
-        pin = text.strip()
+    """
+    A new code, typed twice. The first time, one line also says where
+    the GitHub token goes (the parent asked, SDD_ANDROID §2.7).
+    """
+
+    def start() -> None:
+        _ask_pin(client, "nagmon_set_pin_prompt", got_first)
+
+    def got_first(pin: str) -> None:
+        if not _pin_shape_ok(pin):
+            say(client, T.translate("nagmon_pin_invalid"), then=start)
+            return
+        _ask_pin(
+            client,
+            "nagmon_confirm_pin_prompt",
+            lambda again: got_second(pin, again),
+        )
+
+    def got_second(pin: str, again: str) -> None:
+        if again != pin:
+            say(client, T.translate("nagmon_pin_mismatch"), then=start)
+            return
         try:
-            rt.parent.set_pin(pin)
+            rt.parent.set_pin(pin, current=current)
         except ValueError:
-            say(
-                client,
-                T.translate("nagmon_pin_invalid"),
-                then=lambda: _set_pin(client, rt, then),
-            )
+            logger.warning("Could not set the parent code")
+            say(client, T.translate("nagmon_pin_invalid"), then=start)
             return
         rt.parent.save()
-        say(client, T.translate("nagmon_pin_saved"), then=then)
+        if first:
+            say(
+                client,
+                T.translate("nagmon_pin_saved"),
+                then=lambda: say(
+                    client, T.translate("nagmon_github_where"), then=then
+                ),
+            )
+        else:
+            say(client, T.translate("nagmon_pin_saved"), then=then)
 
-    ask_text(
-        client,
-        T.translate("nagmon_set_pin_prompt"),
-        store,
-        char_limit=PIN_LENGTH,
-    )
+    start()
 
 
 # ---------------------------------------------------------------- wizard
@@ -678,21 +743,7 @@ class ParentMenuState(PygameMenuState):
         )
 
     def change_pin(self) -> None:
-        def store(text: str) -> None:
-            try:
-                self.rt.parent.set_pin(text.strip())
-            except ValueError:
-                say(self.client, T.translate("nagmon_pin_invalid"))
-                return
-            self.rt.parent.save()
-            say(self.client, T.translate("nagmon_pin_saved"))
-
-        ask_text(
-            self.client,
-            T.translate("nagmon_set_pin_prompt"),
-            store,
-            char_limit=PIN_LENGTH,
-        )
+        change_pin(self.client, self.rt)
 
     def players(self) -> None:
         options = [

@@ -30,10 +30,10 @@ msgid "nagmon_switch_player"
 msgstr "החלפת שחקן"
 
 msgid "nagmon_pin_prompt"
-msgstr "קוד הורים"
+msgstr "קוד הורים\nהקלידו את קוד ההורים (4 ספרות)."
 
 msgid "nagmon_set_pin_prompt"
-msgstr "הורה: בחרו קוד של 4 ספרות"
+msgstr "קוד הורים\nבחרו 4 ספרות. הקוד שומר על אזור ההורים ועל הוספת שחקנים."
 
 msgid "nagmon_pin_invalid"
 msgstr "הקוד צריך להיות 4 ספרות."
@@ -41,8 +41,26 @@ msgstr "הקוד צריך להיות 4 ספרות."
 msgid "nagmon_pin_saved"
 msgstr "קוד ההורים נשמר."
 
+msgid "nagmon_confirm_pin_prompt"
+msgstr "קוד הורים\nהקלידו שוב את אותן 4 ספרות."
+
+msgid "nagmon_pin_mismatch"
+msgstr "הקודים לא זהים. מתחילים שוב."
+
+msgid "nagmon_github_where"
+msgstr "את הטוקן של GitHub מדביקים באזור ההורים, בכפתור \"שליחת נתונים למפתח (GitHub)\"."
+
+msgid "nagmon_share_log"
+msgstr "שליחת יומן"
+
+msgid "nagmon_share_log_title"
+msgstr "שליחת היומן של נגמון"
+
+msgid "nagmon_share_log_empty"
+msgstr "היומן עוד ריק."
+
 msgid "nagmon_pin_wrong"
-msgstr "קוד שגוי."
+msgstr "קוד שגוי. נסו שוב."
 
 msgid "nagmon_pin_locked"
 msgstr "יותר מדי ניסיונות. חכו {seconds} שניות."
@@ -727,7 +745,7 @@ msgid "nagmon_too_many_players"
 msgstr "כבר יש 8 שחקנים. כדי להוסיף שחקן חדש, מוחקים אחד באזור ההורים."
 
 msgid "nagmon_parent_github"
-msgstr "GitHub ושליחת נתונים"
+msgstr "שליחת נתונים למפתח (GitHub)"
 
 msgid "nagmon_github_ok"
 msgstr "מחובר · ריפו נתונים פרטי {repo}"

@@ -62,7 +62,12 @@ def _key_size(area: Rect, chars: int, rows: int, gap: int) -> int:
 
 
 def keyboard_layout(
-    area: Rect, chars: int, *, gap: int, rtl: bool
+    area: Rect,
+    chars: int,
+    *,
+    gap: int,
+    rtl: bool,
+    chars_rtl: bool | None = None,
 ) -> KeyboardLayout:
     """
     Square keys for ``chars`` characters inside ``area``, as big as they
@@ -70,7 +75,10 @@ def keyboard_layout(
     rows on a tie). The board sits at the bottom of ``area``, centred.
     In right-to-left text the first key is on the right, and so is
     "done"; delete is at the other end of the action row.
+    ``chars_rtl`` (default: ``rtl``) turns only the characters: a number
+    pad reads left to right in Hebrew too.
     """
+    chars_rtl = rtl if chars_rtl is None else chars_rtl
     chars = max(1, chars)
     rows = max(
         range(1, min(MAX_ROWS, chars) + 1),
@@ -86,7 +94,7 @@ def keyboard_layout(
 
     def x_of(column: int) -> int:
         offset = column * (key + gap)
-        return left + width - offset - key if rtl else left + offset
+        return left + width - offset - key if chars_rtl else left + offset
 
     rects = []
     for index in range(chars):
