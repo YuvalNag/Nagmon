@@ -21,13 +21,27 @@ import type { Choice, Given, Question } from "../learning/model";
 import { NumberPad } from "../learning/quiz_flow";
 import type { QuizWord } from "./events";
 
-export type QuizPhase = "none" | "example" | "question" | "feedback";
+export type QuizPhase = "none" | "example" | "question" | "feedback" | "passed";
+
+/** The helpers of the Bag that work on a question (items.ts): the feather, the clover and the owl's pass. */
+export type HelperKind = "hint" | "fifty" | "pass";
+
+/** The child's helpers as the question sees them: how many, using one up, and the log. */
+export interface HelperBag {
+  count(kind: HelperKind): number;
+  /** Uses one up; false when there is none. */
+  spend(kind: HelperKind): boolean;
+  /** A helper was used on this question (the field log). */
+  used?(kind: HelperKind, question: Question): void;
+}
 
 export interface QuizRequest {
   topic: string;
   context: string;
   /** The youngest are held to a few choices (gradeDefaults); null leaves it to the engine. */
   maxChoices: number | null;
+  /** The Bag's helpers, where they may be used (a battle); none on the map. */
+  helpers?: HelperBag;
 }
 
 /** Answered on the number pad. */
@@ -57,6 +71,8 @@ export class QuizSession {
   /** How long the answer took, ms (the game's clock). */
   elapsedMs = 0;
   private hintUsed = false;
+  /** One helper of the Bag for each question. */
+  private helperUsed = false;
   private started: number;
 
   constructor(
@@ -105,6 +121,66 @@ export class QuizSession {
   /** Whether the hint can still be asked for. */
   get canHint(): boolean {
     return this.phase === "question" && !this.hintUsed;
+  }
+
+  /** The helpers of the Bag still usable on this question (one for each question), with their counts. */
+  helpersOwned(): { kind: HelperKind; count: number }[] {
+    const bag = this.request.helpers;
+    if (!bag || this.phase !== "question" || this.helperUsed) return [];
+    const fiftyOk = !this.usesPad && this.choices.length > 2;
+    return (["hint", "fifty", "pass"] as const).flatMap((kind) => {
+      const count = kind === "fifty" && !fiftyOk ? 0 : bag.count(kind);
+      return count > 0 ? [{ kind, count }] : [];
+    });
+  }
+
+  /** The question was swapped by the owl's pass: it was not answered, rated or paid. */
+  get passed(): boolean {
+    return this.phase === "passed";
+  }
+
+  /**
+   * Uses a helper of the Bag. The feather shows the first step and the
+   * clover takes two wrong choices away; either one makes the answer
+   * count half in the rating (the same as a hint). The pass swaps the
+   * question for a new one (the caller asks it): nothing is answered,
+   * rated or paid. False, and nothing used up, when there is none or one
+   * was used on this question already.
+   */
+  useHelper(kind: HelperKind): boolean {
+    const bag = this.request.helpers;
+    const q = this.question;
+    if (!bag || !q || this.phase !== "question" || this.helperUsed || bag.count(kind) < 1) return false;
+    if (kind === "fifty" && (this.usesPad || this.choices.length <= 2)) return false;
+    if (!bag.spend(kind)) return false;
+    this.helperUsed = true;
+    bag.used?.(kind, q);
+    if (kind === "pass") {
+      this.phase = "passed";
+      return true;
+    }
+    this.hintUsed = true;
+    if (kind === "fifty") {
+      const wrong = this.choices.filter((c) => c.id !== String(q.answer));
+      // the same two for the same question
+      let h = 0;
+      for (const ch of q.item_id) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+      const start = h % wrong.length;
+      const drop = Math.min(2, this.choices.length - 2);
+      for (let i = 0; i < drop; i++) this.hidden.add(wrong[(start + i) % wrong.length]!.id);
+    } else {
+      this.hintText = this.firstStep(q);
+    }
+    return true;
+  }
+
+  /** The first solution step, never the answer; the engine's own hint text when there is no step to show. */
+  private firstStep(q: Question): string {
+    const step = (q.explanation_he || "").split(/(?<=[.:!?])\s|\n/)[0]?.trim() ?? "";
+    const answer = String(q.answer);
+    if (step && step.length < 140 && !step.includes(answer)) return `רמז: ${step.replace(/[.:]$/, "")}.`;
+    const own = q.meta["hint_he"];
+    return typeof own === "string" && own ? own : "רמז: קראו שוב את השאלה, ונסו צעד אחד בכל פעם.";
   }
 
   /** The script's word for the answer, once there is one. */

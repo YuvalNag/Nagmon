@@ -13,6 +13,7 @@ import { type ContentLibrary, LearningEngine, LearnerState, loadContent, PyRando
 import { SubjectMap } from "../core/learning/quiz_flow";
 import { loadTrips, type Trip } from "../core/game/trips";
 import { FieldLog } from "../core/game/fieldLog";
+import { type Economy, economy } from "../core/game/items";
 import { type EncounterTables, encounterTables } from "../core/game/encounters";
 import { type MonsterTable, monsterTable } from "../core/game/monsters";
 import type { QuizSession } from "../core/world/quiz";
@@ -36,6 +37,7 @@ export interface GameData {
   texts: Readonly<Record<string, string>>;
   monsters: MonsterTable;
   encounters: EncounterTables;
+  economy: Economy;
 }
 
 let cached: { fetch: FetchJson; data: Promise<GameData> } | null = null;
@@ -44,17 +46,19 @@ let cached: { fetch: FetchJson; data: Promise<GameData> } | null = null;
 export function loadGameData(fetchJson: FetchJson = fetchGameJson): Promise<GameData> {
   if (cached?.fetch === fetchJson) return cached.data;
   const data = (async () => {
-    const [index, texts, monsters, encounters] = await Promise.all([
+    const [index, texts, monsters, encounters, eco] = await Promise.all([
       fetchJson("content/index.json") as Promise<{ files: { file: string }[] }>,
       fetchJson("i18n/he.json") as Promise<Record<string, string>>,
       fetchJson("db/monsters.json"),
       // a build with no encounter tables is a game with no wild creatures, not a broken one
       Promise.resolve(fetchJson("db/encounters.json")).catch(() => ({})),
+      // no economy table is a game with an empty Bag, not a broken one
+      Promise.resolve(fetchJson("economy.json")).catch(() => ({})),
     ]);
     const files = Object.fromEntries(
       await Promise.all(index.files.map(async (f) => [f.file, await fetchJson(`content/${f.file}`)] as const)),
     );
-    return { content: loadContent(files), subjects: SubjectMap.fromDoc(files["subjects.json"]), texts, monsters: monsterTable(monsters), encounters: encounterTables(encounters) };
+    return { content: loadContent(files), subjects: SubjectMap.fromDoc(files["subjects.json"]), texts, monsters: monsterTable(monsters), encounters: encounterTables(encounters), economy: economy(eco) };
   })();
   cached = { fetch: fetchJson, data };
   data.catch(() => {
@@ -113,6 +117,7 @@ export class Play {
     readonly subjects: SubjectMap,
     readonly monsters: MonsterTable,
     readonly encounters: EncounterTables,
+    readonly economy: Economy,
     /** The trips in the build: none until a trip file is there. */
     readonly trips: Trip[],
     private readonly profiles: ProfileStore,
@@ -196,7 +201,7 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   const now = opts.now ?? (() => new Date());
   const log = opts.log ?? { info: () => {}, warning: () => {}, error: () => {} };
   const { profile, profiles } = opts;
-  const [{ content, subjects, texts, monsters, encounters }, learnerDict, worldDict] = await Promise.all([
+  const [{ content, subjects, texts, monsters, encounters, economy: eco }, learnerDict, worldDict] = await Promise.all([
     loadGameData(fetchJson),
     profiles.loadLearnerDict(profile.id),
     profiles.loadWorldDict(profile.id),
@@ -208,5 +213,5 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   // a trip file that is not there, or a map not built, is not an error: the zone is "coming soon"
   const trips = await loadTrips(fetchJson, (map) => Promise.resolve(fetchJson(`maps/${map}.json`)).then(() => true, () => false)).catch(() => []);
   log.info(`Play opened: grade ${profile.grade}, ${learner.answers_total} answers so far, ${world.money} coins`);
-  return new Play(profile, engine, world, texts, subjects, monsters, encounters, trips, profiles, log, now);
+  return new Play(profile, engine, world, texts, subjects, monsters, encounters, eco, trips, profiles, log, now);
 }

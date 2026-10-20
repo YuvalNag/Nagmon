@@ -400,12 +400,20 @@ for (const scale of [1, 1.3]) {
     await touch(page, page.locator(id("quiz_continue")), 30);
     await expect(page.locator("[data-screen=battle][data-view=turn]")).toBeVisible();
     await audit(page, "42_turn", shot);
-    for (let i = 0; i < 12 && (await page.locator("[data-screen=battle]").getAttribute("data-view")) !== "won"; i++) {
+    for (let i = 0; i < 12 && (await page.locator("[data-screen=battle]").getAttribute("data-view")) !== "calm"; i++) {
       await touch(page, page.locator(id("battle_next")), 30);
       await answer(page, "right");
       await touch(page, page.locator(id("quiz_continue")), 30);
+      if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")), 30);
     }
-    await expect(page.locator("[data-screen=battle][data-view=won]")).toBeVisible();
-    await audit(page, "43_friend", shot);
+    await expect(page.locator("[data-screen=battle][data-view=calm]")).toBeVisible();
+    await audit(page, "43_calm", shot);
+    for (let i = 0; i < 3 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
+      await touch(page, page.locator(id("battle_net")), 30);
+      await answer(page, "right");
+      await touch(page, page.locator(id("quiz_continue")), 30);
+    }
+    await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
+    await audit(page, "44_new_friend", shot);
   });
 }

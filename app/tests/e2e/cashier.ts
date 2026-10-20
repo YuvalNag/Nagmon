@@ -42,10 +42,10 @@ export const TODAY = `(() => { const d = new Date(); const p = (n) => String(n).
  */
 export async function seedChild(
   page: Page,
-  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false } = {},
+  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number>, creatures = null as null | Record<string, unknown>[] } = {},
 ) {
   await page.addInitScript(
-    ({ grade, settings, world, seed, pid, today, intro, battle }) => {
+    ({ grade, settings, world, seed, pid, today, intro, battle, items, creatures }) => {
       if (localStorage.getItem("seeded")) return;
       localStorage.setItem("seeded", "1");
       localStorage.setItem("nagmon.map.adaptiveResolution", "off");
@@ -63,16 +63,16 @@ export async function seedChild(
         const variables = Object.fromEntries(Object.entries(have.variables).map(([k, v]) => [k, v.replace("{today}", day)]));
         if (!intro) variables["nagmon_intro_done"] = "yes";
         // a partner, Route 1 to start on, and a wild creature at every step in the grass
-        const extra = battle ? { creatures: [{ id: "c1", species: "agnite", level: 6, xp: 0 }], seen: ["agnite"], caught: ["agnite"] } : {};
+        const extra = battle ? { creatures: creatures ?? [{ id: "c1", species: "agnite", level: 6, xp: 0 }], seen: ["agnite"], caught: ["agnite"] } : {};
         if (battle) {
           localStorage.setItem("nagmon.map.start", "classic_route_1");
           localStorage.setItem("nagmon.encounter.always", "1");
         }
         localStorage.setItem(`nagmon-fs:d:profiles/${pid}/saves`, "");
-        localStorage.setItem(`nagmon-fs:f:profiles/${pid}/saves/world.json`, JSON.stringify({ schema_version: 1, money: have.money, variables, ...extra }));
+        localStorage.setItem(`nagmon-fs:f:profiles/${pid}/saves/world.json`, JSON.stringify({ schema_version: 1, money: have.money, variables, ...extra, ...(Object.keys(items).length ? { items } : {}) }));
       }
     },
-    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle },
+    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle, items, creatures },
   );
 }
 

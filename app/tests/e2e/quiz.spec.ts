@@ -248,21 +248,152 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
   expect(Number(await battle.getAttribute("data-hp"))).toBe(hp0);
   await shot("b03_no_damage");
 
-  // right answers win it
-  for (let i = 0; i < 12 && (await battle.getAttribute("data-view")) !== "won"; i++) {
+  // right answers calm it
+  for (let i = 0; i < 12 && (await battle.getAttribute("data-view")) !== "calm"; i++) {
     await touch(page, page.locator(id("battle_next")));
     await answer(page, "right");
     await touch(page, page.locator(id("quiz_continue")));
-    await expect(battle).toHaveAttribute("data-view", /turn|won/);
+    if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")));
+    await expect(battle).toHaveAttribute("data-view", /turn|calm/);
     if (i === 0) await shot("b04_hit");
   }
-  await expect(battle).toHaveAttribute("data-view", "won");
+  await expect(battle).toHaveAttribute("data-view", "calm");
   expect(Number(await battle.getAttribute("data-hp"))).toBe(0);
-  await shot("b05_friend");
-  await touch(page, page.locator(id("battle_done")));
+  await shot("b05_calm");
+  // nobody joined yet; the Net pulses
+  await expect(page.locator(id("battle_net"))).toBeEnabled();
+  // the net, a wrong seal answer (the net bounces back), then a right one
+  await touch(page, page.locator(id("battle_net")));
+  await answer(page, "dont_know");
+  await touch(page, page.locator(id("quiz_continue")));
+  await expect(battle).toHaveAttribute("data-view", "calm");
+  await shot("b06_try_again");
+  // a grown-up creature needs three seal answers
+  for (let i = 0; i < 3 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
+    await touch(page, page.locator(id("battle_net")));
+    await answer(page, "right");
+    await touch(page, page.locator(id("quiz_continue")));
+    if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")));
+  }
+  await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
+  await shot("b07_new_friend");
+  await touch(page, page.locator(id("battle_skip")));
   await expect(battle).toHaveCount(0);
   await expect(page.locator(id("dpad"))).toBeVisible();
   const world = (await saved(page, "saves/world.json"))!;
   expect((world["creatures"] as unknown[]).length).toBe(2);
   expect((world["caught"] as string[]).length).toBe(2);
+  expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
+});
+
+test("the battle's action bar: five buttons of 120x72 and more in the bottom 123px, Ask the wide one at the thumb's end", async ({ page }, info) => {
+  await seedChild(page, { grade: 2, battle: true });
+  await openMap(page);
+  await steps(page, "right", 1);
+  const battle = page.locator("[data-screen=battle]");
+  await expect(battle).toBeVisible();
+  await page.screenshot({ path: info.outputPath("bar.png") });
+  const boxes = await page.locator(".action-bar button").evaluateAll((els) => els.map((e) => ({ id: (e as HTMLElement).dataset["id"]!, ...(e.getBoundingClientRect().toJSON() as { x: number; y: number; width: number; height: number; right: number; bottom: number }) })));
+  expect(boxes.map((b) => b.id)).toEqual(["battle_fight", "battle_net", "battle_bag", "battle_friends", "battle_run"]);
+  for (const b of boxes) {
+    expect(b.width, b.id).toBeGreaterThanOrEqual(120);
+    expect(b.height, b.id).toBeGreaterThanOrEqual(72);
+    expect(b.y, b.id).toBeGreaterThanOrEqual(393 - 123 - 1);
+    expect(b.bottom, b.id).toBeLessThanOrEqual(393);
+    expect(b.x, b.id).toBeGreaterThanOrEqual(0);
+    expect(b.right, b.id).toBeLessThanOrEqual(873);
+  }
+  // Hebrew runs right to left: Ask is at the right edge and twice as wide as the others
+  expect(boxes[0]!.width).toBeGreaterThanOrEqual(boxes[1]!.width * 1.9);
+  for (let i = 1; i < boxes.length; i++) expect(boxes[i]!.right).toBeLessThanOrEqual(boxes[i - 1]!.x + 1);
+  // the arena above is not covered by the bar
+  const arena = (await page.locator(".battle-arena").boundingBox())!;
+  expect(arena.y + arena.height).toBeLessThanOrEqual(boxes[0]!.y + 1);
+});
+
+test("the Bag from the battle: three tabs at the start edge, cards with counts, the panel at the end, all inside the screen", async ({ page }, info) => {
+  await seedChild(page, { grade: 2, battle: true });
+  await openMap(page);
+  await steps(page, "right", 1);
+  await expect(page.locator("[data-screen=battle]")).toBeVisible();
+  await touch(page, page.locator(id("battle_bag")));
+  const bag = page.locator("[data-screen=bag]");
+  await expect(bag).toBeVisible();
+  // the starter nets arrived, once
+  await expect(page.locator(id("bag_item_magic_net"))).toContainText("x3");
+  await page.screenshot({ path: info.outputPath("bag.png") });
+  const rect = (sel: string) => page.locator(sel).evaluate((e) => e.getBoundingClientRect().toJSON() as { x: number; y: number; width: number; height: number; right: number; bottom: number });
+  const tab = await rect(id("bag_tab_nets"));
+  const card = await rect(id("bag_item_magic_net"));
+  const detail = await rect(id("bag_detail"));
+  expect(tab.width).toBeGreaterThanOrEqual(56);
+  expect(tab.height).toBeGreaterThanOrEqual(56);
+  // Hebrew: the rail at the right (start) edge, the panel at the left (end)
+  expect(tab.x).toBeGreaterThan(card.x);
+  expect(detail.right).toBeLessThanOrEqual(card.x);
+  expect(Math.min(card.width, card.height)).toBeGreaterThanOrEqual(80);
+  for (const b of [tab, card, detail]) {
+    expect(b.x).toBeGreaterThanOrEqual(0);
+    expect(b.right).toBeLessThanOrEqual(873);
+    expect(b.bottom).toBeLessThanOrEqual(393);
+  }
+  // not calm yet: a net cannot be used, and the Bag says why
+  await expect(page.locator(id("bag_use"))).toBeDisabled();
+  await touch(page, page.locator(id("bag_close")));
+  await expect(bag).toHaveCount(0);
+});
+
+test("helpers on the question: owned ones sit in the foot, big enough, one use each question", async ({ page }, info) => {
+  await seedChild(page, { grade: 2, battle: true, items: { hint_feather: 2, clover: 2, owl_pass: 1 } });
+  await openMap(page);
+  await steps(page, "right", 1);
+  await touch(page, page.locator(id("battle_fight")));
+  if ((await quiz(page))!.phase === "example") await touch(page, page.locator(id("quiz_example_done")));
+  await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
+  await page.screenshot({ path: info.outputPath("helpers.png") });
+  const helpers = page.locator("[data-id^=quiz_helper_]");
+  const count = await helpers.count();
+  expect(count).toBeGreaterThanOrEqual(2);
+  for (const box of await helpers.evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON() as { width: number; height: number; bottom: number; right: number }))) {
+    expect(Math.min(box.width, box.height)).toBeGreaterThanOrEqual(48);
+    expect(box.bottom).toBeLessThanOrEqual(393);
+    expect(box.right).toBeLessThanOrEqual(873);
+  }
+  await touch(page, page.locator(id("quiz_helper_hint")));
+  await expect(page.locator(id("quiz_hint_text"))).toBeVisible();
+  // one helper for each question
+  await expect(page.locator("[data-id^=quiz_helper_]")).toHaveCount(0);
+  const world = (await saved(page, "saves/world.json"))!;
+  expect((world["items"] as Record<string, number>)["hint_feather"]).toBe(1);
+});
+
+test("Friends from the battle: four cards, details at the end, the partner changes and the question follows", async ({ page }, info) => {
+  const party = [
+    { id: "c1", species: "agnite", level: 6, xp: 1 },
+    { id: "c2", species: "kroki", level: 7, xp: 0, name: "נוגה", hearts: 3 },
+    { id: "c3", species: "squabbit", level: 5, xp: 0 },
+    { id: "c4", species: "alphabel", level: 5, xp: 0 },
+    { id: "c5", species: "pluson", level: 5, xp: 0 },
+  ];
+  await seedChild(page, { grade: 2, battle: true, creatures: party });
+  await openMap(page);
+  await steps(page, "right", 1);
+  await touch(page, page.locator(id("battle_friends")));
+  await expect(page.locator("[data-screen=friends]")).toBeVisible();
+  await expect(page.locator("[data-id^=friend_c]")).toHaveCount(4);
+  await expect(page.locator(id("friends_meadow"))).toBeVisible();
+  await touch(page, page.locator(id("friend_c2")));
+  await page.screenshot({ path: info.outputPath("friends.png") });
+  const rects = await page.locator("[data-id^=friend_c], [data-id=friend_detail], [data-id=friend_partner]").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON() as { x: number; width: number; height: number; right: number; bottom: number }));
+  for (const b of rects) {
+    expect(b.x).toBeGreaterThanOrEqual(0);
+    expect(b.right).toBeLessThanOrEqual(873);
+    expect(b.bottom).toBeLessThanOrEqual(393);
+    expect(b.height).toBeGreaterThanOrEqual(48);
+  }
+  await touch(page, page.locator(id("friend_partner")));
+  await expect(page.locator(id("friend_said"))).toBeVisible();
+  await touch(page, page.locator(id("sheet_close")));
+  const world = (await saved(page, "saves/world.json"))!;
+  expect((world["creatures"] as { id: string }[])[0]!.id).toBe("c2");
 });

@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { addCreature } from "../../../src/core/game/collection";
-import { Battle, damageFor, hpFor, MAX_CREATURES } from "../../../src/core/game/battle";
+import { Battle, damageFor, hpFor } from "../../../src/core/game/battle";
 import { FieldLog } from "../../../src/core/game/fieldLog";
 import { monsterTable } from "../../../src/core/game/monsters";
 import type { ContentLibrary } from "../../../src/core/learning";
@@ -81,16 +81,17 @@ describe("a battle", () => {
     expect(battle.stats.correct).toBe(0);
   });
 
-  it("enough right answers win it, and the wild creature joins the child's creatures", () => {
+  it("enough right answers calm it: the fog is gone, but no friend joins by itself", () => {
     const { battle, world } = make();
     let r = play(battle, true);
     for (let i = 0; i < 20 && !r.won; i++) r = play(battle, true);
     expect(r.won).toBe(true);
-    expect(battle.phase).toBe("won");
+    expect(battle.phase).toBe("calm");
+    expect(r.calm).toBe(true);
     expect(battle.hp).toBe(0);
-    expect(r.caught?.species).toBe("kroki");
-    expect(world.creatures.map((c) => c.species)).toEqual(["agnite", "kroki"]);
-    expect(world.caught.has("kroki")).toBe(true);
+    expect(world.creatures.map((c) => c.species)).toEqual(["agnite"]);
+    expect(world.seen.has("kroki")).toBe(true);
+    expect(world.caught.has("kroki")).toBe(false);
     expect(battle.stats.questions).toBeLessThanOrEqual(8);
   });
 
@@ -122,7 +123,8 @@ describe("a battle", () => {
     let r = play(master.battle, true);
     for (let i = 0; i < 40 && !r.won; i++) r = play(master.battle, true);
     expect(r.won).toBe(true);
-    expect(r.caught).toBeNull();
+    expect(r.calm).toBe(false);
+    expect(master.battle.phase).toBe("won");
     expect(master.world.creatures).toHaveLength(1);
   });
 
@@ -164,16 +166,20 @@ describe("a battle", () => {
     expect(answersToWin(5, 14)).toBeGreaterThanOrEqual(answersToWin(5, 6));
   });
 
-  it("with too many creatures the new friend is seen and caught but not added", () => {
+  it("Friends: swapping the partner changes who answers and what the questions are about, and costs nothing", () => {
     const world = new WorldState();
-    for (let i = 0; i < MAX_CREATURES; i++) addCreature(world, "agnite", 5);
-    const { battle } = make({ world });
-    let r = play(battle, true);
-    for (let i = 0; i < 20 && !r.won; i++) r = play(battle, true);
-    expect(r.won).toBe(true);
-    expect(r.caught).toBeNull();
-    expect(world.creatures).toHaveLength(MAX_CREATURES);
-    expect(world.caught.has("kroki")).toBe(true);
+    addCreature(world, "agnite", 6);
+    addCreature(world, "kroki", 6);
+    const { battle, lines } = make({ world, species: "agnite" });
+    const before = battle.next()!.question!.subject;
+    expect(battle.swapPartner("c2")).toBe(true);
+    expect(battle.partner.species).toBe("kroki");
+    expect(world.creatures.map((c) => c.id)).toEqual(["c2", "c1"]);
+    expect(battle.next()!.question!.subject).toBe(subjects.subjectFor(monsters["kroki"]!.types, null, "kroki"));
+    expect(typeof before).toBe("string");
+    expect(battle.swapPartner("c2")).toBe(false);
+    expect(lines.some((l) => l.startsWith("PARTNER "))).toBe(true);
+    expect(battle.hp).toBe(battle.maxHp);
   });
 
   it("no partner (an old save): the battle cannot start", () => {

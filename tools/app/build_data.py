@@ -28,6 +28,7 @@ from tools.app import (  # noqa: E402
     credits,
     db,
     display,
+    economy,
     emoji,
     i18n,
     lessons,
@@ -63,6 +64,7 @@ def build() -> tuple[Output, dict[str, Any]]:
     report["i18n"] = i18n.build(out, msgids)
     report["trips"] = trips.build(out)
     report["lessons"] = lessons.build(out)
+    report["economy"] = economy.build(out)
     report["emoji"] = emoji.build(out)
     report["display"] = display.build(out)
     report["credits"] = credits.build(out)
