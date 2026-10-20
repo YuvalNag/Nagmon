@@ -63,6 +63,13 @@ describe("the merged manifest", () => {
     ]);
   });
 
+  it("fails on AndroidX's emoji start-up (Play services' font provider)", () => {
+    const xml = manifest({
+      extra: '<provider android:name="androidx.startup.InitializationProvider" android:exported="false"><meta-data android:name="androidx.emoji2.text.EmojiCompatInitializer" android:value="androidx.startup" /></provider>',
+    });
+    expect(checkManifest(xml)).toEqual(["EmojiCompatInitializer: the app would depend on Play services' font provider"]);
+  });
+
   it("fails on a component other apps can open", () => {
     const xml = manifest({ extra: '<service android:name="x.Tracker" android:exported="true" />' });
     expect(checkManifest(xml)).toEqual(["exported service x.Tracker without a system permission"]);

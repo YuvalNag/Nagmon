@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- The only permission (docs/app/SDD.md §10; tests/android/buildCheck.mjs
          checks the merged manifest): the GitHub upload, after a parent's tap. -->
@@ -33,6 +34,23 @@
             </intent-filter>
 
         </activity>
+
+        <!-- AndroidX's emoji start-up fetches a font from Google Play
+             services' font provider. The page draws its own text, so it is
+             not needed; and holding that provider, the app was killed with
+             Play services' process (seen under monkey on the emulator).
+             MissingClass: the class comes with AndroidX (androidx.startup),
+             which lint does not look into here (checkDependencies false). -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:ignore="MissingClass"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                tools:node="remove" />
+        </provider>
 
         <provider
             android:name="androidx.core.content.FileProvider"

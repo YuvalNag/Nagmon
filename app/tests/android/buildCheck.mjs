@@ -60,6 +60,10 @@ export function checkManifest(xml) {
       problems.push(`exported ${kind} ${name} without a system permission`);
     }
   }
+  // a start-up that binds to Play services' font provider ties the app to that process
+  if (/androidx\.emoji2\.text\.EmojiCompatInitializer/.test(xml.replace(/<!--[\s\S]*?-->/g, ""))) {
+    problems.push("EmojiCompatInitializer: the app would depend on Play services' font provider");
+  }
   return problems;
 }
 
@@ -102,7 +106,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     for (const p of problems) console.log(`       ${p}`);
     failed ||= problems.length > 0;
   };
-  report("merged manifest: INTERNET only, no backup, no plain http, targetSdk 36, nothing exported", checkManifest(readFileSync(manifest, "utf8")));
+  report("merged manifest: INTERNET only, no backup, no plain http, targetSdk 36, nothing exported, no font provider", checkManifest(readFileSync(manifest, "utf8")));
   report("no google-services.json (Firebase)", existsSync("android/app/google-services.json") ? ["android/app/google-services.json"] : []);
   report(
     "no ads, analytics or tracking SDK (npm and Gradle)",
