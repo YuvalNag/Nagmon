@@ -317,6 +317,29 @@ Each frame is scaled on its own, inside a 2 px frame of its own edge pixels, so 
 - The 2× limit for monsters assumes a battle frame of at most 384 device px: the Nagmon monsters are drawn at ~190 px, so a larger frame needs new art, not a bigger upscale.
 - xBRZ turns dithered texture into small squiggles: visible on the grass island sheets and the `bite` teeth; the rest looked clean at phone size.
 
+### 6.3 One look per character (`tools/app/db.py`, `tools/app/coherence.py`, `tools/app/kippah.py`)
+
+The parent checked each character's map sprite against its battle and dialog portrait.
+
+| Character | Decision | In the app build |
+|---|---|---|
+| `nagmon_owl` | approved as is (the owl with glasses and a book in battle) | portrait shipped as it is; `COHERENCE_APPROVED` |
+| `nagmon_shopkeeper` (the cashier) | the map look | portrait built from the map sheet (`PORTRAIT_FROM_MAP`) |
+| `nagmon_teacher` (the gardener) | the map girl in the purple skirt keeps the name | portrait built from the map sheet |
+| `nagmon_tourist` (portrait `nagmon_traveler`) | the map look | portrait built from the map sheet |
+| `nagmon_hero_boy` (avatar `boy_blue`) | a small kippah | drawn on all 12 map frames, both battle views and the profile card (`overlays.SHEETS`) |
+
+- A portrait built from the map: the middle-column front (row 0) and back (row 3) frames, trimmed, scaled down (Lanczos, premultiplied alpha) to the 192 px cell, bottom-aligned; the same 384×192 sheet and records as the others. Credits: "built from the map sprite".
+- The old game's files are not changed.
+- Guard: `tests/app/test_app_coherence.py` compares the colours of each map front with its portrait front (Hellinger distance of 8-level histograms, threshold 0.40). On the old portraits it flags exactly the four above; matching characters score 0.18–0.29.
+
+**Planned characters** (their art exists only as a battle sheet; each needs a map sheet before it can ship):
+
+| Planned character | Source (battle sheet, kept, not shipped) | Needs |
+|---|---|---|
+| "הרב שלמה" (the bearded man with the register) | `mods/nagmon/gfx/sprites/player/nagmon_shopkeeper.png` | a 3×4 HD map sheet, a name and a role |
+| The grey-hooded woman (with picture cards) | `mods/nagmon/gfx/sprites/player/nagmon_teacher.png` | a 3×4 HD map sheet, a name and a role |
+
 ---
 
 ## 7. `nagmon/` services: features, rules and port notes
