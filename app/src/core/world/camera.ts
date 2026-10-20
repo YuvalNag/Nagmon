@@ -1,33 +1,24 @@
 /**
- * The map's camera, in pure numbers. The canvas is drawn at the screen's
- * own device pixels; the zoom says how many device pixels one texel of
- * the HD tile atlas takes.
+ * The map's camera, in pure numbers.
  *
- * - The zoom is a whole number: every texel covers the same square of
- *   device pixels, so nothing shimmers or blurs as the camera moves.
- * - It is at most {@link MAX_ZOOM}: no picture is shown at more than
- *   twice its own pixels (docs/app/SDD.md §10, "images").
- * - It is the one that shows about {@link TARGET_ROWS} rows of tiles,
- *   the size a child's eye finds the hero and the paths.
+ * - The map has one fixed size, `MAP_SCALE` device px per 1x Tuxemon px
+ *   (db/display.json, tools/app/display.py): 8, a 16 px tile is 128 device
+ *   px. A larger screen shows more of the map.
+ * - Over the x4 HD atlas that is a whole zoom of 2: every texel covers the
+ *   same 2x2 device px, so nothing shimmers as the camera moves, and no
+ *   tile is drawn at more than twice its pixels (docs/app/SDD.md §10).
+ * - When the canvas draws fewer pixels than the screen has (adaptive
+ *   resolution, game/resolution.ts), the zoom shrinks with it: the map
+ *   looks the same size, only softer.
  */
 
-export const MAX_ZOOM = 2;
-export const TARGET_ROWS = 9;
-
-/** Device pixels per texel for a screen `deviceHeight` device pixels tall. */
-export function pickZoom(deviceHeight: number, tileSize = 64, targetRows = TARGET_ROWS): number {
-  let best = 1;
-  let bestMiss = Infinity;
-  for (let z = 1; z <= MAX_ZOOM; z++) {
-    const rows = deviceHeight / (tileSize * z);
-    // fewer rows than asked is worse than more: the paths ahead matter
-    const miss = rows < targetRows ? (targetRows - rows) * 1.5 : rows - targetRows;
-    if (miss < bestMiss) {
-      best = z;
-      bestMiss = miss;
-    }
-  }
-  return best;
+/**
+ * Canvas px per atlas texel. `mapScale`: device px per 1x px;
+ * `texelsPerSourcePx`: atlas texels per 1x px (64 / 16 = 4); `render`:
+ * canvas px per device px (1 at the screen's full pixels).
+ */
+export function mapZoom(mapScale: number, texelsPerSourcePx: number, render = 1): number {
+  return (mapScale / texelsPerSourcePx) * render;
 }
 
 /**

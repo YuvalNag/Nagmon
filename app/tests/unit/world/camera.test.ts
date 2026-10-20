@@ -1,22 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { MAX_ZOOM, pickZoom, scrollFor, snap } from "../../../src/core/world/camera";
+import { mapZoom, scrollFor, snap } from "../../../src/core/world/camera";
 
 describe("the map's zoom", () => {
-  it("is 2 on the family's phone (1080 device px tall): 8.4 rows of tiles", () => {
-    expect(pickZoom(1080)).toBe(2);
+  it("is a whole 2 over the x4 atlas at the map's 8 device px per 1x px", () => {
+    expect(mapZoom(8, 64 / 16)).toBe(2);
   });
 
-  it("is 1 on a small 720p phone, where 2 would show under 6 rows", () => {
-    expect(pickZoom(720)).toBe(1);
-  });
-
-  it("is never over 2, even on a tall tablet", () => {
-    expect(pickZoom(2560)).toBe(MAX_ZOOM);
-    expect(MAX_ZOOM).toBe(2);
-  });
-
-  it("is a whole number", () => {
-    for (let h = 300; h < 3000; h += 37) expect(Number.isInteger(pickZoom(h))).toBe(true);
+  it("shrinks with the canvas when it draws fewer pixels than the screen", () => {
+    // 2.75 -> 2: the canvas has 2/2.75 of the pixels; tiles keep their size on the screen
+    expect(mapZoom(8, 4, 2 / 2.75)).toBeCloseTo(1.4545, 4);
+    expect(mapZoom(8, 4, 2 / 2.75) * (2.75 / 2)).toBeCloseTo(2, 10);
   });
 });
 

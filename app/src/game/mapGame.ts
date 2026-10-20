@@ -7,24 +7,29 @@
  * Crisp on the phone:
  * - The canvas has the screen's own device pixels (2400x1080 at DPR 2.75)
  *   and CSS stretches it over the page's CSS pixels exactly.
- * - The camera's zoom is a whole number (core/world/camera.ts), textures
- *   are sampled NEAREST, and the camera and every sprite sit on whole
- *   device pixels: one texel is always the same square of pixels.
+ * - The map has one fixed size, MAP_SCALE device px per 1x px (8, from
+ *   db/display.json): a whole zoom of 2 over the x4 atlas. Textures are
+ *   sampled NEAREST, and the camera and every sprite sit on whole canvas
+ *   pixels: one texel is always the same square of pixels.
+ * - If the phone cannot keep up, the canvas draws fewer pixels
+ *   (./resolution.ts): the zoom shrinks with it, the textures are then
+ *   smoothed (LINEAR), and the map keeps its size on the screen.
  * - No picture is drawn at more than twice its own pixels. A sheet that
  *   is still low-res (a 16 px prop) is left off the map until its HD
  *   sheet exists, and the log says so.
  */
 import Phaser from "phaser";
-import { pickZoom, scrollFor, snap } from "../core/world/camera";
+import { mapZoom, scrollFor, snap } from "../core/world/camera";
 import { type Dir, STEP } from "../core/world/grid";
 import { blockedAhead, readMap, teleportAt, type Placement, type TiledMap, type WorldMap } from "../core/world/mapData";
 import { avatarSheet, frameIndex, npcSheet, type Sheet, worldSize } from "../core/world/sprites";
 import { Walker } from "../core/world/walker";
 import { getLogger } from "../platform/appLog";
 import { FrameStats, type FrameSummary } from "../platform/frameStats";
-import { MAP_SOURCE_TILE_PX } from "./display";
+import { MAP_SCALE, MAP_SOURCE_TILE_PX } from "./display";
 import { Music } from "./music";
 import { PauseReasons, type PauseReason } from "./pauseReasons";
+import { AdaptiveResolution, type Change, changeLine, startLine } from "./resolution";
 
 const log = getLogger("nagmon.map");
 
@@ -68,6 +73,8 @@ export interface MapDebug {
   left: string[];
   zoom: number;
   dpr: number;
+  /** Device px per CSS px the canvas draws at (adaptive resolution), and its steps. */
+  resolution: { dpr: number; steps: number[]; adaptive: boolean; remembered: boolean; changes: Change[] };
   renderer: "webgl" | "canvas";
   canvas: { width: number; height: number; cssWidth: number; cssHeight: number };
   view: { x: number; y: number; width: number; height: number };
@@ -101,6 +108,12 @@ class MapScene extends Phaser.Scene {
   world: WorldMap | null = null;
   walker = new Walker(0, 0, "up");
   zoom = 1;
+  /** Canvas px per device px: 1 at the screen's full pixels (./resolution.ts). */
+  render = 1;
+  /** Each real frame, for the adaptive resolution (set by startMap). */
+  measure: (dtMs: number, now: number) => void = () => {};
+  /** A map was entered: its texture uploads are not the phone's speed (set by startMap). */
+  entered: () => void = () => {};
   busy = true;
   frames = new FrameStats((line) => log.info(line));
   readonly music = new Music();
@@ -204,7 +217,7 @@ class MapScene extends Phaser.Scene {
     }
     this.tilemap = map;
     this.world = world;
-    this.zoom = pickZoom(this.scale.height, world.tileSize);
+    this.zoom = this.zoomFor(world);
 
     this.leftOff = [];
     for (const p of world.npcs) {
@@ -226,6 +239,7 @@ class MapScene extends Phaser.Scene {
     this.layout();
     this.playMusic(world);
     this.remember(name);
+    this.entered();
     log.info(`Map ${name}, the hero at ${start.x},${start.y}, zoom ${this.zoom}`);
   }
 
@@ -234,18 +248,28 @@ class MapScene extends Phaser.Scene {
     return this.world?.sourceTile ?? MAP_SOURCE_TILE_PX;
   }
 
-  /** Whether a sheet stays within twice its pixels at the zoom this screen gets. */
+  /** Canvas px per atlas texel on this map, at the canvas's resolution. */
+  private zoomFor(world: WorldMap | null, render = this.render): number {
+    const tile = world?.tileSize ?? 64;
+    return mapZoom(MAP_SCALE, tile / (world?.sourceTile ?? MAP_SOURCE_TILE_PX), render);
+  }
+
+  /** Whether a sheet stays within twice its pixels on the screen. */
   private fits(sheet: Sheet): boolean {
     const tile = this.world?.tileSize ?? 64;
-    return (worldSize(sheet, tile, this.sourceTile()).width * pickZoom(this.scale.height, tile)) / sheet.frameWidth <= MAX_SHOWN;
+    return (worldSize(sheet, tile, this.sourceTile()).width * this.zoomFor(this.world, 1)) / sheet.frameWidth <= MAX_SHOWN;
+  }
+
+  /** NEAREST at a whole zoom; smoothed when the canvas draws fewer pixels or shrinks a picture. */
+  private filterFor(canvasPxPerTexel: number): Phaser.Textures.FilterMode {
+    const whole = Math.abs(canvasPxPerTexel - Math.round(canvasPxPerTexel)) < 1e-6 && canvasPxPerTexel >= 1;
+    return whole ? Phaser.Textures.FilterMode.NEAREST : Phaser.Textures.FilterMode.LINEAR;
   }
 
   private sizeSprite(sprite: Phaser.GameObjects.Sprite, sheet: Sheet): void {
     const size = worldSize(sheet, this.world?.tileSize ?? 64, this.sourceTile());
     sprite.setDisplaySize(size.width, size.height);
-    // a sheet drawn smaller than its pixels is smoothed, not dropped pixel by pixel
-    const ratio = (size.width * this.zoom) / sheet.frameWidth;
-    sprite.texture.setFilter(ratio < 1 ? Phaser.Textures.FilterMode.LINEAR : Phaser.Textures.FilterMode.NEAREST);
+    sprite.texture.setFilter(this.filterFor((size.width * this.zoom) / sheet.frameWidth));
   }
 
   private clearMap(): void {
@@ -283,8 +307,11 @@ class MapScene extends Phaser.Scene {
   layout(): void {
     const cam = this.cameras.main;
     cam.setSize(this.scale.width, this.scale.height);
-    this.zoom = pickZoom(this.scale.height, this.world?.tileSize ?? 64);
+    this.zoom = this.zoomFor(this.world);
     cam.setZoom(this.zoom);
+    if (this.world && this.textures.exists(atlasKey(this.world.name))) {
+      this.textures.get(atlasKey(this.world.name)).setFilter(this.filterFor(this.zoom));
+    }
     if (this.player && this.playerSheet) this.sizeSprite(this.player, this.playerSheet);
     for (const p of this.people) this.sizeSprite(p.sprite, p.sheet);
     this.draw();
@@ -308,6 +335,7 @@ class MapScene extends Phaser.Scene {
       delta = 0;
     } else if (real > 0) {
       this.frames.add(real, time);
+      if (!this.busy) this.measure(real, now);
     }
     let held = this.opts.input();
     if (!this.world || this.busy) return;
@@ -400,7 +428,7 @@ class MapScene extends Phaser.Scene {
     cam.setScroll(left - (cam.width / 2) * (1 - 1 / z), top - (cam.height / 2) * (1 - 1 / z));
   }
 
-  debug(): Omit<MapDebug, "dpr" | "canvas" | "paused" | "renderer"> {
+  debug(): Omit<MapDebug, "dpr" | "canvas" | "paused" | "renderer" | "resolution"> {
     const cam = this.cameras.main;
     const z = this.zoom;
     const filter = (key: string): "nearest" | "linear" => {
@@ -411,7 +439,8 @@ class MapScene extends Phaser.Scene {
     };
     const scales: ScaleEntry[] = this.layers.map((l) => {
       const texels = l.tileset[0]?.tileWidth ?? 0;
-      const devicePx = l.layer.tileWidth * l.scaleX * z;
+      // device px: the canvas px, stretched over the screen's own pixels
+      const devicePx = (l.layer.tileWidth * l.scaleX * z) / this.render;
       return { what: `tiles ${l.layer.name}`, texels, devicePx, ratio: devicePx / texels, filter: filter(l.tileset[0].image!.key) };
     });
     const sprites = [
@@ -421,7 +450,7 @@ class MapScene extends Phaser.Scene {
     for (const { what, sprite } of sprites) {
       if (!sprite) continue;
       const texels = sprite.frame.width;
-      const devicePx = sprite.displayWidth * z;
+      const devicePx = (sprite.displayWidth * z) / this.render;
       scales.push({ what, texels, devicePx, ratio: devicePx / texels, filter: filter(sprite.texture.key) });
     }
     const T = this.world?.tileSize ?? 64;
@@ -460,12 +489,23 @@ interface TiledTileset {
 /** Starts the map in `parent` (which it fills). */
 export function startMap(opts: MapOptions): MapController {
   const dpr = window.devicePixelRatio || 1;
+  let storage: Storage | null = null;
+  try {
+    storage = window.localStorage;
+  } catch {
+    // no storage here: the resolution is measured afresh each time
+  }
+  // the parent's "send log" carries these lines
+  const resolution = new AdaptiveResolution(dpr, storage, (c: Change) => log.info(changeLine(c)));
+  log.info(startLine(resolution, dpr));
   const size = () => {
     const r = opts.parent.getBoundingClientRect();
-    return { w: Math.max(1, Math.round(r.width * dpr)), h: Math.max(1, Math.round(r.height * dpr)) };
+    const k = resolution.dpr;
+    return { w: Math.max(1, Math.round(r.width * k)), h: Math.max(1, Math.round(r.height * k)) };
   };
   const first = size();
   const scene = new MapScene(opts);
+  scene.render = resolution.dpr / dpr;
   const game = new Phaser.Game({
     type: Phaser.AUTO,
     parent: opts.parent,
@@ -495,17 +535,25 @@ export function startMap(opts: MapOptions): MapController {
       scene.music.hold();
     } else {
       scene.resumed();
+      resolution.reset();
       game.loop.wake();
       scene.music.release();
     }
   };
 
-  const resize = new ResizeObserver(() => {
+  const fit = () => {
     const s = size();
     if (s.w === game.scale.width && s.h === game.scale.height) return;
     game.scale.resize(s.w, s.h);
     if (scene.sys.isActive()) scene.layout();
-  });
+  };
+  const resize = new ResizeObserver(fit);
+  scene.entered = () => resolution.reset();
+  scene.measure = (dtMs, now) => {
+    if (!resolution.frame(dtMs, now)) return;
+    scene.render = resolution.dpr / dpr;
+    fit();
+  };
   resize.observe(opts.parent);
 
   // the lifecycle module (Android pause/resume) will call pause/resume;
@@ -550,6 +598,13 @@ export function startMap(opts: MapOptions): MapController {
       return {
         ...scene.debug(),
         dpr,
+        resolution: {
+          dpr: resolution.dpr,
+          steps: resolution.steps,
+          adaptive: resolution.adaptive,
+          remembered: resolution.remembered,
+          changes: [...resolution.changes],
+        },
         renderer: game.renderer instanceof Phaser.Renderer.WebGL.WebGLRenderer ? "webgl" : "canvas",
         canvas: { width: canvas.width, height: canvas.height, cssWidth: r.width, cssHeight: r.height },
         paused: reasons.reasons(),
