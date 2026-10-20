@@ -5,7 +5,7 @@ playing itself is in ``nagmon/ui/intro.py``; ``NagmonStartupRule``
 decides whether it runs (never headless).
 
 Also Nagmon's ``IntroState``, in place of Tuxemon's "press a key" screen
-(docs/kids/SDD_ANDROID.md §2.7).
+(docs/kids/SDD_ANDROID.md §2.8).
 """
 
 from __future__ import annotations

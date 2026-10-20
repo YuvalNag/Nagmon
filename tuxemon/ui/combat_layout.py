@@ -55,7 +55,7 @@ CENTERED_LAYOUTS = frozenset({"CENTER_COMBAT"})
 def widen_shift(name: str, key: str, raw: tuple[int, ...], extra: int) -> int:
     """
     How far right the rect ``raw`` (layout points) moves on a screen
-    ``extra`` pixels wider than the layout (SDD_ANDROID §2.7): a rect
+    ``extra`` pixels wider than the layout (SDD_ANDROID §2.8): a rect
     in the right half by all of it, one in the left half not at all, a
     centred layout by half. Offsets inside a HUD image never move.
     """

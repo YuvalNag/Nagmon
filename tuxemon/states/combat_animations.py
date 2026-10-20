@@ -87,7 +87,7 @@ class CombatAnimations(Menu[None], ABC):
         self.horde_sprite: HordeSprite | None = None
         self.bars = CombatBars(self.client.context)
         # The whole screen's width: on a 20:9 phone the right half of the
-        # 16:9 layout moves to the right edge (SDD_ANDROID §2.7).
+        # 16:9 layout moves to the right edge (SDD_ANDROID §2.8).
         layout_manager = LayoutManager(
             mods_folder / "combat_layouts.yaml",
             self.client.context.scaling,

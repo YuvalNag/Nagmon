@@ -112,7 +112,7 @@ def test_entry_point_and_recipes_are_in_place(staged):
 
 def test_icon_is_the_wise_owl_and_the_presplash_is_landscape(staged):
     # docs/kids/SDD_ART.md §3 row 21: the owl the owner drew; the
-    # presplash is the intro's last frame, owl included (SDD_ANDROID §2.7).
+    # presplash is the intro's last frame, owl included (SDD_ANDROID §2.8).
     _, out, _ = staged
     assert (out / "icon.png").read_text() == "owl icon png"
     assert (out / "presplash.jpg").read_text() == "landscape jpg"

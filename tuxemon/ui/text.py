@@ -119,12 +119,17 @@ class TextArea(Sprite):
         return base
 
     def _render_static_text(self) -> None:
+        """One line per ``\\n`` (a two-line prompt), each aligned."""
         base = self._render_base_layer()
-        text_surface = self._text_renderer.shadow_text(self._text)
-        x = 0
-        if self.h_alignment == HorizontalAlignment.RIGHT:
-            x = max(0, base.get_width() - text_surface.get_width())
-        base.blit(text_surface, (x, 0))
+        y = 0
+        for row in self._text.split("\n"):
+            if row:
+                text_surface = self._text_renderer.shadow_text(row)
+                x = 0
+                if self.h_alignment == HorizontalAlignment.RIGHT:
+                    x = max(0, base.get_width() - text_surface.get_width())
+                base.blit(text_surface, (x, y))
+            y += self.font.get_linesize() + self.line_spacing
         self.image = base
 
     def __iter__(self) -> TextArea:

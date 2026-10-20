@@ -245,7 +245,7 @@ class PygameMenuState(State):
     ) -> BaseImage:
         """
         A menu's background, filled to the window: from its HD twin when
-        there is one (SDD_ANDROID §2.7), drawn smoothly. Images added to a
+        there is one (SDD_ANDROID §2.8), drawn smoothly. Images added to a
         menu keep ``_create_image``: their size is checked and scaled.
         """
         return BaseImage(

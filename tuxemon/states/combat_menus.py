@@ -151,7 +151,7 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
         Where a menu opened above this one (the attacks, the team) ends
         on the right: the screen's edge, or on a screen wider than the
         battle's layout (a 20:9 phone), the left edge of the player's
-        HUD, which the layout moved to that edge (SDD_ANDROID §2.7).
+        HUD, which the layout moved to that edge (SDD_ANDROID §2.8).
         """
         screen = self.client.context.rect
         extra = screen.width - self.client.context.scaling.scale_int(

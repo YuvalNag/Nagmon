@@ -1,5 +1,5 @@
 """
-The look on a big phone screen (docs/kids/SDD_ANDROID.md §2.7): no
+The look on a big phone screen (docs/kids/SDD_ANDROID.md §2.8): no
 Tuxemon title screen, a battle across the whole 20:9 screen, HD twins
 of Tuxemon's UI images.
 """
@@ -537,7 +537,7 @@ def test_a_twin_of_another_size_is_not_used(three_mods, display):
 def test_tuxemons_intro_animation_is_replaced_by_a_modest_frame():
     # The animation table checks its sheet exists, and Tuxemon's (a girl
     # in a short skirt) is not packed into the app: Nagmon's own frame of
-    # its intro takes its name (SDD_ANDROID §2.7).
+    # its intro takes its name (SDD_ANDROID §2.8).
     from PIL import Image
 
     path = REPO / "mods/nagmon/animations/intro/intro.png"

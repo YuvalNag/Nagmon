@@ -29,11 +29,8 @@ from tuxemon.map.map import (
 )
 from tuxemon.map.region import RegionProperties, extract_region_properties
 from tuxemon.map.tuxemon import AbstractMap, NullMap, TuxemonMap
-from tuxemon.platform.const.sizes import (
-    MAP_CACHE_SIZE,
-    REGION_KEYS,
-    SURFACE_KEYS,
-)
+from tuxemon.platform import mobile
+from tuxemon.platform.const.sizes import REGION_KEYS, SURFACE_KEYS
 from tuxemon.prepare import DisplayContext
 from tuxemon.tools import copy_dict_with_keys
 
@@ -61,14 +58,15 @@ class MapLoader:
 
         Parameters:
             cache_size: Maximum number of maps to retain in the LRU cache.
-                        If None, defaults to MAP_CACHE_SIZE.
+                        If None, defaults to MAP_CACHE_SIZE, or
+                        ANDROID_MAP_CACHE_SIZE on a phone.
             enable_cache: Flag to enable or disable caching behavior.
                         If False, maps are always loaded fresh from disk.
         """
         self.context = context
         self.tmx_loader = TMXMapLoader()
         self.yaml_loader = YAMLEventLoader()
-        self.cache_size = cache_size or MAP_CACHE_SIZE
+        self.cache_size = cache_size or mobile.map_cache_size()
         self.enable_cache = enable_cache
         self._cache: OrderedDict[str, AbstractMap] = OrderedDict()
 

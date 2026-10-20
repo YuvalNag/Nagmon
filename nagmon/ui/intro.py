@@ -247,7 +247,7 @@ def start_intro(
     """
     At launch: when the intro can play, it takes the place of pygame's
     splash screen, above Nagmon's ``IntroState``, which then opens the
-    title (SDD_ANDROID §2.7). The idle title plays it too.
+    title (SDD_ANDROID §2.8). The idle title plays it too.
     """
     if driver is None:
         try:

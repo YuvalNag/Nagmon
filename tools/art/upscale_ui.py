@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0
 """
 HD twins of Tuxemon's UI images, without redrawing
-(docs/kids/SDD_ANDROID.md §2.7).
+(docs/kids/SDD_ANDROID.md §2.8).
 
 Usage:
     python tools/art/upscale_ui.py [--only TEXT ...] [--out REPO]

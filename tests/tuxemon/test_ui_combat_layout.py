@@ -190,7 +190,7 @@ def test_full_pipeline_integration(manager, two_players):
             assert isinstance(rect_list[0], Rect)
 
 
-# ------------------------------------------- a wide screen (SDD_ANDROID §2.7)
+# ------------------------------------------- a wide screen (SDD_ANDROID §2.8)
 
 REAL_YAML = (
     Path(__file__).resolve().parents[2] / "mods" / "combat_layouts.yaml"

@@ -9,7 +9,8 @@ What the parent sends, and where it lands in the data repo
 
 ``FieldData`` does one upload per call and blocks; the screens run it in
 a background thread. Every text is cleaned of keys once more right
-before it leaves.
+before it leaves. ``share_log`` gives the log to Android's share sheet
+instead, with no token (docs/kids/SDD_ANDROID.md §2.7).
 """
 
 from __future__ import annotations
@@ -30,6 +31,7 @@ from nagmon.ai.config import load_keys
 from nagmon.ai.providers import Transport
 from nagmon.crash_report import CrashReports, hide_names, redact_secrets
 from nagmon.family._jsonio import atomic_write_json, load_json
+from nagmon.field_data import app_log
 from nagmon.field_data.github import (
     DEFAULT_REPO,
     Check,
@@ -45,6 +47,8 @@ from nagmon.field_data.github import (
 logger = logging.getLogger(__name__)
 
 DEVICE_FILE = "device.json"
+#: The most of the log the share sheet gets (its end), in bytes.
+SHARE_LIMIT = 200_000
 KINDS = {"logs": ".txt", "crashes": ".txt", "progress": ".json"}
 _ID = re.compile(r"[0-9a-f]{8}")
 
@@ -188,13 +192,20 @@ class FieldData:
 
     # ----------------------------------------------------------- uploads
 
+    def clean(self, text: str, *, names: bool = True) -> str:
+        """``text`` without keys, the token and (``names``) the names."""
+        clean = redact_secrets(text, self.secrets())
+        return hide_names(clean, self.names()) if names else clean
+
+    def shareable_log(self, text: str, *, limit: int = SHARE_LIMIT) -> str:
+        """The log for the share sheet: cleaned as for GitHub, its end."""
+        return last_bytes(self.clean(text), limit)
+
     def _send(self, kind: str, text: str, *, names: bool = True) -> Upload:
         access = self.access
         if access is None:
             return Upload(Code.NOT_CONNECTED)
-        clean = redact_secrets(text, self.secrets())
-        if names:
-            clean = hide_names(clean, self.names())
+        clean = self.clean(text, names=names)
         now = datetime.fromtimestamp(self._clock(), tz=timezone.utc)
         path = upload_path(install_id(self.root), kind, now)
         result = self._client(access).put(
@@ -255,3 +266,37 @@ def send_crash_or_share(
             logger.exception("Could not send the crash report to GitHub")
     share(text)
     return "share"
+
+
+def last_bytes(text: str, limit: int) -> str:
+    """The end of ``text``, at most ``limit`` bytes, from a line's start."""
+    data = text.encode("utf-8", errors="replace")
+    if len(data) <= limit:
+        return text
+    tail = data[-limit:]
+    start = tail.find(b"\n")
+    if start != -1:
+        tail = tail[start + 1 :]
+    return tail.decode("utf-8", errors="ignore")
+
+
+def share_log(
+    field: FieldData,
+    share: Callable[[str], object],
+    *,
+    text: str | None = None,
+) -> bool:
+    """
+    The app's log (``text``, else the saved log) to ``share``, Android's
+    share sheet: the parent tapped "send log", and chooses where it goes
+    there. False, and nothing shared, when the log is empty.
+    """
+    if text is None:
+        app_log.save()
+        text = app_log.text()
+    if not text.strip():
+        return False
+    shared = field.shareable_log(text)
+    share(shared)
+    logger.info("Log offered to the share sheet (%d characters)", len(shared))
+    return True

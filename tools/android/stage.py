@@ -45,7 +45,7 @@ SKIP_SUFFIXES = {
 }
 
 #: Tuxemon images that are not modest (the family's rule) and that Nagmon
-#: never draws: they are not packed into the app (SDD_ANDROID §2.7).
+#: never draws: they are not packed into the app (SDD_ANDROID §2.8).
 NOT_SHIPPED = (
     # the "press a key" screen: a girl in a short skirt (Nagmon has its
     # own IntroState)
@@ -104,7 +104,7 @@ ICON = Path("mods/nagmon/gfx/owl/owl_icon.png")  # the Wise Owl (SDD_ART)
 #: The intro's last frame at 2400x1080 (tools/android/make_presplash.py).
 PRESPLASH = Path("buildconfig/android/presplash.jpg")
 #: The colour of its edges: around it on a screen of another shape, and
-#: behind Android 12's own splash (SDD_ANDROID §2.7).
+#: behind Android 12's own splash (SDD_ANDROID §2.8).
 PRESPLASH_COLOR = "#9AA287"
 #: Resources added to the APK, not to the game's files.
 RES_DIR = "android_res"

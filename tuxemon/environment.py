@@ -286,7 +286,7 @@ class Environment:
         A screen wider than the picture at the game's scale (a 20:9
         phone) gets it bigger, smoothly, across the whole width, without
         stretching: the middle of the picture stays where it was, and a
-        few rows at the top and bottom are cut (SDD_ANDROID §2.7).
+        few rows at the top and bottom are cut (SDD_ANDROID §2.8).
         """
         graphics = self.data.get_battle_graphics()
         scale_int = self.context.scale
@@ -339,7 +339,7 @@ class IslandSheet:
         self.frames = self._slice()
 
     def _slice(self) -> dict[str, Surface]:
-        # An HD twin (SDD_ANDROID §2.7) is cut at k times and scaled once,
+        # An HD twin (SDD_ANDROID §2.8) is cut at k times and scaled once,
         # smoothly, to the screen.
         twin = fetch_hd_twin(self.file_path)
         k = HD_TWIN_FACTOR if twin else 1

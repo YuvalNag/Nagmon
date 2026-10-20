@@ -55,7 +55,7 @@ def _start_state(on_top: bool):
 def test_idle_title_menu_plays_nagmons_intro_over_it(monkeypatch):
     # Tuxemon's "press a key" screen never shows in Nagmon (its girl wears
     # a short skirt): the idle title plays Nagmon's intro, and the title
-    # stays under it (SDD_ANDROID §2.7).
+    # stays under it (SDD_ANDROID §2.8).
     from nagmon.ui import intro
 
     started = []

@@ -133,7 +133,7 @@ def label_padding(scaling: ScalingStrategy) -> tuple[int, int]:
 def border_image(path: str, scale_factor: int) -> BaseImage:
     """
     The border at ``scale_factor`` times its size: from its HD twin,
-    smoothly, when there is one (SDD_ANDROID §2.7), else as always
+    smoothly, when there is one (SDD_ANDROID §2.8), else as always
     (nearest).
     """
     twin = fetch_hd_twin(path)

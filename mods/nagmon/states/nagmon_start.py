@@ -142,7 +142,7 @@ class StartState(core_start.StartState):
         # Tuxemon's idle timer replaced the title with its "press a key"
         # screen. Nagmon plays its own intro over the title instead, once,
         # and only when the title itself is on top: "who is playing?" or
-        # the parent area above it must stay (SDD_ANDROID §2.7).
+        # the parent area above it must stay (SDD_ANDROID §2.8).
         if level != "IntroState" or self.client.current_state is not self:
             return
         from nagmon.ui import intro

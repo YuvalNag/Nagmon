@@ -1,6 +1,6 @@
 """
 The presplash: what Android shows while Python loads
-(docs/kids/SDD_ANDROID.md §2.7). The intro's last frame (HD) at the
+(docs/kids/SDD_ANDROID.md §2.8). The intro's last frame (HD) at the
 phone's size, 2400x1080, covering it (a little of the top and bottom is
 cut), as a JPEG for buildozer.
 
