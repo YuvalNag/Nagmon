@@ -106,6 +106,7 @@ Legend: **Tux** = Tuxemon, **Old** = Nagmon on Tuxemon, **New** = the app today 
 | 34 | Fast travel | Teleporter | None | Trips plan: paid | **Later** (M6) |
 | 35 | Fishing, crafting, trading, radio, email, phone, park, minigames | Yes | Fishing idea, phone challenge idea | None | Fishing/digging/star-gazing spots **Adapt** (5); radio, email, phone, crafting, park **Drop**; trading **Adapt** as "swap" with a collector NPC |
 | 36 | Read aloud | No | TTS | M11 plan | Keep M11 |
+| 37 | Tutors and lessons at institutes | None | Owl worked example only | Engine has worked examples, no lesson UI | **Build** tutor NPC per institute, lessons per skill, Notes in battle, coins and stamps (4.17) |
 
 ---
 
@@ -291,6 +292,41 @@ Sound and music volume (two sliders), **left-handed layout** (swap d-pad and tal
 ### 4.16 Parent controls and dashboard (PIN, `parents/` area)
 Existing: children, code, GitHub upload. Add pages: **Learning** (subjects on/off, start grade per subject, show/hide levels), **Play** (questions per battle 3-10, timer on/off age 9+, encounter frequency, quick buy, free names, show weekly garden, daily time (M8)), **Dashboard** (per subject: level, accuracy, time, hints/helpers used, weakest skills, weekly garden days, bestiary count; every number explained). Creatures, quest and shop activity as counts only. Dashboard data already exists in `core/learning/dashboard.ts`.
 
+### 4.17 Tutors and lessons: learn first, then it helps (and pays)
+Every institute (an academy in Hearthrock; in the solar chapter the observatory and the space station) has a **tutor NPC** for its subject. The tutor's room is the one place where the child learns on purpose; the knowledge then helps in every question of that subject.
+
+**A lesson = one skill.** The lesson id is the learning engine's skill id (`science.space.moon`, `math.add.within_20`; the app has 82 math, 56 science, 38 geometry skills plus English, Hebrew and logic). The engine already knows `mastered`, `stars` and `worked_examples` per skill, so "learned" is a new flag `lessons_done` beside them, and the selector can prefer a skill the child has just learned.
+
+**Structure (2-4 cards, about 1-2 minutes).**
+1. **Hook card:** one picture and one question in a few words ("Why does the Moon change shape?"). No answer needed.
+2. **Idea card(s) (1-2):** a picture or short animation, at most 12 Hebrew words, key word highlighted, optional read-aloud button (M11). Tap anywhere (large) to continue; back arrow always available.
+3. **Example card:** the existing worked example of that skill (generator's `worked_example`), shown with the steps.
+4. **Practice (tiny):** 3 questions from the same skill generator at the child's level, with the normal quiz screen. Pass = 2 of 3 right. Not passed: the tutor says "let's look at the card again", the card replays, 3 new questions; unlimited tries, no cost.
+Authoring: a lesson is a small JSON/YAML file next to the skills: `lessons/<skill_id>.json` with `cards[]` (image id, text_he, optional text_en, highlight), `levels` (which grade bands it applies to) and `notes` (the 1-2 line card text used in battle). The generator already supplies the example and the practice, so authoring is only the 2-3 cards. A missing lesson file means the tutor offers nothing for that skill (a build test lists skills without lessons per institute, like the existing content checks). Hebrew text first; images from the existing art/emoji set.
+
+**How many.**
+| Scope | Lessons |
+|---|---|
+| Per institute | 6-10 (one per skill of its subject at the child's grade band, about 2 per star) |
+| Per grade band (A: gan-1, B: 2-5, C: 6-9) | 2-4 per skill group; the tutor shows only lessons of skills at or one above the child's level (engine frontier), so a grade 2 child is not offered grade 8 |
+| Solar chapter (4 zones) | 8-12 total: moon (phases, craters), day/night and the Sun as a star, rocky planets, giants and rings, stars and galaxies, gravity |
+
+**Benefits (all positive, never punishing).**
+- **(a) Lesson notes in battle and quiz.** Once a lesson is done, a small **Notes** button (book icon) appears on the question screen for questions of that skill (or its subject if the skill has no note). Tap: a bottom sheet slides up over the lower 45% of the screen (about 175 px high on 393), the question stays visible above. It shows the lesson's note card (a picture + one line of the *idea*), never the answer. Close with a tap outside or the X. Cost: **free once per battle**; extra uses cost 1 **Note charge** (a Helpers-tab item, 10 coins, 3 in a pack; the tutor gives 1 per lesson passed). When the child has learned a skill, the engine may also show an **auto-hint**: a small lightbulb pulse that offers Notes after 2 wrong answers in a row (the child still taps).
+- **(b) Coins.** Finish a lesson and pass the practice: **40 coins once** per lesson (first time only). Repeat (re-do a lesson and pass the practice): **10 coins, once per day per institute** (cap, so it is not a farm). Compare: net 30, berry 10, hint 15, silver net 90, creature accessory 40-120: one lesson pays about one net or an accessory; a full institute (8 lessons) pays about 320 coins, similar to 5-6 sessions of battle income. Battle stays the main income; lessons are a fast, calm way to earn, as asked.
+- **(c) Stamps and badge.** Each passed lesson stamps the institute's **stamp card** (a card with N circles, shown at the tutor's desk and on the Me card). When all stamps are done the tutor gives the institute **badge** (exists for the academies, new for the station) plus a cosmetic. Passing stamps never expire.
+
+**Anti-abuse and learning integrity.**
+- Notes explain the idea, they do not state the answer for this item. Note text is written as a concept ("A new Moon is when the sunlit side faces away from us") and the test is that no question in the bank is answered by quoting the note word for word (a build check compares note text with the correct answers of its skill's bank and flags verbatim matches).
+- The child still chooses; the answer is never highlighted or removed (that is Clover's job).
+- A question answered after opening Notes counts **half** in the Elo update and does not count toward mastery or stars (same rule as helpers, 4.3). The tutor's practice questions use the same half rule only if notes were opened there (notes are disabled inside practice, so practice counts fully).
+- Coin rewards are once per lesson (+ one small daily repeat per institute), so notes and lessons cannot be farmed; shop prices are unchanged by this.
+- Never any penalty: failing the practice just replays the card; Notes cannot run out in a way that blocks a question (without charges the child simply answers without them).
+
+**Placement of the tutor.** In the institute building, a desk with the tutor and a **blackboard**; the stamp card on the wall. One tap on the tutor opens the **lesson list** (cards with the skill icon, a stamp or an empty circle, a lock icon only for skills far above the child's level). The tutor remembers the last lesson ("shall we do the next one?") and, as a mini-lesson NPC (5.2), also appears at a chalkboard next to a hard topic.
+
+**MVP-now:** one tutor (the astronomer's assistant) in the station for the solar chapter, **3 lessons** (`science.space.moon`, `science.space.solar_system`, `science.space.stars`; `science.space.day_night` is the fourth, later), each 3 cards + 3-question practice, Notes sheet in battle (free once per battle, no charges yet), 40 coins first time, stamp card of 3, badge piece. **Later:** Note charges as an item, the daily repeat reward, auto-hint pulse, tutors for the two academies (math, geometry), read-aloud, lessons by grade band, "explain it to me" teachable-agent tie-in (5.2), a tutor in every trip.
+
 ---
 
 ## 5. The people and things in the world
@@ -406,8 +442,9 @@ Milestones: M4 quiz/cashier/coins (built on `app/quiz`), M5 battle (in progress 
 | 11 | Rest Center: desk (party swap), nurse daily gift, rest | S | 6 | M5 |
 | 12 | NPC memory + roles: scientist explainer, friendly trainer, quest-giver (reuse kitten/wallet), wanderer | M | M4 interpreter | M5/M7 |
 | 13 | World objects v1: chest (question + key), hidden spot, sign, star fragment, checkpoint | M | interpreter actions | M7 (first on Route 1 in M5) |
+| 14 | Tutor in the station: 3 lessons (moon, solar system, stars), Notes sheet in battle, 40 coins first pass, stamp card and badge piece (4.17) | M | quiz screen, skill ids, space content (53 questions) | M7 |
 
-Total MVP is about 7 weeks of one agent, so slice as M5a (items 2, 3, 5, 7), M5b (1, 4, 6, 8), M5c (9, 10, 11), then 12-13 with M7. If time is tight, drop 11 and 12 first.
+Total MVP is about 8 weeks of one agent, so slice as M5a (items 2, 3, 5, 7), M5b (1, 4, 6, 8), M5c (9, 10, 11), then 12-14 with M7. If time is tight, drop 11 and 12 first.
 
 ### Next
 | Item | Effort | Depends on | Milestone |
@@ -418,6 +455,7 @@ Total MVP is about 7 weeks of one agent, so slice as M5a (items 2, 3, 5, 7), M5b
 | Quests screen (3 cards, pin on map) | M | interpreter | M6 |
 | Medals (30-40) and Me card with subject rings | M | dashboard data | M6 |
 | Parent pages: Learning, Play, Dashboard | M | parents' area | M8 |
+| Note charges, daily lesson repeat reward, auto-hint pulse, tutors for the academies and every trip | M | 14 | M7+ |
 | Eggs and hatching; collector swap; rival who learns; mini-lessons | M-L | chest/object actions | M7 |
 | Owl's lab interior and friends' houses | M each | art | M7 |
 | Cosmetics: wardrobe, creature accessories, home decor | M | art, modesty check | M6 |
@@ -429,7 +467,7 @@ Fast travel (M6, paid), creature abilities swim/fly (M6), day/night and weather 
 
 ---
 
-## 7. Open questions for the parent (max 6, each with a recommended default)
+## 7. Open questions for the parent (6 core plus 1 extra, each with a recommended default)
 
 1. **How should "tired creatures" work?** Options: none, a gentle energy system, or free Rest Center only. *Recommended:* gentle energy (5 pips per creature, 1 per battle, free instant rest at the Rest Center, never zero-punishing), added after the MVP.
 2. **Party size:** 3, 4 or 6? *Recommended:* 4.
@@ -437,6 +475,7 @@ Fast travel (M6, paid), creature abilities swim/fly (M6), day/night and weather 
 4. **Coins and shop:** is a coin-counting "pay" step OK, with "quick buy" after mastery? *Recommended:* yes, parent can switch quick buy off.
 5. **Who draws the new interiors and props** (home, shop, Rest Center, chests, eggs)? *Recommended:* reuse Tuxemon interiors via the HD pipeline, plus the new-art generator for the egg and chest; all characters pass the modesty rule.
 6. **Competition between siblings:** should the app show any sibling comparison or shared family goal? *Recommended:* none visible between children; only each child's own weekly garden and an optional shared "family flower" the parent turns on.
+7. **(Extra, from the lessons design)** Should lessons pay coins (40 first pass, 10 daily repeat)? *Recommended:* yes, as designed; parent can set the amounts to 0.
 
 ---
 
