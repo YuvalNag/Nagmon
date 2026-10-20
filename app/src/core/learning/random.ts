@@ -120,8 +120,15 @@ export class PyRandom {
     return r;
   }
 
-  /** `randrange(start, stop, step)`; with one argument, [0, start). */
+  /**
+   * `randrange(start, stop, step)`; with one argument, [0, start). A
+   * non-integer throws `TypeError`, as in Python 3.12+ (JS cannot tell
+   * `2.0` from `2`, so an integral float is accepted).
+   */
   randrange(start: number, stop?: number, step = 1): number {
+    for (const x of [start, stop ?? 0, step]) {
+      if (!Number.isInteger(x)) throw new TypeError(`'float' object cannot be interpreted as an integer: ${x}`);
+    }
     if (stop === undefined) {
       if (start > 0) return this.randbelow(start);
       throw new RangeError("empty range for randrange()");

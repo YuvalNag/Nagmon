@@ -2,7 +2,14 @@
 
 The adaptive learning engine of the old app (`nagmon/learning/`, Python),
 ported to pure TypeScript: no React, no Phaser, no DOM (a test checks the
-imports). Rules and numbers are the Python ones; see `docs/app/INVENTORY.md` §2.
+imports). The rules are the Python ones; see `docs/app/INVENTORY.md` §2.
+
+How close the numbers are: every discrete outcome is identical (questions,
+choices, ids, buckets, the selected skill, coins, mastery, Leitner boxes),
+checked on hundreds of thousands of questions and on whole sessions. The
+ratings θ and b agree with Python to about 1e-14 relative: V8's `Math.exp`
+and `Math.log` can differ from C's by one ulp. A test that compares θ or b
+across the two languages must use a tolerance.
 
 ## Tests: Python file → TS file
 
@@ -11,7 +18,7 @@ parametrised cases count one by one.
 
 | Python test file (`tests/nagmon/`) | Python cases | TS file (`app/tests/unit/learning/`) | TS cases | Notes |
 |---|---|---|---|---|
-| `test_learning_model.py` | 33 | `model.test.ts` | 33 | same cases |
+| `test_learning_model.py` | 33 | `model.test.ts` | 35 | same cases, +2: Unicode digits ("٣") and Python's whitespace (U+FEFF is not a space) |
 | `test_learning_rating.py` | 9 | `rating.test.ts` | 9 | convergence uses `PyRandom`, the same draws as Python |
 | `test_learning_srs.py` | 7 | `srs.test.ts` | 7 | |
 | `test_learning_selector.py` | 13 | `selector.test.ts` | 13 | 70/20/10 ±5%, focus ≥55%, no repeats, targets, boss balance |
@@ -25,10 +32,11 @@ parametrised cases count one by one.
 | `test_content_english.py` | 24 | `content_english.test.ts` | 24 | reads the YAML (PyYAML booleans) |
 | `test_content_science.py` | 3,616 | `content_science.test.ts` | 30 | the 5 per-item checks walk all items in one case each (same checks) |
 | `test_quiz_flow.py` | 21 | `quiz_flow.test.ts` | 21 | `quiz_flow.ts` |
-| `test_math_isolation.py` | 7 | `quiz_flow.test.ts` | 6 | `text.ts`. Not ported: `test_equation_reads_left_to_right_in_hebrew_line` (Tuxemon's bidi `to_visual`; the browser does bidi) |
-| — | — | `golden.test.ts` | 261 | new: every skill × 5 contexts × 40 seeds gives the same question as Python, field by field |
+| `test_math_isolation.py` | 7 | `quiz_flow.test.ts` | 7 | `text.ts`. 6 cases plus one with Arabic-Indic digits. Not ported: `test_equation_reads_left_to_right_in_hebrew_line` (Tuxemon's bidi `to_visual`; the browser does bidi) |
+| — | — | `golden.test.ts` | 261 | new: every skill × 5 contexts × 40 seeds gives the same question as Python, field by field; fails if a skill is dropped |
+| — | — | `random.test.ts` | 3 | new: `PyRandom` against CPython values; non-integers rejected |
 
-Totals: 3,921 Python cases (305 without the per-item science cases) → 707 Vitest cases, all green.
+Totals: 3,921 Python cases (305 without the per-item science cases) → 713 Vitest cases, all green.
 
 **Not ported yet:** the one `to_visual` case above. Everything else in INVENTORY §2.3 is ported.
 
@@ -43,11 +51,13 @@ algebra (6), word problems (1), `english.vocab` (1), `bank`.
 `random.ts` is MT19937 with CPython's seeding (`init_by_array` on the 32-bit
 words of the seed) and CPython 3.13's methods (`random`, `getrandbits`,
 `_randbelow`, `randrange`, `randint`, `choice`, `shuffle`, both `sample`
-algorithms, `choices` with `bisect_right`, `uniform`). The generators are
+algorithms, `choices` with `bisect_right`, `uniform`; `randrange` and
+`randint` reject non-integers as Python 3.12+ does). The generators are
 line-by-line ports that make the same calls in the same order, keep Python's
 float operation order, banker's rounding (`pyRound`), `//` and `%` on
-negatives, `{:g}`, tuple `repr` and even CPython's tuple `hash()` (one geometry
-item id uses it). So the same seed gives the same question in both apps.
+negatives, `{:g}`, tuple `repr`, Python's `\d` (any Unicode digit) and
+`\s` (not U+FEFF), and even CPython's tuple `hash()` (one geometry item id
+uses it). So the same seed gives the same question in both apps.
 
 What this means for the phone's `learning.json`: a Leitner card stores its
 item's seed, and that seed regenerates the same item here. Checked for

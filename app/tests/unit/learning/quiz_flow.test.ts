@@ -132,6 +132,7 @@ describe("math isolation", () => {
     ["יש 5 תפוחים", "יש 5 תפוחים"],
     [`כמה זה ${LRI}13 + 10${PDI}?`, `כמה זה ${LRI}13 + 10${PDI}?`],
     ["Hello 2 + 2", "Hello 2 + 2"],
+    ["כמה זה ٣ + ٤?", `כמה זה ${LRI}٣ + ٤${PDI}?`],
   ])("isolate math %j", (text, expected) => {
     expect(isolateMath(text)).toBe(expected);
   });

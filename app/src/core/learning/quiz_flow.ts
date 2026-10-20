@@ -39,11 +39,11 @@ export class SubjectMap {
    * technique type we know, with the parent's choice for that type first.
    */
   subjectFor(types: Iterable<string>, override?: Readonly<Record<string, string>> | null, monster?: string | null): string {
-    if (monster && override && monster in override) return override[monster]!;
-    if (monster && monster in this.monsterToSubject) return this.monsterToSubject[monster]!;
+    if (monster && override && Object.hasOwn(override, monster)) return override[monster]!;
+    if (monster && Object.hasOwn(this.monsterToSubject, monster)) return this.monsterToSubject[monster]!;
     for (const t of types) {
-      if (override && t in override) return override[t]!;
-      if (t in this.elementToSubject) return this.elementToSubject[t]!;
+      if (override && Object.hasOwn(override, t)) return override[t]!;
+      if (Object.hasOwn(this.elementToSubject, t)) return this.elementToSubject[t]!;
     }
     return DEFAULT_SUBJECT;
   }

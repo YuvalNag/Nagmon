@@ -104,5 +104,35 @@ export function pyLen(s: string): number {
   return n;
 }
 
-/** Python's `\s` (str patterns), as a character-class body. */
-export const PY_SPACE = "\\s\\x1c-\\x1f\\x85";
+/**
+ * Python's `\s` (str patterns, the `str.isspace()` characters) as a
+ * character-class body. JS `\s` differs: it also matches U+FEFF.
+ */
+export const PY_SPACE = Array.from(WHITESPACE)
+  .map((c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, "0")}`)
+  .join("");
+
+/** Python's `\d` (str patterns): any Unicode decimal digit. */
+export const PY_DIGIT = "\\p{Nd}";
+
+const ND = /\p{Nd}/u;
+
+/**
+ * Unicode decimal digits to ASCII ("٣" -> "3"), as Python's `int()` reads
+ * them. Unicode encodes each set of decimal digits as a run of ten, 0 to 9.
+ */
+export function asciiDigits(s: string): string {
+  return Array.from(s)
+    .map((c) => {
+      if (c >= "0" && c <= "9") return c;
+      if (!ND.test(c)) return c;
+      let cp = c.codePointAt(0)!;
+      let k = 0;
+      while (ND.test(String.fromCodePoint(cp - 1))) {
+        cp -= 1;
+        k += 1;
+      }
+      return String(k % 10);
+    })
+    .join("");
+}

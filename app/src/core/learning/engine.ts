@@ -119,7 +119,7 @@ export class LearningEngine {
   hint(q: Question): Hint {
     if ((q.kind === "choice" || q.kind === "tap_figure") && q.choices.length > 2) {
       const wrong = q.choices.filter((c) => c.id !== q.answer);
-      const plainAll = wrong.filter((c) => !(c.id in q.misconceptions));
+      const plainAll = wrong.filter((c) => !Object.hasOwn(q.misconceptions, c.id));
       const drop = this.rng.choice(plainAll.length ? plainAll : wrong);
       return { text_he: `אפשר לפסול את התשובה "${drop.text_he}".`, eliminate: [drop.id] };
     }
@@ -222,7 +222,7 @@ export class LearningEngine {
     learner.time_total_s += Number(elapsedS);
 
     let explanation = q.explanation_he;
-    if (mis && mis in MISCONCEPTIONS) explanation = strip(`${MISCONCEPTIONS[mis]!.hint_he} ${explanation}`);
+    if (mis && Object.hasOwn(MISCONCEPTIONS, mis)) explanation = strip(`${MISCONCEPTIONS[mis]!.hint_he} ${explanation}`);
     return {
       correct,
       quality,

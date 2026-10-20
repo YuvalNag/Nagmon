@@ -4,10 +4,15 @@
  * isolates; a canvas that cannot strips them with `stripBidi`.
  */
 
+import { PY_SPACE } from "./py";
+
 const HEBREW = /[֐-׿]/;
 const ISOLATED = /⁦[^⁩]*⁩/g;
-/** Two or more numbers joined by math operators (+ - × ÷ * / = < > :). */
-const MATH = /\d+(?:[.,]\d+)?(?:\s*[-+=×÷*/<>:]\s*\d+(?:[.,]\d+)?)+/g;
+/**
+ * Two or more numbers joined by math operators (+ - × ÷ * / = < > :), with
+ * Python's `\d` (any Unicode digit) and `\s`.
+ */
+const MATH = new RegExp(String.raw`\p{Nd}+(?:[.,]\p{Nd}+)?(?:[${PY_SPACE}]*[-+=×÷*/<>:][${PY_SPACE}]*\p{Nd}+(?:[.,]\p{Nd}+)?)+`, "gu");
 
 function wrap(part: string): string {
   return part.replace(MATH, (m) => `⁦${m}⁩`);

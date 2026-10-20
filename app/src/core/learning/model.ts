@@ -3,7 +3,7 @@
  * A port of `nagmon/learning/model.py`: same normalisation rules.
  */
 import { Fraction } from "./fraction";
-import { casefold, lstrip, PY_SPACE, strip } from "./py";
+import { asciiDigits, casefold, lstrip, PY_DIGIT, PY_SPACE, strip } from "./py";
 
 export type Subject = "math" | "geometry" | "english" | "science" | "logic" | "hebrew" | "family";
 export type QuestionKind = "choice" | "number" | "true_false" | "order" | "tap_figure" | "letters";
@@ -104,17 +104,21 @@ export function trueFalseChoices(): [Choice, Choice] {
 
 const BIDI = /[‎‏‪-‮⁦-⁩؜]/g;
 const NIQQUD = /[֑-ׇֽֿׁׂׅׄ]/g;
-const SPACES = new RegExp(`[${PY_SPACE}]+`, "g");
+const SPACES = new RegExp(`[${PY_SPACE}]+`, "gu");
 const EDGE_PUNCT = ".,!?;:\"'`()[]{}״׳-–—…";
 const MINUSES = "−–—‒־";
 const NUM_STRIP = "₪%°$";
-const INT = String.raw`\d+`;
-const DEC = String.raw`(?:\d+(?:\.\d*)?|\.\d+)`;
+// Python's `\d` is any Unicode digit ("٣"); matched digits go through
+// `asciiDigits` before they become numbers.
+const D = PY_DIGIT;
+const INT = `${D}+`;
+const DEC = `(?:${D}+(?:\\.${D}*)?|\\.${D}+)`;
 const S = `[${PY_SPACE}]`;
-const RE_DEC = new RegExp(`^([+-]?)(${DEC})$`);
-const RE_FRAC = new RegExp(`^([+-]?)(${INT})${S}*/${S}*(${INT})$`);
-const RE_MIXED = new RegExp(`^([+-]?)(${INT})${S}+(${INT})${S}*/${S}*(${INT})$`);
-const RE_THOUSANDS = /^[+-]?\d{1,3}(?:,\d{3})+(?:\.\d+)?$/;
+const RE_DEC = new RegExp(`^([+-]?)(${DEC})$`, "u");
+const RE_FRAC = new RegExp(`^([+-]?)(${INT})${S}*/${S}*(${INT})$`, "u");
+const RE_MIXED = new RegExp(`^([+-]?)(${INT})${S}+(${INT})${S}*/${S}*(${INT})$`, "u");
+const RE_THOUSANDS = new RegExp(`^[+-]?${D}{1,3}(?:,${D}{3})+(?:\\.${D}+)?$`, "u");
+const big = (digits: string): bigint => BigInt(asciiDigits(digits));
 
 /**
  * NFKC, no bidi marks, no niqqud, collapsed spaces, trimmed punctuation.
@@ -154,19 +158,19 @@ export function parseNumber(text: unknown): Fraction | null {
   const s = cleanNumberText(String(text));
   let m = RE_DEC.exec(s);
   if (m) {
-    const value = Fraction.parse(m[2]!);
+    const value = Fraction.parse(asciiDigits(m[2]!));
     return m[1] === "-" ? value.neg() : value;
   }
   m = RE_FRAC.exec(s);
   if (m) {
-    if (BigInt(m[3]!) === 0n) return null;
-    const value = new Fraction(BigInt(m[2]!), BigInt(m[3]!));
+    if (big(m[3]!) === 0n) return null;
+    const value = new Fraction(big(m[2]!), big(m[3]!));
     return m[1] === "-" ? value.neg() : value;
   }
   m = RE_MIXED.exec(s);
   if (m) {
-    if (BigInt(m[4]!) === 0n) return null;
-    const value = new Fraction(BigInt(m[3]!), BigInt(m[4]!)).add(BigInt(m[2]!));
+    if (big(m[4]!) === 0n) return null;
+    const value = new Fraction(big(m[3]!), big(m[4]!)).add(big(m[2]!));
     return m[1] === "-" ? value.neg() : value;
   }
   return null;
@@ -213,8 +217,8 @@ export function normalizeNumber(text: unknown): string | null {
   if (value === null) return null;
   const m = RE_FRAC.exec(s);
   if (m) {
-    const num = BigInt(m[2]!);
-    const den = BigInt(m[3]!);
+    const num = big(m[2]!);
+    const den = big(m[3]!);
     const neg = m[1] === "-" && num !== 0n;
     return `${neg ? "-" : ""}${num}/${den}`;
   }
@@ -297,8 +301,8 @@ export function checkAnswer(q: Question, given: Given): CheckResult {
     if (ok && q.meta["fraction_form"] === "simplest" && norm) {
       const m = RE_FRAC.exec(lstrip(norm, "-"));
       if (m) {
-        const den = BigInt(m[3]!);
-        const frac = new Fraction(BigInt(m[2]!), den);
+        const den = big(m[3]!);
+        const frac = new Fraction(big(m[2]!), den);
         if (frac.d !== den) return result(false, norm, "not_simplified");
       }
     }

@@ -155,6 +155,23 @@ describe("model", () => {
     expect(checkAnswer(numQ("7"), null).correct).toBe(false);
   });
 
+  it("unicode digits count as digits, as Python's \\d does", () => {
+    const res = checkAnswer(numQ("3"), "٣");
+    expect(res.correct).toBe(true);
+    expect(res.normalized).toBe("3");
+    expect(normalizeNumber("٣,٥")).toBe("3.5");
+    expect(normalizeNumber("١٢/٤")).toBe("12/4");
+    expect(normalizeNumber("١ ١/٢")).toBe("3/2");
+    expect(normalizeNumber("١,٠٠٠")).toBe("1000");
+    expect(normalizeNumber("٣٫٥")).toBeNull(); // the Arabic decimal sign is not a point
+  });
+
+  it("whitespace is Python's (U+FEFF is not a space)", () => {
+    expect(normalizeText("a\ufeffb")).toBe("a\ufeffb");
+    expect(normalizeText("\ufeffשלום")).toBe("\ufeffשלום");
+    expect(normalizeText("a\u3000\u2009b")).toBe("a b");
+  });
+
   it("display answer", () => {
     expect(displayAnswer(choiceQ())).toBe("תפוח");
     expect(displayAnswer(numQ("3.5"))).toBe("3.5");

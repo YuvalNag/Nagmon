@@ -22,8 +22,10 @@ describe("golden: TS generators replay the Python ones", () => {
   const lib = library();
   const ported = Object.keys(G.skills).filter((sid) => lib.skills.has(sid));
 
-  it("covers the ported skills", () => {
-    expect(ported.length).toBeGreaterThan(0);
+  it("covers every skill of the golden file (none dropped)", () => {
+    expect(lib.skipped).toEqual([]);
+    expect(ported.length).toBe(Object.keys(G.skills).length);
+    expect(lib.skills.size).toBe(Object.keys(G.skills).length);
   });
 
   for (const sid of ported) {
