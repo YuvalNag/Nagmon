@@ -34,7 +34,8 @@ function check(ok, what) {
  * into the job log as a small JPEG (tools/android/screen_shape.py show).
  */
 function shot(name) {
-  const png = execFileSync("adb", ["exec-out", "screencap", "-p"]);
+  // a full-size PNG is over a megabyte, node's default output limit
+  const png = execFileSync("adb", ["exec-out", "screencap", "-p"], { maxBuffer: 64 << 20 });
   const path = join(out, `${name}.png`);
   writeFileSync(path, png);
   return path;
@@ -198,8 +199,17 @@ try {
 } catch (e) {
   failures.push(String(e));
   console.log("FAIL", e);
-  shot("z_failure");
-  console.log(adb("logcat", "-d", "-t", "300"));
+  // the log first: it says why, even when the screenshot cannot be taken
+  try {
+    console.log(execFileSync("adb", ["logcat", "-d", "-t", "400"], { encoding: "utf8", maxBuffer: 64 << 20 }));
+  } catch (le) {
+    console.log("no logcat:", String(le).split("\n")[0]);
+  }
+  try {
+    shot("z_failure");
+  } catch (se) {
+    console.log("no screenshot:", String(se).split("\n")[0]);
+  }
 } finally {
   page?.close();
 }

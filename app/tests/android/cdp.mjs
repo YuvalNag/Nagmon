@@ -24,8 +24,9 @@ export class WebViewPage {
       }
     };
     const end = Date.now() + timeoutMs;
+    let pid = "";
     while (Date.now() < end) {
-      const pid = adb("shell", "pidof", pkg);
+      pid = adb("shell", "pidof", pkg);
       if (pid && adb("shell", "cat", "/proc/net/unix").includes(`webview_devtools_remote_${pid}`)) {
         adb("forward", `tcp:${port}`, `localabstract:webview_devtools_remote_${pid}`);
         const pages = await (await fetch(`http://127.0.0.1:${port}/json`)).json();
@@ -38,7 +39,11 @@ export class WebViewPage {
       }
       await sleep(1000);
     }
-    throw new Error(`no WebView DevTools page for ${pkg}`);
+    const sockets = adb("shell", "cat", "/proc/net/unix")
+      .split("\n")
+      .filter((l) => l.includes("devtools_remote"))
+      .map((l) => l.trim().split(/\s+/).pop());
+    throw new Error(`no WebView DevTools page for ${pkg} (pid "${pid}", DevTools sockets: ${sockets.join(" ") || "none"})`);
   }
 
   #open(url) {
