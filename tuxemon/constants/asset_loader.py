@@ -185,3 +185,26 @@ def fetch_asset(*args: str) -> str:
             return full_path.as_posix()
 
     raise OSError(f"[Fetch] Asset not found: {relative}")
+
+
+def resolve_mod_path(path: str) -> str:
+    """
+    The copy of the file at ``path`` that wins by mod order.
+
+    A TSX names its image next to itself, inside one mod (say
+    mods/tuxemon), so the image would never come from a mod that builds
+    on it. When ``path`` lies inside a mod root, the same relative path
+    is looked up again by mod order (SDD_ART §2.11). Any other path, or
+    one no mod has, comes back unchanged.
+    """
+    target = Path(path).resolve()
+    for root in _MOD_ASSET_ROOTS:
+        try:
+            relative = target.relative_to(root.resolve())
+        except ValueError:
+            continue
+        try:
+            return fetch_asset(*relative.parts)
+        except OSError:
+            return path
+    return path
