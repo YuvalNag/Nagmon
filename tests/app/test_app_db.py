@@ -2,7 +2,10 @@
 
 import json
 
-from tools.app import emoji
+import pytest
+
+from tools.app import db, emoji
+from tools.app.common import Output
 from tools.app.db import table
 
 NAGMON_MONSTERS = {
@@ -199,3 +202,18 @@ def test_each_hero_has_a_trimmed_front_card(built):
         image = out.images[card]
         assert image.getbbox() == (0, 0, *image.size)
         assert image.height >= 160, card
+
+
+def test_one_name_cannot_hold_two_pictures():
+    sprites = db.Sprites(Output())
+    rel = "gfx/sprites/battle/agnite-sheet.png"
+    first = sprites.upscaled(rel, "x/a.png", "monster", 3)
+    assert sprites.upscaled(rel, "x/a.png", "monster", 3) == first
+    with pytest.raises(ValueError, match="already made"):
+        sprites.upscaled(rel, "x/a.png", "monster", 4)
+    with pytest.raises(ValueError, match="already made"):
+        sprites.upscaled(
+            "gfx/sprites/battle/nut-sheet.png", "x/a.png", "monster", 3
+        )
+    with pytest.raises(ValueError, match="already made"):
+        sprites.upscaled(rel, "x/a.png", "monster", 3, [(0, 0, 64, 64)])

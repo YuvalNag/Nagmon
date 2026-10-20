@@ -213,12 +213,19 @@ class Sprites:
         """
         Ship an HD copy (xBRZ x``k``, frame by frame) of the 1x picture
         ``rel``. ``after(image)`` may rearrange it and returns
-        ``(image, extra)``. Returns ``(dest, extra)``; a picture asked
-        for again gives the first answer.
+        ``(image, extra)``. Returns ``(dest, extra)``. The same picture
+        asked for again gives the first answer; another picture (or the
+        same one at another scale or framing) under the same name fails.
         """
         dest = f"sprites/{target}"
+        key = (rel, k, tuple(frames) if frames else None)
         if dest in self.done:
-            return self.done[dest]
+            first, answer = self.done[dest]
+            if first != key:
+                raise ValueError(
+                    f"{dest}: asked for as {key}, already made as {first}"
+                )
+            return answer
         src = mod_file(rel)
         assert src is not None
         with Image.open(src) as im:
@@ -227,8 +234,8 @@ class Sprites:
         if after is not None:
             image, extra = after(image)
         self.out.add_image(dest, image, [src], kind, adapted=f"xBRZ x{k}")
-        self.done[dest] = (dest, extra)
-        return self.done[dest]
+        self.done[dest] = (key, (dest, extra))
+        return dest, extra
 
 
 def _size(src: Path) -> tuple[int, int]:
