@@ -31,15 +31,21 @@ export function Tap({ onTap, id, disabled, ...rest }: Props) {
       onPointerDown={(e) => {
         const fresh = performance.now() - shownAt < FRESH_MS;
         down.current = disabled || fresh || e.button !== 0 ? null : e.pointerId;
+        if (down.current === null) return;
         // the lift comes here even off the button (a mouse too), to be checked
-        if (down.current !== null) e.currentTarget.setPointerCapture?.(e.pointerId);
+        e.currentTarget.setPointerCapture?.(e.pointerId);
+        // the pressed look, only for a press that counts (not :active, which
+        // also lights a card that appeared under a lifting finger)
+        e.currentTarget.dataset.pressed = "";
       }}
-      onPointerCancel={() => {
+      onPointerCancel={(e) => {
         down.current = null;
+        delete e.currentTarget.dataset.pressed;
       }}
       onPointerUp={(e) => {
         if (down.current !== e.pointerId) return;
         down.current = null;
+        delete e.currentTarget.dataset.pressed;
         const r = e.currentTarget.getBoundingClientRect();
         const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
         if (inside && !disabled) onTap();

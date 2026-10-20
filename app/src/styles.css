@@ -79,7 +79,7 @@ button {
   -webkit-touch-callout: none;
 }
 
-button:active {
+button[data-pressed] {
   transform: translateY(1px);
   filter: brightness(0.92);
 }

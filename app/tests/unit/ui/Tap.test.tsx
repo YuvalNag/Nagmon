@@ -81,6 +81,17 @@ describe("Tap", () => {
     expect(onTap).not.toHaveBeenCalled();
   });
 
+  it("looks pressed only while a press it will count is down", () => {
+    const { button } = setup();
+    fireEvent.pointerDown(button, at(1));
+    expect(button.hasAttribute("data-pressed")).toBe(true);
+    fireEvent.pointerUp(button, at(1));
+    expect(button.hasAttribute("data-pressed")).toBe(false);
+    fireEvent.pointerDown(button, at(2));
+    fireEvent.pointerCancel(button, at(2));
+    expect(button.hasAttribute("data-pressed")).toBe(false);
+  });
+
   it("acts on a keyboard or switch press (a click with no pointer)", () => {
     const { onTap, button } = setup();
     fireEvent.click(button, { detail: 0 });
@@ -116,6 +127,8 @@ describe("Tap on a screen that just appeared", () => {
     place(button);
     act(() => vi.advanceTimersByTime(FRESH_MS - 100));
     fireEvent.pointerDown(button, at(1));
+    // a card that appeared under the finger does not light up either
+    expect(button.hasAttribute("data-pressed")).toBe(false);
     fireEvent.pointerUp(button, at(1));
     expect(onTap).not.toHaveBeenCalled();
     act(() => vi.advanceTimersByTime(150));
