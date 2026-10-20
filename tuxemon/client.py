@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
+from tuxemon import ui_probe
 from tuxemon.base_client import BaseClient, ClientState
 from tuxemon.config import TuxemonConfig
 from tuxemon.frame_limiter import FrameLimiter, FrameStats
@@ -122,6 +123,8 @@ class LocalPygameClient(BaseClient):
         limiter = FrameLimiter(target_fps)
         # On a phone print goes to logcat; on a computer it is only noise.
         frame_stats = FrameStats(echo=print if mobile.is_android() else None)
+        # The emulator check's UI map; None (off) unless asked for.
+        probe = ui_probe.start()
 
         while self.state != ClientState.DONE:
             limiter.start_frame()
@@ -144,6 +147,8 @@ class LocalPygameClient(BaseClient):
                 self.input_manager.draw_inputs(screen)
                 flip()
                 frame_stats.frame(now)
+                if probe is not None:
+                    probe.frame(self)
 
                 if self.config.show_fps:
                     self.renderer.update(frame_length)

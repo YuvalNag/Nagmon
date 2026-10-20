@@ -737,6 +737,15 @@ class QuizState(PygameMenuState):
         skill = self.engine.content.get(skill_id)
         return skill.title_he if skill is not None else skill_id
 
+    def probe_info(self) -> dict[str, Any]:
+        """For the emulator check's UI map (tuxemon.ui_probe): which
+        button is the right answer, so the check can play through."""
+        q = self.question
+        info: dict[str, Any] = {"answered": self.outcome is not None}
+        if q is not None and q.kind == "choice":
+            info["answer"] = f"choice_{q.answer}"
+        return info
+
     # ------------------------------------------------------------ actions
 
     def hint(self) -> None:

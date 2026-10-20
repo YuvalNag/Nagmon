@@ -83,4 +83,15 @@ if grep -q "Traceback" "$out/logcat.txt"; then
   status=1
 fi
 [ "$status" -eq 0 ] && echo "the app opened and kept running for ${wait_for}s"
+
+# The first run, played with real taps by name (tools/android/e2e_flow.py,
+# SDD_ANDROID §5.1): on a phone in Hebrew (the parents' phone), then on
+# one in English. The game must speak Hebrew on both.
+for locale in he-IL en-US; do
+  echo "===== first run with taps, the phone in $locale ====="
+  if ! python3 "$here/e2e_flow.py" --out "$out/e2e-$locale" --locale "$locale"; then
+    echo "FAIL: the first run with taps on a phone in $locale (see above)"
+    status=1
+  fi
+done
 exit "$status"

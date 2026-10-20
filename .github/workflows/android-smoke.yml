@@ -1,9 +1,11 @@
 name: Android on an emulator
 
 # Opens the built APK on an Android emulator and checks it keeps running
-# (docs/kids/SDD_ANDROID.md §5). The log and screenshots are uploaded as
-# "android-smoke-<run>". It tests the x86_64 build of the same code: the
-# emulator's ARM translator stops on some of the phone build's instructions.
+# (docs/kids/SDD_ANDROID.md §5), then plays the first run with real taps
+# on a phone in Hebrew and in English (tools/android/e2e_flow.py, §5.1).
+# The log and screenshots are uploaded as "android-smoke-<run>". It tests
+# the x86_64 build of the same code: the emulator's ARM translator stops
+# on some of the phone build's instructions.
 
 on:
   workflow_call:
@@ -19,6 +21,7 @@ on:
   push:
     paths:
       - "tools/android/smoke.sh"
+      - "tools/android/e2e_flow.py"
       - ".github/workflows/android-smoke.yml"
 
 permissions:
@@ -28,7 +31,7 @@ permissions:
 jobs:
   emulator:
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 75
     steps:
     - uses: actions/checkout@v6
 
@@ -40,6 +43,12 @@ jobs:
         APK_RUN: ${{ inputs.apk-run }}
       run: |
         run="$APK_RUN"
+        # this branch's latest APK (it has this branch's code), else any
+        if [ -z "$run" ]; then
+          run=$(gh run list -R "$GITHUB_REPOSITORY" --workflow android.yml \
+                --branch "$GITHUB_REF_NAME" --status success --limit 1 \
+                --json databaseId -q '.[0].databaseId')
+        fi
         if [ -z "$run" ]; then
           run=$(gh run list -R "$GITHUB_REPOSITORY" --workflow android.yml \
                 --status success --limit 1 --json databaseId -q '.[0].databaseId')
