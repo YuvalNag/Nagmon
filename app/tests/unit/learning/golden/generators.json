@@ -2541,41 +2541,41 @@
   "science.space.day_night": {
    "generator": "bank",
    "hashes": [
-    "0139941b",
-    "0139941b",
-    "0139941b",
-    "0139941b",
-    "0139941b"
+    "ae38f744",
+    "ae38f744",
+    "ae38f744",
+    "8500af30",
+    "ae38f744"
    ]
   },
   "science.space.moon": {
    "generator": "bank",
    "hashes": [
-    "e5aa5555",
-    "e5aa5555",
-    "e5aa5555",
-    "e5aa5555",
-    "e5aa5555"
+    "67d5d33a",
+    "67d5d33a",
+    "67d5d33a",
+    "0b82f1e0",
+    "67d5d33a"
    ]
   },
   "science.space.solar_system": {
    "generator": "bank",
    "hashes": [
-    "91b4b21e",
-    "91b4b21e",
-    "91b4b21e",
-    "91b4b21e",
-    "91b4b21e"
+    "9e339f1a",
+    "9e339f1a",
+    "9e339f1a",
+    "583bb392",
+    "9e339f1a"
    ]
   },
   "science.space.stars": {
    "generator": "bank",
    "hashes": [
-    "06477592",
-    "06477592",
-    "06477592",
-    "06477592",
-    "06477592"
+    "40673474",
+    "40673474",
+    "40673474",
+    "591e2044",
+    "40673474"
    ]
   },
   "science.tech.coding": {
