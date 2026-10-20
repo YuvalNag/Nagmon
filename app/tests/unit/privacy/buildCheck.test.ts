@@ -8,7 +8,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import config from "../../../capacitor.config";
-import { checkDependencies, checkManifest, checkNativeLibs, npmPackages } from "../../android/buildCheck.mjs";
+import { checkBackupRules, checkDependencies, checkManifest, checkNativeLibs, npmPackages } from "../../android/buildCheck.mjs";
 
 const APP = join(__dirname, "..", "..", "..");
 
@@ -20,6 +20,7 @@ function manifest({ permissions = ["android.permission.INTERNET"], app = "", sdk
     ${permissions.map((p) => `<uses-permission android:name="${p}" />`).join("\n    ")}
     <application
         android:allowBackup="false"
+        android:fullBackupContent="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:usesCleartextTraffic="false" ${app}>
         <activity android:name="org.nagmon.app.MainActivity" android:exported="true" />
@@ -50,10 +51,12 @@ describe("the merged manifest", () => {
   it("fails on backup, plain http and an old target", () => {
     const xml = manifest({ sdk: 35 })
       .replace('android:allowBackup="false"', 'android:allowBackup="true"')
+      .replace('android:fullBackupContent="false"', "")
       .replace('android:usesCleartextTraffic="false"', "")
       .replace('android:dataExtractionRules="@xml/data_extraction_rules"', "");
     expect(checkManifest(xml)).toEqual([
       'allowBackup is not "false"',
+      'fullBackupContent is not "false" (the backup of Android 6 to 11)',
       "no dataExtractionRules (Android 12+ copies data to a new phone)",
       'usesCleartextTraffic is not "false"',
       "targetSdkVersion 35, not 36",
@@ -73,6 +76,31 @@ describe("the merged manifest", () => {
   it("fails on a component other apps can open", () => {
     const xml = manifest({ extra: '<service android:name="x.Tracker" android:exported="true" />' });
     expect(checkManifest(xml)).toEqual(["exported service x.Tracker without a system permission"]);
+  });
+});
+
+describe("the backup rules", () => {
+  const DOMAINS = ["root", "file", "database", "sharedpref", "external", "device_root", "device_file", "device_database", "device_sharedpref"];
+  const rules = (cloud = DOMAINS, transfer = DOMAINS, extra = "") => `<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>${cloud.map((d) => `<exclude domain="${d}" path="." />`).join("")}${extra}</cloud-backup>
+    <device-transfer>${transfer.map((d) => `<exclude domain="${d}" path="." />`).join("")}</device-transfer>
+</data-extraction-rules>`;
+
+  it("pass when every domain is left out of the backup and of a new phone", () => {
+    expect(checkBackupRules(rules())).toEqual([]);
+  });
+
+  it("fail on a domain that is not left out, or on anything taken in", () => {
+    expect(checkBackupRules(rules(DOMAINS.filter((d) => d !== "device_file")))).toEqual(["cloud-backup: device_file is not excluded"]);
+    expect(checkBackupRules(rules(DOMAINS, DOMAINS.slice(1)))).toEqual(["device-transfer: root is not excluded"]);
+    expect(checkBackupRules(rules(DOMAINS, DOMAINS, '<include domain="file" path="nagmon" />'))).toEqual([
+      "cloud-backup: an include (file nagmon)",
+    ]);
+  });
+
+  it("the app's own file passes", () => {
+    expect(checkBackupRules(readFileSync(join(APP, "android/app/src/main/res/xml/data_extraction_rules.xml"), "utf8"))).toEqual([]);
   });
 });
 

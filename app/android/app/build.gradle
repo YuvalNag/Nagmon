@@ -23,7 +23,26 @@ android {
         checkDependencies = false
         lintConfig = file("lint.xml")
     }
+    // One key for every build, so a new build installs over the last one
+    // and keeps the children's data (docs/app/SDD.md §9). CI gives it in
+    // NAGMON_KEYSTORE*: the owner's key from the ANDROID_KEYSTORE_* secrets,
+    // or one kept in the Actions cache. Without it (a local build) Android's
+    // debug key signs, as before.
+    if (System.getenv("NAGMON_KEYSTORE")) {
+        signingConfigs {
+            nagmon {
+                storeFile file(System.getenv("NAGMON_KEYSTORE"))
+                storePassword System.getenv("NAGMON_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("NAGMON_KEY_ALIAS")
+                keyPassword System.getenv("NAGMON_KEY_PASSWORD")
+            }
+        }
+    }
+    def signing = signingConfigs.findByName("nagmon") ?: signingConfigs.debug
     buildTypes {
+        debug {
+            signingConfig signing
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -31,11 +50,11 @@ android {
         // The cold start is measured on this one (tests/android/run.mjs,
         // docs/app/SDD.md §10): a release build, so not debuggable (a
         // debuggable app runs its Java code, the WebView's included, much
-        // slower). Signed with the debug key only so that it installs over
-        // the debug build and keeps its data. Never given to the family.
+        // slower). Signed with the same key as the debug build, so that it
+        // installs over it and keeps its data. Never given to the family.
         benchmark {
             initWith release
-            signingConfig signingConfigs.debug
+            signingConfig signing
             matchingFallbacks = ['release']
             debuggable false
         }
@@ -53,6 +72,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
     implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
     implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    // WebSettingsCompat: no dark version of the page (MainActivity)
+    implementation "androidx.webkit:webkit:$androidxWebkitVersion"
     implementation project(':capacitor-android')
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"

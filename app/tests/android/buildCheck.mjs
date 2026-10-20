@@ -4,7 +4,7 @@
  * that goes into it (npm and Gradle).
  *
  * Usage (apk job, after assembleDebug):
- *   node tests/android/buildCheck.mjs MERGED_MANIFEST APK GRADLE_DEPS_TXT PACKAGE_LOCK
+ *   node tests/android/buildCheck.mjs APK GRADLE_DEPS_TXT PACKAGE_LOCK BACKUP_RULES MERGED_MANIFEST...
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
@@ -44,6 +44,7 @@ export function checkManifest(xml) {
   }
   const app = tags(xml, "application")[0] ?? "";
   if (attr(app, "allowBackup") !== "false") problems.push('allowBackup is not "false"');
+  if (attr(app, "fullBackupContent") !== "false") problems.push('fullBackupContent is not "false" (the backup of Android 6 to 11)');
   if (!attr(app, "dataExtractionRules")) problems.push("no dataExtractionRules (Android 12+ copies data to a new phone)");
   if (attr(app, "usesCleartextTraffic") !== "false") problems.push('usesCleartextTraffic is not "false"');
   if (attr(app, "networkSecurityConfig")) problems.push("a networkSecurityConfig (could allow plain http)");
@@ -63,6 +64,42 @@ export function checkManifest(xml) {
   // a start-up that binds to Play services' font provider ties the app to that process
   if (/androidx\.emoji2\.text\.EmojiCompatInitializer/.test(xml.replace(/<!--[\s\S]*?-->/g, ""))) {
     problems.push("EmojiCompatInitializer: the app would depend on Play services' font provider");
+  }
+  return problems;
+}
+
+/** Every place an app keeps files, the device-protected ones (direct boot) too. */
+export const BACKUP_DOMAINS = [
+  "root",
+  "file",
+  "database",
+  "sharedpref",
+  "external",
+  "device_root",
+  "device_file",
+  "device_database",
+  "device_sharedpref",
+];
+
+/** Problems with data_extraction_rules.xml: nothing may go to a backup or a new phone. */
+export function checkBackupRules(xml) {
+  const problems = [];
+  const clean = xml.replace(/<!--[\s\S]*?-->/g, "");
+  for (const section of ["cloud-backup", "device-transfer"]) {
+    const body = clean.match(new RegExp(`<${section}\\b[^>]*>([\\s\\S]*?)</${section}>`))?.[1];
+    if (body === undefined) {
+      problems.push(`${section}: missing`);
+      continue;
+    }
+    const excluded = new Set(
+      tags(body, "exclude")
+        .filter((t) => (t.match(/path="([^"]*)"/)?.[1] ?? ".") === ".")
+        .map((t) => t.match(/domain="([^"]*)"/)?.[1]),
+    );
+    for (const d of BACKUP_DOMAINS) if (!excluded.has(d)) problems.push(`${section}: ${d} is not excluded`);
+    for (const t of tags(body, "include")) {
+      problems.push(`${section}: an include (${t.match(/domain="([^"]*)"/)?.[1]} ${t.match(/path="([^"]*)"/)?.[1]})`);
+    }
   }
   return problems;
 }
@@ -99,14 +136,21 @@ function apkEntries(apk) {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const [manifest, apk, gradleDeps, lock] = process.argv.slice(2);
+  // the debug build's merged manifest, and the release-like one's
+  const [apk, gradleDeps, lock, rules, ...manifests] = process.argv.slice(2);
   let failed = false;
   const report = (what, problems) => {
     console.log(`${problems.length ? "FAIL" : "ok  "} ${what}`);
     for (const p of problems) console.log(`       ${p}`);
     failed ||= problems.length > 0;
   };
-  report("merged manifest: INTERNET only, no backup, no plain http, targetSdk 36, nothing exported, no font provider", checkManifest(readFileSync(manifest, "utf8")));
+  for (const manifest of manifests) {
+    report(
+      `merged manifest (${manifest.split("/").slice(-3, -1).join("/")}): INTERNET only, no backup, no plain http, targetSdk 36, nothing exported, no font provider`,
+      checkManifest(readFileSync(manifest, "utf8")),
+    );
+  }
+  report("the backup rules leave every file out of a backup and of a new phone", checkBackupRules(readFileSync(rules, "utf8")));
   report("no google-services.json (Firebase)", existsSync("android/app/google-services.json") ? ["android/app/google-services.json"] : []);
   report(
     "no ads, analytics or tracking SDK (npm and Gradle)",
@@ -114,6 +158,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   );
   const entries = apkEntries(apk);
   report(`64-bit native code (${entries.filter((e) => e.endsWith(".so")).length} .so files)`, checkNativeLibs(entries));
-  if (failed) process.exit(1);
+  if (failed || !manifests.length) process.exit(1);
   console.log("build checks passed");
 }
