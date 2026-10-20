@@ -65,6 +65,8 @@ export interface MapOptions {
    * slug, or null. Told when it changes (the map's "talk" button).
    */
   onFacing?: (slug: string | null) => void;
+  /** The hero finished a step onto this tile. */
+  onStep?: (x: number, y: number) => void;
   /** A map was entered (the first, or through a door): its events run (core/world/events.ts). */
   onMap?: (world: WorldMap) => void;
   /**
@@ -456,6 +458,7 @@ class MapScene extends Phaser.Scene {
       if (e.kind === "arrived") {
         this.leftFoot = !this.leftFoot;
         this.stepCount++;
+        this.opts.onStep?.(e.x, e.y);
         const t = teleportAt(world, e.x, e.y, this.walker.facing);
         if (t) {
           // stop on the door: the step after it must not start

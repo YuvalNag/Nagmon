@@ -11,6 +11,8 @@ import { ageFromProfile } from "../core/family/age";
 import type { Profile, ProfileStore } from "../core/family/profiles";
 import { type ContentLibrary, LearningEngine, LearnerState, loadContent, PyRandom } from "../core/learning";
 import { SubjectMap } from "../core/learning/quiz_flow";
+import { FieldLog } from "../core/game/fieldLog";
+import type { QuizSession } from "../core/world/quiz";
 import { fillText } from "../core/world/dialog";
 import { localDay, WorldState } from "../core/world/worldState";
 import type { JsonObject } from "../platform/storage";
@@ -91,6 +93,8 @@ export interface PlayOptions {
 
 export class Play {
   readonly maxChoices: number | null;
+  /** The field log: one line for each thing a parent reads back. */
+  readonly field: FieldLog;
   private saving: Promise<void> = Promise.resolve();
 
   constructor(
@@ -104,6 +108,23 @@ export class Play {
     private readonly now: () => Date,
   ) {
     this.maxChoices = maxChoicesFor(profile);
+    this.field = new FieldLog(log);
+  }
+
+  /** Logs an answered question (subject, skill, level, right or not, ms). */
+  logAnswer(session: QuizSession, context: string): void {
+    const q = session.question;
+    if (!q || !session.outcome) return;
+    const skill = this.engine.content.get(q.skill_id);
+    this.field.question({
+      subject: q.subject,
+      skill: q.skill_id,
+      grade: skill ? skill.grade : this.profile.grade,
+      theta: this.engine.learner.skills.get(q.skill_id)?.theta ?? 0,
+      correct: session.outcome.correct,
+      ms: session.elapsedMs,
+      context,
+    });
   }
 
   /** The phone's day for the daily prizes. */

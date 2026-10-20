@@ -2,6 +2,8 @@ import { type MutableRefObject, useCallback, useEffect, useRef, useState } from 
 import type { Play, PlayOptions } from "../../app/play";
 import { TALK_TO, testSeed } from "../../app/playConfig";
 import type { Profile, ProfileStore } from "../../core/family/profiles";
+import { crumb } from "../../core/game/breadcrumb";
+import { FieldLog } from "../../core/game/fieldLog";
 import { pages } from "../../core/world/dialog";
 import { EventRunner, type EventHost } from "../../core/world/events";
 import type { WorldMap } from "../../core/world/mapData";
@@ -19,6 +21,7 @@ import { ScreenTime } from "../screenTime";
 import { Tap } from "../Tap";
 
 const log = getLogger("nagmon.map");
+const field = new FieldLog(getLogger("nagmon.field"));
 
 /** How long the "closed way" note stays up. */
 export const NOTE_MS = 3500;
@@ -94,6 +97,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   // the runner's own state changed (it started, a talk ended): draw again
   const [, setRunnerTick] = useState(0);
   const seq = useRef(0);
+  const lastMap = useRef<string | null>(null);
   const shown = useRef<Overlay | null>(null);
   shown.current = overlay;
   const dialogAdvance = useRef<(() => void) | null>(null);
@@ -143,7 +147,14 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             return talk ? window.innerWidth - talk.left + PAD_GAP : 0;
           },
           onFacing: (who) => alive && setFacing(who),
-          onMap: (w) => alive && setWorld(w),
+          onMap: (w) => {
+            if (!alive) return;
+            field.mapChange(lastMap.current, w.name);
+            lastMap.current = w.name;
+            crumb.position(w.name, w.start?.x ?? 0, w.start?.y ?? 0);
+            setWorld(w);
+          },
+          onStep: (x, y) => crumb.position(lastMap.current ?? "none", x, y),
           onBlocked: () => setNote((n) => n + 1),
           onReady: () => alive && setStatus("ready"),
           onError: () => alive && setStatus("failed"),
@@ -175,7 +186,16 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       say: (msgid) =>
         new Promise<void>((resolve) => {
           if (!alive) return resolve();
-          show({ kind: "dialog", pages: pages(play.text(msgid)), done: resolve });
+          field.dialogStart(msgid);
+          const since = performance.now();
+          show({
+            kind: "dialog",
+            pages: pages(play.text(msgid)),
+            done: () => {
+              field.dialogEnd(msgid, performance.now() - since);
+              resolve();
+            },
+          });
         }),
       quiz: (topic, context, answered) =>
         new Promise<void>((resolve) => {
@@ -184,10 +204,10 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             play.engine,
             { topic, context, maxChoices: play.maxChoices },
             () => gameClock.now(),
-            (outcome, word) => {
+            (_outcome, word) => {
               // the learner first, and at once: a kill now loses nothing
               void play.saveLearner();
-              log.info(`Answered ${outcome.correct ? "right" : "not right"} (${word}) on ${session.question?.skill_id}`);
+              play.logAnswer(session, context);
               answered(word);
             },
             (m) => log.warning(m),
@@ -286,6 +306,11 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     const timer = setTimeout(() => setNote(0), NOTE_MS);
     return () => clearTimeout(timer);
   }, [note]);
+
+  // the last screen, for the parent's "something is wrong"
+  useEffect(() => {
+    crumb.screen(menuOpen ? "menu" : overlay ? overlay.kind : "map");
+  }, [menuOpen, overlay]);
 
   const canTalk = !held && !!facing && !!runner && runner.talkable(facing);
 

@@ -8,11 +8,12 @@ interface Props {
   onPin: () => void;
   onGithub: () => void;
   onShareLog: () => void;
+  onReport: () => void;
   onBack: () => void;
 }
 
 /** The parents' area: four big doors and the way out. */
-export function ParentsHome({ busy, onChildren, onPin, onGithub, onShareLog, onBack }: Props) {
+export function ParentsHome({ busy, onChildren, onPin, onGithub, onShareLog, onReport, onBack }: Props) {
   return (
     <main className="screen parents-page" data-screen="parents">
       <Bar title={t("parentsTitle")} onBack={onBack} />
@@ -29,6 +30,9 @@ export function ParentsHome({ busy, onChildren, onPin, onGithub, onShareLog, onB
           </Tap>
           <Tap id="share_log" disabled={busy} onTap={onShareLog}>
             {t("parentsShareLog")}
+          </Tap>
+          <Tap id="parents_report" disabled={busy} onTap={onReport}>
+            {t("parentsReport")}
           </Tap>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import { learnerFor, loadLibrary, maxChoicesFor, openPlay, type FetchJson } from "../../../src/app/play";
 import { defaultsForGrade } from "../../../src/core/family/gradeDefaults";
 import { ProfileStore, type Profile } from "../../../src/core/family/profiles";
+import { QuizSession } from "../../../src/core/world/quiz";
 import { MemoryFileStore, pendingWrites } from "../../../src/platform/storage";
 
 /** The game's data as the app fetches it, from the build's files. */
@@ -89,5 +90,19 @@ describe("a child's play", () => {
     const a = await child();
     const play = await openPlay({ ...a, fetchJson, now: () => new Date(2026, 9, 20, 23, 59) });
     expect(play.today()).toBe("2026-10-20");
+  });
+
+  it("logs an answered question as one line with no name", async () => {
+    const a = await child();
+    const lines: string[] = [];
+    const play = await openPlay({ ...a, fetchJson, seed: 3, log: { info: (m) => lines.push(m), warning: () => {}, error: () => {} } });
+    let t = 1000;
+    const session = new QuizSession(play.engine, { topic: "math.money.change_20", context: "shop", maxChoices: null }, () => (t += 2500), () => {});
+    if (session.phase === "example") session.exampleDone();
+    session.choose(session.question!.answer as string) || (session.press("0"), session.check());
+    play.logAnswer(session, "shop");
+    const q = lines.find((l) => l.startsWith("Q "))!;
+    expect(q).toMatch(/^Q subject=math skill=math\.money\.change_20 grade=\d+ theta=-?\d+\.\d\d ok=[01] ms=\d+ ctx=shop$/);
+    expect(q).not.toContain("תמר");
   });
 });

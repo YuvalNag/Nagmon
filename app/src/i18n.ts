@@ -86,6 +86,8 @@ export const he = {
   ghSend: "שליחה",
   ghSent: "נשלח בהצלחה.",
   shareLog: "שליחת יומן",
+  parentsReport: "משהו לא עובד",
+  reportDone: "נרשם ביומן איפה הילד היה. עכשיו אפשר לשלוח את היומן.",
   back: "חזרה",
   next: "המשך",
   done: "סיום",

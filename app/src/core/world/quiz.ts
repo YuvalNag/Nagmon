@@ -54,6 +54,8 @@ export class QuizSession {
   outcome: AnswerOutcome | null = null;
   /** The answer was "don't know". */
   gaveUp = false;
+  /** How long the answer took, ms (the game's clock). */
+  elapsedMs = 0;
   private hintUsed = false;
   private started: number;
 
@@ -154,7 +156,8 @@ export class QuizSession {
   private answer(given: Given, dontKnow: boolean): boolean {
     const q = this.question;
     if (!q || this.outcome) return false;
-    const elapsed = Math.max(0, (this.clock() - this.started) / 1000);
+    this.elapsedMs = Math.max(0, this.clock() - this.started);
+    const elapsed = this.elapsedMs / 1000;
     this.outcome = this.engine.submit(q, given, {
       elapsed_s: elapsed,
       context: this.request.context,

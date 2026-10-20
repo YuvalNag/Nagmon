@@ -7,6 +7,7 @@ import { ProfileError, ProfileNameTakenError, type Profile, validateName } from 
 import type { Check, Upload } from "../../../core/fieldData/github";
 import { progressSnapshot } from "../../../core/fieldData/snapshot";
 import { FieldData, type Kind } from "../../../core/fieldData/uploads";
+import { FieldLog } from "../../../core/game/fieldLog";
 import { t } from "../../../i18n";
 import { appLogText, buildInfo, currentAppLog, getLogger, saveAppLog } from "../../../platform/appLog";
 import { shareText } from "../../../platform/share";
@@ -391,6 +392,19 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
     );
   }
 
+  /** "משהו לא עובד": the child's last screen and place go into the log, which is saved. */
+  function report() {
+    void work(
+      "write the report",
+      async () => {
+        new FieldLog(log).report();
+        await saveAppLog();
+        return { kind: "notice", text: t("reportDone"), next: PARENTS_HOME };
+      },
+      { kind: "notice", text: t("errorTryAgain"), next: PARENTS_HOME },
+    );
+  }
+
   /** "שליחת יומן" through Android's share sheet: no token, the parent picks where. */
   function shareLog() {
     void work(
@@ -424,6 +438,7 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
             onPin={askCurrentPin}
             onGithub={() => go({ kind: "github" })}
             onShareLog={shareLog}
+            onReport={report}
             onBack={back}
           />
         );
