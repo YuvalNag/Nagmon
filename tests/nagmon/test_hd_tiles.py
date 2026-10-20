@@ -140,6 +140,44 @@ def test_frame_takes_the_map_neighbour_or_the_sheet(tools):
     assert (f[:2, 2:6] == 0).all()
 
 
+def test_frame_skips_a_neighbour_of_another_tile_size(tools):
+    import numpy as np
+
+    ts, sheet = _toy_tileset(tools)
+    up = tools.up
+    chosen = {("toy", 0, (1, 0)): ("big", 0, 0)}
+    big = np.full((8, 8, 4), 77, np.uint8)
+    framed = up.framed_tiles(
+        ts, sheet, chosen, lambda name, tid: big if name == "big" else None
+    )
+    # right: still tile 1 from the sheet
+    assert (framed[0][2:6, 6:] == (0, 255, 0, 255)).all()
+
+
+def test_bleed_colours_clear_pixels_near_the_edge(tools):
+    import numpy as np
+
+    img = np.zeros((1, 9, 4), np.uint8)
+    img[0, 0] = (10, 20, 30, 255)
+    out = tools.up.bleed(img, 4)
+    assert (out[0, :5, :3] == (10, 20, 30)).all()
+    assert (out[0, 5:] == 0).all()
+    assert (out[0, 1:, 3] == 0).all()  # still transparent
+    assert tuple(out[0, 0]) == (10, 20, 30, 255)
+
+
+def test_a_gid_below_every_tileset_names_the_map(tools, tmp_path):
+    tmx = tmp_path / "bad.tmx"
+    tmx.write_text(
+        '<map width="1" height="1" tilewidth="4" tileheight="4">'
+        '<tileset firstgid="5" source="toy.tsx"/>'
+        '<layer width="1" height="1"><data encoding="csv">2</data></layer>'
+        "</map>"
+    )
+    with pytest.raises(ValueError, match="bad.tmx"):
+        tools.up.neighbour_counts([tmx], {"toy": {}})
+
+
 def test_animated_frames_pair_with_the_neighbours_frames(tools, tmp_path):
     up = tools.up
     tmx = tmp_path / "m.tmx"
@@ -222,7 +260,7 @@ def test_hd_tilesets_are_what_the_tool_makes(tools, neighbours, name):
     ts = sheets.tileset(name)
     path = tools.up.output_path(name)
     assert path.is_file(), "run tools/art/upscale_tiles.py"
-    on_disk = tools.up.load_png(path)
+    on_disk = tools.up.load_rgba(path, clean=False)
     assert on_disk.shape == (ts.size[1] * 4, ts.size[0] * 4, 4)
     built = tools.up.upscale(name, 4, chosen, sheets)
     assert (on_disk == built).all(), f"{path}: re-run upscale_tiles.py"
@@ -344,6 +382,7 @@ def test_resolve_mod_path_prefers_the_higher_mod(tmp_path, monkeypatch):
     monkeypatch.setattr(
         asset_loader, "_MOD_ASSET_ROOTS", (tmp_path / "a", tmp_path / "b")
     )
+    monkeypatch.setattr(asset_loader, "_HAS_POPULATED", True)
     asset_loader.fetch_asset.cache_clear()
     try:
         resolve = asset_loader.resolve_mod_path
@@ -360,6 +399,9 @@ def test_resolve_mod_path_prefers_the_higher_mod(tmp_path, monkeypatch):
 
 def test_the_game_finds_nagmons_tilesets():
     from tuxemon.constants import asset_loader
+    from tuxemon.user_config import CONFIG
+
+    asset_loader.fetch_mod_asset_roots(CONFIG)  # as the game does
 
     tux = TILESETS / "core_outdoor.png"
     got = Path(asset_loader.resolve_mod_path(str(tux)))
@@ -376,7 +418,9 @@ def test_hearthrock_loads_with_hd_tiles(monkeypatch):
     from tuxemon.constants import asset_loader
     from tuxemon.map.loader import TMXMapLoader
     from tuxemon.prepare import DISPLAY_CONTEXT
+    from tuxemon.user_config import CONFIG
 
+    asset_loader.fetch_mod_asset_roots(CONFIG)  # as the game does
     tmx = str(
         REPO / "mods" / "tuxemon" / "maps" / "classic_hearthrock_city.tmx"
     )
@@ -413,3 +457,21 @@ def test_hearthrock_loads_with_hd_tiles(monkeypatch):
     assert hd.collision_lines_map == old.collision_lines_map
     assert len(hd.events) == len(old.events)
     assert len(hd._data.images) == len(old._data.images)
+
+
+def test_images_without_a_tileset_are_not_looked_up_again(
+    tmp_path, monkeypatch
+):
+    from tuxemon import graphics
+    from tuxemon.scaling import DefaultScaling
+
+    def boom(path):
+        raise AssertionError("looked up by mod order")
+
+    monkeypatch.setattr(graphics, "resolve_mod_path", boom)
+    path = _write(tmp_path, _tile_sheet(4), "layer.png")
+    # an image layer, or a tile's own image: as before, whatever its size
+    image = graphics.scaled_image_loader(
+        path, None, scaling=DefaultScaling(2)
+    )()
+    assert image.get_size() == (256, 128)

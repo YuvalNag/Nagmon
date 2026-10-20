@@ -118,17 +118,14 @@ def read_tileset(tsx: Path) -> Tileset:
     )
 
 
-def load_rgba(path: Path) -> np.ndarray:
-    """A sheet as RGBA; every fully transparent pixel is (0, 0, 0, 0)."""
+def load_rgba(path: Path, clean: bool = True) -> np.ndarray:
+    """An image as RGBA. ``clean``: every fully transparent pixel becomes
+    (0, 0, 0, 0), as the upscaler wants its input."""
     with Image.open(path) as image:
         rgba = np.array(image.convert("RGBA"))
-    rgba[rgba[..., 3] == 0] = 0
+    if clean:
+        rgba[rgba[..., 3] == 0] = 0
     return rgba
-
-
-def load_png(path: Path) -> np.ndarray:
-    with Image.open(path) as image:
-        return np.array(image.convert("RGBA"))
 
 
 class Sheets:
@@ -209,7 +206,10 @@ def _decode(gid: int, tilesets: list[tuple[int, str]]) -> Tile | None:
     gid &= GID_MASK
     if gid == 0:
         return None
-    first, name = max((f, n) for f, n in tilesets if f <= gid)
+    below = [(f, n) for f, n in tilesets if f <= gid]
+    if not below:
+        raise ValueError(f"gid {gid} is below every tileset's firstgid")
+    first, name = max(below)
     return (name, gid - first, flags)
 
 
@@ -239,7 +239,10 @@ def neighbour_counts(
 
         def tile_at(gid: int) -> Tile | None:
             if gid not in decoded:
-                decoded[gid] = _decode(gid, tilesets)
+                try:
+                    decoded[gid] = _decode(gid, tilesets)
+                except ValueError as e:
+                    raise ValueError(f"{tmx}: {e}") from None
             return decoded[gid]
 
         for gids in layers:
@@ -335,17 +338,20 @@ def framed_tiles(
             block = (
                 empty if n is None else flipped(pixels_of(n[0], n[1]), n[2])
             )
+            if block.shape != empty.shape:
+                continue  # a tileset with another tile size: the sheet
             y0, y1, ny0, ny1 = _span(d[1], t, p)
             x0, x1, nx0, nx1 = _span(d[0], t, p)
             out[tid, y0:y1, x0:x1] = block[ny0:ny1, nx0:nx1]
     return out
 
 
-def bleed(rgba: np.ndarray, steps: int = 2) -> np.ndarray:
+def bleed(rgba: np.ndarray, steps: int) -> np.ndarray:
     """
     Fully transparent pixels next to visible ones (up to ``steps`` away)
     take their colour and stay transparent: the game's smooth scaling
-    then blends no black into the edges of trees and roofs.
+    then blends no black into the edges of trees and roofs. Shrinking a
+    tile to scale 1 averages k x k pixels, so ``steps`` is k.
     """
     out = rgba.copy()
     known = out[..., 3] > 0
@@ -393,7 +399,7 @@ def upscale(
             out[y * t * k : (y + 1) * t * k, x * t * k : (x + 1) * t * k] = (
                 tile
             )
-    return bleed(out)
+    return bleed(out, k)
 
 
 def output_path(name: str, repo: Path = REPO) -> Path:

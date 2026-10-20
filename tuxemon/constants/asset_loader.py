@@ -197,6 +197,9 @@ def resolve_mod_path(path: str) -> str:
     is looked up again by mod order (SDD_ART §2.11). Any other path, or
     one no mod has, comes back unchanged.
     """
+    if not _HAS_POPULATED:
+        logger.warning("[Resolve] mod roots not populated yet: %s", path)
+        return path
     target = Path(path).resolve()
     for root in _MOD_ASSET_ROOTS:
         try:
