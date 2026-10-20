@@ -1,0 +1,21 @@
+{
+  "slug": "europan",
+  "name_he": "שומרהעומק",
+  "name_en": "Europan",
+  "description_he": "יצור קוסמי מקורי בהשראת אירופה, הלומד מדעים דרך ירחים קרחיים ועדויות לאוקיינוסים נסתרים.",
+  "description_en": "An original cosmic creature inspired by europa, learning science through icy moons and evidence for hidden oceans.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "europod",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

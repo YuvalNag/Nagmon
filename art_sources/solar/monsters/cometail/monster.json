@@ -1,0 +1,24 @@
+{
+  "slug": "cometail",
+  "name_he": "זנבשביט",
+  "name_en": "Cometail",
+  "description_he": "יצור קוסמי מקורי בהשראת שביטים, הלומד מדעים דרך גרעין קרחי, אבק וזנבות שביטים.",
+  "description_en": "An original cosmic creature inspired by comet, learning science through icy nuclei, dust and comet tails.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "cometrail",
+    "at_level": 36
+  },
+  "evolves_from": "combit",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

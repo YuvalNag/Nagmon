@@ -1,0 +1,21 @@
+{
+  "slug": "lunwarden",
+  "name_he": "שומרירח",
+  "name_en": "Lunwarden",
+  "description_he": "יצור קוסמי מקורי בהשראת הירח, הלומד מדעים דרך אור מוחזר, מופעי הירח ומכתשים.",
+  "description_en": "An original cosmic creature inspired by moon, learning science through reflected sunlight, lunar phases and impact craters.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "lunihare",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

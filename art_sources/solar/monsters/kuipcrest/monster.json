@@ -1,0 +1,21 @@
+{
+  "slug": "kuipcrest",
+  "name_he": "דורבקרח",
+  "name_en": "Kuipcrest",
+  "description_he": "יצור קוסמי מקורי בהשראת חגורת קויפר, הלומד מדעים דרך גופים קרחיים קטנים מעבר לנפטון.",
+  "description_en": "An original cosmic creature inspired by kuiper, learning science through icy small bodies beyond neptune.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "kuipine",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "nepstorm",
+  "name_he": "סערנפטון",
+  "name_en": "Nepstorm",
+  "description_he": "יצור קוסמי מקורי בהשראת נפטון, הלומד מדעים דרך כוכבים רחוקים, ענקי קרח ורוחות.",
+  "description_en": "An original cosmic creature inspired by neptune, learning science through distant planets, ice giants and winds.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "nepdart",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

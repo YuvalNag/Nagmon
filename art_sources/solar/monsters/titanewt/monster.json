@@ -1,0 +1,24 @@
+{
+  "slug": "titanewt",
+  "name_he": "טריטיטאן",
+  "name_en": "Titanewt",
+  "description_he": "יצור קוסמי מקורי בהשראת טיטאן, הלומד מדעים דרך אטמוספרות עבות ואגמי מתאן.",
+  "description_en": "An original cosmic creature inspired by titan, learning science through thick atmospheres and lakes of methane.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "titanveil",
+    "at_level": 36
+  },
+  "evolves_from": "titanip",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "iolisk",
+  "name_he": "לטאיו",
+  "name_en": "Iolisk",
+  "description_he": "יצור קוסמי מקורי בהשראת איו, הלומד מדעים דרך ירחים געשיים ומשטחים משתנים.",
+  "description_en": "An original cosmic creature inspired by io, learning science through volcanic moons and changing surfaces.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "iopyre",
+    "at_level": 36
+  },
+  "evolves_from": "iobud",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "ringwarden",
+  "name_he": "שומרהטבעות",
+  "name_en": "Ringwarden",
+  "description_he": "יצור קוסמי מקורי בהשראת שבתאי, הלומד מדעים דרך טבעות המורכבות מחלקיקים רבים.",
+  "description_en": "An original cosmic creature inspired by saturn, learning science through planetary rings made of many small particles.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "saturnip",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

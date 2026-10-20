@@ -1087,3 +1087,508 @@ msgstr "They are called Hatters, because their heads look like a tall pointed ha
 
 msgid "dandicub_description"
 msgstr "After a litter is born, they float all over the world, looking for a new place to grow."
+
+# --- solar-system animals (tools/art/import_solar_monsters.py) ---
+
+msgid "lunibble"
+msgstr "Lunibble"
+
+msgid "lunibble_description"
+msgstr "A small round moon. The Moon makes no light of its own, it shines with the Sun's light."
+
+msgid "lunihare"
+msgstr "Lunihare"
+
+msgid "lunihare_description"
+msgstr "This hare jumps high, because gravity on the Moon is weak."
+
+msgid "lunwarden"
+msgstr "Lunwarden"
+
+msgid "lunwarden_description"
+msgstr "It guards the craters. Each crater was made when a space rock fell on the Moon."
+
+msgid "terrabub"
+msgstr "Terrabub"
+
+msgid "terrabub_description"
+msgstr "A blue and green ball. Earth is the only place we know that has life."
+
+msgid "terratot"
+msgstr "Terratot"
+
+msgid "terratot_description"
+msgstr "A little turtle carrying a world on its back. Most of Earth is covered by water."
+
+msgid "terravault"
+msgstr "Terravault"
+
+msgid "terravault_description"
+msgstr "A calm, sturdy guardian. Earth's air protects us from space."
+
+msgid "heliobud"
+msgstr "Heliobud"
+
+msgid "heliobud_description"
+msgstr "A tiny glowing star. The Sun is a star, and its light reaches us in about 8 minutes."
+
+msgid "heliolynx"
+msgstr "Heliolynx"
+
+msgid "heliolynx_description"
+msgstr "A warm, happy flame cat. The Sun is very hot, so we never look straight at it."
+
+msgid "heliarch"
+msgstr "Heliarch"
+
+msgid "heliarch_description"
+msgstr "Its crown glows like the Sun's corona, which we see only during a solar eclipse."
+
+msgid "solwind"
+msgstr "Solwind"
+
+msgid "solwind_description"
+msgstr "A small green breeze. The solar wind is a stream of particles flowing from the Sun."
+
+msgid "aurorail"
+msgstr "Aurorail"
+
+msgid "aurorail_description"
+msgstr "A tail of glow. Auroras appear when the solar wind hits our air."
+
+msgid "sailbit"
+msgstr "Sailbit"
+
+msgid "sailbit_description"
+msgstr "A tiny sail of light. Sunlight can push a spacecraft."
+
+msgid "sailray"
+msgstr "Sailray"
+
+msgid "sailray_description"
+msgstr "A wide, light sail. A solar sail needs no fuel."
+
+msgid "mercurip"
+msgstr "Mercurip"
+
+msgid "mercurip_description"
+msgstr "A small cratered rock. Mercury is the planet closest to the Sun."
+
+msgid "mercurush"
+msgstr "Mercurush"
+
+msgid "mercurush_description"
+msgstr "A quick lizard. A year on Mercury lasts only 88 days, so everything runs fast."
+
+msgid "mercuram"
+msgstr "Mercuram"
+
+msgid "mercuram_description"
+msgstr "A strong rocky ram. Mercury is very hot by day and very cold at night."
+
+msgid "venubud"
+msgstr "Venubud"
+
+msgid "venubud_description"
+msgstr "A soft yellow cloud. Venus is wrapped in thick clouds."
+
+msgid "venumoth"
+msgstr "Venumoth"
+
+msgid "venumoth_description"
+msgstr "A cloud moth. Venus is very hot, because its clouds trap the heat."
+
+msgid "venuveil"
+msgstr "Venuveil"
+
+msgid "venuveil_description"
+msgstr "Its wings are like a veil of clouds. Venus spins slowly, and backwards."
+
+msgid "rustip"
+msgstr "Rustip"
+
+msgid "rustip_description"
+msgstr "A red ball of rust. Mars is red, because it has a lot of rusty iron."
+
+msgid "marskip"
+msgstr "Marskip"
+
+msgid "marskip_description"
+msgstr "A bouncy lizard. Mars has a giant volcano called Olympus Mons."
+
+msgid "marstrix"
+msgstr "Marstrix"
+
+msgid "marstrix_description"
+msgstr "A brave red knight. Robots are already exploring the surface of Mars."
+
+msgid "roveroo"
+msgstr "Roveroo"
+
+msgid "roveroo_description"
+msgstr "A little rover on wheels. Rovers drive across planets and take pictures."
+
+msgid "roverex"
+msgstr "Roverex"
+
+msgid "roverex_description"
+msgstr "A Mars rover. Rovers study rocks and soil with no person aboard."
+
+msgid "asterchip"
+msgstr "Asterchip"
+
+msgid "asterchip_description"
+msgstr "A small curious rock. The asteroid belt lies between Mars and Jupiter."
+
+msgid "astercrab"
+msgstr "Astercrab"
+
+msgid "astercrab_description"
+msgstr "A rock-armored armadillo. Asteroids are leftovers from when the planets formed."
+
+msgid "asterfort"
+msgstr "Asterfort"
+
+msgid "asterfort_description"
+msgstr "A fortress on four legs. Most asteroids are tiny compared with a planet."
+
+msgid "meteet"
+msgstr "Meteet"
+
+msgid "meteet_description"
+msgstr "A small glowing rock. A meteor is a streak of light made when a rock enters the air."
+
+msgid "meteoroar"
+msgstr "Meteoroar"
+
+msgid "meteoroar_description"
+msgstr "A fox with a fiery tail. What we call a falling star is a meteor, not a star."
+
+msgid "meteohelm"
+msgstr "Meteohelm"
+
+msgid "meteohelm_description"
+msgstr "A stag with blazing antlers. A meteor that lands on the ground is called a meteorite."
+
+msgid "dustip"
+msgstr "Dustip"
+
+msgid "dustip_description"
+msgstr "A speck of dust. Space dust scatters sunlight."
+
+msgid "zodiacat"
+msgstr "Zodiacat"
+
+msgid "zodiacat_description"
+msgstr "A cat of soft light. Zodiacal light is a faint glow of dust in space."
+
+msgid "jovibud"
+msgstr "Jovibud"
+
+msgid "jovibud_description"
+msgstr "A striped ball. Jupiter is the biggest planet."
+
+msgid "jovihog"
+msgstr "Jovihog"
+
+msgid "jovihog_description"
+msgstr "A little cloud piglet. Jupiter has a giant storm, the Great Red Spot, for centuries."
+
+msgid "jovigale"
+msgstr "Jovigale"
+
+msgid "jovigale_description"
+msgstr "Stormy and bold. Jupiter is mostly gas, with no ground to stand on."
+
+msgid "iobud"
+msgstr "Iobud"
+
+msgid "iobud_description"
+msgstr "A yellow, spotted ball. Io is a moon of Jupiter with many volcanoes."
+
+msgid "iolisk"
+msgstr "Iolisk"
+
+msgid "iolisk_description"
+msgstr "A speckled lizard. Io's volcanoes spray out gas and hot rock."
+
+msgid "iopyre"
+msgstr "Iopyre"
+
+msgid "iopyre_description"
+msgstr "A glowing lizard. Io is the most volcanic place in the Solar System."
+
+msgid "europip"
+msgstr "Europip"
+
+msgid "europip_description"
+msgstr "A small cool fish. Under Europa's ice there may be an ocean."
+
+msgid "europod"
+msgstr "Europod"
+
+msgid "europod_description"
+msgstr "An ice turtle. Europa is a moon of Jupiter."
+
+msgid "europan"
+msgstr "Europan"
+
+msgid "europan_description"
+msgstr "Guardian of the deep. The ocean under Europa's ice is very deep."
+
+msgid "ganybit"
+msgstr "Ganybit"
+
+msgid "ganybit_description"
+msgstr "A big greyish ball. Ganymede is the biggest moon in the Solar System."
+
+msgid "ganyhorn"
+msgstr "Ganyhorn"
+
+msgid "ganyhorn_description"
+msgstr "A bison with icy horns. Ganymede is bigger than the planet Mercury."
+
+msgid "ganyguard"
+msgstr "Ganyguard"
+
+msgid "ganyguard_description"
+msgstr "A guardian with a shield. Ganymede has a magnetic field of its own."
+
+msgid "ringlet"
+msgstr "Ringlet"
+
+msgid "ringlet_description"
+msgstr "A little ball with a ring. Saturn is surrounded by rings."
+
+msgid "saturnip"
+msgstr "Saturnip"
+
+msgid "saturnip_description"
+msgstr "A beetle with rings. Saturn's rings are made of chunks of ice and rock."
+
+msgid "ringwarden"
+msgstr "Ringwarden"
+
+msgid "ringwarden_description"
+msgstr "It guards the shining rings. Saturn has more than a hundred moons."
+
+msgid "titanip"
+msgstr "Titanip"
+
+msgid "titanip_description"
+msgstr "A hazy orange ball. Titan is a moon of Saturn, and it has thick air."
+
+msgid "titanewt"
+msgstr "Titanewt"
+
+msgid "titanewt_description"
+msgstr "A small newt. Titan has lakes of liquid methane."
+
+msgid "titanveil"
+msgstr "Titanveil"
+
+msgid "titanveil_description"
+msgstr "Wrapped in orange haze. Titan has mountains and lakes under its haze."
+
+msgid "gravip"
+msgstr "Gravip"
+
+msgid "gravip_description"
+msgstr "A little ball that circles around. Gravity is a pull between things."
+
+msgid "orbitail"
+msgstr "Orbitail"
+
+msgid "orbitail_description"
+msgstr "It circles without stopping. The planets orbit the Sun because of its gravity."
+
+msgid "gravivault"
+msgstr "Gravivault"
+
+msgid "gravivault_description"
+msgstr "Guardian of the orbits. Gravity keeps the Moon circling Earth."
+
+msgid "tiltip"
+msgstr "Tiltip"
+
+msgid "tiltip_description"
+msgstr "A blue, tilted ball. Uranus spins almost on its side."
+
+msgid "uranurtle"
+msgstr "Uranurtle"
+
+msgid "uranurtle_description"
+msgstr "A swimmer tilted to one side, circling a ring. Uranus is an ice giant."
+
+msgid "tiltitan"
+msgstr "Tiltitan"
+
+msgid "tiltitan_description"
+msgstr "A calm ice giant. Uranus is one of the coldest planets."
+
+msgid "nepbit"
+msgstr "Nepbit"
+
+msgid "nepbit_description"
+msgstr "A blue droplet. Neptune is very far from the Sun, so its light is dim."
+
+msgid "nepdart"
+msgstr "Nepdart"
+
+msgid "nepdart_description"
+msgstr "A fast wave fish. Neptune has the strongest winds in the Solar System."
+
+msgid "nepstorm"
+msgstr "Nepstorm"
+
+msgid "nepstorm_description"
+msgstr "A stormy ray. A year on Neptune lasts about 165 Earth years."
+
+msgid "plutot"
+msgstr "Plutot"
+
+msgid "plutot_description"
+msgstr "A cute little ball. Pluto is a dwarf planet."
+
+msgid "plutopaw"
+msgstr "Plutopaw"
+
+msgid "plutopaw_description"
+msgstr "A cat on the ice. Pluto has a big heart-shaped region."
+
+msgid "plutaur"
+msgstr "Plutaur"
+
+msgid "plutaur_description"
+msgstr "A tiger of the cold. Pluto is very far away, and very cold."
+
+msgid "kuipip"
+msgstr "Kuipip"
+
+msgid "kuipip_description"
+msgstr "A little ball of ice. The Kuiper belt lies far away, beyond Neptune."
+
+msgid "kuipine"
+msgstr "Kuipine"
+
+msgid "kuipine_description"
+msgstr "An ice hedgehog. The Kuiper belt holds many frozen bodies."
+
+msgid "kuipcrest"
+msgstr "Kuipcrest"
+
+msgid "kuipcrest_description"
+msgstr "Quills of ice crystals. Some comets come from there."
+
+msgid "combit"
+msgstr "Combit"
+
+msgid "combit_description"
+msgstr "A little icy cloud with a tail. A comet is a lump of ice and dust."
+
+msgid "cometail"
+msgstr "Cometail"
+
+msgid "cometail_description"
+msgstr "A small dragon with a tail. Near the Sun a comet's ice melts and forms its tail."
+
+msgid "cometrail"
+msgstr "Cometrail"
+
+msgid "cometrail_description"
+msgstr "A long glowing trail. A comet's tail always points away from the Sun."
+
+msgid "probip"
+msgstr "Probip"
+
+msgid "probip_description"
+msgstr "A little probe, a spacecraft with no people, carrying a camera and instruments."
+
+msgid "probewing"
+msgstr "Probewing"
+
+msgid "probewing_description"
+msgstr "A probe with solar wings. Probes are sent to faraway planets."
+
+msgid "nagmon_solar_astronomer"
+msgstr "The Astronomer"
+
+msgid "nagmon_solar_mila"
+msgstr "Mila"
+
+msgid "nagmon_solar_owl"
+msgstr "The Owl"
+
+msgid "nagmon_solar_moon_engineer"
+msgstr "The Moon Engineer"
+
+msgid "nagmon_solar_rover_driver"
+msgstr "The Rover Driver"
+
+msgid "nagmon_solar_sage"
+msgstr "The Sage"
+
+msgid "nagmon_solar_grey_hood"
+msgstr "The Grey Hood"
+
+msgid "nagmon_solar_moon_moon_engineer"
+msgstr "This is the Moon! There is no air here, so nothing can be heard. Try a jump, gravity is weak!"
+
+msgid "nagmon_solar_moon_owl"
+msgstr "The Moon makes no light of its own. We see sunlight bouncing off it."
+
+msgid "nagmon_solar_sun_owl"
+msgstr "The Sun is a star. It is very hot, so we never look straight at it."
+
+msgid "nagmon_solar_sun_grey_hood"
+msgstr "The fog made me forget how long sunlight takes to reach us. Do you remember?"
+
+msgid "nagmon_solar_rocky_planets_rover_driver"
+msgstr "I drive a rover on Mars. The ground is red because it holds rusty iron."
+
+msgid "nagmon_solar_rocky_planets_sage"
+msgstr "The first four planets are rocky: Mercury, Venus, Earth and Mars."
+
+msgid "nagmon_solar_rocky_planets_owl"
+msgstr "Mercury is closest to the Sun, but Venus is the hottest, because of its clouds."
+
+msgid "nagmon_solar_giants_sage"
+msgstr "Jupiter is the biggest planet, and Saturn has rings of ice and rock."
+
+msgid "nagmon_solar_giants_moon_engineer"
+msgstr "Jupiter has many moons. The biggest, Ganymede, is even bigger than Mercury!"
+
+msgid "nagmon_solar_giants_owl"
+msgstr "There is no ground to stand on at Jupiter. It is mostly gas."
+
+msgid "nagmon_solar_outer_grey_hood"
+msgstr "It is far and cold out here. Neptune and Uranus are ice giants."
+
+msgid "nagmon_solar_outer_rover_driver"
+msgstr "Probes fly for years to get here. They have no driver, only an antenna that talks to us."
+
+msgid "nagmon_solar_outer_owl"
+msgstr "Pluto is a dwarf planet, and comets come from this frozen edge."
+
+msgid "nagmon_solar_station_astronomer"
+msgstr "Welcome to the space station! The telescope shows faraway stars. Each door leads somewhere new."
+
+msgid "nagmon_solar_station_mila"
+msgstr "My shuttle is waiting. Let us bring back the knowledge the fog took!"
+
+msgid "cat_moon_critter"
+msgstr "Moon Critter"
+
+msgid "cat_sun_critter"
+msgstr "Sun Critter"
+
+msgid "cat_planet_critter"
+msgstr "Planet Critter"
+
+msgid "cat_giant_critter"
+msgstr "Giant Critter"
+
+msgid "cat_far_critter"
+msgstr "Far Critter"
+
+# --- end of the solar-system animals ---

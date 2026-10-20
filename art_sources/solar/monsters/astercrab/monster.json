@@ -1,0 +1,24 @@
+{
+  "slug": "astercrab",
+  "name_he": "ארמדילסלע",
+  "name_en": "Astercrab",
+  "description_he": "יצור קוסמי מקורי בהשראת אסטרואידים, הלומד מדעים דרך גופים סלעיים קטנים וחגורת האסטרואידים.",
+  "description_en": "An original cosmic creature inspired by asteroid, learning science through rocky small bodies and the asteroid belt.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "asterfort",
+    "at_level": 36
+  },
+  "evolves_from": "asterchip",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "kuipine",
+  "name_he": "קיפוקרח",
+  "name_en": "Kuipine",
+  "description_he": "יצור קוסמי מקורי בהשראת חגורת קויפר, הלומד מדעים דרך גופים קרחיים קטנים מעבר לנפטון.",
+  "description_en": "An original cosmic creature inspired by kuiper, learning science through icy small bodies beyond neptune.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "kuipcrest",
+    "at_level": 36
+  },
+  "evolves_from": "kuipip",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

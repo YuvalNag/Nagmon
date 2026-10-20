@@ -1,0 +1,51 @@
+# Wild animals of the zone outer of the solar-system trip (mods/nagmon/trips/solar.yaml): its base forms.
+monsters:
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 12
+  - 15
+  variables: []
+  monster: tiltip
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 12
+  - 15
+  variables: []
+  monster: nepbit
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 12
+  - 15
+  variables: []
+  monster: plutot
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 12
+  - 15
+  variables: []
+  monster: kuipip
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 12
+  - 15
+  variables: []
+  monster: combit
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 12
+  - 15
+  variables: []
+  monster: probip
+slug: solar_outer

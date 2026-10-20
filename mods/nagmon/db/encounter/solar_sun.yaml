@@ -1,0 +1,27 @@
+# Wild animals of the zone sun of the solar-system trip (mods/nagmon/trips/solar.yaml): its base forms.
+monsters:
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 4
+  - 7
+  variables: []
+  monster: heliobud
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 4
+  - 7
+  variables: []
+  monster: solwind
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 4
+  - 7
+  variables: []
+  monster: sailbit
+slug: solar_sun

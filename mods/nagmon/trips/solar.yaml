@@ -1,0 +1,100 @@
+# The solar-system trip (docs/app/TRIPS.md §3): the ONE table the trip engine
+# reads. Zone ids, the map of each (app/public/game/maps/<map>.json, built by
+# tools/app/solar_maps.py) and the animals of each zone.
+#
+# families: the base form (it meets the child in the wild, from the zone's
+# encounter table mods/nagmon/db/encounter/<encounter>.yaml, at wild_levels)
+# and the forms it evolves into (never wild: the child evolves them).
+# species: the animals' category line in the animal album (cat_<species>).
+# npcs: the people standing in the zone's map (mods/nagmon/db/npc).
+# The station is the hub: every zone's exit leads there, and its doors lead
+# to the zones.
+chapter: solar_system
+subject: science
+station:
+  id: station
+  map: solar_station
+  title_he: תחנת החלל
+  title_en: The space station
+  npcs: [nagmon_solar_astronomer, nagmon_solar_mila]
+zones:
+  - id: moon
+    map: solar_moon
+    title_he: הירח
+    title_en: The Moon
+    encounter: solar_moon
+    species: moon_critter
+    species_he: יצור ירח
+    species_en: Moon Critter
+    wild_levels: [3, 6]
+    npcs: [nagmon_solar_moon_engineer, nagmon_solar_owl]
+    families:
+      lunibble: [lunihare, lunwarden]
+      terrabub: [terratot, terravault]
+  - id: sun
+    map: solar_sun
+    title_he: ליד השמש
+    title_en: Near the Sun
+    encounter: solar_sun
+    species: sun_critter
+    species_he: יצור שמש
+    species_en: Sun Critter
+    wild_levels: [4, 7]
+    npcs: [nagmon_solar_owl, nagmon_solar_grey_hood]
+    families:
+      heliobud: [heliolynx, heliarch]
+      solwind: [aurorail]
+      sailbit: [sailray]
+  - id: rocky_planets
+    map: solar_rocky_planets
+    title_he: כוכבי הלכת הסלעיים
+    title_en: The rocky planets
+    encounter: solar_rocky_planets
+    species: planet_critter
+    species_he: יצור כוכב
+    species_en: Planet Critter
+    wild_levels: [6, 9]
+    npcs: [nagmon_solar_rover_driver, nagmon_solar_sage, nagmon_solar_owl]
+    families:
+      mercurip: [mercurush, mercuram]
+      venubud: [venumoth, venuveil]
+      rustip: [marskip, marstrix]
+      roveroo: [roverex]
+      asterchip: [astercrab, asterfort]
+      meteet: [meteoroar, meteohelm]
+      dustip: [zodiacat]
+  - id: giants
+    map: solar_giants
+    title_he: הענקים והטבעות
+    title_en: The giants and the rings
+    encounter: solar_giants
+    species: giant_critter
+    species_he: יצור ענק
+    species_en: Giant Critter
+    wild_levels: [9, 12]
+    npcs: [nagmon_solar_sage, nagmon_solar_moon_engineer, nagmon_solar_owl]
+    families:
+      jovibud: [jovihog, jovigale]
+      iobud: [iolisk, iopyre]
+      europip: [europod, europan]
+      ganybit: [ganyhorn, ganyguard]
+      ringlet: [saturnip, ringwarden]
+      titanip: [titanewt, titanveil]
+      gravip: [orbitail, gravivault]
+  - id: outer
+    map: solar_outer
+    title_he: קצה המערכת
+    title_en: The edge of the system
+    encounter: solar_outer
+    species: far_critter
+    species_he: יצור רחוק
+    species_en: Far Critter
+    wild_levels: [12, 15]
+    npcs: [nagmon_solar_grey_hood, nagmon_solar_rover_driver, nagmon_solar_owl]
+    families:
+      tiltip: [uranurtle, tiltitan]
+      nepbit: [nepdart, nepstorm]
+      plutot: [plutopaw, plutaur]
+      kuipip: [kuipine, kuipcrest]
+      combit: [cometail, cometrail]
+      probip: [probewing]

@@ -1,0 +1,21 @@
+{
+  "slug": "heliarch",
+  "name_he": "כתרשמש",
+  "name_en": "Heliarch",
+  "description_he": "יצור קוסמי מקורי בהשראת שמש, הלומד מדעים דרך אור וחום; השמש היא כוכב.",
+  "description_en": "An original cosmic creature inspired by sun, learning science through sunlight and heat; the sun is a star.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "heliolynx",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

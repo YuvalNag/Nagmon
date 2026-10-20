@@ -1,0 +1,24 @@
+{
+  "slug": "venumoth",
+  "name_he": "פרפרנוגה",
+  "name_en": "Venumoth",
+  "description_he": "יצור קוסמי מקורי בהשראת נוגה, הלומד מדעים דרך עננים, אטמוספרה ואפקט החממה.",
+  "description_en": "An original cosmic creature inspired by venus, learning science through clouds, atmosphere and the greenhouse effect.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "venuveil",
+    "at_level": 36
+  },
+  "evolves_from": "venubud",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

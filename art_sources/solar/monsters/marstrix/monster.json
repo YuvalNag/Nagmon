@@ -1,0 +1,21 @@
+{
+  "slug": "marstrix",
+  "name_he": "אבירמאדים",
+  "name_en": "Marstrix",
+  "description_he": "יצור קוסמי מקורי בהשראת מאדים, הלומד מדעים דרך משטחים אדומים עשירים בברזל, קרח בקטבים וחקר כוכבים.",
+  "description_en": "An original cosmic creature inspired by mars, learning science through iron-rich red surfaces, polar ice and exploration.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "marskip",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

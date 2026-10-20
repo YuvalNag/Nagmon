@@ -1,0 +1,24 @@
+{
+  "slug": "uranurtle",
+  "name_he": "כלבנטוי",
+  "name_en": "Uranurtle",
+  "description_he": "יצור קוסמי מקורי בהשראת אורנוס, הלומד מדעים דרך ענקי קרח וצירי סיבוב נטויים.",
+  "description_en": "An original cosmic creature inspired by uranus, learning science through ice giants and tilted rotation axes.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "tiltitan",
+    "at_level": 36
+  },
+  "evolves_from": "tiltip",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

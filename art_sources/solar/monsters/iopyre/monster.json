@@ -1,0 +1,21 @@
+{
+  "slug": "iopyre",
+  "name_he": "געשאיו",
+  "name_en": "Iopyre",
+  "description_he": "יצור קוסמי מקורי בהשראת איו, הלומד מדעים דרך ירחים געשיים ומשטחים משתנים.",
+  "description_en": "An original cosmic creature inspired by io, learning science through volcanic moons and changing surfaces.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "iolisk",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

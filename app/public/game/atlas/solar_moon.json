@@ -1,0 +1,195 @@
+{
+ "image": "solar_moon.png",
+ "imagewidth": 408,
+ "imageheight": 340,
+ "tilewidth": 64,
+ "tileheight": 64,
+ "margin": 2,
+ "spacing": 4,
+ "columns": 6,
+ "tilecount": 26,
+ "frames": [
+  {
+   "index": 0,
+   "tileset": "moon",
+   "tile": 0,
+   "x": 2,
+   "y": 2
+  },
+  {
+   "index": 1,
+   "tileset": "moon",
+   "tile": 1,
+   "x": 70,
+   "y": 2
+  },
+  {
+   "index": 2,
+   "tileset": "moon",
+   "tile": 2,
+   "x": 138,
+   "y": 2
+  },
+  {
+   "index": 3,
+   "tileset": "moon",
+   "tile": 3,
+   "x": 206,
+   "y": 2
+  },
+  {
+   "index": 4,
+   "tileset": "moon",
+   "tile": 4,
+   "x": 274,
+   "y": 2
+  },
+  {
+   "index": 5,
+   "tileset": "moon",
+   "tile": 5,
+   "x": 342,
+   "y": 2
+  },
+  {
+   "index": 6,
+   "tileset": "moon",
+   "tile": 6,
+   "x": 2,
+   "y": 70
+  },
+  {
+   "index": 7,
+   "tileset": "moon",
+   "tile": 7,
+   "x": 70,
+   "y": 70
+  },
+  {
+   "index": 8,
+   "tileset": "moon:3:1:1x1",
+   "tile": 0,
+   "x": 138,
+   "y": 70
+  },
+  {
+   "index": 9,
+   "tileset": "moon:3:2:1x1",
+   "tile": 0,
+   "x": 206,
+   "y": 70
+  },
+  {
+   "index": 10,
+   "tileset": "moon:3:3:1x1",
+   "tile": 0,
+   "x": 274,
+   "y": 70
+  },
+  {
+   "index": 11,
+   "tileset": "moon:3:4:1x1",
+   "tile": 0,
+   "x": 342,
+   "y": 70
+  },
+  {
+   "index": 12,
+   "tileset": "moon:4:2:1x1",
+   "tile": 0,
+   "x": 2,
+   "y": 138
+  },
+  {
+   "index": 13,
+   "tileset": "moon:4:3:2x2",
+   "tile": 0,
+   "x": 70,
+   "y": 138
+  },
+  {
+   "index": 14,
+   "tileset": "moon:4:3:2x2",
+   "tile": 1,
+   "x": 138,
+   "y": 138
+  },
+  {
+   "index": 15,
+   "tileset": "moon:4:3:2x2",
+   "tile": 2,
+   "x": 206,
+   "y": 138
+  },
+  {
+   "index": 16,
+   "tileset": "moon:4:3:2x2",
+   "tile": 3,
+   "x": 274,
+   "y": 138
+  },
+  {
+   "index": 17,
+   "tileset": "spaceship:1:1:3x3",
+   "tile": 0,
+   "x": 342,
+   "y": 138
+  },
+  {
+   "index": 18,
+   "tileset": "spaceship:1:1:3x3",
+   "tile": 1,
+   "x": 2,
+   "y": 206
+  },
+  {
+   "index": 19,
+   "tileset": "spaceship:1:1:3x3",
+   "tile": 2,
+   "x": 70,
+   "y": 206
+  },
+  {
+   "index": 20,
+   "tileset": "spaceship:1:1:3x3",
+   "tile": 3,
+   "x": 138,
+   "y": 206
+  },
+  {
+   "index": 21,
+   "tileset": "spaceship:1:1:3x3",
+   "tile": 4,
+   "x": 206,
+   "y": 206
+  },
+  {
+   "index": 22,
+   "tileset": "spaceship:1:1:3x3",
+   "tile": 5,
+   "x": 274,
+   "y": 206
+  },
+  {
+   "index": 23,
+   "tileset": "spaceship:1:1:3x3",
+   "tile": 6,
+   "x": 342,
+   "y": 206
+  },
+  {
+   "index": 24,
+   "tileset": "spaceship:1:1:3x3",
+   "tile": 7,
+   "x": 2,
+   "y": 274
+  },
+  {
+   "index": 25,
+   "tileset": "spaceship:1:1:3x3",
+   "tile": 8,
+   "x": 70,
+   "y": 274
+  }
+ ]
+}

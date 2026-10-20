@@ -296,6 +296,198 @@
    "scale": 4
   }
  },
+ "nagmon_solar_astronomer": {
+  "slug": "nagmon_solar_astronomer",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_astronomer",
+   "combat_sheet": "nagmon_astronomer",
+   "slug": "monk"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_solar.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_astronomer.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_astronomer.png",
+   "portrait_scale": 3
+  }
+ },
+ "nagmon_solar_grey_hood": {
+  "slug": "nagmon_solar_grey_hood",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_grey_hood",
+   "combat_sheet": "noclass",
+   "slug": "monk"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_solar.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_grey_hood.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
+ "nagmon_solar_mila": {
+  "slug": "nagmon_solar_mila",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_mila_space",
+   "combat_sheet": "nagmon_mila_space",
+   "slug": "monk"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_solar.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_mila_space.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_mila_space.png",
+   "portrait_scale": 3
+  }
+ },
+ "nagmon_solar_moon_engineer": {
+  "slug": "nagmon_solar_moon_engineer",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_moon_engineer",
+   "combat_sheet": "nagmon_moon_engineer",
+   "slug": "monk"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_solar.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_moon_engineer.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_moon_engineer.png",
+   "portrait_scale": 3
+  }
+ },
+ "nagmon_solar_owl": {
+  "slug": "nagmon_solar_owl",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_owl_space",
+   "combat_sheet": "nagmon_owl_space",
+   "slug": "monk"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_solar.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_owl_space.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_owl_space.png",
+   "portrait_scale": 3
+  }
+ },
+ "nagmon_solar_rover_driver": {
+  "slug": "nagmon_solar_rover_driver",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_rover_driver",
+   "combat_sheet": "nagmon_rover_driver",
+   "slug": "monk"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_solar.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_rover_driver.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_rover_driver.png",
+   "portrait_scale": 3
+  }
+ },
+ "nagmon_solar_sage": {
+  "slug": "nagmon_solar_sage",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_sage",
+   "combat_sheet": "noclass",
+   "slug": "monk"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_solar.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_sage.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
  "nagmon_tourist": {
   "slug": "nagmon_tourist",
   "speech": {

@@ -1,0 +1,19 @@
+# Wild animals of the zone moon of the solar-system trip (mods/nagmon/trips/solar.yaml): its base forms.
+monsters:
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 3
+  - 6
+  variables: []
+  monster: lunibble
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 3
+  - 6
+  variables: []
+  monster: terrabub
+slug: solar_moon

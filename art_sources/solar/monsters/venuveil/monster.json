@@ -1,0 +1,21 @@
+{
+  "slug": "venuveil",
+  "name_he": "צעיףנוגה",
+  "name_en": "Venuveil",
+  "description_he": "יצור קוסמי מקורי בהשראת נוגה, הלומד מדעים דרך עננים, אטמוספרה ואפקט החממה.",
+  "description_en": "An original cosmic creature inspired by venus, learning science through clouds, atmosphere and the greenhouse effect.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "venumoth",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

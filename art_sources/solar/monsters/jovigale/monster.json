@@ -1,0 +1,21 @@
+{
+  "slug": "jovigale",
+  "name_he": "סוערצדק",
+  "name_en": "Jovigale",
+  "description_he": "יצור קוסמי מקורי בהשראת צדק, הלומד מדעים דרך ענקי גז, גדלים של כוכבי לכת וסערות.",
+  "description_en": "An original cosmic creature inspired by jupiter, learning science through gas giants, planetary size and long-lived storms.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "jovihog",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

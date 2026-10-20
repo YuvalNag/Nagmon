@@ -1,0 +1,21 @@
+{
+  "slug": "meteohelm",
+  "name_he": "איילמטאור",
+  "name_en": "Meteohelm",
+  "description_he": "יצור קוסמי מקורי בהשראת מטאורים, הלומד מדעים דרך סלעי חלל ופסי אור בעת כניסה לאטמוספרה.",
+  "description_en": "An original cosmic creature inspired by meteor, learning science through space rocks and streaks of light during atmospheric entry.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "meteoroar",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

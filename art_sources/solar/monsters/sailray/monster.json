@@ -1,0 +1,21 @@
+{
+  "slug": "sailray",
+  "name_he": "כנףשמש",
+  "name_en": "Sailray",
+  "description_he": "יצור קוסמי מקורי בהשראת מפרשי שמש, הלומד מדעים דרך אור וחקר באמצעות מפרשי שמש.",
+  "description_en": "An original cosmic creature inspired by sail, learning science through light and solar-sail exploration.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": null,
+  "evolves_from": "sailbit",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

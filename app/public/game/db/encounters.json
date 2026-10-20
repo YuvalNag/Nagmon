@@ -178,5 +178,320 @@
   "_source": [
    "mods/nagmon/db/encounter/nagmon_route1.yaml"
   ]
+ },
+ "solar_giants": {
+  "monsters": [
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     9,
+     12
+    ],
+    "variables": [],
+    "monster": "jovibud"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     9,
+     12
+    ],
+    "variables": [],
+    "monster": "iobud"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     9,
+     12
+    ],
+    "variables": [],
+    "monster": "europip"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     9,
+     12
+    ],
+    "variables": [],
+    "monster": "ganybit"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     9,
+     12
+    ],
+    "variables": [],
+    "monster": "ringlet"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     9,
+     12
+    ],
+    "variables": [],
+    "monster": "titanip"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     9,
+     12
+    ],
+    "variables": [],
+    "monster": "gravip"
+   }
+  ],
+  "slug": "solar_giants",
+  "_source": [
+   "mods/nagmon/db/encounter/solar_giants.yaml"
+  ]
+ },
+ "solar_moon": {
+  "monsters": [
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     3,
+     6
+    ],
+    "variables": [],
+    "monster": "lunibble"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     3,
+     6
+    ],
+    "variables": [],
+    "monster": "terrabub"
+   }
+  ],
+  "slug": "solar_moon",
+  "_source": [
+   "mods/nagmon/db/encounter/solar_moon.yaml"
+  ]
+ },
+ "solar_outer": {
+  "monsters": [
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     12,
+     15
+    ],
+    "variables": [],
+    "monster": "tiltip"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     12,
+     15
+    ],
+    "variables": [],
+    "monster": "nepbit"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     12,
+     15
+    ],
+    "variables": [],
+    "monster": "plutot"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     12,
+     15
+    ],
+    "variables": [],
+    "monster": "kuipip"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     12,
+     15
+    ],
+    "variables": [],
+    "monster": "combit"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     12,
+     15
+    ],
+    "variables": [],
+    "monster": "probip"
+   }
+  ],
+  "slug": "solar_outer",
+  "_source": [
+   "mods/nagmon/db/encounter/solar_outer.yaml"
+  ]
+ },
+ "solar_rocky_planets": {
+  "monsters": [
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     6,
+     9
+    ],
+    "variables": [],
+    "monster": "mercurip"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     6,
+     9
+    ],
+    "variables": [],
+    "monster": "venubud"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     6,
+     9
+    ],
+    "variables": [],
+    "monster": "rustip"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     6,
+     9
+    ],
+    "variables": [],
+    "monster": "roveroo"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     6,
+     9
+    ],
+    "variables": [],
+    "monster": "asterchip"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     6,
+     9
+    ],
+    "variables": [],
+    "monster": "meteet"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     6,
+     9
+    ],
+    "variables": [],
+    "monster": "dustip"
+   }
+  ],
+  "slug": "solar_rocky_planets",
+  "_source": [
+   "mods/nagmon/db/encounter/solar_rocky_planets.yaml"
+  ]
+ },
+ "solar_sun": {
+  "monsters": [
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     4,
+     7
+    ],
+    "variables": [],
+    "monster": "heliobud"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     4,
+     7
+    ],
+    "variables": [],
+    "monster": "solwind"
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     4,
+     7
+    ],
+    "variables": [],
+    "monster": "sailbit"
+   }
+  ],
+  "slug": "solar_sun",
+  "_source": [
+   "mods/nagmon/db/encounter/solar_sun.yaml"
+  ]
  }
 }

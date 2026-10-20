@@ -1,0 +1,73 @@
+# NPCs of the solar-system trip (mods/nagmon/trips/solar.yaml). Map sheets and
+# battle portraits: tools/art/manifest.yaml (art_sources/solar/characters).
+# The sage and the grey hood have a map sheet only: no portrait yet.
+- slug: nagmon_solar_astronomer
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_astronomer
+    combat_sheet: nagmon_astronomer
+    slug: monk
+- slug: nagmon_solar_mila
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_mila_space
+    combat_sheet: nagmon_mila_space
+    slug: monk
+- slug: nagmon_solar_owl
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_owl_space
+    combat_sheet: nagmon_owl_space
+    slug: monk
+- slug: nagmon_solar_moon_engineer
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_moon_engineer
+    combat_sheet: nagmon_moon_engineer
+    slug: monk
+- slug: nagmon_solar_rover_driver
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_rover_driver
+    combat_sheet: nagmon_rover_driver
+    slug: monk
+- slug: nagmon_solar_sage
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_sage
+    combat_sheet: noclass
+    slug: monk
+- slug: nagmon_solar_grey_hood
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_grey_hood
+    combat_sheet: noclass
+    slug: monk

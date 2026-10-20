@@ -1,0 +1,59 @@
+# Wild animals of the zone rocky_planets of the solar-system trip (mods/nagmon/trips/solar.yaml): its base forms.
+monsters:
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 6
+  - 9
+  variables: []
+  monster: mercurip
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 6
+  - 9
+  variables: []
+  monster: venubud
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 6
+  - 9
+  variables: []
+  monster: rustip
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 6
+  - 9
+  variables: []
+  monster: roveroo
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 6
+  - 9
+  variables: []
+  monster: asterchip
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 6
+  - 9
+  variables: []
+  monster: meteet
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 6
+  - 9
+  variables: []
+  monster: dustip
+slug: solar_rocky_planets

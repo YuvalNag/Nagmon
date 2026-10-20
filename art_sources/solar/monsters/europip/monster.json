@@ -1,0 +1,24 @@
+{
+  "slug": "europip",
+  "name_he": "אירופית",
+  "name_en": "Europip",
+  "description_he": "יצור קוסמי מקורי בהשראת אירופה, הלומד מדעים דרך ירחים קרחיים ועדויות לאוקיינוסים נסתרים.",
+  "description_en": "An original cosmic creature inspired by europa, learning science through icy moons and evidence for hidden oceans.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "europod",
+    "at_level": 16
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

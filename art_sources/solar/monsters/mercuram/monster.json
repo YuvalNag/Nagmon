@@ -1,0 +1,21 @@
+{
+  "slug": "mercuram",
+  "name_he": "סלעחמה",
+  "name_en": "Mercuram",
+  "description_he": "יצור קוסמי מקורי בהשראת כוכב חמה, הלומד מדעים דרך קרבה לשמש, מסלול ומשטחים סלעיים.",
+  "description_en": "An original cosmic creature inspired by mercury, learning science through closest planet to the sun; orbital motion and rocky surfaces.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "mercurush",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

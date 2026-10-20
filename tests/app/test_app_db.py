@@ -37,9 +37,9 @@ def data(built, rel):
     return json.loads(out.data[rel])
 
 
-def test_world_uses_41_monsters_with_the_12_nagmon_ones(built):
+def test_world_uses_111_monsters_with_the_82_nagmon_ones(built):
     monsters = data(built, "db/monsters.json")
-    assert len(monsters) == 41
+    assert len(monsters) == 111
     assert NAGMON_MONSTERS <= set(monsters)
     assert {"agnite", "rockitten", "kroki", "nut", "dandicub"} <= set(monsters)
 
@@ -59,7 +59,7 @@ def test_every_evolution_and_technique_exists(built):
             assert evo["monster_slug"] in monsters
         for move in rec["moveset"]:
             assert move["technique"] in techniques
-    assert len(techniques) == 126
+    assert len(techniques) == 130
 
 
 def test_nagmon_record_replaces_the_tuxemon_record_of_the_same_slug():

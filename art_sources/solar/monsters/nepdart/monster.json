@@ -1,0 +1,24 @@
+{
+  "slug": "nepdart",
+  "name_he": "גלנפטון",
+  "name_en": "Nepdart",
+  "description_he": "יצור קוסמי מקורי בהשראת נפטון, הלומד מדעים דרך כוכבים רחוקים, ענקי קרח ורוחות.",
+  "description_en": "An original cosmic creature inspired by neptune, learning science through distant planets, ice giants and winds.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "nepstorm",
+    "at_level": 36
+  },
+  "evolves_from": "nepbit",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

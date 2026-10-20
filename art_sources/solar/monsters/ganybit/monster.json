@@ -1,0 +1,24 @@
+{
+  "slug": "ganybit",
+  "name_he": "גניפון",
+  "name_en": "Ganybit",
+  "description_he": "יצור קוסמי מקורי בהשראת גנימד, הלומד מדעים דרך ירחים גדולים, קרח ושדות מגנטיים.",
+  "description_en": "An original cosmic creature inspired by ganymede, learning science through large moons, ice and magnetic fields.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "ganyhorn",
+    "at_level": 16
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}
