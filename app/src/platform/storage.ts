@@ -167,6 +167,18 @@ export function withPathLock<T>(fs: FileStore, path: string, task: () => Promise
 }
 
 /**
+ * Resolves once every write (and read) already started on this store has
+ * finished, failed ones included. The app waits for it before Android
+ * may kill it in the background (src/platform/lifecycle.ts).
+ */
+export async function pendingWrites(fs: FileStore): Promise<void> {
+  const locks = pathLocks.get(fs);
+  if (!locks) return;
+  // a task that starts another one on the same store is waited for too
+  while (locks.size) await Promise.all([...locks.values()]);
+}
+
+/**
  * Writes `data` as JSON to `path` atomically: the `.tmp` file first, then
  * the old file is renamed to `.bak` and the `.tmp` to `path`. At every
  * moment either `path` or a complete `.tmp` holds the newest data, even

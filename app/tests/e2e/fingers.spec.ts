@@ -1,4 +1,5 @@
-import { expect, test, type CDPSession, type Page } from "@playwright/test";
+import { expect, test } from "./fixtures";
+import type { CDPSession, Page } from "@playwright/test";
 import { middle, settled, touch, typeCode } from "./touch";
 
 /**

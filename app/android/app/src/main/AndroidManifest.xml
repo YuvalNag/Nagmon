@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- The only permission (docs/app/SDD.md §10; tests/android/buildCheck.mjs
+         checks the merged manifest): the GitHub upload, after a parent's tap. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- No backup and no device-to-device copy of the family's data: on
+         Android 12+ allowBackup alone does not stop the device transfer. -->
     <application
         android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="false"
+        android:usesCleartextTraffic="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- Every configuration change is the app's own: Android must never
+             recreate the activity, which reloads the page and loses where
+             the child was. On the emulator it was recreated mid-flow soon
+             after a boot; a new font size, a WebView update (assetsPaths)
+             or dark mode would do the same on the phone. -->
         <activity
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation|density"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation|density|screenSize|smallestScreenSize|layoutDirection|colorMode|fontWeightAdjustment|grammaticalGender|assetsPaths"
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBarLaunch"
@@ -25,6 +40,23 @@
 
         </activity>
 
+        <!-- AndroidX's emoji start-up fetches a font from Google Play
+             services' font provider. The page draws its own text, so it is
+             not needed; and holding that provider, the app was killed with
+             Play services' process (seen under monkey on the emulator).
+             MissingClass: the class comes with AndroidX (androidx.startup),
+             which lint does not look into here (checkDependencies false). -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:ignore="MissingClass"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                tools:node="remove" />
+        </provider>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -35,8 +67,4 @@
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
     </application>
-
-    <!-- Permissions -->
-
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
