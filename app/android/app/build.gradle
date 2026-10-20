@@ -16,6 +16,13 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    lint {
+        // docs/app/SDD.md §10: CI fails on any lint error; every warning
+        // that stays is explained in lint.xml
+        abortOnError = true
+        checkDependencies = false
+        lintConfig = file("lint.xml")
+    }
     buildTypes {
         release {
             minifyEnabled false
