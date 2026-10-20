@@ -240,10 +240,13 @@ async function mapWalk() {
   adb("shell", "input", "keyevent", "KEYCODE_BACK");
   await page.waitFor(`document.querySelector('[data-screen="map-menu"]')`, { what: "the pause menu after back" });
   check((await page.eval(`${map}.paused`)).includes("menu"), "back on the map pauses it");
+  // the emulator draws in software: give the overlay time to reach the screen
+  await sleep(1500);
   shot("a08_map_menu");
   adb("shell", "input", "keyevent", "KEYCODE_BACK");
   await page.waitFor(`!document.querySelector('[data-screen="map-menu"]')`, { what: "the menu to close on a second back" });
-  check(Boolean(await page.eval(`document.querySelector('[data-screen="play"]')`)), "the map stays open: back never leaves the app");
+  check(await page.eval(`Boolean(document.querySelector('[data-screen="play"]'))`), "the map stays open: back never leaves the app");
+  check((await page.eval(`${map}.paused`)).length === 0, "closing the menu lets the map run again");
 }
 
 try {
