@@ -11,7 +11,11 @@ import type { MapOptions } from "../../../src/game/mapGame";
 import { type JsonObject, MemoryFileStore, pendingWrites } from "../../../src/platform/storage";
 import { MapScreen } from "../../../src/ui/screens/MapScreen";
 
-const fetchJson: FetchJson = async (path) => JSON.parse(readFileSync(`public/game/${path}`, "utf8"));
+const fetchJson: FetchJson = async (path) => {
+  // the built game has a trip file now; these tests are about the game without one
+  if (path.startsWith("trips/")) throw new Error("404");
+  return JSON.parse(readFileSync(`public/game/${path}`, "utf8"));
+};
 const route = readMap("classic_route_1", JSON.parse(readFileSync("public/game/maps/classic_route_1.json", "utf8")) as TiledMap);
 const city = readMap("classic_hearthrock_city", JSON.parse(readFileSync("public/game/maps/classic_hearthrock_city.json", "utf8")) as TiledMap);
 

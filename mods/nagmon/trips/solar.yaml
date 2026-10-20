@@ -9,6 +9,17 @@
 # npcs: the people standing in the zone's map (mods/nagmon/db/npc).
 # The station is the hub: every zone's exit leads there, and its doors lead
 # to the zones.
+id: solar
+title_he: מערכת השמש
+title_en: The solar system
+vehicle:
+  name_he: הספינה של מילה
+  name_en: Mila's ship
+master:
+  monster: jovigale
+  level: 14
+  badge: astronomer
+  badge_title_he: מבחן האסטרונומית
 chapter: solar_system
 subject: science
 station:
@@ -19,6 +30,11 @@ station:
   npcs: [nagmon_solar_astronomer, nagmon_solar_mila]
 zones:
   - id: moon
+    monsters: [lunibble, lunihare, lunwarden, terrabub, terratot, terravault]
+    catch: 3
+    start: {x: 3, y: 16}
+    unlock_level: 0
+    cost: 0
     map: solar_moon
     title_he: הירח
     title_en: The Moon
@@ -32,6 +48,12 @@ zones:
       lunibble: [lunihare, lunwarden]
       terrabub: [terratot, terravault]
   - id: sun
+    monsters: [heliobud, heliolynx, heliarch, solwind, aurorail, sailbit, sailray]
+    catch: 3
+    start: {x: 3, y: 16}
+    unlock_level: 3
+    cost: 10
+    requires: [moon]
     map: solar_sun
     title_he: ליד השמש
     title_en: Near the Sun
@@ -46,6 +68,12 @@ zones:
       solwind: [aurorail]
       sailbit: [sailray]
   - id: rocky_planets
+    monsters: [mercurip, mercurush, mercuram, venubud, venumoth, venuveil, rustip, marskip, marstrix, roveroo, roverex, asterchip, astercrab, asterfort, meteet, meteoroar, meteohelm, dustip, zodiacat]
+    catch: 3
+    start: {x: 3, y: 16}
+    unlock_level: 5
+    cost: 15
+    requires: [sun]
     map: solar_rocky_planets
     title_he: כוכבי הלכת הסלעיים
     title_en: The rocky planets
@@ -64,6 +92,12 @@ zones:
       meteet: [meteoroar, meteohelm]
       dustip: [zodiacat]
   - id: giants
+    monsters: [jovibud, jovihog, jovigale, iobud, iolisk, iopyre, europip, europod, europan, ganybit, ganyhorn, ganyguard, ringlet, saturnip, ringwarden, titanip, titanewt, titanveil, gravip, orbitail, gravivault]
+    catch: 3
+    start: {x: 3, y: 16}
+    unlock_level: 8
+    cost: 20
+    requires: [rocky_planets]
     map: solar_giants
     title_he: הענקים והטבעות
     title_en: The giants and the rings
@@ -82,6 +116,12 @@ zones:
       titanip: [titanewt, titanveil]
       gravip: [orbitail, gravivault]
   - id: outer
+    monsters: [tiltip, uranurtle, tiltitan, nepbit, nepdart, nepstorm, plutot, plutopaw, plutaur, kuipip, kuipine, kuipcrest, combit, cometail, cometrail, probip, probewing]
+    catch: 3
+    start: {x: 3, y: 16}
+    unlock_level: 11
+    cost: 30
+    requires: [giants]
     map: solar_outer
     title_he: קצה המערכת
     title_en: The edge of the system

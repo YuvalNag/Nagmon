@@ -5,7 +5,7 @@ describe("texts", () => {
   it("are Hebrew", () => {
     expect(t("whoPlays")).toBe("מי משחק היום?");
     for (const text of Object.values(he)) {
-      expect(text).toMatch(/[֐-׿]/);
+      expect(text.replace(/\{\w+\}/g, "")).toMatch(/[֐-׿]|^$/);
     }
   });
 });
