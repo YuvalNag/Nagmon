@@ -310,9 +310,10 @@ Each frame is scaled on its own, inside a 2 px frame of its own edge pixels, so 
 | Nagmon HD map sheets (k=8), portraits (k=3), hero cards, atlases | as they are | map 7; battle 6; card 26vh | 0.88; 2.0; 1.48; 1.75 |
 
 - The records say each picture's scale (`db.py` docstring): monster `sprites.scale`, map `scale` and `frame`, `portrait_scale`, `sprite_scale`, `icon_scale`, animation `scale`/`frames`/`columns`, environment `battle_graphics.scale` and `island_width`/`island_height`.
-- Credits: every upscaled picture's licence ends with ", adapted (xBRZ ×N)" (written `xBRZ xN`), with a note.
+- Credits: every upscaled picture has `adapted: "xBRZ xN"` and a note; a real licence also ends with ", adapted (xBRZ xN)" (not "unknown…" or the owner's "not stated yet").
 - PNGs are written in the smaller of two lossless encodings: RGBA or a palette with per-entry alpha.
-- Tests: `tests/app/test_app_hd.py` holds the display table above in code and fails if any shipped picture would be shown above 2×.
+- Display sizes have one source: `tools/app/display.py`, written to `db/display.json`, read by `app/src/game/display.ts` and by `tests/app/test_app_hd.py`. The test fails if any shipped picture would be shown above 2× on the phone, or on a 2560×1600 tablet except the battle background and the who-plays card (SDD §10.1).
+- The record fields are declared in `app/src/core/data/types.ts`; `app/tests/unit/data.test.ts` checks them against the real JSON and pictures.
 - The 2× limit for monsters assumes a battle frame of at most 384 device px: the Nagmon monsters are drawn at ~190 px, so a larger frame needs new art, not a bigger upscale.
 - xBRZ turns dithered texture into small squiggles: visible on the grass island sheets and the `bite` teeth; the rest looked clean at phone size.
 
