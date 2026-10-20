@@ -93,7 +93,7 @@ async function systemReady() {
 async function launch() {
   for (let i = 0; i < 20; i++) {
     try {
-      adb("shell", "am", "start", "-W", "-n", `${PACKAGE}/.MainActivity`);
+      console.log(adb("shell", "am", "start", "-W", "-n", `${PACKAGE}/.MainActivity`));
       return;
     } catch (e) {
       console.log("start failed, retrying:", String(e).split("\n")[0]);
@@ -201,7 +201,11 @@ try {
   console.log("FAIL", e);
   // the log first: it says why, even when the screenshot cannot be taken
   try {
-    console.log(execFileSync("adb", ["logcat", "-d", "-t", "400"], { encoding: "utf8", maxBuffer: 64 << 20 }));
+    const logcat = (...a) => execFileSync("adb", ["logcat", "-d", ...a], { encoding: "utf8", maxBuffer: 64 << 20 });
+    console.log("--- crash buffer\n" + logcat("-b", "crash"));
+    // the app's own lines and its WebView's, from the whole run
+    const ours = /nagmon|AndroidRuntime|chromium|cr_|Capacitor|Console|libc|DEBUG|ActivityManager: (Start|Process|Killing)|Displayed/;
+    console.log("--- app lines\n" + logcat().split("\n").filter((l) => ours.test(l)).slice(-300).join("\n"));
   } catch (le) {
     console.log("no logcat:", String(le).split("\n")[0]);
   }
