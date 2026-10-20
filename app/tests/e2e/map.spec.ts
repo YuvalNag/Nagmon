@@ -29,6 +29,7 @@ interface Debug {
   left: string[];
   zoom: number;
   dpr: number;
+  resolution: { dpr: number; steps: number[]; adaptive: boolean; remembered: boolean; changes: { from: number; to: number; fps: number }[] };
   renderer: string;
   canvas: { width: number; height: number; cssWidth: number; cssHeight: number };
   view: { x: number; y: number; width: number; height: number };
@@ -44,12 +45,18 @@ interface Debug {
 const debug = (page: Page) =>
   page.evaluate(() => (window as unknown as { __nagmonMap?: { debug(): unknown } }).__nagmonMap?.debug() ?? null) as Promise<Debug | null>;
 
-/** A child straight into the browser's store (made-up name). */
-async function seedChild(page: Page, name = "תמר", avatar = "girl_teal") {
+/**
+ * A child straight into the browser's store (made-up name). The map's
+ * adaptive resolution is off unless asked for: this browser draws WebGL
+ * in software and would lower it at once, and most checks measure the
+ * full-pixel canvas.
+ */
+async function seedChild(page: Page, { name = "תמר", avatar = "girl_teal", adaptive = false } = {}) {
   await page.addInitScript(
-    ({ name, avatar }) => {
+    ({ name, avatar, adaptive }) => {
       if (localStorage.getItem("seeded")) return;
       localStorage.setItem("seeded", "1");
+      if (!adaptive) localStorage.setItem("nagmon.map.adaptiveResolution", "off");
       localStorage.setItem("nagmon-fs:d:profiles", "");
       localStorage.setItem("nagmon-fs:d:profiles/p00001", "");
       localStorage.setItem(
@@ -57,7 +64,7 @@ async function seedChild(page: Page, name = "תמר", avatar = "girl_teal") {
         JSON.stringify({ id: "p00001", name, avatar, grade: 2, order: 0, schema_version: 2 }),
       );
     },
-    { name, avatar },
+    { name, avatar, adaptive },
   );
 }
 
@@ -147,14 +154,14 @@ async function throughDoor(page: Page, dir: string, map: string) {
   await page.waitForFunction(() => (window as unknown as { __nagmonMap?: { debug(): { ready: boolean } | null } }).__nagmonMap?.debug()?.ready);
 }
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(String(e)));
   page.on("console", (m) => {
     if (m.type() === "error") errors.push(`${m.text()} ${m.location().url}`);
   });
   (page as unknown as { __errors: string[] }).__errors = errors;
-  await seedChild(page);
+  if (!info.title.includes("adaptive")) await seedChild(page);
 });
 
 test.afterEach(async ({ page }) => {
@@ -184,6 +191,11 @@ test("who-plays opens without Phaser; the map opens on the child's card, crisp a
   console.log(`map: ${d.renderer}, canvas ${d.canvas.width}x${d.canvas.height} for ${d.canvas.cssWidth}x${d.canvas.cssHeight} CSS px at DPR ${d.dpr}, zoom ${d.zoom}`);
   console.log("drawn sizes:", d.scales.map((s) => `${s.what} ${s.texels}->${s.devicePx} (${s.ratio}x, ${s.filter})`).join("; "));
   console.log("left off until HD:", d.left.join(", ") || "none");
+  // every sheet is HD now (app/hd-art): the wallet, x4, is drawn at exactly twice its pixels
+  expect(d.left).toEqual([]);
+  expect(d.npcs).toContainEqual({ slug: "nagmon_wallet", x: 12, y: 7 });
+  expect(d.scales.find((s) => s.what === "npc nagmon_wallet")).toMatchObject({ texels: 64, devicePx: 128, ratio: 2 });
+  expect(d.resolution).toMatchObject({ dpr: 2.75, adaptive: false });
 
   // Hearthrock, the hero at the start in front of the owl's house, and the owl
   expect(d.map).toBe("classic_hearthrock_city");
@@ -426,4 +438,55 @@ test("a door leads into the academy and back; two maps stay in memory", async ({
   await steps(page, "down", 1);
   expect((await debug(page))!.player).toMatchObject({ x: 18, y: 15 });
   expect(d.cachedMaps).toEqual(["classic_hearthrock_city", "classic_gym_mila"]);
+});
+
+test("adaptive resolution: a slow phone draws fewer pixels, keeps the map's size, and remembers it", async ({ page }, info) => {
+  await seedChild(page, { adaptive: true });
+  // a slow phone: this browser's software WebGL, and the CPU 4x slower
+  const c = await cdp(page);
+  await c.send("Emulation.setCPUThrottlingRate", { rate: 4 });
+  await page.goto("/");
+  let d = await openMap(page);
+  expect(d.resolution).toMatchObject({ steps: [2.75, 2, 1.5], adaptive: true, remembered: false });
+  // well under 45 fps here: one step down after a slow 3 s window, then the floor
+  await page.waitForFunction(
+    () => (window as unknown as { __nagmonMap: { debug(): { resolution: { dpr: number } } } }).__nagmonMap.debug().resolution.dpr === 1.5,
+    null,
+    { timeout: 60_000 },
+  );
+  d = (await debug(page))!;
+  console.log("resolution changes:", JSON.stringify(d.resolution.changes), `canvas ${d.canvas.width}x${d.canvas.height}, zoom ${d.zoom}`);
+  expect(d.resolution.changes.map((x) => [x.from, x.to])).toEqual([
+    [2.75, 2],
+    [2, 1.5],
+  ]);
+  for (const x of d.resolution.changes) expect(x.fps).toBeLessThan(45);
+  // the canvas draws 1.5 px per CSS px, stretched over the page
+  expect(Math.abs(d.canvas.width - 873 * 1.5)).toBeLessThanOrEqual(1);
+  expect(d.canvas.cssWidth).toBe(873);
+  // the map keeps its size on the screen: 2 device px per texel, smoothed
+  expect(d.zoom).toBeCloseTo((2 * 1.5) / 2.75, 6);
+  for (const s of d.scales) expect(s.ratio, s.what).toBeLessThanOrEqual(2 + 1e-9);
+  const tiles = d.scales.filter((s) => s.what.startsWith("tiles"));
+  for (const s of tiles) {
+    expect(s.ratio).toBeCloseTo(2, 6);
+    expect(s.filter).toBe("linear");
+  }
+  expect(d.view.width * (d.zoom / d.resolution.dpr)).toBeCloseTo(873, 0);
+  // remembered for this phone
+  expect(await page.evaluate(() => localStorage.getItem("nagmon.map.renderDpr"))).toBe("1.5");
+  await fitsAndSharp(page);
+  await page.screenshot({ path: info.outputPath("map_07_lower_resolution.png") });
+  // still walks
+  await settled(page);
+  await hold(page, arrow(page, "left"), 800, { settle: false });
+  expect((await stopped(page)).player.x).toBeLessThan(29);
+
+  // the next start opens at the remembered step
+  await c.send("Emulation.setCPUThrottlingRate", { rate: 1 });
+  await page.reload();
+  d = await openMap(page);
+  expect(d.resolution).toMatchObject({ dpr: 1.5, remembered: true, changes: [] });
+  expect(Math.abs(d.canvas.width - 873 * 1.5)).toBeLessThanOrEqual(1);
+  await c.detach();
 });

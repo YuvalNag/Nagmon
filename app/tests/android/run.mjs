@@ -215,9 +215,13 @@ async function mapWalk() {
   console.log("map drawn sizes:", d.scales.map((s) => `${s.what} ${s.texels}->${s.devicePx} (${s.ratio}x, ${s.filter})`).join("; "));
   check(d.map === "classic_hearthrock_city", "the map is Hearthrock");
   check(d.player.x === 29 && d.player.y === 16, `the hero starts at (29,16) (${d.player.x},${d.player.y})`);
+  // the canvas draws at its resolution: the screen's own pixels, or a step
+  // lower on a phone too slow for them (src/game/resolution.ts)
+  const k = d.resolution.dpr;
+  console.log(`map resolution: ${k} canvas px per CSS px (screen ${d.dpr}), steps ${d.resolution.steps.join(" ")}`);
   check(
-    Math.abs(d.canvas.width - d.canvas.cssWidth * d.dpr) <= 1 && Math.abs(d.canvas.height - d.canvas.cssHeight * d.dpr) <= 1,
-    "the map is drawn at the screen's own pixels",
+    Math.abs(d.canvas.width - d.canvas.cssWidth * k) <= 1 && Math.abs(d.canvas.height - d.canvas.cssHeight * k) <= 1,
+    `the map's canvas has the pixels of its resolution (${d.canvas.width}x${d.canvas.height})`,
   );
   const worst = Math.max(...d.scales.map((s) => s.ratio));
   check(d.scales.length > 0 && worst <= 2, `no picture over twice its pixels (largest ${worst}x)`);
@@ -231,10 +235,29 @@ async function mapWalk() {
   check(after.x < start.x && after.y === start.y, "a held arrow walks the hero left");
   check(after.x <= start.x - 2, `it walks on while held (${start.x - after.x} tiles)`);
   shot("a07_map_walked");
-  const frames = (await page.eval(map)).frames;
+  // a slow window takes 1 s of warm-up and 3 s of frames
+  try {
+    await page.waitFor(`${map}.resolution.changes.length > 0 || ${map}.frames.avgFps >= 45`, {
+      timeoutMs: 20_000,
+      what: "the map to measure its speed",
+    });
+  } catch {
+    // the check below says what happened
+  }
+  shot("a07b_map_resolution");
+  const later = await page.eval(map);
+  const frames = later.frames;
   console.log(
     `map frames (emulator, software GL): ${frames.avgFps.toFixed(1)} fps on average, slowest ${Math.round(frames.slowestMs)} ms, ${frames.slow} over 50 ms (${frames.frames} frames)`,
   );
+  console.log("map resolution changes:", JSON.stringify(later.resolution.changes));
+  // software GL here is far under 45 fps: the map should have drawn fewer pixels
+  check(
+    frames.avgFps >= 45 || later.resolution.changes.length > 0 || later.resolution.dpr === later.resolution.steps.at(-1),
+    `a slow map lowers its resolution (now ${later.resolution.dpr})`,
+  );
+  const largest = Math.max(...later.scales.map((s) => s.ratio));
+  check(largest <= 2 + 1e-9, `still no picture over twice its pixels (largest ${largest.toFixed(2)}x)`);
 
   // Android's back on the map: the pause menu, and back again closes it
   adb("shell", "input", "keyevent", "KEYCODE_BACK");
