@@ -10,7 +10,7 @@
 import { execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { chromium } from "@playwright/test";
+import { _android as android } from "@playwright/test";
 
 const PACKAGE = "org.nagmon.app";
 const apk = process.argv[2];
@@ -38,17 +38,12 @@ function shot(name) {
   return path;
 }
 
+/** The app's WebView as a Playwright page (Playwright's Android mode). */
 async function webview() {
-  for (let i = 0; i < 60; i++) {
-    const pid = adb("shell", "pidof", PACKAGE);
-    const sockets = adb("shell", "cat", "/proc/net/unix");
-    if (pid && sockets.includes(`webview_devtools_remote_${pid}`)) {
-      adb("forward", "tcp:9222", `localabstract:webview_devtools_remote_${pid}`);
-      return chromium.connectOverCDP("http://127.0.0.1:9222");
-    }
-    await sleep(1000);
-  }
-  throw new Error("the app's WebView never opened a DevTools socket");
+  const [device] = await android.devices();
+  if (!device) throw new Error("no Android device for Playwright");
+  const view = await device.webView({ pkg: PACKAGE }, { timeout: 60_000 });
+  return { device, page: await view.page() };
 }
 
 /**
@@ -119,8 +114,7 @@ adb("shell", "settings", "put", "system", "accelerometer_rotation", "0");
 adb("shell", "settings", "put", "system", "user_rotation", "1");
 await launch();
 
-const browser = await webview();
-const page = browser.contexts()[0].pages()[0];
+const { device, page } = await webview();
 await page.waitForSelector("[data-screen=who-plays]", { timeout: 30_000 });
 await page.evaluate(() => document.fonts.ready);
 
@@ -138,7 +132,7 @@ check(size.heading === "מי משחק היום?", "Hebrew on a Hebrew phone");
 check(size.rubik, "the Rubik font is loaded");
 shot("a01_who_plays");
 
-await browser.close();
+await device.close();
 if (failures.length) {
   console.log("FAILED:", failures.join("; "));
   process.exit(1);
