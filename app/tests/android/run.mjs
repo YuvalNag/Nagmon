@@ -183,7 +183,13 @@ try {
   }
   const screenSize = await page.eval("({ w: screen.width, h: screen.height, dpr: devicePixelRatio })");
   console.log("screen", JSON.stringify(screenSize));
-  check(size.w * screenSize.dpr >= 2300, "the page covers the whole screen width (no bars, no cutout strip)");
+  // an empty spot near the top middle of who-plays
+  const [sw, sh] = adb("shell", "wm", "size").split(":").pop().trim().split("x").map(Number);
+  const [W, H] = [Math.max(sw, sh), Math.min(sw, sh)];
+  const offset = await page.calibrate(Math.round(W / 2), Math.round(H * 0.06));
+  console.log("page offset on the screen (device px):", JSON.stringify(offset));
+  check(Math.abs(offset.x) <= 2 && Math.abs(offset.y) <= 2, "the page starts at the screen's corner (no bars, no cutout strip)");
+  check(size.w * screenSize.dpr >= W - 4, `the page covers the whole screen width (${Math.round(size.w * screenSize.dpr)} of ${W} px)`);
   shot("a01_who_plays");
   await firstRun();
 } catch (e) {

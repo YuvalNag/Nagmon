@@ -80,6 +80,27 @@ export class WebViewPage {
     throw new Error(`timed out waiting for: ${what}`);
   }
 
+  /** Where the page starts on the screen, in device pixels (calibrate()). */
+  offset = { x: 0, y: 0 };
+
+  /**
+   * Finds where the page sits on the screen: one real tap on an empty
+   * spot, and where the page saw it. Taps are then placed exactly, and
+   * the offset itself says whether the page covers the screen.
+   */
+  async calibrate(screenX, screenY) {
+    await this.eval(`(() => {
+      window.__cal = null;
+      addEventListener("pointerdown", (e) => (window.__cal = { x: e.clientX, y: e.clientY, dpr: devicePixelRatio }), { once: true, capture: true });
+      return true;
+    })()`);
+    execFileSync("adb", ["shell", "input", "tap", String(screenX), String(screenY)]);
+    await this.waitFor("window.__cal", { what: "the calibration tap" });
+    const cal = await this.eval("window.__cal");
+    this.offset = { x: screenX - cal.x * cal.dpr, y: screenY - cal.y * cal.dpr };
+    return this.offset;
+  }
+
   /**
    * A finger on the element's middle, held like a child's tap. It goes
    * through Android's own input (`adb shell input swipe` in place), so
@@ -95,7 +116,8 @@ export class WebViewPage {
       return { x: (r.x + r.width / 2) * devicePixelRatio, y: (r.y + r.height / 2) * devicePixelRatio };
     })()`);
     if (!box) throw new Error(`nothing to touch: ${selector}`);
-    const [x, y] = [String(Math.round(box.x)), String(Math.round(box.y))];
+    const x = String(Math.round(box.x + this.offset.x));
+    const y = String(Math.round(box.y + this.offset.y));
     execFileSync("adb", ["shell", "input", "swipe", x, y, x, y, String(holdMs)]);
     await sleep(80);
   }
