@@ -47,15 +47,14 @@ export function valuesFromDict(d: unknown): FamilyValues {
   const v = defaultValues();
   if (!isJsonObject(d)) return v;
   for (const [key, field] of Object.entries(BOOL_KEYS)) {
-    const value = d[key];
+    const value = Object.hasOwn(d, key) ? d[key] : undefined;
     if (typeof value === "boolean") v[field] = value;
   }
   if (Array.isArray(d.emphasis)) {
     const known: readonly string[] = DEFAULT_EMPHASIS;
     v.emphasis = d.emphasis.filter((e): e is string => typeof e === "string" && known.includes(e));
   }
-  for (const [k, val] of Object.entries(d)) {
-    if (!(k in BOOL_KEYS) && k !== "emphasis") v.extra[k] = val;
-  }
+  // hasOwn and fromEntries: keys like "toString" or "__proto__" stay plain data.
+  v.extra = Object.fromEntries(Object.entries(d).filter(([k]) => !Object.hasOwn(BOOL_KEYS, k) && k !== "emphasis"));
   return v;
 }

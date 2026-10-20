@@ -28,10 +28,35 @@ const KEY_PATTERNS: RegExp[] = [
 ];
 const BEARER = /(bearer\s+)\S+/gi;
 
-/** `text` without keys: the known shapes, plus every saved key (8+ chars). */
+/** Base64 of the UTF-8 bytes, without the "=" padding. */
+function base64(text: string): string {
+  let binary = "";
+  for (const byte of new TextEncoder().encode(text)) binary += String.fromCharCode(byte);
+  return btoa(binary).replace(/=+$/, "");
+}
+
+/**
+ * The ways a saved key shows up in a log: as it is, URL-encoded (a query
+ * string) and in base64 (an auth header, a GitHub upload body).
+ */
+function secretForms(secret: string): string[] {
+  const forms = new Set([secret, encodeURIComponent(secret), base64(secret)]);
+  return [...forms].filter((f) => f.length >= 8);
+}
+
+/**
+ * `text` without keys: the known shapes, plus every saved key (8+ chars)
+ * in any case, URL-encoded or in base64.
+ */
 export function redactSecrets(text: string, secrets: Iterable<string> = []): string {
+  const forms: string[] = [];
   for (const secret of secrets) {
-    if (secret && secret.length >= 8) text = text.split(secret).join("***");
+    if (typeof secret === "string" && secret.length >= 8) forms.push(...secretForms(secret));
+  }
+  // Longest first, so a longer form is not cut by a shorter one.
+  for (const form of forms.sort((a, b) => b.length - a.length)) {
+    // A trailing "=" of padded base64 goes too.
+    text = text.replace(new RegExp(`${escapeRegExp(form)}=*`, "gi"), "***");
   }
   for (const pattern of KEY_PATTERNS) text = text.replace(pattern, "***");
   return text.replace(BEARER, "$1***");

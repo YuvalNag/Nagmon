@@ -106,12 +106,16 @@ export function baseName(path: string): string {
 export type JsonValue = null | boolean | number | string | JsonValue[] | { [key: string]: JsonValue };
 export type JsonObject = { [key: string]: JsonValue };
 
-export type LoadStatus = "ok" | "missing" | "backup" | "reset";
+/**
+ * "tmp": the file was missing but a complete `.tmp` was there (a save cut
+ * short after the old file became the `.bak`); the save is finished now.
+ */
+export type LoadStatus = "ok" | "missing" | "tmp" | "backup" | "reset";
 
 export interface LoadResult {
   data: JsonObject | null;
   status: LoadStatus;
-  /** True when the file was corrupt and the backup or defaults were used. */
+  /** True when the file was damaged or a save was cut short. */
   recovered: boolean;
 }
 
@@ -124,9 +128,12 @@ export function isJsonObject(value: unknown): value is JsonObject {
 function sortKeys(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(sortKeys);
   if (isJsonObject(value)) {
-    const out: Record<string, unknown> = {};
-    for (const key of Object.keys(value).sort()) out[key] = sortKeys(value[key]);
-    return out;
+    // fromEntries defines own keys, so a "__proto__" key stays plain data.
+    return Object.fromEntries(
+      Object.keys(value)
+        .sort()
+        .map((key) => [key, sortKeys(value[key])]),
+    );
   }
   return value;
 }
@@ -160,9 +167,12 @@ export function withPathLock<T>(fs: FileStore, path: string, task: () => Promise
 }
 
 /**
- * Writes `data` as JSON to `path` atomically: the tmp file first, then a
- * rename, so a crash mid-write never leaves a half file. Writes to one
- * path run one at a time, in call order.
+ * Writes `data` as JSON to `path` atomically: the `.tmp` file first, then
+ * the old file is renamed to `.bak` and the `.tmp` to `path`. At every
+ * moment either `path` or a complete `.tmp` holds the newest data, even
+ * where a rename cannot replace a file in one step (Android). Writes and
+ * reads of one path run one at a time, in call order. A failed backup
+ * fails the save and leaves the file as it was.
  */
 export function writeJson(
   fs: FileStore,
@@ -180,20 +190,24 @@ export function writeJson(
       await fs.remove(tmp).catch(() => undefined);
       throw err;
     }
-    if (backup && (await fs.stat(path)) === "file") {
-      // Best effort, as in the old code: a missing .bak is not a failure.
-      await fs.copy(path, bakPath(path)).catch(() => undefined);
-    }
+    if (backup && (await fs.stat(path)) === "file") await fs.rename(path, bakPath(path));
     await fs.rename(tmp, path);
   });
+}
+
+function parseObject(text: string): JsonObject | null {
+  try {
+    const data: unknown = JSON.parse(text);
+    return isJsonObject(data) ? data : null;
+  } catch {
+    return null;
+  }
 }
 
 async function readObject(fs: FileStore, path: string): Promise<JsonObject | null> {
   try {
     const text = await fs.readText(path);
-    if (text === null) return null;
-    const data: unknown = JSON.parse(text);
-    return isJsonObject(data) ? data : null;
+    return text === null ? null : parseObject(text);
   } catch {
     return null;
   }
@@ -217,28 +231,54 @@ async function moveAside(fs: FileStore, path: string): Promise<string> {
 }
 
 /** Loads a JSON object from `path`, recovering from corruption. */
-export async function readJson(fs: FileStore, path: string): Promise<LoadResult> {
-  const kind = await fs.stat(path);
-  if (kind === null) {
-    // One step beyond _jsonio: a rename that is not atomic on the device
-    // can leave only the .bak behind; use it rather than lose the file.
-    const bak = (await fs.stat(bakPath(path))) === "file" ? await readObject(fs, bakPath(path)) : null;
-    if (bak !== null) return { data: bak, status: "backup", recovered: true };
-    return { data: null, status: "missing", recovered: false };
-  }
-  const data = kind === "file" ? await readObject(fs, path) : null;
-  if (data !== null) return { data, status: "ok", recovered: false };
-  if (kind === "file") await moveAside(fs, path);
-  const bak = await readObject(fs, bakPath(path));
-  if (bak !== null) return { data: bak, status: "backup", recovered: true };
-  return { data: null, status: "reset", recovered: true };
+export function readJson(fs: FileStore, path: string): Promise<LoadResult> {
+  // Under the file's lock: a read in the middle of a save would see the
+  // file gone, or call a half state corrupt and move the new file aside.
+  return withPathLock(fs, path, () => readUnlocked(fs, path));
 }
 
-/** Removes a JSON file and its backup, so nothing comes back from the .bak. */
-export async function removeJson(fs: FileStore, path: string): Promise<void> {
-  await fs.remove(path);
-  await fs.remove(bakPath(path));
-  await fs.remove(tmpPath(path));
+async function readUnlocked(fs: FileStore, path: string): Promise<LoadResult> {
+  const kind = await fs.stat(path);
+  if (kind === "file") {
+    let text: string | null;
+    try {
+      text = await fs.readText(path);
+    } catch {
+      text = ""; // unreadable: treated as corrupt, as in _jsonio
+    }
+    if (text !== null) {
+      const data = parseObject(text);
+      if (data !== null) return { data, status: "ok", recovered: false };
+      await moveAside(fs, path);
+      return fromBackup(fs, path, "reset");
+    }
+    // Gone between stat and read: that is a missing file, not a corrupt one.
+  } else if (kind === "dir") {
+    return fromBackup(fs, path, "reset");
+  }
+  // Beyond _jsonio: a save cut short leaves the newest data in the .tmp
+  // (complete, or it would not parse). Finish that save and use it.
+  const tmp = (await fs.stat(tmpPath(path))) === "file" ? await readObject(fs, tmpPath(path)) : null;
+  if (tmp !== null) {
+    await fs.rename(tmpPath(path), path).catch(() => undefined);
+    return { data: tmp, status: "tmp", recovered: true };
+  }
+  return fromBackup(fs, path, "missing");
+}
+
+async function fromBackup(fs: FileStore, path: string, otherwise: "missing" | "reset"): Promise<LoadResult> {
+  const bak = (await fs.stat(bakPath(path))) === "file" ? await readObject(fs, bakPath(path)) : null;
+  if (bak !== null) return { data: bak, status: "backup", recovered: true };
+  return { data: null, status: otherwise, recovered: otherwise === "reset" };
+}
+
+/** Removes a JSON file, its backup and its tmp, so nothing comes back. */
+export function removeJson(fs: FileStore, path: string): Promise<void> {
+  return withPathLock(fs, path, async () => {
+    await fs.remove(path);
+    await fs.remove(bakPath(path));
+    await fs.remove(tmpPath(path));
+  });
 }
 
 // Lenient field readers: a bad value falls back to the default.
@@ -312,6 +352,9 @@ export class MemoryFileStore implements FileStore {
     }
   }
 
+  // Every change goes to storage first and to memory only after it, so a
+  // full localStorage (QuotaExceededError) leaves both agreeing.
+
   private persistFile(path: string, text: string | null): void {
     if (!this.storage) return;
     const key = `${this.prefix}f:${path}`;
@@ -330,8 +373,8 @@ export class MemoryFileStore implements FileStore {
     for (let d = joinPath(dir); d !== ""; d = dirName(d)) {
       if (this.files.has(d)) throw new Error(`not a directory: ${d}`);
       if (!this.dirs.has(d)) {
-        this.dirs.add(d);
         if (persist) this.persistDir(d, true);
+        this.dirs.add(d);
       }
     }
   }
@@ -346,8 +389,8 @@ export class MemoryFileStore implements FileStore {
     const p = joinPath(path);
     if (this.dirs.has(p)) throw new Error(`is a directory: ${p}`);
     this.addDir(dirName(p));
-    this.files.set(p, text);
     this.persistFile(p, text);
+    this.files.set(p, text);
   }
 
   async stat(path: string): Promise<EntryKind | null> {
@@ -378,8 +421,8 @@ export class MemoryFileStore implements FileStore {
       if (this.dirs.has(dst)) throw new Error(`is a directory: ${dst}`);
       const text = this.files.get(src)!;
       await this.writeText(dst, text);
-      this.files.delete(src);
       this.persistFile(src, null);
+      this.files.delete(src);
       return;
     }
     if (!this.dirs.has(src) || src === "") throw new Error(`no such file or directory: ${src}`);
@@ -388,17 +431,35 @@ export class MemoryFileStore implements FileStore {
     const under = (p: string) => p === src || p.startsWith(`${src}/`);
     const moved = (p: string) => dst + p.slice(src.length);
     this.addDir(dirName(dst));
-    for (const d of [...this.dirs].filter(under)) {
-      this.dirs.delete(d);
-      this.persistDir(d, false);
-      this.dirs.add(moved(d));
-      this.persistDir(moved(d), true);
+    const dirs = [...this.dirs].filter(under);
+    const files = [...this.files].filter(([p]) => under(p));
+    // Copy in storage first; if it fills up, take the copies back out.
+    const added: [string, boolean][] = [];
+    try {
+      for (const d of dirs) {
+        this.persistDir(moved(d), true);
+        added.push([moved(d), true]);
+      }
+      for (const [p, text] of files) {
+        this.persistFile(moved(p), text);
+        added.push([moved(p), false]);
+      }
+    } catch (err) {
+      for (const [p, isDir] of added) {
+        if (isDir) this.persistDir(p, false);
+        else this.persistFile(p, null);
+      }
+      throw err;
     }
-    for (const [p, text] of [...this.files].filter(([p]) => under(p))) {
+    for (const d of dirs) this.persistDir(d, false);
+    for (const [p] of files) this.persistFile(p, null);
+    for (const d of dirs) {
+      this.dirs.delete(d);
+      this.dirs.add(moved(d));
+    }
+    for (const [p, text] of files) {
       this.files.delete(p);
-      this.persistFile(p, null);
       this.files.set(moved(p), text);
-      this.persistFile(moved(p), text);
     }
   }
 
@@ -410,19 +471,20 @@ export class MemoryFileStore implements FileStore {
 
   async remove(path: string): Promise<void> {
     const p = joinPath(path);
-    if (this.files.delete(p)) {
+    if (this.files.has(p)) {
       this.persistFile(p, null);
+      this.files.delete(p);
       return;
     }
     if (!this.dirs.has(p) || p === "") return;
     const under = (q: string) => q === p || q.startsWith(`${p}/`);
     for (const d of [...this.dirs].filter(under)) {
-      this.dirs.delete(d);
       this.persistDir(d, false);
+      this.dirs.delete(d);
     }
     for (const f of [...this.files.keys()].filter(under)) {
-      this.files.delete(f);
       this.persistFile(f, null);
+      this.files.delete(f);
     }
   }
 }
@@ -496,7 +558,8 @@ export class CapacitorFileStore implements FileStore {
     if (target === "file") {
       if ((await this.stat(src)) === "dir") throw new Error(`already exists: ${dst}`);
       // Whether the native move replaces a file is not documented; delete
-      // first. If the app dies in between, readJson falls back to the .bak.
+      // first. writeJson only lets this happen where a complete .tmp or the
+      // old file survives the gap, and readJson recovers from either.
       await Filesystem.deleteFile({ path: dst, directory: this.directory });
     }
     await this.mkdir(dirName(dst));
@@ -519,12 +582,18 @@ export class CapacitorFileStore implements FileStore {
   }
 }
 
+let theStore: FileStore | null = null;
+
 /**
  * The data store for this platform: the device's files on Android, memory
- * (mirrored to localStorage) in the browser.
+ * (mirrored to localStorage) in the browser. Always the same object.
  */
 export function createFileStore(): FileStore {
-  if (Capacitor.isNativePlatform()) return new CapacitorFileStore();
-  const storage = typeof localStorage === "undefined" ? undefined : localStorage;
-  return new MemoryFileStore({ storage });
+  // One store for the whole app: the per-file locks are per store.
+  if (!theStore) {
+    if (Capacitor.isNativePlatform()) theStore = new CapacitorFileStore();
+    else theStore = new MemoryFileStore({ storage: typeof localStorage === "undefined" ? undefined : localStorage });
+  }
+  return theStore;
 }
+

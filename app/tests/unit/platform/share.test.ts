@@ -39,7 +39,8 @@ describe("on Android", () => {
   it("opens the share sheet with the text", async () => {
     native.on = true;
     expect(await shareText("log text", { title: "יומן נגמון" })).toBe("shared");
-    expect(native.shared).toEqual([{ title: "יומן נגמון", text: "log text", dialogTitle: "יומן נגמון" }]);
+    const title = "יומן נגמון";
+    expect(native.shared).toEqual([{ title, text: "log text", dialogTitle: title }]);
   });
 
   it("a closed share sheet is not an error", async () => {
@@ -79,6 +80,15 @@ describe("in the browser", () => {
 });
 
 describe("shareRedacted", () => {
+  it("cannot be called without the secrets and names", async () => {
+    native.on = true;
+    // @ts-expect-error: secrets and names are required
+    await expect(shareRedacted("x", {})).rejects.toThrow(TypeError);
+    // @ts-expect-error: the options are required
+    await expect(shareRedacted("x")).rejects.toThrow(TypeError);
+    expect(native.shared).toEqual([]);
+  });
+
   it("hides keys and names right before the text leaves", async () => {
     native.on = true;
     await shareRedacted(`token ${TOKEN} key plainsecret123456 for נועה`, {

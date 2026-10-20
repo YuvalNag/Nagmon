@@ -29,6 +29,8 @@ import { type FamilyValues, defaultValues, valuesFromDict, valuesToDict } from "
 export const SCHEMA_VERSION = 1;
 export const MIN_PBKDF2_ITERATIONS = 200_000;
 export const PBKDF2_ITERATIONS = 240_000;
+/** More than this in a file is not a real hash: it would freeze the phone. */
+export const MAX_PBKDF2_ITERATIONS = 2_000_000;
 export const SALT_BYTES = 16;
 export const MAX_ATTEMPTS = 5;
 export const LOCKOUT_SECONDS = 60;
@@ -39,6 +41,14 @@ export const PIN_MAX_LEN = 8;
 /** Bad PIN format, or the current PIN is required or wrong. */
 export class PinError extends Error {
   override name = "PinError";
+}
+
+/** The PIN is locked after too many wrong tries; try again later. */
+export class PinLockedError extends PinError {
+  override name = "PinLockedError";
+  constructor(readonly retryAfterS: number) {
+    super(`the PIN is locked for ${Math.ceil(retryAfterS)} s`);
+  }
 }
 
 // ---------------------------------------------------------------- redaction
@@ -125,12 +135,13 @@ export function defaultSettings(): ParentSettings {
 
 /** The limits of one child, or the family's defaults. */
 export function limitsFor(s: ParentSettings, profileId: string): ScreenLimitsDict {
-  return s.profileLimits[profileId] ?? s.defaultLimits;
+  // hasOwn: an id like "toString" must not find Object.prototype's.
+  return Object.hasOwn(s.profileLimits, profileId) ? s.profileLimits[profileId]! : s.defaultLimits;
 }
 
 /** Practice days a week for one child: the parent's choice, or by age. */
 export function weeklyDaysFor(s: ParentSettings, profileId: string, age: number | null): number {
-  return s.weeklyDays[profileId] ?? defaultWeeklyDays(age);
+  return Object.hasOwn(s.weeklyDays, profileId) ? s.weeklyDays[profileId]! : defaultWeeklyDays(age);
 }
 
 /** The settings as parent.json holds them. */
@@ -159,9 +170,23 @@ export function settingsFromDict(d: unknown): ParentSettings {
   const s = defaultSettings();
   if (!isJsonObject(d)) return s;
   if (typeof d.pin_hash === "string" && typeof d.pin_salt === "string") {
-    s.pinHash = d.pin_hash;
-    s.pinSalt = d.pin_salt;
-    s.pinIterations = asInt(d.pin_iterations, PBKDF2_ITERATIONS);
+    // Not asInt: a fallback count would never match the hash either.
+    const iterations = d.pin_iterations === undefined ? PBKDF2_ITERATIONS : d.pin_iterations;
+    // A PIN that can never verify (no iterations, a bad salt or hash) would
+    // lock the parent out for good; it is dropped, and the parent sets a
+    // new one. Changing the file needs root access to the phone anyway.
+    const usable =
+      /^[0-9a-f]{64}$/.test(d.pin_hash) &&
+      /^[0-9a-f]{32}$/.test(d.pin_salt) &&
+      typeof iterations === "number" &&
+      Number.isInteger(iterations) &&
+      iterations >= MIN_PBKDF2_ITERATIONS &&
+      iterations <= MAX_PBKDF2_ITERATIONS;
+    if (usable) {
+      s.pinHash = d.pin_hash;
+      s.pinSalt = d.pin_salt;
+      s.pinIterations = iterations as number;
+    }
   }
   s.failedAttempts = Math.max(0, asInt(d.failed_attempts, 0));
   s.lockedUntil = asFloat(d.locked_until, 0);
@@ -184,16 +209,19 @@ export function settingsFromDict(d: unknown): ParentSettings {
     };
   }
   if (isJsonObject(d.default_limits)) s.defaultLimits = structuredClone(d.default_limits);
+  // fromEntries defines own keys: an id like "__proto__" stays plain data.
   if (isJsonObject(d.profile_limits)) {
-    for (const [pid, v] of Object.entries(d.profile_limits)) {
-      if (isJsonObject(v)) s.profileLimits[pid] = structuredClone(v);
-    }
+    s.profileLimits = Object.fromEntries(
+      Object.entries(d.profile_limits).flatMap(([pid, v]) => (isJsonObject(v) ? [[pid, structuredClone(v)]] : [])),
+    );
   }
   if (isJsonObject(d.weekly_days)) {
-    for (const [pid, v] of Object.entries(d.weekly_days)) {
-      const days = asInt(v, 0);
-      if (days >= 1 && days <= 7) s.weeklyDays[pid] = days;
-    }
+    s.weeklyDays = Object.fromEntries(
+      Object.entries(d.weekly_days).flatMap(([pid, v]) => {
+        const days = asInt(v, 0);
+        return days >= 1 && days <= 7 ? [[pid, days]] : [];
+      }),
+    );
   }
   s.values = valuesFromDict(d.values);
   return s;
@@ -345,13 +373,17 @@ export class ParentStore {
   /** Loads parent.json (or the defaults); a weak iteration count throws a RangeError. */
   static async open(fs: FileStore, options: ParentStoreOptions = {}): Promise<ParentStore> {
     const iterations = options.iterations ?? PBKDF2_ITERATIONS;
-    if (!Number.isInteger(iterations) || iterations < MIN_PBKDF2_ITERATIONS) {
-      throw new RangeError(`PBKDF2 needs at least ${MIN_PBKDF2_ITERATIONS} iterations`);
+    if (!Number.isInteger(iterations) || iterations < MIN_PBKDF2_ITERATIONS || iterations > MAX_PBKDF2_ITERATIONS) {
+      throw new RangeError(`PBKDF2 needs ${MIN_PBKDF2_ITERATIONS} to ${MAX_PBKDF2_ITERATIONS} iterations`);
     }
     const path = joinPath(options.root ?? "", "parent.json");
     const res = await readJson(fs, path);
     if (res.recovered) options.onWarning?.(`parent.json recovered (${res.status})`);
-    return new ParentStore(fs, path, settingsFromDict(res.data), res.recovered, options);
+    const settings = settingsFromDict(res.data);
+    if (typeof res.data?.pin_hash === "string" && settings.pinHash === null) {
+      options.onWarning?.("the PIN in parent.json could not be used; it was cleared");
+    }
+    return new ParentStore(fs, path, settings, res.recovered, options);
   }
 
   /** Never shows the PIN hash or salt. */
@@ -387,14 +419,37 @@ export class ParentStore {
   }
 
   /**
+   * Reads the PIN fields again from parent.json, so another store on the
+   * same file (a second screen) cannot reset the wrong-PIN count. Other
+   * settings stay as they are in memory.
+   */
+  private async refreshPin(): Promise<void> {
+    const res = await readJson(this.fs, this.path);
+    if (res.data === null) return;
+    const disk = settingsFromDict(res.data);
+    const s = this.settings;
+    s.pinHash = disk.pinHash;
+    s.pinSalt = disk.pinSalt;
+    s.pinIterations = disk.pinIterations;
+    s.failedAttempts = disk.failedAttempts;
+    s.lockedUntil = disk.lockedUntil;
+  }
+
+  /**
    * Sets the PIN (4 to 8 ASCII digits). Changing an existing PIN needs
    * the current one; a wrong current PIN counts as a wrong attempt.
    */
   setPin(pin: string, { current }: { current?: string } = {}): Promise<void> {
     return this.serial(async () => {
       checkFormat(pin);
-      if (this.hasPin() && (current === undefined || !(await this.verifyNow(current)).ok)) {
-        throw new PinError("the current PIN is required");
+      await this.refreshPin();
+      if (this.hasPin()) {
+        const remaining = await this.lockoutNow();
+        if (remaining > 0) throw new PinLockedError(remaining);
+        if (current === undefined) throw new PinError("the current PIN is required");
+        const check = await this.verifyNow(current);
+        if (check.locked) throw new PinLockedError(check.retryAfterS);
+        if (!check.ok) throw new PinError("the current PIN is required");
       }
       const salt = randomSalt();
       const s = this.settings;
@@ -409,7 +464,10 @@ export class ParentStore {
 
   /** Seconds until the lock ends (0 when not locked). */
   lockoutRemaining(): Promise<number> {
-    return this.serial(() => this.lockoutNow());
+    return this.serial(async () => {
+      await this.refreshPin();
+      return this.lockoutNow();
+    });
   }
 
   private async lockoutNow(): Promise<number> {
@@ -429,7 +487,10 @@ export class ParentStore {
    * hashed again with the current count.
    */
   verifyPin(pin: string): Promise<PinCheck> {
-    return this.serial(() => this.verifyNow(pin));
+    return this.serial(async () => {
+      await this.refreshPin();
+      return this.verifyNow(pin);
+    });
   }
 
   private async verifyNow(pin: string): Promise<PinCheck> {

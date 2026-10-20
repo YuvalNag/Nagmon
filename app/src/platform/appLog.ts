@@ -10,6 +10,8 @@
  * opens again. Times are UTC. HTTP bodies are never logged.
  */
 import { formatError, redactSecrets, utcMinute } from "../core/crashReport";
+import { App } from "@capacitor/app";
+import { Capacitor } from "@capacitor/core";
 import { DATA_FILES, type FileStore, dirName, withPathLock } from "./storage";
 
 export const MAX_LINES = 400;
@@ -130,8 +132,11 @@ export class RingLog {
   /** Adds lines as they are (after hiding keys), without a level filter. */
   add(text: string): void {
     const clean = redactSecrets(text, this.secretValues());
-    const lines = splitLines(clean);
-    this.buffer.push(...(lines.length ? lines : [""]));
+    // Only the last lines can stay; no spread, so a huge text cannot
+    // overflow the call stack.
+    const lines = splitLines(clean).slice(-this.maxLines);
+    if (!lines.length) lines.push("");
+    for (const line of lines) this.buffer.push(line);
     if (this.buffer.length > this.maxLines) this.buffer.splice(0, this.buffer.length - this.maxLines);
   }
 
@@ -158,10 +163,13 @@ export class RingLog {
     let text = this.text();
     if (ending) text += `${SAVED_MARK}${ending}\n`;
     text = redactSecrets(text, this.known).replace(LONE_SURROGATE, "?");
+    // As writeJson: .tmp first, the old log becomes the .bak, then the
+    // .tmp becomes the log. A save cut short leaves the .tmp or the .bak.
     await withPathLock(fs, path, async () => {
       await fs.mkdir(dirName(path));
       const tmp = `${path}.tmp`;
       await fs.writeText(tmp, text);
+      if ((await fs.stat(path)) === "file") await fs.rename(path, `${path}.bak`);
       await fs.rename(tmp, path);
     });
   }
@@ -172,12 +180,17 @@ export class RingLog {
    * was no saved log.
    */
   async load(fs: FileStore, path: string): Promise<string | null> {
-    let saved: string | null;
-    try {
-      saved = await fs.readText(path);
-    } catch {
+    const saved = await withPathLock(fs, path, async () => {
+      for (const candidate of [path, `${path}.tmp`, `${path}.bak`]) {
+        try {
+          const text = await fs.readText(candidate);
+          if (text !== null) return text;
+        } catch {
+          // try the next one
+        }
+      }
       return null;
-    }
+    });
     if (saved === null) return null;
     const old = splitLines(saved);
     this.buffer = [...old, ...this.buffer].slice(-this.maxLines);
@@ -323,7 +336,8 @@ export interface LifecycleTargets {
 
 /**
  * Saves the log when the app goes to the background (the WebView hides
- * the page) and when the page closes. Returns a function that unbinds.
+ * the page; on the phone also the app's "pause" event) and when the page
+ * closes. Returns a function that unbinds.
  */
 export function bindLifecycleSaves(targets: LifecycleTargets = {}): () => void {
   const doc = targets.document ?? (typeof document === "undefined" ? undefined : document);
@@ -334,8 +348,13 @@ export function bindLifecycleSaves(targets: LifecycleTargets = {}): () => void {
   const onPageHide = () => void saveAppLog({ ending: "exit" });
   doc?.addEventListener("visibilitychange", onVisibility);
   win?.addEventListener("pagehide", onPageHide);
+  // Android may stop the WebView before it fires visibilitychange.
+  const pause = Capacitor.isNativePlatform()
+    ? App.addListener("pause", () => void saveAppLog({ ending: "background" })).catch(() => null)
+    : Promise.resolve(null);
   return () => {
     doc?.removeEventListener("visibilitychange", onVisibility);
     win?.removeEventListener("pagehide", onPageHide);
+    void pause.then((handle) => handle?.remove());
   };
 }

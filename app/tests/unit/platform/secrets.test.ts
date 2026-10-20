@@ -7,7 +7,7 @@ import { describe, expect, it, vi } from "vitest";
 
 const plugin = vi.hoisted(() => {
   const items = new Map<string, string>();
-  const state = { prefix: "capacitor-storage_", calls: [] as string[] };
+  const state = { prefix: "capacitor-storage_", calls: [] as string[], broken: new Set<string>() };
   return { items, state };
 });
 
@@ -18,6 +18,7 @@ vi.mock("@aparajita/capacitor-secure-storage", () => ({
       plugin.state.prefix = prefix;
     },
     async getItem(key: string) {
+      if (plugin.state.broken.has(key)) throw new Error("invalidData");
       return plugin.items.get(plugin.state.prefix + key) ?? null;
     },
     async setItem(key: string, value: string) {
@@ -76,6 +77,19 @@ describe.each([
 });
 
 describe("keystore store", () => {
+  it("values() skips one unreadable secret and still gives the others", async () => {
+    const s = new KeystoreSecretStore();
+    await s.set(SECRET_KEYS.githubToken, TOKEN);
+    await s.set(SECRET_KEYS.aiKey("groq"), "gsk_TESTabcdefabcdefabcdef");
+    plugin.state.broken.add(SECRET_KEYS.githubToken);
+    try {
+      expect(await s.values()).toEqual(["gsk_TESTabcdefabcdefabcdef"]);
+    } finally {
+      plugin.state.broken.clear();
+      await s.clear();
+    }
+  });
+
   it("uses its own key prefix, never the shared default", async () => {
     const s = new KeystoreSecretStore();
     await s.set(SECRET_KEYS.githubToken, TOKEN);

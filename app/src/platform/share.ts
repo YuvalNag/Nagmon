@@ -61,10 +61,10 @@ function download(text: string, fileName: string): void {
 }
 
 export interface ShareRedactedOptions extends ShareTextOptions {
-  /** The saved keys (the secret store's values). */
-  secrets?: Iterable<string>;
-  /** Every child's name, deleted profiles included. */
-  names?: Iterable<string>;
+  /** The saved keys (the secret store's values). Required: never forget them. */
+  secrets: Iterable<string>;
+  /** Every child's name, deleted profiles included (ProfileStore.allNames). */
+  names: Iterable<string>;
 }
 
 /**
@@ -73,7 +73,10 @@ export interface ShareRedactedOptions extends ShareTextOptions {
  */
 export function shareRedacted(
   text: string,
-  { secrets = [], names = [], ...options }: ShareRedactedOptions = {},
+  options: ShareRedactedOptions,
 ): Promise<ShareOutcome> {
-  return shareText(hideNames(redactSecrets(text, secrets), names), options);
+  const { secrets, names, ...rest } = options ?? ({} as Partial<ShareRedactedOptions>);
+  // Also at run time: a call without them would share unhidden text.
+  if (!secrets || !names) return Promise.reject(new TypeError("shareRedacted needs secrets and names"));
+  return shareText(hideNames(redactSecrets(text, secrets), names), rest);
 }
