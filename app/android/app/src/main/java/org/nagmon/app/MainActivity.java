@@ -18,7 +18,13 @@ public class MainActivity extends BridgeActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        registerPlugin(AppShellPlugin.class);
         super.onCreate(savedInstanceState);
+        // The WebView's own text zoom grew some text and not other, and
+        // broke the screens at a large system font. The page reads the
+        // system's font size itself and scales all its text evenly
+        // (src/platform/shell.ts), up to 130%.
+        getBridge().getWebView().getSettings().setTextZoom(100);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             getWindow().getAttributes().layoutInDisplayCutoutMode =
                 WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;

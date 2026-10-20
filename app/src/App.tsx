@@ -92,14 +92,17 @@ interface Props {
   /** Binds Android's back button; returns an unbind (tests pass their own). */
   backButton?: (handler: () => void) => () => void;
   workTimeoutMs?: number;
+  /** Who-plays is showing with the children read: the app has started. */
+  onStarted?: () => void;
 }
 
-export function App({ services, backButton = bindBackButton, workTimeoutMs = WORK_TIMEOUT_MS }: Props) {
+export function App({ services, backButton = bindBackButton, workTimeoutMs = WORK_TIMEOUT_MS, onStarted }: Props) {
   const { profiles, parent } = services;
   // each screen shown gets a number: a new number is a new, fresh screen
   const [shown, setShown] = useState<{ view: View; n: number }>({ view: WHO, n: 0 });
   const current = useRef<View>(WHO);
   const [children, setChildren] = useState<Profile[]>([]);
+  const [loaded, setLoaded] = useState(false);
   // slow work running: its screen's keys wait; `locked` also shuts the ways out
   const [busy, setBusy] = useState<"no" | "keys" | "locked">("no");
   const busyRef = useRef<"no" | "keys" | "locked">("no");
@@ -143,11 +146,18 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
   );
 
   useEffect(() => {
-    profiles.list().then(setChildren, (e) => {
+    profiles.list().then((list) => {
+      setChildren(list);
+      setLoaded(true);
+    }, (e) => {
       log.error("Could not read the players", e);
       show({ kind: "notice", text: t("readFailed"), next: WHO });
     });
   }, [profiles, show]);
+
+  useEffect(() => {
+    if (loaded) onStarted?.();
+  }, [loaded, onStarted]);
 
   useEffect(
     () =>

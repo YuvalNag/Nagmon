@@ -7,6 +7,7 @@ import { t } from "./i18n";
 import { appLogTail, buildInfo, getLogger, installAppLog, noteCrash, saveAppLog } from "./platform/appLog";
 import { gameClock, Lifecycle, saveEverything, screenTimeClock } from "./platform/lifecycle";
 import { createSecretStore } from "./platform/secrets";
+import { applySystemFontScale, reportStarted } from "./platform/shell";
 import { createFileStore } from "./platform/storage";
 import { installTapTiming } from "./platform/tapTiming";
 import "./styles.css";
@@ -54,14 +55,15 @@ const reporter = new CrashReporter(new CrashReports(fs), {
 });
 
 async function main(): Promise<void> {
-  await startLog();
+  // the font size is set before the first screen, so nothing jumps
+  await Promise.all([startLog(), applySystemFontScale()]);
   // errors after the first go to the log only (one report per session)
   installCrashHandlers(reporter, { onLater: (text) => log.error(text) });
   const started = await reporter.run(async () => {
     services = await openServices(fs);
     root.render(
       <StrictMode>
-        <App services={services} />
+        <App services={services} onStarted={() => requestAnimationFrame(reportStarted)} />
       </StrictMode>,
     );
   });
