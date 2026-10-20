@@ -23,7 +23,8 @@
   },
   "_source": [
    "mods/nagmon/db/item/nagmon_badge_granite.yaml"
-  ]
+  ],
+  "sprite_scale": 4
  },
  "nagmon_badge_mila": {
   "slug": "nagmon_badge_mila",
@@ -49,7 +50,8 @@
   },
   "_source": [
    "mods/nagmon/db/item/nagmon_badge_mila.yaml"
-  ]
+  ],
+  "sprite_scale": 4
  },
  "potion": {
   "conditions": [
@@ -106,7 +108,8 @@
   },
   "_source": [
    "mods/tuxemon/db/item/potion.yaml"
-  ]
+  ],
+  "sprite_scale": 4
  },
  "tuxeball": {
   "conditions": [
@@ -155,7 +158,8 @@
   },
   "_source": [
    "mods/tuxemon/db/item/tuxeball.yaml"
-  ]
+  ],
+  "sprite_scale": 4
  },
  "water_berry": {
   "conditions": [
@@ -202,7 +206,8 @@
   },
   "_source": [
    "mods/tuxemon/db/item/water_berry.yaml"
-  ]
+  ],
+  "sprite_scale": 4
  },
  "wood_berry": {
   "conditions": [
@@ -249,6 +254,7 @@
   },
   "_source": [
    "mods/tuxemon/db/item/wood_berry.yaml"
-  ]
+  ],
+  "sprite_scale": 4
  }
 }
