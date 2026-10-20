@@ -379,6 +379,13 @@ export interface Item extends DbRecord {
   /** Relative to public/game. */
   sprite: string | null;
 }
+/** A map sheet: 3 frames across x 4 directions down (a prop: 1 frame). */
+export interface MapSprite {
+  /** Relative to public/game. */
+  map: string | null;
+  /** [width, height] of one frame, in the picture's pixels. */
+  frame: [number, number] | null;
+}
 /** db/npcs.json */
 export interface Npc extends DbRecord {
   template: {
@@ -388,18 +395,29 @@ export interface Npc extends DbRecord {
     is_static_prop?: boolean;
   };
   speech: { profile: Record<string, Record<string, string | null>> };
-  sprites: { map?: string | null; portrait?: string | null };
+  sprites: Partial<MapSprite> & {
+    portrait?: string | null;
+    /** Sheets a script switches to (set_template), by sprite name. */
+    alternates?: Record<string, MapSprite>;
+  };
 }
-/** db/avatars.json (keys are stored in profiles: never rename) */
-export interface Avatar {
+/** One avatar a child can pick (keys are stored in profiles). */
+export interface Avatar extends MapSprite {
   key: string;
   sprite: string;
   combat_sheet: string;
   gender: "male" | "female";
   label_he: string;
-  fallback: boolean;
-  map: string | null;
   portrait: string | null;
+}
+/** db/avatars.json */
+export interface AvatarsFile {
+  /** The owner's modest HD heroes only. */
+  avatars: Avatar[];
+  /** Keys old profiles stored -> the hero that replaces them. */
+  legacy: Record<string, string>;
+  /** For an unknown key. */
+  fallback: string;
 }
 /** db/encounters.json */
 export interface Encounter extends DbRecord {
@@ -437,14 +455,19 @@ export type AudioIndex = Record<string, string>;
 export interface CreditEntry {
   section: string;
   title: string;
-  authors: string;
+  /** Everyone the entry names (a work and the works it is based on). */
+  authors: string[];
+  /** The entry's own licence (the last one it names). */
   licence: string;
   licences: string[];
+  /** Full text for the credits screen (links as their text). */
   text: string;
+  /** The same, as written in ATTRIBUTIONS.md. */
+  markdown: string;
 }
 /** credits.json */
 export interface CreditsFile {
-  schema_version: number;
+  schema_version: 2;
   code: { licence: string; file: string; note: string };
   font: CreditEntry;
   entries: Record<string, CreditEntry>;
@@ -452,9 +475,13 @@ export interface CreditsFile {
     path: string;
     kind: string;
     sources: string[];
-    /** Entry id(s) in `entries`, or null (owner art, or not listed). */
-    credit: string | string[] | null;
+    /** Entry ids in `entries`; empty for owner art or unlisted files. */
+    credits: string[];
+    authors: string[];
+    /** All authors, joined, for a one-line display. */
     author: string;
+    licences: string[];
+    /** Main licence, e.g. "CC BY-SA 4.0, adapted (xBRZ x4)". */
     licence: string;
     note: string;
     /** false: not found in ATTRIBUTIONS.md; to be credited by hand. */
@@ -464,7 +491,7 @@ export interface CreditsFile {
 
 /** emoji/index.json */
 export interface EmojiIndex {
-  /** Code as written in content/generators -> file stem. */
+  /** Code as written in content/generators -> file in emoji/ (SVG). */
   codes: Record<string, string>;
   files: string[];
 }

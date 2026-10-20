@@ -5,8 +5,9 @@ Codes come from the content (``emoji:`` fields and ``emoji:<code>``
 values) and from the generators' source (``nagmon/learning``: quoted
 codes such as ``"1f34e"`` and emoji characters). Each code is resolved
 to a file the way the old game does (``nagmon.ui.emoji.candidates``:
-as given, without U+FE0F, with U+FE0F). Both the 72 px PNG and the SVG
-are shipped as ``emoji/png/<code>.png`` and ``emoji/svg/<code>.svg``.
+as given, without U+FE0F, with U+FE0F). One format is shipped: the SVG
+(``emoji/<stem>.svg``; the app shows them as ``<img>``, sharp at any
+size), or the 72 px PNG when a picture has no SVG.
 """
 
 from __future__ import annotations
@@ -65,25 +66,35 @@ def build(out: Output) -> dict[str, Any]:
         stem = resolve(code)
         if stem is not None:
             stems[code] = stem
-    files = sorted(set(stems.values()))
-    svgs = 0
-    for stem in files:
-        out.add_copy(
-            f"emoji/png/{stem}.png", EMOJI_DIR / f"{stem}.png", "emoji"
-        )
+    stems_used = sorted(set(stems.values()))
+    files = []
+    pngs = 0
+    for stem in stems_used:
         svg = EMOJI_DIR / "svg" / f"{stem}.svg"
         if svg.is_file():
-            out.add_copy(f"emoji/svg/{stem}.svg", svg, "emoji")
-            svgs += 1
+            out.add_copy(f"emoji/{stem}.svg", svg, "emoji")
+            files.append(f"{stem}.svg")
+        else:
+            out.add_copy(
+                f"emoji/{stem}.png", EMOJI_DIR / f"{stem}.png", "emoji"
+            )
+            files.append(f"{stem}.png")
+            pngs += 1
     out.add_json(
         "emoji/index.json",
-        {"codes": dict(sorted(stems.items())), "files": files},
+        {
+            "codes": {
+                code: next(f for f in files if f.startswith(f"{stem}."))
+                for code, stem in sorted(stems.items())
+            },
+            "files": files,
+        },
     )
     if unresolved:
         out.notes.append(f"content emoji without a picture: {unresolved}")
     return {
         "content_codes": len(from_content),
         "pictures": len(files),
-        "svg": svgs,
+        "png_fallbacks": pngs,
         "unresolved": unresolved,
     }

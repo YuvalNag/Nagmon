@@ -40,6 +40,21 @@ RECTS = {
 }
 #: The menu theme: the start and profile screens (not in a map script).
 MENU_MUSIC = ("music_main_theme",)
+#: Technique animations too scary for young kids -> a gentle one.
+GENTLE_ANIMATIONS = {"frighten": "sparks_white"}
+#: The avatars a child can pick: the owner's three modest HD heroes. The
+#: Tuxemon ones (sleeveless map sheets) are gone; the keys old profiles
+#: stored map to a hero.
+AVATAR_KEYS = ("boy_blue", "girl_teal", "girl_curly")
+AVATAR_LEGACY = {
+    "boy_light": "boy_blue",
+    "boy_dark": "boy_blue",
+    "girl_light": "girl_teal",
+    "girl_dark": "girl_curly",
+}
+AVATAR_FALLBACK = "boy_blue"
+#: A character's map sheet: 3 frames across, 4 directions down.
+SHEET_COLUMNS, SHEET_ROWS = 3, 4
 
 _TABLES: dict[str, dict[str, dict[str, Any]]] = {}
 
@@ -207,6 +222,8 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
         msgids |= {slug, f"{slug}_description"}
         if rec.get("species"):
             msgids.add(f"cat_{rec['species']}")
+        if rec.get("shape"):
+            msgids.add(rec["shape"])
         monsters[slug] = rec
 
     # -- techniques
@@ -214,6 +231,13 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
     techniques = {}
     for slug in sorted(techniques_wanted):
         rec = _strip(table("technique")[slug])
+        if slug in GENTLE_ANIMATIONS:
+            old = rec["visuals"]["animation"]
+            rec["visuals"]["animation"] = GENTLE_ANIMATIONS[slug]
+            rec["_note"] = (
+                f"Animation {old} replaced by {GENTLE_ANIMATIONS[slug]}: "
+                "gentle for young kids (tools/app/db.py)."
+            )
         anim = (rec.get("visuals") or {}).get("animation")
         if anim:
             animations_wanted.add(anim)
@@ -265,6 +289,9 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
             art["map"] = sprites.copy(
                 f"{folder}/{name}.png", f"{sub}/{name}.png", "npc"
             )
+            art["frame"] = map_frame(
+                f"{folder}/{name}.png", bool(tpl.get("is_static_prop"))
+            )
         sheet = tpl.get("combat_sheet")
         if sheet and sheet != "noclass":
             art["portrait"] = sprites.copy(
@@ -281,6 +308,12 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
         npcs[slug] = rec
     for name in sorted(map_sprites):
         sprites.copy(f"sprites/{name}.png", f"npc/{name}.png", "npc")
+    for rec in npcs.values():
+        for target in _templates_set_on(scripts, rec["slug"]):
+            rec["sprites"].setdefault("alternates", {})[target] = {
+                "map": f"sprites/npc/{target}.png",
+                "frame": map_frame(f"sprites/{target}.png", False),
+            }
     for name in sorted(combat_sheets):
         sprites.copy(
             f"gfx/sprites/player/{name}.png",
@@ -298,6 +331,9 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
             rel, f"animations/{rec['file']}/{slug}.png", "animation"
         )
         animations[slug] = rec
+
+    # Shapes are shown by name (journal, monster info).
+    msgids |= set(table("shape"))
 
     # -- elements
     elements = {}
@@ -359,27 +395,66 @@ def _rewrite_paths(node: Any, sprites: Sprites) -> Any:
     return node
 
 
-def avatar_records(sprites: Sprites) -> list[dict[str, Any]]:
-    """The child's avatars (``nagmon.game_flow.AVATARS``), keys kept."""
-    from nagmon.game_flow import AVATARS, FALLBACK_AVATAR
+def map_frame(rel: str, static: bool) -> list[int] | None:
+    """[width, height] of one frame of a shipped map picture."""
+    src = mod_file(rel)
+    if src is None:
+        return None
+    with Image.open(src) as im:
+        width, height = im.size
+    if static:
+        return [width, height]
+    if width % SHEET_COLUMNS or height % SHEET_ROWS:
+        raise ValueError(f"{src}: not a {SHEET_COLUMNS}x{SHEET_ROWS} sheet")
+    return [width // SHEET_COLUMNS, height // SHEET_ROWS]
 
-    records = []
-    for avatar in AVATARS:
-        data = {
-            "key": avatar.key,
-            "sprite": avatar.sprite,
-            "combat_sheet": avatar.combat_sheet,
-            "gender": avatar.gender,
-            "label_he": avatar.label_he,
-            "fallback": avatar.key == FALLBACK_AVATAR,
+
+def _templates_set_on(scripts: list[dict[str, Any]], npc: str) -> list[str]:
+    return sorted(
+        {
+            args[1]
+            for args in _args(scripts, "set_template")
+            if args[0] == npc and args[1] != npc
         }
-        data["map"] = sprites.copy(
-            f"sprites/{avatar.sprite}.png", f"npc/{avatar.sprite}.png", "npc"
+    )
+
+
+def avatar_records(sprites: Sprites) -> dict[str, Any]:
+    """
+    The child's avatars: the HD heroes of ``nagmon.game_flow.AVATARS``,
+    a map from every other old key to a hero, and the fallback.
+    """
+    from nagmon.game_flow import AVATARS
+
+    by_key = {avatar.key: avatar for avatar in AVATARS}
+    old_keys = set(by_key) - set(AVATAR_KEYS)
+    if old_keys != set(AVATAR_LEGACY):
+        raise ValueError(f"avatar keys without a hero: {sorted(old_keys)}")
+    records = []
+    for key in AVATAR_KEYS:
+        avatar = by_key[key]
+        records.append(
+            {
+                "key": avatar.key,
+                "sprite": avatar.sprite,
+                "combat_sheet": avatar.combat_sheet,
+                "gender": avatar.gender,
+                "label_he": avatar.label_he,
+                "map": sprites.copy(
+                    f"sprites/{avatar.sprite}.png",
+                    f"npc/{avatar.sprite}.png",
+                    "npc",
+                ),
+                "frame": map_frame(f"sprites/{avatar.sprite}.png", False),
+                "portrait": sprites.copy(
+                    f"gfx/sprites/player/{avatar.combat_sheet}.png",
+                    f"portraits/{avatar.combat_sheet}.png",
+                    "portrait",
+                ),
+            }
         )
-        data["portrait"] = sprites.copy(
-            f"gfx/sprites/player/{avatar.combat_sheet}.png",
-            f"portraits/{avatar.combat_sheet}.png",
-            "portrait",
-        )
-        records.append(data)
-    return records
+    return {
+        "avatars": records,
+        "legacy": dict(AVATAR_LEGACY),
+        "fallback": AVATAR_FALLBACK,
+    }

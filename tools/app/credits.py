@@ -1,11 +1,16 @@
 # SPDX-License-Identifier: GPL-3.0
-"""credits.json: every shipped asset with its author and licence.
+"""credits.json: every shipped asset with all its authors and licences.
 
 The authors and licences are taken from ``ATTRIBUTIONS.md`` (split into
 its bullet entries, by section) and matched to each shipped file by
-kind and name. A file the build cannot match to an entry keeps a
-``matched: false`` flag with the licence of its whole group, so a
-person can finish the job by hand instead of the screen guessing.
+kind and name. Every author and every licence an entry names is kept
+(an entry often credits a work and the works it is based on), and the
+entries keep their full text for the credits screen. A file the build
+cannot match keeps a ``matched: false`` flag, so a person can finish
+the job by hand instead of the screen guessing.
+
+Adapted CC BY-SA art says so in its main licence: the xBRZ x4 atlases
+are "CC BY-SA 4.0, adapted (xBRZ x4)".
 
 The licence texts the app must carry are copied under ``licenses/``.
 """
@@ -37,6 +42,12 @@ _LICENCE = re.compile(
 )
 _LINK = re.compile(r"\[([^\]]*)\]\([^)]*\)")
 _TITLE = re.compile(r"\[\"?([^\]\"]+)\"?\]")
+_BY = re.compile(
+    r"(?<!CC )(?<!CC-)\b[Bb]y\s+(.+?)(?=\s+(?:is|are)\s+licensed|\s+licensed|,\s*licensed"
+    r"|\s+[\[(]|\s+has been|\s+have been|\s+based on|,\s*from\b|\s+is\b|$)"
+)
+ADAPTED_XBRZ = "CC BY-SA 4.0, adapted (xBRZ x4)"
+ADAPTED_MODEST = "CC BY-SA 4.0, adapted (modest version)"
 OWNER = {
     "author": "the Nagmon owner (made with image generators)",
     "licence": "not stated yet",
@@ -63,25 +74,44 @@ class Entry:
 
     @property
     def licence(self) -> str:
+        """The licence of the entry itself: the last one it names."""
         found = self.licences
         return found[-1] if found else "not stated in ATTRIBUTIONS.md"
 
     @property
-    def authors(self) -> str:
+    def authors(self) -> list[str]:
+        """Everyone the entry names after a "by"."""
+        found = []
+        for match in _BY.finditer(self.plain):
+            author = match.group(1).strip(" .,")
+            while author.endswith(")") and author.count(")") > author.count(
+                "("
+            ):
+                author = author[:-1].strip(" .,")
+            if author:
+                found.append(author)
+        if not found:
+            found = self._sources()
+        return list(dict.fromkeys(found))
+
+    def _sources(self) -> list[str]:
+        """For an entry with no "by": the pack or page it comes from."""
+        no_urls = re.sub(r"https?://\S+\s*", "", self.plain)
         match = re.search(
-            r"\bby\s+(.+?)(?:\s+(?:is|are|has been|have been|licensed)\b|,"
-            r" licensed|$)",
-            self.plain,
-            re.IGNORECASE,
+            r"\bfrom (?:the )?\[?([^\].(\[]+)", no_urls, re.IGNORECASE
         )
-        if not match:
-            return ""
-        authors = match.group(1).strip(" .,")
-        while authors.endswith(")") and authors.count(")") > authors.count(
-            "("
-        ):
-            authors = authors[:-1].strip(" .,")
-        return authors
+        if match and match.group(1).strip():
+            return [match.group(1).strip()]
+        urls = re.findall(r"https?://[^\s\])]+", self.text)
+        urls = [u for u in urls if "wiki.tuxemon.org" not in u] or urls
+        return [f"source: {urls[0]}"] if urls else []
+
+    @property
+    def file_names(self) -> list[str]:
+        """Quoted and bracketed names: "Foom_0.wav", [Growl1.wav]..."""
+        names = re.findall(r'"([^"]+)"', self.plain)
+        names += re.findall(r"\[([^\]]+)\]", self.text)
+        return [n.strip('"') for n in names]
 
     def as_json(self) -> dict[str, Any]:
         return {
@@ -91,6 +121,7 @@ class Entry:
             "licence": self.licence,
             "licences": self.licences,
             "text": self.plain,
+            "markdown": self.text,
         }
 
 
@@ -120,8 +151,14 @@ def parse_attributions(text: str) -> list[Entry]:
         nonlocal current
         if current:
             body = "\n".join(current).strip()
+            quoted = re.match(r'\[?"([^"]+)"', body)
             title_match = _TITLE.search(body)
-            title = title_match.group(1) if title_match else body[:60]
+            if quoted:
+                title = quoted.group(1)
+            elif title_match:
+                title = title_match.group(1)
+            else:
+                title = body[:60]
             entries.append(
                 Entry(
                     _slug(f"{current_section}-{title}"),
@@ -209,14 +246,52 @@ class Matcher:
     def by_file_name(
         self, stem: str, sections: tuple[str, ...]
     ) -> Entry | None:
-        """An entry that names this file (quoted, any separators)."""
+        """An entry that names this file (quoted or in brackets)."""
         key = _key(re.sub(r"^reverse_", "", stem))
+        wanted = {key, re.sub(r"\d+$", "", key)}
         for entry in self.in_sections(sections):
-            for quoted in re.findall(r'"([^"]+)"', entry.plain):
-                name = _key(PurePosixPath(quoted).stem)
-                if len(name) >= 5 and (name == key or key.endswith(name)):
+            for quoted in entry.file_names:
+                name = _key(
+                    re.sub(
+                        r"\s+sound$",
+                        "",
+                        PurePosixPath(quoted).stem,
+                        flags=re.I,
+                    )
+                )
+                if not name:
+                    continue
+                if name in wanted or (len(name) >= 5 and key.endswith(name)):
                     return entry
         return None
+
+    def by_name_prefix(
+        self, stem: str, sections: tuple[str, ...]
+    ) -> Entry | None:
+        """
+        An entry titled like the file, or like the file without its last
+        words (``lightning_claw_large`` -> "Lightning Claw", ``drip_blue``
+        -> "Drip Animations").
+        """
+        words = stem.split("_")
+        pool = self.in_sections(sections)
+        for n in range(len(words), 0, -1):
+            key = _key("".join(words[:n]))
+            for entry in pool:
+                title = _key(entry.title)
+                if key in (
+                    title,
+                    title.removesuffix("animations"),
+                    title.removesuffix("animation"),
+                ):
+                    return entry
+        return None
+
+    def exact(self, title: str, sections: tuple[str, ...]) -> Entry:
+        for entry in self.in_sections(sections):
+            if entry.title == title:
+                return entry
+        raise KeyError(f"ATTRIBUTIONS.md has no entry {title!r}")
 
     def first(self, title_part: str, sections: tuple[str, ...]) -> Entry:
         for entry in self.in_sections(sections):
@@ -244,35 +319,89 @@ CORES = {
 }
 
 
+def _info(
+    entries: list[Entry],
+    *,
+    note: str = "",
+    licence: str | None = None,
+) -> dict[str, Any]:
+    """The credit of an asset made from ``entries`` (all kept)."""
+    authors = list(dict.fromkeys(a for e in entries for a in e.authors))
+    licences = list(dict.fromkeys(x for e in entries for x in e.licences))
+    if not licences:
+        licences = [e.licence for e in entries]
+    main = licence or "; ".join(dict.fromkeys(e.licence for e in entries))
+    return {
+        "credits": [e.id for e in entries],
+        "authors": authors,
+        "author": "; ".join(authors) or "; ".join(e.title for e in entries),
+        "licences": licences,
+        "licence": main,
+        "note": note,
+        "matched": bool(entries),
+    }
+
+
+def _unmatched(group: str, note: str = "") -> dict[str, Any]:
+    return {
+        "credits": [],
+        "authors": [],
+        "author": "Tuxemon contributors",
+        "licences": [group],
+        "licence": group,
+        "note": note,
+        "matched": False,
+    }
+
+
+ANIMATION_SECTIONS = ("Technique Animations", "Item Animations", "Tilesets")
+UNLISTED = "unknown: not listed in ATTRIBUTIONS.md"
+
+
 def credit_for(asset: Asset, m: Matcher) -> dict[str, Any]:
-    """``{credit, author, licence, note, matched}`` for one asset."""
+    """Credits, authors, licences, note and ``matched`` for one asset."""
     src = asset.sources[0] if asset.sources else ""
     name = PurePosixPath(src).name
     stem = PurePosixPath(src).stem
-    owner = _is_owner_art(src)
-    if owner:
-        return {"credit": None, **OWNER, "matched": True}
+    if asset.kind == "licence":
+        return {
+            "credits": [],
+            "authors": [],
+            "author": "",
+            "licences": [],
+            "licence": "",
+            "note": "Licence text shipped with the app.",
+            "matched": True,
+        }
+    if _is_owner_art(src):
+        return {
+            "credits": [],
+            "authors": [OWNER["author"]],
+            "author": OWNER["author"],
+            "licences": [OWNER["licence"]],
+            "licence": OWNER["licence"],
+            "note": OWNER["note"],
+            "matched": True,
+        }
     entry: Entry | None = None
+    group = f"{UNLISTED} (Tuxemon art is mostly CC BY-SA 4.0)"
     note = asset.note
-    group = (
-        "unknown: not listed in ATTRIBUTIONS.md "
-        "(Tuxemon art is mostly CC BY-SA 4.0)"
-    )
     if asset.kind == "tileset":
-        cores = sorted(
-            {CORES.get(PurePosixPath(s).stem, "") for s in asset.sources}
+        cores = sorted({CORES[PurePosixPath(s).stem] for s in asset.sources})
+        found = [m.exact(c, ("CORES",)) for c in cores]
+        text = "HD (xBRZ x4) upscale of the Tuxemon core tilesets."
+        return _info(
+            found,
+            note=" ".join(filter(None, [text, note])),
+            licence=ADAPTED_XBRZ,
         )
-        found = [m.first(c, ("CORES",)) for c in cores if c]
-        note = (
-            "HD (xBRZ x4) upscale of the Tuxemon core tilesets; same credit."
-        )
-        out = _from_entries(found, note)
-        return out
     if asset.kind == "map":
-        entry = None
-        group = "CC BY 4.0 (ATTRIBUTIONS.md, Maps)"
-        note = "Tuxemon classic map converted to Tiled JSON, with Nagmon's events."
-    elif asset.kind == "monster":
+        return _unmatched(
+            f"{UNLISTED}, Maps",
+            "Tuxemon classic map converted to Tiled JSON, with Nagmon's "
+            "events. ATTRIBUTIONS.md does not list the classic maps.",
+        )
+    if asset.kind == "monster":
         entry = m.by_title(stem.removesuffix("-sheet"), ("Tuxemon",))
     elif asset.kind in ("npc", "portrait"):
         base = stem.split("_")[0]
@@ -284,63 +413,33 @@ def credit_for(asset: Asset, m: Matcher) -> dict[str, Any]:
         if src.startswith("mods/nagmon/gfx/sprites/player/"):
             note = (
                 "Modest version made for Nagmon of the Tuxemon portrait "
-                "(docs/kids/SDD_MODESTY.md); stays CC BY-SA 4.0."
+                "(docs/kids/SDD_MODESTY.md)."
+            )
+            return _info(
+                [entry] if entry else [], note=note, licence=ADAPTED_MODEST
             )
     elif asset.kind == "item":
         entry = m.by_title(stem, ("Items",))
     elif asset.kind == "animation":
-        entry = m.by_title(
-            re.sub(r"_\d+$", "", stem),
-            ("Technique Animations", "Item Animations", "Tilesets"),
+        entry = m.by_name_prefix(stem, ANIMATION_SECTIONS) or m.by_title(
+            re.sub(r"_\d+$", "", stem), ANIMATION_SECTIONS
         )
     elif asset.kind == "ui":
         entry = m.by_text(
             name, ("Battle Backgrounds", "Type Icons")
         ) or m.by_title(stem, ("Battle Backgrounds", "Type Icons", "Bubbles"))
     elif asset.kind == "music":
-        group = "unknown: not listed in ATTRIBUTIONS.md, Music"
+        group = f"{UNLISTED}, Music"
         if name.startswith("JRPG_"):
             entry = m.first("JRPG Collection", ("Music",))
     elif asset.kind == "sound":
-        group = "unknown: not listed in ATTRIBUTIONS.md, Sounds"
+        group = f"{UNLISTED}, Sounds"
         entry = m.by_file_name(stem, ("Sounds",))
     elif asset.kind == "emoji":
         entry = m.first("Twemoji", ("Emoji (Nagmon)",))
-    elif asset.kind == "licence":
-        return {
-            "credit": None,
-            "author": "",
-            "licence": "",
-            "note": "Licence text shipped with the app.",
-            "matched": True,
-        }
     if entry is None:
-        return {
-            "credit": None,
-            "author": "Tuxemon contributors",
-            "licence": group,
-            "note": note,
-            "matched": False,
-        }
-    return {
-        "credit": entry.id,
-        "author": entry.authors,
-        "licence": entry.licence,
-        "note": note,
-        "matched": True,
-    }
-
-
-def _from_entries(found: list[Entry], note: str) -> dict[str, Any]:
-    return {
-        "credit": [e.id for e in found],
-        "author": "; ".join(
-            dict.fromkeys(e.authors or e.title for e in found)
-        ),
-        "licence": "; ".join(dict.fromkeys(e.licence for e in found)),
-        "note": note,
-        "matched": bool(found),
-    }
+        return _unmatched(group, note)
+    return _info([entry], note=note)
 
 
 def _is_owner_art(src: str) -> bool:
@@ -362,11 +461,7 @@ def build(out: Output) -> dict[str, Any]:
     for path in sorted(out.assets):
         asset = out.assets[path]
         info = credit_for(asset, matcher)
-        credit = info["credit"]
-        if isinstance(credit, list):
-            used_entries |= set(credit)
-        elif credit:
-            used_entries.add(credit)
+        used_entries |= set(info["credits"])
         assets.append(
             {
                 "path": path,
@@ -380,16 +475,21 @@ def build(out: Output) -> dict[str, Any]:
         "rubik": {
             "section": "Fonts",
             "title": "Rubik",
-            "authors": "Hubert and Fischer, Meir Sadan, Cyreal "
-            "(the Rubik Project Authors)",
+            "authors": [
+                "Hubert and Fischer",
+                "Meir Sadan",
+                "Cyreal (the Rubik Project Authors)",
+            ],
             "licence": "SIL OFL 1.1",
             "licences": ["SIL OFL 1.1"],
             "text": "Rubik variable font (300-900), shipped through "
             "@fontsource-variable/rubik. Licence: licenses/Rubik-OFL.txt.",
+            "markdown": "Rubik variable font (300-900), shipped through "
+            "@fontsource-variable/rubik. Licence: licenses/Rubik-OFL.txt.",
         },
     }
     doc = {
-        "schema_version": 1,
+        "schema_version": 2,
         "code": {
             "licence": "GPL-3.0",
             "file": "licenses/GPL-3.0.txt",

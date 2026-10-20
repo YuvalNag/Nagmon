@@ -62,6 +62,25 @@ def build() -> tuple[Output, dict[str, Any]]:
     return out, report
 
 
+def build_isolated() -> tuple[Output, dict[str, Any]]:
+    """
+    :func:`build` with a HOME of its own, removed afterwards: the steps
+    import tuxemon, which writes its config and cache under HOME.
+    """
+    old = os.environ.get("HOME")
+    os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
+    os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
+    with tempfile.TemporaryDirectory(prefix="nagmon-build-") as home:
+        os.environ["HOME"] = home
+        try:
+            return build()
+        finally:
+            if old is None:
+                del os.environ["HOME"]
+            else:
+                os.environ["HOME"] = old
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument(
@@ -73,12 +92,7 @@ def main(argv: list[str] | None = None) -> int:
         "--report", action="store_true", help="print the build report"
     )
     args = parser.parse_args(argv)
-    # The steps import tuxemon, which writes its config under HOME: keep
-    # the user's own clean, and never open a window.
-    os.environ["HOME"] = tempfile.mkdtemp(prefix="nagmon-build-")
-    os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
-    os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
-    out, report = build()
+    out, report = build_isolated()
     if args.report:
         print(json.dumps(report, ensure_ascii=False, indent=1))
     for note in out.notes:

@@ -11,6 +11,9 @@ the ones the Nagmon world can show (docs/app/INVENTORY.md §5):
 
 * every msgid the converted maps, NPCs and database refer to;
 * the generic UI and battle strings, by prefix (:data:`UI_PREFIXES`);
+* every msgid written as a literal in the engine screens the app ports
+  (battle, items, evolution, monster info, journal: :data:`ENGINE_SOURCES`),
+  e.g. ``attempting_capture``, ``gotcha``, ``evolution_confirmation``;
 * the gym masters' lines.
 
 Plural entries (there are none today) would be written as
@@ -19,13 +22,14 @@ Plural entries (there are none today) would be written as
 
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
 
 from babel.messages.pofile import read_po
 
-from tools.app.common import NAG, TUX, Output
+from tools.app.common import NAG, REPO, TUX, Output
 
 LOCALES = {"he": "he_IL", "en": "en_US"}
 UI_PREFIXES = (
@@ -46,7 +50,36 @@ UI_PREFIXES = (
     "relation_",
     "tuxepedia_",
     "app_",
+    "gender_",
 )
+#: Engine code whose literal msgids the ported screens show.
+ENGINE_SOURCES = (
+    *(
+        f"tuxemon/states/{name}.py"
+        for name in (
+            "combat_state",
+            "combat_menus",
+            "combat_animations",
+            "item_menu",
+            "technique_menu",
+            "evolution",
+            "transition_evolution",
+            "monster_info",
+            "monster_menu",
+            "monster_moves",
+            "level_up",
+            "journal_info",
+            "journal_state",
+            "journal_choice",
+            "choice_monster",
+            "choice_item",
+            "party",
+        )
+    ),
+    "tuxemon/combat/*.py",
+    "tuxemon/ui/text_formatter.py",
+)
+_LITERAL = re.compile(r"[\"']([a-z][a-z0-9_]*)[\"']")
 EXTRA_IDS = tuple(
     f"classic_gym_leader_{who}{part}"
     for who in ("granite", "mila")
@@ -105,6 +138,15 @@ def known_ids(cats: dict[str, dict[str, dict[str, str]]]) -> set[str]:
     return {k for dom in cats.values() for t in dom.values() for k in t}
 
 
+def engine_ids(known: set[str]) -> set[str]:
+    """String literals of :data:`ENGINE_SOURCES` that are msgids."""
+    found: set[str] = set()
+    for pattern in ENGINE_SOURCES:
+        for path in sorted(REPO.glob(pattern)):
+            found |= set(_LITERAL.findall(path.read_text(encoding="utf-8")))
+    return found & known
+
+
 def build(out: Output, used: Iterable[str]) -> dict[str, Any]:
     cats = catalogs()
     base_ids = set(cats["base"]["en"]) | set(cats["base"]["he"])
@@ -115,8 +157,10 @@ def build(out: Output, used: Iterable[str]) -> dict[str, Any]:
         k for k in base_ids if k.startswith(UI_PREFIXES) or k in EXTRA_IDS
     }
     wanted |= used & (base_ids | nagmon_ids)
+    engine = engine_ids(base_ids)
+    wanted |= engine
     missing = sorted(used - (base_ids | nagmon_ids))
-    stats: dict[str, Any] = {"missing": missing}
+    stats: dict[str, Any] = {"missing": missing, "engine": len(engine)}
     for lang in LOCALES:
         texts = {}
         for msgid in sorted(wanted):

@@ -48,6 +48,7 @@ from typing import Any
 
 from PIL import Image
 
+from tools.app import overlays
 from tools.app.common import NAG, TUX, WORLD_MAPS, Output
 
 SRC_TILE = 16
@@ -59,7 +60,11 @@ MAX_TEXTURE = 4096
 FLIP_MASK = 0xE0000000
 GID_MASK = 0x1FFFFFFF
 #: Actions that move the player to another map: (action, map arg index).
-TELEPORTS = {"transition_teleport": 1, "teleport": 1, "change_map": 0}
+TELEPORTS = {
+    "transition_teleport": 1,
+    "teleport": 1,
+    "set_teleport_faint": 1,
+}
 
 
 @dataclass
@@ -309,7 +314,7 @@ def crop_tiles(
             tile = sheet.crop((x, y, x + step, y + step))
             if scale != 1:
                 tile = tile.resize((TILE, TILE), Image.Resampling.NEAREST)
-            tiles[(ts.name, local)] = tile
+            tiles[(ts.name, local)] = overlays.apply(ts.name, local, tile)
         sheet.close()
     return tiles
 
@@ -739,6 +744,10 @@ def build(out: Output) -> dict[str, Any]:
             sources,
             "tileset",
         )
+        if any(
+            (ts.name, local) in overlays.OVERLAYS for ts, local in used[name]
+        ):
+            out.assets[f"atlas/{name}.png"].note = overlays.NOTE
         out.add_json(f"atlas/{name}.json", atlas_json(tmx, atlas))
         out.add_json(f"maps/{name}.json", doc, compact=True)
         out.assets[f"maps/{name}.json"] = _map_asset(name, tmx, scripts)
