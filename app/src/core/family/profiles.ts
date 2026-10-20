@@ -51,6 +51,11 @@ export class ProfileLimitError extends ProfileError {
   override name = "ProfileLimitError";
 }
 
+/** Another profile already has this name. */
+export class ProfileNameTakenError extends ProfileError {
+  override name = "ProfileNameTakenError";
+}
+
 /** No profile (or trash entry) with this id. */
 export class ProfileNotFoundError extends Error {
   override name = "ProfileNotFoundError";
@@ -523,7 +528,7 @@ export class ProfileStore<L = unknown> {
     p.name = validateName(p.name);
     const lower = p.name.toLowerCase();
     if (others.some((o) => o.name.toLowerCase() === lower)) {
-      throw new ProfileError("another profile already has this name");
+      throw new ProfileNameTakenError("another profile already has this name");
     }
     if (checkAvatar) this.checkAvatar(p.avatar);
     if (!isIntIn(p.grade, 0, 9)) throw new ProfileError("grade must be 0..9");

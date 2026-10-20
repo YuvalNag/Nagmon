@@ -28,7 +28,8 @@ export interface GradeDefaults {
  * - Questions read aloud until grade 2; fewer choices for the youngest.
  */
 export function defaultsForGrade(grade: number): GradeDefaults {
-  const g = Math.max(0, Math.min(9, Math.trunc(grade)));
+  // not a number (a bad screen value): the youngest settings, as the safe guess
+  const g = Number.isNaN(grade) ? 0 : Math.max(0, Math.min(9, Math.trunc(grade)));
   const languageLevel = g <= 1 ? 0 : g <= 3 ? 1 : g <= 6 ? 2 : 3;
   return {
     grade: g,

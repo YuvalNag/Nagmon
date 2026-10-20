@@ -9,10 +9,11 @@ export interface Avatar {
   labelHe: string;
 }
 
+/** Labelled by look, not as boy or girl: any child may pick any hero. */
 export const AVATARS: readonly Avatar[] = [
-  { key: "boy_blue", labelHe: "בן" },
-  { key: "girl_teal", labelHe: "בת" },
-  { key: "girl_curly", labelHe: "בת" },
+  { key: "boy_blue", labelHe: "כחול" },
+  { key: "girl_teal", labelHe: "פרחים" },
+  { key: "girl_curly", labelHe: "תלתלים" },
 ];
 
 /** Keys the old app stored, and the hero each is drawn as. */
