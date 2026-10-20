@@ -12,10 +12,23 @@ movesets (techniques), technique/item animations and sounds, element
 charts, environment graphics and music.
 
 Paths to pictures in the records are rewritten to the copies under
-``sprites/`` (relative to ``app/public/game``). Monsters get a
-``sprites`` entry with the sheet, its scale ``k`` (an HD sheet is k
-times the 128x88 layout) and the front/back/menu rectangles at that
-scale.
+``sprites/`` (relative to ``app/public/game``). A 1x Tuxemon picture
+ships as an HD copy (``tools/app/hd.py``, xBRZ) and every record says
+its picture's scale: k pixels of the picture for one pixel of the 1x
+art (docs/app/SDD.md §10, "תמונות"):
+
+* monsters: ``sprites`` with the sheet, its ``scale`` (the sheet is
+  ``scale`` times the 128x88 layout) and the front/back/menu
+  rectangles at that scale;
+* map pictures (NPCs, avatars, alternates): ``map``, ``frame`` (one
+  frame, in the picture's pixels) and ``scale`` (a character is 16x32 at
+  1x); portraits: ``portrait_scale`` (the 128x64 combat layout);
+* items: ``sprite_scale``; elements: ``icon_scale`` (24 px at 1x);
+* animations: ``frame_x``/``frame_y`` in the picture's pixels,
+  ``scale``, ``frames`` and ``columns`` (a long strip is wrapped into
+  rows to fit a 4096 texture);
+* environments: ``battle_graphics.scale`` for all of its pictures, and
+  the island frame size ``island_width``/``island_height``.
 """
 
 from __future__ import annotations
@@ -28,6 +41,7 @@ from typing import Any
 
 from PIL import Image
 
+from tools.app import hd
 from tools.app.common import MOD_ORDER, MODS, Output, mod_file, rel_repo
 
 EXTENSIONS = [".json", ".yaml", ".yml"]
@@ -55,6 +69,13 @@ AVATAR_LEGACY = {
 AVATAR_FALLBACK = "boy_blue"
 #: A character's map sheet: 3 frames across, 4 directions down.
 SHEET_COLUMNS, SHEET_ROWS = 3, 4
+#: One frame of a 1x character map sheet; a 1x combat sheet's width.
+MAP_FRAME = (16, 32)
+COMBAT_WIDTH = 128
+#: A 1x item or type icon.
+ICON_SIZE = 24
+#: Tuxemon's island frame (``BattleGraphicsModel``): two side by side.
+ISLAND = (96, 57)
 
 _TABLES: dict[str, dict[str, dict[str, Any]]] = {}
 
@@ -159,38 +180,199 @@ def _strip(record: dict[str, Any]) -> dict[str, Any]:
 
 
 class Sprites:
-    """Copies pictures under ``sprites/`` and remembers where they went."""
+    """Ships pictures under ``sprites/`` and remembers where they went."""
 
     def __init__(self, out: Output) -> None:
         self.out = out
         self.missing: list[str] = []
+        self.done: dict[str, Any] = {}
 
-    def copy(self, rel: str, target: str, kind: str) -> str | None:
+    def source(self, rel: str) -> Path | None:
         src = mod_file(rel)
         if src is None:
             self.missing.append(rel)
+        return src
+
+    def copy(self, rel: str, target: str, kind: str) -> str | None:
+        src = self.source(rel)
+        if src is None:
             return None
         dest = f"sprites/{target}"
         self.out.add_copy(dest, src, kind)
         return dest
 
+    def upscaled(
+        self,
+        rel: str,
+        target: str,
+        kind: str,
+        k: int,
+        frames: list[hd.Box] | None = None,
+        after: Any = None,
+    ) -> Any:
+        """
+        Ship an HD copy (xBRZ x``k``, frame by frame) of the 1x picture
+        ``rel``. ``after(image)`` may rearrange it and returns
+        ``(image, extra)``. Returns ``(dest, extra)``. The same picture
+        asked for again gives the first answer; another picture (or the
+        same one at another scale or framing) under the same name fails.
+        """
+        dest = f"sprites/{target}"
+        key = (rel, k, tuple(frames) if frames else None)
+        if dest in self.done:
+            first, answer = self.done[dest]
+            if first != key:
+                raise ValueError(
+                    f"{dest}: asked for as {key}, already made as {first}"
+                )
+            return answer
+        src = mod_file(rel)
+        assert src is not None
+        with Image.open(src) as im:
+            image = hd.xbrz(im, k, frames)
+        extra = None
+        if after is not None:
+            image, extra = after(image)
+        self.out.add_image(dest, image, [src], kind, adapted=f"xBRZ x{k}")
+        self.done[dest] = (key, (dest, extra))
+        return dest, extra
+
+
+def _size(src: Path) -> tuple[int, int]:
+    with Image.open(src) as im:
+        return im.size
+
 
 def monster_sprites(sprites: Sprites, slug: str) -> dict[str, Any] | None:
+    """The sheet at the HD scale (a 1x sheet: xBRZ x3), with its rects."""
     rel = f"gfx/sprites/battle/{slug}-sheet.png"
-    dest = sprites.copy(rel, f"monsters/{slug}-sheet.png", "monster")
-    if dest is None:
+    target = f"monsters/{slug}-sheet.png"
+    src = sprites.source(rel)
+    if src is None:
         return None
-    src = mod_file(rel)
-    assert src is not None
-    with Image.open(src) as im:
-        width, height = im.size
+    width, height = _size(src)
     k = width // SHEET_LAYOUT[0]
     if (width, height) != (SHEET_LAYOUT[0] * k, SHEET_LAYOUT[1] * k):
         raise ValueError(f"{src}: {width}x{height} is not the sheet layout")
+    if k == 1:
+        k = hd.MONSTER
+        dest, _ = sprites.upscaled(
+            rel, target, "monster", k, list(RECTS.values())
+        )
+    elif k >= hd.MONSTER:
+        dest = sprites.copy(rel, target, "monster")
+    else:
+        raise ValueError(f"{src}: x{k} is below the HD scale x{hd.MONSTER}")
     out: dict[str, Any] = {"sheet": dest, "scale": k}
     for name, (x, y, w, h) in RECTS.items():
         out[name] = [x * k, y * k, w * k, h * k]
     return out
+
+
+def map_sheet(
+    sprites: Sprites, rel: str, target: str, static: bool
+) -> dict[str, Any]:
+    """
+    ``{"map", "frame", "scale"}`` of a map picture: a character's sheet
+    (3x4 frames of 16x32 at 1x, or an HD multiple) or a prop (one 1x
+    frame). 1x pictures ship as xBRZ x4, the tiles' scale.
+    """
+    src = sprites.source(rel)
+    if src is None:
+        return {"map": None, "frame": None, "scale": None}
+    width, height = _size(src)
+    if static:
+        if width > MAP_FRAME[0] * 2:
+            raise ValueError(f"{src}: an HD prop: give it a scale here")
+        fw, fh, k = width, height, 1
+    else:
+        if width % SHEET_COLUMNS or height % SHEET_ROWS:
+            raise ValueError(
+                f"{src}: not a {SHEET_COLUMNS}x{SHEET_ROWS} sheet"
+            )
+        fw, fh = width // SHEET_COLUMNS, height // SHEET_ROWS
+        k = fw // MAP_FRAME[0]
+        if (fw, fh) != (MAP_FRAME[0] * k, MAP_FRAME[1] * k):
+            raise ValueError(f"{src}: a {fw}x{fh} frame is not 16x32 x k")
+    if k == 1:
+        k = hd.MAP
+        dest, _ = sprites.upscaled(
+            rel, target, "npc", k, hd.grid(width, height, fw, fh)
+        )
+        fw, fh = fw * k, fh * k
+    else:
+        dest = sprites.copy(rel, target, "npc")
+    return {"map": dest, "frame": [fw, fh], "scale": k}
+
+
+def combat_sheet(sprites: Sprites, name: str) -> tuple[str | None, int | None]:
+    """A combat sheet (back left, front right) at the HD scale."""
+    rel = f"gfx/sprites/player/{name}.png"
+    target = f"portraits/{name}.png"
+    src = sprites.source(rel)
+    if src is None:
+        return None, None
+    width, height = _size(src)
+    k = width // COMBAT_WIDTH
+    if width != COMBAT_WIDTH * k:
+        raise ValueError(f"{src}: {width} px is not 128 x k")
+    if k == 1:
+        half = COMBAT_WIDTH // 2
+        frames = [(0, 0, half, height), (half, 0, half, height)]
+        dest, _ = sprites.upscaled(
+            rel, target, "portrait", hd.PORTRAIT, frames
+        )
+        return dest, hd.PORTRAIT
+    if k < hd.PORTRAIT:
+        raise ValueError(f"{src}: x{k} is below the HD scale")
+    return sprites.copy(rel, target, "portrait"), k
+
+
+def icon(
+    sprites: Sprites, rel: str, target: str, kind: str
+) -> tuple[str | None, int | None]:
+    """An item or type icon: 24 px at 1x, shipped as xBRZ x4."""
+    src = sprites.source(rel)
+    if src is None:
+        return None, None
+    width, height = _size(src)
+    if (width, height) != (ICON_SIZE, ICON_SIZE):
+        raise ValueError(f"{src}: {width}x{height} is not a 24 px icon")
+    dest, _ = sprites.upscaled(rel, target, kind, hd.ICON)
+    return dest, hd.ICON
+
+
+def animation_sheet(sprites: Sprites, rec: dict[str, Any]) -> None:
+    """
+    A technique, item or map animation: a strip of ``frame_x`` x
+    ``frame_y`` frames, shipped as xBRZ x4 (wrapped into rows when it
+    is wider than a texture). Rewrites the record's sheet and sizes.
+    """
+    slug, file = rec["slug"], rec["file"]
+    rel = f"animations/{file}/{slug}.png"
+    src = sprites.source(rel)
+    if src is None:
+        rec["sheet"] = None
+        return
+    width, height = _size(src)
+    fx, fy = rec["frame_x"], rec["frame_y"]
+    count = width // fx
+    if not count or height < fy:
+        raise ValueError(f"{src}: no {fx}x{fy} frame")
+    k = hd.MAP if file == "tileset" else hd.ANIMATION
+    frames = [(i * fx, 0, fx, fy) for i in range(count)]
+
+    def wrap(image: Image.Image) -> tuple[Image.Image, int]:
+        return hd.wrap(image, fx * k, fy * k, count)
+
+    dest, columns = sprites.upscaled(
+        rel, f"animations/{file}/{slug}.png", "animation", k, frames, wrap
+    )
+    rec["sheet"] = dest
+    rec["frame_x"], rec["frame_y"] = fx * k, fy * k
+    rec["scale"] = k
+    rec["frames"] = count
+    rec["columns"] = columns
 
 
 def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
@@ -255,8 +437,11 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
     for slug in sorted(refs["item"] | nagmon_slugs("item")):
         rec = _strip(table("item")[slug])
         if rec.get("sprite"):
-            rec["sprite"] = sprites.copy(
-                rec["sprite"], f"items/{Path(rec['sprite']).name}", "item"
+            rec["sprite"], rec["sprite_scale"] = icon(
+                sprites,
+                rec["sprite"],
+                f"items/{Path(rec['sprite']).name}",
+                "item",
             )
         anim = (rec.get("visuals") or {}).get("animation")
         if anim:
@@ -286,18 +471,16 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
         if name:
             folder = "sprites_obj" if tpl.get("is_static_prop") else "sprites"
             sub = "objects" if tpl.get("is_static_prop") else "npc"
-            art["map"] = sprites.copy(
-                f"{folder}/{name}.png", f"{sub}/{name}.png", "npc"
-            )
-            art["frame"] = map_frame(
-                f"{folder}/{name}.png", bool(tpl.get("is_static_prop"))
+            art |= map_sheet(
+                sprites,
+                f"{folder}/{name}.png",
+                f"{sub}/{name}.png",
+                bool(tpl.get("is_static_prop")),
             )
         sheet = tpl.get("combat_sheet")
         if sheet and sheet != "noclass":
-            art["portrait"] = sprites.copy(
-                f"gfx/sprites/player/{sheet}.png",
-                f"portraits/{sheet}.png",
-                "portrait",
+            art["portrait"], art["portrait_scale"] = combat_sheet(
+                sprites, sheet
             )
         rec["sprites"] = art
         msgids.add(slug)
@@ -306,30 +489,26 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
         ).values():
             msgids |= {v for v in (profile or {}).values() if v}
         npcs[slug] = rec
-    for name in sorted(map_sprites):
-        sprites.copy(f"sprites/{name}.png", f"npc/{name}.png", "npc")
+    sheets = {
+        name: map_sheet(
+            sprites, f"sprites/{name}.png", f"npc/{name}.png", False
+        )
+        for name in sorted(map_sprites)
+    }
     for rec in npcs.values():
         for target in _templates_set_on(scripts, rec["slug"]):
-            rec["sprites"].setdefault("alternates", {})[target] = {
-                "map": f"sprites/npc/{target}.png",
-                "frame": map_frame(f"sprites/{target}.png", False),
-            }
+            rec["sprites"].setdefault("alternates", {})[target] = sheets[
+                target
+            ]
     for name in sorted(combat_sheets):
-        sprites.copy(
-            f"gfx/sprites/player/{name}.png",
-            f"portraits/{name}.png",
-            "portrait",
-        )
+        combat_sheet(sprites, name)
     avatars = avatar_records(sprites)
 
     # -- animations
     animations = {}
     for slug in sorted(animations_wanted):
         rec = _strip(table("animation")[slug])
-        rel = f"animations/{rec['file']}/{slug}.png"
-        rec["sheet"] = sprites.copy(
-            rel, f"animations/{rec['file']}/{slug}.png", "animation"
-        )
+        animation_sheet(sprites, rec)
         animations[slug] = rec
 
     # Shapes are shown by name (journal, monster info).
@@ -340,8 +519,11 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
     for slug, rec in table("element").items():
         rec = _strip(rec)
         if rec.get("icon"):
-            rec["icon"] = sprites.copy(
-                rec["icon"], f"ui/element/{Path(rec['icon']).name}", "ui"
+            rec["icon"], rec["icon_scale"] = icon(
+                sprites,
+                rec["icon"],
+                f"ui/element/{Path(rec['icon']).name}",
+                "ui",
             )
         msgids.add(slug)
         elements[slug] = rec
@@ -351,8 +533,9 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
     music_used = set(refs["music"]) | set(MENU_MUSIC)
     for slug in sorted(refs["environment"]):
         rec = _strip(table("environment")[slug])
-        graphics = rec.get("battle_graphics") or {}
-        rec["battle_graphics"] = _rewrite_paths(graphics, sprites)
+        rec["battle_graphics"] = battle_graphics(
+            sprites, rec.get("battle_graphics") or {}
+        )
         for entry in (rec.get("battle_music") or {}).values():
             if entry and entry.get("music"):
                 music_used.add(entry["music"])
@@ -387,26 +570,37 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def _rewrite_paths(node: Any, sprites: Sprites) -> Any:
-    if isinstance(node, dict):
-        return {k: _rewrite_paths(v, sprites) for k, v in node.items()}
-    if isinstance(node, str) and node.endswith(".png"):
-        return sprites.copy(node, f"ui/{Path(node).name}", "ui")
-    return node
+def battle_graphics(sprites: Sprites, graphics: dict[str, Any]) -> Any:
+    """
+    The environment's pictures (background, HUD, trays, party icons,
+    islands), all xBRZ x6: one ``scale`` for the whole battle screen.
+    The islands are two frames side by side, each scaled on its own.
+    """
+    k = hd.BATTLE_UI
+    island = graphics.get("island_sheet")
+    iw = graphics.get("island_width", ISLAND[0])
+    ih = graphics.get("island_height", ISLAND[1])
 
+    def rewrite(node: Any) -> Any:
+        if isinstance(node, dict):
+            return {key: rewrite(v) for key, v in node.items()}
+        if isinstance(node, str) and node.endswith(".png"):
+            if sprites.source(node) is None:
+                return None
+            frames = (
+                [(0, 0, iw, ih), (iw, 0, iw, ih)] if node == island else None
+            )
+            dest, _ = sprites.upscaled(
+                node, f"ui/{Path(node).name}", "ui", k, frames
+            )
+            return dest
+        return node
 
-def map_frame(rel: str, static: bool) -> list[int] | None:
-    """[width, height] of one frame of a shipped map picture."""
-    src = mod_file(rel)
-    if src is None:
-        return None
-    with Image.open(src) as im:
-        width, height = im.size
-    if static:
-        return [width, height]
-    if width % SHEET_COLUMNS or height % SHEET_ROWS:
-        raise ValueError(f"{src}: not a {SHEET_COLUMNS}x{SHEET_ROWS} sheet")
-    return [width // SHEET_COLUMNS, height // SHEET_ROWS]
+    out = rewrite(graphics)
+    if island:
+        out["island_width"], out["island_height"] = iw * k, ih * k
+    out["scale"] = k
+    return out
 
 
 def _templates_set_on(scripts: list[dict[str, Any]], npc: str) -> list[str]:
@@ -453,6 +647,7 @@ def avatar_records(sprites: Sprites) -> dict[str, Any]:
     records = []
     for key in AVATAR_KEYS:
         avatar = by_key[key]
+        portrait, portrait_scale = combat_sheet(sprites, avatar.combat_sheet)
         records.append(
             {
                 "key": avatar.key,
@@ -460,18 +655,17 @@ def avatar_records(sprites: Sprites) -> dict[str, Any]:
                 "combat_sheet": avatar.combat_sheet,
                 "gender": avatar.gender,
                 "label_he": avatar.label_he,
-                "map": sprites.copy(
+                **map_sheet(
+                    sprites,
                     f"sprites/{avatar.sprite}.png",
                     f"npc/{avatar.sprite}.png",
-                    "npc",
+                    False,
                 ),
-                "frame": map_frame(f"sprites/{avatar.sprite}.png", False),
-                "portrait": sprites.copy(
-                    f"gfx/sprites/player/{avatar.combat_sheet}.png",
-                    f"portraits/{avatar.combat_sheet}.png",
-                    "portrait",
+                "portrait": portrait,
+                "portrait_scale": portrait_scale,
+                "card": avatar_card(
+                    sprites.out, avatar.key, avatar.combat_sheet
                 ),
-                "card": avatar_card(sprites.out, avatar.key, avatar.combat_sheet),
             }
         )
     return {

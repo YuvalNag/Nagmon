@@ -2,7 +2,10 @@
 
 import json
 
-from tools.app import emoji
+import pytest
+
+from tools.app import db, emoji
+from tools.app.common import Output
 from tools.app.db import table
 
 NAGMON_MONSTERS = {
@@ -65,12 +68,14 @@ def test_nagmon_record_replaces_the_tuxemon_record_of_the_same_slug():
     assert leader["_source"] == ["mods/nagmon/db/npc/nagmon_world.yaml"]
 
 
-def test_nagmon_monster_sheets_are_hd(built):
+def test_all_monster_sheets_are_hd(built):
     monsters = data(built, "db/monsters.json")
     sprites = monsters["geometrion"]["sprites"]
     assert sprites["scale"] == 3
     assert sprites["front"] == [0, 0, 192, 192]
-    assert monsters["agnite"]["sprites"]["scale"] == 1
+    # a 1x Tuxemon sheet ships as xBRZ x3: the same scale
+    assert monsters["agnite"]["sprites"]["scale"] == 3
+    assert monsters["agnite"]["sprites"]["front"] == [0, 0, 192, 192]
 
 
 def test_every_picture_a_record_names_is_shipped(built):
@@ -140,8 +145,11 @@ def test_map_sheets_say_their_frame_size(built):
     assert avatars[0]["frame"] == [128, 256]
     npcs = data(built, "db/npcs.json")
     assert npcs["nagmon_owl"]["sprites"]["frame"] == [128, 256]
-    assert npcs["nagmon_kitten"]["sprites"]["frame"] == [16, 32]
-    assert npcs["nagmon_sign_route1"]["sprites"]["frame"] == [16, 16]
+    assert npcs["nagmon_owl"]["sprites"]["scale"] == 8
+    # 1x Tuxemon map pictures ship as xBRZ x4
+    assert npcs["nagmon_kitten"]["sprites"]["frame"] == [64, 128]
+    assert npcs["nagmon_kitten"]["sprites"]["scale"] == 4
+    assert npcs["nagmon_sign_route1"]["sprites"]["frame"] == [64, 64]
 
 
 def test_frighten_shows_a_gentle_animation_not_a_skull(built):
@@ -194,3 +202,18 @@ def test_each_hero_has_a_trimmed_front_card(built):
         image = out.images[card]
         assert image.getbbox() == (0, 0, *image.size)
         assert image.height >= 160, card
+
+
+def test_one_name_cannot_hold_two_pictures():
+    sprites = db.Sprites(Output())
+    rel = "gfx/sprites/battle/agnite-sheet.png"
+    first = sprites.upscaled(rel, "x/a.png", "monster", 3)
+    assert sprites.upscaled(rel, "x/a.png", "monster", 3) == first
+    with pytest.raises(ValueError, match="already made"):
+        sprites.upscaled(rel, "x/a.png", "monster", 4)
+    with pytest.raises(ValueError, match="already made"):
+        sprites.upscaled(
+            "gfx/sprites/battle/nut-sheet.png", "x/a.png", "monster", 3
+        )
+    with pytest.raises(ValueError, match="already made"):
+        sprites.upscaled(rel, "x/a.png", "monster", 3, [(0, 0, 64, 64)])

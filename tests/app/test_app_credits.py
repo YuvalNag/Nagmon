@@ -130,3 +130,33 @@ def test_attribution_entries_are_split_with_authors_and_licences():
     assert entries[0].authors == ["Someone", "Another"]
     assert entries[0].licences == ["CC BY-SA 4.0", "CC BY 3.0"]
     assert entries[1].licences == ["CC0 / public domain"]
+
+
+def test_adapted_art_says_how_in_its_own_field(built):
+    doc = data(built, "credits.json")
+    by_path = {a["path"]: a for a in doc["assets"]}
+    # a Tuxemon monster with a real licence: the field and the suffix
+    agnite = by_path["sprites/monsters/agnite-sheet.png"]
+    assert agnite["adapted"] == "xBRZ x3"
+    assert agnite["licence"].endswith(", adapted (xBRZ x3)")
+    # owner art has no licence yet: nothing to adapt in it
+    wallet = by_path["sprites/objects/nagmon_wallet.png"]
+    assert wallet["adapted"] == "xBRZ x4"
+    assert wallet["licence"] == credits.OWNER["licence"]
+    # the atlases are the xBRZ x4 tiles
+    atlas = by_path["atlas/classic_hearthrock_city.png"]
+    assert atlas["adapted"] == "xBRZ x4"
+    # a picture shipped as it is
+    assert by_path["sprites/npc/nagmon_owl.png"]["adapted"] == ""
+    for item in doc["assets"]:
+        if not credits.is_real_licence(item["licence"]):
+            assert "adapted (" not in item["licence"], item["path"]
+
+
+def test_only_real_licences_are_real():
+    assert credits.is_real_licence("CC BY-SA 4.0")
+    assert not credits.is_real_licence(
+        "unknown: not listed in ATTRIBUTIONS.md"
+    )
+    assert not credits.is_real_licence(credits.OWNER["licence"])
+    assert not credits.is_real_licence("")

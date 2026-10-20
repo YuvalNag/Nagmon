@@ -27,7 +27,9 @@
     128,
     256
    ],
-   "portrait": "sprites/portraits/nagmon_granite.png"
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_granite.png",
+   "portrait_scale": 3
   }
  },
  "classic_gym_leader_mila": {
@@ -58,7 +60,9 @@
     128,
     256
    ],
-   "portrait": "sprites/portraits/nagmon_mila.png"
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_mila.png",
+   "portrait_scale": 3
   }
  },
  "nagmon_cashier": {
@@ -84,7 +88,9 @@
     128,
     256
    ],
-   "portrait": "sprites/portraits/nagmon_shopkeeper.png"
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_shopkeeper.png",
+   "portrait_scale": 3
   }
  },
  "nagmon_gardener": {
@@ -110,7 +116,9 @@
     128,
     256
    ],
-   "portrait": "sprites/portraits/nagmon_teacher.png"
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_teacher.png",
+   "portrait_scale": 3
   }
  },
  "nagmon_granny": {
@@ -136,7 +144,9 @@
     128,
     256
    ],
-   "portrait": "sprites/portraits/nagmon_granny.png"
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_granny.png",
+   "portrait_scale": 3
   }
  },
  "nagmon_kid": {
@@ -162,7 +172,9 @@
     128,
     256
    ],
-   "portrait": "sprites/portraits/nagmon_kid.png"
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_kid.png",
+   "portrait_scale": 3
   }
  },
  "nagmon_kitten": {
@@ -185,9 +197,10 @@
   "sprites": {
    "map": "sprites/npc/rockitten.png",
    "frame": [
-    16,
-    32
-   ]
+    64,
+    128
+   ],
+   "scale": 4
   }
  },
  "nagmon_owl": {
@@ -213,14 +226,17 @@
     128,
     256
    ],
+   "scale": 8,
    "portrait": "sprites/portraits/nagmon_owl.png",
+   "portrait_scale": 3,
    "alternates": {
     "nagmon_owl_caped": {
      "map": "sprites/npc/nagmon_owl_caped.png",
      "frame": [
       128,
       256
-     ]
+     ],
+     "scale": 8
     }
    }
   }
@@ -248,7 +264,9 @@
     128,
     256
    ],
-   "portrait": "sprites/portraits/nagmon_mailcarrier.png"
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_mailcarrier.png",
+   "portrait_scale": 3
   }
  },
  "nagmon_sign_route1": {
@@ -272,9 +290,10 @@
   "sprites": {
    "map": "sprites/objects/sign.png",
    "frame": [
-    16,
-    16
-   ]
+    64,
+    64
+   ],
+   "scale": 4
   }
  },
  "nagmon_tourist": {
@@ -300,7 +319,9 @@
     128,
     256
    ],
-   "portrait": "sprites/portraits/nagmon_traveler.png"
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_traveler.png",
+   "portrait_scale": 3
   }
  },
  "nagmon_wallet": {
@@ -324,9 +345,10 @@
   "sprites": {
    "map": "sprites/objects/nagmon_wallet.png",
    "frame": [
-    16,
-    32
-   ]
+    64,
+    128
+   ],
+   "scale": 4
   }
  }
 }

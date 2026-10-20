@@ -1,22 +1,41 @@
 /**
- * How big the map draws things, as named numbers (docs/app/SDD.md §10,
- * "images"). Sizes of pictures come from their records (`frame` in the
- * sheet's HD pixels and `scale`, HD pixels per 1x Tuxemon pixel), never
- * from a 1x size assumed here.
+ * How large the game draws its pictures (docs/app/SDD.md §10.1). The
+ * numbers are db/display.json, written by tools/app/display.py: the one
+ * source of truth, which the build's check (tests/app/test_app_hd.py)
+ * reads too. Sizes are device px for one px of 1x art (a 16 px tile, a
+ * 64 px monster frame); a record's `scale` says how many picture px that
+ * 1x px has.
  *
- * - The canvas has the screen's own device pixels (devicePixelRatio).
- * - The atlas tile is 64 HD texels (Tuxemon's 16 px tile, xBRZ x4).
- * - The camera's zoom (device px per HD texel) is a whole number up to 2
- *   (core/world/camera.ts): on the family's phone it is 2, so one 1x
- *   pixel is 8 device px and a tile 128. A non-whole zoom (7 device px
- *   per 1x px would be 1.75 per texel) would shimmer as the camera moves.
+ * Layout: the map has one fixed scale (core/world/camera.ts turns it
+ * into the camera's zoom over the HD atlas: 8 per 1x px is a whole zoom
+ * of 2 over the x4 atlas, so the tiles never shimmer); in battle the monsters, islands,
+ * HUD and animations share `battleScale`, and the background covers
+ * the screen (`backgroundScale`).
  */
-export { MAX_ZOOM as MAP_MAX_ZOOM, TARGET_ROWS as MAP_TARGET_ROWS } from "../core/world/camera";
+import table from "../../public/game/db/display.json";
 
-/** Tuxemon's tile, in 1x pixels (maps without a `source_tile_size` property). */
+export const DISPLAY = table;
+
+/** Device px per 1x px on the map (a 16 px tile is 128 px). */
+export const MAP_SCALE: number = table.map.scale;
+
+/** Tuxemon's tile in 1x px, for a map without a `source_tile_size` property. */
 export const MAP_SOURCE_TILE_PX = 16;
 
-/** Device pixels per 1x Tuxemon pixel on the map, at a zoom. */
-export function mapDevicePxPerSourcePx(zoom: number, atlasTilePx = 64, sourceTilePx = MAP_SOURCE_TILE_PX): number {
-  return (atlasTilePx * zoom) / sourceTilePx;
+/** Device px per 1x px in battle on a screen this tall (device px). */
+export function battleScale(screenHeight: number): number {
+  return Math.min(table.battle.max_scale, screenHeight / table.battle.stage_height);
+}
+
+/** Device px per picture px of a background that covers the screen. */
+export function backgroundScale(
+  image: { width: number; height: number },
+  screen: { width: number; height: number },
+): number {
+  return Math.max(screen.width / image.width, screen.height / image.height);
+}
+
+/** How many times a picture of `scale` is enlarged when 1x px are `perPx`. */
+export function enlargement(perPx: number, scale: number): number {
+  return perPx / scale;
 }

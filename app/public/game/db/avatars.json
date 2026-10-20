@@ -11,7 +11,9 @@
     128,
     256
    ],
+   "scale": 8,
    "portrait": "sprites/portraits/nagmon_hero_boy.png",
+   "portrait_scale": 3,
    "card": "avatars/boy_blue.png"
   },
   {
@@ -25,7 +27,9 @@
     128,
     256
    ],
+   "scale": 8,
    "portrait": "sprites/portraits/nagmon_hero_girl.png",
+   "portrait_scale": 3,
    "card": "avatars/girl_teal.png"
   },
   {
@@ -39,7 +43,9 @@
     128,
     256
    ],
+   "scale": 8,
    "portrait": "sprites/portraits/nagmon_hero_curly.png",
+   "portrait_scale": 3,
    "card": "avatars/girl_curly.png"
   }
  ],

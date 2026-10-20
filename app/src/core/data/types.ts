@@ -378,6 +378,11 @@ export interface Item extends DbRecord {
   category: string;
   /** Relative to public/game. */
   sprite: string | null;
+  /**
+   * Picture px per 1x px of the icon (an item is 24 px at 1x; the
+   * shipped xBRZ copy is 4x, 96 px). null when there is no sprite.
+   */
+  sprite_scale: number | null;
 }
 /** A map sheet: 3 frames across x 4 directions down (a prop: 1 frame). */
 export interface MapSprite {
@@ -385,6 +390,12 @@ export interface MapSprite {
   map: string | null;
   /** [width, height] of one frame, in the picture's pixels. */
   frame: [number, number] | null;
+  /**
+   * Picture px per 1x map px (a character frame is 16x32 at 1x): 8 for
+   * the Nagmon HD sheets, 4 for xBRZ copies of 1x Tuxemon ones. Draw a
+   * frame at `frame / scale` map px. null when there is no picture.
+   */
+  scale: number | null;
 }
 /** db/npcs.json */
 export interface Npc extends DbRecord {
@@ -397,6 +408,8 @@ export interface Npc extends DbRecord {
   speech: { profile: Record<string, Record<string, string | null>> };
   sprites: Partial<MapSprite> & {
     portrait?: string | null;
+    /** Picture px per 1x px of the combat sheet (128x64 or 128x128 at 1x). */
+    portrait_scale?: number | null;
     /** Sheets a script switches to (set_template), by sprite name. */
     alternates?: Record<string, MapSprite>;
   };
@@ -409,6 +422,10 @@ export interface Avatar extends MapSprite {
   gender: "male" | "female";
   label_he: string;
   portrait: string | null;
+  /** Picture px per 1x px of the combat sheet (128x128 at 1x for a hero). */
+  portrait_scale: number | null;
+  /** The who-plays card picture (relative to public/game). */
+  card: string;
 }
 /** db/avatars.json */
 export interface AvatarsFile {
@@ -433,20 +450,54 @@ export interface Encounter extends DbRecord {
 /** db/elements.json */
 export interface Element extends DbRecord {
   icon: string | null;
+  /** Picture px per 1x px of the type icon (24 px at 1x, shipped 4x). */
+  icon_scale: number | null;
   types: { against: string; multiplier: number }[];
+}
+/**
+ * An environment's battle pictures (relative to public/game). All are
+ * xBRZ copies at one `scale`. Layout (db/display.json, game/display.ts):
+ * the background covers the screen; the islands, HUD, trays and party
+ * icons, like the monsters, are drawn at the battle scale.
+ */
+export interface BattleGraphics {
+  menu?: string;
+  background: string;
+  island_sheet: string;
+  /** One island frame, in the sheet's px: back on the left, front on the right. */
+  island_width: number;
+  island_height: number;
+  hud: { hud_opponent: string; hud_player: string; tray_opponent: string; tray_player: string };
+  icons: { icon_alive: string; icon_empty: string; icon_faint: string; icon_status: string };
+  /** Picture px per 1x px, the same for every picture here (6). */
+  scale: number;
 }
 /** db/environments.json */
 export interface Environment extends DbRecord {
-  battle_graphics: Record<string, unknown>;
+  battle_graphics: BattleGraphics;
   battle_music: Record<string, { music: string }>;
 }
-/** db/animations.json */
+/**
+ * db/animations.json. The sheet is a grid of `columns` x
+ * ceil(`frames` / `columns`) frames, read row by row; a strip wider than
+ * a 4096 texture is wrapped into rows. The last row may be part empty:
+ * in Phaser load it with
+ * `{ frameWidth: frame_x, frameHeight: frame_y, endFrame: frames - 1 }`.
+ */
 export interface Animation extends DbRecord {
   file: string;
+  /** One frame's width, in the sheet's (HD) px: the 1x size x `scale`. */
   frame_x: number;
+  /** One frame's height, in the sheet's (HD) px. */
   frame_y: number;
   duration?: number;
   sheet: string | null;
+  /** Picture px per 1x px (xBRZ x4). */
+  scale: number;
+  /** How many frames the animation has. */
+  frames: number;
+  /** Frames per row of the sheet. */
+  columns: number;
 }
 /** db/music.json, db/sounds.json: slug -> file (relative to public/game) */
 export type AudioIndex = Record<string, string>;
@@ -481,8 +532,13 @@ export interface CreditsFile {
     /** All authors, joined, for a one-line display. */
     author: string;
     licences: string[];
-    /** Main licence, e.g. "CC BY-SA 4.0, adapted (xBRZ x4)". */
+    /**
+     * Main licence, e.g. "CC BY-SA 4.0, adapted (xBRZ x4)". The
+     * ", adapted (...)" suffix only follows a real licence.
+     */
     licence: string;
+    /** How the picture was changed: "xBRZ x4" (an HD upscale), or "". */
+    adapted: string;
     note: string;
     /** false: not found in ATTRIBUTIONS.md; to be credited by hand. */
     matched: boolean;
