@@ -132,6 +132,21 @@ async function toWall(page: Page, dir: string): Promise<Debug> {
   return stopped(page);
 }
 
+/** Holds an arrow until a door has led to `map`, then lets go at once. */
+async function throughDoor(page: Page, dir: string, map: string) {
+  const at = await middle(arrow(page, dir));
+  const c = await cdp(page);
+  await c.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [at] });
+  await page.waitForFunction(
+    (map) => (window as unknown as { __nagmonMap?: { debug(): { map: string } | null } }).__nagmonMap?.debug()?.map === map,
+    map,
+    { polling: 20 },
+  );
+  await c.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  await c.detach();
+  await page.waitForFunction(() => (window as unknown as { __nagmonMap?: { debug(): { ready: boolean } | null } }).__nagmonMap?.debug()?.ready);
+}
+
 test.beforeEach(async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(String(e)));
@@ -392,12 +407,9 @@ test("a door leads into the academy and back; two maps stay in memory", async ({
   // along row 16 to the Mila academy's door column (18), then up through the door (18,13)
   await steps(page, "left", 11);
   expect((await debug(page))!.player).toMatchObject({ x: 18, y: 16 });
-  await hold(page, arrow(page, "up"), 1200, { settle: false });
-  await page.waitForFunction(() => {
-    const d = (window as unknown as { __nagmonMap?: { debug(): { map: string; ready: boolean } | null } }).__nagmonMap?.debug();
-    return d?.map === "classic_gym_mila" && d.ready;
-  });
+  await throughDoor(page, "up", "classic_gym_mila");
   let d = await stopped(page);
+  // in at (10,19), standing: a door ends the walk until the finger lifts
   expect(d.player).toMatchObject({ x: 10, y: 19, facing: "up" });
   expect(d.music.track).toMatch(/JRPG_royalCourt_loop\.ogg$/);
   expect(d.cachedMaps).toEqual(["classic_gym_mila", "classic_hearthrock_city"]);
@@ -406,14 +418,12 @@ test("a door leads into the academy and back; two maps stay in memory", async ({
   await page.screenshot({ path: info.outputPath("map_06_academy.png") });
 
   // down at the door: back in town, in front of the academy
-  await hold(page, arrow(page, "down"), 400, { settle: false });
-  await page.waitForFunction(() => {
-    const d = (window as unknown as { __nagmonMap?: { debug(): { map: string; ready: boolean } | null } }).__nagmonMap?.debug();
-    return d?.map === "classic_hearthrock_city" && d.ready;
-  });
+  await throughDoor(page, "down", "classic_hearthrock_city");
   d = await stopped(page);
-  // out of the door (18,14), and on a step more while the finger stays down
-  expect(d.player).toMatchObject({ x: 18, facing: "down" });
-  expect([14, 15]).toContain(d.player.y);
+  // out of the door at (18,14), standing
+  expect(d.player).toMatchObject({ x: 18, y: 14, facing: "down" });
+  // a new press walks on
+  await steps(page, "down", 1);
+  expect((await debug(page))!.player).toMatchObject({ x: 18, y: 15 });
   expect(d.cachedMaps).toEqual(["classic_hearthrock_city", "classic_gym_mila"]);
 });

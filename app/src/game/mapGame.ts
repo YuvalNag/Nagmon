@@ -18,10 +18,11 @@ import Phaser from "phaser";
 import { pickZoom, scrollFor, snap } from "../core/world/camera";
 import { type Dir, STEP } from "../core/world/grid";
 import { blockedAhead, readMap, teleportAt, type Placement, type TiledMap, type WorldMap } from "../core/world/mapData";
-import { avatarSheet, frameIndex, npcSheet, type Sheet } from "../core/world/sprites";
+import { avatarSheet, frameIndex, npcSheet, type Sheet, worldSize } from "../core/world/sprites";
 import { Walker } from "../core/world/walker";
 import { getLogger } from "../platform/appLog";
 import { FrameStats, type FrameSummary } from "../platform/frameStats";
+import { MAP_SOURCE_TILE_PX } from "./display";
 import { Music } from "./music";
 import { PauseReasons, type PauseReason } from "./pauseReasons";
 
@@ -114,6 +115,7 @@ class MapScene extends Phaser.Scene {
   private skipDelta = false;
   private lastFrame: number | null = null;
   private stepCount = 0;
+  private waitLift = false;
   private bumpCount = 0;
   private cached: string[] = [];
   private maps = new Map<string, WorldMap>();
@@ -227,17 +229,22 @@ class MapScene extends Phaser.Scene {
     log.info(`Map ${name}, the hero at ${start.x},${start.y}, zoom ${this.zoom}`);
   }
 
-  /** Whether a sheet, drawn a tile wide, stays within twice its pixels at the largest zoom. */
+  /** The map's tile in 1x Tuxemon pixels (its `source_tile_size`). */
+  private sourceTile(): number {
+    return this.world?.sourceTile ?? MAP_SOURCE_TILE_PX;
+  }
+
+  /** Whether a sheet stays within twice its pixels at the zoom this screen gets. */
   private fits(sheet: Sheet): boolean {
     const tile = this.world?.tileSize ?? 64;
-    return (tile * pickZoom(this.scale.height, tile)) / sheet.frameWidth <= MAX_SHOWN;
+    return (worldSize(sheet, tile, this.sourceTile()).width * pickZoom(this.scale.height, tile)) / sheet.frameWidth <= MAX_SHOWN;
   }
 
   private sizeSprite(sprite: Phaser.GameObjects.Sprite, sheet: Sheet): void {
-    const tile = this.world?.tileSize ?? 64;
-    sprite.setDisplaySize(tile, (tile * sheet.frameHeight) / sheet.frameWidth);
+    const size = worldSize(sheet, this.world?.tileSize ?? 64, this.sourceTile());
+    sprite.setDisplaySize(size.width, size.height);
     // a sheet drawn smaller than its pixels is smoothed, not dropped pixel by pixel
-    const ratio = (tile * this.zoom) / sheet.frameWidth;
+    const ratio = (size.width * this.zoom) / sheet.frameWidth;
     sprite.texture.setFilter(ratio < 1 ? Phaser.Textures.FilterMode.LINEAR : Phaser.Textures.FilterMode.NEAREST);
   }
 
@@ -302,8 +309,14 @@ class MapScene extends Phaser.Scene {
     } else if (real > 0) {
       this.frames.add(real, time);
     }
-    const held = this.opts.input();
+    let held = this.opts.input();
     if (!this.world || this.busy) return;
+    // after a door the hero stands until the finger lifts: a held arrow
+    // does not carry the child on into the new map
+    if (this.waitLift) {
+      if (held === null) this.waitLift = false;
+      else held = null;
+    }
     const world = this.world;
     const canStep = (x: number, y: number, d: Dir) =>
       world.collision.canStep(x, y, d, (tx, ty) => this.occupied.has(`${tx},${ty}`));
@@ -342,6 +355,7 @@ class MapScene extends Phaser.Scene {
     try {
       await this.fade(false);
       await this.enter(to.map, to);
+      this.waitLift = true;
       await this.fade(true);
     } catch (e) {
       log.error(`Could not go to ${to.map}`, e);
