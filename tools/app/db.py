@@ -41,7 +41,7 @@ from typing import Any
 
 from PIL import Image
 
-from tools.app import hd
+from tools.app import hd, overlays
 from tools.app.common import MOD_ORDER, MODS, Output, mod_file, rel_repo
 
 EXTENSIONS = [".json", ".yaml", ".yml"]
@@ -72,6 +72,25 @@ SHEET_COLUMNS, SHEET_ROWS = 3, 4
 #: One frame of a 1x character map sheet; a 1x combat sheet's width.
 MAP_FRAME = (16, 32)
 COMBAT_WIDTH = 128
+#: Characters whose combat sheet (battle and dialog portrait) shows
+#: another person than their map sheet: the map is canonical, so the app
+#: builds their portrait from the map sheet (combat sheet -> map sprite).
+#: The old game's files are left as they are.
+PORTRAIT_FROM_MAP = {
+    "nagmon_shopkeeper": "nagmon_shopkeeper",
+    "nagmon_teacher": "nagmon_teacher",
+    "nagmon_traveler": "nagmon_tourist",
+}
+#: Characters whose map and portrait differ on purpose (combat sheet ->
+#: why): the coherence guard (tools/app/coherence.py) lets them pass.
+COHERENCE_APPROVED = {
+    "nagmon_owl": "approved by the parent: the owl with glasses and a "
+    "book in battle and dialogs",
+}
+PORTRAIT_FROM_MAP_NOTE = (
+    "Portrait built from the map sprite, so both show the same "
+    "character (tools/app/db.py PORTRAIT_FROM_MAP)."
+)
 #: A 1x item or type icon.
 ICON_SIZE = 24
 #: Tuxemon's island frame (``BattleGraphicsModel``): two side by side.
@@ -198,6 +217,12 @@ class Sprites:
         if src is None:
             return None
         dest = f"sprites/{target}"
+        if rel in overlays.SHEETS:
+            # a repainted sheet (overlays.SHEETS): generated, not copied
+            if dest not in self.out.images:
+                self.out.add_image(dest, load_art(rel), [src], kind)
+                self.out.assets[dest].note = overlays.SHEET_NOTE
+            return dest
         self.out.add_copy(dest, src, kind)
         return dest
 
@@ -236,6 +261,15 @@ class Sprites:
         self.out.add_image(dest, image, [src], kind, adapted=f"xBRZ x{k}")
         self.done[dest] = (key, (dest, extra))
         return dest, extra
+
+
+def load_art(rel: str) -> Image.Image:
+    """The picture at mod path ``rel``, as RGBA, with its repaint."""
+    src = mod_file(rel)
+    if src is None:
+        raise FileNotFoundError(rel)
+    with Image.open(src) as im:
+        return overlays.sheet(rel, im.convert("RGBA"))
 
 
 def _size(src: Path) -> tuple[int, int]:
@@ -305,8 +339,68 @@ def map_sheet(
     return {"map": dest, "frame": [fw, fh], "scale": k}
 
 
+def map_frames(sheet: Image.Image) -> tuple[Image.Image, Image.Image]:
+    """The front and back standing frames of a 3x4 map sheet, trimmed."""
+    sheet = sheet.convert("RGBA")
+    w, h = sheet.width // SHEET_COLUMNS, sheet.height // SHEET_ROWS
+    out = []
+    for row in (0, SHEET_ROWS - 1):  # row 0 faces us, the last one away
+        frame = sheet.crop((w, row * h, 2 * w, (row + 1) * h))
+        box = frame.getbbox()
+        if box is None:
+            raise ValueError("an empty map frame")
+        out.append(frame.crop(box))
+    return out[0], out[1]
+
+
+def portrait_from_map_sheet(sheet: Image.Image, k: int) -> Image.Image:
+    """
+    A combat sheet (back left, front right, 64x64 cells at 1x, here x k)
+    from a character's map sheet: its middle-column front and back
+    frames, scaled down (Lanczos, premultiplied alpha) to the cell's
+    height, centred and standing on the cell's bottom edge.
+    """
+    cell = (COMBAT_WIDTH // 2) * k
+    out = Image.new("RGBA", (2 * cell, cell), (0, 0, 0, 0))
+    front, back = map_frames(sheet)
+    for i, frame in enumerate((back, front)):
+        f = min(cell / frame.height, cell / frame.width, 1.0)
+        size = (
+            max(1, round(frame.width * f)),
+            max(1, round(frame.height * f)),
+        )
+        small = (
+            frame.convert("RGBa")
+            .resize(size, Image.Resampling.LANCZOS)
+            .convert("RGBA")
+        )
+        x = i * cell + (cell - size[0]) // 2
+        out.alpha_composite(small, (x, cell - size[1]))
+    return out
+
+
+def portrait_from_map(
+    sprites: Sprites, name: str, sprite: str
+) -> tuple[str | None, int | None]:
+    """The combat sheet ``name``, built from the map sheet ``sprite``."""
+    target = f"portraits/{name}.png"
+    dest = f"sprites/{target}"
+    if dest in sprites.out.images:
+        return dest, hd.PORTRAIT
+    src = sprites.source(f"sprites/{sprite}.png")
+    if src is None:
+        return None, None
+    with Image.open(src) as im:
+        sheet = portrait_from_map_sheet(im, hd.PORTRAIT)
+    sprites.out.add_image(dest, sheet, [src], "portrait")
+    sprites.out.assets[dest].note = PORTRAIT_FROM_MAP_NOTE
+    return dest, hd.PORTRAIT
+
+
 def combat_sheet(sprites: Sprites, name: str) -> tuple[str | None, int | None]:
     """A combat sheet (back left, front right) at the HD scale."""
+    if name in PORTRAIT_FROM_MAP:
+        return portrait_from_map(sprites, name, PORTRAIT_FROM_MAP[name])
     rel = f"gfx/sprites/player/{name}.png"
     target = f"portraits/{name}.png"
     src = sprites.source(rel)
@@ -618,11 +712,11 @@ def avatar_card(out: Output, key: str, combat_sheet: str) -> str:
     The hero's picture for the profile cards: the front half of the
     combat sheet (back on the left, front on the right), trimmed.
     """
-    src = mod_file(f"gfx/sprites/player/{combat_sheet}.png")
+    rel = f"gfx/sprites/player/{combat_sheet}.png"
+    src = mod_file(rel)
     if src is None:
         raise FileNotFoundError(f"no combat sheet for {key}: {combat_sheet}")
-    with Image.open(src) as im:
-        sheet = im.convert("RGBA")
+    sheet = load_art(rel)
     half = sheet.width // 2
     front = sheet.crop((half, 0, sheet.width, sheet.height))
     box = front.getbbox()
@@ -630,6 +724,8 @@ def avatar_card(out: Output, key: str, combat_sheet: str) -> str:
         raise ValueError(f"{src}: the front half is empty")
     dest = f"avatars/{key}.png"
     out.add_image(dest, front.crop(box), [src], "portrait")
+    if rel in overlays.SHEETS:
+        out.assets[dest].note = overlays.SHEET_NOTE
     return dest
 
 
