@@ -174,3 +174,9 @@ def test_every_monster_shape_has_a_text(built):
     shapes = set(table("shape"))
     assert len(shapes) == 14
     assert shapes <= set(he)
+
+
+def test_every_monster_has_a_hebrew_name(built):
+    he = data(built, "i18n/he.json")
+    for slug in data(built, "db/monsters.json"):
+        assert any("א" <= ch <= "ת" for ch in he[slug]), slug
