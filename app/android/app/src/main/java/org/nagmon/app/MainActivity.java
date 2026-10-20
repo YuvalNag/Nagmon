@@ -5,12 +5,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
+import android.webkit.RenderProcessGoneDetail;
+import android.webkit.WebView;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.webkit.WebSettingsCompat;
 import androidx.webkit.WebViewFeature;
 import com.getcapacitor.BridgeActivity;
+import com.getcapacitor.WebViewListener;
 
 /**
  * The whole screen is the game: no status bar, no navigation bar, and
@@ -44,6 +47,25 @@ public class MainActivity extends BridgeActivity {
         }
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         hideSystemBars();
+        getBridge().addWebViewListener(new RendererGone());
+    }
+
+    /**
+     * The page's renderer is a process of its own, and Android may end it
+     * (for memory) or it may crash. Unhandled, the WebView then kills the
+     * whole app, with no crash report and no message. Here the activity
+     * starts again with a new WebView: the child is back on who-plays, the
+     * data on disk. The emulator check fails on this line all the same.
+     */
+    private class RendererGone extends WebViewListener {
+        @Override
+        public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
+            boolean crashed = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && detail.didCrash();
+            int priority = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? detail.rendererPriorityAtExit() : -1;
+            Log.w(TAG, "the page's renderer is gone: crashed=" + crashed + " priorityAtExit=" + priority + "; starting the page again");
+            runOnUiThread(MainActivity.this::recreate);
+            return true;
+        }
     }
 
     @Override
