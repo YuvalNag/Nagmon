@@ -201,7 +201,7 @@ def _overlay():
 
 def _finger(kind, pos, size=(1600, 720)):
     return pygame.event.Event(
-        kind, x=pos[0] / size[0], y=pos[1] / size[1], fingerid=1, touch_id=0
+        kind, x=pos[0] / size[0], y=pos[1] / size[1], finger_id=1, touch_id=0
     )
 
 

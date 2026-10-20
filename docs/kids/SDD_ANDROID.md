@@ -208,6 +208,7 @@ class AndroidTTSBackend:   # id="android", online=False, extension=".wav"
 | האמולטור: כל APK נפתח באנדרואיד 11 (x86_64) בצורת הטלפון (`pixel_6`, 1080×2400) ונשאר פתוח 6 דקות. אחרי 45 שניות נגיעה מדלגת על הפתיח. נכשל אם צילום מסך גבוה מרוחבו, או אם האפליקציה ביקשה מסך לאורך. צילומי המסך מודפסים ליומן העבודה כ־JPEG קטן (`tools/android/screen_shape.py`), וגם קצב הפריימים | `.github/workflows/android-smoke.yml`, `tests/nagmon/test_screen_shape.py` |
 | כיוון המסך: הרמז נקבע, לוקח את `KIVY_ORIENTATION` אם יש, ולא דורס ערך קיים | `tests/nagmon/test_android_platform.py` |
 | תרגום שה־`.po` שלו השתנה נבנה מחדש גם כשהוא נראה ישן. בלי שינוי הוא לא נבנה. הבנייה רושמת את הטביעה | `tests/nagmon/test_world_scripts.py` |
+| אירועי אצבע בשמות של pygame-ce (`finger_id`). הבדיקות בונות אירועים בצורה האמיתית, ואף קובץ לא משתמש בשם הישן `fingerid`, שעצר את המשחק בנגיעה הראשונה במפה (בנייה 19) | `tests/tuxemon/test_pygame_touch_overlay_input.py` |
 | קצב הפריימים: שורה אחת בכל תקופה, עם הפריים האיטי ביותר. הפסקה ברקע לא נספרת. השורה נכנסת ליומן האפליקציה | `tests/tuxemon/test_frame_stats.py` |
 | הפעלה מקומפלת: רק `.pyc` עם `-OO`, ובלי מסך. ב־PATH יש `git` שאי אפשר להריץ, כמו בטלפון של בנייה 18 (`PermissionError`). המשחק רץ 30 שניות | `tools/android/compiled_boot.sh` |
 | `get_git_hash` מחזיר "N/A" כש־git חסר, נחסם, נכשל או נתקע | `tests/tuxemon/test_git_hash.py` |

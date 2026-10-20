@@ -273,7 +273,7 @@ def finger(kind: int, pos: tuple[int, int]) -> None:
             kind,
             x=pos[0] / w,
             y=pos[1] / h,
-            fingerid=1,
+            finger_id=1,
             touch_id=0,
             dx=0,
             dy=0,

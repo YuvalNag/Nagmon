@@ -590,7 +590,9 @@ class PygameTouchOverlayInput(PygameEventHandler):
                 int(input_event.x * self.resolution[0]),
                 int(input_event.y * self.resolution[1]),
             )
-            finger_id = input_event.fingerid
+            # pygame-ce names it finger_id; reading the old name (no underscore)
+            # stopped the game at the first tap on the phone (build 19).
+            finger_id = input_event.finger_id
 
             if input_event.type == pg.FINGERDOWN:
                 self._handle_finger_down(finger_id, touch_pos)
