@@ -8,8 +8,10 @@ from typing import TYPE_CHECKING, Any, ClassVar
 from pygame_menu.locals import POSITION_EAST
 
 from tuxemon.menu.menu import PygameMenuState
-from tuxemon.menu.theme import get_theme
+from tuxemon.menu.phone import pack_in_columns
+from tuxemon.menu.theme import get_theme, selection_gap
 from tuxemon.menu.transitions import PopInClamped
+from tuxemon.ui import bidi
 from tuxemon.ui.menu_options import MenuOptions
 
 if TYPE_CHECKING:
@@ -59,11 +61,26 @@ class ChoiceState(PygameMenuState):
 
         self._menu_config["theme"] = theme
 
-        for option in menu.get_menu():
+        buttons = [
             self.menu.add.button(
                 option.display_text,
                 option.action,
                 font_size=self.font_type.medium,
             )
+            for option in menu.get_menu()
+        ]
+        # A phone's bigger buttons: nine grades go in two columns.
+        scaling = self.client.context.scaling
+        pack_in_columns(
+            self.menu,
+            buttons,
+            int(
+                self.client.context.resolution[1]
+                * self.config.max_height_percentage
+            )
+            - scaling.scale_int(8),
+            rtl=bidi.locale_is_rtl(),
+            gap=selection_gap(scaling),
+        )
 
         self.escape_key_exits = escape_key_exits

@@ -143,6 +143,19 @@ def _prepare_text_lines(
     ]
 
 
+def wrapped_text_height(
+    text: str, font: Font, width: int, line_spacing: int = 0
+) -> int:
+    """
+    The height a text needs when it is wrapped to ``width``, the way a
+    dialog box draws it.
+    """
+    lines = _prepare_text_lines_with_direction(
+        text, font, width, TextOverflow.CLIP
+    )
+    return len(lines) * (get_font_height(font) + line_spacing)
+
+
 def _prepare_text_lines_with_direction(
     text: str,
     font: Font,

@@ -9,6 +9,7 @@ from pygame_menu.sound import SOUND_TYPE_WIDGET_SELECTION, Sound
 from pygame_menu.themes import Theme
 from pygame_menu.widgets.core.selection import Selection
 from pygame_menu.widgets.core.widget import Widget
+from pygame_menu.widgets.selection import NoneSelection
 from pygame_menu.widgets.widget.menubar import MENUBAR_STYLE_ADAPTIVE
 
 from tuxemon.constants.asset_loader import fetch_asset
@@ -102,12 +103,30 @@ def widget_padding(
     scaling: ScalingStrategy, *, touch: bool
 ) -> tuple[int, int]:
     """
-    Space around each button. On a phone buttons are taller, so a
-    five-year-old's finger finds them (SDD_ANDROID §2.3).
+    Space around each button. On a phone it is 1.6 times (3, 6): a
+    medium button is 135 pixels high (8.7 mm on a 6.67" 2400x1080
+    screen) and seven of them still fit (SDD_ANDROID §2.3).
     """
     if touch:
-        return scaling.scale_int(4), scaling.scale_int(6)
+        factor = mobile.PHONE_UI_FACTOR
+        return (
+            round(scaling.scale_int(3) * factor),
+            round(scaling.scale_int(6) * factor),
+        )
     return scaling.scale_int(2), scaling.scale_int(4)
+
+
+def selection_gap(scaling: ScalingStrategy) -> int:
+    """Room between buttons side by side (a phone has no arrow)."""
+    return scaling.scale_int(4)
+
+
+def label_padding(scaling: ScalingStrategy) -> tuple[int, int]:
+    """
+    Space around a text that is not a button, on a phone: a finger does
+    not need it, and the bigger text needs the room.
+    """
+    return scaling.scale_int(1), mobile.ui_px(scaling.scale_int(6))
 
 
 def get_theme(scaling: ScalingStrategy) -> Theme:
@@ -137,8 +156,12 @@ def get_theme(scaling: ScalingStrategy) -> Theme:
         background_color=tuxemon_background,
         widget_alignment=start_menu_alignment(),
         title=False,
-        widget_selection_effect=TuxemonArrowSelection(
-            scale_factor, rtl=bidi.locale_is_rtl()
+        # A phone is tapped, not steered with keys: the arrow next to the
+        # selected button would only cover the next one.
+        widget_selection_effect=(
+            NoneSelection()
+            if mobile.is_android()
+            else TuxemonArrowSelection(scale_factor, rtl=bidi.locale_is_rtl())
         ),
         border_color=tuxemon_border,
         scrollarea_position=SCROLLAREA_POSITION_NONE,
@@ -149,8 +172,8 @@ def get_theme(scaling: ScalingStrategy) -> Theme:
     )
 
     # Set common font sizes and colors as part of the theme definition
-    theme.widget_font_size = scaling.scale_int(FONT_SIZE)
-    theme.title_font_size = scaling.scale_int(FONT_SIZE_BIG)
+    theme.widget_font_size = mobile.ui_px(scaling.scale_int(FONT_SIZE))
+    theme.title_font_size = mobile.ui_px(scaling.scale_int(FONT_SIZE_BIG))
     theme.widget_font_color = FONT_COLOR
     theme.selection_color = FONT_COLOR
     theme.scrollbar_color = SCROLLBAR_COLOR

@@ -62,6 +62,21 @@ def logical_resolution(
     return min_width, _even(min_width / aspect)
 
 
+#: How much bigger text and buttons are on a phone than on a computer at
+#: the same drawing size (SDD_ANDROID §2.3, "טקסט וכפתורים בטלפון").
+PHONE_UI_FACTOR = 1.6
+
+
+def ui_factor(env: Mapping[str, str] | None = None) -> float:
+    """1.6 on a phone, 1 everywhere else."""
+    return PHONE_UI_FACTOR if is_android(env) else 1.0
+
+
+def ui_px(px: int, env: Mapping[str, str] | None = None) -> int:
+    """A text or button size in pixels, made bigger on a phone."""
+    return int(round(px * ui_factor(env)))
+
+
 #: Screens where a child walks around and needs the on-screen arrows.
 #: Everywhere else the arrows would cover buttons that are tapped directly.
 TOUCH_ARROW_STATES = frozenset({"WorldState"})

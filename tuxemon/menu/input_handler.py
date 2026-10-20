@@ -217,6 +217,8 @@ class PygameMenuInputHandler(InputHandler, PressLogicMixin):
 
     def __init__(self, state: PygameMenuState) -> None:
         self._state = state
+        #: A press landed on this menu and its release has not come yet.
+        self._pressed_here = False
 
     def handle_event(self, event: PlayerInput) -> PlayerInput | None:
         if not self._state.state_controller.is_interactive():
@@ -280,8 +282,17 @@ class PygameMenuInputHandler(InputHandler, PressLogicMixin):
     ) -> PlayerInput | None:
         menu = self._state.menu
         inside = menu.get_rect().collidepoint(pygame_event.pos)
-        if pygame_event.type == pygame.MOUSEBUTTONDOWN and not inside:
-            return event
+        if pygame_event.type == pygame.MOUSEBUTTONDOWN:
+            if not inside:
+                return event
+            self._pressed_here = True
+        elif not self._pressed_here:
+            # The release of a tap that pressed something else, e.g. the
+            # tap that closed a dialog on top: pygame_menu would press the
+            # selected button under the finger.
+            return None
+        else:
+            self._pressed_here = False
         if self._state.open:
             try:
                 menu.update([pygame_event])

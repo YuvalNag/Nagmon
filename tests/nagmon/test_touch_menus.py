@@ -280,3 +280,18 @@ def test_buttons_are_taller_on_a_phone():
     phone = widget_padding(scaling, touch=True)
     assert pc == (10, 20)
     assert phone[0] >= 2 * pc[0] and phone[1] > pc[1]
+
+
+def test_release_without_a_press_does_not_press_the_selected_button():
+    # A tap that closes a dialog ends with its release on the menu under
+    # it. pygame_menu presses the selected button on any release over it.
+    state, clicked, first, _ = _state()
+    handler = PygameMenuInputHandler(state)
+    assert state.menu.get_selected_widget() is first
+    handler.handle_event(
+        _release(first.get_rect(to_real_position=True).center)
+    )
+    assert clicked == []
+    # the next real tap still works
+    _tap(handler, first.get_rect(to_real_position=True).center)
+    assert clicked == ["one"]

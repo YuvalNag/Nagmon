@@ -9,6 +9,7 @@ from functools import partial
 from typing import TYPE_CHECKING, Any, ClassVar
 
 from pygame import SRCALPHA
+from pygame.font import Font
 from pygame.rect import Rect
 from pygame.surface import Surface
 from pygame.transform import scale as pg_scale
@@ -26,6 +27,7 @@ from tuxemon.states.item_menu import ItemMenuState
 from tuxemon.states.monster_menu import MonsterMenuState
 from tuxemon.technique.technique import Technique
 from tuxemon.tools import fix_measure, open_dialog
+from tuxemon.ui.bidi import ensure_visual
 from tuxemon.ui.graphic_box import GraphicBox
 from tuxemon.ui.text import TextArea
 
@@ -40,6 +42,35 @@ logger = logging.getLogger(__name__)
 
 
 MenuGameObj = Callable[[], None]
+
+
+#: Where each line of an attack's details starts, in 256x144 units.
+INFO_LINE_PLACES: dict[str, tuple[int, int]] = {
+    "accuracy": (7, 114),
+    "power": (44, 123),
+    "recharge": (7, 133),
+}
+#: The details' box ends here (in 144ths of the height).
+INFO_BOTTOM = 139
+
+
+def render_info_line(font: Font, line: str) -> Surface:
+    """One line of an attack's details, black, in reading order."""
+    return font.render(ensure_visual(line), True, (0, 0, 0))
+
+
+def info_line_position(
+    key: str, screen: tuple[int, int], height: int
+) -> tuple[int, int]:
+    """
+    Where a line of an attack's details goes. A line that would hang
+    below the box (a phone's bigger text) moves up into it.
+    """
+    screen_w, screen_h = screen
+    x, y = INFO_LINE_PLACES[key]
+    top = fix_measure(screen_h, y / 144)
+    bottom = fix_measure(screen_h, INFO_BOTTOM / 144)
+    return fix_measure(screen_w, x / 256), min(top, bottom - height)
 
 
 class MainCombatMenuState(PopUpMenu[MenuGameObj]):
@@ -539,27 +570,13 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
                     )
 
                 for key, line in text_lines.items():
-                    surf = font.render(line, True, (0, 0, 0))  # black text
+                    surf = render_info_line(font, line)
                     spr = Sprite()
                     spr.image = surf
                     spr.rect = surf.get_rect()
-
-                    # Independent positioning (you can tweak these individually)
-                    if key == "accuracy":
-                        spr.rect.topleft = (
-                            fix_measure(screen_w, 7 / 256),
-                            fix_measure(screen_h, 114 / 144),
-                        )
-                    elif key == "power":
-                        spr.rect.topleft = (
-                            fix_measure(screen_w, 44 / 256),
-                            fix_measure(screen_h, 123 / 144),
-                        )
-                    elif key == "recharge":
-                        spr.rect.topleft = (
-                            fix_measure(screen_w, 7 / 256),
-                            fix_measure(screen_h, 133 / 144),
-                        )
+                    spr.rect.topleft = info_line_position(
+                        key, (screen_w, screen_h), surf.get_height()
+                    )
 
                     self.sprites.add(spr, layer=200)
                     self.text_sprites[key] = spr
