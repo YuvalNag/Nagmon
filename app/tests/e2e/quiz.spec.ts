@@ -248,23 +248,37 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
   expect(Number(await battle.getAttribute("data-hp"))).toBe(hp0);
   await shot("b03_no_damage");
 
-  // right answers win it
-  for (let i = 0; i < 12 && (await battle.getAttribute("data-view")) !== "won"; i++) {
+  // right answers calm it
+  for (let i = 0; i < 12 && (await battle.getAttribute("data-view")) !== "calm"; i++) {
     await touch(page, page.locator(id("battle_next")));
     await answer(page, "right");
     await touch(page, page.locator(id("quiz_continue")));
-    await expect(battle).toHaveAttribute("data-view", /turn|won/);
+    await expect(battle).toHaveAttribute("data-view", /turn|calm/);
     if (i === 0) await shot("b04_hit");
   }
-  await expect(battle).toHaveAttribute("data-view", "won");
+  await expect(battle).toHaveAttribute("data-view", "calm");
   expect(Number(await battle.getAttribute("data-hp"))).toBe(0);
-  await shot("b05_friend");
-  await touch(page, page.locator(id("battle_done")));
+  await shot("b05_calm");
+  // nobody joined yet; the Net pulses
+  await expect(page.locator(id("battle_net"))).toBeEnabled();
+  // the net, a wrong seal answer (the net bounces back), then a right one
+  await touch(page, page.locator(id("battle_net")));
+  await answer(page, "dont_know");
+  await touch(page, page.locator(id("quiz_continue")));
+  await expect(battle).toHaveAttribute("data-view", "calm");
+  await shot("b06_try_again");
+  await touch(page, page.locator(id("battle_net")));
+  await answer(page, "right");
+  await touch(page, page.locator(id("quiz_continue")));
+  await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
+  await shot("b07_new_friend");
+  await touch(page, page.locator(id("battle_skip")));
   await expect(battle).toHaveCount(0);
   await expect(page.locator(id("dpad"))).toBeVisible();
   const world = (await saved(page, "saves/world.json"))!;
   expect((world["creatures"] as unknown[]).length).toBe(2);
   expect((world["caught"] as string[]).length).toBe(2);
+  expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
 });
 
 test("the battle's action bar: five buttons of 120x72 and more in the bottom 123px, Ask the wide one at the thumb's end", async ({ page }, info) => {

@@ -356,7 +356,7 @@ describe("a wild creature in the grass", () => {
     expect(((await m.profiles.loadWorldDict(m.profile.id))["creatures"] as unknown[]).length).toBe(1);
   });
 
-  it("wrong answers hurt nobody; right ones win, and the creature becomes a friend, saved", async () => {
+  it("wrong answers hurt nobody; right ones calm it; a net and a seal answer make it a friend, saved", async () => {
     const m = await grass();
     await act(async () => m.opts().onStep?.(5, 8));
     const wildSpecies = m.q("[data-screen=battle]")!.dataset.wild!;
@@ -368,22 +368,59 @@ describe("a wild creature in the grass", () => {
     const full = Number(m.q("[data-screen=battle]")!.dataset.hp);
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("turn");
     expect(m.el("battle_message")?.textContent).toContain("אף אחד לא נפגע");
-    // right answers until it is won
-    for (let i = 0; i < 12 && m.q("[data-screen=battle]")?.dataset.view !== "won"; i++) {
+    expect((m.el("battle_net") as HTMLButtonElement).disabled).toBe(true);
+    // right answers until it is calm
+    for (let i = 0; i < 12 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
       await m.press("battle_next");
       await answerQuestion(m, true);
       await settle(5);
     }
-    expect(m.q("[data-screen=battle]")?.dataset.view).toBe("won");
+    expect(m.q("[data-screen=battle]")?.dataset.view).toBe("calm");
     expect(Number(m.q("[data-screen=battle]")!.dataset.hp)).toBe(0);
     expect(full).toBeGreaterThan(0);
-    expect(m.el("battle_message")?.textContent).toMatch(/חבר/);
-    await m.press("battle_done");
+    expect(m.el("battle_message")?.textContent).toMatch(/נרגע/);
+    expect((m.el("battle_net") as HTMLButtonElement).disabled).toBe(false);
+    // no friend joined by itself
+    await pendingWrites(m.fs);
+    expect(((await m.profiles.loadWorldDict(m.profile.id))["creatures"] as unknown[]).length).toBe(1);
+    // the net, a seal question: a wrong answer only means another try
+    await m.press("battle_net");
+    expect(m.q("[data-screen=battle-ask]")?.dataset.seal).toBe("true");
+    if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
+    await m.press("quiz_dont_know");
+    await m.press("quiz_continue");
+    expect(m.q("[data-screen=battle]")?.dataset.view).toBe("calm");
+    expect(m.el("battle_message")?.textContent).toMatch(/אפשר לנסות שוב/);
+    await m.press("battle_net");
+    await answerQuestion(m, true);
+    expect(m.q("[data-screen=battle-caught]")).not.toBeNull();
+    // a name or skip
+    await m.press("battle_skip");
     expect(m.q("[data-screen=battle]")).toBeNull();
     await pendingWrites(m.fs);
     const world = await m.profiles.loadWorldDict(m.profile.id);
-    expect((world["creatures"] as { species: string }[]).map((c) => c.species)).toEqual(["agnite", wildSpecies]);
+    expect((world["creatures"] as { species: string; name?: string }[]).map((c) => c.species)).toEqual(["agnite", wildSpecies]);
+    expect((world["creatures"] as { name?: string }[])[1]!.name).toBeUndefined();
     expect(world["caught"]).toContain(wildSpecies);
+    expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
+  });
+
+  it("a name picked from the three, kept in the save", async () => {
+    const m = await grass();
+    await act(async () => m.opts().onStep?.(5, 8));
+    await m.press("battle_fight");
+    await answerQuestion(m, true);
+    for (let i = 0; i < 12 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
+      await m.press("battle_next");
+      await answerQuestion(m, true);
+      await settle(5);
+    }
+    await m.press("battle_net");
+    await answerQuestion(m, true);
+    await m.press("battle_suggest_0");
+    await pendingWrites(m.fs);
+    const world = await m.profiles.loadWorldDict(m.profile.id);
+    expect(typeof (world["creatures"] as { name?: string }[])[1]!.name).toBe("string");
   });
 
   it("Android's back goes on one's way, from the meeting and from a question", async () => {
