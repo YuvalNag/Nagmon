@@ -28,11 +28,25 @@ const KEY_PATTERNS: RegExp[] = [
 ];
 const BEARER = /(bearer\s+)\S+/gi;
 
-/** Base64 of the UTF-8 bytes, without the "=" padding. */
-function base64(text: string): string {
-  let binary = "";
-  for (const byte of new TextEncoder().encode(text)) binary += String.fromCharCode(byte);
-  return btoa(binary).replace(/=+$/, "");
+/**
+ * The base64 characters that encode only the key's own bytes, when the key
+ * starts 0, 1 or 2 bytes into a 3-byte group (after "user:" in a Basic
+ * header, inside base64 JSON, ...). The first and last characters of each
+ * also depend on the bytes around the key, so they are left out.
+ */
+function base64Forms(secret: string): string[] {
+  const bytes = new TextEncoder().encode(secret);
+  const forms: string[] = [];
+  for (let offset = 0; offset < 3; offset++) {
+    const all = new Uint8Array(offset + bytes.length);
+    all.set(bytes, offset);
+    let binary = "";
+    for (const byte of all) binary += String.fromCharCode(byte);
+    const start = Math.ceil((offset * 8) / 6);
+    const end = Math.floor((all.length * 8) / 6);
+    forms.push(btoa(binary).slice(start, end));
+  }
+  return forms;
 }
 
 /**
@@ -40,7 +54,7 @@ function base64(text: string): string {
  * string) and in base64 (an auth header, a GitHub upload body).
  */
 function secretForms(secret: string): string[] {
-  const forms = new Set([secret, encodeURIComponent(secret), base64(secret)]);
+  const forms = new Set([secret, encodeURIComponent(secret), ...base64Forms(secret)]);
   return [...forms].filter((f) => f.length >= 8);
 }
 
@@ -55,8 +69,7 @@ export function redactSecrets(text: string, secrets: Iterable<string> = []): str
   }
   // Longest first, so a longer form is not cut by a shorter one.
   for (const form of forms.sort((a, b) => b.length - a.length)) {
-    // A trailing "=" of padded base64 goes too.
-    text = text.replace(new RegExp(`${escapeRegExp(form)}=*`, "gi"), "***");
+    text = text.replace(new RegExp(escapeRegExp(form), "gi"), "***");
   }
   for (const pattern of KEY_PATTERNS) text = text.replace(pattern, "***");
   return text.replace(BEARER, "$1***");

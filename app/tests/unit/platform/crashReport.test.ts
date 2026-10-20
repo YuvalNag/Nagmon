@@ -80,6 +80,24 @@ describe("hiding keys", () => {
     expect(clean).toBe("raw=*** upper=*** enc=*** b64=*** nopad=***");
   });
 
+  it.each(["", "u", "us", "x-access-token:", "x-access-token:a"])(
+    "hides a saved key in base64 after the prefix %j (any alignment)",
+    (prefix) => {
+      const secret = "cfTokenAbCdEfGh12345678901234567890abcd";
+      const out = redactSecrets("Basic " + btoa(prefix + secret), [secret]);
+      // At most the prefix's own characters and a partial group stay.
+      const before = Math.ceil((prefix.length * 8) / 6) + 1;
+      expect(out).toMatch(new RegExp(`^Basic [A-Za-z0-9+/]{0,${before}}\\*\\*\\*[A-Za-z0-9+/=]{0,4}$`));
+    },
+  );
+
+  it("hides a saved key inside base64 JSON", () => {
+    const secret = "cfTokenAbCdEfGh12345678901234567890abcd";
+    const out = redactSecrets(btoa(JSON.stringify({ token: secret })), [secret]);
+    expect(out).toContain("***");
+    expect(out.length).toBeLessThan(30);
+  });
+
   it("hides a saved Hebrew key in base64 (UTF-8)", () => {
     const key = "סודסודסוד123";
     const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(key)));

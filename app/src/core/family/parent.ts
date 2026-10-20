@@ -99,6 +99,8 @@ export interface ParentSettings {
   pinHash: string | null;
   pinSalt: string | null;
   pinIterations: number;
+  /** Set when a saved PIN could not be used and was dropped. */
+  pinDropped: PinDropReason | null;
   failedAttempts: number;
   /** Seconds since the epoch; 0 when not locked. */
   lockedUntil: number;
@@ -113,12 +115,31 @@ export interface ParentSettings {
   values: FamilyValues;
 }
 
+/** Why a PIN in parent.json could not be used. */
+export const PIN_DROP_REASONS = ["hash", "salt", "iterations"] as const;
+export type PinDropReason = (typeof PIN_DROP_REASONS)[number];
+
+/**
+ * Why the saved PIN can never verify, or null when it is usable (or there
+ * is none). Hex may be in either case.
+ */
+export function pinProblem(d: JsonObject): PinDropReason | null {
+  if (typeof d.pin_hash !== "string" || typeof d.pin_salt !== "string") return null;
+  if (!/^[0-9a-fA-F]{64}$/.test(d.pin_hash)) return "hash";
+  if (!/^[0-9a-fA-F]{32}$/.test(d.pin_salt)) return "salt";
+  // Not asInt: a fallback count would never match the hash either.
+  const n = d.pin_iterations === undefined ? PBKDF2_ITERATIONS : d.pin_iterations;
+  const ok = typeof n === "number" && Number.isInteger(n) && n >= MIN_PBKDF2_ITERATIONS && n <= MAX_PBKDF2_ITERATIONS;
+  return ok ? null : "iterations";
+}
+
 /** Fresh settings: no PIN, Jerusalem, Shabbat and holidays on. */
 export function defaultSettings(): ParentSettings {
   return {
     pinHash: null,
     pinSalt: null,
     pinIterations: PBKDF2_ITERATIONS,
+    pinDropped: null,
     failedAttempts: 0,
     lockedUntil: 0,
     location: locationPreset("jerusalem"),
@@ -151,6 +172,7 @@ export function settingsToDict(s: ParentSettings): JsonObject {
     pin_hash: s.pinHash,
     pin_salt: s.pinSalt,
     pin_iterations: s.pinIterations,
+    pin_dropped: s.pinDropped,
     failed_attempts: s.failedAttempts,
     locked_until: s.lockedUntil,
     location: locationToDict(s.location),
@@ -170,23 +192,18 @@ export function settingsFromDict(d: unknown): ParentSettings {
   const s = defaultSettings();
   if (!isJsonObject(d)) return s;
   if (typeof d.pin_hash === "string" && typeof d.pin_salt === "string") {
-    // Not asInt: a fallback count would never match the hash either.
-    const iterations = d.pin_iterations === undefined ? PBKDF2_ITERATIONS : d.pin_iterations;
-    // A PIN that can never verify (no iterations, a bad salt or hash) would
-    // lock the parent out for good; it is dropped, and the parent sets a
-    // new one. Changing the file needs root access to the phone anyway.
-    const usable =
-      /^[0-9a-f]{64}$/.test(d.pin_hash) &&
-      /^[0-9a-f]{32}$/.test(d.pin_salt) &&
-      typeof iterations === "number" &&
-      Number.isInteger(iterations) &&
-      iterations >= MIN_PBKDF2_ITERATIONS &&
-      iterations <= MAX_PBKDF2_ITERATIONS;
-    if (usable) {
-      s.pinHash = d.pin_hash;
-      s.pinSalt = d.pin_salt;
-      s.pinIterations = iterations as number;
+    // A PIN that can never verify would lock the parent out for good: it
+    // is dropped, and the reason is kept so the parent area can say so.
+    const problem = pinProblem(d);
+    if (problem === null) {
+      s.pinHash = d.pin_hash.toLowerCase();
+      s.pinSalt = d.pin_salt.toLowerCase();
+      s.pinIterations = d.pin_iterations === undefined ? PBKDF2_ITERATIONS : (d.pin_iterations as number);
+    } else {
+      s.pinDropped = problem;
     }
+  } else if (typeof d.pin_dropped === "string" && (PIN_DROP_REASONS as readonly string[]).includes(d.pin_dropped)) {
+    s.pinDropped = d.pin_dropped as PinDropReason;
   }
   s.failedAttempts = Math.max(0, asInt(d.failed_attempts, 0));
   s.lockedUntil = asFloat(d.locked_until, 0);
@@ -380,8 +397,8 @@ export class ParentStore {
     const res = await readJson(fs, path);
     if (res.recovered) options.onWarning?.(`parent.json recovered (${res.status})`);
     const settings = settingsFromDict(res.data);
-    if (typeof res.data?.pin_hash === "string" && settings.pinHash === null) {
-      options.onWarning?.("the PIN in parent.json could not be used; it was cleared");
+    if (res.data && pinProblem(res.data)) {
+      options.onWarning?.(`the PIN in parent.json could not be used (${settings.pinDropped}); it was cleared`);
     }
     return new ParentStore(fs, path, settings, res.recovered, options);
   }
@@ -401,7 +418,20 @@ export class ParentStore {
 
   /** Writes parent.json (after any PIN check in progress). */
   save(): Promise<void> {
-    return this.serial(() => this.write());
+    return this.serial(async () => {
+      // The PIN fields belong to the file: a store opened before another
+      // one set the PIN must not write its old, empty PIN back.
+      await this.refreshPin();
+      await this.write();
+    });
+  }
+
+  /**
+   * Why a saved PIN was dropped ("hash", "salt" or "iterations"), or null.
+   * The parent area shows a notice while it is set; a new PIN clears it.
+   */
+  get pinDropped(): PinDropReason | null {
+    return this.settings.pinDropped;
   }
 
   private write(): Promise<void> {
@@ -431,6 +461,7 @@ export class ParentStore {
     s.pinHash = disk.pinHash;
     s.pinSalt = disk.pinSalt;
     s.pinIterations = disk.pinIterations;
+    s.pinDropped = disk.pinDropped;
     s.failedAttempts = disk.failedAttempts;
     s.lockedUntil = disk.lockedUntil;
   }
@@ -456,6 +487,7 @@ export class ParentStore {
       s.pinSalt = bytesToHex(salt);
       s.pinIterations = this.iterations;
       s.pinHash = await hashPin(pin, salt, this.iterations);
+      s.pinDropped = null;
       s.failedAttempts = 0;
       s.lockedUntil = 0;
       await this.write();
