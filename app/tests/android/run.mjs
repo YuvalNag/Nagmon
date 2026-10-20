@@ -507,6 +507,45 @@ async function backEverywhere() {
   check(pidOf() === pid, "back never closed or restarted the app");
 }
 
+/**
+ * The parents' area on the phone: a child's grade changed and saved, and
+ * Android's back one page back on each page, out to who-plays. GitHub is
+ * only opened (no token here: the token flow is checked in Playwright
+ * against a stand-in, never the real GitHub from CI).
+ */
+async function parentsArea() {
+  await page.touch(id("parents"));
+  await typeCode();
+  await onScreen("parents", "the code opens the parents' area");
+  shot("c01_parents");
+  await page.touch(id("parents_children"));
+  await onScreen("parents-children", "'ילדים' opens the children");
+  await page.touch(".card");
+  await onScreen("parents-child", "a child's card opens the child");
+  const grade = await page.eval(`document.querySelector('[data-screen="parents-child"]').dataset.grade`);
+  const next = grade === "3" ? "4" : "3";
+  await page.touch(id("child_grade"));
+  await onScreen("parents-grade", "the grade opens");
+  await back("the grade", "parents-child");
+  await page.touch(id("child_grade"));
+  await onScreen("parents-grade", "the grade opens again");
+  await page.touch(id(`choice_${next}`));
+  await onScreen("parents-child", "a grade is saved and the child shown");
+  const saved = await page.eval(`document.querySelector('[data-screen="parents-child"]').dataset.grade`);
+  check(saved === next, `the grade is saved (${grade} to ${saved})`);
+  const problems = await page.eval(LAYOUT_PROBLEMS);
+  check(problems.length === 0, `the child's page fits (${problems.join("; ") || "nothing wrong"})`);
+  shot("c02_parents_child");
+  await back("the child", "parents-children");
+  await back("the children", "parents");
+  await page.touch(id("parents_github"));
+  await onScreen("parents-github", "GitHub opens");
+  await page.waitFor(`document.querySelector('[data-id="gh_status"]')?.textContent.includes("לא מחובר")`, { what: "the GitHub status" });
+  shot("c03_parents_github");
+  await back("GitHub", "parents");
+  await back("the parents' area", "who-plays");
+}
+
 /** Home, then the launcher's icon: the same screen, the same name typed, no reload. */
 async function homeAndBack() {
   await toLetters("נו");
@@ -899,6 +938,7 @@ if (started) {
   calibration = page.offset;
   await part("map", mapWalk);
   await part("back on every screen", backEverywhere);
+  await part("parents", parentsArea);
   await part("home and back", homeAndBack);
   await part("killed in the background", killedInBackground);
   await part("cold start", coldStart);
