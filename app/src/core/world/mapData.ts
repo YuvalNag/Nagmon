@@ -13,13 +13,13 @@ interface Property {
   value: unknown;
 }
 
-interface Condition {
+export interface Condition {
   operator: "is" | "not";
   type: string;
   args: string[];
 }
 
-interface Action {
+export interface Action {
   type: string;
   args: string[];
 }
@@ -27,6 +27,17 @@ interface Action {
 interface EventScript {
   conditions: Condition[];
   actions: Action[];
+  behaviors?: Action[];
+}
+
+/** One of the map's event scripts, in the map's order (core/world/events.ts runs them). */
+export interface WorldEvent {
+  id: number;
+  name: string;
+  conditions: Condition[];
+  actions: Action[];
+  /** `talk <npc>`: the event runs when the player talks to that person. */
+  behaviors: Action[];
 }
 
 interface TiledObject {
@@ -101,6 +112,8 @@ export interface WorldMap {
   blocked: BlockedExit[];
   /** The tile layers, bottom up; `above` are drawn over the walkers. */
   layers: { below: string[]; above: string[] };
+  /** Every event script on the map, in its order. */
+  events: WorldEvent[];
 }
 
 /** The game's state as conditions see it: variables (`key` -> `value`) and who exists. */
@@ -172,11 +185,13 @@ export function readMap(name: string, json: TiledMap, state: WorldState = NEW_GA
   let start: Tile | null = null;
   const npcs: Placement[] = [];
   const teleports: Teleport[] = [];
+  const events: WorldEvent[] = [];
   const characters = new Set(state.characters);
 
   for (const o of objects("events")) {
     const s = script(o);
     if (!s) continue;
+    events.push({ id: o.id, name: o.name, conditions: s.conditions, actions: s.actions, behaviors: s.behaviors ?? [] });
     for (const a of s.actions) {
       if (a.type === "play_music" && music === null) music = a.args[0];
       if (a.type === "set_teleport_faint" && mapName(a.args[1]) === name && start === null) {
@@ -230,6 +245,7 @@ export function readMap(name: string, json: TiledMap, state: WorldState = NEW_GA
     teleports,
     blocked,
     layers: { below: tileLayers.filter((n) => !above.includes(n)), above },
+    events,
   };
 }
 
