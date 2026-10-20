@@ -1,6 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import type { Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
+import { answer, openMap, quiz, seedChild, toCashier } from "./cashier";
 import { fitsAndSharp, touch, typeCode } from "./touch";
 
 /**
@@ -15,6 +16,11 @@ import { fitsAndSharp, touch, typeCode } from "./touch";
  */
 
 const id = (s: string) => `[data-id="${s}"]`;
+
+// the map projects run only the checks that walk the map (@map); the phone projects run the rest
+test.beforeEach(({}, info) => {
+  test.skip(info.project.name.startsWith("map") && !info.title.includes("@map"), "a phone project's check");
+});
 /** Android's minimum touch target, 48dp = 48 CSS px in the WebView. */
 const MIN_TARGET = 48;
 
@@ -219,3 +225,53 @@ test("who-plays with eight children, the longest name among them, at 130% text",
   await expect(page.locator("[data-screen=who-plays] .card")).toHaveCount(8);
   await audit(page, "who_eight", (name) => page.screenshot({ path: info.outputPath(`130-${name}.png`) }));
 });
+
+/**
+ * The cashier's screens (M4): the map with the talk button, the dialog,
+ * the owl's worked example, the question (choice cards with a picture for
+ * a kindergartener, the number pad for an older child), the hint, and the
+ * feedback, at 100% and 130% text.
+ */
+const CHILDREN = [
+  { label: "choices", grade: 0, settings: {} },
+  { label: "pad", grade: 4, settings: { learning: { answer_mode: "number" } } },
+];
+for (const scale of [1, 1.3]) {
+  for (const child of CHILDREN) {
+    test(`the cashier's screens (${child.label}) pass axe, 48dp and no clipping, at ${scale * 100}% text @map`, async ({ page }, info) => {
+      // the walk takes real steps on a software-drawn map
+      test.setTimeout(240_000);
+      await page.addInitScript((s) => {
+        const set = () => document.documentElement?.style.setProperty("--font-scale", String(s));
+        set();
+        document.addEventListener("DOMContentLoaded", set);
+      }, scale);
+      await seedChild(page, { grade: child.grade, settings: child.settings });
+      const shot = (name: string) => page.screenshot({ path: info.outputPath(`${scale * 100}-${child.label}-${name}.png`) });
+      await openMap(page);
+      await toCashier(page);
+      await audit(page, "20_map_talk", shot);
+      await touch(page, page.locator(id("map_talk")), 30);
+      const dialog = page.locator("[data-screen=dialog]");
+      await expect(dialog).toHaveAttribute("data-full", "true", { timeout: 10_000 });
+      await audit(page, "21_dialog", shot);
+      while (await dialog.count()) {
+        await expect(dialog).toHaveAttribute("data-full", "true", { timeout: 10_000 });
+        await touch(page, page.locator(id("dialog")), 30);
+      }
+      await expect(page.locator("[data-screen=quiz]")).toBeVisible();
+      if ((await quiz(page))!.phase === "example") {
+        await audit(page, "22_example", shot);
+        await touch(page, page.locator(id("quiz_example_done")), 30);
+      }
+      await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
+      expect((await quiz(page))!.kind).toBe(child.label === "pad" ? "number" : "choice");
+      await audit(page, "23_question", shot);
+      await touch(page, page.locator(id("quiz_hint")), 30);
+      await expect(page.locator(id("quiz_hint_text"))).toBeVisible();
+      await audit(page, "24_hint", shot);
+      await answer(page, "dont_know");
+      await audit(page, "25_feedback", shot);
+    });
+  }
+}

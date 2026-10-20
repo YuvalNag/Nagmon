@@ -737,7 +737,8 @@ button.quiz-choice {
 .quiz-keys {
   flex: none;
   display: grid;
-  grid-template-columns: repeat(4, 17vh);
+  /* as wide as the parent code's keys: "מחק" fits at 130% text */
+  grid-template-columns: repeat(4, 20vh);
   grid-auto-rows: 17vh;
   gap: 2vh;
 }
