@@ -17,6 +17,8 @@ from collections.abc import Callable
 
 from PIL import Image, ImageDraw
 
+from tools.app import kippah
+
 #: The two blues of the sign's disc, above and below source row 4 (y 16).
 DISC_TOP = (216, 223, 232, 255)
 DISC_LOW = (185, 200, 226, 255)
@@ -80,3 +82,20 @@ NOTE = (
 def apply(tileset: str, local: int, tile: Image.Image) -> Image.Image:
     repaint = OVERLAYS.get((tileset, local))
     return repaint(tile) if repaint else tile
+
+
+#: Whole-sheet repaints of the owner's HD character art (mod-relative
+#: path -> repaint). The hero boy wears a small kippah (the parent's
+#: wish), on the map in every frame and in battle; the profile card is
+#: cut from the battle sheet, so it has it too.
+SHEETS: dict[str, Callable[[Image.Image], Image.Image]] = {
+    "sprites/nagmon_hero_boy.png": kippah.map_sheet,
+    "gfx/sprites/player/nagmon_hero_boy.png": kippah.combat_sheet,
+}
+SHEET_NOTE = "A small kippah is drawn on the hero boy (tools/app/kippah.py)."
+
+
+def sheet(rel: str, image: Image.Image) -> Image.Image:
+    """``image`` (the file at mod path ``rel``) with its repaint, if any."""
+    repaint = SHEETS.get(rel)
+    return repaint(image) if repaint else image
