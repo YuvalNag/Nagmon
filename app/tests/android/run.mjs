@@ -150,13 +150,41 @@ adb("logcat", "-G", "16M");
 adb("logcat", "-c");
 const LOGCAT_FILE = join(out, "logcat.txt");
 let logcatDone = false;
+// the last lines written, to drop the ones a restarted stream repeats
+const recentLines = new Set();
+const recentOrder = [];
+let lastStamp = null;
+let logcatRestarts = 0;
 function streamLogcat() {
   const file = createWriteStream(LOGCAT_FILE, { flags: "a" });
-  const proc = spawn("adb", ["logcat", "-v", "threadtime", "-b", "main,system,crash"], { stdio: ["ignore", "pipe", "ignore"] });
-  proc.stdout.pipe(file);
+  // events: am_proc_died, am_kill, am_low_memory, am_proc_start
+  const args = ["logcat", "-v", "threadtime", "-b", "main,system,crash,events"];
+  // a restart starts where the last stream stopped, not at the buffer's
+  // beginning (the whole buffer again doubled every line)
+  if (lastStamp) args.push("-T", lastStamp);
+  const proc = spawn("adb", args, { stdio: ["ignore", "pipe", "ignore"] });
+  let rest = "";
+  proc.stdout.setEncoding("utf8");
+  proc.stdout.on("data", (chunk) => {
+    const lines = (rest + chunk).split("\n");
+    rest = lines.pop();
+    for (const line of lines) {
+      if (recentLines.has(line)) continue;
+      recentLines.add(line);
+      recentOrder.push(line);
+      if (recentOrder.length > 50_000) recentLines.delete(recentOrder.shift());
+      const stamp = line.match(/^(\d\d-\d\d \d\d:\d\d:\d\d\.\d{3})/)?.[1];
+      if (stamp) lastStamp = stamp;
+      file.write(line + "\n");
+    }
+  });
   // adb drops now and then: stream again, appending
-  proc.on("exit", () => {
-    if (!logcatDone) setTimeout(streamLogcat, 1000);
+  proc.on("exit", (code) => {
+    file.end();
+    if (logcatDone) return;
+    logcatRestarts++;
+    console.log(`logcat stream ended (exit ${code}); streaming again from ${lastStamp ?? "the start"}`);
+    setTimeout(() => (logcatProc = streamLogcat()), 1000);
   });
   return proc;
 }
@@ -166,6 +194,8 @@ async function logFile() {
   await sleep(1500);
   return readFileSync(LOGCAT_FILE, "utf8");
 }
+console.log(`the device: ${adb("shell", "nproc")} CPUs, ${adb("shell", "grep", "MemTotal", "/proc/meminfo")}`);
+await settle();
 adb("install", "-r", apk);
 adb("shell", "settings", "put", "system", "accelerometer_rotation", "0");
 adb("shell", "settings", "put", "system", "user_rotation", "1");
@@ -252,6 +282,97 @@ const inFront = () =>
     .split("\n")
     .filter((l) => /ResumedActivity/.test(l))
     .some((l) => l.includes(PACKAGE));
+
+// ---------------------------------------------------- the device's health
+
+/** The pids the run stopped on purpose (force-stop, am kill, install): their exits are expected. */
+const expectedExits = new Set();
+/** Stops the app on purpose (an adb command), noting its pid. */
+function stopApp(...cmd) {
+  const p = pidOf();
+  if (p) expectedExits.add(p);
+  return adb(...cmd);
+}
+
+/** Load, memory and memory pressure, with the app's and its renderer's memory: one line. */
+function health(label) {
+  try {
+    const load = adb("shell", "cat", "/proc/loadavg");
+    const mem = adb("shell", "dumpsys", "meminfo").split("\n");
+    const sum = mem
+      .filter((l) => /^\s*(Total RAM|Free RAM|Used RAM|Lost RAM)/.test(l))
+      .map((l) => l.trim().replace(/\s+/g, " ").replace(/ \(.*$/, ""))
+      .join("; ");
+    const ours = [...new Set(mem.filter((l) => /K: (org\.nagmon\.app|com\.google\.android\.webview:sandboxed_process)/.test(l)).map((l) => l.trim()))]
+      .slice(0, 3)
+      .join("; ");
+    let psi = "";
+    try {
+      psi = adb("shell", "cat", "/proc/pressure/memory").split("\n")[0];
+    } catch {
+      psi = "no PSI";
+    }
+    console.log(`health ${label}: load ${load}; ${sum}; ${ours || "app not running"}; memory pressure ${psi}`);
+  } catch (e) {
+    console.log(`health ${label}: ${String(e).split("\n")[0]}`);
+  }
+}
+
+/**
+ * The other apps' content providers the app's process holds. A stable hold
+ * ties the app to that process: when it dies, Android kills the app too
+ * ("depends on provider ... in dying proc").
+ */
+function heldProviders(label) {
+  try {
+    const pid = pidOf();
+    const held = adb("shell", "dumpsys", "activity", "processes")
+      .split("\n")
+      .filter((l) => pid && l.includes(`->${pid}:${PACKAGE}`))
+      .map((l) => l.trim().replace(/^- \w+\//, ""));
+    console.log(`providers the app holds (${label}): ${held.join("; ") || "none"}`);
+    return held;
+  } catch (e) {
+    console.log(`providers the app holds (${label}): ${String(e).split("\n")[0]}`);
+    return [];
+  }
+}
+
+/** Android's own record of how the app's processes ended (ApplicationExitInfo). */
+const exits = [];
+function exitInfo(label) {
+  let text = "";
+  try {
+    text = adb("shell", "dumpsys", "activity", "exit-info", PACKAGE);
+  } catch (e) {
+    console.log(`exit-info ${label}: ${String(e).split("\n")[0]}`);
+    return [];
+  }
+  const fresh = [];
+  for (const block of text.split(/ApplicationExitInfo #\d+:/).slice(1)) {
+    const get = (re) => block.match(re)?.[1];
+    const e = {
+      pid: get(/\bpid=(\d+)/),
+      time: get(/timestamp=(\S+ \S+)/),
+      reason: get(/\breason=\d+ \((\w+)\)/),
+      sub: get(/subreason=\d+ \((\w+)\)/),
+      status: get(/status=(-?\d+)/),
+      importance: get(/importance=(\d+)/),
+      pss: get(/\bpss=(\S+)/),
+      rss: get(/\brss=(\S+)/),
+      description: get(/description=(.*)/)?.trim(),
+    };
+    if (!e.pid || exits.some((x) => x.pid === e.pid)) continue;
+    e.part = label;
+    exits.push(e);
+    fresh.push(e);
+    console.log(
+      `exit-info (${label}): pid ${e.pid} ${e.reason}/${e.sub} status ${e.status} importance ${e.importance} pss ${e.pss} rss ${e.rss} at ${e.time}: ${e.description}` +
+        (expectedExits.has(e.pid) ? " [stopped by the run]" : ""),
+    );
+  }
+  return fresh;
+}
 
 // where the page sits on the screen, from the first run's calibration
 let calibration = null;
@@ -352,6 +473,7 @@ async function mapWalk() {
   });
   await sleep(1000);
   shot("a06_map");
+  heldProviders("with the map open");
   const d = await page.eval(map);
   console.log(
     `map: ${d.map}, ${d.renderer}, canvas ${d.canvas.width}x${d.canvas.height} for ${d.canvas.cssWidth.toFixed(1)}x${d.canvas.cssHeight.toFixed(1)} CSS px at DPR ${d.dpr}, zoom ${d.zoom}`,
@@ -383,6 +505,7 @@ async function mapWalk() {
   check(after.x < start.x && after.y === start.y, "a held arrow walks the hero left");
   check(after.x <= start.x - 2, `it walks on while held (${start.x - after.x} tiles)`);
   shot("a07_map_walked");
+  heldProviders("after the walk, the music on");
   // a slow window takes 1 s of warm-up and 3 s of frames
   try {
     await page.waitFor(`${map}.resolution.changes.length > 0 || ${map}.frames.avgFps >= 45`, {
@@ -553,17 +676,68 @@ async function homeAndBack() {
   await back("the name board after coming back", "who-plays");
 }
 
+/** What the launcher's icon sends: the singleTask activity comes to the front. */
+async function bringBack(ms = 2000) {
+  adb("shell", "am", "start", "-a", "android.intent.action.MAIN", "-c", "android.intent.category.LAUNCHER", "-n", `${PACKAGE}/.MainActivity`);
+  await sleep(ms);
+}
+
+/**
+ * HOME in the middle of work: while the parent code is being checked
+ * (PBKDF2), and with the map open (its WebGL canvas alive). The app must
+ * live on in the same process and come back where it was.
+ */
+async function homeDuringWork() {
+  const map = "window.__nagmonMap?.debug()";
+  const pid = pidOf();
+  await onScreen("who-plays", "before HOME during work the app is on");
+  await page.touch(id("parents"));
+  await onScreen("pin", "the parents' button opens");
+  for (const [i, d] of [...CODE].entries()) await page.touch(id(`key_${d}`), 120, { settle: i === 0 });
+  // right after the 4th digit: the check runs as the app goes behind the launcher
+  key("KEYCODE_HOME");
+  await sleep(4000);
+  check(!inFront(), "home during the code's check: the app went behind the launcher");
+  await bringBack();
+  const after = await shown();
+  check(pidOf() === pid, `home during the code's check: the same process (${pid} -> ${pidOf() || "none"})`);
+  check(after === "parents", `the check finished while away: the parents' area (${after})`);
+  if (after !== "who-plays") await back(`the ${after} screen`, "who-plays");
+
+  await page.touch(".card");
+  await page.waitFor(`document.querySelector('[data-screen="play"][data-map="ready"]') && ${map}?.ready`, { timeoutMs: 60_000, what: "the map" });
+  await sleep(1000);
+  key("KEYCODE_HOME");
+  await sleep(5000);
+  const away = await page.eval(map);
+  check(away.paused.includes("lifecycle"), `in the background the map is paused (${away.paused.join(", ")})`);
+  await bringBack(3000);
+  const back2 = await page.eval(map);
+  check(pidOf() === pid, `home with the map open: the same process (${pid} -> ${pidOf() || "none"})`);
+  check(
+    (await page.eval(`Boolean(document.querySelector('[data-screen="play"][data-map="ready"]'))`)) && back2.paused.length === 0,
+    `the map is there again and running (${back2.paused.join(", ") || "not paused"})`,
+  );
+  check(!back2.webgl.contextLost, `the map's WebGL is drawing (lost ${back2.webgl.lost}, restored ${back2.webgl.restored})`);
+  shot("c03_map_after_home");
+  key("KEYCODE_BACK");
+  await page.waitFor(screen("map-menu"), { what: "the pause menu" });
+  await page.touch(id("map_exit"));
+  await onScreen("who-plays", "the menu's way out");
+}
+
 /** Android kills the app in the background; it opens again on who-plays, with everything. */
 async function killedInBackground() {
   const children = await cards();
   key("KEYCODE_HOME");
   await sleep(2000);
-  adb("shell", "am", "kill", PACKAGE);
+  stopApp("shell", "am", "kill", PACKAGE);
   await sleep(1500);
   let how = "am kill";
   const left = pidOf();
   if (left) {
     // am kill spares a process it thinks is still in use; a low-memory kill would not
+    expectedExits.add(left);
     runAs("kill", "-9", left);
     how = "kill -9, am kill left it";
     await sleep(1000);
@@ -598,7 +772,7 @@ async function threeColdStarts(label, { pageTimes }) {
   for (let i = 0; i < 3; i++) {
     page?.close();
     page = null;
-    adb("shell", "am", "force-stop", PACKAGE);
+    stopApp("shell", "am", "force-stop", PACKAGE);
     await sleep(2000);
     const seen = drawnLines().length;
     const out = adb("shell", "am", "start", "-W", "-n", `${PACKAGE}/.MainActivity`);
@@ -641,12 +815,12 @@ async function coldStart() {
   let which = "debug build";
   if (benchmarkApk) {
     // same key and version: it installs over the debug build and keeps the data
-    adb("install", "-r", benchmarkApk);
+    stopApp("install", "-r", benchmarkApk);
     try {
       gated = await threeColdStarts("benchmark build", { pageTimes: false });
       which = "benchmark build (release, not debuggable)";
     } finally {
-      adb("install", "-r", apk);
+      stopApp("install", "-r", apk);
     }
   }
   console.log(`cold start to who-plays: ${which} median ${gated} ms (debug build ${debugMs} ms; phone target 2000 ms, CI limit ${MAX_COLD_START_MS} ms)`);
@@ -791,9 +965,38 @@ async function wholeRun() {
   // process is a relaunch, which reloads the page and loses the child's place
   const created = lines.filter((l) => /NagmonShell: activity created/.test(l));
   console.log(lines.filter((l) => /NagmonShell/.test(l)).join("\n"));
-  const pids = created.map((l) => l.trim().split(/\s+/)[2]);
-  const again = pids.filter((p, i) => pids.indexOf(p) !== i);
+  // the same line twice (a stream that repeated itself) is one creation:
+  // a recreation is a second creation, at another time, in the same process
+  const times = new Map();
+  for (const l of created) {
+    const [date, time, pid] = l.trim().split(/\s+/);
+    if (!times.has(pid)) times.set(pid, new Set());
+    times.get(pid).add(`${date} ${time}`);
+  }
+  const again = [...times].filter(([, t]) => t.size > 1).map(([p]) => p);
   check(again.length === 0, `Android never recreated the activity in a running app${again.length ? ` (pid ${again.join(", ")})` : ""}`);
+  console.log(`logcat stream restarts: ${logcatRestarts}`);
+  // the renderer's death takes the app with it unless MainActivity takes it over
+  const gone = lines.filter((l) => /NagmonShell: the page's renderer is gone|AwBrowserTerminator|Render process.*crash/.test(l));
+  check(gone.length === 0, `the page's renderer never died${gone.length ? `: ${gone.slice(0, 3).join(" | ")}` : ""}`);
+  // what Android did to the app's processes, all run long
+  const events = lines.filter((l) => /\b(am_proc_died|am_kill|am_low_memory|am_crash|am_anr|am_proc_start)\b/.test(l) && /nagmon/.test(l));
+  console.log(`--- Android's events for the app (${events.length})\n` + events.slice(-60).join("\n"));
+  const lmk = lines.filter((l) => /lowmemorykiller: Kill|\bam_kill\b.*\blmk\b/.test(l));
+  console.log(`low-memory kills in the run: ${lmk.length}\n${lmk.slice(-20).join("\n")}`);
+  exitInfo("end of the run");
+  // the page's renderer (an isolated process of the app) ends "isolated not
+  // needed" with the app's process: expected when that one was stopped by
+  // the run, within a few seconds; on its own it is the renderer dying
+  const at = (e) => Date.parse(String(e.time).replace(" ", "T"));
+  const followsStop = (e) =>
+    /isolated not needed/.test(e.description ?? "") &&
+    exits.some((x) => x !== e && expectedExits.has(x.pid) && Math.abs(at(x) - at(e)) < 5000);
+  const unexpected = exits.filter((e) => !expectedExits.has(e.pid) && !followsStop(e));
+  check(
+    unexpected.length === 0,
+    `the app's process ended only when the run stopped it${unexpected.length ? `: ${unexpected.map((e) => `pid ${e.pid} ${e.reason}/${e.sub} in "${e.part}": ${e.description}`).join(" | ")}` : ""}`,
+  );
   const appLog = runAs("cat", "files/nagmon/app_log.txt");
   for (const name of ["נועה", "דן"]) {
     const where = [all.includes(name) && "the system log", appLog.includes(name) && "the app's log"].filter(Boolean);
@@ -827,11 +1030,24 @@ function dumpLogs() {
 /** One part of the run: a failure is noted, screenshotted, and the run goes on. */
 async function part(name, fn) {
   console.log(`--- ${name}`);
+  health(`before "${name}"`);
+  heldProviders(`before "${name}"`);
   try {
     await fn();
+    heldProviders(`after "${name}"`);
+    exitInfo(name);
   } catch (e) {
     failures.push(`${name}: ${e}`);
     console.log("FAIL", name, e);
+    // why: how the app's process ended (if it did), the device's state, and the log's last word on it
+    exitInfo(name);
+    health(`after "${name}" failed`);
+    try {
+      const why = /nagmon|NagmonShell|AwBrowserTerminator|[Rr]ender(er)? process|lowmemorykiller|lmkd|am_kill|am_proc_died|am_low_memory|ActivityManager: (Killing|Process)/;
+      console.log("--- the log's last lines on it\n" + readFileSync(LOGCAT_FILE, "utf8").split("\n").filter((l) => why.test(l)).slice(-60).join("\n"));
+    } catch (le) {
+      console.log("no log:", String(le).split("\n")[0]);
+    }
     try {
       shot(`z_${name.replace(/\W+/g, "_")}`);
     } catch (se) {
@@ -841,13 +1057,51 @@ async function part(name, fn) {
     try {
       page?.close();
       page = null;
-      adb("shell", "am", "force-stop", PACKAGE);
+      stopApp("shell", "am", "force-stop", PACKAGE);
       await launch();
       await attach();
     } catch (re) {
       console.log("could not start the app again:", String(re).split("\n")[0]);
     }
   }
+}
+
+/** How busy the device's CPUs are (%), over windows of `ms`, from /proc/stat. */
+async function cpuBusy(windows, ms) {
+  const read = () => {
+    const [, ...f] = adb("shell", "head", "-1", "/proc/stat").trim().split(/\s+/).map(Number);
+    const idle = f[3] + f[4];
+    return { idle, total: f.reduce((a, b) => a + b, 0) };
+  };
+  const out = [];
+  let a = read();
+  for (let i = 0; i < windows; i++) {
+    await sleep(ms);
+    const b = read();
+    out.push(Math.round(100 * (1 - (b.idle - a.idle) / Math.max(1, b.total - a.total))));
+    a = b;
+  }
+  return out;
+}
+
+/**
+ * A freshly booted emulator is busy for minutes (Play services updating
+ * and restarting itself, search indexing, package scans): the first runs
+ * measured 97-100% CPU and a load of 18 on 2 CPUs. The family's phone is
+ * not two minutes after a boot, so the checks wait until the device is
+ * quiet: two 5 s windows under 50% busy, up to 5 minutes, printed.
+ */
+async function settle() {
+  const seen = [];
+  const end = Date.now() + 300_000;
+  let quiet = 0;
+  while (Date.now() < end && quiet < 2) {
+    const [busy] = await cpuBusy(1, 5000);
+    seen.push(busy);
+    quiet = busy < 50 ? quiet + 1 : 0;
+  }
+  console.log(`CPU busy while the device settles, % per 5 s: ${seen.join(" ")} (${quiet >= 2 ? "quiet" : "still busy after 5 minutes"})`);
+  check(quiet >= 2, "the device is quiet before the checks (two 5 s windows under 50% CPU)");
 }
 
 let started = false;
@@ -857,6 +1111,21 @@ await part("first run", async () => {
   // drawn with its font: the app says so once the font is in (src/main.tsx)
   await page.waitFor("window.__startedAt !== undefined", { timeoutMs: 30_000, what: "the app to report who-plays drawn" });
   await page.eval("document.fonts.ready.then(() => true)");
+  // the game engine waits for the map: nothing of it before the child's card
+  const engine = await page.eval(`({
+    phaser: typeof window.Phaser !== "undefined",
+    scripts: performance.getEntriesByType("resource").map((r) => r.name.split("/").pop()).filter((n) => /\\.js$/.test(n)),
+  })`);
+  console.log("scripts loaded before the map:", engine.scripts.join(" "));
+  check(!engine.phaser && !engine.scripts.some((n) => /mapGame|phaser/i.test(n)), "the game engine is not loaded before the map opens");
+  // the parent code's hash, as the app runs it (src/core/family/parent.ts)
+  const pbkdf2 = await page.eval(`(async () => {
+    const key = await crypto.subtle.importKey("raw", new TextEncoder().encode("0000"), "PBKDF2", false, ["deriveBits"]);
+    const t0 = performance.now();
+    await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: new Uint8Array(16), iterations: 240000 }, key, 256);
+    return Math.round(performance.now() - t0);
+  })()`);
+  console.log(`PBKDF2-SHA-256, 240,000 iterations, in the WebView: ${pbkdf2} ms`);
   const size = await page.eval(`({
     w: innerWidth,
     h: innerHeight,
@@ -900,6 +1169,7 @@ if (started) {
   await part("map", mapWalk);
   await part("back on every screen", backEverywhere);
   await part("home and back", homeAndBack);
+  await part("home during work", homeDuringWork);
   await part("killed in the background", killedInBackground);
   await part("cold start", coldStart);
   await part("system font at 130%", largeFont);

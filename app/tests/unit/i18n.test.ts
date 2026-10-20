@@ -9,3 +9,10 @@ describe("texts", () => {
     }
   });
 });
+
+describe("the code-saved notice", () => {
+  it("promises nothing the parents' area does not have yet (the token comes in a later milestone)", () => {
+    expect(t("pinSaved")).toBe("הקוד נשמר.");
+    expect(t("pinSaved")).not.toContain("GitHub");
+  });
+});
