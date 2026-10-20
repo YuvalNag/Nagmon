@@ -15,7 +15,14 @@ from tuxemon.db import (
     BattleMusicModel,
     EnvironmentModel,
 )
-from tuxemon.graphics import load_and_scale, load_raw_image, scale_surface
+from tuxemon.graphics import (
+    HD_TWIN_FACTOR,
+    fetch_hd_twin,
+    load_native_or_hd,
+    load_raw_image,
+    scale_surface,
+    smooth_resize,
+)
 from tuxemon.prepare import DisplayContext
 
 logger = logging.getLogger(__name__)
@@ -273,22 +280,45 @@ class Environment:
         return self._battle_layout
 
     def prepare_background(self, screen_size: tuple[int, int]) -> Surface:
-        """Processes the background sprite to fit the screen dimensions."""
+        """
+        Processes the background sprite to fit the screen dimensions.
+
+        A screen wider than the picture at the game's scale (a 20:9
+        phone) gets it bigger, smoothly, across the whole width, without
+        stretching: the middle of the picture stays where it was, and a
+        few rows at the top and bottom are cut (SDD_ANDROID §2.8).
+        """
         graphics = self.data.get_battle_graphics()
         scale_int = self.context.scale
-        surf = load_and_scale(graphics.background, scale_int)
-
         full_width, full_height = screen_size
+        source, k = load_native_or_hd(graphics.background)
+        native_w = source.get_width() // k
+        native_h = source.get_height() // k
+        base_h = native_h * scale_int
+        if native_w * scale_int >= full_width:
+            # as load_and_scale does, without loading it again
+            surf = (
+                smooth_resize(source, (native_w * scale_int, base_h))
+                if k > 1
+                else scale_surface(source, scale_int)
+            )
+            top = 0
+        else:
+            height = round(native_h * full_width / native_w)
+            surf = smooth_resize(source, (full_width, height))
+            top = (base_h - height) // 2
+
         full_surf = Surface((full_width, full_height))
         full_surf.fill((0, 0, 0))
-        full_surf.blit(surf, (0, 0))
+        full_surf.blit(surf, (0, top))
 
         # Stretch the last row to fill the bottom (for dialog area)
-        if surf.get_height() < full_height:
+        bottom = top + surf.get_height()
+        if bottom < full_height:
             last_row = surf.subsurface(
                 Rect(0, surf.get_height() - 1, surf.get_width(), 1)
             )
-            for y in range(surf.get_height(), full_height):
+            for y in range(bottom, full_height):
                 full_surf.blit(last_row, (0, y))
 
         return full_surf
@@ -309,8 +339,13 @@ class IslandSheet:
         self.frames = self._slice()
 
     def _slice(self) -> dict[str, Surface]:
-        sheet = load_raw_image(self.file_path)
+        # An HD twin (SDD_ANDROID §2.8) is cut at k times and scaled once,
+        # smoothly, to the screen.
+        twin = fetch_hd_twin(self.file_path)
+        k = HD_TWIN_FACTOR if twin else 1
+        sheet = load_raw_image(twin or self.file_path)
         w, h = sheet.get_size()
+        w, h = w // k, h // k
 
         expected_w = self.frame_w * 2
         expected_h = self.frame_h
@@ -321,13 +356,17 @@ class IslandSheet:
                 f"{expected_w}x{expected_h}, but is {w}x{h}"
             )
 
-        back_raw = sheet.subsurface((0, 0, self.frame_w, self.frame_h))
-        front_raw = sheet.subsurface(
-            (self.frame_w, 0, self.frame_w, self.frame_h)
-        )
+        fw, fh = self.frame_w * k, self.frame_h * k
+        back_raw = sheet.subsurface((0, 0, fw, fh))
+        front_raw = sheet.subsurface((fw, 0, fw, fh))
         scale_int = self.context.scale
-        back_scaled = scale_surface(back_raw, scale_int)
-        front_scaled = scale_surface(front_raw, scale_int)
+        if k > 1:
+            size = (self.frame_w * scale_int, self.frame_h * scale_int)
+            back_scaled = smooth_resize(back_raw, size)
+            front_scaled = smooth_resize(front_raw, size)
+        else:
+            back_scaled = scale_surface(back_raw, scale_int)
+            front_scaled = scale_surface(front_raw, scale_int)
 
         return {
             "back": back_scaled,
