@@ -776,3 +776,19 @@ def test_battle_box_text_has_no_missing_signs():
     monster = SimpleNamespace(name="גאומטריון", gender_symbol="♂", level=6)
     line = build_hud_text("MainCombatMenuState", monster, True, False, False)
     assert "♂" not in line["line1"] and "♀" not in line["line1"]
+
+
+def test_who_plays_has_a_send_log_button_on_a_phone(phone, hebrew, runtime):
+    from mods.nagmon.states.profiles import ProfileSelectState
+
+    state = ProfileSelectState(make_client())
+    ids = {w.get_id() for w in state.menu.get_widgets()}
+    assert "share_log" in ids
+    assert widgets_on_screen(state.menu) == []
+
+
+def test_who_plays_on_a_computer_has_no_send_log(desktop, hebrew, runtime):
+    from mods.nagmon.states.profiles import ProfileSelectState
+
+    state = ProfileSelectState(make_client())
+    assert "share_log" not in {w.get_id() for w in state.menu.get_widgets()}

@@ -44,6 +44,8 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 PIN_LENGTH = 4
+#: The subject line of a shared log (an e-mail's, for example).
+LOG_SUBJECT = "Nagmon log"
 
 
 # ---------------------------------------------------------------- parents
@@ -309,6 +311,16 @@ class ProfileSelectState(PygameMenuState):
                 button_id="parents",
             ),
         ]
+        if mobile.is_android():
+            # the log through the share sheet, no token (SDD_ANDROID §2.7)
+            tools.append(
+                menu.add.button(
+                    T.translate("nagmon_share_log"),
+                    self.share_log,
+                    font_size=self.font_type.small,
+                    button_id="share_log",
+                )
+            )
         self._fit_on_phone(menu, title, children, tools)
 
     def _fit_on_phone(
@@ -360,6 +372,28 @@ class ProfileSelectState(PygameMenuState):
             self.rt,
             lambda: self.client.push_state("ParentMenuState"),
         )
+
+    def share_log(self) -> None:
+        """Android's share sheet with the log; the parent picks where."""
+        from nagmon.field_data.uploads import FieldData, share_log
+
+        def send(text: str) -> None:
+            from nagmon.android.crash_dialog import share
+
+            share(
+                text,
+                subject=LOG_SUBJECT,
+                title=T.translate("nagmon_share_log_title"),
+            )
+
+        try:
+            shared = share_log(FieldData(self.rt.root), send)
+        except Exception:  # no share sheet: the game goes on
+            logger.exception("Could not open the share sheet")
+            say(self.client, T.translate("nagmon_share_log_failed"))
+            return
+        if not shared:
+            say(self.client, T.translate("nagmon_share_log_empty"))
 
     def resume(self) -> None:
         super().resume()

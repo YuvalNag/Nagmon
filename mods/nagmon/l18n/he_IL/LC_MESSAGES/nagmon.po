@@ -59,6 +59,9 @@ msgstr "שליחת היומן של נגמון"
 msgid "nagmon_share_log_empty"
 msgstr "היומן עוד ריק."
 
+msgid "nagmon_share_log_failed"
+msgstr "לא הצלחנו לפתוח את חלון השיתוף."
+
 msgid "nagmon_pin_wrong"
 msgstr "קוד שגוי. נסו שוב."
 

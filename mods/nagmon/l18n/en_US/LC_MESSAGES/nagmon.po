@@ -60,6 +60,9 @@ msgstr "Send the Nagmon log"
 msgid "nagmon_share_log_empty"
 msgstr "The log is still empty."
 
+msgid "nagmon_share_log_failed"
+msgstr "Could not open the share window."
+
 msgid "nagmon_pin_wrong"
 msgstr "Wrong code. Try again."
 

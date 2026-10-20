@@ -446,3 +446,61 @@ def test_a_snapshot_that_breaks_says_so_and_the_game_goes_on(ui, monkeypatch):
     ui.tap("nagmon_github_send")
     assert ui.said[-1] == T.format("nagmon_github_failed", {"repo": DATA_REPO})
     assert ui.puts == [] and not ui.state.sending
+
+
+# ------------------------------------------------------------ share sheet
+# "Send log" on "who is playing", without a token (SDD_ANDROID §2.7).
+
+
+def _shared(field, text):
+    from nagmon.field_data.uploads import share_log
+
+    got: list[str] = []
+    assert share_log(field, got.append, text=text)
+    assert len(got) == 1
+    return got[0]
+
+
+def test_the_shared_log_hides_keys_tokens_and_names(ui):
+    connect(ui)  # the saved token
+    other = "ghp_" + "Z" * 36  # a token of a known shape, never saved
+    text = (
+        f"12:00:00 INFO nagmon: token {TOKEN}\n"
+        f"12:00:01 WARNING x: Authorization: Bearer {other}\n"
+        "12:00:02 INFO nagmon: player נועה and Zephyrine\n"
+    )
+    shared = _shared(ui.state.data, text)
+    assert TOKEN not in shared and other not in shared
+    assert "נועה" not in shared and "Zephyrine" not in shared
+    assert "12:00:02 INFO nagmon: player" in shared
+
+
+def test_the_shared_log_is_its_last_200_kb(ui):
+    from nagmon.field_data.uploads import SHARE_LIMIT
+
+    lines = [f"12:00:00 INFO nagmon: line {i:06d} שלום" for i in range(9000)]
+    shared = _shared(ui.state.data, "\n".join(lines) + "\n")
+    assert len(shared.encode("utf-8")) <= SHARE_LIMIT
+    assert SHARE_LIMIT == 200_000
+    assert shared.endswith("line 008999 שלום\n")
+    # it starts at the start of a line
+    assert shared.startswith("12:00:00 INFO nagmon: line ")
+
+
+def test_an_empty_log_shares_nothing(ui):
+    from nagmon.field_data.uploads import share_log
+
+    got: list[str] = []
+    assert not share_log(ui.state.data, got.append, text=" \n")
+    assert got == []
+
+
+def test_sharing_reads_the_app_log(ui, monkeypatch):
+    from nagmon.field_data import uploads
+
+    saved = []
+    monkeypatch.setattr(uploads.app_log, "save", lambda **kw: saved.append(1))
+    monkeypatch.setattr(uploads.app_log, "text", lambda: "a line\n")
+    got: list[str] = []
+    assert uploads.share_log(ui.state.data, got.append)
+    assert got == ["a line\n"] and saved == [1]
