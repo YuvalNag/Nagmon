@@ -21,6 +21,7 @@ import { Encounters, type Wild } from "../../core/game/encounters";
 import { introNeeded } from "../../core/game/intro";
 import { BattleScreen } from "../BattleScreen";
 import { BagView } from "../BagView";
+import { FriendsView } from "../FriendsView";
 import { BestiaryScreen } from "../BestiaryScreen";
 import { TripScreen } from "../TripScreen";
 import { progressPercent, refreshProgress, tripFor, type Trip } from "../../core/game/trips";
@@ -107,7 +108,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   // a wild creature met in the grass: one friendly battle
   const [battle, setBattle] = useState<{ wild: Wild; map: string; trip?: Trip } | null>(null);
   // the menu's pages: Mila's vehicle and the bestiary; a trip asked for waits until the menu is closed
-  const [panel, setPanel] = useState<"trips" | "bestiary" | "bag" | null>(null);
+  const [panel, setPanel] = useState<"trips" | "bestiary" | "bag" | "friends" | null>(null);
   const [pending, setPending] = useState<{ map: string; at: { x: number; y: number } | null } | null>(null);
   const [mapNow, setMapNow] = useState<string | null>(null);
   const battleLeave = useRef<(() => void) | null>(null);
@@ -522,6 +523,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           onChanged={() => setCoins(play.world.money)}
         />
       )}
+      {menuOpen && panel === "friends" && play && <FriendsView play={play} onClose={() => setPanel(null)} />}
       {menuOpen && panel === "bag" && play && <BagView play={play} onClose={() => setPanel(null)} />}
       {menuOpen && panel === "bestiary" && play && <BestiaryScreen play={play} onClose={() => setPanel(null)} />}
       {menuOpen && !panel && (
@@ -540,6 +542,11 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
               {play && play.trips.length > 0 && (
                 <Tap id="map_trips" onTap={() => setPanel("trips")}>
                   {t("menuTrips")}
+                </Tap>
+              )}
+              {play && partnerOf(play.world) && (
+                <Tap id="map_friends" onTap={() => setPanel("friends")}>
+                  {t("friendsTitle")}
                 </Tap>
               )}
               {play && partnerOf(play.world) && (

@@ -13,6 +13,8 @@ import type { Creature, WorldState } from "../world/worldState";
 
 export const MAX_LEVEL = 50;
 export const MIN_EVOLVE = 6;
+/** The friends that go along: the first four creatures; the rest wait in the Meadow. */
+export const PARTY_SIZE = 4;
 
 /** What the game needs to know about one species (from db/monsters.json). */
 export interface MonsterInfo {

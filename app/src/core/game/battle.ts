@@ -13,15 +13,15 @@ import type { LearningEngine } from "../learning/engine";
 import type { SubjectMap } from "../learning/quiz_flow";
 import { type HelperBag, type HelperKind, type QuizRequest, QuizSession } from "../world/quiz";
 import type { Creature, WorldState } from "../world/worldState";
-import { addCreature, giveXp, type Growth, markSeen, partner as partnerOf } from "./collection";
+import { addCreature, giveXp, type Growth, markSeen, PARTY_SIZE, partner as partnerOf } from "./collection";
 import { claimSpareNet, countOf, type Economy, type Item, spendBoost, take } from "./items";
+import { setPartner } from "./party";
 import type { Wild } from "./encounters";
 import type { FieldLog } from "./fieldLog";
 import type { MonsterTable } from "./monsters";
 
 export const MAX_CREATURES = 60;
-/** The friends that go along: the first four; the rest wait in the Meadow. */
-export const PARTY_SIZE = 4;
+export { PARTY_SIZE };
 
 /** The wild creature's health, from its level. */
 export function hpFor(level: number): number {
@@ -88,7 +88,7 @@ export interface BattleOptions {
 const TRIES = 5;
 
 export class Battle {
-  readonly partner: Creature;
+  partner: Creature;
   readonly maxHp: number;
   hp: number;
   phase: BattlePhase = "fighting";
@@ -101,7 +101,7 @@ export class Battle {
   /** Tries at the seal in this meeting (a wrong one is only a try). */
   tries = 0;
   lastSeal: SealResult | null = null;
-  private readonly subject: string;
+  private subject: string;
 
   constructor(private readonly o: BattleOptions) {
     const p = partnerOf(o.world);
@@ -112,6 +112,18 @@ export class Battle {
     const info = o.monsters[o.wild.species];
     this.subject = o.subjects.subjectFor(info?.types ?? [], null, o.wild.species);
     markSeen(o.world, o.wild.species);
+  }
+
+  /** Friends: another friend of the party becomes the partner, and the questions are about what it is good at. */
+  swapPartner(id: string): boolean {
+    if (this.phase !== "fighting" && this.phase !== "calm") return false;
+    if (!setPartner(this.o.world, id)) return false;
+    this.partner = partnerOf(this.o.world)!;
+    const info = this.o.monsters[this.partner.species];
+    this.subject = this.o.subjects.subjectFor(info?.types ?? [], null, this.partner.species);
+    this.o.field.note("partner", { species: this.partner.species, subject: this.subject });
+    this.o.onChange();
+    return true;
   }
 
   start(map: string): void {
@@ -205,9 +217,12 @@ export class Battle {
   throwNet(eco: Economy, netId: string): Item | null {
     const net = eco.items[netId];
     if (this.phase !== "calm" || !net || net.kind !== "net" || countOf(this.o.world, netId) < 1) return null;
-    this.net = net;
-    this.sealLeft = this.sealNeeded(net);
-    this.o.field.item({ item: net.id, where: "battle", ok: true });
+    // the same net again goes on with the seals already broken; another net starts over
+    if (this.net?.id !== net.id) {
+      this.net = net;
+      this.sealLeft = this.sealNeeded(net);
+      this.o.field.item({ item: net.id, where: "battle", ok: true });
+    }
     return net;
   }
 

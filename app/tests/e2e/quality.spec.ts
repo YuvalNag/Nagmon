@@ -392,12 +392,15 @@ for (const scale of [1, 1.3]) {
       await touch(page, page.locator(id("battle_next")), 30);
       await answer(page, "right");
       await touch(page, page.locator(id("quiz_continue")), 30);
+      if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")), 30);
     }
     await expect(page.locator("[data-screen=battle][data-view=calm]")).toBeVisible();
     await audit(page, "43_calm", shot);
-    await touch(page, page.locator(id("battle_net")), 30);
-    await answer(page, "right");
-    await touch(page, page.locator(id("quiz_continue")), 30);
+    for (let i = 0; i < 3 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
+      await touch(page, page.locator(id("battle_net")), 30);
+      await answer(page, "right");
+      await touch(page, page.locator(id("quiz_continue")), 30);
+    }
     await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
     await audit(page, "44_new_friend", shot);
   });

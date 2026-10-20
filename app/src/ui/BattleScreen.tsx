@@ -13,7 +13,8 @@ import { ActionBar } from "./battle/ActionBar";
 import { NameCard } from "./battle/NameCard";
 import { LetterBoard } from "./LetterBoard";
 import { BagView } from "./BagView";
-import { Sheet } from "./battle/Sheet";
+import { FriendsView } from "./FriendsView";
+import { GrowthCard } from "./battle/GrowthCard";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
 
@@ -80,10 +81,14 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   }, []);
   const [view, setView] = useState<View>({ k: "meet" });
   const [tick, setTick] = useState(0);
+  // draws the arena again (a new partner) without making it a new screen
+  const [, nudge] = useState(0);
   // a sheet over the arena, from the action bar: the Bag or the Friends
   const [sheet, setSheet] = useState<"bag" | "friends" | null>(null);
   // a line that answers a tap that did nothing (no net)
   const [note, setNote] = useState<string | null>(null);
+  // the level-up or evolution card, shown over the arena until it is tapped
+  const [card, setCard] = useState<{ before: string; evolvedTo: string | null; level: number } | null>(null);
   const finished = useRef(false);
 
   const leave = () => {
@@ -127,6 +132,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       setView({ k: "meet" });
       return;
     }
+    if (turn.growth.leveled) setCard({ before: turn.partnerBefore, evolvedTo: turn.growth.evolvedTo, level: turn.growth.level });
     setView(battle.phase === "calm" ? { k: "calm", turn, seal: null } : turn.won ? { k: "won", turn } : { k: "turn", turn });
     setTick((n) => n + 1);
   };
@@ -186,6 +192,14 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     );
   }
 
+  if (card && (view.k === "turn" || view.k === "calm" || view.k === "won")) {
+    return (
+      <ScreenTime key={`card-${tick}`}>
+        <GrowthCard monsters={play.monsters} before={card.before} evolvedTo={card.evolvedTo} level={card.level} name={(sp) => play.text(sp)} onClose={() => setCard(null)} />
+      </ScreenTime>
+    );
+  }
+
   if (view.k === "naming") {
     const c = battle.partner && play.world.creatures.find((x) => x.id === view.seal.caught?.id);
     return (
@@ -234,8 +248,6 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const extra: string[] = [];
   if (turn) {
     message = turn.correct ? t("battleHit", { partner: play.text(turn.partnerBefore), name: wildName, damage: turn.damage }) : t("battleMiss");
-    if (turn.growth.leveled) extra.push(t("battleLevelUp", { partner: play.text(turn.partnerBefore), level: turn.growth.level }));
-    if (turn.growth.evolvedTo) extra.push(t("battleEvolved", { partner: play.text(turn.partnerBefore), name: play.text(turn.growth.evolvedTo) }));
     if (view.k === "calm") message = t("battleCalm", { name: wildName });
     if (turn.won && view.k === "won") extra.unshift(t("battleMasterWon", { name: wildName }));
   }
@@ -317,11 +329,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
           />
         )}
         {sheet === "bag" && <BagView play={play} battle={{ calm: view.k === "calm", onNet: throwNet }} onClose={() => setSheet(null)} />}
-        {sheet === "friends" && (
-          <Sheet title={t("battleFriends")} onClose={() => setSheet(null)}>
-            <p />
-          </Sheet>
-        )}
+        {sheet === "friends" && <FriendsView play={play} battle={battle} onClose={() => setSheet(null)} onChanged={() => nudge((n) => n + 1)} />}
       </section>
     </ScreenTime>
   );

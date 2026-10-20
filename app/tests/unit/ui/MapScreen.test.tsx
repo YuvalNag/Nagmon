@@ -258,6 +258,8 @@ async function answerQuestion(m: Awaited<ReturnType<typeof start>>, right: boole
     await m.press("quiz_check");
   } else await m.press(`quiz_choice_${m.quiz()!.answer}`);
   await m.press("quiz_continue");
+  // a level-up card may come after a right answer in a battle: tap it away
+  if (m.el("growth_close")) await m.press("growth_close");
 }
 
 describe("the owl's intro", () => {
@@ -393,8 +395,11 @@ describe("a wild creature in the grass", () => {
     await m.press("quiz_continue");
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("calm");
     expect(m.el("battle_message")?.textContent).toMatch(/אפשר לנסות שוב/);
-    await m.press("battle_net");
-    await answerQuestion(m, true);
+    // a grown-up creature needs three seal answers: right ones until it is caught
+    for (let i = 0; i < 3 && !m.q("[data-screen=battle-caught]"); i++) {
+      await m.press("battle_net");
+      await answerQuestion(m, true);
+    }
     expect(m.q("[data-screen=battle-caught]")).not.toBeNull();
     // a name or skip
     await m.press("battle_skip");
@@ -438,8 +443,10 @@ describe("a wild creature in the grass", () => {
       await answerQuestion(m, true);
       await settle(5);
     }
-    await m.press("battle_net");
-    await answerQuestion(m, true);
+    for (let i = 0; i < 3 && !m.q("[data-screen=battle-caught]"); i++) {
+      await m.press("battle_net");
+      await answerQuestion(m, true);
+    }
     await m.press("battle_suggest_0");
     await pendingWrites(m.fs);
     const world = await m.profiles.loadWorldDict(m.profile.id);
@@ -513,6 +520,25 @@ describe("Mila's vehicle and the bestiary", () => {
     expect((world["trips"] as { visited: string[] }).visited).toEqual(["solar/moon"]);
   });
 
+  it("the Friends screen from the menu: the party, details, and choosing the partner (saved)", async () => {
+    const two = { creatures: [{ id: "c1", species: "agnite", level: 6, xp: 1, name: "אורי" }, { id: "c2", species: "kroki", level: 7, xp: 0, name: "נוגה" }], seen: ["agnite", "kroki"], caught: ["agnite", "kroki"] };
+    const m = await start({ world: two });
+    await m.press("map_menu");
+    await m.press("map_friends");
+    expect(m.container.querySelectorAll("[data-id^=friend_c]").length).toBe(2);
+    expect(m.el("friend_partner")!.disabled).toBe(true);
+    await m.press("friend_c2");
+    expect(m.el("friend_detail")?.textContent).toContain("נוגה");
+    expect(m.el("friend_level")?.textContent).toContain("7");
+    expect(m.el("friend_good")?.textContent).toMatch(/טוב ב/);
+    await m.press("friend_partner");
+    expect(m.el("friend_said")).not.toBeNull();
+    await pendingWrites(m.fs);
+    const world = await m.profiles.loadWorldDict(m.profile.id);
+    expect((world["creatures"] as { id: string }[]).map((c) => c.id)).toEqual(["c2", "c1"]);
+    expect(m.logs).toContain("PARTNER species=kroki");
+  });
+
   it("the bestiary shows what was met by name and the rest as unknown", async () => {
     const m = await start({ world: partner });
     await m.press("map_menu");
@@ -520,6 +546,11 @@ describe("Mila's vehicle and the bestiary", () => {
     expect(m.el("bestiary_count")?.textContent).toMatch(/נתפסו 1/);
     expect(m.container.querySelector('[data-species="agnite"]')?.textContent).toContain("אגנייט");
     expect(m.container.querySelector('[data-species="kroki"]')?.className).toContain("unknown");
+    // by zone: the Route's header counts what was caught and seen
+    const zone = m.container.querySelector('[data-species="agnite"]')!.closest("[data-zone]") as HTMLElement;
+    expect(zone.dataset.caught).toBe("1");
+    expect(m.el(`zone_${zone.dataset.zone}`)?.textContent).toMatch(/נתפסו 1, נראו 1 מתוך/);
+    expect(m.container.querySelectorAll("[data-zone]").length).toBeGreaterThan(1);
     await m.press("bestiary_close");
     expect(m.q("[data-screen=map-menu]")).not.toBeNull();
   });

@@ -166,6 +166,22 @@ describe("a battle", () => {
     expect(answersToWin(5, 14)).toBeGreaterThanOrEqual(answersToWin(5, 6));
   });
 
+  it("Friends: swapping the partner changes who answers and what the questions are about, and costs nothing", () => {
+    const world = new WorldState();
+    addCreature(world, "agnite", 6);
+    addCreature(world, "kroki", 6);
+    const { battle, lines } = make({ world, species: "agnite" });
+    const before = battle.next()!.question!.subject;
+    expect(battle.swapPartner("c2")).toBe(true);
+    expect(battle.partner.species).toBe("kroki");
+    expect(world.creatures.map((c) => c.id)).toEqual(["c2", "c1"]);
+    expect(battle.next()!.question!.subject).toBe(subjects.subjectFor(monsters["kroki"]!.types, null, "kroki"));
+    expect(typeof before).toBe("string");
+    expect(battle.swapPartner("c2")).toBe(false);
+    expect(lines.some((l) => l.startsWith("PARTNER "))).toBe(true);
+    expect(battle.hp).toBe(battle.maxHp);
+  });
+
   it("no partner (an old save): the battle cannot start", () => {
     const world = new WorldState();
     expect(() => make({ world })).toThrow(/partner/);

@@ -253,6 +253,7 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
     await touch(page, page.locator(id("battle_next")));
     await answer(page, "right");
     await touch(page, page.locator(id("quiz_continue")));
+    if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")));
     await expect(battle).toHaveAttribute("data-view", /turn|calm/);
     if (i === 0) await shot("b04_hit");
   }
@@ -267,9 +268,13 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
   await touch(page, page.locator(id("quiz_continue")));
   await expect(battle).toHaveAttribute("data-view", "calm");
   await shot("b06_try_again");
-  await touch(page, page.locator(id("battle_net")));
-  await answer(page, "right");
-  await touch(page, page.locator(id("quiz_continue")));
+  // a grown-up creature needs three seal answers
+  for (let i = 0; i < 3 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
+    await touch(page, page.locator(id("battle_net")));
+    await answer(page, "right");
+    await touch(page, page.locator(id("quiz_continue")));
+    if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")));
+  }
   await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
   await shot("b07_new_friend");
   await touch(page, page.locator(id("battle_skip")));
@@ -360,4 +365,35 @@ test("helpers on the question: owned ones sit in the foot, big enough, one use e
   await expect(page.locator("[data-id^=quiz_helper_]")).toHaveCount(0);
   const world = (await saved(page, "saves/world.json"))!;
   expect((world["items"] as Record<string, number>)["hint_feather"]).toBe(1);
+});
+
+test("Friends from the battle: four cards, details at the end, the partner changes and the question follows", async ({ page }, info) => {
+  const party = [
+    { id: "c1", species: "agnite", level: 6, xp: 1 },
+    { id: "c2", species: "kroki", level: 7, xp: 0, name: "נוגה", hearts: 3 },
+    { id: "c3", species: "squabbit", level: 5, xp: 0 },
+    { id: "c4", species: "alphabel", level: 5, xp: 0 },
+    { id: "c5", species: "pluson", level: 5, xp: 0 },
+  ];
+  await seedChild(page, { grade: 2, battle: true, creatures: party });
+  await openMap(page);
+  await steps(page, "right", 1);
+  await touch(page, page.locator(id("battle_friends")));
+  await expect(page.locator("[data-screen=friends]")).toBeVisible();
+  await expect(page.locator("[data-id^=friend_c]")).toHaveCount(4);
+  await expect(page.locator(id("friends_meadow"))).toBeVisible();
+  await touch(page, page.locator(id("friend_c2")));
+  await page.screenshot({ path: info.outputPath("friends.png") });
+  const rects = await page.locator("[data-id^=friend_c], [data-id=friend_detail], [data-id=friend_partner]").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON() as { x: number; width: number; height: number; right: number; bottom: number }));
+  for (const b of rects) {
+    expect(b.x).toBeGreaterThanOrEqual(0);
+    expect(b.right).toBeLessThanOrEqual(873);
+    expect(b.bottom).toBeLessThanOrEqual(393);
+    expect(b.height).toBeGreaterThanOrEqual(48);
+  }
+  await touch(page, page.locator(id("friend_partner")));
+  await expect(page.locator(id("friend_said"))).toBeVisible();
+  await touch(page, page.locator(id("sheet_close")));
+  const world = (await saved(page, "saves/world.json"))!;
+  expect((world["creatures"] as { id: string }[])[0]!.id).toBe("c2");
 });

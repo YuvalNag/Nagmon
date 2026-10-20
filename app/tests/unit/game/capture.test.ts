@@ -103,6 +103,18 @@ describe("capture: calm, the net, a seal question, a friend", () => {
     expect(plain.battle.sealLeft).toBe(1);
   });
 
+  it("throwing the same net again goes on with the seals already broken", () => {
+    const rare = Object.values(monsters).find((m) => m.stage !== "basic" && m.hasSprite)!.slug;
+    const { battle, world } = calm({ species: rare });
+    for (let i = 0; i < 3; i++) {
+      expect(battle.throwNet(eco, "magic_net")).not.toBeNull();
+      answerRight(battle.nextSeal(eco)!);
+    }
+    expect(battle.phase).toBe("caught");
+    expect(world.creatures).toHaveLength(2);
+    expect(countOf(world, "magic_net")).toBe(1);
+  });
+
   it("the fifth friend waits in the Meadow, not the party of four", () => {
     const world = new WorldState();
     for (let i = 0; i < PARTY_SIZE; i++) addCreature(world, "agnite", 5);
