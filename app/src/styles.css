@@ -22,12 +22,8 @@
   --key-h: max(56px, 15vh);
 }
 
-/* The app's own name for Rubik, not "Rubik": Android's WebView looks a
-   Google Fonts name up in Play services' font provider, and holding that
-   provider tied the app to Play services' process, which took the app
-   down when it restarted (docs/app/SDD.md §10). */
 @font-face {
-  font-family: "NagmonRubik";
+  font-family: "Rubik";
   font-weight: 300 900;
   font-display: block;
   src: url("@fontsource-variable/rubik/files/rubik-hebrew-wght-normal.woff2")
@@ -37,7 +33,7 @@
 }
 
 @font-face {
-  font-family: "NagmonRubik";
+  font-family: "Rubik";
   font-weight: 300 900;
   font-display: block;
   src: url("@fontsource-variable/rubik/files/rubik-latin-wght-normal.woff2")
@@ -59,7 +55,7 @@ body,
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: "NagmonRubik", system-ui, sans-serif;
+  font-family: "Rubik", system-ui, sans-serif;
   font-size: var(--text);
   font-weight: 500;
   line-height: var(--line);

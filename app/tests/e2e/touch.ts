@@ -92,7 +92,7 @@ export async function fitsAndSharp(page: Page): Promise<void> {
       page: scrolls(document.documentElement),
       root: scrolls(document.getElementById("root")),
       screen: scrolls(document.querySelector(".screen")),
-      rubik: document.fonts.check("500 20px NagmonRubik", "שלום"),
+      rubik: document.fonts.check("500 20px Rubik", "שלום"),
     };
   });
   expect(r).toEqual({ outside: [], page: 0, root: 0, screen: 0, rubik: true });

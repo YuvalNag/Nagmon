@@ -331,51 +331,10 @@ function heldProviders(label) {
       .filter((l) => pid && l.includes(`->${pid}:${PACKAGE}`))
       .map((l) => l.trim().replace(/^- \w+\//, ""));
     console.log(`providers the app holds (${label}): ${held.join("; ") || "none"}`);
-    heldProviders.last = held;
     return held;
   } catch (e) {
     console.log(`providers the app holds (${label}): ${String(e).split("\n")[0]}`);
     return [];
-  }
-}
-
-heldProviders.last = [];
-
-/** Play services' font provider: the app's stable and unstable references to it, active/total. */
-function fontProviderRefs() {
-  const line = heldProviders.last.find((l) => l.includes("fonts.provider.FontsProvider")) ?? "";
-  const m = line.match(/ s(\d+)\/(\d+) u(\d+)\/(\d+)/);
-  return m ? { stable: Number(m[1]), stableTotal: Number(m[2]), unstable: Number(m[3]), unstableTotal: Number(m[4]) } : { stable: 0, stableTotal: 0, unstable: 0, unstableTotal: 0 };
-}
-
-/**
- * Which text makes the WebView ask Play services for a font: each kind is
- * drawn once, and the provider references counted before and after.
- */
-async function fontProviderProbe() {
-  const kinds = [
-    ["a Google font name the phone lacks", "'Roboto Flex'"],
-    ["system-ui", "system-ui"],
-    ["sans-serif", "sans-serif"],
-    ["an emoji", "sans-serif", "😀🎉"],
-    ["the app's font", "NagmonRubik"],
-    ["the name Rubik (a Google font, not the app's)", "Rubik"],
-  ];
-  heldProviders("before the font probe");
-  for (const [what, family, text = "שלום abc 123"] of kinds) {
-    const before = fontProviderRefs();
-    await page.eval(`(() => {
-      const d = document.createElement("div");
-      d.style.cssText = "position:fixed;left:0;top:0;opacity:0.01;font-size:20px;font-family:" + ${JSON.stringify(family)};
-      d.textContent = ${JSON.stringify(text)};
-      document.body.append(d);
-      d.getBoundingClientRect();
-      return new Promise((r) => requestAnimationFrame(() => { d.remove(); r(true); }));
-    })()`);
-    await sleep(800);
-    heldProviders(`after ${what}`);
-    const after = fontProviderRefs();
-    console.log(`font probe, ${what}: stable ${before.stableTotal}->${after.stableTotal}, unstable ${before.unstableTotal}->${after.unstableTotal}`);
   }
 }
 
@@ -1023,10 +982,17 @@ async function wholeRun() {
   // what Android did to the app's processes, all run long
   const events = lines.filter((l) => /\b(am_proc_died|am_kill|am_low_memory|am_crash|am_anr|am_proc_start)\b/.test(l) && /nagmon/.test(l));
   console.log(`--- Android's events for the app (${events.length})\n` + events.slice(-60).join("\n"));
-  const lmk = lines.filter((l) => /lowmemorykiller|lmkd.*[Kk]ill/.test(l));
+  const lmk = lines.filter((l) => /lowmemorykiller: Kill|\bam_kill\b.*\blmk\b/.test(l));
   console.log(`low-memory kills in the run: ${lmk.length}\n${lmk.slice(-20).join("\n")}`);
   exitInfo("end of the run");
-  const unexpected = exits.filter((e) => !expectedExits.has(e.pid));
+  // the page's renderer (an isolated process of the app) ends "isolated not
+  // needed" with the app's process: expected when that one was stopped by
+  // the run, within a few seconds; on its own it is the renderer dying
+  const at = (e) => Date.parse(String(e.time).replace(" ", "T"));
+  const followsStop = (e) =>
+    /isolated not needed/.test(e.description ?? "") &&
+    exits.some((x) => x !== e && expectedExits.has(x.pid) && Math.abs(at(x) - at(e)) < 5000);
+  const unexpected = exits.filter((e) => !expectedExits.has(e.pid) && !followsStop(e));
   check(
     unexpected.length === 0,
     `the app's process ended only when the run stopped it${unexpected.length ? `: ${unexpected.map((e) => `pid ${e.pid} ${e.reason}/${e.sub} in "${e.part}": ${e.description}`).join(" | ")}` : ""}`,
@@ -1165,7 +1131,7 @@ await part("first run", async () => {
     h: innerHeight,
     dir: document.documentElement.dir,
     heading: document.querySelector("h1")?.textContent,
-    rubik: document.fonts.check("500 20px NagmonRubik", "שלום"),
+    rubik: document.fonts.check("500 20px Rubik", "שלום"),
   })`);
   console.log("webview", JSON.stringify(size));
   check(size.w > size.h, "landscape");
@@ -1200,7 +1166,6 @@ await part("first run", async () => {
 });
 if (started) {
   calibration = page.offset;
-  await part("font provider", fontProviderProbe);
   await part("map", mapWalk);
   await part("back on every screen", backEverywhere);
   await part("home and back", homeAndBack);
