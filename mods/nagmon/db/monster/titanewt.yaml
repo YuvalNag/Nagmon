@@ -1,0 +1,63 @@
+# Titanewt: solar-system animal, zone giants (tools/art/import_solar_monsters.py; do not edit by hand).
+slug: titanewt
+species: giant_critter
+moveset:
+- level_learned: 1
+  technique: struggle
+  learning_method: fallback
+- level_learned: 1
+  technique: ram
+- level_learned: 1
+  technique: starfall
+- level_learned: 4
+  technique: crystal
+- level_learned: 10
+  technique: orbs
+- level_learned: 16
+  technique: rift_dash
+- level_learned: 24
+  technique: ruby
+evolutions:
+- at_level: 36
+  monster_slug: titanveil
+history:
+- slug: titanip
+  stage: basic
+  evolves_from: []
+  evolves_into:
+  - titanewt
+- slug: titanewt
+  stage: stage1
+  evolves_from:
+  - titanip
+  evolves_into:
+  - titanveil
+- slug: titanveil
+  stage: stage2
+  evolves_from:
+  - titanewt
+  evolves_into: []
+terrains:
+- extraterrestrial
+tags:
+- love
+shape: dragon
+stage: stage1
+types:
+- cosmic
+gender_weights:
+  male: 0.5
+  female: 0.5
+txmn_id: 548
+height: 90
+weight: 25
+sounds:
+  combat_call:
+    sfx: sound_weird_09
+    volume: 1.5
+  faint_call:
+    sfx: sound_weird_09_faint
+    volume: 1.5
+catch_rate: 70.0
+lower_catch_resistance: 0.9
+upper_catch_resistance: 1.15

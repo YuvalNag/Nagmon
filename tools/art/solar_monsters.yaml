@@ -1,0 +1,360 @@
+# The solar-system animals' own words and body shapes. The importer
+# (tools/art/import_solar_monsters.py) reads the parent's art folders
+# (art_sources/solar/monsters/<slug>/monster.json) and replaces what the
+# generator wrote there: a template description, shape "blob" for all, and
+# compound names glued together.
+#   name_he: the Hebrew name, with a space between the words of a compound
+#            (at most 10 characters, tests/nagmon/test_nagmon_strings.py).
+#   shape:   the body shape (tuxemon/db.py).
+#   he, en:  one sentence of 120 characters at most: a friendly line, then a
+#            real fact of the animal's world.
+heliobud:
+  name_he: שמשון
+  shape: sprite
+  he: כוכב קטן וזוהר. השמש היא כוכב, והאור שלה מגיע אלינו תוך כ-8 דקות.
+  en: A tiny glowing star. The Sun is a star, and its light reaches us in about 8 minutes.
+heliolynx:
+  name_he: להבון
+  shape: hunter
+  he: חתול להבות חם ושמח. השמש חמה מאוד, ולכן לא מסתכלים עליה ישר.
+  en: A warm, happy flame cat. The Sun is very hot, so we never look straight at it.
+heliarch:
+  name_he: כתר שמש
+  shape: hunter
+  he: הכתר שלו זוהר כמו הכתר של השמש, שרואים רק בזמן ליקוי חמה.
+  en: Its crown glows like the Sun's corona, which we see only during a solar eclipse.
+lunibble:
+  name_he: סהרית
+  shape: blob
+  he: ירח עגול וקטן. הירח לא מאיר בעצמו, הוא מחזיר את האור של השמש.
+  en: A small round moon. The Moon makes no light of its own, it shines with the Sun's light.
+lunihare:
+  name_he: ירחנב
+  shape: varmint
+  he: הארנב הזה קופץ גבוה, כי על הירח כוח המשיכה חלש.
+  en: This hare jumps high, because gravity on the Moon is weak.
+lunwarden:
+  name_he: שומר ירח
+  shape: varmint
+  he: הוא שומר על המכתשים. כל מכתש נוצר כשסלע מהחלל נפל על הירח.
+  en: It guards the craters. Each crater was made when a space rock fell on the Moon.
+mercurip:
+  name_he: כספיפון
+  shape: blob
+  he: סלע קטן עם מכתשים. חמה הוא כוכב הלכת הקרוב ביותר לשמש.
+  en: A small cratered rock. Mercury is the planet closest to the Sun.
+mercurush:
+  name_he: זריז חמה
+  shape: dragon
+  he: לטאה זריזה. שנה בחמה נמשכת רק 88 ימים, ולכן הכול שם רץ מהר.
+  en: A quick lizard. A year on Mercury lasts only 88 days, so everything runs fast.
+mercuram:
+  name_he: סלע חמה
+  shape: landrace
+  he: איל סלעי וחזק. בחמה חם מאוד ביום וקר מאוד בלילה.
+  en: A strong rocky ram. Mercury is very hot by day and very cold at night.
+venubud:
+  name_he: ענן נוגה
+  shape: blob
+  he: ענן צהוב ורך. נוגה עטופה בעננים עבים.
+  en: A soft yellow cloud. Venus is wrapped in thick clouds.
+venumoth:
+  name_he: פרפר נוגה
+  shape: flier
+  he: פרפר עננים. בנוגה חם מאוד, כי העננים שלה שומרים על החום.
+  en: A cloud moth. Venus is very hot, because its clouds trap the heat.
+venuveil:
+  name_he: צעיף נוגה
+  shape: flier
+  he: הכנפיים שלו כמו צעיף של עננים. נוגה מסתובבת לאט, ובכיוון הפוך.
+  en: Its wings are like a veil of clouds. Venus spins slowly, and backwards.
+terrabub:
+  name_he: ארצון
+  shape: blob
+  he: כדור כחול וירוק. כדור הארץ הוא המקום היחיד שאנחנו יודעים שיש בו חיים.
+  en: A blue and green ball. Earth is the only place we know that has life.
+terratot:
+  name_he: צב ארץ
+  shape: brute
+  he: צב קטן שנושא עולם על הגב. רוב כדור הארץ מכוסה במים.
+  en: A little turtle carrying a world on its back. Most of Earth is covered by water.
+terravault:
+  name_he: שומר ארץ
+  shape: brute
+  he: שומר רגוע וחזק. האוויר של כדור הארץ מגן עלינו מהחלל.
+  en: A calm, sturdy guardian. Earth's air protects us from space.
+rustip:
+  name_he: אדומון
+  shape: blob
+  he: כדור אדום של חלודה. מאדים אדום, כי יש בו הרבה ברזל חלוד.
+  en: A red ball of rust. Mars is red, because it has a lot of rusty iron.
+marskip:
+  name_he: קפץ מאדים
+  shape: dragon
+  he: לטאה קופצנית. במאדים יש הר געש ענק, הר אולימפוס.
+  en: A bouncy lizard. Mars has a giant volcano called Olympus Mons.
+marstrix:
+  name_he: אביר מאדים
+  shape: dragon
+  he: אביר אדום ואמיץ. רובוטים כבר חוקרים את פני מאדים.
+  en: A brave red knight. Robots are already exploring the surface of Mars.
+jovibud:
+  name_he: פס צדק
+  shape: blob
+  he: כדור עם פסים. צדק הוא כוכב הלכת הגדול ביותר.
+  en: A striped ball. Jupiter is the biggest planet.
+jovihog:
+  name_he: ענן צדק
+  shape: landrace
+  he: חזרזיר עננים. בצדק יש סערה ענקית, הכתם האדום, כבר מאות שנים.
+  en: A little cloud piglet. Jupiter has a giant storm, the Great Red Spot, for centuries.
+jovigale:
+  name_he: סוער צדק
+  shape: landrace
+  he: סוער ואמיץ. צדק עשוי בעיקר מגז, ואין בו קרקע לעמוד עליה.
+  en: Stormy and bold. Jupiter is mostly gas, with no ground to stand on.
+ringlet:
+  name_he: טבעון
+  shape: blob
+  he: כדור קטן עם טבעת. שבתאי מוקף בטבעות.
+  en: A little ball with a ring. Saturn is surrounded by rings.
+saturnip:
+  name_he: חיפושבתאי
+  shape: grub
+  he: חיפושית עם טבעות. הטבעות של שבתאי עשויות מגושי קרח וסלע.
+  en: A beetle with rings. Saturn's rings are made of chunks of ice and rock.
+ringwarden:
+  name_he: שומר טבעות
+  shape: grub
+  he: הוא שומר על הטבעות הנוצצות. לשבתאי יש יותר ממאה ירחים.
+  en: It guards the shining rings. Saturn has more than a hundred moons.
+tiltip:
+  name_he: נטיפון
+  shape: blob
+  he: כדור כחול ונוטה. אורנוס מסתובב כמעט על הצד.
+  en: A blue, tilted ball. Uranus spins almost on its side.
+uranurtle:
+  name_he: כלבנטוי
+  shape: piscine
+  he: שוחה סביב טבעת, נוטה על הצד. אורנוס הוא ענק קרח.
+  en: A swimmer tilted to one side, circling a ring. Uranus is an ice giant.
+tiltitan:
+  name_he: נטייתן
+  shape: piscine
+  he: ענק קרח רגוע. אורנוס הוא אחד מכוכבי הלכת הקרים ביותר.
+  en: A calm ice giant. Uranus is one of the coldest planets.
+nepbit:
+  name_he: נפטיפון
+  shape: sprite
+  he: טיפה כחולה. נפטון רחוק מאוד מהשמש, והאור שם חלש.
+  en: A blue droplet. Neptune is very far from the Sun, so its light is dim.
+nepdart:
+  name_he: גל נפטון
+  shape: piscine
+  he: דג גלים מהיר. בנפטון נושבות הרוחות החזקות ביותר במערכת השמש.
+  en: A fast wave fish. Neptune has the strongest winds in the Solar System.
+nepstorm:
+  name_he: סער נפטון
+  shape: piscine
+  he: מנטה של סערה. שנה בנפטון נמשכת כ-165 שנים של כדור הארץ.
+  en: A stormy ray. A year on Neptune lasts about 165 Earth years.
+combit:
+  name_he: שביטון
+  shape: blob
+  he: ענן קטן של קרח עם זנב. שביט הוא גוש של קרח ואבק.
+  en: A little icy cloud with a tail. A comet is a lump of ice and dust.
+cometail:
+  name_he: זנב שביט
+  shape: serpent
+  he: דרקון קטן עם זנב. ליד השמש הקרח של השביט נמס והזנב נוצר.
+  en: A small dragon with a tail. Near the Sun a comet's ice melts and forms its tail.
+cometrail:
+  name_he: שרביט שביט
+  shape: dragon
+  he: שובל זוהר ארוך. הזנב של שביט תמיד מצביע הרחק מהשמש.
+  en: A long glowing trail. A comet's tail always points away from the Sun.
+asterchip:
+  name_he: סלעון
+  shape: blob
+  he: סלע קטן וסקרן. חגורת האסטרואידים נמצאת בין מאדים לצדק.
+  en: A small curious rock. The asteroid belt lies between Mars and Jupiter.
+astercrab:
+  name_he: ארמדיל סלע
+  shape: brute
+  he: ארמדיל עם שריון של סלע. אסטרואידים הם שאריות מהזמן שנוצרו כוכבי הלכת.
+  en: A rock-armored armadillo. Asteroids are leftovers from when the planets formed.
+asterfort:
+  name_he: מצודת סלע
+  shape: brute
+  he: מצודה על ארבע רגליים. רוב האסטרואידים קטנים מאוד לעומת כוכב לכת.
+  en: A fortress on four legs. Most asteroids are tiny compared with a planet.
+meteet:
+  name_he: מטאורון
+  shape: blob
+  he: סלע קטן ולוהט. מטאור הוא פס אור שנוצר כשסלע נכנס לאוויר.
+  en: A small glowing rock. A meteor is a streak of light made when a rock enters the air.
+meteoroar:
+  name_he: שובלון
+  shape: hunter
+  he: שועל עם זנב לוהט. מה שקוראים לו כוכב נופל הוא מטאור, לא כוכב.
+  en: A fox with a fiery tail. What we call a falling star is a meteor, not a star.
+meteohelm:
+  name_he: איל מטאור
+  shape: hunter
+  he: איל עם קרניים בוערות. מטאור שנוחת על הקרקע נקרא מטאוריט.
+  en: A stag with blazing antlers. A meteor that lands on the ground is called a meteorite.
+kuipip:
+  name_he: קרחיפון
+  shape: blob
+  he: כדור קרח קטן. חגורת קויפר נמצאת רחוק, אחרי נפטון.
+  en: A little ball of ice. The Kuiper belt lies far away, beyond Neptune.
+kuipine:
+  name_he: קיפוקרח
+  shape: varmint
+  he: קיפוד קרח. בחגורת קויפר יש הרבה גופים קפואים.
+  en: An ice hedgehog. The Kuiper belt holds many frozen bodies.
+kuipcrest:
+  name_he: דורבקרח
+  shape: varmint
+  he: דורבנים מגבישי קרח. חלק מהשביטים מגיעים משם.
+  en: Quills of ice crystals. Some comets come from there.
+plutot:
+  name_he: פלוטיפון
+  shape: blob
+  he: כדור קטן וחמוד. פלוטו הוא כוכב לכת ננסי.
+  en: A cute little ball. Pluto is a dwarf planet.
+plutopaw:
+  name_he: חתול פלוטו
+  shape: hunter
+  he: חתול על הקרח. בפלוטו יש אזור גדול בצורת לב.
+  en: A cat on the ice. Pluto has a big heart-shaped region.
+plutaur:
+  name_he: נמר פלוטו
+  shape: hunter
+  he: נמר של הקור. פלוטו רחוק מאוד, וקר מאוד.
+  en: A tiger of the cold. Pluto is very far away, and very cold.
+europip:
+  name_he: אירופית
+  shape: piscine
+  he: דג קטן וקריר. מתחת לקרח של אירופה אולי יש אוקיינוס.
+  en: A small cool fish. Under Europa's ice there may be an ocean.
+europod:
+  name_he: צב הקרח
+  shape: brute
+  he: צב של קרח. אירופה היא ירח של צדק.
+  en: An ice turtle. Europa is a moon of Jupiter.
+europan:
+  name_he: שומר העומק
+  shape: brute
+  he: שומר של המעמקים. האוקיינוס שמתחת לקרח של אירופה עמוק מאוד.
+  en: Guardian of the deep. The ocean under Europa's ice is very deep.
+iobud:
+  name_he: איופון
+  shape: blob
+  he: כדור צהוב ומנומר. איו הוא ירח של צדק, ויש בו הרבה הרי געש.
+  en: A yellow, spotted ball. Io is a moon of Jupiter with many volcanoes.
+iolisk:
+  name_he: לטא איו
+  shape: dragon
+  he: לטאה מנומרת. ההרים הגעשיים של איו פולטים גז וסלע חם.
+  en: A speckled lizard. Io's volcanoes spray out gas and hot rock.
+iopyre:
+  name_he: געש איו
+  shape: dragon
+  he: לטאה לוהטת. איו הוא המקום הכי געשי במערכת השמש.
+  en: A glowing lizard. Io is the most volcanic place in the Solar System.
+titanip:
+  name_he: טיטיפון
+  shape: blob
+  he: כדור כתום ומעורפל. טיטאן הוא ירח של שבתאי, ויש לו אוויר עבה.
+  en: A hazy orange ball. Titan is a moon of Saturn, and it has thick air.
+titanewt:
+  name_he: טריטיטאן
+  shape: dragon
+  he: טריטון קטן. בטיטאן יש אגמים של מתאן נוזלי.
+  en: A small newt. Titan has lakes of liquid methane.
+titanveil:
+  name_he: צעיף טיטאן
+  shape: dragon
+  he: עטוף בערפל כתום. בטיטאן יש הרים ואגמים מתחת לערפל.
+  en: Wrapped in orange haze. Titan has mountains and lakes under its haze.
+ganybit:
+  name_he: גניפון
+  shape: blob
+  he: כדור אפרפר וגדול. גנימד הוא הירח הגדול ביותר במערכת השמש.
+  en: A big greyish ball. Ganymede is the biggest moon in the Solar System.
+ganyhorn:
+  name_he: ביזוגנימד
+  shape: landrace
+  he: ביזון עם קרני קרח. גנימד גדול יותר מכוכב חמה.
+  en: A bison with icy horns. Ganymede is bigger than the planet Mercury.
+ganyguard:
+  name_he: מגן גנימד
+  shape: landrace
+  he: שומר עם מגן. לגנימד יש שדה מגנטי משלו.
+  en: A guardian with a shield. Ganymede has a magnetic field of its own.
+gravip:
+  name_he: כבידון
+  shape: blob
+  he: כדור קטן שמקיף. כבידה היא משיכה בין דברים.
+  en: A little ball that circles around. Gravity is a pull between things.
+orbitail:
+  name_he: זנב מסלול
+  shape: hunter
+  he: הוא מקיף בלי הפסקה. כוכבי הלכת מקיפים את השמש בגלל הכבידה שלה.
+  en: It circles without stopping. The planets orbit the Sun because of its gravity.
+gravivault:
+  name_he: שומר מסלול
+  shape: hunter
+  he: שומר המסלולים. הכבידה מחזיקה את הירח במסלול סביב כדור הארץ.
+  en: Guardian of the orbits. Gravity keeps the Moon circling Earth.
+probip:
+  name_he: גשושון
+  shape: blob
+  he: גשושית קטנה, חללית בלי אנשים, עם מצלמה ומכשירים.
+  en: A little probe, a spacecraft with no people, carrying a camera and instruments.
+probewing:
+  name_he: סייר כנף
+  shape: flier
+  he: גשושית עם כנפי שמש. שולחים גשושיות לכוכבי לכת רחוקים.
+  en: A probe with solar wings. Probes are sent to faraway planets.
+roveroo:
+  name_he: רוברון
+  shape: humanoid
+  he: רובר קטן על גלגלים. רוברים נוסעים על כוכבי לכת ומצלמים.
+  en: A little rover on wheels. Rovers drive across planets and take pictures.
+roverex:
+  name_he: סייר מאדים
+  shape: humanoid
+  he: רובר של מאדים. רוברים חוקרים סלעים ואדמה בלי אדם בפנים.
+  en: A Mars rover. Rovers study rocks and soil with no person aboard.
+sailbit:
+  name_he: מפרשון
+  shape: sprite
+  he: מפרש קטן של אור. אור השמש יכול לדחוף חללית.
+  en: A tiny sail of light. Sunlight can push a spacecraft.
+sailray:
+  name_he: כנף שמש
+  shape: flier
+  he: מפרש רחב וקל. מפרש שמש לא צריך דלק.
+  en: A wide, light sail. A solar sail needs no fuel.
+solwind:
+  name_he: רוחית
+  shape: sprite
+  he: משב קטן וירוק. רוח השמש היא זרם של חלקיקים שיוצא מהשמש.
+  en: A small green breeze. The solar wind is a stream of particles flowing from the Sun.
+aurorail:
+  name_he: זוהר רוח
+  shape: flier
+  he: זנב של זוהר. זוהר קוטבי נוצר כשרוח השמש פוגעת באוויר שלנו.
+  en: A tail of glow. Auroras appear when the solar wind hits our air.
+dustip:
+  name_he: אבקון
+  shape: flier
+  he: גרגר אבק קטן. אבק בחלל מפזר את אור השמש.
+  en: A speck of dust. Space dust scatters sunlight.
+zodiacat:
+  name_he: אבקרן
+  shape: flier
+  he: חתול של אור עדין. אור גלגל המזלות הוא זוהר חלש של אבק בחלל.
+  en: A cat of soft light. Zodiacal light is a faint glow of dust in space.

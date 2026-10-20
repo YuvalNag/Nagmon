@@ -1,0 +1,21 @@
+{
+  "slug": "plutaur",
+  "name_he": "נמרפלוטו",
+  "name_en": "Plutaur",
+  "description_he": "יצור קוסמי מקורי בהשראת פלוטו, הלומד מדעים דרך כוכבי לכת ננסיים ונופים קרחיים רחוקים.",
+  "description_en": "An original cosmic creature inspired by pluto, learning science through dwarf planets and distant icy landscapes.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "plutopaw",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

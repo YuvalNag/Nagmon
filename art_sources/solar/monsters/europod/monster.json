@@ -1,0 +1,24 @@
+{
+  "slug": "europod",
+  "name_he": "צבהקרח",
+  "name_en": "Europod",
+  "description_he": "יצור קוסמי מקורי בהשראת אירופה, הלומד מדעים דרך ירחים קרחיים ועדויות לאוקיינוסים נסתרים.",
+  "description_en": "An original cosmic creature inspired by europa, learning science through icy moons and evidence for hidden oceans.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "europan",
+    "at_level": 36
+  },
+  "evolves_from": "europip",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

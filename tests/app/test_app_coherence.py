@@ -39,7 +39,7 @@ def test_every_portrait_shows_the_character_of_its_map_sprite(built):
         rows.append((name, d, coherence.verdict(name, d)))
     table = "\n".join(f"{n:28s} {d:.3f} {v}" for n, d, v in rows)
     print("\nmap front vs portrait front (Hellinger):\n" + table)
-    assert len(rows) == 12, table
+    assert len(rows) == 17, table  # 12 + the solar-system cast
     assert {n for n, _, v in rows if v == "approved"} == {"nagmon_owl"}
     assert not [n for n, _, v in rows if v.isupper()], table
 

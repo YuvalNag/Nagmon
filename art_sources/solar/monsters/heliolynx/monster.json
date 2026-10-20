@@ -1,0 +1,24 @@
+{
+  "slug": "heliolynx",
+  "name_he": "להבון",
+  "name_en": "Heliolynx",
+  "description_he": "יצור קוסמי מקורי בהשראת שמש, הלומד מדעים דרך אור וחום; השמש היא כוכב.",
+  "description_en": "An original cosmic creature inspired by sun, learning science through sunlight and heat; the sun is a star.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "heliarch",
+    "at_level": 36
+  },
+  "evolves_from": "heliobud",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "plutot",
+  "name_he": "פלוטיפון",
+  "name_en": "Plutot",
+  "description_he": "יצור קוסמי מקורי בהשראת פלוטו, הלומד מדעים דרך כוכבי לכת ננסיים ונופים קרחיים רחוקים.",
+  "description_en": "An original cosmic creature inspired by pluto, learning science through dwarf planets and distant icy landscapes.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "plutopaw",
+    "at_level": 16
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

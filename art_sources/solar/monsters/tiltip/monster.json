@@ -1,0 +1,24 @@
+{
+  "slug": "tiltip",
+  "name_he": "נטיפון",
+  "name_en": "Tiltip",
+  "description_he": "יצור קוסמי מקורי בהשראת אורנוס, הלומד מדעים דרך ענקי קרח וצירי סיבוב נטויים.",
+  "description_en": "An original cosmic creature inspired by uranus, learning science through ice giants and tilted rotation axes.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "uranurtle",
+    "at_level": 16
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "solwind",
+  "name_he": "רוחית",
+  "name_en": "Solwind",
+  "description_he": "יצור קוסמי מקורי בהשראת רוח השמש, הלומד מדעים דרך רוח השמש, שדות מגנטיים וזוהר קוטבי.",
+  "description_en": "An original cosmic creature inspired by solar-wind, learning science through solar wind, magnetic fields and auroras.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "aurorail",
+    "at_level": 20
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

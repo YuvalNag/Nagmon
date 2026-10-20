@@ -904,6 +904,510 @@
    ]
   }
  },
+ "asterchip": {
+  "slug": "asterchip",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "astercrab"
+   }
+  ],
+  "history": [
+   {
+    "slug": "asterchip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "astercrab"
+    ]
+   },
+   {
+    "slug": "astercrab",
+    "stage": "stage1",
+    "evolves_from": [
+     "asterchip"
+    ],
+    "evolves_into": [
+     "asterfort"
+    ]
+   },
+   {
+    "slug": "asterfort",
+    "stage": "stage2",
+    "evolves_from": [
+     "astercrab"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 524,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/asterchip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/asterchip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "astercrab": {
+  "slug": "astercrab",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "asterfort"
+   }
+  ],
+  "history": [
+   {
+    "slug": "asterchip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "astercrab"
+    ]
+   },
+   {
+    "slug": "astercrab",
+    "stage": "stage1",
+    "evolves_from": [
+     "asterchip"
+    ],
+    "evolves_into": [
+     "asterfort"
+    ]
+   },
+   {
+    "slug": "asterfort",
+    "stage": "stage2",
+    "evolves_from": [
+     "astercrab"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "brute",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 525,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/astercrab.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/astercrab-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "asterfort": {
+  "slug": "asterfort",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "asterchip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "astercrab"
+    ]
+   },
+   {
+    "slug": "astercrab",
+    "stage": "stage1",
+    "evolves_from": [
+     "asterchip"
+    ],
+    "evolves_into": [
+     "asterfort"
+    ]
+   },
+   {
+    "slug": "asterfort",
+    "stage": "stage2",
+    "evolves_from": [
+     "astercrab"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "brute",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 526,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/asterfort.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/asterfort-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "aurorail": {
+  "slug": "aurorail",
+  "species": "sun_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "solwind",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "aurorail"
+    ]
+   },
+   {
+    "slug": "aurorail",
+    "stage": "stage1",
+    "evolves_from": [
+     "solwind"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "flier",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 510,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/aurorail.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/aurorail-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "axolightl": {
   "slug": "axolightl",
   "species": "inchoate",
@@ -1957,6 +2461,394 @@
    ]
   }
  },
+ "combit": {
+  "slug": "combit",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "cometail"
+   }
+  ],
+  "history": [
+   {
+    "slug": "combit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "cometail"
+    ]
+   },
+   {
+    "slug": "cometail",
+    "stage": "stage1",
+    "evolves_from": [
+     "combit"
+    ],
+    "evolves_into": [
+     "cometrail"
+    ]
+   },
+   {
+    "slug": "cometrail",
+    "stage": "stage2",
+    "evolves_from": [
+     "cometail"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 565,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/combit.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/combit-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "cometail": {
+  "slug": "cometail",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "cometrail"
+   }
+  ],
+  "history": [
+   {
+    "slug": "combit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "cometail"
+    ]
+   },
+   {
+    "slug": "cometail",
+    "stage": "stage1",
+    "evolves_from": [
+     "combit"
+    ],
+    "evolves_into": [
+     "cometrail"
+    ]
+   },
+   {
+    "slug": "cometrail",
+    "stage": "stage2",
+    "evolves_from": [
+     "cometail"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "serpent",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 566,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/cometail.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/cometail-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "cometrail": {
+  "slug": "cometrail",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "combit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "cometail"
+    ]
+   },
+   {
+    "slug": "cometail",
+    "stage": "stage1",
+    "evolves_from": [
+     "combit"
+    ],
+    "evolves_into": [
+     "cometrail"
+    ]
+   },
+   {
+    "slug": "cometrail",
+    "stage": "stage2",
+    "evolves_from": [
+     "cometail"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "dragon",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 567,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/cometrail.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/cometrail-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "dandicub": {
   "slug": "dandicub",
   "species": "floret",
@@ -2209,6 +3101,119 @@
    ]
   }
  },
+ "dustip": {
+  "slug": "dustip",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 20,
+    "monster_slug": "zodiacat"
+   }
+  ],
+  "history": [
+   {
+    "slug": "dustip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "zodiacat"
+    ]
+   },
+   {
+    "slug": "zodiacat",
+    "stage": "stage1",
+    "evolves_from": [
+     "dustip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "flier",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 530,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/dustip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/dustip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "enigmon": {
   "slug": "enigmon",
   "species": "riddle_puzzle",
@@ -2319,6 +3324,394 @@
     192,
     72,
     72
+   ]
+  }
+ },
+ "europan": {
+  "slug": "europan",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "europip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "europod"
+    ]
+   },
+   {
+    "slug": "europod",
+    "stage": "stage1",
+    "evolves_from": [
+     "europip"
+    ],
+    "evolves_into": [
+     "europan"
+    ]
+   },
+   {
+    "slug": "europan",
+    "stage": "stage2",
+    "evolves_from": [
+     "europod"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "brute",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 540,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/europan.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/europan-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "europip": {
+  "slug": "europip",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "europod"
+   }
+  ],
+  "history": [
+   {
+    "slug": "europip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "europod"
+    ]
+   },
+   {
+    "slug": "europod",
+    "stage": "stage1",
+    "evolves_from": [
+     "europip"
+    ],
+    "evolves_into": [
+     "europan"
+    ]
+   },
+   {
+    "slug": "europan",
+    "stage": "stage2",
+    "evolves_from": [
+     "europod"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "piscine",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 538,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/europip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/europip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "europod": {
+  "slug": "europod",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "europan"
+   }
+  ],
+  "history": [
+   {
+    "slug": "europip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "europod"
+    ]
+   },
+   {
+    "slug": "europod",
+    "stage": "stage1",
+    "evolves_from": [
+     "europip"
+    ],
+    "evolves_into": [
+     "europan"
+    ]
+   },
+   {
+    "slug": "europan",
+    "stage": "stage2",
+    "evolves_from": [
+     "europod"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "brute",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 539,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/europod.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/europod-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
    ]
   }
  },
@@ -2727,6 +4120,394 @@
    ]
   }
  },
+ "ganybit": {
+  "slug": "ganybit",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "ganyhorn"
+   }
+  ],
+  "history": [
+   {
+    "slug": "ganybit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "ganyhorn"
+    ]
+   },
+   {
+    "slug": "ganyhorn",
+    "stage": "stage1",
+    "evolves_from": [
+     "ganybit"
+    ],
+    "evolves_into": [
+     "ganyguard"
+    ]
+   },
+   {
+    "slug": "ganyguard",
+    "stage": "stage2",
+    "evolves_from": [
+     "ganyhorn"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 541,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/ganybit.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/ganybit-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "ganyguard": {
+  "slug": "ganyguard",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "ganybit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "ganyhorn"
+    ]
+   },
+   {
+    "slug": "ganyhorn",
+    "stage": "stage1",
+    "evolves_from": [
+     "ganybit"
+    ],
+    "evolves_into": [
+     "ganyguard"
+    ]
+   },
+   {
+    "slug": "ganyguard",
+    "stage": "stage2",
+    "evolves_from": [
+     "ganyhorn"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "landrace",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 543,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/ganyguard.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/ganyguard-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "ganyhorn": {
+  "slug": "ganyhorn",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "ganyguard"
+   }
+  ],
+  "history": [
+   {
+    "slug": "ganybit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "ganyhorn"
+    ]
+   },
+   {
+    "slug": "ganyhorn",
+    "stage": "stage1",
+    "evolves_from": [
+     "ganybit"
+    ],
+    "evolves_into": [
+     "ganyguard"
+    ]
+   },
+   {
+    "slug": "ganyguard",
+    "stage": "stage2",
+    "evolves_from": [
+     "ganyhorn"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "landrace",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 542,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/ganyhorn.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/ganyhorn-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "geometrion": {
   "slug": "geometrion",
   "species": "pyramid",
@@ -2874,6 +4655,651 @@
    ]
   }
  },
+ "gravip": {
+  "slug": "gravip",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "orbitail"
+   }
+  ],
+  "history": [
+   {
+    "slug": "gravip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "orbitail"
+    ]
+   },
+   {
+    "slug": "orbitail",
+    "stage": "stage1",
+    "evolves_from": [
+     "gravip"
+    ],
+    "evolves_into": [
+     "gravivault"
+    ]
+   },
+   {
+    "slug": "gravivault",
+    "stage": "stage2",
+    "evolves_from": [
+     "orbitail"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 550,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/gravip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/gravip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "gravivault": {
+  "slug": "gravivault",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "gravip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "orbitail"
+    ]
+   },
+   {
+    "slug": "orbitail",
+    "stage": "stage1",
+    "evolves_from": [
+     "gravip"
+    ],
+    "evolves_into": [
+     "gravivault"
+    ]
+   },
+   {
+    "slug": "gravivault",
+    "stage": "stage2",
+    "evolves_from": [
+     "orbitail"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "hunter",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 552,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/gravivault.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/gravivault-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "heliarch": {
+  "slug": "heliarch",
+  "species": "sun_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "heliobud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "heliolynx"
+    ]
+   },
+   {
+    "slug": "heliolynx",
+    "stage": "stage1",
+    "evolves_from": [
+     "heliobud"
+    ],
+    "evolves_into": [
+     "heliarch"
+    ]
+   },
+   {
+    "slug": "heliarch",
+    "stage": "stage2",
+    "evolves_from": [
+     "heliolynx"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "hunter",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 508,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/heliarch.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/heliarch-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "heliobud": {
+  "slug": "heliobud",
+  "species": "sun_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "heliolynx"
+   }
+  ],
+  "history": [
+   {
+    "slug": "heliobud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "heliolynx"
+    ]
+   },
+   {
+    "slug": "heliolynx",
+    "stage": "stage1",
+    "evolves_from": [
+     "heliobud"
+    ],
+    "evolves_into": [
+     "heliarch"
+    ]
+   },
+   {
+    "slug": "heliarch",
+    "stage": "stage2",
+    "evolves_from": [
+     "heliolynx"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "sprite",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 506,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/heliobud.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/heliobud-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "heliolynx": {
+  "slug": "heliolynx",
+  "species": "sun_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "heliarch"
+   }
+  ],
+  "history": [
+   {
+    "slug": "heliobud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "heliolynx"
+    ]
+   },
+   {
+    "slug": "heliolynx",
+    "stage": "stage1",
+    "evolves_from": [
+     "heliobud"
+    ],
+    "evolves_into": [
+     "heliarch"
+    ]
+   },
+   {
+    "slug": "heliarch",
+    "stage": "stage2",
+    "evolves_from": [
+     "heliolynx"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "hunter",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 507,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/heliolynx.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/heliolynx-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "hydrone": {
   "slug": "hydrone",
   "species": "short_circuit",
@@ -3003,6 +5429,394 @@
     192,
     72,
     72
+   ]
+  }
+ },
+ "iobud": {
+  "slug": "iobud",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "iolisk"
+   }
+  ],
+  "history": [
+   {
+    "slug": "iobud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "iolisk"
+    ]
+   },
+   {
+    "slug": "iolisk",
+    "stage": "stage1",
+    "evolves_from": [
+     "iobud"
+    ],
+    "evolves_into": [
+     "iopyre"
+    ]
+   },
+   {
+    "slug": "iopyre",
+    "stage": "stage2",
+    "evolves_from": [
+     "iolisk"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 535,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/iobud.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/iobud-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "iolisk": {
+  "slug": "iolisk",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "iopyre"
+   }
+  ],
+  "history": [
+   {
+    "slug": "iobud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "iolisk"
+    ]
+   },
+   {
+    "slug": "iolisk",
+    "stage": "stage1",
+    "evolves_from": [
+     "iobud"
+    ],
+    "evolves_into": [
+     "iopyre"
+    ]
+   },
+   {
+    "slug": "iopyre",
+    "stage": "stage2",
+    "evolves_from": [
+     "iolisk"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "dragon",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 536,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/iolisk.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/iolisk-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "iopyre": {
+  "slug": "iopyre",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "iobud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "iolisk"
+    ]
+   },
+   {
+    "slug": "iolisk",
+    "stage": "stage1",
+    "evolves_from": [
+     "iobud"
+    ],
+    "evolves_into": [
+     "iopyre"
+    ]
+   },
+   {
+    "slug": "iopyre",
+    "stage": "stage2",
+    "evolves_from": [
+     "iolisk"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "dragon",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 537,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/iopyre.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/iopyre-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
    ]
   }
  },
@@ -3159,6 +5973,394 @@
     192,
     72,
     72
+   ]
+  }
+ },
+ "jovibud": {
+  "slug": "jovibud",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "jovihog"
+   }
+  ],
+  "history": [
+   {
+    "slug": "jovibud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "jovihog"
+    ]
+   },
+   {
+    "slug": "jovihog",
+    "stage": "stage1",
+    "evolves_from": [
+     "jovibud"
+    ],
+    "evolves_into": [
+     "jovigale"
+    ]
+   },
+   {
+    "slug": "jovigale",
+    "stage": "stage2",
+    "evolves_from": [
+     "jovihog"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 532,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/jovibud.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/jovibud-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "jovigale": {
+  "slug": "jovigale",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "jovibud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "jovihog"
+    ]
+   },
+   {
+    "slug": "jovihog",
+    "stage": "stage1",
+    "evolves_from": [
+     "jovibud"
+    ],
+    "evolves_into": [
+     "jovigale"
+    ]
+   },
+   {
+    "slug": "jovigale",
+    "stage": "stage2",
+    "evolves_from": [
+     "jovihog"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "landrace",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 534,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/jovigale.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/jovigale-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "jovihog": {
+  "slug": "jovihog",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "jovigale"
+   }
+  ],
+  "history": [
+   {
+    "slug": "jovibud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "jovihog"
+    ]
+   },
+   {
+    "slug": "jovihog",
+    "stage": "stage1",
+    "evolves_from": [
+     "jovibud"
+    ],
+    "evolves_into": [
+     "jovigale"
+    ]
+   },
+   {
+    "slug": "jovigale",
+    "stage": "stage2",
+    "evolves_from": [
+     "jovihog"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "landrace",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 533,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/jovihog.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/jovihog-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
    ]
   }
  },
@@ -3471,6 +6673,394 @@
    ]
   }
  },
+ "kuipcrest": {
+  "slug": "kuipcrest",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "kuipip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "kuipine"
+    ]
+   },
+   {
+    "slug": "kuipine",
+    "stage": "stage1",
+    "evolves_from": [
+     "kuipip"
+    ],
+    "evolves_into": [
+     "kuipcrest"
+    ]
+   },
+   {
+    "slug": "kuipcrest",
+    "stage": "stage2",
+    "evolves_from": [
+     "kuipine"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "varmint",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 564,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/kuipcrest.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/kuipcrest-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "kuipine": {
+  "slug": "kuipine",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "kuipcrest"
+   }
+  ],
+  "history": [
+   {
+    "slug": "kuipip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "kuipine"
+    ]
+   },
+   {
+    "slug": "kuipine",
+    "stage": "stage1",
+    "evolves_from": [
+     "kuipip"
+    ],
+    "evolves_into": [
+     "kuipcrest"
+    ]
+   },
+   {
+    "slug": "kuipcrest",
+    "stage": "stage2",
+    "evolves_from": [
+     "kuipine"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "varmint",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 563,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/kuipine.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/kuipine-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "kuipip": {
+  "slug": "kuipip",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "kuipine"
+   }
+  ],
+  "history": [
+   {
+    "slug": "kuipip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "kuipine"
+    ]
+   },
+   {
+    "slug": "kuipine",
+    "stage": "stage1",
+    "evolves_from": [
+     "kuipip"
+    ],
+    "evolves_into": [
+     "kuipcrest"
+    ]
+   },
+   {
+    "slug": "kuipcrest",
+    "stage": "stage2",
+    "evolves_from": [
+     "kuipine"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 562,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/kuipip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/kuipip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "leviadile": {
   "slug": "leviadile",
   "species": "crocodile",
@@ -3766,6 +7356,659 @@
    ]
   }
  },
+ "lunibble": {
+  "slug": "lunibble",
+  "species": "moon_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "lunihare"
+   }
+  ],
+  "history": [
+   {
+    "slug": "lunibble",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "lunihare"
+    ]
+   },
+   {
+    "slug": "lunihare",
+    "stage": "stage1",
+    "evolves_from": [
+     "lunibble"
+    ],
+    "evolves_into": [
+     "lunwarden"
+    ]
+   },
+   {
+    "slug": "lunwarden",
+    "stage": "stage2",
+    "evolves_from": [
+     "lunihare"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 500,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/lunibble.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/lunibble-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "lunihare": {
+  "slug": "lunihare",
+  "species": "moon_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "lunwarden"
+   }
+  ],
+  "history": [
+   {
+    "slug": "lunibble",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "lunihare"
+    ]
+   },
+   {
+    "slug": "lunihare",
+    "stage": "stage1",
+    "evolves_from": [
+     "lunibble"
+    ],
+    "evolves_into": [
+     "lunwarden"
+    ]
+   },
+   {
+    "slug": "lunwarden",
+    "stage": "stage2",
+    "evolves_from": [
+     "lunihare"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "varmint",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 501,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/lunihare.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/lunihare-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "lunwarden": {
+  "slug": "lunwarden",
+  "species": "moon_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "lunibble",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "lunihare"
+    ]
+   },
+   {
+    "slug": "lunihare",
+    "stage": "stage1",
+    "evolves_from": [
+     "lunibble"
+    ],
+    "evolves_into": [
+     "lunwarden"
+    ]
+   },
+   {
+    "slug": "lunwarden",
+    "stage": "stage2",
+    "evolves_from": [
+     "lunihare"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "varmint",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 502,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/lunwarden.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/lunwarden-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "marskip": {
+  "slug": "marskip",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "marstrix"
+   }
+  ],
+  "history": [
+   {
+    "slug": "rustip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "marskip"
+    ]
+   },
+   {
+    "slug": "marskip",
+    "stage": "stage1",
+    "evolves_from": [
+     "rustip"
+    ],
+    "evolves_into": [
+     "marstrix"
+    ]
+   },
+   {
+    "slug": "marstrix",
+    "stage": "stage2",
+    "evolves_from": [
+     "marskip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "dragon",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 520,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/marskip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/marskip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "marstrix": {
+  "slug": "marstrix",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "rustip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "marskip"
+    ]
+   },
+   {
+    "slug": "marskip",
+    "stage": "stage1",
+    "evolves_from": [
+     "rustip"
+    ],
+    "evolves_into": [
+     "marstrix"
+    ]
+   },
+   {
+    "slug": "marstrix",
+    "stage": "stage2",
+    "evolves_from": [
+     "marskip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "dragon",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 521,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/marstrix.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/marstrix-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "megillon": {
   "slug": "megillon",
   "species": "great_scroll",
@@ -3905,6 +8148,782 @@
     192,
     72,
     72
+   ]
+  }
+ },
+ "mercuram": {
+  "slug": "mercuram",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "mercurip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "mercurush"
+    ]
+   },
+   {
+    "slug": "mercurush",
+    "stage": "stage1",
+    "evolves_from": [
+     "mercurip"
+    ],
+    "evolves_into": [
+     "mercuram"
+    ]
+   },
+   {
+    "slug": "mercuram",
+    "stage": "stage2",
+    "evolves_from": [
+     "mercurush"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "landrace",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 515,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/mercuram.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/mercuram-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "mercurip": {
+  "slug": "mercurip",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "mercurush"
+   }
+  ],
+  "history": [
+   {
+    "slug": "mercurip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "mercurush"
+    ]
+   },
+   {
+    "slug": "mercurush",
+    "stage": "stage1",
+    "evolves_from": [
+     "mercurip"
+    ],
+    "evolves_into": [
+     "mercuram"
+    ]
+   },
+   {
+    "slug": "mercuram",
+    "stage": "stage2",
+    "evolves_from": [
+     "mercurush"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 513,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/mercurip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/mercurip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "mercurush": {
+  "slug": "mercurush",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "mercuram"
+   }
+  ],
+  "history": [
+   {
+    "slug": "mercurip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "mercurush"
+    ]
+   },
+   {
+    "slug": "mercurush",
+    "stage": "stage1",
+    "evolves_from": [
+     "mercurip"
+    ],
+    "evolves_into": [
+     "mercuram"
+    ]
+   },
+   {
+    "slug": "mercuram",
+    "stage": "stage2",
+    "evolves_from": [
+     "mercurush"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "dragon",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 514,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/mercurush.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/mercurush-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "meteet": {
+  "slug": "meteet",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "meteoroar"
+   }
+  ],
+  "history": [
+   {
+    "slug": "meteet",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "meteoroar"
+    ]
+   },
+   {
+    "slug": "meteoroar",
+    "stage": "stage1",
+    "evolves_from": [
+     "meteet"
+    ],
+    "evolves_into": [
+     "meteohelm"
+    ]
+   },
+   {
+    "slug": "meteohelm",
+    "stage": "stage2",
+    "evolves_from": [
+     "meteoroar"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 527,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/meteet.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/meteet-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "meteohelm": {
+  "slug": "meteohelm",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "meteet",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "meteoroar"
+    ]
+   },
+   {
+    "slug": "meteoroar",
+    "stage": "stage1",
+    "evolves_from": [
+     "meteet"
+    ],
+    "evolves_into": [
+     "meteohelm"
+    ]
+   },
+   {
+    "slug": "meteohelm",
+    "stage": "stage2",
+    "evolves_from": [
+     "meteoroar"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "hunter",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 529,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/meteohelm.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/meteohelm-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "meteoroar": {
+  "slug": "meteoroar",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "meteohelm"
+   }
+  ],
+  "history": [
+   {
+    "slug": "meteet",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "meteoroar"
+    ]
+   },
+   {
+    "slug": "meteoroar",
+    "stage": "stage1",
+    "evolves_from": [
+     "meteet"
+    ],
+    "evolves_into": [
+     "meteohelm"
+    ]
+   },
+   {
+    "slug": "meteohelm",
+    "stage": "stage2",
+    "evolves_from": [
+     "meteoroar"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "hunter",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 528,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/meteoroar.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/meteoroar-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
    ]
   }
  },
@@ -4048,6 +9067,394 @@
     192,
     72,
     72
+   ]
+  }
+ },
+ "nepbit": {
+  "slug": "nepbit",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "nepdart"
+   }
+  ],
+  "history": [
+   {
+    "slug": "nepbit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "nepdart"
+    ]
+   },
+   {
+    "slug": "nepdart",
+    "stage": "stage1",
+    "evolves_from": [
+     "nepbit"
+    ],
+    "evolves_into": [
+     "nepstorm"
+    ]
+   },
+   {
+    "slug": "nepstorm",
+    "stage": "stage2",
+    "evolves_from": [
+     "nepdart"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "sprite",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 556,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/nepbit.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/nepbit-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "nepdart": {
+  "slug": "nepdart",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "nepstorm"
+   }
+  ],
+  "history": [
+   {
+    "slug": "nepbit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "nepdart"
+    ]
+   },
+   {
+    "slug": "nepdart",
+    "stage": "stage1",
+    "evolves_from": [
+     "nepbit"
+    ],
+    "evolves_into": [
+     "nepstorm"
+    ]
+   },
+   {
+    "slug": "nepstorm",
+    "stage": "stage2",
+    "evolves_from": [
+     "nepdart"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "piscine",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 557,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/nepdart.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/nepdart-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "nepstorm": {
+  "slug": "nepstorm",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "nepbit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "nepdart"
+    ]
+   },
+   {
+    "slug": "nepdart",
+    "stage": "stage1",
+    "evolves_from": [
+     "nepbit"
+    ],
+    "evolves_into": [
+     "nepstorm"
+    ]
+   },
+   {
+    "slug": "nepstorm",
+    "stage": "stage2",
+    "evolves_from": [
+     "nepdart"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "piscine",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 558,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/nepstorm.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/nepstorm-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
    ]
   }
  },
@@ -4322,6 +9729,137 @@
    ]
   }
  },
+ "orbitail": {
+  "slug": "orbitail",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "gravivault"
+   }
+  ],
+  "history": [
+   {
+    "slug": "gravip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "orbitail"
+    ]
+   },
+   {
+    "slug": "orbitail",
+    "stage": "stage1",
+    "evolves_from": [
+     "gravip"
+    ],
+    "evolves_into": [
+     "gravivault"
+    ]
+   },
+   {
+    "slug": "gravivault",
+    "stage": "stage2",
+    "evolves_from": [
+     "orbitail"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "hunter",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 551,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/orbitail.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/orbitail-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "pluson": {
   "slug": "pluson",
   "species": "plus_spark",
@@ -4469,6 +10007,394 @@
    ]
   }
  },
+ "plutaur": {
+  "slug": "plutaur",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "plutot",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "plutopaw"
+    ]
+   },
+   {
+    "slug": "plutopaw",
+    "stage": "stage1",
+    "evolves_from": [
+     "plutot"
+    ],
+    "evolves_into": [
+     "plutaur"
+    ]
+   },
+   {
+    "slug": "plutaur",
+    "stage": "stage2",
+    "evolves_from": [
+     "plutopaw"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "hunter",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 561,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/plutaur.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/plutaur-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "plutopaw": {
+  "slug": "plutopaw",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "plutaur"
+   }
+  ],
+  "history": [
+   {
+    "slug": "plutot",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "plutopaw"
+    ]
+   },
+   {
+    "slug": "plutopaw",
+    "stage": "stage1",
+    "evolves_from": [
+     "plutot"
+    ],
+    "evolves_into": [
+     "plutaur"
+    ]
+   },
+   {
+    "slug": "plutaur",
+    "stage": "stage2",
+    "evolves_from": [
+     "plutopaw"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "hunter",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 560,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/plutopaw.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/plutopaw-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "plutot": {
+  "slug": "plutot",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "plutopaw"
+   }
+  ],
+  "history": [
+   {
+    "slug": "plutot",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "plutopaw"
+    ]
+   },
+   {
+    "slug": "plutopaw",
+    "stage": "stage1",
+    "evolves_from": [
+     "plutot"
+    ],
+    "evolves_into": [
+     "plutaur"
+    ]
+   },
+   {
+    "slug": "plutaur",
+    "stage": "stage2",
+    "evolves_from": [
+     "plutopaw"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 559,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/plutot.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/plutot-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "polygonos": {
   "slug": "polygonos",
   "species": "polyhedron",
@@ -4609,6 +10535,235 @@
     192,
     72,
     72
+   ]
+  }
+ },
+ "probewing": {
+  "slug": "probewing",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "probip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "probewing"
+    ]
+   },
+   {
+    "slug": "probewing",
+    "stage": "stage1",
+    "evolves_from": [
+     "probip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "flier",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 569,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/probewing.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/probewing-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "probip": {
+  "slug": "probip",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 20,
+    "monster_slug": "probewing"
+   }
+  ],
+  "history": [
+   {
+    "slug": "probip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "probewing"
+    ]
+   },
+   {
+    "slug": "probewing",
+    "stage": "stage1",
+    "evolves_from": [
+     "probip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 568,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/probip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/probip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
    ]
   }
  },
@@ -5016,6 +11171,263 @@
    ]
   }
  },
+ "ringlet": {
+  "slug": "ringlet",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "saturnip"
+   }
+  ],
+  "history": [
+   {
+    "slug": "ringlet",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "saturnip"
+    ]
+   },
+   {
+    "slug": "saturnip",
+    "stage": "stage1",
+    "evolves_from": [
+     "ringlet"
+    ],
+    "evolves_into": [
+     "ringwarden"
+    ]
+   },
+   {
+    "slug": "ringwarden",
+    "stage": "stage2",
+    "evolves_from": [
+     "saturnip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 544,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/ringlet.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/ringlet-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "ringwarden": {
+  "slug": "ringwarden",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "ringlet",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "saturnip"
+    ]
+   },
+   {
+    "slug": "saturnip",
+    "stage": "stage1",
+    "evolves_from": [
+     "ringlet"
+    ],
+    "evolves_into": [
+     "ringwarden"
+    ]
+   },
+   {
+    "slug": "ringwarden",
+    "stage": "stage2",
+    "evolves_from": [
+     "saturnip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "grub",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 546,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/ringwarden.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/ringwarden-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "rockat": {
   "slug": "rockat",
   "species": "sleek_boulder",
@@ -5326,6 +11738,718 @@
    ]
   }
  },
+ "roverex": {
+  "slug": "roverex",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "roveroo",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "roverex"
+    ]
+   },
+   {
+    "slug": "roverex",
+    "stage": "stage1",
+    "evolves_from": [
+     "roveroo"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "humanoid",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 523,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/roverex.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/roverex-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "roveroo": {
+  "slug": "roveroo",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 20,
+    "monster_slug": "roverex"
+   }
+  ],
+  "history": [
+   {
+    "slug": "roveroo",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "roverex"
+    ]
+   },
+   {
+    "slug": "roverex",
+    "stage": "stage1",
+    "evolves_from": [
+     "roveroo"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "humanoid",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 522,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/roveroo.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/roveroo-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "rustip": {
+  "slug": "rustip",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "marskip"
+   }
+  ],
+  "history": [
+   {
+    "slug": "rustip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "marskip"
+    ]
+   },
+   {
+    "slug": "marskip",
+    "stage": "stage1",
+    "evolves_from": [
+     "rustip"
+    ],
+    "evolves_into": [
+     "marstrix"
+    ]
+   },
+   {
+    "slug": "marstrix",
+    "stage": "stage2",
+    "evolves_from": [
+     "marskip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 519,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/rustip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/rustip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "sailbit": {
+  "slug": "sailbit",
+  "species": "sun_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 20,
+    "monster_slug": "sailray"
+   }
+  ],
+  "history": [
+   {
+    "slug": "sailbit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "sailray"
+    ]
+   },
+   {
+    "slug": "sailray",
+    "stage": "stage1",
+    "evolves_from": [
+     "sailbit"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "sprite",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 511,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/sailbit.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/sailbit-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "sailray": {
+  "slug": "sailray",
+  "species": "sun_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "sailbit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "sailray"
+    ]
+   },
+   {
+    "slug": "sailray",
+    "stage": "stage1",
+    "evolves_from": [
+     "sailbit"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "flier",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 512,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/sailray.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/sailray-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "saturnip": {
+  "slug": "saturnip",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "ringwarden"
+   }
+  ],
+  "history": [
+   {
+    "slug": "ringlet",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "saturnip"
+    ]
+   },
+   {
+    "slug": "saturnip",
+    "stage": "stage1",
+    "evolves_from": [
+     "ringlet"
+    ],
+    "evolves_into": [
+     "ringwarden"
+    ]
+   },
+   {
+    "slug": "ringwarden",
+    "stage": "stage2",
+    "evolves_from": [
+     "saturnip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "grub",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 545,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/saturnip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/saturnip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "scrollo": {
   "slug": "scrollo",
   "species": "little_scroll",
@@ -5472,6 +12596,119 @@
    ]
   }
  },
+ "solwind": {
+  "slug": "solwind",
+  "species": "sun_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 20,
+    "monster_slug": "aurorail"
+   }
+  ],
+  "history": [
+   {
+    "slug": "solwind",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "aurorail"
+    ]
+   },
+   {
+    "slug": "aurorail",
+    "stage": "stage1",
+    "evolves_from": [
+     "solwind"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "sprite",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 509,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/solwind.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/solwind-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "squabbit": {
   "slug": "squabbit",
   "species": "rabbit",
@@ -5605,6 +12842,1039 @@
    ]
   }
  },
+ "terrabub": {
+  "slug": "terrabub",
+  "species": "moon_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "terratot"
+   }
+  ],
+  "history": [
+   {
+    "slug": "terrabub",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "terratot"
+    ]
+   },
+   {
+    "slug": "terratot",
+    "stage": "stage1",
+    "evolves_from": [
+     "terrabub"
+    ],
+    "evolves_into": [
+     "terravault"
+    ]
+   },
+   {
+    "slug": "terravault",
+    "stage": "stage2",
+    "evolves_from": [
+     "terratot"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 503,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/terrabub.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/terrabub-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "terratot": {
+  "slug": "terratot",
+  "species": "moon_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "terravault"
+   }
+  ],
+  "history": [
+   {
+    "slug": "terrabub",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "terratot"
+    ]
+   },
+   {
+    "slug": "terratot",
+    "stage": "stage1",
+    "evolves_from": [
+     "terrabub"
+    ],
+    "evolves_into": [
+     "terravault"
+    ]
+   },
+   {
+    "slug": "terravault",
+    "stage": "stage2",
+    "evolves_from": [
+     "terratot"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "brute",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 504,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/terratot.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/terratot-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "terravault": {
+  "slug": "terravault",
+  "species": "moon_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "terrabub",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "terratot"
+    ]
+   },
+   {
+    "slug": "terratot",
+    "stage": "stage1",
+    "evolves_from": [
+     "terrabub"
+    ],
+    "evolves_into": [
+     "terravault"
+    ]
+   },
+   {
+    "slug": "terravault",
+    "stage": "stage2",
+    "evolves_from": [
+     "terratot"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "brute",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 505,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/terravault.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/terravault-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "tiltip": {
+  "slug": "tiltip",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "uranurtle"
+   }
+  ],
+  "history": [
+   {
+    "slug": "tiltip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "uranurtle"
+    ]
+   },
+   {
+    "slug": "uranurtle",
+    "stage": "stage1",
+    "evolves_from": [
+     "tiltip"
+    ],
+    "evolves_into": [
+     "tiltitan"
+    ]
+   },
+   {
+    "slug": "tiltitan",
+    "stage": "stage2",
+    "evolves_from": [
+     "uranurtle"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 553,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/tiltip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/tiltip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "tiltitan": {
+  "slug": "tiltitan",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "tiltip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "uranurtle"
+    ]
+   },
+   {
+    "slug": "uranurtle",
+    "stage": "stage1",
+    "evolves_from": [
+     "tiltip"
+    ],
+    "evolves_into": [
+     "tiltitan"
+    ]
+   },
+   {
+    "slug": "tiltitan",
+    "stage": "stage2",
+    "evolves_from": [
+     "uranurtle"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "piscine",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 555,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/tiltitan.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/tiltitan-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "titanewt": {
+  "slug": "titanewt",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "titanveil"
+   }
+  ],
+  "history": [
+   {
+    "slug": "titanip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "titanewt"
+    ]
+   },
+   {
+    "slug": "titanewt",
+    "stage": "stage1",
+    "evolves_from": [
+     "titanip"
+    ],
+    "evolves_into": [
+     "titanveil"
+    ]
+   },
+   {
+    "slug": "titanveil",
+    "stage": "stage2",
+    "evolves_from": [
+     "titanewt"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "dragon",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 548,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/titanewt.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/titanewt-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "titanip": {
+  "slug": "titanip",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "titanewt"
+   }
+  ],
+  "history": [
+   {
+    "slug": "titanip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "titanewt"
+    ]
+   },
+   {
+    "slug": "titanewt",
+    "stage": "stage1",
+    "evolves_from": [
+     "titanip"
+    ],
+    "evolves_into": [
+     "titanveil"
+    ]
+   },
+   {
+    "slug": "titanveil",
+    "stage": "stage2",
+    "evolves_from": [
+     "titanewt"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 547,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/titanip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/titanip-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "titanveil": {
+  "slug": "titanveil",
+  "species": "giant_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "titanip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "titanewt"
+    ]
+   },
+   {
+    "slug": "titanewt",
+    "stage": "stage1",
+    "evolves_from": [
+     "titanip"
+    ],
+    "evolves_into": [
+     "titanveil"
+    ]
+   },
+   {
+    "slug": "titanveil",
+    "stage": "stage2",
+    "evolves_from": [
+     "titanewt"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "dragon",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 549,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/titanveil.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/titanveil-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
  "tourbidi": {
   "slug": "tourbidi",
   "species": "elf_ring",
@@ -5732,6 +14002,525 @@
     192,
     72,
     72
+   ]
+  }
+ },
+ "uranurtle": {
+  "slug": "uranurtle",
+  "species": "far_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "tiltitan"
+   }
+  ],
+  "history": [
+   {
+    "slug": "tiltip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "uranurtle"
+    ]
+   },
+   {
+    "slug": "uranurtle",
+    "stage": "stage1",
+    "evolves_from": [
+     "tiltip"
+    ],
+    "evolves_into": [
+     "tiltitan"
+    ]
+   },
+   {
+    "slug": "tiltitan",
+    "stage": "stage2",
+    "evolves_from": [
+     "uranurtle"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "piscine",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 554,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/uranurtle.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/uranurtle-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "venubud": {
+  "slug": "venubud",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "venumoth"
+   }
+  ],
+  "history": [
+   {
+    "slug": "venubud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "venumoth"
+    ]
+   },
+   {
+    "slug": "venumoth",
+    "stage": "stage1",
+    "evolves_from": [
+     "venubud"
+    ],
+    "evolves_into": [
+     "venuveil"
+    ]
+   },
+   {
+    "slug": "venuveil",
+    "stage": "stage2",
+    "evolves_from": [
+     "venumoth"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 516,
+  "height": 40,
+  "weight": 6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/venubud.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/venubud-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "venumoth": {
+  "slug": "venumoth",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "venuveil"
+   }
+  ],
+  "history": [
+   {
+    "slug": "venubud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "venumoth"
+    ]
+   },
+   {
+    "slug": "venumoth",
+    "stage": "stage1",
+    "evolves_from": [
+     "venubud"
+    ],
+    "evolves_into": [
+     "venuveil"
+    ]
+   },
+   {
+    "slug": "venuveil",
+    "stage": "stage2",
+    "evolves_from": [
+     "venumoth"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "flier",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 517,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/venumoth.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/venumoth-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
+   ]
+  }
+ },
+ "venuveil": {
+  "slug": "venuveil",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   },
+   {
+    "level_learned": 30,
+    "technique": "shapechange"
+   },
+   {
+    "level_learned": 36,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 42,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "venubud",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "venumoth"
+    ]
+   },
+   {
+    "slug": "venumoth",
+    "stage": "stage1",
+    "evolves_from": [
+     "venubud"
+    ],
+    "evolves_into": [
+     "venuveil"
+    ]
+   },
+   {
+    "slug": "venuveil",
+    "stage": "stage2",
+    "evolves_from": [
+     "venumoth"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "flier",
+  "stage": "stage2",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 518,
+  "height": 150,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/venuveil.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/venuveil-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
    ]
   }
  },
@@ -5879,6 +14668,122 @@
     192,
     72,
     72
+   ]
+  }
+ },
+ "zodiacat": {
+  "slug": "zodiacat",
+  "species": "planet_critter",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 10,
+    "technique": "orbs"
+   },
+   {
+    "level_learned": 16,
+    "technique": "rift_dash"
+   },
+   {
+    "level_learned": 24,
+    "technique": "ruby"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "dustip",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "zodiacat"
+    ]
+   },
+   {
+    "slug": "zodiacat",
+    "stage": "stage1",
+    "evolves_from": [
+     "dustip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "extraterrestrial"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "flier",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 531,
+  "height": 90,
+  "weight": 25,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/zodiacat.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/zodiacat-sheet.png",
+   "scale": 4,
+   "front": [
+    0,
+    0,
+    256,
+    256
+   ],
+   "back": [
+    256,
+    0,
+    256,
+    256
+   ],
+   "menu1": [
+    0,
+    256,
+    96,
+    96
+   ],
+   "menu2": [
+    96,
+    256,
+    96,
+    96
    ]
   }
  }

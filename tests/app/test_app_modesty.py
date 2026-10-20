@@ -9,7 +9,12 @@ from tools.app import modesty
 from tools.app.common import mod_file
 
 #: Not people: feathers and fur have no "skin" to cover.
-NOT_PEOPLE = {"nagmon_owl", "nagmon_owl_caped", "rockitten"}
+NOT_PEOPLE = {
+    "nagmon_owl",
+    "nagmon_owl_caped",
+    "nagmon_owl_space",
+    "rockitten",
+}
 
 
 def data(built, rel):
@@ -67,7 +72,7 @@ def open_backs(sheet, portrait=None):
 def test_no_back_view_shows_skin_below_the_neck(built):
     rows, bad = [], []
     shown = people(built)
-    assert len(shown) == 11  # 13 map sheets less the two owls
+    assert len(shown) == 17  # 18 map sheets less the three owls
     for m, p in sorted(shown.items()):
         counts = open_backs(
             shipped(built, m), shipped(built, p) if p else None

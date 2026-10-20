@@ -31,6 +31,7 @@ from tools.app import (  # noqa: E402
     emoji,
     i18n,
     maps,
+    solar_maps,
     trips,
 )
 from tools.app.common import OUT, Output  # noqa: E402
@@ -41,6 +42,7 @@ def build() -> tuple[Output, dict[str, Any]]:
     report: dict[str, Any] = {}
     report["content"] = content.build(out)
     report["maps"] = maps.build(out)
+    report["maps"].update(solar_maps.build(out))
     scripts = [
         script
         for summary in report["maps"].values()

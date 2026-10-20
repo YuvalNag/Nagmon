@@ -1086,3 +1086,508 @@ msgstr "קוראים להם \"הכובענים\", כי הראש שלהם מזכ�
 
 msgid "dandicub_description"
 msgstr "אחרי שהגורים נולדים, הם מרחפים לכל קצות העולם ומחפשים מקום חדש לגדול בו."
+
+# --- solar-system animals (tools/art/import_solar_monsters.py) ---
+
+msgid "lunibble"
+msgstr "סהרית"
+
+msgid "lunibble_description"
+msgstr "ירח עגול וקטן. הירח לא מאיר בעצמו, הוא מחזיר את האור של השמש."
+
+msgid "lunihare"
+msgstr "ירחנב"
+
+msgid "lunihare_description"
+msgstr "הארנב הזה קופץ גבוה, כי על הירח כוח המשיכה חלש."
+
+msgid "lunwarden"
+msgstr "שומר ירח"
+
+msgid "lunwarden_description"
+msgstr "הוא שומר על המכתשים. כל מכתש נוצר כשסלע מהחלל נפל על הירח."
+
+msgid "terrabub"
+msgstr "ארצון"
+
+msgid "terrabub_description"
+msgstr "כדור כחול וירוק. כדור הארץ הוא המקום היחיד שאנחנו יודעים שיש בו חיים."
+
+msgid "terratot"
+msgstr "צב ארץ"
+
+msgid "terratot_description"
+msgstr "צב קטן שנושא עולם על הגב. רוב כדור הארץ מכוסה במים."
+
+msgid "terravault"
+msgstr "שומר ארץ"
+
+msgid "terravault_description"
+msgstr "שומר רגוע וחזק. האוויר של כדור הארץ מגן עלינו מהחלל."
+
+msgid "heliobud"
+msgstr "שמשון"
+
+msgid "heliobud_description"
+msgstr "כוכב קטן וזוהר. השמש היא כוכב, והאור שלה מגיע אלינו תוך כ-8 דקות."
+
+msgid "heliolynx"
+msgstr "להבון"
+
+msgid "heliolynx_description"
+msgstr "חתול להבות חם ושמח. השמש חמה מאוד, ולכן לא מסתכלים עליה ישר."
+
+msgid "heliarch"
+msgstr "כתר שמש"
+
+msgid "heliarch_description"
+msgstr "הכתר שלו זוהר כמו הכתר של השמש, שרואים רק בזמן ליקוי חמה."
+
+msgid "solwind"
+msgstr "רוחית"
+
+msgid "solwind_description"
+msgstr "משב קטן וירוק. רוח השמש היא זרם של חלקיקים שיוצא מהשמש."
+
+msgid "aurorail"
+msgstr "זוהר רוח"
+
+msgid "aurorail_description"
+msgstr "זנב של זוהר. זוהר קוטבי נוצר כשרוח השמש פוגעת באוויר שלנו."
+
+msgid "sailbit"
+msgstr "מפרשון"
+
+msgid "sailbit_description"
+msgstr "מפרש קטן של אור. אור השמש יכול לדחוף חללית."
+
+msgid "sailray"
+msgstr "כנף שמש"
+
+msgid "sailray_description"
+msgstr "מפרש רחב וקל. מפרש שמש לא צריך דלק."
+
+msgid "mercurip"
+msgstr "כספיפון"
+
+msgid "mercurip_description"
+msgstr "סלע קטן עם מכתשים. חמה הוא כוכב הלכת הקרוב ביותר לשמש."
+
+msgid "mercurush"
+msgstr "זריז חמה"
+
+msgid "mercurush_description"
+msgstr "לטאה זריזה. שנה בחמה נמשכת רק 88 ימים, ולכן הכול שם רץ מהר."
+
+msgid "mercuram"
+msgstr "סלע חמה"
+
+msgid "mercuram_description"
+msgstr "איל סלעי וחזק. בחמה חם מאוד ביום וקר מאוד בלילה."
+
+msgid "venubud"
+msgstr "ענן נוגה"
+
+msgid "venubud_description"
+msgstr "ענן צהוב ורך. נוגה עטופה בעננים עבים."
+
+msgid "venumoth"
+msgstr "פרפר נוגה"
+
+msgid "venumoth_description"
+msgstr "פרפר עננים. בנוגה חם מאוד, כי העננים שלה שומרים על החום."
+
+msgid "venuveil"
+msgstr "צעיף נוגה"
+
+msgid "venuveil_description"
+msgstr "הכנפיים שלו כמו צעיף של עננים. נוגה מסתובבת לאט, ובכיוון הפוך."
+
+msgid "rustip"
+msgstr "אדומון"
+
+msgid "rustip_description"
+msgstr "כדור אדום של חלודה. מאדים אדום, כי יש בו הרבה ברזל חלוד."
+
+msgid "marskip"
+msgstr "קפץ מאדים"
+
+msgid "marskip_description"
+msgstr "לטאה קופצנית. במאדים יש הר געש ענק, הר אולימפוס."
+
+msgid "marstrix"
+msgstr "אביר מאדים"
+
+msgid "marstrix_description"
+msgstr "אביר אדום ואמיץ. רובוטים כבר חוקרים את פני מאדים."
+
+msgid "roveroo"
+msgstr "רוברון"
+
+msgid "roveroo_description"
+msgstr "רובר קטן על גלגלים. רוברים נוסעים על כוכבי לכת ומצלמים."
+
+msgid "roverex"
+msgstr "סייר מאדים"
+
+msgid "roverex_description"
+msgstr "רובר של מאדים. רוברים חוקרים סלעים ואדמה בלי אדם בפנים."
+
+msgid "asterchip"
+msgstr "סלעון"
+
+msgid "asterchip_description"
+msgstr "סלע קטן וסקרן. חגורת האסטרואידים נמצאת בין מאדים לצדק."
+
+msgid "astercrab"
+msgstr "ארמדיל סלע"
+
+msgid "astercrab_description"
+msgstr "ארמדיל עם שריון של סלע. אסטרואידים הם שאריות מהזמן שנוצרו כוכבי הלכת."
+
+msgid "asterfort"
+msgstr "מצודת סלע"
+
+msgid "asterfort_description"
+msgstr "מצודה על ארבע רגליים. רוב האסטרואידים קטנים מאוד לעומת כוכב לכת."
+
+msgid "meteet"
+msgstr "מטאורון"
+
+msgid "meteet_description"
+msgstr "סלע קטן ולוהט. מטאור הוא פס אור שנוצר כשסלע נכנס לאוויר."
+
+msgid "meteoroar"
+msgstr "שובלון"
+
+msgid "meteoroar_description"
+msgstr "שועל עם זנב לוהט. מה שקוראים לו כוכב נופל הוא מטאור, לא כוכב."
+
+msgid "meteohelm"
+msgstr "איל מטאור"
+
+msgid "meteohelm_description"
+msgstr "איל עם קרניים בוערות. מטאור שנוחת על הקרקע נקרא מטאוריט."
+
+msgid "dustip"
+msgstr "אבקון"
+
+msgid "dustip_description"
+msgstr "גרגר אבק קטן. אבק בחלל מפזר את אור השמש."
+
+msgid "zodiacat"
+msgstr "אבקרן"
+
+msgid "zodiacat_description"
+msgstr "חתול של אור עדין. אור גלגל המזלות הוא זוהר חלש של אבק בחלל."
+
+msgid "jovibud"
+msgstr "פס צדק"
+
+msgid "jovibud_description"
+msgstr "כדור עם פסים. צדק הוא כוכב הלכת הגדול ביותר."
+
+msgid "jovihog"
+msgstr "ענן צדק"
+
+msgid "jovihog_description"
+msgstr "חזרזיר עננים. בצדק יש סערה ענקית, הכתם האדום, כבר מאות שנים."
+
+msgid "jovigale"
+msgstr "סוער צדק"
+
+msgid "jovigale_description"
+msgstr "סוער ואמיץ. צדק עשוי בעיקר מגז, ואין בו קרקע לעמוד עליה."
+
+msgid "iobud"
+msgstr "איופון"
+
+msgid "iobud_description"
+msgstr "כדור צהוב ומנומר. איו הוא ירח של צדק, ויש בו הרבה הרי געש."
+
+msgid "iolisk"
+msgstr "לטא איו"
+
+msgid "iolisk_description"
+msgstr "לטאה מנומרת. ההרים הגעשיים של איו פולטים גז וסלע חם."
+
+msgid "iopyre"
+msgstr "געש איו"
+
+msgid "iopyre_description"
+msgstr "לטאה לוהטת. איו הוא המקום הכי געשי במערכת השמש."
+
+msgid "europip"
+msgstr "אירופית"
+
+msgid "europip_description"
+msgstr "דג קטן וקריר. מתחת לקרח של אירופה אולי יש אוקיינוס."
+
+msgid "europod"
+msgstr "צב הקרח"
+
+msgid "europod_description"
+msgstr "צב של קרח. אירופה היא ירח של צדק."
+
+msgid "europan"
+msgstr "שומר העומק"
+
+msgid "europan_description"
+msgstr "שומר של המעמקים. האוקיינוס שמתחת לקרח של אירופה עמוק מאוד."
+
+msgid "ganybit"
+msgstr "גניפון"
+
+msgid "ganybit_description"
+msgstr "כדור אפרפר וגדול. גנימד הוא הירח הגדול ביותר במערכת השמש."
+
+msgid "ganyhorn"
+msgstr "ביזוגנימד"
+
+msgid "ganyhorn_description"
+msgstr "ביזון עם קרני קרח. גנימד גדול יותר מכוכב חמה."
+
+msgid "ganyguard"
+msgstr "מגן גנימד"
+
+msgid "ganyguard_description"
+msgstr "שומר עם מגן. לגנימד יש שדה מגנטי משלו."
+
+msgid "ringlet"
+msgstr "טבעון"
+
+msgid "ringlet_description"
+msgstr "כדור קטן עם טבעת. שבתאי מוקף בטבעות."
+
+msgid "saturnip"
+msgstr "חיפושבתאי"
+
+msgid "saturnip_description"
+msgstr "חיפושית עם טבעות. הטבעות של שבתאי עשויות מגושי קרח וסלע."
+
+msgid "ringwarden"
+msgstr "שומר טבעות"
+
+msgid "ringwarden_description"
+msgstr "הוא שומר על הטבעות הנוצצות. לשבתאי יש יותר ממאה ירחים."
+
+msgid "titanip"
+msgstr "טיטיפון"
+
+msgid "titanip_description"
+msgstr "כדור כתום ומעורפל. טיטאן הוא ירח של שבתאי, ויש לו אוויר עבה."
+
+msgid "titanewt"
+msgstr "טריטיטאן"
+
+msgid "titanewt_description"
+msgstr "טריטון קטן. בטיטאן יש אגמים של מתאן נוזלי."
+
+msgid "titanveil"
+msgstr "צעיף טיטאן"
+
+msgid "titanveil_description"
+msgstr "עטוף בערפל כתום. בטיטאן יש הרים ואגמים מתחת לערפל."
+
+msgid "gravip"
+msgstr "כבידון"
+
+msgid "gravip_description"
+msgstr "כדור קטן שמקיף. כבידה היא משיכה בין דברים."
+
+msgid "orbitail"
+msgstr "זנב מסלול"
+
+msgid "orbitail_description"
+msgstr "הוא מקיף בלי הפסקה. כוכבי הלכת מקיפים את השמש בגלל הכבידה שלה."
+
+msgid "gravivault"
+msgstr "שומר מסלול"
+
+msgid "gravivault_description"
+msgstr "שומר המסלולים. הכבידה מחזיקה את הירח במסלול סביב כדור הארץ."
+
+msgid "tiltip"
+msgstr "נטיפון"
+
+msgid "tiltip_description"
+msgstr "כדור כחול ונוטה. אורנוס מסתובב כמעט על הצד."
+
+msgid "uranurtle"
+msgstr "כלבנטוי"
+
+msgid "uranurtle_description"
+msgstr "שוחה סביב טבעת, נוטה על הצד. אורנוס הוא ענק קרח."
+
+msgid "tiltitan"
+msgstr "נטייתן"
+
+msgid "tiltitan_description"
+msgstr "ענק קרח רגוע. אורנוס הוא אחד מכוכבי הלכת הקרים ביותר."
+
+msgid "nepbit"
+msgstr "נפטיפון"
+
+msgid "nepbit_description"
+msgstr "טיפה כחולה. נפטון רחוק מאוד מהשמש, והאור שם חלש."
+
+msgid "nepdart"
+msgstr "גל נפטון"
+
+msgid "nepdart_description"
+msgstr "דג גלים מהיר. בנפטון נושבות הרוחות החזקות ביותר במערכת השמש."
+
+msgid "nepstorm"
+msgstr "סער נפטון"
+
+msgid "nepstorm_description"
+msgstr "מנטה של סערה. שנה בנפטון נמשכת כ-165 שנים של כדור הארץ."
+
+msgid "plutot"
+msgstr "פלוטיפון"
+
+msgid "plutot_description"
+msgstr "כדור קטן וחמוד. פלוטו הוא כוכב לכת ננסי."
+
+msgid "plutopaw"
+msgstr "חתול פלוטו"
+
+msgid "plutopaw_description"
+msgstr "חתול על הקרח. בפלוטו יש אזור גדול בצורת לב."
+
+msgid "plutaur"
+msgstr "נמר פלוטו"
+
+msgid "plutaur_description"
+msgstr "נמר של הקור. פלוטו רחוק מאוד, וקר מאוד."
+
+msgid "kuipip"
+msgstr "קרחיפון"
+
+msgid "kuipip_description"
+msgstr "כדור קרח קטן. חגורת קויפר נמצאת רחוק, אחרי נפטון."
+
+msgid "kuipine"
+msgstr "קיפוקרח"
+
+msgid "kuipine_description"
+msgstr "קיפוד קרח. בחגורת קויפר יש הרבה גופים קפואים."
+
+msgid "kuipcrest"
+msgstr "דורבקרח"
+
+msgid "kuipcrest_description"
+msgstr "דורבנים מגבישי קרח. חלק מהשביטים מגיעים משם."
+
+msgid "combit"
+msgstr "שביטון"
+
+msgid "combit_description"
+msgstr "ענן קטן של קרח עם זנב. שביט הוא גוש של קרח ואבק."
+
+msgid "cometail"
+msgstr "זנב שביט"
+
+msgid "cometail_description"
+msgstr "דרקון קטן עם זנב. ליד השמש הקרח של השביט נמס והזנב נוצר."
+
+msgid "cometrail"
+msgstr "שרביט שביט"
+
+msgid "cometrail_description"
+msgstr "שובל זוהר ארוך. הזנב של שביט תמיד מצביע הרחק מהשמש."
+
+msgid "probip"
+msgstr "גשושון"
+
+msgid "probip_description"
+msgstr "גשושית קטנה, חללית בלי אנשים, עם מצלמה ומכשירים."
+
+msgid "probewing"
+msgstr "סייר כנף"
+
+msgid "probewing_description"
+msgstr "גשושית עם כנפי שמש. שולחים גשושיות לכוכבי לכת רחוקים."
+
+msgid "nagmon_solar_astronomer"
+msgstr "האסטרונומית"
+
+msgid "nagmon_solar_mila"
+msgstr "מילה"
+
+msgid "nagmon_solar_owl"
+msgstr "הינשוף"
+
+msgid "nagmon_solar_moon_engineer"
+msgstr "מהנדסת הירח"
+
+msgid "nagmon_solar_rover_driver"
+msgstr "נהג הרובר"
+
+msgid "nagmon_solar_sage"
+msgstr "החכם"
+
+msgid "nagmon_solar_grey_hood"
+msgstr "הברדס האפור"
+
+msgid "nagmon_solar_moon_moon_engineer"
+msgstr "זה הירח! אין פה אוויר, אז אי אפשר לשמוע כלום. נסו לקפוץ, כוח המשיכה חלש!"
+
+msgid "nagmon_solar_moon_owl"
+msgstr "הירח לא מאיר בעצמו. אנחנו רואים את אור השמש שחוזר ממנו."
+
+msgid "nagmon_solar_sun_owl"
+msgstr "השמש היא כוכב. היא חמה מאוד, ולכן לא מסתכלים עליה ישר."
+
+msgid "nagmon_solar_sun_grey_hood"
+msgstr "בגלל הערפל שכחתי כמה זמן לוקח לאור להגיע מהשמש אלינו. אתם זוכרים?"
+
+msgid "nagmon_solar_rocky_planets_rover_driver"
+msgstr "אני נוהג ברובר על מאדים. האדמה כאן אדומה כי יש בה ברזל חלוד."
+
+msgid "nagmon_solar_rocky_planets_sage"
+msgstr "ארבעת הראשונים הם כוכבי לכת סלעיים: חמה, נוגה, כדור הארץ ומאדים."
+
+msgid "nagmon_solar_rocky_planets_owl"
+msgstr "חמה הכי קרוב לשמש, אבל נוגה הכי חמה, בגלל העננים שלה."
+
+msgid "nagmon_solar_giants_sage"
+msgstr "צדק הוא הגדול בכוכבי הלכת, ולשבתאי יש טבעות של קרח וסלע."
+
+msgid "nagmon_solar_giants_moon_engineer"
+msgstr "לצדק יש ירחים רבים. גנימד הגדול שבהם גדול אפילו מכוכב חמה!"
+
+msgid "nagmon_solar_giants_owl"
+msgstr "בצדק אין קרקע לעמוד עליה. הוא עשוי בעיקר מגז."
+
+msgid "nagmon_solar_outer_grey_hood"
+msgstr "כאן רחוק וקר. נפטון ואורנוס הם ענקי קרח."
+
+msgid "nagmon_solar_outer_rover_driver"
+msgstr "גשושיות טסות לכאן שנים. אין להן נהג, רק אנטנה שמדברת איתנו."
+
+msgid "nagmon_solar_outer_owl"
+msgstr "פלוטו הוא כוכב לכת ננסי, ושביטים באים מהקצה הקפוא הזה."
+
+msgid "nagmon_solar_station_astronomer"
+msgstr "ברוכים הבאים לתחנת החלל! דרך הטלסקופ רואים כוכבים רחוקים. כל דלת מובילה למקום אחר."
+
+msgid "nagmon_solar_station_mila"
+msgstr "המעבורת שלי מחכה. בואו נחזיר את הידע שהערפל לקח!"
+
+msgid "cat_moon_critter"
+msgstr "יצור ירח"
+
+msgid "cat_sun_critter"
+msgstr "יצור שמש"
+
+msgid "cat_planet_critter"
+msgstr "יצור כוכב"
+
+msgid "cat_giant_critter"
+msgstr "יצור ענק"
+
+msgid "cat_far_critter"
+msgstr "יצור רחוק"
+
+# --- end of the solar-system animals ---

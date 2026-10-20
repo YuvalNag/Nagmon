@@ -1,0 +1,21 @@
+{
+  "slug": "titanveil",
+  "name_he": "צעיפיטאן",
+  "name_en": "Titanveil",
+  "description_he": "יצור קוסמי מקורי בהשראת טיטאן, הלומד מדעים דרך אטמוספרות עבות ואגמי מתאן.",
+  "description_en": "An original cosmic creature inspired by titan, learning science through thick atmospheres and lakes of methane.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "titanewt",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

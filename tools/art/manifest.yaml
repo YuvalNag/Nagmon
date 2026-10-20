@@ -409,3 +409,117 @@ outputs:
     resample: hd
     strip: [front, back, menu1, menu2]
     output: mods/nagmon/gfx/sprites/battle/megillon-sheet.png
+
+  # ------------------------------------ the solar-system trip (TRIPS.md §3)
+  # The generator's pack (art_sources/solar/characters): 1024x1536 map
+  # sheets, 3 columns x 4 rows (the columns are 341/341/342 px wide: the
+  # grid takes thirds, the padding absorbs the odd pixel), and 1536x768
+  # battle sheets with the back view on the left.
+
+  - name: nagmon_astronomer_map
+    source: solar/characters/nagmon_astronomer/map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_astronomer.png
+
+  - name: nagmon_astronomer
+    source: solar/characters/nagmon_astronomer/battle.png
+    layout: combat
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_astronomer.png
+
+  - name: nagmon_grey_hood_map
+    source: solar/characters/nagmon_grey_hood/map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_grey_hood.png
+
+  - name: nagmon_mila_space_map
+    source: solar/characters/nagmon_mila_space/map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_mila_space.png
+
+  - name: nagmon_mila_space
+    source: solar/characters/nagmon_mila_space/battle.png
+    layout: combat
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_mila_space.png
+
+  - name: nagmon_moon_engineer_map
+    source: solar/characters/nagmon_moon_engineer/map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_moon_engineer.png
+
+  - name: nagmon_moon_engineer
+    source: solar/characters/nagmon_moon_engineer/battle.png
+    layout: combat
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_moon_engineer.png
+
+  - name: nagmon_owl_space_map
+    source: solar/characters/nagmon_owl_space/map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_owl_space.png
+
+  - name: nagmon_owl_space
+    source: solar/characters/nagmon_owl_space/battle.png
+    layout: combat
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_owl_space.png
+
+  - name: nagmon_rover_driver_map
+    source: solar/characters/nagmon_rover_driver/map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_rover_driver.png
+
+  - name: nagmon_rover_driver
+    source: solar/characters/nagmon_rover_driver/battle.png
+    layout: combat
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_rover_driver.png
+
+  - name: nagmon_sage_map
+    source: solar/characters/nagmon_sage/map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_sage.png

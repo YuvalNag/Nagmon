@@ -1,0 +1,59 @@
+# Meteet: solar-system animal, zone rocky_planets (tools/art/import_solar_monsters.py; do not edit by hand).
+slug: meteet
+species: planet_critter
+moveset:
+- level_learned: 1
+  technique: struggle
+  learning_method: fallback
+- level_learned: 1
+  technique: ram
+- level_learned: 1
+  technique: starfall
+- level_learned: 4
+  technique: crystal
+- level_learned: 10
+  technique: orbs
+evolutions:
+- at_level: 16
+  monster_slug: meteoroar
+history:
+- slug: meteet
+  stage: basic
+  evolves_from: []
+  evolves_into:
+  - meteoroar
+- slug: meteoroar
+  stage: stage1
+  evolves_from:
+  - meteet
+  evolves_into:
+  - meteohelm
+- slug: meteohelm
+  stage: stage2
+  evolves_from:
+  - meteoroar
+  evolves_into: []
+terrains:
+- extraterrestrial
+tags:
+- love
+shape: blob
+stage: basic
+types:
+- cosmic
+gender_weights:
+  male: 0.5
+  female: 0.5
+txmn_id: 527
+height: 40
+weight: 6
+sounds:
+  combat_call:
+    sfx: sound_whistle
+    volume: 1.5
+  faint_call:
+    sfx: sound_whistle_faint
+    volume: 1.5
+catch_rate: 100.0
+lower_catch_resistance: 0.95
+upper_catch_resistance: 1.25

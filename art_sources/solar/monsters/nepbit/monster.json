@@ -1,0 +1,24 @@
+{
+  "slug": "nepbit",
+  "name_he": "נפטיפון",
+  "name_en": "Nepbit",
+  "description_he": "יצור קוסמי מקורי בהשראת נפטון, הלומד מדעים דרך כוכבים רחוקים, ענקי קרח ורוחות.",
+  "description_en": "An original cosmic creature inspired by neptune, learning science through distant planets, ice giants and winds.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "nepdart",
+    "at_level": 16
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "iobud",
+  "name_he": "איופון",
+  "name_en": "Iobud",
+  "description_he": "יצור קוסמי מקורי בהשראת איו, הלומד מדעים דרך ירחים געשיים ומשטחים משתנים.",
+  "description_en": "An original cosmic creature inspired by io, learning science through volcanic moons and changing surfaces.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "iolisk",
+    "at_level": 16
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

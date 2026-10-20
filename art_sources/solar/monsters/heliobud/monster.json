@@ -1,0 +1,24 @@
+{
+  "slug": "heliobud",
+  "name_he": "שמשון",
+  "name_en": "Heliobud",
+  "description_he": "יצור קוסמי מקורי בהשראת שמש, הלומד מדעים דרך אור וחום; השמש היא כוכב.",
+  "description_en": "An original cosmic creature inspired by sun, learning science through sunlight and heat; the sun is a star.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "heliolynx",
+    "at_level": 16
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

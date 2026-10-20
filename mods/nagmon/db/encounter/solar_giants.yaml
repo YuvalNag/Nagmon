@@ -1,0 +1,59 @@
+# Wild animals of the zone giants of the solar-system trip (mods/nagmon/trips/solar.yaml): its base forms.
+monsters:
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 9
+  - 12
+  variables: []
+  monster: jovibud
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 9
+  - 12
+  variables: []
+  monster: iobud
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 9
+  - 12
+  variables: []
+  monster: europip
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 9
+  - 12
+  variables: []
+  monster: ganybit
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 9
+  - 12
+  variables: []
+  monster: ringlet
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 9
+  - 12
+  variables: []
+  monster: titanip
+- encounter_rate: 3
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 9
+  - 12
+  variables: []
+  monster: gravip
+slug: solar_giants

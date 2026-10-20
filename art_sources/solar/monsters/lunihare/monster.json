@@ -1,0 +1,24 @@
+{
+  "slug": "lunihare",
+  "name_he": "ירחנב",
+  "name_en": "Lunihare",
+  "description_he": "יצור קוסמי מקורי בהשראת הירח, הלומד מדעים דרך אור מוחזר, מופעי הירח ומכתשים.",
+  "description_en": "An original cosmic creature inspired by moon, learning science through reflected sunlight, lunar phases and impact craters.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "lunwarden",
+    "at_level": 36
+  },
+  "evolves_from": "lunibble",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "roverex",
+  "name_he": "סיירמאדים",
+  "name_en": "Roverex",
+  "description_he": "יצור קוסמי מקורי בהשראת רוברים, הלומד מדעים דרך גלגלים, חקר פני שטח ומכשירי מדידה.",
+  "description_en": "An original cosmic creature inspired by rover, learning science through wheels, surface exploration and instruments.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": null,
+  "evolves_from": "roveroo",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

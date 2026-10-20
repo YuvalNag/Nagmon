@@ -1,0 +1,24 @@
+{
+  "slug": "ringlet",
+  "name_he": "טבעון",
+  "name_en": "Ringlet",
+  "description_he": "יצור קוסמי מקורי בהשראת שבתאי, הלומד מדעים דרך טבעות המורכבות מחלקיקים רבים.",
+  "description_en": "An original cosmic creature inspired by saturn, learning science through planetary rings made of many small particles.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "saturnip",
+    "at_level": 16
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

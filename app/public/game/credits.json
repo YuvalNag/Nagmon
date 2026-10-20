@@ -835,6 +835,17 @@
    "text": "\"Lightning Spheres\" By JaskRendix",
    "markdown": "[\"Lightning Spheres\"](https://wiki.tuxemon.org/File:Lightning_spheres.gif)\nBy JaskRendix"
   },
+  "technique-animations-metallic-absorb": {
+   "section": "Technique Animations",
+   "title": "Metallic Absorb",
+   "authors": [
+    "JaskRendix"
+   ],
+   "licence": "not stated in ATTRIBUTIONS.md",
+   "licences": [],
+   "text": "\"Metallic Absorb\" By JaskRendix",
+   "markdown": "[\"Metallic Absorb\"](https://wiki.tuxemon.org/File:Metallic_absorb.gif)\nBy JaskRendix"
+  },
   "technique-animations-pollen-bullet": {
    "section": "Technique Animations",
    "title": "Pollen Bullet",
@@ -948,6 +959,17 @@
    "licences": [],
    "text": "\"Rolling Ball\" Animation by HippasusTwo",
    "markdown": "[\"Rolling Ball\"](https://wiki.tuxemon.org/images/c/c2/Rollingball.gif)\nAnimation by HippasusTwo"
+  },
+  "technique-animations-ruby": {
+   "section": "Technique Animations",
+   "title": "Ruby",
+   "authors": [
+    "JaskRendix"
+   ],
+   "licence": "not stated in ATTRIBUTIONS.md",
+   "licences": [],
+   "text": "\"Ruby\" Adapted by JaskRendix, from the Superpowers Asset Packs (Crystal)",
+   "markdown": "[\"Ruby\"](https://wiki.tuxemon.org/File:Ruby_64.gif)\nAdapted by JaskRendix, from the Superpowers Asset Packs (Crystal)"
   },
   "technique-animations-shadow-blast": {
    "section": "Technique Animations",
@@ -1780,6 +1802,120 @@
    ],
    "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
    "note": "HD (xBRZ x4) upscale of the Tuxemon core tilesets.",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "atlas/solar_giants.png",
+   "kind": "tileset",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_tiles_giants.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "atlas/solar_moon.png",
+   "kind": "tileset",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_tiles_moon.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "atlas/solar_outer.png",
+   "kind": "tileset",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_tiles_outer.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "atlas/solar_rocky_planets.png",
+   "kind": "tileset",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_tiles_rocky.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "atlas/solar_station.png",
+   "kind": "tileset",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_spaceship.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "atlas/solar_sun.png",
+   "kind": "tileset",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_spaceship.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
    "matched": true,
    "adapted": "xBRZ x4"
   },
@@ -12323,6 +12459,132 @@
    "adapted": ""
   },
   {
+   "path": "maps/solar_giants.json",
+   "kind": "map",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_spaceship.png",
+    "mods/nagmon/gfx/solar/nagmon_tiles_giants.png",
+    "mods/nagmon/trips/solar.yaml"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "maps/solar_moon.json",
+   "kind": "map",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_spaceship.png",
+    "mods/nagmon/gfx/solar/nagmon_tiles_moon.png",
+    "mods/nagmon/trips/solar.yaml"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "maps/solar_outer.json",
+   "kind": "map",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_spaceship.png",
+    "mods/nagmon/gfx/solar/nagmon_tiles_outer.png",
+    "mods/nagmon/trips/solar.yaml"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "maps/solar_rocky_planets.json",
+   "kind": "map",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_spaceship.png",
+    "mods/nagmon/gfx/solar/nagmon_tiles_rocky.png",
+    "mods/nagmon/trips/solar.yaml"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "maps/solar_station.json",
+   "kind": "map",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_spaceship.png",
+    "mods/nagmon/gfx/solar/nagmon_tiles_station.png",
+    "mods/nagmon/trips/solar.yaml"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "maps/solar_sun.json",
+   "kind": "map",
+   "sources": [
+    "mods/nagmon/gfx/solar/nagmon_spaceship.png",
+    "mods/nagmon/gfx/solar/nagmon_tiles_sun.png",
+    "mods/nagmon/trips/solar.yaml"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/animations/item/capture_1.png",
    "kind": "animation",
    "sources": [
@@ -13263,6 +13525,27 @@
    "adapted": "xBRZ x4"
   },
   {
+   "path": "sprites/animations/technique/metallic_absorb.png",
+   "kind": "animation",
+   "sources": [
+    "mods/tuxemon/animations/technique/metallic_absorb.png"
+   ],
+   "credits": [
+    "technique-animations-metallic-absorb"
+   ],
+   "authors": [
+    "JaskRendix"
+   ],
+   "author": "JaskRendix",
+   "licences": [
+    "not stated in ATTRIBUTIONS.md"
+   ],
+   "licence": "not stated in ATTRIBUTIONS.md",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
    "path": "sprites/animations/technique/pollenbullet.png",
    "kind": "animation",
    "sources": [
@@ -13502,6 +13785,27 @@
     "HippasusTwo"
    ],
    "author": "HippasusTwo",
+   "licences": [
+    "not stated in ATTRIBUTIONS.md"
+   ],
+   "licence": "not stated in ATTRIBUTIONS.md",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "sprites/animations/technique/ruby.png",
+   "kind": "animation",
+   "sources": [
+    "mods/tuxemon/animations/technique/ruby.png"
+   ],
+   "credits": [
+    "technique-animations-ruby"
+   ],
+   "authors": [
+    "JaskRendix"
+   ],
+   "author": "JaskRendix",
    "licences": [
     "not stated in ATTRIBUTIONS.md"
    ],
@@ -14347,6 +14651,82 @@
    "adapted": "xBRZ x3"
   },
   {
+   "path": "sprites/monsters/asterchip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/asterchip-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/astercrab-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/astercrab-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/asterfort-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/asterfort-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/aurorail-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/aurorail-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/axolightl-sheet.png",
    "kind": "monster",
    "sources": [
@@ -14488,6 +14868,63 @@
    "adapted": "xBRZ x3"
   },
   {
+   "path": "sprites/monsters/combit-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/combit-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/cometail-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/cometail-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/cometrail-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/cometrail-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/dandicub-sheet.png",
    "kind": "monster",
    "sources": [
@@ -14526,10 +14963,86 @@
    "adapted": "xBRZ x3"
   },
   {
+   "path": "sprites/monsters/dustip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/dustip-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/enigmon-sheet.png",
    "kind": "monster",
    "sources": [
     "mods/nagmon/gfx/sprites/battle/enigmon-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/europan-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/europan-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/europip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/europip-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/europod-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/europod-sheet.png"
    ],
    "credits": [],
    "authors": [
@@ -14606,10 +15119,162 @@
    "adapted": ""
   },
   {
+   "path": "sprites/monsters/ganybit-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/ganybit-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/ganyguard-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/ganyguard-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/ganyhorn-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/ganyhorn-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/geometrion-sheet.png",
    "kind": "monster",
    "sources": [
     "mods/nagmon/gfx/sprites/battle/geometrion-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/gravip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/gravip-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/gravivault-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/gravivault-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/heliarch-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/heliarch-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/heliobud-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/heliobud-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/heliolynx-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/heliolynx-sheet.png"
    ],
    "credits": [],
    "authors": [
@@ -14646,6 +15311,63 @@
    "adapted": "xBRZ x3"
   },
   {
+   "path": "sprites/monsters/iobud-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/iobud-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/iolisk-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/iolisk-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/iopyre-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/iopyre-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/jemuar-sheet.png",
    "kind": "monster",
    "sources": [
@@ -14661,6 +15383,63 @@
    "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
    "matched": false,
    "adapted": "xBRZ x3"
+  },
+  {
+   "path": "sprites/monsters/jovibud-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/jovibud-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/jovigale-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/jovigale-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/jovihog-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/jovihog-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/kroki-sheet.png",
@@ -14695,6 +15474,63 @@
    "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
    "matched": false,
    "adapted": "xBRZ x3"
+  },
+  {
+   "path": "sprites/monsters/kuipcrest-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/kuipcrest-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/kuipine-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/kuipine-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/kuipip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/kuipip-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/leviadile-sheet.png",
@@ -14733,6 +15569,101 @@
    "adapted": ""
   },
   {
+   "path": "sprites/monsters/lunibble-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/lunibble-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/lunihare-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/lunihare-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/lunwarden-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/lunwarden-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/marskip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/marskip-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/marstrix-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/marstrix-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/megillon-sheet.png",
    "kind": "monster",
    "sources": [
@@ -14752,10 +15683,181 @@
    "adapted": ""
   },
   {
+   "path": "sprites/monsters/mercuram-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/mercuram-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/mercurip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/mercurip-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/mercurush-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/mercurush-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/meteet-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/meteet-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/meteohelm-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/meteohelm-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/meteoroar-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/meteoroar-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/multivolt-sheet.png",
    "kind": "monster",
    "sources": [
     "mods/nagmon/gfx/sprites/battle/multivolt-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/nepbit-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/nepbit-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/nepdart-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/nepdart-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/nepstorm-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/nepstorm-sheet.png"
    ],
    "credits": [],
    "authors": [
@@ -14809,6 +15911,25 @@
    "adapted": "xBRZ x3"
   },
   {
+   "path": "sprites/monsters/orbitail-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/orbitail-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/pluson-sheet.png",
    "kind": "monster",
    "sources": [
@@ -14828,10 +15949,105 @@
    "adapted": ""
   },
   {
+   "path": "sprites/monsters/plutaur-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/plutaur-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/plutopaw-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/plutopaw-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/plutot-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/plutot-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/polygonos-sheet.png",
    "kind": "monster",
    "sources": [
     "mods/nagmon/gfx/sprites/battle/polygonos-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/probewing-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/probewing-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/probip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/probip-sheet.png"
    ],
    "credits": [],
    "authors": [
@@ -14900,6 +16116,44 @@
    "adapted": "xBRZ x3"
   },
   {
+   "path": "sprites/monsters/ringlet-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/ringlet-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/ringwarden-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/ringwarden-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/rockat-sheet.png",
    "kind": "monster",
    "sources": [
@@ -14938,10 +16192,143 @@
    "adapted": "xBRZ x3"
   },
   {
+   "path": "sprites/monsters/roverex-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/roverex-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/roveroo-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/roveroo-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/rustip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/rustip-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/sailbit-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/sailbit-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/sailray-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/sailray-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/saturnip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/saturnip-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/scrollo-sheet.png",
    "kind": "monster",
    "sources": [
     "mods/nagmon/gfx/sprites/battle/scrollo-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/solwind-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/solwind-sheet.png"
    ],
    "credits": [],
    "authors": [
@@ -14974,6 +16361,158 @@
    "adapted": "xBRZ x3"
   },
   {
+   "path": "sprites/monsters/terrabub-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/terrabub-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/terratot-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/terratot-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/terravault-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/terravault-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/tiltip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/tiltip-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/tiltitan-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/tiltitan-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/titanewt-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/titanewt-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/titanip-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/titanip-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/titanveil-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/titanveil-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/tourbidi-sheet.png",
    "kind": "monster",
    "sources": [
@@ -14991,6 +16530,82 @@
    "adapted": "xBRZ x3"
   },
   {
+   "path": "sprites/monsters/uranurtle-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/uranurtle-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/venubud-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/venubud-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/venumoth-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/venumoth-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/monsters/venuveil-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/venuveil-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/monsters/weavifly-sheet.png",
    "kind": "monster",
    "sources": [
@@ -15006,6 +16621,44 @@
    "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
    "matched": false,
    "adapted": "xBRZ x3"
+  },
+  {
+   "path": "sprites/monsters/zodiacat-sheet.png",
+   "kind": "monster",
+   "sources": [
+    "mods/nagmon/gfx/sprites/battle/zodiacat-sheet.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/npc/nagmon_astronomer.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites/nagmon_astronomer.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_granite.png",
@@ -15031,6 +16684,25 @@
    "kind": "npc",
    "sources": [
     "mods/nagmon/sprites/nagmon_granny.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/npc/nagmon_grey_hood.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites/nagmon_grey_hood.png"
    ],
    "credits": [],
    "authors": [
@@ -15160,6 +16832,44 @@
    "adapted": ""
   },
   {
+   "path": "sprites/npc/nagmon_mila_space.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites/nagmon_mila_space.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/npc/nagmon_moon_engineer.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites/nagmon_moon_engineer.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/npc/nagmon_owl.png",
    "kind": "npc",
    "sources": [
@@ -15183,6 +16893,63 @@
    "kind": "npc",
    "sources": [
     "mods/nagmon/sprites/nagmon_owl_caped.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/npc/nagmon_owl_space.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites/nagmon_owl_space.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/npc/nagmon_rover_driver.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites/nagmon_rover_driver.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/npc/nagmon_sage.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites/nagmon_sage.png"
    ],
    "credits": [],
    "authors": [
@@ -15314,6 +17081,25 @@
    "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
    "matched": true,
    "adapted": "xBRZ x4"
+  },
+  {
+   "path": "sprites/portraits/nagmon_astronomer.png",
+   "kind": "portrait",
+   "sources": [
+    "mods/nagmon/gfx/sprites/player/nagmon_astronomer.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_granite.png",
@@ -15468,10 +17254,86 @@
    "adapted": ""
   },
   {
+   "path": "sprites/portraits/nagmon_mila_space.png",
+   "kind": "portrait",
+   "sources": [
+    "mods/nagmon/gfx/sprites/player/nagmon_mila_space.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/portraits/nagmon_moon_engineer.png",
+   "kind": "portrait",
+   "sources": [
+    "mods/nagmon/gfx/sprites/player/nagmon_moon_engineer.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "sprites/portraits/nagmon_owl.png",
    "kind": "portrait",
    "sources": [
     "mods/nagmon/gfx/sprites/player/nagmon_owl.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/portraits/nagmon_owl_space.png",
+   "kind": "portrait",
+   "sources": [
+    "mods/nagmon/gfx/sprites/player/nagmon_owl_space.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "sprites/portraits/nagmon_rover_driver.png",
+   "kind": "portrait",
+   "sources": [
+    "mods/nagmon/gfx/sprites/player/nagmon_rover_driver.png"
    ],
    "credits": [],
    "authors": [

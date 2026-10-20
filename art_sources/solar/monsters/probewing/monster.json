@@ -1,0 +1,21 @@
+{
+  "slug": "probewing",
+  "name_he": "סיירכנף",
+  "name_en": "Probewing",
+  "description_he": "יצור קוסמי מקורי בהשראת גשושיות, הלומד מדעים דרך תצפית רובוטית ותקשורת.",
+  "description_en": "An original cosmic creature inspired by probe, learning science through robotic observation and communication.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": null,
+  "evolves_from": "probip",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

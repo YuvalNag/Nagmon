@@ -1,0 +1,21 @@
+{
+  "slug": "zodiacat",
+  "name_he": "אבקרן",
+  "name_en": "Zodiacat",
+  "description_he": "יצור קוסמי מקורי בהשראת אבק בין-פלנטרי, הלומד מדעים דרך אבק בין-פלנטרי, חלקיקים ופיזור אור.",
+  "description_en": "An original cosmic creature inspired by dust, learning science through interplanetary dust, particles and scattered light.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": null,
+  "evolves_from": "dustip",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

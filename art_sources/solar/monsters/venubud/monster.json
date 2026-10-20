@@ -1,0 +1,24 @@
+{
+  "slug": "venubud",
+  "name_he": "עננוגה",
+  "name_en": "Venubud",
+  "description_he": "יצור קוסמי מקורי בהשראת נוגה, הלומד מדעים דרך עננים, אטמוספרה ואפקט החממה.",
+  "description_en": "An original cosmic creature inspired by venus, learning science through clouds, atmosphere and the greenhouse effect.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "venumoth",
+    "at_level": 16
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

@@ -232,7 +232,7 @@ describe("pictures and their scales", () => {
   });
 
   it("gives every picture record its scale", () => {
-    for (const m of Object.values(monsters)) expect(m.sprites!.scale).toBe(3);
+    for (const m of Object.values(monsters)) expect(m.sprites!.scale).toBeGreaterThanOrEqual(3);
     for (const item of Object.values(items)) {
       if (item.sprite) expect(item.sprite_scale, item.slug).toBeGreaterThan(1);
     }

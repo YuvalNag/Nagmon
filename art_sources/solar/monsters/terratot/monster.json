@@ -1,0 +1,24 @@
+{
+  "slug": "terratot",
+  "name_he": "צבארץ",
+  "name_en": "Terratot",
+  "description_he": "יצור קוסמי מקורי בהשראת כדור הארץ, הלומד מדעים דרך מים, אטמוספרה, סיבוב ותנאים לחיים.",
+  "description_en": "An original cosmic creature inspired by earth, learning science through water, atmosphere, rotation and conditions for life.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "terravault",
+    "at_level": 36
+  },
+  "evolves_from": "terrabub",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

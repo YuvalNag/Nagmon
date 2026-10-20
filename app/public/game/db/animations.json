@@ -627,6 +627,20 @@
   "frames": 8,
   "columns": 8
  },
+ "metallic_absorb": {
+  "file": "technique",
+  "slug": "metallic_absorb",
+  "frame_x": 256,
+  "frame_y": 256,
+  "duration": 0.1,
+  "_source": [
+   "mods/tuxemon/db/animation/technique.yaml"
+  ],
+  "sheet": "sprites/animations/technique/metallic_absorb.png",
+  "scale": 4,
+  "frames": 6,
+  "columns": 6
+ },
  "pollenbullet": {
   "file": "technique",
   "slug": "pollenbullet",
@@ -791,6 +805,20 @@
    "mods/tuxemon/db/animation/technique.yaml"
   ],
   "sheet": "sprites/animations/technique/rollingball.png",
+  "scale": 4,
+  "frames": 6,
+  "columns": 6
+ },
+ "ruby": {
+  "file": "technique",
+  "slug": "ruby",
+  "frame_x": 256,
+  "frame_y": 256,
+  "duration": 0.1,
+  "_source": [
+   "mods/tuxemon/db/animation/technique.yaml"
+  ],
+  "sheet": "sprites/animations/technique/ruby.png",
   "scale": 4,
   "frames": 6,
   "columns": 6

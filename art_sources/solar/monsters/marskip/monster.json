@@ -1,0 +1,24 @@
+{
+  "slug": "marskip",
+  "name_he": "קפצמאדים",
+  "name_en": "Marskip",
+  "description_he": "יצור קוסמי מקורי בהשראת מאדים, הלומד מדעים דרך משטחים אדומים עשירים בברזל, קרח בקטבים וחקר כוכבים.",
+  "description_en": "An original cosmic creature inspired by mars, learning science through iron-rich red surfaces, polar ice and exploration.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "marstrix",
+    "at_level": 36
+  },
+  "evolves_from": "rustip",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

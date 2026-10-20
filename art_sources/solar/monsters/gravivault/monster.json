@@ -1,0 +1,21 @@
+{
+  "slug": "gravivault",
+  "name_he": "שומרמסלול",
+  "name_en": "Gravivault",
+  "description_he": "יצור קוסמי מקורי בהשראת כבידה ומסלולים, הלומד מדעים דרך כבידה, מסלולים ומשיכה.",
+  "description_en": "An original cosmic creature inspired by orbit, learning science through gravity, orbital paths and attraction.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage2",
+  "evolves_into": null,
+  "evolves_from": "orbitail",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

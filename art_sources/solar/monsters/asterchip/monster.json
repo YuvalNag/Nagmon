@@ -1,0 +1,24 @@
+{
+  "slug": "asterchip",
+  "name_he": "סלעון",
+  "name_en": "Asterchip",
+  "description_he": "יצור קוסמי מקורי בהשראת אסטרואידים, הלומד מדעים דרך גופים סלעיים קטנים וחגורת האסטרואידים.",
+  "description_en": "An original cosmic creature inspired by asteroid, learning science through rocky small bodies and the asteroid belt.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "astercrab",
+    "at_level": 16
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

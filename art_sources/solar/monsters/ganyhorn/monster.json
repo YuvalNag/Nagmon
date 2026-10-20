@@ -1,0 +1,24 @@
+{
+  "slug": "ganyhorn",
+  "name_he": "ביזוגנימד",
+  "name_en": "Ganyhorn",
+  "description_he": "יצור קוסמי מקורי בהשראת גנימד, הלומד מדעים דרך ירחים גדולים, קרח ושדות מגנטיים.",
+  "description_en": "An original cosmic creature inspired by ganymede, learning science through large moons, ice and magnetic fields.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "stage1",
+  "evolves_into": {
+    "slug": "ganyguard",
+    "at_level": 36
+  },
+  "evolves_from": "ganybit",
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}

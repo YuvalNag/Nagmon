@@ -1,0 +1,24 @@
+{
+  "slug": "roveroo",
+  "name_he": "רוברון",
+  "name_en": "Roveroo",
+  "description_he": "יצור קוסמי מקורי בהשראת רוברים, הלומד מדעים דרך גלגלים, חקר פני שטח ומכשירי מדידה.",
+  "description_en": "An original cosmic creature inspired by rover, learning science through wheels, surface exploration and instruments.",
+  "types": [
+    "cosmic"
+  ],
+  "stage": "basic",
+  "evolves_into": {
+    "slug": "roverex",
+    "at_level": 20
+  },
+  "evolves_from": null,
+  "shape": "blob",
+  "where": [],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}
