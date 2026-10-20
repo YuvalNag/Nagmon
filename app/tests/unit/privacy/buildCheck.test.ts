@@ -7,6 +7,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import config from "../../../capacitor.config";
 import { checkDependencies, checkManifest, checkNativeLibs, npmPackages } from "../../android/buildCheck.mjs";
 
 const APP = join(__dirname, "..", "..", "..");
@@ -107,5 +108,12 @@ describe("64-bit", () => {
       "native code without arm64-v8a (found armeabi-v7a)",
       "native code without x86_64 (found armeabi-v7a)",
     ]);
+  });
+});
+
+describe("the system log", () => {
+  it("gets nothing from Capacitor: its debug logging prints every plugin call's data", () => {
+    expect(config.loggingBehavior).toBe("none");
+    expect(config.android?.loggingBehavior).toBeUndefined();
   });
 });
