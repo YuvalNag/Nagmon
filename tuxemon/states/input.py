@@ -19,7 +19,11 @@ from tuxemon.menu.input import (
     NameDataLoader,
 )
 from tuxemon.menu.interface import MenuItem
-from tuxemon.menu.keyboard import PlacedSpriteList, keyboard_layout
+from tuxemon.menu.keyboard import (
+    KeyboardLayout,
+    PlacedSpriteList,
+    keyboard_layout,
+)
 from tuxemon.menu.menu import Menu
 from tuxemon.platform import mobile
 from tuxemon.platform.const import buttons, events, intentions
@@ -271,15 +275,13 @@ class InputMenu(Menu[InputMenuObj]):
         everything = self.char_manager.all_chars
         chars = [c for c in everything if c not in ("\0", " ")]
         gap = self.client.context.scaling.scale_int(2)
-        layout = keyboard_layout(
-            self._phone_board_area(),
-            len(chars),
-            gap=gap,
-            rtl=bidi.locale_is_rtl(),
-        )
+        cells, layout = self._phone_cells(chars, gap)
         self.menu_items.columns = layout.columns
         font = self._key_font()
-        for char, place in zip(chars, layout.chars):
+        for char, place in zip(cells, layout.chars):
+            if char is None:
+                yield self._blank(place)
+                continue
             yield self._key(
                 place,
                 char,
@@ -288,7 +290,7 @@ class InputMenu(Menu[InputMenuObj]):
                 font=font,
             )
         # the action row is a row of its own for the arrow keys too
-        for _ in range(layout.rows * layout.columns - len(chars)):
+        for _ in range(layout.rows * layout.columns - len(cells)):
             yield self._blank(layout.chars[-1])
         row = [
             self._key(
@@ -324,6 +326,32 @@ class InputMenu(Menu[InputMenuObj]):
             row.append(self._blank(layout.delete))
         yield from row
         yield from self._phone_extras(layout.board, gap, font)
+
+    def _phone_cells(
+        self, chars: list[str], gap: int
+    ) -> tuple[list[str | None], KeyboardLayout]:
+        """
+        The keys with the digits on a row of their own: a "1" next to
+        the last letter reads as a letter. None is an empty cell.
+        """
+        first_digit = next(
+            (i for i, c in enumerate(chars) if c.isdigit()), len(chars)
+        )
+        letters, rest = chars[:first_digit], chars[first_digit:]
+        cells: list[str | None] = list(chars)
+        for _ in range(3):
+            layout = keyboard_layout(
+                self._phone_board_area(),
+                len(cells),
+                gap=gap,
+                rtl=bidi.locale_is_rtl(),
+            )
+            pad = -len(letters) % layout.columns if letters and rest else 0
+            wanted: list[str | None] = [*letters, *[None] * pad, *rest]
+            if wanted == cells:
+                break
+            cells = wanted
+        return cells, layout
 
     def _phone_extras(
         self, board: Rect, gap: int, font: Font

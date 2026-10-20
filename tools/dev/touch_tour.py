@@ -227,6 +227,9 @@ from nagmon.runtime import get_runtime  # noqa: E402
 
 check(wait_for("ProfileSelectState"), "who-is-playing screen")
 step(30)
+check(names()[0] == "ProfileSelectState", "the intro's tap pressed nothing")
+tap_widget("ProfileSelectState", "new_child")
+step(30)
 shot("t00_first_run_pin")
 if names()[0] == "InputMenu":
     step(60)  # the keyboard slides open first

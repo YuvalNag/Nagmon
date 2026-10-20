@@ -348,6 +348,20 @@ def test_letter_board_keys_are_big_on_a_phone(phone, hebrew):
         assert SCREEN.contains(_absolute(menu, item))
 
 
+def test_digits_start_their_own_row_on_a_phone(phone, hebrew):
+    # a "1" next to the last letter reads as one more letter
+    menu = _input_menu(make_client())
+    keys = {
+        i.game_object.char: _absolute(menu, i)
+        for i in menu.menu_items
+        if i.game_object.char
+    }
+    letters = [r for c, r in keys.items() if not c.isdigit() and c != " "]
+    digits = [keys[d] for d in "1234567890"]
+    assert min(r.top for r in digits) > max(r.top for r in letters[:27])
+    assert len({r.top for r in digits}) == 1
+
+
 def test_the_whole_key_is_a_touch_target(phone, hebrew):
     menu = _input_menu(make_client())
     handler = menu._input_handler
@@ -618,3 +632,33 @@ def test_attack_details_read_right_to_left():
     assert pixels(drawn) != pixels(font.render(line, True, (0, 0, 0)))
     visual = font.render(ensure_visual(line), True, (0, 0, 0))
     assert pixels(drawn) == pixels(visual)
+
+
+def _hud_line(phone_or_desktop_font_size):
+    from tuxemon.states.combat_animations import CombatAnimations
+
+    owner = SimpleNamespace(
+        font_size=phone_or_desktop_font_size,
+        font_filename=pygame.font.get_default_font(),
+        font_color=(0, 0, 0),
+        font_shadow_color=(200, 200, 200),
+        client=make_client(),
+    )
+    return CombatAnimations.hud_text(owner, "גאומטריון רמה 6")
+
+
+def test_battle_box_text_keeps_the_computers_size_on_a_phone(phone):
+    # the HUD boxes are pictures of a fixed size: bigger names ran into
+    # the HP bars
+    computer = 5 * 7
+    on_phone = _hud_line(mobile.ui_px(computer))
+    reference = pygame.font.Font(pygame.font.get_default_font(), computer)
+    assert abs(on_phone.get_height() - reference.get_linesize()) <= 4
+
+
+def test_battle_box_text_has_no_missing_signs():
+    from tuxemon.combat.utils import build_hud_text
+
+    monster = SimpleNamespace(name="גאומטריון", gender_symbol="♂", level=6)
+    line = build_hud_text("MainCombatMenuState", monster, True, False, False)
+    assert "♂" not in line["line1"] and "♀" not in line["line1"]

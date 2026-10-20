@@ -31,7 +31,10 @@ def display():
 
 
 def _press(pos):
-    return PlayerInput(buttons.MOUSELEFT, value=pos, previous_value=0)
+    # a real press: the first frame the finger is down
+    return PlayerInput(
+        buttons.MOUSELEFT, value=pos, previous_value=0, hold_time=1
+    )
 
 
 def _release(pos):
@@ -294,4 +297,34 @@ def test_release_without_a_press_does_not_press_the_selected_button():
     assert clicked == []
     # the next real tap still works
     _tap(handler, first.get_rect(to_real_position=True).center)
+    assert clicked == ["one"]
+
+
+def _held(pos, frames):
+    return PlayerInput(
+        buttons.MOUSELEFT, value=pos, previous_value=pos, hold_time=frames
+    )
+
+
+def test_a_finger_held_after_a_dialog_closed_presses_nothing():
+    # A child's tap lasts several frames; the held finger is sent again
+    # every frame. If the dialog on top closed on the press, the rest of
+    # the tap lands on the menu below and must not press its button.
+    state, clicked, first, _ = _state()
+    handler = PygameMenuInputHandler(state)
+    pos = first.get_rect(to_real_position=True).center
+    for frame in range(2, 9):
+        handler.handle_event(_held(pos, frame))
+    handler.handle_event(_release(pos))
+    assert clicked == []
+
+
+def test_a_held_tap_on_a_button_still_presses_it():
+    state, clicked, first, _ = _state()
+    handler = PygameMenuInputHandler(state)
+    pos = first.get_rect(to_real_position=True).center
+    handler.handle_event(_press(pos))
+    for frame in range(2, 9):
+        handler.handle_event(_held(pos, frame))
+    handler.handle_event(_release(pos))
     assert clicked == ["one"]

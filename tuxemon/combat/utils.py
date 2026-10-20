@@ -343,7 +343,7 @@ def build_hud_text(
         symbol = "◉"
 
     return {
-        "line1": f"{monster.name}{monster.gender_symbol} "
-        f"{level_label(monster.level)}{symbol}",
+        # no gender sign: the game's Hebrew font has no ♂ or ♀
+        "line1": f"{monster.name} {level_label(monster.level)}{symbol}",
         "line2": "",
     }
