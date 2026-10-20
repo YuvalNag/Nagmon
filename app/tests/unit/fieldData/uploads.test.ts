@@ -5,7 +5,8 @@
  * when it works, the last crash sent once, a progress snapshot without
  * names; and after a whole flow, no token in the app's log or its file.
  */
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { t } from "../../../src/i18n";
 import { defaultSettings } from "../../../src/core/family/parent";
 import { ProfileStore } from "../../../src/core/family/profiles";
 import { type Fetch, forgetChecks } from "../../../src/core/fieldData/github";
@@ -15,7 +16,7 @@ import { LOG_FILE, appLogText, getLogger, installAppLog, saveAppLog, uninstallAp
 import { MemorySecretStore, SECRET_KEYS } from "../../../src/platform/secrets";
 import { MemoryFileStore } from "../../../src/platform/storage";
 
-const TOKEN = "ghp_TEST" + "abcdefghij".repeat(4);
+const TOKEN = "github_pat_TEST" + "abcdefghij".repeat(4);
 const AI_KEY = "plain-ai-key-0123456789";
 const NOW = Date.UTC(2026, 9, 20, 8, 5, 9);
 
@@ -110,6 +111,29 @@ describe("redaction", () => {
     expect(shared).toMatch(/^line \d+ <child> \*\*\*/);
     expect(shared).not.toContain(TOKEN);
     expect(lastBytes("short", 100)).toBe("short");
+  });
+});
+
+describe("the token's shape", () => {
+  it("refuses a classic token before any network call", async () => {
+    const s = await setup();
+    const spy = vi.fn(async () => new Response("{}", { status: 200 }));
+    const data = new FieldData({ fs: s.fs, secrets: s.secrets, names: async () => [], fetch: spy });
+    for (const bad of ["ghp_" + "a".repeat(36), "github_pat_ x", "gho_abc", "abc"]) {
+      expect((await data.connect(bad)).code).toBe("wrong_token_type");
+    }
+    expect(spy).not.toHaveBeenCalled();
+    expect(await data.connected()).toBe(false);
+    expect(t("ghWrongTokenType", { repo: "x" })).toContain("fine-grained");
+  });
+
+  it("refuses an answer that carries X-OAuth-Scopes", async () => {
+    const fetch: Fetch = async () =>
+      new Response(JSON.stringify({ private: true, permissions: { push: true } }), { status: 200, headers: { "X-OAuth-Scopes": "repo" } });
+    const s = await setup();
+    const data = new FieldData({ fs: s.fs, secrets: s.secrets, names: async () => [], fetch });
+    expect((await data.connect(TOKEN)).code).toBe("wrong_token_type");
+    expect(await data.connected()).toBe(false);
   });
 });
 

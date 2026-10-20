@@ -56,6 +56,7 @@ export const he = {
   ghSending: "שולח...",
   ghOk: "מחובר: הריפו {repo} פרטי, ואפשר לכתוב בו.",
   ghPublic: "הריפו {repo} ציבורי, ולכן לא נשלח אליו כלום. הופכים אותו לפרטי ב־GitHub ובודקים שוב.",
+  ghWrongTokenType: "צריך טוקן מסוג fine-grained שמוגבל לריפו nagmon-data בלבד.",
   ghBadToken: "הטוקן שגוי או שפג תוקפו. יוצרים טוקן חדש ומדביקים אותו.",
   ghNoPermission: "לטוקן אין הרשאת Contents: Read and write לריפו {repo}.",
   ghNotFound: "הריפו {repo} לא נמצא, או שהטוקן לא מורשה אליו.",

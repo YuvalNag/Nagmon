@@ -11,8 +11,9 @@
  * `tools/field/latest.py` reads both. Every text is cleaned of keys (and,
  * but for the progress, of the children's names) once more right before
  * it leaves. An upload is first {@link FieldData.prepare}d: the parent's
- * confirmation shows that exact path and text, and {@link FieldData.send}
- * sends exactly it.
+ * confirmation shows a summary (what it is, and its lines), the repo and
+ * the path, not the text itself; {@link FieldData.send} sends exactly the
+ * prepared text to exactly that path.
  */
 import { hideNames, redactSecrets } from "../crashReport";
 import { redact } from "../family/parent";
@@ -25,6 +26,8 @@ export const DEVICE_FILE = DATA_FILES.device;
 export const SHARE_LIMIT = 200_000;
 export const KINDS = { logs: ".txt", crashes: ".txt", progress: ".json" } as const;
 export type Kind = keyof typeof KINDS;
+/** A fine-grained personal access token; a classic `ghp_` one reaches every repo and is refused. */
+export const FINE_GRAINED_RE = /^github_pat_[A-Za-z0-9_]+$/;
 const ID_RE = /^[0-9a-f]{8}$/;
 
 /** 8 random hex digits. */
@@ -154,6 +157,8 @@ export class FieldData {
   async connect(token: string): Promise<Check> {
     const clean = token.trim();
     if (!clean) return { code: "bad_token", repo: this.repo };
+    // before any network call: only a fine-grained token limited to the data repo
+    if (!FINE_GRAINED_RE.test(clean)) return { code: "wrong_token_type", repo: this.repo };
     const check = await this.client(clean).check({ fresh: true });
     if (check.code === "ok" || check.code === "public") {
       await this.#secrets.set(SECRET_KEYS.githubToken, clean);

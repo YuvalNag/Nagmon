@@ -372,12 +372,21 @@ describe("hiding names", () => {
     for (const prefix of ["", "ו", "ה", "ב", "ל", "מ", "ש", "כ"]) {
       expect(hideNames(`שלום ${prefix}דן!`, ["דן"])).toBe(`שלום ${prefix}${NAME_MARK}!`);
     }
-    for (const word of ["עדן", "מדנה", "דנה", "ודני", "הוודן", "דןא"]) {
+    for (const word of ["עדן", "מדנה", "דנה", "ודני", "דןא"]) {
       expect(hideNames(`המילה ${word} כאן`, ["דן"])).toBe(`המילה ${word} כאן`);
     }
-    // two prefix letters make another word, not the name
-    expect(hideNames("ושדן", ["דן"])).toBe("ושדן");
-    expect(hideNames("(דן) 3דן", ["דן"])).toBe(`(${NAME_MARK}) 3דן`);
+    // four prefix letters make another word, not the name
+    expect(hideNames("ושכלדן", ["דן"])).toBe("ושכלדן");
+    expect(hideNames("(דן) 3דן", ["דן"])).toBe(`(${NAME_MARK}) 3${NAME_MARK}`);
+  });
+
+  it("hides up to three prefix letters, niqqud and digit boundaries", () => {
+    expect(hideNames("שלום ולנועה!", ["נועה"])).toBe(`שלום ול${NAME_MARK}!`);
+    expect(hideNames("נוֹעָה ולנוֹעָה", ["נועה"])).toBe(`${NAME_MARK} ול${NAME_MARK}`);
+    expect(hideNames("שלום לנועה", ["נוֹעָה"])).toBe(`שלום ל${NAME_MARK}`);
+    expect(hideNames("נועה123 ו-נועה 7נועה", ["נועה"])).toBe(`${NAME_MARK}123 ו-${NAME_MARK} 7${NAME_MARK}`);
+    // four prefix letters, or letters after, make another word
+    expect(hideNames("ושלבנועה נועהים ענועה", ["נועה"])).toBe("ושלבנועה נועהים ענועה");
   });
 
   it("ignores one-letter and empty names", () => {

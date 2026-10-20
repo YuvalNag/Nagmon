@@ -16,7 +16,7 @@ import {
   forgetChecks,
 } from "../../../src/core/fieldData/github";
 
-const TOKEN = "ghp_TEST" + "0123456789".repeat(4);
+const TOKEN = "github_pat_TEST" + "0123456789".repeat(4);
 
 interface Call {
   method: string;
@@ -55,6 +55,18 @@ function client(fetch: Fetch, { clock = (): number => 1_000_000, lines = [] as s
 }
 
 afterEach(() => forgetChecks());
+
+describe("redirects", () => {
+  it("are not followed, and an opaque redirect is a failure", async () => {
+    let init: RequestInit = {};
+    const fetch: Fetch = async (_url, i) => {
+      init = i;
+      return { status: 0, type: "opaqueredirect", headers: new Headers(), json: async () => ({}) } as unknown as Response;
+    };
+    expect((await client(fetch).check({ fresh: true })).code).toBe("failed");
+    expect(init.redirect).toBe("manual");
+  });
+});
 
 describe("the check", () => {
   it("a private, writable repo is ok", async () => {
@@ -107,7 +119,7 @@ describe("the check", () => {
     expect(calls).toHaveLength(1);
     expect(await c.cached()).toEqual({ code: "ok", repo: DEFAULT_REPO });
     // another token is another check
-    expect(await new GitHubClient("ghp_TESTother000000000000000000000", { fetch }).cached()).toBeNull();
+    expect(await new GitHubClient("github_pat_TESTother000000000000000000000", { fetch }).cached()).toBeNull();
     now += CHECK_TTL_MS + 1;
     expect(await c.cached()).toBeNull();
     await c.check();

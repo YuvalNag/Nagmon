@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { DEFAULT_REPO } from "../../../core/fieldData/github";
 import { t } from "../../../i18n";
 import { Tap } from "../../Tap";
@@ -19,9 +19,17 @@ interface Props {
  * goes from the field to the check, and to Android's secure storage.
  */
 export function TokenPage({ repo = DEFAULT_REPO, message, busy, onSave, onBack }: Props) {
-  const [token, setToken] = useState("");
+  // uncontrolled: the token is read from the field on save and the field
+  // is cleared at once, so it never sits in a DOM `value` attribute
+  const input = useRef<HTMLInputElement>(null);
+  const [filled, setFilled] = useState(false);
   const save = () => {
-    if (!busy && token.trim()) onSave(token);
+    const field = input.current;
+    const token = field?.value ?? "";
+    if (busy || !token.trim()) return;
+    field!.value = "";
+    setFilled(false);
+    onSave(token);
   };
   return (
     <main className="screen parents-page" data-screen="parents-token" data-busy={busy}>
@@ -37,9 +45,9 @@ export function TokenPage({ repo = DEFAULT_REPO, message, busy, onSave, onBack }
         autoCorrect="off"
         spellCheck={false}
         enterKeyHint="done"
-        value={token}
+        ref={input}
         disabled={busy}
-        onChange={(e) => setToken(e.target.value)}
+        onChange={(e) => setFilled(e.target.value.trim() !== "")}
         onKeyDown={(e) => {
           if (e.key === "Enter") save();
         }}
@@ -47,7 +55,7 @@ export function TokenPage({ repo = DEFAULT_REPO, message, busy, onSave, onBack }
       <p className={busy ? "message wait" : "message"} role="alert">
         {busy ? t("ghChecking") : (message ?? "")}
       </p>
-      <Tap id="gh_token_save" className="primary" disabled={busy || !token.trim()} onTap={save}>
+      <Tap id="gh_token_save" className="primary" disabled={busy || !filled} onTap={save}>
         {t("ghTokenSave")}
       </Tap>
     </main>

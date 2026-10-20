@@ -216,7 +216,7 @@ for (const scale of [1, 1.3]) {
     await screen("parents-token");
     await audit(page, "20_parents_token", shot);
     await touch(page, page.locator(id("gh_token_input")), 30);
-    await page.keyboard.insertText("ghp_TEST1111111111111111111111111111fake");
+    await page.keyboard.insertText("github_pat_TEST1111111111111111111111111111fake");
     await touch(page, page.locator(id("gh_token_save")), 30);
     await expect(page.locator(id("gh_status"))).toContainText("מחובר");
     await audit(page, "21_parents_github", shot);

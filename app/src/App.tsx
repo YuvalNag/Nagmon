@@ -208,6 +208,18 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
     [backButton, show],
   );
 
+  // the parents' area locks when the app goes to the background: back to
+  // who-plays, so coming back needs the PIN again (docs/app/SDD.md §10)
+  useEffect(
+    () =>
+      lifecycle?.onBackground(() => {
+        if (current.current.kind !== "parents") return;
+        parentsBack.current = null;
+        show(WHO);
+      }),
+    [lifecycle, show],
+  );
+
   const goTo = (goal: Goal): View => (goal === "new_child" ? { kind: "name" } : { kind: "parents" });
 
   function ask(goal: Goal) {

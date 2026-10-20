@@ -7,6 +7,7 @@
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { App } from "../../../src/App";
+import type { MapLifecycle } from "../../../src/game/mapGame";
 import { openServices } from "../../../src/app/services";
 import { forgetChecks } from "../../../src/core/fieldData/github";
 import { t } from "../../../src/i18n";
@@ -14,7 +15,7 @@ import { SECRET_KEYS } from "../../../src/platform/secrets";
 import { MemoryFileStore } from "../../../src/platform/storage";
 import { parentsBackStep, type ParentsPage } from "../../../src/ui/screens/parents/pages";
 
-const TOKEN = "ghp_TEST" + "9".repeat(32);
+const TOKEN = "github_pat_TEST" + "9".repeat(32);
 
 afterEach(() => {
   cleanup();
@@ -25,12 +26,12 @@ afterEach(() => {
 
 const settle = (ms = 0) => act(() => new Promise((r) => setTimeout(r, ms)));
 
-async function start(children = ["דנה", "גל"]) {
+async function start(children = ["דנה", "גל"], lifecycle?: MapLifecycle) {
   const services = await openServices(new MemoryFileStore());
   await services.parent.setPin("1234");
   for (const name of children) await services.profiles.create({ name, avatar: "girl_teal", grade: 2 });
   let back: (() => void) | null = null;
-  const { container } = render(<App services={services} backButton={(h) => ((back = h), () => (back = null))} />);
+  const { container } = render(<App services={services} lifecycle={lifecycle} backButton={(h) => ((back = h), () => (back = null))} />);
   await settle();
   const el = (id: string) => container.querySelector(`[data-id="${id}"]`) as HTMLButtonElement | null;
   const screen = () => container.querySelector("[data-screen]")!.getAttribute("data-screen");
@@ -170,6 +171,30 @@ describe("the parent code", () => {
   }, 20_000);
 });
 
+describe("locking", () => {
+  it("the parents' area locks when the app goes to the background", async () => {
+    const leave = new Set<() => void>();
+    const lifecycle: MapLifecycle = {
+      state: "active",
+      onBackground: (fn) => (leave.add(fn), () => void leave.delete(fn)),
+      onForeground: () => () => undefined,
+    };
+    const app = await start(["דנה"], lifecycle);
+    expect(app.screen()).toBe("parents");
+    act(() => leave.forEach((fn) => fn()));
+    await settle();
+    expect(app.screen()).toBe("who-plays");
+    // coming back asks for the PIN again
+    await app.press("parents");
+    const pin = app.screen();
+    expect(pin).not.toBe("parents");
+    // another screen is left alone
+    act(() => leave.forEach((fn) => fn()));
+    await settle();
+    expect(app.screen()).toBe(pin);
+  });
+});
+
 describe("GitHub", () => {
   it("a pasted token is checked, kept only in the secret store, and shown masked", async () => {
     const fetch = vi.fn(async () => new Response(JSON.stringify({ private: true, permissions: { push: true } }), { status: 200 }));
@@ -183,7 +208,13 @@ describe("GitHub", () => {
     const input = app.container.querySelector("input")!;
     expect(input.type).toBe("password");
     fireEvent.change(input, { target: { value: TOKEN } });
+    // while it is typed: never in a DOM attribute or the markup
+    expect(input.getAttribute("value")).toBeNull();
+    expect(app.container.innerHTML).not.toContain(TOKEN);
+    expect(input.value).toBe(TOKEN);
     await app.press("gh_token_save");
+    // cleared at once on save
+    expect(input.value).toBe("");
     await app.waitScreen("parents-github");
     await vi.waitFor(() => expect(app.text()).toContain(t("ghOk", { repo: "YuvalNag/nagmon-data" })));
     expect(app.el("gh_masked")!.textContent).toBe("***9999");

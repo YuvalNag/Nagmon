@@ -55,6 +55,7 @@ const MESSAGES: Record<Code, TextKey> = {
   ok: "ghOk",
   public: "ghPublic",
   bad_token: "ghBadToken",
+  wrong_token_type: "ghWrongTokenType",
   no_permission: "ghNoPermission",
   not_found: "ghNotFound",
   offline: "ghOffline",

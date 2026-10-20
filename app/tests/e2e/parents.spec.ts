@@ -11,7 +11,7 @@ import { fitsAndSharp, touch, typeCode } from "./touch";
  */
 
 const id = (s: string) => `[data-id="${s}"]`;
-const TOKEN = "ghp_TEST0000000000000000000000000000fake";
+const TOKEN = "github_pat_TEST0000000000000000000000000000fake";
 const REPO = "YuvalNag/nagmon-data";
 
 interface Seen {
@@ -248,7 +248,7 @@ test("a bad token is not kept; no network says so", async ({ page, console: prob
   await touch(page, page.locator(id("parents_github")), 30);
   await touch(page, page.locator(id("gh_paste")), 30);
   await touch(page, page.locator(id("gh_token_input")), 30);
-  await page.keyboard.insertText("ghp_TESTbadbadbadbadbadbadbadbadbad");
+  await page.keyboard.insertText("github_pat_TESTbadbadbadbadbadbadbadbadbad");
   await touch(page, page.locator(id("gh_token_save")), 30);
   await expect(page.locator("[data-screen=parents-token] .message")).toHaveText("הטוקן שגוי או שפג תוקפו. יוצרים טוקן חדש ומדביקים אותו.");
   await touch(page, page.locator(id("back")), 30);

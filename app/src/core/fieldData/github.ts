@@ -31,6 +31,7 @@ export type Code =
   | "ok"
   | "public"
   | "bad_token"
+  | "wrong_token_type"
   | "no_permission"
   | "not_found"
   | "offline"
@@ -156,6 +157,8 @@ export class GitHubClient {
         // a check right after the repo was made private must not get the old answer
         cache: "no-store",
         credentials: "omit",
+        // a redirect could carry the token to another host
+        redirect: "manual",
         signal: abort.signal,
       });
     } catch {
@@ -167,6 +170,7 @@ export class GitHubClient {
       clearTimeout(timer);
     }
     this.#log(`GitHub ${method} ${path || "/"}: ${resp.status}`);
+    // an opaque redirect has status 0: statusCode() says "failed"
     return resp;
   }
 
@@ -192,6 +196,8 @@ export class GitHubClient {
       // not kept: the next look asks again
       return { code: e instanceof NetworkError && e.timeout ? "timeout" : "offline", repo: this.repo };
     }
+    // only a classic token (or an OAuth one) gets this header: a fine-grained one is refused
+    if (resp.headers.get("X-OAuth-Scopes") !== null) return { code: "wrong_token_type", repo: this.repo };
     const check: Check = { code: await classify(resp), repo: this.repo };
     // a 5xx or a rate limit passes: it is not kept either
     if (check.code !== "failed") checks.set(await this.cacheKey(), { at: this.#clock(), check });
