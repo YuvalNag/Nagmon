@@ -35,9 +35,10 @@ class PygameEventQueueHandler(EventQueueHandler):
 
     def __init__(self) -> None:
         super().__init__()
+        self._held_back: list[Event] = []
 
     def process_events(self) -> Generator[PlayerInput, None, None]:
-        for pg_event in pg.event.get():
+        for pg_event in self._this_frame():
             for input_handler in self.get_input_handlers():
                 input_handler.process_event(pg_event)
 
@@ -52,6 +53,29 @@ class PygameEventQueueHandler(EventQueueHandler):
             for event in input_handler.get_events():
                 if all(f(event) for f in self._filters):
                     yield event
+
+    def _this_frame(self) -> list[Event]:
+        """
+        The events for this frame. A quick tap brings its press and its
+        release in the same frame, and the input handlers keep only a
+        button's last state: the menus saw a release with no press and the
+        tap did nothing (most taps on a slow phone, found on the
+        emulator). Such a release, and what came after it, waits for the
+        next frame.
+        """
+        queued = self._held_back + pg.event.get()
+        self._held_back = []
+        pressed: set[int] = set()
+        for i, pg_event in enumerate(queued):
+            if pg_event.type == pg.MOUSEBUTTONDOWN:
+                pressed.add(pg_event.button)
+            elif (
+                pg_event.type == pg.MOUSEBUTTONUP
+                and pg_event.button in pressed
+            ):
+                self._held_back = queued[i:]
+                return queued[:i]
+        return queued
 
 
 class InputMappingStrategy:

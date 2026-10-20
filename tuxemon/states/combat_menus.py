@@ -28,6 +28,7 @@ from tuxemon.states.monster_menu import MonsterMenuState
 from tuxemon.technique.technique import Technique
 from tuxemon.tools import fix_measure, open_dialog
 from tuxemon.ui.bidi import ensure_visual
+from tuxemon.ui.combat_layout import DESIGN_WIDTH
 from tuxemon.ui.graphic_box import GraphicBox
 from tuxemon.ui.text import TextArea
 
@@ -144,6 +145,40 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
             for spr in self.text_sprites.values():
                 if spr in self.sprites:
                     self.sprites.remove(spr)
+
+    def submenu_right(self) -> int:
+        """
+        Where a menu opened above this one (the attacks, the team) ends
+        on the right: the screen's edge, or on a screen wider than the
+        battle's layout (a 20:9 phone), the left edge of the player's
+        HUD, which the layout moved to that edge (SDD_ANDROID §2.8).
+        """
+        screen = self.client.context.rect
+        extra = screen.width - self.client.context.scaling.scale_int(
+            DESIGN_WIDTH
+        )
+        if extra <= 0:
+            return screen.right
+        lefts = [
+            hud.rect.left
+            for hud in (
+                self.combat.hud_manager.get_hud(mon) for mon in self.party
+            )
+            if hud is not None and hud.rect.centerx > screen.centerx
+        ]
+        return min([screen.right, *lefts])
+
+    def anchor_above(self, menu: Any, shrinks: bool = False) -> None:
+        """
+        ``menu`` above this one, at ``submenu_right``. A menu too wide for
+        the room left of the HUD (the team screen) keeps the screen's
+        edge, unless it ``shrinks`` to its words when it opens.
+        """
+        menu.anchor("bottom", self.rect.top)
+        right = self.submenu_right()
+        if not shrinks and menu.rect.width > right:
+            right = self.client.context.rect.right
+        menu.anchor("right", right)
 
     def calculate_menu_rectangle(self) -> Rect:
         rect_screen = self.client.context.rect.copy()
@@ -292,8 +327,7 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
                 is_valid_entry=validate,
             )
         )
-        menu.anchor("bottom", self.rect.top)
-        menu.anchor("right", self.client.context.rect.right)
+        self.anchor_above(menu)
 
     def open_item_menu(self) -> None:
         """Open menu to choose item to use."""
@@ -447,9 +481,8 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
             if enabled_items:
                 menu.selected_index = enabled_items[0]
 
-            # position the new menu
-            menu.anchor("bottom", self.rect.top)
-            menu.anchor("right", self.client.context.rect.right)
+            # position the new menu (it shrinks to the names when it opens)
+            self.anchor_above(menu, shrinks=True)
 
             # set next menu after the selection is made
             menu.on_selection_callback = choose_target

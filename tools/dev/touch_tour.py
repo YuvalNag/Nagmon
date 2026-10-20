@@ -5,8 +5,8 @@ taps, a 20:9 screen) and only taps, no keys (docs/kids/SDD_ANDROID.md §3).
 Usage:
     HOME=/tmp/nagmon-home python tools/dev/touch_tour.py OUTDIR [--system-locale]
 
-Steps: "who is playing" -> the parent code on its digit pad (twice) ->
-a new child -> a wrong code and the parent area -> "send log" -> tap a
+Steps: the intro movie -> "who is playing" -> the parent code on its
+digit pad (twice) -> a new child -> a wrong code and the parent area -> "send log" -> tap a
 child -> a question -> tap the right answer -> tap "continue" -> the
 world with the touch arrows -> a wild battle's menu. On the way it saves
 the pad, the letter board, a long dialog and the battle menu, and checks
@@ -78,12 +78,20 @@ def check(ok: bool, what: str) -> None:
         failures.append(what)
 
 
+#: Tuxemon's "press a key" screen, if it ever shows (SDD_ANDROID §2.8).
+tuxemon_title_seen: list[list[str]] = []
+
+
 def step(n: int) -> None:
+    from tuxemon.states.intro_state import IntroState as TuxemonIntro
+
     for _ in range(n):
         client.update(DT)
         client.draw()
         client.input_manager.draw_inputs(client.screen)
         pygame.display.update()
+        if any(isinstance(s, TuxemonIntro) for s in client.active_states):
+            tuxemon_title_seen.append(names())
 
 
 def names() -> list[str]:
@@ -217,9 +225,19 @@ def wait_for(state: str, frames: int = 2400) -> bool:
         if state in names():
             return True
         step(20)
-        if "IntroState" in names():
-            tap((context.resolution[0] // 2, context.resolution[1] // 2))
     return state in names()
+
+
+def right_edge_is_black(
+    surface: pygame.Surface, top: int, bottom: int
+) -> bool:
+    """The last columns of the screen are black from ``top`` to ``bottom``."""
+    w = surface.get_width()
+    for x in (w - 1, w - 8):
+        for y in range(top, bottom, 20):
+            if surface.get_at((x, y))[:3] != (0, 0, 0):
+                return False
+    return True
 
 
 print("drawing size:", context.resolution, "scale:", context.scale)
@@ -233,6 +251,19 @@ check(
     f"the phone speaks Hebrew ({CONFIG.locale.slug}, forced: {FORCE_HEBREW})",
 )
 check(CONFIG.locale.font_file == "Rubik-Medium.ttf", "with the Rubik font")
+
+# The intro movie (on the phone it plays at launch; the dummy screen of
+# the tour skips it, so it is started here as the phone starts it).
+from nagmon.ui.intro import STATE_NAME as MOVIE  # noqa: E402
+from nagmon.ui.intro import start_intro  # noqa: E402
+
+check(start_intro(client, driver="touch-tour", env={}), "intro movie starts")
+step(90)
+check(names()[:1] == [MOVIE], "Nagmon's intro movie on top")
+shot("t00_intro")
+tap((context.resolution[0] // 2, context.resolution[1] // 2))
+step(20)
+check(MOVIE not in names(), "a tap skips the intro")
 
 from nagmon.runtime import get_runtime  # noqa: E402
 
@@ -511,6 +542,12 @@ if names()[:1] == ["WorldState"]:
         menu = client.active_states[0]
         screen = pygame.Rect((0, 0), context.resolution)
         check(screen.contains(menu.rect), "battle menu inside the screen")
+        check(
+            not right_edge_is_black(
+                pygame.display.get_surface(), 0, menu.rect.top
+            ),
+            "the battle fills the screen (no black column at the right)",
+        )
         menu.menu_items.update_rect_from_parent()
         group = menu.menu_items.rect
         check(words_inside(menu), "battle menu words inside its border")
@@ -520,6 +557,19 @@ if names()[:1] == ["WorldState"]:
         step(40)
         shot("t11_combat_techniques")
         top = client.active_states[0]
+        combat = client.get_state_by_name("CombatState")
+        huds = [
+            hud.rect
+            for hud in (
+                combat.hud_manager.get_hud(mon)
+                for mon in local_session.player.monsters
+            )
+            if hud is not None
+        ]
+        check(
+            bool(huds) and not any(top.rect.colliderect(r) for r in huds),
+            f"the attacks do not cover the player's HUD {top.rect} {huds}",
+        )
         if top.name == "CombatTargetMenuState" or hasattr(top, "menu_items"):
             top.menu_items.update_rect_from_parent()
             inner = top.menu_items.rect
@@ -535,6 +585,10 @@ if names()[:1] == ["WorldState"]:
 
 shot("t09_end")
 print("states:", names())
+check(
+    not tuxemon_title_seen,
+    f"Tuxemon's press-a-key screen never shown {tuxemon_title_seen[:1]}",
+)
 if failures:
     print("FAILED:", failures)
     sys.exit(1)

@@ -44,6 +44,21 @@ SKIP_SUFFIXES = {
     ".mid",
 }
 
+#: Tuxemon images that are not modest (the family's rule) and that Nagmon
+#: never draws: they are not packed into the app (SDD_ANDROID §2.8).
+NOT_SHIPPED = (
+    # the "press a key" screen: a girl in a short skirt (Nagmon has its
+    # own IntroState)
+    "mods/tuxemon/animations/intro/intro.png",
+    # character choice: girls in short skirts; no state uses it
+    "mods/tuxemon/gfx/ui/background/choice_gender.png",
+    "mods/tuxemon/gfx/ui/background/choice_gender_240.png",
+)
+#: Portraits Nagmon replaces with modest ones of the same name: Tuxemon's
+#: copy is never drawn (mod order), so it is not packed either.
+PORTRAITS = Path("mods/tuxemon/gfx/sprites/player")
+MODEST_PORTRAITS = Path("mods/nagmon/gfx/sprites/player")
+
 #: What python-for-android builds for the phone. Recipes (python3, sdl2,
 #: pygame_ce, ...) are compiled; the rest are pure-Python wheels from PyPI,
 #: pinned to what the game is tested with.
@@ -86,6 +101,29 @@ REQUIREMENTS = (
 P4A_COMMIT = "8ef9d1dbbf769d2c14681dbc3c116c85e2e93bae"
 
 ICON = Path("mods/nagmon/gfx/owl/owl_icon.png")  # the Wise Owl (SDD_ART)
+#: The intro's last frame at 2400x1080 (tools/android/make_presplash.py).
+PRESPLASH = Path("buildconfig/android/presplash.jpg")
+#: The colour of its edges: around it on a screen of another shape, and
+#: behind Android 12's own splash (SDD_ANDROID §2.8).
+PRESPLASH_COLOR = "#9AA287"
+#: Resources added to the APK, not to the game's files.
+RES_DIR = "android_res"
+
+#: The activity's theme from Android 12 (API 31): full screen from the
+#: first frame (no status bar over the presplash) and the system splash
+#: in the presplash's colour. It replaces p4a's style of the same name,
+#: which with ``display_cutout = never`` only removes the title.
+STYLES_V31 = """\
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="KivySupportCutout">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">{color}</item>
+        <item name="android:windowSplashScreenBackground">{color}</item>
+    </style>
+</resources>
+"""
 
 SPEC = """\
 [app]
@@ -94,14 +132,17 @@ package.name = nagmon
 package.domain = org.nagmon
 source.dir = .
 source.include_exts = {exts}
-source.exclude_dirs = bin, .buildozer, recipes
+source.exclude_dirs = bin, .buildozer, recipes, {res_dir}
+source.exclude_patterns = presplash.jpg, icon.png
 version = {version}
 requirements = {requirements}
 orientation = landscape, landscape-reverse
+android.manifest.orientation = sensorLandscape
 fullscreen = 1
 icon.filename = %(source.dir)s/icon.png
-presplash.filename = %(source.dir)s/presplash.png
-android.presplash_color = #FFFFFF
+presplash.filename = %(source.dir)s/presplash.jpg
+android.presplash_color = {presplash_color}
+android.add_resources = {res_dir}/values-v31/styles.xml:values-v31/styles.xml
 android.permissions = INTERNET
 android.api = 35
 android.minapi = 24
@@ -133,6 +174,13 @@ class StageReport:
 def _wanted(path: Path, root: Path) -> bool:
     rel = path.relative_to(root)
     if any(part in SKIP_DIRS for part in rel.parts):
+        return False
+    if rel.as_posix() in NOT_SHIPPED:
+        return False
+    if (
+        rel.parent == PORTRAITS
+        and (root / MODEST_PORTRAITS / rel.name).is_file()
+    ):
         return False
     return path.suffix != "" and path.suffix.lower() not in SKIP_SUFFIXES
 
@@ -188,7 +236,12 @@ def stage(
         ignore=shutil.ignore_patterns("__pycache__"),
     )
     shutil.copy2(repo / ICON, out / "icon.png")
-    shutil.copy2(repo / ICON, out / "presplash.png")
+    shutil.copy2(repo / PRESPLASH, out / "presplash.jpg")
+    styles = out / RES_DIR / "values-v31" / "styles.xml"
+    styles.parent.mkdir(parents=True)
+    styles.write_text(
+        STYLES_V31.format(color=PRESPLASH_COLOR), encoding="utf-8"
+    )
 
     # Named in crash reports (docs/kids/SDD_ANDROID.md §2.6).
     (out / "build_info.json").write_text(
@@ -210,6 +263,8 @@ def stage(
             build_number=build_number,
             p4a_commit=P4A_COMMIT,
             arch=arch,
+            res_dir=RES_DIR,
+            presplash_color=PRESPLASH_COLOR,
         ),
         encoding="utf-8",
     )

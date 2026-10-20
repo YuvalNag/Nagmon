@@ -8,6 +8,7 @@ from __future__ import annotations
 import configparser
 import importlib.util
 import io
+import os
 import subprocess
 import sys
 import tarfile
@@ -57,6 +58,7 @@ def _fake_repo(root: Path) -> Path:
         (root / "buildconfig/android" / rel).write_text(
             (REPO / "buildconfig/android" / rel).read_text()
         )
+    (root / "buildconfig/android/presplash.jpg").write_text("landscape jpg")
     recipes = root / "buildconfig/android/recipes/pygame_ce"
     recipes.mkdir(parents=True)
     (recipes / "__init__.py").write_text("recipe = None\n")
@@ -105,14 +107,64 @@ def test_entry_point_and_recipes_are_in_place(staged):
     assert "prepare_environment" in (out / "main.py").read_text()
     assert (out / "recipes/pygame_ce/__init__.py").is_file()
     assert (out / "icon.png").is_file()
-    assert (out / "presplash.png").is_file()
+    assert (out / "presplash.jpg").is_file()
 
 
-def test_icon_and_presplash_are_the_wise_owl(staged):
-    # docs/kids/SDD_ART.md §3 row 21: the owl the owner drew.
+def test_icon_is_the_wise_owl_and_the_presplash_is_landscape(staged):
+    # docs/kids/SDD_ART.md §3 row 21: the owl the owner drew; the
+    # presplash is the intro's last frame, owl included (SDD_ANDROID §2.8).
     _, out, _ = staged
     assert (out / "icon.png").read_text() == "owl icon png"
-    assert (out / "presplash.png").read_text() == "owl icon png"
+    assert (out / "presplash.jpg").read_text() == "landscape jpg"
+    assert not (out / "presplash.png").exists()
+
+
+def test_the_presplash_is_a_sharp_landscape_jpeg_of_sane_size():
+    from PIL import Image
+
+    path = REPO / stage.PRESPLASH
+    assert path == REPO / "buildconfig/android/presplash.jpg"
+    with Image.open(path) as image:
+        assert image.format == "JPEG"
+        assert image.size == (2400, 1080)
+    assert 100_000 < path.stat().st_size <= 350_000
+
+
+def test_the_presplash_background_is_the_colour_of_its_edges():
+    import make_presplash
+    from PIL import Image
+
+    with Image.open(REPO / stage.PRESPLASH) as image:
+        edge = make_presplash.edge_color(image)
+    want = [int(edge[i : i + 2], 16) for i in (1, 3, 5)]
+    got = [int(stage.PRESPLASH_COLOR[i : i + 2], 16) for i in (1, 3, 5)]
+    assert all(abs(a - b) <= 3 for a, b in zip(want, got)), (edge, got)
+
+
+def test_the_first_screen_is_landscape_and_full_screen(staged):
+    _, out, _ = staged
+    app = _spec(out)["app"]
+    # two orientations make the manifest "unspecified": a phone held
+    # upright showed the presplash upright
+    assert app["android.manifest.orientation"] == "sensorLandscape"
+    assert app["presplash.filename"] == "%(source.dir)s/presplash.jpg"
+    assert app["android.presplash_color"] == stage.PRESPLASH_COLOR
+    src, dest = app["android.add_resources"].split(":")
+    assert dest == "values-v31/styles.xml"
+    assert "android_res" in app["source.exclude_dirs"]
+    # the pictures Android shows are not game files as well
+    patterns = {p.strip() for p in app["source.exclude_patterns"].split(",")}
+    assert {"presplash.jpg", "icon.png"} <= patterns
+    styles = (out / src).read_text()
+    assert '<style name="KivySupportCutout">' in styles
+    assert '"android:windowFullscreen">true<' in styles
+    assert (
+        f'"android:windowSplashScreenBackground">{stage.PRESPLASH_COLOR}<'
+        in styles
+    )
+    from xml.etree import ElementTree
+
+    ElementTree.fromstring(styles)  # well formed
 
 
 def test_the_owl_icon_is_512_square():
@@ -534,3 +586,72 @@ def test_the_emulator_is_phone_shaped_and_checks_sideways():
     assert "requestedOrientation=(1|7|9|12)" in script
     assert "frame rate:" in script
     assert "adb logcat -G 16M" in script  # the start is not rolled away
+
+
+# ------------------------------------------- modesty: not in the APK
+
+
+def _modesty_repo(root: Path) -> Path:
+    repo = _fake_repo(root)
+    for rel in (
+        "mods/tuxemon/animations/intro/intro.png",
+        "mods/tuxemon/gfx/ui/background/choice_gender.png",
+        "mods/tuxemon/gfx/ui/background/choice_gender_240.png",
+        "mods/tuxemon/gfx/ui/background/gradient_blue.png",
+        "mods/tuxemon/gfx/sprites/player/heroine.png",
+        "mods/tuxemon/gfx/sprites/player/monk.png",
+        "mods/nagmon/gfx/sprites/player/heroine.png",
+        "mods/tuxemon/sprites/heroine.png",
+    ):
+        path = repo / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(rel)
+    return repo
+
+
+def test_immodest_images_stay_out_of_the_app(tmp_path):
+    repo = _modesty_repo(tmp_path / "repo")
+    out = tmp_path / "app"
+    stage.stage(repo, out)
+    for rel in stage.NOT_SHIPPED:
+        assert not (out / rel).exists(), rel
+    # Tuxemon's portrait is replaced by Nagmon's modest one of that name
+    assert not (out / "mods/tuxemon/gfx/sprites/player/heroine.png").exists()
+    assert (out / "mods/nagmon/gfx/sprites/player/heroine.png").is_file()
+    # others stay: a portrait with no replacement, another folder, the rest
+    for rel in (
+        "mods/tuxemon/gfx/sprites/player/monk.png",
+        "mods/tuxemon/sprites/heroine.png",
+        "mods/tuxemon/gfx/ui/background/gradient_blue.png",
+    ):
+        assert (out / rel).is_file(), rel
+
+
+def test_not_shipped_names_the_immodest_tuxemon_images():
+    assert {
+        "mods/tuxemon/animations/intro/intro.png",
+        "mods/tuxemon/gfx/ui/background/choice_gender.png",
+        "mods/tuxemon/gfx/ui/background/choice_gender_240.png",
+    } <= set(stage.NOT_SHIPPED)
+    for rel in stage.NOT_SHIPPED:
+        assert (REPO / rel).is_file(), f"{rel} is gone: drop it from the list"
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="a bash script")
+def test_the_app_without_them_boots(tmp_path):
+    # the real game, staged, compiled and booted headless for 30 s
+    # (tools/android/compiled_boot.sh)
+    out = tmp_path / "app"
+    stage.stage(REPO, out)
+    assert not (out / "mods/tuxemon/animations/intro/intro.png").exists()
+    result = subprocess.run(
+        [str(REPO / "tools/android/compiled_boot.sh"), str(out), "30"],
+        capture_output=True,
+        text=True,
+        env={**os.environ, "PYTHON": sys.executable},
+        timeout=600,
+    )
+    assert result.returncode == 0, (
+        result.stdout[-3000:] + result.stderr[-2000:]
+    )
+    assert "ran for 30s" in result.stdout
