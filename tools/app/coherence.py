@@ -9,6 +9,9 @@ same colours, 1: none in common). The same character drawn twice comes
 out near 0.2-0.3; another person near 0.5-0.7.
 
     python -m tools.app.coherence      # the table, for the shipped files
+
+Characters in ``db.COHERENCE_APPROVED`` print "approved" and pass while
+their distance stays within :data:`DRIFT` of the approved one.
 """
 
 from __future__ import annotations
@@ -18,8 +21,12 @@ import sys
 import numpy as np
 from PIL import Image
 
-#: Above this, the two pictures are taken for different characters.
-THRESHOLD = 0.40
+#: Above this, the two pictures are taken for different characters:
+#: the midpoint between the most different matching pair (0.291) and
+#: the closest different one.
+THRESHOLD = 0.36
+#: An approved character fails again when its distance moves this much.
+DRIFT = 0.05
 BITS = 3
 
 
@@ -81,14 +88,27 @@ def table(game) -> list[tuple[str, float]]:
     return rows
 
 
+def verdict(name: str, d: float) -> str:
+    """ "", "approved", "DIFFERENT" or "APPROVED, BUT CHANGED"."""
+    from tools.app.db import COHERENCE_APPROVED
+
+    approved = COHERENCE_APPROVED.get(name)
+    if approved is not None:
+        if abs(d - approved["distance"]) > DRIFT:
+            return "APPROVED, BUT CHANGED"
+        return "approved"
+    return "DIFFERENT" if d > THRESHOLD else ""
+
+
 def main() -> int:
     from tools.app.common import OUT
 
-    rows = table(OUT)
-    for name, d in rows:
-        flag = "DIFFERENT" if d > THRESHOLD else ""
-        print(f"{name:28s} {d:.3f} {flag}")
-    return 1 if any(d > THRESHOLD for _, d in rows) else 0
+    bad = 0
+    for name, d in table(OUT):
+        flag = verdict(name, d)
+        bad += flag.isupper()
+        print(f"{name:28s} {d:.3f} {flag}".rstrip())
+    return 1 if bad else 0
 
 
 if __name__ == "__main__":

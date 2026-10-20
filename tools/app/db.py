@@ -81,12 +81,19 @@ PORTRAIT_FROM_MAP = {
     "nagmon_teacher": "nagmon_teacher",
     "nagmon_traveler": "nagmon_tourist",
 }
-#: Characters whose map and portrait differ on purpose (combat sheet ->
-#: why): the coherence guard (tools/app/coherence.py) lets them pass.
-COHERENCE_APPROVED = {
-    "nagmon_owl": "approved by the parent: the owl with glasses and a "
-    "book in battle and dialogs",
+#: Characters (NPC slug, or "avatar <key>") whose map and portrait differ
+#: on purpose: the coherence guard (tools/app/coherence.py) lets them
+#: pass while their distance stays within coherence.DRIFT of the one
+#: approved, so a later change of either picture is seen again.
+COHERENCE_APPROVED: dict[str, dict[str, Any]] = {
+    "nagmon_owl": {
+        "reason": "approved by the parent: the owl with glasses and a book "
+        "in battle and dialogs",
+        "distance": 0.4948,
+    },
 }
+#: A figure built into a portrait is at least this share of the cell.
+MIN_FIGURE = 0.6
 PORTRAIT_FROM_MAP_NOTE = (
     "Portrait built from the map sprite, so both show the same "
     "character (tools/app/db.py PORTRAIT_FROM_MAP)."
@@ -221,7 +228,7 @@ class Sprites:
             # a repainted sheet (overlays.SHEETS): generated, not copied
             if dest not in self.out.images:
                 self.out.add_image(dest, load_art(rel), [src], kind)
-                self.out.assets[dest].note = overlays.SHEET_NOTE
+                self.out.assets[dest].note = overlays.SHEET_NOTES[rel]
             return dest
         self.out.add_copy(dest, src, kind)
         return dest
@@ -269,7 +276,7 @@ def load_art(rel: str) -> Image.Image:
     if src is None:
         raise FileNotFoundError(rel)
     with Image.open(src) as im:
-        return overlays.sheet(rel, im.convert("RGBA"))
+        return overlays.sheet(rel, im.convert("RGBA"), src)
 
 
 def _size(src: Path) -> tuple[int, int]:
@@ -356,14 +363,24 @@ def map_frames(sheet: Image.Image) -> tuple[Image.Image, Image.Image]:
 def portrait_from_map_sheet(sheet: Image.Image, k: int) -> Image.Image:
     """
     A combat sheet (back left, front right, 64x64 cells at 1x, here x k)
-    from a character's map sheet: its middle-column front and back
-    frames, scaled down (Lanczos, premultiplied alpha) to the cell's
-    height, centred and standing on the cell's bottom edge.
+    from a character's HD map sheet: its middle-column front and back
+    frames, trimmed, copied 1:1 (scaled down only if taller or wider
+    than the cell, with Lanczos on premultiplied alpha), centred and
+    standing on the cell's bottom edge.
+
+    Fails on a 1x map sheet (its frames would be enlarged) and on a
+    figure under :data:`MIN_FIGURE` of the cell's height.
     """
     cell = (COMBAT_WIDTH // 2) * k
+    if sheet.width // SHEET_COLUMNS < MAP_FRAME[0] * 4:
+        raise ValueError(f"a {sheet.width} px wide map sheet is not HD")
     out = Image.new("RGBA", (2 * cell, cell), (0, 0, 0, 0))
     front, back = map_frames(sheet)
     for i, frame in enumerate((back, front)):
+        if frame.height < MIN_FIGURE * cell:
+            raise ValueError(
+                f"a {frame.height} px figure is too short for a {cell} px cell"
+            )
         f = min(cell / frame.height, cell / frame.width, 1.0)
         size = (
             max(1, round(frame.width * f)),
@@ -387,11 +404,12 @@ def portrait_from_map(
     dest = f"sprites/{target}"
     if dest in sprites.out.images:
         return dest, hd.PORTRAIT
-    src = sprites.source(f"sprites/{sprite}.png")
+    rel = f"sprites/{sprite}.png"
+    src = sprites.source(rel)
     if src is None:
         return None, None
-    with Image.open(src) as im:
-        sheet = portrait_from_map_sheet(im, hd.PORTRAIT)
+    # load_art: the map sheet's repaints (overlays.SHEETS) apply here too
+    sheet = portrait_from_map_sheet(load_art(rel), hd.PORTRAIT)
     sprites.out.add_image(dest, sheet, [src], "portrait")
     sprites.out.assets[dest].note = PORTRAIT_FROM_MAP_NOTE
     return dest, hd.PORTRAIT
@@ -725,7 +743,7 @@ def avatar_card(out: Output, key: str, combat_sheet: str) -> str:
     dest = f"avatars/{key}.png"
     out.add_image(dest, front.crop(box), [src], "portrait")
     if rel in overlays.SHEETS:
-        out.assets[dest].note = overlays.SHEET_NOTE
+        out.assets[dest].note = overlays.SHEET_NOTES[rel]
     return dest
 
 

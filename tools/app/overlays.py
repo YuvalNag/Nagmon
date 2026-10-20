@@ -14,10 +14,11 @@ Each overlay takes the 64 px HD tile and returns the new one.
 from __future__ import annotations
 
 from collections.abc import Callable
+from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-from tools.app import kippah
+from tools.app import kippah, modesty
 
 #: The two blues of the sign's disc, above and below source row 4 (y 16).
 DISC_TOP = (216, 223, 232, 255)
@@ -91,11 +92,27 @@ def apply(tileset: str, local: int, tile: Image.Image) -> Image.Image:
 SHEETS: dict[str, Callable[[Image.Image], Image.Image]] = {
     "sprites/nagmon_hero_boy.png": kippah.map_sheet,
     "gfx/sprites/player/nagmon_hero_boy.png": kippah.combat_sheet,
+    # her back frames showed skin between the sleeves: a closed blouse
+    "sprites/nagmon_teacher.png": modesty.teacher,
 }
-SHEET_NOTE = "A small kippah is drawn on the hero boy (tools/app/kippah.py)."
+SHEET_NOTES = {
+    "sprites/nagmon_hero_boy.png": "A small kippah is drawn on the hero "
+    "boy (tools/app/kippah.py).",
+    "gfx/sprites/player/nagmon_hero_boy.png": "A small kippah is drawn on "
+    "the hero boy (tools/app/kippah.py).",
+    "sprites/nagmon_teacher.png": "The back of her blouse is closed "
+    "(tools/app/modesty.py).",
+}
 
 
-def sheet(rel: str, image: Image.Image) -> Image.Image:
-    """``image`` (the file at mod path ``rel``) with its repaint, if any."""
+def sheet(rel: str, image: Image.Image, src: Path) -> Image.Image:
+    """
+    ``image`` (the file ``src`` at mod path ``rel``) with its repaint, if
+    any. The kippah's art is pinned: it fails if the source changed.
+    """
     repaint = SHEETS.get(rel)
-    return repaint(image) if repaint else image
+    if repaint is None:
+        return image
+    if rel in kippah.SOURCE_SHA256:
+        kippah.check_source(rel, src)
+    return repaint(image)
