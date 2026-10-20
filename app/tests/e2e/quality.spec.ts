@@ -9,7 +9,8 @@ import { fitsAndSharp, touch, typeCode } from "./touch";
  * English phone (the two projects):
  * - axe-core finds nothing (WCAG 2.2 A and AA, best practice), and Hebrew
  *   text has a contrast of at least 4.5:1, large text too;
- * - every button is at least 48dp (48 CSS px) both ways and has a name;
+ * - every button is at least 48dp (48 CSS px) both ways, has a name, and
+ *   its middle and corners are its own (nothing over it, not off the screen);
  * - nothing scrolls, sticks out of the screen or is cut off.
  */
 
@@ -52,15 +53,33 @@ async function clipped(page: Page): Promise<string[]> {
   });
 }
 
-async function buttons(page: Page): Promise<{ small: string[]; count: number }> {
+async function buttons(page: Page): Promise<{ small: string[]; covered: string[]; count: number }> {
   return page.evaluate((min) => {
     const small: string[] = [];
+    const covered: string[] = [];
     const all = [...document.querySelectorAll<HTMLElement>("button")];
     for (const el of all) {
       const b = el.getBoundingClientRect();
       if (b.width < min || b.height < min) small.push(`${el.dataset.id} ${Math.round(b.width)}x${Math.round(b.height)}`);
+      // a finger reaches it: the middle and the four corners (inside the
+      // rounding) hit this button, not something over it or off the screen
+      const r = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0;
+      const inset = Math.min(r * 0.4 + 2, b.width / 4, b.height / 4);
+      const points: [string, number, number][] = [
+        ["middle", b.left + b.width / 2, b.top + b.height / 2],
+        ["top start", b.left + inset, b.top + inset],
+        ["top end", b.right - inset, b.top + inset],
+        ["bottom start", b.left + inset, b.bottom - inset],
+        ["bottom end", b.right - inset, b.bottom - inset],
+      ];
+      for (const [where, x, y] of points) {
+        const hit = document.elementFromPoint(x, y);
+        if (!hit || !el.contains(hit)) {
+          covered.push(`${el.dataset.id} ${where}: ${hit ? ((hit as HTMLElement).dataset.id ?? (hit.className || hit.tagName)) : "off the screen"}`);
+        }
+      }
     }
-    return { small, count: all.length };
+    return { small, covered, count: all.length };
   }, MIN_TARGET);
 }
 
@@ -78,9 +97,10 @@ async function audit(page: Page, label: string, shot: (name: string) => Promise<
     (v) => `${v.id} (${v.impact}): ${v.nodes.map((n) => n.target.join(" ")).join(", ")}${v.id.startsWith("color") ? ` ${v.nodes[0]?.any[0]?.message ?? ""}` : ""}`,
   );
   expect(found, `${label}: axe`).toEqual([]);
-  const { small, count } = await buttons(page);
+  const { small, covered, count } = await buttons(page);
   expect(count, `${label}: buttons`).toBeGreaterThan(0);
   expect(small, `${label}: buttons under ${MIN_TARGET}dp`).toEqual([]);
+  expect(covered, `${label}: buttons covered or cut off`).toEqual([]);
   for (const b of await page.locator("button").all()) await expect(b, `${label}: a button's name`).toHaveAccessibleName(/\S/);
   expect(await clipped(page), `${label}: cut off or spilling over`).toEqual([]);
 }
