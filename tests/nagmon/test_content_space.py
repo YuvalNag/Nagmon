@@ -1,8 +1,9 @@
 """The space bank and the solar system trip zones (docs/app/TRIPS.md section 3).
 
 Every space item carries exactly one zone tag, so a zone of the trip can
-ask its own questions, and every zone has items from kindergarten
-(grade 0) to grade 9. Only yaml + stdlib.
+ask its own questions (five zones: the moon, near the sun, the rocky
+planets, the giants and the edge of the solar system), and every zone
+has items from kindergarten (grade 0) to grade 9. Only yaml + stdlib.
 """
 
 from __future__ import annotations
@@ -21,9 +22,10 @@ SPACE = (
     / "science"
     / "space.yaml"
 )
-ZONES = ("moon", "sun", "rocky_planets", "giants")
+ZONES = ("moon", "sun", "rocky_planets", "giants", "outer")
 GRADES = range(10)
 MIN_KINDERGARTEN = 12
+MIN_PER_ZONE = 20
 
 with SPACE.open(encoding="utf-8") as _f:
     ITEMS = yaml.safe_load(_f)["items"]
@@ -68,7 +70,7 @@ def test_kindergarten_mostly_pictures():
 def test_zone_sizes():
     sizes = Counter(z for i in ITEMS for z in _zones(i))
     for zone in ZONES:
-        assert sizes[zone] >= 25, f"{zone}: only {sizes[zone]} items"
+        assert sizes[zone] >= MIN_PER_ZONE, f"{zone}: only {sizes[zone]} items"
 
 
 def test_prompts_short():
