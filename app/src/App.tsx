@@ -147,6 +147,8 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
 
   useEffect(() => {
     profiles.list().then((list) => {
+      // the start's steps are timed (main.tsx); this one is the players read
+      performance.mark("nagmon:players");
       setChildren(list);
       setLoaded(true);
     }, (e) => {

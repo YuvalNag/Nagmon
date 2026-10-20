@@ -23,10 +23,25 @@ installTapTiming();
 const childNames = async () => (services ? (await services.profiles.list()).map((p) => p.name) : []);
 
 /** The log first, so that whatever breaks after it is written down. */
+/** Resolves once who-plays is on the screen (or after 5 s, whatever happens). */
+let markStarted = () => {};
+const startedOrLate = new Promise<void>((resolve) => {
+  markStarted = resolve;
+  setTimeout(resolve, 5000);
+});
+
 async function startLog(): Promise<void> {
   try {
     const secrets = createSecretStore();
-    await installAppLog(fs, { secrets: () => secrets.values(), names: childNames });
+    // Not before who-plays is up: Capacitor runs every plugin call on one
+    // thread, and the Keystore's first use there (a second on the
+    // emulator) held up the reads of the children's profiles behind it.
+    // The log hides the keys once read; a save waits for them.
+    const keys = async () => {
+      await startedOrLate;
+      return secrets.values();
+    };
+    await installAppLog(fs, { secrets: keys, names: childNames });
   } catch (e) {
     console.error("Could not start the app log", e);
   }
@@ -67,8 +82,15 @@ function startTimes(): Record<string, number> {
 }
 (globalThis as { __startTimes?: () => object }).__startTimes = startTimes;
 
-function noteStarted(): void {
+/** Who-plays is drawn with the children and its own font: the app has started. */
+let startNoted = false;
+async function noteStarted(): Promise<void> {
+  if (startNoted) return;
+  startNoted = true;
+  await document.fonts.ready;
+  await new Promise((r) => requestAnimationFrame(r));
   reportStarted();
+  markStarted();
   performance.mark("nagmon:started");
   log.info(`Started: ${Object.entries(startTimes()).map(([k, v]) => `${k} ${v} ms`).join(", ")}`);
 }
@@ -87,7 +109,7 @@ async function main(): Promise<void> {
     performance.mark("nagmon:services");
     root.render(
       <StrictMode>
-        <App services={services} onStarted={() => requestAnimationFrame(noteStarted)} />
+        <App services={services} onStarted={() => void noteStarted()} />
       </StrictMode>,
     );
   });
