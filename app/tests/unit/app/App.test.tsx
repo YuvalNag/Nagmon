@@ -300,6 +300,19 @@ describe("the start", () => {
     expect(container.querySelector(".card")?.textContent).toBe("גלי");
   });
 
+  it("shows who-plays only once the children are read, never empty first", async () => {
+    const services = await openServices(new MemoryFileStore());
+    await services.profiles.create({ name: "גלי", avatar: "boy_blue" });
+    const read = later<Awaited<ReturnType<typeof services.profiles.list>>>();
+    const real = services.profiles.list.bind(services.profiles);
+    vi.spyOn(services.profiles, "list").mockReturnValueOnce(read.promise);
+    const { container } = render(<App services={services} backButton={() => () => {}} />);
+    await settle();
+    expect(container.querySelector("[data-screen]")?.getAttribute("data-screen")).toBe("loading");
+    read.resolve(await real());
+    await vi.waitFor(() => expect(container.querySelector(".card")?.textContent).toBe("גלי"));
+  });
+
   it("is not reported when the players cannot be read", async () => {
     const services = await openServices(new MemoryFileStore());
     vi.spyOn(services.profiles, "list").mockRejectedValue(new Error("disk"));

@@ -87,6 +87,7 @@ let startNoted = false;
 async function noteStarted(): Promise<void> {
   if (startNoted) return;
   startNoted = true;
+  await fontLoad;
   await document.fonts.ready;
   await new Promise((r) => requestAnimationFrame(r));
   reportStarted();
@@ -95,13 +96,20 @@ async function noteStarted(): Promise<void> {
   log.info(`Started: ${Object.entries(startTimes()).map(([k, v]) => `${k} ${v} ms`).join(", ")}`);
 }
 
+// the font for the first screen, Hebrew and Latin, loading while the data
+// is read: who-plays then appears with its text, not blank and then drawn
+const fontLoad = Promise.all([
+  document.fonts.load("500 1em Rubik", "מי משחק"),
+  document.fonts.load("500 1em Rubik", "abc"),
+]).catch(() => undefined);
+
 async function main(): Promise<void> {
   // the data files are read while the log starts (both wait on the disk);
   // a failure is reported below, by the crash reporter
   const opening = openServices(fs);
   opening.catch(() => undefined);
   // the font size is set before the first screen, so nothing jumps
-  await Promise.all([startLog().then(() => performance.mark("nagmon:log")), applySystemFontScale()]);
+  await Promise.all([startLog().then(() => performance.mark("nagmon:log")), applySystemFontScale(), fontLoad]);
   // errors after the first go to the log only (one report per session)
   installCrashHandlers(reporter, { onLater: (text) => log.error(text) });
   const started = await reporter.run(async () => {

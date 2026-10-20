@@ -265,6 +265,10 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
     );
   }
 
+  // who-plays waits for the children: not a screen without them that then
+  // fills in under the child's finger (and a check that saw it empty)
+  if (!loaded && view.kind === "who") return <main className="screen" data-screen="loading" aria-busy="true" />;
+
   return <ScreenTime key={shown.n}>{screen(view)}</ScreenTime>;
 
   function screen(view: View) {

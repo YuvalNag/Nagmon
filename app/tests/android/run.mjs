@@ -652,6 +652,8 @@ let started = false;
 await part("first run", async () => {
   await attach();
   await page.waitFor(screen("who-plays"), { timeoutMs: 30_000 });
+  // drawn with its font: the app says so once the font is in (src/main.tsx)
+  await page.waitFor("window.__startedAt !== undefined", { timeoutMs: 30_000, what: "the app to report who-plays drawn" });
   await page.eval("document.fonts.ready.then(() => true)");
   const size = await page.eval(`({
     w: innerWidth,
