@@ -235,7 +235,19 @@ class PygameMenuState(State):
     def _create_image(
         self, path: str, position: str = POSITION_CENTER
     ) -> BaseImage:
-        # An HD twin (SDD_ANDROID §2.7) is drawn smoothly to the screen.
+        return BaseImage(
+            image_path=transform_resource_filename(path),
+            drawing_position=position,
+        )
+
+    def _create_background(
+        self, path: str, position: str = POSITION_CENTER
+    ) -> BaseImage:
+        """
+        A menu's background, filled to the window: from its HD twin when
+        there is one (SDD_ANDROID §2.7), drawn smoothly. Images added to a
+        menu keep ``_create_image``: their size is checked and scaled.
+        """
         return BaseImage(
             image_path=fetch_hd_twin(path)
             or transform_resource_filename(path),
@@ -261,7 +273,7 @@ class PygameMenuState(State):
         self, background: str, position: str = POSITION_CENTER
     ) -> Theme:
         theme = self._copy_theme(get_theme(self.client.context.scaling))
-        theme.background_color = self._create_image(background, position)
+        theme.background_color = self._create_background(background, position)
         return theme
 
     def resume(self) -> None:

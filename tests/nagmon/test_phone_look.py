@@ -275,14 +275,61 @@ def test_a_menu_background_is_its_twin(mods, display):
     nagmon, tuxemon = mods
     _save(_checker((256, 144)), tuxemon / "gfx" / "bg.png")
     state = PygameMenuState.__new__(PygameMenuState)
-    assert state._create_image("gfx/bg.png").get_path() == (
+    assert state._create_background("gfx/bg.png").get_path() == (
         (tuxemon / "gfx" / "bg.png").as_posix()
     )
     _save(_checker((256, 144), 4), nagmon / "gfx" / "bg@4x.png")
     _forget()
-    assert state._create_image("gfx/bg.png").get_path() == (
+    assert state._create_background("gfx/bg.png").get_path() == (
         (nagmon / "gfx" / "bg@4x.png").as_posix()
     )
+
+
+def test_an_image_added_to_a_menu_keeps_its_native_size(mods, display):
+    # ImageState checks the background is 256x144, and icons are scaled
+    # by the game's factor: a 4x twin there broke both (review).
+    from tuxemon.menu.menu import PygameMenuState
+
+    nagmon, tuxemon = mods
+    _save(_checker((256, 144)), tuxemon / "gfx" / "bg.png")
+    _save(_checker((256, 144), 4), nagmon / "gfx" / "bg@4x.png")
+    state = PygameMenuState.__new__(PygameMenuState)
+    image = state._create_image("gfx/bg.png")
+    assert image.get_size() == (256, 144)
+    assert image.get_path() == (tuxemon / "gfx" / "bg.png").as_posix()
+
+
+def test_image_state_opens_on_a_background_with_a_twin():
+    # gradient_blue has a twin in mods/nagmon; ImageState measured the
+    # twin (1024x576) against 256x144 and stopped the game (review).
+    from types import SimpleNamespace
+
+    from tuxemon.menu import theme as theme_mod
+    from tuxemon.menu.alert import AlertManager
+    from tuxemon.scaling import DefaultScaling
+    from tuxemon.states.image_state import ImageState
+
+    pygame.init()
+    pygame.display.set_mode((2400, 1080))
+    theme_mod.reset_theme_cache()
+    screen = pygame.Surface((2400, 1080))
+    client = MagicMock()
+    client.context = SimpleNamespace(
+        screen=screen,
+        rect=screen.get_rect(),
+        resolution=(2400, 1080),
+        tile_size=(16, 16),
+        scale=7,
+        scaling=DefaultScaling(7),
+    )
+    client.config.locale.font_file = "Rubik-Medium.ttf"
+    client.config.large_gui = False
+    client.config.sound_volume = 0.0
+    client.sound_manager.get_sound_filename.return_value = None
+    client.alert_manager = AlertManager(MagicMock())
+    state = ImageState(client, background="gradient_blue")
+    assert state.menu is not None
+    theme_mod.reset_theme_cache()
 
 
 # ------------------------------------------------- the twins in the repo
