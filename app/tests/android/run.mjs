@@ -460,19 +460,30 @@ async function coldStart() {
   await onScreen("who-plays", "a cold start opens", 30_000);
 }
 
-/** The system's font at 130%: every screen still fits, nothing cut off. */
+/**
+ * The system's font set to 130% while the app is in the background, as a
+ * parent does in Settings: the app comes back on the same page (no
+ * reload), the text follows, every screen still fits and nothing is cut off.
+ */
 async function largeFont() {
-  adb("shell", "am", "force-stop", PACKAGE);
+  await onScreen("who-plays", "before the font changes the app is on");
+  const marker = await page.eval("(window.__fontMarker = Math.random())");
+  const pid = pidOf();
+  const resume = async () => {
+    adb("shell", "am", "start", "-a", "android.intent.action.MAIN", "-c", "android.intent.category.LAUNCHER", "-n", `${PACKAGE}/.MainActivity`);
+    await sleep(2000);
+  };
+  const scale = () => page.eval(`getComputedStyle(document.documentElement).getPropertyValue("--font-scale").trim()`);
+  key("KEYCODE_HOME");
+  await sleep(1000);
   adb("shell", "settings", "put", "system", "font_scale", "1.3");
   try {
     await sleep(1000);
-    await launch();
-    await attach();
-    await onScreen("who-plays", "at 130% the app opens", 30_000);
+    await resume();
     await page.eval("document.fonts.ready.then(() => true)");
-    const scale = await page.eval(`getComputedStyle(document.documentElement).getPropertyValue("--font-scale").trim()`);
     const size = await page.eval(`parseFloat(getComputedStyle(document.body).fontSize)`);
-    check(scale === "1.3", `the page follows the system font size (--font-scale ${scale}, text ${size} px)`);
+    check(pidOf() === pid && (await page.eval("window.__fontMarker")) === marker, "after the font change, the same page (no reload, no new activity)");
+    check((await scale()) === "1.3", `the page follows the system font size (--font-scale ${await scale()}, text ${size} px)`);
     const layout = async (what) => {
       const problems = await page.eval(LAYOUT_PROBLEMS);
       check(problems.length === 0, `at 130%, ${what} fits${problems.length ? `: ${problems.join("; ")}` : ""}`);
@@ -490,15 +501,17 @@ async function largeFont() {
     shot("e03_font130_letters");
     await back("the name board", "who-plays");
   } finally {
+    key("KEYCODE_HOME");
+    await sleep(1000);
     adb("shell", "settings", "put", "system", "font_scale", "1.0");
-    adb("shell", "am", "force-stop", PACKAGE);
+    await sleep(1000);
+    await resume();
   }
+  check((await scale()) === "1", `back at 100%, the page follows (--font-scale ${await scale()})`);
 }
 
 /** 3,000 random events in the app: no crash, no ANR, the process lives on. */
 async function monkey() {
-  await launch();
-  await attach();
   await onScreen("who-plays", "before monkey the app is on", 30_000);
   const pid = pidOf();
   adb("shell", "log", "-t", "NagmonCheck", "monkey starts");
@@ -537,6 +550,13 @@ function wholeRun() {
   const fatal = lines.filter((l, i) => /FATAL EXCEPTION/.test(l) && lines.slice(i, i + 3).some((n) => n.includes(`Process: ${PACKAGE}`)));
   check(fatal.length === 0, `no FATAL EXCEPTION in the app${fatal.length ? `: ${fatal.join(" | ")}` : ""}`);
   check(!all.includes(`ANR in ${PACKAGE}`), "no ANR in the app");
+  // the activity is created once per process: a second time in the same
+  // process is a relaunch, which reloads the page and loses the child's place
+  const created = lines.filter((l) => /NagmonShell: activity created/.test(l));
+  console.log(lines.filter((l) => /NagmonShell/.test(l)).join("\n"));
+  const pids = created.map((l) => l.trim().split(/\s+/)[2]);
+  const again = pids.filter((p, i) => pids.indexOf(p) !== i);
+  check(again.length === 0, `Android never recreated the activity in a running app${again.length ? ` (pid ${again.join(", ")})` : ""}`);
   const appLog = runAs("cat", "files/nagmon/app_log.txt");
   for (const name of ["נועה", "דן"]) {
     const where = [all.includes(name) && "the system log", appLog.includes(name) && "the app's log"].filter(Boolean);
@@ -558,7 +578,7 @@ function dumpLogs() {
   try {
     console.log("--- crash buffer\n" + logcat("-b", "crash"));
     // the app's own lines and its WebView's, from the whole run
-    const ours = /nagmon|AndroidRuntime|chromium|cr_|Capacitor|Console|libc|DEBUG|ActivityManager: (Start|Process|Killing)|Displayed|Fully drawn/;
+    const ours = /nagmon|NagmonShell|AndroidRuntime|chromium|cr_|Capacitor|Console|libc|DEBUG|ActivityManager: (Start|Process|Killing)|Displayed|Fully drawn/;
     console.log("--- app lines\n" + logcat().split("\n").filter((l) => ours.test(l)).slice(-300).join("\n"));
   } catch (le) {
     console.log("no logcat:", String(le).split("\n")[0]);

@@ -1,7 +1,9 @@
 package org.nagmon.app;
 
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -16,10 +18,14 @@ import com.getcapacitor.BridgeActivity;
  */
 public class MainActivity extends BridgeActivity {
 
+    private static final String TAG = "NagmonShell";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         registerPlugin(AppShellPlugin.class);
         super.onCreate(savedInstanceState);
+        // the emulator check fails on "recreated=true": the page was reloaded
+        Log.i(TAG, "activity created, recreated=" + (savedInstanceState != null));
         // The WebView's own text zoom grew some text and not other, and
         // broke the screens at a large system font. The page reads the
         // system's font size itself and scales all its text evenly
@@ -31,6 +37,14 @@ public class MainActivity extends BridgeActivity {
         }
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         hideSystemBars();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // handled here, not by a new activity (configChanges); the page
+        // reads the font size again when it comes to the front
+        Log.i(TAG, "configuration changed, the page stays: " + newConfig);
     }
 
     @Override

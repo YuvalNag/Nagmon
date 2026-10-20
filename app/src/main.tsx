@@ -35,6 +35,8 @@ async function startLog(): Promise<void> {
 /** In the background: sound off, the clocks stopped, everything written (SDD §10). */
 const lifecycle = new Lifecycle({ flush: (why) => saveEverything(fs, why) });
 lifecycle.bind();
+// the system's font size may have changed in Settings meanwhile
+lifecycle.onForeground(() => void applySystemFontScale());
 // the browser tests and the emulator check read it
 (globalThis as { __lifecycle?: () => object }).__lifecycle = () => ({
   ...lifecycle.snapshot(),

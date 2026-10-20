@@ -19,8 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- Every configuration change is the app's own: Android must never
+             recreate the activity, which reloads the page and loses where
+             the child was. On the emulator it was recreated mid-flow soon
+             after a boot; a new font size, a WebView update (assetsPaths)
+             or dark mode would do the same on the phone. -->
         <activity
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation|density"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|screenLayout|fontScale|uiMode|orientation|density|screenSize|smallestScreenSize|layoutDirection|colorMode|fontWeightAdjustment|grammaticalGender|assetsPaths"
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBarLaunch"
