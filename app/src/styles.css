@@ -781,3 +781,71 @@ button.quiz-choice {
 .quiz .quiz-star {
   color: var(--ink-soft);
 }
+
+/* ------------------------------------------------------------ the intro */
+
+.intro-ask {
+  position: absolute;
+  inset: 0;
+}
+
+.intro-progress {
+  position: absolute;
+  top: var(--gap);
+  inset-inline-start: var(--gap);
+  margin: 0;
+  padding: 0 var(--gap);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--ink-soft);
+}
+
+.screen.intro-pick {
+  position: absolute;
+  inset: 0;
+}
+
+.starters {
+  display: flex;
+  gap: var(--gap);
+  justify-content: center;
+  align-items: stretch;
+}
+
+.card.starter {
+  height: auto;
+  min-width: calc(var(--touch) * 3);
+  padding: var(--gap);
+  justify-content: center;
+}
+
+.starter-name {
+  font-size: calc(var(--text) * 1.15);
+  font-weight: 700;
+}
+
+.starter-reason {
+  font-size: calc(var(--text) * 0.7);
+  color: var(--ink);
+  max-width: 9em;
+}
+
+.starter-why {
+  font-size: calc(var(--text) * 0.8);
+  color: var(--ink);
+}
+
+.monster-pic {
+  display: inline-block;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.monster-pic > span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}

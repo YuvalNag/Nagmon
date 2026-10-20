@@ -19,14 +19,18 @@ afterEach(cleanup);
 const settle = (ms = 0) => act(() => new Promise((r) => setTimeout(r, ms)));
 
 /** The map with a stand-in scene: it opens Hearthrock and reports who stands in front. */
-async function start({ grade = 2, settings = defaultsForGrade(2).settings as JsonObject, world = null as JsonObject | null, menuFirst = false } = {}) {
+async function start({ grade = 2, settings = defaultsForGrade(2).settings as JsonObject, world = null as JsonObject | null, menuFirst = false, fresh = false } = {}) {
   // the test seed: the question showing can be read (window.__nagmonQuiz)
   localStorage.setItem("nagmon.quiz.seed", "3");
   const fs = new MemoryFileStore();
   const profiles = new ProfileStore(fs);
   // a made-up name
   const profile = await profiles.create({ name: "תמר", avatar: "girl_teal", grade, settings });
-  if (world) await profiles.saveWorldDict(profile.id, world);
+  // a child who has had the owl's intro, unless the test is about it
+  const saved = fresh
+    ? world
+    : { schema_version: 1, money: 0, ...(world ?? {}), variables: { ...((world?.["variables"] as JsonObject | undefined) ?? {}), nagmon_intro_done: "yes" } };
+  if (saved) await profiles.saveWorldDict(profile.id, saved);
   const calls: string[] = [];
   let opts!: MapOptions;
   const load = async () =>
@@ -89,7 +93,7 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
     }
     return out;
   };
-  const quiz = () => (window as unknown as { __nagmonQuiz?: () => { phase: string; kind: string; answer: string } }).__nagmonQuiz?.();
+  const quiz = () => (window as unknown as { __nagmonQuiz?: () => { phase: string; kind: string; answer: string; skill: string } }).__nagmonQuiz?.();
   return { fs, profiles, profile, calls, backRef, q, el, press, face, read, quiz, container, opts: () => opts };
 }
 
@@ -218,5 +222,78 @@ describe("talking on the map", () => {
     await settle();
     expect(m.q("[data-screen=map-menu]")).toBeNull();
     expect((await m.read()).join(" ")).toContain("כמעט!");
+  });
+});
+
+/** Answers the question showing: right (typed or the right card), or "don't know". */
+async function answerQuestion(m: Awaited<ReturnType<typeof start>>, right: boolean) {
+  if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
+  if (!right) await m.press("quiz_dont_know");
+  else if (m.quiz()!.kind === "number") {
+    for (const k of m.quiz()!.answer) await m.press(`quiz_key_${k}`);
+    await m.press("quiz_check");
+  } else await m.press(`quiz_choice_${m.quiz()!.answer}`);
+  await m.press("quiz_continue");
+}
+
+describe("the owl's intro", () => {
+  async function intro(right: (i: number) => boolean) {
+    const m = await start({ fresh: true, grade: 3, settings: defaultsForGrade(3).settings as JsonObject });
+    // the map holds still, and the owl talks first
+    expect(m.calls).toContain("pause talk");
+    expect(m.el("dpad")).toBeNull();
+    expect((await m.read()).length).toBeGreaterThan(1);
+    const subjects: string[] = [];
+    for (let i = 0; m.q("[data-screen=intro-ask]") !== null || m.q("[data-screen=quiz]") !== null; i++) {
+      expect(i).toBeLessThan(10);
+      subjects.push(m.q("[data-screen=quiz]")!.getAttribute("aria-label") ? m.quiz()!.skill!.split(".")[0]! : "");
+      await answerQuestion(m, right(i));
+      await settle(5);
+      if (m.q("[data-screen=dialog]")) break;
+    }
+    return { m, subjects };
+  }
+
+  it("asks six questions in different subjects, then the owl, then three creatures to choose from", async () => {
+    const { m, subjects } = await intro(() => true);
+    expect(subjects).toHaveLength(6);
+    expect(new Set(subjects).size).toBe(6);
+    // the owl introduces the choice
+    expect((await m.read()).length).toBeGreaterThan(0);
+    const cards = [...m.container.querySelectorAll("[data-id^=starter_]")];
+    expect(cards).toHaveLength(3);
+    // choosing one: the owl says well done, and the world opens
+    await m.press((cards[1] as HTMLElement).dataset.id!);
+    expect((await m.read()).join(" ")).toContain("בחירה מצוינת");
+    await settle(10);
+    expect(m.el("map_menu")).not.toBeNull();
+    expect(m.q("[data-screen=intro-starters]")).toBeNull();
+    // all of it is saved: the creature, the intro's end, and each subject's start
+    await pendingWrites(m.fs);
+    const world = await m.profiles.loadWorldDict(m.profile.id);
+    expect((world["creatures"] as unknown[]).length).toBe(1);
+    expect((world["variables"] as Record<string, string>)["nagmon_intro_done"]).toBe("yes");
+    const learner = await m.profiles.loadLearnerDict(m.profile.id);
+    expect(Object.keys(learner["subject_grade"] as object).length).toBeGreaterThanOrEqual(5);
+    expect(learner["grade"]).toBe(3);
+    expect(learner["answers_total"]).toBe(6);
+  });
+
+  it("all wrong answers: still six questions, still three creatures, and the world opens", async () => {
+    const { m } = await intro(() => false);
+    await m.read();
+    expect(m.container.querySelectorAll("[data-id^=starter_]")).toHaveLength(3);
+    await m.press((m.container.querySelector("[data-id^=starter_]") as HTMLElement).dataset.id!);
+    await m.read();
+    await settle(10);
+    expect(m.el("map_menu")).not.toBeNull();
+    await pendingWrites(m.fs);
+    expect(((await m.profiles.loadWorldDict(m.profile.id))["creatures"] as unknown[]).length).toBe(1);
+  });
+
+  it("a child who has had it goes straight to the map", async () => {
+    const m = await start();
+    expect(m.q("[data-screen=intro-ask]")).toBeNull();
+    expect(m.el("map_menu")).not.toBeNull();
   });
 });

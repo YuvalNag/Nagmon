@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import type { Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
-import { answer, openMap, quiz, seedChild, toCashier } from "./cashier";
+import { answer, openMap, quiz, readDialog, seedChild, toCashier } from "./cashier";
 import { fitsAndSharp, touch, typeCode } from "./touch";
 
 /**
@@ -327,4 +327,40 @@ for (const scale of [1, 1.3]) {
       await audit(page, "25_feedback", shot);
     });
   }
+}
+
+/**
+ * The owl's intro (M4b): the question with its progress, and the choice
+ * of a creature, at 100% and 130% text.
+ */
+for (const scale of [1, 1.3]) {
+  test(`the owl's intro screens pass axe, 48dp and no clipping, at ${scale * 100}% text @map`, async ({ page }, info) => {
+    test.setTimeout(240_000);
+    await page.addInitScript((s) => {
+      const set = () => document.documentElement?.style.setProperty("--font-scale", String(s));
+      set();
+      document.addEventListener("DOMContentLoaded", set);
+    }, scale);
+    await seedChild(page, { grade: 3, intro: true });
+    const shot = (name: string) => page.screenshot({ path: info.outputPath(`${scale * 100}-intro-${name}.png`) });
+    await page.goto("/");
+    await touch(page, page.locator(id("child_p00001")), 30);
+    await expect(page.locator("[data-screen=play][data-map=ready][data-play=ready]")).toBeVisible({ timeout: 30_000 });
+    await expect(page.locator("[data-screen=dialog]")).toHaveAttribute("data-full", "true", { timeout: 10_000 });
+    await audit(page, "30_owl", shot);
+    await readDialog(page);
+    await expect(page.locator("[data-screen=intro-ask]")).toBeVisible();
+    if ((await quiz(page))!.phase === "example") await touch(page, page.locator(id("quiz_example_done")), 30);
+    await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
+    await audit(page, "31_question", shot);
+    for (let i = 0; i < 6; i++) {
+      if (i > 0) await expect(page.locator("[data-screen=intro-ask]")).toHaveAttribute("data-n", String(i + 1));
+      await answer(page, "right");
+      if (i === 0) await audit(page, "32_feedback", shot);
+      await touch(page, page.locator(id("quiz_continue")), 30);
+    }
+    await readDialog(page);
+    await expect(page.locator("[data-screen=intro-starters]")).toBeVisible();
+    await audit(page, "33_starters", shot);
+  });
 }

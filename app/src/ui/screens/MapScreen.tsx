@@ -16,6 +16,8 @@ import { getLogger } from "../../platform/appLog";
 import { Dialog } from "../Dialog";
 import { DPad } from "../DPad";
 import { DpadState } from "../dpadState";
+import { introNeeded } from "../../core/game/intro";
+import { IntroScreen } from "../IntroScreen";
 import { QuizScreen } from "../QuizScreen";
 import { ScreenTime } from "../screenTime";
 import { Tap } from "../Tap";
@@ -56,8 +58,6 @@ type Overlay = Shown & { n: number };
 
 type Debuggable = Window & {
   __nagmonMap?: MapController;
-  /** The question showing, for the browser tests and the emulator check. */
-  __nagmonQuiz?: () => { phase: string; kind: string | null; answer: string | readonly string[] | null; skill: string | null };
 };
 
 
@@ -94,6 +94,8 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   const [talking, setTalking] = useState(false);
   const [overlay, setOverlay] = useState<Overlay | null>(null);
   const [coins, setCoins] = useState<number | null>(null);
+  // the owl's intro, for a child who has not had it: placement, then the choice of a creature
+  const [intro, setIntro] = useState(false);
   // the runner's own state changed (it started, a talk ended): draw again
   const [, setRunnerTick] = useState(0);
   const seq = useRef(0);
@@ -112,6 +114,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
         if (!alive) return;
         setPlay(p);
         setCoins(p.world.money);
+        setIntro(introNeeded(p.world));
       },
       // the map still walks; nobody talks
       (e) => log.error("Could not open the child's play", e),
@@ -179,7 +182,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
 
   // the map's people and their words: a runner for each map entered
   useEffect(() => {
-    if (!play || !world) return;
+    if (!play || !world || intro) return;
     let alive = true;
     const show = (o: Shown) => setOverlay({ ...o, n: ++seq.current });
     const host: EventHost = {
@@ -236,7 +239,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       setOverlay(null);
       o?.done();
     };
-  }, [play, world]);
+  }, [play, world, intro]);
 
   const closeOverlay = useCallback(() => {
     const o = shown.current;
@@ -267,7 +270,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   }, [ctl, menuOpen]);
 
   // a talk holds it still too (the d-pad lets go), with the music on
-  const held = talking || overlay !== null;
+  const held = talking || overlay !== null || intro;
   useEffect(() => {
     if (!ctl || !held) return;
     ctl.pause("talk");
@@ -279,6 +282,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     backRef.current = () => {
       if (status === "failed") onExit();
       else if (menuOpen) closeMenu();
+      else if (intro) dialogAdvance.current?.();
       else if (overlay?.kind === "dialog") dialogAdvance.current?.();
       else if (overlay?.kind === "quiz") closeOverlay();
       else if (held) return;
@@ -287,19 +291,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     return () => {
       backRef.current = null;
     };
-  }, [backRef, menuOpen, openMenu, closeMenu, status, onExit, overlay, held, closeOverlay]);
-
-  // the browser tests and the emulator check read the question through it (only with the test seed)
-  useEffect(() => {
-    if (overlay?.kind !== "quiz" || testSeed() === null) return;
-    const s = overlay.session;
-    const w = window as Debuggable;
-    const read = () => ({ phase: s.phase, kind: s.question?.kind ?? null, answer: s.question?.answer ?? null, skill: s.question?.skill_id ?? null });
-    w.__nagmonQuiz = read;
-    return () => {
-      if (w.__nagmonQuiz === read) delete w.__nagmonQuiz;
-    };
-  }, [overlay]);
+  }, [backRef, menuOpen, openMenu, closeMenu, status, onExit, overlay, held, closeOverlay, intro]);
 
   useEffect(() => {
     if (!note) return;
@@ -309,8 +301,8 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
 
   // the last screen, for the parent's "something is wrong"
   useEffect(() => {
-    crumb.screen(menuOpen ? "menu" : overlay ? overlay.kind : "map");
-  }, [menuOpen, overlay]);
+    crumb.screen(menuOpen ? "menu" : intro ? "intro" : overlay ? overlay.kind : "map");
+  }, [menuOpen, overlay, intro]);
 
   const canTalk = !held && !!facing && !!runner && runner.talkable(facing);
 
@@ -333,7 +325,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           </Tap>
         </div>
       )}
-      {status === "ready" && coins !== null && overlay?.kind !== "quiz" && (
+      {status === "ready" && coins !== null && overlay?.kind !== "quiz" && !intro && (
         <p className="map-coins" data-id="coins" data-coins={coins} role="status" aria-label={t("mapCoins", { coins })}>
           <Coin />
           <span>{coins}</span>
@@ -368,6 +360,9 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             )}
           </div>
         </ScreenTime>
+      )}
+      {intro && play && !menuOpen && status === "ready" && (
+        <IntroScreen play={play} advanceRef={dialogAdvance} onChanged={() => setCoins(play.world.money)} onDone={() => setIntro(false)} />
       )}
       {/* the pause menu, opened as the map came up, stays on top of a dialog that starts under it */}
       {overlay?.kind === "dialog" && !menuOpen && (

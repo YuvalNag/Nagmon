@@ -177,3 +177,49 @@ test("Android's back in the dialog goes on in it, in the question closes it, and
   await expect(coins(page)).toHaveAttribute("data-coins", "20");
   await expect(layer).toBeVisible();
 });
+
+test("the owl's intro: questions in different subjects, then a choice of one of three, then the world", async ({ page }, info) => {
+  const shot = (name: string) => page.screenshot({ path: info.outputPath(`${name}.png`) });
+  await seedChild(page, { grade: 3, intro: true });
+  await page.goto("/");
+  await touch(page, page.locator(id(`child_${PID}`)));
+  await expect(page.locator("[data-screen=play][data-map=ready][data-play=ready]")).toBeVisible({ timeout: 30_000 });
+  // the owl first: the arrows and the menu are not there yet
+  await expect(page.locator("[data-screen=dialog]")).toBeVisible();
+  await expect(page.locator(id("dpad"))).toHaveCount(0);
+  await shot("i01_owl_hello");
+  await readDialog(page);
+
+  // six questions, the last one wrong: a wrong answer blocks nothing
+  const subjects: string[] = [];
+  for (let i = 0; i < 6; i++) {
+    await expect(page.locator("[data-screen=intro-ask]")).toHaveAttribute("data-n", String(i + 1));
+    await expect(page.locator(".intro-progress")).toContainText(`${i + 1}`);
+    const q = await answer(page, i === 5 ? "dont_know" : "right");
+    subjects.push(q.skill!.split(".")[0]!);
+    if (i === 0) await shot("i02_question");
+    if (i === 5) await shot("i03_wrong_is_fine");
+    await touch(page, page.locator(id("quiz_continue")));
+  }
+  expect(new Set(subjects).size).toBe(6);
+
+  // three creatures; any one is fine, and the cards are big
+  await readDialog(page);
+  const cards = page.locator("[data-id^=starter_]");
+  await expect(cards).toHaveCount(3);
+  for (const box of await cards.evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON() as { width: number; height: number; bottom: number }))) {
+    expect(Math.min(box.width, box.height)).toBeGreaterThanOrEqual(48);
+    expect(box.bottom).toBeLessThanOrEqual(393);
+  }
+  await shot("i04_starters");
+  await touch(page, cards.nth(1));
+  await readDialog(page);
+  // the world opens: the arrows are back, and the choice is saved
+  await expect(page.locator(id("dpad"))).toBeVisible();
+  await shot("i05_world_opens");
+  await expect.poll(async () => ((await saved(page, "saves/world.json"))?.["creatures"] as unknown[] | undefined)?.length).toBe(1);
+  const learner = (await saved(page, "learning.json"))!;
+  expect(learner["answers_total"]).toBe(6);
+  expect(Object.keys(learner["subject_grade"] as object).length).toBeGreaterThanOrEqual(5);
+  expect((await saved(page, "saves/world.json"))?.["variables"]).toMatchObject({ nagmon_intro_done: "yes" });
+});

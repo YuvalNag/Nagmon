@@ -1,4 +1,5 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
+import { testSeed } from "../app/playConfig";
 import type { Choice } from "../core/learning/model";
 import { isolateMath } from "../core/learning/text";
 import type { QuizSession } from "../core/world/quiz";
@@ -38,6 +39,16 @@ function label(c: Choice, englishFirst: boolean): string {
  */
 export function QuizScreen({ session, text, subjectTitle, onClose }: Props) {
   const [, redraw] = useReducer((n: number) => n + 1, 0);
+  // the browser tests and the emulator check read the question through it (only with the test seed)
+  useEffect(() => {
+    if (testSeed() === null) return;
+    const w = window as Window & { __nagmonQuiz?: () => unknown };
+    const read = () => ({ phase: session.phase, kind: session.question?.kind ?? null, answer: session.question?.answer ?? null, skill: session.question?.skill_id ?? null });
+    w.__nagmonQuiz = read;
+    return () => {
+      if (w.__nagmonQuiz === read) delete w.__nagmonQuiz;
+    };
+  }, [session]);
   const q = session.question;
   const act = (fn: () => unknown) => () => {
     fn();

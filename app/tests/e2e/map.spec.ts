@@ -77,6 +77,12 @@ async function seedChild(page: Page, { name = "תמר", avatar = "girl_teal", ad
         "nagmon-fs:f:profiles/p00001/profile.json",
         JSON.stringify({ id: "p00001", name, avatar, grade: 2, order: 0, schema_version: 2 }),
       );
+      // a child who has had the owl's intro
+      localStorage.setItem("nagmon-fs:d:profiles/p00001/saves", "");
+      localStorage.setItem(
+        "nagmon-fs:f:profiles/p00001/saves/world.json",
+        JSON.stringify({ schema_version: 1, money: 0, variables: { nagmon_intro_done: "yes" } }),
+      );
     },
     { name, avatar, adaptive },
   );

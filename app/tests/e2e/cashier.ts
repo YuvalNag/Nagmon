@@ -41,10 +41,10 @@ export const TODAY = `(() => { const d = new Date(); const p = (n) => String(n).
  */
 export async function seedChild(
   page: Page,
-  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3 } = {},
+  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false } = {},
 ) {
   await page.addInitScript(
-    ({ grade, settings, world, seed, pid, today }) => {
+    ({ grade, settings, world, seed, pid, today, intro }) => {
       if (localStorage.getItem("seeded")) return;
       localStorage.setItem("seeded", "1");
       localStorage.setItem("nagmon.map.adaptiveResolution", "off");
@@ -55,14 +55,17 @@ export async function seedChild(
         `nagmon-fs:f:profiles/${pid}/profile.json`,
         JSON.stringify({ id: pid, name: "תמר", avatar: "girl_teal", grade, order: 0, schema_version: 2, settings }),
       );
-      if (world) {
+      // a child who has had the owl's intro, unless the test is about it
+      if (world || !intro) {
         const day = (0, eval)(today) as string;
-        const variables = Object.fromEntries(Object.entries(world.variables).map(([k, v]) => [k, v.replace("{today}", day)]));
+        const have = world ?? { money: 0, variables: {} };
+        const variables = Object.fromEntries(Object.entries(have.variables).map(([k, v]) => [k, v.replace("{today}", day)]));
+        if (!intro) variables["nagmon_intro_done"] = "yes";
         localStorage.setItem(`nagmon-fs:d:profiles/${pid}/saves`, "");
-        localStorage.setItem(`nagmon-fs:f:profiles/${pid}/saves/world.json`, JSON.stringify({ schema_version: 1, money: world.money, variables }));
+        localStorage.setItem(`nagmon-fs:f:profiles/${pid}/saves/world.json`, JSON.stringify({ schema_version: 1, money: have.money, variables }));
       }
     },
-    { grade, settings, world, seed, pid: PID, today: TODAY },
+    { grade, settings, world, seed, pid: PID, today: TODAY, intro },
   );
 }
 

@@ -114,6 +114,16 @@ export interface WorldMap {
   layers: { below: string[]; above: string[] };
   /** Every event script on the map, in its order. */
   events: WorldEvent[];
+  /** Where wild creatures may meet the hero (the old `random_encounter` events). */
+  encounters: EncounterArea[];
+}
+
+/** A box of the map where a step may meet a wild creature of a table (db/encounters.json). */
+export interface EncounterArea {
+  box: Box;
+  table: string;
+  /** The chance of a meeting in a step, in percent. */
+  rate: number;
 }
 
 /** The game's state as conditions see it: variables (`key` -> `value`) and who exists. */
@@ -186,6 +196,7 @@ export function readMap(name: string, json: TiledMap, state: WorldState = NEW_GA
   const npcs: Placement[] = [];
   const teleports: Teleport[] = [];
   const events: WorldEvent[] = [];
+  const encounters: EncounterArea[] = [];
   const characters = new Set(state.characters);
 
   for (const o of objects("events")) {
@@ -197,6 +208,11 @@ export function readMap(name: string, json: TiledMap, state: WorldState = NEW_GA
       if (a.type === "set_teleport_faint" && mapName(a.args[1]) === name && start === null) {
         start = { x: Number(a.args[2]), y: Number(a.args[3]) };
       }
+    }
+    const meet = s.actions.find((a) => a.type === "random_encounter");
+    if (meet && s.conditions.some((c) => c.type === "char_at") && meet.args[0]) {
+      const rate = Number(meet.args[1]);
+      encounters.push({ box: box(o, tile), table: meet.args[0], rate: Number.isFinite(rate) && rate > 0 ? rate : 10 });
     }
     const teleport = s.actions.find((a) => a.type === "transition_teleport" || a.type === "teleport");
     if (teleport && teleport.args[0] === "player" && s.conditions.some((c) => c.type === "char_at")) {
@@ -246,6 +262,7 @@ export function readMap(name: string, json: TiledMap, state: WorldState = NEW_GA
     blocked,
     layers: { below: tileLayers.filter((n) => !above.includes(n)), above },
     events,
+    encounters,
   };
 }
 
