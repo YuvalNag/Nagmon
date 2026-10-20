@@ -323,15 +323,17 @@ The parent checked each character's map sprite against its battle and dialog por
 
 | Character | Decision | In the app build |
 |---|---|---|
-| `nagmon_owl` | approved as is (the owl with glasses and a book in battle) | portrait shipped as it is; `COHERENCE_APPROVED` |
+| `nagmon_owl` | approved as is (the owl with glasses and a book in battle) | portrait shipped as it is; `COHERENCE_APPROVED`, with the reason and the approved distance |
 | `nagmon_shopkeeper` (the cashier) | the map look | portrait built from the map sheet (`PORTRAIT_FROM_MAP`) |
-| `nagmon_teacher` (the gardener) | the map girl in the purple skirt keeps the name | portrait built from the map sheet |
+| `nagmon_teacher` (the gardener) | the map girl in the purple skirt keeps the name | portrait built from the map sheet; her back frames' open upper back is closed in the blouse colour (`tools/app/modesty.py`), so the built battle back is closed too |
 | `nagmon_tourist` (portrait `nagmon_traveler`) | the map look | portrait built from the map sheet |
 | `nagmon_hero_boy` (avatar `boy_blue`) | a small kippah | drawn on all 12 map frames, both battle views and the profile card (`overlays.SHEETS`) |
 
-- A portrait built from the map: the middle-column front (row 0) and back (row 3) frames, trimmed, scaled down (Lanczos, premultiplied alpha) to the 192 px cell, bottom-aligned; the same 384×192 sheet and records as the others. Credits: "built from the map sprite".
+- A portrait built from the map: the middle-column front (row 0) and back (row 3) frames of the repainted HD map sheet, trimmed, copied 1:1 (scaled down only if taller or wider than the 192 px cell), bottom-aligned; the same 384×192 sheet and records as the others. A 1× map sheet, or a figure under 60% of the cell, fails the build. Credits: "built from the map sprite".
 - The old game's files are not changed.
-- Guard: `tests/app/test_app_coherence.py` compares the colours of each map front with its portrait front (Hellinger distance of 8-level histograms, threshold 0.40). On the old portraits it flags exactly the four above; matching characters score 0.18–0.29.
+- Guard: `tests/app/test_app_coherence.py` compares the colours of each map front with its portrait front (Hellinger distance of 8-level histograms, threshold 0.36). On the old portraits it flags exactly the four above; matching characters score 0.18–0.29. An approved character passes while its distance stays within 0.05 of the approved one. `python -m tools.app.coherence` prints the table and exits 0 on the shipped data.
+- Modesty: `tests/app/test_app_modesty.py` checks every shipped person (not the owls): in each back frame, and in the battle back, the largest patch of the character's own skin colour on the torso is at most 24 px (the teacher's open back was 273–346).
+- Kippah: fitted to the two hero-boy sheets pinned by sha256 (a change fails the build: "look at the kippah again, then update the hash"); its centre must be in the head box and at least half of the pixels under it hair; it may not make an enclosed hole. The source's own 5 px "+" hole (front step frame) is filled with the outline.
 
 **Planned characters** (their art exists only as a battle sheet; each needs a map sheet before it can ship):
 
