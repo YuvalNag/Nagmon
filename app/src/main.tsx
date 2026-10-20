@@ -22,24 +22,27 @@ installTapTiming();
 
 const childNames = async () => (services ? (await services.profiles.list()).map((p) => p.name) : []);
 
-/** The log first, so that whatever breaks after it is written down. */
-/** Resolves once who-plays is on the screen (or after 5 s, whatever happens). */
-let markStarted = () => {};
-const startedOrLate = new Promise<void>((resolve) => {
-  markStarted = resolve;
+const secretStore = createSecretStore();
+
+/**
+ * The log reads the saved keys only once who-plays is up, after 5 s, or
+ * as soon as anything is to be saved (the background, a crash), whichever
+ * comes first. Capacitor runs every plugin call on one thread, and the
+ * Keystore's first use there (a second on the emulator) held up the reads
+ * of the children's profiles behind it. The log hides the keys once read.
+ */
+let keysNow = () => {};
+const keysWanted = new Promise<void>((resolve) => {
+  keysNow = resolve;
   setTimeout(resolve, 5000);
 });
 
+/** The log first, so that whatever breaks after it is written down. */
 async function startLog(): Promise<void> {
   try {
-    const secrets = createSecretStore();
-    // Not before who-plays is up: Capacitor runs every plugin call on one
-    // thread, and the Keystore's first use there (a second on the
-    // emulator) held up the reads of the children's profiles behind it.
-    // The log hides the keys once read; a save waits for them.
     const keys = async () => {
-      await startedOrLate;
-      return secrets.values();
+      await keysWanted;
+      return secretStore.values();
     };
     await installAppLog(fs, { secrets: keys, names: childNames });
   } catch (e) {
@@ -48,7 +51,13 @@ async function startLog(): Promise<void> {
 }
 
 /** In the background: sound off, the clocks stopped, everything written (SDD §10). */
-const lifecycle = new Lifecycle({ flush: (why) => saveEverything(fs, why) });
+const lifecycle = new Lifecycle({
+  flush: (why) => {
+    // a save must not wait for the start
+    keysNow();
+    return saveEverything(fs, why);
+  },
+});
 lifecycle.bind();
 // the system's font size may have changed in Settings meanwhile
 lifecycle.onForeground(() => void applySystemFontScale());
@@ -64,8 +73,11 @@ const reporter = new CrashReporter(new CrashReports(fs), {
   // the parents' area will offer it with "send log"; until then it waits on disk
   offer: () => log.info("A crash report is saved in crash/last_crash.txt"),
   log: () => appLogTail(120),
+  // the report hides the saved keys, read now, not after the start
+  secrets: () => secretStore.values(),
   names: childNames,
   onCrash: async () => {
+    keysNow();
     noteCrash();
     await saveAppLog({ ending: "crash" });
   },
@@ -91,7 +103,7 @@ async function noteStarted(): Promise<void> {
   await document.fonts.ready;
   await new Promise((r) => requestAnimationFrame(r));
   reportStarted();
-  markStarted();
+  keysNow();
   performance.mark("nagmon:started");
   log.info(`Started: ${Object.entries(startTimes()).map(([k, v]) => `${k} ${v} ms`).join(", ")}`);
 }

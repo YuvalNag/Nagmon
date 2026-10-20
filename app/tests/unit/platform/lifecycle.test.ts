@@ -122,7 +122,7 @@ describe("the app's lifecycle", () => {
     fire("resume");
     fire("appStateChange", { isActive: true });
     show();
-    expect(life.snapshot()).toMatchObject({ state: "active", backgrounds: 1, foregrounds: 1, flushes: 1 });
+    expect(life.snapshot()).toMatchObject({ state: "active", backgrounds: 1, foregrounds: 1, flushes: 1, completed: 1 });
   });
 
   it("in the browser, hiding the page is going to the background", async () => {
@@ -184,6 +184,42 @@ describe("the app's lifecycle", () => {
     leave();
     hide();
     expect(paused).toEqual(["music", "back"]);
+  });
+
+  it("a flush that never answers is given up after its time, and the next one still runs", async () => {
+    const { doc, hide, show } = fakeDocument();
+    const whys: string[] = [];
+    let calls = 0;
+    const life = new Lifecycle({
+      native: false,
+      document: doc,
+      window: new EventTarget(),
+      clocks: [],
+      stopSound: () => {},
+      flushTimeoutMs: 30,
+      // the first flush hangs (a plugin call that never returns)
+      flush: (why) => (++calls === 1 ? new Promise<void>(() => {}) : Promise.resolve(void whys.push(why))),
+    });
+    life.bind();
+    hide();
+    await life.idle();
+    expect(life.snapshot()).toMatchObject({ flushes: 1, completed: 0, lastFlush: "timeout" });
+    show();
+    hide();
+    await life.idle();
+    expect(whys).toEqual(["background"]);
+    expect(life.snapshot()).toMatchObject({ flushes: 2, completed: 1, lastFlush: "ok" });
+  });
+
+  it("starts in the background when the page is hidden at the start", async () => {
+    const { doc } = fakeDocument();
+    doc.visibilityState = "hidden";
+    const clock = new PausableClock(manualTime().now);
+    const flush = vi.fn(async () => undefined);
+    const life = new Lifecycle({ native: false, document: doc, window: new EventTarget(), clocks: [clock], stopSound: () => {}, flush });
+    life.bind();
+    expect(life.state).toBe("background");
+    expect(clock.paused).toBe(true);
   });
 
   it("unbinding removes the app's listeners", async () => {

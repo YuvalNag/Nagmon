@@ -97,14 +97,24 @@ export interface LifecycleOptions {
   stopSound?: () => void;
   /** Writes everything waiting: the data files and the log. */
   flush: (why: FlushReason) => Promise<void>;
+  /**
+   * A flush that has not answered by then is given up (and noted as
+   * "timeout"), so one stuck plugin call cannot hold every later flush.
+   */
+  flushTimeoutMs?: number;
 }
+
+/** Android gives an app in the background a few seconds; a flush waits this long at most. */
+export const FLUSH_TIMEOUT_MS = 3000;
 
 export interface LifecycleSnapshot {
   state: AppState;
   backgrounds: number;
   foregrounds: number;
   flushes: number;
-  lastFlush: "none" | "ok" | "failed";
+  /** Flushes that finished writing everything. */
+  completed: number;
+  lastFlush: "none" | "ok" | "failed" | "timeout";
   /** How long the last flush took, ms. */
   lastFlushMs: number;
 }
@@ -117,7 +127,7 @@ export class Lifecycle {
   private readonly onLeave = new Set<() => void>();
   private readonly onBack = new Set<() => void>();
   private flushing: Promise<void> = Promise.resolve();
-  private counts = { backgrounds: 0, foregrounds: 0, flushes: 0 };
+  private counts = { backgrounds: 0, foregrounds: 0, flushes: 0, completed: 0 };
   private lastFlush: LifecycleSnapshot["lastFlush"] = "none";
   private lastFlushMs = 0;
 
@@ -174,12 +184,22 @@ export class Lifecycle {
     // one after another: a close right after a pause waits for the pause's
     this.flushing = this.flushing.then(async () => {
       const start = performance.now();
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      const late = new Promise<"timeout">((resolve) => {
+        timer = setTimeout(() => resolve("timeout"), this.options.flushTimeoutMs ?? FLUSH_TIMEOUT_MS);
+      });
+      let done: Promise<"ok" | "failed">;
       try {
-        await this.options.flush(why);
-        this.lastFlush = "ok";
+        done = this.options.flush(why).then(
+          () => "ok" as const,
+          () => "failed" as const,
+        );
       } catch {
-        this.lastFlush = "failed";
+        done = Promise.resolve("failed" as const);
       }
+      this.lastFlush = await Promise.race([done, late]);
+      clearTimeout(timer);
+      if (this.lastFlush === "ok") this.counts.completed++;
       this.lastFlushMs = performance.now() - start;
     });
   }
@@ -195,6 +215,8 @@ export class Lifecycle {
     };
     doc?.addEventListener("visibilitychange", onVisibility);
     win?.addEventListener("pagehide", onPageHide);
+    // started behind another app (or with the screen off): the clocks wait
+    if (doc?.visibilityState === "hidden") this.background();
     const handles: Promise<{ remove(): Promise<void> } | null>[] = [];
     if (this.native) {
       const app = this.options.app ?? (App as unknown as AppEvents);
