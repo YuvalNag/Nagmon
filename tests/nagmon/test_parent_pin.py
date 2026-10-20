@@ -233,3 +233,44 @@ def test_ask_text_can_open_a_digit_pad():
     ask_text(client, "?", lambda _: None)
     kwargs = client.push_state.call_args[1]
     assert kwargs.get("char_manager") is None and not kwargs.get("secret")
+
+
+# ------------------------------------------------------------ send log
+# The log leaves the phone only after the parent's code (a child must
+# not open the share sheet).
+
+
+def _share_screen(monkeypatch, rt):
+    from nagmon.field_data import uploads
+
+    shared: list[object] = []
+    monkeypatch.setattr(
+        uploads,
+        "share_log",
+        lambda field, send, **kw: shared.append(1) or True,
+    )
+    monkeypatch.setattr(profiles, "get_runtime", lambda: rt)
+    rt.root = rt.parent.root
+    state = profiles.ProfileSelectState.__new__(profiles.ProfileSelectState)
+    state.client = MagicMock()
+    return state, shared
+
+
+def test_send_log_asks_for_the_parent_code(screens, rt, monkeypatch):
+    rt.parent.set_pin("1234")
+    state, shared = _share_screen(monkeypatch, rt)
+    state.share_log()
+    assert screens.last() == _pad("nagmon_pin_prompt") and not shared
+    screens.type("9999")
+    assert not shared and screens.pad_open
+    screens.type("1234")
+    assert shared == [1]
+
+
+def test_send_log_without_a_code_sets_one_first(screens, rt, monkeypatch):
+    state, shared = _share_screen(monkeypatch, rt)
+    state.share_log()
+    assert screens.last() == _pad("nagmon_set_pin_prompt") and not shared
+    screens.type("1234")
+    screens.type("1234")
+    assert rt.parent.has_pin() and shared == [1]

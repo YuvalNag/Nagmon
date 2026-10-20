@@ -298,5 +298,5 @@ def share_log(
         return False
     shared = field.shareable_log(text)
     share(shared)
-    logger.info("Log offered to the share sheet (%d bytes)", len(shared))
+    logger.info("Log offered to the share sheet (%d characters)", len(shared))
     return True

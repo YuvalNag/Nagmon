@@ -322,7 +322,8 @@ if names()[0] == "ParentMenuState":
     client.pop_state()
     step(20)
 
-# "Send log": the share sheet (here a fake one) gets the cleaned log.
+# "Send log": after the parent's code, the share sheet (here a fake
+# one) gets the cleaned log.
 import types  # noqa: E402
 
 shared: list[str] = []
@@ -330,7 +331,14 @@ sys.modules["nagmon.android.crash_dialog"] = types.SimpleNamespace(
     share=lambda text, **kw: shared.append(text)
 )
 check(tap_widget("ProfileSelectState", "share_log"), "a send-log button")
-step(10)
+step(60)
+check(
+    names()[0] == "InputMenu" and not shared,
+    "send log asks for the parent code first",
+)
+if names()[0] == "InputMenu":
+    type_on_screen("1234")
+    step(20)
 check(
     len(shared) == 1 and "Nagmon start" in shared[0],
     "send log opens the share sheet with the log",

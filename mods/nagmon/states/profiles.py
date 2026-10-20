@@ -157,7 +157,6 @@ def _set_pin(
             logger.warning("Could not set the parent code")
             say(client, T.translate("nagmon_pin_invalid"), then=start)
             return
-        rt.parent.save()
         if first:
             say(
                 client,
@@ -374,7 +373,13 @@ class ProfileSelectState(PygameMenuState):
         )
 
     def share_log(self) -> None:
-        """Android's share sheet with the log; the parent picks where."""
+        """
+        Android's share sheet with the log, after the parent's code: a
+        child must not send it. The parent picks where it goes.
+        """
+        with_parent(self.client, self.rt, self._share_log_now)
+
+    def _share_log_now(self) -> None:
         from nagmon.field_data.uploads import FieldData, share_log
 
         def send(text: str) -> None:
