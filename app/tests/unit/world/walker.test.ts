@@ -7,7 +7,7 @@ const free = () => true;
 const SPEED = 10;
 
 /** Runs `ms` in frames of `frame` ms with `held` and returns all events. */
-function run(w: Walker, ms: number, held: Dir | null, canStep = free, frame = 1000 / 60) {
+function run(w: Walker, ms: number, held: Dir | null, canStep: (x: number, y: number, d: Dir) => boolean = free, frame = 1000 / 60) {
   const events = [];
   for (let t = 0; t < ms - 1e-9; t += frame) events.push(...w.update(Math.min(frame, ms - t), held, canStep));
   return events;

@@ -7,6 +7,23 @@ import { MAX_PROFILES, ProfileNameTakenError } from "../../../src/core/family/pr
 import { t } from "../../../src/i18n";
 import { appLogText, installAppLog, uninstallAppLog } from "../../../src/platform/appLog";
 import { MemoryFileStore } from "../../../src/platform/storage";
+import { currentMap } from "../../../src/game/current";
+
+// the map's Phaser scene does not run in jsdom: a stand-in that records pauses
+const mapCalls: string[] = [];
+vi.mock("../../../src/game/mapGame", () => ({
+  startMap: (opts: { onReady?: () => void }) => {
+    mapCalls.push("start");
+    setTimeout(() => opts.onReady?.(), 0);
+    return {
+      pause: (why: string) => mapCalls.push(`pause ${why}`),
+      resume: (why: string) => mapCalls.push(`resume ${why}`),
+      paused: false,
+      destroy: () => mapCalls.push("destroy"),
+      debug: () => null,
+    };
+  },
+}));
 
 afterEach(() => {
   cleanup();
@@ -258,7 +275,8 @@ describe("Android's back button", () => {
     const avatar: View = { kind: "avatar", name: "דן", grade: 2 };
     expect(backStep({ kind: "notice", text: "x", next: avatar, back: avatar })).toEqual(avatar);
     expect(backStep({ kind: "parents" })).toEqual(who);
-    expect(backStep({ kind: "play", id: "p1" })).toEqual(who);
+    // on the map back is not a screen change: the map opens its pause menu
+    expect(backStep({ kind: "play", id: "p1" })).toBeNull();
   });
 
   it("does nothing on who-plays: the app never closes by itself", () => {
@@ -287,5 +305,30 @@ describe("Android's back button", () => {
     await app.press("choice_boy_blue");
     await app.androidBack();
     expect(app.screen()).toBe("avatar");
+  });
+
+  it("opens the map's pause menu on the map, closes it on a second press, and never leaves the app", async () => {
+    mapCalls.length = 0;
+    const app = await start({ children: ["דן"] });
+    const [child] = await app.services.profiles.list();
+    await app.press(`child_${child.id}`);
+    await settle(20);
+    expect(app.screen()).toBe("play");
+    expect(mapCalls).toEqual(["start"]);
+    // the lifecycle module finds the open map here
+    expect(currentMap()).not.toBeNull();
+    await app.androidBack();
+    expect(app.container.querySelector("[data-screen=map-menu]")).not.toBeNull();
+    expect(mapCalls).toEqual(["start", "pause menu"]);
+    await app.androidBack();
+    expect(app.container.querySelector("[data-screen=map-menu]")).toBeNull();
+    expect(app.screen()).toBe("play");
+    expect(mapCalls).toEqual(["start", "pause menu", "resume menu"]);
+    // the menu's "back to who plays" closes the map
+    await app.androidBack();
+    await app.press("map_exit");
+    expect(app.screen()).toBe("who-plays");
+    expect(mapCalls).toContain("destroy");
+    expect(currentMap()).toBeNull();
   });
 });
