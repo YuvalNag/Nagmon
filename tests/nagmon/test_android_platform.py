@@ -172,3 +172,50 @@ def test_pc_screen_is_left_alone(monkeypatch):
     config = TuxemonConfig()
     assert fit_to_phone_screen(config) == 0
     assert config.resolution == (1280, 720)
+
+
+def test_prepare_environment_keeps_the_game_landscape():
+    """
+    Build 21 opened in portrait on the phone: with FULLSCREEN|SCALED, SDL
+    creates the window at the desktop size, which is portrait while the
+    app starts, and then asks Android for portrait (requestedOrientation=7
+    in the emulator log), overriding the manifest. The hint tells SDL the
+    game only turns sideways.
+    """
+    env: dict[str, str] = {}
+    prepare_environment(env, cafile=lambda: "/c.pem")
+    assert env["SDL_IOS_ORIENTATIONS"] == "LandscapeLeft LandscapeRight"
+
+
+def test_prepare_environment_keeps_a_chosen_orientation():
+    env = {"SDL_IOS_ORIENTATIONS": "LandscapeLeft"}
+    prepare_environment(env, cafile=lambda: "/c.pem")
+    assert env["SDL_IOS_ORIENTATIONS"] == "LandscapeLeft"
+
+
+def test_the_phone_keyboard_stays_closed():
+    """
+    Names are typed on the game's own letter board. Android's keyboard
+    (opened by SDL text input) rewrites what it sends while it guesses
+    words, which deleted letters on the phone; it stays closed.
+    """
+    from tuxemon.platform.mobile import close_system_keyboard
+
+    calls: list[str] = []
+
+    class Key:
+        def stop_text_input(self) -> None:
+            calls.append("stop")
+
+    close_system_keyboard(Key())
+    assert calls == ["stop"]
+
+
+def test_closing_the_keyboard_never_stops_the_game():
+    from tuxemon.platform.mobile import close_system_keyboard
+
+    class Key:
+        def stop_text_input(self) -> None:
+            raise RuntimeError("no video")
+
+    close_system_keyboard(Key())  # logs, does not raise

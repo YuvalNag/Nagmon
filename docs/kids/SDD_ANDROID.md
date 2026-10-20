@@ -123,6 +123,9 @@ class AndroidTTSBackend:   # id="android", online=False, extension=".wav"
 - `resolution = logical_resolution(*desktop_size)`.
 - `flags = FULLSCREEN | SCALED`.
 - כל השאר כמו במחשב. `Scaling` הוא המספר השלם הגדול ביותר שנכנס ב־256×144: ב־Poco F3 זה 7.
+- **תמיד לרוחב** (`nagmon/android/setup.py`): `SDL_IOS_ORIENTATIONS=LandscapeLeft LandscapeRight`, לפני ש־pygame נטען. זה רמז ה־SDL לכיוון המסך, וגם באנדרואיד. בלעדיו SDL בוחר כיוון לפי החלון שהוא יוצר. עם `FULLSCREEN | SCALED` החלון הוא בגודל המסך כפי שהוא בזמן הפתיחה, כלומר לאורך, ולכן SDL ביקש מאנדרואיד מסך לאורך (`requestedOrientation=7` בלוג האמולטור) ודרס את ה־manifest. בבנייה 21 המשחק נפתח בטלפון לאורך וקטן: לא על כל רוחב המסך, החיצים קטנים, ומקשי האותיות קטנים מדי לאצבע.
+- **המקלדת של הטלפון סגורה** (`mobile.close_system_keyboard`, אחרי `set_mode`): שמות מקלידים על לוח האותיות של המשחק. מקלדת אנדרואיד שולחת למשחק מחיקות ואז את המילה שוב כשהיא משלימה מילים, ואותיות נעלמו.
+- **קצב הפריימים ביומן** (`FrameStats` ב־`tuxemon/frame_limiter.py`): פעם בדקה שורה "frame rate: N fps, slowest frame M ms". היא נכנסת ליומן האפליקציה, שנשלח מאזור ההורים, וגם ל־logcat.
 
 **הקראה** (`nagmon/tts/factory.py`):
 - `build_backends(settings, android=None)`.
@@ -202,7 +205,9 @@ class AndroidTTSBackend:   # id="android", online=False, extension=".wav"
 | `stage.py`: מה נכנס ומה לא, ו־`main.py` במקום | `tests/nagmon/test_android_stage.py` |
 | המתכונים נטענים כמודולים, ושמות הגרסאות תואמים ל־`requirements` | `tests/nagmon/test_android_build_config.py` |
 | דוח קריסה: שגיאה לפני עליית המשחק ובתוכו, קריסה מקומפלת מהפעם הקודמת, מפתחות מוסתרים, בלי לחיצה אין שיתוף | `tests/nagmon/test_crash_report.py` |
-| האמולטור: כל APK נפתח באנדרואיד 11 (x86_64) ונשאר פתוח 6 דקות | `.github/workflows/android-smoke.yml` |
+| האמולטור: כל APK נפתח באנדרואיד 11 (x86_64) בצורת הטלפון (`pixel_6`, 1080×2400) ונשאר פתוח 6 דקות. אחרי 45 שניות נגיעה מדלגת על הפתיח. נכשל אם צילום מסך גבוה מרוחבו, או אם האפליקציה ביקשה מסך לאורך. צילומי המסך מודפסים ליומן העבודה כ־JPEG קטן (`tools/android/screen_shape.py`), וגם קצב הפריימים | `.github/workflows/android-smoke.yml`, `tests/nagmon/test_screen_shape.py` |
+| כיוון המסך: הרמז נקבע ולא דורס ערך קיים. המקלדת של הטלפון נסגרת, וכישלון בסגירה לא עוצר את המשחק | `tests/nagmon/test_android_platform.py` |
+| קצב הפריימים: שורה אחת בכל תקופה, עם הפריים האיטי ביותר. השורה נכנסת ליומן האפליקציה | `tests/tuxemon/test_frame_stats.py` |
 | הפעלה מקומפלת: רק `.pyc` עם `-OO`, ובלי מסך. ב־PATH יש `git` שאי אפשר להריץ, כמו בטלפון של בנייה 18 (`PermissionError`). המשחק רץ 30 שניות | `tools/android/compiled_boot.sh` |
 | `get_git_hash` מחזיר "N/A" כש־git חסר, נחסם, נכשל או נתקע | `tests/tuxemon/test_git_hash.py` |
 | סיור מגע: מסך 2400×1080, ובלי מקלדת בכלל. PIN, אשף שחקן בעברית, בחירת ילד, שאלה, משחק חדש, בחירת מפלצת והליכה עם החיצים | `tools/dev/touch_tour.py` |

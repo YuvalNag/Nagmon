@@ -62,6 +62,19 @@ def logical_resolution(
     return min_width, _even(min_width / aspect)
 
 
+def close_system_keyboard(key: Any) -> None:
+    """
+    Keeps Android's own keyboard closed: names are typed on the game's
+    letter board. SDL text input opens the phone's keyboard, which rewrites
+    what it sent while it guesses words (backspaces, then the word again),
+    and letters disappeared as a child typed. ``key`` is ``pygame.key``.
+    """
+    try:
+        key.stop_text_input()
+    except Exception as exc:
+        logger.warning("Could not close the phone's keyboard: %s", exc)
+
+
 #: Screens where a child walks around and needs the on-screen arrows.
 #: Everywhere else the arrows would cover buttons that are tapped directly.
 TOUCH_ARROW_STATES = frozenset({"WorldState"})

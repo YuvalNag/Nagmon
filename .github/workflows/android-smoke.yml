@@ -78,6 +78,9 @@ jobs:
         api-level: 30
         arch: x86_64
         target: google_apis
+        # The shape of the children's phone (1080x2400), not the AVD's
+        # default 320x640, so screenshots look like the phone.
+        profile: pixel_6
         ram-size: 4096M
         disk-size: 6000M
         disable-animations: true

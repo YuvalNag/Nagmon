@@ -30,12 +30,17 @@ def prepare_environment(
       by other apps.
     * SSL_CERT_FILE: Python on Android has no certificate store, so HTTPS
       (the owl, online voices) needs certifi's bundle.
+    * SDL_IOS_ORIENTATIONS (SDL's orientation hint, on Android too): the
+      game only turns sideways. Without it SDL asks Android for the shape
+      of the window it creates, which is the portrait desktop while the
+      app starts, and the game opened upright and small (build 21).
 
     Values that are already set are kept.
     """
     private = env.get("ANDROID_PRIVATE")
     if private and not env.get("HOME"):
         env["HOME"] = private
+    env.setdefault("SDL_IOS_ORIENTATIONS", "LandscapeLeft LandscapeRight")
     if env.get("SSL_CERT_FILE"):
         return
     try:
