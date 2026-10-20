@@ -1,0 +1,332 @@
+{
+ "classic_gym_leader_granite": {
+  "slug": "classic_gym_leader_granite",
+  "speech": {
+   "profile": {
+    "default": {
+     "pre_battle": "classic_gym_leader_granite_pre",
+     "post_battle_win": null,
+     "post_battle_lose": "classic_gym_leader_granite_post",
+     "post_battle_draw": null
+    }
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_granite",
+   "combat_sheet": "nagmon_granite",
+   "slug": "monk"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_granite.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_granite.png"
+  }
+ },
+ "classic_gym_leader_mila": {
+  "slug": "classic_gym_leader_mila",
+  "speech": {
+   "profile": {
+    "default": {
+     "pre_battle": "classic_gym_leader_mila_pre",
+     "post_battle_win": null,
+     "post_battle_lose": "classic_gym_leader_mila_post",
+     "post_battle_draw": null
+    }
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_mila",
+   "combat_sheet": "nagmon_mila",
+   "slug": "monk"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_mila.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_mila.png"
+  }
+ },
+ "nagmon_cashier": {
+  "slug": "nagmon_cashier",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_shopkeeper",
+   "combat_sheet": "nagmon_shopkeeper",
+   "slug": "shopkeeper"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_shopkeeper.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_shopkeeper.png"
+  }
+ },
+ "nagmon_gardener": {
+  "slug": "nagmon_gardener",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_teacher",
+   "combat_sheet": "nagmon_teacher",
+   "slug": "florist"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_teacher.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_teacher.png"
+  }
+ },
+ "nagmon_granny": {
+  "slug": "nagmon_granny",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_granny",
+   "combat_sheet": "nagmon_granny",
+   "slug": "granny"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_granny.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_granny.png"
+  }
+ },
+ "nagmon_kid": {
+  "slug": "nagmon_kid",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_kid",
+   "combat_sheet": "nagmon_kid",
+   "slug": "childactor"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_kid.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_kid.png"
+  }
+ },
+ "nagmon_kitten": {
+  "slug": "nagmon_kitten",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "rockitten",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/rockitten.png",
+   "frame": [
+    16,
+    32
+   ]
+  }
+ },
+ "nagmon_owl": {
+  "slug": "nagmon_owl",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_owl",
+   "combat_sheet": "nagmon_owl",
+   "slug": "professor"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_owl.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_owl.png",
+   "alternates": {
+    "nagmon_owl_caped": {
+     "map": "sprites/npc/nagmon_owl_caped.png",
+     "frame": [
+      128,
+      256
+     ]
+    }
+   }
+  }
+ },
+ "nagmon_route1_trainer": {
+  "slug": "nagmon_route1_trainer",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_mailcarrier",
+   "combat_sheet": "nagmon_mailcarrier",
+   "slug": "postboy"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_mailcarrier.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_mailcarrier.png"
+  }
+ },
+ "nagmon_sign_route1": {
+  "slug": "nagmon_sign_route1",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "sign",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/sign.png",
+   "frame": [
+    16,
+    16
+   ]
+  }
+ },
+ "nagmon_tourist": {
+  "slug": "nagmon_tourist",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_tourist",
+   "combat_sheet": "nagmon_traveler",
+   "slug": "cooldude"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_tourist.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_traveler.png"
+  }
+ },
+ "nagmon_wallet": {
+  "slug": "nagmon_wallet",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_wallet",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/nagmon_wallet.png",
+   "frame": [
+    16,
+    32
+   ]
+  }
+ }
+}

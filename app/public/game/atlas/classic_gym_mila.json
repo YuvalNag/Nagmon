@@ -1,0 +1,104 @@
+{
+ "image": "classic_gym_mila.png",
+ "imagewidth": 272,
+ "imageheight": 272,
+ "tilewidth": 64,
+ "tileheight": 64,
+ "margin": 2,
+ "spacing": 4,
+ "columns": 4,
+ "tilecount": 13,
+ "frames": [
+  {
+   "index": 0,
+   "tileset": "core_indoor_floors",
+   "tile": 193,
+   "x": 2,
+   "y": 2
+  },
+  {
+   "index": 1,
+   "tileset": "core_indoor_floors",
+   "tile": 581,
+   "x": 70,
+   "y": 2
+  },
+  {
+   "index": 2,
+   "tileset": "core_indoor_floors",
+   "tile": 582,
+   "x": 138,
+   "y": 2
+  },
+  {
+   "index": 3,
+   "tileset": "core_indoor_floors",
+   "tile": 583,
+   "x": 206,
+   "y": 2
+  },
+  {
+   "index": 4,
+   "tileset": "core_indoor_walls",
+   "tile": 92,
+   "x": 2,
+   "y": 70
+  },
+  {
+   "index": 5,
+   "tileset": "core_indoor_walls",
+   "tile": 93,
+   "x": 70,
+   "y": 70
+  },
+  {
+   "index": 6,
+   "tileset": "core_indoor_walls",
+   "tile": 94,
+   "x": 138,
+   "y": 70
+  },
+  {
+   "index": 7,
+   "tileset": "core_indoor_walls",
+   "tile": 138,
+   "x": 206,
+   "y": 70
+  },
+  {
+   "index": 8,
+   "tileset": "core_indoor_walls",
+   "tile": 139,
+   "x": 2,
+   "y": 138
+  },
+  {
+   "index": 9,
+   "tileset": "core_indoor_walls",
+   "tile": 140,
+   "x": 70,
+   "y": 138
+  },
+  {
+   "index": 10,
+   "tileset": "core_indoor_walls",
+   "tile": 184,
+   "x": 138,
+   "y": 138
+  },
+  {
+   "index": 11,
+   "tileset": "core_indoor_walls",
+   "tile": 185,
+   "x": 206,
+   "y": 138
+  },
+  {
+   "index": 12,
+   "tileset": "core_indoor_walls",
+   "tile": 186,
+   "x": 2,
+   "y": 206
+  }
+ ]
+}

@@ -1,0 +1,5885 @@
+{
+ "agnidon": {
+  "slug": "agnidon",
+  "species": "false_dragon",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "gnaw"
+   },
+   {
+    "level_learned": 1,
+    "technique": "fume"
+   },
+   {
+    "level_learned": 4,
+    "technique": "fire_claw"
+   },
+   {
+    "level_learned": 10,
+    "technique": "fire_ball"
+   },
+   {
+    "level_learned": 13,
+    "technique": "saber"
+   },
+   {
+    "level_learned": 16,
+    "technique": "tooth_for_tooth"
+   },
+   {
+    "level_learned": 22,
+    "technique": "kindling_flame"
+   },
+   {
+    "level_learned": 25,
+    "technique": "energy_claws"
+   },
+   {
+    "level_learned": 28,
+    "technique": "all_in"
+   },
+   {
+    "level_learned": 31,
+    "technique": "supernova"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "agnigon"
+   }
+  ],
+  "history": [
+   {
+    "slug": "agnidon",
+    "stage": "stage1",
+    "evolves_from": [
+     "agnite"
+    ],
+    "evolves_into": [
+     "agnigon"
+    ]
+   },
+   {
+    "slug": "agnite",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "agnidon"
+    ]
+   },
+   {
+    "slug": "agnigon",
+    "stage": "stage2",
+    "evolves_from": [
+     "agnidon"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "coastal",
+   "desert",
+   "mountains"
+  ],
+  "tags": [
+   "flame",
+   "bite",
+   "claws",
+   "ground",
+   "darkness"
+  ],
+  "shape": "dragon",
+  "stage": "stage1",
+  "types": [
+   "fire"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 14,
+  "height": 320,
+  "weight": 230,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_bite_cartoon_style",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_bite_cartoon_style_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/agnidon.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/agnidon-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "agnigon": {
+  "slug": "agnigon",
+  "species": "false_dragon",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "gnaw"
+   },
+   {
+    "level_learned": 1,
+    "technique": "fume"
+   },
+   {
+    "level_learned": 4,
+    "technique": "fire_claw"
+   },
+   {
+    "level_learned": 10,
+    "technique": "fire_ball"
+   },
+   {
+    "level_learned": 13,
+    "technique": "saber"
+   },
+   {
+    "level_learned": 16,
+    "technique": "tooth_for_tooth"
+   },
+   {
+    "level_learned": 22,
+    "technique": "kindling_flame"
+   },
+   {
+    "level_learned": 25,
+    "technique": "energy_claws"
+   },
+   {
+    "level_learned": 28,
+    "technique": "all_in"
+   },
+   {
+    "level_learned": 31,
+    "technique": "supernova"
+   },
+   {
+    "level_learned": 37,
+    "technique": "shadow_blast"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "agnigon",
+    "stage": "stage2",
+    "evolves_from": [
+     "agnidon"
+    ],
+    "evolves_into": []
+   },
+   {
+    "slug": "agnite",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "agnidon"
+    ]
+   },
+   {
+    "slug": "agnidon",
+    "stage": "stage1",
+    "evolves_from": [
+     "agnite"
+    ],
+    "evolves_into": [
+     "agnigon"
+    ]
+   }
+  ],
+  "terrains": [
+   "coastal",
+   "desert",
+   "mountains"
+  ],
+  "tags": [
+   "flame",
+   "bite",
+   "claws",
+   "ground",
+   "bird",
+   "darkness"
+  ],
+  "shape": "dragon",
+  "stage": "stage2",
+  "types": [
+   "fire",
+   "shadow"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 15,
+  "height": 600,
+  "weight": 2000,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 35.0,
+  "lower_catch_resistance": 0.85,
+  "upper_catch_resistance": 1.1,
+  "_source": [
+   "mods/tuxemon/db/monster/agnigon.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/agnigon-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "agnite": {
+  "slug": "agnite",
+  "species": "false_dragon",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "gnaw"
+   },
+   {
+    "level_learned": 1,
+    "technique": "fume"
+   },
+   {
+    "level_learned": 4,
+    "technique": "fire_claw"
+   },
+   {
+    "level_learned": 10,
+    "technique": "fire_ball"
+   },
+   {
+    "level_learned": 13,
+    "technique": "saber"
+   },
+   {
+    "level_learned": 16,
+    "technique": "tooth_for_tooth"
+   },
+   {
+    "level_learned": 22,
+    "technique": "kindling_flame"
+   },
+   {
+    "level_learned": 25,
+    "technique": "energy_claws"
+   },
+   {
+    "level_learned": 28,
+    "technique": "all_in"
+   },
+   {
+    "level_learned": 31,
+    "technique": "supernova"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 24,
+    "monster_slug": "agnidon"
+   }
+  ],
+  "history": [
+   {
+    "slug": "agnite",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "agnidon"
+    ]
+   },
+   {
+    "slug": "agnidon",
+    "stage": "stage1",
+    "evolves_from": [
+     "agnite"
+    ],
+    "evolves_into": [
+     "agnigon"
+    ]
+   },
+   {
+    "slug": "agnigon",
+    "stage": "stage2",
+    "evolves_from": [
+     "agnidon"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "coastal",
+   "desert",
+   "mountains"
+  ],
+  "tags": [
+   "flame",
+   "bite",
+   "claws",
+   "ground"
+  ],
+  "shape": "dragon",
+  "stage": "basic",
+  "types": [
+   "fire"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 13,
+  "height": 80,
+  "weight": 24,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_foom_0",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_foom_0_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/tuxemon/db/monster/agnite.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/agnite-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "alphabel": {
+  "slug": "alphabel",
+  "species": "letter_fox",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "strike"
+   },
+   {
+    "level_learned": 4,
+    "technique": "feint"
+   },
+   {
+    "level_learned": 7,
+    "technique": "lantern"
+   },
+   {
+    "level_learned": 10,
+    "technique": "constrict"
+   },
+   {
+    "level_learned": 13,
+    "technique": "beam"
+   },
+   {
+    "level_learned": 16,
+    "technique": "punch"
+   },
+   {
+    "level_learned": 20,
+    "technique": "radiance"
+   },
+   {
+    "level_learned": 26,
+    "technique": "one_two"
+   },
+   {
+    "level_learned": 30,
+    "technique": "energy_beam"
+   },
+   {
+    "level_learned": 36,
+    "technique": "invictus"
+   },
+   {
+    "level_learned": 42,
+    "technique": "all_in"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "lexicon"
+   }
+  ],
+  "history": [
+   {
+    "slug": "alphabel",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "lexicon"
+    ]
+   },
+   {
+    "slug": "lexicon",
+    "stage": "stage1",
+    "evolves_from": [
+     "alphabel"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "woodland",
+   "grassland"
+  ],
+  "tags": [
+   "claws",
+   "bite",
+   "love"
+  ],
+  "shape": "hunter",
+  "stage": "basic",
+  "types": [
+   "normal"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 396,
+  "height": 50,
+  "weight": 8,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/alphabel.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/alphabel-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "ampystoma": {
+  "slug": "ampystoma",
+  "species": "lightning_salamander",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "midnight_mantle"
+   },
+   {
+    "level_learned": 4,
+    "technique": "spit_poison"
+   },
+   {
+    "level_learned": 7,
+    "technique": "frostbite"
+   },
+   {
+    "level_learned": 13,
+    "technique": "snowstorm"
+   },
+   {
+    "level_learned": 16,
+    "technique": "torch"
+   },
+   {
+    "level_learned": 19,
+    "technique": "flood"
+   },
+   {
+    "level_learned": 25,
+    "technique": "ice_shield"
+   },
+   {
+    "level_learned": 28,
+    "technique": "goad"
+   },
+   {
+    "level_learned": 31,
+    "technique": "grinding"
+   },
+   {
+    "level_learned": 37,
+    "technique": "proboscis"
+   },
+   {
+    "level_learned": 40,
+    "technique": "geyser"
+   },
+   {
+    "level_learned": 55,
+    "technique": "energy_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "ampystoma",
+    "stage": "stage1",
+    "evolves_from": [
+     "axolightl"
+    ],
+    "evolves_into": []
+   },
+   {
+    "slug": "axolightl",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "ampystoma"
+    ]
+   }
+  ],
+  "terrains": [
+   "freshwater",
+   "swamp"
+  ],
+  "tags": [
+   "light",
+   "weather",
+   "water",
+   "electricity",
+   "amphibian"
+  ],
+  "shape": "brute",
+  "stage": "stage1",
+  "types": [
+   "lightning",
+   "water"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 280,
+  "height": 180,
+  "weight": 80,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_retro_beep_06",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_retro_beep_06_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.05,
+  "_source": [
+   "mods/tuxemon/db/monster/ampystoma.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/ampystoma-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "arthrobolt": {
+  "slug": "arthrobolt",
+  "species": "foreman",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "bullet"
+   },
+   {
+    "level_learned": 1,
+    "technique": "static_field"
+   },
+   {
+    "level_learned": 4,
+    "technique": "shuriken"
+   },
+   {
+    "level_learned": 7,
+    "technique": "clamp_on"
+   },
+   {
+    "level_learned": 10,
+    "technique": "muddle"
+   },
+   {
+    "level_learned": 13,
+    "technique": "bubble_trap"
+   },
+   {
+    "level_learned": 16,
+    "technique": "beam"
+   },
+   {
+    "level_learned": 19,
+    "technique": "surge"
+   },
+   {
+    "level_learned": 25,
+    "technique": "thunderclap"
+   },
+   {
+    "level_learned": 37,
+    "technique": "magnetic_body"
+   },
+   {
+    "level_learned": 43,
+    "technique": "laser_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "arthrobolt",
+    "stage": "stage2",
+    "evolves_from": [
+     "bolt"
+    ],
+    "evolves_into": []
+   },
+   {
+    "slug": "nut",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "bolt"
+    ]
+   },
+   {
+    "slug": "bolt",
+    "stage": "stage1",
+    "evolves_from": [
+     "nut"
+    ],
+    "evolves_into": [
+     "arthrobolt"
+    ]
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "machine",
+   "bomber",
+   "gadgets",
+   "light",
+   "electricity"
+  ],
+  "shape": "humanoid",
+  "stage": "stage2",
+  "types": [
+   "lightning",
+   "metal"
+  ],
+  "gender_weights": {
+   "neuter": 1.0
+  },
+  "txmn_id": 6,
+  "height": 110,
+  "weight": 125,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_steel_clang",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_steel_clang_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 35.0,
+  "lower_catch_resistance": 0.85,
+  "upper_catch_resistance": 1.1,
+  "_source": [
+   "mods/tuxemon/db/monster/arthrobolt.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/arthrobolt-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "axolightl": {
+  "slug": "axolightl",
+  "species": "inchoate",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "starfall"
+   },
+   {
+    "level_learned": 1,
+    "technique": "midnight_mantle"
+   },
+   {
+    "level_learned": 4,
+    "technique": "spit_poison"
+   },
+   {
+    "level_learned": 7,
+    "technique": "frostbite"
+   },
+   {
+    "level_learned": 13,
+    "technique": "snowstorm"
+   },
+   {
+    "level_learned": 16,
+    "technique": "torch"
+   },
+   {
+    "level_learned": 19,
+    "technique": "flood"
+   },
+   {
+    "level_learned": 25,
+    "technique": "ice_shield"
+   },
+   {
+    "level_learned": 28,
+    "technique": "goad"
+   },
+   {
+    "level_learned": 31,
+    "technique": "grinding"
+   },
+   {
+    "level_learned": 37,
+    "technique": "proboscis"
+   },
+   {
+    "level_learned": 40,
+    "technique": "geyser"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 32,
+    "monster_slug": "ampystoma"
+   }
+  ],
+  "history": [
+   {
+    "slug": "axolightl",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "ampystoma"
+    ]
+   },
+   {
+    "slug": "ampystoma",
+    "stage": "stage1",
+    "evolves_from": [
+     "axolightl"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "freshwater",
+   "swamp"
+  ],
+  "tags": [
+   "light",
+   "amphibian"
+  ],
+  "shape": "polliwog",
+  "stage": "basic",
+  "types": [
+   "water"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 101,
+  "height": 80,
+  "weight": 15,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_spit_01",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_spit_01_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.05,
+  "_source": [
+   "mods/tuxemon/db/monster/axolightl.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/axolightl-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "bolt": {
+  "slug": "bolt",
+  "species": "hardware",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "bullet"
+   },
+   {
+    "level_learned": 1,
+    "technique": "static_field"
+   },
+   {
+    "level_learned": 4,
+    "technique": "shuriken"
+   },
+   {
+    "level_learned": 7,
+    "technique": "clamp_on"
+   },
+   {
+    "level_learned": 10,
+    "technique": "muddle"
+   },
+   {
+    "level_learned": 13,
+    "technique": "bubble_trap"
+   },
+   {
+    "level_learned": 16,
+    "technique": "beam"
+   },
+   {
+    "level_learned": 19,
+    "technique": "surge"
+   },
+   {
+    "level_learned": 25,
+    "technique": "thunderclap"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 12,
+    "monster_slug": "arthrobolt"
+   }
+  ],
+  "history": [
+   {
+    "slug": "bolt",
+    "stage": "stage1",
+    "evolves_from": [
+     "nut"
+    ],
+    "evolves_into": [
+     "arthrobolt"
+    ]
+   },
+   {
+    "slug": "nut",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "bolt"
+    ]
+   },
+   {
+    "slug": "arthrobolt",
+    "stage": "stage2",
+    "evolves_from": [
+     "bolt"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "machine",
+   "bomber",
+   "gadgets",
+   "light"
+  ],
+  "shape": "blob",
+  "stage": "stage1",
+  "types": [
+   "metal"
+  ],
+  "gender_weights": {
+   "neuter": 1.0
+  },
+  "txmn_id": 5,
+  "height": 90,
+  "weight": 15.6,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_steel_clang",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_steel_clang_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/bolt.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/bolt-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "botanikos": {
+  "slug": "botanikos",
+  "species": "garden_flask",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "bubbles"
+   },
+   {
+    "level_learned": 1,
+    "technique": "leaf_barrage"
+   },
+   {
+    "level_learned": 4,
+    "technique": "ring"
+   },
+   {
+    "level_learned": 7,
+    "technique": "blossom"
+   },
+   {
+    "level_learned": 10,
+    "technique": "font"
+   },
+   {
+    "level_learned": 13,
+    "technique": "stick"
+   },
+   {
+    "level_learned": 16,
+    "technique": "flow"
+   },
+   {
+    "level_learned": 20,
+    "technique": "pollen_blast"
+   },
+   {
+    "level_learned": 26,
+    "technique": "water_blast"
+   },
+   {
+    "level_learned": 30,
+    "technique": "overgrowth"
+   },
+   {
+    "level_learned": 36,
+    "technique": "surf"
+   },
+   {
+    "level_learned": 42,
+    "technique": "flower_bloom"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "flaskling",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "botanikos"
+    ]
+   },
+   {
+    "slug": "botanikos",
+    "stage": "stage1",
+    "evolves_from": [
+     "flaskling"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "freshwater",
+   "woodland"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "sprite",
+  "stage": "stage1",
+  "types": [
+   "water",
+   "wood"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 401,
+  "height": 110,
+  "weight": 60,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_burble_02",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_burble_02_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/botanikos.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/botanikos-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "cardiling": {
+  "slug": "cardiling",
+  "species": "firebird",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "wing_tip"
+   },
+   {
+    "level_learned": 1,
+    "technique": "arcane_eye"
+   },
+   {
+    "level_learned": 7,
+    "technique": "tinder"
+   },
+   {
+    "level_learned": 10,
+    "technique": "breathe_fire"
+   },
+   {
+    "level_learned": 13,
+    "technique": "fire_claw"
+   },
+   {
+    "level_learned": 19,
+    "technique": "saber"
+   },
+   {
+    "level_learned": 25,
+    "technique": "kindling_flame"
+   },
+   {
+    "level_learned": 28,
+    "technique": "peregrine"
+   },
+   {
+    "level_learned": 31,
+    "technique": "ten_thousand_feathers"
+   },
+   {
+    "level_learned": 40,
+    "technique": "berserk"
+   },
+   {
+    "level_learned": 43,
+    "technique": "all_in"
+   },
+   {
+    "level_learned": 46,
+    "technique": "flamethrower"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 18,
+    "monster_slug": "cardiwing"
+   }
+  ],
+  "history": [
+   {
+    "slug": "cardiling",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "cardiwing"
+    ]
+   },
+   {
+    "slug": "cardiwing",
+    "stage": "stage1",
+    "evolves_from": [
+     "cardiling"
+    ],
+    "evolves_into": [
+     "cardinale"
+    ]
+   },
+   {
+    "slug": "cardinale",
+    "stage": "stage2",
+    "evolves_from": [
+     "cardiwing"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "grassland",
+   "jungle",
+   "woodland"
+  ],
+  "tags": [
+   "flame",
+   "bird"
+  ],
+  "shape": "flier",
+  "stage": "basic",
+  "types": [
+   "fire",
+   "sky"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 62,
+  "height": 30,
+  "weight": 2,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_woosh_1",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_woosh_1_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/tuxemon/db/monster/cardiling.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/cardiling-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "cardinale": {
+  "slug": "cardinale",
+  "species": "firebird",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "wing_tip"
+   },
+   {
+    "level_learned": 1,
+    "technique": "arcane_eye"
+   },
+   {
+    "level_learned": 7,
+    "technique": "tinder"
+   },
+   {
+    "level_learned": 10,
+    "technique": "breathe_fire"
+   },
+   {
+    "level_learned": 13,
+    "technique": "fire_claw"
+   },
+   {
+    "level_learned": 19,
+    "technique": "saber"
+   },
+   {
+    "level_learned": 25,
+    "technique": "kindling_flame"
+   },
+   {
+    "level_learned": 28,
+    "technique": "peregrine"
+   },
+   {
+    "level_learned": 31,
+    "technique": "ten_thousand_feathers"
+   },
+   {
+    "level_learned": 40,
+    "technique": "berserk"
+   },
+   {
+    "level_learned": 43,
+    "technique": "all_in"
+   },
+   {
+    "level_learned": 46,
+    "technique": "flamethrower"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "cardinale",
+    "stage": "stage2",
+    "evolves_from": [
+     "cardiwing"
+    ],
+    "evolves_into": []
+   },
+   {
+    "slug": "cardiling",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "cardiwing"
+    ]
+   },
+   {
+    "slug": "cardiwing",
+    "stage": "stage1",
+    "evolves_from": [
+     "cardiling"
+    ],
+    "evolves_into": [
+     "cardinale"
+    ]
+   }
+  ],
+  "terrains": [
+   "grassland",
+   "jungle",
+   "woodland"
+  ],
+  "tags": [
+   "flame",
+   "bird",
+   "bomber"
+  ],
+  "shape": "flier",
+  "stage": "stage2",
+  "types": [
+   "fire",
+   "sky"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 64,
+  "height": 60,
+  "weight": 8,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_woosh_1",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_woosh_1_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 35.0,
+  "lower_catch_resistance": 0.85,
+  "upper_catch_resistance": 1.1,
+  "_source": [
+   "mods/tuxemon/db/monster/cardinale.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/cardinale-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "cardiwing": {
+  "slug": "cardiwing",
+  "species": "firebird",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "wing_tip"
+   },
+   {
+    "level_learned": 1,
+    "technique": "arcane_eye"
+   },
+   {
+    "level_learned": 7,
+    "technique": "tinder"
+   },
+   {
+    "level_learned": 10,
+    "technique": "breathe_fire"
+   },
+   {
+    "level_learned": 13,
+    "technique": "fire_claw"
+   },
+   {
+    "level_learned": 19,
+    "technique": "saber"
+   },
+   {
+    "level_learned": 25,
+    "technique": "kindling_flame"
+   },
+   {
+    "level_learned": 28,
+    "technique": "peregrine"
+   },
+   {
+    "level_learned": 31,
+    "technique": "ten_thousand_feathers"
+   },
+   {
+    "level_learned": 40,
+    "technique": "berserk"
+   },
+   {
+    "level_learned": 43,
+    "technique": "all_in"
+   },
+   {
+    "level_learned": 46,
+    "technique": "flamethrower"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "cardinale"
+   }
+  ],
+  "history": [
+   {
+    "slug": "cardiwing",
+    "stage": "stage1",
+    "evolves_from": [
+     "cardiling"
+    ],
+    "evolves_into": [
+     "cardinale"
+    ]
+   },
+   {
+    "slug": "cardiling",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "cardiwing"
+    ]
+   },
+   {
+    "slug": "cardinale",
+    "stage": "stage2",
+    "evolves_from": [
+     "cardiwing"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "grassland",
+   "jungle",
+   "woodland"
+  ],
+  "tags": [
+   "flame",
+   "bird",
+   "bomber"
+  ],
+  "shape": "flier",
+  "stage": "stage1",
+  "types": [
+   "fire",
+   "sky"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 63,
+  "height": 45,
+  "weight": 5,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_woosh_1",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_woosh_1_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/cardiwing.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/cardiwing-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "cataspike": {
+  "slug": "cataspike",
+  "species": "pointy",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "bullet"
+   },
+   {
+    "level_learned": 1,
+    "technique": "frighten"
+   },
+   {
+    "level_learned": 4,
+    "technique": "buzz"
+   },
+   {
+    "level_learned": 7,
+    "technique": "hibernate"
+   },
+   {
+    "level_learned": 10,
+    "technique": "perfect_cut"
+   },
+   {
+    "level_learned": 13,
+    "technique": "blade"
+   },
+   {
+    "level_learned": 16,
+    "technique": "lineage"
+   },
+   {
+    "level_learned": 19,
+    "technique": "viper"
+   },
+   {
+    "level_learned": 22,
+    "technique": "shuriken"
+   },
+   {
+    "level_learned": 25,
+    "technique": "eyebite"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 9,
+    "monster_slug": "puparmor"
+   }
+  ],
+  "history": [
+   {
+    "slug": "cataspike",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "puparmor"
+    ]
+   },
+   {
+    "slug": "puparmor",
+    "stage": "stage1",
+    "evolves_from": [
+     "cataspike"
+    ],
+    "evolves_into": [
+     "weavifly"
+    ]
+   },
+   {
+    "slug": "weavifly",
+    "stage": "stage2",
+    "evolves_from": [
+     "puparmor"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "sharp",
+   "bug"
+  ],
+  "shape": "grub",
+  "stage": "basic",
+  "types": [
+   "metal",
+   "venom"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 33,
+  "height": 12,
+  "weight": 1,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_insekt001",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_insekt001_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/tuxemon/db/monster/cataspike.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/cataspike-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "dandicub": {
+  "slug": "dandicub",
+  "species": "floret",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "pollen_blast"
+   },
+   {
+    "level_learned": 1,
+    "technique": "solar_synthesis"
+   },
+   {
+    "level_learned": 4,
+    "technique": "sylvan"
+   },
+   {
+    "level_learned": 7,
+    "technique": "fester"
+   },
+   {
+    "level_learned": 13,
+    "technique": "sleeping_powder"
+   },
+   {
+    "level_learned": 25,
+    "technique": "energy_claws"
+   },
+   {
+    "level_learned": 28,
+    "technique": "one_two"
+   },
+   {
+    "level_learned": 31,
+    "technique": "all_in"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 18,
+    "monster_slug": "dandylion"
+   }
+  ],
+  "history": [
+   {
+    "slug": "dandicub",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "dandylion"
+    ]
+   },
+   {
+    "slug": "dandylion",
+    "stage": "stage1",
+    "evolves_from": [
+     "dandicub"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "plant",
+   "bite"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "wood"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 73,
+  "height": 46,
+  "weight": 2,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_cat_meow3",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_cat_meow3_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.05,
+  "_source": [
+   "mods/tuxemon/db/monster/dandicub.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/dandicub-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "dandylion": {
+  "slug": "dandylion",
+  "species": "lions_tooth",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "pollen_blast"
+   },
+   {
+    "level_learned": 1,
+    "technique": "solar_synthesis"
+   },
+   {
+    "level_learned": 4,
+    "technique": "sylvan"
+   },
+   {
+    "level_learned": 7,
+    "technique": "fester"
+   },
+   {
+    "level_learned": 13,
+    "technique": "sleeping_powder"
+   },
+   {
+    "level_learned": 25,
+    "technique": "energy_claws"
+   },
+   {
+    "level_learned": 28,
+    "technique": "one_two"
+   },
+   {
+    "level_learned": 31,
+    "technique": "all_in"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "dandylion",
+    "stage": "stage1",
+    "evolves_from": [
+     "dandicub"
+    ],
+    "evolves_into": []
+   },
+   {
+    "slug": "dandicub",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "dandylion"
+    ]
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "plant",
+   "bite",
+   "light"
+  ],
+  "shape": "hunter",
+  "stage": "stage1",
+  "types": [
+   "wood"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 74,
+  "height": 138,
+  "weight": 45,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_roar_03",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_roar_03_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/dandylion.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/dandylion-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "enigmon": {
+  "slug": "enigmon",
+  "species": "riddle_puzzle",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "phantasmal_force"
+   },
+   {
+    "level_learned": 1,
+    "technique": "midnight_mantle"
+   },
+   {
+    "level_learned": 4,
+    "technique": "conjurer"
+   },
+   {
+    "level_learned": 13,
+    "technique": "wicked_wind"
+   },
+   {
+    "level_learned": 26,
+    "technique": "shadow_blast"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "puzzlet",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "enigmon"
+    ]
+   },
+   {
+    "slug": "enigmon",
+    "stage": "stage1",
+    "evolves_from": [
+     "puzzlet"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "ruins",
+   "underground"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "stage1",
+  "types": [
+   "shadow"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 403,
+  "height": 110,
+  "weight": 60,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/enigmon.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/enigmon-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "eyenemy": {
+  "slug": "eyenemy",
+  "species": "pupil",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "bullet"
+   },
+   {
+    "level_learned": 1,
+    "technique": "spit_poison"
+   },
+   {
+    "level_learned": 4,
+    "technique": "amnesia"
+   },
+   {
+    "level_learned": 7,
+    "technique": "sleep_bomb"
+   },
+   {
+    "level_learned": 13,
+    "technique": "glower"
+   },
+   {
+    "level_learned": 25,
+    "technique": "eyebite"
+   },
+   {
+    "level_learned": 28,
+    "technique": "breath"
+   },
+   {
+    "level_learned": 31,
+    "technique": "dreamwalk"
+   },
+   {
+    "level_learned": 55,
+    "technique": "energy_beam"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 18,
+    "monster_slug": "eyesore"
+   }
+  ],
+  "history": [
+   {
+    "slug": "eyenemy",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "eyesore"
+    ]
+   },
+   {
+    "slug": "eyesore",
+    "stage": "stage1",
+    "evolves_from": [
+     "eyenemy"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "gaze",
+   "mental"
+  ],
+  "shape": "serpent",
+  "stage": "basic",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 46,
+  "height": 104,
+  "weight": 2,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_retro_beep_05",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_retro_beep_05_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.05,
+  "_source": [
+   "mods/tuxemon/db/monster/eyenemy.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/eyenemy-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "eyesore": {
+  "slug": "eyesore",
+  "species": "overseer",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "bullet"
+   },
+   {
+    "level_learned": 1,
+    "technique": "spit_poison"
+   },
+   {
+    "level_learned": 4,
+    "technique": "amnesia"
+   },
+   {
+    "level_learned": 7,
+    "technique": "sleep_bomb"
+   },
+   {
+    "level_learned": 13,
+    "technique": "glower"
+   },
+   {
+    "level_learned": 25,
+    "technique": "eyebite"
+   },
+   {
+    "level_learned": 28,
+    "technique": "breath"
+   },
+   {
+    "level_learned": 31,
+    "technique": "dreamwalk"
+   },
+   {
+    "level_learned": 55,
+    "technique": "energy_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "eyesore",
+    "stage": "stage1",
+    "evolves_from": [
+     "eyenemy"
+    ],
+    "evolves_into": []
+   },
+   {
+    "slug": "eyenemy",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "eyesore"
+    ]
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "gaze",
+   "mental"
+  ],
+  "shape": "serpent",
+  "stage": "stage1",
+  "types": [
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 47,
+  "height": 135,
+  "weight": 4,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_retro_beep_05",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_retro_beep_05_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/eyesore.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/eyesore-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "flaskling": {
+  "slug": "flaskling",
+  "species": "leaf_flask",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "bubbles"
+   },
+   {
+    "level_learned": 1,
+    "technique": "leaf_barrage"
+   },
+   {
+    "level_learned": 4,
+    "technique": "ring"
+   },
+   {
+    "level_learned": 7,
+    "technique": "blossom"
+   },
+   {
+    "level_learned": 10,
+    "technique": "font"
+   },
+   {
+    "level_learned": 13,
+    "technique": "stick"
+   },
+   {
+    "level_learned": 16,
+    "technique": "flow"
+   },
+   {
+    "level_learned": 20,
+    "technique": "pollen_blast"
+   },
+   {
+    "level_learned": 26,
+    "technique": "water_blast"
+   },
+   {
+    "level_learned": 30,
+    "technique": "overgrowth"
+   },
+   {
+    "level_learned": 36,
+    "technique": "surf"
+   },
+   {
+    "level_learned": 42,
+    "technique": "flower_bloom"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "botanikos"
+   }
+  ],
+  "history": [
+   {
+    "slug": "flaskling",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "botanikos"
+    ]
+   },
+   {
+    "slug": "botanikos",
+    "stage": "stage1",
+    "evolves_from": [
+     "flaskling"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "freshwater",
+   "woodland"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "sprite",
+  "stage": "basic",
+  "types": [
+   "water"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 400,
+  "height": 40,
+  "weight": 10,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_splash_1",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_splash_1_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/flaskling.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/flaskling-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "geometrion": {
+  "slug": "geometrion",
+  "species": "pyramid",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "slice"
+   },
+   {
+    "level_learned": 4,
+    "technique": "rock"
+   },
+   {
+    "level_learned": 7,
+    "technique": "rocky_barrage"
+   },
+   {
+    "level_learned": 10,
+    "technique": "perfect_cut"
+   },
+   {
+    "level_learned": 13,
+    "technique": "sand_spray"
+   },
+   {
+    "level_learned": 16,
+    "technique": "stonehenge"
+   },
+   {
+    "level_learned": 20,
+    "technique": "platinum"
+   },
+   {
+    "level_learned": 26,
+    "technique": "greenstone"
+   },
+   {
+    "level_learned": 30,
+    "technique": "grinding"
+   },
+   {
+    "level_learned": 36,
+    "technique": "magnetic_body"
+   },
+   {
+    "level_learned": 42,
+    "technique": "adamantine"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "polygonos"
+   }
+  ],
+  "history": [
+   {
+    "slug": "geometrion",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "polygonos"
+    ]
+   },
+   {
+    "slug": "polygonos",
+    "stage": "stage1",
+    "evolves_from": [
+     "geometrion"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "mountains",
+   "urban"
+  ],
+  "tags": [
+   "rock",
+   "metal"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "metal"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 394,
+  "height": 40,
+  "weight": 12,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_retro_beep_05",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_retro_beep_05_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/geometrion.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/geometrion-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "hydrone": {
+  "slug": "hydrone",
+  "species": "short_circuit",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "slice"
+   },
+   {
+    "level_learned": 1,
+    "technique": "lightning_spheres"
+   },
+   {
+    "level_learned": 4,
+    "technique": "crystal"
+   },
+   {
+    "level_learned": 7,
+    "technique": "muddle"
+   },
+   {
+    "level_learned": 13,
+    "technique": "radiance"
+   },
+   {
+    "level_learned": 16,
+    "technique": "perfect_cut"
+   },
+   {
+    "level_learned": 19,
+    "technique": "peregrine"
+   },
+   {
+    "level_learned": 25,
+    "technique": "time_crisis"
+   },
+   {
+    "level_learned": 28,
+    "technique": "viper"
+   },
+   {
+    "level_learned": 31,
+    "technique": "shrapnel"
+   },
+   {
+    "level_learned": 37,
+    "technique": "electrical_storm"
+   },
+   {
+    "level_learned": 40,
+    "technique": "lineage"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "hydrone",
+    "stage": "standalone",
+    "evolves_from": [],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "machine",
+   "water",
+   "gadgets",
+   "electricity"
+  ],
+  "shape": "humanoid",
+  "stage": "standalone",
+  "types": [
+   "metal",
+   "water"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 112,
+  "height": 155,
+  "weight": 200,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_steel_clang",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_steel_clang_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.05,
+  "_source": [
+   "mods/tuxemon/db/monster/hydrone.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/hydrone-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "jemuar": {
+  "slug": "jemuar",
+  "species": "precious_boulder",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "boulder"
+   },
+   {
+    "level_learned": 4,
+    "technique": "mudslide"
+   },
+   {
+    "level_learned": 7,
+    "technique": "assault"
+   },
+   {
+    "level_learned": 13,
+    "technique": "thunderball"
+   },
+   {
+    "level_learned": 28,
+    "technique": "glower"
+   },
+   {
+    "level_learned": 31,
+    "technique": "ice_claw"
+   },
+   {
+    "level_learned": 34,
+    "technique": "surge"
+   },
+   {
+    "level_learned": 43,
+    "technique": "stampede"
+   },
+   {
+    "level_learned": 46,
+    "technique": "earthquake"
+   },
+   {
+    "level_learned": 52,
+    "technique": "biting_winds"
+   },
+   {
+    "level_learned": 61,
+    "technique": "divinity_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "jemuar",
+    "stage": "stage2",
+    "evolves_from": [
+     "rockat"
+    ],
+    "evolves_into": []
+   },
+   {
+    "slug": "rockitten",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "rockat"
+    ]
+   },
+   {
+    "slug": "rockat",
+    "stage": "stage1",
+    "evolves_from": [
+     "rockitten"
+    ],
+    "evolves_into": [
+     "jemuar"
+    ]
+   }
+  ],
+  "terrains": [
+   "mountains",
+   "urban"
+  ],
+  "tags": [
+   "rock",
+   "love",
+   "claws",
+   "bite",
+   "gemstone"
+  ],
+  "shape": "hunter",
+  "stage": "stage2",
+  "types": [
+   "earth",
+   "cosmic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 3,
+  "height": 160,
+  "weight": 150,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 35.0,
+  "lower_catch_resistance": 0.85,
+  "upper_catch_resistance": 1.1,
+  "_source": [
+   "mods/tuxemon/db/monster/jemuar.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/jemuar-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "kroki": {
+  "slug": "kroki",
+  "species": "crocodile",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ice_shield"
+   },
+   {
+    "level_learned": 1,
+    "technique": "water_bullet"
+   },
+   {
+    "level_learned": 4,
+    "technique": "slice"
+   },
+   {
+    "level_learned": 7,
+    "technique": "geyser"
+   },
+   {
+    "level_learned": 13,
+    "technique": "water_blast"
+   },
+   {
+    "level_learned": 19,
+    "technique": "grinding"
+   },
+   {
+    "level_learned": 25,
+    "technique": "tsunami"
+   },
+   {
+    "level_learned": 31,
+    "technique": "kraken"
+   },
+   {
+    "level_learned": 37,
+    "technique": "frostbite"
+   },
+   {
+    "level_learned": 40,
+    "technique": "viper"
+   },
+   {
+    "level_learned": 55,
+    "technique": "energy_beam"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 15,
+    "monster_slug": "krokivip"
+   }
+  ],
+  "history": [
+   {
+    "slug": "kroki",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "krokivip"
+    ]
+   },
+   {
+    "slug": "krokivip",
+    "stage": "stage1",
+    "evolves_from": [
+     "kroki"
+    ],
+    "evolves_into": [
+     "leviadile"
+    ]
+   },
+   {
+    "slug": "leviadile",
+    "stage": "stage2",
+    "evolves_from": [
+     "krokivip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "swamp"
+  ],
+  "tags": [
+   "amphibian",
+   "bite",
+   "water"
+  ],
+  "shape": "leviathan",
+  "stage": "basic",
+  "types": [
+   "water"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 369,
+  "height": 30,
+  "weight": 10,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_splash_1",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_splash_1_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/kroki.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/kroki-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "krokivip": {
+  "slug": "krokivip",
+  "species": "crocodile",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ice_shield"
+   },
+   {
+    "level_learned": 1,
+    "technique": "water_bullet"
+   },
+   {
+    "level_learned": 4,
+    "technique": "slice"
+   },
+   {
+    "level_learned": 7,
+    "technique": "geyser"
+   },
+   {
+    "level_learned": 13,
+    "technique": "water_blast"
+   },
+   {
+    "level_learned": 19,
+    "technique": "grinding"
+   },
+   {
+    "level_learned": 25,
+    "technique": "tsunami"
+   },
+   {
+    "level_learned": 31,
+    "technique": "kraken"
+   },
+   {
+    "level_learned": 37,
+    "technique": "frostbite"
+   },
+   {
+    "level_learned": 40,
+    "technique": "viper"
+   },
+   {
+    "level_learned": 55,
+    "technique": "energy_beam"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 35,
+    "monster_slug": "leviadile"
+   }
+  ],
+  "history": [
+   {
+    "slug": "krokivip",
+    "stage": "stage1",
+    "evolves_from": [
+     "kroki"
+    ],
+    "evolves_into": [
+     "leviadile"
+    ]
+   },
+   {
+    "slug": "kroki",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "krokivip"
+    ]
+   },
+   {
+    "slug": "leviadile",
+    "stage": "stage2",
+    "evolves_from": [
+     "krokivip"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "coastal",
+   "swamp"
+  ],
+  "tags": [
+   "bite",
+   "water",
+   "amphibian",
+   "fury"
+  ],
+  "shape": "leviathan",
+  "stage": "stage1",
+  "types": [
+   "water",
+   "venom"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 370,
+  "height": 120,
+  "weight": 45,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_spit_02",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_spit_02_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 35.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/krokivip.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/krokivip-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "leviadile": {
+  "slug": "leviadile",
+  "species": "crocodile",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ice_shield"
+   },
+   {
+    "level_learned": 1,
+    "technique": "water_bullet"
+   },
+   {
+    "level_learned": 4,
+    "technique": "slice"
+   },
+   {
+    "level_learned": 7,
+    "technique": "geyser"
+   },
+   {
+    "level_learned": 13,
+    "technique": "water_blast"
+   },
+   {
+    "level_learned": 19,
+    "technique": "grinding"
+   },
+   {
+    "level_learned": 25,
+    "technique": "tsunami"
+   },
+   {
+    "level_learned": 31,
+    "technique": "kraken"
+   },
+   {
+    "level_learned": 37,
+    "technique": "frostbite"
+   },
+   {
+    "level_learned": 40,
+    "technique": "viper"
+   },
+   {
+    "level_learned": 55,
+    "technique": "energy_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "leviadile",
+    "stage": "stage2",
+    "evolves_from": [
+     "krokivip"
+    ],
+    "evolves_into": []
+   },
+   {
+    "slug": "kroki",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "krokivip"
+    ]
+   },
+   {
+    "slug": "krokivip",
+    "stage": "stage1",
+    "evolves_from": [
+     "kroki"
+    ],
+    "evolves_into": [
+     "leviadile"
+    ]
+   }
+  ],
+  "terrains": [
+   "sea"
+  ],
+  "tags": [
+   "ice",
+   "water",
+   "bite",
+   "toxic",
+   "fury"
+  ],
+  "shape": "leviathan",
+  "stage": "stage2",
+  "types": [
+   "water",
+   "venom"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 371,
+  "height": 680,
+  "weight": 2500,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_woosh_2",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_woosh_2_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 35.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/leviadile.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/leviadile-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "lexicon": {
+  "slug": "lexicon",
+  "species": "word_lion",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "strike"
+   },
+   {
+    "level_learned": 4,
+    "technique": "feint"
+   },
+   {
+    "level_learned": 7,
+    "technique": "lantern"
+   },
+   {
+    "level_learned": 10,
+    "technique": "constrict"
+   },
+   {
+    "level_learned": 13,
+    "technique": "beam"
+   },
+   {
+    "level_learned": 16,
+    "technique": "punch"
+   },
+   {
+    "level_learned": 20,
+    "technique": "radiance"
+   },
+   {
+    "level_learned": 26,
+    "technique": "one_two"
+   },
+   {
+    "level_learned": 30,
+    "technique": "energy_beam"
+   },
+   {
+    "level_learned": 36,
+    "technique": "invictus"
+   },
+   {
+    "level_learned": 42,
+    "technique": "all_in"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "alphabel",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "lexicon"
+    ]
+   },
+   {
+    "slug": "lexicon",
+    "stage": "stage1",
+    "evolves_from": [
+     "alphabel"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "woodland",
+   "grassland"
+  ],
+  "tags": [
+   "claws",
+   "bite",
+   "love"
+  ],
+  "shape": "hunter",
+  "stage": "stage1",
+  "types": [
+   "normal",
+   "heroic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 397,
+  "height": 150,
+  "weight": 110,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_creature_roar",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_creature_roar_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/lexicon.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/lexicon-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "megillon": {
+  "slug": "megillon",
+  "species": "great_scroll",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "strike"
+   },
+   {
+    "level_learned": 4,
+    "technique": "feint"
+   },
+   {
+    "level_learned": 7,
+    "technique": "lantern"
+   },
+   {
+    "level_learned": 10,
+    "technique": "constrict"
+   },
+   {
+    "level_learned": 13,
+    "technique": "beam"
+   },
+   {
+    "level_learned": 16,
+    "technique": "punch"
+   },
+   {
+    "level_learned": 20,
+    "technique": "radiance"
+   },
+   {
+    "level_learned": 26,
+    "technique": "one_two"
+   },
+   {
+    "level_learned": 30,
+    "technique": "energy_beam"
+   },
+   {
+    "level_learned": 36,
+    "technique": "invictus"
+   },
+   {
+    "level_learned": 42,
+    "technique": "all_in"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "scrollo",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "megillon"
+    ]
+   },
+   {
+    "slug": "megillon",
+    "stage": "stage1",
+    "evolves_from": [
+     "scrollo"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "urban",
+   "ruins"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "humanoid",
+  "stage": "stage1",
+  "types": [
+   "normal",
+   "heroic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 405,
+  "height": 110,
+  "weight": 60,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_whistle",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_whistle_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/megillon.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/megillon-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "multivolt": {
+  "slug": "multivolt",
+  "species": "volt_plus",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "buzz"
+   },
+   {
+    "level_learned": 1,
+    "technique": "lightning_spheres"
+   },
+   {
+    "level_learned": 4,
+    "technique": "fire_ball"
+   },
+   {
+    "level_learned": 7,
+    "technique": "surge"
+   },
+   {
+    "level_learned": 10,
+    "technique": "thunderclap"
+   },
+   {
+    "level_learned": 13,
+    "technique": "torch"
+   },
+   {
+    "level_learned": 16,
+    "technique": "battery_discharge"
+   },
+   {
+    "level_learned": 20,
+    "technique": "energy_claws"
+   },
+   {
+    "level_learned": 26,
+    "technique": "kindling_flame"
+   },
+   {
+    "level_learned": 30,
+    "technique": "supernova"
+   },
+   {
+    "level_learned": 36,
+    "technique": "laser_beam"
+   },
+   {
+    "level_learned": 42,
+    "technique": "electrical_storm"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "pluson",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "multivolt"
+    ]
+   },
+   {
+    "slug": "multivolt",
+    "stage": "stage1",
+    "evolves_from": [
+     "pluson"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "urban",
+   "grassland"
+  ],
+  "tags": [
+   "claws",
+   "love"
+  ],
+  "shape": "varmint",
+  "stage": "stage1",
+  "types": [
+   "lightning",
+   "fire"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 399,
+  "height": 110,
+  "weight": 60,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_spell_fire_06",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_spell_fire_06_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/multivolt.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/multivolt-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "nudikill": {
+  "slug": "nudikill",
+  "species": "dark_bishop",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "flood"
+   },
+   {
+    "level_learned": 1,
+    "technique": "feint"
+   },
+   {
+    "level_learned": 4,
+    "technique": "muck"
+   },
+   {
+    "level_learned": 7,
+    "technique": "fiery"
+   },
+   {
+    "level_learned": 13,
+    "technique": "suck_poison"
+   },
+   {
+    "level_learned": 19,
+    "technique": "rot"
+   },
+   {
+    "level_learned": 25,
+    "technique": "bubble_trap"
+   },
+   {
+    "level_learned": 28,
+    "technique": "caustic_spray"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "nudikill",
+    "stage": "stage1",
+    "evolves_from": [
+     "nudiflot_male"
+    ],
+    "evolves_into": []
+   },
+   {
+    "slug": "nudiflot_male",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "nudikill"
+    ]
+   }
+  ],
+  "terrains": [
+   "coastal",
+   "freshwater",
+   "sea"
+  ],
+  "tags": [
+   "toxic",
+   "darkness",
+   "mental"
+  ],
+  "shape": "polliwog",
+  "stage": "stage1",
+  "types": [
+   "water",
+   "venom"
+  ],
+  "gender_weights": {
+   "male": 1.0
+  },
+  "txmn_id": 53,
+  "height": 122,
+  "weight": 35,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_splash_1",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_splash_1_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/nudikill.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/nudikill-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "nut": {
+  "slug": "nut",
+  "species": "hardware",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "bullet"
+   },
+   {
+    "level_learned": 1,
+    "technique": "static_field"
+   },
+   {
+    "level_learned": 4,
+    "technique": "shuriken"
+   },
+   {
+    "level_learned": 7,
+    "technique": "clamp_on"
+   },
+   {
+    "level_learned": 10,
+    "technique": "muddle"
+   },
+   {
+    "level_learned": 13,
+    "technique": "bubble_trap"
+   },
+   {
+    "level_learned": 16,
+    "technique": "beam"
+   },
+   {
+    "level_learned": 19,
+    "technique": "surge"
+   },
+   {
+    "level_learned": 25,
+    "technique": "thunderclap"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 9,
+    "monster_slug": "bolt"
+   }
+  ],
+  "history": [
+   {
+    "slug": "nut",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "bolt"
+    ]
+   },
+   {
+    "slug": "bolt",
+    "stage": "stage1",
+    "evolves_from": [
+     "nut"
+    ],
+    "evolves_into": [
+     "arthrobolt"
+    ]
+   },
+   {
+    "slug": "arthrobolt",
+    "stage": "stage2",
+    "evolves_from": [
+     "bolt"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "machine",
+   "bomber",
+   "gadgets",
+   "light"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "metal"
+  ],
+  "gender_weights": {
+   "neuter": 1.0
+  },
+  "txmn_id": 4,
+  "height": 45,
+  "weight": 4,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_steel_clang",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_steel_clang_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/tuxemon/db/monster/nut.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/nut-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "pluson": {
+  "slug": "pluson",
+  "species": "plus_spark",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "buzz"
+   },
+   {
+    "level_learned": 1,
+    "technique": "lightning_spheres"
+   },
+   {
+    "level_learned": 4,
+    "technique": "fire_ball"
+   },
+   {
+    "level_learned": 7,
+    "technique": "surge"
+   },
+   {
+    "level_learned": 10,
+    "technique": "thunderclap"
+   },
+   {
+    "level_learned": 13,
+    "technique": "torch"
+   },
+   {
+    "level_learned": 16,
+    "technique": "battery_discharge"
+   },
+   {
+    "level_learned": 20,
+    "technique": "energy_claws"
+   },
+   {
+    "level_learned": 26,
+    "technique": "kindling_flame"
+   },
+   {
+    "level_learned": 30,
+    "technique": "supernova"
+   },
+   {
+    "level_learned": 36,
+    "technique": "laser_beam"
+   },
+   {
+    "level_learned": 42,
+    "technique": "electrical_storm"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "multivolt"
+   }
+  ],
+  "history": [
+   {
+    "slug": "pluson",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "multivolt"
+    ]
+   },
+   {
+    "slug": "multivolt",
+    "stage": "stage1",
+    "evolves_from": [
+     "pluson"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "urban",
+   "grassland"
+  ],
+  "tags": [
+   "claws",
+   "love"
+  ],
+  "shape": "varmint",
+  "stage": "basic",
+  "types": [
+   "lightning"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 398,
+  "height": 40,
+  "weight": 10,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_spell_fire_06",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_spell_fire_06_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/pluson.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/pluson-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "polygonos": {
+  "slug": "polygonos",
+  "species": "polyhedron",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "slice"
+   },
+   {
+    "level_learned": 4,
+    "technique": "rock"
+   },
+   {
+    "level_learned": 7,
+    "technique": "rocky_barrage"
+   },
+   {
+    "level_learned": 10,
+    "technique": "perfect_cut"
+   },
+   {
+    "level_learned": 13,
+    "technique": "sand_spray"
+   },
+   {
+    "level_learned": 16,
+    "technique": "stonehenge"
+   },
+   {
+    "level_learned": 20,
+    "technique": "platinum"
+   },
+   {
+    "level_learned": 26,
+    "technique": "greenstone"
+   },
+   {
+    "level_learned": 30,
+    "technique": "grinding"
+   },
+   {
+    "level_learned": 36,
+    "technique": "magnetic_body"
+   },
+   {
+    "level_learned": 42,
+    "technique": "adamantine"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "geometrion",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "polygonos"
+    ]
+   },
+   {
+    "slug": "polygonos",
+    "stage": "stage1",
+    "evolves_from": [
+     "geometrion"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "mountains",
+   "urban"
+  ],
+  "tags": [
+   "rock",
+   "metal"
+  ],
+  "shape": "blob",
+  "stage": "stage1",
+  "types": [
+   "metal",
+   "earth"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 395,
+  "height": 110,
+  "weight": 70,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_steel_clang",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_steel_clang_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/nagmon/db/monster/polygonos.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/polygonos-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "puparmor": {
+  "slug": "puparmor",
+  "species": "fortified",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "bullet"
+   },
+   {
+    "level_learned": 1,
+    "technique": "frighten"
+   },
+   {
+    "level_learned": 1,
+    "technique": "chameleon",
+    "learning_method": "evolution"
+   },
+   {
+    "level_learned": 4,
+    "technique": "buzz"
+   },
+   {
+    "level_learned": 7,
+    "technique": "hibernate"
+   },
+   {
+    "level_learned": 10,
+    "technique": "perfect_cut"
+   },
+   {
+    "level_learned": 13,
+    "technique": "blade"
+   },
+   {
+    "level_learned": 16,
+    "technique": "lineage"
+   },
+   {
+    "level_learned": 19,
+    "technique": "viper"
+   },
+   {
+    "level_learned": 22,
+    "technique": "shuriken"
+   },
+   {
+    "level_learned": 25,
+    "technique": "eyebite"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 12,
+    "monster_slug": "weavifly"
+   }
+  ],
+  "history": [
+   {
+    "slug": "puparmor",
+    "stage": "stage1",
+    "evolves_from": [
+     "cataspike"
+    ],
+    "evolves_into": [
+     "weavifly"
+    ]
+   },
+   {
+    "slug": "cataspike",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "puparmor"
+    ]
+   },
+   {
+    "slug": "weavifly",
+    "stage": "stage2",
+    "evolves_from": [
+     "puparmor"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "sharp",
+   "bug",
+   "bomber",
+   "shielded"
+  ],
+  "shape": "blob",
+  "stage": "stage1",
+  "types": [
+   "metal",
+   "venom"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 34,
+  "height": 35,
+  "weight": 8.5,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_insekt001",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_insekt001_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/puparmor.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/puparmor-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "puzzlet": {
+  "slug": "puzzlet",
+  "species": "puzzle_piece",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "phantasmal_force"
+   },
+   {
+    "level_learned": 1,
+    "technique": "midnight_mantle"
+   },
+   {
+    "level_learned": 4,
+    "technique": "conjurer"
+   },
+   {
+    "level_learned": 13,
+    "technique": "wicked_wind"
+   },
+   {
+    "level_learned": 26,
+    "technique": "shadow_blast"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "enigmon"
+   }
+  ],
+  "history": [
+   {
+    "slug": "puzzlet",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "enigmon"
+    ]
+   },
+   {
+    "slug": "enigmon",
+    "stage": "stage1",
+    "evolves_from": [
+     "puzzlet"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "ruins",
+   "underground"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "blob",
+  "stage": "basic",
+  "types": [
+   "shadow"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 402,
+  "height": 40,
+  "weight": 10,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_ghost_1",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_ghost_1_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/puzzlet.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/puzzlet-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "rabbitosaur": {
+  "slug": "rabbitosaur",
+  "species": "rabbit",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "thunderball"
+   },
+   {
+    "level_learned": 1,
+    "technique": "shadow_boxing"
+   },
+   {
+    "level_learned": 4,
+    "technique": "quicksand"
+   },
+   {
+    "level_learned": 7,
+    "technique": "fledgling"
+   },
+   {
+    "level_learned": 13,
+    "technique": "one_two"
+   },
+   {
+    "level_learned": 25,
+    "technique": "stampede"
+   },
+   {
+    "level_learned": 28,
+    "technique": "electrical_storm"
+   },
+   {
+    "level_learned": 31,
+    "technique": "snowstorm"
+   },
+   {
+    "level_learned": 37,
+    "technique": "burrow_blast"
+   },
+   {
+    "level_learned": 43,
+    "technique": "energy_beam"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "rabbitosaur",
+    "stage": "stage1",
+    "evolves_from": [
+     "squabbit"
+    ],
+    "evolves_into": []
+   },
+   {
+    "slug": "squabbit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "rabbitosaur"
+    ]
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "soldier",
+   "fists",
+   "ground"
+  ],
+  "shape": "varmint",
+  "stage": "stage1",
+  "types": [
+   "heroic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 45,
+  "height": 120,
+  "weight": 80,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_cat_purr_twit5",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_cat_purr_twit5_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/rabbitosaur.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/rabbitosaur-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "rockat": {
+  "slug": "rockat",
+  "species": "sleek_boulder",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "boulder"
+   },
+   {
+    "level_learned": 4,
+    "technique": "mudslide"
+   },
+   {
+    "level_learned": 7,
+    "technique": "assault"
+   },
+   {
+    "level_learned": 13,
+    "technique": "thunderball"
+   },
+   {
+    "level_learned": 28,
+    "technique": "glower"
+   },
+   {
+    "level_learned": 31,
+    "technique": "ice_claw"
+   },
+   {
+    "level_learned": 34,
+    "technique": "surge"
+   },
+   {
+    "level_learned": 43,
+    "technique": "stampede"
+   },
+   {
+    "level_learned": 46,
+    "technique": "earthquake"
+   },
+   {
+    "level_learned": 52,
+    "technique": "biting_winds"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 36,
+    "monster_slug": "jemuar"
+   }
+  ],
+  "history": [
+   {
+    "slug": "rockat",
+    "stage": "stage1",
+    "evolves_from": [
+     "rockitten"
+    ],
+    "evolves_into": [
+     "jemuar"
+    ]
+   },
+   {
+    "slug": "rockitten",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "rockat"
+    ]
+   },
+   {
+    "slug": "jemuar",
+    "stage": "stage2",
+    "evolves_from": [
+     "rockat"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "mountains",
+   "urban"
+  ],
+  "tags": [
+   "rock",
+   "love",
+   "claws",
+   "bite"
+  ],
+  "shape": "hunter",
+  "stage": "stage1",
+  "types": [
+   "earth"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 2,
+  "height": 120,
+  "weight": 60,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_growl1",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_growl1_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 70.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/rockat.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/rockat-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "rockitten": {
+  "slug": "rockitten",
+  "species": "cute_boulder",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "boulder"
+   },
+   {
+    "level_learned": 4,
+    "technique": "mudslide"
+   },
+   {
+    "level_learned": 7,
+    "technique": "assault"
+   },
+   {
+    "level_learned": 13,
+    "technique": "thunderball"
+   },
+   {
+    "level_learned": 28,
+    "technique": "glower"
+   },
+   {
+    "level_learned": 31,
+    "technique": "ice_claw"
+   },
+   {
+    "level_learned": 34,
+    "technique": "surge"
+   },
+   {
+    "level_learned": 43,
+    "technique": "stampede"
+   },
+   {
+    "level_learned": 46,
+    "technique": "earthquake"
+   },
+   {
+    "level_learned": 52,
+    "technique": "biting_winds"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 24,
+    "monster_slug": "rockat"
+   }
+  ],
+  "history": [
+   {
+    "slug": "rockitten",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "rockat"
+    ]
+   },
+   {
+    "slug": "rockat",
+    "stage": "stage1",
+    "evolves_from": [
+     "rockitten"
+    ],
+    "evolves_into": [
+     "jemuar"
+    ]
+   },
+   {
+    "slug": "jemuar",
+    "stage": "stage2",
+    "evolves_from": [
+     "rockat"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "mountains",
+   "urban"
+  ],
+  "tags": [
+   "rock",
+   "love",
+   "claws",
+   "bite"
+  ],
+  "shape": "hunter",
+  "stage": "basic",
+  "types": [
+   "earth"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 1,
+  "height": 55,
+  "weight": 9,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_cat_meow3",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_cat_meow3_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/tuxemon/db/monster/rockitten.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/rockitten-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "scrollo": {
+  "slug": "scrollo",
+  "species": "little_scroll",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "ram"
+   },
+   {
+    "level_learned": 1,
+    "technique": "strike"
+   },
+   {
+    "level_learned": 4,
+    "technique": "feint"
+   },
+   {
+    "level_learned": 7,
+    "technique": "lantern"
+   },
+   {
+    "level_learned": 10,
+    "technique": "constrict"
+   },
+   {
+    "level_learned": 13,
+    "technique": "beam"
+   },
+   {
+    "level_learned": 16,
+    "technique": "punch"
+   },
+   {
+    "level_learned": 20,
+    "technique": "radiance"
+   },
+   {
+    "level_learned": 26,
+    "technique": "one_two"
+   },
+   {
+    "level_learned": 30,
+    "technique": "energy_beam"
+   },
+   {
+    "level_learned": 36,
+    "technique": "invictus"
+   },
+   {
+    "level_learned": 42,
+    "technique": "all_in"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 16,
+    "monster_slug": "megillon"
+   }
+  ],
+  "history": [
+   {
+    "slug": "scrollo",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "megillon"
+    ]
+   },
+   {
+    "slug": "megillon",
+    "stage": "stage1",
+    "evolves_from": [
+     "scrollo"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [
+   "urban",
+   "ruins"
+  ],
+  "tags": [
+   "love"
+  ],
+  "shape": "humanoid",
+  "stage": "basic",
+  "types": [
+   "normal"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 404,
+  "height": 40,
+  "weight": 10,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_woosh_1",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_woosh_1_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/nagmon/db/monster/scrollo.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/scrollo-sheet.png",
+   "scale": 3,
+   "front": [
+    0,
+    0,
+    192,
+    192
+   ],
+   "back": [
+    192,
+    0,
+    192,
+    192
+   ],
+   "menu1": [
+    0,
+    192,
+    72,
+    72
+   ],
+   "menu2": [
+    72,
+    192,
+    72,
+    72
+   ]
+  }
+ },
+ "squabbit": {
+  "slug": "squabbit",
+  "species": "rabbit",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "thunderball"
+   },
+   {
+    "level_learned": 1,
+    "technique": "shadow_boxing"
+   },
+   {
+    "level_learned": 4,
+    "technique": "quicksand"
+   },
+   {
+    "level_learned": 7,
+    "technique": "fledgling"
+   },
+   {
+    "level_learned": 13,
+    "technique": "one_two"
+   },
+   {
+    "level_learned": 25,
+    "technique": "stampede"
+   },
+   {
+    "level_learned": 28,
+    "technique": "electrical_storm"
+   },
+   {
+    "level_learned": 31,
+    "technique": "snowstorm"
+   },
+   {
+    "level_learned": 40,
+    "technique": "energy_beam"
+   }
+  ],
+  "evolutions": [
+   {
+    "at_level": 18,
+    "monster_slug": "rabbitosaur"
+   }
+  ],
+  "history": [
+   {
+    "slug": "squabbit",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "rabbitosaur"
+    ]
+   },
+   {
+    "slug": "rabbitosaur",
+    "stage": "stage1",
+    "evolves_from": [
+     "squabbit"
+    ],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "soldier",
+   "fists",
+   "ground"
+  ],
+  "shape": "varmint",
+  "stage": "basic",
+  "types": [
+   "heroic"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 44,
+  "height": 60,
+  "weight": 10,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_cat_purr_twit5",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_cat_purr_twit5_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.95,
+  "upper_catch_resistance": 1.25,
+  "_source": [
+   "mods/tuxemon/db/monster/squabbit.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/squabbit-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "tourbidi": {
+  "slug": "tourbidi",
+  "species": "elf_ring",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "solar_synthesis"
+   },
+   {
+    "level_learned": 1,
+    "technique": "pollen_blast"
+   },
+   {
+    "level_learned": 4,
+    "technique": "sleeping_powder"
+   },
+   {
+    "level_learned": 7,
+    "technique": "walls"
+   },
+   {
+    "level_learned": 13,
+    "technique": "midnight_mantle"
+   },
+   {
+    "level_learned": 16,
+    "technique": "web"
+   },
+   {
+    "level_learned": 19,
+    "technique": "phantasmal_force"
+   },
+   {
+    "level_learned": 25,
+    "technique": "ring"
+   },
+   {
+    "level_learned": 28,
+    "technique": "ants"
+   },
+   {
+    "level_learned": 31,
+    "technique": "stabilo"
+   },
+   {
+    "level_learned": 37,
+    "technique": "one_two"
+   },
+   {
+    "level_learned": 40,
+    "technique": "all_in"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "tourbidi",
+    "stage": "standalone",
+    "evolves_from": [],
+    "evolves_into": []
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "light",
+   "plant",
+   "healing"
+  ],
+  "shape": "humanoid",
+  "stage": "standalone",
+  "types": [
+   "wood"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 123,
+  "height": 42,
+  "weight": 14,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_weird_09",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_weird_09_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 100.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/tourbidi.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/tourbidi-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ },
+ "weavifly": {
+  "slug": "weavifly",
+  "species": "brood",
+  "moveset": [
+   {
+    "level_learned": 1,
+    "technique": "struggle",
+    "learning_method": "fallback"
+   },
+   {
+    "level_learned": 1,
+    "technique": "bullet"
+   },
+   {
+    "level_learned": 1,
+    "technique": "frighten"
+   },
+   {
+    "level_learned": 4,
+    "technique": "buzz"
+   },
+   {
+    "level_learned": 7,
+    "technique": "hibernate"
+   },
+   {
+    "level_learned": 10,
+    "technique": "perfect_cut"
+   },
+   {
+    "level_learned": 13,
+    "technique": "blade"
+   },
+   {
+    "level_learned": 16,
+    "technique": "lineage"
+   },
+   {
+    "level_learned": 19,
+    "technique": "viper"
+   },
+   {
+    "level_learned": 22,
+    "technique": "shuriken"
+   },
+   {
+    "level_learned": 25,
+    "technique": "eyebite"
+   },
+   {
+    "level_learned": 34,
+    "technique": "tornado"
+   }
+  ],
+  "evolutions": [],
+  "history": [
+   {
+    "slug": "weavifly",
+    "stage": "stage2",
+    "evolves_from": [
+     "puparmor"
+    ],
+    "evolves_into": []
+   },
+   {
+    "slug": "cataspike",
+    "stage": "basic",
+    "evolves_from": [],
+    "evolves_into": [
+     "puparmor"
+    ]
+   },
+   {
+    "slug": "puparmor",
+    "stage": "stage1",
+    "evolves_from": [
+     "cataspike"
+    ],
+    "evolves_into": [
+     "weavifly"
+    ]
+   }
+  ],
+  "terrains": [],
+  "tags": [
+   "sharp",
+   "bug",
+   "bomber"
+  ],
+  "shape": "grub",
+  "stage": "stage2",
+  "types": [
+   "metal",
+   "sky"
+  ],
+  "gender_weights": {
+   "male": 0.5,
+   "female": 0.5
+  },
+  "txmn_id": 35,
+  "height": 52,
+  "weight": 17,
+  "sounds": {
+   "combat_call": {
+    "sfx": "sound_insekt001",
+    "volume": 1.5
+   },
+   "faint_call": {
+    "sfx": "sound_insekt001_faint",
+    "volume": 1.5
+   }
+  },
+  "catch_rate": 35.0,
+  "lower_catch_resistance": 0.9,
+  "upper_catch_resistance": 1.15,
+  "_source": [
+   "mods/tuxemon/db/monster/weavifly.yaml"
+  ],
+  "sprites": {
+   "sheet": "sprites/monsters/weavifly-sheet.png",
+   "scale": 1,
+   "front": [
+    0,
+    0,
+    64,
+    64
+   ],
+   "back": [
+    64,
+    0,
+    64,
+    64
+   ],
+   "menu1": [
+    0,
+    64,
+    24,
+    24
+   ],
+   "menu2": [
+    24,
+    64,
+    24,
+    24
+   ]
+  }
+ }
+}

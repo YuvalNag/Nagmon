@@ -1,0 +1,101 @@
+{
+ "grass": {
+  "battle_graphics": {
+   "background": "sprites/ui/grass_background.png",
+   "hud": {
+    "hud_opponent": "sprites/ui/hp_opponent_nohp.png",
+    "hud_player": "sprites/ui/hp_player_nohp.png",
+    "tray_opponent": "sprites/ui/opponent_party_tray.png",
+    "tray_player": "sprites/ui/player_party_tray.png"
+   },
+   "icons": {
+    "icon_alive": "sprites/ui/party_icon01.png",
+    "icon_empty": "sprites/ui/party_empty.png",
+    "icon_faint": "sprites/ui/party_icon03.png",
+    "icon_status": "sprites/ui/party_icon02.png"
+   },
+   "island_sheet": "sprites/ui/grass_island_sheet.png"
+  },
+  "battle_music": {
+   "battle": {
+    "music": "music_battle_loop"
+   },
+   "victory_music": {
+    "music": "music_win_battle_boss"
+   },
+   "defeat_music": {
+    "music": "music_gameover"
+   }
+  },
+  "slug": "grass",
+  "_source": [
+   "mods/tuxemon/db/environment/grass.yaml"
+  ]
+ },
+ "interior": {
+  "battle_graphics": {
+   "background": "sprites/ui/battle_interior.png",
+   "hud": {
+    "hud_opponent": "sprites/ui/hp_opponent_nohp.png",
+    "hud_player": "sprites/ui/hp_player_nohp.png",
+    "tray_opponent": "sprites/ui/opponent_party_tray.png",
+    "tray_player": "sprites/ui/player_party_tray.png"
+   },
+   "icons": {
+    "icon_alive": "sprites/ui/party_icon01.png",
+    "icon_empty": "sprites/ui/party_empty.png",
+    "icon_faint": "sprites/ui/party_icon03.png",
+    "icon_status": "sprites/ui/party_icon02.png"
+   },
+   "island_sheet": "sprites/ui/cobble_island_sheet.png"
+  },
+  "battle_music": {
+   "battle": {
+    "music": "music_battle_loop"
+   },
+   "victory_music": {
+    "music": "music_win_battle_boss"
+   },
+   "defeat_music": {
+    "music": "music_gameover"
+   }
+  },
+  "slug": "interior",
+  "_source": [
+   "mods/tuxemon/db/environment/interior.yaml"
+  ]
+ },
+ "night_grass": {
+  "battle_graphics": {
+   "background": "sprites/ui/night_grass_background.png",
+   "hud": {
+    "hud_opponent": "sprites/ui/hp_opponent_nohp.png",
+    "hud_player": "sprites/ui/hp_player_nohp.png",
+    "tray_opponent": "sprites/ui/opponent_party_tray.png",
+    "tray_player": "sprites/ui/player_party_tray.png"
+   },
+   "icons": {
+    "icon_alive": "sprites/ui/party_icon01.png",
+    "icon_empty": "sprites/ui/party_empty.png",
+    "icon_faint": "sprites/ui/party_icon03.png",
+    "icon_status": "sprites/ui/party_icon02.png"
+   },
+   "island_sheet": "sprites/ui/night_grass_island_sheet.png"
+  },
+  "battle_music": {
+   "battle": {
+    "music": "music_battle_loop"
+   },
+   "victory_music": {
+    "music": "music_win_battle_boss"
+   },
+   "defeat_music": {
+    "music": "music_gameover"
+   }
+  },
+  "slug": "night_grass",
+  "_source": [
+   "mods/tuxemon/db/environment/night_grass.yaml"
+  ]
+ }
+}

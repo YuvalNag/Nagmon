@@ -1,0 +1,8 @@
+{
+ "music_battle_loop": "audio/music/JRPG_battle_loop.ogg",
+ "music_cathedral_theme": "audio/music/JRPG_royalCourt_loop.ogg",
+ "music_gameover": "audio/music/JRPG_gameOver.ogg",
+ "music_main_theme": "audio/music/JRPG_mainTheme.ogg",
+ "music_town_theme": "audio/music/JRPG_town_loop.ogg",
+ "music_win_battle_boss": "audio/music/JRPG_winBattleBoss.ogg"
+}

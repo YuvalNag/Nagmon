@@ -1,0 +1,50 @@
+{
+ "avatars": [
+  {
+   "key": "boy_blue",
+   "sprite": "nagmon_hero_boy",
+   "combat_sheet": "nagmon_hero_boy",
+   "gender": "male",
+   "label_he": "בן",
+   "map": "sprites/npc/nagmon_hero_boy.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_hero_boy.png"
+  },
+  {
+   "key": "girl_teal",
+   "sprite": "nagmon_hero_girl",
+   "combat_sheet": "nagmon_hero_girl",
+   "gender": "female",
+   "label_he": "בת",
+   "map": "sprites/npc/nagmon_hero_girl.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_hero_girl.png"
+  },
+  {
+   "key": "girl_curly",
+   "sprite": "nagmon_hero_curly",
+   "combat_sheet": "nagmon_hero_curly",
+   "gender": "female",
+   "label_he": "בת",
+   "map": "sprites/npc/nagmon_hero_curly.png",
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_hero_curly.png"
+  }
+ ],
+ "legacy": {
+  "boy_light": "boy_blue",
+  "boy_dark": "boy_blue",
+  "girl_light": "girl_teal",
+  "girl_dark": "girl_curly"
+ },
+ "fallback": "boy_blue"
+}

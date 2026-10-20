@@ -30,10 +30,10 @@ msgid "nagmon_switch_player"
 msgstr "החלפת שחקן"
 
 msgid "nagmon_pin_prompt"
-msgstr "קוד הורים"
+msgstr "קוד הורים\nהקלידו את קוד ההורים (4 ספרות)."
 
 msgid "nagmon_set_pin_prompt"
-msgstr "הורה: בחרו קוד של 4 ספרות"
+msgstr "קוד הורים\nבחרו 4 ספרות. הקוד שומר על אזור ההורים ועל הוספת שחקנים."
 
 msgid "nagmon_pin_invalid"
 msgstr "הקוד צריך להיות 4 ספרות."
@@ -41,8 +41,29 @@ msgstr "הקוד צריך להיות 4 ספרות."
 msgid "nagmon_pin_saved"
 msgstr "קוד ההורים נשמר."
 
+msgid "nagmon_confirm_pin_prompt"
+msgstr "קוד הורים\nהקלידו שוב את אותן 4 ספרות."
+
+msgid "nagmon_pin_mismatch"
+msgstr "הקודים לא זהים. מתחילים שוב."
+
+msgid "nagmon_github_where"
+msgstr "מדביקים את הטוקן באזור ההורים: \"שליחת נתונים למפתח (GitHub)\"."
+
+msgid "nagmon_share_log"
+msgstr "שליחת יומן"
+
+msgid "nagmon_share_log_title"
+msgstr "שליחת היומן של נגמון"
+
+msgid "nagmon_share_log_empty"
+msgstr "היומן עוד ריק."
+
+msgid "nagmon_share_log_failed"
+msgstr "לא הצלחנו לפתוח את חלון השיתוף."
+
 msgid "nagmon_pin_wrong"
-msgstr "קוד שגוי."
+msgstr "קוד שגוי. נסו שוב."
 
 msgid "nagmon_pin_locked"
 msgstr "יותר מדי ניסיונות. חכו {seconds} שניות."
@@ -374,24 +395,24 @@ msgstr ""
 msgid "nagmon_owl_intro_starter"
 msgstr ""
 "שלושה נגמונים קטנים מחכים לחבר.\n"
-"Agnite הוא נגמון אש. הוא אוהב חשבון.\n"
-"Rockitten הוא נגמון אדמה. הוא אוהב צורות.\n"
-"Kroki הוא נגמון מים. הוא אוהב מדעים.\n"
+"אגנייט הוא נגמון אש. הוא אוהב חשבון.\n"
+"רוקיטן הוא נגמון אדמה. הוא אוהב צורות.\n"
+"קרוקי הוא נגמון מים. הוא אוהב מדעים.\n"
 "מי יהיה החבר הראשון שלך?"
 
 msgid "nagmon_owl_picked_agnite"
 msgstr ""
-"Agnite קופץ משמחה!\n"
+"אגנייט קופץ משמחה!\n"
 "כשהוא תוקף, השאלות יהיו בחשבון."
 
 msgid "nagmon_owl_picked_rockitten"
 msgstr ""
-"Rockitten מגרגר בשקט.\n"
+"רוקיטן מגרגר בשקט.\n"
 "כשהוא תוקף, השאלות יהיו על צורות."
 
 msgid "nagmon_owl_picked_kroki"
 msgstr ""
-"Kroki מתיז קצת מים מרוב שמחה.\n"
+"קרוקי מתיז קצת מים מרוב שמחה.\n"
 "כשהוא תוקף, השאלות יהיו במדעים."
 
 msgid "nagmon_owl_gifts"
@@ -727,7 +748,7 @@ msgid "nagmon_too_many_players"
 msgstr "כבר יש 8 שחקנים. כדי להוסיף שחקן חדש, מוחקים אחד באזור ההורים."
 
 msgid "nagmon_parent_github"
-msgstr "GitHub ושליחת נתונים"
+msgstr "שליחת נתונים למפתח (GitHub)"
 
 msgid "nagmon_github_ok"
 msgstr "מחובר · ריפו נתונים פרטי {repo}"
@@ -815,7 +836,7 @@ msgstr "יישלח: ההתקדמות של ילד אחד, בלי שם, לריפו
 
 # The first subject monsters (docs/kids/SDD_ART.md §2.3).
 msgid "geometrion"
-msgstr "Geometrion"
+msgstr "גאומטריון"
 
 msgid "geometrion_description"
 msgstr "פירמידה קטנה שאוהבת פינות. סופרים את הצלעות שלה, והיא זוהרת."
@@ -824,7 +845,7 @@ msgid "cat_pyramid"
 msgstr "פירמידה"
 
 msgid "polygonos"
-msgstr "Polygonos"
+msgstr "פוליגונוס"
 
 msgid "polygonos_description"
 msgstr "הרבה צורות שאור מחזיק יחד. כל פאה היא מצולע אחר."
@@ -833,7 +854,7 @@ msgid "cat_polyhedron"
 msgstr "גוף הנדסי"
 
 msgid "alphabel"
-msgstr "Alphabel"
+msgstr "אלפבל"
 
 msgid "alphabel_description"
 msgstr "שועל עם אותיות בפרווה. הוא מכשכש בזנב על כל מילה חדשה."
@@ -842,7 +863,7 @@ msgid "cat_letter_fox"
 msgstr "שועל אותיות"
 
 msgid "lexicon"
-msgstr "Lexicon"
+msgstr "לקסיקון"
 
 msgid "lexicon_description"
 msgstr "אריה עם כנפיים ומילים ברעמה. יש לו מילה לכל דבר."
@@ -852,7 +873,7 @@ msgstr "אריה מילים"
 
 # Eight more subject monsters (docs/kids/SDD_ART.md §2.10).
 msgid "pluson"
-msgstr "Pluson"
+msgstr "פלוסון"
 
 msgid "pluson_description"
 msgstr "פלוס קטן עם ניצוץ בזנב. הוא אוהב לחבר דברים."
@@ -861,7 +882,7 @@ msgid "cat_plus_spark"
 msgstr "ניצוץ פלוס"
 
 msgid "multivolt"
-msgstr "Multivolt"
+msgstr "מולטיוולט"
 
 msgid "multivolt_description"
 msgstr "זנב הברק שלו גדל עם כל תרגיל שפתר."
@@ -870,7 +891,7 @@ msgid "cat_volt_plus"
 msgstr "פלוס ברקים"
 
 msgid "flaskling"
-msgstr "Flaskling"
+msgstr "מבחנון"
 
 msgid "flaskling_description"
 msgstr "צנצנת עם נבט למעלה. כשהיא סקרנית, עולות בה בועות."
@@ -879,7 +900,7 @@ msgid "cat_leaf_flask"
 msgstr "צנצנת עלים"
 
 msgid "botanikos"
-msgstr "Botanikos"
+msgstr "בוטניקוס"
 
 msgid "botanikos_description"
 msgstr "גן שלם צומח בזכוכית שלו. הוא מתבונן איך דברים משתנים."
@@ -888,7 +909,7 @@ msgid "cat_garden_flask"
 msgstr "צנצנת גן"
 
 msgid "puzzlet"
-msgstr "Puzzlet"
+msgstr "פאזלון"
 
 msgid "puzzlet_description"
 msgstr "חלק פאזל עם עין סקרנית אחת. הוא מחפש את החלק שמתאים."
@@ -897,7 +918,7 @@ msgid "cat_puzzle_piece"
 msgstr "חלק פאזל"
 
 msgid "enigmon"
-msgstr "Enigmon"
+msgstr "אניגמון"
 
 msgid "enigmon_description"
 msgstr "הוא פותר חידות לאט ובזהירות, צעד אחר צעד."
@@ -906,7 +927,7 @@ msgid "cat_riddle_puzzle"
 msgstr "פאזל חידות"
 
 msgid "scrollo"
-msgstr "Scrollo"
+msgstr "גלילון"
 
 msgid "scrollo_description"
 msgstr "מגילה קטנה שאוהבת אותיות. היא קוראת כל שלט שהיא עוברת."
@@ -915,7 +936,7 @@ msgid "cat_little_scroll"
 msgstr "מגילה קטנה"
 
 msgid "megillon"
-msgstr "Megillon"
+msgstr "מגילון"
 
 msgid "megillon_description"
 msgstr "מגילה כפולה מלאה סיפורים. היא מספרת אותם בעזרת הסרטים שלה."
@@ -927,3 +948,141 @@ msgstr "מגילה גדולה"
 # (docs/kids/SDD_ART.md §2.10).
 msgid "wicked_wind"
 msgstr "רוח מסתורין"
+
+# Hebrew names for Tuxemon's monsters a child meets in Nagmon's world
+# (docs/kids/SDD_ANDROID.md §2.7); the English name stays in en_US.
+
+msgid "agnite"
+msgstr "אגנייט"
+
+msgid "agnidon"
+msgstr "אגנידון"
+
+msgid "agnigon"
+msgstr "אגניגון"
+
+msgid "rockitten"
+msgstr "רוקיטן"
+
+msgid "rockat"
+msgstr "רוקאט"
+
+msgid "jemuar"
+msgstr "ג'מואר"
+
+msgid "kroki"
+msgstr "קרוקי"
+
+msgid "krokivip"
+msgstr "קרוקיוויפ"
+
+msgid "leviadile"
+msgstr "לוויאדיל"
+
+msgid "dandicub"
+msgstr "דנדיקאב"
+
+msgid "dandylion"
+msgstr "דנדילאיון"
+
+msgid "nut"
+msgstr "נאט"
+
+msgid "bolt"
+msgstr "בולט"
+
+msgid "arthrobolt"
+msgstr "ארתרובולט"
+
+msgid "hydrone"
+msgstr "הידרון"
+
+msgid "nudikill"
+msgstr "נודי"
+
+msgid "axolightl"
+msgstr "אקסולייטל"
+
+msgid "ampystoma"
+msgstr "אמפיסטומה"
+
+msgid "cardiling"
+msgstr "קרדילינג"
+
+msgid "cardiwing"
+msgstr "קרדיווינג"
+
+msgid "cardinale"
+msgstr "שירונית"
+
+msgid "cataspike"
+msgstr "קטספייק"
+
+msgid "puparmor"
+msgstr "פופרמור"
+
+msgid "weavifly"
+msgstr "וויביפליי"
+
+msgid "eyenemy"
+msgstr "איינמי"
+
+msgid "eyesore"
+msgstr "אייסור"
+
+msgid "squabbit"
+msgstr "סקוואביט"
+
+msgid "rabbitosaur"
+msgstr "ארנבוזאור"
+
+msgid "tourbidi"
+msgstr "טורבידי"
+
+# Descriptions a child reads, with the Hebrew names and gentle words
+# (docs/kids/SDD_ANDROID.md §2.7).
+
+msgid "ampystoma_description"
+msgstr "הצבעים הבוהקים של אמפיסטומה אומרים \"שימו לב!\". הוא מתחבא במים העכורים, ואוהב לצאת ליבשה בזמן סופות רעמים."
+
+msgid "arthrobolt_description"
+msgstr "לא נוח לו לתת הוראות לחבריו נאט ובולט, ולכן הוא לפעמים בורח. אבל אז לנאט ולבולט אין מי שיגיד להם מה לעשות."
+
+msgid "bolt_description"
+msgstr "כשבולט בסביבה, נאט מתהדק חזק יותר ומפיק יותר ניצוצות של אנרגיה."
+
+msgid "nut_description"
+msgstr "בספינות הגדולות שחוצות את האוקיינוסים, אלפי נאטים ובולטים נותנים כוח ומחזיקים את לוחות הפלדה יחד."
+
+msgid "jemuar_description"
+msgstr "האבנים היקרות על הגב שלו הן מהסוג שהיה במקום שבו נולד. לכן הרבה רוקיטנים גדלים מעל עורקי יהלומים."
+
+msgid "kroki_description"
+msgstr "קרוקי מבלה את רוב הזמן במים רדודים, ואוהב לנקוש בלסתות החזקות שלו."
+
+msgid "krokivip_description"
+msgstr "התנין הזה אוהב להתחבא בתוך המים ולהפתיע. ככל שהוא מתקרב להתפתחות, הוא מחפש מקווי מים גדולים יותר."
+
+msgid "leviadile_description"
+msgstr "לוויאדיל ענק ושוחה במעמקי הים. כל היצורים שם יודעים שהוא המלך של המים העמוקים."
+
+msgid "puparmor_description"
+msgstr "הגולם שלו קשה כמו אבן. אם פופרמור נופל על מישהו, נשארת לו בליטה בראש לכמה ימים."
+
+msgid "tourbidi_description"
+msgstr "מעגל של פטריות או תלתנים הוא מקום שבו טורבידים רוקדים."
+
+msgid "cardiwing_description"
+msgstr "השיר שלו מדהים, ובסוף כל שיר עפים ממנו ניצוצות חמים."
+
+msgid "cardinale_description"
+msgstr "הוא שומר על הקן שלו ועל השכנים הקטנים, ומרחיק כל מי שבא להציק להם."
+
+msgid "rabbitosaur_description"
+msgstr "המנהרות שלו ארוכות ורחבות, ושכנים ממחילות אחרות באים לבקר בהן."
+
+msgid "nudikill_description"
+msgstr "קוראים להם \"הכובענים\", כי הראש שלהם מזכיר כובע גבוה ומחודד."
+
+msgid "dandicub_description"
+msgstr "אחרי שהגורים נולדים, הם מרחפים לכל קצות העולם ומחפשים מקום חדש לגדול בו."
