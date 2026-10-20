@@ -41,9 +41,9 @@ export class SkillStats {
     if (this.recent.length > RECENT_MAX) this.recent.splice(0, this.recent.length - RECENT_MAX);
   }
 
-  /** Accuracy over the last `window` answers, or null before the first. */
-  recentAccuracy(window = 10): number | null {
-    const tail = this.recent.slice(-window);
+  /** Accuracy over the last `size` answers, or null before the first. */
+  recentAccuracy(size = 10): number | null {
+    const tail = this.recent.slice(-size);
     return tail.length ? tail.reduce((a, b) => a + b, 0) / tail.length : null;
   }
 

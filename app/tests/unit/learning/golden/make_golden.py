@@ -40,7 +40,9 @@ OUT = Path(__file__).with_name("generators.json")
 
 def plain(x):
     if dataclasses.is_dataclass(x) and not isinstance(x, type):
-        return {f.name: plain(getattr(x, f.name)) for f in dataclasses.fields(x)}
+        return {
+            f.name: plain(getattr(x, f.name)) for f in dataclasses.fields(x)
+        }
     if isinstance(x, dict):
         return {str(k): plain(v) for k, v in x.items()}
     if isinstance(x, (list, tuple)):
@@ -55,7 +57,9 @@ def plain(x):
 
 
 def canonical(q) -> str:
-    return json.dumps(plain(q), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return json.dumps(
+        plain(q), ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
 
 
 def fnv1a(text: str, h: int = 0x811C9DC5) -> int:
@@ -79,11 +83,15 @@ def main() -> None:
         skill = lib.skill(sys.argv[1])
         for ctx_i in range(len(CONTEXTS)):
             for seed in range(SEEDS):
-                print(ctx_i, seed, canonical(question(lib, skill, ctx_i, seed)))
+                print(
+                    ctx_i, seed, canonical(question(lib, skill, ctx_i, seed))
+                )
         return
     if len(sys.argv) == 4:
         skill = lib.skill(sys.argv[1])
-        print(canonical(question(lib, skill, int(sys.argv[2]), int(sys.argv[3]))))
+        print(
+            canonical(question(lib, skill, int(sys.argv[2]), int(sys.argv[3])))
+        )
         return
     out = {"seeds": SEEDS, "contexts": CONTEXTS, "skills": {}}
     for skill in sorted(lib.skills.values(), key=lambda s: s.id):
@@ -91,10 +99,17 @@ def main() -> None:
         for ctx_i in range(len(CONTEXTS)):
             h = 0x811C9DC5
             for seed in range(SEEDS):
-                h = fnv1a(canonical(question(lib, skill, ctx_i, seed)) + "\n", h)
+                h = fnv1a(
+                    canonical(question(lib, skill, ctx_i, seed)) + "\n", h
+                )
             hashes.append(f"{h:08x}")
-        out["skills"][skill.id] = {"generator": skill.generator, "hashes": hashes}
-    OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+        out["skills"][skill.id] = {
+            "generator": skill.generator,
+            "hashes": hashes,
+        }
+    OUT.write_text(
+        json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
     print(f"{len(out['skills'])} skills -> {OUT}")
 
 

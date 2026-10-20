@@ -310,9 +310,11 @@ export type ContentDocs = Readonly<Record<string, unknown>>;
 export interface LoadOptions {
   registry?: GeneratorRegistry;
   /**
-   * AI-studio banks: each is a folder's files by name ("math.yaml",
-   * "reading.yaml", "vocab.yaml"). Problems there only produce warnings
-   * (`library.warnings`) and never stop the game.
+   * AI-studio banks (`<data root>/ai_bank/`): each is that folder's files
+   * by name ("math.yaml", "reading.yaml", "vocab.yaml"), parsed; a file
+   * that could not be read or parsed is passed as an `Error`. Problems
+   * there only produce warnings (`library.warnings`) and never stop the
+   * game.
    */
   extraBanks?: readonly ContentDocs[];
   /**
@@ -772,12 +774,21 @@ function loadExtra(dirs: readonly ContentDocs[], built: Built, warnings: string[
   for (const files of dirs) {
     for (const name of [...SUBJECTS, "reading"]) {
       const { found, doc } = lookup(files, `${name}.yaml`);
-      if (found) loadExtraBank(`${name}.yaml`, doc, built, seenIds, extra, warnings);
+      if (found && readable(`${name}.yaml`, doc, warnings)) loadExtraBank(`${name}.yaml`, doc, built, seenIds, extra, warnings);
     }
     const vocab = lookup(files, "vocab.yaml");
-    if (vocab.found) words.push(...loadExtraWords("vocab.yaml", vocab.doc, seenWords, warnings));
+    if (vocab.found && readable("vocab.yaml", vocab.doc, warnings)) words.push(...loadExtraWords("vocab.yaml", vocab.doc, seenWords, warnings));
   }
   return [extra, words];
+}
+
+/** A file the caller could not read or parse is passed as an Error: a warning, not a crash. */
+function readable(name: string, doc: unknown, warnings: string[]): boolean {
+  if (doc instanceof Error) {
+    warnings.push(`${name}: cannot read: ${doc.message}`);
+    return false;
+  }
+  return true;
 }
 
 function loadExtraBank(
