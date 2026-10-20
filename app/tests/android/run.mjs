@@ -4,8 +4,8 @@
  * same selectors as the browser tests work on the phone's own engine
  * (docs/app/SDD.md §6, layer 3).
  *
- * Usage (on the CI host, emulator booted, APK installed):
- *   node tests/android/run.mjs OUTDIR
+ * Usage (on the CI host, emulator booted):
+ *   node tests/android/run.mjs APK OUTDIR
  */
 import { execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -13,7 +13,8 @@ import { join } from "node:path";
 import { chromium } from "@playwright/test";
 
 const PACKAGE = "org.nagmon.app";
-const out = process.argv[2] ?? "android-e2e";
+const apk = process.argv[2];
+const out = process.argv[3] ?? "android-e2e";
 mkdirSync(out, { recursive: true });
 
 const adb = (...args) =>
@@ -79,9 +80,44 @@ async function setHebrew() {
   check(locale.startsWith("he"), "the emulator is set to Hebrew");
 }
 
+/** Waits until the system (after a restart) can install and start apps. */
+async function systemReady() {
+  for (let i = 0; i < 120; i++) {
+    try {
+      if (
+        adb("shell", "getprop", "sys.boot_completed") === "1" &&
+        adb("shell", "pm", "path", "android").startsWith("package:")
+      ) {
+        return;
+      }
+    } catch {
+      // adb drops while the system restarts
+    }
+    await sleep(1000);
+  }
+  throw new Error("the emulator did not come back after the language change");
+}
+
+/** Starts the app; retried, since the launcher may still be warming up. */
+async function launch() {
+  for (let i = 0; i < 20; i++) {
+    try {
+      adb("shell", "am", "start", "-W", "-n", `${PACKAGE}/.MainActivity`);
+      return;
+    } catch (e) {
+      console.log("start failed, retrying:", String(e).split("\n")[0]);
+      await sleep(2000);
+    }
+  }
+  throw new Error("the app would not start");
+}
+
 await setHebrew();
-adb("shell", "am", "force-stop", PACKAGE);
-adb("shell", "monkey", "-p", PACKAGE, "-c", "android.intent.category.LAUNCHER", "1");
+await systemReady();
+adb("install", "-r", apk);
+adb("shell", "settings", "put", "system", "accelerometer_rotation", "0");
+adb("shell", "settings", "put", "system", "user_rotation", "1");
+await launch();
 
 const browser = await webview();
 const page = browser.contexts()[0].pages()[0];

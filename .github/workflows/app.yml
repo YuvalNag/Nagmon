@@ -117,11 +117,7 @@ jobs:
         disable-animations: true
         working-directory: app
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-        script: |
-          adb install -r apk/app-debug.apk
-          adb shell settings put system user_rotation 1
-          adb shell settings put system accelerometer_rotation 0
-          node tests/android/run.mjs android-e2e
+        script: node tests/android/run.mjs apk/app-debug.apk android-e2e
     - name: Show the screenshots in the log
       if: always()
       working-directory: .
