@@ -419,6 +419,26 @@ def _templates_set_on(scripts: list[dict[str, Any]], npc: str) -> list[str]:
     )
 
 
+def avatar_card(out: Output, key: str, combat_sheet: str) -> str:
+    """
+    The hero's picture for the profile cards: the front half of the
+    combat sheet (back on the left, front on the right), trimmed.
+    """
+    src = mod_file(f"gfx/sprites/player/{combat_sheet}.png")
+    if src is None:
+        raise FileNotFoundError(f"no combat sheet for {key}: {combat_sheet}")
+    with Image.open(src) as im:
+        sheet = im.convert("RGBA")
+    half = sheet.width // 2
+    front = sheet.crop((half, 0, sheet.width, sheet.height))
+    box = front.getbbox()
+    if box is None:
+        raise ValueError(f"{src}: the front half is empty")
+    dest = f"avatars/{key}.png"
+    out.add_image(dest, front.crop(box), [src], "portrait")
+    return dest
+
+
 def avatar_records(sprites: Sprites) -> dict[str, Any]:
     """
     The child's avatars: the HD heroes of ``nagmon.game_flow.AVATARS``,
@@ -451,6 +471,7 @@ def avatar_records(sprites: Sprites) -> dict[str, Any]:
                     f"portraits/{avatar.combat_sheet}.png",
                     "portrait",
                 ),
+                "card": avatar_card(sprites.out, avatar.key, avatar.combat_sheet),
             }
         )
     return {

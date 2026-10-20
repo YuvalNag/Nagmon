@@ -11,7 +11,8 @@
     128,
     256
    ],
-   "portrait": "sprites/portraits/nagmon_hero_boy.png"
+   "portrait": "sprites/portraits/nagmon_hero_boy.png",
+   "card": "avatars/boy_blue.png"
   },
   {
    "key": "girl_teal",
@@ -24,7 +25,8 @@
     128,
     256
    ],
-   "portrait": "sprites/portraits/nagmon_hero_girl.png"
+   "portrait": "sprites/portraits/nagmon_hero_girl.png",
+   "card": "avatars/girl_teal.png"
   },
   {
    "key": "girl_curly",
@@ -37,7 +39,8 @@
     128,
     256
    ],
-   "portrait": "sprites/portraits/nagmon_hero_curly.png"
+   "portrait": "sprites/portraits/nagmon_hero_curly.png",
+   "card": "avatars/girl_curly.png"
   }
  ],
  "legacy": {

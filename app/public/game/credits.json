@@ -3158,6 +3158,60 @@
    "matched": false
   },
   {
+   "path": "avatars/boy_blue.png",
+   "kind": "portrait",
+   "sources": [
+    "mods/nagmon/gfx/sprites/player/nagmon_hero_boy.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true
+  },
+  {
+   "path": "avatars/girl_curly.png",
+   "kind": "portrait",
+   "sources": [
+    "mods/nagmon/gfx/sprites/player/nagmon_hero_curly.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true
+  },
+  {
+   "path": "avatars/girl_teal.png",
+   "kind": "portrait",
+   "sources": [
+    "mods/nagmon/gfx/sprites/player/nagmon_hero_girl.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true
+  },
+  {
    "path": "emoji/1f1ee-1f1f1.svg",
    "kind": "emoji",
    "sources": [

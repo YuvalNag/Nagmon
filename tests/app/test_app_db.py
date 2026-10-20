@@ -184,3 +184,13 @@ def test_emoji_ship_in_one_format_only(built):
 def test_generator_emoji_found_in_the_source():
     codes = emoji.generator_codes()
     assert {"1f34e", "2b50", "1f98b"} <= codes
+
+
+def test_each_hero_has_a_trimmed_front_card(built):
+    out, _ = built
+    for avatar in data(built, "db/avatars.json")["avatars"]:
+        card = avatar["card"]
+        assert card == f"avatars/{avatar['key']}.png"
+        image = out.images[card]
+        assert image.getbbox() == (0, 0, *image.size)
+        assert image.height >= 160, card
