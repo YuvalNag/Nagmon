@@ -3250,7 +3250,7 @@
     "not stated yet"
    ],
    "licence": "not stated yet",
-   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). A small kippah is drawn on the hero boy (tools/app/kippah.py).",
    "matched": true,
    "adapted": ""
   },
@@ -14997,7 +14997,7 @@
     "not stated yet"
    ],
    "licence": "not stated yet",
-   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). A small kippah is drawn on the hero boy (tools/app/kippah.py).",
    "matched": true,
    "adapted": ""
   },
@@ -15168,7 +15168,7 @@
     "not stated yet"
    ],
    "licence": "not stated yet",
-   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). The back of her blouse is closed (tools/app/modesty.py).",
    "matched": true,
    "adapted": ""
   },
@@ -15305,7 +15305,7 @@
     "not stated yet"
    ],
    "licence": "not stated yet",
-   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). A small kippah is drawn on the hero boy (tools/app/kippah.py).",
    "matched": true,
    "adapted": ""
   },
@@ -15427,7 +15427,7 @@
    "path": "sprites/portraits/nagmon_shopkeeper.png",
    "kind": "portrait",
    "sources": [
-    "mods/nagmon/gfx/sprites/player/nagmon_shopkeeper.png"
+    "mods/nagmon/sprites/nagmon_shopkeeper.png"
    ],
    "credits": [],
    "authors": [
@@ -15438,7 +15438,7 @@
     "not stated yet"
    ],
    "licence": "not stated yet",
-   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). Portrait built from the map sprite, so both show the same character (tools/app/db.py PORTRAIT_FROM_MAP).",
    "matched": true,
    "adapted": ""
   },
@@ -15446,7 +15446,7 @@
    "path": "sprites/portraits/nagmon_teacher.png",
    "kind": "portrait",
    "sources": [
-    "mods/nagmon/gfx/sprites/player/nagmon_teacher.png"
+    "mods/nagmon/sprites/nagmon_teacher.png"
    ],
    "credits": [],
    "authors": [
@@ -15457,7 +15457,7 @@
     "not stated yet"
    ],
    "licence": "not stated yet",
-   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). Portrait built from the map sprite, so both show the same character (tools/app/db.py PORTRAIT_FROM_MAP).",
    "matched": true,
    "adapted": ""
   },
@@ -15465,7 +15465,7 @@
    "path": "sprites/portraits/nagmon_traveler.png",
    "kind": "portrait",
    "sources": [
-    "mods/nagmon/gfx/sprites/player/nagmon_traveler.png"
+    "mods/nagmon/sprites/nagmon_tourist.png"
    ],
    "credits": [],
    "authors": [
@@ -15476,7 +15476,7 @@
     "not stated yet"
    ],
    "licence": "not stated yet",
-   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). Portrait built from the map sprite, so both show the same character (tools/app/db.py PORTRAIT_FROM_MAP).",
    "matched": true,
    "adapted": ""
   },

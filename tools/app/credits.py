@@ -478,6 +478,8 @@ def build(out: Output) -> dict[str, Any]:
     for path in sorted(out.assets):
         asset = out.assets[path]
         info = credit_for(asset, matcher)
+        if asset.note and asset.note not in info["note"]:
+            info["note"] = " ".join(filter(None, [info["note"], asset.note]))
         info["adapted"] = asset.adapted or (
             TILES_XBRZ if asset.kind == "tileset" else ""
         )
