@@ -98,7 +98,7 @@ test("the cashier: talk, a right answer (+20 coins), a 'don't know' (an explanat
   expect([learner["answers_total"], learner["correct_total"]]).toEqual([2, 1]);
   await page.reload();
   await touch(page, page.locator(id(`child_${PID}`)));
-  await expect(page.locator("[data-screen=play][data-play=ready]")).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator("[data-screen=play][data-map=ready][data-play=ready]")).toBeVisible({ timeout: 30_000 });
   await expect(coins(page)).toHaveAttribute("data-coins", "20");
 });
 

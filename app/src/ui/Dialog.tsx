@@ -1,4 +1,4 @@
-import { type MutableRefObject, useCallback, useEffect, useRef, useState } from "react";
+import { type MutableRefObject, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Tap } from "./Tap";
 
 /** How fast a page types out, characters a second (the old game's dialogs typed too). */
@@ -25,57 +25,69 @@ interface Props {
  * - Android's back does what a tap does: it never leaves the map.
  */
 export function Dialog({ pages, onDone, advanceRef }: Props) {
-  const [page, setPage] = useState(0);
-  const text = pages[page] ?? "";
-  const chars = useRef<string[]>([]);
-  chars.current = Array.from(text);
-  const [shown, setShown] = useState(0);
-  const full = shown >= chars.current.length;
+  // the page and how much of it shows; the ref holds the same, so a tap or
+  // a back press always acts on what is on the screen now, even two in a row
+  const [view, setView] = useState({ page: 0, shown: 0 });
+  const now = useRef(view);
   const closed = useRef(false);
+  const done = useRef(onDone);
+  done.current = onDone;
+  const text = pages[view.page] ?? "";
+  const chars = Array.from(text);
+  const full = view.shown >= chars.length;
+  const lengthOf = (page: number) => Array.from(pages[page] ?? "").length;
 
-  // types the page out, by the time gone (a slow frame does not slow the words)
+  const show = (v: { page: number; shown: number }) => {
+    now.current = v;
+    setView(v);
+  };
+
+  // types the page out, by the time gone (a slow frame does not slow the
+  // words); a page already shown whole stays whole
   useEffect(() => {
+    const page = view.page;
+    const length = Array.from(pages[page] ?? "").length;
     const start = performance.now();
     const timer = setInterval(() => {
-      const n = Math.floor(((performance.now() - start) / 1000) * TYPE_CPS) + 1;
-      setShown(Math.min(n, chars.current.length));
-      if (n >= chars.current.length) clearInterval(timer);
+      const n = Math.min(length, Math.floor(((performance.now() - start) / 1000) * TYPE_CPS) + 1);
+      const v = now.current;
+      if (v.page === page && v.shown < n) show({ page, shown: n });
+      if (n >= length) clearInterval(timer);
     }, 30);
     return () => clearInterval(timer);
-  }, [page, text]);
+  }, [pages, view.page]);
 
-  const advance = useCallback(() => {
+  // one function for the dialog's life: the tap and Android's back
+  const advance = useRef(() => {});
+  advance.current = () => {
     if (closed.current) return;
-    if (!full) {
-      setShown(chars.current.length);
-      return;
+    const { page, shown } = now.current;
+    if (shown < lengthOf(page)) show({ page, shown: lengthOf(page) });
+    // the new page starts empty: a quick tap types it out, never skips it
+    else if (page + 1 < pages.length) show({ page: page + 1, shown: 0 });
+    else {
+      closed.current = true;
+      done.current();
     }
-    if (page + 1 < pages.length) {
-      // the new page starts empty in the same render: a quick tap types it out, never skips it
-      setShown(0);
-      setPage(page + 1);
-      return;
-    }
-    closed.current = true;
-    onDone();
-  }, [full, page, pages.length, onDone]);
+  };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!advanceRef) return;
-    advanceRef.current = advance;
+    const fn = () => advance.current();
+    advanceRef.current = fn;
     return () => {
-      if (advanceRef.current === advance) advanceRef.current = null;
+      if (advanceRef.current === fn) advanceRef.current = null;
     };
-  }, [advanceRef, advance]);
+  }, [advanceRef]);
 
   return (
-    <div className="dialog-layer" data-screen="dialog" data-page={page} data-pages={pages.length} data-full={full}>
-      <Tap id="dialog" className="dialog" aria-label={text} onTap={advance}>
+    <div className="dialog-layer" data-screen="dialog" data-page={view.page} data-pages={pages.length} data-full={full}>
+      <Tap id="dialog" className="dialog" aria-label={text} onTap={() => advance.current()}>
         <span className="dialog-box">
           <span className="dialog-text" data-id="dialog_text" aria-hidden="true">
             {/* the rest of the page holds its place, so the box never grows as it types */}
-            <span>{chars.current.slice(0, shown).join("")}</span>
-            <span className="dialog-rest">{chars.current.slice(shown).join("")}</span>
+            <span>{chars.slice(0, view.shown).join("")}</span>
+            <span className="dialog-rest">{chars.slice(view.shown).join("")}</span>
           </span>
           <span className="dialog-more" aria-hidden="true">
             {full && (

@@ -41,6 +41,28 @@ describe("the dialog", () => {
     expect(d.layer().dataset.full).toBe("true");
   });
 
+  it("a page shown whole by a tap stays whole while the typing time runs on", async () => {
+    vi.useFakeTimers({ toFake: ["setInterval", "clearInterval", "performance"] });
+    const d = setup();
+    await act(async () => void vi.advanceTimersByTime(200));
+    d.tap();
+    expect(d.typed()).toBe(PAGES[0]);
+    for (let i = 0; i < 10; i++) {
+      await act(async () => void vi.advanceTimersByTime(60));
+      expect(d.layer().dataset.full).toBe("true");
+    }
+  });
+
+  it("two backs in a row act on what shows, each a step", () => {
+    const d = setup();
+    act(() => {
+      d.advance.current!();
+      d.advance.current!();
+    });
+    expect(d.layer().dataset.page).toBe("1");
+    expect(d.layer().dataset.full).toBe("false");
+  });
+
   it("a tap while it types shows the whole page; the next turns the page; the last closes it", () => {
     const d = setup();
     expect(d.layer().dataset.full).toBe("false");
