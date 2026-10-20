@@ -32,6 +32,16 @@ export interface TripSave {
   at: string | null;
 }
 
+/** What the tutor's lessons have given the child (core/game/lessons.ts). */
+export interface LessonSave {
+  /** Lessons passed, by lesson id. */
+  done: string[];
+  /** The last day a repeat of a lesson paid coins, `YYYY-MM-DD`. */
+  repeatDay: string | null;
+  /** Note charges the child holds (extra uses of lesson notes in a battle). */
+  charges: number;
+}
+
 export interface WorldData {
   schema_version: number;
   money: number;
@@ -40,9 +50,11 @@ export interface WorldData {
   seen?: string[];
   caught?: string[];
   trips?: TripSave;
+  lessons?: LessonSave;
 }
 
 export const noTrips = (): TripSave => ({ done: [], visited: [], badges: [], at: null });
+export const noLessons = (): LessonSave => ({ done: [], repeatDay: null, charges: 0 });
 
 function strings(v: unknown): string[] {
   return Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : [];
@@ -66,6 +78,7 @@ export class WorldState {
   readonly seen = new Set<string>();
   readonly caught = new Set<string>();
   trips: TripSave = noTrips();
+  lessons: LessonSave = noLessons();
 
   /** A saved world.json; anything unreadable starts afresh (no coins are made up). */
   static fromDict(data: unknown): WorldState {
@@ -94,6 +107,16 @@ export class WorldState {
       const t = tr as Record<string, unknown>;
       w.trips = { done: strings(t["done"]), visited: strings(t["visited"]), badges: strings(t["badges"]), at: typeof t["at"] === "string" ? t["at"] : null };
     }
+    const ls = d["lessons"];
+    if (typeof ls === "object" && ls !== null && !Array.isArray(ls)) {
+      const l = ls as Record<string, unknown>;
+      const charges = Number(l["charges"]);
+      w.lessons = {
+        done: [...new Set(strings(l["done"]))],
+        repeatDay: typeof l["repeatDay"] === "string" && l["repeatDay"] ? l["repeatDay"] : null,
+        charges: Number.isFinite(charges) && charges > 0 ? Math.trunc(charges) : 0,
+      };
+    }
     return w;
   }
 
@@ -109,6 +132,8 @@ export class WorldState {
     if (this.caught.size) out.caught = [...this.caught].sort();
     const t = this.trips;
     if (t.done.length || t.visited.length || t.badges.length || t.at) out.trips = { done: [...t.done], visited: [...t.visited], badges: [...t.badges], at: t.at };
+    const l = this.lessons;
+    if (l.done.length || l.repeatDay || l.charges) out.lessons = { done: [...l.done], repeatDay: l.repeatDay, charges: l.charges };
     return out;
   }
 

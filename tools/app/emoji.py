@@ -15,7 +15,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from tools.app import content
+from tools.app import content, lessons
 from tools.app.common import NAG, REPO, Output
 
 EMOJI_DIR = NAG / "gfx" / "emoji"
@@ -50,7 +50,7 @@ def resolve(code: str) -> str | None:
 
 
 def build(out: Output) -> dict[str, Any]:
-    from_content = content.emoji_codes()
+    from_content = content.emoji_codes() | lessons.emoji_codes()
     from_generators = generator_codes()
     stems: dict[str, str] = {}
     unresolved = []

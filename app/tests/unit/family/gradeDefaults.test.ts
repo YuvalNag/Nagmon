@@ -21,8 +21,14 @@ describe("defaultsForGrade", () => {
   it("matches the old app for every grade, and clamps outside 0..9", () => {
     for (let g = -1; g <= 10; g++) {
       const d = defaultsForGrade(g);
-      expect({ grade: d.grade, language_level: d.languageLevel, settings: d.settings }, `grade ${g}`).toEqual(PYTHON[String(g)]);
+      // `lessons` is new in the app (the old game had no tutors): everything else matches
+      const { lessons: _lessons, ...settings } = d.settings;
+      expect({ grade: d.grade, language_level: d.languageLevel, settings }, `grade ${g}`).toEqual(PYTHON[String(g)]);
     }
+  });
+
+  it("starts the lesson rewards at 40 and 10 coins", () => {
+    expect(defaultsForGrade(4).settings["lessons"]).toEqual({ first_pass_coins: 40, repeat_coins: 10 });
   });
 
   it("treats a grade that is not a number as kindergarten", () => {

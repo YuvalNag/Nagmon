@@ -38,6 +38,8 @@ export function defaultsForGrade(grade: number): GradeDefaults {
       learning: { timer: g >= 3, max_choices: g <= 1 ? 3 : 4 },
       tts: { auto_read_questions: g <= 2 },
       questions_per_battle: g <= 1 ? 3 : 5,
+      // coins a tutor's lesson pays (core/game/lessons.ts); the parent can change both
+      lessons: { first_pass_coins: 40, repeat_coins: 10 },
     },
   };
 }
