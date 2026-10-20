@@ -8,15 +8,18 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import { backgroundScale, battleScale, DISPLAY, enlargement, MAP_SCALE } from "../../src/game/display";
 import {
   EVENT_ACTIONS,
   EVENT_BEHAVIORS,
   EVENT_CONDITIONS,
+  type Animation,
   type AtlasFile,
   type AvatarsFile,
   type Catalogue,
   type Element,
   type Encounter,
+  type Environment,
   type Item,
   type Monster,
   type NagmonEvent,
@@ -42,6 +45,15 @@ const items = read<Record<string, Item>>("db/items.json");
 const npcs = read<Record<string, Npc>>("db/npcs.json");
 const elements = read<Record<string, Element>>("db/elements.json");
 const encounters = read<Record<string, Encounter>>("db/encounters.json");
+const animations = read<Record<string, Animation>>("db/animations.json");
+const environments = read<Record<string, Environment>>("db/environments.json");
+const avatars = read<AvatarsFile>("db/avatars.json");
+
+/** A PNG's size, from its header. */
+function pngSize(rel: string): { width: number; height: number } {
+  const head = readFileSync(GAME + rel).subarray(0, 24);
+  return { width: head.readUInt32BE(16), height: head.readUInt32BE(20) };
+}
 const mapNames = readdirSync(GAME + "maps")
   .filter((f) => f.endsWith(".json"))
   .map((f) => f.replace(/\.json$/, ""))
@@ -201,6 +213,72 @@ describe("database", () => {
     for (const m of Object.values(monsters)) {
       expect(m.sprites).not.toBeNull();
       expect(existsSync(GAME + m.sprites!.sheet)).toBe(true);
+    }
+  });
+});
+
+describe("pictures and their scales", () => {
+  it("lays every animation sheet out as its record says", () => {
+    for (const [slug, a] of Object.entries(animations)) {
+      const { width, height } = pngSize(a.sheet!);
+      const rows = Math.ceil(a.frames / a.columns);
+      expect(width / a.frame_x, slug).toBe(a.columns);
+      expect(height / a.frame_y, slug).toBe(rows);
+      expect(a.frames, slug).toBeLessThanOrEqual(a.columns * rows);
+      expect(a.frames, slug).toBeGreaterThan(a.columns * (rows - 1));
+      expect(a.scale, slug).toBeGreaterThan(1);
+      expect(a.frame_x % a.scale, slug).toBe(0);
+    }
+  });
+
+  it("gives every picture record its scale", () => {
+    for (const m of Object.values(monsters)) expect(m.sprites!.scale).toBe(3);
+    for (const item of Object.values(items)) {
+      if (item.sprite) expect(item.sprite_scale, item.slug).toBeGreaterThan(1);
+    }
+    for (const el of Object.values(elements)) {
+      if (el.icon) expect(el.icon_scale, el.slug).toBeGreaterThan(1);
+    }
+    const sheets = [
+      ...Object.values(npcs).flatMap((n) => [n.sprites, ...Object.values(n.sprites.alternates ?? {})]),
+      ...avatars.avatars,
+    ];
+    for (const s of sheets) {
+      if (!s.map) continue;
+      expect(s.scale, s.map).toBeGreaterThan(1);
+      const { width, height } = pngSize(s.map);
+      const [fw, fh] = s.frame!;
+      const isProp = s.map.startsWith("sprites/objects/");
+      expect([width, height], s.map).toEqual(isProp ? [fw, fh] : [3 * fw, 4 * fh]);
+    }
+    for (const n of Object.values(npcs)) {
+      if (n.sprites.portrait) expect(n.sprites.portrait_scale, n.slug).toBeGreaterThanOrEqual(3);
+    }
+    for (const [slug, env] of Object.entries(environments)) {
+      const g = env.battle_graphics;
+      expect(g.scale, slug).toBe(6);
+      const island = pngSize(g.island_sheet);
+      expect([island.width, island.height], slug).toEqual([2 * g.island_width, g.island_height]);
+    }
+  });
+
+  it("shows nothing above twice its pixels on the phone (db/display.json)", () => {
+    const phone = DISPLAY.targets.phone;
+    const [w, h] = phone.screen;
+    const limit = DISPLAY.max_enlargement;
+    const battle = battleScale(h);
+    expect(battle).toBe(6);
+    expect(enlargement(battle, 3)).toBeLessThanOrEqual(limit); // monsters
+    expect(enlargement(MAP_SCALE, 4)).toBeLessThanOrEqual(limit); // map tiles
+    for (const env of Object.values(environments)) {
+      const g = env.battle_graphics;
+      const bg = pngSize(g.background);
+      expect(backgroundScale(bg, { width: w, height: h })).toBeLessThanOrEqual(limit);
+      expect(enlargement(battle, g.scale)).toBeLessThanOrEqual(limit);
+    }
+    for (const a of Object.values(animations)) {
+      const perPx = a.file === "tileset" ? MAP_SCALE : battle;
+      expect(enlargement(perPx, a.scale), a.slug).toBeLessThanOrEqual(limit);
     }
   });
 });
