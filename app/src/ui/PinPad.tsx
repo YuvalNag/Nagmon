@@ -45,7 +45,7 @@ export function PinPad({ title, hint, message, attempt = 0, onDone, onCancel }: 
         <p className="message" role="alert">
           {message ?? ""}
         </p>
-        <div className="dots" data-id="pin_dots" data-count={digits.length} aria-label={`${digits.length} מתוך ${PIN_LENGTH}`}>
+        <div className="dots" data-id="pin_dots" data-count={digits.length} role="img" aria-label={`${digits.length} מתוך ${PIN_LENGTH}`}>
           {Array.from({ length: PIN_LENGTH }, (_, i) => (
             <span key={i} className={i < digits.length ? "dot full" : "dot"} />
           ))}

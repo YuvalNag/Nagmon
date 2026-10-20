@@ -34,10 +34,11 @@ describe("the system's font size", () => {
     expect(root.style.getPropertyValue("--font-scale")).toBe("1.15");
   });
 
-  it("in the browser stays at 1", async () => {
+  it("in the browser leaves the page's own", async () => {
     shell.scale = 1.3;
     const root = document.createElement("div");
-    expect(await applySystemFontScale(root)).toBe(1);
+    expect(await applySystemFontScale(root)).toBeNull();
+    expect(root.style.getPropertyValue("--font-scale")).toBe("");
   });
 });
 

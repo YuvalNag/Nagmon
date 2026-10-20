@@ -6,7 +6,7 @@
  *   screens), up to {@link MAX_FONT_SCALE};
  * - "who plays" is on the screen: Android's `reportFullyDrawn`, which the
  *   emulator check reads as the cold start time (docs/app/SDD.md §10).
- * In a browser there is no shell: the scale stays 1.
+ * In a browser there is no shell.
  */
 import { Capacitor, registerPlugin } from "@capacitor/core";
 
@@ -26,15 +26,17 @@ export function pageFontScale(system: number): number {
   return Math.round(Math.min(MAX_FONT_SCALE, Math.max(1, system)) * 100) / 100;
 }
 
-/** Sets `--font-scale` on the page from the system's font size. Never rejects. */
-export async function applySystemFontScale(root: HTMLElement = document.documentElement): Promise<number> {
+/**
+ * Sets `--font-scale` on the page from the system's font size. In a
+ * browser the page keeps its own (1, or what a test set). Never rejects.
+ */
+export async function applySystemFontScale(root: HTMLElement = document.documentElement): Promise<number | null> {
+  if (!Capacitor.isNativePlatform()) return null;
   let system = 1;
-  if (Capacitor.isNativePlatform()) {
-    try {
-      system = (await AppShell.fontScale()).value;
-    } catch {
-      // an old shell: the default size
-    }
+  try {
+    system = (await AppShell.fontScale()).value;
+  } catch {
+    // an old shell: the default size
   }
   const scale = pageFontScale(system);
   root.style.setProperty("--font-scale", String(scale));

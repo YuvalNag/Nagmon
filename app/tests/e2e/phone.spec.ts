@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 import { fitsAndSharp } from "./touch";
 
 test("who-plays is Hebrew, right to left, sharp and fills the phone", async ({
