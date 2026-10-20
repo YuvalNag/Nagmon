@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0
 # Copyright (c) 2014-2026 William Edwards <shadowapex@gmail.com>, Benjamin Bean <superman2k5@gmail.com>
+from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
@@ -187,3 +188,75 @@ def test_full_pipeline_integration(manager, two_players):
         assert isinstance(layout, dict)
         for rect_list in layout.values():
             assert isinstance(rect_list[0], Rect)
+
+
+# ------------------------------------------- a wide screen (SDD_ANDROID §2.7)
+
+REAL_YAML = (
+    Path(__file__).resolve().parents[2] / "mods" / "combat_layouts.yaml"
+)
+
+
+def _wide(screen_width):
+    return LayoutRepository(REAL_YAML, DefaultScaling(7), screen_width)
+
+
+def test_a_20_9_screen_moves_the_right_half_by_the_whole_extra():
+    # 2400 pixels at scale 7: the 256-point layout is 1792 wide, 608 short.
+    narrow, wide = _wide(None), _wide(2400)
+    player = narrow.get_scaled_layout("LEFT_COMBAT")
+    player_wide = wide.get_scaled_layout("LEFT_COMBAT")
+    # the player's monster (left) stays, its HUD (right) moves
+    assert player_wide["home"] == player["home"]
+    assert player_wide["hud"][0] == player["hud"][0] + 608
+    assert player_wide["hud"][1:] == player["hud"][1:]
+    assert player_wide["monster_status_icon"][0] == (
+        player["monster_status_icon"][0] + 608
+    )
+    opponent = narrow.get_scaled_layout("RIGHT_COMBAT")
+    opponent_wide = wide.get_scaled_layout("RIGHT_COMBAT")
+    # the opponent's monster (right) moves, its HUD (left) stays
+    assert opponent_wide["home"][0] == opponent["home"][0] + 608
+    assert opponent_wide["home0"][0] == opponent["home0"][0] + 608
+    assert opponent_wide["home1"][0] == opponent["home1"][0] + 608
+    assert opponent_wide["hud"] == opponent["hud"]
+
+
+def test_the_player_hud_still_rests_at_the_right_edge():
+    hud = _wide(2400).get_scaled_layout("LEFT_COMBAT")["hud"]
+    assert 2400 - (hud[0] + hud[2]) == 7  # 1 point, as on a 16:9 screen
+
+
+def test_hud_text_offsets_do_not_move():
+    for name in ("LEFT_COMBAT", "RIGHT_COMBAT", "CENTER_COMBAT"):
+        narrow = _wide(None).get_scaled_layout(name)
+        wide = _wide(2400).get_scaled_layout(name)
+        assert wide["hud_line1"] == narrow["hud_line1"]
+        assert wide["hud_line2"] == narrow["hud_line2"]
+
+
+def test_the_centre_layout_moves_by_half():
+    narrow = _wide(None).get_scaled_layout("CENTER_COMBAT")
+    wide = _wide(2400).get_scaled_layout("CENTER_COMBAT")
+    assert wide["home"][0] == narrow["home"][0] + 304
+
+
+@pytest.mark.parametrize(
+    "width",
+    [
+        pytest.param(None, id="unknown"),
+        pytest.param(1792, id="exactly_256_points"),
+        pytest.param(1700, id="narrower"),
+    ],
+)
+def test_no_extra_room_changes_nothing(width):
+    # exactly 256 points wide, or narrower (never moved left)
+    for name in ("LEFT_COMBAT", "RIGHT_COMBAT", "CENTER_COMBAT"):
+        assert _wide(width).get_scaled_layout(name) == _wide(
+            None
+        ).get_scaled_layout(name)
+
+
+def test_the_manager_passes_the_screen_width():
+    manager = LayoutManager(REAL_YAML, DefaultScaling(7), screen_width=2400)
+    assert manager.repo.screen_width == 2400

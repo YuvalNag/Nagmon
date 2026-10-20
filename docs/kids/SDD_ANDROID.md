@@ -368,7 +368,7 @@ def keyboard_layout(area: Rect, chars: int, *, gap: int,
 | הכיתוב בתיבות הקרב בגודל של המחשב, בלי סימן ♂/♀ שאין לו אות | `tests/tuxemon/test_phone_ui.py` |
 | `IntroState` הרשום הוא של נגמון. הוא לא מצייר את Tuxemon, ומחליף את עצמו בכותרת | `tests/nagmon/test_phone_look.py` |
 | המתנה בכותרת: הפתיח של נגמון מעליה, והכותרת לא מוחלפת. בלי פתיח, כלום. מעל "מי משחק?", כלום | `tests/nagmon/test_game_states.py` |
-| פריסת הקרב ב־2400 בקנה מידה 7: חצי ימני זז ב־608, חצי שמאלי לא, `CENTER` בחצי, `hud_line` לא. בלי עודף, הכול כמו קודם | `tests/tuxemon/test_combat_layout.py` |
+| פריסת הקרב ב־2400 בקנה מידה 7: חצי ימני זז ב־608, חצי שמאלי לא, `CENTER` בחצי, `hud_line` לא. בלי עודף, הכול כמו קודם | `tests/tuxemon/test_ui_combat_layout.py` |
 | רקע הקרב מכסה את כל המסך (אין עמודה שחורה), בלי עיוות ובמרכז | `tests/nagmon/test_phone_look.py` |
 | תאום HD: נמצא לפי סדר המודים; `load_and_scale` מחזיר את אותו הגודל כמו בלי תאום; בלי תאום, אותם פיקסלים | `tests/nagmon/test_phone_look.py` |
 | כל תאום בריפו הוא בדיוק פי 4 מהמקור, וכל תמונה ברשימה של הכלי יש לה תאום | `tests/nagmon/test_phone_look.py` |

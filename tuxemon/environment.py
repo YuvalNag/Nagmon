@@ -15,7 +15,13 @@ from tuxemon.db import (
     BattleMusicModel,
     EnvironmentModel,
 )
-from tuxemon.graphics import load_and_scale, load_raw_image, scale_surface
+from tuxemon.graphics import (
+    load_and_scale,
+    load_native_or_hd,
+    load_raw_image,
+    scale_surface,
+    smooth_resize,
+)
 from tuxemon.prepare import DisplayContext
 
 logger = logging.getLogger(__name__)
@@ -273,22 +279,40 @@ class Environment:
         return self._battle_layout
 
     def prepare_background(self, screen_size: tuple[int, int]) -> Surface:
-        """Processes the background sprite to fit the screen dimensions."""
+        """
+        Processes the background sprite to fit the screen dimensions.
+
+        A screen wider than the picture at the game's scale (a 20:9
+        phone) gets it bigger, smoothly, across the whole width, without
+        stretching: the middle of the picture stays where it was, and a
+        few rows at the top and bottom are cut (SDD_ANDROID §2.7).
+        """
         graphics = self.data.get_battle_graphics()
         scale_int = self.context.scale
-        surf = load_and_scale(graphics.background, scale_int)
-
         full_width, full_height = screen_size
+        source, k = load_native_or_hd(graphics.background)
+        native_w = source.get_width() // k
+        native_h = source.get_height() // k
+        base_h = native_h * scale_int
+        if native_w * scale_int >= full_width:
+            surf = load_and_scale(graphics.background, scale_int)
+            top = 0
+        else:
+            height = round(native_h * full_width / native_w)
+            surf = smooth_resize(source, (full_width, height))
+            top = (base_h - height) // 2
+
         full_surf = Surface((full_width, full_height))
         full_surf.fill((0, 0, 0))
-        full_surf.blit(surf, (0, 0))
+        full_surf.blit(surf, (0, top))
 
         # Stretch the last row to fill the bottom (for dialog area)
-        if surf.get_height() < full_height:
+        bottom = top + surf.get_height()
+        if bottom < full_height:
             last_row = surf.subsurface(
                 Rect(0, surf.get_height() - 1, surf.get_width(), 1)
             )
-            for y in range(surf.get_height(), full_height):
+            for y in range(bottom, full_height):
                 full_surf.blit(last_row, (0, y))
 
         return full_surf

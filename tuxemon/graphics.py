@@ -12,6 +12,7 @@ from __future__ import annotations
 import logging
 import re
 from collections.abc import Iterable, Sequence
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Protocol
 
@@ -192,7 +193,11 @@ def load_and_scale(
     Returns:
         Loaded and scaled image.
     """
-    return scale_surface(load_image(filename), scale)
+    surface, k = load_native_or_hd(filename)
+    if k > 1:
+        w, h = surface.get_size()
+        return smooth_resize(surface, (w // k * scale, h // k * scale))
+    return scale_surface(surface, scale)
 
 
 def load_image(filename: str) -> Surface:
@@ -368,6 +373,41 @@ def scale_sheet(
     if hd_factor(surface.get_size(), native) > 1:
         return smooth_resize(surface, (native[0] * factor, native[1] * factor))
     return scale_surface(surface, factor)
+
+
+#: An HD twin is this many times its Tuxemon image (SDD_ANDROID §2.7).
+HD_TWIN_FACTOR = 4
+
+
+def hd_twin_name(filename: str, k: int = HD_TWIN_FACTOR) -> str:
+    """``gfx/a/b.png`` -> ``gfx/a/b@4x.png``: the name of its HD twin."""
+    path = Path(filename)
+    return path.with_name(f"{path.stem}@{k}x{path.suffix}").as_posix()
+
+
+@lru_cache(maxsize=1024)
+def fetch_hd_twin(filename: str) -> str | None:
+    """
+    The HD twin of ``filename`` (a path relative to a mod), by mod
+    order, or None. Nagmon keeps twins of Tuxemon's UI images, made by
+    ``tools/art/upscale_ui.py`` (SDD_ANDROID §2.7). Remembered, also
+    when there is none: most images have no twin.
+    """
+    try:
+        return transform_resource_filename(hd_twin_name(filename))
+    except OSError:
+        return None
+
+
+def load_native_or_hd(filename: str) -> tuple[Surface, int]:
+    """
+    ``filename`` loaded, and how many times its native size it is: its
+    HD twin (k = HD_TWIN_FACTOR) when there is one, else itself (k = 1).
+    """
+    twin = fetch_hd_twin(filename)
+    if twin is not None:
+        return smart_convert(load(twin), None, True), HD_TWIN_FACTOR
+    return load_image(filename), 1
 
 
 def load_frames_files(directory: str, name: str) -> Iterable[Surface]:

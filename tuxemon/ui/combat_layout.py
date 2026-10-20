@@ -44,15 +44,48 @@ def load_layouts_from_yaml(
     }
 
 
+#: The width the layouts are written for (NATIVE_RESOLUTION).
+DESIGN_WIDTH = 256
+#: Positions inside a HUD image, not on the screen.
+HUD_OFFSET_KEYS = frozenset({"hud_line1", "hud_line2"})
+#: A layout in the middle of the screen, moved by half the extra room.
+CENTERED_LAYOUTS = frozenset({"CENTER_COMBAT"})
+
+
+def widen_shift(name: str, key: str, raw: tuple[int, ...], extra: int) -> int:
+    """
+    How far right the rect ``raw`` (layout points) moves on a screen
+    ``extra`` pixels wider than the layout (SDD_ANDROID §2.7): a rect
+    in the right half by all of it, one in the left half not at all, a
+    centred layout by half. Offsets inside a HUD image never move.
+    """
+    if extra <= 0 or key in HUD_OFFSET_KEYS or len(raw) != 4:
+        return 0
+    if name in CENTERED_LAYOUTS:
+        return extra // 2
+    x, _, w, _ = raw
+    return extra if x + w / 2 >= DESIGN_WIDTH / 2 else 0
+
+
 class LayoutRepository:
     def __init__(
         self,
         yaml_path: Path,
         scaling: ScalingStrategy,
+        screen_width: int | None = None,
     ):
         self.raw_layouts = load_layouts_from_yaml(yaml_path)
         self.groups = load_layout_groups(yaml_path)
         self.scaling = scaling
+        #: The screen's width in pixels; None keeps the layout as written.
+        self.screen_width = screen_width
+
+    @property
+    def extra_width(self) -> int:
+        """Pixels of screen to the right of the layout (a 20:9 phone)."""
+        if self.screen_width is None:
+            return 0
+        return max(0, self.screen_width - self.scaling.scale_int(DESIGN_WIDTH))
 
     def get_raw_layout(self, name: str) -> dict[str, tuple[int, ...]]:
         if name not in self.raw_layouts:
@@ -61,7 +94,15 @@ class LayoutRepository:
 
     def get_scaled_layout(self, name: str) -> dict[str, tuple[int, ...]]:
         raw = self.get_raw_layout(name)
-        return {k: self.scaling.scale_tuple(v) for k, v in raw.items()}
+        extra = self.extra_width
+        scaled = {}
+        for key, value in raw.items():
+            coords = self.scaling.scale_tuple(value)
+            shift = widen_shift(name, key, value, extra)
+            if shift:
+                coords = (coords[0] + shift, *coords[1:])
+            scaled[key] = coords
+        return scaled
 
 
 class LayoutSelector:
@@ -100,8 +141,11 @@ class LayoutManager:
         self,
         yaml_path: Path,
         scaling: ScalingStrategy,
+        screen_width: int | None = None,
     ):
-        self.repo = LayoutRepository(yaml_path, scaling=scaling)
+        self.repo = LayoutRepository(
+            yaml_path, scaling=scaling, screen_width=screen_width
+        )
         self.selector = LayoutSelector(self.repo)
         self.rect_factory = LayoutRectFactory()
 
