@@ -417,6 +417,122 @@ def test_letter_board_on_a_computer_did_not_change(desktop, hebrew):
     assert menu.backspace in labels and menu.confirm in labels
 
 
+# ------------------------------------------------------------ digit pad
+# (SDD_ANDROID §2.7): the parent code, a pad with digits only.
+
+PIN_PROMPT = (
+    "קוד הורים\nבחרו 4 ספרות. הקוד שומר על אזור ההורים ועל הוספת שחקנים."
+)
+
+
+def _pin_pad(client):
+    from tuxemon.menu.input import CharacterSetManager
+    from tuxemon.states.input import InputMenu
+
+    menu = InputMenu(
+        client,
+        prompt=PIN_PROMPT,
+        callback=lambda text: None,
+        char_limit=4,
+        char_manager=CharacterSetManager.digits(),
+        secret=True,
+    )
+    menu.reload_items()
+    menu.refresh_layout()
+    return menu
+
+
+def test_digits_only_char_set():
+    from tuxemon.menu.input import CharacterSetManager
+
+    digits = CharacterSetManager.digits()
+    assert digits.all_chars == "1234567890"
+    assert digits.is_valid_input_char("7")
+    for char in ("a", "א", " ", "-"):
+        assert not digits.is_valid_input_char(char)
+
+
+def test_digit_pad_on_a_phone(phone, hebrew):
+    menu = _pin_pad(make_client())
+    items = list(menu.menu_items)
+    keys = {
+        i.game_object.char: _absolute(menu, i)
+        for i in items
+        if i.game_object.char
+    }
+    # only digits: no letters and no space key
+    assert sorted(keys) == sorted("0123456789")
+    actions = [i.game_object.action for i in items]
+    assert menu.backspace in actions and menu.confirm in actions
+    for rect in keys.values():
+        assert SCREEN.contains(rect)
+        assert mm(rect.width) >= 12 and mm(rect.height) >= 12
+    # a number pad reads left to right, even in Hebrew
+    assert keys["1"].left < keys["2"].left < keys["5"].left
+    assert keys["6"].top > keys["1"].top
+    # "done" stays at the start of the Hebrew line (right)
+    done = next(i for i in items if i.game_object.action == menu.confirm)
+    delete = next(i for i in items if i.game_object.action == menu.backspace)
+    assert _absolute(menu, done).left > _absolute(menu, delete).right
+
+
+def test_digit_pad_prompt_has_two_lines_above_the_keys(phone, hebrew):
+    menu = _pin_pad(make_client())
+    display = menu.input_display
+    line = menu.font.get_linesize()
+    assert display.prompt.rect.height >= 2 * line
+    first, second = PIN_PROMPT.split("\n")
+    assert menu.font.size(second)[0] <= display.prompt.rect.width
+    top = min(_absolute(menu, i).top for i in menu.menu_items)
+    for area in (display.prompt, display.text_area, display.char_counter):
+        assert SCREEN.contains(area.rect)
+        assert area.rect.bottom <= top
+    assert display.text_area.rect.top >= display.prompt.rect.bottom
+    # both lines are drawn: ink in the top and in the bottom half
+    image = display.prompt.image
+    half = image.get_height() // 2
+    assert (
+        image.get_bounding_rect().top < half < image.get_bounding_rect().bottom
+    )
+
+
+def test_digit_pad_hides_the_digits(phone, hebrew):
+    menu = _pin_pad(make_client())
+    menu._suppress_first_event = False
+    menu.add_input_char("1")
+    menu.add_input_char("2")
+    assert menu.input_controller.current_string == "12"
+    assert menu.input_display.text_area.text == "• • _ _"
+    assert "1" not in menu.input_display.text_area.text
+    # the empty places say how many are left: no counter beside them
+    assert menu.input_display.char_counter.text == ""
+    # the bullet is a real letter of both fonts (not an empty box)
+    import pygame.freetype
+
+    from tuxemon.constants.paths import mods_folder
+
+    pygame.freetype.init()
+    for font in ("Rubik-Medium.ttf", "PressStart2P.ttf"):
+        path = mods_folder / "tuxemon/font" / font
+        metrics = pygame.freetype.Font(path.as_posix(), 16).get_metrics("•")
+        assert metrics[0] is not None
+
+
+def test_a_key_tap_does_not_rebuild_the_keys(phone, hebrew, monkeypatch):
+    menu = _input_menu(make_client())
+    menu._suppress_first_event = False
+    images = [i.image for i in menu.menu_items]
+    rebuilt = []
+    monkeypatch.setattr(menu, "reload_items", lambda: rebuilt.append(1))
+    for char in "נועה":
+        menu.add_input_char(char)
+    menu.backspace()
+    menu.update(1 / 60)
+    assert not rebuilt
+    assert [i.image for i in menu.menu_items] == images
+    assert menu.input_controller.current_string == "נוע"
+
+
 # ------------------------------------------------------------ Nagmon screens
 
 
@@ -662,3 +778,43 @@ def test_battle_box_text_has_no_missing_signs():
     monster = SimpleNamespace(name="גאומטריון", gender_symbol="♂", level=6)
     line = build_hud_text("MainCombatMenuState", monster, True, False, False)
     assert "♂" not in line["line1"] and "♀" not in line["line1"]
+
+
+def test_who_plays_has_a_send_log_button_on_a_phone(phone, hebrew, runtime):
+    from mods.nagmon.states.profiles import ProfileSelectState
+
+    state = ProfileSelectState(make_client())
+    ids = {w.get_id() for w in state.menu.get_widgets()}
+    assert "share_log" in ids
+    assert widgets_on_screen(state.menu) == []
+
+
+def test_who_plays_on_a_computer_has_no_send_log(desktop, hebrew, runtime):
+    from mods.nagmon.states.profiles import ProfileSelectState
+
+    state = ProfileSelectState(make_client())
+    assert "share_log" not in {w.get_id() for w in state.menu.get_widgets()}
+
+
+@pytest.mark.parametrize(
+    "secret",
+    [pytest.param(True, id="code"), pytest.param(False, id="no_variants")],
+)
+def test_holding_a_digit_opens_no_variants(phone, hebrew, monkeypatch, secret):
+    # holding A/Enter on a key opens its variants; a code must not show
+    # the digit, and a key without variants has nothing to offer
+    from tuxemon.menu.input import CharacterSetManager
+    from tuxemon.states import input as input_mod
+
+    menu = _pin_pad(make_client())
+    menu.secret = secret
+    assert isinstance(menu.char_manager, CharacterSetManager)
+    opened = []
+    monkeypatch.setattr(
+        input_mod, "open_choice_dialog", lambda **kw: opened.append(kw)
+    )
+    key = next(i for i in menu.menu_items if i.game_object.char == "7")
+    monkeypatch.setattr(menu, "get_selected_item", lambda: key)
+    held = SimpleNamespace(triggered=False, held=True, hold_time=999)
+    menu._handle_select_event(held)
+    assert opened == []

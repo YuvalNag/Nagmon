@@ -75,13 +75,23 @@ def ask_text(
     *,
     char_limit: int = 16,
     initial: str = "",
+    digits: bool = False,
+    secret: bool = False,
 ) -> None:
+    """
+    The on-screen keyboard. ``digits``: a pad with 0-9 only; ``secret``:
+    a dot for each character (the parent code, SDD_ANDROID §2.7).
+    """
+    from tuxemon.menu.input import CharacterSetManager
+
     client.push_state(
         "InputMenu",
         prompt=prompt,
         callback=lambda text: later(client, lambda: on_text(text)),
         char_limit=char_limit,
         initial=initial,
+        char_manager=CharacterSetManager.digits() if digits else None,
+        secret=secret,
     )
 
 

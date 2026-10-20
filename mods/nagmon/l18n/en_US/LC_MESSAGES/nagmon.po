@@ -31,10 +31,10 @@ msgid "nagmon_switch_player"
 msgstr "Switch player"
 
 msgid "nagmon_pin_prompt"
-msgstr "Parent code"
+msgstr "Parent code\nType the parent code (4 digits)."
 
 msgid "nagmon_set_pin_prompt"
-msgstr "Parent: choose a 4-digit code"
+msgstr "Parent code\nChoose 4 digits. The code guards the parent area and adding players."
 
 msgid "nagmon_pin_invalid"
 msgstr "The code must be 4 digits."
@@ -42,8 +42,29 @@ msgstr "The code must be 4 digits."
 msgid "nagmon_pin_saved"
 msgstr "The parent code was saved."
 
+msgid "nagmon_confirm_pin_prompt"
+msgstr "Parent code\nType the same 4 digits again."
+
+msgid "nagmon_pin_mismatch"
+msgstr "The codes are not the same. Starting again."
+
+msgid "nagmon_github_where"
+msgstr "Paste the token in the parent area: \"Send data to the developer (GitHub)\"."
+
+msgid "nagmon_share_log"
+msgstr "Send log"
+
+msgid "nagmon_share_log_title"
+msgstr "Send the Nagmon log"
+
+msgid "nagmon_share_log_empty"
+msgstr "The log is still empty."
+
+msgid "nagmon_share_log_failed"
+msgstr "Could not open the share window."
+
 msgid "nagmon_pin_wrong"
-msgstr "Wrong code."
+msgstr "Wrong code. Try again."
 
 msgid "nagmon_pin_locked"
 msgstr "Too many tries. Please wait {seconds} seconds."
@@ -728,7 +749,7 @@ msgid "nagmon_too_many_players"
 msgstr "There are already 8 players. Delete one in the parent area to add a new one."
 
 msgid "nagmon_parent_github"
-msgstr "GitHub and sending data"
+msgstr "Send data to the developer (GitHub)"
 
 msgid "nagmon_github_ok"
 msgstr "Connected · private data repo {repo}"
@@ -928,3 +949,141 @@ msgstr "Great Scroll"
 # (docs/kids/SDD_ART.md §2.10).
 msgid "wicked_wind"
 msgstr "Mystery Wind"
+
+# Hebrew names for Tuxemon's monsters a child meets in Nagmon's world
+# (docs/kids/SDD_ANDROID.md §2.7); the English name stays in en_US.
+
+msgid "agnite"
+msgstr "Agnite"
+
+msgid "agnidon"
+msgstr "Agnidon"
+
+msgid "agnigon"
+msgstr "Agnigon"
+
+msgid "rockitten"
+msgstr "Rockitten"
+
+msgid "rockat"
+msgstr "Rockat"
+
+msgid "jemuar"
+msgstr "Jemuar"
+
+msgid "kroki"
+msgstr "Kroki"
+
+msgid "krokivip"
+msgstr "Krokivip"
+
+msgid "leviadile"
+msgstr "Leviadile"
+
+msgid "dandicub"
+msgstr "Dandicub"
+
+msgid "dandylion"
+msgstr "Dandylion"
+
+msgid "nut"
+msgstr "Nut"
+
+msgid "bolt"
+msgstr "Bolt"
+
+msgid "arthrobolt"
+msgstr "Arthrobolt"
+
+msgid "hydrone"
+msgstr "Hydrone"
+
+msgid "nudikill"
+msgstr "Nudikill"
+
+msgid "axolightl"
+msgstr "Axolightl"
+
+msgid "ampystoma"
+msgstr "Ampystoma"
+
+msgid "cardiling"
+msgstr "Cardiling"
+
+msgid "cardiwing"
+msgstr "Cardiwing"
+
+msgid "cardinale"
+msgstr "Cardinale"
+
+msgid "cataspike"
+msgstr "Cataspike"
+
+msgid "puparmor"
+msgstr "Puparmor"
+
+msgid "weavifly"
+msgstr "Weavifly"
+
+msgid "eyenemy"
+msgstr "Eyenemy"
+
+msgid "eyesore"
+msgstr "Eyesore"
+
+msgid "squabbit"
+msgstr "Squabbit"
+
+msgid "rabbitosaur"
+msgstr "Rabbitosaur"
+
+msgid "tourbidi"
+msgstr "Tourbidi"
+
+# Descriptions a child reads, with the Hebrew names and gentle words
+# (docs/kids/SDD_ANDROID.md §2.7).
+
+msgid "ampystoma_description"
+msgstr "AMPYSTOMA's bright colours say \"look out!\". It hides in murky water, and likes to come on land during thunderstorms."
+
+msgid "arthrobolt_description"
+msgstr "It feels uncomfortable giving orders to its friends NUT and BOLT, and sometimes runs away. Then NUT and BOLT have no one to guide them."
+
+msgid "bolt_description"
+msgstr "When a BOLT is near, a NUT holds on tighter and makes more sparks of energy."
+
+msgid "nut_description"
+msgstr "In the great ships that cross the oceans, thousands of NUT and BOLT give power and hold the steel plates together."
+
+msgid "jemuar_description"
+msgstr "The gems on its back are the kind found where it was born. That is why many ROCKITTEN grow up over diamond veins."
+
+msgid "kroki_description"
+msgstr "KROKI spends most of its time in shallow water, and likes to clack its strong jaws."
+
+msgid "krokivip_description"
+msgstr "This crocodilian likes to hide in the water and surprise. As it grows closer to evolution, it looks for bigger waters."
+
+msgid "leviadile_description"
+msgstr "LEVIADILE is huge and swims in the deep sea. Everyone down there knows it is the king of the deep water."
+
+msgid "puparmor_description"
+msgstr "Its cocoon is hard as stone. If a PUPARMOR falls on someone, they get a bump on the head for days."
+
+msgid "tourbidi_description"
+msgstr "If you find a circle of mushrooms or clover, it is a place where TOURBIDI dance."
+
+msgid "cardiwing_description"
+msgstr "Its song is remarkable, and warm sparks fly from it at the end of every song."
+
+msgid "cardinale_description"
+msgstr "It guards its nest and its small neighbours, and chases off anyone who bothers them."
+
+msgid "rabbitosaur_description"
+msgstr "Its tunnels are long and wide, and neighbours from other burrows come to visit."
+
+msgid "nudikill_description"
+msgstr "They are called Hatters, because their heads look like a tall pointed hat."
+
+msgid "dandicub_description"
+msgstr "After a litter is born, they float all over the world, looking for a new place to grow."

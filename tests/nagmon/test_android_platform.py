@@ -197,3 +197,145 @@ def test_prepare_environment_follows_the_spec_orientation():
     env = {"KIVY_ORIENTATION": "LandscapeLeft"}
     prepare_environment(env, cafile=lambda: "/c.pem")
     assert env["SDL_IOS_ORIENTATIONS"] == "LandscapeLeft"
+
+
+# ------------------------------------------------- the phone's language
+# (SDD_ANDROID §2.7): build 24 opened in English on a phone set to Hebrew.
+
+
+def _phone(monkeypatch, lang=None):
+    monkeypatch.setenv("ANDROID_ARGUMENT", "/data/app")
+    if lang is None:
+        monkeypatch.delenv("LANG", raising=False)
+        monkeypatch.delenv("LC_ALL", raising=False)
+    else:
+        monkeypatch.setenv("LANG", lang)
+
+
+@pytest.mark.parametrize("lang", [None, "iw_IL", "he_IL.UTF-8", "en_US"])
+def test_a_phone_without_settings_speaks_hebrew(monkeypatch, lang):
+    # the system language does not matter: no LANG, Android's old "iw"
+    # tag for Hebrew, or an English phone
+    _phone(monkeypatch, lang)
+    config = TuxemonConfig()
+    assert config.locale.slug == "he_IL"
+    assert config.locale.font_file == "Rubik-Medium.ttf"
+
+
+def test_an_old_english_settings_file_on_a_phone_gives_hebrew(
+    monkeypatch, tmp_path
+):
+    # every start wrote the default (en_US) to tuxemon.yaml
+    _phone(monkeypatch, "en_US")
+    path = tmp_path / "tuxemon.yaml"
+    path.write_text(
+        "game:\n  locale: en_US\n  font_file: PressStart2P.ttf\n"
+        "  language_font: PressStart2P.ttf\n"
+    )
+    config = TuxemonConfig(path)
+    assert config.locale.slug == "he_IL"
+    assert config.locale.font_file == "Rubik-Medium.ttf"
+
+
+def test_a_chosen_language_on_a_phone_is_kept(monkeypatch, tmp_path):
+    _phone(monkeypatch)
+    path = tmp_path / "tuxemon.yaml"
+    path.write_text("")
+    config = TuxemonConfig(path)
+    config.update_locale("en_US", chosen=True)
+    again = TuxemonConfig(path)
+    assert again.locale.slug == "en_US"
+    assert again.locale.font_file == "PressStart2P.ttf"
+
+
+def test_the_game_switching_language_is_not_a_choice(monkeypatch, tmp_path):
+    _phone(monkeypatch)
+    path = tmp_path / "tuxemon.yaml"
+    path.write_text("")
+    TuxemonConfig(path).update_locale("en_US")
+    assert TuxemonConfig(path).locale.slug == "he_IL"
+
+
+def test_the_language_screen_is_a_choice(monkeypatch):
+    from unittest.mock import MagicMock
+
+    from tuxemon.states import set_language
+
+    monkeypatch.setattr(set_language.T, "change_language", lambda _: None)
+    monkeypatch.setattr(set_language, "CONFIG", MagicMock())
+    screen = MagicMock()
+    set_language.SetLanguage.change_language(screen, "en_US")
+    screen.client.config.update_locale.assert_called_once_with(
+        "en_US", chosen=True
+    )
+    # the global config (saved by T.change_language) agrees
+    set_language.CONFIG.update_locale.assert_called_once_with(
+        "en_US", chosen=True
+    )
+
+
+def test_a_pc_keeps_its_language(monkeypatch):
+    for name in ("ANDROID_ARGUMENT", "ANDROID_PRIVATE", "ANDROID_APP_PATH"):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv("LANG", "he_IL.UTF-8")
+    assert TuxemonConfig().locale.slug == "en_US"
+
+
+def test_an_english_choice_on_a_phone_survives_a_restart(
+    monkeypatch, tmp_path
+):
+    # The game has two configs: the global CONFIG and the client's copy
+    # (run_tuxemon.py). The language screen changes the copy, and
+    # T.change_language saves the global one; that save must not forget
+    # the choice.
+    from unittest.mock import MagicMock
+
+    from tuxemon.locale import locale as locale_mod
+    from tuxemon.states import set_language
+
+    _phone(monkeypatch)
+    path = tmp_path / "tuxemon.yaml"
+    path.write_text("")
+    global_config = TuxemonConfig(path)
+    client_config = global_config.copy()
+    monkeypatch.setattr(locale_mod, "CONFIG", global_config)
+    monkeypatch.setattr(set_language, "CONFIG", global_config)
+    T = locale_mod.T
+    monkeypatch.setattr(T, "load_translator_for_domain", lambda *a: None)
+    monkeypatch.setattr(
+        T, "invoke_language_changed_callbacks", lambda *a: None
+    )
+    screen = MagicMock()
+    screen.client.config = client_config
+    set_language.SetLanguage.change_language(screen, "en_US")
+    again = TuxemonConfig(path)
+    assert again.locale.slug == "en_US"
+    assert again.locale.font_file == "PressStart2P.ttf"
+
+
+@pytest.mark.parametrize(
+    ("chosen", "expected"),
+    [("'false'", "he_IL"), ("'no'", "he_IL"), ("'true'", "en_US")],
+)
+def test_a_chosen_flag_written_as_text(
+    monkeypatch, tmp_path, chosen, expected
+):
+    _phone(monkeypatch)
+    path = tmp_path / "tuxemon.yaml"
+    path.write_text(f"game:\n  locale: en_US\n  locale_chosen: {chosen}\n")
+    assert TuxemonConfig(path).locale.slug == expected
+
+
+def test_hebrew_on_a_phone_brings_its_fonts(monkeypatch, tmp_path):
+    # an old file may name another font: Hebrew needs Rubik's letters
+    _phone(monkeypatch)
+    path = tmp_path / "tuxemon.yaml"
+    path.write_text(
+        "game:\n  locale: en_US\n  font_file: Pizel.ttf\n"
+        "  thin_font_file: Pizel.ttf\n  minimal_font_file: Minimal3x5.ttf\n"
+    )
+    config = TuxemonConfig(path)
+    assert config.locale.slug == "he_IL"
+    assert config.locale.font_file == "Rubik-Medium.ttf"
+    assert config.locale.thin_font_file == "Rubik-Medium.ttf"
+    assert config.locale.minimal_font_file == "Rubik-Medium.ttf"

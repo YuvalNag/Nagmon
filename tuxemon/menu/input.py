@@ -61,22 +61,45 @@ class NameDataLoader:
         return str(name)
 
 
+#: A number pad's keys, in its order (the parent code, SDD_ANDROID §2.7).
+DIGITS = "1234567890"
+
+
 class CharacterSetManager:
     """
     Manages the available characters for input menus and their variants,
     loading data from localization strings.
+
+    ``char_variants=""`` means no variants; ``space=False`` keeps a typed
+    space out (a code has none).
     """
 
     def __init__(
         self,
         chars: str | None = None,
         char_variants: str | None = None,
+        *,
+        space: bool = True,
     ) -> None:
         _chars = chars or T.translate("menu_alphabet")
         self.chars = (_chars or "").replace(r"\0", "\0")
-        _char_variants = char_variants or T.translate("menu_char_variants")
+        _char_variants = (
+            T.translate("menu_char_variants")
+            if char_variants is None
+            else char_variants
+        )
         self.char_variants = self._parse_char_variants(_char_variants)
         self.all_chars = self.chars + "".join(self.char_variants.values())
+        self.space = space
+
+    @classmethod
+    def digits(cls) -> CharacterSetManager:
+        """0-9 only: no letters, no variants, no space."""
+        return cls(DIGITS, "", space=False)
+
+    @property
+    def digits_only(self) -> bool:
+        return self.all_chars.isdigit()
 
     def _parse_char_variants(self, variant_string: str) -> dict[str, str]:
         """
@@ -103,7 +126,7 @@ class CharacterSetManager:
 
     def is_valid_input_char(self, char: str) -> bool:
         """Checks if a character is part of the main alphabet or a known variant."""
-        return char in self.all_chars or char == " "
+        return char in self.all_chars or (char == " " and self.space)
 
     def get_layout_grid(self, columns: int) -> list[list[str | None]]:
         """
