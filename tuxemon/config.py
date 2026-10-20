@@ -183,7 +183,9 @@ class TuxemonConfig:
                 elif category in loaded_config:
                     config_data[category] = loaded_config[category]
         if mobile.is_android():
-            mobile.phone_language(config_data)
+            mobile.phone_language(
+                config_data, LOCALE_FONT_MAP[mobile.PHONE_LOCALE]
+            )
 
         # Validate merged config
         try:

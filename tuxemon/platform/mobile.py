@@ -103,17 +103,31 @@ def touch_defaults(config: dict[str, Any]) -> None:
 PHONE_LOCALE = "he_IL"
 
 
-def phone_language(config: dict[str, Any]) -> None:
+def _yes(value: Any) -> bool:
+    """A yaml flag; a hand-edited file may hold it as text ("false")."""
+    if isinstance(value, str):
+        return value.strip().lower() in ("1", "true", "yes", "on", "y", "t")
+    return bool(value)
+
+
+def phone_language(
+    config: dict[str, Any], fonts: tuple[str, str, str]
+) -> None:
     """
     Hebrew on a phone, applied after the player's settings file, unless
     the player picked a language. The game never reads the phone's own
     language; ``tuxemon.yaml`` holds Tuxemon's default (en_US), written
     at every start, so an old file must not keep a phone in English
-    (build 24, SDD_ANDROID §2.7). The fonts follow the language.
+    (build 24, SDD_ANDROID §2.7). ``fonts`` (main, thin, minimal) are
+    Hebrew's: any other font draws it as empty boxes.
     """
     game = config["game"]
-    if not game.get("locale_chosen"):
-        game["locale"] = PHONE_LOCALE
+    if _yes(game.get("locale_chosen")):
+        return
+    game["locale"] = PHONE_LOCALE
+    game["font_file"] = game["language_font"] = fonts[0]
+    game["thin_font_file"] = fonts[1]
+    game["minimal_font_file"] = fonts[2]
 
 
 # ------------------------------------------------------------ app switching
