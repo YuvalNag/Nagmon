@@ -10,7 +10,7 @@ test("who-plays is Hebrew, right to left, sharp and fills the phone", async ({
   // the smooth Hebrew font, not a fallback
   await page.evaluate(() => document.fonts.ready);
   expect(
-    await page.evaluate(() => document.fonts.check("500 20px Rubik", "שלום")),
+    await page.evaluate(() => document.fonts.check("500 20px NagmonRubik", "שלום")),
   ).toBe(true);
   // nothing sticks out of the screen, not even inside #root
   await fitsAndSharp(page);

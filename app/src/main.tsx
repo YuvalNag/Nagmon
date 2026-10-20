@@ -114,8 +114,8 @@ async function noteStarted(): Promise<void> {
 // the font for the first screen, Hebrew and Latin, loading while the data
 // is read: who-plays then appears with its text, not blank and then drawn
 const fontLoad = Promise.all([
-  document.fonts.load("500 1em Rubik", "מי משחק"),
-  document.fonts.load("500 1em Rubik", "abc"),
+  document.fonts.load("500 1em NagmonRubik", "מי משחק"),
+  document.fonts.load("500 1em NagmonRubik", "abc"),
 ]).catch(() => undefined);
 
 async function main(): Promise<void> {

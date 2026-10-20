@@ -194,6 +194,8 @@ async function logFile() {
   await sleep(1500);
   return readFileSync(LOGCAT_FILE, "utf8");
 }
+console.log(`the device: ${adb("shell", "nproc")} CPUs, ${adb("shell", "grep", "MemTotal", "/proc/meminfo")}`);
+await settle();
 adb("install", "-r", apk);
 adb("shell", "settings", "put", "system", "accelerometer_rotation", "0");
 adb("shell", "settings", "put", "system", "user_rotation", "1");
@@ -329,10 +331,51 @@ function heldProviders(label) {
       .filter((l) => pid && l.includes(`->${pid}:${PACKAGE}`))
       .map((l) => l.trim().replace(/^- \w+\//, ""));
     console.log(`providers the app holds (${label}): ${held.join("; ") || "none"}`);
+    heldProviders.last = held;
     return held;
   } catch (e) {
     console.log(`providers the app holds (${label}): ${String(e).split("\n")[0]}`);
     return [];
+  }
+}
+
+heldProviders.last = [];
+
+/** Play services' font provider: the app's stable and unstable references to it, active/total. */
+function fontProviderRefs() {
+  const line = heldProviders.last.find((l) => l.includes("fonts.provider.FontsProvider")) ?? "";
+  const m = line.match(/ s(\d+)\/(\d+) u(\d+)\/(\d+)/);
+  return m ? { stable: Number(m[1]), stableTotal: Number(m[2]), unstable: Number(m[3]), unstableTotal: Number(m[4]) } : { stable: 0, stableTotal: 0, unstable: 0, unstableTotal: 0 };
+}
+
+/**
+ * Which text makes the WebView ask Play services for a font: each kind is
+ * drawn once, and the provider references counted before and after.
+ */
+async function fontProviderProbe() {
+  const kinds = [
+    ["a Google font name the phone lacks", "'Roboto Flex'"],
+    ["system-ui", "system-ui"],
+    ["sans-serif", "sans-serif"],
+    ["an emoji", "sans-serif", "😀🎉"],
+    ["the app's font", "NagmonRubik"],
+    ["the name Rubik (a Google font, not the app's)", "Rubik"],
+  ];
+  heldProviders("before the font probe");
+  for (const [what, family, text = "שלום abc 123"] of kinds) {
+    const before = fontProviderRefs();
+    await page.eval(`(() => {
+      const d = document.createElement("div");
+      d.style.cssText = "position:fixed;left:0;top:0;opacity:0.01;font-size:20px;font-family:" + ${JSON.stringify(family)};
+      d.textContent = ${JSON.stringify(text)};
+      document.body.append(d);
+      d.getBoundingClientRect();
+      return new Promise((r) => requestAnimationFrame(() => { d.remove(); r(true); }));
+    })()`);
+    await sleep(800);
+    heldProviders(`after ${what}`);
+    const after = fontProviderRefs();
+    console.log(`font probe, ${what}: stable ${before.stableTotal}->${after.stableTotal}, unstable ${before.unstableTotal}->${after.unstableTotal}`);
   }
 }
 
@@ -1075,8 +1118,25 @@ async function cpuBusy(windows, ms) {
   return out;
 }
 
-console.log(`the device: ${adb("shell", "nproc")} CPUs, ${adb("shell", "grep", "MemTotal", "/proc/meminfo")}`);
-console.log(`CPU busy before the first run, % per 5 s: ${(await cpuBusy(6, 5000)).join(" ")}`);
+/**
+ * A freshly booted emulator is busy for minutes (Play services updating
+ * and restarting itself, search indexing, package scans): the first runs
+ * measured 97-100% CPU and a load of 18 on 2 CPUs. The family's phone is
+ * not two minutes after a boot, so the checks wait until the device is
+ * quiet: two 5 s windows under 50% busy, up to 5 minutes, printed.
+ */
+async function settle() {
+  const seen = [];
+  const end = Date.now() + 300_000;
+  let quiet = 0;
+  while (Date.now() < end && quiet < 2) {
+    const [busy] = await cpuBusy(1, 5000);
+    seen.push(busy);
+    quiet = busy < 50 ? quiet + 1 : 0;
+  }
+  console.log(`CPU busy while the device settles, % per 5 s: ${seen.join(" ")} (${quiet >= 2 ? "quiet" : "still busy after 5 minutes"})`);
+  check(quiet >= 2, "the device is quiet before the checks (two 5 s windows under 50% CPU)");
+}
 
 let started = false;
 await part("first run", async () => {
@@ -1105,7 +1165,7 @@ await part("first run", async () => {
     h: innerHeight,
     dir: document.documentElement.dir,
     heading: document.querySelector("h1")?.textContent,
-    rubik: document.fonts.check("500 20px Rubik", "שלום"),
+    rubik: document.fonts.check("500 20px NagmonRubik", "שלום"),
   })`);
   console.log("webview", JSON.stringify(size));
   check(size.w > size.h, "landscape");
@@ -1140,6 +1200,7 @@ await part("first run", async () => {
 });
 if (started) {
   calibration = page.offset;
+  await part("font provider", fontProviderProbe);
   await part("map", mapWalk);
   await part("back on every screen", backEverywhere);
   await part("home and back", homeAndBack);
