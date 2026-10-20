@@ -6,18 +6,14 @@ moveset:
   technique: struggle
   learning_method: fallback
 - level_learned: 1
-  technique: curse
-- level_learned: 1
-  technique: undertaker
-- level_learned: 4
   technique: phantasmal_force
-- level_learned: 8
+- level_learned: 1
   technique: midnight_mantle
+- level_learned: 4
+  technique: conjurer
 - level_learned: 13
-  technique: mobbing
-- level_learned: 20
-  technique: strangulation
-- level_learned: 30
+  technique: wicked_wind
+- level_learned: 26
   technique: shadow_blast
 evolutions:
 - at_level: 16

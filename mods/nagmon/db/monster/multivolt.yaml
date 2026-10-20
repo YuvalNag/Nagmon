@@ -24,7 +24,7 @@ moveset:
 - level_learned: 26
   technique: kindling_flame
 - level_learned: 30
-  technique: flamethrower
+  technique: supernova
 - level_learned: 36
   technique: laser_beam
 - level_learned: 42

@@ -923,3 +923,8 @@ msgstr "A double scroll full of stories. It tells them with its ribbons."
 
 msgid "cat_great_scroll"
 msgstr "Great Scroll"
+
+# A gentler name for a technique the new logic monsters learn
+# (docs/kids/SDD_ART.md §2.10).
+msgid "wicked_wind"
+msgstr "Mystery Wind"

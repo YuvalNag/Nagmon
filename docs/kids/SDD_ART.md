@@ -133,6 +133,10 @@
   | Puzzlet | Enigmon | shadow / shadow | חשיבה |
   | Scrollo | Megillon | normal / normal, heroic | **עברית** (לפי המפלצת) |
 
+- **מילים עדינות:** בשמות של 12 המפלצות החדשות, בתיאורים ובשמות המהלכים אין מילים של אלימות או פחד, וגם לא "צלב" (בדיקה עם רשימה, בשתי השפות). לכן:
+  - הסוג של Multivolt הוא `volt_plus` ("פלוס ברקים");
+  - מהלכים הוחלפו: Strangulation, ‏Undertaker, ‏Curse ו־Mobbing יצאו מ־Puzzlet. ‏Leaf Stab ו־Water Bullet יצאו מ־Flaskling. ‏Flamethrower יצא מ־Pluson. ‏Bullet, ‏Shrapnel ו־Harpoon יצאו מ־Geometrion;
+  - ל־`wicked_wind` יש ב־nagmon.po שם רך: "Mystery Wind" / "רוח מסתורין".
 - **עברית בקרב:** ב־`subjects.yaml` אין סוג שממופה לעברית (`hebrew: elements: []`). הדרך הקטנה והנכונה היא **מקצוע לפי מפלצת**:
   - `hebrew: monsters: [scrollo, megillon]`, ו־`SubjectMap.subject_for(types, override, monster=…)` בודק קודם את המפלצת, ורק אחר כך את סוגי הטכניקה.
   - כך אין סוג חדש, ואין שינוי בטבלת היתרונות בקרב. הסוגים של Scrollo ו־Megillon קובעים רק את היתרונות.

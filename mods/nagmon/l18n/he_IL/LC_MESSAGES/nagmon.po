@@ -922,3 +922,8 @@ msgstr "מגילה כפולה מלאה סיפורים. היא מספרת אות�
 
 msgid "cat_great_scroll"
 msgstr "מגילה גדולה"
+
+# A gentler name for a technique the new logic monsters learn
+# (docs/kids/SDD_ART.md §2.10).
+msgid "wicked_wind"
+msgstr "רוח מסתורין"
