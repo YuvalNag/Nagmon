@@ -107,7 +107,7 @@ adb("shell", "settings", "put", "system", "accelerometer_rotation", "0");
 adb("shell", "settings", "put", "system", "user_rotation", "1");
 await launch();
 
-const page = await WebViewPage.attach(PACKAGE);
+let page;
 const id = (s) => `[data-id="${s}"]`;
 const screen = (name) => `document.querySelector('[data-screen="${name}"]')`;
 
@@ -150,6 +150,7 @@ async function firstRun() {
 }
 
 try {
+  page = await WebViewPage.attach(PACKAGE);
   await page.waitFor(screen("who-plays"), { timeoutMs: 30_000 });
   await page.eval("document.fonts.ready.then(() => true)");
   const size = await page.eval(`({
@@ -172,7 +173,7 @@ try {
   shot("z_failure");
   console.log(adb("logcat", "-d", "-t", "300"));
 } finally {
-  page.close();
+  page?.close();
 }
 
 if (failures.length) {
