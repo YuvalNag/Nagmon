@@ -8,6 +8,8 @@ import { t } from "../i18n";
 import { gameClock } from "../platform/lifecycle";
 import { MonsterPic } from "./MonsterPic";
 import { QuizScreen } from "./QuizScreen";
+import { ActionBar } from "./battle/ActionBar";
+import { Sheet } from "./battle/Sheet";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
 
@@ -60,6 +62,8 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   }, []);
   const [view, setView] = useState<View>({ k: "meet" });
   const [tick, setTick] = useState(0);
+  // a sheet over the arena, from the action bar: the Bag or the Friends
+  const [sheet, setSheet] = useState<"bag" | "friends" | null>(null);
   const finished = useRef(false);
 
   const leave = () => {
@@ -127,10 +131,11 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   return (
     <ScreenTime key={`battle-${view.k}-${tick}`}>
       <section className="battle" data-screen="battle" data-view={view.k} data-hp={battle.hp} data-wild={wild.species}>
+        <div className="battle-arena">
         <div className="battle-field" dir="ltr">
           <div className="battle-side mine">
             <div className={turn?.correct ? "battle-pic lunge" : "battle-pic"} key={`m${tick}`}>
-              <MonsterPic monsters={play.monsters} species={mine.species} side="back" height={0.34} />
+              <MonsterPic monsters={play.monsters} species={mine.species} side="back" height={0.3} />
             </div>
             <div className="battle-card" dir="rtl">
               <span className="battle-name">{myName}</span>
@@ -157,7 +162,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
               </div>
             </div>
             <div className={turn?.correct && !turn.won ? "battle-pic hit" : turn?.won ? "battle-pic friend" : "battle-pic"} key={`w${tick}`}>
-              <MonsterPic monsters={play.monsters} species={wild.species} side="front" height={0.34} />
+              <MonsterPic monsters={play.monsters} species={wild.species} side="front" height={0.3} />
             </div>
           </div>
         </div>
@@ -167,40 +172,34 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
             <span key={x}>{x}</span>
           ))}
         </p>
-        <div className="row battle-buttons">
-          {view.k === "meet" && (
-            <>
-              <Tap id="battle_fight" className="primary" onTap={ask}>
-                {t("battleFight")}
-              </Tap>
-              <Tap id="battle_run" onTap={leave}>
-                {t("battleRun")}
-              </Tap>
-            </>
-          )}
-          {view.k === "turn" && (
-            <>
-              <Tap id="battle_next" className="primary" onTap={ask}>
-                {t("battleNext")}
-              </Tap>
-              <Tap id="battle_run" onTap={leave}>
-                {t("battleRun")}
-              </Tap>
-            </>
-          )}
-          {view.k === "won" && (
-            <Tap
-              id="battle_done"
-              className="primary"
-              onTap={() => {
-                finished.current = true;
-                onDone(true);
-              }}
-            >
-              {t("next")}
-            </Tap>
-          )}
+        {view.k === "won" && (
+          <Tap
+            id="battle_done"
+            className="primary battle-continue"
+            onTap={() => {
+              finished.current = true;
+              onDone(true);
+            }}
+          >
+            {t("next")}
+          </Tap>
+        )}
         </div>
+        <ActionBar
+          asked={battle.stats.questions > 0}
+          calm={view.k === "won"}
+          canNet={false}
+          onAsk={ask}
+          onNet={() => {}}
+          onBag={() => setSheet("bag")}
+          onFriends={() => setSheet("friends")}
+          onLeave={leave}
+        />
+        {sheet && (
+          <Sheet title={t(sheet === "bag" ? "battleBag" : "battleFriends")} onClose={() => setSheet(null)}>
+            <p />
+          </Sheet>
+        )}
       </section>
     </ScreenTime>
   );

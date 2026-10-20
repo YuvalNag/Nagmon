@@ -266,3 +266,28 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
   expect((world["creatures"] as unknown[]).length).toBe(2);
   expect((world["caught"] as string[]).length).toBe(2);
 });
+
+test("the battle's action bar: five buttons of 120x72 and more in the bottom 123px, Ask the wide one at the thumb's end", async ({ page }, info) => {
+  await seedChild(page, { grade: 2, battle: true });
+  await openMap(page);
+  await steps(page, "right", 1);
+  const battle = page.locator("[data-screen=battle]");
+  await expect(battle).toBeVisible();
+  await page.screenshot({ path: info.outputPath("bar.png") });
+  const boxes = await page.locator(".action-bar button").evaluateAll((els) => els.map((e) => ({ id: (e as HTMLElement).dataset["id"]!, ...(e.getBoundingClientRect().toJSON() as { x: number; y: number; width: number; height: number; right: number; bottom: number }) })));
+  expect(boxes.map((b) => b.id)).toEqual(["battle_fight", "battle_net", "battle_bag", "battle_friends", "battle_run"]);
+  for (const b of boxes) {
+    expect(b.width, b.id).toBeGreaterThanOrEqual(120);
+    expect(b.height, b.id).toBeGreaterThanOrEqual(72);
+    expect(b.y, b.id).toBeGreaterThanOrEqual(393 - 123 - 1);
+    expect(b.bottom, b.id).toBeLessThanOrEqual(393);
+    expect(b.x, b.id).toBeGreaterThanOrEqual(0);
+    expect(b.right, b.id).toBeLessThanOrEqual(873);
+  }
+  // Hebrew runs right to left: Ask is at the right edge and twice as wide as the others
+  expect(boxes[0]!.width).toBeGreaterThanOrEqual(boxes[1]!.width * 1.9);
+  for (let i = 1; i < boxes.length; i++) expect(boxes[i]!.right).toBeLessThanOrEqual(boxes[i - 1]!.x + 1);
+  // the arena above is not covered by the bar
+  const arena = (await page.locator(".battle-arena").boundingBox())!;
+  expect(arena.y + arena.height).toBeLessThanOrEqual(boxes[0]!.y + 1);
+});
