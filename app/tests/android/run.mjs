@@ -23,8 +23,9 @@ const apk = process.argv[2];
 const out = process.argv[3] ?? "android-e2e";
 mkdirSync(out, { recursive: true });
 
+// every adb call has a time limit: a stuck adb fails the part, never hangs the run
 const adb = (...args) =>
-  execFileSync("adb", args, { encoding: "utf8" }).trim();
+  execFileSync("adb", args, { encoding: "utf8", timeout: 120_000 }).trim();
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const failures = [];
 
@@ -39,7 +40,7 @@ function check(ok, what) {
  */
 function shot(name) {
   // a full-size PNG is over a megabyte, node's default output limit
-  const png = execFileSync("adb", ["exec-out", "screencap", "-p"], { maxBuffer: 64 << 20 });
+  const png = execFileSync("adb", ["exec-out", "screencap", "-p"], { maxBuffer: 64 << 20, timeout: 60_000 });
   const path = join(out, `${name}.png`);
   writeFileSync(path, png);
   return path;
@@ -222,7 +223,7 @@ const runAs = (...a) => {
     return `(run-as failed: ${String(e).split("\n")[0]})`;
   }
 };
-const logcat = (...a) => execFileSync("adb", ["logcat", "-d", ...a], { encoding: "utf8", maxBuffer: 64 << 20 });
+const logcat = (...a) => execFileSync("adb", ["logcat", "-d", ...a], { encoding: "utf8", maxBuffer: 64 << 20, timeout: 120_000 });
 const key = (code) => adb("shell", "input", "keyevent", code);
 /** Whether the app's activity is the one in front. */
 const inFront = () =>
@@ -439,6 +440,14 @@ async function coldStart() {
       if (lines.length > seen) ms = parse(lines.at(-1));
     }
     drawn.push(ms);
+    // where the time went, as the page saw it (ms from the page's own start)
+    try {
+      await attach();
+      const t = await page.eval(`({ ...window.__startTimes?.(), loaded: Math.round(performance.getEntriesByType("navigation")[0]?.domContentLoadedEventEnd ?? -1) })`);
+      console.log(`start ${i + 1}: TotalTime ${total.at(-1)} ms, fully drawn ${ms} ms; in the page: ${JSON.stringify(t)}`);
+    } catch (e) {
+      console.log(`start ${i + 1}: no page times (${String(e).split("\n")[0]})`);
+    }
   }
   const median = (xs) => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)];
   console.log(`cold start, first frame (am start -W TotalTime), ms: ${total.join(" ")}`);
@@ -534,6 +543,12 @@ function wholeRun() {
     check(where.length === 0, `a child's name is in no log${where.length ? ` (in ${where.join(" and ")})` : ""}`);
     if (all.includes(name)) console.log(all.split("\n").filter((l) => l.includes(name)).slice(0, 5).join("\n"));
   }
+  // a dropped DevTools socket is opened again; one that comes back on a new
+  // process means the app died under the run
+  const reopened = pages.reduce((n, p) => n + p.reconnects, 0);
+  console.log(`DevTools sockets opened again: ${reopened}`);
+  const newPid = pages.filter((p) => p.reconnects && p.pid !== p.firstPid);
+  check(newPid.length === 0, "the app never died under the run (no socket came back on a new process)");
   const problems = pages.flatMap((p) => p.problems);
   check(problems.length === 0, `no uncaught error and no console error or warning (${problems.length})`);
   for (const p of problems.slice(0, 20)) console.log("   ", p.slice(0, 300));
