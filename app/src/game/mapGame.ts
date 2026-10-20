@@ -37,7 +37,8 @@ import { AdaptiveResolution, type Change, changeLine, startLine } from "./resolu
 
 const log = getLogger("nagmon.map");
 
-export const START_MAP = "classic_hearthrock_city";
+import { START_MAP } from "./startMap";
+export { START_MAP };
 /** docs/app/SDD.md §10, "images": no picture over twice its pixels. */
 export const MAX_SHOWN = 2;
 /** The maps kept in memory: the one shown and the one before it (the way back). */
@@ -155,6 +156,8 @@ export interface MapController {
   resume(why?: PauseReason): void;
   readonly paused: boolean;
   destroy(): void;
+  /** Mila's vehicle: the map at a tile (null: its own start). False if a trip is under way. */
+  goTo(map: string, at: { x: number; y: number } | null): boolean;
   debug(): MapDebug | null;
 }
 
@@ -500,12 +503,19 @@ class MapScene extends Phaser.Scene {
     this.opts.onFacing?.(who);
   }
 
-  private async travel(to: { map: string; x: number; y: number; facing: Dir | null }): Promise<void> {
+  /** Mila's vehicle: to a map, at a tile (or the map's own start). False while another trip is under way. */
+  goTo(map: string, at: { x: number; y: number } | null): boolean {
+    if (this.busy || !this.world) return false;
+    void this.travel({ map, x: at?.x ?? null, y: at?.y ?? null, facing: "down" });
+    return true;
+  }
+
+  private async travel(to: { map: string; x: number | null; y: number | null; facing: Dir | null }): Promise<void> {
     this.busy = true;
     this.lookAhead();
     try {
       await this.fade(false);
-      if (this.dead || !(await this.enter(to.map, to))) return;
+      if (this.dead || !(await this.enter(to.map, to.x === null || to.y === null ? null : { x: to.x, y: to.y, facing: to.facing }))) return;
       this.waitLift = true;
       await this.fade(true);
     } catch (e) {
@@ -770,6 +780,7 @@ export function startMap(opts: MapOptions): MapController {
     get paused() {
       return reasons.paused;
     },
+    goTo: (map, at) => scene.goTo(map, at),
     destroy() {
       if (destroyed) return;
       destroyed = true;

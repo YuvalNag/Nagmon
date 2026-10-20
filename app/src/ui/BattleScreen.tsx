@@ -17,7 +17,9 @@ interface Props {
   /** The map's name, for the log. */
   map: string;
   /** The battle is over: won, or the child went on their way. */
-  onDone: () => void;
+  onDone: (won: boolean) => void;
+  /** A master's test: twice the health, a badge for a prize. */
+  master?: boolean;
   /** Android's back: the same as "going on". */
   leaveRef?: MutableRefObject<(() => void) | null>;
   /** The creatures changed (saved by the battle); the map's HUD may show more. */
@@ -32,7 +34,7 @@ type View = { k: "meet" } | { k: "question"; session: QuizSession } | { k: "turn
  * "not a problem, nobody is hurt"; the only ways out are winning (the
  * creature becomes a friend) and going on one's way.
  */
-export function BattleScreen({ play, wild, map, onDone, leaveRef, onChanged }: Props) {
+export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChanged }: Props) {
   const battle = useMemo(() => {
     const b = new Battle({
       engine: play.engine,
@@ -49,6 +51,7 @@ export function BattleScreen({ play, wild, map, onDone, leaveRef, onChanged }: P
         onChanged?.();
       },
       warn: (m) => play.warn(m),
+      ...(master ? { master: true } : {}),
     });
     b.start(map);
     return b;
@@ -63,7 +66,7 @@ export function BattleScreen({ play, wild, map, onDone, leaveRef, onChanged }: P
     if (finished.current) return;
     finished.current = true;
     battle.run();
-    onDone();
+    onDone(false);
   };
   const leaveNow = useRef(leave);
   leaveNow.current = leave;
@@ -191,7 +194,7 @@ export function BattleScreen({ play, wild, map, onDone, leaveRef, onChanged }: P
               className="primary"
               onTap={() => {
                 finished.current = true;
-                onDone();
+                onDone(true);
               }}
             >
               {t("next")}

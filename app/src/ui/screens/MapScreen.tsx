@@ -20,6 +20,10 @@ import { partner as partnerOf } from "../../core/game/collection";
 import { Encounters, type Wild } from "../../core/game/encounters";
 import { introNeeded } from "../../core/game/intro";
 import { BattleScreen } from "../BattleScreen";
+import { BestiaryScreen } from "../BestiaryScreen";
+import { TripScreen } from "../TripScreen";
+import { progressPercent, refreshProgress, tripFor, type Trip } from "../../core/game/trips";
+import { START_MAP } from "../../game/startMap";
 import { IntroScreen } from "../IntroScreen";
 import { QuizScreen } from "../QuizScreen";
 import { ScreenTime } from "../screenTime";
@@ -100,13 +104,18 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   // the owl's intro, for a child who has not had it: placement, then the choice of a creature
   const [intro, setIntro] = useState(false);
   // a wild creature met in the grass: one friendly battle
-  const [battle, setBattle] = useState<{ wild: Wild; map: string } | null>(null);
+  const [battle, setBattle] = useState<{ wild: Wild; map: string; trip?: Trip } | null>(null);
+  // the menu's pages: Mila's vehicle and the bestiary; a trip asked for waits until the menu is closed
+  const [panel, setPanel] = useState<"trips" | "bestiary" | null>(null);
+  const [pending, setPending] = useState<{ map: string; at: { x: number; y: number } | null } | null>(null);
+  const [mapNow, setMapNow] = useState<string | null>(null);
   const battleLeave = useRef<(() => void) | null>(null);
   const stepRef = useRef<(x: number, y: number) => void>(() => {});
   // the runner's own state changed (it started, a talk ended): draw again
   const [, setRunnerTick] = useState(0);
   const seq = useRef(0);
   const lastMap = useRef<string | null>(null);
+  const tripsRef = useRef<(map: string) => void>(() => {});
   const shown = useRef<Overlay | null>(null);
   shown.current = overlay;
   const dialogAdvance = useRef<(() => void) | null>(null);
@@ -162,6 +171,8 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             if (!alive) return;
             field.mapChange(lastMap.current, w.name);
             lastMap.current = w.name;
+            setMapNow(w.name);
+            tripsRef.current(w.name);
             crumb.position(w.name, w.start?.x ?? 0, w.start?.y ?? 0);
             setWorld(w);
           },
@@ -269,6 +280,50 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     [play],
   );
 
+  /** A short word from the game (a zone done, a badge): shown as a dialog. */
+  const tell = useCallback((texts: string[]) => {
+    if (!texts.length) return;
+    setOverlay({ kind: "dialog", pages: texts.flatMap((x) => pages(x)), done: () => {}, n: ++seq.current });
+  }, []);
+
+  /** Marks the zones done by now, and says so. */
+  const checkTrips = useCallback(() => {
+    if (!play || !play.trips.length) return;
+    const r = refreshProgress(play.world, play.trips);
+    const say: string[] = [];
+    for (const k of r.zonesDone) {
+      const [tid, zid] = k.split("/");
+      const trip = play.trips.find((x) => x.id === tid);
+      play.field.note("zone", { done: k });
+      say.push(t("zoneDoneMsg", { zone: trip?.zones.find((z) => z.id === zid)?.title ?? zid! }));
+    }
+    for (const id of r.masterReady) {
+      const trip = play.trips.find((x) => x.id === id)!;
+      if (r.zonesDone.some((k) => k.startsWith(`${id}/`))) say.push(t("masterReadyMsg", { badge: trip.master.badgeTitle }));
+    }
+    if (r.zonesDone.length) void play.saveWorld();
+    tell(say);
+  }, [play, tell]);
+
+  // entering a zone's map is a visit; the town is no zone
+  tripsRef.current = (map) => {
+    if (!play) return;
+    const found = tripFor(play.trips, map);
+    play.world.trips.at = found ? `${found.trip.id}/${found.zone.id}` : null;
+    if (found && !play.world.trips.visited.includes(play.world.trips.at!)) play.world.trips.visited.push(play.world.trips.at!);
+    if (found) {
+      play.field.note("zone", { enter: play.world.trips.at! });
+      void play.saveWorld();
+    }
+  };
+
+  // the vehicle goes once the menu is closed and the map runs again
+  useEffect(() => {
+    if (!pending || menuOpen || !ctl) return;
+    ctl.goTo(pending.map, pending.at);
+    setPending(null);
+  }, [pending, menuOpen, ctl]);
+
   const closeOverlay = useCallback(() => {
     const o = shown.current;
     shown.current = null;
@@ -288,7 +343,10 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     setMenu((m) => (m > 0 ? m : m + 1));
   }, [dpad]);
 
-  const closeMenu = useCallback(() => setMenu(0), []);
+  const closeMenu = useCallback(() => {
+    setPanel(null);
+    setMenu(0);
+  }, []);
 
   // the menu holds the game still (the loop and the music), even one opened while it loaded
   useEffect(() => {
@@ -309,6 +367,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   useEffect(() => {
     backRef.current = () => {
       if (status === "failed") onExit();
+      else if (menuOpen && panel) setPanel(null);
       else if (menuOpen) closeMenu();
       else if (battle) battleLeave.current?.();
       else if (intro) dialogAdvance.current?.();
@@ -320,7 +379,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     return () => {
       backRef.current = null;
     };
-  }, [backRef, menuOpen, openMenu, closeMenu, status, onExit, overlay, held, closeOverlay, intro, battle]);
+  }, [backRef, menuOpen, openMenu, closeMenu, status, onExit, overlay, held, closeOverlay, intro, battle, panel]);
 
   useEffect(() => {
     if (!note) return;
@@ -411,9 +470,17 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           map={battle.map}
           leaveRef={battleLeave}
           onChanged={() => setCoins(play.world.money)}
-          onDone={() => {
+          master={battle.trip !== undefined}
+          onDone={(won) => {
             encounters?.reset();
+            const trip = battle.trip;
             setBattle(null);
+            if (trip && won) {
+              play.world.trips.badges.push(`${trip.id}/${trip.master.badge}`);
+              play.field.note("badge", { trip: trip.id, badge: trip.master.badge });
+              void play.saveWorld();
+              tell([t("badgeWonMsg", { badge: trip.master.badgeTitle })]);
+            } else checkTrips();
           }}
         />
       )}
@@ -433,14 +500,51 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           />
         </ScreenTime>
       )}
-      {menuOpen && (
+      {menuOpen && panel === "trips" && play && (
+        <TripScreen
+          play={play}
+          current={mapNow}
+          homeMap={START_MAP}
+          go={(map, at) => {
+            setPanel(null);
+            setMenu(0);
+            setPending({ map, at });
+          }}
+          master={(trip) => {
+            const species = trip.master.monster && play.monsters[trip.master.monster] ? trip.master.monster : (trip.zones.flatMap((z) => z.monsters).find((m) => play.monsters[m]) ?? null);
+            if (!species) return;
+            setPanel(null);
+            setMenu(0);
+            setBattle({ wild: { species, level: trip.master.level, table: "master" }, map: mapNow ?? "none", trip });
+          }}
+          onClose={() => setPanel(null)}
+          onChanged={() => setCoins(play.world.money)}
+        />
+      )}
+      {menuOpen && panel === "bestiary" && play && <BestiaryScreen play={play} onClose={() => setPanel(null)} />}
+      {menuOpen && !panel && (
         <ScreenTime key={`menu-${menu}`}>
           <div className="map-overlay" data-screen="map-menu" role="dialog" aria-label={t("mapPaused")}>
             <h2 className="title">{t("mapPaused")}</h2>
+            {play && play.trips[0] && (
+              <p className="menu-progress" data-id="menu_progress" role="status">
+                {t("menuProgress", { percent: progressPercent(play.world, play.trips[0]) })}
+              </p>
+            )}
             <div className="row">
               <Tap id="map_continue" className="primary" onTap={closeMenu}>
                 {t("mapContinue")}
               </Tap>
+              {play && play.trips.length > 0 && (
+                <Tap id="map_trips" onTap={() => setPanel("trips")}>
+                  {t("menuTrips")}
+                </Tap>
+              )}
+              {play && partnerOf(play.world) && (
+                <Tap id="map_bestiary" onTap={() => setPanel("bestiary")}>
+                  {t("menuBestiary")}
+                </Tap>
+              )}
               <Tap id="map_exit" onTap={onExit}>
                 {t("mapToWhoPlays")}
               </Tap>

@@ -11,6 +11,7 @@ import { ageFromProfile } from "../core/family/age";
 import type { Profile, ProfileStore } from "../core/family/profiles";
 import { type ContentLibrary, LearningEngine, LearnerState, loadContent, PyRandom } from "../core/learning";
 import { SubjectMap } from "../core/learning/quiz_flow";
+import { loadTrips, type Trip } from "../core/game/trips";
 import { FieldLog } from "../core/game/fieldLog";
 import { type EncounterTables, encounterTables } from "../core/game/encounters";
 import { type MonsterTable, monsterTable } from "../core/game/monsters";
@@ -112,6 +113,8 @@ export class Play {
     readonly subjects: SubjectMap,
     readonly monsters: MonsterTable,
     readonly encounters: EncounterTables,
+    /** The trips in the build: none until a trip file is there. */
+    readonly trips: Trip[],
     private readonly profiles: ProfileStore,
     private readonly log: NonNullable<PlayOptions["log"]>,
     private readonly now: () => Date,
@@ -202,6 +205,8 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   const seed = opts.seed;
   const engine = new LearningEngine(content, learner, seed === null || seed === undefined ? {} : { rng: new PyRandom(seed) });
   const world = WorldState.fromDict(worldDict);
+  // a trip file that is not there, or a map not built, is not an error: the zone is "coming soon"
+  const trips = await loadTrips(fetchJson, (map) => Promise.resolve(fetchJson(`maps/${map}.json`)).then(() => true, () => false)).catch(() => []);
   log.info(`Play opened: grade ${profile.grade}, ${learner.answers_total} answers so far, ${world.money} coins`);
-  return new Play(profile, engine, world, texts, subjects, monsters, encounters, profiles, log, now);
+  return new Play(profile, engine, world, texts, subjects, monsters, encounters, trips, profiles, log, now);
 }

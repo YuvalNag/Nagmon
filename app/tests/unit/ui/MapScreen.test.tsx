@@ -15,12 +15,28 @@ const fetchJson: FetchJson = async (path) => JSON.parse(readFileSync(`public/gam
 const route = readMap("classic_route_1", JSON.parse(readFileSync("public/game/maps/classic_route_1.json", "utf8")) as TiledMap);
 const city = readMap("classic_hearthrock_city", JSON.parse(readFileSync("public/game/maps/classic_hearthrock_city.json", "utf8")) as TiledMap);
 
+const tripDoc = {
+  id: "solar",
+  title_he: "מערכת השמש",
+  zones: [
+    { id: "moon", title_he: "הירח", map: "space_moon", start: { x: 4, y: 9 }, cost: 10, monsters: ["agnite"] },
+    { id: "sun", title_he: "ליד השמש", map: "space_sun", unlock_level: 20, monsters: ["kroki"] },
+  ],
+};
+/** The game's data, with a trip file and one zone's map built (the other is "coming soon"). */
+const tripFetch: FetchJson = async (path) => {
+  if (path === "trips/solar.json") return tripDoc;
+  if (path === "maps/space_moon.json") return {};
+  if (path.startsWith("maps/space_")) throw new Error("404");
+  return fetchJson(path);
+};
+
 afterEach(cleanup);
 
 const settle = (ms = 0) => act(() => new Promise((r) => setTimeout(r, ms)));
 
 /** The map with a stand-in scene: it opens Hearthrock and reports who stands in front. */
-async function start({ grade = 2, settings = defaultsForGrade(2).settings as JsonObject, world = null as JsonObject | null, menuFirst = false, fresh = false } = {}) {
+async function start({ grade = 2, settings = defaultsForGrade(2).settings as JsonObject, world = null as JsonObject | null, menuFirst = false, fresh = false, trips = false } = {}) {
   // the test seed: the question showing can be read (window.__nagmonQuiz)
   localStorage.setItem("nagmon.quiz.seed", "3");
   const fs = new MemoryFileStore();
@@ -48,6 +64,7 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
           paused: false,
           destroy: () => calls.push("destroy"),
           debug: () => null,
+          goTo: (map: string, at: unknown) => (calls.push(`goTo ${map} ${JSON.stringify(at)}`), true),
         };
       },
     }) as unknown as typeof import("../../../src/game/mapGame");
@@ -62,7 +79,7 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
       openPlay={async (o) => {
         // the child opens the menu before the play has loaded
         if (menuFirst) await new Promise((r) => setTimeout(r, 60));
-        return openPlay({ ...o, fetchJson, seed: 3 });
+        return openPlay({ ...o, fetchJson: trips ? tripFetch : fetchJson, seed: 3 });
       }}
     />,
   );
@@ -383,5 +400,63 @@ describe("a wild creature in the grass", () => {
     await settle(20);
     await act(async () => m.opts().onStep?.(5, 8));
     expect(m.q("[data-screen=battle]")).toBeNull();
+  });
+});
+
+describe("Mila's vehicle and the bestiary", () => {
+  const partner = { creatures: [{ id: "c1", species: "agnite", level: 6, xp: 0 }], seen: ["agnite"], caught: ["agnite"] };
+
+  it("with no trip file there is no vehicle in the menu, and the bestiary is there", async () => {
+    const m = await start({ world: partner });
+    await m.press("map_menu");
+    expect(m.el("map_trips")).toBeNull();
+    expect(m.el("map_bestiary")).not.toBeNull();
+    expect(m.el("menu_progress")).toBeNull();
+  });
+
+  it("lists the zones: open with a price, locked by level, coming soon; the menu shows the progress", async () => {
+    const m = await start({ world: partner, trips: true });
+    await m.press("map_menu");
+    expect(m.el("menu_progress")?.textContent).toContain("0%");
+    await m.press("map_trips");
+    expect(m.el("zone_moon")?.dataset.state).toBe("open");
+    expect(m.el("zone_moon")?.textContent).toContain("10 מטבעות");
+    expect(m.el("zone_sun")?.dataset.state).toBe("soon");
+    expect(m.el("zone_sun")?.disabled).toBe(true);
+  });
+
+  it("too few coins: told how many are missing, nothing taken, nowhere to go", async () => {
+    const m = await start({ world: { ...partner, money: 4 }, trips: true });
+    await m.press("map_menu");
+    await m.press("map_trips");
+    await m.press("zone_moon");
+    expect(m.el("trips_message")?.textContent).toContain("6");
+    expect(m.calls.some((c) => c.startsWith("goTo"))).toBe(false);
+    expect(m.el("trips_coins")?.textContent).toContain("4");
+  });
+
+  it("with the coins: pays, saves, logs the purchase, closes the menu and goes", async () => {
+    const m = await start({ world: { ...partner, money: 25 }, trips: true });
+    await m.press("map_menu");
+    await m.press("map_trips");
+    await m.press("zone_moon");
+    await settle(10);
+    expect(m.calls).toContain('goTo space_moon {"x":4,"y":9}');
+    expect(m.q("[data-screen=map-menu]")).toBeNull();
+    await pendingWrites(m.fs);
+    const world = await m.profiles.loadWorldDict(m.profile.id);
+    expect(world["money"]).toBe(15);
+    expect((world["trips"] as { visited: string[] }).visited).toEqual(["solar/moon"]);
+  });
+
+  it("the bestiary shows what was met by name and the rest as unknown", async () => {
+    const m = await start({ world: partner });
+    await m.press("map_menu");
+    await m.press("map_bestiary");
+    expect(m.el("bestiary_count")?.textContent).toMatch(/נתפסו 1/);
+    expect(m.container.querySelector('[data-species="agnite"]')?.textContent).toContain("אגנייט");
+    expect(m.container.querySelector('[data-species="kroki"]')?.className).toContain("unknown");
+    await m.press("bestiary_close");
+    expect(m.q("[data-screen=map-menu]")).not.toBeNull();
   });
 });
