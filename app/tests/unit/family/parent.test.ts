@@ -269,10 +269,11 @@ describe("PIN", () => {
 
   it("rehashes a PIN saved with fewer iterations", SLOW, async () => {
     await store.setPin("1234");
-    // An older file: the same PIN hashed with the minimum count.
-    store.settings.pinIterations = MIN_PBKDF2_ITERATIONS;
-    store.settings.pinHash = await hashPin("1234", hexToBytes(store.settings.pinSalt!), MIN_PBKDF2_ITERATIONS);
-    await store.save();
+    // An older file: the same PIN hashed with the minimum count. The PIN
+    // fields belong to the file, so the test writes the file itself.
+    const data = (await readJson(fs, "parent.json")).data!;
+    const pinHash = await hashPin("1234", hexToBytes(String(data.pin_salt)), MIN_PBKDF2_ITERATIONS);
+    await writeJson(fs, "parent.json", { ...data, pin_iterations: MIN_PBKDF2_ITERATIONS, pin_hash: pinHash });
     const s2 = await ParentStore.open(fs, { clock: clock.now, iterations: MIN_PBKDF2_ITERATIONS + 1 });
     expect((await s2.verifyPin("1234")).ok).toBe(true);
     expect(s2.settings.pinIterations).toBe(MIN_PBKDF2_ITERATIONS + 1);
@@ -314,18 +315,59 @@ describe("PIN, from the review of app/family", () => {
     const s2 = await ParentStore.open(fs, { onWarning: (m) => warnings.push(m) });
     expect(s2.hasPin()).toBe(false);
     expect(warnings.join()).toMatch(/PIN/);
+    expect(s2.pinDropped).toBe("iterations"); // the UI tells the parent
     expect((await s2.verifyPin("1234")).ok).toBe(false); // resolves, never rejects
     await s2.setPin("5678"); // the parent can set a new one
+    expect(s2.pinDropped).toBeNull();
     expect((await s2.verifyPin("5678")).ok).toBe(true);
   }, 60_000);
+
+  it("a store already open notices a dropped PIN at its next check", SLOW, async () => {
+    await store.setPin("1234");
+    const data = (await readJson(fs, "parent.json")).data!;
+    await writeJson(fs, "parent.json", { ...data, pin_salt: "00" });
+    expect(store.pinDropped).toBeNull();
+    expect((await store.verifyPin("1234")).ok).toBe(false);
+    expect(store.pinDropped).toBe("salt");
+  });
+
+  it("an upper-case hex hash still verifies", SLOW, async () => {
+    await store.setPin("1234");
+    const data = (await readJson(fs, "parent.json")).data!;
+    await writeJson(fs, "parent.json", {
+      ...data,
+      pin_hash: String(data.pin_hash).toUpperCase(),
+      pin_salt: String(data.pin_salt).toUpperCase(),
+    });
+    const s2 = await ParentStore.open(fs);
+    expect(s2.pinDropped).toBeNull();
+    expect((await s2.verifyPin("1234")).ok).toBe(true);
+  });
+
+  it("saving other settings from an older store keeps the PIN and the count", SLOW, async () => {
+    const settingsScreen = await ParentStore.open(fs, { clock: clock.now, iterations: MIN_PBKDF2_ITERATIONS });
+    const pinScreen = await ParentStore.open(fs, { clock: clock.now, iterations: MIN_PBKDF2_ITERATIONS });
+    await pinScreen.setPin("1234");
+    for (let i = 0; i < 4; i++) await pinScreen.verifyPin("0000");
+    settingsScreen.settings.shabbatMode = false;
+    await settingsScreen.save();
+    const after = await ParentStore.open(fs, { clock: clock.now });
+    expect(after.hasPin()).toBe(true);
+    expect(after.settings.shabbatMode).toBe(false);
+    expect(after.settings.failedAttempts).toBe(4);
+    expect((await after.verifyPin("0000")).locked).toBe(true);
+  });
 
   it("a malformed salt or hash drops the PIN too", async () => {
     await store.setPin("1234");
     const data = (await readJson(fs, "parent.json")).data!;
     await writeJson(fs, "parent.json", { ...data, pin_salt: "zz" });
-    expect((await ParentStore.open(fs)).hasPin()).toBe(false);
+    expect((await ParentStore.open(fs)).pinDropped).toBe("salt");
     await writeJson(fs, "parent.json", { ...data, pin_hash: "abc" });
-    expect((await ParentStore.open(fs)).hasPin()).toBe(false);
+    const s = await ParentStore.open(fs);
+    expect(s.hasPin()).toBe(false);
+    expect(s.pinDropped).toBe("hash");
+    expect(store.pinDropped).toBeNull();
   }, 60_000);
 
   it("changing the PIN while locked says locked", SLOW, async () => {
