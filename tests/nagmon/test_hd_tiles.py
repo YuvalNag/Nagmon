@@ -112,6 +112,7 @@ def _toy_tileset(tools, frames=None):
         y, x = divmod(tid, 2)
         sheet[y * 4 : y * 4 + 4, x * 4 : x * 4 + 4] = c
     sheet[4, 4] = (200, 200, 200, 255)  # tile 3: one odd pixel, top left
+    sheet[5, 1] = 0  # tile 2: one transparent pixel
     return ts, sheet
 
 
@@ -125,6 +126,8 @@ def test_frame_takes_the_map_neighbour_or_the_sheet(tools):
     chosen = {
         ("toy", 0, (-1, 0)): ("toy", 3, up.FLIP_H),  # left: tile 3 flipped
         ("toy", 0, (0, 1)): None,  # below: nothing
+        ("toy", 0, (1, 1)): None,  # below right: nothing
+        ("toy", 2, (1, 0)): None,  # right of the see-through tile
     }
     framed = up.framed_tiles(ts, sheet, chosen, pixels_of)
     assert framed.shape == (4, 8, 8, 4)
@@ -134,11 +137,14 @@ def test_frame_takes_the_map_neighbour_or_the_sheet(tools):
     # left: the right strip of tile 3 mirrored, so its odd pixel is there
     assert tuple(f[2, 1]) == (200, 200, 200, 255)
     assert tuple(f[3, 1]) == (9, 9, 9, 255)
-    # below: transparent
-    assert (f[6:, 2:6] == 0).all()
+    # below, below right: nothing, and the tile is opaque: its own edge
+    # repeated, not tile 3's odd pixel from the sheet
+    assert (f[6:, 2:] == (255, 0, 0, 255)).all()
     # right: from the sheet (tile 1); above: outside the sheet
     assert (f[2:6, 6:] == (0, 255, 0, 255)).all()
     assert (f[:2, 2:6] == 0).all()
+    # a tile with a see-through pixel: nothing is transparent
+    assert (framed[2][2:6, 6:] == 0).all()
 
 
 def test_frame_skips_a_neighbour_of_another_tile_size(tools):
@@ -232,7 +238,7 @@ def test_neighbour_counts_on_a_small_map(tools, tmp_path):
     assert chosen[("toy", 0, (0, 1))] is None
 
 
-# ------------------------------------------------------ 55 the game files
+# -------------------------------------------------- 55, 67 the game files
 
 
 @pytest.fixture(scope="module")
@@ -263,8 +269,33 @@ def test_hd_tilesets_are_what_the_tool_makes(tools, neighbours, name):
     assert path.is_file(), "run tools/art/upscale_tiles.py"
     on_disk = tools.up.load_rgba(path, clean=False)
     assert on_disk.shape == (ts.size[1] * 4, ts.size[0] * 4, 4)
-    built = tools.up.upscale(name, 4, chosen, sheets)
-    assert (on_disk == built).all(), f"{path}: re-run upscale_tiles.py"
+    why = tools.up.stale(name, chosen, sheets)
+    assert why is None, why
+
+
+def test_a_map_edit_says_to_rebuild_the_sheets(tools, tmp_path):
+    up = tools.up
+    tiles = tmp_path / up.TSX_DIR
+    tiles.mkdir(parents=True)
+    (tiles / "toy.tsx").write_text(
+        '<tileset name="toy" tilewidth="4" tileheight="4" tilecount="4"'
+        ' columns="2"><image source="toy.png" width="8" height="8"/>'
+        "</tileset>"
+    )
+    _, sheet = _toy_tileset(tools)
+    up.save(sheet, tiles / "toy.png")
+    sheets = up.Sheets(tmp_path)
+    out = up.output_path("toy", tmp_path)
+    up.save(up.upscale("toy", 4, {}, sheets), out)
+    assert up.stale("toy", {}, sheets, tmp_path) is None
+    # a map now puts tile 3 left of tile 0
+    moved = {("toy", 0, (-1, 0)): ("toy", 3, 0)}
+    why = up.stale("toy", moved, sheets, tmp_path)
+    assert why == f"{out}: maps changed: re-run tools/art/upscale_tiles.py"
+    out.unlink()
+    assert up.stale("toy", {}, sheets, tmp_path).endswith(
+        "missing: run tools/art/upscale_tiles.py"
+    )
 
 
 # --------------------------------------------------- 56-57, 64 the loader

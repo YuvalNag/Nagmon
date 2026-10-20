@@ -318,7 +318,9 @@ def framed_tiles(
 ) -> np.ndarray:
     """
     Every tile of the sheet in a PAD-pixel frame: its neighbours on the
-    sheet, except on each side where the maps choose one.
+    sheet, except on each side where the maps choose one. Where they
+    choose nothing, a tile with no see-through pixel repeats its own
+    edge, so xBRZ rounds no corner into the transparency.
     Returns (count, t + 2 PAD, t + 2 PAD, 4).
     """
     t, p = ts.tile, PAD
@@ -330,18 +332,27 @@ def framed_tiles(
     for tid in range(ts.count):
         y, x = divmod(tid, ts.columns)
         out[tid] = padded[y * t : y * t + t + 2 * p, x * t : x * t + t + 2 * p]
+        own = out[tid, p : p + t, p : p + t]
+        clamped = (
+            np.pad(own, ((p, p), (p, p), (0, 0)), mode="edge")
+            if (own[..., 3] == 255).all()
+            else None
+        )
         for d in DIRECTIONS:
             key = (ts.name, tid, d)
             if key not in chosen:
                 continue
             n = chosen[key]
+            y0, y1, ny0, ny1 = _span(d[1], t, p)
+            x0, x1, nx0, nx1 = _span(d[0], t, p)
+            if n is None and clamped is not None:
+                out[tid, y0:y1, x0:x1] = clamped[y0:y1, x0:x1]
+                continue
             block = (
                 empty if n is None else flipped(pixels_of(n[0], n[1]), n[2])
             )
             if block.shape != empty.shape:
                 continue  # a tileset with another tile size: the sheet
-            y0, y1, ny0, ny1 = _span(d[1], t, p)
-            x0, x1, nx0, nx1 = _span(d[0], t, p)
             out[tid, y0:y1, x0:x1] = block[ny0:ny1, nx0:nx1]
     return out
 
@@ -404,6 +415,27 @@ def upscale(
 
 def output_path(name: str, repo: Path = REPO) -> Path:
     return repo / OUT_DIR / f"{name}.png"
+
+
+def stale(
+    name: str,
+    chosen: dict[Key, Tile | None],
+    sheets: Sheets,
+    repo: Path = REPO,
+) -> str | None:
+    """
+    None when the HD sheet on disk is what the tool makes now from the
+    sheets and the maps; otherwise what to do. An edited TMX can change
+    a common neighbour, and then the sheets must be made again.
+    """
+    path = output_path(name, repo)
+    if not path.is_file():
+        return f"{path}: missing: run tools/art/upscale_tiles.py"
+    on_disk = load_rgba(path, clean=False)
+    built = upscale(name, K, chosen, sheets)
+    if on_disk.shape != built.shape or (on_disk != built).any():
+        return f"{path}: maps changed: re-run tools/art/upscale_tiles.py"
+    return None
 
 
 def save(rgba: np.ndarray, path: Path) -> None:
