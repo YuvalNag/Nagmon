@@ -18,7 +18,6 @@ from tuxemon.db import (
 from tuxemon.graphics import (
     HD_TWIN_FACTOR,
     fetch_hd_twin,
-    load_and_scale,
     load_native_or_hd,
     load_raw_image,
     scale_surface,
@@ -297,7 +296,12 @@ class Environment:
         native_h = source.get_height() // k
         base_h = native_h * scale_int
         if native_w * scale_int >= full_width:
-            surf = load_and_scale(graphics.background, scale_int)
+            # as load_and_scale does, without loading it again
+            surf = (
+                smooth_resize(source, (native_w * scale_int, base_h))
+                if k > 1
+                else scale_surface(source, scale_int)
+            )
             top = 0
         else:
             height = round(native_h * full_width / native_w)
