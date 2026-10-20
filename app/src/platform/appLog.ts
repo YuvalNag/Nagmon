@@ -280,9 +280,12 @@ export async function installAppLog(fs: FileStore, options: InstallOptions = {})
   if (current) return current;
   const clock = options.clock ?? (() => new Date());
   const ring = new RingLog({ secrets: options.secrets, names: options.names, clock });
-  await ring.refreshSecrets();
-  if (current) return current; // another install won the race
+  // Not waited for: the Keystore can take a second on its first use, and
+  // the start must not. Lines written before it answers are hidden then,
+  // and a save always waits for it.
+  void ring.refreshSecrets();
   const previous = await ring.load(fs, LOG_FILE);
+  if (current) return current; // another install won the race
   const info: Record<string, string> = { ...(options.details ?? buildInfo()) };
   info.device ??= typeof navigator === "undefined" ? "unknown" : navigator.userAgent;
   const ended = previous === null ? "none (first run)" : (ENDINGS[previous] ?? "unknown");

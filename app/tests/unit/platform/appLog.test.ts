@@ -260,6 +260,18 @@ describe("the app's log", () => {
     expect(currentAppLog()).toBeNull();
   });
 
+  it("does not wait for slow keys (the Keystore's first use), and still hides them", async () => {
+    const fs = new MemoryFileStore();
+    let answer!: (keys: string[]) => void;
+    const keys = new Promise<string[]>((r) => (answer = r));
+    const r = await installAppLog(fs, { clock, secrets: () => keys });
+    getLogger("nagmon.x").warning(`early ${SAVED}`);
+    answer([SAVED]);
+    await r.save(fs, LOG_FILE);
+    expect(r.text()).not.toContain(SAVED);
+    expect(await fs.readText(LOG_FILE)).not.toContain(SAVED);
+  });
+
   it("the first run says so", async () => {
     const r = await installAppLog(new MemoryFileStore(), { clock });
     expect(r.lines().find((l) => l.startsWith("=== Nagmon"))).toContain("previous exit: none (first run)");

@@ -12,6 +12,7 @@ import { createFileStore } from "./platform/storage";
 import { installTapTiming } from "./platform/tapTiming";
 import "./styles.css";
 
+performance.mark("nagmon:script");
 const log = getLogger("nagmon.start");
 const root = createRoot(document.getElementById("root")!);
 const fs = createFileStore();
@@ -54,16 +55,37 @@ const reporter = new CrashReporter(new CrashReports(fs), {
   warn: (message) => log.warning(message),
 });
 
+/** How long the start took, ms from the page's own start: in the log, and read by the emulator check. */
+function startTimes(): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const m of performance.getEntriesByType("mark")) {
+    if (m.name.startsWith("nagmon:")) out[m.name.slice(7)] = Math.round(m.startTime);
+  }
+  return out;
+}
+(globalThis as { __startTimes?: () => object }).__startTimes = startTimes;
+
+function noteStarted(): void {
+  reportStarted();
+  performance.mark("nagmon:started");
+  log.info(`Started: ${Object.entries(startTimes()).map(([k, v]) => `${k} ${v} ms`).join(", ")}`);
+}
+
 async function main(): Promise<void> {
+  // the data files are read while the log starts (both wait on the disk);
+  // a failure is reported below, by the crash reporter
+  const opening = openServices(fs);
+  opening.catch(() => undefined);
   // the font size is set before the first screen, so nothing jumps
-  await Promise.all([startLog(), applySystemFontScale()]);
+  await Promise.all([startLog().then(() => performance.mark("nagmon:log")), applySystemFontScale()]);
   // errors after the first go to the log only (one report per session)
   installCrashHandlers(reporter, { onLater: (text) => log.error(text) });
   const started = await reporter.run(async () => {
-    services = await openServices(fs);
+    services = await opening;
+    performance.mark("nagmon:services");
     root.render(
       <StrictMode>
-        <App services={services} onStarted={() => requestAnimationFrame(reportStarted)} />
+        <App services={services} onStarted={() => requestAnimationFrame(noteStarted)} />
       </StrictMode>,
     );
   });
