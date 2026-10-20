@@ -866,8 +866,8 @@ msgstr "Multivolt"
 msgid "multivolt_description"
 msgstr "זנב הברק שלו גדל עם כל תרגיל שפתר."
 
-msgid "cat_volt_cross"
-msgstr "צלב ברקים"
+msgid "cat_volt_plus"
+msgstr "פלוס ברקים"
 
 msgid "flaskling"
 msgstr "Flaskling"

@@ -485,3 +485,65 @@ def test_route_1_also_meets_pluson_and_flaskling(moddata):
     rates = {m.monster: m.encounter_rate for m in table}
     assert rates["pluson"] == rates["flaskling"] == 1
     assert rates["geometrion"] == rates["alphabel"] == 2
+
+
+# ------------------------------------- review: words fit for children
+
+
+def _base_po(locale: str) -> dict[str, str]:
+    from babel.messages.pofile import read_po
+
+    path = TUXEMON / "l18n" / locale / "LC_MESSAGES" / "base.po"
+    with path.open("rb") as fh:
+        return {m.id: m.string for m in read_po(fh) if m.id}
+
+
+NOT_FOR_CHILDREN = {
+    "en_US": (
+        "strangul",
+        "undertaker",
+        "curse",
+        "mob",
+        "stab",
+        "bullet",
+        "flamethrower",
+        "kill",
+        "blood",
+        "death",
+        "wicked",
+        "murder",
+        "choke",
+        "poison",
+        "gun",
+        "cross",
+    ),
+    "he_IL": ("חנק", "קבר", "קללה", "מוות", "הרג", "דם", "לפיתה", "צלב"),
+}
+
+
+def test_the_new_monsters_and_their_moves_use_gentle_words(moddata):
+    slugs = [m for fam in BATCH3_FAMILIES for m in fam[:2]] + NEW_MONSTERS
+    bad = []
+    for locale, words in NOT_FOR_CHILDREN.items():
+        base = _base_po(locale)
+        for slug in slugs:
+            monster = moddata.database["monster"][slug]
+            keys = [slug, f"{slug}_description", f"cat_{monster.species}"]
+            keys += [m.technique for m in monster.moveset]
+            for key in keys:
+                text = (po(locale).get(key) or base.get(key) or "").lower()
+                bad += [
+                    f"{locale} {slug}: {key}={text}"
+                    for w in words
+                    if w in text
+                ]
+    assert not bad, bad
+
+
+def test_multivolt_is_a_volt_plus(moddata):
+    # Not a "cross": a plus sign, the family's own words.
+    assert moddata.database["monster"]["multivolt"].species == "volt_plus"
+    assert po("en_US")["cat_volt_plus"] == "Volt Plus"
+    assert po("he_IL")["cat_volt_plus"] == "פלוס ברקים"
+    for locale in ("en_US", "he_IL"):
+        assert "cat_volt_cross" not in po(locale)

@@ -1,6 +1,6 @@
 # Multivolt: evolution of Pluson, math: lightning/fire (docs/kids/SDD_ART.md §2.10).
 slug: multivolt
-species: volt_cross
+species: volt_plus
 moveset:
 - level_learned: 1
   technique: struggle
