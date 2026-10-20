@@ -1,6 +1,6 @@
-import { type MutableRefObject, useCallback, useEffect, useRef, useState } from "react";
+import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Play, PlayOptions } from "../../app/play";
-import { TALK_TO, testSeed } from "../../app/playConfig";
+import { TALK_TO, testAlwaysEncounter, testSeed, testStartMap } from "../../app/playConfig";
 import type { Profile, ProfileStore } from "../../core/family/profiles";
 import { crumb } from "../../core/game/breadcrumb";
 import { FieldLog } from "../../core/game/fieldLog";
@@ -16,7 +16,10 @@ import { getLogger } from "../../platform/appLog";
 import { Dialog } from "../Dialog";
 import { DPad } from "../DPad";
 import { DpadState } from "../dpadState";
+import { partner as partnerOf } from "../../core/game/collection";
+import { Encounters, type Wild } from "../../core/game/encounters";
 import { introNeeded } from "../../core/game/intro";
+import { BattleScreen } from "../BattleScreen";
 import { IntroScreen } from "../IntroScreen";
 import { QuizScreen } from "../QuizScreen";
 import { ScreenTime } from "../screenTime";
@@ -96,6 +99,10 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   const [coins, setCoins] = useState<number | null>(null);
   // the owl's intro, for a child who has not had it: placement, then the choice of a creature
   const [intro, setIntro] = useState(false);
+  // a wild creature met in the grass: one friendly battle
+  const [battle, setBattle] = useState<{ wild: Wild; map: string } | null>(null);
+  const battleLeave = useRef<(() => void) | null>(null);
+  const stepRef = useRef<(x: number, y: number) => void>(() => {});
   // the runner's own state changed (it started, a talk ended): draw again
   const [, setRunnerTick] = useState(0);
   const seq = useRef(0);
@@ -135,6 +142,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           parent: stage.current,
           avatar,
           lifecycle,
+          map: testStartMap(),
           clock: () => gameClock.now(),
           input: () => dpad.take(),
           release: () => dpad.clear(),
@@ -157,7 +165,10 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             crumb.position(w.name, w.start?.x ?? 0, w.start?.y ?? 0);
             setWorld(w);
           },
-          onStep: (x, y) => crumb.position(lastMap.current ?? "none", x, y),
+          onStep: (x, y) => {
+            crumb.position(lastMap.current ?? "none", x, y);
+            stepRef.current(x, y);
+          },
           onBlocked: () => setNote((n) => n + 1),
           onReady: () => alive && setStatus("ready"),
           onError: () => alive && setStatus("failed"),
@@ -241,6 +252,23 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     };
   }, [play, world, intro]);
 
+  const encounters = useMemo(
+    () =>
+      play
+        ? new Encounters({
+            tables: play.encounters,
+            monsters: play.monsters,
+            // by day from six in the morning to six in the evening, by the phone's clock
+            daytime: () => {
+              const h = new Date().getHours();
+              return h >= 6 && h < 18;
+            },
+            always: testAlwaysEncounter(),
+          })
+        : null,
+    [play],
+  );
+
   const closeOverlay = useCallback(() => {
     const o = shown.current;
     shown.current = null;
@@ -270,7 +298,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   }, [ctl, menuOpen]);
 
   // a talk holds it still too (the d-pad lets go), with the music on
-  const held = talking || overlay !== null || intro;
+  const held = talking || overlay !== null || intro || battle !== null;
   useEffect(() => {
     if (!ctl || !held) return;
     ctl.pause("talk");
@@ -282,6 +310,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     backRef.current = () => {
       if (status === "failed") onExit();
       else if (menuOpen) closeMenu();
+      else if (battle) battleLeave.current?.();
       else if (intro) dialogAdvance.current?.();
       else if (overlay?.kind === "dialog") dialogAdvance.current?.();
       else if (overlay?.kind === "quiz") closeOverlay();
@@ -291,7 +320,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     return () => {
       backRef.current = null;
     };
-  }, [backRef, menuOpen, openMenu, closeMenu, status, onExit, overlay, held, closeOverlay, intro]);
+  }, [backRef, menuOpen, openMenu, closeMenu, status, onExit, overlay, held, closeOverlay, intro, battle]);
 
   useEffect(() => {
     if (!note) return;
@@ -301,8 +330,19 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
 
   // the last screen, for the parent's "something is wrong"
   useEffect(() => {
-    crumb.screen(menuOpen ? "menu" : intro ? "intro" : overlay ? overlay.kind : "map");
-  }, [menuOpen, overlay, intro]);
+    crumb.screen(menuOpen ? "menu" : intro ? "intro" : battle ? "battle" : overlay ? overlay.kind : "map");
+  }, [menuOpen, overlay, intro, battle]);
+
+  // a step in the grass may meet a wild creature (not while the map is held: a talk, the owl, the menu)
+  stepRef.current = (x, y) => {
+    if (!play || !world || !encounters || held || menuOpen) return;
+    const mine = partnerOf(play.world);
+    if (!mine) return;
+    const wild = encounters.step(world, x, y, mine.level);
+    if (!wild) return;
+    dpad.clear();
+    setBattle({ wild, map: world.name });
+  };
 
   const canTalk = !held && !!facing && !!runner && runner.talkable(facing);
 
@@ -325,7 +365,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           </Tap>
         </div>
       )}
-      {status === "ready" && coins !== null && overlay?.kind !== "quiz" && !intro && (
+      {status === "ready" && coins !== null && overlay?.kind !== "quiz" && !intro && !battle && (
         <p className="map-coins" data-id="coins" data-coins={coins} role="status" aria-label={t("mapCoins", { coins })}>
           <Coin />
           <span>{coins}</span>
@@ -363,6 +403,19 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       )}
       {intro && play && !menuOpen && status === "ready" && (
         <IntroScreen play={play} advanceRef={dialogAdvance} onChanged={() => setCoins(play.world.money)} onDone={() => setIntro(false)} />
+      )}
+      {battle && play && !menuOpen && status === "ready" && (
+        <BattleScreen
+          play={play}
+          wild={battle.wild}
+          map={battle.map}
+          leaveRef={battleLeave}
+          onChanged={() => setCoins(play.world.money)}
+          onDone={() => {
+            encounters?.reset();
+            setBattle(null);
+          }}
+        />
       )}
       {/* the pause menu, opened as the map came up, stays on top of a dialog that starts under it */}
       {overlay?.kind === "dialog" && !menuOpen && (

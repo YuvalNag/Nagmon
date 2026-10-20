@@ -15,7 +15,7 @@ beforeAll(() => {
 const monsters = monsterTable(gameJson("db/monsters.json"));
 const subjects = SubjectMap.fromDoc(gameJson("content/subjects.json"));
 
-function make(over: { partner?: number; wild?: number; species?: string; world?: WorldState } = {}) {
+function make(over: { partner?: number; wild?: number; species?: string; world?: WorldState; master?: boolean } = {}) {
   const world = over.world ?? new WorldState();
   if (!over.world) addCreature(world, "agnite", over.partner ?? 6);
   const lines: string[] = [];
@@ -31,6 +31,7 @@ function make(over: { partner?: number; wild?: number; species?: string; world?:
     maxChoices: null,
     field: new FieldLog({ info: (m) => lines.push(m) }),
     onChange: () => changes++,
+    ...(over.master ? { master: true } : {}),
   });
   return { battle, world, lines, changes: () => changes };
 }
@@ -100,6 +101,29 @@ describe("a battle", () => {
     expect(changes()).toBeGreaterThan(0);
     const c = world.creatures[0]!;
     expect(c.level > level || c.xp > 0).toBe(true);
+  });
+
+  it("a right answer also pays coins, a wrong one nothing, and coins are never taken", () => {
+    const { battle, world } = make();
+    const wrong = play(battle, false);
+    expect(wrong.coins).toBe(0);
+    expect(world.money).toBe(0);
+    const right = play(battle, true);
+    expect(right.coins).toBeGreaterThanOrEqual(1);
+    expect(world.money).toBe(right.coins);
+    play(battle, false);
+    expect(world.money).toBe(right.coins);
+  });
+
+  it("a master's test has twice the health, and winning it gives no creature: the badge is the prize", () => {
+    const plain = make({ wild: 12 });
+    const master = make({ wild: 12, master: true });
+    expect(master.battle.maxHp).toBe(2 * plain.battle.maxHp);
+    let r = play(master.battle, true);
+    for (let i = 0; i < 40 && !r.won; i++) r = play(master.battle, true);
+    expect(r.won).toBe(true);
+    expect(r.caught).toBeNull();
+    expect(master.world.creatures).toHaveLength(1);
   });
 
   it("is only seen, not caught, when the child goes on their way", () => {

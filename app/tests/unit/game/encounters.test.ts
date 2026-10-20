@@ -70,6 +70,13 @@ describe("meeting wild creatures", () => {
     for (const x of n) expect(only(true).has(x)).toBe(false);
   });
 
+  it("the test hook meets one at every step in the grass, and still none outside it", () => {
+    const e = new Encounters({ tables, monsters, always: true });
+    expect(e.step(route, 5, 8, 6)).not.toBeNull();
+    expect(e.step(route, 5, 8, 6)).not.toBeNull();
+    expect(e.step(route, 0, 0, 6)).toBeNull();
+  });
+
   it("its level follows the child's partner: two below to three above, never below 2", () => {
     expect(wildLevel([5, 8], 6, () => 0)).toBe(5);
     expect(wildLevel([5, 8], 6, () => 0.999)).toBe(8);

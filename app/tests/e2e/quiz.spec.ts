@@ -1,4 +1,4 @@
-import { answer, coins, debug, id, openMap, PID, quiz, readDialog, saved, seedChild, toCashier } from "./cashier";
+import { answer, coins, debug, id, openMap, PID, quiz, readDialog, saved, seedChild, steps, toCashier } from "./cashier";
 import { expect, test } from "./fixtures";
 import { responseTimes, touch, watchEventTiming } from "./touch";
 
@@ -222,4 +222,47 @@ test("the owl's intro: questions in different subjects, then a choice of one of 
   expect(learner["answers_total"]).toBe(6);
   expect(Object.keys(learner["subject_grade"] as object).length).toBeGreaterThanOrEqual(5);
   expect((await saved(page, "saves/world.json"))?.["variables"]).toMatchObject({ nagmon_intro_done: "yes" });
+});
+
+test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody, a right one wins a friend", async ({ page }, info) => {
+  const shot = (name: string) => page.screenshot({ path: info.outputPath(`${name}.png`) });
+  await seedChild(page, { grade: 2, battle: true });
+  await openMap(page);
+  expect((await debug(page))!.map).toBe("classic_route_1");
+  // one step into the grass
+  await steps(page, "right", 1);
+  const battle = page.locator("[data-screen=battle]");
+  await expect(battle).toBeVisible();
+  await expect(battle).toHaveAttribute("data-view", "meet");
+  await expect(page.locator(id("dpad"))).toHaveCount(0);
+  await shot("b01_meet");
+  const hp0 = Number(await battle.getAttribute("data-hp"));
+  await touch(page, page.locator(id("battle_fight")));
+
+  // a wrong answer: nobody is hurt
+  await answer(page, "dont_know");
+  await shot("b02_feedback_wrong");
+  await touch(page, page.locator(id("quiz_continue")));
+  await expect(battle).toHaveAttribute("data-view", "turn");
+  await expect(page.locator(id("battle_message"))).toContainText("אף אחד לא נפגע");
+  expect(Number(await battle.getAttribute("data-hp"))).toBe(hp0);
+  await shot("b03_no_damage");
+
+  // right answers win it
+  for (let i = 0; i < 12 && (await battle.getAttribute("data-view")) !== "won"; i++) {
+    await touch(page, page.locator(id("battle_next")));
+    await answer(page, "right");
+    await touch(page, page.locator(id("quiz_continue")));
+    await expect(battle).toHaveAttribute("data-view", /turn|won/);
+    if (i === 0) await shot("b04_hit");
+  }
+  await expect(battle).toHaveAttribute("data-view", "won");
+  expect(Number(await battle.getAttribute("data-hp"))).toBe(0);
+  await shot("b05_friend");
+  await touch(page, page.locator(id("battle_done")));
+  await expect(battle).toHaveCount(0);
+  await expect(page.locator(id("dpad"))).toBeVisible();
+  const world = (await saved(page, "saves/world.json"))!;
+  expect((world["creatures"] as unknown[]).length).toBe(2);
+  expect((world["caught"] as string[]).length).toBe(2);
 });

@@ -37,6 +37,10 @@ export interface Turn {
   damage: number;
   won: boolean;
   growth: Growth;
+  /** Coins this answer paid (right answers only). */
+  coins: number;
+  /** The partner's species before this answer (it may have evolved on it). */
+  partnerBefore: string;
   /** The creature that joined the child, when this answer won. */
   caught: Creature | null;
 }
@@ -50,6 +54,8 @@ export interface BattleOptions {
   clock: () => number;
   maxChoices: number | null;
   field: FieldLog;
+  /** A master's test: twice the health, and the prize is a badge, not a creature. */
+  master?: boolean;
   /** The creatures or the learner changed: save them. */
   onChange: () => void;
   warn?: (message: string) => void;
@@ -71,7 +77,7 @@ export class Battle {
     const p = partnerOf(o.world);
     if (!p) throw new Error("no partner to battle with");
     this.partner = p;
-    this.maxHp = hpFor(o.wild.level);
+    this.maxHp = hpFor(o.wild.level) * (o.master ? 2 : 1);
     this.hp = this.maxHp;
     const info = o.monsters[o.wild.species];
     this.subject = o.subjects.subjectFor(info?.types ?? [], null, o.wild.species);
@@ -89,7 +95,7 @@ export class Battle {
         this.o.engine,
         { topic: this.subject, context: "battle", maxChoices: this.o.maxChoices },
         this.o.clock,
-        (outcome) => this.answered(session, outcome.correct, outcome.power_multiplier, outcome.quality === "super"),
+        (outcome) => this.answered(session, outcome.correct, outcome.power_multiplier, outcome.quality === "super", outcome.coins),
         this.o.warn,
       );
       if (session.question) return session;
@@ -97,14 +103,18 @@ export class Battle {
     return null;
   }
 
-  private answered(session: QuizSession, correct: boolean, multiplier: number, fast: boolean): void {
+  private answered(session: QuizSession, correct: boolean, multiplier: number, fast: boolean, earned: number): void {
     this.stats.questions++;
     this.stats.ms += session.elapsedMs;
     let damage = 0;
     let growth: Growth = { leveled: false, level: this.partner.level, evolvedTo: null };
     let caught: Creature | null = null;
+    let coins = 0;
+    const partnerBefore = this.partner.species;
     if (correct) {
       this.stats.correct++;
+      coins = Math.max(1, earned);
+      this.o.world.addMoney(coins);
       damage = Math.min(this.hp, damageFor(this.partner.level, multiplier));
       this.hp -= damage;
       growth = giveXp(this.o.world, this.partner.id, fast ? 2 : 1, this.o.monsters);
@@ -113,11 +123,11 @@ export class Battle {
     if (won) {
       this.phase = "won";
       this.o.world.seen.add(this.o.wild.species);
-      this.o.world.caught.add(this.o.wild.species);
-      if (this.o.world.creatures.length < MAX_CREATURES) caught = addCreature(this.o.world, this.o.wild.species, this.o.wild.level);
+      if (!this.o.master) this.o.world.caught.add(this.o.wild.species);
+      if (!this.o.master && this.o.world.creatures.length < MAX_CREATURES) caught = addCreature(this.o.world, this.o.wild.species, this.o.wild.level);
       this.end("won");
     }
-    this.last = { correct, damage, won, growth, caught };
+    this.last = { correct, damage, won, growth, coins, partnerBefore, caught };
     this.o.onChange();
   }
 

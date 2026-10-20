@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import type { Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
-import { answer, openMap, quiz, readDialog, seedChild, toCashier } from "./cashier";
+import { answer, openMap, quiz, readDialog, seedChild, steps, toCashier } from "./cashier";
 import { fitsAndSharp, touch, typeCode } from "./touch";
 
 /**
@@ -362,5 +362,38 @@ for (const scale of [1, 1.3]) {
     await readDialog(page);
     await expect(page.locator("[data-screen=intro-starters]")).toBeVisible();
     await audit(page, "33_starters", shot);
+  });
+}
+
+/** The battle's screens: the meeting, the question, the turn and the friend, at 100% and 130% text. */
+for (const scale of [1, 1.3]) {
+  test(`the battle's screens pass axe, 48dp and no clipping, at ${scale * 100}% text @map`, async ({ page }, info) => {
+    test.setTimeout(240_000);
+    await page.addInitScript((s) => {
+      const set = () => document.documentElement?.style.setProperty("--font-scale", String(s));
+      set();
+      document.addEventListener("DOMContentLoaded", set);
+    }, scale);
+    await seedChild(page, { grade: 2, battle: true });
+    const shot = (name: string) => page.screenshot({ path: info.outputPath(`${scale * 100}-battle-${name}.png`) });
+    await openMap(page);
+    await steps(page, "right", 1);
+    await expect(page.locator("[data-screen=battle][data-view=meet]")).toBeVisible();
+    await audit(page, "40_meet", shot);
+    await touch(page, page.locator(id("battle_fight")), 30);
+    if ((await quiz(page))!.phase === "example") await touch(page, page.locator(id("quiz_example_done")), 30);
+    await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
+    await audit(page, "41_question", shot);
+    await answer(page, "right");
+    await touch(page, page.locator(id("quiz_continue")), 30);
+    await expect(page.locator("[data-screen=battle][data-view=turn]")).toBeVisible();
+    await audit(page, "42_turn", shot);
+    for (let i = 0; i < 12 && (await page.locator("[data-screen=battle]").getAttribute("data-view")) !== "won"; i++) {
+      await touch(page, page.locator(id("battle_next")), 30);
+      await answer(page, "right");
+      await touch(page, page.locator(id("quiz_continue")), 30);
+    }
+    await expect(page.locator("[data-screen=battle][data-view=won]")).toBeVisible();
+    await audit(page, "43_friend", shot);
   });
 }

@@ -12,6 +12,7 @@ import { type JsonObject, MemoryFileStore, pendingWrites } from "../../../src/pl
 import { MapScreen } from "../../../src/ui/screens/MapScreen";
 
 const fetchJson: FetchJson = async (path) => JSON.parse(readFileSync(`public/game/${path}`, "utf8"));
+const route = readMap("classic_route_1", JSON.parse(readFileSync("public/game/maps/classic_route_1.json", "utf8")) as TiledMap);
 const city = readMap("classic_hearthrock_city", JSON.parse(readFileSync("public/game/maps/classic_hearthrock_city.json", "utf8")) as TiledMap);
 
 afterEach(cleanup);
@@ -295,5 +296,92 @@ describe("the owl's intro", () => {
     const m = await start();
     expect(m.q("[data-screen=intro-ask]")).toBeNull();
     expect(m.el("map_menu")).not.toBeNull();
+  });
+});
+
+describe("a wild creature in the grass", () => {
+  const withPartner = { creatures: [{ id: "c1", species: "agnite", level: 6, xp: 0 }], seen: ["agnite"], caught: ["agnite"] };
+
+  async function grass() {
+    localStorage.setItem("nagmon.encounter.always", "1");
+    const m = await start({ world: withPartner });
+    await act(async () => {
+      m.opts().onMap?.(route);
+    });
+    await settle(20);
+    return m;
+  }
+  afterEach(() => localStorage.removeItem("nagmon.encounter.always"));
+
+  it("a step in the grass meets one; the map holds still, and a step on the road does not", async () => {
+    const m = await grass();
+    await act(async () => m.opts().onStep?.(0, 0));
+    expect(m.q("[data-screen=battle]")).toBeNull();
+    await act(async () => m.opts().onStep?.(5, 8));
+    expect(m.q("[data-screen=battle]")?.dataset.view).toBe("meet");
+    expect(m.calls).toContain("pause talk");
+    expect(m.el("battle_fight")).not.toBeNull();
+    expect(m.el("battle_run")).not.toBeNull();
+    expect(m.el("dpad")).toBeNull();
+  });
+
+  it("going on one's way costs nothing, and the grass is quiet again for a while", async () => {
+    const m = await grass();
+    await act(async () => m.opts().onStep?.(5, 8));
+    await m.press("battle_run");
+    expect(m.q("[data-screen=battle]")).toBeNull();
+    expect(m.el("map_menu")).not.toBeNull();
+    await pendingWrites(m.fs);
+    expect(((await m.profiles.loadWorldDict(m.profile.id))["creatures"] as unknown[]).length).toBe(1);
+  });
+
+  it("wrong answers hurt nobody; right ones win, and the creature becomes a friend, saved", async () => {
+    const m = await grass();
+    await act(async () => m.opts().onStep?.(5, 8));
+    const wildSpecies = m.q("[data-screen=battle]")!.dataset.wild!;
+    await m.press("battle_fight");
+    // a wrong answer: no damage
+    if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
+    await m.press("quiz_dont_know");
+    await m.press("quiz_continue");
+    const full = Number(m.q("[data-screen=battle]")!.dataset.hp);
+    expect(m.q("[data-screen=battle]")?.dataset.view).toBe("turn");
+    expect(m.el("battle_message")?.textContent).toContain("אף אחד לא נפגע");
+    // right answers until it is won
+    for (let i = 0; i < 12 && m.q("[data-screen=battle]")?.dataset.view !== "won"; i++) {
+      await m.press("battle_next");
+      await answerQuestion(m, true);
+      await settle(5);
+    }
+    expect(m.q("[data-screen=battle]")?.dataset.view).toBe("won");
+    expect(Number(m.q("[data-screen=battle]")!.dataset.hp)).toBe(0);
+    expect(full).toBeGreaterThan(0);
+    expect(m.el("battle_message")?.textContent).toMatch(/חבר/);
+    await m.press("battle_done");
+    expect(m.q("[data-screen=battle]")).toBeNull();
+    await pendingWrites(m.fs);
+    const world = await m.profiles.loadWorldDict(m.profile.id);
+    expect((world["creatures"] as { species: string }[]).map((c) => c.species)).toEqual(["agnite", wildSpecies]);
+    expect(world["caught"]).toContain(wildSpecies);
+  });
+
+  it("Android's back goes on one's way, from the meeting and from a question", async () => {
+    const m = await grass();
+    await act(async () => m.opts().onStep?.(5, 8));
+    await act(async () => m.backRef.current?.());
+    await settle();
+    expect(m.q("[data-screen=battle]")).toBeNull();
+    expect(m.q("[data-screen=map-menu]")).toBeNull();
+  });
+
+  it("no creature of the child's own yet: no battle", async () => {
+    localStorage.setItem("nagmon.encounter.always", "1");
+    const m = await start();
+    await act(async () => {
+      m.opts().onMap?.(route);
+    });
+    await settle(20);
+    await act(async () => m.opts().onStep?.(5, 8));
+    expect(m.q("[data-screen=battle]")).toBeNull();
   });
 });

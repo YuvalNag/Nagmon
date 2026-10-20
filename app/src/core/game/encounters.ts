@@ -59,6 +59,8 @@ export interface EncountersOptions {
   daytime?: () => boolean;
   /** Steps in an area after a meeting before the next one may come. */
   cooldownSteps?: number;
+  /** A browser test's hook: every step in an area meets one. */
+  always?: boolean;
 }
 
 export const DEFAULT_COOLDOWN = 6;
@@ -80,8 +82,8 @@ export class Encounters {
     const area = this.area(map, x, y);
     if (!area) return null;
     this.since++;
-    if (this.since < (this.o.cooldownSteps ?? DEFAULT_COOLDOWN)) return null;
-    if (this.random() >= Math.min(50, area.rate) / 100) return null;
+    if (!this.o.always && this.since < (this.o.cooldownSteps ?? DEFAULT_COOLDOWN)) return null;
+    if (!this.o.always && this.random() >= Math.min(50, area.rate) / 100) return null;
     const day = (this.o.daytime ?? (() => true))();
     const pool = (this.o.tables[area.table] ?? []).filter((e) => this.o.monsters[e.monster]?.hasSprite && (e.daytime === null || e.daytime === day));
     if (!pool.length) return null;

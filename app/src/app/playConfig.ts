@@ -23,3 +23,28 @@ export function testSeed(): number | null {
     return null;
   }
 }
+
+/**
+ * Test hooks for the browser tests, as the quiz seed: a map to start on
+ * (instead of Hearthrock), and an encounter in every step in the grass.
+ * Never set on a phone.
+ */
+export const START_MAP_KEY = "nagmon.map.start";
+export const ENCOUNTER_KEY = "nagmon.encounter.always";
+
+export function testStartMap(): string | undefined {
+  try {
+    const v = localStorage.getItem(START_MAP_KEY);
+    return v && /^[a-z0-9_]+$/.test(v) ? v : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+export function testAlwaysEncounter(): boolean {
+  try {
+    return localStorage.getItem(ENCOUNTER_KEY) === "1";
+  } catch {
+    return false;
+  }
+}

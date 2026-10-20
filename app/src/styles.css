@@ -846,6 +846,136 @@ button.quiz-choice {
   top: 0;
   left: 0;
   transform-origin: 0 0;
+  max-width: none !important;
   background-repeat: no-repeat;
   image-rendering: pixelated;
+}
+
+/* ----------------------------------------------------------- the battle */
+
+.battle-ask {
+  position: absolute;
+  inset: 0;
+}
+
+.battle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  padding: var(--gap) max(16px, env(safe-area-inset-right)) var(--gap) max(16px, env(safe-area-inset-left));
+  background: linear-gradient(#cfe9ee, #bfe3c4);
+}
+
+.battle-field {
+  display: flex;
+  min-width: 0;
+  gap: var(--gap);
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.battle-side {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gap);
+}
+
+.battle-side.theirs {
+  align-items: flex-start;
+}
+
+.battle-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 6.5em;
+  padding: calc(var(--gap) / 2) var(--gap);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+}
+
+.battle-name {
+  font-weight: 700;
+  font-size: calc(var(--text) * 0.9);
+}
+
+.battle-level {
+  font-size: calc(var(--text) * 0.75);
+}
+
+.meter {
+  height: max(10px, 2.2vh);
+  border-radius: 999px;
+  background: #d5e3e6;
+  overflow: hidden;
+}
+
+.meter > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.7s ease-out;
+}
+
+.meter.hp > span {
+  background: #3f9d58;
+}
+
+.meter.xp > span {
+  background: #1f6f8b;
+}
+
+.battle-message {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 34em;
+  font-size: calc(var(--text) * 0.95);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.battle-buttons .primary {
+  min-width: calc(var(--touch) * 3);
+}
+
+.battle-pic.hit {
+  animation: battle-shake 0.5s ease-in-out;
+}
+
+.battle-pic.lunge {
+  animation: battle-lunge 0.5s ease-in-out;
+}
+
+.battle-pic.friend {
+  animation: battle-happy 0.9s ease-in-out 2;
+}
+
+@keyframes battle-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+@keyframes battle-lunge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(28px); }
+}
+
+@keyframes battle-happy {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .battle-pic { animation: none !important; }
+  .meter > span { transition: none; }
 }
