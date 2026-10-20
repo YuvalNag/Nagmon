@@ -1,4 +1,7 @@
+import { existsSync } from "node:fs";
 import { defineConfig } from "@playwright/test";
+
+const LOCAL_CHROMIUM = "/opt/pw-browsers/chromium";
 
 /**
  * The family's phone: 2400x1080 landscape at about 2.75 device pixels
@@ -21,7 +24,8 @@ export default defineConfig({
     baseURL: "http://localhost:4173",
     ...PHONE,
     launchOptions: {
-      executablePath: process.env.CHROMIUM_PATH ?? "/opt/pw-browsers/chromium",
+      // this container has Chromium here; CI uses Playwright's own
+      executablePath: existsSync(LOCAL_CHROMIUM) ? LOCAL_CHROMIUM : undefined,
     },
   },
   projects: [

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">נגמון</string>
+    <string name="title_activity_main">נגמון</string>
+    <string name="package_name">org.nagmon.app</string>
+    <string name="custom_url_scheme">org.nagmon.app</string>
+</resources>
