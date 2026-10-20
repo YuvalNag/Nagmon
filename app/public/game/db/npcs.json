@@ -23,6 +23,10 @@
   ],
   "sprites": {
    "map": "sprites/npc/nagmon_granite.png",
+   "frame": [
+    128,
+    256
+   ],
    "portrait": "sprites/portraits/nagmon_granite.png"
   }
  },
@@ -50,6 +54,10 @@
   ],
   "sprites": {
    "map": "sprites/npc/nagmon_mila.png",
+   "frame": [
+    128,
+    256
+   ],
    "portrait": "sprites/portraits/nagmon_mila.png"
   }
  },
@@ -72,6 +80,10 @@
   ],
   "sprites": {
    "map": "sprites/npc/nagmon_shopkeeper.png",
+   "frame": [
+    128,
+    256
+   ],
    "portrait": "sprites/portraits/nagmon_shopkeeper.png"
   }
  },
@@ -94,6 +106,10 @@
   ],
   "sprites": {
    "map": "sprites/npc/nagmon_teacher.png",
+   "frame": [
+    128,
+    256
+   ],
    "portrait": "sprites/portraits/nagmon_teacher.png"
   }
  },
@@ -116,6 +132,10 @@
   ],
   "sprites": {
    "map": "sprites/npc/nagmon_granny.png",
+   "frame": [
+    128,
+    256
+   ],
    "portrait": "sprites/portraits/nagmon_granny.png"
   }
  },
@@ -138,6 +158,10 @@
   ],
   "sprites": {
    "map": "sprites/npc/nagmon_kid.png",
+   "frame": [
+    128,
+    256
+   ],
    "portrait": "sprites/portraits/nagmon_kid.png"
   }
  },
@@ -159,7 +183,11 @@
    "mods/nagmon/db/npc/nagmon_world.yaml"
   ],
   "sprites": {
-   "map": "sprites/npc/rockitten.png"
+   "map": "sprites/npc/rockitten.png",
+   "frame": [
+    16,
+    32
+   ]
   }
  },
  "nagmon_owl": {
@@ -181,7 +209,20 @@
   ],
   "sprites": {
    "map": "sprites/npc/nagmon_owl.png",
-   "portrait": "sprites/portraits/nagmon_owl.png"
+   "frame": [
+    128,
+    256
+   ],
+   "portrait": "sprites/portraits/nagmon_owl.png",
+   "alternates": {
+    "nagmon_owl_caped": {
+     "map": "sprites/npc/nagmon_owl_caped.png",
+     "frame": [
+      128,
+      256
+     ]
+    }
+   }
   }
  },
  "nagmon_route1_trainer": {
@@ -203,6 +244,10 @@
   ],
   "sprites": {
    "map": "sprites/npc/nagmon_mailcarrier.png",
+   "frame": [
+    128,
+    256
+   ],
    "portrait": "sprites/portraits/nagmon_mailcarrier.png"
   }
  },
@@ -225,7 +270,11 @@
    "mods/nagmon/db/npc/nagmon_world.yaml"
   ],
   "sprites": {
-   "map": "sprites/objects/sign.png"
+   "map": "sprites/objects/sign.png",
+   "frame": [
+    16,
+    16
+   ]
   }
  },
  "nagmon_tourist": {
@@ -247,6 +296,10 @@
   ],
   "sprites": {
    "map": "sprites/npc/nagmon_tourist.png",
+   "frame": [
+    128,
+    256
+   ],
    "portrait": "sprites/portraits/nagmon_traveler.png"
   }
  },
@@ -269,7 +322,11 @@
    "mods/nagmon/db/npc/nagmon_world.yaml"
   ],
   "sprites": {
-   "map": "sprites/objects/nagmon_wallet.png"
+   "map": "sprites/objects/nagmon_wallet.png",
+   "frame": [
+    16,
+    32
+   ]
   }
  }
 }

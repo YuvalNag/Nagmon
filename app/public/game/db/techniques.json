@@ -2409,7 +2409,7 @@
   "use_success": null,
   "use_tech": "combat_used_x",
   "visuals": {
-   "animation": "skull",
+   "animation": "sparks_white",
    "flip_axes": "",
    "loop": 0
   },
@@ -2419,7 +2419,8 @@
   },
   "_source": [
    "mods/tuxemon/db/technique/frighten.yaml"
-  ]
+  ],
+  "_note": "Animation skull replaced by sparks_white: gentle for young kids (tools/app/db.py)."
  },
  "frostbite": {
   "tech_id": 87,

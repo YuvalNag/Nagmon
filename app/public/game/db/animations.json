@@ -646,17 +646,6 @@
   ],
   "sheet": "sprites/animations/technique/shield_rock.png"
  },
- "skull": {
-  "file": "technique",
-  "slug": "skull",
-  "frame_x": 54,
-  "frame_y": 70,
-  "duration": 0.1,
-  "_source": [
-   "mods/tuxemon/db/animation/technique.yaml"
-  ],
-  "sheet": "sprites/animations/technique/skull.png"
- },
  "slash_200": {
   "file": "technique",
   "slug": "slash_200",
