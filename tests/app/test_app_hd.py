@@ -172,7 +172,11 @@ def test_the_map_scale_is_a_whole_zoom_over_every_atlas(built):
     for rel in sorted(p for p in out.data if p.startswith("maps/")):
         m = data(built, rel)
         props = {p["name"]: p["value"] for p in m["properties"]}
-        zoom = doc["map"]["scale"] * props.get("source_tile_size", 16) / m["tilewidth"]
+        zoom = (
+            doc["map"]["scale"]
+            * props.get("source_tile_size", 16)
+            / m["tilewidth"]
+        )
         assert zoom == 2, rel
 
 
