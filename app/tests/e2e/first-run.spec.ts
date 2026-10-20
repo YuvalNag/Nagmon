@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 import { fitsAndSharp, responseTimes, touch, typeCode, watchEventTiming } from "./touch";
 
 const id = (s: string) => `[data-id="${s}"]`;

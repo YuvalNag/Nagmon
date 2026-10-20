@@ -5,13 +5,12 @@
  * {@link RingLog} keeps the last 400 lines in memory: Nagmon's INFO and
  * everyone's warnings (console.warn/error included). Keys are hidden as
  * each line is written and again when saved. The log is saved to
- * `nagmon/app_log.txt` when the app goes to the background, when it
- * closes and before sending, so the parent can send it after the game
- * opens again. Times are UTC. HTTP bodies are never logged.
+ * `nagmon/app_log.txt` when the app goes to the background and when it
+ * closes (src/platform/lifecycle.ts), and before sending, so the parent
+ * can send it after the game opens again. Times are UTC. HTTP bodies are
+ * never logged.
  */
-import { formatError, redactSecrets, utcMinute } from "../core/crashReport";
-import { App } from "@capacitor/app";
-import { Capacitor } from "@capacitor/core";
+import { formatError, hideNames, redactSecrets, utcMinute } from "../core/crashReport";
 import { DATA_FILES, type FileStore, dirName, withPathLock } from "./storage";
 
 export const MAX_LINES = 400;
@@ -57,7 +56,21 @@ export interface RingLogOptions {
   maxLines?: number;
   /** The saved keys to hide; may be async (the Keystore). */
   secrets?: SecretsSource;
+  /** The children's names to hide; may be async (the profiles on disk). */
+  names?: SecretsSource;
   clock?: () => Date;
+}
+
+/** Reads a source of words to hide: right away when it can, else later; never throws. */
+function readSource(source: SecretsSource): string[] | Promise<string[] | null> | null {
+  const clean = (values: Iterable<string>) => [...values].filter((s) => typeof s === "string" && s);
+  try {
+    const got = source();
+    return got instanceof Promise ? got.then(clean, () => null) : clean(got);
+  } catch {
+    // A broken source must not stop logging.
+    return null;
+  }
 }
 
 /** The last `maxLines` lines: `HH:MM:SS LEVEL logger: message`, then a stack if any. */
@@ -65,14 +78,17 @@ export class RingLog {
   private buffer: string[] = [];
   private maxLines: number;
   private secrets: SecretsSource;
+  private names: SecretsSource;
   private clock: () => Date;
   private known: string[] = [];
+  private knownNames: string[] = [];
   private knownAt = -Infinity;
   private refreshing: Promise<void> | null = null;
 
-  constructor({ maxLines = MAX_LINES, secrets = () => [], clock = () => new Date() }: RingLogOptions = {}) {
+  constructor({ maxLines = MAX_LINES, secrets = () => [], names = () => [], clock = () => new Date() }: RingLogOptions = {}) {
     this.maxLines = maxLines;
     this.secrets = secrets;
+    this.names = names;
     this.clock = clock;
   }
 
@@ -82,32 +98,38 @@ export class RingLog {
 
   // ------------------------------------------------------------ secrets
 
-  /** Reads the saved keys again now; never rejects. */
+  /** Keys and names hidden from `text`. */
+  private hide(text: string, keys = this.known, names = this.knownNames): string {
+    return hideNames(redactSecrets(text, keys), names);
+  }
+
+  /** Reads the saved keys and the children's names again now; never rejects. */
   refreshSecrets(): Promise<void> {
     this.knownAt = performance.now();
-    const keep = (values: Iterable<string>) => {
-      const next = [...values].filter((s) => typeof s === "string" && s);
-      const added = next.some((s) => !this.known.includes(s));
-      this.known = next;
+    const keep = (keys: string[] | null, names: string[] | null) => {
+      const nextKeys = keys ?? this.known;
+      const nextNames = names ?? this.knownNames;
+      const added =
+        nextKeys.some((s) => !this.known.includes(s)) || nextNames.some((s) => !this.knownNames.includes(s));
+      this.known = nextKeys;
+      this.knownNames = nextNames;
       // Lines written before an async source answered are hidden now.
-      if (added) this.buffer = this.buffer.map((line) => redactSecrets(line, next));
+      if (added) this.buffer = this.buffer.map((line) => this.hide(line));
     };
-    try {
-      const got = this.secrets();
-      if (got instanceof Promise) {
-        this.refreshing = got.then(keep, () => undefined).finally(() => (this.refreshing = null));
-        return this.refreshing;
-      }
-      keep(got);
-    } catch {
-      // A broken secrets source must not stop logging.
+    const keys = readSource(this.secrets);
+    const names = readSource(this.names);
+    if (keys instanceof Promise || names instanceof Promise) {
+      this.refreshing = Promise.all([keys, names])
+        .then(([k, n]) => keep(k, n))
+        .finally(() => (this.refreshing = null));
+      return this.refreshing;
     }
+    keep(keys, names);
     return Promise.resolve();
   }
 
-  private secretValues(): string[] {
+  private refreshIfOld(): void {
     if (performance.now() - this.knownAt >= SECRETS_TTL_MS && !this.refreshing) void this.refreshSecrets();
-    return this.known;
   }
 
   // ------------------------------------------------------------ writing
@@ -131,7 +153,8 @@ export class RingLog {
 
   /** Adds lines as they are (after hiding keys), without a level filter. */
   add(text: string): void {
-    const clean = redactSecrets(text, this.secretValues());
+    this.refreshIfOld();
+    const clean = this.hide(text);
     // Only the last lines can stay; no spread, so a huge text cannot
     // overflow the call stack.
     const lines = splitLines(clean).slice(-this.maxLines);
@@ -162,7 +185,7 @@ export class RingLog {
     await this.refreshSecrets();
     let text = this.text();
     if (ending) text += `${SAVED_MARK}${ending}\n`;
-    text = redactSecrets(text, this.known).replace(LONE_SURROGATE, "?");
+    text = this.hide(text).replace(LONE_SURROGATE, "?");
     // As writeJson: .tmp first, the old log becomes the .bak, then the
     // .tmp becomes the log. A save cut short leaves the .tmp or the .bak.
     await withPathLock(fs, path, async () => {
@@ -222,6 +245,8 @@ export interface InstallOptions {
   /** Version, build and device; defaults to {@link buildInfo} and the user agent. */
   details?: Readonly<Record<string, string>>;
   secrets?: SecretsSource;
+  /** The children's names, hidden like the keys. */
+  names?: SecretsSource;
   clock?: () => Date;
 }
 
@@ -254,10 +279,13 @@ function hookConsole(ring: RingLog): () => void {
 export async function installAppLog(fs: FileStore, options: InstallOptions = {}): Promise<RingLog> {
   if (current) return current;
   const clock = options.clock ?? (() => new Date());
-  const ring = new RingLog({ secrets: options.secrets, clock });
-  await ring.refreshSecrets();
-  if (current) return current; // another install won the race
+  const ring = new RingLog({ secrets: options.secrets, names: options.names, clock });
+  // Not waited for: the Keystore can take a second on its first use, and
+  // the start must not. Lines written before it answers are hidden then,
+  // and a save always waits for it.
+  void ring.refreshSecrets();
   const previous = await ring.load(fs, LOG_FILE);
+  if (current) return current; // another install won the race
   const info: Record<string, string> = { ...(options.details ?? buildInfo()) };
   info.device ??= typeof navigator === "undefined" ? "unknown" : navigator.userAgent;
   const ended = previous === null ? "none (first run)" : (ENDINGS[previous] ?? "unknown");
@@ -327,34 +355,4 @@ export interface Logger {
 export function getLogger(name: string): Logger {
   const at = (level: Level) => (message: string, error?: unknown) => current?.log(name, level, message, error);
   return { debug: at("DEBUG"), info: at("INFO"), warning: at("WARNING"), error: at("ERROR") };
-}
-
-export interface LifecycleTargets {
-  document?: EventTarget & { visibilityState: string };
-  window?: EventTarget;
-}
-
-/**
- * Saves the log when the app goes to the background (the WebView hides
- * the page; on the phone also the app's "pause" event) and when the page
- * closes. Returns a function that unbinds.
- */
-export function bindLifecycleSaves(targets: LifecycleTargets = {}): () => void {
-  const doc = targets.document ?? (typeof document === "undefined" ? undefined : document);
-  const win = targets.window ?? (typeof window === "undefined" ? undefined : window);
-  const onVisibility = () => {
-    if (doc?.visibilityState === "hidden") void saveAppLog({ ending: "background" });
-  };
-  const onPageHide = () => void saveAppLog({ ending: "exit" });
-  doc?.addEventListener("visibilitychange", onVisibility);
-  win?.addEventListener("pagehide", onPageHide);
-  // Android may stop the WebView before it fires visibilitychange.
-  const pause = Capacitor.isNativePlatform()
-    ? App.addListener("pause", () => void saveAppLog({ ending: "background" })).catch(() => null)
-    : Promise.resolve(null);
-  return () => {
-    doc?.removeEventListener("visibilitychange", onVisibility);
-    win?.removeEventListener("pagehide", onPageHide);
-    void pause.then((handle) => handle?.remove());
-  };
 }

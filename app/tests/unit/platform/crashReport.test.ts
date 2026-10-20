@@ -367,6 +367,19 @@ describe("hiding names", () => {
     expect(hideNames("Danger at the dance, Dan", ["Dan"])).toBe(`Danger at the dance, ${NAME_MARK}`);
   });
 
+  it("hides a short Hebrew name as a word, after one prefix letter, but not inside another word", () => {
+    // made-up name; prefixes ו ה ב ל מ ש כ
+    for (const prefix of ["", "ו", "ה", "ב", "ל", "מ", "ש", "כ"]) {
+      expect(hideNames(`שלום ${prefix}דן!`, ["דן"])).toBe(`שלום ${prefix}${NAME_MARK}!`);
+    }
+    for (const word of ["עדן", "מדנה", "דנה", "ודני", "הוודן", "דןא"]) {
+      expect(hideNames(`המילה ${word} כאן`, ["דן"])).toBe(`המילה ${word} כאן`);
+    }
+    // two prefix letters make another word, not the name
+    expect(hideNames("ושדן", ["דן"])).toBe("ושדן");
+    expect(hideNames("(דן) 3דן", ["דן"])).toBe(`(${NAME_MARK}) 3דן`);
+  });
+
   it("ignores one-letter and empty names", () => {
     expect(hideNames("a map", ["a", "", "  "])).toBe("a map");
   });

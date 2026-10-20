@@ -79,9 +79,15 @@ function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+/** A letter, a mark (niqqud) or a digit: what a word is made of, in any alphabet. */
+const WORD_CHAR = "[\\p{L}\\p{M}\\p{N}]";
+/** The Hebrew letters that join a word in front: ו ה ב ל מ ש כ. */
+const HEBREW_PREFIX = "[ובהלמשכ]";
+
 /**
- * `text` without the children's names. A Latin name is matched as a whole
- * word, in any case; a Hebrew one also after a prefix letter (לנועה).
+ * `text` without the children's names. A name is hidden only as a whole
+ * word (in any alphabet, in any case), or after one Hebrew prefix letter
+ * (לנועה), which stays: "דן" is hidden in "לדן" but not inside "עדן".
  * One-letter names are left alone.
  */
 export function hideNames(text: string, names: Iterable<string> = []): string {
@@ -89,8 +95,8 @@ export function hideNames(text: string, names: Iterable<string> = []): string {
   for (const n of names) if (typeof n === "string" && n.trim().length >= 2) wanted.add(n.trim());
   // Longest first, so a name that contains another is hidden whole.
   for (const name of [...wanted].sort((a, b) => b.length - a.length)) {
-    const pattern = new RegExp(`(?<![A-Za-z])${escapeRegExp(name)}(?![A-Za-z])`, "gi");
-    text = text.replace(pattern, NAME_MARK);
+    const pattern = new RegExp(`(?<!${WORD_CHAR})(${HEBREW_PREFIX}?)${escapeRegExp(name)}(?!${WORD_CHAR})`, "giu");
+    text = text.replace(pattern, `$1${NAME_MARK}`);
   }
   return text;
 }

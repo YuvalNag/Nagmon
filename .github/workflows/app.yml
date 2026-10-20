@@ -60,6 +60,8 @@ jobs:
     needs: web
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    env:
+      HAS_KEY: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
     steps:
     - uses: actions/checkout@v6
     - uses: actions/setup-node@v6
@@ -74,19 +76,95 @@ jobs:
     - run: npm ci
     - run: npm run build
     - run: npx cap sync android
+    - name: Keep one signing key for every build
+      # Every build is signed with the same key, so the phone installs it
+      # over the previous one and keeps the children's data (uninstalling
+      # deletes it). With the ANDROID_KEYSTORE_* secrets the key is the
+      # owner's; without them the first build makes one and the Actions
+      # cache keeps it. A cache belongs to its branch and goes after 7 days
+      # unused, so only builds of nagmon-app go to the parent, and the
+      # secrets are the permanent way (docs/app/SDD.md §9).
+      if: env.HAS_KEY != 'true'
+      uses: actions/cache@v4
+      with:
+        path: ~/.nagmon-app-signing
+        key: nagmon-app-signing-v1
+    - name: Signing key
+      env:
+        KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      working-directory: .
+      run: |
+        if [ "$HAS_KEY" = "true" ]; then
+          keystore="$RUNNER_TEMP/nagmon-app.keystore"
+          echo "$KEYSTORE_B64" | base64 --decode > "$keystore"
+          password="$KEYSTORE_PASSWORD"; alias="$KEY_ALIAS"
+          echo "Signing with the owner's key (secrets)."
+        else
+          keystore="$HOME/.nagmon-app-signing/nagmon-app.keystore"
+          password="nagmon-ci"; alias="nagmon"
+          if [ ! -f "$keystore" ]; then
+            mkdir -p "$(dirname "$keystore")"
+            keytool -genkeypair -keystore "$keystore" -storetype PKCS12 \
+              -alias "$alias" -keyalg RSA -keysize 2048 -validity 25000 \
+              -storepass "$password" -keypass "$password" \
+              -dname "CN=Nagmon, O=Nagmon" > /dev/null
+            echo "Made a new signing key (first build on this branch, or the cache expired)."
+          else
+            echo "Signing with the key kept in the Actions cache."
+          fi
+        fi
+        {
+          echo "NAGMON_KEYSTORE=$keystore"
+          echo "NAGMON_KEYSTORE_PASSWORD=$password"
+          echo "NAGMON_KEY_ALIAS=$alias"
+          echo "NAGMON_KEY_PASSWORD=$password"
+        } >> "$GITHUB_ENV"
     - name: Build the APK
       working-directory: app/android
-      run: ./gradlew --no-daemon assembleDebug
+      # benchmark: not debuggable, for the cold start (app/android/app/build.gradle)
+      run: ./gradlew --no-daemon assembleDebug assembleBenchmark
+    # docs/app/SDD.md §10: no lint errors (each warning kept is explained
+    # in app/android/app/lint.xml)
+    - name: Android Lint
+      working-directory: app/android
+      run: |
+        status=0
+        ./gradlew --no-daemon :app:lintDebug :app:lintRelease || status=$?
+        cat app/build/reports/lint-results-debug.txt app/build/reports/lint-results-release.txt || true
+        exit $status
+    - name: Privacy and build (merged manifest, libraries, 64-bit)
+      run: |
+        (cd android && ./gradlew --no-daemon -q :app:dependencies --configuration debugRuntimeClasspath \
+          && ./gradlew --no-daemon -q :app:dependencies --configuration releaseRuntimeClasspath) > runtime-deps.txt
+        node tests/android/buildCheck.mjs \
+          android/app/build/outputs/apk/debug/app-debug.apk runtime-deps.txt package-lock.json \
+          android/app/src/main/res/xml/data_extraction_rules.xml \
+          android/app/build/intermediates/merged_manifests/debug/processDebugManifest/AndroidManifest.xml \
+          android/app/build/intermediates/merged_manifests/benchmark/processBenchmarkManifest/AndroidManifest.xml
+    - name: The signing key's fingerprint (the same on every build that installs over the last)
+      run: |
+        apksigner="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)/apksigner"
+        for apk in android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/benchmark/app-benchmark.apk; do
+          echo "$(basename "$apk"): $("$apksigner" verify --print-certs "$apk" | grep 'SHA-256 digest')"
+        done
     - uses: actions/upload-artifact@v4
       with:
         name: nagmon-app-apk-${{ github.run_number }}
         path: app/android/app/build/outputs/apk/debug/app-debug.apk
         retention-days: 14
+    # only for the emulator's cold start; not for the family
+    - uses: actions/upload-artifact@v4
+      with:
+        name: nagmon-app-benchmark-apk-${{ github.run_number }}
+        path: app/android/app/build/outputs/apk/benchmark/app-benchmark.apk
+        retention-days: 3
 
   emulator:
     needs: apk
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 50
     steps:
     - uses: actions/checkout@v6
     - uses: actions/setup-node@v6
@@ -98,6 +176,10 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: nagmon-app-apk-${{ github.run_number }}
+        path: app/apk
+    - uses: actions/download-artifact@v4
+      with:
+        name: nagmon-app-benchmark-apk-${{ github.run_number }}
         path: app/apk
     - name: Enable KVM
       run: |
@@ -117,7 +199,7 @@ jobs:
         disable-animations: true
         working-directory: app
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-        script: node tests/android/run.mjs apk/app-debug.apk android-e2e
+        script: node tests/android/run.mjs apk/app-debug.apk android-e2e apk/app-benchmark.apk
     - name: Show the screenshots in the log
       if: always()
       working-directory: .

@@ -11,10 +11,13 @@
   --touch: max(52px, 13vh);
   --gap: max(10px, 2.5vh);
   --radius: max(12px, 2.5vh);
+  /* the system's font size, 1 to 1.3 (src/platform/shell.ts): all text
+     grows evenly with it, and every screen is checked at 1.3 */
+  --font-scale: 1;
   /* a line of text at least 5 mm tall on the family's phone */
-  --text: max(24px, 6.5vh);
+  --text: calc(max(24px, 6.5vh) * var(--font-scale));
   --line: 1.35;
-  --text-big: max(28px, 8vh);
+  --text-big: calc(max(28px, 8vh) * var(--font-scale));
   /* letter keys: 9 mm and more even on a small phone (51 CSS px) */
   --key-h: max(56px, 15vh);
 }
@@ -140,6 +143,7 @@ button.quiet {
 .notice {
   color: var(--ink);
   font-size: calc(var(--text) * 1.15);
+  font-weight: inherit;
 }
 
 .message {
@@ -492,4 +496,9 @@ button.map-menu {
 .map-overlay .title,
 .map-overlay .notice {
   color: #fff;
+}
+
+/* a word, not a letter: the size of the text, so it fits its key at 130% */
+.letters .space {
+  font-size: var(--text);
 }

@@ -10,6 +10,10 @@ const config: CapacitorConfig = {
     // no remote content, no mixed content
     allowMixedContent: false,
   },
+  // Capacitor's own logging writes every plugin call and its answer to the
+  // system log in a debug build: the profiles' JSON, children's names and
+  // all (docs/app/SDD.md §10). The app keeps its own log, which hides them.
+  loggingBehavior: "none",
   plugins: {
     SystemBars: {
       // MainActivity hides the system bars and draws into the camera

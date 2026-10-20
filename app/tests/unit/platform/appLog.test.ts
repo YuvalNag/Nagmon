@@ -6,28 +6,12 @@
  */
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-const app = vi.hoisted(() => ({
-  native: false,
-  listeners: new Map<string, () => void>(),
-  removed: [] as string[],
-}));
-
-vi.mock("@capacitor/core", () => ({ Capacitor: { isNativePlatform: () => app.native } }));
-vi.mock("@capacitor/app", () => ({
-  App: {
-    async addListener(event: string, fn: () => void) {
-      app.listeners.set(event, fn);
-      return { remove: async () => void app.removed.push(event) };
-    },
-  },
-}));
 import {
   LOG_FILE,
   MAX_LINES,
   RingLog,
   appLogTail,
   appLogText,
-  bindLifecycleSaves,
   buildInfo,
   currentAppLog,
   getLogger,
@@ -92,6 +76,37 @@ describe("ring log", () => {
     expect(text).not.toContain(SAVED);
     expect(text).not.toContain("abc.def");
     expect(text).toContain("token ***");
+  });
+
+  it("hides every kind of token, saved keys and the children's names, as written and on disk", async () => {
+    const fs = new MemoryFileStore();
+    // made-up names: one Hebrew (also after a prefix letter), one Latin
+    const r = new RingLog({ secrets: () => [SAVED], names: async () => ["דנית", "Tomer"], clock });
+    await r.refreshSecrets();
+    const keys = {
+      classic: "ghp_" + "A1b2C3d4".repeat(5),
+      fineGrained: TOKEN,
+      openai: "sk-" + "proj_" + "x9Y8z7".repeat(6),
+      groq: "gsk_" + "Q1w2E3r4".repeat(6),
+      google: "AIza" + "Sy".repeat(18),
+    };
+    r.log("nagmon.x", "WARNING", `keys ${Object.values(keys).join(" ")} saved ${SAVED}`);
+    r.log("nagmon.x", "INFO", "לדנית יש 3 כוכבים; Tomer finished the map; tomer again");
+    for (const text of [r.text(), (await r.save(fs, "log.txt"), (await fs.readText("log.txt"))!)]) {
+      for (const secret of [...Object.values(keys), SAVED, "דנית", "Tomer", "tomer"]) expect(text).not.toContain(secret);
+      expect(text).toContain("ל<child> יש 3 כוכבים; <child> finished the map; <child> again");
+    }
+  });
+
+  it("a name added after the log started is hidden at the latest when saved", async () => {
+    const fs = new MemoryFileStore();
+    const names: string[] = [];
+    const r = new RingLog({ names: () => names, clock });
+    await r.refreshSecrets();
+    r.log("nagmon.x", "INFO", "hello Gali");
+    names.push("Gali");
+    await r.save(fs, "log.txt");
+    expect(await fs.readText("log.txt")).not.toContain("Gali");
   });
 
   it("a failing secrets source does not break logging", async () => {
@@ -245,6 +260,18 @@ describe("the app's log", () => {
     expect(currentAppLog()).toBeNull();
   });
 
+  it("does not wait for slow keys (the Keystore's first use), and still hides them", async () => {
+    const fs = new MemoryFileStore();
+    let answer!: (keys: string[]) => void;
+    const keys = new Promise<string[]>((r) => (answer = r));
+    const r = await installAppLog(fs, { clock, secrets: () => keys });
+    getLogger("nagmon.x").warning(`early ${SAVED}`);
+    answer([SAVED]);
+    await r.save(fs, LOG_FILE);
+    expect(r.text()).not.toContain(SAVED);
+    expect(await fs.readText(LOG_FILE)).not.toContain(SAVED);
+  });
+
   it("the first run says so", async () => {
     const r = await installAppLog(new MemoryFileStore(), { clock });
     expect(r.lines().find((l) => l.startsWith("=== Nagmon"))).toContain("previous exit: none (first run)");
@@ -277,49 +304,6 @@ describe("the app's log", () => {
     const info = buildInfo();
     expect(info.version).toMatch(/^\d+\.\d+\.\d+/);
     expect(info.build).toBeTruthy();
-  });
-
-  it("going to the background and closing save the log", async () => {
-    const fs = new MemoryFileStore();
-    await installAppLog(fs, { clock });
-    const doc = new EventTarget() as EventTarget & { visibilityState: string };
-    doc.visibilityState = "visible";
-    const win = new EventTarget();
-    const unbind = bindLifecycleSaves({ document: doc, window: win });
-    getLogger("nagmon.rules").info("hello from the game");
-    doc.visibilityState = "hidden";
-    doc.dispatchEvent(new Event("visibilitychange"));
-    await vi.waitFor(async () => {
-      expect((await fs.readText(LOG_FILE)) ?? "").toContain("--- saved: background");
-    });
-    expect(await fs.readText(LOG_FILE)).toContain("hello from the game");
-    win.dispatchEvent(new Event("pagehide"));
-    await vi.waitFor(async () => {
-      expect((await fs.readText(LOG_FILE))!.trimEnd().endsWith("--- saved: exit")).toBe(true);
-    });
-    unbind();
-  });
-
-  it("on the phone, the app's pause event saves the log", async () => {
-    app.native = true;
-    app.listeners.clear();
-    app.removed = [];
-    try {
-      const fs = new MemoryFileStore();
-      await installAppLog(fs, { clock });
-      const doc = Object.assign(new EventTarget(), { visibilityState: "visible" });
-      const unbind = bindLifecycleSaves({ document: doc, window: new EventTarget() });
-      await vi.waitFor(() => expect(app.listeners.has("pause")).toBe(true));
-      getLogger("nagmon.x").info("before pause");
-      app.listeners.get("pause")!();
-      await vi.waitFor(async () => {
-        expect((await fs.readText(LOG_FILE)) ?? "").toContain("--- saved: background");
-      });
-      unbind();
-      await vi.waitFor(() => expect(app.removed).toEqual(["pause"]));
-    } finally {
-      app.native = false;
-    }
   });
 
   it("other code's console warnings and errors reach the log", async () => {

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Android Lint for the app (docs/app/SDD.md §10). CI runs `:app:lintDebug`
+  and fails on any error. The checks turned off here are each explained;
+  everything else keeps lint's own severity.
+-->
+<lint>
+    <!-- Landscape only (SDD §2). Android 16 ignores a fixed orientation only
+         on large screens (600dp and wider); the family plays on phones,
+         where it is kept. -->
+    <issue id="DiscouragedApi">
+        <ignore path="src/main/AndroidManifest.xml" />
+    </issue>
+
+    <!-- The AndroidX versions are the ones Capacitor 8 is built and tested
+         with (variables.gradle); they move with Capacitor, not one by one.
+         The check also needs the network, so it would differ run to run. -->
+    <issue id="GradleDependency" severity="ignore" />
+    <issue id="NewerVersionAvailable" severity="ignore" />
+
+    <!-- Capacitor's launch picture (the window background for the moment
+         before the page draws): one picture per screen shape, not icons. -->
+    <issue id="IconDipSize" severity="ignore" />
+    <issue id="IconDuplicatesConfig" severity="ignore" />
+    <issue id="IconLocation" severity="ignore" />
+
+    <!-- Used by name, which lint cannot see: Capacitor's BridgeActivity sets
+         AppTheme.NoActionBar with getIdentifier; config.xml is written by
+         `cap sync` for its Cordova layer. The rest are Capacitor's
+         template files that `cap sync` expects to find. -->
+    <issue id="UnusedResources">
+        <ignore path="src/main/res/values/styles.xml" />
+        <ignore path="src/main/res/xml/config.xml" />
+        <ignore path="src/main/res/layout/activity_main.xml" />
+        <ignore path="src/main/res/values/strings.xml" />
+        <ignore path="src/main/res/drawable/ic_launcher_background.xml" />
+        <ignore path="src/main/res/drawable/ic_launcher_foreground.xml" />
+    </issue>
+</lint>

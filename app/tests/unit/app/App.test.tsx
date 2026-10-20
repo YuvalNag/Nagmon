@@ -254,6 +254,37 @@ describe("a new child", () => {
     expect(app.screen()).toBe("who-plays");
   });
 
+  it("after the notice, 'next' leads to who-plays with its buttons, and the players are read again", async () => {
+    const services = await openServices(new MemoryFileStore());
+    await services.profiles.create({ name: "גלי", avatar: "boy_blue" });
+    const real = services.profiles.list.bind(services.profiles);
+    const list = vi.spyOn(services.profiles, "list").mockRejectedValueOnce(new Error("unreadable"));
+    const { container } = render(<App services={services} backButton={() => () => {}} />);
+    const screen = () => container.querySelector("[data-screen]")!.getAttribute("data-screen");
+    await vi.waitFor(() => expect(screen()).toBe("notice"));
+    // the disk answers again
+    list.mockImplementation(real);
+    fireEvent.click(container.querySelector('[data-id="next"]')!, { detail: 0 });
+    await settle(10);
+    expect(screen()).toBe("who-plays");
+    expect(container.querySelector('[data-id="new_child"]')).not.toBeNull();
+    expect(container.querySelector('[data-id="parents"]')).not.toBeNull();
+    await vi.waitFor(() => expect(container.querySelector(".card")?.textContent).toBe("גלי"));
+  });
+
+  it("who-plays stays usable when the players still cannot be read", async () => {
+    const services = await openServices(new MemoryFileStore());
+    vi.spyOn(services.profiles, "list").mockRejectedValue(new Error("unreadable"));
+    const { container } = render(<App services={services} backButton={() => () => {}} />);
+    const screen = () => container.querySelector("[data-screen]")!.getAttribute("data-screen");
+    await vi.waitFor(() => expect(screen()).toBe("notice"));
+    fireEvent.click(container.querySelector('[data-id="next"]')!, { detail: 0 });
+    await settle(20);
+    expect(screen()).toBe("who-plays");
+    expect(container.querySelector('[data-id="parents"]')).not.toBeNull();
+    expect(services.profiles.list).toHaveBeenCalledTimes(2);
+  });
+
   it("shows a notice, not a frozen screen, when the players cannot be read", async () => {
     const services = await openServices(new MemoryFileStore());
     vi.spyOn(services.profiles, "list").mockRejectedValue(new Error("unreadable"));
@@ -351,3 +382,37 @@ describe("Android's back button", () => {
     }
   });
 });
+
+describe("the start", () => {
+  it("is reported once who-plays shows the children", async () => {
+    const services = await openServices(new MemoryFileStore());
+    await services.profiles.create({ name: "גלי", avatar: "boy_blue" });
+    const onStarted = vi.fn();
+    const { container } = render(<App services={services} backButton={() => () => {}} onStarted={onStarted} />);
+    await vi.waitFor(() => expect(onStarted).toHaveBeenCalled());
+    expect(container.querySelector(".card")?.textContent).toBe("גלי");
+  });
+
+  it("shows who-plays only once the children are read, never empty first", async () => {
+    const services = await openServices(new MemoryFileStore());
+    await services.profiles.create({ name: "גלי", avatar: "boy_blue" });
+    const read = later<Awaited<ReturnType<typeof services.profiles.list>>>();
+    const real = services.profiles.list.bind(services.profiles);
+    vi.spyOn(services.profiles, "list").mockReturnValueOnce(read.promise);
+    const { container } = render(<App services={services} backButton={() => () => {}} />);
+    await settle();
+    expect(container.querySelector("[data-screen]")?.getAttribute("data-screen")).toBe("loading");
+    read.resolve(await real());
+    await vi.waitFor(() => expect(container.querySelector(".card")?.textContent).toBe("גלי"));
+  });
+
+  it("is not reported when the players cannot be read", async () => {
+    const services = await openServices(new MemoryFileStore());
+    vi.spyOn(services.profiles, "list").mockRejectedValue(new Error("disk"));
+    const onStarted = vi.fn();
+    const { container } = render(<App services={services} backButton={() => () => {}} onStarted={onStarted} />);
+    await vi.waitFor(() => expect(container.querySelector("[data-screen=notice]")).not.toBeNull());
+    expect(onStarted).not.toHaveBeenCalled();
+  });
+});
+
