@@ -99,6 +99,23 @@ def touch_defaults(config: dict[str, Any]) -> None:
     config["display"]["fullscreen"] = True
 
 
+#: The language of a phone until the player picks another one.
+PHONE_LOCALE = "he_IL"
+
+
+def phone_language(config: dict[str, Any]) -> None:
+    """
+    Hebrew on a phone, applied after the player's settings file, unless
+    the player picked a language. The game never reads the phone's own
+    language; ``tuxemon.yaml`` holds Tuxemon's default (en_US), written
+    at every start, so an old file must not keep a phone in English
+    (build 24, SDD_ANDROID §2.7). The fonts follow the language.
+    """
+    game = config["game"]
+    if not game.get("locale_chosen"):
+        game["locale"] = PHONE_LOCALE
+
+
 # ------------------------------------------------------------ app switching
 
 Listener = Callable[[], None]

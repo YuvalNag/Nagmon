@@ -48,7 +48,7 @@ class SetLanguage(PygameMenuState):
     def change_language(self, locale: str) -> None:
         # fonts first, so language-changed callbacks (theme cache reset)
         # rebuild with the new language's font
-        self.client.config.update_locale(locale)
+        self.client.config.update_locale(locale, chosen=True)
         T.change_language(locale)
         self.client.remove_state_by_name("SetLanguage")
         if self.main_menu:

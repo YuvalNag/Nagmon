@@ -197,3 +197,80 @@ def test_prepare_environment_follows_the_spec_orientation():
     env = {"KIVY_ORIENTATION": "LandscapeLeft"}
     prepare_environment(env, cafile=lambda: "/c.pem")
     assert env["SDL_IOS_ORIENTATIONS"] == "LandscapeLeft"
+
+
+# ------------------------------------------------- the phone's language
+# (SDD_ANDROID §2.7): build 24 opened in English on a phone set to Hebrew.
+
+
+def _phone(monkeypatch, lang=None):
+    monkeypatch.setenv("ANDROID_ARGUMENT", "/data/app")
+    if lang is None:
+        monkeypatch.delenv("LANG", raising=False)
+        monkeypatch.delenv("LC_ALL", raising=False)
+    else:
+        monkeypatch.setenv("LANG", lang)
+
+
+@pytest.mark.parametrize("lang", [None, "iw_IL", "he_IL.UTF-8", "en_US"])
+def test_a_phone_without_settings_speaks_hebrew(monkeypatch, lang):
+    # the system language does not matter: no LANG, Android's old "iw"
+    # tag for Hebrew, or an English phone
+    _phone(monkeypatch, lang)
+    config = TuxemonConfig()
+    assert config.locale.slug == "he_IL"
+    assert config.locale.font_file == "Rubik-Medium.ttf"
+
+
+def test_an_old_english_settings_file_on_a_phone_gives_hebrew(
+    monkeypatch, tmp_path
+):
+    # every start wrote the default (en_US) to tuxemon.yaml
+    _phone(monkeypatch, "en_US")
+    path = tmp_path / "tuxemon.yaml"
+    path.write_text(
+        "game:\n  locale: en_US\n  font_file: PressStart2P.ttf\n"
+        "  language_font: PressStart2P.ttf\n"
+    )
+    config = TuxemonConfig(path)
+    assert config.locale.slug == "he_IL"
+    assert config.locale.font_file == "Rubik-Medium.ttf"
+
+
+def test_a_chosen_language_on_a_phone_is_kept(monkeypatch, tmp_path):
+    _phone(monkeypatch)
+    path = tmp_path / "tuxemon.yaml"
+    path.write_text("")
+    config = TuxemonConfig(path)
+    config.update_locale("en_US", chosen=True)
+    again = TuxemonConfig(path)
+    assert again.locale.slug == "en_US"
+    assert again.locale.font_file == "PressStart2P.ttf"
+
+
+def test_the_game_switching_language_is_not_a_choice(monkeypatch, tmp_path):
+    _phone(monkeypatch)
+    path = tmp_path / "tuxemon.yaml"
+    path.write_text("")
+    TuxemonConfig(path).update_locale("en_US")
+    assert TuxemonConfig(path).locale.slug == "he_IL"
+
+
+def test_the_language_screen_is_a_choice(monkeypatch):
+    from unittest.mock import MagicMock
+
+    from tuxemon.states import set_language
+
+    monkeypatch.setattr(set_language.T, "change_language", lambda _: None)
+    screen = MagicMock()
+    set_language.SetLanguage.change_language(screen, "en_US")
+    screen.client.config.update_locale.assert_called_once_with(
+        "en_US", chosen=True
+    )
+
+
+def test_a_pc_keeps_its_language(monkeypatch):
+    for name in ("ANDROID_ARGUMENT", "ANDROID_PRIVATE", "ANDROID_APP_PATH"):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv("LANG", "he_IL.UTF-8")
+    assert TuxemonConfig().locale.slug == "en_US"
