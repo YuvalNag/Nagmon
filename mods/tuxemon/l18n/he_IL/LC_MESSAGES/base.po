@@ -27,6 +27,16 @@ msgstr "עברית"
 msgid "menu_alphabet"
 msgstr "אבגדהוזחטיכךלמםנןסעפףצץקרשת1234567890 .-!?"
 
+# Name keyboard on a phone: the action keys.
+msgid "menu_key_done"
+msgstr "סיום"
+
+msgid "menu_key_space"
+msgstr "רווח"
+
+msgid "menu_key_delete"
+msgstr "מחק"
+
 # FORMERLY HARD-CODED STRINGS ##
 msgid "currency_symbol"
 msgstr "₪"

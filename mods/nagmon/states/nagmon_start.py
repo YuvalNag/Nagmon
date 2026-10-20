@@ -15,7 +15,10 @@ from nagmon.family.screentime import Action
 from nagmon.runtime import get_runtime
 from nagmon.screen_watch import ScreenTimeWatcher
 from tuxemon.locale.locale import T
+from tuxemon.menu.phone import height_of, pack_in_columns
+from tuxemon.menu.theme import selection_gap
 from tuxemon.tools import open_dialog
+from tuxemon.ui import bidi
 
 if TYPE_CHECKING:
     from pygame_menu.menu import Menu
@@ -65,6 +68,19 @@ class StartState(core_start.StartState):
                 font_size=self.font_type.medium,
                 button_id="nagmon_switch_player",
             )
+        # A phone: the buttons in columns when they are taller than the
+        # screen (SDD_ANDROID §2.3).
+        scaling = self.client.context.scaling
+        labels = [w for w in menu.get_widgets() if not w.is_selectable]
+        pack_in_columns(
+            menu,
+            [w for w in menu.get_widgets() if w.is_selectable],
+            self.client.context.resolution[1]
+            - height_of(labels)
+            - scaling.scale_int(8),
+            rtl=bidi.locale_is_rtl(),
+            gap=selection_gap(scaling),
+        )
 
     def update(self, dt: float) -> None:
         super().update(dt)

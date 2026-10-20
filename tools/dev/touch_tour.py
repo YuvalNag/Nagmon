@@ -6,7 +6,9 @@ Usage:
     HOME=/tmp/nagmon-home python tools/dev/touch_tour.py OUTDIR
 
 Steps: "who is playing" -> tap a child -> a question -> tap the right
-answer -> tap "continue" -> the world with the touch arrows.
+answer -> tap "continue" -> the world with the touch arrows -> a wild
+battle's menu. On the way it saves the letter board, a long dialog and
+the battle menu, and checks that the text fits the screen.
 Exits non-zero if a tap did not do what a child expects.
 """
 
@@ -144,9 +146,54 @@ def tap_choice(index: int = 0) -> bool:
     return True
 
 
-def type_on_screen(text: str) -> None:
+def check_fits(state_name: str) -> None:
+    """No button or label of a pygame_menu screen leaves the screen."""
+    state = client.get_state_by_name(state_name)
+    screen = pygame.Rect((0, 0), context.resolution)
+    out = [
+        w.get_title()
+        for w in state.menu.get_widgets()
+        if w.is_visible()
+        and not screen.contains(w.get_rect(to_real_position=True))
+    ]
+    check(not out, f"{state_name}: everything on the screen {out}")
+
+
+def text_fits(area) -> bool:
+    """Every wrapped line of a dialog box is inside the box."""
+    from tuxemon.ui.draw import wrapped_text_height
+
+    needed = wrapped_text_height(
+        area.text, area.font, area.rect.width, area.line_spacing
+    )
+    print("dialog text needs", needed, "of", area.rect.height, "px")
+    return bool(area.text) and needed <= area.rect.height
+
+
+def words_inside(menu) -> bool:
+    """Every item of a classic Tuxemon menu is inside the menu's border."""
+    menu.menu_items.update_rect_from_parent()
+    # the words' drop shadow (half a game pixel) may touch the border
+    shadow = context.scale
+    inner = menu.calc_internal_rect().inflate(shadow, shadow)
+    out = [
+        rect
+        for rect in (
+            item.rect.move(menu.menu_items.rect.topleft)
+            for item in menu.menu_items
+        )
+        if not inner.contains(rect)
+    ]
+    if out:
+        print(menu.name, "inside", inner, "but", out)
+    return not out
+
+
+def type_on_screen(text: str, before_end: str | None = None) -> None:
     for ch in text:
         tap_key(ch)
+    if before_end:
+        shot(before_end)
     tap_key("END")
     step(20)
 
@@ -180,6 +227,9 @@ from nagmon.runtime import get_runtime  # noqa: E402
 
 check(wait_for("ProfileSelectState"), "who-is-playing screen")
 step(30)
+check(names()[0] == "ProfileSelectState", "the intro's tap pressed nothing")
+tap_widget("ProfileSelectState", "new_child")
+step(30)
 shot("t00_first_run_pin")
 if names()[0] == "InputMenu":
     step(60)  # the keyboard slides open first
@@ -190,8 +240,7 @@ check(get_runtime().parent.has_pin(), "parent PIN set by tapping digits")
 print("states after PIN:", names())
 if names()[0] == "InputMenu":  # the new-child wizard: name
     step(60)
-    type_on_screen("נועה")
-    shot("t00c_name_typed")
+    type_on_screen("נועה", before_end="t00c_letter_board")
     tap_through_dialogs()
     check(names()[0] == "ChoiceState", "grade list after the name")
     shot("t00d_grade")
@@ -226,6 +275,21 @@ if not rt.store.list():
 client.get_state_by_name("ProfileSelectState").rebuild()
 step(30)
 shot("t01_who_plays")
+check_fits("ProfileSelectState")
+
+# A long dialog line wraps inside the box (the longest page of a
+# monster's description: three lines on a phone).
+from nagmon.ui.game_helpers import say  # noqa: E402
+
+say(client, T.translate("ampystoma_description").split("\n")[0])
+step(30)
+shot("t01b_long_dialog")
+dialog = client.active_states[0]
+check(
+    dialog.name == "DialogState" and text_fits(dialog.dialog_box),
+    "a long dialog line fits its box",
+)
+tap_through_dialogs()
 
 child = rt.store.list()[0]
 tap_widget("ProfileSelectState", f"child_{child.id}")
@@ -334,6 +398,64 @@ if names()[:1] == ["WorldState"]:
     print("player", start, "->", tuple(player.tile_pos))
     check(tuple(player.tile_pos) != start, "holding an arrow walks")
     shot("t08_walked")
+
+    # The map's menu and the team (classic Tuxemon screens, bigger text).
+    # The phone's back button opens it, as Escape does.
+    for kind in (pygame.KEYDOWN, pygame.KEYUP):
+        pygame.event.post(pygame.event.Event(kind, key=pygame.K_AC_BACK))
+        step(3)
+    step(40)
+    check(names()[:1] == ["WorldMenuState"], "back button opens the menu")
+    if names()[:1] == ["WorldMenuState"]:
+        shot("t09a_world_menu")
+        check_fits("WorldMenuState")
+        client.pop_state()
+        step(10)
+    client.push_state(
+        "MonsterMenuState", monsters=local_session.player.monsters
+    )
+    step(40)
+    shot("t09b_team")
+    client.pop_state()
+    step(10)
+
+    # A wild battle: the battle menu fits and its words are big.
+    ex = client.event_engine.execute_action
+    ex("wild_encounter", ["geometrion", "6"], True)
+    for _ in range(80):
+        if names()[:1] == ["MainCombatMenuState"]:
+            break
+        if names()[:1] == ["DialogState"]:
+            tap((context.resolution[0] // 2, context.resolution[1] // 3))
+        step(20)
+    check(names()[:1] == ["MainCombatMenuState"], "battle menu")
+    if names()[:1] == ["MainCombatMenuState"]:
+        step(30)
+        shot("t10_combat_menu")
+        menu = client.active_states[0]
+        screen = pygame.Rect((0, 0), context.resolution)
+        check(screen.contains(menu.rect), "battle menu inside the screen")
+        menu.menu_items.update_rect_from_parent()
+        group = menu.menu_items.rect
+        check(words_inside(menu), "battle menu words inside its border")
+        # "fight": the list of attacks, then maybe a knowledge question
+        fight = menu.menu_items.sprites()[0]
+        tap(fight.rect.move(group.topleft).center)
+        step(40)
+        shot("t11_combat_techniques")
+        top = client.active_states[0]
+        if top.name == "CombatTargetMenuState" or hasattr(top, "menu_items"):
+            top.menu_items.update_rect_from_parent()
+            inner = top.menu_items.rect
+            check(
+                screen.contains(top.rect) and words_inside(top),
+                f"{top.name}: the attacks inside the screen and the border",
+            )
+            tap(top.menu_items.sprites()[0].rect.move(inner.topleft).center)
+            step(60)
+        if names()[:1] == ["QuizState"]:
+            shot("t12_battle_question")
+            check_fits("QuizState")
 
 shot("t09_end")
 print("states:", names())

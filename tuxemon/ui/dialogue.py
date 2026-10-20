@@ -8,6 +8,7 @@ from pygame import Rect
 
 from tuxemon.database.runtime import db
 from tuxemon.db import DialogueModel
+from tuxemon.platform import mobile
 from tuxemon.ui.text_alignment import DialogPosition
 from tuxemon.user_config import CONFIG
 
@@ -16,6 +17,9 @@ logger = logging.getLogger(__name__)
 LARGE_GUI_HEIGHT_RATIO = 0.4
 SMALL_GUI_HEIGHT_RATIO = 0.25
 SMALL_GUI_WIDTH_RATIO = 0.8
+#: A phone's text is 1.6 times bigger: four lines need a taller box
+#: (SDD_ANDROID §2.3).
+PHONE_HEIGHT_RATIO = 0.34
 
 
 def scale_dialog_size(rect: Rect) -> Rect:
@@ -24,7 +28,12 @@ def scale_dialog_size(rect: Rect) -> Rect:
     if CONFIG.large_gui:
         new.height = int(rect.height * LARGE_GUI_HEIGHT_RATIO)
     else:
-        new.height = int(rect.height * SMALL_GUI_HEIGHT_RATIO)
+        ratio = (
+            PHONE_HEIGHT_RATIO
+            if mobile.is_android()
+            else SMALL_GUI_HEIGHT_RATIO
+        )
+        new.height = int(rect.height * ratio)
         new.width = int(rect.width * SMALL_GUI_WIDTH_RATIO)
     return new
 

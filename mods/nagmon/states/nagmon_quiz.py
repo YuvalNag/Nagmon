@@ -32,6 +32,8 @@ from nagmon.ui.game_helpers import (
 from tuxemon.constants.asset_loader import fetch_asset
 from tuxemon.locale.locale import T
 from tuxemon.menu.menu import PygameMenuState
+from tuxemon.menu.theme import widget_padding
+from tuxemon.platform import mobile
 from tuxemon.platform.const import events
 from tuxemon.platform.const.graphics import BG_MINIGAME
 from tuxemon.session import local_session
@@ -52,6 +54,12 @@ def answer_picture_size(menu_height: float) -> int:
     they keep their size on sharper screens.
     """
     return max(48, int(menu_height * 0.1))
+
+
+#: On a phone the answers look like cards: a white tile with a border
+#: (SDD_ANDROID §2.3).
+CARD_COLOR = (255, 255, 255)
+CARD_BORDER = (96, 112, 150)
 
 
 def _choice_label(choice: Any, english_first: bool) -> str:
@@ -270,9 +278,14 @@ class QuizState(PygameMenuState):
         assert q is not None and q.figure is not None
         # Leave room for the number pad or tiles under a picture.
         tall = q.kind in CHOICE_KINDS
+        # A phone's bigger buttons leave less room for the picture.
+        if mobile.is_android():
+            part = 0.22 if tall else 0.17
+        else:
+            part = 0.32 if tall else 0.24
         size = (
             int(self.client.context.resolution[0] * 0.45),
-            int(self.client.context.resolution[1] * (0.32 if tall else 0.24)),
+            int(self.client.context.resolution[1] * part),
         )
         try:
             font = fetch_asset("font", self.client.config.locale.font_file)
@@ -312,15 +325,90 @@ class QuizState(PygameMenuState):
             self._add_choices(menu)
         self._add_footer(menu)
 
-    def _row(self, menu: Menu, key: str) -> Any:
+    def _row(
+        self,
+        menu: Menu,
+        key: str,
+        font_size: int | None = None,
+        height: int = 0,
+    ) -> Any:
         frame = menu.add.frame_h(
             width=fix_measure(menu._width, 0.95),
-            height=fix_measure(menu._height, 0.1),
+            height=max(
+                fix_measure(menu._height, 0.1),
+                self._button_height(font_size or self.font_type.medium),
+                height,
+            ),
             frame_id=key,
             align=ALIGN_CENTER,
+            **self._frame_style(),
         )
         frame._relax = True
         return frame
+
+    def _frame_style(self) -> dict[str, Any]:
+        """On a phone a row or a card is only as tall as what it holds."""
+        return {"padding": 0} if mobile.is_android() else {}
+
+    def _button_height(self, font_size: int) -> int:
+        """
+        A button's height on a phone, so its row does not cut it; 0 on a
+        computer, where the rows keep their height.
+        """
+        if not mobile.is_android():
+            return 0
+        pad = widget_padding(self.client.context.scaling, touch=True)[0]
+        return int(font_size * 1.25) + 2 * pad + 2 * self._card_border()
+
+    def _card_border(self) -> int:
+        return max(2, self.client.context.scaling.scale_int(1) // 2)
+
+    def _card(self, font_size: int, *, square: bool = False) -> dict[str, Any]:
+        """
+        On a phone a button is a white card with a border, a little apart
+        from the next one; ``square`` for a digit or a letter. A computer
+        keeps its plain buttons.
+        """
+        if not mobile.is_android():
+            return {"font_size": font_size}
+        scaling = self.client.context.scaling
+        pad_v, pad_h = widget_padding(scaling, touch=True)
+        style: dict[str, Any] = {
+            "font_size": font_size,
+            "background_color": CARD_COLOR,
+            "border_color": CARD_BORDER,
+            "border_width": self._card_border(),
+        }
+        if square:
+            style["padding"] = (pad_v, int(pad_v * 1.5))
+        return style
+
+    def _pack(self, menu: Menu, row: Any, widget: Any, **kwargs: Any) -> None:
+        """
+        Packs ``widget`` in a row of buttons. On a phone the buttons are
+        cards in the middle of the row, with a little room between them
+        for the finger.
+        """
+        if mobile.is_android():
+            kwargs.setdefault("align", ALIGN_CENTER)
+            if row.get_widgets(unpack_subframes=False):
+                gap = self.client.context.scaling.scale_int(3)
+                row.pack(
+                    menu.add.horizontal_margin(gap), align=kwargs["align"]
+                )
+        row.pack(widget, **kwargs)
+
+    def _answer_style(self) -> dict[str, Any]:
+        """Big answers on a phone; the computer keeps medium."""
+        if not mobile.is_android():
+            return self._card(self.font_type.medium)
+        return self._card(self.font_type.big)
+
+    def _small_button(self) -> int:
+        """The footer and "undo": medium on a phone, small elsewhere."""
+        if mobile.is_android():
+            return self.font_type.medium
+        return self.font_type.small
 
     def _add_choices(self, menu: Menu) -> None:
         q = self.question
@@ -328,7 +416,18 @@ class QuizState(PygameMenuState):
         english_first = q.subject == "english"
         visible = [c for c in q.choices if c.id not in self.hidden]
         with_images = any(c.image for c in visible)
-        row = self._row(menu, "choices")
+        style = self._answer_style()
+        picture = answer_picture_size(menu._height)
+        card_height = max(
+            fix_measure(menu._height, 0.22),
+            picture + self._button_height(style["font_size"]),
+        )
+        row = self._row(
+            menu,
+            "choices",
+            style["font_size"],
+            card_height + self._card_border() if with_images else 0,
+        )
         numbered = list(enumerate(visible, start=1))
         if T.is_rtl():
             # Rows fill left to right; in Hebrew choice 1 belongs on the right.
@@ -336,34 +435,41 @@ class QuizState(PygameMenuState):
         for n, choice in numbered:
             label = _choice_label(choice, english_first) or str(n)
             if with_images:
-                image = self._emoji_surface(
-                    choice.image, answer_picture_size(menu._height)
-                )
+                image = self._emoji_surface(choice.image, picture)
                 card = menu.add.frame_v(
                     fix_measure(menu._width, 0.2),
-                    fix_measure(menu._height, 0.22),
+                    card_height,
                     frame_id=f"card_{choice.id}",
+                    **self._frame_style(),
                 )
                 card._relax = True
                 if image is not None:
-                    card.pack(menu.add.surface(image))
+                    picture_widget = menu.add.surface(
+                        image, **self._frame_style()
+                    )
+                    if mobile.is_android():
+                        card.pack(picture_widget, align=ALIGN_CENTER)
+                    else:
+                        card.pack(picture_widget)
                 card.pack(
                     menu.add.button(
                         label,
                         lambda c=choice.id: self.answer(c),
-                        font_size=self.font_type.medium,
                         button_id=f"choice_{choice.id}",
+                        **style,
                     ),
                     align=ALIGN_CENTER,
                 )
-                row.pack(card, align=ALIGN_CENTER)
+                self._pack(menu, row, card, align=ALIGN_CENTER)
             else:
-                row.pack(
+                self._pack(
+                    menu,
+                    row,
                     menu.add.button(
                         f"{n}. {label}" if len(visible) > 2 else label,
                         lambda c=choice.id: self.answer(c),
-                        font_size=self.font_type.medium,
                         button_id=f"choice_{choice.id}",
+                        **style,
                     ),
                     align=ALIGN_CENTER,
                 )
@@ -389,34 +495,40 @@ class QuizState(PygameMenuState):
             ("/", "/"),
             ("back", T.translate("nagmon_erase")),
         ]
-        row = self._row(menu, "pad_digits")
+        row = self._row(menu, "pad_digits", self.font_type.big)
         for key in digits:
-            row.pack(
+            self._pack(
+                menu,
+                row,
                 menu.add.button(
                     key,
                     lambda k=key: self.press_key(k),
-                    font_size=self.font_type.big,
                     button_id=f"pad_{key}",
+                    **self._card(self.font_type.big, square=True),
                 ),
                 align=ALIGN_CENTER,
             )
-        row = self._row(menu, "pad_tools")
+        row = self._row(menu, "pad_tools", self.font_type.medium)
         for key, title in tools:
-            row.pack(
+            self._pack(
+                menu,
+                row,
                 menu.add.button(
                     title,
                     lambda k=key: self.press_key(k),
-                    font_size=self.font_type.medium,
                     button_id=f"pad_{key}",
+                    **self._card(self.font_type.medium),
                 ),
                 align=ALIGN_CENTER,
             )
-        row.pack(
+        self._pack(
+            menu,
+            row,
             menu.add.button(
                 T.translate("nagmon_check_answer"),
                 lambda: self.answer(self.pad.text) if self.pad.text else None,
-                font_size=self.font_type.medium,
                 button_id="pad_ok",
+                **self._card(self.font_type.medium),
             ),
             align=ALIGN_CENTER,
         )
@@ -440,32 +552,49 @@ class QuizState(PygameMenuState):
             wordwrap=True,
             label_id="order_picked",
         )
-        for choice in q.choices:
-            if choice.id in self.order.picked:
-                continue
-            menu.add.button(
+        # A phone: the items side by side, as cards, so they fit the height.
+        items = (
+            self._row(menu, "order_items", self.font_type.big)
+            if mobile.is_android()
+            else None
+        )
+        left = [c for c in q.choices if c.id not in self.order.picked]
+        if items is not None and T.is_rtl():
+            left.reverse()
+        for choice in left:
+            button = menu.add.button(
                 _choice_label(choice, english_first),
                 lambda c=choice.id: self._pick(c),
-                font_size=self.font_type.medium,
                 button_id=f"order_{choice.id}",
+                **self._card(
+                    self.font_type.big
+                    if items is not None
+                    else self.font_type.medium
+                ),
             )
-        row = self._row(menu, "order_controls")
-        row.pack(
+            if items is not None:
+                self._pack(menu, items, button, align=ALIGN_CENTER)
+        row = self._row(menu, "order_controls", self.font_type.medium)
+        self._pack(
+            menu,
+            row,
             menu.add.button(
                 T.translate("nagmon_undo"),
                 self._unpick,
-                font_size=self.font_type.small,
                 button_id="order_undo",
-            )
+                **self._card(self._small_button()),
+            ),
         )
         if self.order.complete:
-            row.pack(
+            self._pack(
+                menu,
+                row,
                 menu.add.button(
                     T.translate("nagmon_check_answer"),
                     lambda: self.answer(tuple(self.order.picked)),
-                    font_size=self.font_type.medium,
                     button_id="order_ok",
-                )
+                    **self._card(self.font_type.medium),
+                ),
             )
 
     def _pick(self, item_id: str) -> None:
@@ -482,35 +611,41 @@ class QuizState(PygameMenuState):
             font_size=self.font_type.big,
             label_id="letters_word",
         )
-        row = self._row(menu, "letters")
+        row = self._row(menu, "letters", self.font_type.big)
         for i, letter in enumerate(self.tiles.letters):
             if not self.tiles.available(i):
                 continue
-            row.pack(
+            self._pack(
+                menu,
+                row,
                 menu.add.button(
                     letter,
                     lambda i=i: self._tile(i),
-                    font_size=self.font_type.big,
                     button_id=f"tile_{i}",
-                )
+                    **self._card(self.font_type.big, square=True),
+                ),
             )
-        row = self._row(menu, "letters_controls")
-        row.pack(
+        row = self._row(menu, "letters_controls", self.font_type.medium)
+        self._pack(
+            menu,
+            row,
             menu.add.button(
                 T.translate("nagmon_undo"),
                 self._untile,
-                font_size=self.font_type.small,
                 button_id="letters_undo",
-            )
+                **self._card(self._small_button()),
+            ),
         )
         if len(self.tiles.used) == len(self.tiles.letters):
-            row.pack(
+            self._pack(
+                menu,
+                row,
                 menu.add.button(
                     T.translate("nagmon_check_answer"),
                     lambda: self.answer(self.tiles.word),
-                    font_size=self.font_type.medium,
                     button_id="letters_ok",
-                )
+                    **self._card(self.font_type.medium),
+                ),
             )
 
     def _tile(self, index: int) -> None:
@@ -522,7 +657,7 @@ class QuizState(PygameMenuState):
         self.show_view()
 
     def _add_footer(self, menu: Menu) -> None:
-        row = self._row(menu, "footer")
+        row = self._row(menu, "footer", self._small_button())
         buttons: list[tuple[str, str, Callable[[], None]]] = []
         if not self.hint_used and self.engine is not None:
             buttons.append(("hint", T.translate("nagmon_hint"), self.hint))
@@ -535,11 +670,13 @@ class QuizState(PygameMenuState):
         if T.is_rtl():
             buttons.reverse()
         for key, title, action in buttons:
-            row.pack(
+            self._pack(
+                menu,
+                row,
                 menu.add.button(
                     title,
                     action,
-                    font_size=self.font_type.small,
+                    font_size=self._small_button(),
                     button_id=f"footer_{key}",
                 ),
                 align=ALIGN_CENTER,

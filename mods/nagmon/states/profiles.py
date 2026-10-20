@@ -32,7 +32,11 @@ from nagmon.runtime import NagmonRuntime, get_runtime
 from nagmon.ui.game_helpers import ask_text, choose, rebuild_menu, say
 from tuxemon.locale.locale import T
 from tuxemon.menu.menu import PygameMenuState
+from tuxemon.menu.phone import height_of, pack_in_columns, pack_in_row
+from tuxemon.menu.theme import selection_gap
+from tuxemon.platform import mobile
 from tuxemon.platform.const.graphics import BG_START_SCREEN
+from tuxemon.ui import bidi
 
 if TYPE_CHECKING:
     from tuxemon.base_client import BaseClient
@@ -201,11 +205,12 @@ class ProfileSelectState(PygameMenuState):
         return rt
 
     def add_menu_items(self, menu: Menu) -> None:
-        menu.add.label(
+        title = menu.add.label(
             T.translate("nagmon_who_plays"),
             font_size=self.font_type.big,
             label_id="who_plays",
         )
+        children = []
         profiles = self.rt.store.list()
         for profile in profiles:
             stars = 0
@@ -214,26 +219,55 @@ class ProfileSelectState(PygameMenuState):
                 stars = sum((learner.get("stars") or {}).values())
             except (KeyError, AttributeError, TypeError):
                 pass
-            menu.add.button(
-                T.format(
-                    "nagmon_child_button",
-                    {"name": profile.name, "stars": stars},
-                ),
-                lambda pid=profile.id: self.pick(pid),
-                font_size=self.font_type.big,
-                button_id=f"child_{profile.id}",
+            children.append(
+                menu.add.button(
+                    T.format(
+                        "nagmon_child_button",
+                        {"name": profile.name, "stars": stars},
+                    ),
+                    lambda pid=profile.id: self.pick(pid),
+                    font_size=self.font_type.big,
+                    button_id=f"child_{profile.id}",
+                )
             )
-        menu.add.button(
-            T.translate("nagmon_new_child"),
-            self.add_child,
-            font_size=self.font_type.medium,
-            button_id="new_child",
-        )
-        menu.add.button(
-            T.translate("nagmon_parents"),
-            self.open_parents,
-            font_size=self.font_type.medium,
-            button_id="parents",
+        tools = [
+            menu.add.button(
+                T.translate("nagmon_new_child"),
+                self.add_child,
+                font_size=self.font_type.medium,
+                button_id="new_child",
+            ),
+            menu.add.button(
+                T.translate("nagmon_parents"),
+                self.open_parents,
+                font_size=self.font_type.medium,
+                button_id="parents",
+            ),
+        ]
+        self._fit_on_phone(menu, title, children, tools)
+
+    def _fit_on_phone(
+        self, menu: Menu, title: Any, children: list[Any], tools: list[Any]
+    ) -> None:
+        """
+        On a phone, more than three children do not fit one under the
+        other: the two tools go side by side and the children in columns
+        (SDD_ANDROID §2.3).
+        """
+        scaling = self.client.context.scaling
+        room = self.client.context.resolution[1] - scaling.scale_int(8)
+        if height_of([title, *children, *tools]) <= room:
+            return
+        rtl = bidi.locale_is_rtl()
+        gap = selection_gap(scaling)
+        row = pack_in_row(menu, tools, rtl=rtl, gap=gap)
+        bottom = row.get_height() if row is not None else height_of(tools)
+        pack_in_columns(
+            menu,
+            children,
+            room - height_of([title]) - bottom,
+            rtl=rtl,
+            gap=gap,
         )
 
     def rebuild(self) -> None:
@@ -290,7 +324,7 @@ class ParentMenuState(PygameMenuState):
 
     def add_menu_items(self, menu: Menu) -> None:
         s = self.rt.parent.settings
-        menu.add.label(
+        title = menu.add.label(
             T.translate("nagmon_parents"),
             font_size=self.font_type.big,
         )
@@ -333,13 +367,32 @@ class ParentMenuState(PygameMenuState):
             ("pin", T.translate("nagmon_change_pin"), self.change_pin),
             ("back", T.translate("nagmon_back"), self.close),
         ]
-        for key, text, action in buttons:
+        # A phone: the parent reads it, so a smaller font and fourteen
+        # buttons in two columns, without scrolling.
+        size = (
+            self.font_type.small
+            if mobile.is_android()
+            else self.font_type.medium
+        )
+        widgets = [
             menu.add.button(
                 text,
                 action,
-                font_size=self.font_type.medium,
+                font_size=size,
                 button_id=f"parent_{key}",
             )
+            for key, text, action in buttons
+        ]
+        scaling = self.client.context.scaling
+        pack_in_columns(
+            menu,
+            widgets,
+            self.client.context.resolution[1]
+            - height_of([title])
+            - scaling.scale_int(8),
+            rtl=bidi.locale_is_rtl(),
+            gap=selection_gap(scaling),
+        )
 
     def rebuild(self) -> None:
         rebuild_menu(self)

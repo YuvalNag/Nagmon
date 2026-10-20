@@ -11,6 +11,7 @@ from pygame.font import Font
 from pygame.surface import Surface
 
 from tuxemon.graphics import ColorLike
+from tuxemon.platform import mobile
 from tuxemon.platform.const.graphics import FONT_SHADOW_COLOR, FONT_SIZE
 from tuxemon.ui.bidi import ensure_visual
 
@@ -31,7 +32,7 @@ class TextRenderer:
         self.font_color = font_color
         self.font_shadow_color = font_shadow_color or FONT_SHADOW_COLOR
         self.font = font or Font(
-            font_filename, self.scaling.scale_int(FONT_SIZE)
+            font_filename, mobile.ui_px(self.scaling.scale_int(FONT_SIZE))
         )
 
         ox, oy = self.scaling.scale_sequence((0.5, 0.5))

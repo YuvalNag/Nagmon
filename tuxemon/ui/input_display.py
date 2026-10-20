@@ -29,6 +29,8 @@ class InputDisplayConfig:
     text_area_height: int = 100
     char_counter_offset_x: int = 80
     char_counter_offset_y: int = 30
+    #: In screen pixels, not scaled.
+    char_counter_size: tuple[int, int] = (50, 30)
 
 
 class InputDisplay:
@@ -98,7 +100,7 @@ class InputDisplay:
         self.char_counter = TextArea(
             font=font,
             font_color=font_color,
-            rect=Rect(0, 0, 50, 30),
+            rect=Rect((0, 0), self.config.char_counter_size),
             scaling=self.scaling,
             font_shadow=(96, 96, 96),
         )

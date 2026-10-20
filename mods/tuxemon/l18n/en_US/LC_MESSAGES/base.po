@@ -4449,6 +4449,16 @@ msgstr "From ${{map_name}} to ${{east}}"
 msgid "menu_alphabet"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890.-!"
 
+# Name keyboard on a phone: the action keys.
+msgid "menu_key_done"
+msgstr "Done"
+
+msgid "menu_key_space"
+msgstr "Space"
+
+msgid "menu_key_delete"
+msgstr "Delete"
+
 msgid "random"
 msgstr "Random"
 

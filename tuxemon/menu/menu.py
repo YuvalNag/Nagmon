@@ -35,9 +35,11 @@ from tuxemon.menu.input_handler import (
 )
 from tuxemon.menu.interface import MenuItem
 from tuxemon.menu.layout_engine import MenuLayoutEngine
+from tuxemon.menu.phone import tighten_labels
 from tuxemon.menu.rtl import start_menu_alignment
-from tuxemon.menu.theme import get_sound_engine, get_theme
+from tuxemon.menu.theme import get_sound_engine, get_theme, label_padding
 from tuxemon.menu.transitions import EaseOut, MenuTransition
+from tuxemon.platform import mobile
 from tuxemon.platform.const.graphics import (
     BACKGROUND_COLOR,
     FONT_COLOR,
@@ -91,7 +93,9 @@ class FontSettings:
 
     @classmethod
     def from_context(cls, context: DisplayContext) -> FontSettings:
-        s = context.scaling.scale_int
+        def s(size: int) -> int:
+            return mobile.ui_px(context.scaling.scale_int(size))
+
         return cls(
             smaller=s(FONT_SIZE_SMALLER),
             small=s(FONT_SIZE_SMALL),
@@ -277,6 +281,7 @@ class PygameMenuState(State):
     def _set_open(self) -> None:
         self.open = True
         self.state_controller.set_normal()
+        tighten_labels(self.menu, label_padding(self.client.context.scaling))
         self.menu.enable()
 
     def process_event(self, event: PlayerInput) -> PlayerInput | None:
@@ -796,9 +801,10 @@ class Menu(Generic[T], State):
         self.line_spacing = self.client.context.scaling.scale_int(line_spacing)
 
         if self.client.config.large_gui:
-            self.font_size = self.client.context.scaling.scale_int(size + 1)
-        else:
-            self.font_size = self.client.context.scaling.scale_int(size)
+            size += 1
+        self.font_size = mobile.ui_px(
+            self.client.context.scaling.scale_int(size)
+        )
 
         self.font = Font(font, self.font_size)
         return self.font

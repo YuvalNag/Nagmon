@@ -678,6 +678,9 @@ class VisualSpriteList(RelativeGroup[_MenuElement]):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self._needs_arrange = False
+        #: The size the items were arranged for; another size re-arranges
+        #: them (a menu that shrinks to its items, RTL rows anchored right).
+        self._arranged_size: tuple[int, int] | None = None
         self._columns = 1
         self.line_spacing: int | None = None
         self.max_width_per_column: int | None = None
@@ -833,7 +836,8 @@ class VisualSpriteList(RelativeGroup[_MenuElement]):
         bgd: Surface | None = None,
         special_flags: int = 0,
     ) -> list[FRect | Rect]:
-        if self._needs_arrange:
+        self.update_rect_from_parent()
+        if self._needs_arrange or self.rect.size != self._arranged_size:
             self.arrange_menu_items()
         dirty = super().draw(surface=surface)
         return dirty
@@ -918,6 +922,7 @@ class VisualSpriteList(RelativeGroup[_MenuElement]):
                     row * line_spacing,
                 )
 
+        self._arranged_size = (W, H)
         self._needs_arrange = False
 
     def _allowed_input(self) -> Container[int]:
