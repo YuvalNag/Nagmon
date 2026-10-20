@@ -63,7 +63,9 @@ export function npcSheet(db: NpcsDb, slug: string): Sheet | null {
  * The frame to draw: standing, or mid-step (`t` 0..1 of a step) on the
  * left or right foot, which change with every tile.
  */
-export function frameIndex(facing: Dir, t: number | null, leftFoot: boolean): number {
+export function frameIndex(facing: Dir, t: number | null, leftFoot: boolean, frames = 12): number {
+  // a prop (the wallet, a sign) is one picture, or too few frames to walk
+  if (frames < 12) return 0;
   const row = ROWS[facing] * 3;
   if (t === null || t < 0.25 || t >= 0.75) return row + 1;
   return row + (leftFoot ? 0 : 2);

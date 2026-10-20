@@ -29,6 +29,9 @@ describe("map sheets", () => {
     expect(frameIndex("left", 0.5, true)).toBe(3);
     expect(frameIndex("left", 0.5, false)).toBe(5);
     expect(frameIndex("up", 0.9, false)).toBe(10);
+    // a prop with one frame (sprites/objects/*) is always frame 0
+    expect(frameIndex("down", null, true, 1)).toBe(0);
+    expect(frameIndex("left", 0.5, true, 4)).toBe(0);
   });
 
   it("matches the sheets' size: 3 frames across, 4 directions down", () => {

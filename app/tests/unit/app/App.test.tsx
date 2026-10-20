@@ -11,10 +11,12 @@ import { currentMap } from "../../../src/game/current";
 
 // the map's Phaser scene does not run in jsdom: a stand-in that records pauses
 const mapCalls: string[] = [];
+const mapFails = { next: false };
 vi.mock("../../../src/game/mapGame", () => ({
-  startMap: (opts: { onReady?: () => void }) => {
+  startMap: (opts: { onReady?: () => void; onError?: (e: unknown) => void }) => {
     mapCalls.push("start");
-    setTimeout(() => opts.onReady?.(), 0);
+    const fail = mapFails.next;
+    setTimeout(() => (fail ? opts.onError?.(new Error("no WebGL")) : opts.onReady?.()), 0);
     return {
       pause: (why: string) => mapCalls.push(`pause ${why}`),
       resume: (why: string) => mapCalls.push(`resume ${why}`),
@@ -330,5 +332,22 @@ describe("Android's back button", () => {
     expect(app.screen()).toBe("who-plays");
     expect(mapCalls).toContain("destroy");
     expect(currentMap()).toBeNull();
+  });
+
+  it("goes back to who-plays from 'the map did not open'", async () => {
+    mapCalls.length = 0;
+    mapFails.next = true;
+    try {
+      const app = await start({ children: ["דן"] });
+      const [child] = await app.services.profiles.list();
+      await app.press(`child_${child.id}`);
+      await settle(20);
+      expect(app.container.querySelector("[data-screen=map-failed]")).not.toBeNull();
+      await app.androidBack();
+      expect(app.screen()).toBe("who-plays");
+      expect(mapCalls).toContain("destroy");
+    } finally {
+      mapFails.next = false;
+    }
   });
 });

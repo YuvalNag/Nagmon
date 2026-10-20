@@ -3,6 +3,10 @@
  * (docs/app/SDD.md §5: 60 frames a second, the slowest under 50 ms).
  * The old app's `FrameStats` did the same; the line lets the parent's
  * "send log" show how the game ran on the phone.
+ *
+ * A pause (the menu, the background) does not start a new minute: the
+ * frames before and after it make one line, and the wait itself is not
+ * a frame. On a phone that pauses often, this line is still written.
  */
 
 export const FRAME_LOG_EVERY_MS = 60_000;
@@ -55,11 +59,6 @@ export class FrameStats {
         s,
       );
     }
-    this.restart();
-  }
-
-  /** Starts a new minute without a line (after a pause: the wait is not a slow frame). */
-  restart(): void {
     this.frames = 0;
     this.total = 0;
     this.slowest = 0;

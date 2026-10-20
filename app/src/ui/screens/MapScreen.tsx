@@ -12,6 +12,8 @@ const log = getLogger("nagmon.map");
 
 /** How long the "closed way" note stays up. */
 export const NOTE_MS = 3500;
+/** CSS px kept clear between the d-pad and the hero. */
+export const PAD_GAP = 8;
 
 type Load = () => Promise<typeof import("../../game/mapGame")>;
 
@@ -54,6 +56,12 @@ export function MapScreen({ name, avatar, onExit, backRef, load = loadGame }: Pr
           parent: stage.current,
           avatar,
           input: () => dpad.take(),
+          release: () => dpad.clear(),
+          // the camera keeps the hero right of the d-pad (bottom left)
+          reservedLeft: () => {
+            const pad = stage.current?.parentElement?.querySelector(".dpad");
+            return pad ? pad.getBoundingClientRect().right + PAD_GAP : 0;
+          },
           onBlocked: () => setNote((n) => n + 1),
           onReady: () => alive && setStatus("ready"),
           onError: () => alive && setStatus("failed"),
@@ -92,11 +100,12 @@ export function MapScreen({ name, avatar, onExit, backRef, load = loadGame }: Pr
 
   // Android's back: the menu, and back again closes it (one step back each time)
   useEffect(() => {
-    backRef.current = () => (menuOpen ? closeMenu() : openMenu());
+    // on "the map did not open" it is the way back, as the overlay's button
+    backRef.current = () => (status === "failed" ? onExit() : menuOpen ? closeMenu() : openMenu());
     return () => {
       backRef.current = null;
     };
-  }, [backRef, menuOpen, openMenu, closeMenu]);
+  }, [backRef, menuOpen, openMenu, closeMenu, status, onExit]);
 
   useEffect(() => {
     if (!note) return;

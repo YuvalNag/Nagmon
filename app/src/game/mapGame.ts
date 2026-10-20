@@ -15,8 +15,12 @@
  *   (./resolution.ts): the zoom shrinks with it, the textures are then
  *   smoothed (LINEAR), and the map keeps its size on the screen.
  * - No picture is drawn at more than twice its own pixels. A sheet that
- *   is still low-res (a 16 px prop) is left off the map until its HD
- *   sheet exists, and the log says so.
+ *   would be (a 1x prop) is left off the map, and the log says so.
+ * - The camera may go past the map's left edge by the d-pad's width, so
+ *   the hero is never drawn under the arrows.
+ * - A lost WebGL context is logged; if it does not come back within
+ *   {@link CONTEXT_WAIT_MS}, the map says it failed (the menu offers the
+ *   way back to who-plays).
  */
 import Phaser from "phaser";
 import { mapZoom, scrollFor, snap } from "../core/world/camera";
@@ -41,6 +45,8 @@ export const KEEP_MAPS = 2;
 const FADE_MS = 150;
 /** A longer frame (a stall) walks as if it were this long: no jump across the map. */
 const MAX_FRAME_MS = 250;
+/** How long a lost WebGL context may take to come back. */
+export const CONTEXT_WAIT_MS = 5000;
 
 export interface MapOptions {
   parent: HTMLElement;
@@ -48,6 +54,10 @@ export interface MapOptions {
   avatar: string;
   /** The direction asked for this frame (the d-pad's `take`). */
   input: () => Dir | null;
+  /** Lets go of every finger on the d-pad (a pause: a press must not walk on after it). */
+  release?: () => void;
+  /** CSS px at the left of the screen covered by the d-pad (its right edge and a gap). */
+  reservedLeft?: () => number;
   /** The hero pushed against a closed way (route 8, Steamshore). */
   onBlocked: () => void;
   onReady?: () => void;
@@ -55,7 +65,7 @@ export interface MapOptions {
   map?: string;
 }
 
-/** How big one picture is drawn: device pixels per texel. */
+/** How big one picture is drawn: device pixels per texel, from the camera and the canvas as they are. */
 export interface ScaleEntry {
   what: string;
   texels: number;
@@ -64,25 +74,50 @@ export interface ScaleEntry {
   filter: "nearest" | "linear";
 }
 
+/** Raw numbers read from Phaser and the page, for the tests to do their own sums. */
+export interface Measured {
+  camZoom: number;
+  /** canvas.width / its CSS width. */
+  canvasPxPerCss: number;
+  devicePixelRatio: number;
+  layers: {
+    name: string;
+    /** World px per map tile, and the layer's own scale. */
+    mapTileWidth: number;
+    scaleX: number;
+    tileset: { tileWidth: number; margin: number; spacing: number; columns: number };
+    /** The atlas texture's own size, in texels. */
+    atlas: { key: string; width: number; height: number };
+    filter: "nearest" | "linear";
+  }[];
+  sprites: { what: string; displayWidth: number; frameWidth: number; frames: number; filter: "nearest" | "linear" }[];
+}
+
 export interface MapDebug {
   ready: boolean;
   map: string | null;
   /** `steps`: tiles walked since the map opened; `bumps`: pushes against a wall or someone. */
   player: { x: number; y: number; facing: Dir; moving: boolean; steps: number; bumps: number };
-  npcs: { slug: string; x: number; y: number }[];
+  /** The hero's picture on the page, CSS px. */
+  heroRect: { left: number; top: number; right: number; bottom: number } | null;
+  npcs: { slug: string; x: number; y: number; frame: number }[];
   left: string[];
   zoom: number;
   dpr: number;
-  /** Device px per CSS px the canvas draws at (adaptive resolution), and its steps. */
-  resolution: { dpr: number; steps: number[]; adaptive: boolean; remembered: boolean; changes: Change[] };
+  /** Canvas px per CSS px the canvas draws at (adaptive resolution), and its steps. */
+  resolution: { dpr: number; steps: number[]; adaptive: boolean; start: string; changes: Change[] };
   renderer: "webgl" | "canvas";
   canvas: { width: number; height: number; cssWidth: number; cssHeight: number };
   view: { x: number; y: number; width: number; height: number };
   world: { width: number; height: number };
   scales: ScaleEntry[];
+  measured: Measured;
   frames: FrameSummary;
   music: { track: string | null; playing: boolean };
   paused: PauseReason[];
+  /** Whether Phaser's loop is running (it sleeps while paused). */
+  loopRunning: boolean;
+  webgl: { lost: number; restored: number; contextLost: boolean };
   cachedMaps: string[];
   textures: string[];
 }
@@ -100,9 +135,33 @@ interface MusicDb {
   [slug: string]: string;
 }
 
+interface TiledTileset {
+  name: string;
+  image: string;
+  tilewidth: number;
+  tileheight: number;
+  margin: number;
+  spacing: number;
+  columns: number;
+}
+
 const tilesKey = (map: string) => `map:${map}`;
 const atlasKey = (map: string) => `atlas:${map}`;
 const npcKey = (slug: string) => `npc:${slug}`;
+const NEAREST = Phaser.Textures.FilterMode.NEAREST;
+const LINEAR = Phaser.Textures.FilterMode.LINEAR;
+
+/** Canvas px per atlas texel on a map, at the canvas's resolution. */
+function zoomFor(world: WorldMap | null, render: number): number {
+  const tile = world?.tileSize ?? 64;
+  return mapZoom(MAP_SCALE, tile / (world?.sourceTile ?? MAP_SOURCE_TILE_PX), render);
+}
+
+/** NEAREST at a whole zoom; smoothed when the canvas draws fewer pixels or shrinks a picture. */
+function filterFor(canvasPxPerTexel: number): Phaser.Textures.FilterMode {
+  const whole = Math.abs(canvasPxPerTexel - Math.round(canvasPxPerTexel)) < 1e-6 && canvasPxPerTexel >= 1;
+  return whole ? NEAREST : LINEAR;
+}
 
 class MapScene extends Phaser.Scene {
   world: WorldMap | null = null;
@@ -110,11 +169,15 @@ class MapScene extends Phaser.Scene {
   zoom = 1;
   /** Canvas px per device px: 1 at the screen's full pixels (./resolution.ts). */
   render = 1;
+  /** Canvas px per CSS px (the resolution's ratio). */
+  canvasPerCss = 1;
   /** Each real frame, for the adaptive resolution (set by startMap). */
   measure: (dtMs: number, now: number) => void = () => {};
   /** A map was entered: its texture uploads are not the phone's speed (set by startMap). */
   entered: () => void = () => {};
   busy = true;
+  /** The map closed: work that was waiting (a door's load) stops where it is. */
+  dead = false;
   frames = new FrameStats((line) => log.info(line));
   readonly music = new Music();
   private player!: Phaser.GameObjects.Sprite;
@@ -132,6 +195,8 @@ class MapScene extends Phaser.Scene {
   private bumpCount = 0;
   private cached: string[] = [];
   private maps = new Map<string, WorldMap>();
+  /** The filter each texture has: set only when it changes. */
+  private filters = new Map<string, Phaser.Textures.FilterMode>();
 
   constructor(private readonly opts: MapOptions) {
     super({ key: "map" });
@@ -146,6 +211,7 @@ class MapScene extends Phaser.Scene {
   create(): void {
     this.cameras.main.setRoundPixels(true).setBackgroundColor("#000000");
     void this.begin().catch((e) => {
+      if (this.dead) return;
       log.error("The map did not open", e);
       this.opts.onError?.(e);
     });
@@ -159,9 +225,10 @@ class MapScene extends Phaser.Scene {
         frameHeight: this.playerSheet.frameHeight,
       });
     });
+    if (this.dead) return;
     this.player = this.add.sprite(0, 0, "hero", 1).setOrigin(0.5, 1);
     const name = this.opts.map ?? START_MAP;
-    await this.enter(name, null);
+    if (!(await this.enter(name, null))) return;
     this.busy = false;
     this.opts.onReady?.();
   }
@@ -182,10 +249,14 @@ class MapScene extends Phaser.Scene {
     });
   }
 
-  /** Loads a map (if it is not in memory) and puts the hero on it. */
-  private async enter(name: string, at: { x: number; y: number; facing: Dir | null } | null): Promise<void> {
+  /**
+   * Loads a map (if it is not in memory) and puts the hero on it. False
+   * if the map closed while it loaded: nothing more is done.
+   */
+  private async enter(name: string, at: { x: number; y: number; facing: Dir | null } | null): Promise<boolean> {
     if (!this.cache.tilemap.exists(tilesKey(name))) {
       await this.loadAll(() => this.load.tilemapTiledJSON(tilesKey(name), `game/maps/${name}.json`));
+      if (this.dead) return false;
     }
     const json = this.cache.tilemap.get(tilesKey(name))?.data as (TiledMap & { tilesets: TiledTileset[] }) | undefined;
     if (!json) throw new Error(`no map ${name}`);
@@ -197,11 +268,12 @@ class MapScene extends Phaser.Scene {
       if (!this.textures.exists(atlasKey(name))) this.load.image(atlasKey(name), `game/${ts.image.replace(/^\.\.\//, "")}`);
       for (const p of world.npcs) {
         const sheet = npcSheet(npcs, p.slug);
-        if (sheet && !this.textures.exists(npcKey(p.slug)) && this.fits(sheet)) {
+        if (sheet && !this.textures.exists(npcKey(p.slug)) && this.fits(sheet, world)) {
           this.load.spritesheet(npcKey(p.slug), sheet.url, { frameWidth: sheet.frameWidth, frameHeight: sheet.frameHeight });
         }
       }
     });
+    if (this.dead) return false;
 
     this.clearMap();
     const map = this.make.tilemap({ key: tilesKey(name) });
@@ -217,7 +289,7 @@ class MapScene extends Phaser.Scene {
     }
     this.tilemap = map;
     this.world = world;
-    this.zoom = this.zoomFor(world);
+    this.zoom = zoomFor(world, this.render);
 
     this.leftOff = [];
     for (const p of world.npcs) {
@@ -226,12 +298,13 @@ class MapScene extends Phaser.Scene {
         this.leftOff.push(p.slug);
         continue;
       }
-      const sprite = this.add.sprite(0, 0, npcKey(p.slug), frameIndex(p.facing, null, true)).setOrigin(0.5, 1);
+      const frames = this.frameCount(npcKey(p.slug));
+      const sprite = this.add.sprite(0, 0, npcKey(p.slug), frameIndex(p.facing, null, true, frames)).setOrigin(0.5, 1);
       this.people.push({ place: p, sprite, sheet });
       this.occupied.add(`${p.x},${p.y}`);
     }
     if (this.leftOff.length) {
-      log.info(`Left off ${name} until their sheets are HD: ${this.leftOff.join(", ")}`);
+      log.info(`Left off ${name}: no sheet, or one drawn over twice its pixels: ${this.leftOff.join(", ")}`);
     }
 
     const start = at ?? { ...(world.start ?? { x: Math.floor(world.width / 2), y: Math.floor(world.height / 2) }), facing: "up" as Dir };
@@ -241,35 +314,31 @@ class MapScene extends Phaser.Scene {
     this.remember(name);
     this.entered();
     log.info(`Map ${name}, the hero at ${start.x},${start.y}, zoom ${this.zoom}`);
+    return true;
   }
 
-  /** The map's tile in 1x Tuxemon pixels (its `source_tile_size`). */
-  private sourceTile(): number {
-    return this.world?.sourceTile ?? MAP_SOURCE_TILE_PX;
+  /** A sheet's frames (Phaser counts its whole picture as one more). */
+  private frameCount(key: string): number {
+    return Math.max(1, this.textures.get(key).frameTotal - 1);
   }
 
-  /** Canvas px per atlas texel on this map, at the canvas's resolution. */
-  private zoomFor(world: WorldMap | null, render = this.render): number {
-    const tile = world?.tileSize ?? 64;
-    return mapZoom(MAP_SCALE, tile / (world?.sourceTile ?? MAP_SOURCE_TILE_PX), render);
+  /** Whether a sheet stays within twice its pixels on the screen, on this map. */
+  private fits(sheet: Sheet, world: WorldMap): boolean {
+    const size = worldSize(sheet, world.tileSize, world.sourceTile ?? MAP_SOURCE_TILE_PX);
+    return (size.width * zoomFor(world, 1)) / sheet.frameWidth <= MAX_SHOWN;
   }
 
-  /** Whether a sheet stays within twice its pixels on the screen. */
-  private fits(sheet: Sheet): boolean {
-    const tile = this.world?.tileSize ?? 64;
-    return (worldSize(sheet, tile, this.sourceTile()).width * this.zoomFor(this.world, 1)) / sheet.frameWidth <= MAX_SHOWN;
+  /** Sets a texture's filter, only when it changes. */
+  private setFilter(key: string, mode: Phaser.Textures.FilterMode): void {
+    if (this.filters.get(key) === mode) return;
+    this.filters.set(key, mode);
+    this.textures.get(key).setFilter(mode);
   }
 
-  /** NEAREST at a whole zoom; smoothed when the canvas draws fewer pixels or shrinks a picture. */
-  private filterFor(canvasPxPerTexel: number): Phaser.Textures.FilterMode {
-    const whole = Math.abs(canvasPxPerTexel - Math.round(canvasPxPerTexel)) < 1e-6 && canvasPxPerTexel >= 1;
-    return whole ? Phaser.Textures.FilterMode.NEAREST : Phaser.Textures.FilterMode.LINEAR;
-  }
-
-  private sizeSprite(sprite: Phaser.GameObjects.Sprite, sheet: Sheet): void {
-    const size = worldSize(sheet, this.world?.tileSize ?? 64, this.sourceTile());
+  private sizeSprite(sprite: Phaser.GameObjects.Sprite, sheet: Sheet, world: WorldMap): void {
+    const size = worldSize(sheet, world.tileSize, world.sourceTile ?? MAP_SOURCE_TILE_PX);
     sprite.setDisplaySize(size.width, size.height);
-    sprite.texture.setFilter(this.filterFor((size.width * this.zoom) / sheet.frameWidth));
+    this.setFilter(sprite.texture.key, filterFor((size.width * this.zoom) / sheet.frameWidth));
   }
 
   private clearMap(): void {
@@ -290,8 +359,12 @@ class MapScene extends Phaser.Scene {
     for (const m of dropped) {
       this.cache.tilemap.remove(tilesKey(m));
       if (this.textures.exists(atlasKey(m))) this.textures.remove(atlasKey(m));
+      this.filters.delete(atlasKey(m));
       for (const n of this.maps.get(m)?.npcs ?? []) {
-        if (!needed.has(n.slug) && this.textures.exists(npcKey(n.slug))) this.textures.remove(npcKey(n.slug));
+        if (!needed.has(n.slug) && this.textures.exists(npcKey(n.slug))) {
+          this.textures.remove(npcKey(n.slug));
+          this.filters.delete(npcKey(n.slug));
+        }
       }
       this.maps.delete(m);
     }
@@ -303,24 +376,23 @@ class MapScene extends Phaser.Scene {
     this.music.play(file ? `game/${file}` : null);
   }
 
-  /** The canvas changed size (or the page's zoom): a new zoom and camera. */
+  /** The canvas changed size or resolution: a new zoom and camera. */
   layout(): void {
     const cam = this.cameras.main;
     cam.setSize(this.scale.width, this.scale.height);
-    this.zoom = this.zoomFor(this.world);
+    const world = this.world;
+    this.zoom = zoomFor(world, this.render);
     cam.setZoom(this.zoom);
-    if (this.world && this.textures.exists(atlasKey(this.world.name))) {
-      this.textures.get(atlasKey(this.world.name)).setFilter(this.filterFor(this.zoom));
-    }
-    if (this.player && this.playerSheet) this.sizeSprite(this.player, this.playerSheet);
-    for (const p of this.people) this.sizeSprite(p.sprite, p.sheet);
+    if (!world) return;
+    if (this.textures.exists(atlasKey(world.name))) this.setFilter(atlasKey(world.name), filterFor(this.zoom));
+    if (this.player && this.playerSheet) this.sizeSprite(this.player, this.playerSheet, world);
+    for (const p of this.people) this.sizeSprite(p.sprite, p.sheet, world);
     this.draw();
   }
 
-  /** Back from a pause: the time away is not one long frame. */
+  /** Back from a pause: the time away is not one long frame (the minute's frame line goes on). */
   resumed(): void {
     this.skipDelta = true;
-    this.frames.restart();
   }
 
   update(time: number): void {
@@ -382,10 +454,11 @@ class MapScene extends Phaser.Scene {
     this.busy = true;
     try {
       await this.fade(false);
-      await this.enter(to.map, to);
+      if (this.dead || !(await this.enter(to.map, to))) return;
       this.waitLift = true;
       await this.fade(true);
     } catch (e) {
+      if (this.dead) return;
       log.error(`Could not go to ${to.map}`, e);
       this.opts.onError?.(e);
     } finally {
@@ -403,7 +476,7 @@ class MapScene extends Phaser.Scene {
     });
   }
 
-  /** Puts the camera, the hero and the people on whole device pixels. */
+  /** Puts the camera, the hero and the people on whole canvas pixels. */
   private draw(): void {
     const world = this.world;
     if (!world || !this.player) return;
@@ -423,47 +496,76 @@ class MapScene extends Phaser.Scene {
     const cam = this.cameras.main;
     const vw = cam.width / z;
     const vh = cam.height / z;
-    const left = scrollFor(px, vw, world.width * T, z);
+    // the d-pad's part of the view, in world px: the camera may go that far past the left edge
+    const reserved = ((this.opts.reservedLeft?.() ?? 0) * this.canvasPerCss) / z;
+    const left = scrollFor(px, vw, world.width * T, z, reserved);
     const top = scrollFor(py - T / 2, vh, world.height * T, z);
     cam.setScroll(left - (cam.width / 2) * (1 - 1 / z), top - (cam.height / 2) * (1 - 1 / z));
   }
 
-  debug(): Omit<MapDebug, "dpr" | "canvas" | "paused" | "renderer" | "resolution"> {
-    const cam = this.cameras.main;
-    const z = this.zoom;
-    const filter = (key: string): "nearest" | "linear" => {
-      const mode = this.textures.get(key).source[0]?.scaleMode;
-      if (mode === Phaser.ScaleModes.LINEAR) return "linear";
-      if (mode === Phaser.ScaleModes.NEAREST) return "nearest";
-      return this.game.config.antialias ? "linear" : "nearest";
+  filterOf(key: string): "nearest" | "linear" {
+    const mode = this.textures.get(key).source[0]?.scaleMode;
+    if (mode === Phaser.ScaleModes.LINEAR) return "linear";
+    if (mode === Phaser.ScaleModes.NEAREST) return "nearest";
+    return this.game.config.antialias ? "linear" : "nearest";
+  }
+
+  /** The raw numbers, read from Phaser as it draws now. */
+  measured(): Omit<Measured, "canvasPxPerCss" | "devicePixelRatio"> {
+    return {
+      camZoom: this.cameras.main.zoom,
+      layers: this.layers.map((l) => {
+        const ts = l.tileset[0];
+        const src = this.textures.get(ts.image!.key).source[0];
+        return {
+          name: l.layer.name,
+          mapTileWidth: l.layer.tileWidth,
+          scaleX: l.scaleX,
+          tileset: { tileWidth: ts.tileWidth, margin: ts.tileMargin, spacing: ts.tileSpacing, columns: ts.columns },
+          atlas: { key: ts.image!.key, width: src.width, height: src.height },
+          filter: this.filterOf(ts.image!.key),
+        };
+      }),
+      sprites: [
+        ...(this.player ? [{ what: "hero", sprite: this.player }] : []),
+        ...this.people.map((p) => ({ what: `npc ${p.place.slug}`, sprite: p.sprite })),
+      ].map(({ what, sprite }) => ({
+        what,
+        displayWidth: sprite.displayWidth,
+        frameWidth: sprite.frame.width,
+        frames: this.frameCount(sprite.texture.key),
+        filter: this.filterOf(sprite.texture.key),
+      })),
     };
-    const scales: ScaleEntry[] = this.layers.map((l) => {
-      const texels = l.tileset[0]?.tileWidth ?? 0;
-      // device px: the canvas px, stretched over the screen's own pixels
-      const devicePx = (l.layer.tileWidth * l.scaleX * z) / this.render;
-      return { what: `tiles ${l.layer.name}`, texels, devicePx, ratio: devicePx / texels, filter: filter(l.tileset[0].image!.key) };
-    });
-    const sprites = [
-      { what: "hero", sprite: this.player },
-      ...this.people.map((p) => ({ what: `npc ${p.place.slug}`, sprite: p.sprite })),
-    ];
-    for (const { what, sprite } of sprites) {
-      if (!sprite) continue;
-      const texels = sprite.frame.width;
-      const devicePx = (sprite.displayWidth * z) / this.render;
-      scales.push({ what, texels, devicePx, ratio: devicePx / texels, filter: filter(sprite.texture.key) });
-    }
+  }
+
+  /** The hero's picture in canvas px (the camera as it was last drawn). */
+  heroCanvasRect(): { left: number; top: number; right: number; bottom: number } | null {
+    if (!this.player || !this.world) return null;
+    const cam = this.cameras.main;
+    const v = cam.worldView;
+    const x0 = this.player.x - this.player.displayWidth * this.player.originX;
+    const y0 = this.player.y - this.player.displayHeight * this.player.originY;
+    return {
+      left: (x0 - v.x) * cam.zoom,
+      top: (y0 - v.y) * cam.zoom,
+      right: (x0 + this.player.displayWidth - v.x) * cam.zoom,
+      bottom: (y0 + this.player.displayHeight - v.y) * cam.zoom,
+    };
+  }
+
+  state() {
+    const cam = this.cameras.main;
     const T = this.world?.tileSize ?? 64;
     return {
       ready: !this.busy && !!this.world,
       map: this.world?.name ?? null,
       player: { x: this.walker.x, y: this.walker.y, facing: this.walker.facing, moving: this.walker.moving, steps: this.stepCount, bumps: this.bumpCount },
-      npcs: this.people.map((p) => ({ slug: p.place.slug, x: p.place.x, y: p.place.y })),
+      npcs: this.people.map((p) => ({ slug: p.place.slug, x: p.place.x, y: p.place.y, frame: Number(p.sprite.frame.name) })),
       left: [...this.leftOff],
-      zoom: z,
+      zoom: this.zoom,
       view: { x: cam.worldView.x, y: cam.worldView.y, width: cam.worldView.width, height: cam.worldView.height },
       world: { width: (this.world?.width ?? 0) * T, height: (this.world?.height ?? 0) * T },
-      scales,
       frames: this.frames.overall(),
       music: { track: this.music.track, playing: this.music.playing },
       cachedMaps: [...this.cached],
@@ -472,18 +574,10 @@ class MapScene extends Phaser.Scene {
   }
 
   shutdownAll(): void {
+    this.dead = true;
     this.frames.flush();
     this.music.destroy();
   }
-}
-
-interface TiledTileset {
-  name: string;
-  image: string;
-  tilewidth: number;
-  tileheight: number;
-  margin: number;
-  spacing: number;
 }
 
 /** Starts the map in `parent` (which it fills). */
@@ -505,7 +599,11 @@ export function startMap(opts: MapOptions): MapController {
   };
   const first = size();
   const scene = new MapScene(opts);
-  scene.render = resolution.dpr / dpr;
+  const setRender = () => {
+    scene.render = resolution.dpr / dpr;
+    scene.canvasPerCss = resolution.dpr;
+  };
+  setRender();
   const game = new Phaser.Game({
     type: Phaser.AUTO,
     parent: opts.parent,
@@ -527,19 +625,50 @@ export function startMap(opts: MapOptions): MapController {
 
   const reasons = new PauseReasons();
   let destroyed = false;
+  let started = false;
+  const webgl = { lost: 0, restored: 0 };
+  let lostTimer: ReturnType<typeof setTimeout> | undefined;
 
   const apply = () => {
     if (destroyed) return;
     if (reasons.paused) {
+      opts.release?.();
       game.loop.sleep();
       scene.music.hold();
-    } else {
+    } else if (started) {
       scene.resumed();
       resolution.reset();
       game.loop.wake();
       scene.music.release();
     }
   };
+  // the loop starts after boot, whatever was asked before: a pause asked
+  // while Phaser booted is applied on its first step
+  game.events.once(Phaser.Core.Events.POST_STEP, () => {
+    started = true;
+    if (reasons.paused) apply();
+  });
+
+  // a lost GPU context (a driver reset, the phone short of memory)
+  game.events.once(Phaser.Core.Events.READY, () => {
+    const renderer = game.renderer;
+    if (!(renderer instanceof Phaser.Renderer.WebGL.WebGLRenderer)) return;
+    renderer.on(Phaser.Renderer.Events.LOSE_WEBGL, () => {
+      webgl.lost++;
+      log.warning(`The map's WebGL context was lost; waiting ${CONTEXT_WAIT_MS / 1000} s for it to come back`);
+      clearTimeout(lostTimer);
+      lostTimer = setTimeout(() => {
+        if (destroyed || !renderer.contextLost) return;
+        log.error("The map's WebGL context did not come back");
+        opts.onError?.(new Error("WebGL context lost"));
+      }, CONTEXT_WAIT_MS);
+    });
+    renderer.on(Phaser.Renderer.Events.RESTORE_WEBGL, () => {
+      webgl.restored++;
+      clearTimeout(lostTimer);
+      log.info("The map's WebGL context is back");
+    });
+  });
 
   const fit = () => {
     const s = size();
@@ -551,8 +680,10 @@ export function startMap(opts: MapOptions): MapController {
   scene.entered = () => resolution.reset();
   scene.measure = (dtMs, now) => {
     if (!resolution.frame(dtMs, now)) return;
-    scene.render = resolution.dpr / dpr;
+    setRender();
     fit();
+    // a new canvas size uploads again: measure after it
+    resolution.reset();
   };
   resize.observe(opts.parent);
 
@@ -562,6 +693,8 @@ export function startMap(opts: MapOptions): MapController {
     if (document.hidden) {
       if (reasons.pause("background")) log.info("Map paused: the app went to the background");
       apply();
+      // a finger on an arrow when the app left never lifts here
+      opts.release?.();
     } else {
       if (reasons.resume("background")) log.info("Map running again: the app is back");
       apply();
@@ -584,6 +717,7 @@ export function startMap(opts: MapOptions): MapController {
     destroy() {
       if (destroyed) return;
       destroyed = true;
+      clearTimeout(lostTimer);
       resize.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       scene.shutdownAll();
@@ -595,19 +729,45 @@ export function startMap(opts: MapOptions): MapController {
       if (destroyed || !scene.sys.isActive()) return null;
       const canvas = game.canvas;
       const r = canvas.getBoundingClientRect();
+      const canvasPxPerCss = canvas.width / r.width;
+      const m = { ...scene.measured(), canvasPxPerCss, devicePixelRatio: dpr };
+      // device px per texel, from the camera and the canvas as they are
+      const device = (worldPx: number) => (worldPx * m.camZoom * dpr) / canvasPxPerCss;
+      const scales: ScaleEntry[] = [
+        ...m.layers.map((l) => {
+          const devicePx = device(l.mapTileWidth * l.scaleX);
+          return { what: `tiles ${l.name}`, texels: l.tileset.tileWidth, devicePx, ratio: devicePx / l.tileset.tileWidth, filter: l.filter };
+        }),
+        ...m.sprites.map((s) => {
+          const devicePx = device(s.displayWidth);
+          return { what: s.what, texels: s.frameWidth, devicePx, ratio: devicePx / s.frameWidth, filter: s.filter };
+        }),
+      ];
+      const hero = scene.heroCanvasRect();
+      const renderer = game.renderer;
       return {
-        ...scene.debug(),
+        ...scene.state(),
+        heroRect: hero && {
+          left: r.left + hero.left / canvasPxPerCss,
+          top: r.top + hero.top / canvasPxPerCss,
+          right: r.left + hero.right / canvasPxPerCss,
+          bottom: r.top + hero.bottom / canvasPxPerCss,
+        },
+        scales,
+        measured: m,
         dpr,
         resolution: {
           dpr: resolution.dpr,
           steps: resolution.steps,
           adaptive: resolution.adaptive,
-          remembered: resolution.remembered,
+          start: resolution.start,
           changes: [...resolution.changes],
         },
-        renderer: game.renderer instanceof Phaser.Renderer.WebGL.WebGLRenderer ? "webgl" : "canvas",
+        renderer: renderer instanceof Phaser.Renderer.WebGL.WebGLRenderer ? "webgl" : "canvas",
         canvas: { width: canvas.width, height: canvas.height, cssWidth: r.width, cssHeight: r.height },
         paused: reasons.reasons(),
+        loopRunning: game.loop.running,
+        webgl: { ...webgl, contextLost: renderer instanceof Phaser.Renderer.WebGL.WebGLRenderer ? renderer.contextLost : false },
       };
     },
   };

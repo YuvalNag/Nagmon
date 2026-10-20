@@ -34,4 +34,23 @@ describe("the camera's scroll", () => {
     expect(snap(10.26, 2)).toBe(10.5);
     expect(snap(10.24, 2)).toBe(10);
   });
+
+  it("may go past the low edge by the covered part of the view (the d-pad)", () => {
+    // 277 world px of the view's left side are under the d-pad
+    expect(scrollFor(96, 1200, 2560, 2, 277)).toBe(-277);
+    // the walker at column 1 (x 64-128) is drawn right of the cover
+    expect(96 - 32 - scrollFor(96, 1200, 2560, 2, 277)).toBeGreaterThanOrEqual(277);
+    // away from the edge nothing changes
+    expect(scrollFor(1000, 1200, 2560, 2, 277)).toBe(400);
+    // nor at the far edge
+    expect(scrollFor(2500, 1200, 2560, 2, 277)).toBe(1360);
+    // it eases in: one tile further right, the camera moves one tile less far out
+    expect(scrollFor(160, 1200, 2560, 2, 277)).toBe(-277);
+    expect(scrollFor(400, 1200, 2560, 2, 277)).toBe(-200);
+  });
+
+  it("puts a small map in the middle of the uncovered part", () => {
+    // an 800 px map, a 1200 px view, 200 px covered: 100 px each side of the rest
+    expect(scrollFor(400, 1200, 800, 1, 200)).toBe(-300);
+  });
 });

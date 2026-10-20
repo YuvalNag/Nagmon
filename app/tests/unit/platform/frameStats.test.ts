@@ -15,16 +15,22 @@ describe("the frame-rate line", () => {
     expect(lines[0]).toMatch(/^map frames: 59\.\d fps on average, slowest 70 ms, 1 over 50 ms \(\d+ frames\)$/);
   });
 
-  it("writes nothing for a minute with no frames, and starts afresh after a pause", () => {
+  it("writes nothing for a minute with no frames", () => {
     const lines: string[] = [];
     const s = new FrameStats((l) => lines.push(l), 1000);
     s.flush();
     expect(lines).toEqual([]);
-    s.add(16, 0);
-    s.restart();
-    s.add(16, 5000);
-    // the pause between is not counted as a minute gone by
-    expect(lines).toEqual([]);
+  });
+
+  it("keeps the minute's frames across a pause: the wait is not a frame", () => {
+    const lines: string[] = [];
+    const s = new FrameStats((l) => lines.push(l), 60_000);
+    let now = 0;
+    for (let i = 0; i < 1800; i++) s.add(1000 / 60, (now += 1000 / 60)); // 30 s
+    now += 20_000; // paused 20 s: no frames
+    for (let i = 0; i < 700; i++) s.add(1000 / 60, (now += 1000 / 60)); // 11.7 s more
+    expect(lines).toHaveLength(1);
+    expect(lines[0]).toMatch(/^map frames: 60\.0 fps on average, slowest 17 ms, 0 over 50 ms \(2\d{3} frames\)$/);
   });
 
   it("keeps the whole run for the tests", () => {
