@@ -65,16 +65,16 @@ def phone_details() -> dict[str, str]:
     }
 
 
-def share(text: str) -> None:
-    """Android's share sheet with the report as text."""
+def share(
+    text: str, *, subject: str = SUBJECT, title: str = SHARE_TITLE
+) -> None:
+    """Android's share sheet with ``text`` (the report, or the log)."""
     intent_class = autoclass("android.content.Intent")
     intent = intent_class(intent_class.ACTION_SEND)
     intent.setType("text/plain")
-    intent.putExtra(intent_class.EXTRA_SUBJECT, _jstr(SUBJECT))
+    intent.putExtra(intent_class.EXTRA_SUBJECT, _jstr(subject))
     intent.putExtra(intent_class.EXTRA_TEXT, _jstr(text))
-    _activity().startActivity(
-        intent_class.createChooser(intent, _jstr(SHARE_TITLE))
-    )
+    _activity().startActivity(intent_class.createChooser(intent, _jstr(title)))
 
 
 def offer(

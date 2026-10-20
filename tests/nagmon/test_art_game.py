@@ -110,8 +110,10 @@ def test_new_monster_strings_in_both_languages(moddata, slug):
     for locale in ("en_US", "he_IL"):
         for key in (slug, f"{slug}_description", f"cat_{species}"):
             assert po(locale).get(key), f"{locale}: {key}"
-    # Names stay in English letters (docs/kids/SDD_WORLD.md §2.8).
-    assert po("he_IL")[slug] == po("en_US")[slug]
+    # A Hebrew name in Hebrew, the English one in English
+    # (docs/kids/SDD_ANDROID.md §2.7; it was English in both).
+    assert po("he_IL")[slug] != po("en_US")[slug]
+    assert po("en_US")[slug].isascii()
 
 
 def test_route_1_meets_the_new_monsters_and_keeps_the_old(moddata):

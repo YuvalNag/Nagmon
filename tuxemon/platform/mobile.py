@@ -15,6 +15,8 @@ import os
 from collections.abc import Callable, Mapping
 from typing import Any
 
+from tuxemon.platform.const.sizes import ANDROID_MAP_CACHE_SIZE, MAP_CACHE_SIZE
+
 logger = logging.getLogger(__name__)
 
 #: Set by python-for-android's launcher before Python starts.
@@ -29,6 +31,15 @@ def is_android(env: Mapping[str, str] | None = None) -> bool:
     """Whether the game runs inside a python-for-android app."""
     env = os.environ if env is None else env
     return any(env.get(name) for name in P4A_VARIABLES)
+
+
+def map_cache_size(env: Mapping[str, str] | None = None) -> int:
+    """
+    How many maps the game keeps loaded. With HD tiles an outdoor map
+    holds ~190MB at scale 7 (docs/kids/SDD_ART.md §2.12), so a phone
+    keeps two: the map and the one just left.
+    """
+    return ANDROID_MAP_CACHE_SIZE if is_android(env) else MAP_CACHE_SIZE
 
 
 def _even(value: float) -> int:
@@ -97,6 +108,37 @@ def touch_defaults(config: dict[str, Any]) -> None:
     config["controller"]["transparency"] = TOUCH_ARROW_ALPHA
     config["controller"]["hide_mouse"] = False
     config["display"]["fullscreen"] = True
+
+
+#: The language of a phone until the player picks another one.
+PHONE_LOCALE = "he_IL"
+
+
+def _yes(value: Any) -> bool:
+    """A yaml flag; a hand-edited file may hold it as text ("false")."""
+    if isinstance(value, str):
+        return value.strip().lower() in ("1", "true", "yes", "on", "y", "t")
+    return bool(value)
+
+
+def phone_language(
+    config: dict[str, Any], fonts: tuple[str, str, str]
+) -> None:
+    """
+    Hebrew on a phone, applied after the player's settings file, unless
+    the player picked a language. The game never reads the phone's own
+    language; ``tuxemon.yaml`` holds Tuxemon's default (en_US), written
+    at every start, so an old file must not keep a phone in English
+    (build 24, SDD_ANDROID §2.7). ``fonts`` (main, thin, minimal) are
+    Hebrew's: any other font draws it as empty boxes.
+    """
+    game = config["game"]
+    if _yes(game.get("locale_chosen")):
+        return
+    game["locale"] = PHONE_LOCALE
+    game["font_file"] = game["language_font"] = fonts[0]
+    game["thin_font_file"] = fonts[1]
+    game["minimal_font_file"] = fonts[2]
 
 
 # ------------------------------------------------------------ app switching
