@@ -193,6 +193,59 @@ async function firstRun() {
   check(over < 2, `at most one tap over ${MAX_TAP_MS} ms (${over})`);
 }
 
+/**
+ * Milestone M3 on the phone's own WebView: the child's card opens the
+ * map, a held arrow walks the hero (`adb shell input swipe` in place, as
+ * a thumb holds it), and Android's back opens the pause menu, never
+ * leaving the app. Its own function: other checks are added next to it.
+ */
+async function mapWalk() {
+  const map = "window.__nagmonMap?.debug()";
+  await page.touch(".card");
+  await page.waitFor(`document.querySelector('[data-screen="play"][data-map="ready"]') && ${map}?.ready`, {
+    timeoutMs: 60_000,
+    what: "the map after the child's card",
+  });
+  await sleep(1000);
+  shot("a06_map");
+  const d = await page.eval(map);
+  console.log(
+    `map: ${d.map}, ${d.renderer}, canvas ${d.canvas.width}x${d.canvas.height} for ${d.canvas.cssWidth.toFixed(1)}x${d.canvas.cssHeight.toFixed(1)} CSS px at DPR ${d.dpr}, zoom ${d.zoom}`,
+  );
+  console.log("map drawn sizes:", d.scales.map((s) => `${s.what} ${s.texels}->${s.devicePx} (${s.ratio}x, ${s.filter})`).join("; "));
+  check(d.map === "classic_hearthrock_city", "the map is Hearthrock");
+  check(d.player.x === 29 && d.player.y === 16, `the hero starts at (29,16) (${d.player.x},${d.player.y})`);
+  check(
+    Math.abs(d.canvas.width - d.canvas.cssWidth * d.dpr) <= 1 && Math.abs(d.canvas.height - d.canvas.cssHeight * d.dpr) <= 1,
+    "the map is drawn at the screen's own pixels",
+  );
+  const worst = Math.max(...d.scales.map((s) => s.ratio));
+  check(d.scales.length > 0 && worst <= 2, `no picture over twice its pixels (largest ${worst}x)`);
+
+  // a thumb held on the left arrow for 1.5 s
+  const start = d.player;
+  await page.touch('[data-id="dpad_left"]', 1500);
+  await page.waitFor(`${map} && !${map}.player.moving`, { what: "the hero to stop" });
+  const after = (await page.eval(map)).player;
+  console.log(`held left 1.5 s: from (${start.x},${start.y}) to (${after.x},${after.y})`);
+  check(after.x < start.x && after.y === start.y, "a held arrow walks the hero left");
+  check(after.x <= start.x - 2, `it walks on while held (${start.x - after.x} tiles)`);
+  shot("a07_map_walked");
+  const frames = (await page.eval(map)).frames;
+  console.log(
+    `map frames (emulator, software GL): ${frames.avgFps.toFixed(1)} fps on average, slowest ${Math.round(frames.slowestMs)} ms, ${frames.slow} over 50 ms (${frames.frames} frames)`,
+  );
+
+  // Android's back on the map: the pause menu, and back again closes it
+  adb("shell", "input", "keyevent", "KEYCODE_BACK");
+  await page.waitFor(`document.querySelector('[data-screen="map-menu"]')`, { what: "the pause menu after back" });
+  check((await page.eval(`${map}.paused`)).includes("menu"), "back on the map pauses it");
+  shot("a08_map_menu");
+  adb("shell", "input", "keyevent", "KEYCODE_BACK");
+  await page.waitFor(`!document.querySelector('[data-screen="map-menu"]')`, { what: "the menu to close on a second back" });
+  check(Boolean(await page.eval(`document.querySelector('[data-screen="play"]')`)), "the map stays open: back never leaves the app");
+}
+
 try {
   page = await WebViewPage.attach(PACKAGE);
   await page.waitFor(screen("who-plays"), { timeoutMs: 30_000 });
@@ -233,6 +286,7 @@ try {
   check(size.w * screenSize.dpr >= W - 4, `the page covers the whole screen width (${Math.round(size.w * screenSize.dpr)} of ${W} px)`);
   shot("a01_who_plays");
   await firstRun();
+  await mapWalk();
 } catch (e) {
   failures.push(String(e));
   console.log("FAIL", e);
