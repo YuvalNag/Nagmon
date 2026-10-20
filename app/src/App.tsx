@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { type ComponentProps, useCallback, useEffect, useRef, useState } from "react";
 import type { Services } from "./app/services";
 import { AVATARS, avatarImage } from "./core/family/avatars";
 import { defaultsForGrade, GRADE_NAMES_HE } from "./core/family/gradeDefaults";
@@ -100,9 +100,11 @@ interface Props {
   onStarted?: () => void;
   /** The app's lifecycle, for the map to pause in the background (main.tsx passes it). */
   lifecycle?: MapLifecycle;
+  /** Opens the child's play on the map (tests pass their own). */
+  openPlay?: ComponentProps<typeof MapScreen>["openPlay"];
 }
 
-export function App({ services, backButton = bindBackButton, workTimeoutMs = WORK_TIMEOUT_MS, onStarted, lifecycle }: Props) {
+export function App({ services, backButton = bindBackButton, workTimeoutMs = WORK_TIMEOUT_MS, onStarted, lifecycle, openPlay }: Props) {
   const { profiles, parent } = services;
   // each screen shown gets a number: a new number is a new, fresh screen
   const [shown, setShown] = useState<{ view: View; n: number }>({ view: WHO, n: 0 });
@@ -403,12 +405,15 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
         );
       case "play": {
         const child = children.find((c) => c.id === view.id);
+        // a card is only there for a child on the list: one gone meanwhile leads back to who-plays
+        if (!child) return <Notice text={t("errorTryAgain")} onNext={() => show(WHO)} />;
         return (
           <MapScreen
-            name={child?.name ?? ""}
-            avatar={child?.avatar ?? ""}
+            profile={child}
+            profiles={profiles}
             backRef={mapBack}
             lifecycle={lifecycle}
+            openPlay={openPlay}
             onExit={() => show(WHO)}
           />
         );

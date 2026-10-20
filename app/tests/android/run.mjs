@@ -573,6 +573,167 @@ function memoryAfterMap(when) {
   return total ? Number(total[1]) : null;
 }
 
+// ------------------------------------------------- M4: one quiz
+
+/**
+ * Milestone M4 on the phone's WebView: the child walks to the cashier
+ * with the arrows (adb holds and taps), talks, reads the dialog, answers
+ * the question right, and the app is killed on the feedback, before
+ * "continue". Opened again, the answer is counted (learning.json) and the
+ * cashier pays the 20 coins when the map opens. Back in a dialog turns
+ * its page and never leaves the map.
+ */
+async function quizAtTheCashier() {
+  const map = "window.__nagmonMap?.debug()";
+  const ready = `document.querySelector('[data-screen="play"][data-map="ready"][data-play="ready"]') && ${map}?.ready`;
+  const pid = (await page.eval(`document.querySelector(".card")?.dataset.id ?? ""`)).replace(/^child_/, "");
+  check(/^p[0-9a-f]{5}$/.test(pid), `the child's card has a profile id (${pid})`);
+  const learning = () => {
+    try {
+      return JSON.parse(runAs("cat", `files/profiles/${pid}/learning.json`));
+    } catch {
+      return {};
+    }
+  };
+  const answersBefore = learning().answers_total ?? 0;
+  // the test hook: the question picker is seeded and the question can be read (src/app/playConfig.ts)
+  await page.eval(`(localStorage.setItem("nagmon.quiz.seed", "5"), true)`);
+  await page.touch(".card");
+  await page.waitFor(ready, { timeoutMs: 60_000, what: "the map and the child's play" });
+  const stand = async () => {
+    await page.waitFor(`${map} && !${map}.player.moving`, { what: "the hero to stop" });
+    return (await page.eval(map)).player;
+  };
+  // the hero from (29,16) to (13,15): a held arrow for most of the way, then single steps
+  const walk = async (axis, target) => {
+    for (let i = 0; i < 40; i++) {
+      const p = await stand();
+      const left = Math.abs(p[axis] - target);
+      if (left === 0) return;
+      const dir = axis === "x" ? (p.x > target ? "left" : "right") : p.y > target ? "up" : "down";
+      // 3.75 tiles a second; stop two short, then a step per tap
+      await page.touch(id(`dpad_${dir}`), left > 4 ? Math.round(((left - 2) / 3.75) * 1000) : 120);
+    }
+    throw new Error(`the hero did not reach ${axis} ${target}`);
+  };
+  await walk("x", 13);
+  await walk("y", 15);
+  const d = await page.eval(map);
+  console.log(`at the cashier: hero at (${d.player.x},${d.player.y}) facing ${d.player.facing}, in front: ${d.inFront}`);
+  check(d.player.x === 13 && d.player.y === 15 && d.inFront === "nagmon_cashier", "the arrows walk the hero to the cashier, facing her");
+  await page.waitFor(`document.querySelector('${id("map_talk")}')`, { what: "the talk button" });
+  await sleep(800);
+  shot("e01_cashier");
+  const coinsShown = () => page.eval(`Number(document.querySelector('${id("coins")}')?.dataset.coins ?? -1)`);
+  const coins0 = await coinsShown();
+
+  // tap to drawn frame for each tap from here on (src/platform/tapTiming.ts)
+  const taps = [];
+  const timed = async (what, selector) => {
+    const n = (await page.eval("(window.__responses ?? []).length")) ?? 0;
+    await page.touch(selector);
+    await sleep(400);
+    const all = await page.eval("window.__responses ?? []");
+    taps.push({ what, ms: all.slice(n) });
+  };
+  /** Taps through the dialog showing (the whole page first while it types). */
+  const readDialog = async (label) => {
+    const read = [];
+    for (let i = 0; i < 10 && (await page.eval(`Boolean(${screen("dialog")})`)); i++) {
+      await page.waitFor(`${screen("dialog")}?.dataset.full === "true" || !${screen("dialog")}`, { what: `${label}: the page typed out` });
+      const text = await page.eval(`document.querySelector('${id("dialog")}')?.getAttribute("aria-label") ?? ""`);
+      if (text) read.push(text);
+      await timed(`${label} page`, id("dialog"));
+    }
+    return read;
+  };
+
+  await timed("talk", id("map_talk"));
+  await page.waitFor(screen("dialog"), { what: "the cashier's words" });
+  await sleep(1500);
+  shot("e02_dialog");
+  const hello = await readDialog("hello");
+  check(hello[0]?.startsWith("המוכר אבי:"), `the cashier says hello (${hello.join(" / ")})`);
+  await page.waitFor(screen("quiz"), { what: "the question" });
+  let q = await page.eval("window.__nagmonQuiz?.()");
+  if (q.phase === "example") {
+    await sleep(1000);
+    shot("e03_example");
+    await timed("let's try", id("quiz_example_done"));
+    await page.waitFor(`${screen("quiz")}?.dataset.phase === "question"`, { what: "the question after the example" });
+  }
+  q = await page.eval("window.__nagmonQuiz?.()");
+  console.log(`the question: ${q.skill}, ${q.kind}`);
+  check(q.skill === "math.money.coins", `a child in grade 1 counts coins (${q.skill})`);
+  await sleep(1000);
+  shot("e04_question");
+  await timed("the right answer", id(`quiz_choice_${q.answer}`));
+  await page.waitFor(`${screen("quiz")}?.dataset.phase === "feedback"`, { what: "the feedback" });
+  await sleep(1000);
+  shot("e05_feedback");
+  check(/נכון|סופר/.test(await page.eval(`document.querySelector('${id("quiz_headline")}')?.textContent ?? ""`)), "the feedback says right");
+
+  for (const t of taps) console.log(`tap to drawn frame, ${t.what}: ${t.ms.map(Math.round).join(" ") || "none"} ms`);
+  // the question's own taps (the map is asleep under it): SDD §5, at most one over 300 ms
+  const quizTaps = taps.filter((t) => t.what === "let's try" || t.what === "the right answer").flatMap((t) => t.ms);
+  check(quizTaps.length >= 1, `the app measured the question's taps (${quizTaps.length})`);
+  check(quizTaps.filter((ms) => ms > MAX_TAP_MS).length < 2, `at most one tap on the question over ${MAX_TAP_MS} ms (${quizTaps.map(Math.round).join(", ")})`);
+
+  // killed right after the answer, before "continue": nothing is lost
+  key("KEYCODE_HOME");
+  await sleep(2000);
+  adb("shell", "am", "kill", PACKAGE);
+  await sleep(1500);
+  const left = pidOf();
+  if (left) {
+    runAs("kill", "-9", left);
+    await sleep(1000);
+  }
+  check(!pidOf(), "the app's process is gone after the answer");
+  const after = learning();
+  console.log(`learning.json: ${answersBefore} answers before, ${after.answers_total} after; last: ${JSON.stringify((after.log ?? []).at(-1) ?? null)}`);
+  check(after.answers_total === answersBefore + 1, "the answer is in learning.json after the kill");
+  check((after.log ?? []).at(-1)?.skill === "math.money.coins", "the last answer logged is the cashier's question");
+  page.close();
+  page = null;
+  await launch();
+  await attach();
+  await onScreen("who-plays", "after the kill the app opens on", 30_000);
+  await page.touch(".card");
+  await page.waitFor(ready, { timeoutMs: 60_000, what: "the map again" });
+  // the answer was saved with the world: the cashier pays as the map opens
+  await page.waitFor(screen("dialog"), { what: "the cashier's thanks when the map opens" });
+  await sleep(1500);
+  shot("e06_reward_after_kill");
+  // back in a dialog turns the page (or shows it all), and never leaves the map
+  const before = await page.eval(`({ page: ${screen("dialog")}.dataset.page, full: ${screen("dialog")}.dataset.full })`);
+  key("KEYCODE_BACK");
+  await sleep(800);
+  const now = await page.eval(`${screen("dialog")} ? { page: ${screen("dialog")}.dataset.page, full: ${screen("dialog")}.dataset.full } : null`);
+  check(now !== null && (now.page !== before.page || now.full !== before.full), `back in the dialog goes on in it (${JSON.stringify(before)} -> ${JSON.stringify(now)})`);
+  check((await shown()) === "play" && inFront(), "back in the dialog stays on the map, in the app");
+  const thanks = await readDialog("thanks");
+  check(thanks.join(" ").includes("20 מטבעות"), `the cashier thanks the child (${thanks.join(" / ")})`);
+  const coins1 = await coinsShown();
+  console.log(`coins: ${coins0} before, ${coins1} after`);
+  check(coins1 === coins0 + 20, `the right answer gave 20 coins (${coins0} -> ${coins1})`);
+  let world = {};
+  try {
+    world = JSON.parse(runAs("cat", `files/profiles/${pid}/saves/world.json`));
+  } catch {
+    // checked below
+  }
+  check(world.money === coins1, `the coins are saved (world.json: ${world.money})`);
+  await sleep(1000);
+  shot("e07_coins");
+  // out through the menu, for the parts after this one
+  await page.eval(`(localStorage.removeItem("nagmon.quiz.seed"), true)`);
+  key("KEYCODE_BACK");
+  await page.waitFor(screen("map-menu"), { what: "the pause menu" });
+  await page.touch(id("map_exit"));
+  await onScreen("who-plays", "the menu's way out");
+}
+
 /** Back on every screen of the flow: one step back, never out of the app. */
 async function backEverywhere() {
   const pid = pidOf();
@@ -1206,6 +1367,7 @@ await part("first run", async () => {
 if (started) {
   calibration = page.offset;
   await part("map", mapWalk);
+  await part("quiz", quizAtTheCashier);
   await part("back on every screen", backEverywhere);
   await part("parents", parentsArea);
   await part("home and back", homeAndBack);

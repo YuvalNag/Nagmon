@@ -15,7 +15,7 @@ import {
   profileToDict,
   validateName,
 } from "../../../src/core/family/profiles";
-import { type FileStore, MemoryFileStore, writeJson } from "../../../src/platform/storage";
+import { type FileStore, MemoryFileStore, pendingWrites, writeJson } from "../../../src/platform/storage";
 
 const AVATARS = new Set(["girl_a", "boy_a", "girl_b", "boy_b"]);
 
@@ -292,6 +292,51 @@ describe("learner data", () => {
     const s = new ProfileStore<FakeLearner>(fs, { avatars: AVATARS, learnerFromDict: (d) => new FakeLearner(d) });
     const p = await s.create({ name: "Maya", avatar: "girl_a" });
     expect((await s.loadLearner(p.id)).data).toEqual({});
+  });
+});
+
+describe("the world's save (coins and the map's variables)", () => {
+  it("round-trips in saves/world.json, and a missing file is empty", async () => {
+    const p = await store.create({ name: "Maya", avatar: "girl_a" });
+    expect(await store.loadWorldDict(p.id)).toEqual({});
+    await store.saveWorldDict(p.id, { schema_version: 1, money: 20, variables: { a: "1" } });
+    expect(await fs.stat(`profiles/${p.id}/saves/world.json`)).toBe("file");
+    expect(await store.loadWorldDict(p.id)).toEqual({ schema_version: 1, money: 20, variables: { a: "1" } });
+  });
+
+  it("saves what the world was when asked, not when the queue got to it", async () => {
+    const p = await store.create({ name: "Maya", avatar: "girl_a" });
+    const data = { money: 20 };
+    const saving = store.saveWorldDict(p.id, data);
+    data.money = 999;
+    await saving;
+    expect(await store.loadWorldDict(p.id)).toEqual({ money: 20 });
+  });
+
+  it("an unknown profile throws", async () => {
+    await expect(store.saveWorldDict("pzzzzz", { money: 1 })).rejects.toThrow(ProfileNotFoundError);
+  });
+
+  it("a save still waiting in the queue is waited for by the background flush", async () => {
+    const p = await store.create({ name: "Maya", avatar: "girl_a" });
+    // a slow read holds the queue; the learner's save waits behind it
+    let release!: () => void;
+    const slow = new Promise<void>((r) => (release = r));
+    const real = fs.stat.bind(fs);
+    fs.stat = async (path) => {
+      if (path.endsWith("world.json")) await slow;
+      return real(path);
+    };
+    const reading = store.loadWorldDict(p.id);
+    const saving = store.saveLearnerDict(p.id, { answers_total: 1 });
+    let flushed = false;
+    const flush = pendingWrites(fs).then(() => (flushed = true));
+    await new Promise((r) => setTimeout(r, 10));
+    expect(flushed).toBe(false);
+    release();
+    await Promise.all([reading, saving, flush]);
+    expect(flushed).toBe(true);
+    expect(await readData(fs, `profiles/${p.id}/learning.json`)).toEqual({ answers_total: 1 });
   });
 });
 

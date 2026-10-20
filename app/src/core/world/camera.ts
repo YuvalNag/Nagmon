@@ -29,15 +29,16 @@ export function mapZoom(mapScale: number, texelsPerSourcePx: number, render = 1)
  * `reserved` world px at the low end of the view are covered (the d-pad
  * at the bottom left): the camera may go that far past the map's low
  * edge, so a walker at the edge is drawn beside the cover, not under it,
- * with the map's black background showing there.
+ * with the map's black background showing there. `reservedHigh` is the
+ * same at the high end (the "talk" button at the bottom right).
  */
-export function scrollFor(center: number, view: number, size: number, zoom: number, reserved = 0): number {
+export function scrollFor(center: number, view: number, size: number, zoom: number, reserved = 0, reservedHigh = 0): number {
   let s: number;
-  if (size + reserved <= view) {
-    // the whole map fits beside the cover: in the middle of the rest
-    s = -(reserved + (view - reserved - size) / 2);
+  if (size + reserved + reservedHigh <= view) {
+    // the whole map fits beside the covers: in the middle of the rest
+    s = -(reserved + (view - reserved - reservedHigh - size) / 2);
   } else {
-    s = Math.min(Math.max(center - view / 2, reserved > 0 ? -reserved : 0), size - view);
+    s = Math.min(Math.max(center - view / 2, reserved > 0 ? -reserved : 0), size - view + reservedHigh);
   }
   return snap(s, zoom);
 }

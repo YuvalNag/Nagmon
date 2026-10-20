@@ -58,6 +58,15 @@ export interface MapOptions {
   release?: () => void;
   /** CSS px at the left of the screen covered by the d-pad (its right edge and a gap). */
   reservedLeft?: () => number;
+  /** CSS px at the right of the screen covered by the "talk" button (and a gap). */
+  reservedRight?: () => number;
+  /**
+   * Who stands right in front of the hero, standing still: a person's
+   * slug, or null. Told when it changes (the map's "talk" button).
+   */
+  onFacing?: (slug: string | null) => void;
+  /** A map was entered (the first, or through a door): its events run (core/world/events.ts). */
+  onMap?: (world: WorldMap) => void;
   /**
    * The app's lifecycle (src/platform/lifecycle.ts): the map pauses in the
    * background (loop, music, d-pad) and goes on in the foreground.
@@ -105,6 +114,8 @@ export interface MapDebug {
   map: string | null;
   /** `steps`: tiles walked since the map opened; `bumps`: pushes against a wall or someone. */
   player: { x: number; y: number; facing: Dir; moving: boolean; steps: number; bumps: number };
+  /** The person right in front of the hero, standing still. */
+  inFront: string | null;
   /** The hero's picture on the page, CSS px. */
   heroRect: { left: number; top: number; right: number; bottom: number } | null;
   npcs: { slug: string; x: number; y: number; frame: number }[];
@@ -202,6 +213,7 @@ class MapScene extends Phaser.Scene {
   private occupied = new Set<string>();
   private leftOff: string[] = [];
   private leftFoot = false;
+  private inFront: string | null = null;
   private skipDelta = false;
   private lastFrame: number | null = null;
   private lastGame: number | null = null;
@@ -329,6 +341,8 @@ class MapScene extends Phaser.Scene {
     this.remember(name);
     this.entered();
     log.info(`Map ${name}, the hero at ${start.x},${start.y}, zoom ${this.zoom}`);
+    this.opts.onMap?.(world);
+    this.lookAhead();
     return true;
   }
 
@@ -466,10 +480,26 @@ class MapScene extends Phaser.Scene {
       }
     }
     this.draw();
+    this.lookAhead();
+  }
+
+  /** Tells who stands right in front of the hero now (null while walking or between maps). */
+  private lookAhead(): void {
+    let who: string | null = null;
+    if (this.world && !this.busy && !this.walker.moving) {
+      const [dx, dy] = STEP[this.walker.facing];
+      const x = this.walker.x + dx;
+      const y = this.walker.y + dy;
+      who = this.people.find((p) => p.place.x === x && p.place.y === y)?.place.slug ?? null;
+    }
+    if (who === this.inFront) return;
+    this.inFront = who;
+    this.opts.onFacing?.(who);
   }
 
   private async travel(to: { map: string; x: number; y: number; facing: Dir | null }): Promise<void> {
     this.busy = true;
+    this.lookAhead();
     try {
       await this.fade(false);
       if (this.dead || !(await this.enter(to.map, to))) return;
@@ -516,7 +546,8 @@ class MapScene extends Phaser.Scene {
     const vh = cam.height / z;
     // the d-pad's part of the view, in world px: the camera may go that far past the left edge
     const reserved = ((this.opts.reservedLeft?.() ?? 0) * this.canvasPerCss) / z;
-    const left = scrollFor(px, vw, world.width * T, z, reserved);
+    const reservedHigh = ((this.opts.reservedRight?.() ?? 0) * this.canvasPerCss) / z;
+    const left = scrollFor(px, vw, world.width * T, z, reserved, reservedHigh);
     const top = scrollFor(py - T / 2, vh, world.height * T, z);
     cam.setScroll(left - (cam.width / 2) * (1 - 1 / z), top - (cam.height / 2) * (1 - 1 / z));
   }
@@ -579,6 +610,7 @@ class MapScene extends Phaser.Scene {
       ready: !this.busy && !!this.world,
       map: this.world?.name ?? null,
       player: { x: this.walker.x, y: this.walker.y, facing: this.walker.facing, moving: this.walker.moving, steps: this.stepCount, bumps: this.bumpCount },
+      inFront: this.inFront,
       npcs: this.people.map((p) => ({ slug: p.place.slug, x: p.place.x, y: p.place.y, frame: Number(p.sprite.frame.name) })),
       left: [...this.leftOff],
       zoom: this.zoom,
@@ -652,7 +684,9 @@ export function startMap(opts: MapOptions): MapController {
     if (reasons.paused) {
       opts.release?.();
       game.loop.sleep();
-      scene.music.hold();
+      // a talk keeps the town's music; the menu and the background stop it
+      if (reasons.silent) scene.music.hold();
+      else scene.music.release();
     } else if (started) {
       scene.resumed();
       resolution.reset();
