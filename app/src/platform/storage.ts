@@ -128,9 +128,12 @@ export function isJsonObject(value: unknown): value is JsonObject {
 function sortKeys(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(sortKeys);
   if (isJsonObject(value)) {
-    const out: Record<string, unknown> = {};
-    for (const key of Object.keys(value).sort()) out[key] = sortKeys(value[key]);
-    return out;
+    // fromEntries defines own keys, so a "__proto__" key stays plain data.
+    return Object.fromEntries(
+      Object.keys(value)
+        .sort()
+        .map((key) => [key, sortKeys(value[key])]),
+    );
   }
   return value;
 }

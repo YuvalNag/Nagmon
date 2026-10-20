@@ -107,6 +107,8 @@ describe("names", () => {
     "-נועה",
     "נו  עה", // double space
     "Noam_",
+    "\ufeffDan", // a BOM is not whitespace (Python's strip keeps it too)
+    "Dan\tLee",
   ])("refuses %j", (name) => {
     expect(() => validateName(name)).toThrow(ProfileError);
   });
@@ -293,6 +295,57 @@ describe("learner data", () => {
   });
 });
 
+describe("saves racing a delete (review of app/family)", () => {
+  const tick = () => new Promise((r) => setTimeout(r, 0));
+  /** Every file call waits a macrotask, like the Android bridge. */
+  function slow(inner: FileStore): FileStore {
+    return new Proxy(inner, {
+      get(target, key) {
+        const value = Reflect.get(target, key) as unknown;
+        if (typeof value !== "function") return value;
+        return async (...args: unknown[]) => {
+          await tick();
+          return (value as (...a: unknown[]) => unknown).apply(target, args);
+        };
+      },
+    });
+  }
+
+  it("a learner save racing a delete never brings the profile back", async () => {
+    for (let offset = 0; offset < 12; offset++) {
+      const sfs = slow(new MemoryFileStore());
+      const s = new ProfileStore(sfs);
+      const p = await s.create({ name: "נועה", avatar: "owl" });
+      const deleted = s.delete(p.id);
+      for (let i = 0; i < offset; i++) await tick();
+      const saved = s.saveLearnerDict(p.id, { x: 1 }).then(
+        () => "saved",
+        (e: Error) => e.name,
+      );
+      await deleted;
+      expect(await saved, `offset ${offset}`).toBe("ProfileNotFoundError");
+      expect(await s.list(), `offset ${offset}`).toEqual([]);
+      expect(await sfs.list("profiles"), `offset ${offset}`).toEqual([]);
+    }
+  });
+
+  it("a learner save queued before the delete lands in the trash with the profile", async () => {
+    const p = await store.create({ name: "נועה", avatar: "girl_a" });
+    await Promise.all([store.saveLearnerDict(p.id, { x: 1 }), store.delete(p.id)]);
+    expect(await store.list()).toEqual([]);
+    const [entry] = await store.listTrash();
+    await store.restore(entry!.entry);
+    expect(await store.loadLearnerDict(p.id)).toEqual({ x: 1 });
+  });
+
+  it("saveDir of a deleted profile throws and creates nothing", async () => {
+    const p = await store.create({ name: "נועה", avatar: "girl_a" });
+    await store.delete(p.id);
+    await expect(store.saveDir(p.id)).rejects.toThrow(ProfileNotFoundError);
+    expect(await fs.list("profiles")).toEqual([]);
+  });
+});
+
 describe("files from older versions and damaged files", () => {
   it("migrates v1 to v2 and orders by creation time", async () => {
     const old: [string, string, number][] = [
@@ -383,6 +436,24 @@ describe("files from older versions and damaged files", () => {
     await fs.mkdir("profiles/junk");
     await fs.writeText("profiles/file.txt", "x");
     expect(await store.list()).toHaveLength(1);
+  });
+
+  it("odd keys like __proto__ stay plain data", async () => {
+    await fs.writeText(
+      "profiles/pabcde/profile.json",
+      '{"name": "Maya", "avatar": "girl_a", "order": 0, "__proto__": {"polluted": 1}, "toString": "x",' +
+        ' "settings": {"__proto__": {"polluted": 2}}}',
+    );
+    const p = await store.get("pabcde");
+    expect(Object.getPrototypeOf(p.extra)).toBe(Object.prototype);
+    expect((p.extra as Record<string, unknown>).polluted).toBeUndefined();
+    expect(Object.hasOwn(p.extra, "__proto__")).toBe(true);
+    expect(p.extra.toString).toBe("x");
+    expect((p.settings as Record<string, unknown>).polluted).toBeUndefined();
+    await store.save(p);
+    const data = await readData(fs, "profiles/pabcde/profile.json");
+    expect(Object.hasOwn(data, "__proto__")).toBe(true);
+    expect(data.toString).toBe("x");
   });
 
   it("a profile file with wrong types still loads", async () => {

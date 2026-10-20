@@ -36,6 +36,10 @@ const LETTER = "A-Za-zא-ת";
 // letter, or a single space or hyphen between two letters.
 const NAME_RE = new RegExp(`^[${LETTER}](?:[${LETTER}]|(?<=[${LETTER}])['׳]|[ \\-](?=[${LETTER}]))*$`);
 const ID_RE = /^p[0-9a-f]{5}$/;
+// What Python's str.strip() removes. Unlike String.prototype.trim, it keeps
+// U+FEFF (a BOM), so a name with one is refused as in the old app.
+const PY_SPACE = "\\t\\n\\v\\f\\r\\x1c-\\x1f \\x85\\xa0\\u1680\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000";
+const PY_SPACE_EDGES = new RegExp(`^[${PY_SPACE}]+|[${PY_SPACE}]+$`, "g");
 
 /** Invalid profile data. */
 export class ProfileError extends Error {
@@ -130,7 +134,7 @@ export interface TrashEntry {
  */
 export function validateName(name: unknown): string {
   if (typeof name !== "string") throw new ProfileError("name must be a string");
-  const clean = name.trim();
+  const clean = name.replace(PY_SPACE_EDGES, "");
   // Count code points, as Python's len() does.
   const length = [...clean].length;
   if (length < 1 || length > MAX_NAME_LEN) {
@@ -174,8 +178,8 @@ export function profileFromDict(d: JsonObject): Profile {
     throw new TypeError("profile needs id, name and avatar");
   }
   const birth = d.birth_year;
-  const extra: JsonObject = {};
-  for (const [k, v] of Object.entries(d)) if (!KNOWN_KEYS.has(k)) extra[k] = v;
+  // fromEntries defines own keys, so "__proto__" stays plain data.
+  const extra: JsonObject = Object.fromEntries(Object.entries(d).filter(([k]) => !KNOWN_KEYS.has(k)));
   return {
     id,
     name,
@@ -290,11 +294,26 @@ export class ProfileStore<L = unknown> {
     return this.load(id);
   }
 
-  /** The profile's saves directory (created when missing). */
-  async saveDir(id: string): Promise<string> {
+  /**
+   * The profile's saves directory (created when missing). Throws
+   * {@link ProfileNotFoundError} for a deleted profile, so its folder is
+   * never made again.
+   */
+  saveDir(id: string): Promise<string> {
+    return this.serial(async () => {
+      await this.mustExist(id);
+      return this.makeSaveDir(id);
+    });
+  }
+
+  private async makeSaveDir(id: string): Promise<string> {
     const path = joinPath(this.dir(id), "saves");
     await this.fs.mkdir(path);
     return path;
+  }
+
+  private async mustExist(id: string): Promise<void> {
+    if (!(await this.ids()).includes(id)) throw new ProfileNotFoundError(id);
   }
 
   // ---------------------------------------------------------- mutations
@@ -322,7 +341,7 @@ export class ProfileStore<L = unknown> {
       };
       this.validate(p, existing);
       await this.fs.mkdir(this.dir(p.id));
-      await this.saveDir(p.id);
+      await this.makeSaveDir(p.id);
       await this.write(p);
       return cloneProfile(p);
     });
@@ -408,17 +427,27 @@ export class ProfileStore<L = unknown> {
 
   // ------------------------------------------------------------ learner
 
+  // The learner files go through the same queue as delete and restore:
+  // a save racing a delete would otherwise make the folder again, and the
+  // deleted child would come back as a "שחקן" card.
+
   /** learning.json of a profile; `{}` when there is none. */
-  async loadLearnerDict(id: string): Promise<JsonObject> {
-    await this.get(id);
-    const res = await readJson(this.fs, joinPath(this.dir(id), "learning.json"));
-    if (res.recovered) this.warn(`learning.json of ${id} recovered (${res.status})`);
-    return res.data ?? {};
+  loadLearnerDict(id: string): Promise<JsonObject> {
+    return this.serial(async () => {
+      await this.mustExist(id);
+      const res = await readJson(this.fs, joinPath(this.dir(id), "learning.json"));
+      if (res.recovered) this.warn(`learning.json of ${id} recovered (${res.status})`);
+      return res.data ?? {};
+    });
   }
 
-  async saveLearnerDict(id: string, data: JsonObject): Promise<void> {
-    await this.get(id);
-    await writeJson(this.fs, joinPath(this.dir(id), "learning.json"), data);
+  /** Saves learning.json; throws {@link ProfileNotFoundError} for a deleted profile. */
+  saveLearnerDict(id: string, data: JsonObject): Promise<void> {
+    const snapshot = structuredClone(data); // as it is now, not when the queue gets to it
+    return this.serial(async () => {
+      await this.mustExist(id);
+      await writeJson(this.fs, joinPath(this.dir(id), "learning.json"), snapshot);
+    });
   }
 
   /** The learner state, through the factories given to the store. */
