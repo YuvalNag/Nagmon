@@ -22,6 +22,9 @@ How:
 - **Gradients**: their stripes (a white row, a coloured row) are
   averaged two rows at a time and scaled smoothly: no stripes.
 
+Fully clear pixels take the colour of the nearest visible one
+(``bleed``), so smooth scaling in the game leaves no dark fringe.
+
 The output depends only on the images: re-running gives the same files.
 A development tool: it needs numpy, which the game itself never imports.
 """
@@ -174,6 +177,42 @@ def gradient(image: np.ndarray, k: int = K) -> np.ndarray:
     return np.array(small.resize((w * k, h * k), Image.BICUBIC))
 
 
+def _neighbour(array: np.ndarray, dy: int, dx: int) -> np.ndarray:
+    """``array`` moved so (y, x) holds (y + dy, x + dx); outside is 0."""
+    out = np.zeros_like(array)
+    h, w = array.shape[:2]
+    ys = slice(max(0, -dy), h - max(0, dy))
+    xs = slice(max(0, -dx), w - max(0, dx))
+    yt = slice(max(0, dy), h - max(0, -dy))
+    xt = slice(max(0, dx), w - max(0, -dx))
+    out[ys, xs] = array[yt, xt]
+    return out
+
+
+def bleed(image: np.ndarray) -> np.ndarray:
+    """
+    Every fully clear pixel takes the colour of the nearest pixel that is
+    not (its alpha stays 0). Smooth scaling mixes clear pixels into the
+    edge; with their colour black, a HUD got a dark fringe.
+    """
+    out = image.copy()
+    rgb = out[..., :3]
+    known = image[..., 3] > 0
+    if not known.any():
+        return out
+    while not known.all():
+        grown = known.copy()
+        for dy, dx in ((0, -1), (0, 1), (-1, 0), (1, 0)):
+            near = _neighbour(known, dy, dx)
+            take = near & ~grown
+            rgb[take] = _neighbour(rgb, dy, dx)[take]
+            grown |= take
+        if (grown == known).all():
+            break
+        known = grown
+    return out
+
+
 METHODS: dict[str, Callable[[np.ndarray], np.ndarray]] = {
     "xbrz": xbrz,
     "nine_slice": nine_slice,
@@ -186,9 +225,10 @@ def make(twin: Twin, repo: Path = REPO, out: Path = REPO) -> Path:
     big = METHODS[twin.method](image)
     target = out / OUT_MOD / twin.target
     target.parent.mkdir(parents=True, exist_ok=True)
-    picture = Image.fromarray(big, "RGBA")
     if (big[..., 3] == 255).all():
-        picture = picture.convert("RGB")  # a third smaller
+        picture = Image.fromarray(big, "RGBA").convert("RGB")  # smaller
+    else:
+        picture = Image.fromarray(bleed(big), "RGBA")
     picture.save(target, optimize=True)
     return target
 

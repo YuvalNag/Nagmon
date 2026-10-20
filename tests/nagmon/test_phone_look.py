@@ -457,3 +457,38 @@ def test_a_menu_too_wide_for_the_room_stays_at_the_screen_edge():
     shrinking.rect.width = 2400
     battle.anchor_above(shrinking, shrinks=True)
     shrinking.anchor.assert_any_call("right", 1623)
+
+
+def test_bleed_gives_clear_pixels_the_nearest_colour():
+    tool = _tool()
+    image = np.zeros((5, 7, 4), dtype=np.uint8)
+    image[2, 1] = (200, 10, 10, 255)  # red at the left
+    image[2, 5] = (10, 10, 200, 128)  # half-clear blue at the right
+    out = tool.bleed(image)
+    assert (out[..., 3] == image[..., 3]).all()  # alpha untouched
+    assert tuple(out[2, 0, :3]) == (200, 10, 10)
+    assert tuple(out[0, 1, :3]) == (200, 10, 10)
+    assert tuple(out[2, 6, :3]) == (10, 10, 200)
+    assert tuple(out[2, 5]) == (10, 10, 200, 128)  # not clear: kept
+
+
+def test_the_clear_pixels_of_a_twin_take_their_neighbours_colour():
+    # Smooth scaling mixes clear pixels into the edge: black ones gave
+    # the HUDs a dark fringe (review).
+    from PIL import Image
+
+    tool = _tool()
+    path = REPO / tool.OUT_MOD / "gfx/ui/combat/hp_player_nohp@4x.png"
+    with Image.open(path) as image:
+        big = np.array(image.convert("RGBA")).astype(int)
+    alpha = big[..., 3]
+    clear = alpha == 0
+    # a clear pixel right of an opaque one has a colour close to it
+    left_opaque = np.zeros_like(clear)
+    left_opaque[:, 1:] = alpha[:, :-1] == 255
+    edge = clear & left_opaque
+    assert edge.any()
+    ys, xs = np.nonzero(edge)
+    diff = np.abs(big[ys, xs, :3] - big[ys, xs - 1, :3]).max(axis=1)
+    assert np.median(diff) <= 40
+    assert not (big[ys, xs, :3] == 0).all(axis=1).all()

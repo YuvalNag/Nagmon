@@ -336,6 +336,8 @@ def keyboard_layout(area: Rect, chars: int, *, gap: int,
     ולכן חלק שחוזר לאורך הצלע לא מקבל שקע. הפינות החיצוניות מתעגלות.
   - **הגרדיאנט של הכותרת** (`gradient_blue`): הפסים שלו (שורה לבנה ושורה צבעונית) הם 7 פיקסלים בטלפון.
     התאום הוא ממוצע של כל שתי שורות, מוחלק: מעבר רך בלי פסים.
+- **פיקסל שקוף לגמרי** מקבל את הצבע של הפיקסל הנראה הקרוב (`bleed`), והשקיפות נשארת 0.
+  ההחלקה במשחק מערבבת פיקסלים שקופים בקצה, ובצבע שחור הם נתנו ל־HUD שוליים כהים.
 - **מה לא:** אריחי המפה (ענף `feature/hd-tiles`), הפתיח, והדמויות (כבר HD).
 
 ## 3. בדיקות (TDD)
@@ -378,6 +380,7 @@ def keyboard_layout(area: Rect, chars: int, *, gap: int,
 | רקע הקרב מכסה את כל המסך (אין עמודה שחורה), בלי עיוות ובמרכז | `tests/nagmon/test_phone_look.py` |
 | `ImageState` נפתח על רקע שיש לו תאום; `_create_image` נותן את התמונה הטבעית ו־`_create_background` את התאום | `tests/nagmon/test_phone_look.py` |
 | תאום HD: נמצא לפי סדר המודים; `load_and_scale` מחזיר את אותו הגודל כמו בלי תאום; בלי תאום, אותם פיקסלים | `tests/nagmon/test_phone_look.py` |
+| `bleed`: פיקסל שקוף מקבל את צבע השכן הנראה, והשקיפות לא משתנה; בתאום של ה־HUD הפיקסלים השקופים בקצה בצבע של הקצה | `tests/nagmon/test_phone_look.py` |
 | כל תאום בריפו הוא בדיוק פי 4 מהמקור, וכל תמונה ברשימה של הכלי יש לה תאום | `tests/nagmon/test_phone_look.py` |
 | מסגרת 9 חלקים: חלק הצלע וחלק המרכז חוזרים בלי שקע (העמודה הראשונה שווה לשכנה שלה בחזרה) | `tests/nagmon/test_phone_look.py` |
 | ה־spec: ‏`sensorLandscape`, ‏presplash ‏JPEG ‏2400×1080 עד 350KB, צבע הרקע מהתמונה, והמשאב של Android 12 | `tests/nagmon/test_android_build.py` |
