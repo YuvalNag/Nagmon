@@ -2,6 +2,7 @@
 # Copyright (c) 2014-2026 William Edwards <shadowapex@gmail.com>, Benjamin Bean <superman2k5@gmail.com>
 from __future__ import annotations
 
+import hashlib
 import logging
 from collections.abc import Callable, Mapping
 from gettext import GNUTranslations, NullTranslations, translation
@@ -24,6 +25,22 @@ FALLBACK_LOCALE = "en_US"
 LOCALE_DIR = "l18n"
 LOCALE_CONFIG = CONFIG.locale
 RTL_LOCALES = {"he_IL"}
+
+
+def stamp_path(mo_path: Path) -> Path:
+    """Next to each .mo: the fingerprint of the .po it was made from."""
+    return mo_path.with_name(mo_path.name + ".src")
+
+
+def po_stamp(po_path: Path) -> str:
+    return hashlib.sha256(po_path.read_bytes()).hexdigest()
+
+
+def _made_from(po_path: Path, mo_path: Path) -> bool:
+    try:
+        return stamp_path(mo_path).read_text().strip() == po_stamp(po_path)
+    except OSError:
+        return False
 
 
 class TranslatorManager:
@@ -79,6 +96,12 @@ class TranslatorManager:
             ):
                 self.gettext_compiler.compile_gettext(info.path, mo_path)
                 logger.info(f"Recompiled .mo for: {mo_path}")
+                try:
+                    stamp_path(mo_path).write_text(po_stamp(info.path))
+                except OSError as e:
+                    logger.warning(
+                        f"Could not record the .po of {mo_path}: {e}"
+                    )
 
         logger.info("Translation files compilation complete.")
 
@@ -112,6 +135,11 @@ class TranslatorManager:
                 f"Recompiled .mo, the .po is newer ({delta:.2f}s): {mo_path}"
             )
             return True
+        elif not _made_from(info.path, mo_path):
+            # A .po can look older than the .mo and still be new: a build
+            # made before the phone last compiled (docs/kids/SDD_ANDROID.md).
+            logger.info(f"Recompiled .mo, the .po changed: {mo_path}")
+            return True
         else:
             logger.debug(
                 f"No recompilation needed for: {mo_path} (delta: {delta:.2f}s)"
@@ -141,6 +169,7 @@ class TranslatorManager:
             if not any(mo_file.samefile(p) for p in self._expected_mo_paths):
                 logger.info(f"Removing stale .mo: {mo_file}")
                 mo_file.unlink()
+                stamp_path(mo_file).unlink(missing_ok=True)
                 deleted_count += 1
 
         logger.info(

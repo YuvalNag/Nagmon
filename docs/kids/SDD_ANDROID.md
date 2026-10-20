@@ -123,6 +123,9 @@ class AndroidTTSBackend:   # id="android", online=False, extension=".wav"
 - `resolution = logical_resolution(*desktop_size)`.
 - `flags = FULLSCREEN | SCALED`.
 - כל השאר כמו במחשב. `Scaling` הוא המספר השלם הגדול ביותר שנכנס ב־256×144: ב־Poco F3 זה 7.
+- **תמיד לרוחב** (`nagmon/android/setup.py`): `SDL_IOS_ORIENTATIONS`, רמז ה־SDL לכיוון המסך (גם באנדרואיד), לפני `set_mode`. הערך נלקח מ־`KIVY_ORIENTATION`, ואם הוא לא מוגדר: `LandscapeLeft LandscapeRight`. שורת `orientation` של buildozer מגיעה לאפליקציה רק כ־`KIVY_ORIENTATION`, ש־Kivy בלבד קורא, וב־manifest כתוב "unspecified". לכן SDL בחר כיוון לפי החלון שיצר. עם `FULLSCREEN | SCALED` החלון בגודל המסך בזמן הפתיחה, כלומר לאורך, ו־SDL ביקש מסך לאורך (`requestedOrientation=7` בלוג האמולטור). בבנייה 21 המשחק נפתח בטלפון לאורך וקטן: לא על כל רוחב המסך, החיצים קטנים, ומקשי האותיות קטנים מדי לאצבע. מקש המחיקה צמוד לאותיות האחרונות, וזה כנראה מה שמחק אותיות. מקלדת אנדרואיד לא נפתחת בכלל: SDL מפעיל קלט טקסט בלי מקלדת על המסך.
+- **תרגומים אחרי עדכון** (`tuxemon/locale/locale.py`): לצד כל קובץ `.mo` נשמרת טביעת SHA-256 של ה־`.po` שממנו נבנה (`<name>.mo.src`). קובץ `.mo` נבנה מחדש כשה־`.po` חדש ממנו או כשהטביעה שונה. לפי תאריך בלבד, בנייה שנעשתה לפני שהטלפון הפעיל בפעם האחרונה את הגרסה הקודמת מביאה קבצי `.po` שנראים ישנים, והמחרוזות החדשות חסרות. מסד הנתונים נעצר על מחרוזת חסרה של מפלצת חדשה.
+- **קצב הפריימים ביומן** (`FrameStats` ב־`tuxemon/frame_limiter.py`): פעם בדקה שורה "frame rate: N fps, slowest frame M ms". היא נכנסת ליומן האפליקציה, שנשלח מאזור ההורים, ובטלפון גם ל־logcat. הפסקה של יותר מ־2 שניות (האפליקציה ברקע) מתחילה את הספירה מחדש, ולא נספרת כפריים איטי.
 
 **הקראה** (`nagmon/tts/factory.py`):
 - `build_backends(settings, android=None)`.
@@ -202,7 +205,10 @@ class AndroidTTSBackend:   # id="android", online=False, extension=".wav"
 | `stage.py`: מה נכנס ומה לא, ו־`main.py` במקום | `tests/nagmon/test_android_stage.py` |
 | המתכונים נטענים כמודולים, ושמות הגרסאות תואמים ל־`requirements` | `tests/nagmon/test_android_build_config.py` |
 | דוח קריסה: שגיאה לפני עליית המשחק ובתוכו, קריסה מקומפלת מהפעם הקודמת, מפתחות מוסתרים, בלי לחיצה אין שיתוף | `tests/nagmon/test_crash_report.py` |
-| האמולטור: כל APK נפתח באנדרואיד 11 (x86_64) ונשאר פתוח 6 דקות | `.github/workflows/android-smoke.yml` |
+| האמולטור: כל APK נפתח באנדרואיד 11 (x86_64) בצורת הטלפון (`pixel_6`, 1080×2400) ונשאר פתוח 6 דקות. אחרי 45 שניות נגיעה מדלגת על הפתיח. נכשל אם צילום מסך גבוה מרוחבו, או אם האפליקציה ביקשה מסך לאורך. צילומי המסך מודפסים ליומן העבודה כ־JPEG קטן (`tools/android/screen_shape.py`), וגם קצב הפריימים | `.github/workflows/android-smoke.yml`, `tests/nagmon/test_screen_shape.py` |
+| כיוון המסך: הרמז נקבע, לוקח את `KIVY_ORIENTATION` אם יש, ולא דורס ערך קיים | `tests/nagmon/test_android_platform.py` |
+| תרגום שה־`.po` שלו השתנה נבנה מחדש גם כשהוא נראה ישן. בלי שינוי הוא לא נבנה. הבנייה רושמת את הטביעה | `tests/nagmon/test_world_scripts.py` |
+| קצב הפריימים: שורה אחת בכל תקופה, עם הפריים האיטי ביותר. הפסקה ברקע לא נספרת. השורה נכנסת ליומן האפליקציה | `tests/tuxemon/test_frame_stats.py` |
 | הפעלה מקומפלת: רק `.pyc` עם `-OO`, ובלי מסך. ב־PATH יש `git` שאי אפשר להריץ, כמו בטלפון של בנייה 18 (`PermissionError`). המשחק רץ 30 שניות | `tools/android/compiled_boot.sh` |
 | `get_git_hash` מחזיר "N/A" כש־git חסר, נחסם, נכשל או נתקע | `tests/tuxemon/test_git_hash.py` |
 | סיור מגע: מסך 2400×1080, ובלי מקלדת בכלל. PIN, אשף שחקן בעברית, בחירת ילד, שאלה, משחק חדש, בחירת מפלצת והליכה עם החיצים | `tools/dev/touch_tour.py` |

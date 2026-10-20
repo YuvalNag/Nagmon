@@ -172,3 +172,28 @@ def test_pc_screen_is_left_alone(monkeypatch):
     config = TuxemonConfig()
     assert fit_to_phone_screen(config) == 0
     assert config.resolution == (1280, 720)
+
+
+def test_prepare_environment_keeps_the_game_landscape():
+    """
+    Build 21 opened in portrait on the phone: with FULLSCREEN|SCALED, SDL
+    creates the window at the desktop size, which is portrait while the
+    app starts, and without a hint asks Android for portrait
+    (requestedOrientation=7 in the emulator log). The hint tells SDL the
+    game only turns sideways.
+    """
+    env: dict[str, str] = {}
+    prepare_environment(env, cafile=lambda: "/c.pem")
+    assert env["SDL_IOS_ORIENTATIONS"] == "LandscapeLeft LandscapeRight"
+
+
+def test_prepare_environment_keeps_a_chosen_orientation():
+    env = {"SDL_IOS_ORIENTATIONS": "LandscapeLeft"}
+    prepare_environment(env, cafile=lambda: "/c.pem")
+    assert env["SDL_IOS_ORIENTATIONS"] == "LandscapeLeft"
+
+
+def test_prepare_environment_follows_the_spec_orientation():
+    env = {"KIVY_ORIENTATION": "LandscapeLeft"}
+    prepare_environment(env, cafile=lambda: "/c.pem")
+    assert env["SDL_IOS_ORIENTATIONS"] == "LandscapeLeft"

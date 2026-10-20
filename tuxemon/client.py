@@ -11,7 +11,7 @@ import pygame
 
 from tuxemon.base_client import BaseClient, ClientState
 from tuxemon.config import TuxemonConfig
-from tuxemon.frame_limiter import FrameLimiter
+from tuxemon.frame_limiter import FrameLimiter, FrameStats
 from tuxemon.map.tuxemon import NullMap
 from tuxemon.map.view import DebugRenderer, MapRenderer, NullRenderer
 from tuxemon.platform import mobile
@@ -120,6 +120,8 @@ class LocalPygameClient(BaseClient):
         # Vsync may be unavailable (no hardware renderer), so cap anyway;
         # with working vsync the flip already waits and this sleeps ~0.
         limiter = FrameLimiter(target_fps)
+        # On a phone print goes to logcat; on a computer it is only noise.
+        frame_stats = FrameStats(echo=print if mobile.is_android() else None)
 
         while self.state != ClientState.DONE:
             limiter.start_frame()
@@ -141,6 +143,7 @@ class LocalPygameClient(BaseClient):
                 draw()
                 self.input_manager.draw_inputs(screen)
                 flip()
+                frame_stats.frame(now)
 
                 if self.config.show_fps:
                     self.renderer.update(frame_length)

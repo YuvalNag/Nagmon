@@ -72,12 +72,22 @@ jobs:
         sudo udevadm control --reload-rules
         sudo udevadm trigger --name-match=kvm
 
+    - name: Python with Pillow, to print screenshots into the log
+      uses: actions/setup-python@v6
+      with:
+        python-version: "3.12"
+
+    - run: python -m pip install --quiet pillow
+
     - name: Open the app on the emulator
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 30
         arch: x86_64
         target: google_apis
+        # The shape of the children's phone (1080x2400), not the AVD's
+        # default 320x640, so screenshots look like the phone.
+        profile: pixel_6
         ram-size: 4096M
         disk-size: 6000M
         disable-animations: true

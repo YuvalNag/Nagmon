@@ -638,5 +638,69 @@ def test_newer_po_is_recompiled_even_hours_later(tmp_path):
     )
     manager = TranslatorManager.__new__(TranslatorManager)
     assert manager._should_compile_translation(info, mo, False)
+    stamp_mo(po, mo)
     os.utime(mo, (1_000_000 + 7200, 1_000_000 + 7200))  # the .mo is newer
     assert not manager._should_compile_translation(info, mo, False)
+
+
+def _changed_po_setup(tmp_path):
+    from tuxemon.locale.finder import LocaleInfo
+    from tuxemon.locale.locale import TranslatorManager
+
+    po, mo = tmp_path / "nagmon.po", tmp_path / "nagmon.mo"
+    po.write_text('msgid "a"\nmsgstr "A"\n')
+    mo.write_bytes(b"")
+    info = LocaleInfo(
+        locale="he_IL", category="LC_MESSAGES", domain="nagmon", path=po
+    )
+    return po, mo, info, TranslatorManager.__new__(TranslatorManager)
+
+
+def test_a_changed_po_is_recompiled_even_when_it_looks_older(tmp_path):
+    """
+    A build made before the phone last started the game carries .po
+    files older than the .mo the phone compiled; by date alone it keeps
+    the old strings, and a new monster's msgid is missing (the database
+    stops on it). The .mo remembers which .po it was made from.
+    """
+    po, mo, info, manager = _changed_po_setup(tmp_path)
+    stamp_mo(po, mo)
+    po.write_text('msgid "a"\nmsgstr "A"\nmsgid "b"\nmsgstr "B"\n')
+    os.utime(po, (1_000_000, 1_000_000))
+    os.utime(mo, (2_000_000, 2_000_000))  # the .mo looks newer
+    assert manager._should_compile_translation(info, mo, False)
+
+
+def test_an_unchanged_po_is_not_recompiled(tmp_path):
+    po, mo, info, manager = _changed_po_setup(tmp_path)
+    stamp_mo(po, mo)
+    os.utime(po, (1_000_000, 1_000_000))
+    os.utime(mo, (2_000_000, 2_000_000))
+    assert not manager._should_compile_translation(info, mo, False)
+
+
+def test_compiling_records_the_source(tmp_path):
+    from tuxemon.locale.locale import po_stamp, stamp_path
+
+    po, mo, info, manager = _changed_po_setup(tmp_path)
+
+    class Finder:
+        def search_locales(self):
+            return [info]
+
+    class Compiler:
+        def get_mo_path(self, locale, category, domain):
+            return mo
+
+        def compile_gettext(self, po_path, mo_path):
+            mo_path.write_bytes(b"compiled")
+
+    manager.locale_finder, manager.gettext_compiler = Finder(), Compiler()
+    manager.collect_and_compile_translations()
+    assert stamp_path(mo).read_text() == po_stamp(po)
+
+
+def stamp_mo(po, mo):
+    from tuxemon.locale.locale import po_stamp, stamp_path
+
+    stamp_path(mo).write_text(po_stamp(po))

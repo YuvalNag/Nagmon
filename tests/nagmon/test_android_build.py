@@ -504,3 +504,33 @@ def test_android_builds_on_a_branch_never_overlap():
     )
     assert build["concurrency"]["group"] == "android-${{ github.ref }}"
     assert build["concurrency"]["cancel-in-progress"] is False
+
+
+def test_the_emulator_is_phone_shaped_and_checks_sideways():
+    """
+    Build 21 stood upright on the phone and no check noticed: the emulator
+    was 320x640 and only checked that the app kept running. It now has
+    the phone's shape, fails on a portrait screenshot or a portrait
+    request, and prints the screenshots into the job log.
+    """
+    import yaml
+
+    smoke = yaml.safe_load(
+        (REPO / ".github/workflows/android-smoke.yml").read_text()
+    )
+    run = next(
+        s
+        for s in smoke["jobs"]["emulator"]["steps"]
+        if "android-emulator-runner" in s.get("uses", "")
+    )
+    assert run["with"]["profile"] == "pixel_6"
+    steps = smoke["jobs"]["emulator"]["steps"]
+    names = [str(st.get("uses", "")) + str(st.get("run", "")) for st in steps]
+    pillow = next(i for i, n in enumerate(names) if "pip install" in n)
+    assert pillow < steps.index(run)  # Pillow before the screenshots
+    script = (REPO / "tools" / "android" / "smoke.sh").read_text()
+    assert 'screen_shape.py" shape' in script
+    assert 'screen_shape.py" show' in script
+    assert "requestedOrientation=(1|7|9|12)" in script
+    assert "frame rate:" in script
+    assert "adb logcat -G 16M" in script  # the start is not rolled away
