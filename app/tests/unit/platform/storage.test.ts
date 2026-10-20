@@ -76,7 +76,7 @@ vi.mock("@capacitor/filesystem", () => {
   };
 });
 
-const { CapacitorFileStore } = await import("../../../src/platform/storage");
+const { CapacitorFileStore, createFileStore } = await import("../../../src/platform/storage");
 
 /** A localStorage stand-in, so each test starts empty. */
 class FakeStorage {
@@ -272,6 +272,73 @@ describe("localStorage persistence", () => {
     const b = new MemoryFileStore({ storage });
     expect((await readJson(b, "profiles/p1/profile.json")).data).toEqual({ name: "נועה" });
     expect(await b.stat("profiles/p1/saves")).toBe("dir");
+  });
+});
+
+describe("localStorage full (quota)", () => {
+  /** A storage that refuses to grow past `limit` characters. */
+  class QuotaStorage extends FakeStorage {
+    constructor(public limit: number) {
+      super();
+    }
+    override setItem(k: string, v: string): void {
+      let size = k.length + v.length;
+      for (let i = 0; i < this.length; i++) {
+        const key = this.key(i)!;
+        if (key !== k) size += key.length + (this.getItem(key) ?? "").length;
+      }
+      if (size > this.limit) throw new DOMException("quota", "QuotaExceededError");
+      super.setItem(k, v);
+    }
+  }
+
+  it("a refused write leaves memory and storage agreeing", async () => {
+    for (let limit = 100; limit < 800; limit += 10) {
+      const storage = new QuotaStorage(limit);
+      const fs = new MemoryFileStore({ storage });
+      const first = await writeJson(fs, "p.json", { v: "x".repeat(50) }).then(
+        () => true,
+        () => false,
+      );
+      if (!first) continue;
+      const second = await writeJson(fs, "p.json", { v: "y".repeat(120) }).then(
+        () => "ok",
+        () => "refused",
+      );
+      const inMemory = (await readJson(fs, "p.json")).data;
+      const reloaded = (await readJson(new MemoryFileStore({ storage }), "p.json")).data;
+      expect(reloaded, `limit ${limit}`).toEqual(inMemory);
+      // Refused: the old data, or the new one when its complete .tmp made it
+      // to storage (the next read finishes that save). Never a mix.
+      const expected = second === "ok" ? ["y"] : ["x", "y"];
+      expect(expected, `limit ${limit}`).toContain(String(inMemory?.v)[0]);
+    }
+  });
+});
+
+describe("reading and removing take the file's lock", () => {
+  it("a file that vanishes between stat and read is missing, not corrupt", async () => {
+    const base = new MemoryFileStore();
+    await base.writeText("d.json", "{}");
+    const fs: FileStore = Object.assign(Object.create(base) as FileStore, {
+      readText: async () => null,
+    });
+    const res = await readJson(fs, "d.json");
+    expect(res.status).toBe("missing");
+    expect((await base.list("")).map((e) => e.name)).toEqual(["d.json"]);
+  });
+
+  it("a remove queued after a write wins, and leaves nothing behind", async () => {
+    const fs = new MemoryFileStore();
+    await writeJson(fs, "d.json", { a: 1 });
+    await Promise.all([writeJson(fs, "d.json", { a: 2 }), removeJson(fs, "d.json")]);
+    expect(await fs.list("")).toEqual([]);
+  });
+});
+
+describe("createFileStore", () => {
+  it("gives the same store every time", () => {
+    expect(createFileStore()).toBe(createFileStore());
   });
 });
 
