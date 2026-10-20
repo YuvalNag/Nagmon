@@ -1,0 +1,31 @@
+# The Bag's items and what they cost (docs/app/FEATURES.md 4.2 and 4.3).
+# The one table of the economy: the app reads it as game/economy.json
+# (tools/app/economy.py checks and builds it). Names and descriptions are
+# in app/src/i18n.ts under item_<id>_name and item_<id>_desc.
+version: 1
+# the Bag's three tabs, in order; every item is in exactly one
+tabs: [nets, snacks, tools]
+stack_limit: 99
+# given once, the first time the Bag or a net is needed
+starter_kit:
+  magic_net: 3
+# the owl's gift when the Bag has no net at all: once a day, free
+spare_net:
+  item: magic_net
+  per_day: 1
+# coins a seal answer pays when the creature is caught
+seal_coins: 5
+# the first answer of the day after a lesson etc. is not here: lessons pay in a later slice
+items:
+  - {id: magic_net, tab: nets, kind: net, price: 30, icon: "🥅", seal_less: 0}
+  - {id: silver_net, tab: nets, kind: net, price: 90, icon: "🕸️", seal_less: 1}
+  - {id: berry, tab: snacks, kind: snack, price: 10, icon: "🍓", hearts: 1, xp: 1}
+  - {id: biscuit, tab: snacks, kind: snack, price: 25, icon: "🍪", hearts: 2, xp: 2}
+  - {id: pie, tab: snacks, kind: snack, price: 60, icon: "🥧", hearts: 2, xp: 4}
+  - {id: growth_tonic, tab: snacks, kind: tonic, price: 60, icon: "🧪", boost_answers: 5}
+  - {id: hint_feather, tab: tools, kind: helper, price: 15, icon: "🪶", helper: hint}
+  - {id: clover, tab: tools, kind: helper, price: 20, icon: "🍀", helper: fifty}
+  - {id: owl_pass, tab: tools, kind: helper, price: 15, icon: "🦉", helper: pass}
+  - {id: explorer_map, tab: tools, kind: key, price: 0, icon: "🗺️"}
+  - {id: station_ticket, tab: tools, kind: key, price: 0, icon: "🎫"}
+  - {id: badge_case, tab: tools, kind: key, price: 0, icon: "🏅"}

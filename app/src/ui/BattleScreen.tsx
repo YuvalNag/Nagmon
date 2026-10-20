@@ -9,6 +9,7 @@ import { gameClock } from "../platform/lifecycle";
 import { MonsterPic } from "./MonsterPic";
 import { QuizScreen } from "./QuizScreen";
 import { ActionBar } from "./battle/ActionBar";
+import { BagView } from "./BagView";
 import { Sheet } from "./battle/Sheet";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
@@ -195,8 +196,9 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
           onFriends={() => setSheet("friends")}
           onLeave={leave}
         />
-        {sheet && (
-          <Sheet title={t(sheet === "bag" ? "battleBag" : "battleFriends")} onClose={() => setSheet(null)}>
+        {sheet === "bag" && <BagView play={play} battle={{ calm: view.k === "won", onNet: () => setSheet(null) }} onClose={() => setSheet(null)} />}
+        {sheet === "friends" && (
+          <Sheet title={t("battleFriends")} onClose={() => setSheet(null)}>
             <p />
           </Sheet>
         )}

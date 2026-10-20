@@ -76,6 +76,11 @@ export class FieldLog {
     this.line("BUY", pairs({ what: p.what, price: p.price, coins_left: p.coins }));
   }
 
+  /** An item used (the Bag, a helper): the item's id, where, and whether it worked. No names. */
+  item(p: { item: string; where: string; ok: boolean }): void {
+    this.line("ITEM use", pairs({ item: p.item, where: p.where, ok: p.ok ? 1 : 0 }));
+  }
+
   /** The starting level of each subject, in subject order by name. */
   placement(levels: Readonly<Record<string, number>>): void {
     const sorted = Object.fromEntries(Object.entries(levels).sort(([a], [b]) => (a < b ? -1 : 1)));

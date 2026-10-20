@@ -19,6 +19,10 @@ export interface Creature {
   species: string;
   level: number;
   xp: number;
+  /** Friendship, 0 to 5; it never goes down. */
+  hearts?: number;
+  /** The child's own name for it: kept on the phone, never uploaded or logged. */
+  name?: string;
 }
 
 /** Where the child is in the trips (core/game/trips.ts). */
@@ -40,6 +44,8 @@ export interface WorldData {
   seen?: string[];
   caught?: string[];
   trips?: TripSave;
+  /** The Bag: how many of each item (only the ones the child has). */
+  items?: Record<string, number>;
 }
 
 export const noTrips = (): TripSave => ({ done: [], visited: [], badges: [], at: null });
@@ -54,7 +60,11 @@ function creature(v: unknown): Creature | null {
   const level = Number(c["level"]);
   const xp = Number(c["xp"] ?? 0);
   if (typeof c["species"] !== "string" || !c["species"] || !Number.isFinite(level) || level < 1) return null;
-  return { id: typeof c["id"] === "string" && c["id"] ? c["id"] : "", species: c["species"], level: Math.trunc(level), xp: Number.isFinite(xp) && xp > 0 ? Math.trunc(xp) : 0 };
+  const hearts = Number(c["hearts"] ?? 0);
+  const out: Creature = { id: typeof c["id"] === "string" && c["id"] ? c["id"] : "", species: c["species"], level: Math.trunc(level), xp: Number.isFinite(xp) && xp > 0 ? Math.trunc(xp) : 0 };
+  if (Number.isFinite(hearts) && hearts > 0) out.hearts = Math.min(5, Math.trunc(hearts));
+  if (typeof c["name"] === "string" && c["name"].trim()) out.name = c["name"].trim().slice(0, 16);
+  return out;
 }
 
 export class WorldState {
@@ -66,6 +76,8 @@ export class WorldState {
   readonly seen = new Set<string>();
   readonly caught = new Set<string>();
   trips: TripSave = noTrips();
+  /** The Bag: item id to count. Counts are whole numbers above zero. */
+  readonly items = new Map<string, number>();
 
   /** A saved world.json; anything unreadable starts afresh (no coins are made up). */
   static fromDict(data: unknown): WorldState {
@@ -89,6 +101,12 @@ export class WorldState {
     }
     for (const sp of strings(d["seen"])) w.seen.add(sp);
     for (const sp of strings(d["caught"])) w.caught.add(sp);
+    const bag = d["items"];
+    if (typeof bag === "object" && bag !== null && !Array.isArray(bag)) {
+      for (const [id, n] of Object.entries(bag as Record<string, unknown>)) {
+        if (typeof n === "number" && Number.isFinite(n) && n >= 1) w.items.set(id, Math.trunc(n));
+      }
+    }
     const tr = d["trips"];
     if (typeof tr === "object" && tr !== null && !Array.isArray(tr)) {
       const t = tr as Record<string, unknown>;
@@ -107,6 +125,7 @@ export class WorldState {
     if (this.creatures.length) out.creatures = this.creatures.map((c) => ({ ...c }));
     if (this.seen.size) out.seen = [...this.seen].sort();
     if (this.caught.size) out.caught = [...this.caught].sort();
+    if (this.items.size) out.items = Object.fromEntries([...this.items].sort(([a], [b]) => (a < b ? -1 : 1)));
     const t = this.trips;
     if (t.done.length || t.visited.length || t.badges.length || t.at) out.trips = { done: [...t.done], visited: [...t.visited], badges: [...t.badges], at: t.at };
     return out;

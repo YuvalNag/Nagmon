@@ -951,6 +951,145 @@ button.quiz-choice {
   gap: var(--gap);
 }
 
+/* ----------------------------------------------------------------- the Bag */
+
+.sheet.bag {
+  display: grid;
+  /* the tab rail at the start edge, the cards, the panel at the end (220 px) */
+  grid-template-columns: 64px minmax(0, 1fr) 220px;
+  gap: var(--gap);
+}
+
+.bag-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bag-rail button {
+  flex: 1;
+  min-height: 56px;
+  min-width: 56px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.bag-rail .bag-back {
+  font-size: calc(var(--text) * 0.7);
+}
+
+.bag-rail button small {
+  font-size: 12px;
+}
+
+.bag-rail button[aria-selected="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.bag-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(80px, 1fr));
+  grid-auto-rows: 100px;
+  gap: 8px;
+  align-content: start;
+  overflow-y: auto;
+  touch-action: pan-y;
+}
+
+.bag-card {
+  position: relative;
+  padding: 0;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bag-card[aria-pressed="true"] {
+  border-color: var(--accent);
+  border-width: 4px;
+}
+
+.bag-icon {
+  font-size: 44px;
+  line-height: 1;
+}
+
+.bag-count {
+  position: absolute;
+  inset-block-end: 4px;
+  inset-inline-start: 6px;
+  font-size: calc(var(--text) * 0.7);
+  font-weight: 700;
+}
+
+.bag-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+  text-align: center;
+  font-size: calc(var(--text) * 0.8);
+}
+
+.bag-empty span {
+  font-size: 56px;
+}
+
+.bag-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: var(--gap);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  font-size: calc(var(--text) * 0.72);
+  overflow-y: auto;
+}
+
+.bag-big {
+  font-size: 56px;
+  line-height: 1;
+}
+
+.bag-desc {
+  font-size: calc(var(--text) * 0.65);
+}
+
+.bag-why,
+.bag-said {
+  font-size: calc(var(--text) * 0.6);
+  color: var(--ink-soft);
+}
+
+.bag-detail .primary {
+  width: 100%;
+  margin-top: auto;
+}
+
+.bag-who {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.bag-who button {
+  font-size: calc(var(--text) * 0.6);
+  padding: 4px;
+}
+
 .battle-continue {
   min-width: calc(var(--touch) * 3);
 }

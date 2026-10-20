@@ -158,6 +158,46 @@ export const he = {
   bestiaryUnknown: "עוד לא פגשת",
   quizDontKnowFeedback: "זה בסדר לא לדעת! ככה פותרים:",
   quizPicture: "תמונה לשאלה",
+  tabNets: "רשתות",
+  tabSnacks: "נשנושים",
+  tabTools: "כלים",
+  bagTitle: "התיק",
+  bagEmpty: "אין כאן כלום עדיין. אפשר למצוא דברים בדרך.",
+  bagUse: "להשתמש",
+  bagWho: "למי נותנים?",
+  bagFed: "{name} אוכל ומרגיש טוב!",
+  bagFedLevel: "{name} עלה לרמה {level}!",
+  bagTonicOn: "השיקוי עובד: 5 תשובות נכונות גדלות פי 2.",
+  bagTonicBusy: "השיקוי הקודם עדיין עובד.",
+  bagNeedCalm: "רשת זורקים על חבר רגוע.",
+  bagNotInBattle: "את זה משתמשים מחוץ לקרב.",
+  bagInQuestion: "את זה בוחרים בזמן שאלה.",
+  bagKeyItem: "פריט מיוחד. הוא עובד לבד במקום הנכון.",
+  bagNoFriend: "אין עדיין חבר.",
+  item_magic_net_name: "רשת קסמים",
+  item_magic_net_desc: "תופסת חבר רגוע.",
+  item_silver_net_name: "רשת כסף",
+  item_silver_net_desc: "חותם אחד פחות לחבר נדיר.",
+  item_berry_name: "תות",
+  item_berry_desc: "לב אחד לחבר.",
+  item_biscuit_name: "עוגייה",
+  item_biscuit_desc: "שני לבבות וקצת גדילה.",
+  item_pie_name: "פאי",
+  item_pie_desc: "שני לבבות והרבה גדילה.",
+  item_growth_tonic_name: "שיקוי גדילה",
+  item_growth_tonic_desc: "5 תשובות נכונות גדלות פי 2.",
+  item_hint_feather_name: "נוצת רמז",
+  item_hint_feather_desc: "מראה את הצעד הראשון.",
+  item_clover_name: "תלתן",
+  item_clover_desc: "מוריד שתי תשובות לא נכונות.",
+  item_owl_pass_name: "כרטיס ינשוף",
+  item_owl_pass_desc: "מחליף שאלה, בלי עונש.",
+  item_explorer_map_name: "מפת מגלים",
+  item_explorer_map_desc: "המפה של העולם שלך.",
+  item_station_ticket_name: "כרטיס תחנה",
+  item_station_ticket_desc: "פותח את הדרך לתחנה.",
+  item_badge_case_name: "תיק תגים",
+  item_badge_case_desc: "שומר את כל התגים שלך.",
   up: "למעלה",
   down: "למטה",
   left: "שמאלה",
@@ -165,6 +205,11 @@ export const he = {
 } as const;
 
 export type TextKey = keyof typeof he;
+
+/** An item's name or its one-line effect, by item id (the words are in the table above). */
+export function itemText(id: string, part: "name" | "desc"): string {
+  return (he as Record<string, string>)[`item_${id}_${part}`] ?? id;
+}
 
 export function t(key: TextKey, values: Record<string, string | number> = {}): string {
   return he[key].replace(/\{(\w+)\}/g, (_, k: string) => String(values[k] ?? `{${k}}`));

@@ -291,3 +291,35 @@ test("the battle's action bar: five buttons of 120x72 and more in the bottom 123
   const arena = (await page.locator(".battle-arena").boundingBox())!;
   expect(arena.y + arena.height).toBeLessThanOrEqual(boxes[0]!.y + 1);
 });
+
+test("the Bag from the battle: three tabs at the start edge, cards with counts, the panel at the end, all inside the screen", async ({ page }, info) => {
+  await seedChild(page, { grade: 2, battle: true });
+  await openMap(page);
+  await steps(page, "right", 1);
+  await expect(page.locator("[data-screen=battle]")).toBeVisible();
+  await touch(page, page.locator(id("battle_bag")));
+  const bag = page.locator("[data-screen=bag]");
+  await expect(bag).toBeVisible();
+  // the starter nets arrived, once
+  await expect(page.locator(id("bag_item_magic_net"))).toContainText("x3");
+  await page.screenshot({ path: info.outputPath("bag.png") });
+  const rect = (sel: string) => page.locator(sel).evaluate((e) => e.getBoundingClientRect().toJSON() as { x: number; y: number; width: number; height: number; right: number; bottom: number });
+  const tab = await rect(id("bag_tab_nets"));
+  const card = await rect(id("bag_item_magic_net"));
+  const detail = await rect(id("bag_detail"));
+  expect(tab.width).toBeGreaterThanOrEqual(56);
+  expect(tab.height).toBeGreaterThanOrEqual(56);
+  // Hebrew: the rail at the right (start) edge, the panel at the left (end)
+  expect(tab.x).toBeGreaterThan(card.x);
+  expect(detail.right).toBeLessThanOrEqual(card.x);
+  expect(Math.min(card.width, card.height)).toBeGreaterThanOrEqual(80);
+  for (const b of [tab, card, detail]) {
+    expect(b.x).toBeGreaterThanOrEqual(0);
+    expect(b.right).toBeLessThanOrEqual(873);
+    expect(b.bottom).toBeLessThanOrEqual(393);
+  }
+  // not calm yet: a net cannot be used, and the Bag says why
+  await expect(page.locator(id("bag_use"))).toBeDisabled();
+  await touch(page, page.locator(id("bag_close")));
+  await expect(bag).toHaveCount(0);
+});
