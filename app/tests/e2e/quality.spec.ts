@@ -125,6 +125,8 @@ for (const scale of [1, 1.3]) {
     const shot = (name: string) => page.screenshot({ path: info.outputPath(`${scale * 100}-${name}.png`) });
     const screen = (name: string) => expect(page.locator(`[data-screen=${name}]`)).toBeVisible();
 
+    // the test seed: the question showing can be read (window.__nagmonQuiz), for the owl's intro
+    await page.addInitScript(() => localStorage.setItem("nagmon.quiz.seed", "3"));
     await page.goto("/");
     await screen("who-plays");
     if (scale !== 1) {
@@ -169,6 +171,16 @@ for (const scale of [1, 1.3]) {
     await screen("play");
     // the map, once it is up (Phaser loads on demand), and its pause menu
     await expect(page.locator("[data-screen=play][data-map=ready]")).toBeVisible({ timeout: 20_000 });
+    // a new child's first minute is the owl's intro (it has its own audit below): its dialog, six questions, one of three creatures
+    await readDialog(page);
+    for (let i = 0; i < 6; i++) {
+      await answer(page, "right");
+      await touch(page, page.locator(id("quiz_continue")), 30);
+    }
+    await readDialog(page);
+    await touch(page, page.locator("[data-id^=starter_]").first(), 30);
+    await readDialog(page);
+    await expect(page.locator(id("dpad"))).toBeVisible();
     await audit(page, "11_play", shot);
     await touch(page, page.locator(id("map_menu")), 30);
     await screen("map-menu");

@@ -38,11 +38,14 @@ jobs:
     - run: npm ci
     - run: npm run typecheck
     - run: npm test
+    # the heavy checks (browser audits, the emulator) run on a release candidate (run this workflow by hand), not on every push
     - run: npx playwright install --with-deps chromium
+      if: github.event_name == 'workflow_dispatch'
     - name: The phone's screen in a browser (Hebrew and English)
+      if: github.event_name == 'workflow_dispatch'
       run: npm run e2e
     - name: Show the screenshots in the log
-      if: always()
+      if: always() && github.event_name == 'workflow_dispatch'
       working-directory: .
       run: |
         python3 -m pip install --quiet --break-system-packages pillow
@@ -164,6 +167,7 @@ jobs:
 
   emulator:
     needs: apk
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 50
     steps:
