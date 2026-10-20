@@ -171,22 +171,26 @@ button.quiet {
   flex-wrap: wrap;
 }
 
-/* one row: up to 8 cards shrink to fit, so the tools below stay on screen */
+/* one row: up to 8 cards, each as wide as its name when there is room;
+   when there is not, the room goes to the longer names first (grid
+   tracks grow evenly up to their content), so short names stay whole */
 .cards {
-  flex-wrap: nowrap;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(var(--touch), max-content);
+  justify-content: center;
   max-width: 100%;
   min-height: 0;
 }
 
 .card {
-  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
   gap: calc(var(--gap) / 2);
   padding: var(--gap);
-  min-width: var(--touch);
+  min-width: 0;
   height: 40vh;
 }
 
@@ -201,7 +205,20 @@ button.quiet {
 }
 
 .card span {
-  overflow-wrap: anywhere;
+  max-width: 100%;
+  /* a word breaks only when it cannot fit at all (a 16-letter name) */
+  overflow-wrap: break-word;
+}
+
+/* six children and more: a little smaller names, so a six-letter name
+   fits a card at 800 px; the line stays 5 mm tall */
+.cards.many .card {
+  padding: calc(var(--gap) / 2);
+}
+
+.cards.many .card span {
+  font-size: calc(var(--text) * 0.85);
+  line-height: max(32px, calc(var(--line) * 1em));
 }
 
 .tools {

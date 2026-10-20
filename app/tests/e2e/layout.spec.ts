@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { fitsAndSharp, touch } from "./touch";
+import { fitsAndSharp, touch, typeCode } from "./touch";
 
 /**
  * Every screen at the family's phone and two other landscape sizes: it
@@ -84,7 +84,7 @@ for (const size of SIZES) {
       await check("01_who", "who-plays");
       await touch(page, page.locator(id("new_child")), 20);
       await check("02_pin", "pin");
-      for (const d of "12341234") await touch(page, page.locator(id(`key_${d}`)), 20);
+      await typeCode(page, "12341234", { holdMs: 20, gapMs: 40 });
       await check("03_notice", "notice");
       await touch(page, page.locator(id("next")), 20);
       // the longest name there is
@@ -107,6 +107,16 @@ for (const size of SIZES) {
       await check("07_who_one", "who-plays");
     });
   });
+}
+
+/** Names of up to 6 letters that the screen broke over two lines. */
+async function brokenShortNames(page: Page): Promise<string[]> {
+  return page.evaluate(() =>
+    [...document.querySelectorAll<HTMLElement>(".card span")]
+      .filter((s) => [...(s.textContent ?? "")].length <= 6)
+      .filter((s) => s.getBoundingClientRect().height > parseFloat(getComputedStyle(s).lineHeight) * 1.5)
+      .map((s) => s.textContent ?? ""),
+  );
 }
 
 /** Eight children straight into the browser's store, one with the longest name. */
@@ -139,6 +149,8 @@ for (const size of SIZES) {
       const m = await measure(page);
       expect(m.smallButtons).toEqual([]);
       expect(m.smallText).toEqual([]);
+      // a short name stays whole on one line; only the 16-letter one may break
+      expect(await brokenShortNames(page)).toEqual([]);
       await expect(page.locator(id("new_child"))).toBeDisabled();
       await expect(page.locator("[data-screen=who-plays]")).toContainText("אפשר עד 8 שחקנים.");
       await touch(page, page.locator(id("new_child")), 30);
@@ -150,3 +162,18 @@ for (const size of SIZES) {
     });
   });
 }
+
+test.describe("eight six-letter names at 800x360", () => {
+  test.use({ viewport: { width: 800, height: 360 }, deviceScaleFactor: 3 });
+
+  test("each name stays whole, and everything fits", async ({ page }, info) => {
+    await seedChildren(page, ["אביטלה", "ברקאיה", "גלבועה", "דוריתה", "הדסימה", "ורדיתה", "זהביתה", "חרמונה"]);
+    await page.goto("/");
+    await expect(page.locator("[data-screen=who-plays] .card")).toHaveCount(8);
+    await page.evaluate(() => document.fonts.ready);
+    await page.screenshot({ path: info.outputPath("small-who_eight_six.png") });
+    const m = await measure(page);
+    expect(m.smallButtons).toEqual([]);
+    expect(await brokenShortNames(page)).toEqual([]);
+  });
+});

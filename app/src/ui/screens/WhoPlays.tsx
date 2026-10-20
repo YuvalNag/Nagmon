@@ -23,7 +23,7 @@ export function WhoPlays({ children, onPick, onNewChild, onParents, busy = false
     <main className="screen" data-screen="who-plays">
       <h1 className="title">{t("whoPlays")}</h1>
       {children.length > 0 && (
-        <div className="cards">
+        <div className={children.length >= 6 ? "cards many" : "cards"}>
           {children.map((p) => (
             <Tap key={p.id} id={`child_${p.id}`} className="card" disabled={busy} onTap={() => onPick(p.id)}>
               <img src={avatarImage(p.avatar)} alt="" draggable={false} />
