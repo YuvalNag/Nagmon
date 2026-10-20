@@ -1,0 +1,106 @@
+:root {
+  --bg: #eaf6f8;
+  --bg-deep: #cfe9ee;
+  --ink: #17323a;
+  --ink-soft: #4b6870;
+  --accent: #1f6f8b;
+  --accent-ink: #ffffff;
+  --card: #ffffff;
+  --card-edge: #9cc7d1;
+  /* a finger is about 9 mm: 13% of the phone's height in landscape */
+  --touch: max(52px, 13vh);
+  --gap: max(10px, 2.5vh);
+  --radius: max(12px, 2.5vh);
+  --text: max(18px, 5.2vh);
+  --text-big: max(24px, 8vh);
+}
+
+@font-face {
+  font-family: "Rubik";
+  font-weight: 300 900;
+  font-display: block;
+  src: url("@fontsource-variable/rubik/files/rubik-hebrew-wght-normal.woff2")
+    format("woff2");
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC,
+    U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: "Rubik";
+  font-weight: 300 900;
+  font-display: block;
+  src: url("@fontsource-variable/rubik/files/rubik-latin-wght-normal.woff2")
+    format("woff2");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Rubik", system-ui, sans-serif;
+  font-size: var(--text);
+  font-weight: 500;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  min-height: var(--touch);
+  min-width: var(--touch);
+  padding: 0 calc(var(--gap) * 1.6);
+  border-radius: var(--radius);
+  border: 2px solid var(--card-edge);
+  background: var(--card);
+  cursor: pointer;
+}
+
+button:active {
+  transform: translateY(1px);
+  filter: brightness(0.95);
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  padding: var(--gap) max(16px, env(safe-area-inset-right))
+    var(--gap) max(16px, env(safe-area-inset-left));
+  background: linear-gradient(var(--bg), var(--bg-deep));
+}
+
+.title {
+  font-size: var(--text-big);
+  font-weight: 700;
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  gap: var(--gap);
+  flex-wrap: wrap;
+  justify-content: center;
+}
