@@ -40,6 +40,30 @@ describe("the field log", () => {
     ]);
   });
 
+  it("writes an item use, a capture try, a helper and a partner change as one short line each", () => {
+    const { log, lines } = make();
+    log.item({ item: "berry", where: "bag", ok: true });
+    log.capture({ species: "kroki", net: "magic_net", ok: false, left: 2, tries: 1 });
+    log.helper({ kind: "fifty", skill: "math.add_20" });
+    log.note("partner", { species: "kroki" });
+    log.note("catch", { species: "kroki", level: 6, party: 1 });
+    expect(lines).toEqual([
+      "ITEM use item=berry where=bag ok=1",
+      "CAPTURE try species=kroki net=magic_net ok=0 left=2 tries=1",
+      "HELPER use kind=fifty skill=math.add_20",
+      "PARTNER species=kroki",
+      "CATCH species=kroki level=6 party=1",
+    ]);
+  });
+
+  it("keeps free text out of the new lines: a line break or a long value stays one short line", () => {
+    const { log, lines } = make();
+    log.item({ item: "a\nname with spaces ".repeat(20), where: "bag", ok: true });
+    expect(lines).toHaveLength(1);
+    expect(lines[0]).not.toContain("\n");
+    expect(lines[0]!.length).toBeLessThan(80);
+  });
+
   it("never carries a name: a value that looks like free text is cut", () => {
     const { log, lines } = make();
     log.dialogStart("x".repeat(200));
