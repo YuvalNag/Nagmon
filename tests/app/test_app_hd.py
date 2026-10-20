@@ -8,29 +8,11 @@ import numpy as np
 import pytest
 from PIL import Image
 
-from tools.app import hd
+from tools.app import credits, display, hd
 from tools.app.common import OUT, REPO, palette_image, png_bytes
 
-# ------------------------------------------------------------ the phone
-#: Galaxy-class phone, landscape: 2400x1080 device px, 2.75 per CSS px.
-SCREEN = (2400, 1080)
-DPR = 2.75
-#: Device px for one pixel of 1x art, where each kind is shown.
-#: The battle: a 64 px monster frame is 384 device px tall (140 CSS px,
-#: 36% of the screen). The Nagmon monsters are drawn at ~190 px, so
-#: 2 x 192 is the most any battle can show without enlarging them more.
-BATTLE = 6.0
-#: The map: a 16 px tile is 112 device px (the old game's phone scale
-#: 7; 9.6 tiles on the screen's height).
-MAP = 7.0
-#: A 24 px icon in a 48 dp button: 132 device px.
-ICON = 48 * DPR / 24
-#: A 256x108 battle background covers the whole screen.
-BACKGROUND = max(SCREEN[0] / 256, SCREEN[1] / 108)
-#: The who-plays card picture: 26vh (styles.css ".card img").
-CARD_PX = 0.26 * SCREEN[1]
-#: The rule.
-MAX_ENLARGEMENT = 2.0
+# The display sizes come from db/display.json (tools/app/display.py),
+# the table app/src/game/display.ts reads too: one source of truth.
 
 
 def data(built, rel):
@@ -80,52 +62,69 @@ def scales(built):
     return found
 
 
-def by_scale(per_1x_px):
+class Screen:
+    """Device px per 1x px of each view on one target screen."""
+
+    def __init__(self, doc, name):
+        target = doc["targets"][name]
+        self.name = name
+        self.size = tuple(target["screen"])
+        self.dpr = target["dpr"]
+        self.may_exceed = set(target.get("may_exceed", []))
+        self.battle = display.battle_scale(doc, self.size[1])
+        self.map = doc["map"]["scale"]
+        #: a 24 px icon in an icon_dp button
+        self.icon = doc["icon_dp"] * self.dpr / 24
+        self.card_px = doc["card_vh"] * self.size[1]
+
+
+def by_scale(view):
     """Enlargement of a picture whose records give its scale."""
-    return lambda built, rel, im: per_1x_px / scales(built)[rel]
+    return lambda s, built, rel, im: getattr(s, view) / scales(built)[rel]
 
 
-def monster(built, rel, im):
+def monster(s, built, rel, im):
     k = scales(built)[rel]
-    return max(BATTLE / k, ICON / k)
+    return max(s.battle / k, s.icon / k)
 
 
-def atlas(built, rel, im):
+def atlas(s, built, rel, im):
     name = rel.removeprefix("atlas/").removesuffix(".png")
     doc = data(built, f"maps/{name}.json")
     props = {p["name"]: p["value"] for p in doc["properties"]}
-    return MAP * props["source_tile_size"] / doc["tilewidth"]
+    return s.map * props["source_tile_size"] / doc["tilewidth"]
 
 
-def portrait(built, rel, im):
-    # In battle (the trainer) at BATTLE; dialogs show half of that.
-    return BATTLE / scales(built)[rel]
+def portrait(s, built, rel, im):
+    # In battle (the trainer) at the battle scale; dialogs show half.
+    return s.battle / scales(built)[rel]
 
 
-def card(built, rel, im):
-    return CARD_PX / im.height
+def card(s, built, rel, im):
+    return s.card_px / im.height
+
+
+def background(s, built, rel, im):
+    """It covers the screen: the factor comes from its own size."""
+    return display.background_scale(im.size, s.size)
 
 
 #: Where every shipped picture is shown: (path pattern, what, the
-#: enlargement on the phone). The first matching row wins.
+#: enlargement on a screen). The first matching row wins.
 DISPLAY = [
-    ("sprites/monsters/*", "battle front/back, menu icon", monster),
+    ("sprites/monsters/*", "battle monster and menu icon", monster),
     ("atlas/*.png", "map tiles", atlas),
-    ("sprites/npc/*", "map characters", by_scale(MAP)),
-    ("sprites/objects/*", "map props", by_scale(MAP)),
+    ("sprites/npc/*", "map characters", by_scale("map")),
+    ("sprites/objects/*", "map props", by_scale("map")),
     ("sprites/portraits/*", "battle trainer, dialog", portrait),
     ("avatars/*", "who-plays card", card),
-    ("sprites/items/*", "bag icon", by_scale(ICON)),
-    ("sprites/ui/element/*", "type icon", by_scale(ICON)),
-    ("sprites/animations/tileset/*", "map animation", by_scale(MAP)),
-    ("sprites/animations/*", "battle animation", by_scale(BATTLE)),
-    ("sprites/ui/*background*", "battle background", by_scale(BACKGROUND)),
-    (
-        "sprites/ui/battle_interior.png",
-        "battle background",
-        by_scale(BACKGROUND),
-    ),
-    ("sprites/ui/*", "battle HUD, trays, islands", by_scale(BATTLE)),
+    ("sprites/items/*", "bag icon", by_scale("icon")),
+    ("sprites/ui/element/*", "type icon", by_scale("icon")),
+    ("sprites/animations/tileset/*", "map animation", by_scale("map")),
+    ("sprites/animations/*", "battle animation", by_scale("battle")),
+    ("sprites/ui/*background*", "battle background", background),
+    ("sprites/ui/battle_interior.png", "battle background", background),
+    ("sprites/ui/*", "battle HUD, trays, islands", by_scale("battle")),
 ]
 
 
@@ -138,15 +137,28 @@ def pictures(built):
     )
 
 
-def test_no_shipped_picture_is_shown_above_twice_its_pixels(built):
+@pytest.mark.parametrize("target", ["phone", "tablet"])
+def test_no_shipped_picture_is_shown_above_twice_its_pixels(built, target):
+    doc = data(built, "db/display.json")
+    screen = Screen(doc, target)
+    limit = doc["max_enlargement"]
     too_big = []
     for rel in pictures(built):
         row = next((r for r in DISPLAY if fnmatch(rel, r[0])), None)
         assert row is not None, f"{rel}: not in the display table"
-        ratio = row[2](built, rel, image(built, rel))
-        if ratio > MAX_ENLARGEMENT + 1e-9:
+        ratio = row[2](screen, built, rel, image(built, rel))
+        if ratio > limit + 1e-9 and row[1] not in screen.may_exceed:
             too_big.append(f"{rel} ({row[1]}): x{ratio:.2f}")
     assert not too_big, "\n".join(too_big)
+
+
+def test_the_phone_is_the_required_target(built):
+    doc = data(built, "db/display.json")
+    assert doc["targets"]["phone"]["required"] is True
+    assert not doc["targets"]["phone"].get("may_exceed")
+    assert Screen(doc, "phone").battle == 6
+    # a tablet keeps the battle at the phone's scale (more room around)
+    assert Screen(doc, "tablet").battle == 6
 
 
 def test_every_monster_sheet_is_at_the_hd_scale(built):
@@ -191,7 +203,9 @@ def test_animation_frames_match_their_sheets(built):
         im = image(built, a["sheet"])
         fx, fy, cols, n = a["frame_x"], a["frame_y"], a["columns"], a["frames"]
         rows = -(-n // cols)
-        assert cols * fx <= im.width and rows * fy <= im.height, slug
+        assert im.width // fx == cols and im.width % fx == 0, slug
+        assert im.height // fy == rows and im.height % fy == 0, slug
+        assert cols * (rows - 1) < n <= cols * rows, slug
         assert max(im.size) <= hd.MAX_TEXTURE, slug
         assert fx % a["scale"] == 0 and fy % a["scale"] == 0, slug
 
@@ -216,11 +230,18 @@ def test_credits_mark_every_upscaled_picture_as_adapted(built):
     listed = {a["path"]: a for a in doc["assets"]}
     for asset in upscaled:
         k = int(asset.adapted.removeprefix("xBRZ x"))
-        assert f"adapted (xBRZ x{k})" in listed[asset.path]["licence"]
-        assert "tools/app/hd.py" in listed[asset.path]["note"]
-        with Image.open(REPO / asset.sources[0]) as src:
-            # (a long animation strip may be wrapped into rows)
-            assert image(built, asset.path).height % (src.height * k) == 0
+        item = listed[asset.path]
+        assert item["adapted"] == f"xBRZ x{k}", asset.path
+        assert "tools/app/hd.py" in item["note"], asset.path
+        suffix = f", adapted (xBRZ x{k})"
+        if credits.is_real_licence(item["licence"].removesuffix(suffix)):
+            assert item["licence"].endswith(suffix), asset.path
+        else:
+            assert "adapted" not in item["licence"], asset.path
+        if asset.kind != "animation":  # strips are checked by their grid
+            with Image.open(REPO / asset.sources[0]) as src:
+                want = (src.width * k, src.height * k)
+            assert image(built, asset.path).size == want, asset.path
 
 
 def _frames(built):

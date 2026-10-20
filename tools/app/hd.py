@@ -123,11 +123,12 @@ def wrap(
     """
     A strip of ``count`` frames as a grid no wider than
     :data:`MAX_TEXTURE`: (the sheet, its columns). A strip that fits
-    stays one row.
+    stays one row. The sheet is exactly ``columns`` x ``rows`` frames:
+    pixels past the last frame (never shown) are cut off.
     """
     columns = min(count, max(1, MAX_TEXTURE // fw))
     if columns == count:
-        return image, columns
+        return image.crop((0, 0, count * fw, fh)), columns
     rows = -(-count // columns)
     sheet = Image.new("RGBA", (columns * fw, rows * fh), (0, 0, 0, 0))
     for i in range(count):
