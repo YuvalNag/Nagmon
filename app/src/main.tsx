@@ -4,15 +4,9 @@ import { App } from "./App";
 import { openServices, type Services } from "./app/services";
 import { CrashReporter, CrashReports, installCrashHandlers } from "./core/crashReport";
 import { t } from "./i18n";
-import {
-  appLogTail,
-  bindLifecycleSaves,
-  buildInfo,
-  getLogger,
-  installAppLog,
-  noteCrash,
-  saveAppLog,
-} from "./platform/appLog";
+import { appLogTail, buildInfo, getLogger, installAppLog, noteCrash, saveAppLog } from "./platform/appLog";
+import { gameClock, Lifecycle, saveEverything, screenTimeClock } from "./platform/lifecycle";
+import { createSecretStore } from "./platform/secrets";
 import { createFileStore } from "./platform/storage";
 import { installTapTiming } from "./platform/tapTiming";
 import "./styles.css";
@@ -24,22 +18,34 @@ let services: Services | null = null;
 
 installTapTiming();
 
+const childNames = async () => (services ? (await services.profiles.list()).map((p) => p.name) : []);
+
 /** The log first, so that whatever breaks after it is written down. */
 async function startLog(): Promise<void> {
   try {
-    await installAppLog(fs);
-    bindLifecycleSaves();
+    const secrets = createSecretStore();
+    await installAppLog(fs, { secrets: () => secrets.values(), names: childNames });
   } catch (e) {
     console.error("Could not start the app log", e);
   }
 }
+
+/** In the background: sound off, the clocks stopped, everything written (SDD §10). */
+const lifecycle = new Lifecycle({ flush: (why) => saveEverything(fs, why) });
+lifecycle.bind();
+// the browser tests and the emulator check read it
+(globalThis as { __lifecycle?: () => object }).__lifecycle = () => ({
+  ...lifecycle.snapshot(),
+  gameMs: gameClock.now(),
+  screenTimeMs: screenTimeClock.now(),
+});
 
 const reporter = new CrashReporter(new CrashReports(fs), {
   info: () => ({ ...buildInfo(), device: navigator.userAgent }),
   // the parents' area will offer it with "send log"; until then it waits on disk
   offer: () => log.info("A crash report is saved in crash/last_crash.txt"),
   log: () => appLogTail(120),
-  names: async () => (services ? (await services.profiles.list()).map((p) => p.name) : []),
+  names: childNames,
   onCrash: async () => {
     noteCrash();
     await saveAppLog({ ending: "crash" });
