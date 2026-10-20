@@ -10,7 +10,7 @@
 import { execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { _android as android } from "@playwright/test";
+import { WebViewPage } from "./cdp.mjs";
 
 const PACKAGE = "org.nagmon.app";
 const apk = process.argv[2];
@@ -38,13 +38,6 @@ function shot(name) {
   return path;
 }
 
-/** The app's WebView as a Playwright page (Playwright's Android mode). */
-async function webview() {
-  const [device] = await android.devices();
-  if (!device) throw new Error("no Android device for Playwright");
-  const view = await device.webView({ pkg: PACKAGE }, { timeout: 60_000 });
-  return { device, page: await view.page() };
-}
 
 /**
  * The family's phone is set to Hebrew. `cmd locale` exists only on newer
@@ -114,25 +107,74 @@ adb("shell", "settings", "put", "system", "accelerometer_rotation", "0");
 adb("shell", "settings", "put", "system", "user_rotation", "1");
 await launch();
 
-const { device, page } = await webview();
-await page.waitForSelector("[data-screen=who-plays]", { timeout: 30_000 });
-await page.evaluate(() => document.fonts.ready);
+const page = await WebViewPage.attach(PACKAGE);
+const id = (s) => `[data-id="${s}"]`;
+const screen = (name) => `document.querySelector('[data-screen="${name}"]')`;
 
-const size = await page.evaluate(() => ({
-  w: window.innerWidth,
-  h: window.innerHeight,
-  dir: document.documentElement.dir,
-  heading: document.querySelector("h1")?.textContent,
-  rubik: document.fonts.check("500 20px Rubik", "שלום"),
-}));
-console.log("webview", JSON.stringify(size));
-check(size.w > size.h, "landscape");
-check(size.dir === "rtl", "right to left");
-check(size.heading === "מי משחק היום?", "Hebrew on a Hebrew phone");
-check(size.rubik, "the Rubik font is loaded");
-shot("a01_who_plays");
+/** The first run, by touch: the parent code, a child's name, grade, hero. */
+async function firstRun() {
+  await page.touch(id("new_child"));
+  try {
+    await page.waitFor(screen("pin"), { timeoutMs: 3000 });
+  } catch {
+    console.log("this build has no first-run screens yet");
+    return;
+  }
+  shot("a02_pin");
+  for (const d of "12341234") await page.touch(id(`key_${d}`));
+  await page.waitFor(screen("notice"), { what: "the code is saved" });
+  await page.touch(id("next"));
+  await page.waitFor(screen("letters"));
+  let expected = "";
+  for (const c of "נועה") {
+    await page.touch(id(`letter_${c}`));
+    expected += c;
+    const typed = await page.eval(`document.querySelector('[data-id="typed"]').textContent`);
+    check(typed === expected, `typed "${expected}" (the screen shows "${typed}")`);
+  }
+  shot("a03_name");
+  await page.touch(id("board_done"));
+  await page.waitFor(screen("grade"));
+  await page.touch(id("choice_1"));
+  await page.waitFor(screen("avatar"));
+  shot("a04_avatar");
+  await page.touch(id("choice_girl_teal"));
+  await page.waitFor(screen("notice"));
+  await page.touch(id("next"));
+  await page.waitFor(screen("who-plays"));
+  const cards = await page.eval(`[...document.querySelectorAll(".card")].map((c) => c.textContent)`);
+  check(JSON.stringify(cards) === JSON.stringify(["נועה"]), "the child is on who-plays");
+  shot("a05_child");
+  const times = await page.eval("window.__responses ?? []");
+  if (times.length) console.log("tap to screen change, ms:", times.map(Math.round).join(" "));
+}
 
-await device.close();
+try {
+  await page.waitFor(screen("who-plays"), { timeoutMs: 30_000 });
+  await page.eval("document.fonts.ready.then(() => true)");
+  const size = await page.eval(`({
+    w: innerWidth,
+    h: innerHeight,
+    dir: document.documentElement.dir,
+    heading: document.querySelector("h1")?.textContent,
+    rubik: document.fonts.check("500 20px Rubik", "שלום"),
+  })`);
+  console.log("webview", JSON.stringify(size));
+  check(size.w > size.h, "landscape");
+  check(size.dir === "rtl", "right to left");
+  check(size.heading === "מי משחק היום?", "Hebrew on a Hebrew phone");
+  check(size.rubik, "the Rubik font is loaded");
+  shot("a01_who_plays");
+  await firstRun();
+} catch (e) {
+  failures.push(String(e));
+  console.log("FAIL", e);
+  shot("z_failure");
+  console.log(adb("logcat", "-d", "-t", "300"));
+} finally {
+  page.close();
+}
+
 if (failures.length) {
   console.log("FAILED:", failures.join("; "));
   process.exit(1);
