@@ -4,7 +4,7 @@ import { expect, test } from "./fixtures";
 import { fitsAndSharp, touch, typeCode } from "./touch";
 
 /**
- * Android's quality bar on every screen of the flow (docs/app/SDD.md §10),
+ * Android's quality bar on every screen of the flow, the parents' area too (docs/app/SDD.md §10),
  * at the system's normal font size and at 130%, on a Hebrew and on an
  * English phone (the two projects):
  * - axe-core finds nothing (WCAG 2.2 A and AA, best practice), and Hebrew
@@ -107,6 +107,8 @@ async function audit(page: Page, label: string, shot: (name: string) => Promise<
 
 for (const scale of [1, 1.3]) {
   test(`every screen of the flow passes axe, 48dp and no clipping, at ${scale * 100}% text`, async ({ page }, info) => {
+    // the whole flow and the parents' area, two axe runs on each screen
+    test.setTimeout(180_000);
     if (scale !== 1) {
       await page.addInitScript((s) => {
         const set = () => document.documentElement?.style.setProperty("--font-scale", String(s));
@@ -177,6 +179,57 @@ for (const scale of [1, 1.3]) {
     await typeCode(page, "1234", { holdMs: 30, gapMs: 60 });
     await screen("parents");
     await audit(page, "13_parents", shot);
+
+    // the parents' area, every page of it (docs/app/SDD.md §7)
+    await touch(page, page.locator(id("parents_children")), 30);
+    await screen("parents-children");
+    await audit(page, "14_parents_children", shot);
+    await touch(page, page.locator("[data-screen=parents-children] .card"), 30);
+    await screen("parents-child");
+    await audit(page, "15_parents_child", shot);
+    await touch(page, page.locator(id("child_grade")), 30);
+    await screen("parents-grade");
+    await audit(page, "16_parents_grade", shot);
+    await touch(page, page.locator(id("choice_4")), 30);
+    await expect(page.locator("[data-screen=parents-child] [role=status]")).toHaveText("נשמר.");
+    await audit(page, "17_parents_child_saved", shot);
+    await touch(page, page.locator(id("child_delete")), 30);
+    await screen("parents-delete");
+    await audit(page, "18_parents_delete", shot);
+    await touch(page, page.locator(id("confirm_no")), 30);
+    await touch(page, page.locator(id("back")), 30);
+    await touch(page, page.locator(id("back")), 30);
+    await screen("parents");
+
+    // a GitHub stand-in: CI never talks to the real one
+    const cors = { "access-control-allow-origin": "*", "access-control-allow-headers": "authorization, content-type" };
+    await page.route("https://api.github.com/**", (route) =>
+      route.request().method() === "OPTIONS"
+        ? route.fulfill({ status: 204, headers: cors })
+        : route.fulfill({ status: 200, headers: cors, json: { private: true, permissions: { push: true } } }),
+    );
+    await touch(page, page.locator(id("parents_github")), 30);
+    await screen("parents-github");
+    await expect(page.locator(id("gh_status"))).toContainText("לא מחובר");
+    await audit(page, "19_parents_github_none", shot);
+    await touch(page, page.locator(id("gh_paste")), 30);
+    await screen("parents-token");
+    await audit(page, "20_parents_token", shot);
+    await touch(page, page.locator(id("gh_token_input")), 30);
+    await page.keyboard.insertText("github_pat_TEST1111111111111111111111111111fake");
+    await touch(page, page.locator(id("gh_token_save")), 30);
+    await expect(page.locator(id("gh_status"))).toContainText("מחובר");
+    await audit(page, "21_parents_github", shot);
+    await touch(page, page.locator(id("gh_send_progress")), 30);
+    await screen("parents-confirm");
+    await expect(page.locator("[data-screen=parents-confirm]")).toContainText("ילד אחד");
+    await audit(page, "22_parents_confirm", shot);
+    await touch(page, page.locator(id("confirm_no")), 30);
+    await screen("parents-github");
+    await touch(page, page.locator(id("back")), 30);
+    await touch(page, page.locator(id("parents_pin")), 30);
+    await screen("pin");
+    await audit(page, "23_parents_pin_current", shot);
   });
 }
 

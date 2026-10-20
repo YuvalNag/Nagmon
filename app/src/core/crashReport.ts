@@ -79,15 +79,16 @@ function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-/** A letter, a mark (niqqud) or a digit: what a word is made of, in any alphabet. */
-const WORD_CHAR = "[\\p{L}\\p{M}\\p{N}]";
+/** A letter or a mark (niqqud): what a word is made of, in any alphabet. A digit ends a word. */
+const LETTER_OR_MARK = "[\\p{L}\\p{M}]";
 /** The Hebrew letters that join a word in front: ו ה ב ל מ ש כ. */
-const HEBREW_PREFIX = "[ובהלמשכ]";
+const HEBREW_PREFIX = "(?:[ובהלמשכ]\\p{M}*){0,3}";
 
 /**
  * `text` without the children's names. A name is hidden only as a whole
- * word (in any alphabet, in any case), or after one Hebrew prefix letter
- * (לנועה), which stays: "דן" is hidden in "לדן" but not inside "עדן".
+ * word (in any alphabet, in any case), or after up to three Hebrew prefix letters
+ * (ולנועה), which stay; niqqud marks may sit between the letters, and a
+ * digit is a boundary (נועה123): "דן" is hidden in "לדן" but not inside "עדן".
  * One-letter names are left alone.
  */
 export function hideNames(text: string, names: Iterable<string> = []): string {
@@ -95,7 +96,9 @@ export function hideNames(text: string, names: Iterable<string> = []): string {
   for (const n of names) if (typeof n === "string" && n.trim().length >= 2) wanted.add(n.trim());
   // Longest first, so a name that contains another is hidden whole.
   for (const name of [...wanted].sort((a, b) => b.length - a.length)) {
-    const pattern = new RegExp(`(?<!${WORD_CHAR})(${HEBREW_PREFIX}?)${escapeRegExp(name)}(?!${WORD_CHAR})`, "giu");
+    // marks inside the name are ignored: both sides may carry any niqqud
+    const letters = [...name.replace(/\p{M}/gu, "")].map(escapeRegExp).join("\\p{M}*");
+    const pattern = new RegExp(`(?<!${LETTER_OR_MARK})(${HEBREW_PREFIX})${letters}\\p{M}*(?!${LETTER_OR_MARK})`, "giu");
     text = text.replace(pattern, `$1${NAME_MARK}`);
   }
   return text;

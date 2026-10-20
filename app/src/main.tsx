@@ -73,7 +73,7 @@ lifecycle.onForeground(() => void applySystemFontScale());
 
 const reporter = new CrashReporter(new CrashReports(fs), {
   info: () => ({ ...buildInfo(), device: navigator.userAgent }),
-  // the parents' area will offer it with "send log"; until then it waits on disk
+  // the parents' area offers it ("שליחת דוח תקלה"); until then it waits on disk
   offer: () => log.info("A crash report is saved in crash/last_crash.txt"),
   log: () => appLogTail(120),
   // the report hides the saved keys, read now, not after the start
@@ -121,7 +121,7 @@ const fontLoad = Promise.all([
 async function main(): Promise<void> {
   // the data files are read while the log starts (both wait on the disk);
   // a failure is reported below, by the crash reporter
-  const opening = openServices(fs);
+  const opening = openServices(fs, secretStore);
   opening.catch(() => undefined);
   // the font size is set before the first screen, so nothing jumps
   await Promise.all([startLog().then(() => performance.mark("nagmon:log")), applySystemFontScale(), fontLoad]);
