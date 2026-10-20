@@ -106,6 +106,11 @@ export class QuizSession {
     return this.outcome ? resultWord(this.outcome) : null;
   }
 
+  /** A skill's name for the child ("a new star in ..."). */
+  skillTitle(id: string): string {
+    return this.engine.content.get(id)?.title_he ?? id;
+  }
+
   /** "Got it, let's try": the worked example is read, the question starts. */
   exampleDone(): void {
     if (this.phase !== "example") return;

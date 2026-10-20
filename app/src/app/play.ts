@@ -24,9 +24,6 @@ export const fetchGameJson: FetchJson = async (path) => {
   return r.json();
 };
 
-/** Who the player may talk to in M4 (core/world/events.ts `talkTo`). */
-export const TALK_TO: ReadonlySet<string> = new Set(["nagmon_cashier"]);
-
 /**
  * A test hook, as `nagmon.map.adaptiveResolution`: a number here seeds
  * the question picker, so a browser test gets the same questions each

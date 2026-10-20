@@ -4,7 +4,7 @@ import { defineConfig } from "@playwright/test";
 const LOCAL_CHROMIUM = "/opt/pw-browsers/chromium";
 // another checkout on the same machine may be testing too: E2E_PORT moves this one
 const PORT = Number(process.env.E2E_PORT ?? 4173);
-const MAP_TESTS = /map\.spec\.ts/;
+const MAP_TESTS = /(map|quiz)\.spec\.ts/;
 
 /**
  * The family's phone: 2400x1080 landscape at about 2.75 device pixels

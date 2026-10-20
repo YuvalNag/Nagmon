@@ -502,3 +502,281 @@ button.map-menu {
 .letters .space {
   font-size: var(--text);
 }
+
+/* ---- the coins, the talk button (M4) ---- */
+
+/* small, at the top corner away from the menu button */
+.map-coins {
+  position: absolute;
+  top: var(--gap);
+  inset-inline-end: max(16px, env(safe-area-inset-left));
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0 var(--gap);
+  border-radius: var(--radius);
+  background: rgba(23, 50, 58, 0.72);
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.map-coins svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* under the right thumb, across from the d-pad; the camera keeps the hero
+   out of this corner (src/game/mapGame.ts reservedRight) */
+.map-talk-slot {
+  position: absolute;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: var(--gap);
+  width: calc(var(--touch) * 2.2);
+  height: calc(var(--touch) * 1.4);
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  pointer-events: none;
+}
+
+button.map-talk {
+  flex: 1;
+  padding: 0;
+  font-size: calc(var(--text) * 1.15);
+  font-weight: 700;
+  pointer-events: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* ---- a person's words over the map (src/ui/Dialog.tsx) ---- */
+
+.dialog-layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* the whole screen takes the tap; the words sit at the bottom */
+button.dialog {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: var(--gap) max(16px, env(safe-area-inset-right)) var(--gap) max(16px, env(safe-area-inset-left));
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.dialog-box {
+  position: relative;
+  display: block;
+  width: min(100%, 44em);
+  padding: var(--gap) calc(var(--gap) * 2) calc(var(--gap) * 1.2);
+  border: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  text-align: start;
+  font-size: calc(var(--text) * 1.1);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+
+.dialog-text {
+  display: block;
+}
+
+/* the rest of the page holds its place while the words type out */
+.dialog-rest {
+  visibility: hidden;
+}
+
+.dialog-more {
+  position: absolute;
+  inset-inline-end: calc(var(--gap) * 0.6);
+  bottom: calc(var(--gap) * 0.3);
+  width: 0.8em;
+  height: 0.8em;
+}
+
+.dialog-more svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: var(--accent);
+}
+
+/* ---- a question over the map (src/ui/QuizScreen.tsx) ---- */
+
+.quiz {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  padding: var(--gap) max(16px, env(safe-area-inset-right)) var(--gap) max(16px, env(safe-area-inset-left));
+  background: linear-gradient(var(--bg), var(--bg-deep));
+}
+
+.quiz p {
+  margin: 0;
+  text-align: center;
+}
+
+.quiz-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  max-width: 100%;
+  min-height: 0;
+}
+
+.figure {
+  flex: 0 0 auto;
+  height: 30vh;
+  max-width: 40vw;
+}
+
+.fig-label {
+  text-anchor: middle;
+  dominant-baseline: central;
+  font-family: "Rubik", system-ui, sans-serif;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.quiz .quiz-question {
+  font-size: calc(var(--text) * 1.15);
+  font-weight: 600;
+  max-width: 34em;
+}
+
+.quiz-en {
+  display: block;
+  font-size: 0.85em;
+  color: var(--ink-soft);
+}
+
+.quiz-answers {
+  display: flex;
+  gap: var(--gap);
+  justify-content: center;
+  max-width: 100%;
+}
+
+button.quiz-choice {
+  min-width: calc(var(--touch) * 2.4);
+  min-height: calc(var(--touch) * 1.25);
+  padding: 0 var(--gap);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--text) * 1.2);
+  font-weight: 600;
+}
+
+.quiz-choice img {
+  height: 10vh;
+}
+
+.quiz-foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+}
+
+.quiz-subject {
+  padding: 0 var(--gap);
+  color: var(--ink-soft);
+}
+
+.quiz .quiz-hint {
+  padding: 0 var(--gap);
+  border-radius: var(--radius);
+  background: #fff3c4;
+  color: var(--ink);
+  max-width: 36em;
+}
+
+/* the number pad: the question at the start side, big keys at the end */
+.quiz.quiz-pad {
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.quiz-side {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.quiz-side .figure {
+  height: 22vh;
+}
+
+.quiz .quiz-typed {
+  min-width: 4em;
+  padding: 0 var(--gap);
+  border-bottom: 3px solid var(--accent);
+  font-size: var(--text-big);
+  font-weight: 600;
+}
+
+.quiz-keys {
+  flex: none;
+  display: grid;
+  grid-template-columns: repeat(4, 17vh);
+  grid-auto-rows: 17vh;
+  gap: 2vh;
+}
+
+.quiz-keys .key {
+  font-size: calc(var(--text) * 1.2);
+}
+
+.quiz-keys .key.erase {
+  font-size: var(--text);
+}
+
+.quiz-keys .key.check {
+  grid-column: span 2;
+  font-size: var(--text);
+  background: #d9f2d9;
+  border-color: #3f9142;
+}
+
+/* feedback: calm colours; a miss is never red */
+.quiz .quiz-headline {
+  font-size: var(--text-big);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.quiz .quiz-headline.right {
+  color: #256b29;
+}
+
+.quiz .quiz-answer {
+  font-weight: 600;
+}
+
+.quiz .quiz-explain {
+  max-width: 36em;
+}
+
+.quiz .quiz-owl,
+.quiz .quiz-star {
+  color: var(--ink-soft);
+}
