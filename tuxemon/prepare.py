@@ -92,10 +92,6 @@ def pygame_init() -> DisplayContext:
 
     screen = pg.display.set_mode(CONFIG.resolution, flags, vsync=CONFIG.vsync)
     rect = screen.get_rect()
-    if phone_flags:
-        from tuxemon.platform import mobile
-
-        mobile.close_system_keyboard(pg.key)
 
     pg.mouse.set_visible(not CONFIG.controller.hide_mouse)
 

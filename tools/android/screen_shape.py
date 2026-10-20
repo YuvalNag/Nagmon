@@ -42,6 +42,8 @@ def thumbnail(data: bytes, width: int = 720) -> bytes:
 
 
 def main(argv: list[str]) -> int:
+    if len(argv) != 3:
+        raise SystemExit("usage: screen_shape.py shape|show FILE")
     command, path = argv[1], Path(argv[2])
     data = path.read_bytes()
     if command == "shape":
@@ -49,8 +51,13 @@ def main(argv: list[str]) -> int:
         print(f"{width}x{height}")
         return 1 if height > width else 0
     if command == "show":
+        try:
+            jpeg = thumbnail(data)
+        except ImportError:
+            print(f"cannot show {path.name}: Pillow is not installed")
+            return 1
         print(BEGIN.format(name=path.name))
-        print(base64.b64encode(thumbnail(data)).decode())
+        print(base64.b64encode(jpeg).decode())
         print(END)
         return 0
     raise SystemExit(f"unknown command {command}")

@@ -52,3 +52,20 @@ def test_show_prints_a_small_jpeg_between_markers(tmp_path, capsys):
     assert lines[-1] == screen_shape.END
     image = Image.open(io.BytesIO(base64.b64decode(lines[1])))
     assert image.format == "JPEG" and image.size == (720, 324)
+
+
+def test_show_without_pillow_says_so(tmp_path, capsys, monkeypatch):
+    shot = tmp_path / "screen.png"
+    shot.write_bytes(png(10, 5))
+
+    def no_pillow(data: bytes) -> bytes:
+        raise ImportError("PIL")
+
+    monkeypatch.setattr(screen_shape, "thumbnail", no_pillow)
+    assert screen_shape.main(["x", "show", str(shot)]) == 1
+    assert "Pillow is not installed" in capsys.readouterr().out
+
+
+def test_usage():
+    with pytest.raises(SystemExit):
+        screen_shape.main(["x"])

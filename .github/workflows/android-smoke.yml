@@ -72,6 +72,13 @@ jobs:
         sudo udevadm control --reload-rules
         sudo udevadm trigger --name-match=kvm
 
+    - name: Python with Pillow, to print screenshots into the log
+      uses: actions/setup-python@v6
+      with:
+        python-version: "3.12"
+
+    - run: python -m pip install --quiet pillow
+
     - name: Open the app on the emulator
       uses: reactivecircus/android-emulator-runner@v2
       with:

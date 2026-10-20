@@ -28,8 +28,8 @@ from nagmon.crash_report import redact_secrets
 
 MAX_LINES = 400
 LOG_FILE = "app_log.txt"
-#: Loggers whose INFO lines are kept; the rest from WARNING up.
-#: Their INFO lines are kept; the frame rate shows how smooth a phone is.
+#: Loggers whose INFO lines are kept; the rest from WARNING up. The
+#: frame rate (tuxemon.frame_limiter) shows how smooth a phone is.
 OWN_LOGGERS = ("nagmon", "mods.nagmon", "tuxemon.frame_limiter")
 START_MARK = "=== Nagmon start"
 SAVED_MARK = "--- saved: "

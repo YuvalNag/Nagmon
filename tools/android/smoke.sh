@@ -14,7 +14,6 @@ pkg=org.nagmon.nagmon
 out=smoke
 here=$(cd "$(dirname "$0")" && pwd)
 mkdir -p "$out"
-python3 -m pip install --quiet --user pillow >/dev/null 2>&1 || true
 
 shot() {
   adb exec-out screencap -p > "$out/$1.png"
@@ -22,6 +21,8 @@ shot() {
 
 echo "installing $apk"
 adb install -r "$apk" || { echo "FAIL: the APK did not install"; exit 1; }
+# Big enough for six minutes, so the start (orientation, errors) is kept.
+adb logcat -G 16M || true
 adb logcat -c
 adb shell monkey -p "$pkg" -c android.intent.category.LAUNCHER 1 >/dev/null
 
@@ -40,7 +41,11 @@ while [ "$waited" -lt "$wait_for" ]; do
     # The intro is on screen; a tap skips it, like a child would.
     shot screen-45s
     size=$(python3 "$here/screen_shape.py" shape "$out/screen-45s.png")
-    adb shell input tap $(( ${size%x*} / 2 )) $(( ${size#*x} / 2 ))
+    if [[ $size =~ ^([0-9]+)x([0-9]+)$ ]]; then
+      adb shell input tap $(( BASH_REMATCH[1] / 2 )) $(( BASH_REMATCH[2] / 2 ))
+    else
+      echo "no usable screenshot at 45s ($size)"
+    fi
   fi
   if [ $((waited % 60)) -eq 0 ]; then
     shot "screen-${waited}s"
@@ -56,7 +61,9 @@ for name in screen-45s screen-60s screen-last; do
     echo "FAIL: $name is taller than wide: the game is not sideways"
     status=1
   fi
+  echo "::group::$name (base64 JPEG)"
   python3 "$here/screen_shape.py" show "$out/$name.png" || true
+  echo "::endgroup::"
 done
 if grep -qE "requestedOrientation=(1|7|9|12) " "$out/logcat.txt"; then
   echo "FAIL: the app asked Android for portrait"

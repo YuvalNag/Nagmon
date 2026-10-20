@@ -59,3 +59,15 @@ def test_the_app_log_keeps_the_frame_rate():
     from nagmon.field_data.app_log import OWN_LOGGERS
 
     assert "tuxemon.frame_limiter" in OWN_LOGGERS
+
+
+def test_a_pause_in_the_background_is_not_a_slow_frame(caplog):
+    """After an app switch the next frame comes minutes later."""
+    lines: list[str] = []
+    stats = FrameStats(period=1.0, echo=lines.append)
+    stats.frame(0.0)
+    stats.frame(0.5)
+    stats.frame(300.0)  # back from the background
+    for i in range(1, 31):
+        stats.frame(300.0 + i / 30)
+    assert lines == ["frame rate: 30 fps, slowest frame 33 ms"]

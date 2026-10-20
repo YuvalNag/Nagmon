@@ -120,7 +120,8 @@ class LocalPygameClient(BaseClient):
         # Vsync may be unavailable (no hardware renderer), so cap anyway;
         # with working vsync the flip already waits and this sleeps ~0.
         limiter = FrameLimiter(target_fps)
-        frame_stats = FrameStats()
+        # On a phone print goes to logcat; on a computer it is only noise.
+        frame_stats = FrameStats(echo=print if mobile.is_android() else None)
 
         while self.state != ClientState.DONE:
             limiter.start_frame()

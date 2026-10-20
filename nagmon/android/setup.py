@@ -31,16 +31,22 @@ def prepare_environment(
     * SSL_CERT_FILE: Python on Android has no certificate store, so HTTPS
       (the owl, online voices) needs certifi's bundle.
     * SDL_IOS_ORIENTATIONS (SDL's orientation hint, on Android too): the
-      game only turns sideways. Without it SDL asks Android for the shape
-      of the window it creates, which is the portrait desktop while the
-      app starts, and the game opened upright and small (build 21).
+      game only turns sideways. buildozer's ``orientation`` line reaches
+      the app only as KIVY_ORIENTATION, which only Kivy reads, and the
+      manifest says "unspecified"; so SDL chose the orientation from the
+      window it created, the portrait desktop while the app starts, and
+      the game opened upright and small (build 21). KIVY_ORIENTATION is
+      used when set, so the spec stays the one place to change it.
 
     Values that are already set are kept.
     """
     private = env.get("ANDROID_PRIVATE")
     if private and not env.get("HOME"):
         env["HOME"] = private
-    env.setdefault("SDL_IOS_ORIENTATIONS", "LandscapeLeft LandscapeRight")
+    env.setdefault(
+        "SDL_IOS_ORIENTATIONS",
+        env.get("KIVY_ORIENTATION") or "LandscapeLeft LandscapeRight",
+    )
     if env.get("SSL_CERT_FILE"):
         return
     try:

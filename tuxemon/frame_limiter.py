@@ -52,6 +52,10 @@ class FrameStats:
     which the emulator check reads.
     """
 
+    #: A longer gap is a pause (the app was in the background, where SDL
+    #: stops the loop), not a slow frame: the count starts again.
+    PAUSE = 2.0
+
     def __init__(
         self,
         period: float = 60.0,
@@ -65,8 +69,10 @@ class FrameStats:
         self._slowest = 0.0
 
     def frame(self, now: float) -> None:
-        if self._start is None:
+        if self._start is None or now - self._last > self.PAUSE:
             self._start = self._last = now
+            self._frames = 0
+            self._slowest = 0.0
             return
         self._frames += 1
         self._slowest = max(self._slowest, now - self._last)
