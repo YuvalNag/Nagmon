@@ -316,6 +316,26 @@ function health(label) {
   }
 }
 
+/**
+ * The other apps' content providers the app's process holds. A stable hold
+ * ties the app to that process: when it dies, Android kills the app too
+ * ("depends on provider ... in dying proc").
+ */
+function heldProviders(label) {
+  try {
+    const pid = pidOf();
+    const held = adb("shell", "dumpsys", "activity", "processes")
+      .split("\n")
+      .filter((l) => pid && l.includes(`->${pid}:${PACKAGE}`))
+      .map((l) => l.trim().replace(/^- \w+\//, ""));
+    console.log(`providers the app holds (${label}): ${held.join("; ") || "none"}`);
+    return held;
+  } catch (e) {
+    console.log(`providers the app holds (${label}): ${String(e).split("\n")[0]}`);
+    return [];
+  }
+}
+
 /** Android's own record of how the app's processes ended (ApplicationExitInfo). */
 const exits = [];
 function exitInfo(label) {
@@ -451,6 +471,7 @@ async function mapWalk() {
   });
   await sleep(1000);
   shot("a06_map");
+  heldProviders("with the map open");
   const d = await page.eval(map);
   console.log(
     `map: ${d.map}, ${d.renderer}, canvas ${d.canvas.width}x${d.canvas.height} for ${d.canvas.cssWidth.toFixed(1)}x${d.canvas.cssHeight.toFixed(1)} CSS px at DPR ${d.dpr}, zoom ${d.zoom}`,
@@ -482,6 +503,7 @@ async function mapWalk() {
   check(after.x < start.x && after.y === start.y, "a held arrow walks the hero left");
   check(after.x <= start.x - 2, `it walks on while held (${start.x - after.x} tiles)`);
   shot("a07_map_walked");
+  heldProviders("after the walk, the music on");
   // a slow window takes 1 s of warm-up and 3 s of frames
   try {
     await page.waitFor(`${map}.resolution.changes.length > 0 || ${map}.frames.avgFps >= 45`, {
@@ -650,6 +672,56 @@ async function homeAndBack() {
   check(running.screenTimeMs - after.life.screenTimeMs >= 800, `the screen-time clock runs again in front (${Math.round(running.screenTimeMs - after.life.screenTimeMs)} ms in 1 s)`);
   shot("c02_resumed");
   await back("the name board after coming back", "who-plays");
+}
+
+/** What the launcher's icon sends: the singleTask activity comes to the front. */
+async function bringBack(ms = 2000) {
+  adb("shell", "am", "start", "-a", "android.intent.action.MAIN", "-c", "android.intent.category.LAUNCHER", "-n", `${PACKAGE}/.MainActivity`);
+  await sleep(ms);
+}
+
+/**
+ * HOME in the middle of work: while the parent code is being checked
+ * (PBKDF2), and with the map open (its WebGL canvas alive). The app must
+ * live on in the same process and come back where it was.
+ */
+async function homeDuringWork() {
+  const map = "window.__nagmonMap?.debug()";
+  const pid = pidOf();
+  await onScreen("who-plays", "before HOME during work the app is on");
+  await page.touch(id("parents"));
+  await onScreen("pin", "the parents' button opens");
+  for (const [i, d] of [...CODE].entries()) await page.touch(id(`key_${d}`), 120, { settle: i === 0 });
+  // right after the 4th digit: the check runs as the app goes behind the launcher
+  key("KEYCODE_HOME");
+  await sleep(4000);
+  check(!inFront(), "home during the code's check: the app went behind the launcher");
+  await bringBack();
+  const after = await shown();
+  check(pidOf() === pid, `home during the code's check: the same process (${pid} -> ${pidOf() || "none"})`);
+  check(after === "parents", `the check finished while away: the parents' area (${after})`);
+  if (after !== "who-plays") await back(`the ${after} screen`, "who-plays");
+
+  await page.touch(".card");
+  await page.waitFor(`document.querySelector('[data-screen="play"][data-map="ready"]') && ${map}?.ready`, { timeoutMs: 60_000, what: "the map" });
+  await sleep(1000);
+  key("KEYCODE_HOME");
+  await sleep(5000);
+  const away = await page.eval(map);
+  check(away.paused.includes("lifecycle"), `in the background the map is paused (${away.paused.join(", ")})`);
+  await bringBack(3000);
+  const back2 = await page.eval(map);
+  check(pidOf() === pid, `home with the map open: the same process (${pid} -> ${pidOf() || "none"})`);
+  check(
+    (await page.eval(`Boolean(document.querySelector('[data-screen="play"][data-map="ready"]'))`)) && back2.paused.length === 0,
+    `the map is there again and running (${back2.paused.join(", ") || "not paused"})`,
+  );
+  check(!back2.webgl.contextLost, `the map's WebGL is drawing (lost ${back2.webgl.lost}, restored ${back2.webgl.restored})`);
+  shot("c03_map_after_home");
+  key("KEYCODE_BACK");
+  await page.waitFor(screen("map-menu"), { what: "the pause menu" });
+  await page.touch(id("map_exit"));
+  await onScreen("who-plays", "the menu's way out");
 }
 
 /** Android kills the app in the background; it opens again on who-plays, with everything. */
@@ -950,8 +1022,10 @@ function dumpLogs() {
 async function part(name, fn) {
   console.log(`--- ${name}`);
   health(`before "${name}"`);
+  heldProviders(`before "${name}"`);
   try {
     await fn();
+    heldProviders(`after "${name}"`);
     exitInfo(name);
   } catch (e) {
     failures.push(`${name}: ${e}`);
@@ -1069,6 +1143,7 @@ if (started) {
   await part("map", mapWalk);
   await part("back on every screen", backEverywhere);
   await part("home and back", homeAndBack);
+  await part("home during work", homeDuringWork);
   await part("killed in the background", killedInBackground);
   await part("cold start", coldStart);
   await part("system font at 130%", largeFont);
