@@ -138,7 +138,8 @@
   - מהלכים הוחלפו: Strangulation, ‏Undertaker, ‏Curse ו־Mobbing יצאו מ־Puzzlet. ‏Leaf Stab ו־Water Bullet יצאו מ־Flaskling. ‏Flamethrower יצא מ־Pluson. ‏Bullet, ‏Shrapnel ו־Harpoon יצאו מ־Geometrion;
   - ל־`wicked_wind` יש ב־nagmon.po שם רך: "Mystery Wind" / "רוח מסתורין".
 - **עברית בקרב:** ב־`subjects.yaml` אין סוג שממופה לעברית (`hebrew: elements: []`). הדרך הקטנה והנכונה היא **מקצוע לפי מפלצת**:
-  - `hebrew: monsters: [scrollo, megillon]`, ו־`SubjectMap.subject_for(types, override, monster=…)` בודק קודם את המפלצת, ורק אחר כך את סוגי הטכניקה.
+  - `hebrew: monsters: [scrollo, megillon]`. ‏`SubjectMap.subject_for(types, override, monster=…)` בודק קודם את הבחירה של ההורה למפלצת, אחר כך את המקצוע של המפלצת, ורק אחר כך את סוגי הטכניקה (SDD_CONTENT §6).
+  - אם ההורה כיבה עברית לילד, Scrollo שואל מקצוע אחר שפעיל אצלו (`subject=None`). זה אותו כלל שחל על כל מקצוע.
   - כך אין סוג חדש, ואין שינוי בטבלת היתרונות בקרב. הסוגים של Scrollo ו־Megillon קובעים רק את היתרונות.
   - **החלטה להורה או לרכז:** השיטה האחרת היא סוג חדש (element) "letters", אבל אז צריך להוסיף אותו לטבלת היתרונות של כל 13 הסוגים.
 - **איפה פוגשים אותם:**
@@ -194,7 +195,8 @@
 | 46 | מילה, רינה, הילד והדוור | גיליונות מפה HD (384×1024) וקרב (384×192). ‏`monk` לא השתנה |
 | 47 | `girl_curly` | קיים, עם מפה HD וקרב `player` (384×384). שאר המפתחות לא השתנו |
 | 48 | שמונת הנגמונים | נטענים, HD ‏384×264, התפתחות ברמה 16, מחרוזות בשתי השפות. מקצוע: Pluson/Multivolt → חשבון, Flaskling/Botanikos → מדעים, Puzzlet/Enigmon → חשיבה, Scrollo/Megillon → עברית |
-| 49 | `subject_for(..., monster=)` | מפלצת ברשימת `monsters` גוברת על סוג הטכניקה. בלי מפלצת: לפי הסוג, כמו קודם |
+| 49 | `subject_for(..., monster=)` | בחירת ההורה למפלצת, ואחריה `monsters`, גוברות על סוג הטכניקה ועל בחירת ההורה לסוג. בלי מפלצת: לפי הסוג, כמו קודם |
+| 49א | הקרב (`test_quiz_gameplay`) | Scrollo עם התקפה normal ← `QuizState(subject="hebrew")`. עם בחירת הורה ל־scrollo ← המקצוע שנבחר. עברית כבויה ← `subject=None` |
 | 50 | דרך 1 | `nagmon_route1` כולל את Pluson ואת Flaskling בשיעור 1 |
 
 **`tests/nagmon/test_hd_sheets.py`** (הטוען)

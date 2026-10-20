@@ -50,9 +50,15 @@ class SubjectMap:
         monster: str | None = None,
     ) -> str:
         """
-        The subject of the attacking monster when it has one of its own,
-        otherwise of the first technique type we know.
+        Which subject a battle question is about, in this order:
+
+        1. the parent's choice for this monster (``override[monster]``);
+        2. the monster's own subject (``monsters:`` in subjects.yaml);
+        3. the first technique type we know, with the parent's choice for
+           that type first.
         """
+        if monster and override and monster in override:
+            return override[monster]
         if monster and monster in self.monster_to_subject:
             return self.monster_to_subject[monster]
         for t in types:

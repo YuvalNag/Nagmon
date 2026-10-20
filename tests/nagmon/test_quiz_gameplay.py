@@ -339,3 +339,37 @@ def test_answer_pictures_grow_with_the_screen(menu_height, size):
     from mods.nagmon.states.nagmon_quiz import answer_picture_size
 
     assert answer_picture_size(menu_height) == size
+
+
+# ---------------------------- a monster's own subject (SDD_ART §2.10)
+
+
+def _scrollo_attack(rt, settings=None, enabled=None):
+    rt.active.settings.update(settings or {})
+    rt.engine = SimpleNamespace(
+        learner=SimpleNamespace(enabled_subjects=enabled)
+    )
+    menu, _ = _menu()
+    menu.monster.slug = "scrollo"
+    normal = SimpleNamespace(
+        has_effect=lambda name: name == "damage",
+        types=SimpleNamespace(current=[SimpleNamespace(slug="normal")]),
+    )
+    menu.before_enqueue_technique(normal, MagicMock(), MagicMock())
+    return menu.client.push_state.call_args.kwargs["subject"]
+
+
+def test_a_hebrew_monster_asks_hebrew(active_runtime):
+    # normal would be English; Scrollo is a Hebrew monster.
+    assert _scrollo_attack(active_runtime) == "hebrew"
+
+
+def test_the_parent_choice_for_that_monster_wins(active_runtime):
+    settings = {"element_subjects": {"scrollo": "math", "normal": "logic"}}
+    assert _scrollo_attack(active_runtime, settings) == "math"
+
+
+def test_a_subject_the_child_has_off_is_not_asked(active_runtime):
+    # Hebrew is off for this child: the engine picks one that is on.
+    assert _scrollo_attack(active_runtime, enabled=("math",)) is None
+    assert _scrollo_attack(active_runtime, enabled=("hebrew",)) == "hebrew"

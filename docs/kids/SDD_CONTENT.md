@@ -109,6 +109,13 @@ subjects:
   science:   {title_he: מדעים, title_en: Science, color: "#6cd4a1", elements: [water, wood, venom, sky, frost, cosmic]}
   english:   {title_he: אנגלית, title_en: English, color: "#ffd166", elements: [normal, heroic]}
   logic:     {title_he: חשיבה, title_en: Logic, color: "#c39bff", elements: [shadow]}
+  hebrew:    {title_he: עברית, title_en: Hebrew, color: "#f4a6c6", elements: [], monsters: [scrollo, megillon]}
 ```
 
-ההורה יכול לדרוס את השיוך לכל ילד: `profile.settings.element_subjects`.
+- **`monsters:`** (לא חובה): מפלצות שיש להן מקצוע משלהן, בלי קשר לסוג ההתקפה. אין סוג שממופה לעברית, ולכן המפלצות של עברית מוגדרות כאן (SDD_ART §2.10).
+- ההורה יכול לדרוס את השיוך לכל ילד: `profile.settings.element_subjects`. המפתח הוא סוג או slug של מפלצת.
+- **סדר העדיפות בקרב** (`SubjectMap.subject_for`):
+  1. הבחירה של ההורה למפלצת הזו (`element_subjects[<slug>]`);
+  2. המקצוע של המפלצת (`monsters:`);
+  3. הסוג הראשון של ההתקפה שאנחנו מכירים, ובו הבחירה של ההורה לסוג קודמת ל־`elements:`.
+- **מקצוע כבוי:** אם המקצוע שנבחר לא ב־`learner.enabled_subjects` של הילד (כשההורה בחר מקצועות), הקרב שואל "כל מקצוע פעיל" (`subject=None`), והמנוע בוחר מבין המקצועות הפעילים. זה חל על כל מקצוע, גם על עברית.
