@@ -260,12 +260,12 @@ Placeholders: `{name}` and `${{name}}` (player name, currency and so on). Each `
 | Map sheets (HD k=8) | `mods/nagmon/sprites/nagmon_*.png` | 13 sheets, 3.8 MB, 384×1024. Owl, owl_caped, shopkeeper, tourist, teacher, granite, mila, granny, kid, mailcarrier, hero_boy/girl/curly | 3×4 frames (step, stand, step × down, left, right, up) | **copy.** Downscale once to screen size. |
 | Battle portraits (HD k=3) | `mods/nagmon/gfx/sprites/player/nagmon_*.png` | 12 (384×192; players 384×384) | back on the left, front on the right | **copy** |
 | Modesty overlays | `mods/nagmon/gfx/sprites/player/*.png` (non-`nagmon_`) | 114 portraits plus heroine variants | same names as Tuxemon | **copy only the ones used** (heroine, heroineblack for avatars). Keep the review YAML. |
-| Monster sheets | `mods/nagmon/gfx/sprites/battle/*-sheet.png` | 12 sheets (1.1 MB, HD 384×264) | front 64², back 64², 2 menu icons 24², in a 128×88 layout | **copy** |
+| Monster sheets | `mods/nagmon/gfx/sprites/battle/*-sheet.png` | 12 sheets (1.1 MB, HD 384×264) | front 64², back 64², 2 menu icons 24², in a 128×88 layout | **copy.** In the app all 41 sheets are 384×264 (scale 3): the 29 Tuxemon ones are xBRZ ×3 copies (§6.2). |
 | Owl | `mods/nagmon/gfx/owl/owl_icon.png` (512², app icon and splash), `owl_portrait.png` (192²) | 312 KB | PNG | **copy** |
 | Items, props | `mods/nagmon/gfx/items/` (2 badges), `sprites_obj/nagmon_wallet.png` | 20 KB | PNG | **copy** |
 | Avatars | `nagmon/game_flow.py` `AVATARS` | 7: `boy_blue`, `girl_teal`, `girl_curly` (Nagmon HD), and `boy_light`/adventurer, `boy_dark`/adventurerblack, `girl_light`/heroine, `girl_dark`/brownheroine_brown + heroineblack (Tuxemon, modest versions). Fallback `boy_light`. | data | **copy as data.** Keep the keys, because existing profiles store them. |
 | Grade defaults | `game_flow.defaults_for_grade` | language level 0 (grade ≤1), 1 (≤3), 2 (≤6), 3. Timer from grade 3. Max choices 3 up to grade 1. Auto-read up to grade 2. Questions per battle 3 up to grade 1, otherwise 5. | | **re-impl** (port `test_game_flow.py`, 6 tests) |
-| Tuxemon art used | monster sheets (29), player/NPC sprites (adventurer, heroine…, `sign`, `rockitten` overworld), battle backgrounds and HUD (`gfx/ui/combat/{grass,night_grass}_background.png`, `battle_interior.png`, 3 island sheets, HP bars, trays: 88 KB), UI borders `gfx/borders/borders.png` (44 KB), d-pad/A/B buttons | about 1.5 MB | PNG | **copy subset** |
+| Tuxemon art used | monster sheets (29), player/NPC sprites (adventurer, heroine…, `sign`, `rockitten` overworld), battle backgrounds and HUD (`gfx/ui/combat/{grass,night_grass}_background.png`, `battle_interior.png`, 3 island sheets, HP bars, trays: 88 KB), UI borders `gfx/borders/borders.png` (44 KB), d-pad/A/B buttons | about 1.5 MB | PNG | **copy subset**, as HD xBRZ copies made by the app build (§6.2) |
 | Music used | `mods/tuxemon/music/`: `JRPG_town_loop` (town), `JRPG_royalCourt_loop` (gyms), `JRPG_battle_loop`, `JRPG_winBattleBoss`, `JRPG_gameOver`, `JRPG_mainTheme` (menu) | 6 tracks, 6.0 MB of the 147 MB total | OGG | **copy subset.** These are Yubatake's JRPG Collection, CC-BY 3.0. |
 | SFX used | `mods/tuxemon/sounds/` | 63 slugs (monster calls and technique sounds), 2.4 MB | OGG/WAV | **copy subset** |
 | Font | `mods/tuxemon/font/Rubik-Medium.ttf` and `Rubik-OFL.txt` | | TTF | **drop.** The app already ships `@fontsource-variable/rubik` (OFL). Keep the OFL notice. |
@@ -273,6 +273,7 @@ Placeholders: `{name}` and `${{name}}` (player name, currency and so on). Each `
 | Art manifest and tools | `tools/art/manifest.yaml` (39 outputs: source box → game file, layout, k, `take`/`flip:`), `import_art.py`, `upscale_tiles.py`, `pixel_upscale.py`, `tools/modesty/*.py`, `tools/dev/draw_world_assets.py` | | Python (numpy/scipy) | **keep as offline Python tools.** The app consumes their output. |
 
 **Asset budget for the new app**, if only used assets ship: roughly 35 MB (HD tiles 11, music 6, intro video 5, sprites 7, sfx 2.4, emoji 2, the rest under 2).
+Measured: `app/public/game` is 21.2 MB (sprites 9.4, audio 8.5, content 1.2); it was 18.3 MB before the HD copies of §6.2.
 The old APK shipped the full 147 MB of music.
 
 ### 6.1 Licences: what the new app must ship
@@ -291,6 +292,29 @@ The old APK shipped the full 147 MB of music.
 
 **Action:** build an in-app "Credits" screen (parent area) generated from a trimmed `ATTRIBUTIONS.md` that covers only the shipped assets.
 Ship `LICENSE`, `ATTRIBUTIONS.md` and `Rubik-OFL.txt` in the APK.
+
+### 6.2 HD copies in the app build (`tools/app/hd.py`)
+
+The rule (SDD §10, "תמונות"): no picture is shown on the phone at more than 2× its own pixels.
+Tuxemon's 1× art would be shown about 6× (a 64 px monster at ~400 device px), so the build ships an HD copy of every 1× picture.
+The upscaler is the tiles' one: xBRZ 1.8 (`tools/art/pixel_upscale.py`) and the alpha bleed of `tools/art/upscale_tiles.py`.
+Each frame is scaled on its own, inside a 2 px frame of its own edge pixels, so frames never blend and cut edges stay straight.
+
+| Pictures | Scale | Shown at (device px per 1× px) | Enlargement on the phone |
+|---|---|---|---|
+| Monster sheets (29 Tuxemon; the 12 Nagmon ones are already ×3) | ×3, 384×264 | battle 6 (a 384 px frame); menu icon 132 px | 2.0, 1.83 |
+| Technique and capture animations (85) | ×4; strips wider than 4096 wrap into rows (`frames`, `columns`) | battle 6 | 1.5 |
+| Map animation `grass`, `rockitten` map sheet, `sign`, `nagmon_wallet` | ×4 (the tiles' scale) | map 7 (a 16 px tile is 112 px) | 1.75 |
+| Items (6), type icons (13): 24 px | ×4, 96 px | 48 dp = 132 px | 1.38 |
+| Battle backgrounds, HUD, trays, party icons, islands | ×6 (one `scale` per environment) | background covers the screen (10); the rest battle 6 | 1.67; 1.0 |
+| Nagmon HD map sheets (k=8), portraits (k=3), hero cards, atlases | as they are | map 7; battle 6; card 26vh | 0.88; 2.0; 1.48; 1.75 |
+
+- The records say each picture's scale (`db.py` docstring): monster `sprites.scale`, map `scale` and `frame`, `portrait_scale`, `sprite_scale`, `icon_scale`, animation `scale`/`frames`/`columns`, environment `battle_graphics.scale` and `island_width`/`island_height`.
+- Credits: every upscaled picture's licence ends with ", adapted (xBRZ ×N)" (written `xBRZ xN`), with a note.
+- PNGs are written in the smaller of two lossless encodings: RGBA or a palette with per-entry alpha.
+- Tests: `tests/app/test_app_hd.py` holds the display table above in code and fails if any shipped picture would be shown above 2×.
+- The 2× limit for monsters assumes a battle frame of at most 384 device px: the Nagmon monsters are drawn at ~190 px, so a larger frame needs new art, not a bigger upscale.
+- xBRZ turns dithered texture into small squiggles: visible on the grass island sheets and the `bite` teeth; the rest looked clean at phone size.
 
 ---
 
