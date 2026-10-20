@@ -1,0 +1,23 @@
+{
+  "slug": "dropling",
+  "name_he": "טיפון",
+  "name_en": "Dropling",
+  "description_he": "טיפת מים קטנה שאוהבת לשאול למה. כל תשובה נכונה מגדילה אותה.",
+  "description_en": "A little water drop that loves asking why. Every right answer makes it grow.",
+  "types": ["water"],
+  "stage": "basic",
+  "evolves_into": { "slug": "droplord", "at_level": 16 },
+  "evolves_from": null,
+  "shape": "blob",
+  "height_cm": 40,
+  "weight_kg": 5,
+  "where": [
+    { "map": "route1", "levels": [5, 8], "rarity": "common", "time": "any" }
+  ],
+  "moves": "auto",
+  "images": {
+    "front": "front.png",
+    "back": "back.png",
+    "icon": "icon.png"
+  }
+}
