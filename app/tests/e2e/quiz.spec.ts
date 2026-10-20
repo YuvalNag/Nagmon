@@ -337,3 +337,27 @@ test("the Bag from the battle: three tabs at the start edge, cards with counts, 
   await touch(page, page.locator(id("bag_close")));
   await expect(bag).toHaveCount(0);
 });
+
+test("helpers on the question: owned ones sit in the foot, big enough, one use each question", async ({ page }, info) => {
+  await seedChild(page, { grade: 2, battle: true, items: { hint_feather: 2, clover: 2, owl_pass: 1 } });
+  await openMap(page);
+  await steps(page, "right", 1);
+  await touch(page, page.locator(id("battle_fight")));
+  if ((await quiz(page))!.phase === "example") await touch(page, page.locator(id("quiz_example_done")));
+  await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
+  await page.screenshot({ path: info.outputPath("helpers.png") });
+  const helpers = page.locator("[data-id^=quiz_helper_]");
+  const count = await helpers.count();
+  expect(count).toBeGreaterThanOrEqual(2);
+  for (const box of await helpers.evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON() as { width: number; height: number; bottom: number; right: number }))) {
+    expect(Math.min(box.width, box.height)).toBeGreaterThanOrEqual(48);
+    expect(box.bottom).toBeLessThanOrEqual(393);
+    expect(box.right).toBeLessThanOrEqual(873);
+  }
+  await touch(page, page.locator(id("quiz_helper_hint")));
+  await expect(page.locator(id("quiz_hint_text"))).toBeVisible();
+  // one helper for each question
+  await expect(page.locator("[data-id^=quiz_helper_]")).toHaveCount(0);
+  const world = (await saved(page, "saves/world.json"))!;
+  expect((world["items"] as Record<string, number>)["hint_feather"]).toBe(1);
+});

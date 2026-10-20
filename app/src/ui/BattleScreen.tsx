@@ -62,6 +62,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       clock: () => gameClock.now(),
       maxChoices: play.maxChoices,
       field: play.field,
+      economy: play.economy,
       onChange: () => {
         void play.saveWorld();
         void play.saveLearner();
@@ -114,6 +115,11 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   };
 
   const afterQuestion = () => {
+    if (view.k === "question" && view.session.passed) {
+      // the owl's pass: a new question, nothing counted
+      ask();
+      return;
+    }
     if (view.k === "question" && view.session.outcome) play.logAnswer(view.session, "battle");
     const turn = battle.last;
     if (!turn) {
@@ -153,6 +159,11 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
 
   const afterSeal = () => {
     if (view.k !== "seal") return;
+    if (view.session.passed) {
+      const next = battle.nextSeal(play.economy);
+      if (next) setView({ k: "seal", session: next });
+      return;
+    }
     if (view.session.outcome) play.logAnswer(view.session, "seal");
     const seal = battle.lastSeal;
     if (!seal) {

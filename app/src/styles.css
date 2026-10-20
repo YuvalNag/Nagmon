@@ -694,6 +694,20 @@ button.quiz-choice {
   gap: var(--gap);
 }
 
+.quiz-foot .quiz-helper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 calc(var(--gap) * 0.8);
+  font-size: 28px;
+  line-height: 1.3;
+}
+
+.quiz-helper small {
+  font-size: calc(var(--text) * 0.7);
+  font-weight: 700;
+}
+
 .quiz-subject {
   padding: 0 var(--gap);
   color: var(--ink-soft);

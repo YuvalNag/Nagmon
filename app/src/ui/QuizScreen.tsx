@@ -2,8 +2,8 @@ import { useEffect, useReducer } from "react";
 import { testSeed } from "../app/playConfig";
 import type { Choice } from "../core/learning/model";
 import { isolateMath } from "../core/learning/text";
-import type { QuizSession } from "../core/world/quiz";
-import { t } from "../i18n";
+import type { HelperKind, QuizSession } from "../core/world/quiz";
+import { itemText, t } from "../i18n";
 import { Figure } from "./Figure";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
@@ -17,6 +17,13 @@ interface Props {
   /** The quiz is done: "continue" after the feedback, or no question to ask. */
   onClose: () => void;
 }
+
+/** The Bag's helpers on the question: a picture and the item behind each. */
+const HELPERS: Record<HelperKind, { icon: string; item: string }> = {
+  hint: { icon: "🪶", item: "hint_feather" },
+  fifty: { icon: "🍀", item: "clover" },
+  pass: { icon: "🦉", item: "owl_pass" },
+};
 
 const PAD_KEYS = ["1", "2", "3", "-", "4", "5", "6", ".", "7", "8", "9", "/"];
 
@@ -143,6 +150,23 @@ export function QuizScreen({ session, text, subjectTitle, onClose }: Props) {
       <Tap id="quiz_hint" disabled={!session.canHint} onTap={act(() => session.hint())}>
         {text("nagmon_hint")}
       </Tap>
+      {session.helpersOwned().map((h) => (
+        <Tap
+          key={h.kind}
+          id={`quiz_helper_${h.kind}`}
+          className="quiz-helper"
+          aria-label={`${itemText(HELPERS[h.kind].item, "name")}: ${itemText(HELPERS[h.kind].item, "desc")}`}
+          onTap={() => {
+            const passed = h.kind === "pass";
+            session.useHelper(h.kind);
+            if (passed) onClose();
+            else redraw();
+          }}
+        >
+          <span aria-hidden="true">{HELPERS[h.kind].icon}</span>
+          <small>{h.count}</small>
+        </Tap>
+      ))}
       <Tap id="quiz_dont_know" onTap={act(() => session.dontKnow())}>
         {text("nagmon_dont_know")}
       </Tap>

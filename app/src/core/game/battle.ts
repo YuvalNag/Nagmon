@@ -11,7 +11,7 @@
  */
 import type { LearningEngine } from "../learning/engine";
 import type { SubjectMap } from "../learning/quiz_flow";
-import { QuizSession } from "../world/quiz";
+import { type HelperBag, type HelperKind, type QuizRequest, QuizSession } from "../world/quiz";
 import type { Creature, WorldState } from "../world/worldState";
 import { addCreature, giveXp, type Growth, markSeen, partner as partnerOf } from "./collection";
 import { claimSpareNet, countOf, type Economy, type Item, spendBoost, take } from "./items";
@@ -75,6 +75,8 @@ export interface BattleOptions {
   clock: () => number;
   maxChoices: number | null;
   field: FieldLog;
+  /** The economy: with it, the Bag's helpers can be used on the questions. */
+  economy?: Economy;
   /** A master's test: twice the health, and the prize is a badge, not a creature. */
   master?: boolean;
   /** The creatures or the learner changed: save them. */
@@ -121,7 +123,7 @@ export class Battle {
     for (let i = 0; i < TRIES; i++) {
       const session = new QuizSession(
         this.o.engine,
-        { topic: this.subject, context: "battle", maxChoices: this.o.maxChoices },
+        this.request("battle"),
         this.o.clock,
         (outcome) => this.answered(session, outcome.correct, outcome.power_multiplier, outcome.quality === "super", outcome.coins),
         this.o.warn,
@@ -129,6 +131,34 @@ export class Battle {
       if (session.question) return session;
     }
     return null;
+  }
+
+  private request(context: string): QuizRequest {
+    const r: QuizRequest = { topic: this.subject, context, maxChoices: this.o.maxChoices };
+    const bag = this.helperBag();
+    if (bag) r.helpers = bag;
+    return r;
+  }
+
+  /** The Bag's helpers for a question: the feather, the clover and the owl's pass, counted from the Bag. */
+  private helperBag(): HelperBag | null {
+    const eco = this.o.economy;
+    if (!eco) return null;
+    const itemOf = (kind: HelperKind) => Object.values(eco.items).find((i) => i.helper === kind)?.id;
+    const world = this.o.world;
+    return {
+      count: (kind) => {
+        const id = itemOf(kind);
+        return id ? countOf(world, id) : 0;
+      },
+      spend: (kind) => {
+        const id = itemOf(kind);
+        if (!id || !take(world, id)) return false;
+        this.o.onChange();
+        return true;
+      },
+      used: (kind, q) => this.o.field.helper({ kind, skill: q.skill_id }),
+    };
   }
 
   private answered(session: QuizSession, correct: boolean, multiplier: number, fast: boolean, earned: number): void {
@@ -197,7 +227,7 @@ export class Battle {
     for (let i = 0; i < TRIES; i++) {
       const session = new QuizSession(
         this.o.engine,
-        { topic: this.subject, context: "seal", maxChoices: this.o.maxChoices },
+        this.request("seal"),
         this.o.clock,
         (outcome) => this.sealed(eco, session, outcome.correct),
         this.o.warn,

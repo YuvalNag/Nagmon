@@ -42,10 +42,10 @@ export const TODAY = `(() => { const d = new Date(); const p = (n) => String(n).
  */
 export async function seedChild(
   page: Page,
-  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false } = {},
+  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number> } = {},
 ) {
   await page.addInitScript(
-    ({ grade, settings, world, seed, pid, today, intro, battle }) => {
+    ({ grade, settings, world, seed, pid, today, intro, battle, items }) => {
       if (localStorage.getItem("seeded")) return;
       localStorage.setItem("seeded", "1");
       localStorage.setItem("nagmon.map.adaptiveResolution", "off");
@@ -69,10 +69,10 @@ export async function seedChild(
           localStorage.setItem("nagmon.encounter.always", "1");
         }
         localStorage.setItem(`nagmon-fs:d:profiles/${pid}/saves`, "");
-        localStorage.setItem(`nagmon-fs:f:profiles/${pid}/saves/world.json`, JSON.stringify({ schema_version: 1, money: have.money, variables, ...extra }));
+        localStorage.setItem(`nagmon-fs:f:profiles/${pid}/saves/world.json`, JSON.stringify({ schema_version: 1, money: have.money, variables, ...extra, ...(Object.keys(items).length ? { items } : {}) }));
       }
     },
-    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle },
+    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle, items },
   );
 }
 

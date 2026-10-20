@@ -81,6 +81,11 @@ export class FieldLog {
     this.line("ITEM use", pairs({ item: p.item, where: p.where, ok: p.ok ? 1 : 0 }));
   }
 
+  /** A helper used on a question (hint, fifty, pass): its kind and the skill. */
+  helper(p: { kind: string; skill: string }): void {
+    this.line("HELPER use", pairs({ kind: p.kind, skill: p.skill }));
+  }
+
   /** One go at a net's seal: right or wrong (a wrong one only means another try). No names. */
   capture(p: { species: string; net: string; ok: boolean; left: number; tries: number }): void {
     this.line("CAPTURE try", pairs({ species: p.species, net: p.net, ok: p.ok ? 1 : 0, left: p.left, tries: p.tries }));

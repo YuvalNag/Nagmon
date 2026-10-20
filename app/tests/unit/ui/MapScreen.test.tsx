@@ -72,6 +72,7 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
         };
       },
     }) as unknown as typeof import("../../../src/game/mapGame");
+  const logs: string[] = [];
   const backRef = createRef<() => void>() as MutableRefObject<(() => void) | null>;
   const { container } = render(
     <MapScreen
@@ -83,7 +84,8 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
       openPlay={async (o) => {
         // the child opens the menu before the play has loaded
         if (menuFirst) await new Promise((r) => setTimeout(r, 60));
-        return openPlay({ ...o, fetchJson: trips ? tripFetch : fetchJson, seed: 3 });
+        const log = o.log ?? { info: () => {}, warning: () => {}, error: () => {} };
+        return openPlay({ ...o, log: { ...log, info: (m: string) => (logs.push(m), log.info(m)) }, fetchJson: trips ? tripFetch : fetchJson, seed: 3 });
       }}
     />,
   );
@@ -116,7 +118,7 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
     return out;
   };
   const quiz = () => (window as unknown as { __nagmonQuiz?: () => { phase: string; kind: string; answer: string; skill: string } }).__nagmonQuiz?.();
-  return { fs, profiles, profile, calls, backRef, q, el, press, face, read, quiz, container, opts: () => opts };
+  return { fs, profiles, profile, calls, logs, backRef, q, el, press, face, read, quiz, container, opts: () => opts };
 }
 
 describe("talking on the map", () => {
@@ -403,6 +405,27 @@ describe("a wild creature in the grass", () => {
     expect((world["creatures"] as { name?: string }[])[1]!.name).toBeUndefined();
     expect(world["caught"]).toContain(wildSpecies);
     expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
+  });
+
+  it("the owl's pass in a battle: a new question, nothing answered or counted, the pass used up and logged", async () => {
+    localStorage.setItem("nagmon.encounter.always", "1");
+    const m = await start({ world: { ...withPartner, items: { owl_pass: 1 }, variables: { nagmon_kit: "yes" } } });
+    await act(async () => {
+      m.opts().onMap?.(route);
+    });
+    await settle(20);
+    await act(async () => m.opts().onStep?.(5, 8));
+    await m.press("battle_fight");
+    if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
+    expect(m.el("quiz_helper_pass")).not.toBeNull();
+    await m.press("quiz_helper_pass");
+    // another question, on the same screen, with no helper left to offer
+    expect(m.q("[data-screen=battle-ask]")).not.toBeNull();
+    expect(m.el("quiz_helper_pass")).toBeNull();
+    await pendingWrites(m.fs);
+    const world = await m.profiles.loadWorldDict(m.profile.id);
+    expect(world["items"]).toBeUndefined();
+    expect(m.logs.some((l) => /^HELPER use kind=pass skill=/.test(l))).toBe(true);
   });
 
   it("a name picked from the three, kept in the save", async () => {
