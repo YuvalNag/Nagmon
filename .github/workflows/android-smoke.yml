@@ -43,11 +43,19 @@ jobs:
         APK_RUN: ${{ inputs.apk-run }}
       run: |
         run="$APK_RUN"
-        # this branch's latest APK (it has this branch's code), else any
+        # This branch's latest emulator APK (it has this branch's code),
+        # also from a run whose emulator check failed; else any branch's.
         if [ -z "$run" ]; then
-          run=$(gh run list -R "$GITHUB_REPOSITORY" --workflow android.yml \
-                --branch "$GITHUB_REF_NAME" --status success --limit 1 \
-                --json databaseId -q '.[0].databaseId')
+          for id in $(gh run list -R "$GITHUB_REPOSITORY" --workflow android.yml \
+                      --branch "$GITHUB_REF_NAME" --status completed --limit 10 \
+                      --json databaseId -q '.[].databaseId'); do
+            if gh api "repos/$GITHUB_REPOSITORY/actions/runs/$id/artifacts" \
+                 -q '.artifacts[] | select(.expired | not) | .name' \
+                 | grep -q '^nagmon-emulator-'; then
+              run=$id
+              break
+            fi
+          done
         fi
         if [ -z "$run" ]; then
           run=$(gh run list -R "$GITHUB_REPOSITORY" --workflow android.yml \

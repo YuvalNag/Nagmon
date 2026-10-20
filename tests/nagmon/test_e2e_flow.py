@@ -351,6 +351,8 @@ class FakePhone:
     def press(self, x: int, y: int, ms: int | None) -> None:
         self.taps.append((x, y, ms))
         state, widget = self.state, self.hit(x, y)
+        if self.bug == "quick" and ms is None and widget and "id" in widget:
+            return  # a press and its release in one frame: lost
         if "Intro" in state:
             self.who()
         elif state == "DialogState":
@@ -508,3 +510,33 @@ def test_a_slow_answer_fails(tmp_path):
     ok, flow, phone, log = play(tmp_path, bug="slow")
     assert not ok
     assert any("answered after" in f for f in flow.failures), flow.failures
+
+
+def test_a_lost_quick_tap_fails_and_the_flow_goes_on(tmp_path):
+    ok, flow, phone, log = play(tmp_path, bug="quick")
+    assert not ok
+    assert "a quick tap on new player did nothing; a 150 ms touch worked" in (
+        " ".join(flow.failures)
+    )
+    assert phone.children == ["נועה"]
+    assert phone.player == [6, 5]
+
+
+def test_an_intro_skip_is_not_timed(tmp_path):
+    ok, flow, phone, log = play(tmp_path)
+    assert all(not t.what.startswith("skip") for t in flow.latencies)
+
+
+def test_the_failure_dump_keeps_the_game_and_errors():
+    stream = e2e.UIStream()
+    stream.pid = 77
+    stream.feed(logcat("Checking pattern libSDL2", pid=77, tag="pythonutil"))
+    stream.feed(logcat("Traceback (most recent call last):", pid=77))
+    stream.feed("10-20 12:00:01.234    77    78 E SDL     : something broke\n")
+    stream.feed(
+        "10-20 12:00:01.234   500   501 D AndroidRuntime: Calling main\n"
+    )
+    assert [line.split(": ", 1)[1] for line in stream.app_lines] == [
+        "Traceback (most recent call last):",
+        "something broke",
+    ]

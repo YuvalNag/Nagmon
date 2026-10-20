@@ -100,6 +100,19 @@ def parse_logcat(line: str) -> tuple[int | None, str, str]:
     return int(m.group(1)), m.group(4), m.group(5)
 
 
+def app_line(
+    pid: int | None, tag: str, message: str, app_pid: int | None, line: str
+) -> bool:
+    """A line worth showing on a failure: what the game printed, and
+    warnings or errors of the app and of Android's runtime."""
+    if tag == "python" or PREFIX in message:
+        return True
+    level = LOGCAT.match(line.rstrip("\r\n"))
+    serious = bool(level) and level.group(3) in "WEF"
+    mine = pid is not None and pid == app_pid
+    return serious and (mine or tag in APP_TAGS)
+
+
 class UIStream:
     """
     Collects the app's log: UI snapshots (put together from their
@@ -121,9 +134,8 @@ class UIStream:
         at = self.clock() if at is None else at
         pid, tag, message = parse_logcat(line)
         with self._cond:
-            mine = (pid is not None and pid == self.pid) or tag in APP_TAGS
-            if mine or PREFIX in message:
-                self.app_lines.append(line.rstrip("\r\n"))
+            if app_line(pid, tag, message, self.pid, line):
+                self.app_lines.append(line.rstrip("\r\n")[:400])
             if "frame rate:" in message:
                 self.frame_lines.append(message.strip())
             if f"{PREFIX} probe on" in message:
@@ -547,7 +559,7 @@ class Flow:
                 and skip_intro
                 and screen_kind(snap) == "intro"
             ):
-                self.tap(to_world_action(snap), required=False)
+                self.tap(to_world_action(snap), required=False, timed=False)
             left = end - time.monotonic()
             if left <= 0:
                 raise FlowError(
@@ -582,28 +594,36 @@ class Flow:
         expect: Callable[[Snapshot], bool] = lambda s: True,
         required: bool = True,
         timeout: float = 15.0,
+        timed: bool = True,
     ) -> Snapshot | None:
         """
         Taps (or holds) the action's point and waits for the screen to
-        change; records how long that took.
+        change; records how long that took. A quick tap (``input tap``:
+        the finger is down a few milliseconds) that does nothing is a
+        failure: a parent's quick tap is lost the same way. The flow then
+        tries a 150 ms touch, to find what else is wrong.
         """
         if not action:
             raise FlowError(f"nothing to tap: {action.what}")
         before = self.settle()
         x, y = action.point  # type: ignore[misc]
-        start = time.monotonic()
-        if hold_ms:
-            self.device.hold(x, y, hold_ms)
-        else:
-            self.device.tap(x, y)
-        end = time.monotonic()
-        snap = self.stream.wait(expect, timeout * self.scale, after=before)
+        wait = timeout * self.scale
+        timed = timed and not action.what.startswith("skip ")
+        first = wait if hold_ms else min(wait, 6 * self.scale)
+        snap, start, end = self._press(x, y, hold_ms, expect, first, before)
+        if snap is None and not hold_ms:
+            snap, start, end = self._press(x, y, HOLD_MS, expect, wait, before)
+            if snap is not None and timed:
+                self.check(
+                    False,
+                    f"a quick tap on {action.what} did nothing; a "
+                    f"{HOLD_MS} ms touch worked ({before.state if before else None})",
+                )
         if snap is None:
             if required:
                 raise FlowError(
                     f"tap on {action.what} at {x},{y}: no change in "
-                    f"{timeout * self.scale:.0f}s (screen "
-                    f"{before.state if before else None})"
+                    f"{wait:.0f}s (screen {before.state if before else None})"
                 )
             return None
         late = Latency(
@@ -611,13 +631,31 @@ class Flow:
             round((snap.at - start) * 1000),
             max(0, round((snap.at - end) * 1000)),
         )
-        self.latencies.append(late)
+        if timed:
+            self.latencies.append(late)
         self.log(
             f"tap {action.what} at {x},{y} -> {snap.state} in "
             f"{late.from_end_ms} ms ({late.from_start_ms} ms from the "
             "start of the adb command)"
         )
         return snap
+
+    def _press(
+        self,
+        x: int,
+        y: int,
+        hold_ms: int | None,
+        expect: Callable[[Snapshot], bool],
+        wait: float,
+        before: Snapshot | None,
+    ) -> tuple[Snapshot | None, float, float]:
+        start = time.monotonic()
+        if hold_ms:
+            self.device.hold(x, y, hold_ms)
+        else:
+            self.device.tap(x, y)
+        end = time.monotonic()
+        return self.stream.wait(expect, wait, after=before), start, end
 
     def type_text(self, text: str, what: str) -> None:
         """Held taps, one key at a time; the typed text grows by it."""
@@ -869,6 +907,8 @@ def main(argv: Iterable[str] | None = None) -> int:
     parser.add_argument("--limit-ms", type=int, default=1500)
     parser.add_argument("--serial")
     args = parser.parse_args(list(argv) if argv is not None else None)
+    # the job log in order, with the screenshot helper's prints
+    sys.stdout.reconfigure(line_buffering=True)  # type: ignore[union-attr]
     args.out.mkdir(parents=True, exist_ok=True)
     adb = Adb(serial=args.serial)
     pkg = args.package
