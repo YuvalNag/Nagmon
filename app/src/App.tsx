@@ -102,7 +102,10 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
   const [shown, setShown] = useState<{ view: View; n: number }>({ view: WHO, n: 0 });
   const current = useRef<View>(WHO);
   const [children, setChildren] = useState<Profile[]>([]);
-  const [loaded, setLoaded] = useState(false);
+  // the children on disk: being read (a blank screen), read, or unreadable
+  // (who-plays without them, and read again each time it is shown)
+  const [players, setPlayers] = useState<"loading" | "ready" | "failed">("loading");
+  const reading = useRef(false);
   // slow work running: its screen's keys wait; `locked` also shuts the ways out
   const [busy, setBusy] = useState<"no" | "keys" | "locked">("no");
   const busyRef = useRef<"no" | "keys" | "locked">("no");
@@ -145,21 +148,40 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
     [show, workTimeoutMs],
   );
 
-  useEffect(() => {
-    profiles.list().then((list) => {
-      // the start's steps are timed (main.tsx); this one is the players read
-      performance.mark("nagmon:players");
-      setChildren(list);
-      setLoaded(true);
-    }, (e) => {
-      log.error("Could not read the players", e);
-      show({ kind: "notice", text: t("readFailed"), next: WHO });
-    });
-  }, [profiles, show]);
+  const readPlayers = useCallback(
+    (first: boolean) => {
+      if (reading.current) return;
+      reading.current = true;
+      profiles
+        .list()
+        .then(
+          (list) => {
+            // the start's steps are timed (main.tsx); this one is the players read
+            performance.mark("nagmon:players");
+            setChildren(list);
+            setPlayers("ready");
+          },
+          (e) => {
+            log.error("Could not read the players", e);
+            setPlayers("failed");
+            // said once; after that who-plays stays usable and tries again
+            if (first) show({ kind: "notice", text: t("readFailed"), next: WHO });
+          },
+        )
+        .finally(() => (reading.current = false));
+    },
+    [profiles, show],
+  );
+
+  useEffect(() => readPlayers(true), [readPlayers]);
 
   useEffect(() => {
-    if (loaded) onStarted?.();
-  }, [loaded, onStarted]);
+    if (view.kind === "who" && players === "failed") readPlayers(false);
+  }, [view, players, readPlayers]);
+
+  useEffect(() => {
+    if (players === "ready") onStarted?.();
+  }, [players, onStarted]);
 
   useEffect(
     () =>
@@ -267,7 +289,7 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
 
   // who-plays waits for the children: not a screen without them that then
   // fills in under the child's finger (and a check that saw it empty)
-  if (!loaded && view.kind === "who") return <main className="screen" data-screen="loading" aria-busy="true" />;
+  if (players === "loading" && view.kind === "who") return <main className="screen" data-screen="loading" aria-busy="true" />;
 
   return <ScreenTime key={shown.n}>{screen(view)}</ScreenTime>;
 

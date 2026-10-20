@@ -235,6 +235,37 @@ describe("a new child", () => {
     expect(app.screen()).toBe("who-plays");
   });
 
+  it("after the notice, 'next' leads to who-plays with its buttons, and the players are read again", async () => {
+    const services = await openServices(new MemoryFileStore());
+    await services.profiles.create({ name: "גלי", avatar: "boy_blue" });
+    const real = services.profiles.list.bind(services.profiles);
+    const list = vi.spyOn(services.profiles, "list").mockRejectedValueOnce(new Error("unreadable"));
+    const { container } = render(<App services={services} backButton={() => () => {}} />);
+    const screen = () => container.querySelector("[data-screen]")!.getAttribute("data-screen");
+    await vi.waitFor(() => expect(screen()).toBe("notice"));
+    // the disk answers again
+    list.mockImplementation(real);
+    fireEvent.click(container.querySelector('[data-id="next"]')!, { detail: 0 });
+    await settle(10);
+    expect(screen()).toBe("who-plays");
+    expect(container.querySelector('[data-id="new_child"]')).not.toBeNull();
+    expect(container.querySelector('[data-id="parents"]')).not.toBeNull();
+    await vi.waitFor(() => expect(container.querySelector(".card")?.textContent).toBe("גלי"));
+  });
+
+  it("who-plays stays usable when the players still cannot be read", async () => {
+    const services = await openServices(new MemoryFileStore());
+    vi.spyOn(services.profiles, "list").mockRejectedValue(new Error("unreadable"));
+    const { container } = render(<App services={services} backButton={() => () => {}} />);
+    const screen = () => container.querySelector("[data-screen]")!.getAttribute("data-screen");
+    await vi.waitFor(() => expect(screen()).toBe("notice"));
+    fireEvent.click(container.querySelector('[data-id="next"]')!, { detail: 0 });
+    await settle(20);
+    expect(screen()).toBe("who-plays");
+    expect(container.querySelector('[data-id="parents"]')).not.toBeNull();
+    expect(services.profiles.list).toHaveBeenCalledTimes(2);
+  });
+
   it("shows a notice, not a frozen screen, when the players cannot be read", async () => {
     const services = await openServices(new MemoryFileStore());
     vi.spyOn(services.profiles, "list").mockRejectedValue(new Error("unreadable"));
