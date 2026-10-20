@@ -1,0 +1,119 @@
+/* The parents' area (src/ui/screens/parents/): every page fits the phone
+   at 130% text without scrolling, like the rest of the app. */
+
+/* a page with a bar on top: what follows starts right under it, so a
+   keyboard that opens or closes (the token field) moves nothing */
+.screen.parents-page {
+  justify-content: flex-start;
+}
+
+.parents-page > .bar {
+  flex-shrink: 0;
+}
+
+.parents-body {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+}
+
+.parents-menu {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+  width: 100%;
+  max-width: 44em;
+}
+
+.parents-menu button {
+  padding: calc(var(--gap) / 2) var(--gap);
+}
+
+.parents-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.parents-row button {
+  padding: 0 var(--gap);
+}
+
+button.danger {
+  background: #fde2e1;
+  border-color: #d35b54;
+}
+
+.parents-status {
+  margin: 0;
+  max-width: 40em;
+  text-align: center;
+}
+
+.parents-status[data-good="false"] {
+  color: #8c1d18;
+}
+
+/* the token as the parent may see it: "***" and its last 4 */
+.masked {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-weight: 600;
+}
+
+/* the one place with the system keyboard: a long press pastes */
+.token-input {
+  width: min(100%, 30em);
+  min-height: var(--touch);
+  padding: 0 var(--gap);
+  font: inherit;
+  color: var(--ink);
+  background: var(--card);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  direction: ltr;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.confirm-path {
+  margin: 0;
+  max-width: 100%;
+  direction: ltr;
+  unicode-bidi: isolate;
+  overflow-wrap: break-word;
+  text-align: center;
+  font-weight: 600;
+}
+
+.child-avatar {
+  height: var(--touch);
+  width: auto;
+}
+
+/* "נשמר.": good news, not an error */
+.message.ok,
+.message.wait {
+  color: #1d5e20;
+}
+
+.message.wait {
+  color: var(--ink-soft);
+}
+
+.parents-row button {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--gap) / 2);
+}
+
+.parents-row .child-avatar {
+  height: calc(var(--touch) * 0.8);
+}

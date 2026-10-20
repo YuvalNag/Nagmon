@@ -16,11 +16,11 @@ import { getLogger } from "./platform/appLog";
 import { LetterBoard } from "./ui/LetterBoard";
 import { PinPad } from "./ui/PinPad";
 import { ScreenTime } from "./ui/screenTime";
-import { Tap } from "./ui/Tap";
 import { Choices } from "./ui/screens/Choices";
 import { Notice } from "./ui/screens/Notice";
 import type { MapLifecycle } from "./game/mapGame";
 import { MapScreen } from "./ui/screens/MapScreen";
+import { ParentsArea } from "./ui/screens/parents/ParentsArea";
 import { WhoPlays } from "./ui/screens/WhoPlays";
 
 const log = getLogger("nagmon.screens");
@@ -118,6 +118,8 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
   const job = useRef(0);
   // the map's own answer to Android's back (its pause menu)
   const mapBack = useRef<(() => void) | null>(null);
+  // the parents' area's own back: one of its pages back, false on its first
+  const parentsBack = useRef<(() => boolean) | null>(null);
   const view = shown.view;
 
   /** Shows a screen. Any work still running is dropped: its screen is gone. */
@@ -199,6 +201,7 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
           mapBack.current?.();
           return;
         }
+        if (current.current.kind === "parents" && parentsBack.current?.()) return;
         const next = backStep(current.current);
         if (next) show(next);
       }),
@@ -378,12 +381,13 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
         return <Notice text={view.text} onNext={() => show(view.next)} />;
       case "parents":
         return (
-          <main className="screen" data-screen="parents">
-            <h1 className="title">{t("parentsTitle")}</h1>
-            <Tap id="back" onTap={() => show(WHO)}>
-              {t("back")}
-            </Tap>
-          </main>
+          <ParentsArea
+            services={services}
+            backRef={parentsBack}
+            onExit={() => show(WHO)}
+            onChildren={setChildren}
+            workTimeoutMs={workTimeoutMs}
+          />
         );
       case "play": {
         const child = children.find((c) => c.id === view.id);
