@@ -10,7 +10,7 @@
  * opens again. Times are UTC. HTTP bodies are never logged.
  */
 import { formatError, redactSecrets, utcMinute } from "../core/crashReport";
-import { DATA_FILES, type FileStore, dirName } from "./storage";
+import { DATA_FILES, type FileStore, dirName, withPathLock } from "./storage";
 
 export const MAX_LINES = 400;
 export const LOG_FILE = DATA_FILES.appLog;
@@ -158,10 +158,12 @@ export class RingLog {
     let text = this.text();
     if (ending) text += `${SAVED_MARK}${ending}\n`;
     text = redactSecrets(text, this.known).replace(LONE_SURROGATE, "?");
-    await fs.mkdir(dirName(path));
-    const tmp = `${path}.tmp`;
-    await fs.writeText(tmp, text);
-    await fs.rename(tmp, path);
+    await withPathLock(fs, path, async () => {
+      await fs.mkdir(dirName(path));
+      const tmp = `${path}.tmp`;
+      await fs.writeText(tmp, text);
+      await fs.rename(tmp, path);
+    });
   }
 
   /**

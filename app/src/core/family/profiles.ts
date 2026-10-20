@@ -275,6 +275,15 @@ export class ProfileStore<L = unknown> {
     return profiles.sort((a, b) => a.order - b.order || a.createdAt - b.createdAt || cmp(a.id, b.id));
   }
 
+  /**
+   * Every child's name, deleted profiles included: what logs and reports
+   * must hide before they leave the phone.
+   */
+  async allNames(): Promise<string[]> {
+    const names = [...(await this.list()).map((p) => p.name), ...(await this.listTrash()).map((e) => e.name)];
+    return [...new Set(names.filter(Boolean))];
+  }
+
   /** One profile; throws {@link ProfileNotFoundError}. */
   async get(id: string): Promise<Profile> {
     if (!(await this.ids()).includes(id)) throw new ProfileNotFoundError(id);

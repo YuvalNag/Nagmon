@@ -327,7 +327,13 @@ export class ParentStore {
   // PIN checks run one at a time: the attempt count must not race.
   private queue: Promise<unknown> = Promise.resolve();
 
-  private constructor(fs: FileStore, path: string, settings: ParentSettings, recovered: boolean, o: ParentStoreOptions) {
+  private constructor(
+    fs: FileStore,
+    path: string,
+    settings: ParentSettings,
+    recovered: boolean,
+    o: ParentStoreOptions,
+  ) {
     this.fs = fs;
     this.path = path;
     this.settings = settings;
@@ -361,9 +367,13 @@ export class ParentStore {
     return this.toString();
   }
 
-  /** Writes parent.json. */
-  async save(): Promise<void> {
-    await writeJson(this.fs, this.path, settingsToDict(this.settings));
+  /** Writes parent.json (after any PIN check in progress). */
+  save(): Promise<void> {
+    return this.serial(() => this.write());
+  }
+
+  private write(): Promise<void> {
+    return writeJson(this.fs, this.path, settingsToDict(this.settings));
   }
 
   hasPin(): boolean {
@@ -393,18 +403,22 @@ export class ParentStore {
       s.pinHash = await hashPin(pin, salt, this.iterations);
       s.failedAttempts = 0;
       s.lockedUntil = 0;
-      await this.save();
+      await this.write();
     });
   }
 
   /** Seconds until the lock ends (0 when not locked). */
-  async lockoutRemaining(): Promise<number> {
+  lockoutRemaining(): Promise<number> {
+    return this.serial(() => this.lockoutNow());
+  }
+
+  private async lockoutNow(): Promise<number> {
     const s = this.settings;
     const now = this.clock();
     if (s.lockedUntil - now > LOCKOUT_SECONDS) {
       // The clock moved back: never lock longer than the full period.
       s.lockedUntil = now + LOCKOUT_SECONDS;
-      await this.save();
+      await this.write();
     }
     return Math.max(0, s.lockedUntil - now);
   }
@@ -421,7 +435,7 @@ export class ParentStore {
   private async verifyNow(pin: string): Promise<PinCheck> {
     const s = this.settings;
     if (!this.hasPin()) return { ok: false, locked: false, attemptsLeft: 0, retryAfterS: 0 };
-    const remaining = await this.lockoutRemaining();
+    const remaining = await this.lockoutNow();
     if (remaining > 0) return { ok: false, locked: true, attemptsLeft: 0, retryAfterS: remaining };
     if (s.lockedUntil) {
       // The lock is over: a fresh set of tries.
@@ -438,16 +452,16 @@ export class ParentStore {
         s.pinIterations = this.iterations;
         s.pinHash = await hashPin(candidate, salt, this.iterations);
       }
-      await this.save();
+      await this.write();
       return { ok: true, locked: false, attemptsLeft: MAX_ATTEMPTS, retryAfterS: 0 };
     }
     s.failedAttempts += 1;
     if (s.failedAttempts >= MAX_ATTEMPTS) {
       s.lockedUntil = this.clock() + LOCKOUT_SECONDS;
-      await this.save();
+      await this.write();
       return { ok: false, locked: true, attemptsLeft: 0, retryAfterS: LOCKOUT_SECONDS };
     }
-    await this.save();
+    await this.write();
     return { ok: false, locked: false, attemptsLeft: MAX_ATTEMPTS - s.failedAttempts, retryAfterS: 0 };
   }
 }

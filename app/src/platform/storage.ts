@@ -139,29 +139,53 @@ export interface WriteJsonOptions {
   backup?: boolean;
 }
 
+const pathLocks = new WeakMap<FileStore, Map<string, Promise<unknown>>>();
+
+/**
+ * Runs `task` after every earlier task on the same path of the same store.
+ * Two saves of one file (two quick answers, background and close) would
+ * otherwise share the one `.tmp` file and lose a write.
+ */
+export function withPathLock<T>(fs: FileStore, path: string, task: () => Promise<T>): Promise<T> {
+  let locks = pathLocks.get(fs);
+  if (!locks) pathLocks.set(fs, (locks = new Map()));
+  const key = joinPath(path);
+  const run = (locks.get(key) ?? Promise.resolve()).then(task, task);
+  const done = run.catch(() => undefined);
+  locks.set(key, done);
+  void done.then(() => {
+    if (locks.get(key) === done) locks.delete(key);
+  });
+  return run;
+}
+
 /**
  * Writes `data` as JSON to `path` atomically: the tmp file first, then a
- * rename, so a crash mid-write never leaves a half file.
+ * rename, so a crash mid-write never leaves a half file. Writes to one
+ * path run one at a time, in call order.
  */
-export async function writeJson(
+export function writeJson(
   fs: FileStore,
   path: string,
   data: unknown,
   { backup = true }: WriteJsonOptions = {},
 ): Promise<void> {
+  // Serialise now, so later changes to `data` do not leak into this write.
   const payload = JSON.stringify(sortKeys(data), null, 2);
-  const tmp = tmpPath(path);
-  try {
-    await fs.writeText(tmp, payload);
-  } catch (err) {
-    await fs.remove(tmp).catch(() => undefined);
-    throw err;
-  }
-  if (backup && (await fs.stat(path)) === "file") {
-    // Best effort, as in the old code: a missing .bak is not a failure.
-    await fs.copy(path, bakPath(path)).catch(() => undefined);
-  }
-  await fs.rename(tmp, path);
+  return withPathLock(fs, path, async () => {
+    const tmp = tmpPath(path);
+    try {
+      await fs.writeText(tmp, payload);
+    } catch (err) {
+      await fs.remove(tmp).catch(() => undefined);
+      throw err;
+    }
+    if (backup && (await fs.stat(path)) === "file") {
+      // Best effort, as in the old code: a missing .bak is not a failure.
+      await fs.copy(path, bakPath(path)).catch(() => undefined);
+    }
+    await fs.rename(tmp, path);
+  });
 }
 
 async function readObject(fs: FileStore, path: string): Promise<JsonObject | null> {
@@ -489,7 +513,9 @@ export class CapacitorFileStore implements FileStore {
     const p = joinPath(path);
     const kind = await this.stat(p);
     if (kind === "file") await Filesystem.deleteFile({ path: p, directory: this.directory });
-    else if (kind === "dir" && p !== "") await Filesystem.rmdir({ path: p, directory: this.directory, recursive: true });
+    else if (kind === "dir" && p !== "") {
+      await Filesystem.rmdir({ path: p, directory: this.directory, recursive: true });
+    }
   }
 }
 

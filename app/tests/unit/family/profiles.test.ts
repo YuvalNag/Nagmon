@@ -226,6 +226,13 @@ describe("order and trash", () => {
     await expect(store.restore("../profiles")).rejects.toThrow(ProfileNotFoundError);
   });
 
+  it("allNames includes deleted profiles, for hiding names in reports", async () => {
+    await store.create({ name: "דני", avatar: "boy_a" });
+    const p = await store.create({ name: "נועה", avatar: "girl_a" });
+    await store.delete(p.id);
+    expect((await store.allNames()).sort()).toEqual(["דני", "נועה"]);
+  });
+
   it("new ids avoid the ids in the trash", async () => {
     const s = new ProfileStore(fs, { avatars: AVATARS, idFactory: ids("paaaaa", "paaaaa", "pccccc") });
     await s.delete((await s.create({ name: "Ann", avatar: "girl_a" })).id);

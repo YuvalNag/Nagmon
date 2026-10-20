@@ -12,6 +12,7 @@
 import { describe, expect, it } from "vitest";
 import {
   CrashReporter,
+  type CrashReporterOptions,
   CrashReports,
   LOG_MARKER,
   MAX_CHARS,
@@ -41,7 +42,7 @@ function offers(fail = false) {
   return { shown, offer };
 }
 
-function reporter(fs: FileStore, offer: (t: string) => void, extra: Partial<ConstructorParameters<typeof CrashReporter>[1]> = {}) {
+function reporter(fs: FileStore, offer: (t: string) => void, extra: Partial<CrashReporterOptions> = {}) {
   return new CrashReporter(new CrashReports(fs), { info: () => INFO, offer, clock: () => NOW, ...extra });
 }
 
@@ -94,7 +95,10 @@ describe("building the report", () => {
     expect(report).toContain("0.4.35");
   });
 
-  const LOG_LINES = Array.from({ length: 60 }, (_, i) => `14:${String(i).padStart(2, "0")}:00 INFO nagmon.x: step ${i}`).join("\n");
+  const LOG_LINES = Array.from(
+    { length: 60 },
+    (_, i) => `14:${String(i).padStart(2, "0")}:00 INFO nagmon.x: step ${i}`,
+  ).join("\n");
 
   it("ends with the app's log", () => {
     const report = buildReport("ValueError: bad", INFO, { now: NOW, log: LOG_LINES });

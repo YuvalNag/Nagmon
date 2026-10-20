@@ -200,6 +200,13 @@ describe.each(IMPLEMENTATIONS)("JSON file store (%s)", (_label, make) => {
     );
   });
 
+  it("writes to one file at once land in order, none lost", async () => {
+    await Promise.all([1, 2, 3, 4, 5].map((v) => writeJson(fs, "d.json", { v })));
+    expect((await readJson(fs, "d.json")).data).toEqual({ v: 5 });
+    expect(JSON.parse((await fs.readText("d.json.bak"))!)).toEqual({ v: 4 });
+    expect(await fs.stat("d.json.tmp")).toBeNull();
+  });
+
   it("can skip the backup (secrets must not leave copies)", async () => {
     await writeJson(fs, "s.json", { a: 1 }, { backup: false });
     await writeJson(fs, "s.json", { a: 2 }, { backup: false });

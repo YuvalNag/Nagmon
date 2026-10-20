@@ -89,7 +89,11 @@ export class KeystoreSecretStore implements SecretStore {
   #ready: Promise<void> | null = null;
 
   private ready(): Promise<void> {
-    this.#ready ??= SecureStorage.setKeyPrefix(KEY_PREFIX);
+    // On failure, the next call tries again instead of failing forever.
+    this.#ready ??= SecureStorage.setKeyPrefix(KEY_PREFIX).catch((e: unknown) => {
+      this.#ready = null;
+      throw e;
+    });
     return this.#ready;
   }
 
