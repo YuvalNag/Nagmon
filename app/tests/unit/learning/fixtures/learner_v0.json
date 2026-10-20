@@ -1,0 +1,33 @@
+{
+  "name": "נועה",
+  "grade": 3,
+  "age": 8,
+  "ratings": {
+    "math.add.within_20": 1400,
+    "math.mul.facts_all": 1100
+  },
+  "leitner": {
+    "arithmetic.mul_facts:7x8": {"box": 3, "skill": "math.mul.facts_all"}
+  },
+  "stars": {"math": 2},
+  "coins": 57,
+  "settings": {"subjects": ["math", "geometry"]},
+  "log": [
+    {
+      "t": 1790000000,
+      "skill": "math.add.within_20",
+      "item": "arithmetic.add:7+8",
+      "ok": true,
+      "secs": 4.2,
+      "where": "battle"
+    },
+    {
+      "t": 1790000100,
+      "skill": "math.mul.facts_all",
+      "item": "arithmetic.mul_facts:7x8",
+      "ok": false,
+      "secs": 9.0,
+      "where": "shop"
+    }
+  ]
+}

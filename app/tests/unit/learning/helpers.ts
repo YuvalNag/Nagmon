@@ -4,7 +4,8 @@
  * PyYAML reads them), a fake clock, and the canonical JSON + hash the
  * golden tests share with `golden/make_golden.py`.
  */
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse, type ScalarTag } from "yaml";
@@ -32,15 +33,39 @@ export function parseYaml(text: string): unknown {
 
 /** Every YAML file under `dir`, parsed, keyed by its path relative to `dir`. */
 export function readDocs(dir: string = CONTENT_DIR): Record<string, unknown> {
-  const out: Record<string, unknown> = {};
+  const files: string[] = [];
   const walk = (d: string): void => {
     for (const f of readdirSync(d).sort()) {
       const p = join(d, f);
       if (statSync(p).isDirectory()) walk(p);
-      else if (p.endsWith(".yaml")) out[relative(dir, p).split(sep).join("/")] = parseYaml(readFileSync(p, "utf8"));
+      else if (p.endsWith(".yaml")) files.push(p);
     }
   };
   walk(dir);
+  // Parsing 1.3 MB of YAML takes seconds; keep the result as JSON, keyed
+  // by the files' names, sizes and times, so each test file reads it fast.
+  let stamp = 0x811c9dc5;
+  for (const p of files) {
+    const st = statSync(p);
+    stamp = fnv1a(`${p}:${st.size}:${st.mtimeMs}\n`, stamp);
+  }
+  const cacheDir = join(tmpdir(), "nagmon-learning-tests");
+  const cache = join(cacheDir, `docs-${stamp.toString(16)}.json`);
+  try {
+    return JSON.parse(readFileSync(cache, "utf8")) as Record<string, unknown>;
+  } catch {
+    // not cached yet
+  }
+  const out: Record<string, unknown> = {};
+  for (const p of files) out[relative(dir, p).split(sep).join("/")] = parseYaml(readFileSync(p, "utf8"));
+  try {
+    mkdirSync(cacheDir, { recursive: true });
+    const tmp = `${cache}.${process.pid}`;
+    writeFileSync(tmp, JSON.stringify(out));
+    renameSync(tmp, cache);
+  } catch {
+    // a read-only temp dir only costs time
+  }
   return out;
 }
 
