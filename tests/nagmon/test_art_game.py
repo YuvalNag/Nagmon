@@ -394,3 +394,94 @@ def test_owl_screen_loads_its_portrait_once(monkeypatch):
     for _ in range(5):  # the screen rebuilds on every question
         assert nagmon_owl.owl_portrait(720) is first
     assert len(loads) == 1
+
+
+# ------------------------------------------- third batch (SDD_ART §2.10)
+
+BATCH3_NPCS = [
+    ("classic_gym_leader_mila", "nagmon_mila"),
+    ("nagmon_granny", "nagmon_granny"),
+    ("nagmon_kid", "nagmon_kid"),
+    ("nagmon_route1_trainer", "nagmon_mailcarrier"),
+]
+
+#: Base form, evolution, subject.
+BATCH3_FAMILIES = (
+    ("pluson", "multivolt", "math"),
+    ("flaskling", "botanikos", "science"),
+    ("puzzlet", "enigmon", "logic"),
+    ("scrollo", "megillon", "hebrew"),
+)
+
+
+@pytest.mark.parametrize(("slug", "name"), BATCH3_NPCS)
+def test_batch3_npcs_wear_their_sheets(moddata, slug, name):
+    template = moddata.database["npc"][slug].template
+    assert (template.sprite_name, template.combat_sheet) == (name, name)
+    with Image.open(NAGMON / "sprites" / f"{name}.png") as img:
+        assert img.size == HD_MAP
+    with Image.open(NAGMON / "gfx/sprites/player" / f"{name}.png") as img:
+        assert img.size == (384, 192)
+
+
+def test_mila_keeps_her_words_and_the_other_masters_stay(moddata):
+    mila = moddata.database["npc"]["classic_gym_leader_mila"]
+    words = mila.speech.model_dump(mode="json")["profile"]["default"]
+    assert words["pre_battle"] == "classic_gym_leader_mila_pre"
+    pyra = moddata.database["npc"]["classic_gym_leader_pyra"].template
+    assert pyra.sprite_name == "monk"
+
+
+def test_girl_curly_is_a_third_hero():
+    from nagmon.game_flow import AVATARS, avatar_by_key
+
+    keys = [a.key for a in AVATARS]
+    assert keys[:2] == ["boy_blue", "girl_teal"]
+    assert "girl_curly" in keys
+    a = avatar_by_key("girl_curly")
+    assert (a.sprite, a.combat_sheet, a.gender) == (
+        "nagmon_hero_curly",
+        "nagmon_hero_curly",
+        "female",
+    )
+    with Image.open(NAGMON / "sprites" / "nagmon_hero_curly.png") as img:
+        assert img.size == HD_MAP
+    with Image.open(
+        NAGMON / "gfx/sprites/player/nagmon_hero_curly.png"
+    ) as img:
+        assert img.size == (384, 384)
+
+
+@pytest.mark.parametrize(("base", "evo", "subject"), BATCH3_FAMILIES)
+def test_batch3_monsters(moddata, base, evo, subject):
+    from nagmon.quiz_flow import SubjectMap
+
+    db = moddata.database
+    smap = SubjectMap.load(NAGMON / "learning/subjects.yaml")
+    first, second = db["monster"][base], db["monster"][evo]
+    assert [(e.monster_slug, e.at_level) for e in first.evolutions] == [
+        (evo, 16)
+    ]
+    for monster in (first, second):
+        sheet = NAGMON / "gfx/sprites/battle" / f"{monster.slug}-sheet.png"
+        with Image.open(sheet) as img:
+            assert img.size == (384, 264)
+        own = 0
+        for move in monster.moveset:
+            assert move.technique in db["technique"], move.technique
+            types = list(db["technique"][move.technique].types)
+            own += smap.subject_for(types, monster=monster.slug) == subject
+        # Everything but the shared fallback (struggle) asks its subject.
+        assert own >= len(monster.moveset) - 1, monster.slug
+        species = monster.species
+        for locale in ("en_US", "he_IL"):
+            for key in (monster.slug, f"{monster.slug}_description"):
+                assert po(locale).get(key), f"{locale}: {key}"
+            assert po(locale).get(f"cat_{species}"), f"{locale}: {species}"
+
+
+def test_route_1_also_meets_pluson_and_flaskling(moddata):
+    table = moddata.database["encounter"]["nagmon_route1"].monsters
+    rates = {m.monster: m.encounter_rate for m in table}
+    assert rates["pluson"] == rates["flaskling"] == 1
+    assert rates["geometrion"] == rates["alphabel"] == 2

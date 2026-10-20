@@ -849,3 +849,76 @@ msgstr "אריה עם כנפיים ומילים ברעמה. יש לו מילה �
 
 msgid "cat_word_lion"
 msgstr "אריה מילים"
+
+# Eight more subject monsters (docs/kids/SDD_ART.md §2.10).
+msgid "pluson"
+msgstr "Pluson"
+
+msgid "pluson_description"
+msgstr "פלוס קטן עם ניצוץ בזנב. הוא אוהב לחבר דברים."
+
+msgid "cat_plus_spark"
+msgstr "ניצוץ פלוס"
+
+msgid "multivolt"
+msgstr "Multivolt"
+
+msgid "multivolt_description"
+msgstr "זנב הברק שלו גדל עם כל תרגיל שפתר."
+
+msgid "cat_volt_cross"
+msgstr "צלב ברקים"
+
+msgid "flaskling"
+msgstr "Flaskling"
+
+msgid "flaskling_description"
+msgstr "צנצנת עם נבט למעלה. כשהיא סקרנית, עולות בה בועות."
+
+msgid "cat_leaf_flask"
+msgstr "צנצנת עלים"
+
+msgid "botanikos"
+msgstr "Botanikos"
+
+msgid "botanikos_description"
+msgstr "גן שלם צומח בזכוכית שלו. הוא מתבונן איך דברים משתנים."
+
+msgid "cat_garden_flask"
+msgstr "צנצנת גן"
+
+msgid "puzzlet"
+msgstr "Puzzlet"
+
+msgid "puzzlet_description"
+msgstr "חלק פאזל עם עין סקרנית אחת. הוא מחפש את החלק שמתאים."
+
+msgid "cat_puzzle_piece"
+msgstr "חלק פאזל"
+
+msgid "enigmon"
+msgstr "Enigmon"
+
+msgid "enigmon_description"
+msgstr "הוא פותר חידות לאט ובזהירות, צעד אחר צעד."
+
+msgid "cat_riddle_puzzle"
+msgstr "פאזל חידות"
+
+msgid "scrollo"
+msgstr "Scrollo"
+
+msgid "scrollo_description"
+msgstr "מגילה קטנה שאוהבת אותיות. היא קוראת כל שלט שהיא עוברת."
+
+msgid "cat_little_scroll"
+msgstr "מגילה קטנה"
+
+msgid "megillon"
+msgstr "Megillon"
+
+msgid "megillon_description"
+msgstr "מגילה כפולה מלאה סיפורים. היא מספרת אותם בעזרת הסרטים שלה."
+
+msgid "cat_great_scroll"
+msgstr "מגילה גדולה"

@@ -1,0 +1,71 @@
+# Pluson: base form, math: lightning/fire (docs/kids/SDD_ART.md §2.10).
+slug: pluson
+species: plus_spark
+moveset:
+- level_learned: 1
+  technique: struggle
+  learning_method: fallback
+- level_learned: 1
+  technique: buzz
+- level_learned: 1
+  technique: lightning_spheres
+- level_learned: 4
+  technique: fire_ball
+- level_learned: 7
+  technique: surge
+- level_learned: 10
+  technique: thunderclap
+- level_learned: 13
+  technique: torch
+- level_learned: 16
+  technique: battery_discharge
+- level_learned: 20
+  technique: energy_claws
+- level_learned: 26
+  technique: kindling_flame
+- level_learned: 30
+  technique: flamethrower
+- level_learned: 36
+  technique: laser_beam
+- level_learned: 42
+  technique: electrical_storm
+evolutions:
+- at_level: 16
+  monster_slug: multivolt
+history:
+- slug: pluson
+  stage: basic
+  evolves_from: []
+  evolves_into:
+  - multivolt
+- slug: multivolt
+  stage: stage1
+  evolves_from:
+  - pluson
+  evolves_into: []
+terrains:
+- urban
+- grassland
+tags:
+- claws
+- love
+shape: varmint
+stage: basic
+types:
+- lightning
+gender_weights:
+  male: 0.5
+  female: 0.5
+txmn_id: 398
+height: 40
+weight: 10
+sounds:
+  combat_call:
+    sfx: sound_spell_fire_06
+    volume: 1.5
+  faint_call:
+    sfx: sound_spell_fire_06_faint
+    volume: 1.5
+catch_rate: 100.0
+lower_catch_resistance: 0.95
+upper_catch_resistance: 1.25

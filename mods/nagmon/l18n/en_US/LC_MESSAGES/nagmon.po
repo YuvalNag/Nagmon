@@ -850,3 +850,76 @@ msgstr "A winged lion with words in its mane. It knows a word for everything."
 
 msgid "cat_word_lion"
 msgstr "Word Lion"
+
+# Eight more subject monsters (docs/kids/SDD_ART.md §2.10).
+msgid "pluson"
+msgstr "Pluson"
+
+msgid "pluson_description"
+msgstr "A little plus with a spark in its tail. It loves adding things up."
+
+msgid "cat_plus_spark"
+msgstr "Plus Spark"
+
+msgid "multivolt"
+msgstr "Multivolt"
+
+msgid "multivolt_description"
+msgstr "Its lightning tail grew with every sum it solved."
+
+msgid "cat_volt_cross"
+msgstr "Volt Cross"
+
+msgid "flaskling"
+msgstr "Flaskling"
+
+msgid "flaskling_description"
+msgstr "A flask with a sprout on top. Bubbles rise when it is curious."
+
+msgid "cat_leaf_flask"
+msgstr "Leaf Flask"
+
+msgid "botanikos"
+msgstr "Botanikos"
+
+msgid "botanikos_description"
+msgstr "A whole garden grows in its glass. It watches how things change."
+
+msgid "cat_garden_flask"
+msgstr "Garden Flask"
+
+msgid "puzzlet"
+msgstr "Puzzlet"
+
+msgid "puzzlet_description"
+msgstr "A puzzle piece with one curious eye. It looks for the piece that fits."
+
+msgid "cat_puzzle_piece"
+msgstr "Puzzle Piece"
+
+msgid "enigmon"
+msgstr "Enigmon"
+
+msgid "enigmon_description"
+msgstr "It solves riddles slowly and carefully, one step at a time."
+
+msgid "cat_riddle_puzzle"
+msgstr "Riddle Puzzle"
+
+msgid "scrollo"
+msgstr "Scrollo"
+
+msgid "scrollo_description"
+msgstr "A small scroll that loves letters. It reads every sign it passes."
+
+msgid "cat_little_scroll"
+msgstr "Little Scroll"
+
+msgid "megillon"
+msgstr "Megillon"
+
+msgid "megillon_description"
+msgstr "A double scroll full of stories. It tells them with its ribbons."
+
+msgid "cat_great_scroll"
+msgstr "Great Scroll"

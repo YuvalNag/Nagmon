@@ -50,8 +50,8 @@
   combat: {}
   audio: {}
   template:
-    sprite_name: childactor
-    combat_sheet: childactor
+    sprite_name: nagmon_kid
+    combat_sheet: nagmon_kid
     slug: childactor
 - slug: nagmon_kitten
   speech:
@@ -70,8 +70,8 @@
   combat: {}
   audio: {}
   template:
-    sprite_name: granny
-    combat_sheet: granny
+    sprite_name: nagmon_granny
+    combat_sheet: nagmon_granny
     slug: granny
 - slug: nagmon_route1_trainer
   speech:
@@ -80,8 +80,8 @@
   combat: {}
   audio: {}
   template:
-    sprite_name: postboy
-    combat_sheet: postboy
+    sprite_name: nagmon_mailcarrier
+    combat_sheet: nagmon_mailcarrier
     slug: postboy
 - slug: nagmon_wallet
   speech:
@@ -122,4 +122,21 @@
   template:
     sprite_name: nagmon_granite
     combat_sheet: nagmon_granite
+    slug: monk
+
+# Master Mila of our math academy (SDD_WORLD §2.5): as Granite, only the
+# academy creates her; same words, the owner's art (SDD_ART §2.10).
+- slug: classic_gym_leader_mila
+  speech:
+    profile:
+      default:
+        pre_battle: classic_gym_leader_mila_pre
+        post_battle_win: null
+        post_battle_lose: classic_gym_leader_mila_post
+        post_battle_draw: null
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_mila
+    combat_sheet: nagmon_mila
     slug: monk
