@@ -10,7 +10,9 @@ import { App } from "../../../src/App";
 import type { MapLifecycle } from "../../../src/game/mapGame";
 import { openServices } from "../../../src/app/services";
 import { forgetChecks } from "../../../src/core/fieldData/github";
+import { crumb } from "../../../src/core/game/breadcrumb";
 import { t } from "../../../src/i18n";
+import { appLogText, installAppLog, uninstallAppLog } from "../../../src/platform/appLog";
 import { SECRET_KEYS } from "../../../src/platform/secrets";
 import { MemoryFileStore } from "../../../src/platform/storage";
 import { parentsBackStep, type ParentsPage } from "../../../src/ui/screens/parents/pages";
@@ -58,6 +60,20 @@ async function start(children = ["דנה", "גל"], lifecycle?: MapLifecycle) {
   const ids = (await services.profiles.list()).map((p) => p.id);
   return { services, container, el, press, screen, text, androidBack, waitScreen, code, ids };
 }
+
+describe("something is wrong", () => {
+  it("writes where the child was into the log, and says so", async () => {
+    uninstallAppLog();
+    await installAppLog(new MemoryFileStore());
+    crumb.screen("quiz");
+    crumb.position("classic_route_1", 4, 9);
+    const app = await start();
+    await app.press("parents_report");
+    await vi.waitFor(() => expect(app.text()).toContain(t("reportDone")));
+    expect(appLogText()).toContain("REPORT screen=quiz map=classic_route_1 x=4 y=9");
+    uninstallAppLog();
+  });
+});
 
 describe("the children", () => {
   it("a name, a grade and a hero are saved, and who-plays shows them", async () => {

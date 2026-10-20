@@ -59,6 +59,21 @@ describe("route 1", () => {
   });
 });
 
+describe("the encounter areas of a map", () => {
+  it("route 1 has three, each a box of the map with a table and a rate", () => {
+    const route = load("classic_route_1");
+    expect(route.encounters).toEqual([
+      { box: { x: 2, y: 5, w: 9, h: 10 }, table: "nagmon_route1", rate: 11 },
+      { box: { x: 15, y: 5, w: 10, h: 10 }, table: "nagmon_route1", rate: 11 },
+      { box: { x: 29, y: 5, w: 9, h: 10 }, table: "nagmon_route1", rate: 11 },
+    ]);
+  });
+
+  it("a town has none", () => {
+    expect(load("classic_hearthrock_city").encounters).toEqual([]);
+  });
+});
+
 describe("the conditions a map's start needs", () => {
   const state = { variables: new Map([["academy_granite_done", "yes"]]), characters: new Set(["nagmon_owl"]) };
 

@@ -51,20 +51,20 @@ describe("ring log", () => {
     expect(text).toMatch(/\n\s+at /);
   });
 
-  it("keeps no more than 400 lines", () => {
+  it("keeps no more than 2000 lines", () => {
     const r = ring();
-    for (let i = 0; i < 1000; i++) r.log("nagmon.x", "INFO", `line ${i}`);
+    for (let i = 0; i < 3000; i++) r.log("nagmon.x", "INFO", `line ${i}`);
     const lines = r.lines();
     expect(lines).toHaveLength(MAX_LINES);
-    expect(MAX_LINES).toBe(400);
-    expect(lines.at(-1)!.endsWith("line 999")).toBe(true);
-    expect(lines[0]!.endsWith("line 600")).toBe(true);
+    expect(MAX_LINES).toBe(2000);
+    expect(lines.at(-1)!.endsWith("line 2999")).toBe(true);
+    expect(lines[0]!.endsWith("line 1000")).toBe(true);
   });
 
   it("a multi-line message still fits", () => {
     const r = ring();
-    r.log("nagmon.x", "WARNING", Array(900).fill("x").join("\n"));
-    expect(r.lines()).toHaveLength(400);
+    r.log("nagmon.x", "WARNING", Array(2500).fill("x").join("\n"));
+    expect(r.lines()).toHaveLength(MAX_LINES);
   });
 
   it("hides keys as they are written", () => {
@@ -188,7 +188,7 @@ describe("the log file", () => {
   it("a huge message does not overflow the stack and keeps the end", () => {
     const r = ring();
     r.log("nagmon.x", "WARNING", Array.from({ length: 300_000 }, (_, i) => `l${i}`).join("\n"));
-    expect(r.lines()).toHaveLength(400);
+    expect(r.lines()).toHaveLength(MAX_LINES);
     expect(r.lines().at(-1)).toBe("l299999");
   });
 
@@ -205,11 +205,11 @@ describe("the log file", () => {
 
   it("loading keeps the newest lines", async () => {
     const fs = new MemoryFileStore();
-    await fs.writeText("app_log.txt", Array.from({ length: 500 }, (_, i) => `old ${i}`).join("\n") + "\n");
+    await fs.writeText("app_log.txt", Array.from({ length: 2500 }, (_, i) => `old ${i}`).join("\n") + "\n");
     const again = new RingLog({ clock });
     expect(await again.load(fs, "app_log.txt")).toBe("unknown");
-    expect(again.lines()).toHaveLength(400);
-    expect(again.lines().at(-1)).toBe("old 499");
+    expect(again.lines()).toHaveLength(MAX_LINES);
+    expect(again.lines().at(-1)).toBe("old 2499");
   });
 
   it("a missing log file is fine", async () => {

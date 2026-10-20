@@ -141,6 +141,8 @@ export class LearnerState {
   log: LogEntry[] = [];
   words = new Map<string, number>();
   worked_examples = new Set<string>();
+  /** Where each subject starts, from the placement; a subject not here uses `grade`. */
+  subject_grade = new Map<string, number>();
   coins_total = 0;
   answers_total = 0;
   correct_total = 0;
@@ -188,12 +190,18 @@ export class LearnerState {
   }
 
   // -- accessors ------------------------------------------------------------
+  /** The level a subject is taken at: its placement, else the learner's grade. */
+  gradeIn(subject: string | null | undefined): number {
+    return (subject ? this.subject_grade.get(subject) : undefined) ?? this.grade;
+  }
+
   /** The skill's stats, created with the initial theta for its grade. */
-  skill(skillId: string, skillGrade: number | null = null): SkillStats {
+  skill(skillId: string, skillGrade: number | null = null, subject: string | null = null): SkillStats {
     let st = this.skills.get(skillId);
     if (st === undefined) {
-      const g = skillGrade === null ? this.grade : skillGrade;
-      st = new SkillStats({ theta: initialTheta(this.grade, g) });
+      const own = this.gradeIn(subject);
+      const g = skillGrade === null ? own : skillGrade;
+      st = new SkillStats({ theta: initialTheta(own, g) });
       this.skills.set(skillId, st);
     }
     return st;
@@ -222,7 +230,9 @@ export class LearnerState {
 
   // -- serialization --------------------------------------------------------
   toDict(): LearnerData {
+    const placed = this.subject_grade.size ? { subject_grade: Object.fromEntries(this.subject_grade) } : {};
     return {
+      ...placed,
       schema_version: SCHEMA_VERSION,
       learner_id: this.learner_id,
       name: this.name,
@@ -268,6 +278,9 @@ export class LearnerState {
     for (const raw of (d["log"] as Record<string, unknown>[] | null) ?? []) s.logAnswer(logEntryFromDict(raw));
     s.words = new Map(Object.entries((d["words"] as Record<string, number> | null) ?? {}));
     s.worked_examples = new Set((d["worked_examples"] as string[] | null) ?? []);
+    for (const [k, v] of Object.entries((d["subject_grade"] as Record<string, number> | null) ?? {})) {
+      if (Number.isFinite(Number(v))) s.subject_grade.set(k, Math.trunc(Number(v)));
+    }
     s.coins_total = Math.trunc(Number(d["coins_total"] ?? 0));
     s.answers_total = Math.trunc(Number(d["answers_total"] ?? 0));
     s.correct_total = Math.trunc(Number(d["correct_total"] ?? 0));
@@ -292,6 +305,7 @@ export interface LearnerData {
   log: Record<string, unknown>[];
   words: Record<string, number>;
   worked_examples: string[];
+  subject_grade?: Record<string, number>;
   coins_total: number;
   answers_total: number;
   correct_total: number;

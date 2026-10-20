@@ -502,3 +502,563 @@ button.map-menu {
 .letters .space {
   font-size: var(--text);
 }
+
+/* ---- the coins, the talk button (M4) ---- */
+
+/* small, at the top corner away from the menu button */
+.map-coins {
+  position: absolute;
+  top: var(--gap);
+  inset-inline-end: max(16px, env(safe-area-inset-left));
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0 var(--gap);
+  border-radius: var(--radius);
+  background: rgba(23, 50, 58, 0.72);
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.map-coins svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* under the right thumb, across from the d-pad; the camera keeps the hero
+   out of this corner (src/game/mapGame.ts reservedRight) */
+.map-talk-slot {
+  position: absolute;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: var(--gap);
+  width: calc(var(--touch) * 2.2);
+  height: calc(var(--touch) * 1.4);
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  pointer-events: none;
+}
+
+button.map-talk {
+  flex: 1;
+  padding: 0;
+  font-size: calc(var(--text) * 1.15);
+  font-weight: 700;
+  pointer-events: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* ---- a person's words over the map (src/ui/Dialog.tsx) ---- */
+
+.dialog-layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* the whole screen takes the tap; the words sit at the bottom */
+button.dialog {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: var(--gap) max(16px, env(safe-area-inset-right)) var(--gap) max(16px, env(safe-area-inset-left));
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.dialog-box {
+  position: relative;
+  display: block;
+  width: min(100%, 44em);
+  padding: var(--gap) calc(var(--gap) * 2) calc(var(--gap) * 1.2);
+  border: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  text-align: start;
+  font-size: calc(var(--text) * 1.1);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+
+.dialog-text {
+  display: block;
+}
+
+/* the rest of the page holds its place while the words type out */
+.dialog-rest {
+  visibility: hidden;
+}
+
+.dialog-more {
+  position: absolute;
+  inset-inline-end: calc(var(--gap) * 0.6);
+  bottom: calc(var(--gap) * 0.3);
+  width: 0.8em;
+  height: 0.8em;
+}
+
+.dialog-more svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: var(--accent);
+}
+
+/* ---- a question over the map (src/ui/QuizScreen.tsx) ---- */
+
+.quiz {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  padding: var(--gap) max(16px, env(safe-area-inset-right)) var(--gap) max(16px, env(safe-area-inset-left));
+  background: linear-gradient(var(--bg), var(--bg-deep));
+}
+
+.quiz p {
+  margin: 0;
+  text-align: center;
+}
+
+.quiz-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  max-width: 100%;
+  min-height: 0;
+}
+
+.figure {
+  flex: 0 0 auto;
+  height: 30vh;
+  max-width: 40vw;
+}
+
+.fig-label {
+  text-anchor: middle;
+  dominant-baseline: central;
+  font-family: "Rubik", system-ui, sans-serif;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.quiz .quiz-question {
+  font-size: calc(var(--text) * 1.15);
+  font-weight: 600;
+  max-width: 34em;
+}
+
+.quiz-en {
+  display: block;
+  font-size: 0.85em;
+  color: var(--ink-soft);
+}
+
+.quiz-answers {
+  display: flex;
+  gap: var(--gap);
+  justify-content: center;
+  max-width: 100%;
+}
+
+button.quiz-choice {
+  min-width: calc(var(--touch) * 2.4);
+  min-height: calc(var(--touch) * 1.25);
+  padding: 0 var(--gap);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--text) * 1.2);
+  font-weight: 600;
+}
+
+.quiz-choice img {
+  height: 10vh;
+}
+
+.quiz-foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+}
+
+.quiz-subject {
+  padding: 0 var(--gap);
+  color: var(--ink-soft);
+}
+
+.quiz .quiz-hint {
+  padding: 0 var(--gap);
+  border-radius: var(--radius);
+  background: #fff3c4;
+  color: var(--ink);
+  max-width: 36em;
+}
+
+/* the number pad: the question at the start side, big keys at the end */
+.quiz.quiz-pad {
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.quiz-side {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.quiz-side .figure {
+  height: 22vh;
+}
+
+.quiz .quiz-typed {
+  min-width: 4em;
+  padding: 0 var(--gap);
+  border-bottom: 3px solid var(--accent);
+  font-size: var(--text-big);
+  font-weight: 600;
+}
+
+.quiz-keys {
+  flex: none;
+  display: grid;
+  /* as wide as the parent code's keys: "מחק" fits at 130% text */
+  grid-template-columns: repeat(4, 20vh);
+  grid-auto-rows: 17vh;
+  gap: 2vh;
+}
+
+.quiz-keys .key {
+  font-size: calc(var(--text) * 1.2);
+}
+
+.quiz-keys .key.erase {
+  font-size: var(--text);
+}
+
+.quiz-keys .key.check {
+  grid-column: span 2;
+  font-size: var(--text);
+  background: #d9f2d9;
+  border-color: #3f9142;
+}
+
+/* feedback: calm colours; a miss is never red */
+.quiz .quiz-headline {
+  font-size: var(--text-big);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.quiz .quiz-headline.right {
+  color: #256b29;
+}
+
+.quiz .quiz-answer {
+  font-weight: 600;
+}
+
+.quiz .quiz-explain {
+  max-width: 36em;
+}
+
+.quiz .quiz-owl,
+.quiz .quiz-star {
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------ the intro */
+
+.intro-ask {
+  position: absolute;
+  inset: 0;
+}
+
+.intro-progress {
+  position: absolute;
+  top: var(--gap);
+  inset-inline-start: var(--gap);
+  margin: 0;
+  padding: 0 var(--gap);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--ink-soft);
+}
+
+.screen.intro-pick {
+  position: absolute;
+  inset: 0;
+}
+
+.starters {
+  display: flex;
+  gap: var(--gap);
+  justify-content: center;
+  align-items: stretch;
+}
+
+.card.starter {
+  height: auto;
+  min-width: calc(var(--touch) * 3);
+  padding: var(--gap);
+  justify-content: center;
+}
+
+.starter-name {
+  font-size: calc(var(--text) * 1.15);
+  font-weight: 700;
+}
+
+.starter-reason {
+  font-size: calc(var(--text) * 0.7);
+  color: var(--ink);
+  max-width: 9em;
+}
+
+.starter-why {
+  font-size: calc(var(--text) * 0.8);
+  color: var(--ink);
+}
+
+.monster-pic {
+  display: inline-block;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.monster-pic > span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  max-width: none !important;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+/* ----------------------------------------------------------- the battle */
+
+.battle-ask {
+  position: absolute;
+  inset: 0;
+}
+
+.battle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  padding: var(--gap) max(16px, env(safe-area-inset-right)) var(--gap) max(16px, env(safe-area-inset-left));
+  background: linear-gradient(#cfe9ee, #bfe3c4);
+}
+
+.battle-field {
+  display: flex;
+  min-width: 0;
+  gap: var(--gap);
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.battle-side {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gap);
+}
+
+.battle-side.theirs {
+  align-items: flex-start;
+}
+
+.battle-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 6.5em;
+  padding: calc(var(--gap) / 2) var(--gap);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+}
+
+.battle-name {
+  font-weight: 700;
+  font-size: calc(var(--text) * 0.9);
+}
+
+.battle-level {
+  font-size: calc(var(--text) * 0.75);
+}
+
+.meter {
+  height: max(10px, 2.2vh);
+  border-radius: 999px;
+  background: #d5e3e6;
+  overflow: hidden;
+}
+
+.meter > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.7s ease-out;
+}
+
+.meter.hp > span {
+  background: #3f9d58;
+}
+
+.meter.xp > span {
+  background: #1f6f8b;
+}
+
+.battle-message {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 34em;
+  font-size: calc(var(--text) * 0.95);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.battle-buttons .primary {
+  min-width: calc(var(--touch) * 3);
+}
+
+.battle-pic.hit {
+  animation: battle-shake 0.5s ease-in-out;
+}
+
+.battle-pic.lunge {
+  animation: battle-lunge 0.5s ease-in-out;
+}
+
+.battle-pic.friend {
+  animation: battle-happy 0.9s ease-in-out 2;
+}
+
+@keyframes battle-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+@keyframes battle-lunge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(28px); }
+}
+
+@keyframes battle-happy {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .battle-pic { animation: none !important; }
+  .meter > span { transition: none; }
+}
+
+/* ------------------------------------------------- trips and the bestiary */
+
+.trips,
+.bestiary {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+  padding: var(--gap) max(16px, env(safe-area-inset-right)) var(--gap) max(16px, env(safe-area-inset-left));
+  background: linear-gradient(var(--bg), var(--bg-deep));
+  color: var(--ink);
+  overflow-y: auto;
+}
+
+.trips p,
+.bestiary p {
+  margin: 0;
+  text-align: center;
+}
+
+.trips-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11em, 1fr));
+  gap: var(--gap);
+  width: 100%;
+}
+
+button.zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--touch) * 1.3);
+  padding: calc(var(--gap) / 2) var(--gap);
+}
+
+.zone-title {
+  font-weight: 700;
+}
+
+.zone-why {
+  font-size: calc(var(--text) * 0.75);
+}
+
+.bestiary-top {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bestiary-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  gap: var(--gap);
+  width: 100%;
+}
+
+.beast {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: calc(var(--gap) / 2);
+  border-radius: var(--radius);
+  background: #fff;
+  text-align: center;
+}
+
+.beast.unknown .monster-pic {
+  filter: brightness(0) opacity(0.35);
+}
+
+.beast-fact {
+  font-size: calc(var(--text) * 0.7);
+}

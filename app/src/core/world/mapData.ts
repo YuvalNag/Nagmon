@@ -13,13 +13,13 @@ interface Property {
   value: unknown;
 }
 
-interface Condition {
+export interface Condition {
   operator: "is" | "not";
   type: string;
   args: string[];
 }
 
-interface Action {
+export interface Action {
   type: string;
   args: string[];
 }
@@ -27,6 +27,17 @@ interface Action {
 interface EventScript {
   conditions: Condition[];
   actions: Action[];
+  behaviors?: Action[];
+}
+
+/** One of the map's event scripts, in the map's order (core/world/events.ts runs them). */
+export interface WorldEvent {
+  id: number;
+  name: string;
+  conditions: Condition[];
+  actions: Action[];
+  /** `talk <npc>`: the event runs when the player talks to that person. */
+  behaviors: Action[];
 }
 
 interface TiledObject {
@@ -101,6 +112,18 @@ export interface WorldMap {
   blocked: BlockedExit[];
   /** The tile layers, bottom up; `above` are drawn over the walkers. */
   layers: { below: string[]; above: string[] };
+  /** Every event script on the map, in its order. */
+  events: WorldEvent[];
+  /** Where wild creatures may meet the hero (the old `random_encounter` events). */
+  encounters: EncounterArea[];
+}
+
+/** A box of the map where a step may meet a wild creature of a table (db/encounters.json). */
+export interface EncounterArea {
+  box: Box;
+  table: string;
+  /** The chance of a meeting in a step, in percent. */
+  rate: number;
 }
 
 /** The game's state as conditions see it: variables (`key` -> `value`) and who exists. */
@@ -172,16 +195,24 @@ export function readMap(name: string, json: TiledMap, state: WorldState = NEW_GA
   let start: Tile | null = null;
   const npcs: Placement[] = [];
   const teleports: Teleport[] = [];
+  const events: WorldEvent[] = [];
+  const encounters: EncounterArea[] = [];
   const characters = new Set(state.characters);
 
   for (const o of objects("events")) {
     const s = script(o);
     if (!s) continue;
+    events.push({ id: o.id, name: o.name, conditions: s.conditions, actions: s.actions, behaviors: s.behaviors ?? [] });
     for (const a of s.actions) {
       if (a.type === "play_music" && music === null) music = a.args[0];
       if (a.type === "set_teleport_faint" && mapName(a.args[1]) === name && start === null) {
         start = { x: Number(a.args[2]), y: Number(a.args[3]) };
       }
+    }
+    const meet = s.actions.find((a) => a.type === "random_encounter");
+    if (meet && s.conditions.some((c) => c.type === "char_at") && meet.args[0]) {
+      const rate = Number(meet.args[1]);
+      encounters.push({ box: box(o, tile), table: meet.args[0], rate: Number.isFinite(rate) && rate > 0 ? rate : 10 });
     }
     const teleport = s.actions.find((a) => a.type === "transition_teleport" || a.type === "teleport");
     if (teleport && teleport.args[0] === "player" && s.conditions.some((c) => c.type === "char_at")) {
@@ -230,6 +261,8 @@ export function readMap(name: string, json: TiledMap, state: WorldState = NEW_GA
     teleports,
     blocked,
     layers: { below: tileLayers.filter((n) => !above.includes(n)), above },
+    events,
+    encounters,
   };
 }
 

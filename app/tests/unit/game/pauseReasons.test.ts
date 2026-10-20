@@ -25,4 +25,15 @@ describe("why the map is paused", () => {
     expect(p.pause("lifecycle")).toBe(false);
     expect(p.resume("lifecycle")).toBe(true);
   });
+
+  it("a talk holds the map but not the music; the menu or the background silence it", () => {
+    const p = new PauseReasons();
+    p.pause("talk");
+    expect([p.paused, p.silent]).toEqual([true, false]);
+    p.pause("lifecycle");
+    expect(p.silent).toBe(true);
+    p.resume("lifecycle");
+    expect([p.paused, p.silent]).toEqual([true, false]);
+    expect(p.resume("talk")).toBe(true);
+  });
 });

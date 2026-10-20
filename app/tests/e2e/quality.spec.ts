@@ -1,6 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import type { Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
+import { answer, openMap, quiz, readDialog, seedChild, steps, toCashier } from "./cashier";
 import { fitsAndSharp, touch, typeCode } from "./touch";
 
 /**
@@ -15,6 +16,11 @@ import { fitsAndSharp, touch, typeCode } from "./touch";
  */
 
 const id = (s: string) => `[data-id="${s}"]`;
+
+// the map projects run only the checks that walk the map (@map); the phone projects run the rest
+test.beforeEach(({}, info) => {
+  test.skip(info.project.name.startsWith("map") && !info.title.includes("@map"), "a phone project's check");
+});
 /** Android's minimum touch target, 48dp = 48 CSS px in the WebView. */
 const MIN_TARGET = 48;
 
@@ -107,7 +113,7 @@ async function audit(page: Page, label: string, shot: (name: string) => Promise<
 
 for (const scale of [1, 1.3]) {
   test(`every screen of the flow passes axe, 48dp and no clipping, at ${scale * 100}% text`, async ({ page }, info) => {
-    // the whole flow and the parents' area, two axe runs on each screen
+    // the whole flow, the map and the parents' area, two axe runs on each screen
     test.setTimeout(180_000);
     if (scale !== 1) {
       await page.addInitScript((s) => {
@@ -272,3 +278,122 @@ test("who-plays with eight children, the longest name among them, at 130% text",
   await expect(page.locator("[data-screen=who-plays] .card")).toHaveCount(8);
   await audit(page, "who_eight", (name) => page.screenshot({ path: info.outputPath(`130-${name}.png`) }));
 });
+
+/**
+ * The cashier's screens (M4): the map with the talk button, the dialog,
+ * the owl's worked example, the question (choice cards with a picture for
+ * a kindergartener, the number pad for an older child), the hint, and the
+ * feedback, at 100% and 130% text.
+ */
+const CHILDREN = [
+  { label: "choices", grade: 0, settings: {} },
+  { label: "pad", grade: 4, settings: { learning: { answer_mode: "number" } } },
+];
+for (const scale of [1, 1.3]) {
+  for (const child of CHILDREN) {
+    test(`the cashier's screens (${child.label}) pass axe, 48dp and no clipping, at ${scale * 100}% text @map`, async ({ page }, info) => {
+      // the walk takes real steps on a software-drawn map
+      test.setTimeout(240_000);
+      await page.addInitScript((s) => {
+        const set = () => document.documentElement?.style.setProperty("--font-scale", String(s));
+        set();
+        document.addEventListener("DOMContentLoaded", set);
+      }, scale);
+      await seedChild(page, { grade: child.grade, settings: child.settings });
+      const shot = (name: string) => page.screenshot({ path: info.outputPath(`${scale * 100}-${child.label}-${name}.png`) });
+      await openMap(page);
+      await toCashier(page);
+      await audit(page, "20_map_talk", shot);
+      await touch(page, page.locator(id("map_talk")), 30);
+      const dialog = page.locator("[data-screen=dialog]");
+      await expect(dialog).toHaveAttribute("data-full", "true", { timeout: 10_000 });
+      await audit(page, "21_dialog", shot);
+      while (await dialog.count()) {
+        await expect(dialog).toHaveAttribute("data-full", "true", { timeout: 10_000 });
+        await touch(page, page.locator(id("dialog")), 30);
+      }
+      await expect(page.locator("[data-screen=quiz]")).toBeVisible();
+      if ((await quiz(page))!.phase === "example") {
+        await audit(page, "22_example", shot);
+        await touch(page, page.locator(id("quiz_example_done")), 30);
+      }
+      await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
+      expect((await quiz(page))!.kind).toBe(child.label === "pad" ? "number" : "choice");
+      await audit(page, "23_question", shot);
+      await touch(page, page.locator(id("quiz_hint")), 30);
+      await expect(page.locator(id("quiz_hint_text"))).toBeVisible();
+      await audit(page, "24_hint", shot);
+      await answer(page, "dont_know");
+      await audit(page, "25_feedback", shot);
+    });
+  }
+}
+
+/**
+ * The owl's intro (M4b): the question with its progress, and the choice
+ * of a creature, at 100% and 130% text.
+ */
+for (const scale of [1, 1.3]) {
+  test(`the owl's intro screens pass axe, 48dp and no clipping, at ${scale * 100}% text @map`, async ({ page }, info) => {
+    test.setTimeout(240_000);
+    await page.addInitScript((s) => {
+      const set = () => document.documentElement?.style.setProperty("--font-scale", String(s));
+      set();
+      document.addEventListener("DOMContentLoaded", set);
+    }, scale);
+    await seedChild(page, { grade: 3, intro: true });
+    const shot = (name: string) => page.screenshot({ path: info.outputPath(`${scale * 100}-intro-${name}.png`) });
+    await page.goto("/");
+    await touch(page, page.locator(id("child_p00001")), 30);
+    await expect(page.locator("[data-screen=play][data-map=ready][data-play=ready]")).toBeVisible({ timeout: 30_000 });
+    await expect(page.locator("[data-screen=dialog]")).toHaveAttribute("data-full", "true", { timeout: 10_000 });
+    await audit(page, "30_owl", shot);
+    await readDialog(page);
+    await expect(page.locator("[data-screen=intro-ask]")).toBeVisible();
+    if ((await quiz(page))!.phase === "example") await touch(page, page.locator(id("quiz_example_done")), 30);
+    await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
+    await audit(page, "31_question", shot);
+    for (let i = 0; i < 6; i++) {
+      if (i > 0) await expect(page.locator("[data-screen=intro-ask]")).toHaveAttribute("data-n", String(i + 1));
+      await answer(page, "right");
+      if (i === 0) await audit(page, "32_feedback", shot);
+      await touch(page, page.locator(id("quiz_continue")), 30);
+    }
+    await readDialog(page);
+    await expect(page.locator("[data-screen=intro-starters]")).toBeVisible();
+    await audit(page, "33_starters", shot);
+  });
+}
+
+/** The battle's screens: the meeting, the question, the turn and the friend, at 100% and 130% text. */
+for (const scale of [1, 1.3]) {
+  test(`the battle's screens pass axe, 48dp and no clipping, at ${scale * 100}% text @map`, async ({ page }, info) => {
+    test.setTimeout(240_000);
+    await page.addInitScript((s) => {
+      const set = () => document.documentElement?.style.setProperty("--font-scale", String(s));
+      set();
+      document.addEventListener("DOMContentLoaded", set);
+    }, scale);
+    await seedChild(page, { grade: 2, battle: true });
+    const shot = (name: string) => page.screenshot({ path: info.outputPath(`${scale * 100}-battle-${name}.png`) });
+    await openMap(page);
+    await steps(page, "right", 1);
+    await expect(page.locator("[data-screen=battle][data-view=meet]")).toBeVisible();
+    await audit(page, "40_meet", shot);
+    await touch(page, page.locator(id("battle_fight")), 30);
+    if ((await quiz(page))!.phase === "example") await touch(page, page.locator(id("quiz_example_done")), 30);
+    await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
+    await audit(page, "41_question", shot);
+    await answer(page, "right");
+    await touch(page, page.locator(id("quiz_continue")), 30);
+    await expect(page.locator("[data-screen=battle][data-view=turn]")).toBeVisible();
+    await audit(page, "42_turn", shot);
+    for (let i = 0; i < 12 && (await page.locator("[data-screen=battle]").getAttribute("data-view")) !== "won"; i++) {
+      await touch(page, page.locator(id("battle_next")), 30);
+      await answer(page, "right");
+      await touch(page, page.locator(id("quiz_continue")), 30);
+    }
+    await expect(page.locator("[data-screen=battle][data-view=won]")).toBeVisible();
+    await audit(page, "43_friend", shot);
+  });
+}

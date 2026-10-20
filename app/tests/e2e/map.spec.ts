@@ -77,6 +77,12 @@ async function seedChild(page: Page, { name = "תמר", avatar = "girl_teal", ad
         "nagmon-fs:f:profiles/p00001/profile.json",
         JSON.stringify({ id: "p00001", name, avatar, grade: 2, order: 0, schema_version: 2 }),
       );
+      // a child who has had the owl's intro
+      localStorage.setItem("nagmon-fs:d:profiles/p00001/saves", "");
+      localStorage.setItem(
+        "nagmon-fs:f:profiles/p00001/saves/world.json",
+        JSON.stringify({ schema_version: 1, money: 0, variables: { nagmon_intro_done: "yes" } }),
+      );
     },
     { name, avatar, adaptive },
   );
@@ -377,14 +383,14 @@ test("hold an arrow to walk, let go to stop; the owl, walls and the closed way h
   await steps(page, "up", 1);
 
   // to the closed way to route 8 (39, 15-17), the long way round the
-  // one-way fences: west to the gardener, up the alley at column 8, east
-  // along the fence of row 9, down the east edge and to the exit
+  // one-way fences: west to the gardener, up the alley at column 5 to row
+  // 9 (the house doors at (8,13) and (13,13) are closed, and (18,13) and
+  // (23,13) lead into the academies), east along the fence of row 9, down
+  // the east edge and to the exit
   d = await toWall(page, "left");
   expect(d.player).toMatchObject({ x: 5, y: 16 }); // the gardener stands on (4,16)
-  await steps(page, "up", 2);
-  await steps(page, "right", 3);
-  d = await toWall(page, "up");
-  expect(d.player).toMatchObject({ x: 8, y: 9 }); // a fence: no way up from row 9
+  await steps(page, "up", 7);
+  expect((await debug(page))!.player).toMatchObject({ x: 5, y: 9 });
   d = await toWall(page, "right");
   expect(d.player).toMatchObject({ x: 39, y: 9 });
   d = await toWall(page, "down");

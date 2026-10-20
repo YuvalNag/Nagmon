@@ -13,7 +13,7 @@
 import { formatError, hideNames, redactSecrets, utcMinute } from "../core/crashReport";
 import { DATA_FILES, type FileStore, dirName, withPathLock } from "./storage";
 
-export const MAX_LINES = 400;
+export const MAX_LINES = 2000;
 export const LOG_FILE = DATA_FILES.appLog;
 /** Loggers whose INFO lines are kept; the rest from WARNING up. */
 export const OWN_LOGGERS = ["nagmon"] as const;
