@@ -50,8 +50,8 @@ export function PinPad({ title, hint, message, attempt = 0, onDone, onCancel }: 
             <span key={i} className={i < digits.length ? "dot full" : "dot"} />
           ))}
         </div>
-        {/* the answer would land on whatever screen is next: stay for it */}
-        <Tap id="pin_cancel" className="quiet" disabled={waiting} onTap={onCancel}>
+        {/* open while the code is checked: the late answer is dropped */}
+        <Tap id="pin_cancel" className="quiet" onTap={onCancel}>
           {t("back")}
         </Tap>
       </section>

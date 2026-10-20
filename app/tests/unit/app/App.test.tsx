@@ -27,7 +27,7 @@ function later<T>() {
   return { promise, resolve, reject };
 }
 
-async function start({ pin = "1234" as string | null, children = [] as string[] } = {}) {
+async function start({ pin = "1234" as string | null, children = [] as string[], workTimeoutMs = undefined as number | undefined } = {}) {
   const services = await openServices(new MemoryFileStore());
   if (pin) await services.parent.setPin(pin);
   for (const name of children) await services.profiles.create({ name, avatar: "boy_blue" });
@@ -36,7 +36,7 @@ async function start({ pin = "1234" as string | null, children = [] as string[] 
     back = handler;
     return () => (back = null);
   };
-  const { container } = render(<App services={services} backButton={backButton} />);
+  const { container } = render(<App services={services} backButton={backButton} workTimeoutMs={workTimeoutMs} />);
   await settle();
   const el = (id: string) => container.querySelector(`[data-id="${id}"]`) as HTMLButtonElement | null;
   // a keyboard press: Tap's path without a pointer, so no wait for fresh screens
@@ -46,13 +46,23 @@ async function start({ pin = "1234" as string | null, children = [] as string[] 
     fireEvent.click(b, { detail: 0 });
     await settle();
   };
+  // a finger: down and up on the button, right away (no wait for a fresh screen)
+  let finger = 1;
+  const tap = async (id: string) => {
+    const b = el(id);
+    if (!b) throw new Error(`no button ${id} on ${screen()}`);
+    const at = { pointerId: ++finger, button: 0, pointerType: "touch", clientX: 0, clientY: 0 };
+    fireEvent.pointerDown(b, at);
+    fireEvent.pointerUp(b, at);
+    await settle();
+  };
   const screen = () => container.querySelector("[data-screen]")!.getAttribute("data-screen");
   const text = () => container.querySelector("[data-screen]")!.textContent ?? "";
   const androidBack = async () => {
     act(() => back!());
     await settle();
   };
-  return { services, container, el, press, screen, text, androidBack };
+  return { services, container, el, press, tap, screen, text, androidBack };
 }
 
 async function toAvatar(app: Awaited<ReturnType<typeof start>>, name = "דן") {
@@ -83,19 +93,65 @@ describe("the parent code", () => {
     expect(app.text()).toContain("42");
   });
 
-  it("does not leave the pad, by its button or Android's, while the code is checked", async () => {
+  it("can be left while the code is checked, and the late answer is dropped", async () => {
     const app = await start();
     const check = later<PinCheck>();
     vi.spyOn(app.services.parent, "verifyPin").mockReturnValue(check.promise);
     await app.press("parents");
     for (const d of "1234") await app.press(`key_${d}`);
-    expect(app.el("pin_cancel")!.disabled).toBe(true);
+    expect(app.el("pin_cancel")!.disabled).toBe(false);
     await app.press("pin_cancel");
-    await app.androidBack();
-    expect(app.screen()).toBe("pin");
+    expect(app.screen()).toBe("who-plays");
     check.resolve({ ok: true, locked: false, attemptsLeft: 5, retryAfterS: 0 });
-    await settle();
-    expect(app.screen()).toBe("parents");
+    await settle(10);
+    expect(app.screen()).toBe("who-plays");
+    // and the screen works: the next try is not blocked by the old one
+    await app.press("parents");
+    expect(app.screen()).toBe("pin");
+  });
+
+  it("leaves by Android's back during the check, and stays out", async () => {
+    const app = await start();
+    const check = later<PinCheck>();
+    vi.spyOn(app.services.parent, "verifyPin").mockReturnValue(check.promise);
+    await app.press("parents");
+    for (const d of "0000") await app.press(`key_${d}`);
+    await app.androidBack();
+    expect(app.screen()).toBe("who-plays");
+    check.resolve({ ok: false, locked: false, attemptsLeft: 4, retryAfterS: 0 });
+    await settle(10);
+    expect(app.screen()).toBe("who-plays");
+  });
+
+  it("gives up on a check that never answers, with a fresh pad", async () => {
+    const app = await start({ workTimeoutMs: 50 });
+    vi.spyOn(app.services.parent, "verifyPin").mockReturnValue(new Promise(() => {}));
+    await app.press("parents");
+    for (const d of "1234") await app.press(`key_${d}`);
+    await settle(120);
+    expect(app.screen()).toBe("pin");
+    expect(app.container.querySelector(".message")!.textContent).toBe(t("errorTryAgain"));
+    expect(app.el("key_1")!.disabled).toBe(false);
+  });
+
+  it("counts every digit of a code typed in one rhythm, both times", async () => {
+    const app = await start({ pin: null });
+    await app.press("parents");
+    // the pad has been up a moment; from here on, taps with no pause
+    await settle(320);
+    for (const d of "12341234") await app.tap(`key_${d}`);
+    await settle(10);
+    await vi.waitFor(() => expect(app.text()).toContain(t("pinSaved")), { timeout: 5000 });
+  });
+
+  it("counts a quick new try after a wrong code", async () => {
+    const app = await start();
+    await app.press("parents");
+    await settle(320);
+    for (const d of "0000") await app.tap(`key_${d}`);
+    await vi.waitFor(() => expect(app.container.querySelector("[data-screen=pin]")!.getAttribute("data-attempt")).toBe("1"), { timeout: 5000 });
+    for (const d of "1234") await app.tap(`key_${d}`);
+    await vi.waitFor(() => expect(app.screen()).toBe("parents"), { timeout: 5000 });
   });
 
   it("gives a fresh pad and a Hebrew notice when the check fails", async () => {
@@ -197,7 +253,10 @@ describe("Android's back button", () => {
     expect(backStep({ kind: "name" })).toEqual(who);
     expect(backStep({ kind: "grade", name: "דן" })).toEqual({ kind: "name", initial: "דן" });
     expect(backStep({ kind: "avatar", name: "דן", grade: 2 })).toEqual({ kind: "grade", name: "דן" });
-    expect(backStep({ kind: "notice", text: "x", next: { kind: "name" } })).toEqual({ kind: "name" });
+    // a notice is never a way forward ("code saved" leads on to the name)
+    expect(backStep({ kind: "notice", text: "x", next: { kind: "name" } })).toEqual(who);
+    const avatar: View = { kind: "avatar", name: "דן", grade: 2 };
+    expect(backStep({ kind: "notice", text: "x", next: avatar, back: avatar })).toEqual(avatar);
     expect(backStep({ kind: "parents" })).toEqual(who);
     expect(backStep({ kind: "play", id: "p1" })).toEqual(who);
   });

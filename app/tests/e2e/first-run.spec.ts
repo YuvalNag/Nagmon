@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { fitsAndSharp, responseTimes, touch, watchEventTiming } from "./touch";
+import { fitsAndSharp, responseTimes, touch, typeCode, watchEventTiming } from "./touch";
 
 const id = (s: string) => `[data-id="${s}"]`;
 
@@ -36,7 +36,8 @@ test("a parent sets the code and adds a child with taps only", async ({ page }, 
   // the 4th digit is shown, then the pad waits: no tap can sneak in
   await expect(page.getByText("הקלידו את אותן 4 ספרות שוב")).toBeVisible();
   await expect(dots).toHaveAttribute("data-count", "0");
-  for (const d of "1234") await touch(page, page.locator(id(`key_${d}`)));
+  // the second entry right away, in the parent's rhythm: no digit lost
+  await typeCode(page, "1234", { holdMs: 120, gapMs: 200 });
   await expect(page.locator("[data-screen=notice]")).toContainText("הקוד נשמר");
   await shot("03_pin_saved");
   await touch(page, page.locator(id("next")));
@@ -92,14 +93,14 @@ test("a wrong code goes back to the pad; five lock it", async ({ page }) => {
   await page.goto("/");
   // set the code first
   await touch(page, page.locator(id("parents")));
-  for (const d of "12341234") await touch(page, page.locator(id(`key_${d}`)), 30);
+  await typeCode(page, "12341234", { holdMs: 30, gapMs: 60 });
   await touch(page, page.locator(id("next")), 30);
   await expect(page.locator("[data-screen=parents]")).toBeVisible();
   await touch(page, page.locator(id("back")), 30);
 
   await touch(page, page.locator(id("parents")), 30);
   for (let i = 1; i <= 4; i++) {
-    for (const d of "0000") await touch(page, page.locator(id(`key_${d}`)), 30);
+    await typeCode(page, "0000", { holdMs: 30, gapMs: 60 });
     // back on a fresh pad, with the message
     await expect(page.locator("[data-screen=pin]")).toHaveAttribute("data-attempt", String(i));
     await expect(page.locator("[data-screen=pin] .message")).toHaveText(
@@ -107,7 +108,7 @@ test("a wrong code goes back to the pad; five lock it", async ({ page }) => {
     );
     await expect(page.locator(id("pin_dots"))).toHaveAttribute("data-count", "0");
   }
-  for (const d of "0000") await touch(page, page.locator(id(`key_${d}`)), 30);
+  await typeCode(page, "0000", { holdMs: 30, gapMs: 60 });
   await expect(page.locator("[data-screen=notice]")).toContainText("יותר מדי ניסיונות");
 });
 

@@ -33,7 +33,7 @@ export type View =
   | { kind: "name"; initial?: string; message?: string; attempt?: number }
   | { kind: "grade"; name: string }
   | { kind: "avatar"; name: string; grade: number }
-  | { kind: "notice"; text: string; next: View }
+  | { kind: "notice"; text: string; next: View; back?: View }
   | { kind: "parents" }
   | { kind: "play"; id: string };
 
@@ -41,8 +41,9 @@ const WHO: View = { kind: "who" };
 
 /**
  * Where Android's back button goes from each screen: one step back in
- * the flow. On who-plays it does nothing; the app never closes by itself
- * under a child's finger.
+ * the flow. On who-plays it does nothing, on purpose: the app never
+ * closes by itself under a child's finger. A notice never leads forward
+ * on back ("code saved" goes on to the name only by "המשך").
  */
 export function backStep(v: View): View | null {
   switch (v.kind) {
@@ -53,7 +54,7 @@ export function backStep(v: View): View | null {
     case "avatar":
       return { kind: "grade", name: v.name };
     case "notice":
-      return v.next;
+      return v.back ?? WHO;
     default:
       return WHO;
   }
@@ -65,53 +66,80 @@ const locked = (seconds: number): View => ({
   next: WHO,
 });
 
+/** Slow work that has not answered by now has failed (a stuck disk or hash). */
+export const WORK_TIMEOUT_MS = 15_000;
+
+function within<T>(work: Promise<T>, ms: number): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const late = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`no answer after ${ms} ms`)), ms);
+  });
+  return Promise.race([work, late]).finally(() => clearTimeout(timer));
+}
+
+/**
+ * Screens that are the same screen again: the code's second entry, a new
+ * try after a wrong code or a refused name. They keep their ScreenTime,
+ * so a parent typing on in one rhythm loses no digit; a new ScreenTime
+ * (and its guard against carried-over taps) is only for a different screen.
+ */
+function sameScreen(a: View, b: View): boolean {
+  return a.kind === b.kind && (a.kind === "pin-set" || a.kind === "pin-check" || a.kind === "name");
+}
+
 interface Props {
   services: Services;
   /** Binds Android's back button; returns an unbind (tests pass their own). */
   backButton?: (handler: () => void) => () => void;
+  workTimeoutMs?: number;
 }
 
-export function App({ services, backButton = bindBackButton }: Props) {
+export function App({ services, backButton = bindBackButton, workTimeoutMs = WORK_TIMEOUT_MS }: Props) {
   const { profiles, parent } = services;
   // each screen shown gets a number: a new number is a new, fresh screen
   const [shown, setShown] = useState<{ view: View; n: number }>({ view: WHO, n: 0 });
   const current = useRef<View>(WHO);
   const [children, setChildren] = useState<Profile[]>([]);
-  const [busy, setBusy] = useState(false);
-  const busyRef = useRef(false);
+  // slow work running: its screen's keys wait; `locked` also shuts the ways out
+  const [busy, setBusy] = useState<"no" | "keys" | "locked">("no");
+  const busyRef = useRef<"no" | "keys" | "locked">("no");
+  const job = useRef(0);
   const view = shown.view;
 
+  /** Shows a screen. Any work still running is dropped: its screen is gone. */
   const show = useCallback((v: View) => {
+    const same = sameScreen(current.current, v);
     current.current = v;
-    setShown((s) => ({ view: v, n: s.n + 1 }));
+    job.current++;
+    busyRef.current = "no";
+    setBusy("no");
+    setShown((s) => ({ view: v, n: same ? s.n : s.n + 1 }));
   }, []);
 
   /**
-   * Slow work (the code's hash, the disk) for the screen showing now.
-   * Meanwhile the screen's ways out are shut; the result is shown only if
-   * that screen is still the one showing, and a failure is logged and
-   * answered with `failed` instead of freezing the screen.
+   * Slow work (the code's hash, the disk) for the screen showing now. Its
+   * result is shown only if that screen is still showing. A failure, or no
+   * answer within the time limit, is logged and answered with `failed`
+   * instead of freezing the screen. `lock` shuts the ways out meanwhile:
+   * only for saving a child, where leaving would save them unseen.
    */
   const work = useCallback(
-    async (what: string, task: () => Promise<View>, failed: View) => {
-      if (busyRef.current) return;
-      const from = current.current;
-      busyRef.current = true;
-      setBusy(true);
+    async (what: string, task: () => Promise<View>, failed: View, { lock = false } = {}) => {
+      if (busyRef.current !== "no") return;
+      const mine = ++job.current;
+      busyRef.current = lock ? "locked" : "keys";
+      setBusy(busyRef.current);
       let next: View;
       try {
-        next = await task();
+        next = await within(task(), workTimeoutMs);
       } catch (e) {
         log.error(`Could not ${what}`, e);
         next = failed;
-      } finally {
-        busyRef.current = false;
-        setBusy(false);
       }
-      if (current.current === from) show(next);
+      if (job.current === mine) show(next);
       else log.warning(`Dropped the result of "${what}": the screen changed`);
     },
-    [show],
+    [show, workTimeoutMs],
   );
 
   useEffect(() => {
@@ -124,7 +152,7 @@ export function App({ services, backButton = bindBackButton }: Props) {
   useEffect(
     () =>
       backButton(() => {
-        if (busyRef.current) return;
+        if (busyRef.current === "locked") return;
         const next = backStep(current.current);
         if (next) show(next);
       }),
@@ -220,7 +248,8 @@ export function App({ services, backButton = bindBackButton }: Props) {
         return { kind: "notice", text: t("childCreated", { name }), next: WHO };
       },
       // the same heroes again: the child taps once more
-      { kind: "notice", text: t("errorTryAgain"), next: v },
+      { kind: "notice", text: t("errorTryAgain"), next: v, back: v },
+      { lock: true },
     );
   }
 
@@ -232,7 +261,7 @@ export function App({ services, backButton = bindBackButton }: Props) {
         return (
           <WhoPlays
             children={children}
-            busy={busy}
+            busy={busy !== "no"}
             onPick={(id) => show({ kind: "play", id })}
             onNewChild={() => ask("new_child")}
             onParents={() => ask("parents")}
@@ -289,7 +318,7 @@ export function App({ services, backButton = bindBackButton }: Props) {
           <Choices
             screen="avatar"
             title={t("avatarTitle")}
-            busy={busy}
+            busy={busy !== "no"}
             choices={AVATARS.map((a) => ({ id: a.key, label: a.labelHe, image: avatarImage(a.key) }))}
             onPick={(key) => create(view, key)}
             onBack={() => show({ kind: "grade", name: view.name })}

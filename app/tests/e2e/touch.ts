@@ -22,16 +22,30 @@ export async function middle(target: Locator): Promise<{ x: number; y: number }>
  * A finger on the phone: a real touch (CDP touchStart, a hold, touchEnd)
  * at the middle of the element, the way Android's WebView gets it. A
  * child's tap lasts 100-200 ms; the old app counted a held finger twice.
- * Like a child, it waits until the screen has been up a moment.
+ * Like a child, it waits until the screen has been up a moment
+ * (`settle: false` taps at once, as a parent typing on in one rhythm).
  */
-export async function touch(page: Page, target: Locator, holdMs = 120): Promise<void> {
+export async function touch(page: Page, target: Locator, holdMs = 120, { settle = true } = {}): Promise<void> {
   const { x, y } = await middle(target);
-  await settled(page);
+  if (settle) await settled(page);
   const cdp = await page.context().newCDPSession(page);
   await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x, y }] });
   await page.waitForTimeout(holdMs);
   await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
   await cdp.detach();
+}
+
+/**
+ * A parent typing the code in one rhythm: a wait for the pad to settle,
+ * then every digit with no pause but `gapMs`. The code's second entry
+ * and a new try are the same screen, so no digit may be lost.
+ */
+export async function typeCode(page: Page, digits: string, { holdMs = 60, gapMs = 90 } = {}): Promise<void> {
+  await settled(page);
+  for (const d of digits) {
+    await touch(page, page.locator(`[data-id="key_${d}"]`), holdMs, { settle: false });
+    await page.waitForTimeout(gapMs);
+  }
 }
 
 /**

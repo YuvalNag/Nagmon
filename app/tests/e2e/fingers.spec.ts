@@ -1,5 +1,5 @@
 import { expect, test, type CDPSession, type Page } from "@playwright/test";
-import { middle, settled, touch } from "./touch";
+import { middle, settled, touch, typeCode } from "./touch";
 
 /**
  * How real hands touch the phone: a thumb resting on the edge, a finger
@@ -22,7 +22,7 @@ const up = (c: CDPSession, lifted: Point[] = []) => c.send("Input.dispatchTouchE
 /** Sets the code 1234 by taps and comes back to who-plays. */
 async function setCode(page: Page) {
   await touch(page, page.locator(id("parents")), 30);
-  for (const d of "12341234") await touch(page, page.locator(id(`key_${d}`)), 30);
+  await typeCode(page, "12341234", { holdMs: 30, gapMs: 60 });
   await touch(page, page.locator(id("next")), 30);
   await touch(page, page.locator(id("back")), 30);
 }
@@ -96,7 +96,8 @@ test("a finger that drifts on the key still taps it; one that slides off does no
 test("a fast double tap acts once, not again on the next screen", async ({ page }) => {
   await page.goto("/");
   await touch(page, page.locator(id("new_child")), 30);
-  for (const d of "123") await touch(page, page.locator(id(`key_${d}`)), 30);
+  await typeCode(page, "12341234", { holdMs: 30, gapMs: 60 });
+  await expect(page.locator("[data-screen=notice]")).toContainText("הקוד נשמר");
   const c = await finger(page);
   const doubleTap = async (p: Point) => {
     for (let i = 0; i < 2; i++) {
@@ -107,13 +108,6 @@ test("a fast double tap acts once, not again on the next screen", async ({ page 
     }
     await page.waitForTimeout(400);
   };
-  // the 4th digit: the second tap must not start the "again" pad
-  const k4 = await middle(page.locator(id("key_4")));
-  await settled(page);
-  await doubleTap(k4);
-  await expect(page.getByText("הקלידו את אותן 4 ספרות שוב")).toBeVisible();
-  await expect(dots(page)).toHaveAttribute("data-count", "0");
-  for (const d of "1234") await touch(page, page.locator(id(`key_${d}`)), 30);
   // "next" on the notice: the second tap must not press a letter
   const next = await middle(page.locator(id("next")));
   await settled(page);
@@ -128,22 +122,39 @@ test("a fast double tap acts once, not again on the next screen", async ({ page 
   await expect(page.locator("[data-screen=grade]")).toBeVisible();
 });
 
-test("back is shut while the code is checked, and the answer lands on the pad", async ({ page }) => {
+test("back during the slow check leaves the pad, and the late answer does not pull the app back", async ({ page }) => {
   await slowHash(page, 800);
   await page.goto("/");
   await setCode(page);
-  // a wrong code, then "back" during the check
-  await touch(page, page.locator(id("parents")), 30);
-  for (const d of "0000") await touch(page, page.locator(id(`key_${d}`)), 30);
-  await expect(page.locator(id("pin_cancel"))).toBeDisabled();
-  await touch(page, page.locator(id("pin_cancel")), 30);
-  await expect(page.locator("[data-screen=pin]")).toHaveAttribute("data-attempt", "1");
-  await expect(page.locator("[data-screen=pin] .message")).toContainText("הקוד לא נכון");
-  // the right code, then "back" during the check: the parents' area, once
-  for (const d of "1234") await touch(page, page.locator(id(`key_${d}`)), 30);
-  await touch(page, page.locator(id("pin_cancel")), 30);
-  await expect(page.locator("[data-screen=parents]")).toBeVisible();
+  for (const code of ["0000", "1234"]) {
+    await touch(page, page.locator(id("parents")), 30);
+    await typeCode(page, code, { holdMs: 30, gapMs: 60 });
+    await expect(page.locator("[data-screen=pin]")).toHaveAttribute("data-waiting", "true");
+    await touch(page, page.locator(id("pin_cancel")), 30, { settle: false });
+    await expect(page.locator("[data-screen=who-plays]")).toBeVisible();
+    // the answer (wrong, then right) comes while who-plays shows
+    await page.waitForTimeout(1500);
+    await expect(page.locator("[data-screen=who-plays]")).toBeVisible();
+  }
 });
+
+for (const [holdMs, gapMs] of [
+  [60, 90],
+  [120, 200],
+]) {
+  test(`a parent types the code twice in one rhythm (${holdMs}/${gapMs} ms): every digit counts`, async ({ page }) => {
+    await page.goto("/");
+    await touch(page, page.locator(id("parents")), 30);
+    await typeCode(page, "12341234", { holdMs, gapMs });
+    await expect(page.locator("[data-screen=notice]")).toContainText("הקוד נשמר");
+    await touch(page, page.locator(id("next")), 30);
+    await touch(page, page.locator(id("back")), 30);
+    // and checking it, in the same rhythm
+    await touch(page, page.locator(id("parents")), 30);
+    await typeCode(page, "1234", { holdMs, gapMs });
+    await expect(page.locator("[data-screen=parents]")).toBeVisible();
+  });
+}
 
 test("a broken hash leaves a fresh pad and a Hebrew message, not a frozen one", async ({ page }) => {
   const errors: string[] = [];
@@ -154,7 +165,7 @@ test("a broken hash leaves a fresh pad and a Hebrew message, not a frozen one", 
     crypto.subtle.deriveBits = () => Promise.reject(new Error("crypto broke"));
   });
   await touch(page, page.locator(id("parents")), 30);
-  for (const d of "1234") await touch(page, page.locator(id(`key_${d}`)), 30);
+  await typeCode(page, "1234", { holdMs: 30, gapMs: 60 });
   await expect(page.locator("[data-screen=pin] .message")).toHaveText("משהו השתבש. נסו שוב.");
   await expect(page.locator("[data-screen=pin]")).toHaveAttribute("data-waiting", "false");
   await expect(page.locator(id("pin_cancel"))).toBeEnabled();

@@ -33,12 +33,12 @@ describe("PinPad", () => {
     expect(key("key_delete").disabled).toBe(true);
   });
 
-  it("cannot be left while the code is being checked", () => {
+  it("can be left while the code is being checked", () => {
     const { press, onCancel, key } = setup();
     for (const d of "1234") press(`key_${d}`);
-    expect(key("pin_cancel").disabled).toBe(true);
+    expect(key("pin_cancel").disabled).toBe(false);
     press("pin_cancel");
-    expect(onCancel).not.toHaveBeenCalled();
+    expect(onCancel).toHaveBeenCalledTimes(1);
   });
 
   it("can be left before the last digit", () => {
