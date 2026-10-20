@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Any
 from pygame import BLEND_RGBA_MULT
 
 from tuxemon.graphics import ColorLike
-from tuxemon.map.view import load_and_scale_with_cache
+from tuxemon.map.view import load_and_scale_with_cache, native_sheet_size
 
 if TYPE_CHECKING:
     from pygame.surface import Surface
@@ -153,12 +153,15 @@ class AppearanceManager:
         self.owner.sprite_controller.update_appearance(self.state)
 
     def build_composited_sheet(self) -> Surface:
-        if self.owner.template.is_static_prop:
+        template = self.owner.template
+        if template.is_static_prop:
             base_path = f"sprites_obj/{self.state.sprite_name}.png"
+            native = None
         else:
             base_path = f"sprites/{self.state.sprite_name}.png"
+            native = native_sheet_size(template)
 
-        base = load_and_scale_with_cache(base_path)
+        base = load_and_scale_with_cache(base_path, native)
 
         if self.state.color:
             tinted = base.copy()
@@ -170,7 +173,9 @@ class AppearanceManager:
         # Outfit
         if self.state.outfit:
             final.blit(
-                load_and_scale_with_cache(f"sprites/{self.state.outfit}.png"),
+                load_and_scale_with_cache(
+                    f"sprites/{self.state.outfit}.png", native
+                ),
                 (0, 0),
             )
 
@@ -178,7 +183,7 @@ class AppearanceManager:
         if self.state.accessory:
             final.blit(
                 load_and_scale_with_cache(
-                    f"sprites/{self.state.accessory}.png"
+                    f"sprites/{self.state.accessory}.png", native
                 ),
                 (0, 0),
             )
@@ -186,7 +191,9 @@ class AppearanceManager:
         # Palette
         if self.state.palette:
             final.blit(
-                load_and_scale_with_cache(f"sprites/{self.state.palette}.png"),
+                load_and_scale_with_cache(
+                    f"sprites/{self.state.palette}.png", native
+                ),
                 (0, 0),
             )
 

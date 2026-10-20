@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from collections.abc import Generator, Mapping
+from collections.abc import Callable, Generator, Mapping
 from dataclasses import dataclass, field
 from typing import ClassVar
 
@@ -14,6 +14,7 @@ from pygame.rect import Rect
 from pygame.surface import Surface
 
 from tuxemon import graphics
+from tuxemon.platform import mobile
 from tuxemon.platform.const import buttons, events
 from tuxemon.platform.events import (
     EventQueueHandler,
@@ -34,19 +35,47 @@ class PygameEventQueueHandler(EventQueueHandler):
 
     def __init__(self) -> None:
         super().__init__()
+        self._held_back: list[Event] = []
 
     def process_events(self) -> Generator[PlayerInput, None, None]:
-        for pg_event in pg.event.get():
+        for pg_event in self._this_frame():
             for input_handler in self.get_input_handlers():
                 input_handler.process_event(pg_event)
 
             if pg_event.type == pg.QUIT:
                 local_session.client.event_engine.execute_action("quit")
+            elif pg_event.type == pg.APP_WILLENTERBACKGROUND:
+                mobile.app_switched(to_background=True)
+            elif pg_event.type == pg.APP_DIDENTERFOREGROUND:
+                mobile.app_switched(to_background=False)
 
         for input_handler in self.get_input_handlers():
             for event in input_handler.get_events():
                 if all(f(event) for f in self._filters):
                     yield event
+
+    def _this_frame(self) -> list[Event]:
+        """
+        The events for this frame. A quick tap brings its press and its
+        release in the same frame, and the input handlers keep only a
+        button's last state: the menus saw a release with no press and the
+        tap did nothing (most taps on a slow phone, found on the
+        emulator). Such a release, and what came after it, waits for the
+        next frame.
+        """
+        queued = self._held_back + pg.event.get()
+        self._held_back = []
+        pressed: set[int] = set()
+        for i, pg_event in enumerate(queued):
+            if pg_event.type == pg.MOUSEBUTTONDOWN:
+                pressed.add(pg_event.button)
+            elif (
+                pg_event.type == pg.MOUSEBUTTONUP
+                and pg_event.button in pressed
+            ):
+                self._held_back = queued[i:]
+                return queued[:i]
+        return queued
 
 
 class InputMappingStrategy:
@@ -556,20 +585,38 @@ class PygameTouchOverlayInput(PygameEventHandler):
         }
         self.load()
         self._active_touches: dict[int, int] = {}
+        self.active = True
 
     def load(self) -> None:
         """Loads the UI elements."""
         self.ui.load()
 
+    def set_active(self, active: bool) -> None:
+        """
+        Shows or hides the arrows. Hidden arrows let taps reach what is
+        under them (menus, questions) and let go of any held arrow.
+        """
+        if active == self.active:
+            return
+        self.active = active
+        if not active:
+            for button in set(self._active_touches.values()):
+                self.release(button)
+            self._active_touches.clear()
+
     def process_event(self, input_event: Event) -> None:
-        """Handles both mouse and finger touch events."""
+        """Handles finger touch events."""
+        if not self.active:
+            return
 
         if input_event.type in (pg.FINGERDOWN, pg.FINGERUP, pg.FINGERMOTION):
             touch_pos = (
                 int(input_event.x * self.resolution[0]),
                 int(input_event.y * self.resolution[1]),
             )
-            finger_id = input_event.fingerid
+            # pygame-ce names it finger_id; reading the old name (no underscore)
+            # stopped the game at the first tap on the phone (build 19).
+            finger_id = input_event.finger_id
 
             if input_event.type == pg.FINGERDOWN:
                 self._handle_finger_down(finger_id, touch_pos)
@@ -614,6 +661,8 @@ class PygameTouchOverlayInput(PygameEventHandler):
 
     def get_touched_button(self, pos: tuple[int, int]) -> int | None:
         """Determine which button was pressed based on position."""
+        if not self.active:
+            return None
         for name, rect in [
             (buttons.UP, self.ui.dpad.rect.up),
             (buttons.DOWN, self.ui.dpad.rect.down),
@@ -629,7 +678,8 @@ class PygameTouchOverlayInput(PygameEventHandler):
 
     def draw(self, screen: Surface) -> None:
         """Draws the UI overlay."""
-        self.ui.draw(screen)
+        if self.active:
+            self.ui.draw(screen)
 
 
 class PygameMouseInput(PygameEventHandler):
@@ -645,8 +695,16 @@ class PygameMouseInput(PygameEventHandler):
         pg.MOUSEBUTTONUP: buttons.MOUSELEFT,
     }
 
+    #: Where clicks are ignored: the touch arrows, which take the finger
+    #: event SDL sends with the same tap.
+    ignore_at: Callable[[tuple[int, int]], bool] | None = None
+
     def process_event(self, pg_event: Event) -> None:
+        if pg_event.type not in (pg.MOUSEBUTTONDOWN, pg.MOUSEBUTTONUP):
+            return
+        if self.ignore_at is not None and self.ignore_at(pg_event.pos):
+            return
         if pg_event.type == pg.MOUSEBUTTONDOWN:
             self.press(buttons.MOUSELEFT, pg_event.pos)
-        elif pg_event.type == pg.MOUSEBUTTONUP:
+        else:
             self.release(buttons.MOUSELEFT)

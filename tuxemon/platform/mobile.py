@@ -1,0 +1,168 @@
+# SPDX-License-Identifier: GPL-3.0
+# Copyright (c) 2014-2026 William Edwards <shadowapex@gmail.com>, Benjamin Bean <superman2k5@gmail.com>
+"""
+Phones and tablets: python-for-android detection, the drawing size and
+touch-friendly defaults (docs/kids/SDD_ANDROID.md §2.3).
+
+Detection reads the variables python-for-android's launcher sets, so it
+works before ``platform.init()`` and before any path is computed.
+"""
+
+from __future__ import annotations
+
+import logging
+import os
+from collections.abc import Callable, Mapping
+from typing import Any
+
+from tuxemon.platform.const.sizes import ANDROID_MAP_CACHE_SIZE, MAP_CACHE_SIZE
+
+logger = logging.getLogger(__name__)
+
+#: Set by python-for-android's launcher before Python starts.
+P4A_VARIABLES = ("ANDROID_ARGUMENT", "ANDROID_PRIVATE", "ANDROID_APP_PATH")
+
+BASE_HEIGHT = 720
+MAX_HEIGHT = 1080
+MIN_WIDTH = 1280
+
+
+def is_android(env: Mapping[str, str] | None = None) -> bool:
+    """Whether the game runs inside a python-for-android app."""
+    env = os.environ if env is None else env
+    return any(env.get(name) for name in P4A_VARIABLES)
+
+
+def map_cache_size(env: Mapping[str, str] | None = None) -> int:
+    """
+    How many maps the game keeps loaded. With HD tiles an outdoor map
+    holds ~190MB at scale 7 (docs/kids/SDD_ART.md §2.12), so a phone
+    keeps two: the map and the one just left.
+    """
+    return ANDROID_MAP_CACHE_SIZE if is_android(env) else MAP_CACHE_SIZE
+
+
+def _even(value: float) -> int:
+    return int(round(value / 2)) * 2
+
+
+def logical_resolution(
+    screen_w: int,
+    screen_h: int,
+    *,
+    min_height: int = BASE_HEIGHT,
+    max_height: int = MAX_HEIGHT,
+    min_width: int = MIN_WIDTH,
+) -> tuple[int, int]:
+    """
+    A landscape drawing surface with the screen's shape. It uses the
+    screen's own pixels up to 1080 high, so nothing is stretched (a 1.5x
+    stretch made text and pictures blurry); sharper screens are drawn 1080
+    high and scaled up a little, which looks the same and keeps the game
+    fast. Small or square screens keep the 1280x720 the menus are made
+    for.
+    """
+    long_side, short_side = max(screen_w, screen_h), min(screen_w, screen_h)
+    if short_side <= 0:
+        return min_width, min_height
+    aspect = long_side / short_side
+    height = _even(min(max(short_side, min_height), max_height))
+    width = _even(height * aspect)
+    if width >= min_width:
+        return width, height
+    return min_width, _even(min_width / aspect)
+
+
+#: How much bigger text and buttons are on a phone than on a computer at
+#: the same drawing size (SDD_ANDROID §2.3, "טקסט וכפתורים בטלפון").
+PHONE_UI_FACTOR = 1.6
+
+
+def ui_factor(env: Mapping[str, str] | None = None) -> float:
+    """1.6 on a phone, 1 everywhere else."""
+    return PHONE_UI_FACTOR if is_android(env) else 1.0
+
+
+def ui_px(px: int, env: Mapping[str, str] | None = None) -> int:
+    """A text or button size in pixels, made bigger on a phone."""
+    return int(round(px * ui_factor(env)))
+
+
+#: Screens where a child walks around and needs the on-screen arrows.
+#: Everywhere else the arrows would cover buttons that are tapped directly.
+TOUCH_ARROW_STATES = frozenset({"WorldState"})
+#: Opacity of the arrows (0-255); Tuxemon's 45 is hard to see on a phone.
+TOUCH_ARROW_ALPHA = 150
+
+
+def wants_touch_arrows(state_name: str | None) -> bool:
+    return state_name in TOUCH_ARROW_STATES
+
+
+def touch_defaults(config: dict[str, Any]) -> None:
+    """
+    Defaults for a phone, applied before the player's own settings file:
+    on-screen arrows a child can see, taps on menus and the whole screen.
+    """
+    config["controller"]["overlay"] = True
+    config["controller"]["transparency"] = TOUCH_ARROW_ALPHA
+    config["controller"]["hide_mouse"] = False
+    config["display"]["fullscreen"] = True
+
+
+#: The language of a phone until the player picks another one.
+PHONE_LOCALE = "he_IL"
+
+
+def _yes(value: Any) -> bool:
+    """A yaml flag; a hand-edited file may hold it as text ("false")."""
+    if isinstance(value, str):
+        return value.strip().lower() in ("1", "true", "yes", "on", "y", "t")
+    return bool(value)
+
+
+def phone_language(
+    config: dict[str, Any], fonts: tuple[str, str, str]
+) -> None:
+    """
+    Hebrew on a phone, applied after the player's settings file, unless
+    the player picked a language. The game never reads the phone's own
+    language; ``tuxemon.yaml`` holds Tuxemon's default (en_US), written
+    at every start, so an old file must not keep a phone in English
+    (build 24, SDD_ANDROID §2.7). ``fonts`` (main, thin, minimal) are
+    Hebrew's: any other font draws it as empty boxes.
+    """
+    game = config["game"]
+    if _yes(game.get("locale_chosen")):
+        return
+    game["locale"] = PHONE_LOCALE
+    game["font_file"] = game["language_font"] = fonts[0]
+    game["thin_font_file"] = fonts[1]
+    game["minimal_font_file"] = fonts[2]
+
+
+# ------------------------------------------------------------ app switching
+
+Listener = Callable[[], None]
+_switch_listeners: list[tuple[Listener, Listener]] = []
+
+
+def on_app_switch(
+    background: Listener, foreground: Listener
+) -> Callable[[], None]:
+    """
+    Calls ``background`` when the phone switches to another app and
+    ``foreground`` when it comes back. Returns a function that unsubscribes.
+    """
+    pair = (background, foreground)
+    _switch_listeners.append(pair)
+    return lambda: _switch_listeners.remove(pair)
+
+
+def app_switched(to_background: bool) -> None:
+    """Tells every listener; one that fails does not stop the others."""
+    for background, foreground in list(_switch_listeners):
+        try:
+            (background if to_background else foreground)()
+        except Exception:
+            logger.exception("App switch listener failed")

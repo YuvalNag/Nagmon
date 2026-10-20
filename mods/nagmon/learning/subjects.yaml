@@ -1,0 +1,37 @@
+# Which school subject a monster type (element) practises, and how each
+# subject looks in the game. See docs/kids/SDD_CONTENT.md §6.
+# A parent can override the mapping per child (settings.element_subjects).
+subjects:
+  math:
+    title_he: חשבון
+    title_en: Math
+    color: "#ff8a5b"
+    elements: [fire, lightning]
+  geometry:
+    title_he: גאומטריה
+    title_en: Geometry
+    color: "#8fb3ff"
+    elements: [earth, metal]
+  science:
+    title_he: מדעים
+    title_en: Science
+    color: "#6cd4a1"
+    elements: [water, wood, venom, sky, frost, cosmic]
+  english:
+    title_he: אנגלית
+    title_en: English
+    color: "#ffd166"
+    elements: [normal, heroic]
+  logic:
+    title_he: חשיבה
+    title_en: Logic
+    color: "#c39bff"
+    elements: [shadow]
+  hebrew:
+    title_he: עברית
+    title_en: Hebrew
+    color: "#f4a6c6"
+    elements: []
+    # No element is Hebrew: these monsters ask Hebrew whatever the type of
+    # their technique (docs/kids/SDD_ART.md §2.10).
+    monsters: [scrollo, megillon]

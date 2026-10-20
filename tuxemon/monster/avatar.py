@@ -5,7 +5,7 @@ from __future__ import annotations
 from tuxemon.database.runtime import db
 from tuxemon.db import MonsterModel, NpcModel
 from tuxemon.entity.sheet import get_combat_sheet
-from tuxemon.graphics import load_surface, scale_sprite
+from tuxemon.graphics import load_surface
 from tuxemon.monster.renderer import MonsterRenderer
 from tuxemon.monster.sprite import MonsterSpriteHandler, SpriteLoader
 from tuxemon.session import Session
@@ -49,8 +49,8 @@ def get_avatar(session: Session, avatar: str) -> Sprite | None:
 
     if avatar in db.database.get("npc", {}):
         sheet = get_combat_sheet(NpcModel.lookup(avatar, db).template)
-        sprite = load_surface(sheet.front())
-        scale_sprite(sprite, 0.5)
+        # Half the size of the battle portrait, at the screen's scale.
+        sprite = load_surface(sheet.front(0.5 * scale_int))
         return sprite
 
     return None

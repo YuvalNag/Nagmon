@@ -26,6 +26,7 @@ from tuxemon.menu.grid_index_model import GridIndexModel
 from tuxemon.platform.const import buttons
 from tuxemon.platform.events import PlayerInput
 from tuxemon.surfanim import SurfaceAnimation
+from tuxemon.ui import bidi
 
 if TYPE_CHECKING:
     from tuxemon.db import BattleIconsModel
@@ -677,11 +678,21 @@ class VisualSpriteList(RelativeGroup[_MenuElement]):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self._needs_arrange = False
+        #: The size the items were arranged for; another size re-arranges
+        #: them (a menu that shrinks to its items, RTL rows anchored right).
+        self._arranged_size: tuple[int, int] | None = None
         self._columns = 1
         self.line_spacing: int | None = None
         self.max_width_per_column: int | None = None
         self.page_size: int | None = None
         self.current_page: int = 0
+        # None: follow the active language (RTL mirrors columns)
+        self.rtl: bool | None = None
+
+    @property
+    def is_rtl(self) -> bool:
+        """True when items are laid out right to left."""
+        return bidi.locale_is_rtl() if self.rtl is None else self.rtl
 
     @property
     def total_pages(self) -> int:
@@ -825,7 +836,8 @@ class VisualSpriteList(RelativeGroup[_MenuElement]):
         bgd: Surface | None = None,
         special_flags: int = 0,
     ) -> list[FRect | Rect]:
-        if self._needs_arrange:
+        self.update_rect_from_parent()
+        if self._needs_arrange or self.rect.size != self._arranged_size:
             self.arrange_menu_items()
         dirty = super().draw(surface=surface)
         return dirty
@@ -893,15 +905,24 @@ class VisualSpriteList(RelativeGroup[_MenuElement]):
             W // cols if self.orientation == "horizontal" else H // cols
         )
 
+        rtl = self.is_rtl
         for lr_index in visible:
             item = self.sprites()[lr_index]
             local_lr = lr_index - start
             row, col = page_model.lr_to_rowcol(local_lr)
-            item.rect.topleft = (
-                col * column_spacing,
-                row * line_spacing,
-            )
+            if rtl:
+                # mirrored: first column on the right, items right-aligned
+                item.rect.topright = (
+                    W - col * column_spacing,
+                    row * line_spacing,
+                )
+            else:
+                item.rect.topleft = (
+                    col * column_spacing,
+                    row * line_spacing,
+                )
 
+        self._arranged_size = (W, H)
         self._needs_arrange = False
 
     def _allowed_input(self) -> Container[int]:
@@ -953,6 +974,14 @@ class VisualSpriteList(RelativeGroup[_MenuElement]):
 
     def _advance_input(self, index: int, button: int) -> int:
         index_type, incr = self._2d_movement_dict[button]
+
+        # RTL grids are mirrored, so left/right swap meaning
+        if (
+            button in (buttons.LEFT, buttons.RIGHT)
+            and self.columns > 1
+            and self.is_rtl
+        ):
+            incr = -incr
 
         # Orientation swap: vertical layout swaps LR↔TB semantics
         if self.orientation == "vertical":

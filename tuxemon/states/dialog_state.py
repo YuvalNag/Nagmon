@@ -15,8 +15,9 @@ from tuxemon.menu.menu import PopUpMenu
 from tuxemon.platform.const import buttons
 from tuxemon.platform.events import PlayerInput
 from tuxemon.sprite import Sprite
+from tuxemon.ui import bidi
 from tuxemon.ui.text import TextArea
-from tuxemon.ui.text_alignment import HorizontalAlignment, VerticalAlignment
+from tuxemon.ui.text_alignment import VerticalAlignment
 
 if TYPE_CHECKING:
     from tuxemon.base_client import BaseClient
@@ -40,6 +41,11 @@ class DialogState(PopUpMenu[None]):
     """
 
     name: ClassVar[str] = "DialogState"
+    #: The action button, or a tap / click anywhere on the screen.
+    default_advance_buttons: ClassVar[tuple[int, ...]] = (
+        buttons.A,
+        buttons.MOUSELEFT,
+    )
 
     def __init__(
         self,
@@ -62,7 +68,9 @@ class DialogState(PopUpMenu[None]):
         self.on_complete = on_complete
         self.auto_close = auto_close
         self.close_after = close_after
-        self.advance_buttons = advance_buttons or [buttons.A]
+        self.advance_buttons = advance_buttons or list(
+            self.default_advance_buttons
+        )
         self.per_line_timeout = per_line_timeout
         self.dialog_speed = dialog_speed or self.client.config.dialog_speed
 
@@ -75,7 +83,7 @@ class DialogState(PopUpMenu[None]):
             "font_shadow": self.font_shadow_color,
             "border": self.borders_filename,
             "line_spacing": 0,
-            "h_alignment": HorizontalAlignment.LEFT,
+            "h_alignment": bidi.start_alignment(),
             "v_alignment": VerticalAlignment.TOP,
         }
 
@@ -116,7 +124,19 @@ class DialogState(PopUpMenu[None]):
 
         if self.avatar:
             avatar_rect = self.calc_final_rect()
-            self.avatar.rect.bottomleft = avatar_rect.left, avatar_rect.top
+            if bidi.locale_is_rtl():
+                self.avatar.rect.bottomright = (
+                    avatar_rect.right,
+                    avatar_rect.top,
+                )
+            else:
+                self.avatar.rect.bottomleft = (
+                    avatar_rect.left,
+                    avatar_rect.top,
+                )
+            # Who is speaking, standing on the top edge of the box.
+            if self.avatar not in self.sprites:
+                self.sprites.add(self.avatar)
 
         self.next_text()
 
@@ -151,14 +171,12 @@ class DialogState(PopUpMenu[None]):
         return None
 
     def update(self, dt: float) -> None:
-        """Update dialog text, avatar, and auto-close timer each frame."""
+        """Update dialog text and auto-close timer each frame."""
+        # The avatar is one of self.sprites (on_open), updated by super().
         super().update(dt)
 
         if self.dialog_box.drawing_text:
             self.dialog.update(dt)
-
-        if self.avatar:
-            self.avatar.update(dt)
 
         # Handle auto-close countdown
         if self._timer_active and self.close_after is not None:

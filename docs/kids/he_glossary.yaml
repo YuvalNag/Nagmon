@@ -1,0 +1,1306 @@
+# Generated from scratchpad glossary_data.py - edit the YAML directly from now on if needed.
+meta:
+  purpose: Nagmon he_IL glossary (WP4). Source of truth for translators of mods/tuxemon/l18n/he_IL. See SDD_TRANSLATION.md.
+  audience: ages 5-11, simple modern Hebrew, no niqqud
+  fields:
+    en: English term (or key)
+    he: required Hebrew rendering
+    pl: plural
+    cat: category
+    note: usage note
+    keys: example msgids in base.po
+  categories:
+  - core
+  - battle
+  - stat
+  - type
+  - status
+  - item
+  - ui
+  - name
+  - soften
+  count: 244
+terms:
+- en: Tuxemon (creature, generic)
+  he: נגמון
+  cat: core
+  pl: נגמונים
+  note: 'שם המשחק שלנו. זכר דקדוקי: ''הנגמון התעייף''. גם ''tuxemon'' באות קטנה.'
+  keys:
+  - menu_monster
+  - cant_release
+- en: monster
+  he: מפלצת
+  cat: core
+  pl: מפלצות
+  note: 'כשהאנגלית אומרת monster. נקבה: ''המפלצת שלך''. אפשר גם ''נגמון'' אם זה זורם יותר.'
+- en: Tuxemon (game/campaign title)
+  he: נגמון
+  cat: core
+  note: '''Tuxemon: Xero'' = ''נגמון: זירו'''
+  keys:
+  - xero_campaign
+  - spyder_campaign
+- en: Tuxepedia
+  he: נגמופדיה
+  cat: core
+  note: האנציקלופדיה של הנגמונים
+  keys:
+  - menu_tuxepedia
+- en: Tuxeball
+  he: כדור לכידה
+  cat: core
+  pl: כדורי לכידה
+  note: 'וריאנטים: ''Fire Tuxeball'' = ''כדור לכידה (אש)''; ''Grand Tuxeball'' = ''כדור לכידה מפואר'''
+  keys:
+  - tuxeball
+- en: capture device / ball (menu)
+  he: כדור
+  cat: core
+  keys:
+  - menu_ball
+- en: Tuxemart
+  he: חנות נגמון
+  cat: core
+  keys:
+  - tuxemart_keeper
+- en: trainer
+  he: מאמן
+  cat: core
+  pl: מאמנים
+  note: בשמות תפקיד. בפנייה ישירה - ניסוח ניטרלי (ראו סעיף מגדר)
+- en: player
+  he: שחקן
+  cat: core
+  note: 'בתפריט: ''שחקן''. בפנייה - ניטרלי.'
+  keys:
+  - menu_player
+- en: party / team (of monsters)
+  he: הקבוצה
+  cat: core
+  note: '''הקבוצה שלי'''
+  keys:
+  - menu_party
+  - gotcha_team
+- en: wild (monster)
+  he: פראי
+  cat: core
+  note: '''נגמון פראי הופיע: {name}!'''
+  keys:
+  - combat_wild_appeared
+- en: horde
+  he: להקה
+  cat: core
+  keys:
+  - combat_horde_appeared
+- en: species
+  he: זן
+  cat: core
+  keys:
+  - monster_menu_species
+- en: type (element)
+  he: סוג
+  cat: core
+  note: '''Fire type'' = ''סוג אש''; ''-Type'' = ''סוג'''
+  keys:
+  - monster_menu_type
+- en: category (monster)
+  he: קטגוריה
+  cat: core
+  note: 'שמות הקטגוריות (cat_*) מתורגמים כשם תואר קצר: ''Fire Lizard'' = ''לטאת אש'''
+- en: level
+  he: רמה
+  cat: core
+  note: '''Lv. 5'' = ''רמה 5''. לא ''שלב''.'
+  keys:
+  - shop_train_to
+  - sort_by_level
+- en: experience / XP / exp
+  he: ניסיון
+  cat: core
+  note: '''{xp}xp'' = ''{xp} ניסיון'' או ''נקודות ניסיון'''
+  keys:
+  - combat_gain_exp
+  - exp_to_next_level
+- en: evolve / evolution
+  he: להתפתח / התפתחות
+  cat: core
+  pl: התפתחויות
+  keys:
+  - evolution_confirmation
+  - yes_evolution
+- en: devolve / devolution
+  he: לחזור לצורה הקודמת / חזרה לאחור
+  cat: core
+  keys:
+  - devolution_confirmation
+- en: morph (Spyder)
+  he: להשתנות
+  cat: core
+  note: בקמפיין Spyder morph = evolve
+  keys:
+  - spyder_intro01
+- en: technique / move
+  he: יכולת
+  cat: core
+  pl: יכולות
+  note: לא 'מתקפה' - יש גם יכולות ריפוי והגנה. 'TM' = 'מדריך יכולת'
+  keys:
+  - monster_menu_tech
+  - tuxemon_new_tech
+- en: attack (noun)
+  he: מתקפה
+  cat: core
+  pl: מתקפות
+  note: רק כשבאמת מדובר בהתקפה
+  keys:
+  - attack_effective
+- en: user (in technique descriptions)
+  he: הנגמון
+  cat: core
+  note: '''The user...'' = ''הנגמון...'''
+- en: opponent / enemy (monster)
+  he: היריב
+  cat: core
+  note: לא 'האויב'
+  keys:
+  - strangulation_description
+- en: target
+  he: המטרה
+  cat: core
+  note: כשזה לא placeholder
+- en: bond (monster-player)
+  he: קשר
+  cat: core
+  keys:
+  - menu_bond
+- en: taste (monster)
+  he: טעם
+  cat: core
+  pl: טעמים
+  keys:
+  - taste
+- en: shape / body shape
+  he: צורת גוף
+  cat: core
+  keys:
+  - monster_menu_shape
+- en: held item
+  he: חפץ מוחזק
+  cat: core
+  keys:
+  - monster_menu_item
+- en: item
+  he: חפץ
+  cat: core
+  pl: חפצים
+  note: 'בתפריט: ''חפצים''. לא ''פריט''.'
+  keys:
+  - menu_item
+  - menu_items
+- en: bag
+  he: תיק
+  cat: core
+  keys:
+  - menu_bag
+- en: money
+  he: כסף
+  cat: core
+- en: currency ${{currency}}
+  he: ₪ (בקוד)
+  cat: core
+  note: ה-placeholder נשאר. הסמל מוחלף ל-₪ בקוד (text_formatter.py) - החלטת WP3/הורים. לא לכתוב 'דולר'.
+  keys:
+  - spyder_billing_cathedral2
+- en: wallet
+  he: ארנק
+  cat: core
+  keys:
+  - wallet
+  - player_wallet
+- en: shop / store
+  he: חנות
+  cat: core
+  keys:
+  - shop
+- en: buy / sell
+  he: לקנות / למכור
+  cat: core
+  keys:
+  - buy
+  - sell
+- en: price
+  he: מחיר
+  cat: core
+- en: free
+  he: חינם
+  cat: core
+  keys:
+  - shop_buy_free
+- en: sold out
+  he: אזל המלאי
+  cat: core
+  keys:
+  - shop_buy_soldout
+- en: Kennel / Shelter (monster storage)
+  he: מחסה
+  cat: core
+  note: מקום שמירת הנגמונים העודפים
+  keys:
+  - Kennel
+  - move_to_kennel
+- en: Locker (item storage)
+  he: ארונית
+  cat: core
+  keys:
+  - Locker
+- en: PC
+  he: מחשב
+  cat: core
+- en: box (storage)
+  he: תא
+  cat: core
+- en: quarantine
+  he: בידוד
+  cat: core
+  keys:
+  - quarantine
+- en: Daycare
+  he: גן נגמונים
+  cat: core
+  keys:
+  - menu_daycare_parents
+- en: Center / Clinic (healing)
+  he: מרפאה
+  cat: core
+  note: '''Cathedral Center'' = ''מרכז היכל'''
+  keys:
+  - clinic
+- en: nurse
+  he: אחות
+  cat: core
+  note: '''Taba Nurse'' = ''האחות של טאבה'''
+  keys:
+  - tabanurse
+- en: heal
+  he: לרפא
+  cat: core
+  note: '''heal to 50 HP'' = ''ריפוי עד 50 חיים'''
+  keys:
+  - heal_before_leave
+- en: Nu Phone / NuPhone
+  he: נו-פון
+  cat: core
+  keys:
+  - nu_phone
+- en: app
+  he: אפליקציה
+  cat: core
+  pl: אפליקציות
+  note: '''Radio App'' = ''אפליקציית רדיו'''
+- en: journal
+  he: יומן
+  cat: core
+  keys:
+  - menu_journal
+- en: mission
+  he: משימה
+  cat: core
+  pl: משימות
+  keys:
+  - menu_missions
+- en: quest
+  he: הרפתקה
+  cat: core
+  pl: הרפתקאות
+  keys:
+  - quest_trigger_success
+- en: badge
+  he: תג
+  cat: core
+  pl: תגים
+  note: '''Badge: Nimrod'' = ''תג: נמרוד'''
+- en: gym
+  he: מועדון
+  cat: core
+  pl: מועדונים
+  note: '''Gym Leader'' = ''ראש המועדון'''
+- en: gym leader / boss
+  he: ראש המועדון
+  cat: core
+- en: dojo
+  he: דוג'ו
+  cat: core
+- en: champion
+  he: אלוף
+  cat: core
+  note: 'ניטרלי ככל האפשר: ''האליפות'''
+- en: league
+  he: ליגה
+  cat: core
+- en: token (Spyder)
+  he: אסימון
+  cat: core
+  pl: אסימונים
+  keys:
+  - spyder_intro02
+- en: Pillar (Spyder corporations)
+  he: עמוד תווך
+  cat: core
+  pl: עמודי התווך
+  keys:
+  - spyder_intro03
+- en: map / route
+  he: מפה / דרך
+  cat: core
+  note: '''Route 3'' = ''דרך 3''; ''Route A'' = ''דרך א'''
+  keys:
+  - route3
+  - routea
+- en: town / city
+  he: עיר
+  cat: core
+  note: '''Paper Town'' = ''עיר הנייר'''
+  keys:
+  - town
+- en: dungeon
+  he: מבוך
+  cat: core
+  keys:
+  - dungeon
+- en: inside / outside
+  he: בפנים / בחוץ
+  cat: core
+  keys:
+  - inside
+  - outside
+- en: save slot
+  he: משבצת שמירה
+  cat: core
+  keys:
+  - slot
+- en: craft
+  he: להכין
+  cat: core
+  note: '''crafting tools'' = ''כלי הכנה'''
+  keys:
+  - menu_craft_tools
+- en: recipe
+  he: מתכון
+  cat: core
+- en: ingredient
+  he: מצרך
+  cat: core
+  pl: מצרכים
+- en: Gold member
+  he: חבר מועדון זהב
+  cat: core
+- en: god / oh god / pray (exclamations)
+  he: אוי ואבוי / וואו
+  cat: core
+  note: בלי שימוש בשם האל כקריאה; תפילה ודת - לנסח בכבוד או להשמיט
+- en: battle (noun)
+  he: דו-קרב
+  cat: battle
+  pl: דו-קרבות
+  note: 'עדין וספורטיבי. לא ''מלחמה''. ברבים: ''דו-קרבות''.'
+  keys:
+  - menu_battle
+  - player_battles
+- en: fight (menu command)
+  he: להתמודד
+  cat: battle
+  keys:
+  - menu_fight
+- en: fight / battle (verb)
+  he: להתמודד / לערוך דו-קרב
+  cat: battle
+  note: '''{name} wants to battle!'' = ''{name} רוצה לערוך דו-קרב!'''
+  keys:
+  - combat_trainer_appeared
+- en: faint / fainted
+  he: להתעייף / התעייף
+  cat: battle
+  note: תמיד 'התעייף', אף פעם לא 'התעלף' או 'מת'
+  keys:
+  - combat_fainted
+  - faint
+- en: knocked out (KO)
+  he: עייף מדי להמשיך
+  cat: battle
+  keys:
+  - revive_description
+- en: defeat / defeated
+  he: הפסד / לא הצליח הפעם
+  cat: battle
+  note: 'רך: ''הפעם הניצחון חמק מ-{name}'''
+  keys:
+  - combat_defeat
+- en: win / victory
+  he: לנצח / ניצחון
+  cat: battle
+  keys:
+  - combat_victory
+- en: draw (tie)
+  he: תיקו
+  cat: battle
+- en: kill / destroy (monster)
+  he: לנצח / להביס
+  cat: battle
+  note: אף פעם לא 'להרוג'
+- en: die / dead / death
+  he: להתעייף / ללכת לנוח
+  cat: battle
+  note: גם 'נעלם', 'נרדם לתמיד' - לא. לנסח מחדש בעדינות.
+- en: damage
+  he: נזק
+  cat: battle
+  note: 'אפשר: ''פגיעה'''
+  keys:
+  - combat_status_damage
+- en: hit / miss
+  he: פגיעה / החטאה
+  cat: battle
+  note: '''It missed...'' = ''זה לא פגע...'''
+  keys:
+  - combat_miss
+- en: critical / very effective
+  he: חזק במיוחד
+  cat: battle
+  keys:
+  - attack_very_effective
+- en: resisted
+  he: נבלם
+  cat: battle
+  keys:
+  - attack_resisted
+- en: run away / escape
+  he: לברוח
+  cat: battle
+  keys:
+  - menu_run
+  - combat_player_run
+- en: forfeit
+  he: לוותר
+  cat: battle
+  keys:
+  - menu_forfeit
+  - combat_forfeit
+- en: swap / switch (monster)
+  he: להחליף
+  cat: battle
+  keys:
+  - swap
+  - combat_player_swap_status
+- en: send out
+  he: שלח
+  cat: battle
+  note: '''{user} sent out {target}!'' = ''{user} שלח את {target}!'''
+  keys:
+  - combat_swap
+- en: turn
+  he: תור
+  cat: battle
+  pl: תורות
+  keys:
+  - technique_turns
+  - combat_skip
+- en: capture / catch
+  he: לתפוס
+  cat: battle
+  note: לא 'ללכוד' בדיאלוג (מותר בשמות חפצים). 'Gotcha!' = 'תפסתי!'
+  keys:
+  - combat_capturing_success
+  - gotcha
+- en: release (monster)
+  he: לשחרר
+  cat: battle
+  keys:
+  - monster_menu_release
+- en: prize / reward
+  he: פרס
+  cat: battle
+  keys:
+  - combat_victory_trainer
+- en: power (technique stat)
+  he: עוצמה
+  cat: battle
+  keys:
+  - technique_power
+- en: accuracy
+  he: דיוק
+  cat: battle
+  keys:
+  - technique_accuracy
+- en: potency
+  he: השפעה
+  cat: battle
+  keys:
+  - technique_potency
+- en: recharge
+  he: טעינה מחדש
+  cat: battle
+  keys:
+  - technique_recharge
+- en: Hit Points / HP
+  he: נקודות חיים / חיים
+  cat: stat
+  note: 'קיצור (short_hp) = ''חיים''. בטקסט: ''50 נקודות חיים'' או ''50 חיים'''
+  keys:
+  - hp
+  - short_hp
+- en: Armor / Armour (AR)
+  he: שריון
+  cat: stat
+  note: 'קיצור: ''שריון'''
+  keys:
+  - armour
+  - short_armour
+- en: Dodge (DE)
+  he: התחמקות
+  cat: stat
+  note: 'קיצור: ''חמיקה'''
+  keys:
+  - dodge
+  - short_dodge
+- en: Melee (ME)
+  he: קרב מגע
+  cat: stat
+  note: 'קיצור: ''מגע'''
+  keys:
+  - melee
+  - short_melee
+- en: Ranged (RD)
+  he: מרחוק
+  cat: stat
+  note: 'קיצור: ''רחוק'''
+  keys:
+  - ranged
+  - short_ranged
+- en: Speed (SD)
+  he: מהירות
+  cat: stat
+  note: 'קיצור: ''מהיר'''
+  keys:
+  - speed
+  - short_speed
+- en: Touch
+  he: מגע
+  cat: stat
+  keys:
+  - touch
+- en: attack / defense (generic)
+  he: כוח / הגנה
+  cat: stat
+- en: height / weight
+  he: גובה / משקל
+  cat: stat
+  keys:
+  - height
+  - weight
+- en: Fire
+  he: אש
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - fire
+- en: Water
+  he: מים
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - water
+- en: Earth
+  he: אדמה
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - earth
+- en: Metal
+  he: מתכת
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - metal
+- en: Wood
+  he: עץ
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - wood
+- en: Sky
+  he: שמיים
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - sky
+- en: Lightning
+  he: ברק
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - lightning
+- en: Frost
+  he: כפור
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - frost
+- en: Venom
+  he: רעל
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - venom
+- en: Shadow
+  he: צל
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - shadow
+- en: Cosmic
+  he: קוסמי
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - cosmic
+- en: Heroic
+  he: גבורה
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - heroic
+- en: Normal
+  he: רגיל
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - normal
+- en: Aether
+  he: אתר
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - aether
+- en: Glitch
+  he: תקלה
+  cat: type
+  note: 'ככותרת סוג. בצירוף: ''סוג אש'', ''גרגר אש'', ''מגבר אש'''
+  keys:
+  - glitch
+- en: Blinded
+  he: מסונוור
+  cat: status
+  keys:
+  - blinded
+- en: Burn
+  he: כוויה
+  cat: status
+  note: '''is burned'' = ''נכווה'''
+  keys:
+  - burn
+- en: Poison / poisoned
+  he: רעל / מורעל
+  cat: status
+  note: '''{target} is poisoned.'' = ''{target} הורעל.'''
+  keys:
+  - poison
+- en: Confused
+  he: מבולבל
+  cat: status
+  keys:
+  - confused
+- en: Dozing / asleep
+  he: מנמנם / ישן
+  cat: status
+  keys:
+  - dozing
+- en: Nodding Off
+  he: מתנמנם
+  cat: status
+  keys:
+  - noddingoff
+- en: Charmed
+  he: מוקסם
+  cat: status
+  keys:
+  - charmed
+- en: Enraged / Berserk
+  he: כועס מאוד
+  cat: status
+  note: לא 'זועם עד רצח'
+  keys:
+  - enraged
+- en: Exhausted
+  he: מותש
+  cat: status
+  keys:
+  - exhausted
+- en: Festering
+  he: פצע מזוהם
+  cat: status
+  note: 'רך: ''פצע שלא מחלים'''
+  keys:
+  - festering
+- en: Charged Up
+  he: טעון
+  cat: status
+  keys:
+  - chargedup
+- en: Charging
+  he: נטען
+  cat: status
+  keys:
+  - charging
+- en: Die Hard
+  he: לא מוותר
+  cat: status
+  keys:
+  - diehard
+- en: Focused
+  he: מרוכז
+  cat: status
+  keys:
+  - focused
+- en: Grabbed
+  he: נתפס
+  cat: status
+  keys:
+  - grabbed
+- en: Hard Shell
+  he: קליפה קשה
+  cat: status
+  keys:
+  - hardshell
+- en: Lifeleech
+  he: שאיבת חיים
+  cat: status
+  keys:
+  - lifeleech
+- en: Life Gift
+  he: מתנת חיים
+  cat: status
+  keys:
+  - lifegift
+- en: Lockdown
+  he: נעילה
+  cat: status
+  keys:
+  - lockdown
+- en: Slow
+  he: איטי
+  cat: status
+  keys:
+  - slow
+- en: Stuck
+  he: תקוע
+  cat: status
+  keys:
+  - stuck
+- en: Wild
+  he: פראי
+  cat: status
+  keys:
+  - wild
+- en: Flinching
+  he: נרתע
+  cat: status
+  keys:
+  - flinching
+- en: Wasting
+  he: נחלש
+  cat: status
+  keys:
+  - wasting
+- en: Softened
+  he: מרוכך
+  cat: status
+  keys:
+  - softened
+- en: Spiky
+  he: דוקרני
+  cat: status
+  keys:
+  - spiky
+- en: Prickly
+  he: עוקצני
+  cat: status
+  keys:
+  - prickly
+- en: Eliminated
+  he: יצא מהמשחק
+  cat: status
+  note: לא 'חוסל'
+  keys:
+  - eliminated
+- en: Retaliate / Revenge
+  he: תגובה / החזרה
+  cat: status
+  note: לא 'נקמה' כשאפשר
+  keys:
+  - retaliate
+- en: Potion
+  he: שיקוי
+  cat: item
+  keys:
+  - potion
+- en: Super Potion
+  he: שיקוי חזק
+  cat: item
+  keys:
+  - super_potion
+- en: Mega Potion
+  he: שיקוי ענק
+  cat: item
+  keys:
+  - mega_potion
+- en: Imperial Potion
+  he: שיקוי מלכותי
+  cat: item
+  keys:
+  - imperial_potion
+- en: Revive
+  he: שיקוי התעוררות
+  cat: item
+  note: מתאים ל'התעייף'
+  keys:
+  - revive
+- en: Tea
+  he: תה
+  cat: item
+  keys:
+  - tea
+- en: Berry
+  he: גרגר
+  cat: item
+  note: '''Fire Berry'' = ''גרגר אש'''
+  keys:
+  - fire_berry
+- en: Booster
+  he: מגבר
+  cat: item
+  note: '''Fire Booster'' = ''מגבר אש'''
+  keys:
+  - fire_booster
+- en: Boost X / Raise X
+  he: חיזוק X / הגדלת X
+  cat: item
+  note: '''Boost Speed'' = ''חיזוק מהירות''; ''Raise HP'' = ''הגדלת חיים'''
+  keys:
+  - boost_armour
+- en: TM / Technical Manual
+  he: מדריך יכולת
+  cat: item
+  note: '''TM: Acid'' = ''מדריך: חומצה'''
+  keys:
+  - tm_acid
+- en: Move Module
+  he: מודול יכולת
+  cat: item
+- en: Repellent
+  he: תרסיס מרחיק
+  cat: item
+  keys:
+  - repellent
+- en: Fishing Rod
+  he: חכה
+  cat: item
+  keys:
+  - fishing_rod
+- en: Surfboard
+  he: גלשן
+  cat: item
+  keys:
+  - surfboard
+- en: Hatchet
+  he: גרזן קטן
+  cat: item
+  keys:
+  - hatchet
+- en: Sledgehammer
+  he: פטיש גדול
+  cat: item
+  keys:
+  - sledgehammer
+- en: Drone
+  he: רחפן
+  cat: item
+  keys:
+  - drone
+- en: Bivouac
+  he: אוהל
+  cat: item
+  keys:
+  - bivouac
+- en: Fossil
+  he: מאובן
+  cat: item
+  note: '''Shammer Fossil'' = ''מאובן Shammer'' (Shammer אינו בעולם של נגמון ולכן נשאר באנגלית; מפלצת מהעולם של נגמון בשמה העברי)'
+- en: Pass
+  he: כרטיס
+  cat: item
+  note: '''Gold Pass'' = ''כרטיס זהב'''
+  keys:
+  - gold_pass
+- en: Key
+  he: מפתח
+  cat: item
+- en: Egg
+  he: ביצה
+  cat: item
+- en: Cureall
+  he: מרפא הכול
+  cat: item
+  keys:
+  - cureall
+- en: Antidote
+  he: נוגד רעל
+  cat: item
+- en: New Game
+  he: משחק חדש
+  cat: ui
+  keys:
+  - menu_new_game
+- en: Save
+  he: שמירה
+  cat: ui
+  keys:
+  - menu_save
+- en: Load
+  he: טעינה
+  cat: ui
+  keys:
+  - menu_load
+- en: Options / Settings
+  he: הגדרות
+  cat: ui
+  keys:
+  - menu_options
+- en: Exit / Quit
+  he: יציאה
+  cat: ui
+  keys:
+  - exit
+- en: Back
+  he: חזרה
+  cat: ui
+  keys:
+  - menu_back
+- en: Use
+  he: להשתמש
+  cat: ui
+  keys:
+  - item_confirm_use
+- en: Cancel
+  he: ביטול
+  cat: ui
+  keys:
+  - item_confirm_cancel
+- en: Yes / No
+  he: כן / לא
+  cat: ui
+- en: Select / Choose
+  he: לבחור
+  cat: ui
+  keys:
+  - menu_select
+- en: Confirm
+  he: אישור
+  cat: ui
+- en: Info
+  he: מידע
+  cat: ui
+  keys:
+  - monster_menu_info
+- en: Description
+  he: תיאור
+  cat: ui
+  keys:
+  - monster_menu_desc
+- en: Sort
+  he: מיון
+  cat: ui
+  keys:
+  - menu_sort
+- en: Remove / Delete
+  he: הסרה / מחיקה
+  cat: ui
+  keys:
+  - generic_remove
+- en: Add
+  he: הוספה
+  cat: ui
+  keys:
+  - generic_add
+- en: Equip / Unequip
+  he: לצייד / להוריד
+  cat: ui
+  keys:
+  - equip_item
+- en: Rename
+  he: שינוי שם
+  cat: ui
+  keys:
+  - renaming
+- en: Language
+  he: שפה
+  cat: ui
+  keys:
+  - menu_language
+- en: Music / Sound volume
+  he: עוצמת מוזיקה / צלילים
+  cat: ui
+  keys:
+  - menu_music_volume
+- en: Autosave
+  he: שמירה אוטומטית
+  cat: ui
+  keys:
+  - menu_autosave
+- en: Enable / Disable
+  he: הפעלה / כיבוי
+  cat: ui
+  keys:
+  - enable
+- en: Press any key
+  he: לחצו על מקש כלשהו
+  cat: ui
+  keys:
+  - menu_intro
+- en: Empty
+  he: ריק
+  cat: ui
+  keys:
+  - empty
+- en: Empty Slot
+  he: משבצת ריקה
+  cat: ui
+  keys:
+  - empty_slot
+- en: Saved!
+  he: נשמר!
+  cat: ui
+  keys:
+  - save_success
+- en: Completed / Pending / Failed
+  he: הושלם / בתהליך / לא הצליח
+  cat: ui
+  keys:
+  - completed
+- en: Calendar
+  he: לוח שנה
+  cat: ui
+  keys:
+  - menu_calendar
+- en: Emails
+  he: הודעות
+  cat: ui
+  keys:
+  - menu_email
+- en: Multiplayer
+  he: משחק משותף
+  cat: ui
+  keys:
+  - menu_multiplayer
+- en: Log Off
+  he: התנתקות
+  cat: ui
+  keys:
+  - log_off
+- en: Correct! / Wrong!
+  he: נכון! / לא נכון, ננסה שוב!
+  cat: ui
+  keys:
+  - generic_right
+- en: Score / Streak
+  he: ניקוד / רצף
+  cat: ui
+  keys:
+  - score_label
+- en: 'Difficulty: Beginner/Easy/Normal/Hard/Expert'
+  he: מתחילים / קל / רגיל / קשה / מומחים
+  cat: ui
+  keys:
+  - level_beginner
+- en: Monster names (aardart...)
+  he: בעולם של נגמון בעברית, והשאר באנגלית
+  cat: name
+  note: '41 המפלצות שילד פוגש מקבלות שם עברי ב־nagmon.po (Agnite = אגנייט, Flaskling = מבחנון, Cardinale = שירונית), וגם התיאורים שלהן משתמשים בשם העברי (SDD_ANDROID §2.7). השאר מועתקים כמו שהם (auto_keep_en.json). בתוך משפט עברי: ''ל-Aardart''.'
+  keys:
+  - aardart
+- en: NPC person names
+  he: תעתיק לעברית
+  cat: name
+  note: Allie = אלי, Maple = מייפל, Misa = מיסה, Timmy = טימי, Red = רד, Kay Wren = קיי רן
+  keys:
+  - allie
+- en: Professor
+  he: פרופסור
+  cat: name
+  note: '''Prof.'' = ''פרופ'''''
+  keys:
+  - professor
+- en: Team Xero
+  he: צוות זירו
+  cat: name
+  note: '''Team Xero Grunt II'' = ''חייל צוות זירו 2'' (ספרות במקום רומיות)'
+  keys:
+  - xerogrunt2
+- en: Enforcers
+  he: המשגיחים
+  cat: name
+  keys:
+  - faction_enforcers
+- en: Omnichannel
+  he: אומניצ'אנל
+  cat: name
+  note: שם תאגיד - תעתיק
+- en: Scoop
+  he: סקופ
+  cat: name
+- en: Greenwash
+  he: גרינוואש
+  cat: name
+- en: Nimrod
+  he: נמרוד
+  cat: name
+- en: Cathedral (Spyder company)
+  he: היכל
+  cat: name
+  note: רשת מרפאות-תאגיד בסאטירה. 'Cathedral Center' = 'מרכז היכל'. לא 'קתדרלה' (כנסייה) - החלטה פתוחה להורים
+  keys:
+  - spyder_cathedral
+- en: Spyder
+  he: ספיידר
+  cat: name
+- en: Taba
+  he: טאבה
+  cat: name
+  keys:
+  - taba_town
+- en: Paper Town / Cotton Town / Leather Town
+  he: עיר הנייר / עיר הכותנה / עיר העור
+  cat: name
+  keys:
+  - paper_town
+- en: Candy Town / Candy Port
+  he: עיר הממתקים / נמל הממתקים
+  cat: name
+  keys:
+  - candy_town
+- en: Timber Town / Flower City
+  he: עיר העצים / עיר הפרחים
+  cat: name
+  keys:
+  - timber_town
+- en: Lion Mountain / Diamond Hill
+  he: הר האריה / גבעת היהלום
+  cat: name
+  keys:
+  - lion_mountain
+- en: Dragon's Cave / Dryad's Grove
+  he: מערת הדרקון / חורשת פיות העצים
+  cat: name
+  keys:
+  - dragonscave
+- en: City Park / Pepper Park
+  he: פארק העיר / פארק הפלפל
+  cat: name
+  keys:
+  - citypark
+- en: Route 1..7 / Route A..E
+  he: דרך 1..7 / דרך א..ה
+  cat: name
+  keys:
+  - route1
+- en: Crystal / Obsidian / Azure
+  he: קריסטל / אובסידיאן / תכלת
+  cat: name
+  keys:
+  - crystal_town
+- en: Strangulation (technique)
+  he: לפיתה חזקה
+  cat: soften
+  note: 'בתיאור: לופת/מקשה לזוז, בלי גרון/אוויר'
+  keys:
+  - strangulation
+- en: Lust (technique)
+  he: קסם מהפנט
+  cat: soften
+  keys:
+  - lust
+- en: Kiss (technique)
+  he: חיבוק חם
+  cat: soften
+  note: '''exchange a kiss'' = ''מתחבקים'''
+  keys:
+  - kiss
+- en: Poison Courtship
+  he: ריקוד רעל
+  cat: soften
+  keys:
+  - poison_courtship
+- en: Oedipus
+  he: נקמה מבלבלת
+  cat: soften
+  keys:
+  - oedipus
+- en: Blood Bond / Blood Nets
+  he: ברית אמיצה / רשתות אדומות
+  cat: soften
+  keys:
+  - blood_bond
+- en: Undertaker
+  he: שומר הלילה
+  cat: soften
+  keys:
+  - undertaker
+- en: Insanity
+  he: בלבול גדול
+  cat: soften
+  keys:
+  - insanity
+- en: Cat Calling
+  he: קריאת חתול
+  cat: soften
+  note: יללת חתול - בלי משמעות הטרדה
+  keys:
+  - cat_calling
+- en: Gold Digger
+  he: מחפש זהב
+  cat: soften
+  keys:
+  - gold_digger
+- en: Curse / Terror
+  he: כישוף / הפחדה
+  cat: soften
+  keys:
+  - curse
+- en: killer (in names/descriptions)
+  he: אלוף / מסוכן
+  cat: soften
+  note: לפי ההקשר; לא 'רוצח'
+- en: drinking / beer / bar (Spyder)
+  he: שתייה / מיץ / בית קפה
+  cat: soften
+  note: אלכוהול -> משקה/מיץ/קפה. 'barmaid' = 'מלצרית'
+  keys:
+  - spyder_drinking_flashback1
+- en: kiss mark / romance / date / girlfriend
+  he: לנסח כחברות
+  cat: soften
+  note: '''kiss mark'' = ''ציור לב קטן''; ''relation_romantic'' = ''חברות קרובה'''
+  keys:
+  - allies_address_description
+- en: debt / interest (Spyder satire)
+  he: חוב / ריבית
+  cat: soften
+  note: מותר - זו סאטירה חינוכית על כסף. לשמור פשוט.
+  keys:
+  - spyder_billing_cathedral4
+- en: sucks / stupid / damn
+  he: לא משהו / מצחיק / אוף
+  cat: soften
+  note: בלי קללות או עלבונות
+  keys:
+  - kylekindasucks

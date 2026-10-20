@@ -13,7 +13,7 @@ import pytmx
 from natsort import natsorted
 
 from tuxemon.compat import Rect
-from tuxemon.constants.asset_loader import fetch_asset
+from tuxemon.constants.asset_loader import fetch_all_assets, fetch_asset
 from tuxemon.constants.paths import mods_folder
 from tuxemon.database.yaml_utils import load_yaml
 from tuxemon.db import BoundingBox, Direction, EventObject, Orientation
@@ -29,11 +29,8 @@ from tuxemon.map.map import (
 )
 from tuxemon.map.region import RegionProperties, extract_region_properties
 from tuxemon.map.tuxemon import AbstractMap, NullMap, TuxemonMap
-from tuxemon.platform.const.sizes import (
-    MAP_CACHE_SIZE,
-    REGION_KEYS,
-    SURFACE_KEYS,
-)
+from tuxemon.platform import mobile
+from tuxemon.platform.const.sizes import REGION_KEYS, SURFACE_KEYS
 from tuxemon.prepare import DisplayContext
 from tuxemon.tools import copy_dict_with_keys
 
@@ -61,14 +58,15 @@ class MapLoader:
 
         Parameters:
             cache_size: Maximum number of maps to retain in the LRU cache.
-                        If None, defaults to MAP_CACHE_SIZE.
+                        If None, defaults to MAP_CACHE_SIZE, or
+                        ANDROID_MAP_CACHE_SIZE on a phone.
             enable_cache: Flag to enable or disable caching behavior.
                         If False, maps are always loaded fresh from disk.
         """
         self.context = context
         self.tmx_loader = TMXMapLoader()
         self.yaml_loader = YAMLEventLoader()
-        self.cache_size = cache_size or MAP_CACHE_SIZE
+        self.cache_size = cache_size or mobile.map_cache_size()
         self.enable_cache = enable_cache
         self._cache: OrderedDict[str, AbstractMap] = OrderedDict()
 
@@ -127,7 +125,18 @@ class MapLoader:
     def resolve_yaml_files(
         self, txmn_map: AbstractMap, normalized_path: str
     ) -> list[Path]:
-        yaml_files = [Path(normalized_path).with_suffix(".yaml")]
+        own_yaml = Path(normalized_path).with_suffix(".yaml")
+        yaml_files = [own_yaml]
+        # Mods that build on the map's mod may add events to it with a
+        # same-named script. Scripts of the mods below it are left out:
+        # when a mod replaces a map, their events fit the old layout.
+        extras = [Path(p) for p in fetch_all_assets("maps", own_yaml.name)]
+        resolved = [p.resolve() for p in extras]
+        own = own_yaml.resolve()
+        start = resolved.index(own) + 1 if own in resolved else 0
+        for extra, extra_resolved in zip(extras[start:], resolved[start:]):
+            if extra_resolved != own:
+                yaml_files.append(extra)
         if txmn_map.scenario:
             _scenario = fetch_asset("maps", f"{txmn_map.scenario}.yaml")
             yaml_files.append(Path(_scenario))
@@ -154,6 +163,19 @@ class MapLoader:
             yaml_files: List of YAML file paths to load events from.
         """
         yaml_collision, events = self._process_events(yaml_files)
+        # A script event with "replaces: <name>" takes the place of the
+        # map's (TMX) event of that name, e.g. a mod's own encounters;
+        # only when the replacing event was actually built.
+        replaced = self._replaced
+        matched: set[str] = set()
+        for event in [e for e in txmn_map.events if e.name in replaced]:
+            txmn_map.remove_event(event)
+            matched.add(event.name)
+        for name in sorted(replaced - matched):
+            logger.warning(
+                f"A script event replaces '{name}', but the map has no "
+                "event of that name"
+            )
         self._merge_events(txmn_map, yaml_collision, events)
 
     def _process_events(
@@ -175,6 +197,8 @@ class MapLoader:
             tuple[int, int], RegionProperties | None
         ] = {}
         events: defaultdict[str, list[EventObject]] = defaultdict(list)
+        #: Names of map events that the built script events replace.
+        self._replaced: set[str] = set()
 
         for yaml_file in yaml_files:
             if yaml_file.exists():
@@ -187,9 +211,11 @@ class MapLoader:
                             "event"
                         ]
                     )
+                    self._replaced |= self.yaml_loader.replaced
                     events["init"].extend(
                         self.yaml_loader.load_events(yaml_file, "init")["init"]
                     )
+                    self._replaced |= self.yaml_loader.replaced
                 except Exception as e:
                     logger.error(
                         f"Failed to load events from {yaml_file}: {e}"
@@ -273,6 +299,10 @@ class MapLoader:
 class YAMLEventLoader:
     """Support for reading game events from a YAML file."""
 
+    def __init__(self) -> None:
+        #: After load_events: the map events its events replace.
+        self.replaced: set[str] = set()
+
     def load_collision(
         self, path: Path
     ) -> MutableMapping[tuple[int, int], RegionProperties | None]:
@@ -325,6 +355,7 @@ class YAMLEventLoader:
             of EventObject instances.
         """
         event_parser = EventParser()
+        self.replaced = set()
         yaml_data: dict[str, dict[str, dict[str, Any]]] = load_yaml(path)
 
         events_dict: dict[str, list[EventObject]] = {"event": [], "init": []}
@@ -357,6 +388,8 @@ class YAMLEventLoader:
                     event_data, name, box, priority, timeout, delay
                 )
                 events_dict[event_type].append(event)
+                if event_data.get("replaces"):
+                    self.replaced.add(str(event_data["replaces"]))
         return events_dict
 
 

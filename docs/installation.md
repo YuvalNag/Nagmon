@@ -116,13 +116,21 @@ python run_tuxemon.py
 
 ---
 
-## Android (Experimental)
+## Android
 
-* Build using scripts in the `buildconfig/` directory.
-* Copy the `mods` folder to `Internal Storage/Tuxemon`.
-* Grant the app filesystem permissions.
+Nagmon builds an APK with python-for-android in GitHub Actions
+(`.github/workflows/android.yml`, design in `docs/kids/SDD_ANDROID.md`).
+To build locally on Linux:
 
-Android support is experimental and may require manual setup.
+```shell
+pip install buildozer cython
+python tools/android/stage.py build/app
+cd build/app && buildozer android debug
+```
+
+The staged folder contains the game, its content, `main.py`, the local
+recipes (`pygame_ce`, `python_bidi_pure`, `pyyaml_pure`) and a generated
+`buildozer.spec`. No files need to be copied to the phone.
 
 ---
 

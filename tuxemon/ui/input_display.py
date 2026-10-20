@@ -10,6 +10,7 @@ from pygame.rect import Rect
 
 from tuxemon.graphics import ColorLike
 from tuxemon.sprite import Sprite, SpriteGroup
+from tuxemon.ui import bidi
 from tuxemon.ui.text import TextArea
 
 if TYPE_CHECKING:
@@ -28,6 +29,8 @@ class InputDisplayConfig:
     text_area_height: int = 100
     char_counter_offset_x: int = 80
     char_counter_offset_y: int = 30
+    #: In screen pixels, not scaled.
+    char_counter_size: tuple[int, int] = (50, 30)
 
 
 class InputDisplay:
@@ -50,6 +53,8 @@ class InputDisplay:
         self.sprites: SpriteGroup[Sprite] = SpriteGroup()
         self.config = config or InputDisplayConfig()
         self.area_rect = area_rect
+        # RTL: prompt and input are anchored to the right, counter left
+        self.rtl = bidi.locale_is_rtl()
 
         # Prompt area
         rect_prompt_area = Rect(
@@ -58,6 +63,7 @@ class InputDisplay:
             self.scaling.scale_int(self.config.prompt_width),
             self.scaling.scale_int(self.config.prompt_height),
         )
+        self._mirror(rect_prompt_area)
         self.prompt = TextArea(
             font=font,
             font_color=font_color,
@@ -78,6 +84,7 @@ class InputDisplay:
             self.scaling.scale_int(self.config.text_area_width),
             self.scaling.scale_int(self.config.text_area_height),
         )
+        self._mirror(rect_text_area)
         self.text_area = TextArea(
             font=font,
             font_color=font_color,
@@ -93,12 +100,18 @@ class InputDisplay:
         self.char_counter = TextArea(
             font=font,
             font_color=font_color,
-            rect=Rect(0, 0, 50, 30),
+            rect=Rect((0, 0), self.config.char_counter_size),
             scaling=self.scaling,
             font_shadow=(96, 96, 96),
         )
         self.char_counter.animated = False
         self.sprites.add(self.char_counter)
+
+    def _mirror(self, rect: Rect) -> None:
+        """Mirror a rect horizontally inside the area (RTL only)."""
+        if self.rtl:
+            offset = rect.left - self.area_rect.left
+            rect.right = self.area_rect.right - offset
 
     def update_input_string(self, new_string: str) -> None:
         """Updates the displayed input string."""
@@ -107,9 +120,17 @@ class InputDisplay:
     def update_char_counter(self, remaining_chars: int) -> None:
         """Updates the character count display in a fixed position."""
         self.char_counter.text = f"{remaining_chars}"
-        self.char_counter.rect.topleft = (
-            self.area_rect.right
-            - self.scaling.scale_int(self.config.char_counter_offset_x),
-            self.area_rect.top
-            + self.scaling.scale_int(self.config.char_counter_offset_y),
+        offset_x = self.scaling.scale_int(self.config.char_counter_offset_x)
+        top = self.area_rect.top + self.scaling.scale_int(
+            self.config.char_counter_offset_y
         )
+        if self.rtl:
+            self.char_counter.rect.topright = (
+                self.area_rect.left + offset_x,
+                top,
+            )
+        else:
+            self.char_counter.rect.topleft = (
+                self.area_rect.right - offset_x,
+                top,
+            )

@@ -17,14 +17,26 @@ from pydantic import BaseModel, Field, ValidationError, field_validator
 from tuxemon.animation import Animation
 from tuxemon.constants import paths
 from tuxemon.database.yaml_utils import dump_yaml_io, load_yaml
+from tuxemon.platform import mobile
 from tuxemon.platform.const import buttons, events
 
 Animation.default_transition = "out_quint"
 
-LOCALE_FONT_MAP = {
-    "zh_CN": ("SourceHanSerifCN-Bold.otf", "SourceHanSerifCN-Bold.otf"),
-    "ja": ("SourceHanSerifJP-Bold.otf", "SourceHanSerifJP-Bold.otf"),
-    "default": ("PressStart2P.ttf", "Pizel.ttf"),
+# locale -> (font_file, thin_font_file, minimal_font_file)
+LOCALE_FONT_MAP: dict[str, tuple[str, str, str]] = {
+    "zh_CN": (
+        "SourceHanSerifCN-Bold.otf",
+        "SourceHanSerifCN-Bold.otf",
+        "SourceHanSerifCN-Bold.otf",
+    ),
+    "ja": (
+        "SourceHanSerifJP-Bold.otf",
+        "SourceHanSerifJP-Bold.otf",
+        "SourceHanSerifJP-Bold.otf",
+    ),
+    # Rubik (OFL): Hebrew + Latin, readable at small sizes
+    "he_IL": ("Rubik-Medium.ttf", "Rubik-Medium.ttf", "Rubik-Medium.ttf"),
+    "default": ("PressStart2P.ttf", "Pizel.ttf", "Minimal3x5.ttf"),
 }
 
 
@@ -50,6 +62,8 @@ class GameConfig(BaseModel):
     data: str = "tuxemon"
     cli_enabled: bool = False
     net_controller_enabled: bool = False
+    # Multiplayer is unfinished; keep the game from opening a port.
+    network_enabled: bool = False
     dev_tools: bool = False
     recompile_translations: bool = True
     skip_titlescreen: bool = False
@@ -60,6 +74,9 @@ class GameConfig(BaseModel):
     save_slots: int = 6
     save_slots_per_page: int = 3
     locale: str = "en_US"
+    #: The player picked the language (the language screen). Until then a
+    #: phone speaks Hebrew whatever ``locale`` says (SDD_ANDROID §2.7).
+    locale_chosen: bool = False
     translation_mode: str = "none"
     font_file: str = "PressStart2P.ttf"
     language_font: str = "PressStart2P.ttf"
@@ -104,7 +121,8 @@ class ControlsConfig(BaseModel):
     right: str = "right"
     a: str = "return"
     b: str = "rshift, lshift"
-    back: str = "escape"
+    # AC_BACK: the phone's back button or gesture.
+    back: str = "escape, ac_back"
     backspace: str = "backspace"
 
 
@@ -112,7 +130,8 @@ class ControllerConfigModel(BaseModel):
     type: str | None = None
     overlay: bool = False
     transparency: int = 45
-    hide_mouse: bool = True
+    # Nagmon: children click (and tap) answers, so the mouse is on.
+    hide_mouse: bool = False
     show_input_visualizer: bool = False
     combo_window_seconds: float = 5.0
 
@@ -152,6 +171,8 @@ class TuxemonConfig:
         self.config_path = config_path
 
         config_data: dict[str, Any] = TuxemonFullConfig().model_dump()
+        if mobile.is_android():
+            mobile.touch_defaults(config_data)
 
         if config_path and config_path.exists():
             loaded_config = load_yaml(config_path) or {}
@@ -161,6 +182,10 @@ class TuxemonConfig:
                     defaults.update(loaded_config[category])
                 elif category in loaded_config:
                     config_data[category] = loaded_config[category]
+        if mobile.is_android():
+            mobile.phone_language(
+                config_data, LOCALE_FONT_MAP[mobile.PHONE_LOCALE]
+            )
 
         # Validate merged config
         try:
@@ -171,11 +196,12 @@ class TuxemonConfig:
             )
             self.config_model = TuxemonFullConfig()
 
+        self._sync_locale_fonts()
         self.input = InputConfig(self.config_model)
         self.logging = LoggingConfig(self.config_model)
         self.locale = LocaleConfig(self.config_model)
         self.controller = ControllerConfig(self.config_model)
-        self.mods = ["tuxemon"]
+        self.mods = ["nagmon"]
 
     @property
     def resolution(self) -> tuple[int, int]:
@@ -189,6 +215,10 @@ class TuxemonConfig:
     @property
     def fullscreen(self) -> bool:
         return self.config_model.display.fullscreen
+
+    @property
+    def network_enabled(self) -> bool:
+        return self.config_model.game.network_enabled
 
     @property
     def fps(self) -> float:
@@ -398,13 +428,30 @@ class TuxemonConfig:
         self.input.update_key(value, pygame.key.name(key))
         self.save_config()
 
-    def update_locale(self, value: str) -> None:
+    def _sync_locale_fonts(self) -> None:
         """
-        Updates the locale and applies derived font logic.
+        Gives a language its own fonts when the config still names the
+        default ones (e.g. a config that only sets ``locale: he_IL``), so
+        the text never renders as empty boxes.
+        """
+        game = self.config_model.game
+        fonts = LOCALE_FONT_MAP.get(game.locale)
+        if fonts is None or game.font_file != LOCALE_FONT_MAP["default"][0]:
+            return
+        game.language_font = game.font_file = fonts[0]
+        game.thin_font_file = fonts[1]
+        game.minimal_font_file = fonts[2]
+
+    def update_locale(self, value: str, *, chosen: bool = False) -> None:
+        """
+        Updates the locale and applies derived font logic. ``chosen``: the
+        player picked it, and a phone keeps it (SDD_ANDROID §2.7).
         """
         self.config_model.game.locale = value
+        if chosen:
+            self.config_model.game.locale_chosen = True
 
-        font_file, thin_font = LOCALE_FONT_MAP.get(
+        font_file, thin_font, minimal_font = LOCALE_FONT_MAP.get(
             value, LOCALE_FONT_MAP["default"]
         )
 
@@ -412,6 +459,7 @@ class TuxemonConfig:
         game.language_font = font_file
         game.font_file = font_file
         game.thin_font_file = thin_font
+        game.minimal_font_file = minimal_font
         self.save_config()
 
     def reset_controls_to_default(self) -> None:
@@ -476,6 +524,7 @@ class LocaleConfig:
     @property
     def minimal_font_file(self) -> str:
         return self._model.minimal_font_file
+
 
 class InputConfig:
     """Reactive input configuration wrapper with cached keymap."""

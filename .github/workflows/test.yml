@@ -36,7 +36,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.10', '3.11', '3.12', '3.13', '3.14']
+        # Private repo: keep Actions minutes low with the oldest and newest
+        # supported versions only.
+        python-version: ['3.10', '3.13']
     name: Test Python ${{ matrix.python-version }}
 
     steps:

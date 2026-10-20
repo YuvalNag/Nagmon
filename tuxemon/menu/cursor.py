@@ -6,9 +6,11 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, Any, Generic, TypeVar
 
 from pygame.surface import Surface
+from pygame.transform import flip
 
 from tuxemon.graphics import load_and_scale
 from tuxemon.sprite import Sprite
+from tuxemon.ui import bidi
 
 if TYPE_CHECKING:
     from tuxemon.animation import Animation
@@ -64,6 +66,7 @@ class MenuCursorController(Generic[T]):
         remove_animations: Callable[[Any], None],
         offset: tuple[int, int] = (0, 0),
         cursor_image: Surface | None = None,
+        rtl: bool | None = None,
     ):
         """
         Initializes the cursor controller with required graphics
@@ -82,8 +85,13 @@ class MenuCursorController(Generic[T]):
                 relative to the menu item.
             cursor_image: Optional preloaded Surface to override image loading.
                 Useful for testing or dynamic cursor theming.
+            rtl: Place a mirrored cursor right of the item. None follows
+                the active language.
         """
+        self.rtl = bidi.locale_is_rtl() if rtl is None else rtl
         image = cursor_image or load_and_scale(cursor_filename)
+        if self.rtl:
+            image = flip(image, True, False)
         x_off, y_off = offset
         self.arrow = MenuCursor(image, x_off, y_off)
         self.sprites = menu_sprites
@@ -163,20 +171,26 @@ class MenuCursorController(Generic[T]):
         if not item:
             return None
 
-        x, y = item.rect.midleft
-        x += self.arrow.x_offset
+        if self.rtl:
+            x, y = item.rect.midright
+            x -= self.arrow.x_offset
+            side = "left"
+        else:
+            x, y = item.rect.midleft
+            x += self.arrow.x_offset
+            side = "right"
         y += self.arrow.y_offset
 
         if animate:
             self.remove_animations(self.arrow.rect)
             return self.animate(
                 self.arrow.rect,
-                right=x,
-                centery=y,
                 duration=self.duration,
+                centery=y,
+                **{side: x},
             )
         else:
-            self.arrow.rect.right = x
+            setattr(self.arrow.rect, side, x)
             self.arrow.rect.centery = y
             return None
 

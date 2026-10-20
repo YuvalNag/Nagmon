@@ -214,8 +214,8 @@ def test_tileset_source(loaded_data):
         tileset = root.find(".//tileset")
         if tileset is not None and "source" in tileset.attrib:
             tileset_source = tileset.attrib["source"]
-            base_path = Path(fetch_asset("gfx"))
-            merged_path = (base_path / tileset_source).resolve()
+            # pytmx resolves tileset sources relative to the map file.
+            merged_path = (Path(path).parent / tileset_source).resolve()
             assert merged_path.is_file(), (
                 f"Source '{merged_path}' doesn't exist"
             )

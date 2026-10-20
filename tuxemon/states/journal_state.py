@@ -6,13 +6,14 @@ from collections.abc import Callable
 from functools import partial
 from typing import TYPE_CHECKING, Any, ClassVar
 
-from pygame_menu.locals import ALIGN_LEFT, POSITION_EAST
+from pygame_menu.locals import POSITION_EAST
 from pygame_menu.menu import Menu
 
 from tuxemon.database.runtime import db
 from tuxemon.db import MonsterModel
 from tuxemon.locale.locale import T
 from tuxemon.menu.menu import PygameMenuState
+from tuxemon.menu.rtl import start_menu_alignment
 from tuxemon.platform.const import buttons
 from tuxemon.platform.const.graphics import (
     BG_JOURNAL,
@@ -75,8 +76,12 @@ class JournalState(PygameMenuState):
                         button_id=mon.slug,
                         underline=True,
                         underline_color=SEA_BLUE_COLOR,
-                        underline_offset=self.client.context.scaling.scale_int(1),
-                        underline_width=self.client.context.scaling.scale_int(1),
+                        underline_offset=self.client.context.scaling.scale_int(
+                            1
+                        ),
+                        underline_width=self.client.context.scaling.scale_int(
+                            1
+                        ),
                     ).translate(btn_x_offset, btn_y_offset)
             else:
                 label = f"{mon.txmn_id}. -----"
@@ -144,7 +149,7 @@ class JournalState(PygameMenuState):
         theme = self._setup_theme(BG_JOURNAL)
         theme.widget_font_shadow = False
         theme.scrollarea_position = POSITION_EAST
-        theme.widget_alignment = ALIGN_LEFT
+        theme.widget_alignment = start_menu_alignment()
         self._menu_config["theme"] = theme
 
         self.add_menu_items(self.menu, monster_list)

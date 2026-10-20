@@ -1,0 +1,195 @@
+name: Android APK
+
+# Builds the phone app (docs/kids/SDD_ANDROID.md §2.4). Download the APK
+# from the run's "Artifacts" and install it on the phone.
+#
+# Signing: with the secrets ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD
+# and ANDROID_KEY_ALIAS the APK is a signed release, and every new build
+# installs over the old one and keeps the children's progress. Without them
+# it is a debug build signed by a throwaway key: updating it means
+# uninstalling first, which deletes the progress.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "buildconfig/android/**"
+      - "tools/android/**"
+      - ".github/workflows/android.yml"
+
+permissions:
+  contents: read
+
+# One build at a time per branch: two builds started together each made
+# their own signing key and only one could be kept (builds 15 and 17).
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # The phone (Poco F3 and every phone since ~2017).
+          - arch: arm64-v8a
+            artifact: nagmon-android
+          # The same app for the emulator check (android-smoke.yml).
+          - arch: x86_64
+            artifact: nagmon-emulator
+    env:
+      HAS_KEY: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: '17'
+
+    - name: Install build tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends \
+          autoconf automake libtool libltdl-dev pkg-config cmake \
+          zip unzip libffi-dev libssl-dev zlib1g-dev ccache
+        # buildozer brings the Cython it needs (<3).
+        pip install buildozer==1.6.0 setuptools pyyaml
+        # pydantic-core is Rust.
+        rustup target add aarch64-linux-android x86_64-linux-android
+
+    - name: Cache Android SDK and NDK
+      uses: actions/cache@v4
+      with:
+        path: ~/.buildozer
+        key: buildozer-${{ runner.os }}-${{ matrix.arch }}-${{ hashFiles('tools/android/stage.py', 'buildconfig/android/recipes/**') }}
+        # The SDK and NDK are the same for both; an older cache still helps.
+        restore-keys: |
+          buildozer-${{ runner.os }}-${{ matrix.arch }}-
+          buildozer-${{ runner.os }}-
+
+    - name: Stage the app
+      run: python tools/android/stage.py build/app --build-number ${{ github.run_number }} --arch ${{ matrix.arch }}
+
+    - name: Boot the app the way the phone holds it
+      # Byte-compiled, .pyc only: fails in a minute instead of an hour.
+      if: matrix.arch == 'arm64-v8a'
+      run: |
+        pip install -r requirements.txt
+        tools/android/compiled_boot.sh build/app 30
+
+    - name: Keep one signing key for every build
+      # Every build is signed with the same key, so the phone installs it
+      # over the previous one and keeps the children's progress
+      # (uninstalling deletes it). With the ANDROID_KEYSTORE_* secrets that
+      # key is the owner's; without them the build makes one key the first
+      # time and the Actions cache keeps it (GitHub drops a cache unused
+      # for 7 days, so the secrets are the permanent way).
+      if: env.HAS_KEY != 'true'
+      uses: actions/cache@v4
+      with:
+        path: ~/.nagmon-signing
+        key: nagmon-signing-${{ matrix.arch }}-v1
+
+    - name: Signing key
+      env:
+        KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      run: |
+        if [ "$HAS_KEY" = "true" ]; then
+          keystore="$RUNNER_TEMP/nagmon.keystore"
+          echo "$KEYSTORE_B64" | base64 --decode > "$keystore"
+          password="$KEYSTORE_PASSWORD"; alias="$KEY_ALIAS"
+        else
+          keystore="$HOME/.nagmon-signing/nagmon.keystore"
+          password="nagmon-ci"; alias="nagmon"
+          if [ ! -f "$keystore" ]; then
+            mkdir -p "$(dirname "$keystore")"
+            keytool -genkeypair -keystore "$keystore" -storetype PKCS12 \
+              -alias "$alias" -keyalg RSA -keysize 2048 -validity 25000 \
+              -storepass "$password" -keypass "$password" \
+              -dname "CN=Nagmon, O=Nagmon"
+            echo "Made a new signing key (first build, or the cache expired)."
+          fi
+        fi
+        {
+          echo "P4A_RELEASE_KEYSTORE=$keystore"
+          echo "P4A_RELEASE_KEYSTORE_PASSWD=$password"
+          echo "P4A_RELEASE_KEYALIAS=$alias"
+          echo "P4A_RELEASE_KEYALIAS_PASSWD=$password"
+        } >> "$GITHUB_ENV"
+
+    - name: Build
+      working-directory: build/app
+      run: yes | buildozer android release
+
+    - name: Summary
+      if: always()
+      run: |
+        {
+          echo "### Nagmon for Android (build ${{ github.run_number }}, ${{ matrix.arch }})"
+          ls -la build/app/bin 2>/dev/null || echo "No APK was built."
+          if [ "$HAS_KEY" != "true" ]; then
+            echo
+            echo "Signed with the key kept in the Actions cache: it installs over the previous build."
+            echo "The cache drops the key after 7 days without a build; the ANDROID_KEYSTORE_* secrets keep one for good (docs/kids/HOW_TO_PLAY.md)."
+          fi
+        } >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.artifact }}-${{ github.run_number }}
+        path: build/app/bin/*.apk
+        if-no-files-found: error
+        # A private repo has 500MB of free storage; an APK is ~220MB.
+        retention-days: 3
+
+    - name: Signing key fingerprint
+      # The APK must carry the key above: the same fingerprint on every
+      # build means the phone installs it over the previous one.
+      run: |
+        apksigner=$(ls ~/.buildozer/android/platform/android-sdk/build-tools/*/apksigner | tail -1)
+        signed=$("$apksigner" verify --print-certs build/app/bin/*.apk \
+          | grep -m1 "certificate SHA-256 digest" | awk '{print $NF}')
+        expected=$(keytool -list -v -keystore "$P4A_RELEASE_KEYSTORE" \
+          -storepass "$P4A_RELEASE_KEYSTORE_PASSWD" -alias "$P4A_RELEASE_KEYALIAS" \
+          | grep -m1 "SHA256:" | sed 's/.*SHA256: //; s/://g' | tr 'A-F' 'a-f')
+        echo "signing key SHA-256: $signed" | tee -a "$GITHUB_STEP_SUMMARY"
+        if [ -z "$signed" ] || [ "$signed" != "$expected" ]; then
+          echo "::error::The APK is not signed with the build's signing key ($signed vs $expected)"
+          exit 1
+        fi
+
+    - name: Check what is inside the APK
+      run: python tools/android/check_apk.py build/app/bin/*.apk --layout
+
+    - name: Upload build log on failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: buildozer-log-${{ matrix.arch }}-${{ github.run_number }}
+        path: build/app/.buildozer/android/platform/build-*/*.log
+        if-no-files-found: ignore
+        retention-days: 3
+
+  emulator:
+    # Opens this APK on an Android emulator: a crash fails the build.
+    needs: apk
+    permissions:
+      actions: read
+      contents: read
+    uses: ./.github/workflows/android-smoke.yml
+    with:
+      same-run: true

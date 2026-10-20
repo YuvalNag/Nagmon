@@ -9,6 +9,7 @@ from functools import partial
 from typing import TYPE_CHECKING, Any, ClassVar
 
 from pygame import SRCALPHA
+from pygame.font import Font
 from pygame.rect import Rect
 from pygame.surface import Surface
 from pygame.transform import scale as pg_scale
@@ -26,6 +27,8 @@ from tuxemon.states.item_menu import ItemMenuState
 from tuxemon.states.monster_menu import MonsterMenuState
 from tuxemon.technique.technique import Technique
 from tuxemon.tools import fix_measure, open_dialog
+from tuxemon.ui.bidi import ensure_visual
+from tuxemon.ui.combat_layout import DESIGN_WIDTH
 from tuxemon.ui.graphic_box import GraphicBox
 from tuxemon.ui.text import TextArea
 
@@ -40,6 +43,35 @@ logger = logging.getLogger(__name__)
 
 
 MenuGameObj = Callable[[], None]
+
+
+#: Where each line of an attack's details starts, in 256x144 units.
+INFO_LINE_PLACES: dict[str, tuple[int, int]] = {
+    "accuracy": (7, 114),
+    "power": (44, 123),
+    "recharge": (7, 133),
+}
+#: The details' box ends here (in 144ths of the height).
+INFO_BOTTOM = 139
+
+
+def render_info_line(font: Font, line: str) -> Surface:
+    """One line of an attack's details, black, in reading order."""
+    return font.render(ensure_visual(line), True, (0, 0, 0))
+
+
+def info_line_position(
+    key: str, screen: tuple[int, int], height: int
+) -> tuple[int, int]:
+    """
+    Where a line of an attack's details goes. A line that would hang
+    below the box (a phone's bigger text) moves up into it.
+    """
+    screen_w, screen_h = screen
+    x, y = INFO_LINE_PLACES[key]
+    top = fix_measure(screen_h, y / 144)
+    bottom = fix_measure(screen_h, INFO_BOTTOM / 144)
+    return fix_measure(screen_w, x / 256), min(top, bottom - height)
 
 
 class MainCombatMenuState(PopUpMenu[MenuGameObj]):
@@ -113,6 +145,40 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
             for spr in self.text_sprites.values():
                 if spr in self.sprites:
                     self.sprites.remove(spr)
+
+    def submenu_right(self) -> int:
+        """
+        Where a menu opened above this one (the attacks, the team) ends
+        on the right: the screen's edge, or on a screen wider than the
+        battle's layout (a 20:9 phone), the left edge of the player's
+        HUD, which the layout moved to that edge (SDD_ANDROID §2.8).
+        """
+        screen = self.client.context.rect
+        extra = screen.width - self.client.context.scaling.scale_int(
+            DESIGN_WIDTH
+        )
+        if extra <= 0:
+            return screen.right
+        lefts = [
+            hud.rect.left
+            for hud in (
+                self.combat.hud_manager.get_hud(mon) for mon in self.party
+            )
+            if hud is not None and hud.rect.centerx > screen.centerx
+        ]
+        return min([screen.right, *lefts])
+
+    def anchor_above(self, menu: Any, shrinks: bool = False) -> None:
+        """
+        ``menu`` above this one, at ``submenu_right``. A menu too wide for
+        the room left of the HUD (the team screen) keeps the screen's
+        edge, unless it ``shrinks`` to its words when it opens.
+        """
+        menu.anchor("bottom", self.rect.top)
+        right = self.submenu_right()
+        if not shrinks and menu.rect.width > right:
+            right = self.client.context.rect.right
+        menu.anchor("right", right)
 
     def calculate_menu_rectangle(self) -> Rect:
         rect_screen = self.client.context.rect.copy()
@@ -261,8 +327,7 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
                 is_valid_entry=validate,
             )
         )
-        menu.anchor("bottom", self.rect.top)
-        menu.anchor("right", self.client.context.rect.right)
+        self.anchor_above(menu)
 
     def open_item_menu(self) -> None:
         """Open menu to choose item to use."""
@@ -338,16 +403,31 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
                     open_dialog(self.client, [template], dialog_speed="max")
                     return
 
-            # enqueue the item
-            self.combat_session.enqueue_action(self.character, item, target)
-            self.character.battle_last_used_item_slug = item.slug
-
-            # close all the open menus
-            self.client.remove_state_by_name("MainCombatMenuState")
-            if not item.behaviors.throwable:
-                self.client.remove_state_by_name("MonsterMenuState")
+            self.before_enqueue_item(
+                item, target, partial(self._finish_enqueue_item, item, target)
+            )
 
         choose_item()
+
+    def before_enqueue_item(
+        self, item: Item, target: Monster, proceed: Callable[[], None]
+    ) -> None:
+        """
+        Called once the player picked an item and its target, before the
+        item is queued. Mods override this to run something first (for
+        example a question); they must call ``proceed`` to queue the item.
+        """
+        proceed()
+
+    def _finish_enqueue_item(self, item: Item, target: Monster) -> None:
+        # enqueue the item
+        self.combat_session.enqueue_action(self.character, item, target)
+        self.character.battle_last_used_item_slug = item.slug
+
+        # close all the open menus
+        self.client.remove_state_by_name("MainCombatMenuState")
+        if not item.behaviors.throwable:
+            self.client.remove_state_by_name("MonsterMenuState")
 
     def open_technique_menu(self) -> None:
         """Open menus to choose a Technique to use."""
@@ -401,9 +481,8 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
             if enabled_items:
                 menu.selected_index = enabled_items[0]
 
-            # position the new menu
-            menu.anchor("bottom", self.rect.top)
-            menu.anchor("right", self.client.context.rect.right)
+            # position the new menu (it shrinks to the names when it opens)
+            self.anchor_above(menu, shrinks=True)
 
             # set next menu after the selection is made
             menu.on_selection_callback = choose_target
@@ -524,27 +603,13 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
                     )
 
                 for key, line in text_lines.items():
-                    surf = font.render(line, True, (0, 0, 0))  # black text
+                    surf = render_info_line(font, line)
                     spr = Sprite()
                     spr.image = surf
                     spr.rect = surf.get_rect()
-
-                    # Independent positioning (you can tweak these individually)
-                    if key == "accuracy":
-                        spr.rect.topleft = (
-                            fix_measure(screen_w, 7 / 256),
-                            fix_measure(screen_h, 114 / 144),
-                        )
-                    elif key == "power":
-                        spr.rect.topleft = (
-                            fix_measure(screen_w, 44 / 256),
-                            fix_measure(screen_h, 123 / 144),
-                        )
-                    elif key == "recharge":
-                        spr.rect.topleft = (
-                            fix_measure(screen_w, 7 / 256),
-                            fix_measure(screen_h, 133 / 144),
-                        )
+                    spr.rect.topleft = info_line_position(
+                        key, (screen_w, screen_h), surf.get_height()
+                    )
 
                     self.sprites.add(spr, layer=200)
                     self.text_sprites[key] = spr
@@ -616,16 +681,38 @@ class MainCombatMenuState(PopUpMenu[MenuGameObj]):
                 self.session, self.monster, technique, target
             )
 
-            # Enqueue the action
-            self.combat_session.enqueue_action(self.monster, technique, target)
-
-            # close all the open menus
-            if len(self.opponents) > 1:
-                self.client.remove_state_by_name("CombatTargetMenuState")
-            self.client.remove_state_by_name("Menu")
-            self.client.pop_state(self)
+            self.before_enqueue_technique(
+                technique,
+                target,
+                partial(self._finish_enqueue_technique, technique, target),
+            )
 
         choose_technique()
+
+    def before_enqueue_technique(
+        self,
+        technique: Technique,
+        target: Monster,
+        proceed: Callable[[], None],
+    ) -> None:
+        """
+        Called once the player picked a technique and its target, before
+        the action is queued. Mods override this to run something first
+        (for example a question); they must call ``proceed`` to queue it.
+        """
+        proceed()
+
+    def _finish_enqueue_technique(
+        self, technique: Technique, target: Monster
+    ) -> None:
+        # Enqueue the action
+        self.combat_session.enqueue_action(self.monster, technique, target)
+
+        # close all the open menus
+        if len(self.opponents) > 1:
+            self.client.remove_state_by_name("CombatTargetMenuState")
+        self.client.remove_state_by_name("Menu")
+        self.client.pop_state(self)
 
 
 class CombatTargetMenuState(Menu[Monster]):
@@ -665,7 +752,10 @@ class CombatTargetMenuState(Menu[Monster]):
 
         if self.technique.behaviors.bypasses_selection:
             if self.technique.target.get("enemy_monster"):
-                for player, monsters in self.combat_session.field_monsters.get_all_monsters().items():
+                for (
+                    player,
+                    monsters,
+                ) in self.combat_session.field_monsters.get_all_monsters().items():
                     if player != self.character and monsters:
                         yield self._create_menu_item(monsters[0])
                         break
@@ -780,7 +870,6 @@ class CombatTargetMenuState(Menu[Monster]):
         items = [i for i in self.menu_items if i.enabled]
         if len(items) == 1:
             self.on_menu_selection(items[0])
-
 
     def on_menu_selection_change(self) -> None:
         """Handles border updates when selection changes."""

@@ -2,8 +2,10 @@
 # Copyright (c) 2014-2026 William Edwards <shadowapex@gmail.com>, Benjamin Bean <superman2k5@gmail.com>
 from __future__ import annotations
 
+import hashlib
 import logging
 from collections.abc import Callable, Mapping
+from gettext import GNUTranslations, NullTranslations, translation
 from pathlib import Path
 from typing import Any
 
@@ -22,7 +24,23 @@ logger = logging.getLogger(__name__)
 FALLBACK_LOCALE = "en_US"
 LOCALE_DIR = "l18n"
 LOCALE_CONFIG = CONFIG.locale
-ONE_WEEK = 7 * 24 * 60 * 60  # seconds
+RTL_LOCALES = {"he_IL"}
+
+
+def stamp_path(mo_path: Path) -> Path:
+    """Next to each .mo: the fingerprint of the .po it was made from."""
+    return mo_path.with_name(mo_path.name + ".src")
+
+
+def po_stamp(po_path: Path) -> str:
+    return hashlib.sha256(po_path.read_bytes()).hexdigest()
+
+
+def _made_from(po_path: Path, mo_path: Path) -> bool:
+    try:
+        return stamp_path(mo_path).read_text().strip() == po_stamp(po_path)
+    except OSError:
+        return False
 
 
 class TranslatorManager:
@@ -41,6 +59,12 @@ class TranslatorManager:
         self._translators: dict[str, TranslatorPo] = {}
         self._current_translator_key: str = "base"
         self.language_changed_callbacks: list[Callable[[str], None]] = []
+        # translators for explicit locales (translate_in), never active
+        self._translators_in: dict[tuple[str, str], TranslatorPo] = {}
+        self._strict_catalogs: dict[
+            tuple[str, str], GNUTranslations | NullTranslations
+        ] = {}
+        self._strict_mod_domains: tuple[str, ...] | None = None
         self.collect_and_compile_translations()
         self.clean_stale_translations()
         self.load_translator_for_domain(
@@ -72,6 +96,12 @@ class TranslatorManager:
             ):
                 self.gettext_compiler.compile_gettext(info.path, mo_path)
                 logger.info(f"Recompiled .mo for: {mo_path}")
+                try:
+                    stamp_path(mo_path).write_text(po_stamp(info.path))
+                except OSError as e:
+                    logger.warning(
+                        f"Could not record the .po of {mo_path}: {e}"
+                    )
 
         logger.info("Translation files compilation complete.")
 
@@ -98,10 +128,17 @@ class TranslatorManager:
         elif not mo_path.exists():
             logger.debug(f".mo file missing, compiling: {mo_path}")
             return True
-        elif po_mtime > mo_mtime and delta > ONE_WEEK:
+        elif po_mtime > mo_mtime:
+            # Any newer .po wins: after an update, new strings must show at
+            # once, not as raw msgids for a week (docs/kids/SDD_WORLD.md).
             logger.info(
-                f"Recompiled .mo due to freshness gap ({delta:.2f}s): {mo_path}"
+                f"Recompiled .mo, the .po is newer ({delta:.2f}s): {mo_path}"
             )
+            return True
+        elif not _made_from(info.path, mo_path):
+            # A .po can look older than the .mo and still be new: a build
+            # made before the phone last compiled (docs/kids/SDD_ANDROID.md).
+            logger.info(f"Recompiled .mo, the .po changed: {mo_path}")
             return True
         else:
             logger.debug(
@@ -132,6 +169,7 @@ class TranslatorManager:
             if not any(mo_file.samefile(p) for p in self._expected_mo_paths):
                 logger.info(f"Removing stale .mo: {mo_file}")
                 mo_file.unlink()
+                stamp_path(mo_file).unlink(missing_ok=True)
                 deleted_count += 1
 
         logger.info(
@@ -162,9 +200,26 @@ class TranslatorManager:
             domain=domain,
             localedir=self.localedir,
             fallback_locale=FALLBACK_LOCALE,
+            extra_domains=self._mod_domains() if domain == "base" else (),
         )
         logger.debug(
             f"Translator for domain '{domain}' loaded/reloaded with locale '{actual_locale_name}'."
+        )
+
+    def _mod_domains(self) -> tuple[str, ...]:
+        """
+        Domains other than "base" (mods ship their own strings, e.g.
+        nagmon.po). They are chained in front of "base" so plain
+        T.translate() finds them.
+        """
+        return tuple(
+            sorted(
+                {
+                    info.domain
+                    for info in self.locale_finder.search_locales()
+                    if info.domain != "base"
+                }
+            )
         )
 
     def set_current_translator(self, domain: str) -> None:
@@ -265,6 +320,86 @@ class TranslatorManager:
             return ""
 
         return self._get_translator_for_domain(domain).maybe_translate(text)
+
+    def is_rtl(self) -> bool:
+        """True when the active language is written right to left."""
+        return self.get_current_language() in RTL_LOCALES
+
+    def _translator_in(
+        self, locale_name: str, domain: str | None
+    ) -> TranslatorPo:
+        """
+        Cached translator for an explicit locale. It is never made the
+        active translator, so the current language does not change.
+        """
+        domain = domain or self._current_translator_key
+        if not self.locale_finder.has_locale(locale_name):
+            locale_name = FALLBACK_LOCALE
+        key = (locale_name, domain)
+        translator = self._translators_in.get(key)
+        if translator is None:
+            translator = TranslatorPo(
+                locale_name=locale_name,
+                domain=domain,
+                localedir=self.localedir,
+                fallback_locale=FALLBACK_LOCALE,
+                extra_domains=self._mod_domains() if domain == "base" else (),
+            )
+            self._translators_in[key] = translator
+        return translator
+
+    def translate_in(
+        self, msgid: str, locale_name: str, domain: str | None = None
+    ) -> str:
+        """
+        Translate a message into a specific locale without changing the
+        active language. Falls back to English like ``translate``.
+        """
+        return self._translator_in(locale_name, domain).translate(msgid)
+
+    def format_in(
+        self,
+        text: str,
+        locale_name: str,
+        parameters: Mapping[str, Any] | None = None,
+        domain: str | None = None,
+    ) -> str:
+        """``format`` in a specific locale, without changing the language."""
+        return self._translator_in(locale_name, domain).format(
+            text, parameters
+        )
+
+    def lookup_in(
+        self, msgid: str, locale_name: str, domain: str | None = None
+    ) -> str | None:
+        """
+        Strict lookup in the catalogue of ``locale_name`` only (no English
+        fallback). Returns None when the locale has no entry for msgid.
+        For "base", mod domains are searched first, like ``translate``.
+        """
+        domain = domain or self._current_translator_key
+        if domain == "base":
+            if self._strict_mod_domains is None:
+                self._strict_mod_domains = self._mod_domains()
+            domains = [*self._strict_mod_domains, domain]
+        else:
+            domains = [domain]
+        msgid = msgid.replace(r"\n", "\n")
+        for name in domains:
+            key = (locale_name, name)
+            catalog = self._strict_catalogs.get(key)
+            if catalog is None:
+                catalog = translation(
+                    name, self.localedir, [locale_name], fallback=True
+                )
+                self._strict_catalogs[key] = catalog
+            if not isinstance(catalog, GNUTranslations):
+                continue
+            entries: dict[Any, str] = getattr(catalog, "_catalog", {})
+            value = entries.get(msgid)
+            if value:
+                return value
+        return None
 
     def get_current_language(self) -> str:
         """

@@ -7,6 +7,7 @@ import importlib.util
 import inspect
 import logging
 import sys
+import types
 from abc import ABC, abstractmethod
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
@@ -64,6 +65,22 @@ class PluginDiscovery(ABC):
     @abstractmethod
     def set_folders(self, folders: list[Path]) -> None:
         """Sets the folders to search for plugins."""
+
+
+def module_stems(folder: Path) -> list[str]:
+    """
+    Names of the modules in ``folder``, from ``.py`` or ``.pyc`` files.
+    The phone app ships only ``.pyc`` files (docs/kids/SDD_ANDROID.md).
+    """
+    if not folder.is_dir():
+        return []
+    return sorted(
+        {
+            f.stem
+            for f in folder.iterdir()
+            if f.suffix in (".py", ".pyc") and f.is_file()
+        }
+    )
 
 
 class FileSystemPluginDiscovery(PluginDiscovery):
@@ -299,11 +316,14 @@ class PluginManager:
         """
         Extract all classes from a module that match the interface.
         """
-        predicate = (
-            inspect.isclass
-            if interface is PluginObject
-            else lambda c: inspect.isclass(c) and issubclass(c, interface)
-        )
+
+        def predicate(c: object) -> bool:
+            # On Python 3.10 inspect.isclass() is also true for aliases
+            # such as ``Callable[[Any], None]``, which issubclass rejects.
+            if not inspect.isclass(c) or isinstance(c, types.GenericAlias):
+                return False
+            return interface is PluginObject or issubclass(c, interface)
+
         return inspect.getmembers(module, predicate=predicate)
 
     def _get_plugins_from_module(

@@ -11,8 +11,10 @@ import pygame
 
 from tuxemon.base_client import BaseClient, ClientState
 from tuxemon.config import TuxemonConfig
+from tuxemon.frame_limiter import FrameLimiter, FrameStats
 from tuxemon.map.tuxemon import NullMap
 from tuxemon.map.view import DebugRenderer, MapRenderer, NullRenderer
+from tuxemon.platform import mobile
 from tuxemon.state.draw import EventDebugDrawer, Renderer, StateDrawer
 
 if TYPE_CHECKING:
@@ -115,8 +117,14 @@ class LocalPygameClient(BaseClient):
 
         last_time = clock()
         accumulator = 0.0
+        # Vsync may be unavailable (no hardware renderer), so cap anyway;
+        # with working vsync the flip already waits and this sleeps ~0.
+        limiter = FrameLimiter(target_fps)
+        # On a phone print goes to logcat; on a computer it is only noise.
+        frame_stats = FrameStats(echo=print if mobile.is_android() else None)
 
         while self.state != ClientState.DONE:
+            limiter.start_frame()
             if self.state == ClientState.RUNNING:
                 now = clock()
                 dt = now - last_time
@@ -135,6 +143,7 @@ class LocalPygameClient(BaseClient):
                 draw()
                 self.input_manager.draw_inputs(screen)
                 flip()
+                frame_stats.frame(now)
 
                 if self.config.show_fps:
                     self.renderer.update(frame_length)
@@ -143,9 +152,15 @@ class LocalPygameClient(BaseClient):
                 self.perform_cleanup()
                 self.state = ClientState.DONE
 
+            limiter.end_frame()
+
     def update(self, dt: float) -> None:
         """Main loop for entire game."""
         self.update_states(dt)
+        state = self.current_state
+        self.input_manager.show_touch_arrows(
+            mobile.wants_touch_arrows(state.name if state else None)
+        )
 
     def queue_command(self, command: Callable[[], None]) -> None:
         self.command_queue.put(command)

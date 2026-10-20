@@ -1,0 +1,1089 @@
+# Nagmon strings (English). Kept in their own domain so they never clash
+# with tuxemon's base.po; see docs/kids/SDD_MOD_LOADING.md.
+msgid ""
+msgstr ""
+"Project-Id-Version: nagmon\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "nagmon_campaign"
+msgstr "Nagmon"
+
+msgid "nagmon_who_plays"
+msgstr "Who is playing today?"
+
+msgid "nagmon_child_button"
+msgstr "{name} - {stars} stars"
+
+msgid "nagmon_new_child"
+msgstr "+ New player"
+
+msgid "nagmon_parents"
+msgstr "Parents"
+
+msgid "nagmon_hello"
+msgstr "Hello, {name}!"
+
+msgid "nagmon_switch_player"
+msgstr "Switch player"
+
+msgid "nagmon_pin_prompt"
+msgstr "Parent code\nType the parent code (4 digits)."
+
+msgid "nagmon_set_pin_prompt"
+msgstr "Parent code\nChoose 4 digits. The code guards the parent area and adding players."
+
+msgid "nagmon_pin_invalid"
+msgstr "The code must be 4 digits."
+
+msgid "nagmon_pin_saved"
+msgstr "The parent code was saved."
+
+msgid "nagmon_confirm_pin_prompt"
+msgstr "Parent code\nType the same 4 digits again."
+
+msgid "nagmon_pin_mismatch"
+msgstr "The codes are not the same. Starting again."
+
+msgid "nagmon_github_where"
+msgstr "Paste the token in the parent area: \"Send data to the developer (GitHub)\"."
+
+msgid "nagmon_share_log"
+msgstr "Send log"
+
+msgid "nagmon_share_log_title"
+msgstr "Send the Nagmon log"
+
+msgid "nagmon_share_log_empty"
+msgstr "The log is still empty."
+
+msgid "nagmon_share_log_failed"
+msgstr "Could not open the share window."
+
+msgid "nagmon_pin_wrong"
+msgstr "Wrong code. Try again."
+
+msgid "nagmon_pin_locked"
+msgstr "Too many tries. Please wait {seconds} seconds."
+
+msgid "nagmon_child_name_prompt"
+msgstr "What is the player's name?"
+
+msgid "nagmon_name_invalid"
+msgstr "Use 1 to 16 Hebrew or English letters."
+
+msgid "nagmon_child_created"
+msgstr "All set, {name}! Let's play."
+
+msgid "nagmon_parent_players"
+msgstr "Players"
+
+msgid "nagmon_shabbat_on"
+msgstr "Shabbat and holiday mode: on"
+
+msgid "nagmon_shabbat_off"
+msgstr "Shabbat and holiday mode: off"
+
+msgid "nagmon_daily_minutes"
+msgstr "Minutes per day: {minutes}"
+
+msgid "nagmon_change_pin"
+msgstr "Change parent code"
+
+msgid "nagmon_back"
+msgstr "Back"
+
+msgid "nagmon_restore_player"
+msgstr "Restore a deleted player"
+
+msgid "nagmon_trash_empty"
+msgstr "No deleted players."
+
+msgid "nagmon_set_grade"
+msgstr "Grade"
+
+msgid "nagmon_set_language_level"
+msgstr "Language level"
+
+msgid "nagmon_delete_player"
+msgstr "Delete player"
+
+msgid "nagmon_player_deleted"
+msgstr "{name} was moved to the trash. You can restore it."
+
+msgid "nagmon_grade_0"
+msgstr "Kindergarten"
+
+msgid "nagmon_grade_1"
+msgstr "Grade 1"
+
+msgid "nagmon_grade_2"
+msgstr "Grade 2"
+
+msgid "nagmon_grade_3"
+msgstr "Grade 3"
+
+msgid "nagmon_grade_4"
+msgstr "Grade 4"
+
+msgid "nagmon_grade_5"
+msgstr "Grade 5"
+
+msgid "nagmon_grade_6"
+msgstr "Grade 6"
+
+msgid "nagmon_grade_7"
+msgstr "Grade 7"
+
+msgid "nagmon_grade_8"
+msgstr "Grade 8"
+
+msgid "nagmon_grade_9"
+msgstr "Grade 9"
+
+msgid "nagmon_language_level_0"
+msgstr "Hebrew only"
+
+msgid "nagmon_language_level_1"
+msgstr "Hebrew + English names"
+
+msgid "nagmon_language_level_2"
+msgstr "Hebrew + English words I know"
+
+msgid "nagmon_language_level_3"
+msgstr "English and Hebrew lines"
+
+msgid "nagmon_language_level_4"
+msgstr "English, Hebrew on request"
+
+msgid "nagmon_language_level_5"
+msgstr "English only"
+
+msgid "nagmon_quiz_no_question"
+msgstr "No question right now."
+
+msgid "nagmon_continue"
+msgstr "Continue"
+
+msgid "nagmon_owl_shows"
+msgstr "The wise owl shows how:"
+
+msgid "nagmon_lets_try"
+msgstr "Got it, let's try!"
+
+msgid "nagmon_erase"
+msgstr "Erase"
+
+msgid "nagmon_check_answer"
+msgstr "Check"
+
+msgid "nagmon_order_hint"
+msgstr "Tap the items in the right order"
+
+msgid "nagmon_undo"
+msgstr "Undo"
+
+msgid "nagmon_hint"
+msgstr "Hint"
+
+msgid "nagmon_dont_know"
+msgstr "I don't know"
+
+msgid "nagmon_read_aloud"
+msgstr "Read aloud"
+
+msgid "nagmon_skip"
+msgstr "Attack without a question"
+
+msgid "nagmon_feedback_super"
+msgstr "Super! Fast and right!"
+
+msgid "nagmon_feedback_correct"
+msgstr "Correct! Well done!"
+
+msgid "nagmon_feedback_wrong"
+msgstr "Nice try! Here is how:"
+
+msgid "nagmon_feedback_answer"
+msgstr "The answer: {answer}"
+
+msgid "nagmon_feedback_coins"
+msgstr "+{coins} coins"
+
+msgid "nagmon_feedback_star"
+msgstr "New star! You mastered: {skill}"
+
+msgid "quiz_super"
+msgstr "Super power attack!"
+
+msgid "quiz_critical"
+msgstr "Knowledge power! A critical hit!"
+
+msgid "quiz_combo"
+msgstr "Combo! Super strike!"
+
+msgid "quiz_capture_boost"
+msgstr "Knowledge helps the capture!"
+
+msgid "nagmon_parent_report"
+msgstr "Progress report"
+
+msgid "nagmon_parent_owl_log"
+msgstr "Owl conversations"
+
+msgid "nagmon_owl_log_empty"
+msgstr "No conversations yet."
+
+msgid "nagmon_owl_on"
+msgstr "Wise owl: on"
+
+msgid "nagmon_owl_off"
+msgstr "Wise owl: off"
+
+msgid "nagmon_voices_on"
+msgstr "Voices from the internet: on"
+
+msgid "nagmon_voices_off"
+msgstr "Voices from the internet: off"
+
+msgid "nagmon_parent_ai"
+msgstr "Artificial intelligence"
+
+msgid "nagmon_no_players"
+msgstr "No players yet."
+
+msgid "nagmon_ai_no_keys"
+msgstr "No AI key is set. The owl answers from its ready answers."
+
+msgid "nagmon_ai_how_to_keys"
+msgstr "To add a key: run 'python -m nagmon.keys_cli set groq KEY' on this computer, or set GROQ_API_KEY."
+
+msgid "nagmon_owl_title"
+msgstr "Ask the wise owl"
+
+msgid "nagmon_owl_thinking"
+msgstr "The owl is thinking..."
+
+msgid "nagmon_owl_my_question"
+msgstr "My own question"
+
+msgid "nagmon_owl_another"
+msgstr "Another question"
+
+msgid "nagmon_celebrations"
+msgstr "Celebrations ({count} waiting)"
+
+msgid "nagmon_add_celebration"
+msgstr "+ Add a surprise celebration"
+
+msgid "nagmon_celebrated"
+msgstr "We celebrated!"
+
+msgid "nagmon_not_now"
+msgstr "Not now"
+
+msgid "nagmon_celebration_title_prompt"
+msgstr "What is the celebration? (only parents see it)"
+
+msgid "nagmon_celebration_saved"
+msgstr "Saved. We will tell you when it is earned."
+
+msgid "nagmon_milestone_practice_days"
+msgstr "After practising on {n} days"
+
+msgid "nagmon_milestone_skills_mastered"
+msgstr "After mastering {n} skills"
+
+msgid "nagmon_milestone_stars"
+msgstr "After {n} knowledge stars"
+
+msgid "nagmon_milestone_weekly_goals"
+msgstr "After {n} weekly goals"
+
+msgid "nagmon_daily_unlimited"
+msgstr "Minutes per day: no limit"
+
+msgid "nagmon_city"
+msgstr "City (for Shabbat times): {city}"
+
+msgid "nagmon_hours"
+msgstr "Play hours on weekdays: {hours}"
+
+msgid "nagmon_hours_any"
+msgstr "Play hours: any time (until bedtime)"
+# World chapter 1: the fog of forgetting (docs/kids/SDD_WORLD.md).
+msgid "nagmon_owl"
+msgstr "Wise Owl"
+
+msgid "nagmon_cashier"
+msgstr "Avi the shopkeeper"
+
+msgid "nagmon_tourist"
+msgstr "Tom the tourist"
+
+msgid "nagmon_gardener"
+msgstr "Michal the gardener"
+
+msgid "nagmon_kid"
+msgstr "Yoav"
+
+msgid "nagmon_kitten"
+msgstr "Pitzi"
+
+msgid "nagmon_granny"
+msgstr "Grandma Rina"
+
+msgid "nagmon_wallet"
+msgstr "Wallet"
+
+msgid "nagmon_route1_trainer"
+msgstr "Danny the mail carrier"
+
+msgid "nagmon_sign_route1"
+msgstr "Sign"
+
+msgid "classic_gym_leader_granite"
+msgstr "Master Granite"
+
+msgid "classic_gym_leader_mila"
+msgstr "Master Mila"
+
+msgid "nagmon_badge_granite"
+msgstr "Stone Badge"
+
+msgid "nagmon_badge_granite_description"
+msgstr "Granite Academy badge. Given for knowing shapes and a friendly duel."
+
+msgid "nagmon_badge_mila"
+msgstr "Number Badge"
+
+msgid "nagmon_badge_mila_description"
+msgstr "Mila Academy badge. Given for practising math and a friendly duel."
+
+msgid "nagmon_world_choice_return"
+msgstr "Return it to Grandma Rina"
+
+msgid "nagmon_world_choice_keep"
+msgstr "Keep it"
+
+msgid "nagmon_world_choice_give"
+msgstr "Give the wallet back"
+
+msgid "nagmon_world_choice_later"
+msgstr "Maybe later"
+
+msgid "nagmon_world_choice_duel"
+msgstr "A friendly duel!"
+
+msgid "nagmon_owl_intro_story"
+msgstr ""
+"Wise Owl: Hello, ${{name}}! I'm glad you came.\n"
+"A grey fog fell on our world. It is called the Fog of Forgetting.\n"
+"Whoever it touches forgets: numbers, words, shapes.\n"
+"Even the monsters forgot their powers, and the world is losing its colors.\n"
+"But there is a way to bring it all back: knowledge! Everything we learn gives power back."
+
+msgid "nagmon_owl_intro_power"
+msgstr ""
+"This is called knowledge power. Here is how it works:\n"
+"In a duel you can answer a question before a move. A right answer makes the move stronger!\n"
+"You can always attack without a question too.\n"
+"And a mistake? That's fine. The move is a normal one, and I will explain."
+
+msgid "nagmon_owl_intro_starter"
+msgstr ""
+"Three little monsters are waiting for a friend.\n"
+"Agnite is a fire monster. It loves math.\n"
+"Rockitten is an earth monster. It loves shapes.\n"
+"Kroki is a water monster. It loves science.\n"
+"Who will be your first friend?"
+
+msgid "nagmon_owl_picked_agnite"
+msgstr ""
+"Agnite jumps for joy!\n"
+"When it attacks, the questions will be about math."
+
+msgid "nagmon_owl_picked_rockitten"
+msgstr ""
+"Rockitten purrs quietly.\n"
+"When it attacks, the questions will be about shapes."
+
+msgid "nagmon_owl_picked_kroki"
+msgstr ""
+"Kroki splashes a little water with joy.\n"
+"When it attacks, the questions will be about science."
+
+msgid "nagmon_owl_gifts"
+msgstr ""
+"Here are 5 capture balls and 3 potions.\n"
+"Monsters live in the tall grass on Route 1. You can make friends with them."
+
+msgid "nagmon_owl_first_q"
+msgstr ""
+"Let's try one question together.\n"
+"No clock and no rush. Take your time."
+
+msgid "nagmon_owl_first_good"
+msgstr ""
+"Very nice! You thought it all the way through.\n"
+"That's how knowledge power charges up."
+
+msgid "nagmon_owl_first_wrong"
+msgstr ""
+"No problem! Mistakes are part of learning.\n"
+"Now we already know something new."
+
+msgid "nagmon_owl_go"
+msgstr ""
+"The people in town need help, and each of them teaches something.\n"
+"Route 1 starts at the north of town.\n"
+"The yellow building on the right is the Granite Academy. The master waits there.\n"
+"And if your monsters are tired, come to me."
+
+msgid "nagmon_owl_heal"
+msgstr ""
+"Your monsters rested and drank some water.\n"
+"They are full of power again!"
+
+msgid "nagmon_owl_tip_granite"
+msgstr ""
+"Tip: the master's test has 3 questions about shapes.\n"
+"Two right answers are enough. And you can try again as often as you like."
+
+msgid "nagmon_owl_tip_mila"
+msgstr ""
+"Your Stone Badge is shining!\n"
+"Next to the Granite Academy there is another one: Mila, the math academy."
+
+msgid "nagmon_owl_tip_all"
+msgstr ""
+"Two badges! Steady, beautiful work.\n"
+"The fog has moved back a little from the town. The adventure is only beginning."
+
+msgid "nagmon_owl_congrats_granite"
+msgstr ""
+"Wise Owl: I saw what happened at the academy!\n"
+"You answered questions about shapes and kept going in the duel.\n"
+"Look, the color is coming back to the town. That's your knowledge!"
+
+msgid "nagmon_owl_cape"
+msgstr ""
+"Wise Owl: And look what I got, a blue cape for your badge!\n"
+"I will wear it proudly. We took this step together."
+
+msgid "nagmon_owl_congrats_mila"
+msgstr ""
+"Wise Owl: Another badge! You practised math until it worked.\n"
+"The fog moved back a little more."
+
+msgid "nagmon_world_cashier_hello"
+msgstr ""
+"Avi: Hello! I'm counting the money in the till.\n"
+"Can you help me with a little sum?"
+
+msgid "nagmon_world_cashier_good"
+msgstr ""
+"Exactly! You counted right, and the till is in order.\n"
+"Thank you! Here are 20 coins for your help."
+
+msgid "nagmon_world_cashier_free"
+msgstr ""
+"Exactly! You counted right.\n"
+"You already helped me a lot today. Thank you!"
+
+msgid "nagmon_world_cashier_wrong"
+msgstr ""
+"Almost! With money it helps to count slowly, coin after coin.\n"
+"You can try again whenever you like."
+
+msgid "nagmon_world_tourist_hello"
+msgstr ""
+"Hello! I am Tom. I am a tourist.\n"
+"(Tom is visiting. He speaks English.)\n"
+"Let's help him with some English!"
+
+msgid "nagmon_world_tourist_good"
+msgstr ""
+"Thank you very much!\n"
+"You helped Tom understand. Tom gives you a potion."
+
+msgid "nagmon_world_tourist_free"
+msgstr ""
+"Thank you! See you!\n"
+"Tom is happy to practise with you."
+
+msgid "nagmon_world_tourist_wrong"
+msgstr ""
+"Good try!\n"
+"Now we saw the answer. Next time it will be easier."
+
+msgid "nagmon_world_gardener_hello"
+msgstr ""
+"Michal: Hello! My garden is full of questions.\n"
+"Can you help me with a science question?"
+
+msgid "nagmon_world_gardener_good"
+msgstr ""
+"Right! You looked closely at the world.\n"
+"Here is a wood berry from the garden, for you."
+
+msgid "nagmon_world_gardener_free"
+msgstr ""
+"Right! Learning together is fun.\n"
+"The garden is blooming today."
+
+msgid "nagmon_world_gardener_wrong"
+msgstr ""
+"No problem! Scientists make mistakes too, and then they learn.\n"
+"Come back whenever you like."
+
+msgid "nagmon_world_kid_lost"
+msgstr ""
+"Yoav: Oh no... my kitten, Pitzi, ran away!\n"
+"She ran north to Route 1, past the tall grass.\n"
+"Can you help me find her?"
+
+msgid "nagmon_world_kid_waiting"
+msgstr ""
+"Yoav: Pitzi ran to Route 1.\n"
+"She is on the left side, past the tall grass."
+
+msgid "nagmon_world_kitten_found"
+msgstr ""
+"Meow! Pitzi purrs.\n"
+"She jumps into your arms. Now you can bring her back to Yoav."
+
+msgid "nagmon_world_kid_thanks"
+msgstr ""
+"Yoav: Pitzi! You found her! Thank you so much!\n"
+"You went all the way to Route 1 for a friend. That is real kindness."
+
+msgid "nagmon_world_kid_reward"
+msgstr "Yoav gives you 2 potions and 30 coins."
+
+msgid "nagmon_world_kid_happy"
+msgstr ""
+"Yoav: Pitzi and I play all day.\n"
+"Thanks for helping!"
+
+msgid "nagmon_world_kitten_purr"
+msgstr "Pitzi: Meow! Purrrr..."
+
+msgid "nagmon_world_wallet_found"
+msgstr ""
+"You found a wallet on the sidewalk!\n"
+"There is a note inside: \"Grandma Rina's\".\n"
+"What do we do with the wallet?"
+
+msgid "nagmon_world_wallet_return"
+msgstr ""
+"The wallet is in the bag, on its way to Grandma Rina.\n"
+"She lives on the east side of the street."
+
+msgid "nagmon_world_wallet_kept"
+msgstr ""
+"The wallet is in the bag.\n"
+"Hmm... maybe someone is looking for it right now."
+
+msgid "nagmon_world_granny_hello"
+msgstr ""
+"Grandma Rina: Hello, ${{name}}!\n"
+"What a lovely day for a walk in town."
+
+msgid "nagmon_world_granny_thanks"
+msgstr ""
+"Grandma Rina: My wallet! I looked for it all morning.\n"
+"You brought it back, even when nobody was watching. That is honesty."
+
+msgid "nagmon_world_granny_reward"
+msgstr "Grandma Rina gives you 30 coins and a water berry from her garden."
+
+msgid "nagmon_world_granny_value"
+msgstr ""
+"Honesty helps everyone feel safe.\n"
+"Thank you so much!"
+
+msgid "nagmon_world_granny_lost"
+msgstr ""
+"Grandma Rina: Oh, I lost my wallet.\n"
+"It has a photo of my grandchildren..."
+
+msgid "nagmon_world_granny_later"
+msgstr "Grandma Rina: All right. If the wallet turns up, I'll be very happy."
+
+msgid "nagmon_world_granny_happy"
+msgstr ""
+"Grandma Rina: Thanks again for the wallet.\n"
+"My grandchildren say hello!"
+
+msgid "nagmon_world_trainer_hello"
+msgstr ""
+"Danny: Hi! I deliver letters, and I train on my break.\n"
+"Want a friendly duel? Just for fun."
+
+msgid "nagmon_world_trainer_later"
+msgstr "Danny: Sure. I'm here all day."
+
+msgid "nagmon_world_trainer_won"
+msgstr ""
+"Danny: What a nice duel!\n"
+"My monsters got tired, but they had lots of fun."
+
+msgid "nagmon_world_trainer_lost"
+msgstr ""
+"Danny: That was a good duel!\n"
+"Your monsters rested a little. We can duel again whenever you like."
+
+msgid "nagmon_world_trainer_done"
+msgstr ""
+"Danny: A tip from a mail carrier: a question before a move = a strong move.\n"
+"Good luck at the academy!"
+
+msgid "nagmon_world_sign_tree"
+msgstr ""
+"Sign: TREE = a tree\n"
+"A tree gives shade, fruit and a home for birds.\n"
+"TREE. Now this word is yours!"
+
+msgid "nagmon_world_master_next"
+msgstr "Nice. Second question!"
+
+msgid "nagmon_world_master_last"
+msgstr "And now the last question."
+
+msgid "nagmon_world_granite_hello"
+msgstr ""
+"Master Granite: Welcome to the Granite Academy!\n"
+"Here we learn shapes: triangles, squares, circles and more."
+
+msgid "nagmon_world_granite_rules"
+msgstr ""
+"Before a friendly duel there is a little test: 3 questions.\n"
+"Two right answers are enough. There is no clock. Let's begin!"
+
+msgid "nagmon_world_granite_pass"
+msgstr ""
+"You passed the test! I can see you practised.\n"
+"Now, a friendly duel. Good luck!"
+
+msgid "nagmon_world_granite_not_yet"
+msgstr ""
+"Master Granite: It didn't work out this time, and that's fine.\n"
+"A mountain is built stone by stone. You can practise with the people in town.\n"
+"Come back and try again whenever you like."
+
+msgid "nagmon_world_granite_rematch"
+msgstr ""
+"Master Granite: You're back! The test is already behind you.\n"
+"Let's go on to a friendly duel."
+
+msgid "nagmon_world_granite_won"
+msgstr ""
+"Master Granite: An excellent duel!\n"
+"You thought about every step, like someone building a stone house."
+
+msgid "nagmon_world_granite_badge"
+msgstr "You got the Stone Badge and 100 coins!"
+
+msgid "nagmon_world_granite_lost"
+msgstr ""
+"Master Granite: That was a good duel.\n"
+"Your monsters rested a little. You can try again whenever you like."
+
+msgid "nagmon_world_granite_done"
+msgstr ""
+"Master Granite: The Stone Badge shines nicely.\n"
+"Shapes are everywhere. Try looking for them!"
+
+msgid "nagmon_world_mila_hello"
+msgstr ""
+"Master Mila: Welcome to the Mila Academy!\n"
+"Here we practise math: adding, taking away and more."
+
+msgid "nagmon_world_mila_rules"
+msgstr ""
+"Before a friendly duel there is a little test: 3 math questions.\n"
+"Two right answers are enough. There is no clock. Let's begin!"
+
+msgid "nagmon_world_mila_pass"
+msgstr ""
+"You passed the test! You worked it out patiently.\n"
+"Now, a friendly duel. Good luck!"
+
+msgid "nagmon_world_mila_not_yet"
+msgstr ""
+"Master Mila: It didn't work out this time, and that's fine.\n"
+"Every number we practise gets easier.\n"
+"Come back and try again whenever you like."
+
+msgid "nagmon_world_mila_rematch"
+msgstr ""
+"Master Mila: You're back! The test is already behind you.\n"
+"Let's go on to a friendly duel."
+
+msgid "nagmon_world_mila_won"
+msgstr ""
+"Master Mila: An excellent duel!\n"
+"Every step was well thought out."
+
+msgid "nagmon_world_mila_badge"
+msgstr "You got the Number Badge and 100 coins!"
+
+msgid "nagmon_world_mila_lost"
+msgstr ""
+"Master Mila: That was a good duel.\n"
+"Your monsters rested a little. You can try again whenever you like."
+
+msgid "nagmon_world_mila_done"
+msgstr ""
+"Master Mila: The Number Badge is shining!\n"
+"Numbers hide everywhere: in the shop, on the clock, on the road."
+
+msgid "nagmon_restore_failed"
+msgstr "This player can't come back right now: another player has the same name, or there are already 8 players."
+
+msgid "nagmon_too_many_players"
+msgstr "There are already 8 players. Delete one in the parent area to add a new one."
+
+msgid "nagmon_parent_github"
+msgstr "Send data to the developer (GitHub)"
+
+msgid "nagmon_github_ok"
+msgstr "Connected · private data repo {repo}"
+
+msgid "nagmon_github_public"
+msgstr "The data repo {repo} is public, so nothing is sent. On GitHub open the repo's Settings, choose Private under Change visibility, and try again."
+
+msgid "nagmon_github_bad_token"
+msgstr "The token is wrong or has expired. Create a new token on GitHub and paste it again."
+
+msgid "nagmon_github_no_permission"
+msgstr "The token has no Contents: Read and write permission for {repo}. Add it in the token's settings on GitHub and try again."
+
+msgid "nagmon_github_not_found"
+msgstr "The data repo {repo} was not found, or the token may not use it. Choose this repo in the token's settings on GitHub and try again."
+
+msgid "nagmon_github_offline"
+msgstr "No internet. Connect to a network and try again."
+
+msgid "nagmon_github_timeout"
+msgstr "GitHub did not answer in time. Check the internet and try again."
+
+msgid "nagmon_github_conflict"
+msgstr "GitHub was busy and did not save the file. Try again in a minute."
+
+msgid "nagmon_github_failed"
+msgstr "GitHub did not accept the request. Try again later."
+
+msgid "nagmon_github_not_connected"
+msgstr "Not connected. Sending needs a GitHub token for the data repo. Tap Connect: paste token."
+
+msgid "nagmon_github_checking"
+msgstr "Checking the connection to GitHub..."
+
+msgid "nagmon_github_sending"
+msgstr "Sending..."
+
+msgid "nagmon_github_connect"
+msgstr "Connect: paste token"
+
+msgid "nagmon_github_send_log"
+msgstr "Send the log"
+
+msgid "nagmon_github_send_progress"
+msgstr "Send progress"
+
+msgid "nagmon_github_send_crash"
+msgstr "Send the last crash report"
+
+msgid "nagmon_github_disconnect"
+msgstr "Disconnect"
+
+msgid "nagmon_github_disconnected"
+msgstr "Disconnected. The token was deleted from this device."
+
+msgid "nagmon_github_clipboard_empty"
+msgstr "The clipboard is empty. On GitHub create a fine-grained token for the data repo only, with one permission: Contents: Read and write. Copy it, come back here and tap again."
+
+msgid "nagmon_github_clipboard_not_token"
+msgstr "The clipboard holds something that is not a GitHub token. Copy the token (it starts with github_pat_) and try again."
+
+msgid "nagmon_github_confirm_log"
+msgstr "To be sent: the game's log, without keys, to the private data repo {repo}."
+
+msgid "nagmon_github_confirm_progress"
+msgstr "To be sent: progress of {count} children, without names, to the private data repo {repo}."
+
+msgid "nagmon_github_confirm_crash"
+msgstr "To be sent: the last crash report, without keys, to the private data repo {repo}."
+
+msgid "nagmon_github_send"
+msgstr "Send"
+
+msgid "nagmon_github_cancel"
+msgstr "Cancel"
+
+msgid "nagmon_github_sent"
+msgstr "Sent."
+
+msgid "nagmon_github_log_empty"
+msgstr "There is no log to send yet."
+
+msgid "nagmon_github_confirm_progress_one"
+msgstr "To be sent: progress of one child, without the name, to the private data repo {repo}."
+
+# The first subject monsters (docs/kids/SDD_ART.md §2.3).
+msgid "geometrion"
+msgstr "Geometrion"
+
+msgid "geometrion_description"
+msgstr "A little pyramid that loves corners. Count its sides and it glows."
+
+msgid "cat_pyramid"
+msgstr "Pyramid"
+
+msgid "polygonos"
+msgstr "Polygonos"
+
+msgid "polygonos_description"
+msgstr "Many shapes held together by light. Every face is a different polygon."
+
+msgid "cat_polyhedron"
+msgstr "Polyhedron"
+
+msgid "alphabel"
+msgstr "Alphabel"
+
+msgid "alphabel_description"
+msgstr "A fox with letters in its fur. It wags its tail at every new word."
+
+msgid "cat_letter_fox"
+msgstr "Letter Fox"
+
+msgid "lexicon"
+msgstr "Lexicon"
+
+msgid "lexicon_description"
+msgstr "A winged lion with words in its mane. It knows a word for everything."
+
+msgid "cat_word_lion"
+msgstr "Word Lion"
+
+# Eight more subject monsters (docs/kids/SDD_ART.md §2.10).
+msgid "pluson"
+msgstr "Pluson"
+
+msgid "pluson_description"
+msgstr "A little plus with a spark in its tail. It loves adding things up."
+
+msgid "cat_plus_spark"
+msgstr "Plus Spark"
+
+msgid "multivolt"
+msgstr "Multivolt"
+
+msgid "multivolt_description"
+msgstr "Its lightning tail grew with every sum it solved."
+
+msgid "cat_volt_plus"
+msgstr "Volt Plus"
+
+msgid "flaskling"
+msgstr "Flaskling"
+
+msgid "flaskling_description"
+msgstr "A flask with a sprout on top. Bubbles rise when it is curious."
+
+msgid "cat_leaf_flask"
+msgstr "Leaf Flask"
+
+msgid "botanikos"
+msgstr "Botanikos"
+
+msgid "botanikos_description"
+msgstr "A whole garden grows in its glass. It watches how things change."
+
+msgid "cat_garden_flask"
+msgstr "Garden Flask"
+
+msgid "puzzlet"
+msgstr "Puzzlet"
+
+msgid "puzzlet_description"
+msgstr "A puzzle piece with one curious eye. It looks for the piece that fits."
+
+msgid "cat_puzzle_piece"
+msgstr "Puzzle Piece"
+
+msgid "enigmon"
+msgstr "Enigmon"
+
+msgid "enigmon_description"
+msgstr "It solves riddles slowly and carefully, one step at a time."
+
+msgid "cat_riddle_puzzle"
+msgstr "Riddle Puzzle"
+
+msgid "scrollo"
+msgstr "Scrollo"
+
+msgid "scrollo_description"
+msgstr "A small scroll that loves letters. It reads every sign it passes."
+
+msgid "cat_little_scroll"
+msgstr "Little Scroll"
+
+msgid "megillon"
+msgstr "Megillon"
+
+msgid "megillon_description"
+msgstr "A double scroll full of stories. It tells them with its ribbons."
+
+msgid "cat_great_scroll"
+msgstr "Great Scroll"
+
+# A gentler name for a technique the new logic monsters learn
+# (docs/kids/SDD_ART.md §2.10).
+msgid "wicked_wind"
+msgstr "Mystery Wind"
+
+# Hebrew names for Tuxemon's monsters a child meets in Nagmon's world
+# (docs/kids/SDD_ANDROID.md §2.7); the English name stays in en_US.
+
+msgid "agnite"
+msgstr "Agnite"
+
+msgid "agnidon"
+msgstr "Agnidon"
+
+msgid "agnigon"
+msgstr "Agnigon"
+
+msgid "rockitten"
+msgstr "Rockitten"
+
+msgid "rockat"
+msgstr "Rockat"
+
+msgid "jemuar"
+msgstr "Jemuar"
+
+msgid "kroki"
+msgstr "Kroki"
+
+msgid "krokivip"
+msgstr "Krokivip"
+
+msgid "leviadile"
+msgstr "Leviadile"
+
+msgid "dandicub"
+msgstr "Dandicub"
+
+msgid "dandylion"
+msgstr "Dandylion"
+
+msgid "nut"
+msgstr "Nut"
+
+msgid "bolt"
+msgstr "Bolt"
+
+msgid "arthrobolt"
+msgstr "Arthrobolt"
+
+msgid "hydrone"
+msgstr "Hydrone"
+
+msgid "nudikill"
+msgstr "Nudikill"
+
+msgid "axolightl"
+msgstr "Axolightl"
+
+msgid "ampystoma"
+msgstr "Ampystoma"
+
+msgid "cardiling"
+msgstr "Cardiling"
+
+msgid "cardiwing"
+msgstr "Cardiwing"
+
+msgid "cardinale"
+msgstr "Cardinale"
+
+msgid "cataspike"
+msgstr "Cataspike"
+
+msgid "puparmor"
+msgstr "Puparmor"
+
+msgid "weavifly"
+msgstr "Weavifly"
+
+msgid "eyenemy"
+msgstr "Eyenemy"
+
+msgid "eyesore"
+msgstr "Eyesore"
+
+msgid "squabbit"
+msgstr "Squabbit"
+
+msgid "rabbitosaur"
+msgstr "Rabbitosaur"
+
+msgid "tourbidi"
+msgstr "Tourbidi"
+
+# Descriptions a child reads, with the Hebrew names and gentle words
+# (docs/kids/SDD_ANDROID.md §2.7).
+
+msgid "ampystoma_description"
+msgstr "AMPYSTOMA's bright colours say \"look out!\". It hides in murky water, and likes to come on land during thunderstorms."
+
+msgid "arthrobolt_description"
+msgstr "It feels uncomfortable giving orders to its friends NUT and BOLT, and sometimes runs away. Then NUT and BOLT have no one to guide them."
+
+msgid "bolt_description"
+msgstr "When a BOLT is near, a NUT holds on tighter and makes more sparks of energy."
+
+msgid "nut_description"
+msgstr "In the great ships that cross the oceans, thousands of NUT and BOLT give power and hold the steel plates together."
+
+msgid "jemuar_description"
+msgstr "The gems on its back are the kind found where it was born. That is why many ROCKITTEN grow up over diamond veins."
+
+msgid "kroki_description"
+msgstr "KROKI spends most of its time in shallow water, and likes to clack its strong jaws."
+
+msgid "krokivip_description"
+msgstr "This crocodilian likes to hide in the water and surprise. As it grows closer to evolution, it looks for bigger waters."
+
+msgid "leviadile_description"
+msgstr "LEVIADILE is huge and swims in the deep sea. Everyone down there knows it is the king of the deep water."
+
+msgid "puparmor_description"
+msgstr "Its cocoon is hard as stone. If a PUPARMOR falls on someone, they get a bump on the head for days."
+
+msgid "tourbidi_description"
+msgstr "If you find a circle of mushrooms or clover, it is a place where TOURBIDI dance."
+
+msgid "cardiwing_description"
+msgstr "Its song is remarkable, and warm sparks fly from it at the end of every song."
+
+msgid "cardinale_description"
+msgstr "It guards its nest and its small neighbours, and chases off anyone who bothers them."
+
+msgid "rabbitosaur_description"
+msgstr "Its tunnels are long and wide, and neighbours from other burrows come to visit."
+
+msgid "nudikill_description"
+msgstr "They are called Hatters, because their heads look like a tall pointed hat."
+
+msgid "dandicub_description"
+msgstr "After a litter is born, they float all over the world, looking for a new place to grow."

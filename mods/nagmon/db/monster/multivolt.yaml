@@ -1,0 +1,70 @@
+# Multivolt: evolution of Pluson, math: lightning/fire (docs/kids/SDD_ART.md §2.10).
+slug: multivolt
+species: volt_plus
+moveset:
+- level_learned: 1
+  technique: struggle
+  learning_method: fallback
+- level_learned: 1
+  technique: buzz
+- level_learned: 1
+  technique: lightning_spheres
+- level_learned: 4
+  technique: fire_ball
+- level_learned: 7
+  technique: surge
+- level_learned: 10
+  technique: thunderclap
+- level_learned: 13
+  technique: torch
+- level_learned: 16
+  technique: battery_discharge
+- level_learned: 20
+  technique: energy_claws
+- level_learned: 26
+  technique: kindling_flame
+- level_learned: 30
+  technique: supernova
+- level_learned: 36
+  technique: laser_beam
+- level_learned: 42
+  technique: electrical_storm
+evolutions: []
+history:
+- slug: pluson
+  stage: basic
+  evolves_from: []
+  evolves_into:
+  - multivolt
+- slug: multivolt
+  stage: stage1
+  evolves_from:
+  - pluson
+  evolves_into: []
+terrains:
+- urban
+- grassland
+tags:
+- claws
+- love
+shape: varmint
+stage: stage1
+types:
+- lightning
+- fire
+gender_weights:
+  male: 0.5
+  female: 0.5
+txmn_id: 399
+height: 110
+weight: 60
+sounds:
+  combat_call:
+    sfx: sound_spell_fire_06
+    volume: 1.5
+  faint_call:
+    sfx: sound_spell_fire_06_faint
+    volume: 1.5
+catch_rate: 70.0
+lower_catch_resistance: 0.9
+upper_catch_resistance: 1.15

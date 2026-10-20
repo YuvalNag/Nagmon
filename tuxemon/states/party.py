@@ -10,6 +10,7 @@ from pygame_menu.menu import Menu
 from tuxemon import formula
 from tuxemon.entity.party import PartyHandler
 from tuxemon.locale.locale import T
+from tuxemon.locale.units import unit_label
 from tuxemon.menu.menu import PygameMenuState
 from tuxemon.monster.monster import Monster
 from tuxemon.platform.const import buttons
@@ -156,7 +157,7 @@ class PartyState(PygameMenuState):
                 params = {
                     "name": monster.name.upper(),
                     "walked": walked,
-                    "unit": unit_walked,
+                    "unit": unit_label(unit_walked),
                 }
                 lab6: Any = menu.add.label(
                     title=T.format("menu_party_traveled", params),

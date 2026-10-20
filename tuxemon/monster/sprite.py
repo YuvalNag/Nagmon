@@ -296,6 +296,13 @@ class MonsterSpriteHandler:
         self.flairs = flairs.copy() if flairs else {}
         self._flair_cache: dict[str, Surface] = {}
         self.sheet = graphics.load_raw_image(self.sheet_path)
+        # An HD sheet is a whole multiple k of the rectangles' layout
+        # (docs/kids/SDD_ART.md §2.6): sliced at k, scaled once, smoothly.
+        native = (
+            max(x + w for x, _, w, _ in self.rects.values()),
+            max(y + h for _, y, _, h in self.rects.values()),
+        )
+        self.k = graphics.hd_factor(self.sheet.get_size(), native)
 
     @classmethod
     def from_model(cls, model: MonsterModel) -> MonsterSpriteHandler | None:
@@ -316,8 +323,20 @@ class MonsterSpriteHandler:
         if sprite_type not in self.rects:
             raise ValueError(f"Unknown sprite type: {sprite_type}")
 
-        rect = self.rects[sprite_type]
-        return self.sheet.subsurface(rect)
+        k = self.k
+        x, y, w, h = self.rects[sprite_type]
+        return self.sheet.subsurface((x * k, y * k, w * k, h * k))
+
+    def _scaled(
+        self, image: Surface, sprite_type: str, scale: float
+    ) -> Surface:
+        """A sliced frame at its native size times ``scale``."""
+        if self.k == 1:
+            return (
+                image if scale == 1 else graphics.scale_surface(image, scale)
+            )
+        _, _, w, h = self.rects[sprite_type]
+        return graphics.smooth_resize(image, (w * scale, h * scale))
 
     def get_sprite(
         self,
@@ -331,12 +350,8 @@ class MonsterSpriteHandler:
         Handles static sprites and animated menu sprites.
         """
         if sprite_type == "menu":
-            frame1 = self._slice("menu01")
-            frame2 = self._slice("menu02")
-
-            if scale != 1:
-                frame1 = graphics.scale_surface(frame1, scale)
-                frame2 = graphics.scale_surface(frame2, scale)
+            frame1 = self._scaled(self._slice("menu01"), "menu01", scale)
+            frame2 = self._scaled(self._slice("menu02"), "menu02", scale)
 
             if self.flairs:
                 frame1 = FlairApplier.apply(
@@ -360,10 +375,7 @@ class MonsterSpriteHandler:
         if cache_key in self._flair_cache:
             return Sprite(image=self._flair_cache[cache_key])
 
-        image = self._slice(sprite_type)
-
-        if scale != 1:
-            image = graphics.scale_surface(image, scale)
+        image = self._scaled(self._slice(sprite_type), sprite_type, scale)
 
         if self.flairs:
             image = FlairApplier.apply(
@@ -375,7 +387,7 @@ class MonsterSpriteHandler:
 
     def load_sprites(self, scale: float) -> dict[str, Surface]:
         return {
-            key: graphics.scale_surface(self._slice(key), scale)
+            key: self._scaled(self._slice(key), key, scale)
             for key in self.rects
         }
 

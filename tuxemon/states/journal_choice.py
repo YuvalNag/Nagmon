@@ -7,13 +7,14 @@ from collections.abc import Callable
 from functools import partial
 from typing import TYPE_CHECKING, Any, ClassVar
 
-from pygame_menu.locals import ALIGN_LEFT, POSITION_EAST
+from pygame_menu.locals import POSITION_EAST
 from pygame_menu.menu import Menu
 
 from tuxemon.database.runtime import db
 from tuxemon.db import MonsterModel
 from tuxemon.locale.locale import T
 from tuxemon.menu.menu import PygameMenuState
+from tuxemon.menu.rtl import start_menu_alignment
 from tuxemon.platform.const.graphics import BG_JOURNAL_CHOICE, DIMGRAY_COLOR
 from tuxemon.tools import transform_resource_filename
 
@@ -62,8 +63,6 @@ class JournalChoice(PygameMenuState):
 
         menu._auto_centering = False
         scale_int = self.client.context.scaling.scale_int
-
-
 
         featured_text = T.format("journal_badge_featured", {"n": ""}).rstrip()
         stubs_text = T.format("journal_badge_stubs", {"n": ""}).rstrip()
@@ -143,7 +142,7 @@ class JournalChoice(PygameMenuState):
                 and self.char.tuxepedia.is_registered(mon.slug)
             ]
             label = T.format(
-                "page_tuxepedia", {"a": str(start+1), "b": str(end)}
+                "page_tuxepedia", {"a": str(start + 1), "b": str(end)}
             ).upper()
 
             if tuxepedia:
@@ -193,7 +192,7 @@ class JournalChoice(PygameMenuState):
         theme = self._setup_theme(BG_JOURNAL_CHOICE)
         theme.widget_font_shadow = False
         theme.scrollarea_position = POSITION_EAST
-        theme.widget_alignment = ALIGN_LEFT
+        theme.widget_alignment = start_menu_alignment()
         self._menu_config["theme"] = theme
 
         self.add_menu_items(self.menu, box)

@@ -2,6 +2,7 @@
 # Copyright (c) 2014-2026 William Edwards <shadowapex@gmail.com>, Benjamin Bean <superman2k5@gmail.com>
 from __future__ import annotations
 
+import copy
 import logging
 from collections.abc import Callable, Mapping
 from gettext import GNUTranslations, NullTranslations, translation
@@ -39,11 +40,13 @@ class TranslatorPo:
         domain: str,
         localedir: Path,
         fallback_locale: str = FALLBACK_LOCALE,
+        extra_domains: tuple[str, ...] = (),
     ) -> None:
         self.locale_name = locale_name
         self.domain = domain
         self.localedir = localedir
         self.fallback_locale = fallback_locale
+        self.extra_domains = extra_domains
         self._real_translate: GNUTranslations | NullTranslations = (
             self._load_gettext_translation()
         )
@@ -58,7 +61,56 @@ class TranslatorPo:
         """
         Loads and returns the gettext translation function for this translator.
         Handles fallback if the specific translation is not found.
+
+        With ``extra_domains`` (strings shipped by mods in their own .po
+        domain), the lookup order is: extra domains in the active locale,
+        this domain in the active locale, then the same in the fallback
+        locale.
         """
+        if self.extra_domains:
+            return self._load_chained_translation()
+        return self._load_single_translation()
+
+    def _load_chained_translation(
+        self,
+    ) -> GNUTranslations | NullTranslations:
+        locales = [self.locale_name]
+        if self.fallback_locale != self.locale_name:
+            locales.append(self.fallback_locale)
+        domains = [*self.extra_domains, self.domain]
+
+        chain: list[GNUTranslations | NullTranslations] = []
+        for locale_name in locales:
+            for domain in domains:
+                try:
+                    chain.append(
+                        translation(domain, self.localedir, [locale_name])
+                    )
+                except FileNotFoundError:
+                    logger.debug(
+                        f"No '{domain}' translation for '{locale_name}'"
+                    )
+
+        if not chain:
+            logger.error(
+                f"No translation found for domains {domains}. "
+                "Using NullTranslations."
+            )
+            return NullTranslations()
+
+        # gettext.translation() caches instances; copy so fallbacks added
+        # here never leak into another translator's chain.
+        chain = [copy.copy(t) for t in chain]
+        for t in chain:
+            t._fallback = None  # type: ignore[attr-defined]
+        head = chain[0]
+        for t in chain[1:]:
+            head.add_fallback(t)
+        return head
+
+    def _load_single_translation(
+        self,
+    ) -> GNUTranslations | NullTranslations:
         trans: GNUTranslations | NullTranslations
         try:
             trans = translation(

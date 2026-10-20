@@ -12,6 +12,7 @@ from __future__ import annotations
 import logging
 import re
 from collections.abc import Iterable, Sequence
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Protocol
 
@@ -19,10 +20,11 @@ from pygame.color import Color
 from pygame.image import load
 from pygame.rect import Rect
 from pygame.surface import Surface
-from pygame.transform import scale
+from pygame.transform import scale, smoothscale
 from pytmx.pytmx import TileFlags
 from pytmx.util_pygame import handle_transformation, smart_convert
 
+from tuxemon.constants.asset_loader import resolve_mod_path
 from tuxemon.platform.const.graphics import FUCHSIA_COLOR
 from tuxemon.prepare import DISPLAY_CONTEXT
 from tuxemon.scaling import ScalingStrategy
@@ -192,7 +194,11 @@ def load_and_scale(
     Returns:
         Loaded and scaled image.
     """
-    return scale_surface(load_image(filename), scale)
+    surface, k = load_native_or_hd(filename)
+    if k > 1:
+        w, h = surface.get_size()
+        return smooth_resize(surface, (w // k * scale, h // k * scale))
+    return scale_surface(surface, scale)
 
 
 def load_image(filename: str) -> Surface:
@@ -326,6 +332,128 @@ def scale_surface(surface: Surface, factor: float) -> Surface:
     )
 
 
+def hd_factor(size: Sequence[int], native: Sequence[int]) -> int:
+    """
+    ``k`` when ``size`` is exactly ``k`` times ``native`` (an HD sheet,
+    docs/kids/SDD_ART.md §2.6) for a whole ``k`` > 1, otherwise 1.
+    """
+    (w, h), (nw, nh) = size, native
+    if nw <= 0 or nh <= 0 or w % nw or h % nh:
+        return 1
+    k = w // nw
+    return k if k > 1 and h // nh == k else 1
+
+
+def smooth_resize(surface: Surface, size: Sequence[float]) -> Surface:
+    """
+    ``surface`` at ``size``, smoothly. Enlarging by 2x or more goes first
+    by the whole factor with nearest neighbour, then smoothly by the rest:
+    pixel-art edges stay crisp instead of blurring (SDD_ART §2.6).
+    Surfaces pygame cannot smooth (under 24 bit) are scaled nearest.
+    """
+    target = (max(1, round(size[0])), max(1, round(size[1])))
+    if surface.get_bitsize() < 24:
+        return scale(surface, target)
+    w, h = surface.get_size()
+    whole = min(target[0] // w, target[1] // h)
+    if whole >= 2:
+        surface = scale(surface, (w * whole, h * whole))
+        if surface.get_size() == target:
+            return surface
+    return smoothscale(surface, target)
+
+
+def scale_sheet(
+    surface: Surface, native: Sequence[int], factor: float
+) -> Surface:
+    """
+    A sheet at ``native`` size times ``factor``. An HD sheet (a whole
+    multiple of ``native``) is scaled once, smoothly, straight to that
+    size; a native sheet is scaled as always (nearest).
+    """
+    if hd_factor(surface.get_size(), native) > 1:
+        return smooth_resize(surface, (native[0] * factor, native[1] * factor))
+    return scale_surface(surface, factor)
+
+
+#: An HD twin is this many times its Tuxemon image (SDD_ANDROID §2.8).
+HD_TWIN_FACTOR = 4
+
+
+def hd_twin_name(filename: str, k: int = HD_TWIN_FACTOR) -> str:
+    """``gfx/a/b.png`` -> ``gfx/a/b@4x.png``: the name of its HD twin."""
+    path = Path(filename)
+    return path.with_name(f"{path.stem}@{k}x{path.suffix}").as_posix()
+
+
+@lru_cache(maxsize=1024)
+def fetch_hd_twin(filename: str) -> str | None:
+    """
+    The HD twin of ``filename`` (a path relative to a mod), by mod
+    order, or None. Nagmon keeps twins of Tuxemon's UI images, made by
+    ``tools/art/upscale_ui.py`` (SDD_ANDROID §2.8). Remembered, also
+    when there is none: most images have no twin.
+    """
+    try:
+        base = transform_resource_filename(filename)
+        twin = transform_resource_filename(hd_twin_name(filename))
+    except OSError:
+        return None
+    # A mod above the twin's that replaced the image wins (the twin is of
+    # the old one), and so does a replacement of another size.
+    if _mod_rank(twin) > _mod_rank(base):
+        return None
+    native, big = _png_size(base), _png_size(twin)
+    if (
+        native
+        and big
+        and big
+        != (
+            native[0] * HD_TWIN_FACTOR,
+            native[1] * HD_TWIN_FACTOR,
+        )
+    ):
+        return None
+    return twin
+
+
+def _mod_rank(path: str) -> int:
+    """Where the mod holding ``path`` is in the mod order (0 wins)."""
+    from tuxemon.constants.asset_loader import mod_asset_roots
+
+    roots = mod_asset_roots()
+    target = Path(path)
+    for rank, root in enumerate(roots):
+        if target.is_relative_to(root):
+            return rank
+    return len(roots)
+
+
+def _png_size(path: str) -> tuple[int, int] | None:
+    """A PNG's width and height from its header, or None."""
+    try:
+        with open(path, "rb") as file:
+            head = file.read(24)
+    except OSError:
+        return None
+    if head[:8] != b"\x89PNG\r\n\x1a\n" or head[12:16] != b"IHDR":
+        return None
+    return int.from_bytes(head[16:20], "big"), int.from_bytes(
+        head[20:24], "big"
+    )
+
+
+def load_native_or_hd(filename: str) -> tuple[Surface, int]:
+    """
+    ``filename`` loaded, and how many times its native size it is: its
+    HD twin (k = HD_TWIN_FACTOR) when there is one, else itself (k = 1).
+    """
+    twin = fetch_hd_twin(filename)
+    if twin is not None:
+        return smart_convert(load(twin), None, True), HD_TWIN_FACTOR
+    return load_image(filename), 1
+
+
 def load_frames_files(directory: str, name: str) -> Iterable[Surface]:
     """
     Load frames from filenames.
@@ -452,8 +580,22 @@ def scaled_image_loader(
 
     colorkey_color = Color(f"#{colorkey}") if colorkey else None
 
-    # load the tileset image
-    image = load(filename)
+    # A tileset's image is the copy that wins by mod order: an HD sheet
+    # in mods/nagmon (SDD_ART §2.11). Other images (image layers, tile
+    # images) load as before, and so does a tileset with a colorkey:
+    # smoothing before the colorkey would leave fringes of its colour.
+    tileset = kwargs.get("tileset")
+    native = (
+        (int(tileset.width), int(tileset.height))
+        if tileset is not None
+        and getattr(tileset, "width", None)
+        and colorkey_color is None
+        else None
+    )
+    image = load(resolve_mod_path(filename) if native else filename)
+    k = hd_factor(image.get_size(), native) if native else 1
+    if k > 1:
+        return _hd_tile_loader(image, k, colorkey_color, pixelalpha, scaling)
 
     # scale the tileset image to match game scale
     scaled_size = scaling.scale_tuple(image.get_size())
@@ -479,6 +621,45 @@ def scaled_image_loader(
 
         tile = smart_convert(tile, colorkey_color, pixelalpha)
         return tile
+
+    return load_image
+
+
+def _hd_tile_loader(
+    image: Surface,
+    k: int,
+    colorkey: Color | None,
+    pixelalpha: bool,
+    scaling: ScalingStrategy,
+) -> LoaderProtocol:
+    """
+    Tiles from an HD tileset, ``k`` times its TSX size (SDD_ART §2.11):
+    each tile is cut at k times its rect and scaled once, smoothly, to
+    its size on the screen, then flipped as pytmx asks. pytmx asks for
+    every flip of a tile in a row, so only the last tile is kept.
+    """
+    scaled: dict[tuple[int, int, int, int], Surface] = {}
+
+    def load_image(
+        rect: tuple[int, int, int, int] | None = None,
+        flags: TileFlags | None = None,
+    ) -> Surface:
+        if rect is None:
+            rect = (0, 0, image.get_width() // k, image.get_height() // k)
+        rect = tuple(rect)  # type: ignore[assignment]
+        if rect not in scaled:
+            scaled.clear()
+            x, y, w, h = rect
+            try:
+                hd = image.subsurface((x * k, y * k, w * k, h * k))
+            except ValueError:
+                logger.error("Tile bounds outside bounds of tileset image")
+                raise
+            scaled[rect] = smooth_resize(hd, scaling.scale_tuple((w, h)))
+        tile = scaled[rect]
+        if flags:
+            tile = handle_transformation(tile, flags)
+        return smart_convert(tile, colorkey, pixelalpha)
 
     return load_image
 

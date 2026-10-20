@@ -85,6 +85,10 @@ class ModMetadata(BaseModel):
     startup_rules: list[str] = Field(
         default_factory=list, description="List of rules (startup)."
     )
+    dependencies: list[str] = Field(
+        default_factory=list,
+        description="Mods whose assets this mod builds on (lower priority).",
+    )
     starting_players: list[str] = Field(
         default_factory=list,
         description="Initial slugs available to the player.",

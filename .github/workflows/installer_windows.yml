@@ -29,13 +29,31 @@ jobs:
           python setup_cx_freeze.py build
 
       - name: Install NSIS
+        # Chocolatey's feed is sometimes down (503); try it a few times, then
+        # take the installer straight from the NSIS project.
         run: |
-          choco install nsis -y
           $nsisPath = "${env:ProgramFiles(x86)}\NSIS"
+          for ($try = 1; $try -le 3 -and -not (Test-Path "$nsisPath\makensis.exe"); $try++) {
+            choco install nsis -y
+            if (-not (Test-Path "$nsisPath\makensis.exe")) { Start-Sleep -Seconds (10 * $try) }
+          }
+          if (-not (Test-Path "$nsisPath\makensis.exe")) {
+            $setup = "$env:RUNNER_TEMP\nsis-setup.exe"
+            Invoke-WebRequest -UseBasicParsing -MaximumRedirection 10 -UserAgent "curl/8" `
+              -Uri "https://downloads.sourceforge.net/project/nsis/NSIS%203/3.10/nsis-3.10-setup.exe" `
+              -OutFile $setup
+            Start-Process -FilePath $setup -ArgumentList "/S" -Wait
+          }
           echo "$nsisPath" | Out-File -Append $env:GITHUB_PATH
+          # A failed choco attempt leaves its exit code behind; the next step
+          # is the real check.
+          exit 0
 
       - name: Check NSIS availability
-        run: where makensis.exe
+        run: |
+          $makensis = "${env:ProgramFiles(x86)}\NSIS\makensis.exe"
+          if (-not (Test-Path $makensis)) { Write-Error "NSIS is not installed"; exit 1 }
+          & $makensis /VERSION
 
       - name: Build Installer
         run: |

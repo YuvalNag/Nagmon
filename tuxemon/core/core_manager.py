@@ -17,7 +17,7 @@ from tuxemon.constants.paths import (
 from tuxemon.core.core_condition import CoreCondition
 from tuxemon.core.core_effect import CoreEffect
 from tuxemon.db import LogicCondition, Operator, ParameterizableRule
-from tuxemon.plugin import PluginManager, PluginObject
+from tuxemon.plugin import PluginManager, PluginObject, module_stems
 
 logger = logging.getLogger(__name__)
 
@@ -64,10 +64,10 @@ class CoreManager(Generic[LocalInterfaceValue]):
             plugin_folders=core_folders,
             root_path=root_path,
             include=[
-                f.stem
+                stem
                 for folder in core_folders
-                for f in folder.glob("*.py")
-                if f.stem != "__init__"
+                for stem in module_stems(folder)
+                if stem != "__init__"
             ],
         )
         core_plugins = core_manager.get_class_map(interface=interface)
@@ -77,10 +77,10 @@ class CoreManager(Generic[LocalInterfaceValue]):
             plugin_folders=mod_folders,
             root_path=root_path,
             include=[
-                f.stem
+                stem
                 for folder in mod_folders
-                for f in folder.glob("*.py")
-                if f.stem != "__init__"
+                for stem in module_stems(folder)
+                if stem != "__init__"
             ],
         )
         mod_plugins = mod_manager.get_class_map(interface=interface)

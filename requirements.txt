@@ -12,3 +12,9 @@ PyYAML>=6.0.2
 prompt_toolkit
 pygame-menu-ce==4.5.2
 pydantic>=2.10.6
+pyluach>=2.2
+astral>=3.2
+tzdata
+edge-tts>=7.0
+pyttsx3>=2.90
+python-bidi==0.6.11

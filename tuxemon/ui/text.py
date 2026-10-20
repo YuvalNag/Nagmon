@@ -15,10 +15,11 @@ from pygame.surface import Surface
 from tuxemon.graphics import ColorLike
 from tuxemon.platform.const.graphics import FONT_COLOR, FONT_SHADOW_COLOR
 from tuxemon.sprite import Sprite
+from tuxemon.ui.bidi import resolve_alignment, to_visual
 from tuxemon.ui.draw import (
     RenderedChar,
     TextOverflow,
-    break_text_into_lines,
+    _prepare_text_lines_with_direction,
     calculate_alignment_offset,
     get_font_height,
     iter_render_text,
@@ -68,7 +69,7 @@ class TextArea(Sprite):
         font_shadow: ColorLike = FONT_SHADOW_COLOR,
         background_color: ColorLike | None = None,
         background_image: Surface | None = None,
-        h_alignment: HorizontalAlignment = HorizontalAlignment.LEFT,
+        h_alignment: HorizontalAlignment | None = None,
         v_alignment: VerticalAlignment = VerticalAlignment.TOP,
         overflow_behavior: TextOverflow = TextOverflow.CLIP,
         debug_rendering: bool = False,
@@ -93,7 +94,8 @@ class TextArea(Sprite):
 
         self.background_color = background_color
         self.background_image = background_image
-        self.h_alignment = h_alignment
+        # None: start of line for the active language (RIGHT for RTL)
+        self.h_alignment = resolve_alignment(h_alignment)
         self.v_alignment = v_alignment
         self.overflow_behavior = overflow_behavior
         self.line_spacing = line_spacing
@@ -117,9 +119,17 @@ class TextArea(Sprite):
         return base
 
     def _render_static_text(self) -> None:
+        """One line per ``\\n`` (a two-line prompt), each aligned."""
         base = self._render_base_layer()
-        text_surface = self._text_renderer.shadow_text(self._text)
-        base.blit(text_surface, (0, 0))
+        y = 0
+        for row in self._text.split("\n"):
+            if row:
+                text_surface = self._text_renderer.shadow_text(row)
+                x = 0
+                if self.h_alignment == HorizontalAlignment.RIGHT:
+                    x = max(0, base.get_width() - text_surface.get_width())
+                base.blit(text_surface, (x, y))
+            y += self.font.get_linesize() + self.line_spacing
         self.image = base
 
     def __iter__(self) -> TextArea:
@@ -214,11 +224,14 @@ class MultilineTextRenderer:
 
         text = text.replace("\\n", "\n")
 
-        string_lines: list[str] = list(
-            break_text_into_lines(
-                text, self.font, max_width, allow_word_overflow=False
-            )
+        # wrap in logical order, then reorder each line (bidi) exactly once
+        lines_with_direction = _prepare_text_lines_with_direction(
+            text, self.font, max_width, TextOverflow.CLIP
         )
+        string_lines = [
+            to_visual(line, base_rtl) if line else line
+            for line, base_rtl in lines_with_direction
+        ]
 
         rendered_surfaces_with_heights = []
         for i, line_text in enumerate(string_lines):
@@ -258,7 +271,7 @@ def draw_text(
     rect: Rect | tuple[int, int, int, int],
     scaling: ScalingStrategy,
     *,
-    h_alignment: HorizontalAlignment = HorizontalAlignment.LEFT,
+    h_alignment: HorizontalAlignment | None = None,
     v_alignment: VerticalAlignment = VerticalAlignment.TOP,
     font: Font,
     font_size: int | None = None,
@@ -277,6 +290,8 @@ def draw_text(
         text: The text string to draw.
         rect: The area (Rect or tuple) where the text will be placed.
         h_alignment: Horizontal alignment preference (LEFT, CENTER, RIGHT).
+            None means the start of the line for the active language.
+            With RIGHT every line is right-aligned on its own.
         v_alignment: Vertical alignment preference (TOP, CENTER, BOTTOM).
         font: The Pygame Font object to use for rendering.
         font_size: (Optional) Not directly used if a Font object is provided, but kept for API.
@@ -284,6 +299,7 @@ def draw_text(
         text_renderer: (Optional) An existing TextRenderer instance. If None, one will be created.
     """
     rect_obj = Rect(rect) if isinstance(rect, tuple) else rect
+    h_alignment = resolve_alignment(h_alignment)
 
     if rect_obj.width <= 0 or rect_obj.height <= 0:
         return None
@@ -313,10 +329,16 @@ def draw_text(
     )
 
     current_draw_y = rect_obj.top + offset_y
+    line_rects: list[Rect] = []
 
     for text_surface, line_height in line_surfaces_data:
-        blit_position = (rect_obj.left + offset_x, current_draw_y)
-        surface.blit(text_surface, blit_position)
+        line_x = rect_obj.left + offset_x
+        if h_alignment == HorizontalAlignment.RIGHT:
+            line_x = rect_obj.right - text_surface.get_width()
+        surface.blit(text_surface, (line_x, current_draw_y))
+        line_rects.append(
+            Rect(line_x, current_draw_y, text_surface.get_width(), line_height)
+        )
         current_draw_y += line_height
 
     if return_metrics:
@@ -329,6 +351,7 @@ def draw_text(
             ),
             "offset": (offset_x, offset_y),
             "lines": line_surfaces_data,
+            "line_rects": line_rects,
         }
 
     return None

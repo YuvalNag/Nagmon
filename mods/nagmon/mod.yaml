@@ -1,0 +1,27 @@
+# Nagmon: the family learning game, built on top of the tuxemon mod.
+# Assets, maps, data and translations here win over tuxemon's when they
+# share a name (see docs/kids/SDD_MOD_LOADING.md).
+slug: nagmon
+description: Family learning adventure built on Tuxemon.
+name: Nagmon
+version: 0.1.0
+authors:
+  - Nag family
+
+dependencies:
+  - tuxemon
+
+startup_rules:
+  - mods.nagmon.rules.NagmonStartupRule
+
+starting_players: ["npc_red"]
+# A new game begins in Hearthrock, in front of the Wise Owl's house
+# (docs/kids/SDD_WORLD.md §2.1).
+starting_map: "classic_hearthrock_city.tmx"
+starting_position: [29, 16]
+starting_money: [500, 500]
+starting_names:
+  - npc_red
+
+sprite: adventurer
+combat_sheet: adventurer

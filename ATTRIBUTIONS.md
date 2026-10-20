@@ -2035,6 +2035,13 @@ which is licensed under [CC-0 1.0](https://creativecommons.org/publicdomain/zero
 Adapted by JaskRendix from a sprite from the ["Superpowers Asset Packs"](https://github.com/sparklinlabs/superpowers-asset-packs),
 which is licensed under [CC-0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
 
+### Emoji (Nagmon)
+
+* ["Twemoji"](https://github.com/jdecked/twemoji) 72x72 PNG set, v15.1.0
+(`mods/nagmon/gfx/emoji/`), © Twitter/X, Inc. and contributors (maintained
+by jdecked and contributors), is licensed under
+[CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
 ## Concept Art
 
 * ["Concept Art"](https://forum.tuxemon.org/viewtopic.php?id=76) by

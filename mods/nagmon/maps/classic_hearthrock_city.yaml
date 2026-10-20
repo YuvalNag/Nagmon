@@ -1,0 +1,538 @@
+# Hearthrock, the home town: the Wise Owl, the intro and the townspeople.
+# Merged into tuxemon's classic_hearthrock_city.tmx (docs/kids/SDD_WORLD.md).
+#
+# Rule of thumb: an event that hands over to the next step sets the
+# "next step" variable as its LAST action, so two dialogs never overlap.
+events:
+
+  # ------------------------------------------------------------ new game
+  Nagmon Start:
+    type: event
+    conditions:
+    - not variable_set nagmon_started
+    actions:
+    - nagmon_apply_profile
+    - set_variable method_money:conserved
+    - set_variable blackout_no_monsters:true
+    - set_teleport_faint player,classic_hearthrock_city.tmx,29,16
+    - set_variable nagmon_started:yes
+
+  Create Owl:
+    type: event
+    conditions:
+    - not char_exists nagmon_owl
+    - not variable_set academy_granite_done:yes
+    actions:
+    - create_npc nagmon_owl,29,15
+    - char_face nagmon_owl,down
+
+  # After the first badge the owl wears its cape. NPCs are made again on
+  # every load of the map, so the cape goes on each time it is created
+  # (docs/kids/SDD_ART.md §2.8).
+  Create Owl Caped:
+    type: event
+    conditions:
+    - not char_exists nagmon_owl
+    - is variable_set academy_granite_done:yes
+    actions:
+    - create_npc nagmon_owl,29,15
+    - char_face nagmon_owl,down
+    - set_template nagmon_owl,nagmon_owl_caped,nagmon_owl
+
+  Owl Intro:
+    type: event
+    conditions:
+    - is variable_set nagmon_started:yes
+    - not variable_set nagmon_intro_seen
+    - is char_exists nagmon_owl
+    actions:
+    - char_face player,up
+    - translated_dialog nagmon_owl_intro_story,nagmon_owl
+    - translated_dialog nagmon_owl_intro_power,nagmon_owl
+    - translated_dialog nagmon_owl_intro_starter,nagmon_owl
+    - set_variable nagmon_intro_seen:yes
+
+  Owl Starter Choice:
+    type: event
+    conditions:
+    - is variable_set nagmon_intro_seen:yes
+    - not variable_set nagmon_starter
+    actions:
+    - choice_monster agnite:rockitten:kroki,nagmon_starter
+
+  Starter Agnite:
+    type: event
+    conditions:
+    - is variable_set nagmon_starter:agnite
+    - not variable_set nagmon_has_starter
+    actions:
+    - add_monster agnite,7
+    - translated_dialog nagmon_owl_picked_agnite,nagmon_owl
+    - set_variable nagmon_has_starter:yes
+
+  Starter Rockitten:
+    type: event
+    conditions:
+    - is variable_set nagmon_starter:rockitten
+    - not variable_set nagmon_has_starter
+    actions:
+    - add_monster rockitten,7
+    - translated_dialog nagmon_owl_picked_rockitten,nagmon_owl
+    - set_variable nagmon_has_starter:yes
+
+  Starter Kroki:
+    type: event
+    conditions:
+    - is variable_set nagmon_starter:kroki
+    - not variable_set nagmon_has_starter
+    actions:
+    - add_monster kroki,7
+    - translated_dialog nagmon_owl_picked_kroki,nagmon_owl
+    - set_variable nagmon_has_starter:yes
+
+  Owl Gifts:
+    type: event
+    conditions:
+    - is variable_set nagmon_has_starter:yes
+    - not variable_set nagmon_gifts
+    actions:
+    - set_variable nagmon_gifts:yes
+    - add_item tuxeball,5
+    - add_item potion,3
+    - translated_dialog nagmon_owl_gifts,nagmon_owl
+    - translated_dialog nagmon_owl_first_q,nagmon_owl
+    - ask_quiz math,nagmon_owl_q1
+
+  Owl First Good:
+    type: event
+    conditions:
+    - is one_of nagmon_owl_q1,correct:super:skip
+    actions:
+    - clear_variable nagmon_owl_q1
+    - translated_dialog nagmon_owl_first_good,nagmon_owl
+    - translated_dialog nagmon_owl_go,nagmon_owl
+    - set_variable nagmon_intro_done:yes
+
+  Owl First Wrong:
+    type: event
+    conditions:
+    - is variable_set nagmon_owl_q1:wrong
+    actions:
+    - clear_variable nagmon_owl_q1
+    - translated_dialog nagmon_owl_first_wrong,nagmon_owl
+    - translated_dialog nagmon_owl_go,nagmon_owl
+    - set_variable nagmon_intro_done:yes
+
+  # A save from the middle of the intro: the owl simply goes on.
+  Owl Talk Unfinished:
+    type: event
+    behav:
+    - talk nagmon_owl
+    conditions:
+    - is variable_set nagmon_gifts:yes
+    - not variable_set nagmon_intro_done
+    - not variable_set nagmon_owl_q1
+    actions:
+    - translated_dialog nagmon_owl_go,nagmon_owl
+    - set_variable nagmon_intro_done:yes
+
+  # ------------------------------------------------- the owl, later on
+  Owl Talk Granite:
+    type: event
+    behav:
+    - talk nagmon_owl
+    conditions:
+    - is variable_set nagmon_intro_done:yes
+    - not variable_set academy_granite_done:yes
+    actions:
+    - set_monster_health
+    - set_monster_status
+    - translated_dialog nagmon_owl_heal,nagmon_owl
+    - translated_dialog nagmon_owl_tip_granite,nagmon_owl
+
+  Owl Talk Mila:
+    type: event
+    behav:
+    - talk nagmon_owl
+    conditions:
+    - is variable_set academy_granite_done:yes
+    - not variable_set academy_mila_done:yes
+    actions:
+    - set_monster_health
+    - set_monster_status
+    - translated_dialog nagmon_owl_heal,nagmon_owl
+    - translated_dialog nagmon_owl_tip_mila,nagmon_owl
+
+  Owl Talk All:
+    type: event
+    behav:
+    - talk nagmon_owl
+    conditions:
+    - is variable_set academy_granite_done:yes
+    - is variable_set academy_mila_done:yes
+    actions:
+    - set_monster_health
+    - set_monster_status
+    - translated_dialog nagmon_owl_heal,nagmon_owl
+    - translated_dialog nagmon_owl_tip_all,nagmon_owl
+
+  Owl Congrats Granite:
+    type: event
+    conditions:
+    - is variable_set academy_granite_done:yes
+    - not variable_set nagmon_owl_congrats_granite
+    - is char_exists nagmon_owl
+    actions:
+    - translated_dialog nagmon_owl_congrats_granite,nagmon_owl
+    - set_template nagmon_owl,nagmon_owl_caped,nagmon_owl
+    - translated_dialog nagmon_owl_cape,nagmon_owl
+    - set_variable nagmon_owl_congrats_granite:yes
+
+  Owl Congrats Mila:
+    type: event
+    conditions:
+    - is variable_set academy_mila_done:yes
+    - is variable_set nagmon_owl_congrats_granite:yes
+    - not variable_set nagmon_owl_congrats_mila
+    - is char_exists nagmon_owl
+    actions:
+    - translated_dialog nagmon_owl_congrats_mila,nagmon_owl
+    - set_variable nagmon_owl_congrats_mila:yes
+
+  # ------------------------------------- Avi the shopkeeper: money math
+  Create Cashier:
+    type: event
+    conditions:
+    - not char_exists nagmon_cashier
+    actions:
+    - create_npc nagmon_cashier,13,14
+    - char_face nagmon_cashier,down
+
+  Cashier Talk Small:
+    type: event
+    behav:
+    - talk nagmon_cashier
+    conditions:
+    - not profile_grade_at_least 1
+    actions:
+    - translated_dialog nagmon_world_cashier_hello,nagmon_cashier
+    - ask_quiz math,nagmon_cashier_q,shop
+
+  Cashier Talk Coins:
+    type: event
+    behav:
+    - talk nagmon_cashier
+    conditions:
+    - is profile_grade_at_least 1
+    - not profile_grade_at_least 2
+    actions:
+    - translated_dialog nagmon_world_cashier_hello,nagmon_cashier
+    - ask_quiz math.money.coins,nagmon_cashier_q,shop
+
+  Cashier Talk Change:
+    type: event
+    behav:
+    - talk nagmon_cashier
+    conditions:
+    - is profile_grade_at_least 2
+    actions:
+    - translated_dialog nagmon_world_cashier_hello,nagmon_cashier
+    - ask_quiz math.money.change_20,nagmon_cashier_q,shop
+
+  Cashier Good:
+    type: event
+    conditions:
+    - is one_of nagmon_cashier_q,correct:super:skip
+    - is nagmon_daily_below cashier,3
+    actions:
+    - clear_variable nagmon_cashier_q
+    - modify_money player,20
+    - nagmon_daily_count cashier
+    - translated_dialog nagmon_world_cashier_good,nagmon_cashier
+
+  Cashier Good Free:
+    type: event
+    conditions:
+    - is one_of nagmon_cashier_q,correct:super:skip
+    - not nagmon_daily_below cashier,3
+    actions:
+    - clear_variable nagmon_cashier_q
+    - translated_dialog nagmon_world_cashier_free,nagmon_cashier
+
+  Cashier Wrong:
+    type: event
+    conditions:
+    - is variable_set nagmon_cashier_q:wrong
+    actions:
+    - clear_variable nagmon_cashier_q
+    - translated_dialog nagmon_world_cashier_wrong,nagmon_cashier
+
+  # -------------------------------------------- Tom the tourist: English
+  Create Tourist:
+    type: event
+    conditions:
+    - not char_exists nagmon_tourist
+    actions:
+    - create_npc nagmon_tourist,20,7
+    - char_face nagmon_tourist,down
+
+  Tourist Talk:
+    type: event
+    behav:
+    - talk nagmon_tourist
+    actions:
+    - translated_dialog nagmon_world_tourist_hello,nagmon_tourist
+    - ask_quiz english,nagmon_tourist_q
+
+  Tourist Good:
+    type: event
+    conditions:
+    - is one_of nagmon_tourist_q,correct:super:skip
+    - is nagmon_daily_below tourist,3
+    actions:
+    - clear_variable nagmon_tourist_q
+    - add_item potion,1
+    - nagmon_daily_count tourist
+    - translated_dialog nagmon_world_tourist_good,nagmon_tourist
+
+  Tourist Good Free:
+    type: event
+    conditions:
+    - is one_of nagmon_tourist_q,correct:super:skip
+    - not nagmon_daily_below tourist,3
+    actions:
+    - clear_variable nagmon_tourist_q
+    - translated_dialog nagmon_world_tourist_free,nagmon_tourist
+
+  Tourist Wrong:
+    type: event
+    conditions:
+    - is variable_set nagmon_tourist_q:wrong
+    actions:
+    - clear_variable nagmon_tourist_q
+    - translated_dialog nagmon_world_tourist_wrong,nagmon_tourist
+
+  # ----------------------------------------- Michal the gardener: science
+  Create Gardener:
+    type: event
+    conditions:
+    - not char_exists nagmon_gardener
+    actions:
+    - create_npc nagmon_gardener,4,16
+    - char_face nagmon_gardener,right
+
+  Gardener Talk:
+    type: event
+    behav:
+    - talk nagmon_gardener
+    actions:
+    - translated_dialog nagmon_world_gardener_hello,nagmon_gardener
+    - ask_quiz science,nagmon_gardener_q
+
+  Gardener Good:
+    type: event
+    conditions:
+    - is one_of nagmon_gardener_q,correct:super:skip
+    - is nagmon_daily_below gardener,3
+    actions:
+    - clear_variable nagmon_gardener_q
+    - add_item wood_berry,1
+    - nagmon_daily_count gardener
+    - translated_dialog nagmon_world_gardener_good,nagmon_gardener
+
+  Gardener Good Free:
+    type: event
+    conditions:
+    - is one_of nagmon_gardener_q,correct:super:skip
+    - not nagmon_daily_below gardener,3
+    actions:
+    - clear_variable nagmon_gardener_q
+    - translated_dialog nagmon_world_gardener_free,nagmon_gardener
+
+  Gardener Wrong:
+    type: event
+    conditions:
+    - is variable_set nagmon_gardener_q:wrong
+    actions:
+    - clear_variable nagmon_gardener_q
+    - translated_dialog nagmon_world_gardener_wrong,nagmon_gardener
+
+  # -------------------------------- Yoav and Pitzi the kitten: kindness
+  Create Kid:
+    type: event
+    conditions:
+    - not char_exists nagmon_kid
+    actions:
+    - create_npc nagmon_kid,24,7
+    - char_face nagmon_kid,down
+
+  Kid Talk Lost:
+    type: event
+    behav:
+    - talk nagmon_kid
+    conditions:
+    - not variable_set nagmon_kitten
+    actions:
+    - translated_dialog nagmon_world_kid_lost
+    - set_variable nagmon_kitten:asked
+
+  Kid Talk Waiting:
+    type: event
+    behav:
+    - talk nagmon_kid
+    conditions:
+    - is variable_set nagmon_kitten:asked
+    actions:
+    - translated_dialog nagmon_world_kid_waiting
+
+  Kid Talk Thanks:
+    type: event
+    behav:
+    - talk nagmon_kid
+    conditions:
+    - is variable_set nagmon_kitten:found
+    actions:
+    - translated_dialog nagmon_world_kid_thanks
+    - add_item potion,2
+    - modify_money player,30
+    - translated_dialog nagmon_world_kid_reward
+    - set_variable nagmon_kitten:home
+
+  Kid Talk Home:
+    type: event
+    behav:
+    - talk nagmon_kid
+    conditions:
+    - is variable_set nagmon_kitten:home
+    actions:
+    - translated_dialog nagmon_world_kid_happy
+
+  Create Kitten Home:
+    type: event
+    conditions:
+    - is variable_set nagmon_kitten:home
+    - not char_exists nagmon_kitten
+    actions:
+    - create_npc nagmon_kitten,25,7
+    - char_face nagmon_kitten,down
+
+  Kitten Purr:
+    type: event
+    behav:
+    - talk nagmon_kitten
+    actions:
+    - translated_dialog nagmon_world_kitten_purr
+
+  # ------------------------------ Grandma Rina and the wallet: honesty
+  Create Wallet:
+    type: event
+    conditions:
+    - not variable_set nagmon_wallet
+    - not char_exists nagmon_wallet
+    actions:
+    - create_npc nagmon_wallet,12,7
+
+  Wallet Found:
+    type: event
+    behav:
+    - talk nagmon_wallet
+    conditions:
+    - not variable_set nagmon_wallet
+    actions:
+    - translated_dialog nagmon_world_wallet_found
+    - translated_dialog_choice nagmon_world_choice_return:nagmon_world_choice_keep,nagmon_wallet_choice
+
+  Wallet Return:
+    type: event
+    conditions:
+    - is variable_set nagmon_wallet_choice:nagmon_world_choice_return
+    - not variable_set nagmon_wallet
+    actions:
+    - set_variable nagmon_wallet:carry
+    - clear_variable nagmon_wallet_choice
+    - remove_npc nagmon_wallet
+    - translated_dialog nagmon_world_wallet_return
+
+  Wallet Keep:
+    type: event
+    conditions:
+    - is variable_set nagmon_wallet_choice:nagmon_world_choice_keep
+    - not variable_set nagmon_wallet
+    actions:
+    - set_variable nagmon_wallet:kept
+    - clear_variable nagmon_wallet_choice
+    - remove_npc nagmon_wallet
+    - translated_dialog nagmon_world_wallet_kept
+
+  Create Granny:
+    type: event
+    conditions:
+    - not char_exists nagmon_granny
+    actions:
+    - create_npc nagmon_granny,35,7
+    - char_face nagmon_granny,left
+
+  Granny Talk Hello:
+    type: event
+    behav:
+    - talk nagmon_granny
+    conditions:
+    - not variable_set nagmon_wallet
+    actions:
+    - translated_dialog nagmon_world_granny_hello
+
+  Granny Talk Thanks:
+    type: event
+    behav:
+    - talk nagmon_granny
+    conditions:
+    - is variable_set nagmon_wallet:carry
+    actions:
+    - set_variable nagmon_wallet:returned
+    - translated_dialog nagmon_world_granny_thanks
+    - modify_money player,30
+    - add_item water_berry,1
+    - translated_dialog nagmon_world_granny_reward
+    - translated_dialog nagmon_world_granny_value
+
+  # Kept it? No punishment, just a second chance to do the right thing.
+  Granny Talk Lost:
+    type: event
+    behav:
+    - talk nagmon_granny
+    conditions:
+    - is variable_set nagmon_wallet:kept
+    actions:
+    - translated_dialog nagmon_world_granny_lost
+    - translated_dialog_choice nagmon_world_choice_give:nagmon_world_choice_later,nagmon_granny_choice
+
+  Granny Give:
+    type: event
+    conditions:
+    - is variable_set nagmon_granny_choice:nagmon_world_choice_give
+    - is variable_set nagmon_wallet:kept
+    actions:
+    - set_variable nagmon_wallet:returned
+    - clear_variable nagmon_granny_choice
+    - translated_dialog nagmon_world_granny_thanks
+    - modify_money player,30
+    - add_item water_berry,1
+    - translated_dialog nagmon_world_granny_reward
+    - translated_dialog nagmon_world_granny_value
+
+  Granny Later:
+    type: event
+    conditions:
+    - is variable_set nagmon_granny_choice:nagmon_world_choice_later
+    actions:
+    - clear_variable nagmon_granny_choice
+    - translated_dialog nagmon_world_granny_later
+
+  Granny Talk Happy:
+    type: event
+    behav:
+    - talk nagmon_granny
+    conditions:
+    - is variable_set nagmon_wallet:returned
+    actions:
+    - translated_dialog nagmon_world_granny_happy

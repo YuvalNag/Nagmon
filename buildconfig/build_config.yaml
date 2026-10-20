@@ -1,6 +1,6 @@
-name: Tuxemon
+name: Nagmon
 version: 0.4.35
-description: Open source RPG
+description: Family learning adventure (built on Tuxemon)
 
 # The entry point for cx_Freeze — produces run_tuxemon.exe
 executable: run_tuxemon.py
@@ -16,6 +16,16 @@ packages:
   - websockets
   - natsort
   - tuxemon
+  - nagmon
+  - yaml
+  - pydantic
+  - pygame_menu
+  - bidi
+  - pyluach
+  - astral
+  - tzdata
+  - edge_tts
+  - pyttsx3
 
 # Packages that should NOT be included
 excludes:

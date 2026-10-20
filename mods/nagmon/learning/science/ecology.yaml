@@ -1,0 +1,736 @@
+# Nagmon learning content - science / ecology and environment (recycling, saving water, caring for the environment, ecosystems)
+# Format: docs/kids/SDD_CONTENT.md section 3. Generated from curated sources; reviewed by a parent.
+# Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
+# Curriculum alignment: Israeli MoE "מדע וטכנולוגיה" (science and technology) strands -
+#   materials, energy and interactions, systems and processes in living things, earth and universe, technology.
+# Sources consulted:
+#   - Elementary curriculum (grades 1-6): https://pop.education.gov.il/tchumey_daat/mada-tehnologia/yesodi/technology-science-pedagogy/curriculum
+#   - Elementary curriculum PDF (2009 draft): https://meyda.education.gov.il/files/Tochniyot_Limudim/KdamYesodi/MadaTechnologia.pdf
+#   - Middle school (grades 7-9): https://pop.education.gov.il/tchumey_daat/mada-tehnologia/chativat-beynayim/mada-technologia-pedagogia/curriculum
+#   - Grade 8/9 test specifications (Meitzav/RAMA): https://meyda.education.gov.il/files/Rama/Mifrat_sci_9_H_2027.pdf
+# Topics: recycling and waste (1-4), saving water (1-5), environment and pollution (2-6), ecosystems (5-9).
+# Israeli recycling bins (common municipal scheme): orange = packaging, blue = paper and cardboard, purple = glass; bottle deposit law; batteries go to special collection bins.
+
+skill: science.ecology.recycling
+items:
+- id: sci.ecology.001
+  skill: science.ecology.recycling
+  kind: choice
+  grade: 1
+  difficulty: -1.0
+  prompt_he: מה עושים עם בקבוק פלסטיק ריק?
+  prompt_en: What do you do with an empty plastic bottle?
+  choices:
+  - {he: קוברים בחול, en: bury it in sand, emoji: 1f3d6}
+  - {he: זורקים לים, en: throw it in the sea, emoji: 1f30a}
+  - {he: ממחזרים אותו, en: recycle it, emoji: 267b}
+  answer: 2
+  explanation_he: ממחזרים את הבקבוק, ומהפלסטיק מייצרים מוצרים חדשים. כך יש פחות פסולת בטבע.
+  explanation_en: Recycle the bottle, and its plastic is made into new products. That means less waste in nature.
+  tags: [recycling]
+- id: sci.ecology.002
+  skill: science.ecology.recycling
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: לאיזה פח מיחזור בישראל זורקים עיתונים וקרטונים?
+  prompt_en: Which Israeli recycling bin is for newspapers and cardboard?
+  choices:
+  - {he: הפח הכחול, en: the blue bin}
+  - {he: הפח הסגול, en: the purple bin}
+  - {he: 'אף פח, זורקים לרחוב', en: 'none, throw it in the street'}
+  answer: 0
+  explanation_he: בפח הכחול אוספים נייר וקרטון, ומהם מייצרים נייר חדש. בפח הסגול אוספים זכוכית.
+  explanation_en: The blue bin collects paper and cardboard to make new paper. The purple bin collects glass.
+  tags: [recycling]
+- id: sci.ecology.003
+  skill: science.ecology.recycling
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: לאיזה פח זורקים אריזות פלסטיק, פחיות וקרטוני חלב?
+  prompt_en: Which bin takes plastic packaging, cans and milk cartons?
+  choices:
+  - {he: הפח הכחול, en: the blue bin}
+  - {he: הפח הסגול, en: the purple bin}
+  - {he: הפח הכתום, en: the orange bin}
+  answer: 2
+  explanation_he: הפח הכתום מיועד לאריזות. במפעל ממיינים אותן לפי סוג החומר ושולחים למיחזור.
+  explanation_en: The orange bin is for packaging. At the plant it's sorted by material and sent for recycling.
+  tags: [recycling]
+- id: sci.ecology.004
+  skill: science.ecology.recycling
+  kind: true_false
+  grade: 2
+  difficulty: 0.0
+  prompt_he: מיחזור נייר עוזר לחסוך בכריתת עצים.
+  prompt_en: Recycling paper helps reduce tree cutting.
+  answer: true
+  explanation_he: נכון. כשמייצרים נייר מנייר ממוחזר, צריך פחות עצים חדשים, וגם פחות מים ואנרגיה.
+  explanation_en: True. Making paper from recycled paper needs fewer new trees, and less water and energy too.
+  tags: [recycling]
+- id: sci.ecology.005
+  skill: science.ecology.recycling
+  kind: choice
+  grade: 2
+  difficulty: 1.0
+  prompt_he: כמה זמן לוקח לשקית או לבקבוק פלסטיק להתפרק בטבע?
+  prompt_en: How long does a plastic bag or bottle take to break down in nature?
+  choices:
+  - {he: שבוע, en: a week}
+  - {he: יום אחד, en: one day}
+  - {he: מאות שנים, en: hundreds of years}
+  answer: 2
+  explanation_he: פלסטיק כמעט לא מתפרק. הוא מתפורר לחתיכות קטנות שנשארות בים ובאדמה זמן רב מאוד.
+  explanation_en: Plastic barely breaks down. It crumbles into small pieces that stay in the sea and soil for a very long time.
+  tags: [recycling]
+- id: sci.ecology.006
+  skill: science.ecology.recycling
+  kind: order
+  grade: 3
+  difficulty: 0.0
+  prompt_he: סדרו את שלושת כללי הזהב לפסולת, מהחשוב ביותר.
+  prompt_en: Order the three golden rules for waste, most important first.
+  choices:
+  - {he: לעשות שימוש חוזר, en: reuse}
+  - {he: 'לצמצם: לקנות ולזרוק פחות', en: 'reduce: buy and throw away less'}
+  - {he: למחזר, en: recycle}
+  answer: [1, 0, 2]
+  explanation_he: הכי טוב לא ליצור פסולת בכלל. אחר כך להשתמש שוב בחפצים, ורק בסוף למחזר את מה שנשאר.
+  explanation_en: Best is to make no waste at all. Next, reuse things, and finally recycle what's left.
+  tags: [recycling]
+- id: sci.ecology.007
+  skill: science.ecology.recycling
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: למה שקיות פלסטיק בים מסוכנות לצבי ים?
+  prompt_en: Why are plastic bags in the sea dangerous to sea turtles?
+  choices:
+  - {he: הם חושבים שהשקית היא מדוזה ובולעים אותה, en: they mistake bags for jellyfish and swallow them, emoji: 1f422}
+  - {he: השקיות מחממות את המים, en: bags warm the water, emoji: 1f525}
+  - {he: השקיות מושכות כרישים, en: bags attract sharks, emoji: 1f988}
+  answer: 0
+  explanation_he: צבי ים אוכלים מדוזות, ושקית שצפה במים נראית כמו מדוזה. השקית חוסמת את מערכת העיכול שלהם.
+  explanation_en: Sea turtles eat jellyfish, and a floating bag looks like one. The bag blocks their digestive system.
+  tags: [recycling]
+- id: sci.ecology.008
+  skill: science.ecology.recycling
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מה אפשר לעשות עם קליפות ירקות ושאריות פירות?
+  prompt_en: What can you do with vegetable peels and fruit scraps?
+  choices:
+  - {he: לזרוק אותם לפח הזכוכית, en: put them in the glass bin, emoji: 1f37e}
+  - {he: לשרוף אותם בבית, en: burn them at home, emoji: 1f525}
+  - {he: להכין קומפוסט לגינה, en: make compost for the garden, emoji: 1f331}
+  answer: 2
+  explanation_he: בקומפוסט חיידקים, פטריות ותולעים מפרקים את השאריות לאדמה עשירה שמזינה צמחים.
+  explanation_en: In compost, bacteria, fungi and worms break scraps down into rich soil that feeds plants.
+  tags: [recycling]
+- id: sci.ecology.009
+  skill: science.ecology.recycling
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: סוללות ישנות זורקים לפח הרגיל.
+  prompt_en: Old batteries go in the regular trash.
+  answer: false
+  explanation_he: לא נכון. בסוללות יש חומרים שמזיקים לאדמה ולמים. זורקים אותן למתקני איסוף מיוחדים לסוללות.
+  explanation_en: False. Batteries contain substances harmful to soil and water. They go in special battery collection bins.
+  tags: [recycling]
+- id: sci.ecology.010
+  skill: science.ecology.recycling
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: איזה חומר אפשר למחזר שוב ושוב בלי שהאיכות שלו תיפגע?
+  prompt_en: Which material can be recycled again and again without losing quality?
+  choices:
+  - {he: נייר, en: paper, emoji: 1f4c4}
+  - {he: קליפות בננה, en: banana peels, emoji: 1f34c}
+  - {he: אלומיניום (פחיות), en: aluminum (cans), emoji: 1f96b}
+  answer: 2
+  explanation_he: פחיות אלומיניום אפשר להתיך ולייצר מחדש כמעט בלי סוף. סיבי הנייר מתקצרים בכל מיחזור.
+  explanation_en: Aluminum cans can be melted and remade almost endlessly. Paper fibers get shorter each time.
+  tags: [recycling]
+- id: sci.ecology.011
+  skill: science.ecology.recycling
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: מה מהבאים הוא שימוש חוזר?
+  prompt_en: Which of these is reusing?
+  choices:
+  - {he: למלא מחדש בקבוק מים, en: refilling a water bottle, emoji: 1f6b0}
+  - {he: לזרוק כוס חד-פעמית, en: throwing away a disposable cup, emoji: 1f5d1}
+  - {he: לקנות שקית חדשה בכל פעם, en: buying a new bag every time, emoji: 1f6cd}
+  answer: 0
+  explanation_he: שימוש חוזר בחפץ חוסך חומרים ואנרגיה. בקבוק ושקית רב-פעמיים מחליפים מאות חד-פעמיים.
+  explanation_en: Reusing saves materials and energy. A reusable bottle or bag replaces hundreds of disposable ones.
+  tags: [recycling]
+- id: sci.ecology.012
+  skill: science.ecology.recycling
+  kind: true_false
+  grade: 4
+  difficulty: 1.0
+  prompt_he: בישראל מחזירים בקבוקי משקה לנקודות איסוף ומקבלים פיקדון.
+  prompt_en: In Israel you return drink bottles to collection points and get a deposit back.
+  answer: true
+  explanation_he: נכון. חוק הפיקדון מעודד להחזיר בקבוקים כדי שימוחזרו. כך פחות בקבוקים מגיעים לחופים ולשטחים פתוחים.
+  explanation_en: True. The deposit law encourages returning bottles for recycling, so fewer end up on beaches and open land.
+  tags: [recycling]
+- id: sci.ecology.013
+  skill: science.ecology.recycling
+  kind: order
+  grade: 2
+  difficulty: 0.0
+  prompt_he: סדרו את המסע של בקבוק פלסטיק במיחזור.
+  prompt_en: Order a plastic bottle's recycling journey.
+  choices:
+  - {he: זורקים אותו לפח המיחזור, en: throw it in the recycling bin}
+  - {he: במפעל ממיינים וגורסים אותו, en: at the plant it's sorted and shredded}
+  - {he: מייצרים ממנו מוצר חדש, en: a new product is made from it}
+  - {he: משאית אוספת אותו, en: a truck collects it}
+  answer: [0, 3, 1, 2]
+  explanation_he: הפלסטיק נגרס לפתיתים, נמס ומעוצב מחדש, למשל לסיבים של בגדים או לכיסאות.
+  explanation_en: The plastic is shredded into flakes, melted and reshaped, for example into clothing fibers or chairs.
+  tags: [recycling]
+- id: sci.ecology.014
+  skill: science.ecology.water
+  kind: choice
+  grade: 1
+  difficulty: -1.0
+  prompt_he: מה עושים בזמן צחצוח השיניים כדי לחסוך מים?
+  prompt_en: What should you do while brushing teeth to save water?
+  choices:
+  - {he: סוגרים את הברז, en: turn off the tap, emoji: 1f6b0}
+  - {he: משאירים את הברז פתוח, en: leave the tap running, emoji: 1f4a7}
+  - {he: פותחים גם את המקלחת, en: turn on the shower too, emoji: 1f6bf}
+  answer: 0
+  explanation_he: ברז פתוח מבזבז כמה ליטרים בכל דקה. פותחים רק כשצריך לשטוף.
+  explanation_en: A running tap wastes several liters a minute. Open it only to rinse.
+  tags: [water_saving]
+- id: sci.ecology.015
+  skill: science.ecology.water
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: מה חוסך יותר מים?
+  prompt_en: Which uses less water?
+  choices:
+  - {he: מקלחת קצרה, en: a short shower, emoji: 1f6bf}
+  - {he: מקלחת של שעה, en: an hour-long shower, emoji: 23f0}
+  - {he: אמבטיה מלאה, en: a full bath, emoji: 1f6c1}
+  answer: 0
+  explanation_he: אמבטיה מלאה צורכת הרבה יותר מים ממקלחת קצרה של כמה דקות.
+  explanation_en: A full bath uses much more water than a short shower of a few minutes.
+  tags: [water_saving]
+- id: sci.ecology.016
+  skill: science.ecology.water
+  kind: true_false
+  grade: 2
+  difficulty: 0.0
+  prompt_he: ברז מטפטף יכול לבזבז הרבה מים במשך שבוע.
+  prompt_en: A dripping tap can waste lots of water over a week.
+  answer: true
+  explanation_he: נכון. כל טיפה קטנה, אבל טפטוף רצוף מצטבר לעשרות ואפילו מאות ליטרים. כדאי לתקן נזילות מהר.
+  explanation_en: True. Each drop is small, but steady dripping adds up to tens or even hundreds of liters. Fix leaks quickly.
+  tags: [water_saving]
+- id: sci.ecology.017
+  skill: science.ecology.water
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מתי עדיף להשקות את הגינה בקיץ?
+  prompt_en: When is it best to water the garden in summer?
+  choices:
+  - {he: לא משנה, en: it doesn't matter}
+  - {he: 'בצהריים, בשמש החזקה', en: at noon in strong sun}
+  - {he: בערב או בבוקר מוקדם, en: in the evening or early morning}
+  answer: 2
+  explanation_he: בצהריים חלק גדול מהמים מתאדה לפני שהוא מגיע לשורשים. בערב ובבוקר קריר יותר.
+  explanation_en: At noon much of the water evaporates before reaching the roots. Evenings and mornings are cooler.
+  tags: [water_saving]
+- id: sci.ecology.018
+  skill: science.ecology.water
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: למה חשוב במיוחד לחסוך במים בישראל?
+  prompt_en: Why is saving water especially important in Israel?
+  choices:
+  - {he: אקלים יבש יחסית וגשם רק בחורף, en: a fairly dry climate with rain only in winter}
+  - {he: כי יש בה יותר מדי גשם, en: because it rains too much}
+  - {he: כי המים בישראל כחולים, en: because Israel's water is blue}
+  answer: 0
+  explanation_he: בישראל הגשם יורד רק בחלק מהשנה, ובדרום מעט מאוד. לכן מים מתוקים הם משאב יקר.
+  explanation_en: In Israel rain falls only part of the year, and very little in the south, so fresh water is precious.
+  tags: [water_saving]
+- id: sci.ecology.019
+  skill: science.ecology.water
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: אפשר לשתות מי ים ישר מהים כשצמאים.
+  prompt_en: You can drink seawater straight from the sea when thirsty.
+  answer: false
+  explanation_he: לא נכון. מי ים מלוחים מדי. שתייה שלהם גורמת לגוף לאבד עוד יותר מים. צריך להתפיל אותם קודם.
+  explanation_en: False. Seawater is too salty. Drinking it makes the body lose even more water. It must be desalinated first.
+  tags: [water_saving]
+- id: sci.ecology.020
+  skill: science.ecology.water
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מה עושים בישראל עם רוב מי הביוב אחרי שמטהרים אותם?
+  prompt_en: What does Israel do with most of its sewage water after treating it?
+  choices:
+  - {he: משקים בהם שדות חקלאיים, en: irrigate farm fields}
+  - {he: שותים אותם, en: drink it}
+  - {he: שופכים לכנרת, en: pour it into the Kinneret}
+  answer: 0
+  explanation_he: ישראל מטהרת וממחזרת את רוב מי השפכים, יותר מכל מדינה אחרת, ומשקה בהם שדות. כך נחסכים מים מתוקים.
+  explanation_en: Israel treats and reuses most of its wastewater, more than any other country, to irrigate fields, saving fresh water.
+  tags: [water_saving]
+- id: sci.ecology.021
+  skill: science.ecology.water
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: מה זה חסכם?
+  prompt_en: What is a tap aerator (water saver)?
+  choices:
+  - {he: ברז שמייצר מים, en: a tap that makes water}
+  - {he: התקן קטן בברז שמערבב אוויר במים, en: a small tap device mixing air into the water}
+  - {he: סוג של משאבה, en: a kind of pump}
+  answer: 1
+  explanation_he: החסכם מוסיף אוויר לזרם, כך שהזרם מרגיש חזק אבל יוצאים פחות מים.
+  explanation_en: The aerator adds air to the stream so it feels strong while less water flows.
+  tags: [water_saving]
+- id: sci.ecology.022
+  skill: science.ecology.water
+  kind: true_false
+  grade: 4
+  difficulty: 1.0
+  prompt_he: באסלה עם שני כפתורים, הכפתור הקטן משתמש בפחות מים.
+  prompt_en: In a two-button toilet, the small button uses less water.
+  answer: true
+  explanation_he: נכון. כשלא צריך הדחה מלאה, הכפתור הקטן חוסך כמה ליטרים בכל פעם.
+  explanation_en: True. When a full flush isn't needed, the small button saves several liters each time.
+  tags: [water_saving]
+- id: sci.ecology.023
+  skill: science.ecology.water
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: מה עושה השקיה בטפטוף טוב יותר מהשקיה בממטרות?
+  prompt_en: What does drip irrigation do better than sprinklers?
+  choices:
+  - {he: 'מביאה מים ישר לשורשים, עם פחות אידוי', en: brings water straight to the roots with less evaporation}
+  - {he: משקה רק בגשם, en: waters only in rain}
+  - {he: מרטיבה את כל השדה כולל השבילים, en: wets the whole field including paths}
+  answer: 0
+  explanation_he: בטפטוף המים מגיעים לאט לאזור השורשים. פחות מים מתאדים או זורמים הצידה, והצמחים מקבלים בדיוק מה שצריך.
+  explanation_en: Drip irrigation delivers water slowly to the root zone. Less evaporates or runs off, and plants get just what they need.
+  tags: [water_saving]
+- id: sci.ecology.024
+  skill: science.ecology.water
+  kind: order
+  grade: 4
+  difficulty: 0.0
+  prompt_he: סדרו את הדרך של המים מהים עד הברז בבית, דרך התפלה.
+  prompt_en: Order the path of water from the sea to your tap via desalination.
+  choices:
+  - {he: המים מגיעים לברז בבית, en: water reaches your tap}
+  - {he: שואבים מי ים, en: seawater is pumped in}
+  - {he: המים זורמים בצינורות ארציים, en: water flows through national pipelines}
+  - {he: מתקן ההתפלה מוציא את המלח, en: the plant removes the salt}
+  answer: [1, 3, 2, 0]
+  explanation_he: מתקני ההתפלה לאורך חוף הים התיכון מספקים חלק גדול ממי השתייה בישראל.
+  explanation_en: Desalination plants along the Mediterranean coast supply a large share of Israel's drinking water.
+  tags: [water_saving]
+- id: sci.ecology.025
+  skill: science.ecology.water
+  kind: choice
+  grade: 2
+  difficulty: -1.0
+  prompt_he: מה כדאי לעשות עם מים שנשארו בכוס?
+  prompt_en: What can you do with leftover water in a cup?
+  choices:
+  - {he: לשפוך לכיור, en: pour it down the sink, emoji: 1f6b0}
+  - {he: להשקות בהם עציץ, en: water a plant with it, emoji: 1fab4}
+  - {he: להשאיר על השולחן לשבוע, en: leave it on the table for a week, emoji: 1f4c5}
+  answer: 1
+  explanation_he: כך המים לא מתבזבזים. עוד דרך היא לשתות רק כמה שצריך ולמלא שוב אחר כך.
+  explanation_en: That way no water is wasted. Another way is to pour only what you'll drink and refill later.
+  tags: [water_saving]
+- id: sci.ecology.026
+  skill: science.ecology.environment
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: מה עוזר להקטין את זיהום האוויר בעיר?
+  prompt_en: What helps reduce air pollution in the city?
+  choices:
+  - {he: 'לנסוע במכונית לכל מקום, גם קרוב', en: 'driving everywhere, even nearby'}
+  - {he: 'הליכה, רכיבה על אופניים ואוטובוס', en: 'walking, cycling or taking the bus'}
+  - {he: להשאיר מנוע דולק, en: leaving the engine running}
+  answer: 1
+  explanation_he: מכוניות פולטות גזים שמזהמים את האוויר. הליכה ורכיבה לא מזהמות, ובאוטובוס אחד נוסעים אנשים רבים.
+  explanation_en: Cars release polluting gases. Walking and cycling don't pollute, and one bus carries many people.
+  tags: [environment]
+- id: sci.ecology.027
+  skill: science.ecology.environment
+  kind: choice
+  grade: 2
+  difficulty: 0.0
+  prompt_he: מה עושים עם האשפה בטיול בטבע?
+  prompt_en: What do you do with trash on a nature hike?
+  choices:
+  - {he: לוקחים אותה איתנו עד פח, en: take it with us to a bin}
+  - {he: משאירים מאחורי סלע, en: leave it behind a rock}
+  - {he: זורקים לנחל, en: throw it in the stream}
+  answer: 0
+  explanation_he: משאירים את הטבע נקי כמו שמצאנו אותו. אשפה יכולה לפגוע בבעלי חיים ולזהם מים.
+  explanation_en: Leave nature as clean as we found it. Litter can hurt animals and pollute water.
+  tags: [environment]
+- id: sci.ecology.028
+  skill: science.ecology.environment
+  kind: true_false
+  grade: 2
+  difficulty: 0.0
+  prompt_he: כיבוי אורות כשיוצאים מהחדר חוסך חשמל.
+  prompt_en: Turning off lights when leaving a room saves electricity.
+  answer: true
+  explanation_he: נכון. רוב החשמל מיוצר בתחנות כוח ששורפות דלק. חיסכון בחשמל מקטין זיהום ושומר על משאבים.
+  explanation_en: True. Most electricity comes from power stations that burn fuel. Saving electricity reduces pollution and conserves resources.
+  tags: [environment]
+- id: sci.ecology.029
+  skill: science.ecology.environment
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מהי שמורת טבע?
+  prompt_en: What is a nature reserve?
+  choices:
+  - {he: חניון, en: a parking lot}
+  - {he: שטח מוגן ששומר על צמחים ובעלי חיים, en: a protected area preserving plants and animals}
+  - {he: גן שעשועים, en: a playground}
+  answer: 1
+  explanation_he: בשמורות טבע אסור לפגוע בצמחים ובבעלי חיים. בישראל יש שמורות רבות, כמו עין גדי, החולה וגמלא.
+  explanation_en: In nature reserves you mustn't harm plants or animals. Israel has many, like Ein Gedi, Hula and Gamla.
+  tags: [environment]
+- id: sci.ecology.030
+  skill: science.ecology.environment
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: למה לא כדאי להאכיל חיות בר כמו תנים או יעלים?
+  prompt_en: Why shouldn't we feed wild animals like jackals or ibex?
+  choices:
+  - {he: כי הן לא אוכלות אף פעם, en: because they never eat}
+  - {he: כי הן תמיד שבעות, en: because they're always full}
+  - {he: הן מתרגלות לאוכל אנושי ונפגעות, en: they get used to human food and suffer}
+  answer: 2
+  explanation_he: אוכל של בני אדם לא בריא לחיות בר. הן מתקרבות לאנשים, מאבדות את הפחד ונפגעות בכבישים.
+  explanation_en: Human food is unhealthy for wild animals. They approach people, lose their caution and get hurt on roads.
+  tags: [environment]
+- id: sci.ecology.031
+  skill: science.ecology.environment
+  kind: true_false
+  grade: 3
+  difficulty: 1.0
+  prompt_he: אור חזק בלילה מכל הערים לא משפיע על הטבע.
+  prompt_en: Bright city lights at night don't affect nature.
+  answer: false
+  explanation_he: לא נכון. זיהום אור מבלבל ציפורים נודדות, צבי ים וחרקים, וגם מסתיר מאיתנו את הכוכבים.
+  explanation_en: False. Light pollution confuses migrating birds, sea turtles and insects, and also hides the stars from us.
+  tags: [environment]
+- id: sci.ecology.032
+  skill: science.ecology.environment
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: מה עושים עצים לאוויר?
+  prompt_en: What do trees do for the air?
+  choices:
+  - {he: קולטים פחמן דו-חמצני ומשחררים חמצן, en: absorb carbon dioxide and release oxygen, emoji: 1f333}
+  - {he: מזהמים אותו, en: pollute it, emoji: 1f3ed}
+  - {he: מחממים אותו מאוד, en: heat it a lot, emoji: 1f525}
+  answer: 0
+  explanation_he: בפוטוסינתזה העצים קולטים פחמן דו-חמצני ומשחררים חמצן. הם גם מצלים ומקררים את הסביבה.
+  explanation_en: In photosynthesis trees absorb carbon dioxide and release oxygen. They also shade and cool their surroundings.
+  tags: [environment]
+- id: sci.ecology.033
+  skill: science.ecology.environment
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: מה גורם להתחממות כדור הארץ, לפי רוב המדענים?
+  prompt_en: According to most scientists, what drives global warming?
+  choices:
+  - {he: יותר מדי עצים, en: too many trees}
+  - {he: עלייה בגזי חממה כמו פחמן דו-חמצני, en: more greenhouse gases like carbon dioxide}
+  - {he: הירח מתקרב, en: the moon getting closer}
+  answer: 1
+  explanation_he: שריפת דלקים כמו נפט ופחם מוסיפה לאוויר פחמן דו-חמצני. גזי חממה לוכדים חום, והטמפרטורה הממוצעת עולה.
+  explanation_en: Burning fuels like oil and coal adds carbon dioxide to the air. Greenhouse gases trap heat, raising the average temperature.
+  tags: [environment]
+- id: sci.ecology.034
+  skill: science.ecology.environment
+  kind: true_false
+  grade: 4
+  difficulty: 1.0
+  prompt_he: ביצות החולה יובשו בשנות ה-50, ומאוחר יותר הוצפו חלקית מחדש כדי להחזיר את הטבע.
+  prompt_en: The Hula swamps were drained in the 1950s and later partly reflooded to restore nature.
+  answer: true
+  explanation_he: נכון. אחרי הייבוש נעלמו מינים רבים והקרקע נפגעה. בשנות ה-90 נוצר אגמון החולה, וציפורים רבות חזרו.
+  explanation_en: True. Draining wiped out many species and damaged the soil. In the 1990s the Agamon Hula lake was created and many birds returned.
+  tags: [environment]
+- id: sci.ecology.035
+  skill: science.ecology.environment
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: מה מהבאים הוא מקור אנרגיה נקי יחסית?
+  prompt_en: Which of these is a relatively clean energy source?
+  choices:
+  - {he: נפט, en: oil, emoji: 1f6e2}
+  - {he: פחם, en: coal, emoji: 1faa8}
+  - {he: אנרגיית שמש, en: solar energy, emoji: '2600'}
+  answer: 2
+  explanation_he: פאנלים סולאריים מייצרים חשמל בלי לשרוף דלק ובלי עשן. פחם ונפט פולטים מזהמים וגזי חממה.
+  explanation_en: Solar panels make electricity without burning fuel or smoke. Coal and oil release pollutants and greenhouse gases.
+  tags: [environment]
+- id: sci.ecology.036
+  skill: science.ecology.environment
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: אילו פרחים מוגנים בחוק ואסור לקטוף?
+  prompt_en: Which flowers are protected by law and must not be picked?
+  choices:
+  - {he: 'כלנית, רקפת ונרקיס בר', en: 'wild anemone, cyclamen and narcissus'}
+  - {he: ורדים מהחנות, en: roses from a shop}
+  - {he: פרחי עציץ שגידלנו, en: potted flowers we grew}
+  answer: 0
+  explanation_he: פרחי בר מוגנים צריכים להשאיר זרעים כדי שיפרחו שוב. ורדים מחנות ופרחים שגידלנו בבית מותר לקטוף.
+  explanation_en: Protected wildflowers must be left to make seeds and bloom again. Shop roses and home-grown flowers are fine to pick.
+  tags: [environment]
+- id: sci.ecology.037
+  skill: science.ecology.environment
+  kind: order
+  grade: 5
+  difficulty: 1.0
+  prompt_he: סדרו מהפעולה שמייצרת הכי הרבה פסולת לזו שמייצרת הכי מעט.
+  prompt_en: Order from producing the most waste to the least.
+  choices:
+  - {he: לקנות בקבוק כל יום ולמחזר, en: buy a bottle daily and recycle it}
+  - {he: לקנות בקבוק מים חדש כל יום ולזרוק, en: buy and throw away a new water bottle daily}
+  - {he: למלא בקבוק רב-פעמי מהברז, en: refill a reusable bottle from the tap}
+  answer: [1, 0, 2]
+  explanation_he: צמצום ושימוש חוזר עדיפים על מיחזור, ומיחזור עדיף על זריקה לפח.
+  explanation_en: Reducing and reusing beat recycling, and recycling beats throwing away.
+  tags: [environment]
+- id: sci.ecology.038
+  skill: science.ecology.ecosystems
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: מהי מערכת אקולוגית?
+  prompt_en: What is an ecosystem?
+  choices:
+  - {he: רק הצמחים באזור, en: only an area's plants}
+  - {he: 'יצורים חיים וסביבתם, שמשפיעים זה על זה', en: 'living things and their surroundings, interacting'}
+  - {he: קבוצה של מכונות, en: a group of machines}
+  answer: 1
+  explanation_he: במערכת אקולוגית, כמו בריכה או יער, היצורים קשורים זה לזה ולמים, לאדמה, לאור ולאוויר.
+  explanation_en: In an ecosystem, like a pond or forest, living things are linked to each other and to water, soil, light and air.
+  tags: [ecosystems]
+- id: sci.ecology.039
+  skill: science.ecology.ecosystems
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: מה מהבאים הוא גורם דומם (אביוטי) במערכת אקולוגית?
+  prompt_en: Which is a non-living (abiotic) factor in an ecosystem?
+  choices:
+  - {he: פטרייה, en: a mushroom, emoji: 1f344}
+  - {he: חיפושית, en: a beetle, emoji: 1fab2}
+  - {he: טמפרטורה, en: temperature, emoji: 1f321}
+  answer: 2
+  explanation_he: גורמים דוממים הם טמפרטורה, אור, מים, קרקע ומליחות. פטריות וחיפושיות הן גורמים חיים.
+  explanation_en: Non-living factors include temperature, light, water, soil and salinity. Fungi and beetles are living factors.
+  tags: [ecosystems]
+- id: sci.ecology.040
+  skill: science.ecology.ecosystems
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: דבורה מקבלת צוף מפרח, והפרח מקבל האבקה. איך נקרא קשר כזה?
+  prompt_en: A bee gets nectar from a flower and the flower gets pollinated. What is such a relationship called?
+  choices:
+  - {he: 'טפילות: אחד נפגע', en: 'parasitism: one is harmed'}
+  - {he: טריפה, en: predation}
+  - {he: 'הדדיות: שניהם מרוויחים', en: 'mutualism: both benefit'}
+  answer: 2
+  explanation_he: בהדדיות שני היצורים נעזרים זה בזה. גם דג הליצן ושושנת הים חיים בהדדיות.
+  explanation_en: In mutualism both partners help each other. Clownfish and sea anemones also live in mutualism.
+  tags: [ecosystems]
+- id: sci.ecology.041
+  skill: science.ecology.ecosystems
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: קרציה שמוצצת דם מכלב היא דוגמה ל...
+  prompt_en: A tick sucking a dog's blood is an example of...
+  choices:
+  - {he: טפילות, en: parasitism}
+  - {he: ייצור מזון, en: food production}
+  - {he: הדדיות, en: mutualism}
+  answer: 0
+  explanation_he: טפיל חי על יצור אחר, הפונדקאי, ומרוויח ממנו על חשבונו. לכן חשוב לבדוק ולטפל בחיות מחמד.
+  explanation_en: A parasite lives on another creature, the host, benefiting at its expense. That's why pets should be checked and treated.
+  tags: [ecosystems]
+- id: sci.ecology.042
+  skill: science.ecology.ecosystems
+  kind: true_false
+  grade: 6
+  difficulty: 1.0
+  prompt_he: מין פולש הוא מין שהגיע לאזור חדש, התרבה מהר ופוגע במינים המקומיים.
+  prompt_en: An invasive species reached a new area, spread fast and harms local species.
+  answer: true
+  explanation_he: נכון. בישראל, למשל, המיינה, ציפור שהגיעה מאסיה, מתחרה עם ציפורים מקומיות על מקומות קינון.
+  explanation_en: True. In Israel, for example, the myna, a bird from Asia, competes with local birds for nesting spots.
+  tags: [ecosystems]
+- id: sci.ecology.043
+  skill: science.ecology.ecosystems
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: מה המשמעות של המונח מגוון ביולוגי?
+  prompt_en: What does the term biodiversity mean?
+  choices:
+  - {he: סוג של מחשב, en: a kind of computer}
+  - {he: מספר הבניינים בעיר, en: the number of buildings in a city}
+  - {he: מספר וסוגי היצורים החיים באזור, en: the number and variety of living things in an area}
+  answer: 2
+  explanation_he: ככל שיש יותר מינים, המערכת האקולוגית יציבה יותר. אם מין אחד נפגע, אחרים יכולים למלא את מקומו.
+  explanation_en: The more species, the more stable the ecosystem. If one species suffers, others can fill its role.
+  tags: [ecosystems]
+- id: sci.ecology.044
+  skill: science.ecology.ecosystems
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: מה קורה לאנרגיה כשהיא עוברת מדרגה לדרגה בפירמידת המזון?
+  prompt_en: What happens to energy passing up each level of a food pyramid?
+  choices:
+  - {he: היא מוכפלת, en: it doubles}
+  - {he: כולה עוברת לדרגה הבאה, en: all of it passes on}
+  - {he: רק כעשירית ממנה עוברת לדרגה הבאה, en: only about a tenth passes to the next level}
+  answer: 2
+  explanation_he: רוב האנרגיה משמשת לחיים של היצור ואובדת כחום. לכן בראש הפירמידה יש מעט טורפים.
+  explanation_en: Most energy is used for living and lost as heat. That's why there are few predators at the top.
+  tags: [ecosystems]
+- id: sci.ecology.045
+  skill: science.ecology.ecosystems
+  kind: true_false
+  grade: 6
+  difficulty: 1.0
+  prompt_he: אם נעלים מהאזור את כל הטורפים, המערכת האקולוגית תהיה בריאה יותר.
+  prompt_en: Removing all the predators from an area makes the ecosystem healthier.
+  answer: false
+  explanation_he: לא נכון. בלי טורפים הצמחוניים מתרבים יותר מדי, אוכלים את כל הצמחייה, ובסוף גם הם רעבים. טורפים שומרים על איזון.
+  explanation_en: False. Without predators herbivores multiply too much, eat all the plants, and then go hungry too. Predators keep the balance.
+  tags: [ecosystems]
+- id: sci.ecology.046
+  skill: science.ecology.ecosystems
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: איך נקראת קבוצה של פרטים מאותו מין שחיים באותו אזור?
+  prompt_en: What is a group of one species living in the same area called?
+  choices:
+  - {he: אוכלוסייה, en: a population}
+  - {he: חברה (קהילה), en: a community}
+  - {he: מערכת אקולוגית, en: an ecosystem}
+  answer: 0
+  explanation_he: אוכלוסייה היא פרטים מאותו מין, למשל כל הצבאים בעמק. חברה היא כל המינים יחד באותו מקום.
+  explanation_en: A population is one species in an area, like all the gazelles in a valley. A community is all species there together.
+  tags: [ecosystems]
+- id: sci.ecology.047
+  skill: science.ecology.ecosystems
+  kind: choice
+  grade: 8
+  difficulty: 2.0
+  prompt_he: מה תפקיד המפרקים בתהליך מחזור החומרים?
+  prompt_en: What role do decomposers play in nutrient cycling?
+  choices:
+  - {he: צדים טורפים גדולים, en: hunt large predators}
+  - {he: מייצרים אור, en: make light}
+  - {he: מחזירים לקרקע חומרים מיצורים מתים, en: return materials from dead organisms to the soil}
+  answer: 2
+  explanation_he: פטריות וחיידקים מפרקים עלים ושרידים לחומרים פשוטים. צמחים קולטים אותם מהקרקע, וכך החומרים עוברים שוב ושוב במערכת.
+  explanation_en: Fungi and bacteria break remains into simple substances. Plants absorb them from soil, so materials cycle again and again.
+  tags: [ecosystems]
+- id: sci.ecology.048
+  skill: science.ecology.ecosystems
+  kind: true_false
+  grade: 7
+  difficulty: 1.0
+  prompt_he: שתי אוכלוסיות שאוכלות את אותו מזון באותו מקום נמצאות בתחרות.
+  prompt_en: Two populations eating the same food in the same place are in competition.
+  answer: true
+  explanation_he: נכון. כשהמזון מוגבל, כל אוכלוסייה מקבלת פחות. לעיתים אחת דוחקת את השנייה, או שהן מתחלקות במקום ובזמן.
+  explanation_en: True. With limited food each gets less. Sometimes one pushes the other out, or they split up space and time.
+  tags: [ecosystems]
+- id: sci.ecology.049
+  skill: science.ecology.ecosystems
+  kind: order
+  grade: 7
+  difficulty: 1.0
+  prompt_he: סדרו מהרמה הקטנה לגדולה.
+  prompt_en: Order from the smallest level to the largest.
+  choices:
+  - {he: פרט (צבי אחד), en: individual (one gazelle)}
+  - {he: מערכת אקולוגית (המינים והסביבה), en: ecosystem (species and environment)}
+  - {he: חברה (כל המינים בעמק), en: community (all species in the valley)}
+  - {he: אוכלוסייה (כל הצבאים בעמק), en: population (all gazelles in the valley)}
+  answer: [0, 3, 2, 1]
+  explanation_he: פרטים יוצרים אוכלוסייה, כמה אוכלוסיות יוצרות חברה, והחברה יחד עם הסביבה הדוממת היא מערכת אקולוגית.
+  explanation_en: Individuals form a population, populations form a community, and the community plus its non-living surroundings is an ecosystem.
+  tags: [ecosystems]
+- id: sci.ecology.050
+  skill: science.ecology.ecosystems
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: מה קורה למערכת אקולוגית בבריכה כשנשפכים אליה דשנים רבים?
+  prompt_en: What happens to a pond ecosystem when lots of fertilizer runs into it?
+  choices:
+  - {he: המים נעשים צלולים יותר, en: the water gets clearer}
+  - {he: הדגים גדלים מהר יותר, en: fish grow faster}
+  - {he: 'אצות מתרבות מאוד, והחמצן במים יורד', en: algae bloom and oxygen in the water drops}
+  answer: 2
+  explanation_he: הדשן מזין אצות שמתרבות מאוד. כשהן מתות, החיידקים שמפרקים אותן צורכים את החמצן, ודגים נחנקים.
+  explanation_en: Fertilizer feeds algae that multiply. When they die, bacteria breaking them down use up the oxygen, and fish suffocate.
+  tags: [ecosystems]
+- id: sci.ecology.051
+  skill: science.ecology.ecosystems
+  kind: order
+  grade: 6
+  difficulty: 1.0
+  prompt_he: סדרו את מחזור החומרים ביער.
+  prompt_en: Order the cycle of materials in a forest.
+  choices:
+  - {he: עלה נושר מהעץ, en: a leaf falls from the tree}
+  - {he: החומרים נכנסים לקרקע, en: the materials enter the soil}
+  - {he: פטריות וחיידקים מפרקים אותו, en: fungi and bacteria break it down}
+  - {he: שורשי העץ קולטים אותם, en: the tree's roots take them up}
+  answer: [0, 2, 1, 3]
+  explanation_he: המפרקים מחזירים לקרקע את החומרים שבעלה. העץ קולט אותם בשורשים ומשתמש בהם לבנות עלים חדשים.
+  explanation_en: Decomposers return the leaf's materials to the soil. The tree takes them up through its roots to build new leaves.
+  tags: [ecosystems]

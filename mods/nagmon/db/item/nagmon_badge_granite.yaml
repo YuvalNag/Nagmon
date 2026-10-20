@@ -1,0 +1,20 @@
+# Academy badge (docs/kids/SDD_WORLD.md §2.6). Kept in the bag, not used.
+slug: nagmon_badge_granite
+sort: utility
+sprite: gfx/items/nagmon_badge_granite.png
+category: badge
+usable_in: []
+conditions: []
+effects: []
+modifiers: []
+behaviors: {}
+use_failure: generic_failure
+use_item: combat_used_x
+use_success: generic_success
+visuals:
+  animation: null
+  flip_axes: ''
+  loop: 0
+sound:
+  sfx: null
+  volume: 0.0

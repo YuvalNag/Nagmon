@@ -69,7 +69,10 @@ class LevelUpSummaryState(PygameMenuState):
         )
 
         menu.add.label(
-            title=f"Lv.{self.start_level} → Lv.{self.end_level}",
+            title=T.format(
+                "level_up_range",
+                {"start": self.start_level, "end": self.end_level},
+            ),
             font_size=self.font_type.small,
         )
 

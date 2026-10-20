@@ -12,6 +12,7 @@ from abc import ABC
 from functools import partial
 from typing import TYPE_CHECKING, Any, ClassVar
 
+from pygame.font import Font
 from pygame.rect import Rect
 from pygame.surface import Surface
 from pygame.transform import flip as pg_flip
@@ -24,6 +25,7 @@ from tuxemon.database.rules import config_combat
 from tuxemon.environment import BattleLayout
 from tuxemon.menu.menu import Menu
 from tuxemon.monster.renderer import MonsterRenderer
+from tuxemon.platform import mobile
 from tuxemon.platform.const.sizes import PARTY_LIMIT
 from tuxemon.sprite import CaptureDeviceSprite, HordeSprite, Sprite
 from tuxemon.ui.combat_bars import CombatBars
@@ -34,6 +36,7 @@ from tuxemon.ui.combat_status import StatusIconManager
 from tuxemon.ui.combat_text_display import CombatTextDisplay
 from tuxemon.ui.combat_zone import CombatZone
 from tuxemon.ui.text_alignment import HorizontalAlignment
+from tuxemon.ui.text_renderer import TextRenderer
 
 if TYPE_CHECKING:
     from tuxemon.base_client import BaseClient
@@ -83,8 +86,12 @@ class CombatAnimations(Menu[None], ABC):
         self.capdevs: list[CaptureDeviceSprite] = []
         self.horde_sprite: HordeSprite | None = None
         self.bars = CombatBars(self.client.context)
+        # The whole screen's width: on a 20:9 phone the right half of the
+        # 16:9 layout moves to the right edge (SDD_ANDROID §2.8).
         layout_manager = LayoutManager(
-            mods_folder / "combat_layouts.yaml", self.client.context.scaling
+            mods_folder / "combat_layouts.yaml",
+            self.client.context.scaling,
+            screen_width=self.client.context.rect.width,
         )
         _layout = layout_manager.prepare_all(teams)
         self.hud_manager = CombatLayoutManager(_layout)
@@ -92,7 +99,7 @@ class CombatAnimations(Menu[None], ABC):
         self.combat_zone = CombatZone(self.client.context.rect)
         self.text_display = CombatTextDisplay(
             get_rect_func=self.hud_manager.get_rect,
-            shadow_text_func=self.shadow_text,
+            shadow_text_func=self.hud_text,
         )
         self.background_sprite: Sprite | None = None
         self.monsters_just_leveled_up: dict[str, bool] = {}
@@ -397,6 +404,21 @@ class CombatAnimations(Menu[None], ABC):
         self.animate(sprite.rect, x=x_offset, relative=True, duration=2)
         self.status_icons.animate_icons(monster, self.animate)
 
+    def hud_text(self, text: str) -> Surface:
+        """
+        Text inside the HUD's fixed-size boxes: the computer's size on a
+        phone too, or the names run into the HP bars.
+        """
+        if not hasattr(self, "_hud_renderer"):
+            size = round(self.font_size / mobile.ui_factor())
+            self._hud_renderer = TextRenderer(
+                scaling=self.client.context.scaling,
+                font=Font(self.font_filename, size),
+                font_color=self.font_color,
+                font_shadow_color=self.font_shadow_color,
+            )
+        return self._hud_renderer.shadow_text(text, self.font_shadow_color)
+
     def _update_hud_details(
         self, monster: Monster, hud: Sprite, is_player: bool
     ) -> None:
@@ -460,9 +482,15 @@ class CombatAnimations(Menu[None], ABC):
 
         hud_model = self.env.get_battle_graphics().hud
         if self.combat_session.is_double:
-            hud_graphics = hud_model.double_player if is_player else hud_model.double_opponent
+            hud_graphics = (
+                hud_model.double_player
+                if is_player
+                else hud_model.double_opponent
+            )
         else:
-            hud_graphics = hud_model.hud_player if is_player else hud_model.hud_opponent
+            hud_graphics = (
+                hud_model.hud_player if is_player else hud_model.hud_opponent
+            )
 
         layer = self.hud_manager.get_hud_layer(monster, HUD_LAYER)
         hud = self.check_hud(monster, hud_graphics, layer)
@@ -578,7 +606,7 @@ class CombatAnimations(Menu[None], ABC):
             self.horde_sprite = HordeSprite(
                 opponent_party=player.party,
                 tray_rect=home,
-                shadow_text_func=self.shadow_text,
+                shadow_text_func=self.hud_text,
                 context=self.client.context,
             )
             self.sprites.add(self.horde_sprite, layer=HUD_LAYER)
@@ -699,8 +727,7 @@ class CombatAnimations(Menu[None], ABC):
         # Spawn Entities
         if self.combat_session.is_trainer_battle:
             enemy_pos = layout.get_combatant_pos("enemy", back_island.rect)
-            enemy_surface = opponent.combat_sheet.front()
-            enemy_surface = graphics.scale_surface(enemy_surface, self.factor)
+            enemy_surface = opponent.combat_sheet.front(self.factor)
             enemy = self.load_surface(enemy_surface, **enemy_pos)
             self.sprite_map.add_sprite(opponent, enemy)
         else:
@@ -720,8 +747,7 @@ class CombatAnimations(Menu[None], ABC):
         # island rather than floating above it. 64 is a nominal value, scaled
         # to the current display.
         player_pos["bottom"] += self.scale_int(64)
-        player_surface = player.combat_sheet.back()
-        player_surface = graphics.scale_surface(player_surface, self.factor)
+        player_surface = player.combat_sheet.back(self.factor)
         player_back = self.load_surface(player_surface, **player_pos)
 
         self.sprites.add(enemy, player_back)

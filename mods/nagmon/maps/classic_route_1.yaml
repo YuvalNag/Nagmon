@@ -1,0 +1,154 @@
+# Route 1: a friendly duel, a bilingual sign and Pitzi the lost kitten.
+# The wild encounters are the tmx's, in the same grass, from our own table
+# (nagmon_route1: Tuxemon's monsters and the first subject monsters,
+# docs/kids/SDD_ART.md §2.3).
+events:
+
+  # ------------------------------------------------ wild encounters
+  Nagmon Encounters 1:
+    type: event
+    replaces: Random Encounters 1
+    x: 2
+    y: 5
+    width: 9
+    height: 10
+    actions:
+    - random_encounter nagmon_route1,11
+    - play_map_animation grass,0.1,noloop,player
+    conditions:
+    - is char_at player
+    - is char_moved player
+
+  Nagmon Encounters 2:
+    type: event
+    replaces: Random Encounters 2
+    x: 15
+    y: 5
+    width: 10
+    height: 10
+    actions:
+    - random_encounter nagmon_route1,11
+    - play_map_animation grass,0.1,noloop,player
+    conditions:
+    - is char_at player
+    - is char_moved player
+
+  Nagmon Encounters 3:
+    type: event
+    replaces: Random Encounters 3
+    x: 29
+    y: 5
+    width: 9
+    height: 10
+    actions:
+    - random_encounter nagmon_route1,11
+    - play_map_animation grass,0.1,noloop,player
+    conditions:
+    - is char_at player
+    - is char_moved player
+
+  # ------------------------------------------------ Danny: friendly duel
+  Create Trainer:
+    type: event
+    conditions:
+    - not char_exists nagmon_route1_trainer
+    actions:
+    - create_npc nagmon_route1_trainer,30,16
+    - char_face nagmon_route1_trainer,right
+    - add_monster nut,5,nagmon_route1_trainer,3,5
+    - add_monster dandicub,6,nagmon_route1_trainer,3,5
+
+  Trainer Talk:
+    type: event
+    behav:
+    - talk nagmon_route1_trainer
+    conditions:
+    - not battle_outcome player,won,nagmon_route1_trainer
+    - not variable_set nagmon_duel1_fought
+    actions:
+    - translated_dialog nagmon_world_trainer_hello
+    - translated_dialog_choice nagmon_world_choice_duel:nagmon_world_choice_later,nagmon_duel1_choice
+
+  Trainer Duel:
+    type: event
+    conditions:
+    - is variable_set nagmon_duel1_choice:nagmon_world_choice_duel
+    actions:
+    - clear_variable nagmon_duel1_choice
+    - start_battle player,nagmon_route1_trainer
+    - set_variable nagmon_duel1_fought:yes
+
+  Trainer Later:
+    type: event
+    conditions:
+    - is variable_set nagmon_duel1_choice:nagmon_world_choice_later
+    actions:
+    - clear_variable nagmon_duel1_choice
+    - translated_dialog nagmon_world_trainer_later
+
+  Trainer After Win:
+    type: event
+    conditions:
+    - is variable_set nagmon_duel1_fought:yes
+    - is battle_outcome player,won,nagmon_route1_trainer
+    actions:
+    - clear_variable nagmon_duel1_fought
+    - translated_dialog nagmon_world_trainer_won
+
+  # Lost? Rest, and Danny comes back with a fresh team for another try.
+  Trainer After Lose:
+    type: event
+    conditions:
+    - is variable_set nagmon_duel1_fought:yes
+    - not battle_outcome player,won,nagmon_route1_trainer
+    actions:
+    - clear_variable nagmon_duel1_fought
+    - set_monster_health
+    - set_monster_status
+    - translated_dialog nagmon_world_trainer_lost
+    - remove_npc nagmon_route1_trainer
+
+  Trainer Talk Done:
+    type: event
+    behav:
+    - talk nagmon_route1_trainer
+    conditions:
+    - is battle_outcome player,won,nagmon_route1_trainer
+    actions:
+    - translated_dialog nagmon_world_trainer_done
+
+  # ------------------------------------------- a word: TREE = a tree
+  Create Sign:
+    type: event
+    conditions:
+    - not char_exists nagmon_sign_route1
+    actions:
+    - create_npc nagmon_sign_route1,36,17
+
+  Read Sign:
+    type: event
+    behav:
+    - talk nagmon_sign_route1
+    actions:
+    - translated_dialog nagmon_world_sign_tree
+
+  # ------------------------------------------------ Pitzi, lost kitten
+  Create Kitten:
+    type: event
+    conditions:
+    - is variable_set nagmon_kitten:asked
+    - not char_exists nagmon_kitten
+    actions:
+    - create_npc nagmon_kitten,21,16
+    - char_face nagmon_kitten,down
+
+  Kitten Found:
+    type: event
+    behav:
+    - talk nagmon_kitten
+    conditions:
+    - is variable_set nagmon_kitten:asked
+    actions:
+    - translated_dialog nagmon_world_kitten_found
+    - set_variable nagmon_kitten:found
+    - remove_npc nagmon_kitten

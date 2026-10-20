@@ -1,0 +1,146 @@
+# Mila Academy (math): the master test, then a friendly duel (docs/kids/SDD_WORLD.md §2.5).
+# Merged into tuxemon's classic_gym_mila.tmx.
+#
+# The tmx has its own "Talk Gym Leader" event (a level-20 battle, no test)
+# that only runs while the player has not beaten the leader. Recording one
+# win here, once, retires it; our events below take over the leader.
+events:
+
+  Academy Setup:
+    type: event
+    conditions:
+    - not variable_set nagmon_mila_setup
+    actions:
+    - set_battle player,won,classic_gym_leader_mila
+    - set_variable nagmon_mila_setup:yes
+
+  Master Team:
+    type: event
+    conditions:
+    - is char_exists classic_gym_leader_mila
+    - is party_size classic_gym_leader_mila,equals,0
+    actions:
+    - add_monster hydrone,10,classic_gym_leader_mila,5,10
+    - add_monster nudikill,11,classic_gym_leader_mila,5,10
+
+  # ------------------------------------------------- the master test
+  Master Talk:
+    type: event
+    behav:
+    - talk classic_gym_leader_mila
+    conditions:
+    - not variable_set academy_mila_done:yes
+    - not variable_set nagmon_mila_passed:yes
+    actions:
+    # A fresh start, also after a test left half-way when the game closed.
+    - set_variable nagmon_mila_test:running,nagmon_mila_score:0
+    - set_variable nagmon_mila_q1:new,nagmon_mila_q2:new,nagmon_mila_q3:new
+    - translated_dialog nagmon_world_mila_hello
+    - translated_dialog nagmon_world_mila_rules
+    - ask_quiz math,nagmon_mila_q1,boss
+    - translated_dialog nagmon_world_master_next
+    - ask_quiz math,nagmon_mila_q2,boss
+    - translated_dialog nagmon_world_master_last
+    - ask_quiz math,nagmon_mila_q3,boss
+    - set_variable nagmon_mila_test:asked
+
+  Master Count 1:
+    type: event
+    conditions:
+    - is one_of nagmon_mila_q1,correct:super:skip
+    actions:
+    - variable_math nagmon_mila_score,+,1
+    - set_variable nagmon_mila_q1:counted
+
+  Master Count 2:
+    type: event
+    conditions:
+    - is one_of nagmon_mila_q2,correct:super:skip
+    actions:
+    - variable_math nagmon_mila_score,+,1
+    - set_variable nagmon_mila_q2:counted
+
+  Master Count 3:
+    type: event
+    conditions:
+    - is one_of nagmon_mila_q3,correct:super:skip
+    actions:
+    - variable_math nagmon_mila_score,+,1
+    - set_variable nagmon_mila_q3:counted
+
+  Master Pass:
+    type: event
+    conditions:
+    - is variable_set nagmon_mila_test:asked
+    - is one_of nagmon_mila_q1,counted:wrong
+    - is one_of nagmon_mila_q2,counted:wrong
+    - is one_of nagmon_mila_q3,counted:wrong
+    - is variable_is nagmon_mila_score,greater_or_equal,2
+    actions:
+    - clear_variable nagmon_mila_q1,nagmon_mila_q2,nagmon_mila_q3,nagmon_mila_test,nagmon_mila_score
+    - set_variable nagmon_mila_passed:yes
+    - translated_dialog nagmon_world_mila_pass
+    - start_battle player,classic_gym_leader_mila
+    - set_variable nagmon_mila_fought:yes
+
+  # Not yet? No punishment: train a little and try again, as often as wanted.
+  Master Not Yet:
+    type: event
+    conditions:
+    - is variable_set nagmon_mila_test:asked
+    - is one_of nagmon_mila_q1,counted:wrong
+    - is one_of nagmon_mila_q2,counted:wrong
+    - is one_of nagmon_mila_q3,counted:wrong
+    - is variable_is nagmon_mila_score,less_than,2
+    actions:
+    - clear_variable nagmon_mila_q1,nagmon_mila_q2,nagmon_mila_q3,nagmon_mila_test,nagmon_mila_score
+    - translated_dialog nagmon_world_mila_not_yet
+
+  # Passed the test but lost the duel: no need to take the test again.
+  Master Rematch:
+    type: event
+    behav:
+    - talk classic_gym_leader_mila
+    conditions:
+    - is variable_set nagmon_mila_passed:yes
+    - not variable_set academy_mila_done:yes
+    - not variable_set nagmon_mila_fought
+    actions:
+    - translated_dialog nagmon_world_mila_rematch
+    - start_battle player,classic_gym_leader_mila
+    - set_variable nagmon_mila_fought:yes
+
+  # -------------------------------------------------- after the duel
+  Master Won:
+    type: event
+    conditions:
+    - is variable_set nagmon_mila_fought:yes
+    - is char_defeated classic_gym_leader_mila
+    actions:
+    - clear_variable nagmon_mila_fought
+    - add_item nagmon_badge_mila,1
+    - modify_money player,100
+    - set_variable academy_mila_done:yes
+    - translated_dialog nagmon_world_mila_won
+    - translated_dialog nagmon_world_mila_badge
+
+  Master Lost:
+    type: event
+    conditions:
+    - is variable_set nagmon_mila_fought:yes
+    - not char_defeated classic_gym_leader_mila
+    actions:
+    - clear_variable nagmon_mila_fought
+    - set_monster_health
+    - set_monster_status
+    - translated_dialog nagmon_world_mila_lost
+    - remove_npc classic_gym_leader_mila
+
+  Master Done:
+    type: event
+    behav:
+    - talk classic_gym_leader_mila
+    conditions:
+    - is variable_set academy_mila_done:yes
+    actions:
+    - translated_dialog nagmon_world_mila_done

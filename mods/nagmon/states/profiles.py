@@ -1,0 +1,913 @@
+# SPDX-License-Identifier: GPL-3.0
+"""
+"Who is playing?", the new-player wizard and the parent area
+(docs/kids/SDD_PROFILES_UI.md).
+
+The screens are thin: decisions live in nagmon.runtime, nagmon.family and
+nagmon.game_flow, which are tested on their own.
+"""
+
+from __future__ import annotations
+
+import logging
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any, ClassVar
+
+from pygame_menu.locals import ALIGN_CENTER, POSITION_EAST
+from pygame_menu.menu import Menu
+
+from nagmon.family.profiles import (
+    ProfileError,
+    ProfileLimitError,
+    validate_name,
+)
+from nagmon.family.screentime import Action
+from nagmon.game_flow import (
+    AVATARS,
+    GRADE_NAMES_HE,
+    avatar_by_key,
+    defaults_for_grade,
+)
+from nagmon.runtime import NagmonRuntime, get_runtime
+from nagmon.ui.game_helpers import ask_text, choose, rebuild_menu, say
+from tuxemon.locale.locale import T
+from tuxemon.menu.menu import PygameMenuState
+from tuxemon.menu.phone import height_of, pack_in_columns, pack_in_row
+from tuxemon.menu.theme import selection_gap
+from tuxemon.platform import mobile
+from tuxemon.platform.const.graphics import BG_START_SCREEN
+from tuxemon.ui import bidi
+
+if TYPE_CHECKING:
+    from tuxemon.base_client import BaseClient
+
+logger = logging.getLogger(__name__)
+
+PIN_LENGTH = 4
+#: The subject line of a shared log (an e-mail's, for example).
+LOG_SUBJECT = "Nagmon log"
+
+
+# ---------------------------------------------------------------- parents
+
+
+# The parent code (SDD_ANDROID §2.7): a pad with digits only, which says
+# what the code is for; after a mistake the parent is back on the pad.
+
+
+def _ask_pin(
+    client: BaseClient, msgid: str, on_pin: Callable[[str], None]
+) -> None:
+    ask_text(
+        client,
+        T.translate(msgid),
+        lambda text: on_pin(text.strip()),
+        char_limit=PIN_LENGTH,
+        digits=True,
+        secret=True,
+    )
+
+
+def _pin_shape_ok(pin: str) -> bool:
+    return len(pin) == PIN_LENGTH and pin.isascii() and pin.isdigit()
+
+
+def _say_locked(client: BaseClient, seconds: float) -> None:
+    say(client, T.format("nagmon_pin_locked", {"seconds": int(seconds)}))
+
+
+def _ask_current_pin(
+    client: BaseClient, rt: NagmonRuntime, on_ok: Callable[[str], None]
+) -> None:
+    """The code the parent set; ``on_ok`` gets it. Only a lockout closes
+    the pad: a wrong or short code says so and asks again."""
+    wait = rt.parent.lockout_remaining()
+    if wait > 0:
+        _say_locked(client, wait)
+        return
+
+    def again() -> None:
+        _ask_pin(client, "nagmon_pin_prompt", check)
+
+    def check(pin: str) -> None:
+        if not _pin_shape_ok(pin):  # not a try: nothing was compared
+            say(client, T.translate("nagmon_pin_invalid"), then=again)
+            return
+        result = rt.parent.verify_pin(pin)
+        if result.ok:
+            on_ok(pin)
+        elif result.locked:
+            _say_locked(client, result.retry_after_s)
+        else:
+            say(client, T.translate("nagmon_pin_wrong"), then=again)
+
+    again()
+
+
+def with_parent(
+    client: BaseClient, rt: NagmonRuntime, on_ok: Callable[[], None]
+) -> None:
+    """Runs ``on_ok`` once the parent proved it is them (PIN)."""
+    if not rt.parent.has_pin():
+        _set_pin(client, rt, on_ok, first=True)
+        return
+    _ask_current_pin(client, rt, lambda _pin: on_ok())
+
+
+def change_pin(client: BaseClient, rt: NagmonRuntime) -> None:
+    """The current code, then the new one twice."""
+    _ask_current_pin(
+        client, rt, lambda current: _set_pin(client, rt, current=current)
+    )
+
+
+def _set_pin(
+    client: BaseClient,
+    rt: NagmonRuntime,
+    then: Callable[[], None] | None = None,
+    *,
+    current: str | None = None,
+    first: bool = False,
+) -> None:
+    """
+    A new code, typed twice. The first time, one line also says where
+    the GitHub token goes (the parent asked, SDD_ANDROID §2.7).
+    """
+
+    def start() -> None:
+        _ask_pin(client, "nagmon_set_pin_prompt", got_first)
+
+    def got_first(pin: str) -> None:
+        if not _pin_shape_ok(pin):
+            say(client, T.translate("nagmon_pin_invalid"), then=start)
+            return
+        _ask_pin(
+            client,
+            "nagmon_confirm_pin_prompt",
+            lambda again: got_second(pin, again),
+        )
+
+    def got_second(pin: str, again: str) -> None:
+        if again != pin:
+            say(client, T.translate("nagmon_pin_mismatch"), then=start)
+            return
+        try:
+            rt.parent.set_pin(pin, current=current)
+        except ValueError:
+            logger.warning("Could not set the parent code")
+            say(client, T.translate("nagmon_pin_invalid"), then=start)
+            return
+        if first:
+            say(
+                client,
+                T.translate("nagmon_pin_saved"),
+                then=lambda: say(
+                    client, T.translate("nagmon_github_where"), then=then
+                ),
+            )
+        else:
+            say(client, T.translate("nagmon_pin_saved"), then=then)
+
+    start()
+
+
+# ---------------------------------------------------------------- wizard
+
+
+def new_child_wizard(
+    client: BaseClient,
+    rt: NagmonRuntime,
+    on_done: Callable[[], None],
+) -> None:
+    """Name, then grade, then character; then the profile is created."""
+
+    def ask_name(initial: str = "") -> None:
+        ask_text(
+            client,
+            T.translate("nagmon_child_name_prompt"),
+            got_name,
+            initial=initial,
+        )
+
+    def got_name(text: str) -> None:
+        try:
+            name = validate_name(text)
+        except ProfileError:
+            say(
+                client,
+                T.translate("nagmon_name_invalid"),
+                then=lambda: ask_name(text),
+            )
+            return
+        choose(
+            client,
+            [
+                (grade_name(g), lambda g=g: got_grade(name, g))
+                for g in range(len(GRADE_NAMES_HE))
+            ],
+            escape_key_exits=False,
+        )
+
+    def got_grade(name: str, grade: int) -> None:
+        choose(
+            client,
+            [
+                (
+                    a.label_he + f" {i + 1}",
+                    lambda a=a: got_avatar(name, grade, a.key),
+                )
+                for i, a in enumerate(AVATARS)
+            ],
+            escape_key_exits=False,
+        )
+
+    def got_avatar(name: str, grade: int, avatar: str) -> None:
+        fields = defaults_for_grade(grade)
+        try:
+            rt.store.create(name=name, avatar=avatar, **fields)
+        except ProfileLimitError:
+            say(client, T.translate("nagmon_too_many_players"))
+            return
+        except ProfileError as e:
+            logger.warning("Could not create profile: %s", e)
+            say(client, T.translate("nagmon_name_invalid"), then=ask_name)
+            return
+        say(
+            client,
+            T.format("nagmon_child_created", {"name": name}),
+            then=on_done,
+        )
+
+    ask_name()
+
+
+def grade_name(grade: int) -> str:
+    return T.translate(f"nagmon_grade_{grade}")
+
+
+# ---------------------------------------------------------------- screens
+
+
+class ProfileSelectState(PygameMenuState):
+    """Big list of the children; picking one starts their session."""
+
+    name: ClassVar[str] = "ProfileSelectState"
+
+    def __init__(self, client: BaseClient, **kwargs: Any) -> None:
+        width, height = client.context.resolution
+        super().__init__(client=client, height=height, width=width, **kwargs)
+        theme = self._setup_theme(BG_START_SCREEN)
+        theme.scrollarea_position = POSITION_EAST
+        theme.widget_alignment = ALIGN_CENTER
+        self._menu_config["theme"] = theme
+        self.escape_key_exits = False
+        self.add_menu_items(self.menu)
+        self.reset_theme()
+
+    @property
+    def rt(self) -> NagmonRuntime:
+        rt = get_runtime()
+        assert rt is not None, "ProfileSelectState needs the Nagmon runtime"
+        return rt
+
+    def add_menu_items(self, menu: Menu) -> None:
+        title = menu.add.label(
+            T.translate("nagmon_who_plays"),
+            font_size=self.font_type.big,
+            label_id="who_plays",
+        )
+        children = []
+        profiles = self.rt.store.list()
+        for profile in profiles:
+            stars = 0
+            try:
+                learner = self.rt.store.load_learner_dict(profile.id)
+                stars = sum((learner.get("stars") or {}).values())
+            except (KeyError, AttributeError, TypeError):
+                pass
+            children.append(
+                menu.add.button(
+                    T.format(
+                        "nagmon_child_button",
+                        {"name": profile.name, "stars": stars},
+                    ),
+                    lambda pid=profile.id: self.pick(pid),
+                    font_size=self.font_type.big,
+                    button_id=f"child_{profile.id}",
+                )
+            )
+        tools = [
+            menu.add.button(
+                T.translate("nagmon_new_child"),
+                self.add_child,
+                font_size=self.font_type.medium,
+                button_id="new_child",
+            ),
+            menu.add.button(
+                T.translate("nagmon_parents"),
+                self.open_parents,
+                font_size=self.font_type.medium,
+                button_id="parents",
+            ),
+        ]
+        if mobile.is_android():
+            # the log through the share sheet, no token (SDD_ANDROID §2.7)
+            tools.append(
+                menu.add.button(
+                    T.translate("nagmon_share_log"),
+                    self.share_log,
+                    font_size=self.font_type.small,
+                    button_id="share_log",
+                )
+            )
+        self._fit_on_phone(menu, title, children, tools)
+
+    def _fit_on_phone(
+        self, menu: Menu, title: Any, children: list[Any], tools: list[Any]
+    ) -> None:
+        """
+        On a phone, more than three children do not fit one under the
+        other: the two tools go side by side and the children in columns
+        (SDD_ANDROID §2.3).
+        """
+        scaling = self.client.context.scaling
+        room = self.client.context.resolution[1] - scaling.scale_int(8)
+        if height_of([title, *children, *tools]) <= room:
+            return
+        rtl = bidi.locale_is_rtl()
+        gap = selection_gap(scaling)
+        row = pack_in_row(menu, tools, rtl=rtl, gap=gap)
+        bottom = row.get_height() if row is not None else height_of(tools)
+        pack_in_columns(
+            menu,
+            children,
+            room - height_of([title]) - bottom,
+            rtl=rtl,
+            gap=gap,
+        )
+
+    def rebuild(self) -> None:
+        rebuild_menu(self)
+
+    def pick(self, pid: str) -> None:
+        decision = self.rt.start_play(pid)
+        if decision.action is Action.MUST_STOP:
+            say(self.client, decision.message_he)
+            return
+        if decision.action is Action.WARN_SOON and decision.message_he:
+            say(self.client, decision.message_he)
+        self.client.pop_state(self)
+
+    def add_child(self) -> None:
+        with_parent(
+            self.client,
+            self.rt,
+            lambda: new_child_wizard(self.client, self.rt, self.rebuild),
+        )
+
+    def open_parents(self) -> None:
+        with_parent(
+            self.client,
+            self.rt,
+            lambda: self.client.push_state("ParentMenuState"),
+        )
+
+    def share_log(self) -> None:
+        """
+        Android's share sheet with the log, after the parent's code: a
+        child must not send it. The parent picks where it goes.
+        """
+        with_parent(self.client, self.rt, self._share_log_now)
+
+    def _share_log_now(self) -> None:
+        from nagmon.field_data.uploads import FieldData, share_log
+
+        def send(text: str) -> None:
+            from nagmon.android.crash_dialog import share
+
+            share(
+                text,
+                subject=LOG_SUBJECT,
+                title=T.translate("nagmon_share_log_title"),
+            )
+
+        try:
+            shared = share_log(FieldData(self.rt.root), send)
+        except Exception:  # no share sheet: the game goes on
+            logger.exception("Could not open the share sheet")
+            say(self.client, T.translate("nagmon_share_log_failed"))
+            return
+        if not shared:
+            say(self.client, T.translate("nagmon_share_log_empty"))
+
+    def resume(self) -> None:
+        super().resume()
+        self.rebuild()
+
+
+class ParentMenuState(PygameMenuState):
+    """The parent area: players, PIN, Shabbat mode, voices, GitHub."""
+
+    name: ClassVar[str] = "ParentMenuState"
+
+    def __init__(self, client: BaseClient, **kwargs: Any) -> None:
+        width, height = client.context.resolution
+        super().__init__(client=client, height=height, width=width, **kwargs)
+        theme = self._setup_theme(BG_START_SCREEN)
+        theme.scrollarea_position = POSITION_EAST
+        theme.widget_alignment = ALIGN_CENTER
+        self._menu_config["theme"] = theme
+        self.add_menu_items(self.menu)
+        self.reset_theme()
+
+    @property
+    def rt(self) -> NagmonRuntime:
+        rt = get_runtime()
+        assert rt is not None
+        return rt
+
+    def add_menu_items(self, menu: Menu) -> None:
+        s = self.rt.parent.settings
+        title = menu.add.label(
+            T.translate("nagmon_parents"),
+            font_size=self.font_type.big,
+        )
+        buttons: list[tuple[str, str, Callable[[], None]]] = [
+            ("players", T.translate("nagmon_parent_players"), self.players),
+            (
+                "shabbat",
+                T.translate(
+                    "nagmon_shabbat_on"
+                    if s.shabbat_mode
+                    else "nagmon_shabbat_off"
+                ),
+                self.toggle_shabbat,
+            ),
+            (
+                "city",
+                T.format("nagmon_city", {"city": s.location.city_he}),
+                self.choose_city,
+            ),
+            (
+                "minutes",
+                (
+                    T.format(
+                        "nagmon_daily_minutes",
+                        {"minutes": s.default_limits.daily_max_minutes},
+                    )
+                    if s.default_limits.daily_max_minutes is not None
+                    else T.translate("nagmon_daily_unlimited")
+                ),
+                self.daily_minutes,
+            ),
+            ("report", T.translate("nagmon_parent_report"), self.report),
+            ("celebrate", self._celebrations_title(), self.celebrations),
+            ("owl_log", T.translate("nagmon_parent_owl_log"), self.owl_log),
+            ("owl", self._owl_title(), self.toggle_owl),
+            ("voices", self._voices_title(), self.toggle_voices),
+            ("ai", T.translate("nagmon_parent_ai"), self.ai_status),
+            ("github", T.translate("nagmon_parent_github"), self.field_data),
+            ("hours", self._hours_title(), self.play_hours),
+            ("pin", T.translate("nagmon_change_pin"), self.change_pin),
+            ("back", T.translate("nagmon_back"), self.close),
+        ]
+        # A phone: the parent reads it, so a smaller font and fourteen
+        # buttons in two columns, without scrolling.
+        size = (
+            self.font_type.small
+            if mobile.is_android()
+            else self.font_type.medium
+        )
+        widgets = [
+            menu.add.button(
+                text,
+                action,
+                font_size=size,
+                button_id=f"parent_{key}",
+            )
+            for key, text, action in buttons
+        ]
+        scaling = self.client.context.scaling
+        pack_in_columns(
+            menu,
+            widgets,
+            self.client.context.resolution[1]
+            - height_of([title])
+            - scaling.scale_int(8),
+            rtl=bidi.locale_is_rtl(),
+            gap=selection_gap(scaling),
+        )
+
+    def rebuild(self) -> None:
+        rebuild_menu(self)
+
+    def resume(self) -> None:
+        super().resume()
+        self.rebuild()
+
+    # -------------------------------------------------------- new items
+
+    def _owl_title(self) -> str:
+        from nagmon.owl_service import load_ai_settings
+
+        on = load_ai_settings(self.rt.root).owl_enabled
+        return T.translate("nagmon_owl_on" if on else "nagmon_owl_off")
+
+    def toggle_owl(self) -> None:
+        import dataclasses
+
+        from nagmon.owl_service import load_ai_settings, save_ai_settings
+
+        settings = load_ai_settings(self.rt.root)
+        save_ai_settings(
+            self.rt.root,
+            dataclasses.replace(
+                settings, owl_enabled=not settings.owl_enabled
+            ),
+        )
+        self.rebuild()
+
+    def _voices_online(self) -> bool:
+        profiles = self.rt.store.list()
+        return bool(profiles) and all(
+            (p.settings.get("tts") or {}).get("allow_online") for p in profiles
+        )
+
+    def _voices_title(self) -> str:
+        return T.translate(
+            "nagmon_voices_on"
+            if self._voices_online()
+            else "nagmon_voices_off"
+        )
+
+    def toggle_voices(self) -> None:
+        """Online neural voices: same choice for every child."""
+        allow = not self._voices_online()
+        for p in self.rt.store.list():
+            tts = dict(p.settings.get("tts") or {})
+            tts["allow_online"] = allow
+            p.settings["tts"] = tts
+            self.rt.store.save(p)
+        self.rebuild()
+
+    def _pick_child(self, then: Callable[[str], None]) -> None:
+        profiles = self.rt.store.list()
+        if not profiles:
+            say(self.client, T.translate("nagmon_no_players"))
+            return
+        choose(
+            self.client,
+            [(p.name, lambda pid=p.id: then(pid)) for p in profiles],
+        )
+
+    def report(self) -> None:
+        from nagmon.parent_report import child_report
+
+        def show(pid: str) -> None:
+            lines = child_report(self.rt, pid)
+            self.client.push_state(
+                "TextListState",
+                title=self.rt.store.get(pid).name,
+                lines=[(line.text, line.explanation) for line in lines],
+            )
+
+        self._pick_child(show)
+
+    # -------------------------------------------------------- celebrations
+
+    MILESTONES: ClassVar[tuple[tuple[str, int], ...]] = (
+        ("practice_days", 5),
+        ("practice_days", 15),
+        ("skills_mastered", 3),
+        ("skills_mastered", 10),
+        ("stars", 10),
+        ("weekly_goals", 2),
+    )
+
+    def _celebrations_title(self) -> str:
+        pending = len(self.rt.rewards.pending())
+        return T.format("nagmon_celebrations", {"count": pending})
+
+    def celebrations(self) -> None:
+        board = self.rt.rewards
+        names = {p.id: p.name for p in self.rt.store.list()}
+        options: list[tuple[str, Callable[[], None]]] = []
+        for sug in board.pending():
+            who = names.get(sug.profile_id or "", "")
+            options.append(
+                (
+                    f"{who}: {sug.message_he}" if who else sug.message_he,
+                    lambda sid=sug.id: self._decide(sid),
+                )
+            )
+        options.append(
+            (T.translate("nagmon_add_celebration"), self._add_celebration)
+        )
+        choose(self.client, options)
+
+    def _decide(self, sid: str) -> None:
+        board = self.rt.rewards
+        choose(
+            self.client,
+            [
+                (
+                    T.translate("nagmon_celebrated"),
+                    lambda: (board.mark_celebrated(sid), self.rebuild()),
+                ),
+                (
+                    T.translate("nagmon_not_now"),
+                    lambda: (board.dismiss(sid), self.rebuild()),
+                ),
+            ],
+        )
+
+    def _add_celebration(self) -> None:
+        def with_milestone(kind: str, threshold: int) -> None:
+            ask_text(
+                self.client,
+                T.translate("nagmon_celebration_title_prompt"),
+                lambda title: self._store_celebration(title, kind, threshold),
+                char_limit=24,
+            )
+
+        choose(
+            self.client,
+            [
+                (
+                    T.format(f"nagmon_milestone_{kind}", {"n": n}),
+                    lambda k=kind, n=n: with_milestone(k, n),
+                )
+                for kind, n in self.MILESTONES
+            ],
+        )
+
+    def _store_celebration(self, title: str, kind: str, n: int) -> None:
+        if not title.strip():
+            return
+        self.rt.rewards.add_celebration(
+            title_he=title.strip(), milestone=kind, threshold=n
+        )
+        say(self.client, T.translate("nagmon_celebration_saved"))
+
+    def owl_log(self) -> None:
+        from nagmon.owl_service import owl_log_lines
+
+        def show(pid: str) -> None:
+            lines = owl_log_lines(self.rt.root, pid) or [
+                T.translate("nagmon_owl_log_empty")
+            ]
+            self.client.push_state(
+                "TextListState",
+                title=T.translate("nagmon_parent_owl_log"),
+                lines=[(line, "") for line in lines],
+            )
+
+        self._pick_child(show)
+
+    def ai_status(self) -> None:
+        from nagmon.ai.config import (
+            GEMINI_KID_WARNING_HE,
+            GROQ_ZDR_NOTE_HE,
+            build_kid_router,
+            load_keys,
+        )
+        from nagmon.owl_service import load_ai_settings
+
+        keys = load_keys(self.rt.root)
+        lines: list[tuple[str, str]] = []
+        if keys:
+            router = build_kid_router(
+                keys, self.rt.root, load_ai_settings(self.rt.root)
+            )
+            lines += [(str(st), "") for st in router.status_report()]
+        else:
+            lines.append((T.translate("nagmon_ai_no_keys"), ""))
+        lines.append((T.translate("nagmon_ai_how_to_keys"), ""))
+        lines.append((GROQ_ZDR_NOTE_HE, ""))
+        lines.append((GEMINI_KID_WARNING_HE, ""))
+        self.client.push_state(
+            "TextListState", title=T.translate("nagmon_parent_ai"), lines=lines
+        )
+
+    def field_data(self) -> None:
+        """GitHub and sending data (SDD_FIELD_DATA §2.4)."""
+        self.client.push_state("FieldDataState")
+
+    def close(self) -> None:
+        self.client.pop_state(self)
+
+    def toggle_shabbat(self) -> None:
+        s = self.rt.parent.settings
+        s.shabbat_mode = not s.shabbat_mode
+        s.holiday_mode = s.shabbat_mode
+        self.rt.parent.save()
+        self.rebuild()
+
+    def choose_city(self) -> None:
+        """Shabbat times follow the family's city."""
+        from nagmon.family.calendar import PRESETS
+
+        def set_city(key: str) -> None:
+            self.rt.parent.settings.location = PRESETS[key]
+            self.rt.parent.save()
+            self.rebuild()
+
+        choose(
+            self.client,
+            [
+                (loc.city_he, lambda k=key: set_city(k))
+                for key, loc in PRESETS.items()
+            ],
+        )
+
+    HOUR_PRESETS: ClassVar[tuple[tuple[str, Any, Any], ...]] = (
+        ("16:00-19:30", ("16:00-19:30",), ("08:00-12:00", "16:00-19:30")),
+        ("14:00-19:30", ("14:00-19:30",), ("08:00-12:00", "14:00-19:30")),
+        ("08:00-20:00", ("08:00-20:00",), ("08:00-20:00",)),
+        ("", None, None),
+    )
+
+    def _hours_title(self) -> str:
+        windows = self.rt.parent.settings.default_limits.weekday_windows
+        if not windows:
+            return T.translate("nagmon_hours_any")
+        return T.format("nagmon_hours", {"hours": ", ".join(windows)})
+
+    def play_hours(self) -> None:
+        import dataclasses
+
+        def set_hours(weekday: Any, weekend: Any) -> None:
+            s = self.rt.parent.settings
+            s.default_limits = dataclasses.replace(
+                s.default_limits,
+                weekday_windows=weekday,
+                weekend_windows=weekend,
+            )
+            self.rt.parent.save()
+            self.rebuild()
+
+        choose(
+            self.client,
+            [
+                (
+                    T.format("nagmon_hours", {"hours": label})
+                    if label
+                    else T.translate("nagmon_hours_any"),
+                    lambda wd=wd, we=we: set_hours(wd, we),
+                )
+                for label, wd, we in self.HOUR_PRESETS
+            ],
+        )
+
+    def daily_minutes(self) -> None:
+        import dataclasses
+
+        def set_minutes(minutes: int) -> None:
+            s = self.rt.parent.settings
+            s.default_limits = dataclasses.replace(
+                s.default_limits, daily_max_minutes=minutes
+            )
+            self.rt.parent.save()
+            self.rebuild()
+
+        choose(
+            self.client,
+            [
+                (
+                    T.format("nagmon_daily_minutes", {"minutes": m}),
+                    lambda m=m: set_minutes(m),
+                )
+                for m in (30, 45, 60, 90, 120)
+            ],
+        )
+
+    def change_pin(self) -> None:
+        change_pin(self.client, self.rt)
+
+    def players(self) -> None:
+        options = [
+            (p.name, lambda pid=p.id: self.player(pid))
+            for p in self.rt.store.list()
+        ]
+        options.append((T.translate("nagmon_restore_player"), self.restore))
+        choose(self.client, options)
+
+    def player(self, pid: str) -> None:
+        profile = self.rt.store.get(pid)
+
+        def set_grade(grade: int) -> None:
+            profile.grade = grade
+            self.rt.store.save(profile)
+
+        def set_level(level: int) -> None:
+            profile.language_level = level
+            profile.language_locked = True
+            self.rt.store.save(profile)
+
+        def delete() -> None:
+            if self.rt.active is not None and self.rt.active.id == pid:
+                self.rt.stop_play()
+            self.rt.store.delete(pid)
+            say(
+                self.client,
+                T.format("nagmon_player_deleted", {"name": profile.name}),
+            )
+
+        choose(
+            self.client,
+            [
+                (
+                    T.translate("nagmon_set_grade"),
+                    lambda: choose(
+                        self.client,
+                        [
+                            (grade_name(g), lambda g=g: set_grade(g))
+                            for g in range(len(GRADE_NAMES_HE))
+                        ],
+                    ),
+                ),
+                (
+                    T.translate("nagmon_set_language_level"),
+                    lambda: choose(
+                        self.client,
+                        [
+                            (
+                                T.translate(f"nagmon_language_level_{lv}"),
+                                lambda lv=lv: set_level(lv),
+                            )
+                            for lv in range(6)
+                        ],
+                    ),
+                ),
+                (T.translate("nagmon_delete_player"), delete),
+            ],
+        )
+
+    def restore(self) -> None:
+        trash = self.rt.store.list_trash()
+        if not trash:
+            say(self.client, T.translate("nagmon_trash_empty"))
+            return
+
+        def restore(entry: str) -> None:
+            try:
+                self.rt.store.restore(entry)
+            except ProfileError as e:
+                # Its name is taken again, or there are already 8 players.
+                logger.warning("Could not restore %s: %s", entry, e)
+                say(self.client, T.translate("nagmon_restore_failed"))
+
+        choose(
+            self.client,
+            [(e.name, lambda e=e: restore(e.entry)) for e in trash],
+        )
+
+
+def avatar_template(avatar_key: str) -> tuple[str, str, str]:
+    """(sprite, combat sheet, gender) for ``set_template``."""
+    avatar = avatar_by_key(avatar_key)
+    return avatar.sprite, avatar.combat_sheet, avatar.gender
+
+
+class TextListState(PygameMenuState):
+    """A scrollable list of lines, each with an optional explanation."""
+
+    name: ClassVar[str] = "TextListState"
+
+    def __init__(
+        self,
+        client: BaseClient,
+        title: str = "",
+        lines: Sequence[tuple[str, str]] = (),
+        **kwargs: Any,
+    ) -> None:
+        width, height = client.context.resolution
+        super().__init__(client=client, height=height, width=width, **kwargs)
+        theme = self._setup_theme(BG_START_SCREEN)
+        theme.scrollarea_position = POSITION_EAST
+        theme.widget_alignment = ALIGN_CENTER
+        self._menu_config["theme"] = theme
+        menu = self.menu
+        menu.add.label(title, font_size=self.font_type.big)
+        for text, explanation in lines:
+            menu.add.label(
+                text,
+                font_size=self.font_type.medium,
+                max_char=-1,
+                wordwrap=True,
+            )
+            if explanation:
+                menu.add.label(
+                    explanation,
+                    font_size=self.font_type.small,
+                    max_char=-1,
+                    wordwrap=True,
+                    font_color=(90, 90, 90),
+                )
+        menu.add.button(
+            T.translate("nagmon_back"),
+            lambda: self.client.pop_state(self),
+            font_size=self.font_type.medium,
+            button_id="list_back",
+        )
+        self.reset_theme()

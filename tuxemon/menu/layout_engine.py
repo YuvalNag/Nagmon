@@ -98,5 +98,22 @@ class MenuLayoutEngine:
         rect1.topleft = (0, 0)
 
         menu.rect = rect1
+        self._make_room_for_cursor(menu)
         menu.rect.center = center
         menu.position_rect()
+
+    @staticmethod
+    def _make_room_for_cursor(menu: LayoutContext) -> None:
+        """
+        The items' area is the inside of the border less the cursor's
+        margin. When the fixed padding is smaller than that margin (big
+        text on a phone), the longest item crossed the border.
+        """
+        controller = getattr(menu, "cursor_controller", None)
+        if controller is None:
+            return
+        margin_x, margin_y = controller.get_margin()
+        items = menu.menu_items.calc_bounding_rect()
+        inner = menu.calc_internal_rect()
+        menu.rect.width += max(0, items.width + abs(margin_x) - inner.width)
+        menu.rect.height += max(0, items.height + abs(margin_y) - inner.height)

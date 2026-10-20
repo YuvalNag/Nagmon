@@ -12,6 +12,7 @@ from tuxemon.locale.locale import T
 from tuxemon.monster.avatar import get_avatar
 from tuxemon.session import Session
 from tuxemon.tools import open_dialog, safe_enum_value
+from tuxemon.ui.bidi import start_alignment
 from tuxemon.ui.dialogue import DialogueStyleCache
 from tuxemon.ui.text_alignment import (
     DialogPosition,
@@ -50,7 +51,7 @@ class CipherDialogAction(EventAction):
             'topleft', 'topright', 'bottomleft', 'bottomright', 'right', 'left'.
             Default 'bottom'.
         h_alignment: Alignment of text in the dialog box, it can be 'left', 'center'
-            or 'right'. Default 'left'.
+            or 'right'. Default: 'left', or 'right' for RTL languages.
         v_alignment: Alignment of text in the dialog box, it can be 'bottom',
             'center' or 'top'. Default 'top'.
         style: a predefined style in db/dialogue/dialogue.json
@@ -84,7 +85,7 @@ class CipherDialogAction(EventAction):
         dialogue = self.style or session.client.config.dialog_box_style
         style = style_cache.get(dialogue)
         h_alignment = safe_enum_value(
-            HorizontalAlignment, self.h_alignment, HorizontalAlignment.LEFT
+            HorizontalAlignment, self.h_alignment, start_alignment()
         )
         v_alignment = safe_enum_value(
             VerticalAlignment, self.v_alignment, VerticalAlignment.TOP

@@ -7,7 +7,9 @@ from collections.abc import Callable, Mapping, Sequence
 from functools import partial
 
 from tuxemon.formula import convert_ft, convert_km, convert_lbs, convert_mi
+from tuxemon.locale.bilingual import compose, ladder_settings
 from tuxemon.locale.locale import TranslatorManager
+from tuxemon.locale.units import unit_label
 from tuxemon.menu.formatter import CurrencyFormatter
 from tuxemon.platform.const.sizes import U_CM, U_FT, U_KG, U_KM, U_LB, U_MI
 from tuxemon.session import Session
@@ -68,7 +70,7 @@ class TextFormatter:
             "${{NAME}}": lambda: player.name.upper(),
             "${{today}}": lambda: session.time.today_string,
             "${{birthdate}}": lambda: player.birthdate_string,
-            "${{currency}}": lambda: "$",
+            "${{currency}}": lambda: formatter.symbol,
             "${{money}}": lambda: str(
                 player.money_controller.money_manager.get_money()
             ),
@@ -98,14 +100,14 @@ class TextFormatter:
 
         unit_map = {}
         if unit_measure == "metric":
-            unit_map["${{length}}"] = lambda: U_KM
-            unit_map["${{weight}}"] = lambda: U_KG
-            unit_map["${{height}}"] = lambda: U_CM
+            unit_map["${{length}}"] = lambda: unit_label(U_KM)
+            unit_map["${{weight}}"] = lambda: unit_label(U_KG)
+            unit_map["${{height}}"] = lambda: unit_label(U_CM)
             unit_map["${{steps}}"] = lambda: str(convert_km(player.steps))
         else:  # Assuming "imperial" for non-metric
-            unit_map["${{length}}"] = lambda: U_MI
-            unit_map["${{weight}}"] = lambda: U_LB
-            unit_map["${{height}}"] = lambda: U_FT
+            unit_map["${{length}}"] = lambda: unit_label(U_MI)
+            unit_map["${{weight}}"] = lambda: unit_label(U_LB)
+            unit_map["${{height}}"] = lambda: unit_label(U_FT)
             unit_map["${{steps}}"] = lambda: str(convert_mi(player.steps))
 
         for placeholder, callable_func in unit_map.items():
@@ -316,7 +318,15 @@ class TextFormatter:
         """
         # Use the injected translator for checking and formatting
         self.translator.check_translation(text_slug)
-        translated_text = self.translator.format(text_slug, parameters)
+        ladder = ladder_settings()
+        if ladder is None or ladder[0] <= 0:
+            translated_text = self.translator.format(text_slug, parameters)
+        else:
+            # language ladder (levels 1-5): see tuxemon/locale/bilingual.py
+            level, known_words = ladder
+            translated_text = str(
+                compose(text_slug, parameters, level, known_words)
+            )
 
         # Apply general dynamic replacements from TextFormatter
         processed_text = self.format_text(translated_text)

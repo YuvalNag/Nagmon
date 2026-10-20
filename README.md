@@ -1,3 +1,17 @@
+נגמון (Nagmon)
+==============
+
+משחק לימודי משפחתי בעברית, שנבנה על Tuxemon: לומדים חשבון, גאומטריה,
+אנגלית, מדעים וחשיבה תוך כדי הרפתקה. לכל ילד יש פרופיל משלו, ויש אזור הורים.
+
+- התקנה והפעלה: [docs/kids/HOW_TO_PLAY.md](docs/kids/HOW_TO_PLAY.md)
+- התוכנית: [docs/kids/GAME_PLAN.md](docs/kids/GAME_PLAN.md)
+- ארכיטקטורה: [docs/kids/SDD_ARCHITECTURE.md](docs/kids/SDD_ARCHITECTURE.md)
+
+Windows: לחיצה כפולה על `run_nagmon.bat`. Linux: `./run_nagmon.sh`.
+
+---
+
 Tuxemon
 ==============
 
