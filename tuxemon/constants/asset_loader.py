@@ -161,6 +161,11 @@ def fetch_all_l18n_roots() -> list[Path]:
     return l18n_roots
 
 
+def mod_asset_roots() -> tuple[Path, ...]:
+    """The mods' asset folders, the one that wins first."""
+    return _MOD_ASSET_ROOTS
+
+
 @lru_cache(maxsize=512)
 def fetch_asset(*args: str) -> str:
     """

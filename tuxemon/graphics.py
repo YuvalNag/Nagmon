@@ -394,9 +394,52 @@ def fetch_hd_twin(filename: str) -> str | None:
     when there is none: most images have no twin.
     """
     try:
-        return transform_resource_filename(hd_twin_name(filename))
+        base = transform_resource_filename(filename)
+        twin = transform_resource_filename(hd_twin_name(filename))
     except OSError:
         return None
+    # A mod above the twin's that replaced the image wins (the twin is of
+    # the old one), and so does a replacement of another size.
+    if _mod_rank(twin) > _mod_rank(base):
+        return None
+    native, big = _png_size(base), _png_size(twin)
+    if (
+        native
+        and big
+        and big
+        != (
+            native[0] * HD_TWIN_FACTOR,
+            native[1] * HD_TWIN_FACTOR,
+        )
+    ):
+        return None
+    return twin
+
+
+def _mod_rank(path: str) -> int:
+    """Where the mod holding ``path`` is in the mod order (0 wins)."""
+    from tuxemon.constants.asset_loader import mod_asset_roots
+
+    roots = mod_asset_roots()
+    target = Path(path)
+    for rank, root in enumerate(roots):
+        if target.is_relative_to(root):
+            return rank
+    return len(roots)
+
+
+def _png_size(path: str) -> tuple[int, int] | None:
+    """A PNG's width and height from its header, or None."""
+    try:
+        with open(path, "rb") as file:
+            head = file.read(24)
+    except OSError:
+        return None
+    if head[:8] != b"\x89PNG\r\n\x1a\n" or head[12:16] != b"IHDR":
+        return None
+    return int.from_bytes(head[16:20], "big"), int.from_bytes(
+        head[20:24], "big"
+    )
 
 
 def load_native_or_hd(filename: str) -> tuple[Surface, int]:

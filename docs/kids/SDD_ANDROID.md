@@ -324,6 +324,7 @@ def keyboard_layout(area: Rect, chars: int, *, gap: int,
 **תמונות HD אוטומטיות, בלי לצייר מחדש** (`tools/art/upscale_ui.py`):
 - **התאום:** ליד הנתיב של Tuxemon, במוד נגמון, קובץ `<שם>@4x.png` פי 4 בדיוק.
   `fetch_hd_twin(path)` מוצא אותו לפי סדר המודים. בלי תאום, הכול כמו קודם.
+  תאום לא נלקח כשמוד שמעליו החליף את התמונה, או כשהתמונה שזוכה איננה בדיוק רבע ממנו (תאום ישן).
 - `load_and_scale`: עם תאום, טוען אותו ומקטין פעם אחת בהחלקה לגודל הטבעי כפול קנה המידה.
   הגודל שמתקבל זהה לגודל של היום, ולכן מסגרות, HUD ומיקומים לא משתנים.
 - גם המסגרת של pygame_menu (`get_theme`) ורקע התפריט (`_create_background`, מ־`_setup_theme`) לוקחים את התאום.
@@ -378,6 +379,7 @@ def keyboard_layout(area: Rect, chars: int, *, gap: int,
 | פריסת הקרב ב־2400 בקנה מידה 7: חצי ימני זז ב־608, חצי שמאלי לא, `CENTER` בחצי, `hud_line` לא. בלי עודף, הכול כמו קודם | `tests/tuxemon/test_ui_combat_layout.py` |
 | רשימת ההתקפות ב־20:9 נגמרת ב־HUD של השחקן; ב־16:9 ובלי HUD בקצה המסך; תפריט רחב מדי בקצה המסך | `tests/nagmon/test_phone_look.py` |
 | רקע הקרב מכסה את כל המסך (אין עמודה שחורה), בלי עיוות ובמרכז | `tests/nagmon/test_phone_look.py` |
+| תאום מתחת למוד שהחליף את התמונה, או תאום בגודל אחר, לא נלקח | `tests/nagmon/test_phone_look.py` |
 | `ImageState` נפתח על רקע שיש לו תאום; `_create_image` נותן את התמונה הטבעית ו־`_create_background` את התאום | `tests/nagmon/test_phone_look.py` |
 | תאום HD: נמצא לפי סדר המודים; `load_and_scale` מחזיר את אותו הגודל כמו בלי תאום; בלי תאום, אותם פיקסלים | `tests/nagmon/test_phone_look.py` |
 | `bleed`: פיקסל שקוף מקבל את צבע השכן הנראה, והשקיפות לא משתנה; בתאום של ה־HUD הפיקסלים השקופים בקצה בצבע של הקצה | `tests/nagmon/test_phone_look.py` |

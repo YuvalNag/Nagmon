@@ -492,3 +492,43 @@ def test_the_clear_pixels_of_a_twin_take_their_neighbours_colour():
     diff = np.abs(big[ys, xs, :3] - big[ys, xs - 1, :3]).max(axis=1)
     assert np.median(diff) <= 40
     assert not (big[ys, xs, :3] == 0).all(axis=1).all()
+
+
+@pytest.fixture
+def three_mods(tmp_path, monkeypatch):
+    """A mod above nagmon (it overrides an image), nagmon, tuxemon."""
+    import tuxemon.environment  # noqa: F401
+    from tuxemon.constants import asset_loader
+
+    roots = (tmp_path / "top", tmp_path / "nagmon", tmp_path / "tuxemon")
+    for root in roots:
+        (root / "gfx").mkdir(parents=True)
+    monkeypatch.setattr(asset_loader, "_MOD_ASSET_ROOTS", roots)
+    _forget()
+    yield roots
+    _forget()
+
+
+def test_a_twin_below_the_image_that_wins_is_not_used(three_mods, display):
+    # A mod above the twin's replaced the image: the twin is of the old one.
+    from tuxemon.graphics import fetch_hd_twin
+
+    top, nagmon, tuxemon = three_mods
+    _save(_checker((6, 6)), tuxemon / "gfx" / "box.png")
+    _save(_checker((6, 6), 4), nagmon / "gfx" / "box@4x.png")
+    assert fetch_hd_twin("gfx/box.png") is not None
+    _save(_checker((6, 6)), top / "gfx" / "box.png")
+    _forget()
+    assert fetch_hd_twin("gfx/box.png") is None
+
+
+def test_a_twin_of_another_size_is_not_used(three_mods, display):
+    # nagmon replaced the image with a bigger one: the old twin is stale.
+    from tuxemon.graphics import fetch_hd_twin, load_and_scale
+
+    _, nagmon, tuxemon = three_mods
+    _save(_checker((6, 6)), tuxemon / "gfx" / "box.png")
+    _save(_checker((8, 6)), nagmon / "gfx" / "box.png")
+    _save(_checker((6, 6), 4), nagmon / "gfx" / "box@4x.png")
+    assert fetch_hd_twin("gfx/box.png") is None
+    assert load_and_scale("gfx/box.png", 7).get_size() == (56, 42)
