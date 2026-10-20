@@ -499,11 +499,14 @@ def scaled_image_loader(
 
     # A tileset's image is the copy that wins by mod order: an HD sheet
     # in mods/nagmon (SDD_ART §2.11). Other images (image layers, tile
-    # images) load as before.
+    # images) load as before, and so does a tileset with a colorkey:
+    # smoothing before the colorkey would leave fringes of its colour.
     tileset = kwargs.get("tileset")
     native = (
         (int(tileset.width), int(tileset.height))
-        if tileset is not None and getattr(tileset, "width", None)
+        if tileset is not None
+        and getattr(tileset, "width", None)
+        and colorkey_color is None
         else None
     )
     image = load(resolve_mod_path(filename) if native else filename)

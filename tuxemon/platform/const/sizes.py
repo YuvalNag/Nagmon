@@ -34,6 +34,8 @@ MONTH_KEYS = [
 ]
 
 MAP_CACHE_SIZE: int = 10
+#: On a phone: an outdoor map holds ~190MB of tiles at scale 7.
+ANDROID_MAP_CACHE_SIZE: int = 2
 PLAYER_NPC = "npc_red"
 
 # Asset Sizes (Native)

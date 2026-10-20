@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import logging
 import os
 import sys
 from pathlib import Path
@@ -266,7 +267,7 @@ def test_hd_tilesets_are_what_the_tool_makes(tools, neighbours, name):
     assert (on_disk == built).all(), f"{path}: re-run upscale_tiles.py"
 
 
-# ------------------------------------------------------- 56-57 the loader
+# --------------------------------------------------- 56-57, 64 the loader
 
 
 def _write(tmp_path, surf, name):
@@ -285,7 +286,7 @@ def _tile_sheet(k: int) -> pygame.Surface:
     return s
 
 
-def _old_loader(filename, scale, rect, flags):
+def _old_loader(filename, scale, rect, flags, colorkey=None):
     """scaled_image_loader as it was before HD tiles."""
     from pytmx.util_pygame import handle_transformation, smart_convert
 
@@ -296,7 +297,8 @@ def _old_loader(filename, scale, rect, flags):
     tile = image.subsurface([v * scale for v in rect])
     if flags:
         tile = handle_transformation(tile, flags)
-    return smart_convert(tile, None, True)
+    key = pygame.Color(f"#{colorkey}") if colorkey else None
+    return smart_convert(tile, key, True)
 
 
 @pytest.mark.parametrize(
@@ -324,6 +326,36 @@ def test_native_tileset_loads_exactly_as_before(tmp_path, flags):
     # an image without a tileset (an image layer) loads whole, as before
     whole = scaled_image_loader(path, None, scaling=DefaultScaling(3))()
     assert whole.get_size() == (96, 48)
+
+
+def test_a_colorkey_tileset_keeps_its_native_sheet(tmp_path, monkeypatch):
+    """Smoothing before the colorkey would leave fringes of the key colour
+    around every tile: such a tileset (``trans=`` in the TSX) loads its
+    own sheet, as before, even when an HD copy exists."""
+    from tuxemon import graphics
+    from tuxemon.scaling import DefaultScaling
+
+    native = _tile_sheet(1)
+    native.fill((255, 0, 255, 255), (4, 4, 8, 8))  # the colorkey
+    path = _write(tmp_path, native, "keyed.png")
+    hd = _write(tmp_path, _tile_sheet(4), "keyed_hd.png")
+    monkeypatch.setattr(graphics, "resolve_mod_path", lambda p: hd)
+    ts = SimpleNamespace(width=32, height=16)
+    loader = graphics.scaled_image_loader(
+        path, "ff00ff", tileset=ts, scaling=DefaultScaling(3)
+    )
+    for rect in [(0, 0, 16, 16), (16, 0, 16, 16)]:
+        new = loader(rect, None)
+        old = _old_loader(path, 3, rect, None, colorkey="ff00ff")
+        assert new.get_size() == old.get_size() == (48, 48)
+        assert pygame.image.tobytes(new, "RGBA") == pygame.image.tobytes(
+            old, "RGBA"
+        )
+    # the key colour is see-through, with no pink left at its edge
+    tile = loader((0, 0, 16, 16), None)
+    assert tile.get_colorkey()[:3] == (255, 0, 255)
+    assert tile.get_at((12, 12))[:3] == (255, 0, 255)
+    assert tile.get_at((11, 11))[:3] == (20, 20, 220)
 
 
 @pytest.mark.parametrize("scale", [3, 7])
@@ -366,7 +398,7 @@ def test_hd_tileset_scales_each_tile_once_to_the_screen(
     assert calls == [(64, 64), (64, 64)]
 
 
-# ------------------------------------------------------- 58 mod order
+# --------------------------------------------------- 58, 65 mod order
 
 
 def test_resolve_mod_path_prefers_the_higher_mod(tmp_path, monkeypatch):
@@ -395,6 +427,24 @@ def test_resolve_mod_path_prefers_the_higher_mod(tmp_path, monkeypatch):
         assert Path(resolve(odd)) == a / "both.png"
     finally:
         asset_loader.fetch_asset.cache_clear()
+
+
+def test_resolve_mod_path_warns_once_before_the_mods_are_known(
+    monkeypatch, caplog
+):
+    from tuxemon.constants import asset_loader
+
+    monkeypatch.setattr(asset_loader, "_HAS_POPULATED", False)
+    monkeypatch.setattr(asset_loader, "_WARNED_UNPOPULATED", False)
+    with caplog.at_level(logging.DEBUG, logger=asset_loader.__name__):
+        for name in ("a.png", "b.png", "c.png"):
+            assert asset_loader.resolve_mod_path(name) == name
+    warnings = [
+        r
+        for r in caplog.records
+        if r.levelno >= logging.WARNING and "[Resolve]" in r.getMessage()
+    ]
+    assert len(warnings) == 1
 
 
 def test_the_game_finds_nagmons_tilesets():
@@ -475,3 +525,28 @@ def test_images_without_a_tileset_are_not_looked_up_again(
         path, None, scaling=DefaultScaling(2)
     )()
     assert image.get_size() == (256, 128)
+
+
+# --------------------------------------------- 66 maps kept on a phone
+
+
+@pytest.mark.parametrize(
+    ("env", "size"),
+    [
+        pytest.param({}, 10, id="pc"),
+        pytest.param({"ANDROID_ARGUMENT": "/data/app"}, 2, id="phone"),
+    ],
+)
+def test_a_phone_keeps_two_maps_in_memory(monkeypatch, env, size):
+    """An outdoor map holds ~190MB of tiles at scale 7 (SDD_ART §2.12):
+    ten of them do not fit in a phone."""
+    from tuxemon.map.loader import MapLoader
+    from tuxemon.platform import mobile
+
+    for name in mobile.P4A_VARIABLES:
+        monkeypatch.delenv(name, raising=False)
+    for name, value in env.items():
+        monkeypatch.setenv(name, value)
+    assert mobile.map_cache_size() == size
+    assert MapLoader(context=None).cache_size == size
+    assert MapLoader(context=None, cache_size=5).cache_size == 5
