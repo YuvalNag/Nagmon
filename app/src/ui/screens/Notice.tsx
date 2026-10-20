@@ -1,3 +1,4 @@
+import { t } from "../../i18n";
 import { Tap } from "../Tap";
 
 interface Props {
@@ -11,7 +12,7 @@ export function Notice({ text, onNext }: Props) {
     <main className="screen" data-screen="notice">
       <p className="notice">{text}</p>
       <Tap id="next" className="primary" onTap={onNext}>
-        המשך
+        {t("next")}
       </Tap>
     </main>
   );

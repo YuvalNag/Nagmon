@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { t } from "../i18n";
 import { Tap } from "./Tap";
 
 export const PIN_LENGTH = 4;
@@ -49,8 +50,9 @@ export function PinPad({ title, hint, message, attempt = 0, onDone, onCancel }: 
             <span key={i} className={i < digits.length ? "dot full" : "dot"} />
           ))}
         </div>
-        <Tap id="pin_cancel" className="quiet" onTap={onCancel}>
-          חזרה
+        {/* the answer would land on whatever screen is next: stay for it */}
+        <Tap id="pin_cancel" className="quiet" disabled={waiting} onTap={onCancel}>
+          {t("back")}
         </Tap>
       </section>
       <div className="pad" dir="ltr">
@@ -64,7 +66,7 @@ export function PinPad({ title, hint, message, attempt = 0, onDone, onCancel }: 
           0
         </Tap>
         <Tap id="key_delete" className="key delete" disabled={waiting} onTap={() => setDigits(digits.slice(0, -1))}>
-          מחק
+          {t("delete")}
         </Tap>
       </div>
     </main>

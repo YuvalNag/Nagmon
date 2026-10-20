@@ -1,24 +1,36 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Services } from "./app/services";
 import { AVATARS, avatarImage } from "./core/family/avatars";
 import { defaultsForGrade, GRADE_NAMES_HE } from "./core/family/gradeDefaults";
-import { ProfileError, ProfileLimitError, validateName, type Profile } from "./core/family/profiles";
+import {
+  MAX_PROFILES,
+  ProfileError,
+  ProfileLimitError,
+  ProfileNameTakenError,
+  validateName,
+  type Profile,
+} from "./core/family/profiles";
 import { t } from "./i18n";
+import { bindBackButton } from "./platform/backButton";
+import { getLogger } from "./platform/appLog";
 import { LetterBoard } from "./ui/LetterBoard";
 import { PinPad } from "./ui/PinPad";
+import { ScreenTime } from "./ui/screenTime";
 import { Tap } from "./ui/Tap";
 import { Choices } from "./ui/screens/Choices";
 import { Notice } from "./ui/screens/Notice";
 import { WhoPlays } from "./ui/screens/WhoPlays";
 
+const log = getLogger("nagmon.screens");
+
 /** Where the parent wanted to go when the code was asked for. */
 type Goal = "new_child" | "parents";
 
-type View =
+export type View =
   | { kind: "who" }
   | { kind: "pin-set"; goal: Goal; first?: string; message?: string; attempt?: number }
   | { kind: "pin-check"; goal: Goal; message?: string; attempt?: number }
-  | { kind: "name"; initial?: string; message?: string }
+  | { kind: "name"; initial?: string; message?: string; attempt?: number }
   | { kind: "grade"; name: string }
   | { kind: "avatar"; name: string; grade: number }
   | { kind: "notice"; text: string; next: View }
@@ -27,152 +39,284 @@ type View =
 
 const WHO: View = { kind: "who" };
 
-export function App({ services }: { services: Services }) {
-  const { profiles, parent } = services;
-  const [view, setView] = useState<View>(WHO);
-  const [children, setChildren] = useState<Profile[]>([]);
+/**
+ * Where Android's back button goes from each screen: one step back in
+ * the flow. On who-plays it does nothing; the app never closes by itself
+ * under a child's finger.
+ */
+export function backStep(v: View): View | null {
+  switch (v.kind) {
+    case "who":
+      return null;
+    case "grade":
+      return { kind: "name", initial: v.name };
+    case "avatar":
+      return { kind: "grade", name: v.name };
+    case "notice":
+      return v.next;
+    default:
+      return WHO;
+  }
+}
 
-  const refresh = useCallback(async () => setChildren(await profiles.list()), [profiles]);
+const locked = (seconds: number): View => ({
+  kind: "notice",
+  text: t("pinLocked", { seconds: Math.ceil(seconds) }),
+  next: WHO,
+});
+
+interface Props {
+  services: Services;
+  /** Binds Android's back button; returns an unbind (tests pass their own). */
+  backButton?: (handler: () => void) => () => void;
+}
+
+export function App({ services, backButton = bindBackButton }: Props) {
+  const { profiles, parent } = services;
+  // each screen shown gets a number: a new number is a new, fresh screen
+  const [shown, setShown] = useState<{ view: View; n: number }>({ view: WHO, n: 0 });
+  const current = useRef<View>(WHO);
+  const [children, setChildren] = useState<Profile[]>([]);
+  const [busy, setBusy] = useState(false);
+  const busyRef = useRef(false);
+  const view = shown.view;
+
+  const show = useCallback((v: View) => {
+    current.current = v;
+    setShown((s) => ({ view: v, n: s.n + 1 }));
+  }, []);
+
+  /**
+   * Slow work (the code's hash, the disk) for the screen showing now.
+   * Meanwhile the screen's ways out are shut; the result is shown only if
+   * that screen is still the one showing, and a failure is logged and
+   * answered with `failed` instead of freezing the screen.
+   */
+  const work = useCallback(
+    async (what: string, task: () => Promise<View>, failed: View) => {
+      if (busyRef.current) return;
+      const from = current.current;
+      busyRef.current = true;
+      setBusy(true);
+      let next: View;
+      try {
+        next = await task();
+      } catch (e) {
+        log.error(`Could not ${what}`, e);
+        next = failed;
+      } finally {
+        busyRef.current = false;
+        setBusy(false);
+      }
+      if (current.current === from) show(next);
+      else log.warning(`Dropped the result of "${what}": the screen changed`);
+    },
+    [show],
+  );
+
   useEffect(() => {
-    void refresh();
-  }, [refresh]);
+    profiles.list().then(setChildren, (e) => {
+      log.error("Could not read the players", e);
+      show({ kind: "notice", text: t("readFailed"), next: WHO });
+    });
+  }, [profiles, show]);
+
+  useEffect(
+    () =>
+      backButton(() => {
+        if (busyRef.current) return;
+        const next = backStep(current.current);
+        if (next) show(next);
+      }),
+    [backButton, show],
+  );
 
   const goTo = (goal: Goal): View => (goal === "new_child" ? { kind: "name" } : { kind: "parents" });
-  const ask = (goal: Goal): View => (parent.hasPin() ? { kind: "pin-check", goal } : { kind: "pin-set", goal });
 
-  async function setPin(v: Extract<View, { kind: "pin-set" }>, pin: string) {
+  function ask(goal: Goal) {
+    if (goal === "new_child" && children.length >= MAX_PROFILES) {
+      show({ kind: "notice", text: t("tooMany"), next: WHO });
+      return;
+    }
+    if (!parent.hasPin()) {
+      show({ kind: "pin-set", goal });
+      return;
+    }
+    // locked from earlier tries: say so now, not after the code is typed
+    void work(
+      "check the lockout",
+      async () => {
+        const left = await parent.lockoutRemaining();
+        return left > 0 ? locked(left) : { kind: "pin-check", goal };
+      },
+      { kind: "notice", text: t("errorTryAgain"), next: WHO },
+    );
+  }
+
+  function setPin(v: Extract<View, { kind: "pin-set" }>, pin: string) {
+    const attempt = (v.attempt ?? 0) + 1;
     if (v.first === undefined) {
-      setView({ ...v, first: pin, message: undefined, attempt: (v.attempt ?? 0) + 1 });
+      show({ ...v, first: pin, message: undefined, attempt });
       return;
     }
     if (v.first !== pin) {
-      setView({ kind: "pin-set", goal: v.goal, message: t("pinMismatch"), attempt: (v.attempt ?? 0) + 1 });
+      show({ kind: "pin-set", goal: v.goal, message: t("pinMismatch"), attempt });
       return;
     }
-    await parent.setPin(pin);
-    setView({ kind: "notice", text: t("pinSaved"), next: goTo(v.goal) });
+    void work(
+      "save the parent code",
+      async () => {
+        await parent.setPin(pin);
+        return { kind: "notice", text: t("pinSaved"), next: goTo(v.goal) };
+      },
+      { kind: "pin-set", goal: v.goal, message: t("errorTryAgain"), attempt },
+    );
   }
 
-  async function checkPin(v: Extract<View, { kind: "pin-check" }>, pin: string) {
-    const result = await parent.verifyPin(pin);
-    if (result.ok) setView(goTo(v.goal));
-    else if (result.locked) setView({ kind: "notice", text: t("pinLocked", { seconds: Math.ceil(result.retryAfterS) }), next: WHO });
-    else setView({ ...v, message: t("pinWrong"), attempt: (v.attempt ?? 0) + 1 });
+  function checkPin(v: Extract<View, { kind: "pin-check" }>, pin: string) {
+    const attempt = (v.attempt ?? 0) + 1;
+    void work(
+      "check the parent code",
+      async () => {
+        const result = await parent.verifyPin(pin);
+        if (result.ok) return goTo(v.goal);
+        if (result.locked) return locked(result.retryAfterS);
+        const message = result.attemptsLeft === 1 ? t("pinWrongLast") : t("pinWrong", { left: result.attemptsLeft });
+        return { ...v, message, attempt };
+      },
+      { ...v, message: t("errorTryAgain"), attempt },
+    );
   }
 
-  function gotName(text: string) {
+  function gotName(v: Extract<View, { kind: "name" }>, text: string) {
+    const again = (message: string): View => ({ kind: "name", initial: text, message, attempt: (v.attempt ?? 0) + 1 });
+    let name: string;
     try {
-      const name = validateName(text);
-      if (children.some((c) => c.name.toLocaleLowerCase() === name.toLocaleLowerCase())) {
-        setView({ kind: "name", initial: text, message: t("nameTaken") });
-        return;
-      }
-      setView({ kind: "grade", name });
+      name = validateName(text);
     } catch {
-      setView({ kind: "name", initial: text, message: t("nameInvalid") });
+      show(again(t("nameInvalid")));
+      return;
     }
+    if (children.some((c) => c.name.toLocaleLowerCase() === name.toLocaleLowerCase())) show(again(t("nameTaken")));
+    else show({ kind: "grade", name });
   }
 
-  async function create(name: string, grade: number, avatar: string) {
-    try {
-      const d = defaultsForGrade(grade);
-      await profiles.create({ name, avatar, grade: d.grade, languageLevel: d.languageLevel, settings: d.settings });
-      await refresh();
-      setView({ kind: "notice", text: t("childCreated", { name }), next: WHO });
-    } catch (e) {
-      if (e instanceof ProfileLimitError) setView({ kind: "notice", text: t("tooMany"), next: WHO });
-      else if (e instanceof ProfileError) setView({ kind: "name", initial: name, message: t("nameInvalid") });
-      else throw e;
-    }
+  function create(v: Extract<View, { kind: "avatar" }>, avatar: string) {
+    const { name } = v;
+    const nameAgain = (message: string): View => ({ kind: "name", initial: name, message, attempt: 1 });
+    void work(
+      "save the new child",
+      async () => {
+        try {
+          const d = defaultsForGrade(v.grade);
+          await profiles.create({ name, avatar, grade: d.grade, languageLevel: d.languageLevel, settings: d.settings });
+        } catch (e) {
+          if (e instanceof ProfileLimitError) return { kind: "notice", text: t("tooMany"), next: WHO };
+          if (e instanceof ProfileNameTakenError) return nameAgain(t("nameTaken"));
+          if (e instanceof ProfileError) return nameAgain(t("nameInvalid"));
+          throw e;
+        }
+        setChildren(await profiles.list());
+        return { kind: "notice", text: t("childCreated", { name }), next: WHO };
+      },
+      // the same heroes again: the child taps once more
+      { kind: "notice", text: t("errorTryAgain"), next: v },
+    );
   }
 
-  switch (view.kind) {
-    case "who":
-      return (
-        <WhoPlays
-          children={children}
-          onPick={(id) => setView({ kind: "play", id })}
-          onNewChild={() => setView(ask("new_child"))}
-          onParents={() => setView(ask("parents"))}
-        />
-      );
-    case "pin-set":
-      return (
-        <PinPad
-          // a fresh, empty pad for each step and each new try
-          key={`set-${view.attempt ?? 0}`}
-          title={t("pinTitle")}
-          hint={view.first === undefined ? t("pinSetHint") : t("pinAgainHint")}
-          message={view.message}
-          attempt={view.attempt}
-          onDone={(pin) => void setPin(view, pin)}
-          onCancel={() => setView(WHO)}
-        />
-      );
-    case "pin-check":
-      return (
-        <PinPad
-          key={`check-${view.attempt ?? 0}`}
-          title={t("pinTitle")}
-          hint={t("pinCheckHint")}
-          message={view.message}
-          attempt={view.attempt}
-          onDone={(pin) => void checkPin(view, pin)}
-          onCancel={() => setView(WHO)}
-        />
-      );
-    case "name":
-      return (
-        <LetterBoard
-          key={view.message ?? "name"}
-          title={t("nameTitle")}
-          initial={view.initial}
-          message={view.message}
-          onDone={gotName}
-          onCancel={() => setView(WHO)}
-        />
-      );
-    case "grade":
-      return (
-        <Choices
-          screen="grade"
-          title={t("gradeTitle")}
-          choices={GRADE_NAMES_HE.map((label, i) => ({ id: String(i), label }))}
-          onPick={(id) => setView({ kind: "avatar", name: view.name, grade: Number(id) })}
-          onBack={() => setView({ kind: "name", initial: view.name })}
-        />
-      );
-    case "avatar":
-      return (
-        <Choices
-          screen="avatar"
-          title={t("avatarTitle")}
-          choices={AVATARS.map((a) => ({ id: a.key, label: a.labelHe, image: avatarImage(a.key) }))}
-          onPick={(key) => void create(view.name, view.grade, key)}
-          onBack={() => setView({ kind: "grade", name: view.name })}
-        />
-      );
-    case "notice":
-      return <Notice text={view.text} onNext={() => setView(view.next)} />;
-    case "parents":
-      return (
-        <main className="screen" data-screen="parents">
-          <h1 className="title">{t("parentsTitle")}</h1>
-          <Tap id="back" onTap={() => setView(WHO)}>
-            {t("back")}
-          </Tap>
-        </main>
-      );
-    case "play": {
-      const child = children.find((c) => c.id === view.id);
-      return (
-        <main className="screen" data-screen="play">
-          <h1 className="title">{t("hello", { name: child?.name ?? "" })}</h1>
-          <Tap id="switch_player" onTap={() => setView(WHO)}>
-            {t("switchPlayer")}
-          </Tap>
-        </main>
-      );
+  return <ScreenTime key={shown.n}>{screen(view)}</ScreenTime>;
+
+  function screen(view: View) {
+    switch (view.kind) {
+      case "who":
+        return (
+          <WhoPlays
+            children={children}
+            busy={busy}
+            onPick={(id) => show({ kind: "play", id })}
+            onNewChild={() => ask("new_child")}
+            onParents={() => ask("parents")}
+          />
+        );
+      case "pin-set":
+        return (
+          <PinPad
+            // a fresh, empty pad for each step and each new try
+            key={`set-${view.attempt ?? 0}`}
+            title={t("pinTitle")}
+            hint={view.first === undefined ? t("pinSetHint") : t("pinAgainHint")}
+            message={view.message}
+            attempt={view.attempt}
+            onDone={(pin) => setPin(view, pin)}
+            onCancel={() => show(WHO)}
+          />
+        );
+      case "pin-check":
+        return (
+          <PinPad
+            key={`check-${view.attempt ?? 0}`}
+            title={t("pinTitle")}
+            hint={t("pinCheckHint")}
+            message={view.message}
+            attempt={view.attempt}
+            onDone={(pin) => checkPin(view, pin)}
+            onCancel={() => show(WHO)}
+          />
+        );
+      case "name":
+        return (
+          <LetterBoard
+            key={`name-${view.attempt ?? 0}`}
+            title={t("nameTitle")}
+            initial={view.initial}
+            message={view.message}
+            onDone={(text) => gotName(view, text)}
+            onCancel={() => show(WHO)}
+          />
+        );
+      case "grade":
+        return (
+          <Choices
+            screen="grade"
+            title={t("gradeTitle")}
+            choices={GRADE_NAMES_HE.map((label, i) => ({ id: String(i), label }))}
+            onPick={(id) => show({ kind: "avatar", name: view.name, grade: Number(id) })}
+            onBack={() => show({ kind: "name", initial: view.name })}
+          />
+        );
+      case "avatar":
+        return (
+          <Choices
+            screen="avatar"
+            title={t("avatarTitle")}
+            busy={busy}
+            choices={AVATARS.map((a) => ({ id: a.key, label: a.labelHe, image: avatarImage(a.key) }))}
+            onPick={(key) => create(view, key)}
+            onBack={() => show({ kind: "grade", name: view.name })}
+          />
+        );
+      case "notice":
+        return <Notice text={view.text} onNext={() => show(view.next)} />;
+      case "parents":
+        return (
+          <main className="screen" data-screen="parents">
+            <h1 className="title">{t("parentsTitle")}</h1>
+            <Tap id="back" onTap={() => show(WHO)}>
+              {t("back")}
+            </Tap>
+          </main>
+        );
+      case "play": {
+        const child = children.find((c) => c.id === view.id);
+        return (
+          <main className="screen" data-screen="play">
+            <h1 className="title">{t("hello", { name: child?.name ?? "" })}</h1>
+            <Tap id="switch_player" onTap={() => show(WHO)}>
+              {t("switchPlayer")}
+            </Tap>
+          </main>
+        );
+      }
     }
   }
 }

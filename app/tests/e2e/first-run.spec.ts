@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { fitsAndSharp, responseTimes, touch, watchResponseTimes } from "./touch";
+import { fitsAndSharp, responseTimes, touch, watchEventTiming } from "./touch";
 
 const id = (s: string) => `[data-id="${s}"]`;
 
@@ -7,7 +7,7 @@ test("a parent sets the code and adds a child with taps only", async ({ page }, 
   const cdp = await page.context().newCDPSession(page);
   // a phone is slower than this machine: check the speed at 4x slower
   await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
-  await watchResponseTimes(page);
+  await watchEventTiming(page);
   const shot = (name: string) => page.screenshot({ path: info.outputPath(`${name}.png`) });
 
   await page.goto("/");
@@ -68,7 +68,7 @@ test("a parent sets the code and adds a child with taps only", async ({ page }, 
 
   // the child is there, and still there after the app restarts
   await expect(page.locator("[data-screen=who-plays] .card")).toHaveText(["נועה"]);
-  const times = await responseTimes(page);
+  const before = await responseTimes(page);
   await page.reload();
   await expect(page.locator("[data-screen=who-plays] .card")).toHaveText(["נועה"]);
   await fitsAndSharp(page);
@@ -76,10 +76,16 @@ test("a parent sets the code and adds a child with taps only", async ({ page }, 
   await touch(page, page.locator("[data-screen=who-plays] .card"));
   await expect(page.locator("[data-screen=play]")).toContainText("שלום, נועה!");
 
-  times.push(...(await responseTimes(page)));
-  console.log("tap to screen change, ms:", times.map((t) => Math.round(t)).join(" "));
-  expect(times.length).toBeGreaterThan(15);
-  expect(Math.max(...times)).toBeLessThan(100);
+  // tap to the next drawn frame, at 4x slower: the app's own measure and
+  // the browser's Event Timing (which lists only taps of 16 ms and more)
+  const after = await responseTimes(page);
+  const app = [...before.app, ...after.app];
+  const events = [...before.events, ...after.events];
+  console.log("tap to drawn frame, ms (app):", app.map((t) => Math.round(t)).join(" "));
+  console.log("tap to drawn frame, ms (Event Timing >= 16):", events.map((t) => Math.round(t)).join(" ") || "none");
+  expect(app.length).toBeGreaterThan(15);
+  expect(Math.max(...app)).toBeLessThan(100);
+  expect(Math.max(0, ...events)).toBeLessThan(100);
 });
 
 test("a wrong code goes back to the pad; five lock it", async ({ page }) => {
@@ -96,7 +102,9 @@ test("a wrong code goes back to the pad; five lock it", async ({ page }) => {
     for (const d of "0000") await touch(page, page.locator(id(`key_${d}`)), 30);
     // back on a fresh pad, with the message
     await expect(page.locator("[data-screen=pin]")).toHaveAttribute("data-attempt", String(i));
-    await expect(page.locator("[data-screen=pin] .message")).toHaveText("הקוד לא נכון. נסו שוב.");
+    await expect(page.locator("[data-screen=pin] .message")).toHaveText(
+      i === 4 ? "הקוד לא נכון. נשאר עוד ניסיון אחד." : `הקוד לא נכון. נשארו עוד ${5 - i} ניסיונות.`,
+    );
     await expect(page.locator(id("pin_dots"))).toHaveAttribute("data-count", "0");
   }
   for (const d of "0000") await touch(page, page.locator(id(`key_${d}`)), 30);

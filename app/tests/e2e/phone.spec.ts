@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { fitsAndSharp } from "./touch";
 
 test("who-plays is Hebrew, right to left, sharp and fills the phone", async ({
   page,
@@ -11,12 +12,8 @@ test("who-plays is Hebrew, right to left, sharp and fills the phone", async ({
   expect(
     await page.evaluate(() => document.fonts.check("500 20px Rubik", "שלום")),
   ).toBe(true);
-  // nothing sticks out of the screen
-  const overflow = await page.evaluate(() => ({
-    x: document.documentElement.scrollWidth - window.innerWidth,
-    y: document.documentElement.scrollHeight - window.innerHeight,
-  }));
-  expect(overflow).toEqual({ x: 0, y: 0 });
+  // nothing sticks out of the screen, not even inside #root
+  await fitsAndSharp(page);
   // buttons are big enough for a finger (9 mm = 51 CSS px here)
   for (const id of ["new_child", "parents"]) {
     const box = await page.locator(`[data-id=${id}]`).boundingBox();
