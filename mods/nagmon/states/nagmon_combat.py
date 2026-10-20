@@ -61,7 +61,12 @@ class MainCombatMenuState(core_combat.MainCombatMenuState):
         self.combat_session.set_variable(ASKED_KEY, asked + 1)
         return True
 
-    def _subject_for(self, technique: Technique) -> str:
+    def _subject_for(self, technique: Technique) -> str | None:
+        """
+        The subject of the question before this attack, or None for "any
+        subject the child has on": a subject the parent turned off is not
+        asked in battle either (SDD_QUIZ_GAMEPLAY §2.2).
+        """
         from nagmon.ui.game_helpers import subject_map
 
         rt = get_runtime()
@@ -69,7 +74,13 @@ class MainCombatMenuState(core_combat.MainCombatMenuState):
         if rt is not None and rt.active is not None:
             override = rt.active.settings.get("element_subjects")
         types = [t.slug for t in technique.types.current]
-        return subject_map().subject_for(types, override)
+        monster = getattr(self.monster, "slug", None)
+        subject = subject_map().subject_for(types, override, monster)
+        learner = getattr(getattr(rt, "engine", None), "learner", None)
+        enabled = getattr(learner, "enabled_subjects", None)
+        if enabled and subject not in enabled:
+            return None
+        return subject
 
     # -------------------------------------------------------- hooks
 

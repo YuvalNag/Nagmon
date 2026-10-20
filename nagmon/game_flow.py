@@ -26,6 +26,9 @@ AVATARS: tuple[Avatar, ...] = (
     Avatar(
         "girl_teal", "nagmon_hero_girl", "nagmon_hero_girl", "female", "בת"
     ),
+    Avatar(
+        "girl_curly", "nagmon_hero_curly", "nagmon_hero_curly", "female", "בת"
+    ),
     Avatar("boy_light", "adventurer", "adventurer", "male", "בן"),
     Avatar("boy_dark", "adventurerblack", "adventurerblack", "male", "בן"),
     Avatar("girl_light", "heroine", "heroine", "female", "בת"),

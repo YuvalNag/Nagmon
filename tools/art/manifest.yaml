@@ -251,3 +251,161 @@ outputs:
   # Not in the game yet (SDD_ART §4): girl_curly_battle.png has no map
   # sheet (girl_curly_poses_a/b.png are free pose pages), girl_braid_map.png
   # has no battle sheet, girls_5_variants.png is a page of ideas.
+
+  # -------------------------------------- third batch (SDD_ART §2.10)
+  # Another generator's pack (art_sources/batch3, validation_report.md).
+  # Every map sheet was checked frame by frame: all face the right way.
+  - name: nagmon_mila_map
+    source: batch3/map/mila_map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_mila.png
+
+  - name: nagmon_mila
+    source: batch3/battle/mila_battle.png
+    layout: combat
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_mila.png
+
+  - name: nagmon_granny_map
+    source: batch3/map/granny_map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_granny.png
+
+  - name: nagmon_granny
+    source: batch3/battle/granny_battle.png
+    layout: combat
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_granny.png
+
+  - name: nagmon_kid_map
+    source: batch3/map/kid_map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_kid.png
+
+  - name: nagmon_kid
+    source: batch3/battle/kid_battle.png
+    layout: combat
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_kid.png
+
+  - name: nagmon_mailcarrier_map
+    source: batch3/map/mailcarrier_map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_mailcarrier.png
+
+  - name: nagmon_mailcarrier
+    source: batch3/battle/mailcarrier_battle.png
+    layout: combat
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_mailcarrier.png
+
+  - name: nagmon_hero_curly_map
+    source: batch3/map/hero_girl_map.png
+    layout: map
+    k: 8
+    fill: 0.6875
+    resample: hd
+    grid: [3, 4]
+    output: mods/nagmon/sprites/nagmon_hero_curly.png
+
+  - name: nagmon_hero_curly
+    source: batch3/battle/hero_girl_battle.png
+    layout: player
+    k: 3
+    resample: hd
+    grid: [2, 1]
+    take: {back: r1c1, front: r1c2}
+    output: mods/nagmon/gfx/sprites/player/nagmon_hero_curly.png
+
+  # Monsters: four figures in a row (front, back, two menu frames).
+  - name: pluson
+    source: batch3/monsters/math_monster.png
+    layout: monster
+    k: 3
+    resample: hd
+    strip: [front, back, menu1, menu2]
+    output: mods/nagmon/gfx/sprites/battle/pluson-sheet.png
+
+  - name: multivolt
+    source: batch3/monsters/math_monster_evo.png
+    layout: monster
+    k: 3
+    resample: hd
+    strip: [front, back, menu1, menu2]
+    output: mods/nagmon/gfx/sprites/battle/multivolt-sheet.png
+
+  - name: flaskling
+    source: batch3/monsters/science_monster.png
+    layout: monster
+    k: 3
+    resample: hd
+    strip: [front, back, menu1, menu2]
+    output: mods/nagmon/gfx/sprites/battle/flaskling-sheet.png
+
+  - name: botanikos
+    source: batch3/monsters/science_monster_evo.png
+    layout: monster
+    k: 3
+    resample: hd
+    strip: [front, back, menu1, menu2]
+    output: mods/nagmon/gfx/sprites/battle/botanikos-sheet.png
+
+  - name: puzzlet
+    source: batch3/monsters/logic_monster.png
+    layout: monster
+    k: 3
+    resample: hd
+    strip: [front, back, menu1, menu2]
+    output: mods/nagmon/gfx/sprites/battle/puzzlet-sheet.png
+
+  - name: enigmon
+    source: batch3/monsters/logic_monster_evo.png
+    layout: monster
+    k: 3
+    resample: hd
+    strip: [front, back, menu1, menu2]
+    output: mods/nagmon/gfx/sprites/battle/enigmon-sheet.png
+
+  - name: scrollo
+    source: batch3/monsters/hebrew_monster.png
+    layout: monster
+    k: 3
+    resample: hd
+    strip: [front, back, menu1, menu2]
+    output: mods/nagmon/gfx/sprites/battle/scrollo-sheet.png
+
+  - name: megillon
+    source: batch3/monsters/hebrew_monster_evo.png
+    layout: monster
+    k: 3
+    resample: hd
+    strip: [front, back, menu1, menu2]
+    output: mods/nagmon/gfx/sprites/battle/megillon-sheet.png

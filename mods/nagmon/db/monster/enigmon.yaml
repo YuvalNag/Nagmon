@@ -1,0 +1,54 @@
+# Enigmon: evolution of Puzzlet, logic: shadow (docs/kids/SDD_ART.md §2.10).
+slug: enigmon
+species: riddle_puzzle
+moveset:
+- level_learned: 1
+  technique: struggle
+  learning_method: fallback
+- level_learned: 1
+  technique: phantasmal_force
+- level_learned: 1
+  technique: midnight_mantle
+- level_learned: 4
+  technique: conjurer
+- level_learned: 13
+  technique: wicked_wind
+- level_learned: 26
+  technique: shadow_blast
+evolutions: []
+history:
+- slug: puzzlet
+  stage: basic
+  evolves_from: []
+  evolves_into:
+  - enigmon
+- slug: enigmon
+  stage: stage1
+  evolves_from:
+  - puzzlet
+  evolves_into: []
+terrains:
+- ruins
+- underground
+tags:
+- love
+shape: blob
+stage: stage1
+types:
+- shadow
+gender_weights:
+  male: 0.5
+  female: 0.5
+txmn_id: 403
+height: 110
+weight: 60
+sounds:
+  combat_call:
+    sfx: sound_weird_09
+    volume: 1.5
+  faint_call:
+    sfx: sound_weird_09_faint
+    volume: 1.5
+catch_rate: 70.0
+lower_catch_resistance: 0.9
+upper_catch_resistance: 1.15

@@ -394,3 +394,17 @@ def test_player_layout_puts_the_back_on_top_of_a_tall_cell():
     assert ys.min() == 0 and ys.max() < 64  # stands on the island
     front = sheet[:, 64:, 3]
     assert front[64:].sum() == 0
+
+
+def test_strip_finds_figures_left_to_right():
+    rgb = np.zeros((80, 300, 3), np.uint8)
+    rgb[...] = ia.MAGENTA
+    rgb[10:70, 10:80] = (200, 120, 40)  # front
+    rgb[10:70, 100:170] = (180, 100, 30)  # back, 20 px further
+    rgb[40:60, 172:178] = (250, 230, 60)  # a spark touching the back
+    rgb[40:60, 200:220] = (200, 120, 40)  # icon A
+    rgb[40:60, 240:260] = (200, 120, 40)  # icon B
+    boxes = ia.strip_boxes(ia._rgb(rgb), ia.Background("magenta"), 4, gap=12)
+    assert [b[0] for b in boxes] == [10, 100, 200, 240]
+    assert boxes[1][2] == 178  # the spark goes with the back
+    assert boxes[2][1] == 40 and boxes[2][3] == 60

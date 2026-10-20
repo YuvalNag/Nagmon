@@ -270,6 +270,35 @@ def _longest_run(row: np.ndarray) -> tuple[int, int] | None:
 # ------------------------------------------------------------- components
 
 
+def strip_boxes(
+    rgb: np.ndarray, background: Background, count: int, gap: int = 12
+) -> list[Box]:
+    """
+    Figures standing in a row (a monster sheet: front, back, two icons):
+    columns holding sprite, split where at least ``gap`` empty columns
+    lie between them, left to right. Raises unless ``count`` are found.
+    """
+    fg = ndimage.binary_opening(~background_mask(rgb, background))
+    cols = np.flatnonzero(fg.any(0))
+    if len(cols) == 0:
+        raise ValueError("no figures in the strip")
+    runs = [[int(cols[0]), int(cols[0])]]
+    for x in cols[1:]:
+        if x - runs[-1][1] > gap:
+            runs.append([int(x), int(x)])
+        else:
+            runs[-1][1] = int(x)
+    if len(runs) != count:
+        raise ValueError(
+            f"expected {count} figures in the strip, not {len(runs)}"
+        )
+    boxes = []
+    for x0, x1 in runs:
+        rows = np.flatnonzero(fg[:, x0 : x1 + 1].any(1))
+        boxes.append((x0, int(rows[0]), x1 + 1, int(rows[-1]) + 1))
+    return boxes
+
+
 @dataclass
 class Part:
     """A sprite cut from a sheet: its pixels and its box on the sheet."""
@@ -518,6 +547,10 @@ class Entry:
     fill: float = 1.0
     #: Cut the source into equal cells: [columns, rows].
     grid: tuple[int, int] | None = None
+    #: Parts standing in a row on the source, left to right (strip_boxes).
+    strip: list[str] = field(default_factory=list)
+    #: Fewest empty columns between two figures of a strip.
+    gap: int = 12
     #: Output cell -> source cell, where the source has them elsewhere;
     #: "flip:r3c1" mirrors that cell (a step facing the other way).
     take: dict[str, str] = field(default_factory=dict)
@@ -574,6 +607,8 @@ def load_manifest(path: Path = MANIFEST) -> list[Entry]:
                 fill=float(item.get("fill", 1.0)),
                 grid=(int(grid[0]), int(grid[1])) if grid else None,
                 take=dict(item.get("take") or {}),
+                strip=list(item.get("strip") or []),
+                gap=int(item.get("gap", 12)),
             )
         )
     return entries
@@ -583,9 +618,13 @@ def build(entry: Entry, sheet: Image.Image) -> Image.Image:
     """The output picture of one manifest entry."""
     rgb = _rgb(sheet)
     background = detect_background(rgb)
+    boxes = entry.resolve_boxes(sheet.size)
+    if entry.strip:
+        found = strip_boxes(rgb, background, len(entry.strip), entry.gap)
+        boxes.update(zip(entry.strip, found))
     parts = {
         name: find_part(rgb, background, box, **entry.options).image
-        for name, box in entry.resolve_boxes(sheet.size).items()
+        for name, box in boxes.items()
     }
     for name in entry.flipped:
         parts[name] = ImageOps.mirror(parts[name])

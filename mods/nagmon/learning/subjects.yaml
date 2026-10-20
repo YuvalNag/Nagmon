@@ -32,3 +32,6 @@ subjects:
     title_en: Hebrew
     color: "#f4a6c6"
     elements: []
+    # No element is Hebrew: these monsters ask Hebrew whatever the type of
+    # their technique (docs/kids/SDD_ART.md §2.10).
+    monsters: [scrollo, megillon]

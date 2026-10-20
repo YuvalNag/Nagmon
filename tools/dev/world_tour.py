@@ -10,7 +10,8 @@ Use a throwaway HOME: the game writes its config, saves and profiles
 there. With OUTDIR it saves world_*.png screenshots: the intro dialog,
 the Wise Owl in town, a quiz at the shop, a wild battle with the new
 subject monsters, the academy master, and the owl in its cape after
-the first badge. With
+the first badge, the town kid, Grandma Rina, Danny, Master Mila and a
+wild Puzzlet. With
 --smoke it only checks that a new game starts in Hearthrock with the
 child's name, and prints one JSON line.
 """
@@ -371,3 +372,38 @@ step(120)
 shot("world_09_owl_cape")
 owl = client.get_npc("nagmon_owl")
 print("owl sprite:", owl.appearance_manager.state.sprite_name if owl else None)
+
+
+def back_to_world() -> None:
+    for _ in range(8):
+        if names()[0] == "WorldState":
+            return
+        client.pop_state()
+        step(2)
+
+
+# The third batch (docs/kids/SDD_ART.md §2.10): the town's kid and
+# Grandma Rina, Danny the mail carrier, Master Mila, a Hebrew monster.
+back_to_world()
+for name, where in (
+    ("world_10_kid", ["classic_hearthrock_city.tmx", 24, 9]),
+    ("world_11_granny", ["classic_hearthrock_city.tmx", 35, 9]),
+    ("world_12_danny", ["classic_route_1.tmx", 30, 18]),
+    ("world_13_mila", ["classic_gym_mila.tmx", 10, 7]),
+):
+    ex("teleport", ["player", *where])
+    step(60)
+    back_to_world()
+    step(20)
+    shot(name)
+ex("add_monster", ["scrollo", "10"])
+party = player().monsters
+party.insert(0, party.pop())
+ex("wild_encounter", ["puzzlet", "6"], True)
+for _ in range(60):
+    if "CombatState" in names():
+        break
+    step(10)
+step(240)
+shot("world_14_battle_scrollo")
+back_to_world()

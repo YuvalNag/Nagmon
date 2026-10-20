@@ -22,7 +22,8 @@
 ### 2.2 `MainCombatMenuState` של nagmon (דריסה ב־mod)
 - **`before_enqueue_technique`:**
   - אם אין פרופיל פעיל, נגמרה מכסת השאלות לקרב, או שזו התקפה שלא גורמת נזק: `proceed()`.
-  - אחרת: המקצוע נקבע לפי סוג ההתקפה (`subjects.yaml` או `profile.settings.element_subjects`), ונדחף `QuizState(context="battle", subject=..., on_result=...)`.
+  - אחרת: המקצוע נקבע לפי הסדר של SDD_CONTENT §6: קודם הבחירה של ההורה למפלצת, אחר כך המקצוע של המפלצת (`monsters:`), ואחר כך סוג ההתקפה (`profile.settings.element_subjects`, ואז `subjects.yaml`). אחר כך נדחף `QuizState(context="battle", subject=..., on_result=...)`.
+  - מקצוע שההורה כיבה (`learner.enabled_subjects`) לא נשאל בקרב. במקומו `subject=None`, והמנוע בוחר מקצוע פעיל.
   - **`on_result(outcome)`:**
     1. `set_variable(f"quiz_mult_{monster.instance_id}", outcome.power_multiplier + combo_bonus)`;
     2. אם התשובה נכונה: `set_tech_hit(monster, 0.0)`;

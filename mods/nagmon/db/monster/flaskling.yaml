@@ -1,0 +1,70 @@
+# Flaskling: base form, science: water/wood (docs/kids/SDD_ART.md §2.10).
+slug: flaskling
+species: leaf_flask
+moveset:
+- level_learned: 1
+  technique: struggle
+  learning_method: fallback
+- level_learned: 1
+  technique: bubbles
+- level_learned: 1
+  technique: leaf_barrage
+- level_learned: 4
+  technique: ring
+- level_learned: 7
+  technique: blossom
+- level_learned: 10
+  technique: font
+- level_learned: 13
+  technique: stick
+- level_learned: 16
+  technique: flow
+- level_learned: 20
+  technique: pollen_blast
+- level_learned: 26
+  technique: water_blast
+- level_learned: 30
+  technique: overgrowth
+- level_learned: 36
+  technique: surf
+- level_learned: 42
+  technique: flower_bloom
+evolutions:
+- at_level: 16
+  monster_slug: botanikos
+history:
+- slug: flaskling
+  stage: basic
+  evolves_from: []
+  evolves_into:
+  - botanikos
+- slug: botanikos
+  stage: stage1
+  evolves_from:
+  - flaskling
+  evolves_into: []
+terrains:
+- freshwater
+- woodland
+tags:
+- love
+shape: sprite
+stage: basic
+types:
+- water
+gender_weights:
+  male: 0.5
+  female: 0.5
+txmn_id: 400
+height: 40
+weight: 10
+sounds:
+  combat_call:
+    sfx: sound_splash_1
+    volume: 1.5
+  faint_call:
+    sfx: sound_splash_1_faint
+    volume: 1.5
+catch_rate: 100.0
+lower_catch_resistance: 0.95
+upper_catch_resistance: 1.25

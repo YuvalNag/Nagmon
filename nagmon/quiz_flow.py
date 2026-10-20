@@ -23,6 +23,9 @@ COMBO_BONUS = 0.5
 class SubjectMap:
     element_to_subject: dict[str, str]
     info: dict[str, dict[str, Any]]
+    #: Monsters with a subject of their own, whatever their techniques'
+    #: types (Hebrew has no element; docs/kids/SDD_ART.md §2.10).
+    monster_to_subject: dict[str, str] = field(default_factory=dict)
 
     @classmethod
     def load(cls, path: Path) -> SubjectMap:
@@ -33,14 +36,31 @@ class SubjectMap:
             for subject, data in info.items()
             for element in data.get("elements") or ()
         }
-        return cls(mapping, info)
+        monsters = {
+            monster: subject
+            for subject, data in info.items()
+            for monster in data.get("monsters") or ()
+        }
+        return cls(mapping, info, monsters)
 
     def subject_for(
         self,
         types: Iterable[str],
         override: Mapping[str, str] | None = None,
+        monster: str | None = None,
     ) -> str:
-        """The subject of the first monster type we know."""
+        """
+        Which subject a battle question is about, in this order:
+
+        1. the parent's choice for this monster (``override[monster]``);
+        2. the monster's own subject (``monsters:`` in subjects.yaml);
+        3. the first technique type we know, with the parent's choice for
+           that type first.
+        """
+        if monster and override and monster in override:
+            return override[monster]
+        if monster and monster in self.monster_to_subject:
+            return self.monster_to_subject[monster]
         for t in types:
             if override and t in override:
                 return override[t]
