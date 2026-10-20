@@ -420,6 +420,34 @@ async function mapWalk() {
   await page.waitFor(screen("map-menu"), { what: "the pause menu" });
   await page.touch(id("map_exit"));
   await onScreen("who-plays", "the menu's way out");
+  // the map leaves nothing behind: the app's memory after one visit, and
+  // after two more (a leak grows with each)
+  const first = memoryAfterMap("after one visit to the map");
+  for (let i = 0; i < 2; i++) {
+    await page.touch(".card");
+    await page.waitFor(`document.querySelector('[data-screen="play"][data-map="ready"]')`, { timeoutMs: 60_000, what: "the map again" });
+    key("KEYCODE_BACK");
+    await page.waitFor(screen("map-menu"), { what: "the pause menu" });
+    await page.touch(id("map_exit"));
+    await onScreen("who-plays", "the menu's way out");
+  }
+  const third = memoryAfterMap("after three visits to the map");
+  if (first && third) check(third - first < 60_000, `three visits to the map do not grow the app's memory by 60 MB (${Math.round((third - first) / 1000)} MB)`);
+}
+
+/** The app's total PSS (KB) from dumpsys, printed; null if it cannot be read. */
+function memoryAfterMap(when) {
+  // let the closed map's GPU and canvas memory go
+  try {
+    adb("shell", "am", "send-trim-memory", PACKAGE, "RUNNING_LOW");
+  } catch {
+    // older Android: no trim command
+  }
+  const info = adb("shell", "dumpsys", "meminfo", PACKAGE);
+  const total = /TOTAL PSS:\s+(\d+)/.exec(info) ?? /TOTAL\s+(\d+)/.exec(info);
+  const lines = info.split("\n").filter((l) => /TOTAL|Native Heap|Graphics|GL mtrack|EGL mtrack|WebViews|Views:/.test(l));
+  console.log(`app memory ${when}: ${total ? Math.round(Number(total[1]) / 1000) : "?"} MB\n${lines.join("\n")}`);
+  return total ? Number(total[1]) : null;
 }
 
 /** Back on every screen of the flow: one step back, never out of the app. */
