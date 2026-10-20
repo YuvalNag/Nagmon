@@ -5,7 +5,7 @@ import json
 import pytest
 from PIL import Image
 
-from tools.app import maps
+from tools.app import maps, overlays
 from tools.app.common import WORLD_MAPS
 
 # Every action and behaviour the converted events use. The TS event
@@ -115,15 +115,19 @@ def test_atlas_tiles_are_the_hd_tiles_with_their_edges_extruded(built, name):
     atlas = out.images[f"atlas/{name}.png"]
     frames = json.loads(out.data[f"atlas/{name}.json"])["frames"]
     sheets = {}
-    for frame in frames[::7]:
+    for frame in frames:
         ts = maps.load_tsx(
             maps.TUX / "gfx" / "tilesets" / f"{frame['tileset']}.tsx"
         )
         if ts.name not in sheets:
             sheets[ts.name] = Image.open(ts.hd_image).convert("RGBA")
         col, row = frame["tile"] % ts.columns, frame["tile"] // ts.columns
-        source = sheets[ts.name].crop(
-            (col * 64, row * 64, col * 64 + 64, row * 64 + 64)
+        source = overlays.apply(
+            ts.name,
+            frame["tile"],
+            sheets[ts.name].crop(
+                (col * 64, row * 64, col * 64 + 64, row * 64 + 64)
+            ),
         )
         x, y = frame["x"], frame["y"]
         assert atlas.crop((x, y, x + 64, y + 64)).tobytes() == source.tobytes()
@@ -273,3 +277,49 @@ def test_extruded_cell_repeats_the_tile_edges():
     assert cell.getpixel((0, 0)) == (255, 0, 0, 255)
     assert cell.getpixel((2, 0)) == (255, 0, 0, 255)
     assert cell.getpixel((67, 67)) == (10, 20, 30, 255)
+
+
+def test_teleport_actions_are_the_engine_ones():
+    assert set(maps.TELEPORTS) == {
+        "transition_teleport",
+        "teleport",
+        "set_teleport_faint",
+    }
+
+
+def healing_center_sign(built):
+    out, _ = built
+    frames = json.loads(out.data["atlas/classic_hearthrock_city.json"])
+    frame = next(
+        f
+        for f in frames["frames"]
+        if (f["tileset"], f["tile"]) == ("core_buildings", 351)
+    )
+    x, y = frame["x"], frame["y"]
+    return out.images["atlas/classic_hearthrock_city.png"].crop(
+        (x, y, x + 64, y + 64)
+    )
+
+
+def is_red(pixel):
+    r, g, b, _ = pixel
+    return r > 150 and g < 90 and b < 90
+
+
+def test_healing_center_sign_has_no_cross(built):
+    sign = healing_center_sign(built)
+    # The cross's arms: the top of the upright and both ends of the bar.
+    for point in [(31, 6), (32, 6), (18, 18), (45, 18)]:
+        assert not is_red(sign.getpixel(point)), point
+
+
+def test_healing_center_sign_shows_a_red_heart(built):
+    sign = healing_center_sign(built)
+    for point in [(25, 14), (39, 14), (32, 22), (32, 30)]:
+        assert is_red(sign.getpixel(point)), point
+
+
+def test_overlay_changes_only_its_own_tiles(built):
+    from tools.app import overlays
+
+    assert set(overlays.OVERLAYS) == {("core_buildings", 351)}

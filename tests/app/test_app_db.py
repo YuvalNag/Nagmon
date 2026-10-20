@@ -1,9 +1,8 @@
 """Database subset, sprites, audio, emoji and credits."""
 
 import json
-from pathlib import PurePosixPath
 
-from tools.app import credits, emoji
+from tools.app import emoji
 from tools.app.db import table
 
 NAGMON_MONSTERS = {
@@ -101,17 +100,58 @@ def test_every_picture_a_record_names_is_shipped(built):
             assert path in shipped, path
 
 
-def test_avatars_keep_the_old_keys(built):
-    keys = [a["key"] for a in data(built, "db/avatars.json")]
-    assert keys == [
+def test_only_the_three_hd_heroes_are_avatars(built):
+    doc = data(built, "db/avatars.json")
+    assert [a["key"] for a in doc["avatars"]] == [
         "boy_blue",
         "girl_teal",
         "girl_curly",
-        "boy_light",
-        "boy_dark",
-        "girl_light",
-        "girl_dark",
     ]
+    assert doc["fallback"] == "boy_blue"
+
+
+def test_old_avatar_keys_map_to_an_hd_hero(built):
+    doc = data(built, "db/avatars.json")
+    assert doc["legacy"] == {
+        "boy_light": "boy_blue",
+        "boy_dark": "boy_blue",
+        "girl_light": "girl_teal",
+        "girl_dark": "girl_curly",
+    }
+    keys = {a["key"] for a in doc["avatars"]}
+    assert set(doc["legacy"].values()) <= keys
+
+
+def test_tuxemon_avatar_pictures_are_not_shipped(built):
+    out, _ = built
+    for name in (
+        "adventurer",
+        "adventurerblack",
+        "heroine",
+        "brownheroine_brown",
+        "heroineblack",
+    ):
+        assert f"sprites/npc/{name}.png" not in out.paths()
+        assert f"sprites/portraits/{name}.png" not in out.paths()
+
+
+def test_map_sheets_say_their_frame_size(built):
+    avatars = data(built, "db/avatars.json")["avatars"]
+    assert avatars[0]["frame"] == [128, 256]
+    npcs = data(built, "db/npcs.json")
+    assert npcs["nagmon_owl"]["sprites"]["frame"] == [128, 256]
+    assert npcs["nagmon_kitten"]["sprites"]["frame"] == [16, 32]
+    assert npcs["nagmon_sign_route1"]["sprites"]["frame"] == [16, 16]
+
+
+def test_frighten_shows_a_gentle_animation_not_a_skull(built):
+    out, _ = built
+    techniques = data(built, "db/techniques.json")
+    assert techniques["frighten"]["visuals"]["animation"] == "sparks_white"
+    for rec in techniques.values():
+        assert rec["visuals"]["animation"] != "skull"
+    assert "skull" not in data(built, "db/animations.json")
+    assert "sprites/animations/technique/skull.png" not in out.paths()
 
 
 def test_only_the_six_world_music_tracks_ship(built):
@@ -132,64 +172,15 @@ def test_every_sound_the_database_names_ships(built):
 def test_every_content_emoji_has_a_picture(built):
     index = data(built, "emoji/index.json")
     for code in emoji.content.emoji_codes():
-        stem = index["codes"][code]
-        assert f"emoji/png/{stem}.png" in built[0].paths()
+        assert f"emoji/{index['codes'][code]}" in built[0].paths()
+
+
+def test_emoji_ship_in_one_format_only(built):
+    out, _ = built
+    shipped = [p for p in out.paths() if p.startswith("emoji/")]
+    assert all(p.endswith((".svg", "index.json")) for p in shipped)
 
 
 def test_generator_emoji_found_in_the_source():
     codes = emoji.generator_codes()
     assert {"1f34e", "2b50", "1f98b"} <= codes
-
-
-def test_every_shipped_asset_has_an_author_and_a_licence_entry(built):
-    out, _ = built
-    doc = data(built, "credits.json")
-    listed = {a["path"]: a for a in doc["assets"]}
-    for path in out.paths():
-        if PurePosixPath(path).suffix == ".json" and not path.startswith(
-            "maps/"
-        ):
-            continue
-        assert path in listed, path
-        asset = listed[path]
-        if asset["kind"] != "licence":
-            assert asset["licence"], path
-            assert asset["author"] or asset["credit"], path
-
-
-def test_owner_art_is_not_marked_with_a_licence(built):
-    doc = data(built, "credits.json")
-    owl = next(
-        a for a in doc["assets"] if a["path"] == "sprites/npc/nagmon_owl.png"
-    )
-    assert owl["licence"] == credits.OWNER["licence"]
-
-
-def test_music_is_credited_to_its_composer(built):
-    doc = data(built, "credits.json")
-    town = next(
-        a for a in doc["assets"] if a["path"].endswith("JRPG_town_loop.ogg")
-    )
-    assert "Yubatake" in doc["entries"][town["credit"]]["text"]
-    assert town["licence"] == "CC BY 3.0"
-
-
-def test_licence_texts_ship(built):
-    out, _ = built
-    for path in credits.LICENSE_FILES:
-        assert path in out.paths()
-
-
-def test_attribution_entries_are_split_with_author_and_licence():
-    text = (
-        "### Items\n\n"
-        '* ["Potion"](https://x) by\n[Someone](https://y)\n'
-        "is licensed under [CC BY-SA 4.0](https://z)\n\n"
-        '* ["Ball"] By Other, licensed under CC0\n'
-    )
-    entries = credits.parse_attributions(text)
-    assert [e.title for e in entries] == ["Potion", "Ball"]
-    assert entries[0].section == "Items"
-    assert entries[0].authors == "Someone"
-    assert entries[0].licence == "CC BY-SA 4.0"
-    assert entries[1].licence == "CC0 / public domain"

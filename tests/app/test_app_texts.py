@@ -1,6 +1,7 @@
 """Learning content and the message catalogues (he/en)."""
 
 import json
+import re
 
 import pytest
 
@@ -96,3 +97,80 @@ def test_po_reader_skips_fuzzy_and_empty_entries(tmp_path):
         encoding="utf-8",
     )
     assert i18n.load_po(po) == {"ok": "fine", "one": "1", "one#1": "n"}
+
+
+ENGINE_SCREENS = (
+    "combat_state",
+    "combat_menus",
+    "item_menu",
+    "technique_menu",
+    "evolution",
+    "transition_evolution",
+    "monster_info",
+    "monster_menu",
+    "level_up",
+    "journal_info",
+    "journal_state",
+)
+TRANSLATE_CALL = re.compile(
+    r"T\.(?:translate|format)\(\s*\"([a-z][a-z0-9_]*)\""
+)
+
+
+def engine_screen_msgids():
+    """Literal msgids the battle, item, evolution and journal screens show."""
+    root = i18n.REPO / "tuxemon"
+    files = [root / "states" / f"{name}.py" for name in ENGINE_SCREENS]
+    files += sorted((root / "combat").glob("*.py"))
+    base = set(i18n.load_po(i18n.TUX / "l18n/en_US/LC_MESSAGES/base.po"))
+    found = set()
+    for path in files:
+        found |= set(TRANSLATE_CALL.findall(path.read_text(encoding="utf-8")))
+    return found & base
+
+
+def test_engine_screen_texts_are_shipped(built):
+    he = data(built, "i18n/he.json")
+    wanted = engine_screen_msgids()
+    assert len(wanted) > 30
+    assert sorted(wanted - set(he)) == []
+
+
+@pytest.mark.parametrize(
+    "msgid",
+    [
+        "attempting_capture",
+        "gotcha",
+        "gotcha_team",
+        "gotcha_kennel",
+        "tuxemon_new_tech",
+        "evolution_confirmation",
+        "allow_evolution",
+        "evolution_ended",
+        "yes",
+        "no",
+        "item_cannot_use_here",
+        "item_no_available_target",
+        "melee",
+        "ranged",
+        "armour",
+        "dodge",
+        "speed",
+        "short_hp",
+        "exp_to_next_level",
+        "gender_male",
+        "gender_female",
+    ],
+)
+def test_texts_the_engine_shows_are_shipped(built, msgid):
+    assert msgid in data(built, "i18n/he.json")
+    assert msgid in data(built, "i18n/en.json")
+
+
+def test_every_monster_shape_has_a_text(built):
+    he = data(built, "i18n/he.json")
+    from tools.app.db import table
+
+    shapes = set(table("shape"))
+    assert len(shapes) == 14
+    assert shapes <= set(he)

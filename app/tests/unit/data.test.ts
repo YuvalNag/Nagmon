@@ -13,6 +13,7 @@ import {
   EVENT_BEHAVIORS,
   EVENT_CONDITIONS,
   type AtlasFile,
+  type AvatarsFile,
   type Catalogue,
   type Element,
   type Encounter,
@@ -182,6 +183,17 @@ describe("database", () => {
   it("has every technique of every moveset", () => {
     for (const m of Object.values(monsters)) {
       for (const move of m.moveset) expect(techniques).toHaveProperty(move.technique);
+    }
+  });
+
+  it("maps every old avatar key to a shipped hero", () => {
+    const file = read<AvatarsFile>("db/avatars.json");
+    const keys = file.avatars.map((a) => a.key);
+    expect(keys).toContain(file.fallback);
+    for (const hero of Object.values(file.legacy)) expect(keys).toContain(hero);
+    for (const a of file.avatars) {
+      expect(existsSync(GAME + a.map)).toBe(true);
+      expect(a.frame).toHaveLength(2);
     }
   });
 
