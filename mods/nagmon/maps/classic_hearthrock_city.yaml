@@ -3,6 +3,35 @@
 #
 # Rule of thumb: an event that hands over to the next step sets the
 # "next step" variable as its LAST action, so two dialogs never overlap.
+# Houses with no inside: their doors lead nowhere, so they are closed
+# (otherwise the hero walks in and stands on the roof).
+collisions:
+- type: collision
+  x: 5
+  y: 5
+  width: 1
+  height: 1
+- type: collision
+  x: 10
+  y: 5
+  width: 1
+  height: 1
+- type: collision
+  x: 15
+  y: 5
+  width: 1
+  height: 1
+- type: collision
+  x: 8
+  y: 13
+  width: 1
+  height: 1
+- type: collision
+  x: 13
+  y: 13
+  width: 1
+  height: 1
+
 events:
 
   # ------------------------------------------------------------ new game

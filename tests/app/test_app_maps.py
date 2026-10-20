@@ -323,3 +323,31 @@ def test_overlay_changes_only_its_own_tiles(built):
     from tools.app import overlays
 
     assert set(overlays.OVERLAYS) == {("core_buildings", 351)}
+
+
+@pytest.mark.parametrize("name", WORLD_MAPS)
+def test_no_door_gap_in_a_building_wall_leads_nowhere(built, name):
+    """
+    A free tile between walls is a door. If nothing teleports from it the
+    hero walks into the house body behind it, so it must be a wall (the
+    old game's houses without an inside).
+    """
+    doc = map_doc(built, name)
+    rows = prop(doc, "collision")["rows"]
+    doors = set()
+    for obj in layer(doc, "events")["objects"]:
+        script = obj["properties"][0]["value"]
+        if any(a["type"] == "transition_teleport" for a in script["actions"]):
+            for x in range(obj["x"] // 64, (obj["x"] + obj["width"]) // 64):
+                for y in range(
+                    obj["y"] // 64, (obj["y"] + obj["height"]) // 64
+                ):
+                    doors.add((x, y))
+    for y, row in enumerate(rows):
+        for x in range(2, len(row) - 2):
+            gap = (
+                row[x] == "."
+                and row[x - 2 : x] == "##"
+                and row[x + 1 : x + 3] == "##"
+            )
+            assert not gap or (x, y) in doors, (name, x, y)
