@@ -165,6 +165,22 @@ try {
   check(size.dir === "rtl", "right to left");
   check(size.heading === "מי משחק היום?", "Hebrew on a Hebrew phone");
   check(size.rubik, "the Rubik font is loaded");
+  if (!size.rubik) {
+    // why not: the faces the page knows, and whether the font file loads
+    console.log(
+      "fonts:",
+      JSON.stringify(
+        await page.eval(`Promise.all([...document.fonts].map(async (f) => {
+          try { await f.load(); } catch (e) { return [f.family, f.unicodeRange.slice(0, 20), "error " + e]; }
+          return [f.family, f.unicodeRange.slice(0, 20), f.status];
+        }))`),
+      ),
+    );
+    console.log("user agent:", await page.eval("navigator.userAgent"));
+  }
+  const screenSize = await page.eval("({ w: screen.width, h: screen.height, dpr: devicePixelRatio })");
+  console.log("screen", JSON.stringify(screenSize));
+  check(size.w * screenSize.dpr >= 2300, "the page covers the whole screen width (no bars, no cutout strip)");
   shot("a01_who_plays");
   await firstRun();
 } catch (e) {
