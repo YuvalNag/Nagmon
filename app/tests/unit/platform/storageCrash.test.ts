@@ -48,7 +48,9 @@ vi.mock("@capacitor/filesystem", () => {
       },
       async readdir({ path }: { path: string }) {
         await tick();
-        const names = [...disk.files.keys()].filter((f) => parent(f) === path).map((f) => f.slice(path ? path.length + 1 : 0));
+        const names = [...disk.files.keys()]
+          .filter((f) => parent(f) === path)
+          .map((f) => f.slice(path ? path.length + 1 : 0));
         return { files: names.map((name) => ({ name, type: "file", size: 0 })) };
       },
       async mkdir({ path }: { path: string }) {

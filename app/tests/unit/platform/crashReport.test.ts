@@ -70,6 +70,22 @@ describe("hiding keys", () => {
     expect(clean).toContain("Bearer ***");
   });
 
+  it("hides a saved key in any case, URL-encoded and in base64", () => {
+    const key = "s3cr3t+/=XYZ";
+    const b64 = btoa(key);
+    const text =
+      `raw=${key} upper=${key.toUpperCase()} enc=${encodeURIComponent(key)} ` +
+      `b64=${b64} nopad=${b64.replace(/=+$/, "")}`;
+    const clean = redactSecrets(text, [key]);
+    expect(clean).toBe("raw=*** upper=*** enc=*** b64=*** nopad=***");
+  });
+
+  it("hides a saved Hebrew key in base64 (UTF-8)", () => {
+    const key = "סודסודסוד123";
+    const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(key)));
+    expect(redactSecrets(`x ${b64} y`, [key])).toBe("x *** y");
+  });
+
   it("hides saved keys even without a known shape", () => {
     const clean = redactSecrets("key is plainsecret123456", ["plainsecret123456"]);
     expect(clean).not.toContain("plainsecret123456");

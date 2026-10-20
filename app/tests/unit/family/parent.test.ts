@@ -306,7 +306,7 @@ describe("PIN, from the review of app/family", () => {
     expect(store.settings.failedAttempts).toBe(1);
   });
 
-  it.each([0, -5, 1.5, 1000, 1e9])("a file with %d iterations drops the PIN instead of locking the parent out", async (n) => {
+  it.each([0, -5, 1.5, 1000, 1e9])("a file with %d iterations drops the PIN (no lock-out for good)", async (n) => {
     await store.setPin("1234");
     const data = (await readJson(fs, "parent.json")).data!;
     await writeJson(fs, "parent.json", { ...data, pin_iterations: n });

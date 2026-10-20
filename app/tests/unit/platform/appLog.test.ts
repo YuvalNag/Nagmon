@@ -5,6 +5,22 @@
  * opens again.
  */
 import { afterEach, describe, expect, it, vi } from "vitest";
+
+const app = vi.hoisted(() => ({
+  native: false,
+  listeners: new Map<string, () => void>(),
+  removed: [] as string[],
+}));
+
+vi.mock("@capacitor/core", () => ({ Capacitor: { isNativePlatform: () => app.native } }));
+vi.mock("@capacitor/app", () => ({
+  App: {
+    async addListener(event: string, fn: () => void) {
+      app.listeners.set(event, fn);
+      return { remove: async () => void app.removed.push(event) };
+    },
+  },
+}));
 import {
   LOG_FILE,
   MAX_LINES,
@@ -128,6 +144,39 @@ describe("ring log", () => {
 });
 
 describe("the log file", () => {
+  it("keeps the previous log as .bak", async () => {
+    const fs = new MemoryFileStore();
+    const r = ring();
+    r.log("nagmon.x", "INFO", "one");
+    await r.save(fs, "app_log.txt", { ending: "exit" });
+    r.log("nagmon.x", "INFO", "two");
+    await r.save(fs, "app_log.txt", { ending: "exit" });
+    expect(await fs.readText("app_log.txt.bak")).not.toContain("two");
+    expect(await fs.readText("app_log.txt")).toContain("two");
+    expect(await fs.stat("app_log.txt.tmp")).toBeNull();
+  });
+
+  it("a save cut short is read from the .tmp, then from the .bak", async () => {
+    const fs = new MemoryFileStore();
+    await fs.writeText("app_log.txt.bak", "older\n--- saved: exit\n");
+    await fs.writeText("app_log.txt.tmp", "newer\n--- saved: background\n");
+    const a = new RingLog({ clock });
+    expect(await a.load(fs, "app_log.txt")).toBe("background");
+    expect(a.lines()[0]).toBe("newer");
+    await fs.remove("app_log.txt");
+    await fs.remove("app_log.txt.tmp");
+    const b = new RingLog({ clock });
+    expect(await b.load(fs, "app_log.txt")).toBe("exit");
+    expect(b.lines()[0]).toBe("older");
+  });
+
+  it("a huge message does not overflow the stack and keeps the end", () => {
+    const r = ring();
+    r.log("nagmon.x", "WARNING", Array.from({ length: 300_000 }, (_, i) => `l${i}`).join("\n"));
+    expect(r.lines()).toHaveLength(400);
+    expect(r.lines().at(-1)).toBe("l299999");
+  });
+
   it("is saved and loaded with the way the session ended", async () => {
     const fs = new MemoryFileStore();
     const r = ring();
@@ -249,6 +298,28 @@ describe("the app's log", () => {
       expect((await fs.readText(LOG_FILE))!.trimEnd().endsWith("--- saved: exit")).toBe(true);
     });
     unbind();
+  });
+
+  it("on the phone, the app's pause event saves the log", async () => {
+    app.native = true;
+    app.listeners.clear();
+    app.removed = [];
+    try {
+      const fs = new MemoryFileStore();
+      await installAppLog(fs, { clock });
+      const doc = Object.assign(new EventTarget(), { visibilityState: "visible" });
+      const unbind = bindLifecycleSaves({ document: doc, window: new EventTarget() });
+      await vi.waitFor(() => expect(app.listeners.has("pause")).toBe(true));
+      getLogger("nagmon.x").info("before pause");
+      app.listeners.get("pause")!();
+      await vi.waitFor(async () => {
+        expect((await fs.readText(LOG_FILE)) ?? "").toContain("--- saved: background");
+      });
+      unbind();
+      await vi.waitFor(() => expect(app.removed).toEqual(["pause"]));
+    } finally {
+      app.native = false;
+    }
   });
 
   it("other code's console warnings and errors reach the log", async () => {

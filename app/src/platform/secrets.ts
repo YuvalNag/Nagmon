@@ -121,8 +121,13 @@ export class KeystoreSecretStore implements SecretStore {
   async values(): Promise<string[]> {
     const out: string[] = [];
     for (const name of await this.names()) {
-      const v = await this.get(name);
-      if (v) out.push(v);
+      // One unreadable entry must not leave every other key unhidden.
+      try {
+        const v = await this.get(name);
+        if (v) out.push(v);
+      } catch {
+        // skip it
+      }
     }
     return out;
   }
