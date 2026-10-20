@@ -935,7 +935,7 @@ terms:
 - en: Fossil
   he: מאובן
   cat: item
-  note: '''Shammer Fossil'' = ''מאובן שאמר'' (שם המפלצת נשאר באנגלית: ''מאובן Shammer'')'
+  note: '''Shammer Fossil'' = ''מאובן Shammer'' (Shammer אינו בעולם של נגמון ולכן נשאר באנגלית; מפלצת מהעולם של נגמון בשמה העברי)'
 - en: Pass
   he: כרטיס
   cat: item
@@ -1123,9 +1123,9 @@ terms:
   keys:
   - level_beginner
 - en: Monster names (aardart...)
-  he: נשארים באנגלית
+  he: בעולם של נגמון בעברית, והשאר באנגלית
   cat: name
-  note: 'מועתקים כמו שהם (auto_keep_en.json). בתוך משפט עברי: ''ל-Aardart''.'
+  note: '41 המפלצות שילד פוגש מקבלות שם עברי ב־nagmon.po (Agnite = אגנייט, Flaskling = מבחנון, Cardinale = שירונית), וגם התיאורים שלהן משתמשים בשם העברי (SDD_ANDROID §2.7). השאר מועתקים כמו שהם (auto_keep_en.json). בתוך משפט עברי: ''ל-Aardart''.'
   keys:
   - aardart
 - en: NPC person names

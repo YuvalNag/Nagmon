@@ -74,6 +74,9 @@ class GameConfig(BaseModel):
     save_slots: int = 6
     save_slots_per_page: int = 3
     locale: str = "en_US"
+    #: The player picked the language (the language screen). Until then a
+    #: phone speaks Hebrew whatever ``locale`` says (SDD_ANDROID §2.7).
+    locale_chosen: bool = False
     translation_mode: str = "none"
     font_file: str = "PressStart2P.ttf"
     language_font: str = "PressStart2P.ttf"
@@ -179,6 +182,10 @@ class TuxemonConfig:
                     defaults.update(loaded_config[category])
                 elif category in loaded_config:
                     config_data[category] = loaded_config[category]
+        if mobile.is_android():
+            mobile.phone_language(
+                config_data, LOCALE_FONT_MAP[mobile.PHONE_LOCALE]
+            )
 
         # Validate merged config
         try:
@@ -435,11 +442,14 @@ class TuxemonConfig:
         game.thin_font_file = fonts[1]
         game.minimal_font_file = fonts[2]
 
-    def update_locale(self, value: str) -> None:
+    def update_locale(self, value: str, *, chosen: bool = False) -> None:
         """
-        Updates the locale and applies derived font logic.
+        Updates the locale and applies derived font logic. ``chosen``: the
+        player picked it, and a phone keeps it (SDD_ANDROID §2.7).
         """
         self.config_model.game.locale = value
+        if chosen:
+            self.config_model.game.locale_chosen = True
 
         font_file, thin_font, minimal_font = LOCALE_FONT_MAP.get(
             value, LOCALE_FONT_MAP["default"]

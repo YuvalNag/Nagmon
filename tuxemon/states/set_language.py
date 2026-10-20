@@ -13,6 +13,7 @@ from tuxemon.menu.menu import PygameMenuState
 from tuxemon.menu.theme import get_theme
 from tuxemon.menu.transitions import PopInClamped
 from tuxemon.session import local_session
+from tuxemon.user_config import CONFIG
 
 if TYPE_CHECKING:
     from tuxemon.base_client import BaseClient
@@ -47,8 +48,12 @@ class SetLanguage(PygameMenuState):
 
     def change_language(self, locale: str) -> None:
         # fonts first, so language-changed callbacks (theme cache reset)
-        # rebuild with the new language's font
-        self.client.config.update_locale(locale)
+        # rebuild with the new language's font. The player chose: a phone
+        # keeps it. The global config too, which T.change_language saves
+        # over the client's copy (SDD_ANDROID §2.7).
+        self.client.config.update_locale(locale, chosen=True)
+        if CONFIG is not self.client.config:
+            CONFIG.update_locale(locale, chosen=True)
         T.change_language(locale)
         self.client.remove_state_by_name("SetLanguage")
         if self.main_menu:
