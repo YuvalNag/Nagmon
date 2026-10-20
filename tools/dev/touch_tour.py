@@ -386,7 +386,15 @@ if rt.engine is not None:
         step(20)
         check("QuizState" not in names(), "tap on continue closes it")
     else:
+        # other kinds (a number pad, letters...) are answered directly:
+        # the quiz must close, or the title's buttons stay under it
         print("question kind:", q.kind if q else None)
+        if q is not None:
+            quiz.answer(q.answer)
+            step(20)
+            tap_widget("QuizState", "continue")
+            step(20)
+        check("QuizState" not in names(), "the question closes")
 
 shot("t05_title")
 
