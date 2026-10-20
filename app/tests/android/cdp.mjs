@@ -13,6 +13,8 @@ export class WebViewPage {
   #ws;
   #next = 1;
   #waiting = new Map();
+  /** Uncaught errors and console errors and warnings, as the page reported them. */
+  problems = [];
 
   static async attach(pkg, { port = 9222, timeoutMs = 60_000 } = {}) {
     // pidof exits 1 while the app is still starting: that is "not yet"
@@ -34,6 +36,9 @@ export class WebViewPage {
         if (page) {
           const self = new WebViewPage();
           await self.#open(page.webSocketDebuggerUrl);
+          // the console from the page's start: Runtime.enable replays what
+          // was logged before DevTools attached
+          await self.send("Runtime.enable");
           return self;
         }
       }
@@ -53,6 +58,7 @@ export class WebViewPage {
       this.#ws.onerror = (e) => reject(new Error(`DevTools socket: ${e.message ?? e.type}`));
       this.#ws.onmessage = (m) => {
         const msg = JSON.parse(m.data);
+        if (msg.method) return this.#event(msg.method, msg.params);
         const done = this.#waiting.get(msg.id);
         if (!done) return;
         this.#waiting.delete(msg.id);
@@ -60,6 +66,16 @@ export class WebViewPage {
         else done.resolve(msg.result);
       };
     });
+  }
+
+  #event(method, params) {
+    if (method === "Runtime.exceptionThrown") {
+      const d = params.exceptionDetails;
+      this.problems.push(`uncaught: ${d.exception?.description ?? d.text}`);
+    } else if (method === "Runtime.consoleAPICalled" && ["error", "warning", "assert"].includes(params.type)) {
+      const text = params.args.map((a) => a.value ?? a.description ?? a.type).join(" ");
+      this.problems.push(`console.${params.type}: ${text}`);
+    }
   }
 
   send(method, params = {}) {

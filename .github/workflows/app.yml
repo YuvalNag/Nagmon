@@ -77,6 +77,22 @@ jobs:
     - name: Build the APK
       working-directory: app/android
       run: ./gradlew --no-daemon assembleDebug
+    # docs/app/SDD.md §10: no lint errors (each warning kept is explained
+    # in app/android/app/lint.xml)
+    - name: Android Lint
+      working-directory: app/android
+      run: |
+        status=0
+        ./gradlew --no-daemon :app:lintDebug || status=$?
+        cat app/build/reports/lint-results-debug.txt || true
+        exit $status
+    - name: Privacy and build (merged manifest, libraries, 64-bit)
+      run: |
+        (cd android && ./gradlew --no-daemon -q :app:dependencies --configuration debugRuntimeClasspath \
+          && ./gradlew --no-daemon -q :app:dependencies --configuration releaseRuntimeClasspath) > runtime-deps.txt
+        node tests/android/buildCheck.mjs \
+          android/app/build/intermediates/merged_manifests/debug/processDebugManifest/AndroidManifest.xml \
+          android/app/build/outputs/apk/debug/app-debug.apk runtime-deps.txt package-lock.json
     - uses: actions/upload-artifact@v4
       with:
         name: nagmon-app-apk-${{ github.run_number }}
@@ -86,7 +102,7 @@ jobs:
   emulator:
     needs: apk
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 50
     steps:
     - uses: actions/checkout@v6
     - uses: actions/setup-node@v6
