@@ -109,6 +109,11 @@ export class WebViewPage {
    * DevTools went straight into the page and passed under that notice.
    */
   async touch(selector, holdMs = 120) {
+    // a press right as a screen appears is ignored (src/ui/screenTime.tsx):
+    // wait, like a child would, until the screen has been up a moment
+    await this.waitFor("performance.now() - (window.__screenShownAt ?? -1e9) >= 300", {
+      what: "the screen to settle",
+    });
     const box = await this.eval(`(() => {
       const e = document.querySelector(${JSON.stringify(selector)});
       if (!e) return null;

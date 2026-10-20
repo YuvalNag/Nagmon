@@ -13,6 +13,8 @@ import { join } from "node:path";
 import { WebViewPage } from "./cdp.mjs";
 
 const PACKAGE = "org.nagmon.app";
+// docs/app/SDD.md §5: on the emulator a tap shows within 300 ms
+const MAX_TAP_MS = 300;
 const apk = process.argv[2];
 const out = process.argv[3] ?? "android-e2e";
 mkdirSync(out, { recursive: true });
@@ -117,12 +119,8 @@ const screen = (name) => `document.querySelector('[data-screen="${name}"]')`;
 /** The first run, by touch: the parent code, a child's name, grade, hero. */
 async function firstRun() {
   await page.touch(id("new_child"));
-  try {
-    await page.waitFor(screen("pin"), { timeoutMs: 3000 });
-  } catch {
-    console.log("this build has no first-run screens yet");
-    return;
-  }
+  // the first-run screens are in this build: no pad is a failure
+  await page.waitFor(screen("pin"), { timeoutMs: 5000, what: "the parent code pad after '+ new player'" });
   shot("a02_pin");
   for (const d of "12341234") await page.touch(id(`key_${d}`));
   await page.waitFor(screen("notice"), { what: "the code is saved" });
@@ -148,8 +146,13 @@ async function firstRun() {
   const cards = await page.eval(`[...document.querySelectorAll(".card")].map((c) => c.textContent)`);
   check(JSON.stringify(cards) === JSON.stringify(["נועה"]), "the child is on who-plays");
   shot("a05_child");
+  // the app's own measure (src/platform/tapTiming.ts): finger lift to the
+  // next drawn frame, for the last 50 taps
   const times = await page.eval("window.__responses ?? []");
-  if (times.length) console.log("tap to screen change, ms:", times.map(Math.round).join(" "));
+  console.log("tap to drawn frame, ms:", times.map(Math.round).join(" ") || "none");
+  check(times.length >= 15, `the app measured the taps (${times.length})`);
+  const slow = Math.max(0, ...times);
+  check(slow <= MAX_TAP_MS, `every tap showed within ${MAX_TAP_MS} ms (slowest ${Math.round(slow)} ms)`);
 }
 
 try {
