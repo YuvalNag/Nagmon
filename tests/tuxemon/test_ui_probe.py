@@ -197,11 +197,11 @@ def test_a_broken_snapshot_never_stops_the_game():
 
 @pytest.fixture
 def phone_hebrew(monkeypatch):
+    import pygame_menu.font
+
     from tuxemon.locale.locale import T
     from tuxemon.ui import bidi
     from tuxemon.user_config import CONFIG
-
-    import pygame_menu.font
 
     pygame.init()
     # an earlier test may have closed pygame's fonts under the cache

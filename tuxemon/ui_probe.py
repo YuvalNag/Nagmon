@@ -49,7 +49,7 @@ Rect4 = list[int]
 
 
 def _android_intent_flag() -> bool:
-    from jnius import autoclass  # type: ignore[import-not-found]
+    from jnius import autoclass
 
     activity = autoclass("org.kivy.android.PythonActivity").mActivity
     intent = activity.getIntent()
@@ -60,7 +60,7 @@ def _android_intent_flag() -> bool:
 
 
 def _android_external_dir() -> Path | None:
-    from jnius import autoclass  # type: ignore[import-not-found]
+    from jnius import autoclass
 
     activity = autoclass("org.kivy.android.PythonActivity").mActivity
     folder = activity.getExternalFilesDir(None)
@@ -224,12 +224,14 @@ def snapshot(
 ) -> dict[str, Any]:
     """What is on the screen now, as plain data."""
     states = list(client.active_states)
-    logical = tuple(client.context.resolution)
+    lw, lh = client.context.resolution
+    logical = (int(lw), int(lh))
     if window is None:
         import pygame
 
         try:
-            window = tuple(pygame.display.get_window_size())
+            ww, wh = pygame.display.get_window_size()
+            window = (int(ww), int(wh))
         except Exception:
             window = logical
     mapping = screen_mapping(logical, window)
