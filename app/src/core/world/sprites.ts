@@ -8,18 +8,42 @@ import type { Dir } from "./grid";
 
 export interface Sheet {
   url: string;
+  /** One frame, in the sheet's own (HD) pixels. */
   frameWidth: number;
   frameHeight: number;
+  /** How many sheet pixels make one 1x Tuxemon pixel (the build's `scale`), if the record says. */
+  scale: number | null;
+}
+
+interface SheetRecord {
+  map: string;
+  frame: [number, number];
+  scale?: number;
+}
+
+function sheetOf(r: SheetRecord): Sheet {
+  return { url: `game/${r.map}`, frameWidth: r.frame[0], frameHeight: r.frame[1], scale: r.scale ?? null };
+}
+
+/**
+ * How big a frame is drawn on the map, in world pixels (an atlas tile is
+ * `tileSize` of them, `sourceTile` 1x pixels). With the record's `scale`
+ * the frame keeps its 1x size (a 16x32 hero is a tile wide, two tall);
+ * without one, the frame is a tile wide.
+ */
+export function worldSize(sheet: Sheet, tileSize: number, sourceTile: number): { width: number; height: number } {
+  const width = sheet.scale ? (sheet.frameWidth / sheet.scale) * (tileSize / sourceTile) : tileSize;
+  return { width, height: (width * sheet.frameHeight) / sheet.frameWidth };
 }
 
 interface AvatarsDb {
-  avatars: { key: string; map: string; frame: [number, number] }[];
+  avatars: ({ key: string } & SheetRecord)[];
   legacy: Record<string, string>;
   fallback: string;
 }
 
 interface NpcsDb {
-  [slug: string]: { sprites?: { map: string; frame: [number, number] } };
+  [slug: string]: { sprites?: SheetRecord };
 }
 
 const ROWS: Readonly<Record<Dir, number>> = { down: 0, left: 1, right: 2, up: 3 };
@@ -27,13 +51,12 @@ const ROWS: Readonly<Record<Dir, number>> = { down: 0, left: 1, right: 2, up: 3 
 /** The map sheet of the hero a profile's avatar key draws (old keys and unknown ones too). */
 export function avatarSheet(db: AvatarsDb, key: string): Sheet {
   const want = db.avatars.find((a) => a.key === key) ? key : (db.legacy[key] ?? db.fallback);
-  const a = db.avatars.find((x) => x.key === want) ?? db.avatars[0];
-  return { url: `game/${a.map}`, frameWidth: a.frame[0], frameHeight: a.frame[1] };
+  return sheetOf(db.avatars.find((x) => x.key === want) ?? db.avatars[0]);
 }
 
 export function npcSheet(db: NpcsDb, slug: string): Sheet | null {
   const s = db[slug]?.sprites;
-  return s ? { url: `game/${s.map}`, frameWidth: s.frame[0], frameHeight: s.frame[1] } : null;
+  return s ? sheetOf(s) : null;
 }
 
 /**

@@ -88,6 +88,8 @@ export interface WorldMap {
   width: number;
   height: number;
   tileSize: number;
+  /** The tile in 1x Tuxemon pixels (`source_tile_size`), if the map says. */
+  sourceTile: number | null;
   collision: CollisionGrid;
   /** The music slug the map plays (db/music.json), if any. */
   music: string | null;
@@ -220,6 +222,7 @@ export function readMap(name: string, json: TiledMap, state: WorldState = NEW_GA
     width: json.width,
     height: json.height,
     tileSize: tile,
+    sourceTile: typeof prop("source_tile_size") === "number" ? (prop("source_tile_size") as number) : null,
     collision,
     music,
     start,

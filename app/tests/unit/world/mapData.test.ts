@@ -9,7 +9,7 @@ describe("Hearthrock, as the build converted it", () => {
   const city = load("classic_hearthrock_city");
 
   it("is 40x20 tiles of 64 px, with the town music", () => {
-    expect([city.width, city.height, city.tileSize]).toEqual([40, 20, 64]);
+    expect([city.width, city.height, city.tileSize, city.sourceTile]).toEqual([40, 20, 64, 16]);
     expect(city.music).toBe("music_town_theme");
   });
 
