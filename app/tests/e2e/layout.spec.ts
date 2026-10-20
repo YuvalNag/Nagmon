@@ -159,7 +159,8 @@ for (const size of SIZES) {
       await expect(page.locator("[data-screen=who-plays]")).toBeVisible();
       // a child's card still opens
       await touch(page, page.locator(id("child_p00007")), 30);
-      await expect(page.locator("[data-screen=play]")).toContainText("חן");
+      // the map opens with the child's name on it (Phaser loads on demand)
+      await expect(page.locator("[data-screen=play][data-map=ready]")).toContainText("חן", { timeout: 20_000 });
     });
   });
 }

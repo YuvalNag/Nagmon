@@ -334,6 +334,122 @@ const LAYOUT_PROBLEMS = `(() => {
   return out;
 })()`;
 
+/**
+ * Milestone M3 on the phone's own WebView: the child's card opens the
+ * map, a held arrow walks the hero (`adb shell input swipe` in place, as
+ * a thumb holds it), the software-drawn map lowers its resolution, and
+ * Android's back opens and closes the pause menu, never leaving the app.
+ * It ends back on who-plays, through the menu.
+ */
+async function mapWalk() {
+  const map = "window.__nagmonMap?.debug()";
+  // measured afresh: a step kept from an earlier run must not pass the check below
+  await page.eval(`(localStorage.removeItem("nagmon.map.renderDpr"), localStorage.removeItem("nagmon.map.adaptiveResolution"), true)`);
+  await page.touch(".card");
+  await page.waitFor(`document.querySelector('[data-screen="play"][data-map="ready"]') && ${map}?.ready`, {
+    timeoutMs: 60_000,
+    what: "the map after the child's card",
+  });
+  await sleep(1000);
+  shot("a06_map");
+  const d = await page.eval(map);
+  console.log(
+    `map: ${d.map}, ${d.renderer}, canvas ${d.canvas.width}x${d.canvas.height} for ${d.canvas.cssWidth.toFixed(1)}x${d.canvas.cssHeight.toFixed(1)} CSS px at DPR ${d.dpr}, zoom ${d.zoom}`,
+  );
+  console.log("map drawn sizes:", d.scales.map((s) => `${s.what} ${s.texels}->${s.devicePx.toFixed(1)} (${s.ratio.toFixed(2)}x, ${s.filter})`).join("; "));
+  check(d.map === "classic_hearthrock_city", "the map is Hearthrock");
+  check(d.player.x === 29 && d.player.y === 16, `the hero starts at (29,16) (${d.player.x},${d.player.y})`);
+  check(d.resolution.start === "screen", `the map starts at the screen's pixels, nothing kept (${d.resolution.start})`);
+  // the canvas draws at its resolution: the screen's own pixels, or a step
+  // lower on a phone too slow for them (src/game/resolution.ts)
+  const k = d.resolution.dpr;
+  console.log(`map resolution: ${k} canvas px per CSS px (screen ${d.dpr}), steps ${d.resolution.steps.join(" ")}`);
+  check(
+    Math.abs(d.canvas.width - d.canvas.cssWidth * k) <= 1 && Math.abs(d.canvas.height - d.canvas.cssHeight * k) <= 1,
+    `the map's canvas has the pixels of its resolution (${d.canvas.width}x${d.canvas.height})`,
+  );
+  // measured from the canvas as it is: its whole-pixel size (915.05 CSS px
+  // x 2 is a 1830 px canvas) moves the ratio by a few hundredths of a percent
+  const SCALE_SLACK = 1.005;
+  const worst = Math.max(...d.scales.map((s) => s.ratio));
+  check(d.scales.length > 0 && worst <= 2 * SCALE_SLACK, `no picture over twice its pixels (largest ${worst.toFixed(4)}x)`);
+
+  // a thumb held on the left arrow for 1.5 s
+  const start = d.player;
+  await page.touch('[data-id="dpad_left"]', 1500);
+  await page.waitFor(`${map} && !${map}.player.moving`, { what: "the hero to stop" });
+  const after = (await page.eval(map)).player;
+  console.log(`held left 1.5 s: from (${start.x},${start.y}) to (${after.x},${after.y})`);
+  check(after.x < start.x && after.y === start.y, "a held arrow walks the hero left");
+  check(after.x <= start.x - 2, `it walks on while held (${start.x - after.x} tiles)`);
+  shot("a07_map_walked");
+  // a slow window takes 1 s of warm-up and 3 s of frames
+  try {
+    await page.waitFor(`${map}.resolution.changes.length > 0 || ${map}.frames.avgFps >= 45`, {
+      timeoutMs: 20_000,
+      what: "the map to measure its speed",
+    });
+  } catch {
+    // the check below says what happened
+  }
+  shot("a07b_map_resolution");
+  const later = await page.eval(map);
+  const frames = later.frames;
+  console.log(
+    `map frames (emulator, software GL): ${frames.avgFps.toFixed(1)} fps on average, slowest ${Math.round(frames.slowestMs)} ms, ${frames.slow} over 50 ms (${frames.frames} frames)`,
+  );
+  console.log("map resolution changes:", JSON.stringify(later.resolution.changes));
+  // software GL here is far under 45 fps: the map tries fewer pixels
+  check(frames.avgFps >= 45 || later.resolution.changes.length > 0, `a slow map tries a lower resolution (now ${later.resolution.dpr})`);
+  const largest = Math.max(...later.scales.map((s) => s.ratio));
+  check(largest <= 2 * SCALE_SLACK, `still no picture over twice its pixels (largest ${largest.toFixed(4)}x)`);
+
+  // Android's back on the map: the pause menu, and back again closes it
+  key("KEYCODE_BACK");
+  await page.waitFor(screen("map-menu"), { what: "the pause menu after back" });
+  check((await page.eval(`${map}.paused`)).includes("menu"), "back on the map pauses it");
+  // the emulator draws in software: give the overlay time to reach the screen
+  await sleep(1500);
+  shot("a08_map_menu");
+  key("KEYCODE_BACK");
+  await page.waitFor(`!${screen("map-menu")}`, { what: "the menu to close on a second back" });
+  check(await page.eval(`Boolean(${screen("play")})`), "the map stays open: back never leaves the app");
+  check((await page.eval(`${map}.paused`)).length === 0, "closing the menu lets the map run again");
+  // out through the menu, for the parts after this one
+  key("KEYCODE_BACK");
+  await page.waitFor(screen("map-menu"), { what: "the pause menu" });
+  await page.touch(id("map_exit"));
+  await onScreen("who-plays", "the menu's way out");
+  // the map leaves nothing behind: the app's memory after one visit, and
+  // after two more (a leak grows with each)
+  const first = memoryAfterMap("after one visit to the map");
+  for (let i = 0; i < 2; i++) {
+    await page.touch(".card");
+    await page.waitFor(`document.querySelector('[data-screen="play"][data-map="ready"]')`, { timeoutMs: 60_000, what: "the map again" });
+    key("KEYCODE_BACK");
+    await page.waitFor(screen("map-menu"), { what: "the pause menu" });
+    await page.touch(id("map_exit"));
+    await onScreen("who-plays", "the menu's way out");
+  }
+  const third = memoryAfterMap("after three visits to the map");
+  if (first && third) check(third - first < 60_000, `three visits to the map do not grow the app's memory by 60 MB (${Math.round((third - first) / 1000)} MB)`);
+}
+
+/** The app's total PSS (KB) from dumpsys, printed; null if it cannot be read. */
+function memoryAfterMap(when) {
+  // let the closed map's GPU and canvas memory go
+  try {
+    adb("shell", "am", "send-trim-memory", PACKAGE, "RUNNING_LOW");
+  } catch {
+    // older Android: no trim command
+  }
+  const info = adb("shell", "dumpsys", "meminfo", PACKAGE);
+  const total = /TOTAL PSS:\s+(\d+)/.exec(info) ?? /TOTAL\s+(\d+)/.exec(info);
+  const lines = info.split("\n").filter((l) => /TOTAL|Native Heap|Graphics|GL mtrack|EGL mtrack|WebViews|Views:/.test(l));
+  console.log(`app memory ${when}: ${total ? Math.round(Number(total[1]) / 1000) : "?"} MB\n${lines.join("\n")}`);
+  return total ? Number(total[1]) : null;
+}
+
 /** Back on every screen of the flow: one step back, never out of the app. */
 async function backEverywhere() {
   const pid = pidOf();
@@ -372,7 +488,18 @@ async function backEverywhere() {
   check(both.length === 2 && both.includes("נועה") && both.includes("דן"), `both children on who-plays (${both.join(", ")})`);
   await page.touch(".card");
   await onScreen("play", "a child's card opens");
-  await back("the child's screen", "who-plays");
+  // on the map back opens the pause menu, and back again closes it
+  key("KEYCODE_BACK");
+  await page.waitFor(screen("map-menu"), { what: "back on the map opens its menu" });
+  check(true, "back on the map opens its pause menu");
+  key("KEYCODE_BACK");
+  await page.waitFor(`!${screen("map-menu")}`, { what: "back on the menu closes it" });
+  check((await shown()) === "play", "back on the map's menu closes it, on the map");
+  // the menu's way out goes to who-plays
+  key("KEYCODE_BACK");
+  await page.waitFor(screen("map-menu"), { what: "the map's menu" });
+  await page.touch(id("map_exit"));
+  await onScreen("who-plays", "the map's menu leads out to");
   await page.touch(id("parents"));
   await typeCode();
   await onScreen("parents", "the code opens the parents' area");
@@ -770,6 +897,7 @@ await part("first run", async () => {
 });
 if (started) {
   calibration = page.offset;
+  await part("map", mapWalk);
   await part("back on every screen", backEverywhere);
   await part("home and back", homeAndBack);
   await part("killed in the background", killedInBackground);

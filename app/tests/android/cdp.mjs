@@ -33,6 +33,9 @@ function within(promise, ms, what) {
 /** A dropped or closed socket, which one reconnect may fix. */
 class SocketDropped extends Error {}
 
+/** Chromium's notes when WebGL is drawn in software: not the app's (tests/e2e/fixtures.ts). */
+export const ALLOWED = [/GPU stall due to ReadPixels/, /GL Driver Message/];
+
 export class WebViewPage {
   #ws = null;
   #next = 1;
@@ -128,6 +131,8 @@ export class WebViewPage {
   }
 
   #problem(text) {
+    // Chromium's own notes on software-drawn WebGL (as tests/e2e/fixtures.ts)
+    if (ALLOWED.some((a) => a.test(text))) return;
     // a reconnect replays the console: each message once
     if (this.#seen.has(text)) return;
     this.#seen.add(text);

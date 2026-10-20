@@ -38,6 +38,18 @@ export const he = {
   delete: "מחק",
   switchPlayer: "החלפת שחקן",
   hello: "שלום, {name}!",
+  mapLoading: "המפה נפתחת...",
+  mapFailed: "המפה לא נפתחה. נסו שוב.",
+  mapClosedWay: "הדרך הזאת עוד סגורה. יש עוד הרבה לראות בעיר!",
+  mapMenu: "תפריט",
+  mapPaused: "המשחק עצר",
+  mapContinue: "המשך לשחק",
+  mapToWhoPlays: "חזרה למי משחק",
+  dpad: "חצים ללכת",
+  up: "למעלה",
+  down: "למטה",
+  left: "שמאלה",
+  right: "ימינה",
 } as const;
 
 export type TextKey = keyof typeof he;

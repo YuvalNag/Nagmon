@@ -304,10 +304,10 @@ Each frame is scaled on its own, inside a 2 px frame of its own edge pixels, so 
 |---|---|---|---|
 | Monster sheets (29 Tuxemon; the 12 Nagmon ones are already ×3) | ×3, 384×264 | battle 6 (a 384 px frame); menu icon 132 px | 2.0, 1.83 |
 | Technique and capture animations (85) | ×4; strips wider than 4096 wrap into rows (`frames`, `columns`) | battle 6 | 1.5 |
-| Map animation `grass`, `rockitten` map sheet, `sign`, `nagmon_wallet` | ×4 (the tiles' scale) | map 7 (a 16 px tile is 112 px) | 1.75 |
+| Map animation `grass`, `rockitten` map sheet, `sign`, `nagmon_wallet` | ×4 (the tiles' scale) | map 8 (a 16 px tile is 128 px: a whole zoom of 2 over the ×4 atlas) | 2.0 |
 | Items (6), type icons (13): 24 px | ×4, 96 px | 48 dp = 132 px | 1.38 |
 | Battle backgrounds, HUD, trays, party icons, islands | ×6 (one `scale` per environment) | background covers the screen (10); the rest battle 6 | 1.67; 1.0 |
-| Nagmon HD map sheets (k=8), portraits (k=3), hero cards, atlases | as they are | map 7; battle 6; card 26vh | 0.88; 2.0; 1.48; 1.75 |
+| Nagmon HD map sheets (k=8), portraits (k=3), hero cards, atlases | as they are | map 8; battle 6; card 26vh | 1.0; 2.0; 1.48; 2.0 |
 
 - The records say each picture's scale (`db.py` docstring): monster `sprites.scale`, map `scale` and `frame`, `portrait_scale`, `sprite_scale`, `icon_scale`, animation `scale`/`frames`/`columns`, environment `battle_graphics.scale` and `island_width`/`island_height`.
 - Credits: every upscaled picture has `adapted: "xBRZ xN"` and a note; a real licence also ends with ", adapted (xBRZ xN)" (not "unknown…" or the owner's "not stated yet").

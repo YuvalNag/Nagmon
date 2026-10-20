@@ -269,6 +269,8 @@ describe("pictures and their scales", () => {
     const battle = battleScale(h);
     expect(battle).toBe(6);
     expect(enlargement(battle, 3)).toBeLessThanOrEqual(limit); // monsters
+    // a whole zoom of 2 over the x4 atlas: no shimmer, and exactly the limit
+    expect(MAP_SCALE).toBe(8);
     expect(enlargement(MAP_SCALE, 4)).toBeLessThanOrEqual(limit); // map tiles
     for (const env of Object.values(environments)) {
       const g = env.battle_graphics;

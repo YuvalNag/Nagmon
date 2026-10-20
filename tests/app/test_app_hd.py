@@ -161,6 +161,21 @@ def test_the_phone_is_the_required_target(built):
     assert Screen(doc, "tablet").battle == 6
 
 
+def test_the_map_scale_is_a_whole_zoom_over_every_atlas(built):
+    """
+    8 device px per 1x px: a texel of the x4 atlas is always 2x2 device
+    px (7 would be 1.75, and the tiles would shimmer as the camera moves).
+    """
+    doc = data(built, "db/display.json")
+    assert doc["map"]["scale"] == 8
+    out, _ = built
+    for rel in sorted(p for p in out.data if p.startswith("maps/")):
+        m = data(built, rel)
+        props = {p["name"]: p["value"] for p in m["properties"]}
+        zoom = doc["map"]["scale"] * props.get("source_tile_size", 16) / m["tilewidth"]
+        assert zoom == 2, rel
+
+
 def test_every_monster_sheet_is_at_the_hd_scale(built):
     for slug, m in data(built, "db/monsters.json").items():
         sp = m["sprites"]

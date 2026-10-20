@@ -6,7 +6,9 @@
  * 64 px monster frame); a record's `scale` says how many picture px that
  * 1x px has.
  *
- * Layout: the map has one fixed scale; in battle the monsters, islands,
+ * Layout: the map has one fixed scale (core/world/camera.ts turns it
+ * into the camera's zoom over the HD atlas: 8 per 1x px is a whole zoom
+ * of 2 over the x4 atlas, so the tiles never shimmer); in battle the monsters, islands,
  * HUD and animations share `battleScale`, and the background covers
  * the screen (`backgroundScale`).
  */
@@ -14,8 +16,11 @@ import table from "../../public/game/db/display.json";
 
 export const DISPLAY = table;
 
-/** Device px per 1x px on the map (a 16 px tile is 112 px). */
+/** Device px per 1x px on the map (a 16 px tile is 128 px). */
 export const MAP_SCALE: number = table.map.scale;
+
+/** Tuxemon's tile in 1x px, for a map without a `source_tile_size` property. */
+export const MAP_SOURCE_TILE_PX = 16;
 
 /** Device px per 1x px in battle on a screen this tall (device px). */
 export function battleScale(screenHeight: number): number {

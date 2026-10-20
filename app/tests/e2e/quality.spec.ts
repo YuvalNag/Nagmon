@@ -159,8 +159,15 @@ for (const scale of [1, 1.3]) {
 
     await touch(page, page.locator("[data-screen=who-plays] .card"), 30);
     await screen("play");
+    // the map, once it is up (Phaser loads on demand), and its pause menu
+    await expect(page.locator("[data-screen=play][data-map=ready]")).toBeVisible({ timeout: 20_000 });
     await audit(page, "11_play", shot);
-    await touch(page, page.locator(id("switch_player")), 30);
+    await touch(page, page.locator(id("map_menu")), 30);
+    await screen("map-menu");
+    await audit(page, "11b_map_menu", shot);
+    // out of the map through its menu
+    await touch(page, page.locator(id("map_exit")), 30);
+    await screen("who-plays");
 
     await touch(page, page.locator(id("parents")), 30);
     await screen("pin");

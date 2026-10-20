@@ -75,7 +75,8 @@ test("a parent sets the code and adds a child with taps only", async ({ page }, 
   await fitsAndSharp(page);
   await shot("07_who_plays_child");
   await touch(page, page.locator("[data-screen=who-plays] .card"));
-  await expect(page.locator("[data-screen=play]")).toContainText("שלום, נועה!");
+  // the map opens, with the child's name on it
+  await expect(page.locator("[data-screen=play][data-map=ready]")).toContainText("נועה", { timeout: 20_000 });
 
   // tap to the next drawn frame, at 4x slower: the app's own measure and
   // the browser's Event Timing (which lists only taps of 16 ms and more)

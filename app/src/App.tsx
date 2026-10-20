@@ -19,6 +19,8 @@ import { ScreenTime } from "./ui/screenTime";
 import { Tap } from "./ui/Tap";
 import { Choices } from "./ui/screens/Choices";
 import { Notice } from "./ui/screens/Notice";
+import type { MapLifecycle } from "./game/mapGame";
+import { MapScreen } from "./ui/screens/MapScreen";
 import { WhoPlays } from "./ui/screens/WhoPlays";
 
 const log = getLogger("nagmon.screens");
@@ -43,11 +45,13 @@ const WHO: View = { kind: "who" };
  * Where Android's back button goes from each screen: one step back in
  * the flow. On who-plays it does nothing, on purpose: the app never
  * closes by itself under a child's finger. A notice never leads forward
- * on back ("code saved" goes on to the name only by "המשך").
+ * on back ("code saved" goes on to the name only by "המשך"). On the map
+ * it is not a screen change either: the map opens its pause menu.
  */
 export function backStep(v: View): View | null {
   switch (v.kind) {
     case "who":
+    case "play":
       return null;
     case "grade":
       return { kind: "name", initial: v.name };
@@ -94,9 +98,11 @@ interface Props {
   workTimeoutMs?: number;
   /** Who-plays is showing with the children read: the app has started. */
   onStarted?: () => void;
+  /** The app's lifecycle, for the map to pause in the background (main.tsx passes it). */
+  lifecycle?: MapLifecycle;
 }
 
-export function App({ services, backButton = bindBackButton, workTimeoutMs = WORK_TIMEOUT_MS, onStarted }: Props) {
+export function App({ services, backButton = bindBackButton, workTimeoutMs = WORK_TIMEOUT_MS, onStarted, lifecycle }: Props) {
   const { profiles, parent } = services;
   // each screen shown gets a number: a new number is a new, fresh screen
   const [shown, setShown] = useState<{ view: View; n: number }>({ view: WHO, n: 0 });
@@ -110,6 +116,8 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
   const [busy, setBusy] = useState<"no" | "keys" | "locked">("no");
   const busyRef = useRef<"no" | "keys" | "locked">("no");
   const job = useRef(0);
+  // the map's own answer to Android's back (its pause menu)
+  const mapBack = useRef<(() => void) | null>(null);
   const view = shown.view;
 
   /** Shows a screen. Any work still running is dropped: its screen is gone. */
@@ -187,6 +195,10 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
     () =>
       backButton(() => {
         if (busyRef.current === "locked") return;
+        if (current.current.kind === "play") {
+          mapBack.current?.();
+          return;
+        }
         const next = backStep(current.current);
         if (next) show(next);
       }),
@@ -376,12 +388,13 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
       case "play": {
         const child = children.find((c) => c.id === view.id);
         return (
-          <main className="screen" data-screen="play">
-            <h1 className="title">{t("hello", { name: child?.name ?? "" })}</h1>
-            <Tap id="switch_player" onTap={() => show(WHO)}>
-              {t("switchPlayer")}
-            </Tap>
-          </main>
+          <MapScreen
+            name={child?.name ?? ""}
+            avatar={child?.avatar ?? ""}
+            backRef={mapBack}
+            lifecycle={lifecycle}
+            onExit={() => show(WHO)}
+          />
         );
       }
     }

@@ -48,8 +48,12 @@ DISPLAY: dict[str, Any] = {
     # drawn at ~190 px, 3x sheets: 2 x 3 is the most the rule allows);
     # 180 1x px of stage height fill the phone's 1080 px.
     "battle": {"max_scale": 6, "stage_height": 180},
-    # a 16 px tile is 112 device px (the old game's phone scale)
-    "map": {"scale": 7},
+    # a 16 px tile is 128 device px: a whole zoom of 2 over the x4 HD
+    # atlas (64 px tiles), so a texel is always 2x2 device px and nothing
+    # shimmers as the camera moves (7 would be 1.75 per texel). The x4
+    # map sheets and the 4x tile animations are then exactly 2x, the
+    # Nagmon x8 sheets 1x.
+    "map": {"scale": 8},
     "icon_dp": 48,
     "card_vh": 0.26,
 }
