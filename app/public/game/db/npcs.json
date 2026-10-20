@@ -149,6 +149,142 @@
    "portrait_scale": 3
   }
  },
+ "nagmon_house_neighbor": {
+  "slug": "nagmon_house_neighbor",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_granny",
+   "combat_sheet": "nagmon_granny",
+   "slug": "granny"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_granny.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_granny.png",
+   "portrait_scale": 3
+  }
+ },
+ "nagmon_house_nurse": {
+  "slug": "nagmon_house_nurse",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_teacher",
+   "combat_sheet": "nagmon_teacher",
+   "slug": "florist"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_teacher.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_teacher.png",
+   "portrait_scale": 3
+  }
+ },
+ "nagmon_house_pet": {
+  "slug": "nagmon_house_pet",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "rockitten",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/rockitten.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
+ "nagmon_house_shopkeeper": {
+  "slug": "nagmon_house_shopkeeper",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_shopkeeper",
+   "combat_sheet": "nagmon_shopkeeper",
+   "slug": "shopkeeper"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_shopkeeper.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8,
+   "portrait": "sprites/portraits/nagmon_shopkeeper.png",
+   "portrait_scale": 3
+  }
+ },
+ "nagmon_house_tutor": {
+  "slug": "nagmon_house_tutor",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_sage",
+   "combat_sheet": "noclass",
+   "slug": "monk"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_sage.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
  "nagmon_kid": {
   "slug": "nagmon_kid",
   "speech": {

@@ -208,8 +208,14 @@ def _layer_data(layer: ET.Element, width: int, height: int) -> list[int]:
     return gids
 
 
+def tmx_path(name: str) -> Path:
+    """The TMX of a world map: Nagmon's own interiors, else Tuxemon's."""
+    own = NAG / "maps" / f"{name}.tmx"
+    return own if own.is_file() else TUX / "maps" / f"{name}.tmx"
+
+
 def load_tmx(name: str) -> TmxMap:
-    path = TUX / "maps" / f"{name}.tmx"
+    path = tmx_path(name)
     root = ET.parse(path).getroot()
     if root.get("orientation") != "orthogonal":
         raise ValueError(f"{name}: only orthogonal maps are supported")

@@ -67,6 +67,24 @@
    "text": "[\"Core Buildings\"] based on: \"Fancy house\" by Kelvin Shadewing is licensed under CC-BY-SA 4.0 \"MK Buildings\" adapted by Mircea Kitsune from Buildings and Features and Doors by Kelvin Shadewing. Hospital adapted by Sanglorian. \"Kelvin Buildings\" by Kelvin Shadewing is licensed under XYG Open Source License v1.1 \"Kelvin Doors\" by Kelvin Shadewing from https://github.com/KelvinShadewing/pixels is licensed under CC BY 3.0 \"Superpowers Assets Ninja Tilesheet\" by Superpower Asset Packs is licensed under Public Domain \"Inspired 16x16 Tiles\" based on https://opengameart.org/content/pokemon-inspired-16x16-tiles by \"RedVoxel\", roofs adapted by Jaskrendix. is licensed under CC-BY-SA 4.0 is licensed under CC-BY-SA 4.0",
    "markdown": "[\"Core Buildings\"]\nbased on:\n[\"Fancy house\"](https://wiki.tuxemon.org/index.php?title=File:Fancy_House.png)\nby Kelvin Shadewing\nis licensed under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)\n[\"MK Buildings\"](https://wiki.tuxemon.org/index.php?title=File:MK_buildings.png)\nadapted by Mircea Kitsune from Buildings and Features and Doors by Kelvin Shadewing. Hospital adapted by Sanglorian.\n[\"Kelvin Buildings\"](https://wiki.tuxemon.org/File:Set_Pieces_by_Kelvin_Shadewing.png)\nby [Kelvin Shadewing](http://kelvinshadewing.net)\nis licensed under [XYG Open Source License v1.1](http://kelvinshadewing.net/?id=license)\n[\"Kelvin Doors\"](https://wiki.tuxemon.org/File:Doors_-_Kelvin_Shadewing.png)\nby [Kelvin Shadewing](http://kelvinshadewing.net) from https://github.com/KelvinShadewing/pixels\nis licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)\n[\"Superpowers Assets Ninja Tilesheet\"](https://wiki.tuxemon.org/index.php?title=File:Superpowers_Tilesheet.png)\nby Superpower Asset Packs\nis licensed under [Public Domain](https://creativecommons.org/publicdomain/zero/1.0/)\n[\"Inspired 16x16 Tiles\"](https://wiki.tuxemon.org/File:Tilemap_0.png)\nbased on https://opengameart.org/content/pokemon-inspired-16x16-tiles by [\"RedVoxel\"](https://red-voxel.itch.io/), roofs adapted by Jaskrendix.\nis licensed under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)\n\nis licensed under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)"
   },
+  "cores-core-indoor-stairs": {
+   "section": "CORES",
+   "title": "Core Indoor Stairs",
+   "authors": [
+    "rubberduck",
+    "ArMM1998",
+    "Redshrike",
+    "Mike Bramson"
+   ],
+   "licence": "CC BY-SA 4.0",
+   "licences": [
+    "CC0 / public domain",
+    "CC BY 3.0",
+    "CC BY-SA 4.0"
+   ],
+   "text": "[\"Core Indoor Stairs\"] by rubberduck, based on: \"Interior tiles\" by ArMM1998 is licensed under Public Domain \"Interiors\" by Redshrike is licensed under CC BY 3.0 \"Stairs Tileset\" by Mike Bramson is licensed under CC BY-SA 4.0 is licensed under CC-BY-SA 4.0",
+   "markdown": "[\"Core Indoor Stairs\"]\nby rubberduck, based on:\n[\"Interior tiles\"](https://wiki.tuxemon.org/index.php?title=File:Interior_Tiles_by_ArMM1998.png)\nby ArMM1998\nis licensed under [Public Domain](https://creativecommons.org/publicdomain/zero/1.0/)\n[\"Interiors\"](https://wiki.tuxemon.org/index.php?title=File:Interiors_by_Redshrike.png)\nby Redshrike\nis licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)\n[\"Stairs Tileset\"](https://wiki.tuxemon.org/File:Stairs.png)\nby [Mike Bramson](mailto:mnbramson@gmail.com)\nis licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)\n\nis licensed under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)"
+  },
   "cores-core-indoor-walls": {
    "section": "CORES",
    "title": "Core Indoor Walls",
@@ -139,6 +157,27 @@
    ],
    "text": "[\"Core Outdoor Nature\"], [\"Core Outdoor Water\"] by rubberduck, based on \"Updated Ground Tiles\" by rubberduck, based on original tiles by Buch, commissioned by luke83 (changes and additions by luke83 and Past the Future), and original tiles by George_. \"Sand n Water\" by luke83 based on \"Kyrodian Legends Overworld Tileset\" by Midi is licensed under CC BY 3.0 \"Grass, Sand, Snow\" by PastTheFuture based on \"Kyrodian Legends Overworld Tileset\" by Midi is licensed under CC BY 4.0 \"Basic Buch Tiles Compiled\" by Buch, commissioned by luke83, some changes and additions by luke83 and Past the Future is licensed under CC BY 3.0 \"Outdoor Tiles - City and Country\" by ArMM1998 is licensed under Public Domain \"Terrain\" by George_ is licensed under CC BY 3.0 [\"Waterfall\"] based on https://opengameart.org/content/lpc-animated-water-and-waterfalls by ZaPaper is licensed under CC BY 3.0 \"Waterfall\" by George_ is licensed under CC BY 3.0 is licensed under CC-BY-SA 4.0",
    "markdown": "[\"Core Outdoor Nature\"], [\"Core Outdoor Water\"]\nby rubberduck, based on\n[\"Updated Ground Tiles\"](https://wiki.tuxemon.org/index.php?title=File:Updated_ground_tiles_by_rubberduck.png)\nby rubberduck, based on original tiles by Buch, commissioned by luke83 (changes and additions by luke83 and Past the Future), and original tiles by George_.\n[\"Sand n Water\"](https://wiki.tuxemon.org/File:Sand_n_water.png) \nby [luke83](http://tuxemon.weebly.com/) based on [\"Kyrodian Legends Overworld Tileset\"](http://opengameart.org/content/kyrodian-legends-overworld-props)\nby [Midi](http://opengameart.org/users/midi)\nis licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) \n[\"Grass, Sand, Snow\"](https://wiki.tuxemon.org/File:PastTheFuture_Grass_Sand_Snow.png)\nby [PastTheFuture](https://forum.tuxemon.org/profile.php?id=43) based on [\"Kyrodian Legends Overworld Tileset\"](http://opengameart.org/content/kyrodian-legends-overworld-props) by [Midi](http://opengameart.org/users/midi)\nis licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)\n[\"Basic Buch Tiles Compiled\"](https://wiki.tuxemon.org/index.php?title=File:Basic_Buch_Tiles_Compiled.png)\nby Buch, commissioned by luke83, some changes and additions by luke83 and Past the Future\nis licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)\n[\"Outdoor Tiles - City and Country\"](https://wiki.tuxemon.org/index.php?title=File:Outdoor_Tiles_-_City_and_Country_-_by_ArMM1998.png)\nby ArMM1998\nis licensed under [Public Domain](https://creativecommons.org/publicdomain/zero/1.0/)\n[\"Terrain\"](https://wiki.tuxemon.org/index.php?title=File:Terrain_by_George.png)\nby George_\nis licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)\n[\"Waterfall\"]\nbased on https://opengameart.org/content/lpc-animated-water-and-waterfalls by ZaPaper\nis licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)\n[\"Waterfall\"](https://wiki.tuxemon.org/index.php?title=File:Waterfall_by_George.png)\nby George_\nis licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)\n\nis licensed under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)"
+  },
+  "cores-core-set-pieces": {
+   "section": "CORES",
+   "title": "Core Set Pieces",
+   "authors": [
+    "Kelvin Shadewing",
+    "Keith Karnage",
+    "Mike Bramson",
+    "ArMM1998",
+    "Redshrike",
+    "George_"
+   ],
+   "licence": "CC BY 3.0",
+   "licences": [
+    "XYG Open Source License v1.1",
+    "CC0 / public domain",
+    "CC BY-SA 4.0",
+    "CC BY 3.0"
+   ],
+   "text": "[\"Core Set Pieces\"] based on: \"Kelvin Buildings\" by Kelvin Shadewing is licensed under XYG Open Source License v1.1 \"Factory\" by Keith Karnage is licensed under Public Domain \"Plants Tileset\" by Mike Bramson is licensed under CC BY-SA 4.0 \"Floors and Walls Tileset\" by Mike Bramson is licensed under CC BY-SA 4.0 \"Electronics Tileset\" by Mike Bramson is licensed under CC BY-SA 4.0 \"Furniture Tileset\" by Mike Bramson is licensed under CC BY-SA 4.0 \"Kitchen Tileset\" by Mike Bramson is licensed under CC BY-SA 4.0 \"Interior tiles\" by ArMM1998 is licensed under Public Domain \"Interiors\" by Redshrike is licensed under CC BY 3.0 \"Furniture and fittings\" by George_ is licensed under CC BY 3.0 \"City Tiles\" by Mike Bramson is licensed under CC BY-SA 4.0 is licensed under CC-BY-SA 4.0",
+   "markdown": "[\"Core Set Pieces\"]\nbased on:\n[\"Kelvin Buildings\"](https://wiki.tuxemon.org/File:Set_Pieces_by_Kelvin_Shadewing.png)\nby [Kelvin Shadewing](http://kelvinshadewing.net)\nis licensed under [XYG Open Source License v1.1](http://kelvinshadewing.net/?id=license)\n[\"Factory\"](https://wiki.tuxemon.org/index.php?title=File:Factory.png)\nby Keith Karnage\nis licensed under [Public Domain](https://creativecommons.org/publicdomain/zero/1.0/)\n[\"Plants Tileset\"](https://wiki.tuxemon.org/File:Plants.png)\nby [Mike Bramson](mailto:mnbramson@gmail.com) \nis licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)\n[\"Floors and Walls Tileset\"](https://wiki.tuxemon.org/File:Interior_Tiles_by_Mike_Bramson.png)\nby [Mike Bramson](mailto:mnbramson@gmail.com)\nis licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)\n[\"Electronics Tileset\"](https://wiki.tuxemon.org/File:Electronics.png)\nby [Mike Bramson](mailto:mnbramson@gmail.com)\nis licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)\n[\"Furniture Tileset\"](https://wiki.tuxemon.org/File:Furniture.png)\nby [Mike Bramson](mailto:mnbramson@gmail.com)\nis licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)\n[\"Kitchen Tileset\"](https://wiki.tuxemon.org/File:Kitchen.png)\nby [Mike Bramson](mailto:mnbramson@gmail.com)\nis licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)\n[\"Interior tiles\"](https://wiki.tuxemon.org/index.php?title=File:Interior_Tiles_by_ArMM1998.png)\nby ArMM1998\nis licensed under [Public Domain](https://creativecommons.org/publicdomain/zero/1.0/)\n[\"Interiors\"](https://wiki.tuxemon.org/index.php?title=File:Interiors_by_Redshrike.png)\nby Redshrike\nis licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)\n[\"Furniture and fittings\"](https://wiki.tuxemon.org/index.php?title=File:Furniture_and_Fittings_by_George.png)\nby George_\nis licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)\n[\"City Tiles\"](https://wiki.tuxemon.org/File:City_tiles.png)\nby [Mike Bramson](mailto:mnbramson@gmail.com)\nis licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)\n\nis licensed under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)"
   },
   "emoji-nagmon-twemoji": {
    "section": "Emoji (Nagmon)",
@@ -1799,6 +1838,183 @@
     "CC BY 4.0",
     "CC0 / public domain",
     "CC BY-SA 4.0"
+   ],
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the Tuxemon core tilesets.",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "atlas/nagmon_friend_house.png",
+   "kind": "tileset",
+   "sources": [
+    "mods/nagmon/gfx/tilesets/core_indoor_floors.png",
+    "mods/nagmon/gfx/tilesets/core_indoor_walls.png",
+    "mods/nagmon/gfx/tilesets/core_set pieces.png"
+   ],
+   "credits": [
+    "cores-core-indoor-walls",
+    "cores-core-set-pieces"
+   ],
+   "authors": [
+    "rubberduck",
+    "George_",
+    "Mike Bramson",
+    "ArMM1998",
+    "Nikkita31 and adapted by Sanglorian",
+    "Kelvin Shadewing",
+    "bluecarrot16, Lanea Zimmerman",
+    "Keith Karnage",
+    "Redshrike"
+   ],
+   "author": "rubberduck; George_; Mike Bramson; ArMM1998; Nikkita31 and adapted by Sanglorian; Kelvin Shadewing; bluecarrot16, Lanea Zimmerman; Keith Karnage; Redshrike",
+   "licences": [
+    "CC BY 3.0",
+    "CC BY-SA 4.0",
+    "CC0 / public domain",
+    "XYG Open Source License v1.1"
+   ],
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the Tuxemon core tilesets.",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "atlas/nagmon_home.png",
+   "kind": "tileset",
+   "sources": [
+    "mods/nagmon/gfx/tilesets/core_indoor_floors.png",
+    "mods/nagmon/gfx/tilesets/core_indoor_stairs.png",
+    "mods/nagmon/gfx/tilesets/core_indoor_walls.png",
+    "mods/nagmon/gfx/tilesets/core_set pieces.png"
+   ],
+   "credits": [
+    "cores-core-indoor-stairs",
+    "cores-core-indoor-walls",
+    "cores-core-set-pieces"
+   ],
+   "authors": [
+    "rubberduck",
+    "ArMM1998",
+    "Redshrike",
+    "Mike Bramson",
+    "George_",
+    "Nikkita31 and adapted by Sanglorian",
+    "Kelvin Shadewing",
+    "bluecarrot16, Lanea Zimmerman",
+    "Keith Karnage"
+   ],
+   "author": "rubberduck; ArMM1998; Redshrike; Mike Bramson; George_; Nikkita31 and adapted by Sanglorian; Kelvin Shadewing; bluecarrot16, Lanea Zimmerman; Keith Karnage",
+   "licences": [
+    "CC0 / public domain",
+    "CC BY 3.0",
+    "CC BY-SA 4.0",
+    "XYG Open Source License v1.1"
+   ],
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the Tuxemon core tilesets.",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "atlas/nagmon_lab.png",
+   "kind": "tileset",
+   "sources": [
+    "mods/nagmon/gfx/tilesets/core_indoor_floors.png",
+    "mods/nagmon/gfx/tilesets/core_indoor_walls.png",
+    "mods/nagmon/gfx/tilesets/core_set pieces.png"
+   ],
+   "credits": [
+    "cores-core-indoor-walls",
+    "cores-core-set-pieces"
+   ],
+   "authors": [
+    "rubberduck",
+    "George_",
+    "Mike Bramson",
+    "ArMM1998",
+    "Nikkita31 and adapted by Sanglorian",
+    "Kelvin Shadewing",
+    "bluecarrot16, Lanea Zimmerman",
+    "Keith Karnage",
+    "Redshrike"
+   ],
+   "author": "rubberduck; George_; Mike Bramson; ArMM1998; Nikkita31 and adapted by Sanglorian; Kelvin Shadewing; bluecarrot16, Lanea Zimmerman; Keith Karnage; Redshrike",
+   "licences": [
+    "CC BY 3.0",
+    "CC BY-SA 4.0",
+    "CC0 / public domain",
+    "XYG Open Source License v1.1"
+   ],
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the Tuxemon core tilesets.",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "atlas/nagmon_rest_center.png",
+   "kind": "tileset",
+   "sources": [
+    "mods/nagmon/gfx/tilesets/core_indoor_floors.png",
+    "mods/nagmon/gfx/tilesets/core_indoor_walls.png",
+    "mods/nagmon/gfx/tilesets/core_set pieces.png"
+   ],
+   "credits": [
+    "cores-core-indoor-walls",
+    "cores-core-set-pieces"
+   ],
+   "authors": [
+    "rubberduck",
+    "George_",
+    "Mike Bramson",
+    "ArMM1998",
+    "Nikkita31 and adapted by Sanglorian",
+    "Kelvin Shadewing",
+    "bluecarrot16, Lanea Zimmerman",
+    "Keith Karnage",
+    "Redshrike"
+   ],
+   "author": "rubberduck; George_; Mike Bramson; ArMM1998; Nikkita31 and adapted by Sanglorian; Kelvin Shadewing; bluecarrot16, Lanea Zimmerman; Keith Karnage; Redshrike",
+   "licences": [
+    "CC BY 3.0",
+    "CC BY-SA 4.0",
+    "CC0 / public domain",
+    "XYG Open Source License v1.1"
+   ],
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the Tuxemon core tilesets.",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "atlas/nagmon_shop.png",
+   "kind": "tileset",
+   "sources": [
+    "mods/nagmon/gfx/tilesets/core_indoor_floors.png",
+    "mods/nagmon/gfx/tilesets/core_indoor_walls.png",
+    "mods/nagmon/gfx/tilesets/core_set pieces.png"
+   ],
+   "credits": [
+    "cores-core-indoor-walls",
+    "cores-core-set-pieces"
+   ],
+   "authors": [
+    "rubberduck",
+    "George_",
+    "Mike Bramson",
+    "ArMM1998",
+    "Nikkita31 and adapted by Sanglorian",
+    "Kelvin Shadewing",
+    "bluecarrot16, Lanea Zimmerman",
+    "Keith Karnage",
+    "Redshrike"
+   ],
+   "author": "rubberduck; George_; Mike Bramson; ArMM1998; Nikkita31 and adapted by Sanglorian; Kelvin Shadewing; bluecarrot16, Lanea Zimmerman; Keith Karnage; Redshrike",
+   "licences": [
+    "CC BY 3.0",
+    "CC BY-SA 4.0",
+    "CC0 / public domain",
+    "XYG Open Source License v1.1"
    ],
    "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
    "note": "HD (xBRZ x4) upscale of the Tuxemon core tilesets.",
@@ -12456,6 +12672,106 @@
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Maps",
    "note": "Tuxemon classic map converted to Tiled JSON, with Nagmon's events. ATTRIBUTIONS.md does not list the classic maps.",
    "matched": false,
+   "adapted": ""
+  },
+  {
+   "path": "maps/nagmon_friend_house.json",
+   "kind": "map",
+   "sources": [
+    "mods/nagmon/maps/nagmon_friend_house.tmx",
+    "mods/nagmon/maps/nagmon_friend_house.yaml"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "maps/nagmon_home.json",
+   "kind": "map",
+   "sources": [
+    "mods/nagmon/maps/nagmon_home.tmx",
+    "mods/nagmon/maps/nagmon_home.yaml"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "maps/nagmon_lab.json",
+   "kind": "map",
+   "sources": [
+    "mods/nagmon/maps/nagmon_lab.tmx",
+    "mods/nagmon/maps/nagmon_lab.yaml"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "maps/nagmon_rest_center.json",
+   "kind": "map",
+   "sources": [
+    "mods/nagmon/maps/nagmon_rest_center.tmx",
+    "mods/nagmon/maps/nagmon_rest_center.yaml"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "maps/nagmon_shop.json",
+   "kind": "map",
+   "sources": [
+    "mods/nagmon/maps/nagmon_shop.tmx",
+    "mods/nagmon/maps/nagmon_shop.yaml"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
    "adapted": ""
   },
   {

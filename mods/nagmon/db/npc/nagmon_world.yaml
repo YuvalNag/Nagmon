@@ -140,3 +140,56 @@
     sprite_name: nagmon_mila
     combat_sheet: nagmon_mila
     slug: monk
+# The people inside the houses of Hearthrock (maps nagmon_home, nagmon_rest_center,
+# nagmon_shop, nagmon_lab, nagmon_friend_house). Placeholders: they reuse the
+# map sheets of the town's people and greet the child.
+- slug: nagmon_house_pet
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: rockitten
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_house_nurse
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_teacher
+    combat_sheet: nagmon_teacher
+    slug: florist
+- slug: nagmon_house_shopkeeper
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_shopkeeper
+    combat_sheet: nagmon_shopkeeper
+    slug: shopkeeper
+- slug: nagmon_house_tutor
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_sage
+    combat_sheet: noclass
+    slug: monk
+- slug: nagmon_house_neighbor
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_granny
+    combat_sheet: nagmon_granny
+    slug: granny

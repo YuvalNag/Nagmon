@@ -618,6 +618,46 @@ msgstr ""
 "סבתא רינה: שוב תודה על הארנק.\n"
 "הנכדים שלי מוסרים שלום!"
 
+# --- the insides of the houses of Hearthrock ---
+
+msgid "nagmon_house_pet"
+msgstr "החבר הקטן"
+
+msgid "nagmon_house_nurse"
+msgstr "האחות דנה"
+
+msgid "nagmon_house_shopkeeper"
+msgstr "המוכר אבי"
+
+msgid "nagmon_house_tutor"
+msgstr "המורה"
+
+msgid "nagmon_house_neighbor"
+msgstr "השכנה"
+
+msgid "nagmon_world_home_pet"
+msgstr "מיאו! החבר הקטן שמח שחזרת הביתה."
+
+msgid "nagmon_world_rest_nurse"
+msgstr ""
+"האחות דנה: ברוכים הבאים למרכז המנוחה!\n"
+"אפשר לנוח כאן בכל זמן."
+
+msgid "nagmon_world_shop_keeper"
+msgstr ""
+"המוכר אבי: ברוכים הבאים לחנות!\n"
+"אפשר להסתכל, בקרוב המדפים יתמלאו."
+
+msgid "nagmon_world_lab_tutor"
+msgstr ""
+"המורה: ברוכים הבאים לחדר הלמידה!\n"
+"בקרוב יהיו כאן שאלות וטיפים."
+
+msgid "nagmon_world_friend_neighbor"
+msgstr ""
+"השכנה: שלום וברוכים הבאים לבית שלי!\n"
+"אפשר לבוא שוב בקרוב."
+
 msgid "nagmon_world_trainer_hello"
 msgstr ""
 "הדוור דני: שלום! אני מחלק מכתבים, ובהפסקה מתאמן.\n"

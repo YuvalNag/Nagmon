@@ -59,6 +59,16 @@ KNOWN_CONDITIONS = {
 }
 
 
+#: The insides of the city's houses (the doors are HOUSE_DOORS, below).
+INTERIORS = (
+    "nagmon_home",
+    "nagmon_lab",
+    "nagmon_friend_house",
+    "nagmon_rest_center",
+    "nagmon_shop",
+)
+
+
 def map_doc(built, name):
     out, _ = built
     return json.loads(out.data[f"maps/{name}.json"])
@@ -163,7 +173,7 @@ def test_city_has_both_the_tmx_events_and_the_nagmon_events(built):
         s["source"] for s in scripts(map_doc(built, "classic_hearthrock_city"))
     ]
     assert sources.count("tmx") == 6
-    assert sources.count("nagmon") == 52
+    assert sources.count("nagmon") == 57
 
 
 def test_event_box_is_in_pixels_of_the_map_tiles(built):
@@ -330,7 +340,8 @@ def test_no_door_gap_in_a_building_wall_leads_nowhere(built, name):
     """
     A free tile between walls is a door. If nothing teleports from it the
     hero walks into the house body behind it, so it must be a wall (the
-    old game's houses without an inside).
+    old game's houses without an inside). A host's spot in a counter gap
+    (the nurse, the shopkeeper) is the other kind of gap.
     """
     doc = map_doc(built, name)
     rows = prop(doc, "collision")["rows"]
@@ -343,6 +354,9 @@ def test_no_door_gap_in_a_building_wall_leads_nowhere(built, name):
                     obj["y"] // 64, (obj["y"] + obj["height"]) // 64
                 ):
                     doors.add((x, y))
+        for a in script["actions"]:
+            if a["type"] == "create_npc" and name in INTERIORS:
+                doors.add((int(a["args"][1]), int(a["args"][2])))
     for y, row in enumerate(rows):
         for x in range(2, len(row) - 2):
             gap = (
@@ -351,3 +365,102 @@ def test_no_door_gap_in_a_building_wall_leads_nowhere(built, name):
                 and row[x + 1 : x + 3] == "##"
             )
             assert not gap or (x, y) in doors, (name, x, y)
+
+
+#: The doors of Hearthrock's houses: city tile -> (interior, way-out tile
+#: inside, the city tile the hero comes back to).
+HOUSE_DOORS = {
+    (5, 5): ("nagmon_home", (4, 6), (5, 6)),
+    (10, 5): ("nagmon_lab", (6, 17), (10, 6)),
+    (15, 5): ("nagmon_friend_house", (5, 7), (15, 6)),
+    (8, 13): ("nagmon_rest_center", (6, 10), (8, 14)),
+    (13, 13): ("nagmon_shop", (6, 10), (13, 14)),
+}
+
+
+def teleports(doc):
+    """(x, y, facing, map, to x, to y) of every transition_teleport."""
+    found = []
+    for obj in layer(doc, "events")["objects"]:
+        script = obj["properties"][0]["value"]
+        facing = [
+            c["args"][-1]
+            for c in script["conditions"]
+            if c["type"] == "char_facing"
+        ]
+        for a in script["actions"]:
+            if a["type"] == "transition_teleport":
+                found.append(
+                    (
+                        obj["x"] // 64,
+                        obj["y"] // 64,
+                        facing[0] if facing else None,
+                        a["args"][1].removesuffix(".tmx"),
+                        int(a["args"][2]),
+                        int(a["args"][3]),
+                    )
+                )
+    return found
+
+
+@pytest.mark.parametrize("door", sorted(HOUSE_DOORS))
+def test_a_house_door_teleports_into_its_interior_and_back(built, door):
+    interior, way_out, back = HOUSE_DOORS[door]
+    city = map_doc(built, "classic_hearthrock_city")
+    inside = map_doc(built, interior)
+    city_rows = prop(city, "collision")["rows"]
+    rows = prop(inside, "collision")["rows"]
+    # the door is open and teleports (facing up) onto the interior's way out
+    assert city_rows[door[1]][door[0]] == "."
+    into = [t for t in teleports(city) if t[:2] == door]
+    assert into == [(*door, "up", interior, *way_out)]
+    assert rows[way_out[1]][way_out[0]] == "."
+    # the way out is that tile, facing down, onto a free tile below the door
+    out = [t for t in teleports(inside) if t[:2] == way_out]
+    assert out == [(*way_out, "down", "classic_hearthrock_city", *back)]
+    assert city_rows[back[1]][back[0]] == "."
+    assert back == (door[0], door[1] + 1)
+
+
+def test_every_house_interior_is_in_the_build_and_fits_a_mobile_texture(built):
+    out, _ = built
+    assert sorted(i for i, _, _ in HOUSE_DOORS.values()) == sorted(INTERIORS)
+    for interior in INTERIORS:
+        assert interior in WORLD_MAPS
+        assert f"maps/{interior}.json" in out.data
+        width, height = out.images[f"atlas/{interior}.png"].size
+        assert max(width, height) <= maps.MAX_TEXTURE
+
+
+@pytest.mark.parametrize("door", sorted(HOUSE_DOORS))
+def test_a_house_has_a_host_a_child_can_walk_up_to(built, door):
+    interior = HOUSE_DOORS[door][0]
+    doc = map_doc(built, interior)
+    rows = prop(doc, "collision")["rows"]
+    hosts = []
+    for script in scripts(doc):
+        for a in script["actions"]:
+            if a["type"] == "create_npc":
+                hosts.append((int(a["args"][1]), int(a["args"][2])))
+        assert [b["type"] for b in script["behaviors"]] in ([], ["talk"])
+    assert len(hosts) == 1
+    x, y = hosts[0]
+    free = [
+        (x + dx, y + dy)
+        for dx, dy in ((0, 1), (1, 0), (-1, 0), (0, -1))
+        if rows[y + dy][x + dx] == "."
+    ]
+    assert free, f"nobody can stand next to the host at {(x, y)}"
+    talks = [s for s in scripts(doc) if s["behaviors"]]
+    assert len(talks) == 1
+
+
+def test_the_cashier_leaves_the_shop_door_free(built):
+    city = map_doc(built, "classic_hearthrock_city")
+    spots = {
+        (int(a["args"][1]), int(a["args"][2]))
+        for script in scripts(city)
+        for a in script["actions"]
+        if a["type"] == "create_npc"
+    }
+    assert not spots & {(13, 14), (8, 14), (5, 6), (10, 6), (15, 6)}

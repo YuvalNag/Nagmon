@@ -26,12 +26,18 @@ TUX = MODS / "tuxemon"
 NAG = MODS / "nagmon"
 OUT = REPO / "app" / "public" / "game"
 
-#: The four maps of the Nagmon world (docs/app/INVENTORY.md §4.1).
+#: The maps of the Nagmon world (docs/app/INVENTORY.md §4.1).
 WORLD_MAPS = (
     "classic_hearthrock_city",
     "classic_route_1",
     "classic_gym_granite",
     "classic_gym_mila",
+    # The insides of the five houses of Hearthrock (mods/nagmon/maps).
+    "nagmon_home",
+    "nagmon_rest_center",
+    "nagmon_shop",
+    "nagmon_lab",
+    "nagmon_friend_house",
 )
 
 #: Mods in load order: a later mod wins over an earlier one.

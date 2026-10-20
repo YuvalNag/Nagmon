@@ -1,0 +1,40 @@
+# Inside a house of Hearthrock: a friend's house: one neighbour (to wander later).
+# The map is a copy of a Tuxemon interior with its events removed
+# (mods/nagmon/maps/nagmon_friend_house.tmx); the way out, the NPC and the greeting are
+# here. The way in is an event of classic_hearthrock_city.yaml.
+# Placeholder behaviour only: shop, bag and rest logic come later.
+
+events:
+
+  Environment:
+    type: event
+    conditions:
+    - not environment_is interior
+    actions:
+    - set_environment interior
+
+  Go Outside:
+    type: event
+    x: 5
+    y: 7
+    conditions:
+    - is char_at player
+    - is char_facing player,down
+    actions:
+    - transition_teleport player,classic_hearthrock_city.tmx,15,6,0.3
+    - char_face player,down
+
+  Create Host:
+    type: event
+    conditions:
+    - not char_exists nagmon_house_neighbor
+    actions:
+    - create_npc nagmon_house_neighbor,6,4
+    - char_face nagmon_house_neighbor,down
+
+  Host Talk:
+    type: event
+    behav:
+    - talk nagmon_house_neighbor
+    actions:
+    - translated_dialog nagmon_world_friend_neighbor,nagmon_house_neighbor
