@@ -50,6 +50,8 @@ NAME = "נועה"
 LATIN_NAME = "Noam"
 #: A child's finger stays down about this long.
 HOLD_MS = 150
+#: A finger that stays longer, when a frame takes longer than a touch.
+LONG_MS = 600
 HERE = Path(__file__).resolve().parent
 
 HEBREW = re.compile(r"[\u05d0-\u05ea]")
@@ -92,6 +94,17 @@ class Snapshot:
         return int(w), int(h)
 
 
+def same_screen(a: Snapshot | None, b: Snapshot | None) -> bool:
+    """The same screen; where the last touch was does not count."""
+    if a is None or b is None:
+        return a is b
+
+    def screen(snap: Snapshot) -> dict[str, Any]:
+        return {k: v for k, v in snap.data.items() if k != "pointer"}
+
+    return screen(a) == screen(b)
+
+
 def parse_logcat(line: str) -> tuple[int | None, str, str]:
     """(pid, tag, message) of a ``logcat -v threadtime`` line."""
     m = LOGCAT.match(line.rstrip("\r\n"))
@@ -125,6 +138,8 @@ class UIStream:
         self.snapshots: list[Snapshot] = []
         self.frame_lines: list[str] = []
         self.app_lines: deque[str] = deque(maxlen=300)
+        #: Every line, for the job's artifact.
+        self.all_lines: list[str] = []
         self.probe_on: str | None = None
         self.pid: int | None = None
         self._parts: dict[int, dict[int, str]] = {}
@@ -134,6 +149,7 @@ class UIStream:
         at = self.clock() if at is None else at
         pid, tag, message = parse_logcat(line)
         with self._cond:
+            self.all_lines.append(line.rstrip("\r\n"))
             if app_line(pid, tag, message, self.pid, line):
                 self.app_lines.append(line.rstrip("\r\n")[:400])
             if "frame rate:" in message:
@@ -173,14 +189,25 @@ class UIStream:
         pred: Callable[[Snapshot], bool],
         timeout: float,
         after: Snapshot | None = None,
+        *,
+        pointer_counts: bool = False,
     ) -> Snapshot | None:
-        """The first snapshot newer than ``after`` that ``pred`` likes."""
+        """
+        The first snapshot newer than ``after`` that ``pred`` likes and
+        that shows another screen (or, with ``pointer_counts``, only
+        another touch).
+        """
         end = time.monotonic() + timeout
         with self._cond:
             while True:
                 for snap in self.snapshots:
                     newer = after is None or snap.seq > after.seq
-                    if newer and snap.data != getattr(after, "data", None):
+                    other = (
+                        snap.data != after.data
+                        if pointer_counts and after is not None
+                        else not same_screen(snap, after)
+                    )
+                    if newer and other:
                         if pred(snap):
                             return snap
                 left = end - time.monotonic()
@@ -486,6 +513,25 @@ def set_locale(adb: Adb, locale: str, log: Callable[[str], None]) -> str:
     return config
 
 
+#: A Tuesday at 17:00 in Israel: inside the default play window
+#: (weekdays 16:00-19:30), not Shabbat, not a holiday, before bedtime.
+PLAY_TIME_UTC = "102014002026.00"  # MMDDhhmmCCYY.ss, 2026-10-20 14:00 UTC
+
+
+def set_play_time(adb: Adb) -> str:
+    """
+    The game keeps to the default screen-time windows (a fresh install
+    has nothing else): at 08:00 it says "not play time" and the child
+    never reaches the map. The emulator's clock is set to a play time.
+    """
+    adb.run("root", timeout=60)
+    adb.run("wait-for-device", timeout=120)
+    adb.shell("settings", "put", "global", "auto_time", "0")
+    adb.shell("setprop", "persist.sys.timezone", "Asia/Jerusalem")
+    adb.shell("date", "-u", PLAY_TIME_UTC)
+    return adb.shell("date")
+
+
 # ------------------------------------------------------------ the flow
 
 
@@ -511,6 +557,8 @@ class Flow:
     latencies: list[Latency] = field(default_factory=list)
     shots: list[Path] = field(default_factory=list)
     name: str = NAME
+    #: Where the game's window is on the screen (calibrate).
+    offset: tuple[int, int] = (0, 0)
 
     # -------------------------------------------------- helpers
 
@@ -610,14 +658,22 @@ class Flow:
         wait = timeout * self.scale
         timed = timed and not action.what.startswith("skip ")
         first = wait if hold_ms else min(wait, 6 * self.scale)
+        x, y = x - self.offset[0], y - self.offset[1]
         snap, start, end = self._press(x, y, hold_ms, expect, first, before)
-        if snap is None and not hold_ms:
-            snap, start, end = self._press(x, y, HOLD_MS, expect, wait, before)
-            if snap is not None and timed:
+        tried = [f"{hold_ms} ms touch" if hold_ms else "quick tap"]
+        for longer in (HOLD_MS, LONG_MS):
+            if snap is not None or (hold_ms or 0) >= longer:
+                continue
+            snap, start, end = self._press(x, y, longer, expect, wait, before)
+            if snap is None:
+                tried.append(f"{longer} ms touch")
+                continue
+            if timed:
                 self.check(
                     False,
-                    f"a quick tap on {action.what} did nothing; a "
-                    f"{HOLD_MS} ms touch worked ({before.state if before else None})",
+                    f"a {' and a '.join(tried)} on {action.what} did "
+                    f"nothing; a {longer} ms touch worked "
+                    f"({before.state if before else None})",
                 )
         if snap is None:
             if required:
@@ -702,10 +758,49 @@ class Flow:
             self.log(f"FAIL {exc}")
         return not self.failures
 
+    def calibrate(self, snap: Snapshot) -> None:
+        """
+        One real touch on an empty spot: where the game saw it says
+        whether the window is where the UI map says (a cutout or the
+        system bars move it).
+        """
+        if "pointer" not in snap.data:
+            self.log("calibration: the UI map has no pointer (older APK)")
+            return
+        w, h = snap.window
+        x, y = w // 10, h // 6
+        before = self.settle()
+        self.device.hold(x, y, HOLD_MS)
+        old = before.data.get("pointer") if before else None
+        seen = self.stream.wait(
+            lambda s: s.data.get("pointer") not in (None, old),
+            5 * self.scale,
+            after=before,
+            pointer_counts=True,
+        )
+        if seen is None:
+            self.check(False, f"calibration: the game saw no touch at {x},{y}")
+            return
+        gx, gy = seen.data["pointer"]
+        dx, dy = gx - x, gy - y
+        self.log(f"calibration: touched {x},{y}; the game saw {gx},{gy}")
+        if before is not None and not same_screen(seen, before):
+            self.check(
+                False, f"a touch on an empty spot changed {before.state}"
+            )
+        if abs(dx) > 3 or abs(dy) > 3:
+            self.check(
+                False,
+                f"the game's window is {dx},{dy} px from where the UI map "
+                "puts it; taps are corrected from here",
+            )
+            self.offset = (dx, dy)
+
     def steps(self) -> None:
         who = self.wait_for(
             lambda s: screen_kind(s) == "who", "who plays", timeout=300
         )
+        self.calibrate(who)
         self.shot("who-plays")
         self.check(
             speaks_hebrew(who),
@@ -748,7 +843,7 @@ class Flow:
         )
         self.tap(pick_grade(grade))
         avatar = self.wait_for(
-            lambda s: s.state == "ChoiceState" and s.data != grade.data,
+            lambda s: s.state == "ChoiceState" and not same_screen(s, grade),
             "characters",
         )
         self.shot("character")
@@ -915,6 +1010,15 @@ def main(argv: Iterable[str] | None = None) -> int:
 
     config = set_locale(adb, args.locale, print)
     print(f"the phone's language: {config.splitlines()[0] if config else '?'}")
+    # Android's "swipe down to exit full screen" notice would cover taps
+    adb.shell(
+        "settings",
+        "put",
+        "secure",
+        "immersive_mode_confirmations",
+        "confirmed",
+    )
+    print("the phone's clock:", set_play_time(adb))
     # a fresh install: no data, as on a new phone
     print("clearing the app's data:", adb.shell("pm", "clear", pkg))
     adb.shell("am", "force-stop", pkg)
@@ -970,9 +1074,7 @@ def main(argv: Iterable[str] | None = None) -> int:
             )
     for line in flow.report():
         print(line)
-    (args.out / "logcat-app.txt").write_text(
-        "\n".join(stream.app_lines) + "\n"
-    )
+    (args.out / "logcat.txt").write_text("\n".join(stream.all_lines) + "\n")
     if not ok:
         flow.shot("failure")
         print("::group::the app's last 300 log lines")

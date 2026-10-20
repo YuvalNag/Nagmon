@@ -220,9 +220,16 @@ def _world(client: Any, mapping: Any) -> dict[str, Any]:
 
 
 def snapshot(
-    client: Any, window: tuple[int, int] | None = None
+    client: Any,
+    window: tuple[int, int] | None = None,
+    pointer: tuple[int, int] | None = None,
 ) -> dict[str, Any]:
-    """What is on the screen now, as plain data."""
+    """
+    What is on the screen now, as plain data. ``pointer`` is where the
+    game saw the last touch, in the drawing's pixels (read from pygame
+    when ``window`` is not given): the check compares it with where it
+    tapped, to find a window that is not where it thinks.
+    """
     states = list(client.active_states)
     lw, lh = client.context.resolution
     logical = (int(lw), int(lh))
@@ -232,8 +239,10 @@ def snapshot(
         try:
             ww, wh = pygame.display.get_window_size()
             window = (int(ww), int(wh))
+            px, py = pygame.mouse.get_pos()
+            pointer = (int(px), int(py))
         except Exception:
-            window = logical
+            window = window or logical
     mapping = screen_mapping(logical, window)
     snap: dict[str, Any] = {
         "state": states[0].name if states else None,
@@ -242,6 +251,8 @@ def snapshot(
         "window": list(window),
         "widgets": [],
     }
+    if pointer is not None:
+        snap["pointer"] = to_screen((*pointer, 0, 0), mapping)[:2]
     if not states:
         return snap
     top = states[0]

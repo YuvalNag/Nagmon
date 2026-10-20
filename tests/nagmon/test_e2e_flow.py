@@ -247,6 +247,7 @@ class FakePhone:
         self.children: list[str] = []
         self.pin = ""
         self.player = [5, 5]
+        self.pointer = [0, 0]
         self.taps: list[tuple[int, int, int | None]] = []
         self.show("NagmonIntroState", [])
 
@@ -262,6 +263,7 @@ class FakePhone:
             "widgets": self.widgets,
             "window": [W, H],
             "logical": [W, H],
+            "pointer": self.pointer,
             **self.extra,
         }
         at = self.stream.clock() + delay
@@ -350,6 +352,10 @@ class FakePhone:
 
     def press(self, x: int, y: int, ms: int | None) -> None:
         self.taps.append((x, y, ms))
+        if self.bug == "offset":
+            y -= 60  # the window starts below a bar the map knows nothing of
+        self.pointer = [x, y]
+        self.emit()  # the game saw a touch
         state, widget = self.state, self.hit(x, y)
         if self.bug == "quick" and ms is None and widget and "id" in widget:
             return  # a press and its release in one frame: lost
@@ -475,7 +481,8 @@ def test_the_whole_first_run_on_a_fake_phone(tmp_path):
     assert phone.player == [6, 5]
     # keys are held like a finger, not clicked
     key_taps = [t for t in phone.taps if t[2] == e2e.HOLD_MS]
-    assert len(key_taps) == len("1234") + len("נועה")
+    # and the calibration touch
+    assert len(key_taps) == len("1234") + len("נועה") + 1
     assert any("walked right" in line for line in log)
     report = "\n".join(flow.report())
     assert "slowest" in report and "key '1'" in report
@@ -540,3 +547,27 @@ def test_the_failure_dump_keeps_the_game_and_errors():
         "Traceback (most recent call last):",
         "something broke",
     ]
+
+
+def test_a_window_off_its_place_is_found_and_taps_are_corrected(tmp_path):
+    ok, flow, phone, log = play(tmp_path, bug="offset")
+    assert not ok
+    assert any("px from where the UI map puts it" in f for f in flow.failures)
+    assert flow.offset == (0, -60)
+    # with the correction the whole first run still plays
+    assert phone.children == ["נועה"]
+    assert phone.player == [6, 5]
+
+
+def test_calibration_on_a_well_placed_window(tmp_path):
+    ok, flow, phone, log = play(tmp_path)
+    assert ok, flow.failures
+    assert flow.offset == (0, 0)
+    assert any(line.startswith("calibration: touched") for line in log)
+
+
+def test_a_touch_alone_is_not_a_new_screen():
+    a = snap({"state": "A", "pointer": [1, 1]})
+    b = snap({"state": "A", "pointer": [9, 9]}, seq=2)
+    assert e2e.same_screen(a, b)
+    assert not e2e.same_screen(a, snap({"state": "B"}, seq=3))

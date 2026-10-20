@@ -315,3 +315,15 @@ def test_the_whole_line_is_ascii_and_round_trips(phone_hebrew):
     )
     assert all(line.isascii() for line in out)
     assert join(out)["text"] == "נו"
+
+
+def test_where_the_game_saw_the_touch_in_screen_pixels(phone_hebrew):
+    client = make_client()
+    client.active_states = [letter_board(client)]
+    snap = ui_probe.snapshot(client, window=(W, H), pointer=(100, 50))
+    assert snap["pointer"] == [100, 50]
+    # a drawing smaller than the window: the point is scaled and moved
+    client.context.resolution = (1280, 720)
+    snap = ui_probe.snapshot(client, window=(W, H), pointer=(100, 50))
+    assert snap["pointer"] == [240 + 150, 75]
+    assert "pointer" not in ui_probe.snapshot(client, window=(W, H))
