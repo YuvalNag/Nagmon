@@ -15,7 +15,14 @@ export class WebViewPage {
   #waiting = new Map();
 
   static async attach(pkg, { port = 9222, timeoutMs = 60_000 } = {}) {
-    const adb = (...a) => execFileSync("adb", a, { encoding: "utf8" }).trim();
+    // pidof exits 1 while the app is still starting: that is "not yet"
+    const adb = (...a) => {
+      try {
+        return execFileSync("adb", a, { encoding: "utf8" }).trim();
+      } catch {
+        return "";
+      }
+    };
     const end = Date.now() + timeoutMs;
     while (Date.now() < end) {
       const pid = adb("shell", "pidof", pkg);
