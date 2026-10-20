@@ -794,3 +794,27 @@ def test_who_plays_on_a_computer_has_no_send_log(desktop, hebrew, runtime):
 
     state = ProfileSelectState(make_client())
     assert "share_log" not in {w.get_id() for w in state.menu.get_widgets()}
+
+
+@pytest.mark.parametrize(
+    "secret",
+    [pytest.param(True, id="code"), pytest.param(False, id="no_variants")],
+)
+def test_holding_a_digit_opens_no_variants(phone, hebrew, monkeypatch, secret):
+    # holding A/Enter on a key opens its variants; a code must not show
+    # the digit, and a key without variants has nothing to offer
+    from tuxemon.menu.input import CharacterSetManager
+    from tuxemon.states import input as input_mod
+
+    menu = _pin_pad(make_client())
+    menu.secret = secret
+    assert isinstance(menu.char_manager, CharacterSetManager)
+    opened = []
+    monkeypatch.setattr(
+        input_mod, "open_choice_dialog", lambda **kw: opened.append(kw)
+    )
+    key = next(i for i in menu.menu_items if i.game_object.char == "7")
+    monkeypatch.setattr(menu, "get_selected_item", lambda: key)
+    held = SimpleNamespace(triggered=False, held=True, hold_time=999)
+    menu._handle_select_event(held)
+    assert opened == []

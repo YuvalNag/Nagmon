@@ -601,8 +601,13 @@ class InputMenu(Menu[InputMenuObj]):
 
         elif event.held and event.hold_time > self.client.config.fps:
             base_char = menu_item.game_object.char
-            if base_char:
-                variants = self.char_manager.get_char_variants(base_char)
+            variants = (
+                self.char_manager.get_char_variants(base_char)
+                if base_char
+                else ""
+            )
+            # a code is never shown, and a key alone is no choice
+            if variants and not self.secret:
                 all_variants = [base_char] + list(variants)
 
                 actions = {
