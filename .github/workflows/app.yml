@@ -26,7 +26,8 @@ defaults:
 jobs:
   web:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    # the map's walks (M3, and the cashier's in M4) run on a software-drawn map
+    timeout-minutes: 35
     steps:
     - uses: actions/checkout@v6
     - uses: actions/setup-node@v6
