@@ -58,7 +58,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/cosmic.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "earth": {
   "slug": "earth",
@@ -119,7 +120,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/earth.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "fire": {
   "slug": "fire",
@@ -180,7 +182,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/fire.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "frost": {
   "slug": "frost",
@@ -241,7 +244,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/frost.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "heroic": {
   "slug": "heroic",
@@ -302,7 +306,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/heroic.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "lightning": {
   "slug": "lightning",
@@ -363,7 +368,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/lightning.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "metal": {
   "slug": "metal",
@@ -424,7 +430,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/metal.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "normal": {
   "slug": "normal",
@@ -485,7 +492,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/normal.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "shadow": {
   "slug": "shadow",
@@ -546,7 +554,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/shadow.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "sky": {
   "slug": "sky",
@@ -607,7 +616,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/sky.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "venom": {
   "slug": "venom",
@@ -668,7 +678,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/venom.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "water": {
   "slug": "water",
@@ -729,7 +740,8 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/water.yaml"
-  ]
+  ],
+  "icon_scale": 4
  },
  "wood": {
   "slug": "wood",
@@ -790,6 +802,7 @@
   ],
   "_source": [
    "mods/tuxemon/db/element/wood.yaml"
-  ]
+  ],
+  "icon_scale": 4
  }
 }

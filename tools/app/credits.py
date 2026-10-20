@@ -9,8 +9,11 @@ entries keep their full text for the credits screen. A file the build
 cannot match keeps a ``matched: false`` flag, so a person can finish
 the job by hand instead of the screen guessing.
 
-Adapted CC BY-SA art says so in its main licence: the xBRZ x4 atlases
-are "CC BY-SA 4.0, adapted (xBRZ x4)".
+Adapted art says so in its main licence: the xBRZ x4 atlases are
+"CC BY-SA 4.0, adapted (xBRZ x4)", and every picture the build enlarges
+itself (``tools/app/hd.py``) says so in its ``adapted`` field ("xBRZ
+xN") and a note; a real licence also gets ", adapted (xBRZ xN)" (not
+"unknown..." or "not stated...", which name no licence to adapt).
 
 The licence texts the app must carry are copied under ``licenses/``.
 """
@@ -46,7 +49,21 @@ _BY = re.compile(
     r"(?<!CC )(?<!CC-)\b[Bb]y\s+(.+?)(?=\s+(?:is|are)\s+licensed|\s+licensed|,\s*licensed"
     r"|\s+[\[(]|\s+has been|\s+have been|\s+based on|,\s*from\b|\s+is\b|$)"
 )
-ADAPTED_XBRZ = "CC BY-SA 4.0, adapted (xBRZ x4)"
+
+
+def adapted(licence: str, how: str) -> str:
+    """A licence with the adaptation it went through: "..., adapted (...)"."""
+    return f"{licence}, adapted ({how})"
+
+
+def is_real_licence(licence: str) -> bool:
+    """A licence that names one, not "unknown..." or "not stated..."."""
+    return bool(licence) and not licence.startswith(("unknown", "not stated"))
+
+
+#: How the HD tilesets were made (tools/art/upscale_tiles.py).
+TILES_XBRZ = "xBRZ x4"
+ADAPTED_XBRZ = adapted("CC BY-SA 4.0", TILES_XBRZ)
 ADAPTED_MODEST = "CC BY-SA 4.0, adapted (modest version)"
 OWNER = {
     "author": "the Nagmon owner (made with image generators)",
@@ -461,6 +478,17 @@ def build(out: Output) -> dict[str, Any]:
     for path in sorted(out.assets):
         asset = out.assets[path]
         info = credit_for(asset, matcher)
+        info["adapted"] = asset.adapted or (
+            TILES_XBRZ if asset.kind == "tileset" else ""
+        )
+        if asset.adapted:
+            if is_real_licence(info["licence"]):
+                info["licence"] = adapted(info["licence"], asset.adapted)
+            text = (
+                f"HD ({asset.adapted}) upscale of the original picture, "
+                "made by the app build (tools/app/hd.py)."
+            )
+            info["note"] = " ".join(filter(None, [text, info["note"]]))
         used_entries |= set(info["credits"])
         assets.append(
             {
@@ -509,9 +537,7 @@ def build(out: Output) -> dict[str, Any]:
         "entries": len(used_entries),
         "unmatched": len(unmatched),
         "unmatched_by_kind": _count_kinds(assets),
-        "owner_art": sum(
-            1 for a in assets if a["licence"] == OWNER["licence"]
-        ),
+        "owner_art": sum(1 for a in assets if a["author"] == OWNER["author"]),
     }
 
 

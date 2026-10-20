@@ -1663,7 +1663,8 @@
    ],
    "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
    "note": "HD (xBRZ x4) upscale of the Tuxemon core tilesets.",
-   "matched": true
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "atlas/classic_gym_mila.png",
@@ -1693,7 +1694,8 @@
    ],
    "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
    "note": "HD (xBRZ x4) upscale of the Tuxemon core tilesets.",
-   "matched": true
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "atlas/classic_hearthrock_city.png",
@@ -1739,7 +1741,8 @@
    ],
    "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
    "note": "HD (xBRZ x4) upscale of the Tuxemon core tilesets. The healing center's cross is repainted as a red heart (tools/app/overlays.py).",
-   "matched": true
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "atlas/classic_route_1.png",
@@ -1777,7 +1780,8 @@
    ],
    "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
    "note": "HD (xBRZ x4) upscale of the Tuxemon core tilesets.",
-   "matched": true
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "audio/music/JRPG_battle_loop.ogg",
@@ -1797,7 +1801,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/music/JRPG_gameOver.ogg",
@@ -1817,7 +1822,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/music/JRPG_mainTheme.ogg",
@@ -1837,7 +1843,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/music/JRPG_royalCourt_loop.ogg",
@@ -1857,7 +1864,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/music/JRPG_town_loop.ogg",
@@ -1877,7 +1885,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/music/JRPG_winBattleBoss.ogg",
@@ -1897,7 +1906,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/ding.wav",
@@ -1913,7 +1923,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/interface/NenadSimic_Click.ogg",
@@ -1933,7 +1944,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/interface/confirm.ogg",
@@ -1949,7 +1961,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/interface/menu-select.ogg",
@@ -1965,7 +1978,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/interface/originals/50561__broumbroum__sf3-sfx-menu-select.ogg",
@@ -1985,7 +1999,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/Foom_0.wav",
@@ -2005,7 +2020,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/Growl1.wav",
@@ -2025,7 +2041,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/Insekt001.ogg",
@@ -2045,7 +2062,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/Steel_Clang.wav",
@@ -2065,7 +2083,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/Tux.ogg",
@@ -2086,7 +2105,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/Woosh-1.wav",
@@ -2106,7 +2126,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/Woosh-2.wav",
@@ -2126,7 +2147,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/bite-cartoon-style.mp3",
@@ -2146,7 +2168,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/burble_02.ogg",
@@ -2166,7 +2189,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/cat-meow3.wav",
@@ -2186,7 +2210,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/cat-purr-twit5.wav",
@@ -2206,7 +2231,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/creature-roar.mp3",
@@ -2226,7 +2252,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/retro_beep_05.ogg",
@@ -2246,7 +2273,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/retro_beep_06.ogg",
@@ -2266,7 +2294,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_Foom_0.ogg",
@@ -2286,7 +2315,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_Growl1.ogg",
@@ -2306,7 +2336,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_Insekt001.ogg",
@@ -2326,7 +2357,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_Steel_Clang.ogg",
@@ -2346,7 +2378,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_Tux.ogg",
@@ -2367,7 +2400,8 @@
    ],
    "licence": "CC BY 3.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_Woosh-1.ogg",
@@ -2387,7 +2421,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_Woosh-2.ogg",
@@ -2407,7 +2442,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_bite-cartoon-style.ogg",
@@ -2427,7 +2463,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_burble_02.ogg",
@@ -2447,7 +2484,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_cat-meow3.ogg",
@@ -2467,7 +2505,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_cat-purr-twit5.ogg",
@@ -2487,7 +2526,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_creature-roar.ogg",
@@ -2507,7 +2547,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_retro_beep_05.ogg",
@@ -2527,7 +2568,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_retro_beep_06.ogg",
@@ -2547,7 +2589,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_roar_03.ogg",
@@ -2567,7 +2610,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_spell_fire_06.ogg",
@@ -2587,7 +2631,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_spit_01.ogg",
@@ -2607,7 +2652,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_spit_02.ogg",
@@ -2627,7 +2673,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_splash-1.ogg",
@@ -2647,7 +2694,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_weird_09.ogg",
@@ -2667,7 +2715,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/reverse_whistle.ogg",
@@ -2683,7 +2732,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/roar_03.ogg",
@@ -2703,7 +2753,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/spell_fire_06.ogg",
@@ -2723,7 +2774,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/spit_01.ogg",
@@ -2743,7 +2795,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/spit_02.ogg",
@@ -2763,7 +2816,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/splash-1.wav",
@@ -2783,7 +2837,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/weird_09.ogg",
@@ -2803,7 +2858,8 @@
    ],
    "licence": "CC0 / public domain",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/whistle.ogg",
@@ -2819,7 +2875,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/monster/yehehe.ogg",
@@ -2835,7 +2892,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/bite1.ogg",
@@ -2851,7 +2909,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/blaster1.ogg",
@@ -2867,7 +2926,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/bubble.ogg",
@@ -2883,7 +2943,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/crumble.ogg",
@@ -2899,7 +2960,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/crumble1.ogg",
@@ -2915,7 +2977,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/flamey.ogg",
@@ -2931,7 +2994,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/flamey2.ogg",
@@ -2947,7 +3011,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/forcefield.ogg",
@@ -2963,7 +3028,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/freeze.ogg",
@@ -2979,7 +3045,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/growl.ogg",
@@ -2995,7 +3062,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/kick.ogg",
@@ -3011,7 +3079,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/laser.ogg",
@@ -3027,7 +3096,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/lightning1.ogg",
@@ -3043,7 +3113,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/pulse1.ogg",
@@ -3059,7 +3130,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/sand.ogg",
@@ -3075,7 +3147,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/shiney.ogg",
@@ -3091,7 +3164,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/shpring.ogg",
@@ -3107,7 +3181,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/squeak.ogg",
@@ -3123,7 +3198,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/techyBeep.ogg",
@@ -3139,7 +3215,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "audio/sfx/technique/tornado1.ogg",
@@ -3155,7 +3232,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Sounds",
    "note": "",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "avatars/boy_blue.png",
@@ -3173,7 +3251,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "avatars/girl_curly.png",
@@ -3191,7 +3270,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "avatars/girl_teal.png",
@@ -3209,7 +3289,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f1ee-1f1f1.svg",
@@ -3229,7 +3310,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f303.svg",
@@ -3249,7 +3331,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f304.svg",
@@ -3269,7 +3352,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f305.svg",
@@ -3289,7 +3373,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f307.svg",
@@ -3309,7 +3394,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f308.svg",
@@ -3329,7 +3415,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f309.svg",
@@ -3349,7 +3436,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f30a.svg",
@@ -3369,7 +3457,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f30b.svg",
@@ -3389,7 +3478,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f30c.svg",
@@ -3409,7 +3499,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f30d.svg",
@@ -3429,7 +3520,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f30e.svg",
@@ -3449,7 +3541,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f311.svg",
@@ -3469,7 +3562,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f312.svg",
@@ -3489,7 +3583,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f313.svg",
@@ -3509,7 +3604,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f315.svg",
@@ -3529,7 +3625,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f319.svg",
@@ -3549,7 +3646,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f321.svg",
@@ -3569,7 +3667,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f327.svg",
@@ -3589,7 +3688,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f32b.svg",
@@ -3609,7 +3709,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f32c.svg",
@@ -3629,7 +3730,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f331.svg",
@@ -3649,7 +3751,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f333.svg",
@@ -3669,7 +3772,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f334.svg",
@@ -3689,7 +3793,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f337.svg",
@@ -3709,7 +3814,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f339.svg",
@@ -3729,7 +3835,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f33a.svg",
@@ -3749,7 +3856,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f33b.svg",
@@ -3769,7 +3877,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f33c.svg",
@@ -3789,7 +3898,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f33d.svg",
@@ -3809,7 +3919,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f33e.svg",
@@ -3829,7 +3940,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f342.svg",
@@ -3849,7 +3961,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f343.svg",
@@ -3869,7 +3982,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f344.svg",
@@ -3889,7 +4003,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f345.svg",
@@ -3909,7 +4024,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f347.svg",
@@ -3929,7 +4045,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f349.svg",
@@ -3949,7 +4066,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f34a.svg",
@@ -3969,7 +4087,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f34b.svg",
@@ -3989,7 +4108,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f34c.svg",
@@ -4009,7 +4129,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f34d.svg",
@@ -4029,7 +4150,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f34e.svg",
@@ -4049,7 +4171,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f350.svg",
@@ -4069,7 +4192,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f352.svg",
@@ -4089,7 +4213,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f353.svg",
@@ -4109,7 +4234,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f354.svg",
@@ -4129,7 +4255,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f355.svg",
@@ -4149,7 +4276,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f35a.svg",
@@ -4169,7 +4297,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f35d.svg",
@@ -4189,7 +4318,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f35e.svg",
@@ -4209,7 +4339,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f35f.svg",
@@ -4229,7 +4360,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f366.svg",
@@ -4249,7 +4381,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f36a.svg",
@@ -4269,7 +4402,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f36b.svg",
@@ -4289,7 +4423,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f36c.svg",
@@ -4309,7 +4444,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f36f.svg",
@@ -4329,7 +4465,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f370.svg",
@@ -4349,7 +4486,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f374.svg",
@@ -4369,7 +4507,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f375.svg",
@@ -4389,7 +4528,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f37e.svg",
@@ -4409,7 +4549,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f37f.svg",
@@ -4429,7 +4570,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f381.svg",
@@ -4449,7 +4591,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f382.svg",
@@ -4469,7 +4612,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f388.svg",
@@ -4489,7 +4633,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f389.svg",
@@ -4509,7 +4654,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f392.svg",
@@ -4529,7 +4675,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3a4.svg",
@@ -4549,7 +4696,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3a6.svg",
@@ -4569,7 +4717,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3a8.svg",
@@ -4589,7 +4738,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3ac.svg",
@@ -4609,7 +4759,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3b5.svg",
@@ -4629,7 +4780,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3b8.svg",
@@ -4649,7 +4801,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3b9.svg",
@@ -4669,7 +4822,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3ba.svg",
@@ -4689,7 +4843,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3bb.svg",
@@ -4709,7 +4864,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3be.svg",
@@ -4729,7 +4885,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3bf.svg",
@@ -4749,7 +4906,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3c0.svg",
@@ -4769,7 +4927,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3c3.svg",
@@ -4789,7 +4948,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3c5.svg",
@@ -4809,7 +4969,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3c6.svg",
@@ -4829,7 +4990,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3cd.svg",
@@ -4849,7 +5011,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3d0.svg",
@@ -4869,7 +5032,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3d3.svg",
@@ -4889,7 +5053,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3d4.svg",
@@ -4909,7 +5074,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3d6.svg",
@@ -4929,7 +5095,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3d9.svg",
@@ -4949,7 +5116,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3dc.svg",
@@ -4969,7 +5137,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3dd.svg",
@@ -4989,7 +5158,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3df.svg",
@@ -5009,7 +5179,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3e0.svg",
@@ -5029,7 +5200,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3e5.svg",
@@ -5049,7 +5221,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3e8.svg",
@@ -5069,7 +5242,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3ea.svg",
@@ -5089,7 +5263,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3eb.svg",
@@ -5109,7 +5284,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3ed.svg",
@@ -5129,7 +5305,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f3f0.svg",
@@ -5149,7 +5326,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f401.svg",
@@ -5169,7 +5347,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f404.svg",
@@ -5189,7 +5368,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f405.svg",
@@ -5209,7 +5389,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f407.svg",
@@ -5229,7 +5410,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f408.svg",
@@ -5249,7 +5431,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f40a.svg",
@@ -5269,7 +5452,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f40b.svg",
@@ -5289,7 +5473,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f40c.svg",
@@ -5309,7 +5494,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f40d.svg",
@@ -5329,7 +5515,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f40e.svg",
@@ -5349,7 +5536,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f410.svg",
@@ -5369,7 +5557,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f411.svg",
@@ -5389,7 +5578,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f412.svg",
@@ -5409,7 +5599,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f413.svg",
@@ -5429,7 +5620,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f414.svg",
@@ -5449,7 +5641,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f415.svg",
@@ -5469,7 +5662,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f418.svg",
@@ -5489,7 +5683,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f419.svg",
@@ -5509,7 +5704,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f41a.svg",
@@ -5529,7 +5725,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f41b.svg",
@@ -5549,7 +5746,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f41c.svg",
@@ -5569,7 +5767,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f41d.svg",
@@ -5589,7 +5788,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f41e.svg",
@@ -5609,7 +5809,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f41f.svg",
@@ -5629,7 +5830,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f422.svg",
@@ -5649,7 +5851,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f423.svg",
@@ -5669,7 +5872,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f425.svg",
@@ -5689,7 +5893,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f426.svg",
@@ -5709,7 +5914,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f427.svg",
@@ -5729,7 +5935,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f428.svg",
@@ -5749,7 +5956,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f42a.svg",
@@ -5769,7 +5977,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f42c.svg",
@@ -5789,7 +5998,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f433.svg",
@@ -5809,7 +6019,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f438.svg",
@@ -5829,7 +6040,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f43a.svg",
@@ -5849,7 +6061,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f43b.svg",
@@ -5869,7 +6082,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f43c.svg",
@@ -5889,7 +6103,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f440.svg",
@@ -5909,7 +6124,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f441.svg",
@@ -5929,7 +6145,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f442.svg",
@@ -5949,7 +6166,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f443.svg",
@@ -5969,7 +6187,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f444.svg",
@@ -5989,7 +6208,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f445.svg",
@@ -6009,7 +6229,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f44b.svg",
@@ -6029,7 +6250,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f44d.svg",
@@ -6049,7 +6271,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f44f.svg",
@@ -6069,7 +6292,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f452.svg",
@@ -6089,7 +6313,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f453.svg",
@@ -6109,7 +6334,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f455.svg",
@@ -6129,7 +6355,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f456.svg",
@@ -6149,7 +6376,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f457.svg",
@@ -6169,7 +6397,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f459.svg",
@@ -6189,7 +6418,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f45c.svg",
@@ -6209,7 +6439,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f45f.svg",
@@ -6229,7 +6460,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f461.svg",
@@ -6249,7 +6481,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f466.svg",
@@ -6269,7 +6502,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f467.svg",
@@ -6289,7 +6523,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f468.svg",
@@ -6309,7 +6544,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f469.svg",
@@ -6329,7 +6565,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f46a.svg",
@@ -6349,7 +6586,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f46e.svg",
@@ -6369,7 +6607,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f474.svg",
@@ -6389,7 +6628,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f475.svg",
@@ -6409,7 +6649,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f476.svg",
@@ -6429,7 +6670,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f477.svg",
@@ -6449,7 +6691,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f48a.svg",
@@ -6469,7 +6712,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f499.svg",
@@ -6489,7 +6733,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f49a.svg",
@@ -6509,7 +6754,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f49b.svg",
@@ -6529,7 +6775,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f49c.svg",
@@ -6549,7 +6796,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4a1.svg",
@@ -6569,7 +6817,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4a7.svg",
@@ -6589,7 +6838,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4aa.svg",
@@ -6609,7 +6859,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4af.svg",
@@ -6629,7 +6880,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4b0.svg",
@@ -6649,7 +6901,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4bb.svg",
@@ -6669,7 +6922,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4c4.svg",
@@ -6689,7 +6943,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4c5.svg",
@@ -6709,7 +6964,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4c6.svg",
@@ -6729,7 +6985,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4cf.svg",
@@ -6749,7 +7006,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4d3.svg",
@@ -6769,7 +7027,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4d5.svg",
@@ -6789,7 +7048,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4d6.svg",
@@ -6809,7 +7069,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4e6.svg",
@@ -6829,7 +7090,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4e7.svg",
@@ -6849,7 +7111,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4f1.svg",
@@ -6869,7 +7132,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4f7.svg",
@@ -6889,7 +7153,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f4fa.svg",
@@ -6909,7 +7174,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f50a.svg",
@@ -6929,7 +7195,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f50b.svg",
@@ -6949,7 +7216,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f511.svg",
@@ -6969,7 +7237,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f514.svg",
@@ -6989,7 +7258,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f51f.svg",
@@ -7009,7 +7279,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f525.svg",
@@ -7029,7 +7300,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f526.svg",
@@ -7049,7 +7321,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f52c.svg",
@@ -7069,7 +7342,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f52d.svg",
@@ -7089,7 +7363,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f534.svg",
@@ -7109,7 +7384,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f535.svg",
@@ -7129,7 +7405,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f53a.svg",
@@ -7149,7 +7426,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f54a.svg",
@@ -7169,7 +7447,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f54d.svg",
@@ -7189,7 +7468,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f550.svg",
@@ -7209,7 +7489,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f56f.svg",
@@ -7229,7 +7510,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f576.svg",
@@ -7249,7 +7531,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f577.svg",
@@ -7269,7 +7552,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f578.svg",
@@ -7289,7 +7573,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f58a.svg",
@@ -7309,7 +7594,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f58d.svg",
@@ -7329,7 +7615,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f5a4.svg",
@@ -7349,7 +7636,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f5bc.svg",
@@ -7369,7 +7657,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f5d1.svg",
@@ -7389,7 +7678,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f5fa.svg",
@@ -7409,7 +7699,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f600.svg",
@@ -7429,7 +7720,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f60c.svg",
@@ -7449,7 +7741,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f61f.svg",
@@ -7469,7 +7762,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f620.svg",
@@ -7489,7 +7783,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f622.svg",
@@ -7509,7 +7804,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f628.svg",
@@ -7529,7 +7825,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f62b.svg",
@@ -7549,7 +7846,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f62e.svg",
@@ -7569,7 +7867,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f633.svg",
@@ -7589,7 +7888,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f634.svg",
@@ -7609,7 +7909,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f680.svg",
@@ -7629,7 +7930,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f681.svg",
@@ -7649,7 +7951,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f682.svg",
@@ -7669,7 +7972,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f686.svg",
@@ -7689,7 +7993,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f689.svg",
@@ -7709,7 +8014,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f68c.svg",
@@ -7729,7 +8035,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f690.svg",
@@ -7749,7 +8056,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f691.svg",
@@ -7769,7 +8077,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f692.svg",
@@ -7789,7 +8098,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f695.svg",
@@ -7809,7 +8119,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f697.svg",
@@ -7829,7 +8140,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f69a.svg",
@@ -7849,7 +8161,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f69c.svg",
@@ -7869,7 +8182,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6a2.svg",
@@ -7889,7 +8203,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6aa.svg",
@@ -7909,7 +8224,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6b0.svg",
@@ -7929,7 +8245,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6b2.svg",
@@ -7949,7 +8266,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6b6.svg",
@@ -7969,7 +8287,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6bf.svg",
@@ -7989,7 +8308,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6c1.svg",
@@ -8009,7 +8329,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6cb.svg",
@@ -8029,7 +8350,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6cd.svg",
@@ -8049,7 +8371,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6cf.svg",
@@ -8069,7 +8392,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6d1.svg",
@@ -8089,7 +8413,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6d2.svg",
@@ -8109,7 +8434,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6dd.svg",
@@ -8129,7 +8455,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6de.svg",
@@ -8149,7 +8476,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6e2.svg",
@@ -8169,7 +8497,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6e3.svg",
@@ -8189,7 +8518,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6f0.svg",
@@ -8209,7 +8539,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6f4.svg",
@@ -8229,7 +8560,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f6f9.svg",
@@ -8249,7 +8581,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f7e1.svg",
@@ -8269,7 +8602,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f7e2.svg",
@@ -8289,7 +8623,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f7e6.svg",
@@ -8309,7 +8644,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f90d.svg",
@@ -8329,7 +8665,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f90e.svg",
@@ -8349,7 +8686,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f912.svg",
@@ -8369,7 +8707,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f914.svg",
@@ -8389,7 +8728,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f916.svg",
@@ -8409,7 +8749,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f929.svg",
@@ -8429,7 +8770,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f941.svg",
@@ -8449,7 +8791,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f944.svg",
@@ -8469,7 +8812,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f945.svg",
@@ -8489,7 +8833,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f947.svg",
@@ -8509,7 +8854,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f951.svg",
@@ -8529,7 +8875,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f952.svg",
@@ -8549,7 +8896,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f954.svg",
@@ -8569,7 +8917,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f955.svg",
@@ -8589,7 +8938,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f957.svg",
@@ -8609,7 +8959,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f95a.svg",
@@ -8629,7 +8980,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f95b.svg",
@@ -8649,7 +9001,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f95c.svg",
@@ -8669,7 +9022,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f95e.svg",
@@ -8689,7 +9043,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f964.svg",
@@ -8709,7 +9064,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f965.svg",
@@ -8729,7 +9085,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f966.svg",
@@ -8749,7 +9106,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f969.svg",
@@ -8769,7 +9127,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f96a.svg",
@@ -8789,7 +9148,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f96b.svg",
@@ -8809,7 +9169,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f96d.svg",
@@ -8829,7 +9190,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f975.svg",
@@ -8849,7 +9211,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f976.svg",
@@ -8869,7 +9232,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f97e.svg",
@@ -8889,7 +9253,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f980.svg",
@@ -8909,7 +9274,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f981.svg",
@@ -8929,7 +9295,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f985.svg",
@@ -8949,7 +9316,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f986.svg",
@@ -8969,7 +9337,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f987.svg",
@@ -8989,7 +9358,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f988.svg",
@@ -9009,7 +9379,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f989.svg",
@@ -9029,7 +9400,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f98a.svg",
@@ -9049,7 +9421,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f98b.svg",
@@ -9069,7 +9442,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f98c.svg",
@@ -9089,7 +9463,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f98e.svg",
@@ -9109,7 +9484,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f992.svg",
@@ -9129,7 +9505,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f993.svg",
@@ -9149,7 +9526,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f994.svg",
@@ -9169,7 +9547,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f995.svg",
@@ -9189,7 +9568,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f998.svg",
@@ -9209,7 +9589,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f99a.svg",
@@ -9229,7 +9610,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f99b.svg",
@@ -9249,7 +9631,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f99c.svg",
@@ -9269,7 +9652,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9a2.svg",
@@ -9289,7 +9673,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9a9.svg",
@@ -9309,7 +9694,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9b4.svg",
@@ -9329,7 +9715,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9b5.svg",
@@ -9349,7 +9736,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9b6.svg",
@@ -9369,7 +9757,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9b7.svg",
@@ -9389,7 +9778,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9c0.svg",
@@ -9409,7 +9799,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9c2.svg",
@@ -9429,7 +9820,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9c3.svg",
@@ -9449,7 +9841,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9c4.svg",
@@ -9469,7 +9862,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9c5.svg",
@@ -9489,7 +9883,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9c6.svg",
@@ -9509,7 +9904,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9c8.svg",
@@ -9529,7 +9925,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9ca.svg",
@@ -9549,7 +9946,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-1f33e.svg",
@@ -9569,7 +9967,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-1f373.svg",
@@ -9589,7 +9988,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-1f393.svg",
@@ -9609,7 +10009,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-1f3a4.svg",
@@ -9629,7 +10030,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-1f3a8.svg",
@@ -9649,7 +10051,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-1f3eb.svg",
@@ -9669,7 +10072,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-1f4bb.svg",
@@ -9689,7 +10093,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-1f527.svg",
@@ -9709,7 +10114,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-1f52c.svg",
@@ -9729,7 +10135,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-1f680.svg",
@@ -9749,7 +10156,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-1f692.svg",
@@ -9769,7 +10177,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-2695-fe0f.svg",
@@ -9789,7 +10198,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1-200d-2708-fe0f.svg",
@@ -9809,7 +10219,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d1.svg",
@@ -9829,7 +10240,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d2.svg",
@@ -9849,7 +10261,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d4.svg",
@@ -9869,7 +10282,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9d7.svg",
@@ -9889,7 +10303,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9e0.svg",
@@ -9909,7 +10324,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9e1.svg",
@@ -9929,7 +10345,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9e2.svg",
@@ -9949,7 +10366,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9e3.svg",
@@ -9969,7 +10387,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9e4.svg",
@@ -9989,7 +10408,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9e5.svg",
@@ -10009,7 +10429,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9e6.svg",
@@ -10029,7 +10450,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9e9.svg",
@@ -10049,7 +10471,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9ed.svg",
@@ -10069,7 +10492,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9f2.svg",
@@ -10089,7 +10513,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9f6.svg",
@@ -10109,7 +10534,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9f8.svg",
@@ -10129,7 +10555,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9fa.svg",
@@ -10149,7 +10576,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9fc.svg",
@@ -10169,7 +10597,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1f9fd.svg",
@@ -10189,7 +10618,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fa73.svg",
@@ -10209,7 +10639,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fa76.svg",
@@ -10229,7 +10660,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fa77.svg",
@@ -10249,7 +10681,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fa80.svg",
@@ -10269,7 +10702,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fa81.svg",
@@ -10289,7 +10723,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fa88.svg",
@@ -10309,7 +10744,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fa90.svg",
@@ -10329,7 +10765,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fa91.svg",
@@ -10349,7 +10786,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fa99.svg",
@@ -10369,7 +10807,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fa9e.svg",
@@ -10389,7 +10828,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fa9f.svg",
@@ -10409,7 +10849,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1faa5.svg",
@@ -10429,7 +10870,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1faa8.svg",
@@ -10449,7 +10891,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1faad.svg",
@@ -10469,7 +10912,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fab0.svg",
@@ -10489,7 +10933,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fab1.svg",
@@ -10509,7 +10954,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fab2.svg",
@@ -10529,7 +10975,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fab4.svg",
@@ -10549,7 +10996,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fab5.svg",
@@ -10569,7 +11017,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fab6.svg",
@@ -10589,7 +11038,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fab9.svg",
@@ -10609,7 +11059,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fabc.svg",
@@ -10629,7 +11080,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fabd.svg",
@@ -10649,7 +11101,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fac0.svg",
@@ -10669,7 +11122,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fac1.svg",
@@ -10689,7 +11143,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1facf.svg",
@@ -10709,7 +11164,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fad1.svg",
@@ -10729,7 +11185,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fad2.svg",
@@ -10749,7 +11206,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fad7.svg",
@@ -10769,7 +11227,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/1fad8.svg",
@@ -10789,7 +11248,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/231a.svg",
@@ -10809,7 +11269,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2328.svg",
@@ -10829,7 +11290,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/23f0.svg",
@@ -10849,7 +11311,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/23f3.svg",
@@ -10869,7 +11332,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2600.svg",
@@ -10889,7 +11353,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2601.svg",
@@ -10909,7 +11374,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2602.svg",
@@ -10929,7 +11395,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2604.svg",
@@ -10949,7 +11416,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/260e.svg",
@@ -10969,7 +11437,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2614.svg",
@@ -10989,7 +11458,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2615.svg",
@@ -11009,7 +11479,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/265f.svg",
@@ -11029,7 +11500,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2668.svg",
@@ -11049,7 +11521,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/267b.svg",
@@ -11069,7 +11542,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2696.svg",
@@ -11089,7 +11563,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/26a1.svg",
@@ -11109,7 +11584,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/26bd.svg",
@@ -11129,7 +11605,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/26c8.svg",
@@ -11149,7 +11626,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/26f0.svg",
@@ -11169,7 +11647,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/26f5.svg",
@@ -11189,7 +11668,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/26fa.svg",
@@ -11209,7 +11689,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2702.svg",
@@ -11229,7 +11710,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2708.svg",
@@ -11249,7 +11731,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/270b.svg",
@@ -11269,7 +11752,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/270d.svg",
@@ -11289,7 +11773,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/270f.svg",
@@ -11309,7 +11794,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2744.svg",
@@ -11329,7 +11815,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2753.svg",
@@ -11349,7 +11836,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2764.svg",
@@ -11369,7 +11857,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2b50.svg",
@@ -11389,7 +11878,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/2b55.svg",
@@ -11409,7 +11899,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/30-20e3.svg",
@@ -11429,7 +11920,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/31-20e3.svg",
@@ -11449,7 +11941,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/32-20e3.svg",
@@ -11469,7 +11962,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/33-20e3.svg",
@@ -11489,7 +11983,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/34-20e3.svg",
@@ -11509,7 +12004,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/35-20e3.svg",
@@ -11529,7 +12025,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/36-20e3.svg",
@@ -11549,7 +12046,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/37-20e3.svg",
@@ -11569,7 +12067,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/38-20e3.svg",
@@ -11589,7 +12088,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "emoji/39-20e3.svg",
@@ -11609,7 +12109,8 @@
    ],
    "licence": "CC BY 4.0",
    "note": "",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "licenses/ATTRIBUTIONS.md",
@@ -11623,7 +12124,8 @@
    "licences": [],
    "licence": "",
    "note": "Licence text shipped with the app.",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "licenses/GPL-3.0.txt",
@@ -11637,7 +12139,8 @@
    "licences": [],
    "licence": "",
    "note": "Licence text shipped with the app.",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "licenses/KelvinShadewing-soundpack-readme.txt",
@@ -11651,7 +12154,8 @@
    "licences": [],
    "licence": "",
    "note": "Licence text shipped with the app.",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "licenses/Rubik-OFL.txt",
@@ -11665,7 +12169,8 @@
    "licences": [],
    "licence": "",
    "note": "Licence text shipped with the app.",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "licenses/Twemoji-LICENSE.md",
@@ -11679,7 +12184,8 @@
    "licences": [],
    "licence": "",
    "note": "Licence text shipped with the app.",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "maps/classic_gym_granite.json",
@@ -11696,7 +12202,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Maps",
    "note": "Tuxemon classic map converted to Tiled JSON, with Nagmon's events. ATTRIBUTIONS.md does not list the classic maps.",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "maps/classic_gym_mila.json",
@@ -11713,7 +12220,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Maps",
    "note": "Tuxemon classic map converted to Tiled JSON, with Nagmon's events. ATTRIBUTIONS.md does not list the classic maps.",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "maps/classic_hearthrock_city.json",
@@ -11730,7 +12238,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Maps",
    "note": "Tuxemon classic map converted to Tiled JSON, with Nagmon's events. ATTRIBUTIONS.md does not list the classic maps.",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "maps/classic_route_1.json",
@@ -11747,7 +12256,8 @@
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md, Maps",
    "note": "Tuxemon classic map converted to Tiled JSON, with Nagmon's events. ATTRIBUTIONS.md does not list the classic maps.",
-   "matched": false
+   "matched": false,
+   "adapted": ""
   },
   {
    "path": "sprites/animations/item/capture_1.png",
@@ -11766,8 +12276,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/item/tuxeball.png",
@@ -11787,8 +12298,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/amethyst.png",
@@ -11807,8 +12319,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/amethyst_absorb.png",
@@ -11827,8 +12340,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/beam.png",
@@ -11847,8 +12361,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/bite.png",
@@ -11866,9 +12381,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/bite_zombie.png",
@@ -11887,8 +12403,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/blue_circle.png",
@@ -11906,9 +12423,10 @@
    "licences": [
     "CC BY"
    ],
-   "licence": "CC BY",
-   "note": "",
-   "matched": true
+   "licence": "CC BY, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/bomb_bright.png",
@@ -11927,8 +12445,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/bubbleattack.png",
@@ -11947,8 +12466,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/buff_rage.png",
@@ -11966,9 +12486,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/claw_blue.png",
@@ -11987,8 +12508,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/claw_yellow_169.png",
@@ -12007,8 +12529,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/constantburn.png",
@@ -12027,8 +12550,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/crushingball.png",
@@ -12046,9 +12570,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/crystal.png",
@@ -12067,8 +12592,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/crystal_absorb.png",
@@ -12087,8 +12613,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/crystal_radiate.png",
@@ -12107,8 +12634,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/debian_64.png",
@@ -12127,8 +12655,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/disintegrate_83.png",
@@ -12146,9 +12675,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/divinity_beam.png",
@@ -12167,8 +12697,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/drip_blue.png",
@@ -12187,9 +12718,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/drip_green.png",
@@ -12208,9 +12740,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/emerald.png",
@@ -12229,8 +12762,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/emerald_absorb.png",
@@ -12249,8 +12783,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/emerald_radiate.png",
@@ -12269,8 +12804,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/energy_beam.png",
@@ -12289,8 +12825,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/explosion_big_126.png",
@@ -12309,8 +12846,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/explosion_dusty_96.png",
@@ -12325,8 +12863,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/explosion_ice_112.png",
@@ -12345,8 +12884,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/explosion_small.png",
@@ -12365,8 +12905,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/fire_big_dark_96.png",
@@ -12385,8 +12926,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/fire_charge.png",
@@ -12401,8 +12943,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/firelion_right.png",
@@ -12420,9 +12963,10 @@
    "licences": [
     "CC BY-SA 3.0"
    ],
-   "licence": "CC BY-SA 3.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 3.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/flower.png",
@@ -12441,8 +12985,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/gloop_orange.png",
@@ -12460,9 +13005,10 @@
    "licences": [
     "CC BY"
    ],
-   "licence": "CC BY",
-   "note": "",
-   "matched": true
+   "licence": "CC BY, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/gnaw.png",
@@ -12481,8 +13027,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/green_circle.png",
@@ -12500,9 +13047,10 @@
    "licences": [
     "CC BY"
    ],
-   "licence": "CC BY",
-   "note": "",
-   "matched": true
+   "licence": "CC BY, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/horn.png",
@@ -12521,8 +13069,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/icetacle.png",
@@ -12540,9 +13089,10 @@
    "licences": [
     "CC BY-SA 3.0"
    ],
-   "licence": "CC BY-SA 3.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 3.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/lance_ice.png",
@@ -12561,8 +13111,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/leafstab.png",
@@ -12581,8 +13132,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/lightning_bolt_138.png",
@@ -12601,8 +13153,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/lightning_claw_large.png",
@@ -12620,9 +13173,10 @@
    "licences": [
     "CC BY-SA 3.0"
    ],
-   "licence": "CC BY-SA 3.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 3.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/lightning_spheres.png",
@@ -12641,8 +13195,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/pollenbullet.png",
@@ -12661,8 +13216,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/pound.png",
@@ -12680,9 +13236,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/pound_bright.png",
@@ -12701,8 +13258,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/pound_rock.png",
@@ -12721,8 +13279,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/pulse.png",
@@ -12741,8 +13300,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/pulse_absorb.png",
@@ -12761,8 +13321,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/pulse_radiate.png",
@@ -12781,8 +13342,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/purple_explosion.png",
@@ -12797,8 +13359,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/red_circle.png",
@@ -12816,9 +13379,10 @@
    "licences": [
     "CC BY"
    ],
-   "licence": "CC BY",
-   "note": "",
-   "matched": true
+   "licence": "CC BY, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/rockfall_193.png",
@@ -12837,8 +13401,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/rockfall_264.png",
@@ -12857,8 +13422,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/rollingball.png",
@@ -12877,8 +13443,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/shadow_blast.png",
@@ -12897,8 +13464,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/shield_rock.png",
@@ -12916,9 +13484,10 @@
    "licences": [
     "CC BY-SA 3.0"
    ],
-   "licence": "CC BY-SA 3.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 3.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/slash_200.png",
@@ -12937,8 +13506,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/slash_double_188.png",
@@ -12957,8 +13527,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/slash_power.png",
@@ -12977,8 +13548,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/smokebomb_plume.png",
@@ -12996,9 +13568,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/snake_right.png",
@@ -13016,9 +13589,10 @@
    "licences": [
     "CC BY-SA 3.0"
    ],
-   "licence": "CC BY-SA 3.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 3.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/sparks_gold_alt.png",
@@ -13036,9 +13610,10 @@
    "licences": [
     "CC BY 3.0"
    ],
-   "licence": "CC BY 3.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY 3.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/sparks_green.png",
@@ -13056,9 +13631,10 @@
    "licences": [
     "CC BY 3.0"
    ],
-   "licence": "CC BY 3.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY 3.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/sparks_white.png",
@@ -13077,9 +13653,10 @@
     "CC BY 3.0",
     "CC BY-SA 3.0"
    ],
-   "licence": "CC BY-SA 3.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 3.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/spikes_rock.png",
@@ -13097,9 +13674,10 @@
    "licences": [
     "CC BY-SA 3.0"
    ],
-   "licence": "CC BY-SA 3.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 3.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/staffstrike.png",
@@ -13118,8 +13696,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/starfall.png",
@@ -13134,8 +13713,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/stickyweb.png",
@@ -13154,8 +13734,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/thunderstrike.png",
@@ -13174,8 +13755,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/tornado_basic.png",
@@ -13194,8 +13776,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/tornado_bulk.png",
@@ -13213,9 +13796,10 @@
    "licences": [
     "CC BY-SA 3.0"
    ],
-   "licence": "CC BY-SA 3.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 3.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/triforce_163.png",
@@ -13234,8 +13818,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/triple_whammy_80.png",
@@ -13253,9 +13838,10 @@
    "licences": [
     "CC BY"
    ],
-   "licence": "CC BY",
-   "note": "",
-   "matched": true
+   "licence": "CC BY, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/turquoise_circle.png",
@@ -13273,9 +13859,10 @@
    "licences": [
     "CC BY"
    ],
-   "licence": "CC BY",
-   "note": "",
-   "matched": true
+   "licence": "CC BY, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/wall_ice.png",
@@ -13294,8 +13881,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/wall_wood.png",
@@ -13314,8 +13902,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/waterbullet.png",
@@ -13334,8 +13923,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/waterfall.png",
@@ -13354,8 +13944,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/watershot.png",
@@ -13374,8 +13965,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/waterspurt.png",
@@ -13394,8 +13986,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/x_attack.png",
@@ -13414,8 +14007,9 @@
     "not stated in ATTRIBUTIONS.md"
    ],
    "licence": "not stated in ATTRIBUTIONS.md",
-   "note": "",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/technique/yellow_circle.png",
@@ -13433,9 +14027,10 @@
    "licences": [
     "CC BY"
    ],
-   "licence": "CC BY",
-   "note": "",
-   "matched": true
+   "licence": "CC BY, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/animations/tileset/grass.png",
@@ -13450,8 +14045,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/items/nagmon_badge_granite.png",
@@ -13468,8 +14064,9 @@
     "not stated yet"
    ],
    "licence": "not stated yet",
-   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py). Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/items/nagmon_badge_mila.png",
@@ -13486,8 +14083,9 @@
     "not stated yet"
    ],
    "licence": "not stated yet",
-   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py). Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/items/potion.png",
@@ -13505,9 +14103,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/items/tuxeball.png",
@@ -13525,9 +14124,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/items/water_berry.png",
@@ -13542,8 +14142,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/items/wood_berry.png",
@@ -13558,8 +14159,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/monsters/agnidon-sheet.png",
@@ -13577,9 +14179,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/agnigon-sheet.png",
@@ -13597,9 +14200,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/agnite-sheet.png",
@@ -13617,9 +14221,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/alphabel-sheet.png",
@@ -13637,7 +14242,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/ampystoma-sheet.png",
@@ -13652,8 +14258,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/arthrobolt-sheet.png",
@@ -13671,9 +14278,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/axolightl-sheet.png",
@@ -13691,9 +14299,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/bolt-sheet.png",
@@ -13711,9 +14320,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/botanikos-sheet.png",
@@ -13731,7 +14341,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/cardiling-sheet.png",
@@ -13749,9 +14360,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/cardinale-sheet.png",
@@ -13769,9 +14381,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/cardiwing-sheet.png",
@@ -13789,9 +14402,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/cataspike-sheet.png",
@@ -13806,8 +14420,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/dandicub-sheet.png",
@@ -13822,8 +14437,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/dandylion-sheet.png",
@@ -13841,9 +14457,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/enigmon-sheet.png",
@@ -13861,7 +14478,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/eyenemy-sheet.png",
@@ -13879,9 +14497,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/eyesore-sheet.png",
@@ -13899,9 +14518,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/flaskling-sheet.png",
@@ -13919,7 +14539,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/geometrion-sheet.png",
@@ -13937,7 +14558,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/hydrone-sheet.png",
@@ -13955,9 +14577,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/jemuar-sheet.png",
@@ -13972,8 +14595,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/kroki-sheet.png",
@@ -13988,8 +14612,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/krokivip-sheet.png",
@@ -14004,8 +14629,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/leviadile-sheet.png",
@@ -14020,8 +14646,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/lexicon-sheet.png",
@@ -14039,7 +14666,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/megillon-sheet.png",
@@ -14057,7 +14685,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/multivolt-sheet.png",
@@ -14075,7 +14704,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/nudikill-sheet.png",
@@ -14090,8 +14720,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/nut-sheet.png",
@@ -14109,9 +14740,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/pluson-sheet.png",
@@ -14129,7 +14761,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/polygonos-sheet.png",
@@ -14147,7 +14780,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/puparmor-sheet.png",
@@ -14162,8 +14796,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/puzzlet-sheet.png",
@@ -14181,7 +14816,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/rabbitosaur-sheet.png",
@@ -14196,8 +14832,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/rockat-sheet.png",
@@ -14212,8 +14849,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/rockitten-sheet.png",
@@ -14231,9 +14869,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x3)",
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/scrollo-sheet.png",
@@ -14251,7 +14890,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/monsters/squabbit-sheet.png",
@@ -14266,8 +14906,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/tourbidi-sheet.png",
@@ -14282,8 +14923,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/monsters/weavifly-sheet.png",
@@ -14298,8 +14940,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x3) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x3"
   },
   {
    "path": "sprites/npc/nagmon_granite.png",
@@ -14317,7 +14960,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_granny.png",
@@ -14335,7 +14979,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_hero_boy.png",
@@ -14353,7 +14998,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_hero_curly.png",
@@ -14371,7 +15017,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_hero_girl.png",
@@ -14389,7 +15036,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_kid.png",
@@ -14407,7 +15055,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_mailcarrier.png",
@@ -14425,7 +15074,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_mila.png",
@@ -14443,7 +15093,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_owl.png",
@@ -14461,7 +15112,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_owl_caped.png",
@@ -14479,7 +15131,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_shopkeeper.png",
@@ -14497,7 +15150,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_teacher.png",
@@ -14515,7 +15169,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/nagmon_tourist.png",
@@ -14533,7 +15188,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/npc/rockitten.png",
@@ -14551,9 +15207,10 @@
    "licences": [
     "CC BY-SA 4.0"
    ],
-   "licence": "CC BY-SA 4.0",
-   "note": "",
-   "matched": true
+   "licence": "CC BY-SA 4.0, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/objects/nagmon_wallet.png",
@@ -14570,8 +15227,9 @@
     "not stated yet"
    ],
    "licence": "not stated yet",
-   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py). Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/objects/sign.png",
@@ -14589,9 +15247,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/portraits/nagmon_granite.png",
@@ -14609,7 +15268,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_granny.png",
@@ -14627,7 +15287,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_hero_boy.png",
@@ -14645,7 +15306,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_hero_curly.png",
@@ -14663,7 +15325,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_hero_girl.png",
@@ -14681,7 +15344,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_kid.png",
@@ -14699,7 +15363,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_mailcarrier.png",
@@ -14717,7 +15382,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_mila.png",
@@ -14735,7 +15401,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_owl.png",
@@ -14753,7 +15420,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_shopkeeper.png",
@@ -14771,7 +15439,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_teacher.png",
@@ -14789,7 +15458,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/portraits/nagmon_traveler.png",
@@ -14807,7 +15477,8 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
-   "matched": true
+   "matched": true,
+   "adapted": ""
   },
   {
    "path": "sprites/ui/battle_interior.png",
@@ -14822,8 +15493,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/cobble_island_sheet.png",
@@ -14838,8 +15510,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/element/cosmic_type.png",
@@ -14857,9 +15530,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/earth_type.png",
@@ -14877,9 +15551,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/fire_type.png",
@@ -14897,9 +15572,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/frost_type.png",
@@ -14917,9 +15593,10 @@
    "licences": [
     "CC BY"
    ],
-   "licence": "CC BY",
-   "note": "",
-   "matched": true
+   "licence": "CC BY, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/heroic_type.png",
@@ -14937,9 +15614,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/lightning_type.png",
@@ -14957,9 +15635,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/metal_type.png",
@@ -14977,9 +15656,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/normal_type.png",
@@ -14997,9 +15677,10 @@
    "licences": [
     "CC BY"
    ],
-   "licence": "CC BY",
-   "note": "",
-   "matched": true
+   "licence": "CC BY, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/shadow_type.png",
@@ -15017,9 +15698,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/sky_type.png",
@@ -15037,9 +15719,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/venom_type.png",
@@ -15057,9 +15740,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/water_type.png",
@@ -15077,9 +15761,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/element/wood_type.png",
@@ -15097,9 +15782,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x4)",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x4"
   },
   {
    "path": "sprites/ui/grass_background.png",
@@ -15117,9 +15803,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x6)",
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/grass_island_sheet.png",
@@ -15134,8 +15821,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/hp_opponent_nohp.png",
@@ -15150,8 +15838,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/hp_player_nohp.png",
@@ -15166,8 +15855,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/night_grass_background.png",
@@ -15185,9 +15875,10 @@
    "licences": [
     "CC0 / public domain"
    ],
-   "licence": "CC0 / public domain",
-   "note": "",
-   "matched": true
+   "licence": "CC0 / public domain, adapted (xBRZ x6)",
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": true,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/night_grass_island_sheet.png",
@@ -15202,8 +15893,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/opponent_party_tray.png",
@@ -15218,8 +15910,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/party_empty.png",
@@ -15234,8 +15927,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/party_icon01.png",
@@ -15250,8 +15944,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/party_icon02.png",
@@ -15266,8 +15961,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/party_icon03.png",
@@ -15282,8 +15978,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   },
   {
    "path": "sprites/ui/player_party_tray.png",
@@ -15298,8 +15995,9 @@
     "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)"
    ],
    "licence": "unknown: not listed in ATTRIBUTIONS.md (Tuxemon art is mostly CC BY-SA 4.0)",
-   "note": "",
-   "matched": false
+   "note": "HD (xBRZ x6) upscale of the original picture, made by the app build (tools/app/hd.py).",
+   "matched": false,
+   "adapted": "xBRZ x6"
   }
  ]
 }
