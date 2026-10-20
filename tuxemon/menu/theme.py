@@ -13,6 +13,7 @@ from pygame_menu.widgets.selection import NoneSelection
 from pygame_menu.widgets.widget.menubar import MENUBAR_STYLE_ADAPTIVE
 
 from tuxemon.constants.asset_loader import fetch_asset
+from tuxemon.graphics import HD_TWIN_FACTOR, fetch_hd_twin
 from tuxemon.locale.locale import T
 from tuxemon.menu.rtl import install_pygame_menu_bidi, start_menu_alignment
 from tuxemon.platform import mobile
@@ -129,6 +130,26 @@ def label_padding(scaling: ScalingStrategy) -> tuple[int, int]:
     return scaling.scale_int(1), mobile.ui_px(scaling.scale_int(6))
 
 
+def border_image(path: str, scale_factor: int) -> BaseImage:
+    """
+    The border at ``scale_factor`` times its size: from its HD twin,
+    smoothly, when there is one (SDD_ANDROID §2.7), else as always
+    (nearest).
+    """
+    twin = fetch_hd_twin(path)
+    if twin is None:
+        return BaseImage(image_path=transform_resource_filename(path)).scale(
+            scale_factor, scale_factor, smooth=False
+        )
+    image = BaseImage(image_path=twin)
+    w, h = image.get_size()
+    return image.resize(
+        w // HD_TWIN_FACTOR * scale_factor,
+        h // HD_TWIN_FACTOR * scale_factor,
+        smooth=True,
+    )
+
+
 def get_theme(scaling: ScalingStrategy) -> Theme:
     """Get Tuxemon default theme."""
     global _theme
@@ -137,9 +158,7 @@ def get_theme(scaling: ScalingStrategy) -> Theme:
         return _theme
 
     scale_factor = max(scaling.scale_int(1), 1)
-    tuxemon_border = BaseImage(
-        image_path=transform_resource_filename(CONFIG.menu_border),
-    ).scale(scale_factor, scale_factor, smooth=False)
+    tuxemon_border = border_image(CONFIG.menu_border, scale_factor)
 
     tuxemon_background_center_rect = tuxemon_border.get_rect()
     tuxemon_background_center_rect = tuxemon_background_center_rect.inflate(

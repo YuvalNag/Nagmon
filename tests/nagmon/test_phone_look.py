@@ -7,8 +7,11 @@ of Tuxemon's UI images.
 from __future__ import annotations
 
 import os
+import sys
+from pathlib import Path
 from unittest.mock import MagicMock
 
+import numpy as np
 import pygame
 import pytest
 
@@ -92,6 +95,10 @@ def display():
 @pytest.fixture
 def mods(tmp_path, monkeypatch):
     """Two mods: "nagmon" before "tuxemon", as the game orders them."""
+    # Imported first: importing them finds the real mods.
+    import tuxemon.environment  # noqa: F401
+    import tuxemon.menu.menu  # noqa: F401
+    import tuxemon.menu.theme  # noqa: F401
     from tuxemon.constants import asset_loader
 
     roots = (tmp_path / "nagmon", tmp_path / "tuxemon")
@@ -230,3 +237,122 @@ def test_the_battle_background_on_a_16_9_screen_is_as_before(mods, display):
     ) == pygame.image.tobytes(old.convert(surf), "RGB")
     # under the picture, its last row goes on (the menu covers it)
     assert surf.get_at((5, 1000))[:3] == (0, 160, 0)
+
+
+def test_an_island_sheet_twin_gives_the_same_frames(mods, display):
+    from tuxemon.environment import IslandSheet
+
+    nagmon, tuxemon = mods
+    _save(_checker((20, 8)), tuxemon / "gfx" / "isl.png")
+    context = MagicMock(scale=7)
+    old = IslandSheet(context, "gfx/isl.png", 10, 8).frames
+    twin = pygame.Surface((80, 32))
+    twin.fill((0, 200, 0))
+    _save(twin, nagmon / "gfx" / "isl@4x.png")
+    _forget()
+    new = IslandSheet(context, "gfx/isl.png", 10, 8).frames
+    for side in ("back", "front"):
+        assert old[side].get_size() == new[side].get_size() == (70, 56)
+        assert new[side].get_at((3, 3))[:3] == (0, 200, 0)
+
+
+def test_the_menu_border_comes_from_its_twin(mods, display):
+    from tuxemon.menu.theme import border_image
+
+    nagmon, tuxemon = mods
+    _save(_checker((18, 18)), tuxemon / "gfx" / "b.png")
+    old = border_image("gfx/b.png", 7)
+    _save(_checker((18, 18), 4), nagmon / "gfx" / "b@4x.png")
+    _forget()
+    new = border_image("gfx/b.png", 7)
+    assert old.get_size() == new.get_size() == (126, 126)
+    assert new.get_path() == (nagmon / "gfx" / "b@4x.png").as_posix()
+
+
+def test_a_menu_background_is_its_twin(mods, display):
+    from tuxemon.menu.menu import PygameMenuState
+
+    nagmon, tuxemon = mods
+    _save(_checker((256, 144)), tuxemon / "gfx" / "bg.png")
+    state = PygameMenuState.__new__(PygameMenuState)
+    assert state._create_image("gfx/bg.png").get_path() == (
+        (tuxemon / "gfx" / "bg.png").as_posix()
+    )
+    _save(_checker((256, 144), 4), nagmon / "gfx" / "bg@4x.png")
+    _forget()
+    assert state._create_image("gfx/bg.png").get_path() == (
+        (nagmon / "gfx" / "bg@4x.png").as_posix()
+    )
+
+
+# ------------------------------------------------- the twins in the repo
+
+REPO = Path(__file__).resolve().parents[2]
+
+
+def _tool():
+    sys.path.insert(0, str(REPO / "tools" / "art"))
+    import upscale_ui
+
+    return upscale_ui
+
+
+def test_every_twin_is_four_times_its_tuxemon_image():
+    from PIL import Image
+
+    tool = _tool()
+    twins = tool.twins()
+    assert len(twins) > 60
+    for twin in twins:
+        target = REPO / tool.OUT_MOD / twin.target
+        assert target.is_file(), f"run tools/art/upscale_ui.py: {target}"
+        with (
+            Image.open(REPO / tool.SOURCE_MOD / twin.source) as src,
+            Image.open(target) as big,
+        ):
+            assert big.size == (src.width * 4, src.height * 4), twin
+
+
+def test_the_priority_images_have_twins():
+    targets = {t.source for t in _tool().twins()}
+    for rel in (
+        "gfx/borders/borders.png",  # every dialog and menu
+        "gfx/ui/background/gradient_blue.png",  # the title, who plays
+        "gfx/ui/combat/grass_background.png",
+        "gfx/ui/combat/night_grass_background.png",
+        "gfx/ui/combat/battle_interior.png",
+        "gfx/ui/combat/hp_player_nohp.png",
+        "gfx/ui/combat/hp_opponent_nohp.png",
+        "gfx/ui/island_sheet/grass_island_sheet.png",
+    ):
+        assert rel in targets, rel
+    # faded in through a colorkey: smooth edges would turn magenta
+    assert not any("icons/party" in rel for rel in targets)
+    assert not list((REPO / "mods/nagmon/gfx/ui/icons/party").glob("*@4x*"))
+
+
+def test_a_border_side_and_middle_repeat_without_a_notch():
+    from PIL import Image
+
+    tool = _tool()
+    path = REPO / tool.OUT_MOD / "gfx" / "borders" / "borders@4x.png"
+    with Image.open(path) as image:
+        big = np.array(image.convert("RGBA"))
+    t = big.shape[0] // 3
+    north = big[0:t, t : 2 * t]
+    west = big[t : 2 * t, 0:t]
+    middle = big[t : 2 * t, t : 2 * t]
+    assert (north == north[:, :1]).all()  # every column the same
+    assert (west == west[:1, :]).all()  # every row the same
+    assert (middle == middle[0, 0]).all()
+
+
+def test_the_title_gradient_has_no_stripes():
+    from PIL import Image
+
+    tool = _tool()
+    path = REPO / tool.OUT_MOD / "gfx/ui/background/gradient_blue@4x.png"
+    with Image.open(path) as image:
+        column = np.array(image.convert("RGB"))[:, 100].astype(int)
+    # neighbouring rows differ by a level or two, not white against cyan
+    assert np.abs(np.diff(column, axis=0)).max() <= 3

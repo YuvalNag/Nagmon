@@ -26,7 +26,12 @@ from pygame_menu.widgets.core.widget import Widget
 
 from tuxemon.animation import Animation, ScheduleType
 from tuxemon.constants.asset_loader import fetch_asset
-from tuxemon.graphics import ColorLike, load_and_scale, load_image
+from tuxemon.graphics import (
+    ColorLike,
+    fetch_hd_twin,
+    load_and_scale,
+    load_image,
+)
 from tuxemon.menu.controller import MenuController
 from tuxemon.menu.cursor import MenuCursor, MenuCursorController
 from tuxemon.menu.input_handler import (
@@ -230,8 +235,10 @@ class PygameMenuState(State):
     def _create_image(
         self, path: str, position: str = POSITION_CENTER
     ) -> BaseImage:
+        # An HD twin (SDD_ANDROID §2.7) is drawn smoothly to the screen.
         return BaseImage(
-            image_path=transform_resource_filename(path),
+            image_path=fetch_hd_twin(path)
+            or transform_resource_filename(path),
             drawing_position=position,
         )
 

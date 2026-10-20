@@ -16,6 +16,8 @@ from tuxemon.db import (
     EnvironmentModel,
 )
 from tuxemon.graphics import (
+    HD_TWIN_FACTOR,
+    fetch_hd_twin,
     load_and_scale,
     load_native_or_hd,
     load_raw_image,
@@ -333,8 +335,13 @@ class IslandSheet:
         self.frames = self._slice()
 
     def _slice(self) -> dict[str, Surface]:
-        sheet = load_raw_image(self.file_path)
+        # An HD twin (SDD_ANDROID §2.7) is cut at k times and scaled once,
+        # smoothly, to the screen.
+        twin = fetch_hd_twin(self.file_path)
+        k = HD_TWIN_FACTOR if twin else 1
+        sheet = load_raw_image(twin or self.file_path)
         w, h = sheet.get_size()
+        w, h = w // k, h // k
 
         expected_w = self.frame_w * 2
         expected_h = self.frame_h
@@ -345,13 +352,17 @@ class IslandSheet:
                 f"{expected_w}x{expected_h}, but is {w}x{h}"
             )
 
-        back_raw = sheet.subsurface((0, 0, self.frame_w, self.frame_h))
-        front_raw = sheet.subsurface(
-            (self.frame_w, 0, self.frame_w, self.frame_h)
-        )
+        fw, fh = self.frame_w * k, self.frame_h * k
+        back_raw = sheet.subsurface((0, 0, fw, fh))
+        front_raw = sheet.subsurface((fw, 0, fw, fh))
         scale_int = self.context.scale
-        back_scaled = scale_surface(back_raw, scale_int)
-        front_scaled = scale_surface(front_raw, scale_int)
+        if k > 1:
+            size = (self.frame_w * scale_int, self.frame_h * scale_int)
+            back_scaled = smooth_resize(back_raw, size)
+            front_scaled = smooth_resize(front_raw, size)
+        else:
+            back_scaled = scale_surface(back_raw, scale_int)
+            front_scaled = scale_surface(front_raw, scale_int)
 
         return {
             "back": back_scaled,
