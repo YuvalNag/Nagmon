@@ -356,3 +356,57 @@ def test_the_title_gradient_has_no_stripes():
         column = np.array(image.convert("RGB"))[:, 100].astype(int)
     # neighbouring rows differ by a level or two, not white against cyan
     assert np.abs(np.diff(column, axis=0)).max() <= 3
+
+
+# ------------------------------------- menus above the battle menu (review)
+
+
+def _battle_menu(screen_width: int, hud_left: int | None):
+    from pygame.rect import Rect
+
+    from tuxemon.scaling import DefaultScaling
+    from tuxemon.states.combat_menus import MainCombatMenuState
+
+    menu = MainCombatMenuState.__new__(MainCombatMenuState)
+    menu.client = MagicMock()
+    menu.client.context.rect = Rect(0, 0, screen_width, 1080)
+    menu.client.context.scaling = DefaultScaling(7)
+    menu.rect = Rect(screen_width - 714, 810, 714, 270)
+    monster = MagicMock()
+    menu.party = [monster]
+    hud = None
+    if hud_left is not None:
+        hud = MagicMock()
+        hud.rect = Rect(hud_left, 450, 770, 175)
+    menu.combat = MagicMock()
+    menu.combat.hud_manager.get_hud.return_value = hud
+    return menu
+
+
+def test_on_20_9_the_attack_list_stops_at_the_players_hud():
+    # The HUD moved to the right edge; the list used to cover it.
+    assert _battle_menu(2400, 1623).submenu_right() == 1623
+
+
+def test_on_16_9_the_attack_list_is_at_the_screen_edge():
+    assert _battle_menu(1792, 1015).submenu_right() == 1792
+
+
+def test_without_a_hud_the_attack_list_is_at_the_screen_edge():
+    assert _battle_menu(2400, None).submenu_right() == 2400
+
+
+def test_a_menu_too_wide_for_the_room_stays_at_the_screen_edge():
+    battle = _battle_menu(2400, 1623)
+    narrow, wide = MagicMock(), MagicMock()
+    narrow.rect.width, wide.rect.width = 400, 2000
+    battle.anchor_above(narrow)
+    battle.anchor_above(wide)
+    narrow.anchor.assert_any_call("right", 1623)
+    narrow.anchor.assert_any_call("bottom", 810)
+    wide.anchor.assert_any_call("right", 2400)
+    # the attack list is screen-wide until it shrinks to the names
+    shrinking = MagicMock()
+    shrinking.rect.width = 2400
+    battle.anchor_above(shrinking, shrinks=True)
+    shrinking.anchor.assert_any_call("right", 1623)

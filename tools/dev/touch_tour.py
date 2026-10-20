@@ -481,6 +481,19 @@ if names()[:1] == ["WorldState"]:
         step(40)
         shot("t11_combat_techniques")
         top = client.active_states[0]
+        combat = client.get_state_by_name("CombatState")
+        huds = [
+            hud.rect
+            for hud in (
+                combat.hud_manager.get_hud(mon)
+                for mon in local_session.player.monsters
+            )
+            if hud is not None
+        ]
+        check(
+            bool(huds) and not any(top.rect.colliderect(r) for r in huds),
+            f"the attacks do not cover the player's HUD {top.rect} {huds}",
+        )
         if top.name == "CombatTargetMenuState" or hasattr(top, "menu_items"):
             top.menu_items.update_rect_from_parent()
             inner = top.menu_items.rect
