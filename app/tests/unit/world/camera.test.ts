@@ -53,4 +53,16 @@ describe("the camera's scroll", () => {
     // an 800 px map, a 1200 px view, 200 px covered: 100 px each side of the rest
     expect(scrollFor(400, 1200, 800, 1, 200)).toBe(-300);
   });
+
+  it("may go past the high edge by the covered part there (the talk button)", () => {
+    // 150 world px of the view's right side are under the button
+    const s = scrollFor(2500, 1200, 2560, 2, 277, 150);
+    expect(s).toBe(1510);
+    // the walker at x 2468-2532 is drawn left of the cover
+    expect(2532 - s).toBeLessThanOrEqual(1200 - 150);
+    // away from the edges nothing changes
+    expect(scrollFor(1000, 1200, 2560, 2, 277, 150)).toBe(400);
+    // a small map sits in the middle of what is left between the covers
+    expect(scrollFor(400, 1200, 700, 1, 200, 100)).toBe(-300);
+  });
 });
