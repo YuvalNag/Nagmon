@@ -132,7 +132,7 @@ async function main(): Promise<void> {
     performance.mark("nagmon:services");
     root.render(
       <StrictMode>
-        <App services={services} onStarted={() => void noteStarted()} />
+        <App services={services} onStarted={() => void noteStarted()} lifecycle={lifecycle} />
       </StrictMode>,
     );
   });

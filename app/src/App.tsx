@@ -19,6 +19,7 @@ import { ScreenTime } from "./ui/screenTime";
 import { Tap } from "./ui/Tap";
 import { Choices } from "./ui/screens/Choices";
 import { Notice } from "./ui/screens/Notice";
+import type { MapLifecycle } from "./game/mapGame";
 import { MapScreen } from "./ui/screens/MapScreen";
 import { WhoPlays } from "./ui/screens/WhoPlays";
 
@@ -97,9 +98,11 @@ interface Props {
   workTimeoutMs?: number;
   /** Who-plays is showing with the children read: the app has started. */
   onStarted?: () => void;
+  /** The app's lifecycle, for the map to pause in the background (main.tsx passes it). */
+  lifecycle?: MapLifecycle;
 }
 
-export function App({ services, backButton = bindBackButton, workTimeoutMs = WORK_TIMEOUT_MS, onStarted }: Props) {
+export function App({ services, backButton = bindBackButton, workTimeoutMs = WORK_TIMEOUT_MS, onStarted, lifecycle }: Props) {
   const { profiles, parent } = services;
   // each screen shown gets a number: a new number is a new, fresh screen
   const [shown, setShown] = useState<{ view: View; n: number }>({ view: WHO, n: 0 });
@@ -389,6 +392,7 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
             name={child?.name ?? ""}
             avatar={child?.avatar ?? ""}
             backRef={mapBack}
+            lifecycle={lifecycle}
             onExit={() => show(WHO)}
           />
         );

@@ -58,6 +58,13 @@ export interface MapOptions {
   release?: () => void;
   /** CSS px at the left of the screen covered by the d-pad (its right edge and a gap). */
   reservedLeft?: () => number;
+  /**
+   * The app's lifecycle (src/platform/lifecycle.ts): the map pauses in the
+   * background (loop, music, d-pad) and goes on in the foreground.
+   */
+  lifecycle?: MapLifecycle;
+  /** The game's time, ms (the lifecycle's gameClock, which stands still in the background). */
+  clock?: () => number;
   /** The hero pushed against a closed way (route 8, Steamshore). */
   onBlocked: () => void;
   onReady?: () => void;
@@ -120,6 +127,13 @@ export interface MapDebug {
   webgl: { lost: number; restored: number; contextLost: boolean };
   cachedMaps: string[];
   textures: string[];
+}
+
+/** The part of the app's Lifecycle the map needs. */
+export interface MapLifecycle {
+  readonly state: "active" | "background";
+  onBackground(fn: () => void): () => void;
+  onForeground(fn: () => void): () => void;
 }
 
 export interface MapController {
@@ -190,6 +204,7 @@ class MapScene extends Phaser.Scene {
   private leftFoot = false;
   private skipDelta = false;
   private lastFrame: number | null = null;
+  private lastGame: number | null = null;
   private stepCount = 0;
   private waitLift = false;
   private bumpCount = 0;
@@ -401,7 +416,10 @@ class MapScene extends Phaser.Scene {
     const now = performance.now();
     const real = this.lastFrame === null ? 0 : now - this.lastFrame;
     this.lastFrame = now;
-    let delta = Math.min(real, MAX_FRAME_MS);
+    // the walk goes by the game's clock, which stands still in the background
+    const game = (this.opts.clock ?? (() => now))();
+    let delta = this.lastGame === null ? 0 : Math.min(Math.max(game - this.lastGame, 0), MAX_FRAME_MS);
+    this.lastGame = game;
     if (this.skipDelta) {
       this.skipDelta = false;
       delta = 0;
@@ -687,20 +705,21 @@ export function startMap(opts: MapOptions): MapController {
   };
   resize.observe(opts.parent);
 
-  // the lifecycle module (Android pause/resume) will call pause/resume;
-  // until it lands, the page's own visibility does
-  const onVisibility = () => {
-    if (document.hidden) {
-      if (reasons.pause("background")) log.info("Map paused: the app went to the background");
+  // the app's lifecycle: in the background the loop, the music and the
+  // d-pad stop (a finger on an arrow when the app left never lifts here)
+  const unbind = [
+    opts.lifecycle?.onBackground(() => {
+      if (reasons.pause("lifecycle")) log.info("Map paused: the app went to the background");
       apply();
-      // a finger on an arrow when the app left never lifts here
       opts.release?.();
-    } else {
-      if (reasons.resume("background")) log.info("Map running again: the app is back");
+    }),
+    opts.lifecycle?.onForeground(() => {
+      if (reasons.resume("lifecycle")) log.info("Map running again: the app is back");
       apply();
-    }
-  };
-  document.addEventListener("visibilitychange", onVisibility);
+    }),
+  ];
+  // opened behind another app (or with the screen off)
+  if (opts.lifecycle?.state === "background") reasons.pause("lifecycle");
 
   return {
     pause(why = "lifecycle") {
@@ -719,7 +738,7 @@ export function startMap(opts: MapOptions): MapController {
       destroyed = true;
       clearTimeout(lostTimer);
       resize.disconnect();
-      document.removeEventListener("visibilitychange", onVisibility);
+      for (const off of unbind) off?.();
       scene.shutdownAll();
       // destroy runs on the next frame: a sleeping loop must wake for it
       game.loop.wake();

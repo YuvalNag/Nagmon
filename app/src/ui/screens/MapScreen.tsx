@@ -1,6 +1,7 @@
 import { type MutableRefObject, useCallback, useEffect, useRef, useState } from "react";
 import { currentMap, setCurrentMap } from "../../game/current";
-import type { MapController } from "../../game/mapGame";
+import type { MapController, MapLifecycle } from "../../game/mapGame";
+import { gameClock } from "../../platform/lifecycle";
 import { t } from "../../i18n";
 import { getLogger } from "../../platform/appLog";
 import { DPad } from "../DPad";
@@ -27,6 +28,8 @@ interface Props {
   onExit: () => void;
   /** Android's back button on the map: App calls it (it opens or closes the menu). */
   backRef: MutableRefObject<(() => void) | null>;
+  /** The app's lifecycle: the map pauses in the background. */
+  lifecycle?: MapLifecycle;
   load?: Load;
 }
 
@@ -37,7 +40,7 @@ type Debuggable = Window & { __nagmonMap?: MapController };
  * sits at the bottom left, and the menu button at the top. The menu (and
  * Android's back) pauses the game: continue, or back to "who plays".
  */
-export function MapScreen({ name, avatar, onExit, backRef, load = loadGame }: Props) {
+export function MapScreen({ name, avatar, onExit, backRef, lifecycle, load = loadGame }: Props) {
   const stage = useRef<HTMLDivElement>(null);
   const [dpad] = useState(() => new DpadState());
   const [ctl, setCtl] = useState<MapController | null>(null);
@@ -55,6 +58,8 @@ export function MapScreen({ name, avatar, onExit, backRef, load = loadGame }: Pr
         controller = startMap({
           parent: stage.current,
           avatar,
+          lifecycle,
+          clock: () => gameClock.now(),
           input: () => dpad.take(),
           release: () => dpad.clear(),
           // the camera keeps the hero right of the d-pad (bottom left)
@@ -82,7 +87,7 @@ export function MapScreen({ name, avatar, onExit, backRef, load = loadGame }: Pr
       if (currentMap() === controller) setCurrentMap(null);
       if ((window as Debuggable).__nagmonMap === controller) delete (window as Debuggable).__nagmonMap;
     };
-  }, [avatar, dpad, load]);
+  }, [avatar, dpad, load, lifecycle]);
 
   const openMenu = useCallback(() => {
     dpad.clear();
@@ -125,8 +130,11 @@ export function MapScreen({ name, avatar, onExit, backRef, load = loadGame }: Pr
           </Tap>
         </div>
       )}
-      {status === "ready" && (
-        // a new screen for the fingers: a press from before the map counts for nothing
+      {status === "ready" && !menuOpen && (
+        // a new screen for the fingers: a press from before the map (or on
+        // the menu's "continue") counts for nothing. Under the menu the map's
+        // own buttons are gone, not just covered: a finger or TalkBack finds
+        // only the menu's.
         <ScreenTime key="map-ready">
           <div className="map-hud">
             <span className="map-name">{name}</span>

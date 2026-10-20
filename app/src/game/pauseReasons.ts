@@ -1,10 +1,10 @@
 /**
  * Why the map is paused. It runs only when nothing holds it: the pause
- * menu and the app in the background each hold it on their own, so
+ * menu and the app in the background ("lifecycle") each hold it on their own, so
  * coming back from the background never starts the game under an open
  * menu, and closing the menu never starts it in the background.
  */
-export type PauseReason = "menu" | "background" | "lifecycle";
+export type PauseReason = "menu" | "lifecycle";
 
 export class PauseReasons {
   private held = new Set<PauseReason>();
