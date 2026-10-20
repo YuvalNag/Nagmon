@@ -1,5 +1,6 @@
 import { type MutableRefObject, useCallback, useEffect, useRef, useState } from "react";
 import type { Play, PlayOptions } from "../../app/play";
+import { TALK_TO, testSeed } from "../../app/playConfig";
 import type { Profile, ProfileStore } from "../../core/family/profiles";
 import { pages } from "../../core/world/dialog";
 import { EventRunner, type EventHost } from "../../core/world/events";
@@ -56,15 +57,6 @@ type Debuggable = Window & {
   __nagmonQuiz?: () => { phase: string; kind: string | null; answer: string | readonly string[] | null; skill: string | null };
 };
 
-/** The browser tests' seed for the questions (play.ts SEED_KEY); none on a phone. */
-function testSeed(): number | null {
-  try {
-    const v = localStorage.getItem("nagmon.quiz.seed");
-    return v !== null && /^\d+$/.test(v) ? Number(v) : null;
-  } catch {
-    return null;
-  }
-}
 
 /** A small coin, drawn: the font has no coin sign. */
 function Coin() {
@@ -99,6 +91,8 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   const [talking, setTalking] = useState(false);
   const [overlay, setOverlay] = useState<Overlay | null>(null);
   const [coins, setCoins] = useState<number | null>(null);
+  // the runner's own state changed (it started, a talk ended): draw again
+  const [, setRunnerTick] = useState(0);
   const seq = useRef(0);
   const shown = useRef<Overlay | null>(null);
   shown.current = overlay;
@@ -211,11 +205,15 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     if (waiting.length) log.info(`${world.name}: ${waiting.length} events wait for later milestones`);
     setRunner(r);
     // the events that hold run now (a reward left from before shows its dialog)
-    void r.start();
+    void r.start().finally(() => alive && setRunnerTick((n) => n + 1));
     return () => {
       alive = false;
       setRunner(null);
+      // a talk under way ends: its dialog or question is answered as closed
+      const o = shown.current;
+      shown.current = null;
       setOverlay(null);
+      o?.done();
     };
   }, [play, world]);
 
@@ -259,10 +257,10 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   useEffect(() => {
     backRef.current = () => {
       if (status === "failed") onExit();
+      else if (menuOpen) closeMenu();
       else if (overlay?.kind === "dialog") dialogAdvance.current?.();
       else if (overlay?.kind === "quiz") closeOverlay();
       else if (held) return;
-      else if (menuOpen) closeMenu();
       else openMenu();
     };
     return () => {
@@ -270,9 +268,9 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     };
   }, [backRef, menuOpen, openMenu, closeMenu, status, onExit, overlay, held, closeOverlay]);
 
-  // the browser tests and the emulator check read the question through it
+  // the browser tests and the emulator check read the question through it (only with the test seed)
   useEffect(() => {
-    if (overlay?.kind !== "quiz") return;
+    if (overlay?.kind !== "quiz" || testSeed() === null) return;
     const s = overlay.session;
     const w = window as Debuggable;
     const read = () => ({ phase: s.phase, kind: s.question?.kind ?? null, answer: s.question?.answer ?? null, skill: s.question?.skill_id ?? null });
@@ -345,12 +343,13 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           </div>
         </ScreenTime>
       )}
-      {overlay?.kind === "dialog" && (
+      {/* the pause menu, opened as the map came up, stays on top of a dialog that starts under it */}
+      {overlay?.kind === "dialog" && !menuOpen && (
         <ScreenTime key={`dialog-${overlay.n}`}>
           <Dialog pages={overlay.pages} onDone={closeOverlay} advanceRef={dialogAdvance} />
         </ScreenTime>
       )}
-      {overlay?.kind === "quiz" && play && (
+      {overlay?.kind === "quiz" && play && !menuOpen && (
         <ScreenTime key={`quiz-${overlay.n}`}>
           <QuizScreen
             session={overlay.session}
@@ -378,6 +377,3 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     </main>
   );
 }
-
-/** Who the player may talk to in M4 (play.ts TALK_TO, here so the map's code does not load the learning core). */
-const TALK_TO: ReadonlySet<string> = new Set(["nagmon_cashier"]);

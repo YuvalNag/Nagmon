@@ -30,7 +30,12 @@ export interface EventHost {
    * without an answer (Android's back) never calls it.
    */
   quiz(topic: string, context: string, answered: (word: QuizWord) => void): Promise<void>;
-  /** The saved part of the world changed (coins, a variable): save it now. */
+  /**
+   * The saved part of the world changed (coins, a variable): save it now.
+   * Called before the event waits on the child (a dialog, a question) and
+   * at its end, so the steps between are saved together: a kill never
+   * keeps a cleared variable without the coins it paid.
+   */
   changed(): void;
   warn?(message: string): void;
 }
@@ -124,6 +129,9 @@ export class EventRunner {
   /** Who exists on this map now (`create_npc`): not saved, made again on each visit. */
   readonly characters = new Set<string>();
   private running = false;
+  /** The world changed since the last `changed()`. */
+  private dirty = false;
+  private readonly warned = new Set<number>();
   private readonly autos: WorldEvent[];
   private readonly talks: WorldEvent[];
 
@@ -205,7 +213,8 @@ export class EventRunner {
       for (const e of this.autos) {
         if (!this.ready(e)) continue;
         if (ran.has(e.id)) {
-          this.host.warn?.(`Event "${e.name}" still holds after it ran; not run again`);
+          if (!this.warned.has(e.id)) this.host.warn?.(`Event "${e.name}" still holds after it ran; not run again`);
+          this.warned.add(e.id);
           continue;
         }
         ran.add(e.id);
@@ -217,47 +226,64 @@ export class EventRunner {
   }
 
   private async run(e: WorldEvent): Promise<void> {
-    for (const a of e.actions) {
-      try {
-        await this.act(a);
-      } catch (err) {
-        // a broken step must not stop the game; the rest of the event is skipped
-        this.host.warn?.(`Event "${e.name}" stopped at ${a.type}: ${String(err)}`);
-        return;
+    try {
+      for (const a of e.actions) {
+        try {
+          await this.act(a);
+        } catch (err) {
+          // a broken step must not stop the game; the rest of the event is skipped
+          this.host.warn?.(`Event "${e.name}" stopped at ${a.type}: ${String(err)}`);
+          return;
+        }
       }
+    } finally {
+      this.save();
     }
+  }
+
+  /** Hands what changed to the host to save, once. */
+  private save(): void {
+    if (!this.dirty) return;
+    this.dirty = false;
+    this.host.changed();
   }
 
   private async act(a: Action): Promise<void> {
     const vars = this.state.variables;
     switch (a.type) {
       case "translated_dialog":
+        this.save();
         await this.host.say(a.args[0] ?? "", a.args[1] ?? null);
         return;
       case "set_variable": {
         const [key, value] = keyValue(a.args[0] ?? "");
         vars.set(key, value ?? "");
-        this.host.changed();
+        this.dirty = true;
         return;
       }
       case "clear_variable":
-        if (vars.delete(a.args[0] ?? "")) this.host.changed();
+        if (vars.delete(a.args[0] ?? "")) this.dirty = true;
         return;
       case "modify_money": {
         const amount = Number(a.args[1]);
         if (a.args[0] !== "player" || !Number.isFinite(amount)) throw new Error(`bad modify_money ${a.args.join(",")}`);
-        if (this.state.addMoney(amount) !== 0) this.host.changed();
+        if (this.state.addMoney(amount) !== 0) this.dirty = true;
         return;
       }
       case "nagmon_daily_count":
         countOneMore(vars, a.args[0] ?? "", this.opts.today());
-        this.host.changed();
+        this.dirty = true;
         return;
       case "ask_quiz": {
         const [topic = "", variable = "", context = "quest"] = a.args;
+        this.save();
+        // a question with no answer (none found, or closed with back) writes nothing:
+        // no reward for nothing answered (the old game wrote "skip", which paid)
         await this.host.quiz(topic, context, (word) => {
           vars.set(variable, word);
-          this.host.changed();
+          this.dirty = true;
+          // the answer is saved the moment it is given
+          this.save();
         });
         return;
       }

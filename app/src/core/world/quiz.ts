@@ -30,8 +30,10 @@ export interface QuizRequest {
   maxChoices: number | null;
 }
 
-/** The kinds answered by tapping a choice. "number" uses the pad; the rest are M6. */
+/** Answered on the number pad. */
 const PAD_KINDS = new Set(["number"]);
+/** Answered by tapping one choice. "order" and "letters" need their own input (M6). */
+const CHOICE_KINDS = new Set(["choice", "true_false", "tap_figure"]);
 
 /** What the script sees for an answer (ask_quiz.result_word). */
 export function resultWord(outcome: AnswerOutcome): QuizWord {
@@ -76,11 +78,13 @@ export class QuizSession {
       warn(`No question for ${request.topic}: ${String(e)}`);
     }
     this.question = q;
-    if (q && !PAD_KINDS.has(q.kind) && q.choices.length === 0) {
+    if (q && !PAD_KINDS.has(q.kind) && !CHOICE_KINDS.has(q.kind)) {
+      // one tap would always be graded wrong and mark a right-thinking child down
+      warn(`A ${q.kind} question cannot be answered here yet (M6): ${q.item_id}`);
+      this.question = null;
+    } else if (q && CHOICE_KINDS.has(q.kind) && q.choices.length === 0) {
       warn(`A ${q.kind} question has no choices: ${q.item_id}`);
       this.question = null;
-    } else if (q && q.kind !== "choice" && q.kind !== "number" && q.kind !== "true_false") {
-      warn(`A ${q.kind} question is shown as choices (its own input is M6): ${q.item_id}`);
     }
     this.phase = this.question === null ? "none" : this.question.meta["worked_example"] ? "example" : "question";
     this.started = clock();

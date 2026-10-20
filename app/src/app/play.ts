@@ -24,29 +24,38 @@ export const fetchGameJson: FetchJson = async (path) => {
   return r.json();
 };
 
-/**
- * A test hook, as `nagmon.map.adaptiveResolution`: a number here seeds
- * the question picker, so a browser test gets the same questions each
- * run. Never set on a phone.
- */
-export const SEED_KEY = "nagmon.quiz.seed";
+/** The game's data a quiz needs: the learning content, the subjects and the texts. */
+export interface GameData {
+  content: ContentLibrary;
+  subjects: SubjectMap;
+  texts: Readonly<Record<string, string>>;
+}
 
-let library: { fetch: FetchJson; content: Promise<ContentLibrary> } | null = null;
+let cached: { fetch: FetchJson; data: Promise<GameData> } | null = null;
+
+/** The game's data, read once per run of the app (a failed read is tried again next time). */
+export function loadGameData(fetchJson: FetchJson = fetchGameJson): Promise<GameData> {
+  if (cached?.fetch === fetchJson) return cached.data;
+  const data = (async () => {
+    const [index, texts] = await Promise.all([
+      fetchJson("content/index.json") as Promise<{ files: { file: string }[] }>,
+      fetchJson("i18n/he.json") as Promise<Record<string, string>>,
+    ]);
+    const files = Object.fromEntries(
+      await Promise.all(index.files.map(async (f) => [f.file, await fetchJson(`content/${f.file}`)] as const)),
+    );
+    return { content: loadContent(files), subjects: SubjectMap.fromDoc(files["subjects.json"]), texts };
+  })();
+  cached = { fetch: fetchJson, data };
+  data.catch(() => {
+    if (cached?.data === data) cached = null;
+  });
+  return data;
+}
 
 /** The learning content, read once per run of the app. */
-export function loadLibrary(fetchJson: FetchJson = fetchGameJson): Promise<ContentLibrary> {
-  if (library?.fetch === fetchJson) return library.content;
-  const content = (async () => {
-    const index = (await fetchJson("content/index.json")) as { files: { file: string }[] };
-    const files = await Promise.all(index.files.map(async (f) => [f.file, await fetchJson(`content/${f.file}`)] as const));
-    return loadContent(Object.fromEntries(files));
-  })();
-  library = { fetch: fetchJson, content };
-  // a failed load is tried again next time
-  content.catch(() => {
-    if (library?.content === content) library = null;
-  });
-  return content;
+export async function loadLibrary(fetchJson: FetchJson = fetchGameJson): Promise<ContentLibrary> {
+  return (await loadGameData(fetchJson)).content;
 }
 
 /** The learner as the engine needs it: this child's grade, age and learning settings. */
@@ -149,17 +158,15 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   const now = opts.now ?? (() => new Date());
   const log = opts.log ?? { info: () => {}, warning: () => {}, error: () => {} };
   const { profile, profiles } = opts;
-  const [content, learnerDict, worldDict, texts, subjects] = await Promise.all([
-    loadLibrary(fetchJson),
+  const [{ content, subjects, texts }, learnerDict, worldDict] = await Promise.all([
+    loadGameData(fetchJson),
     profiles.loadLearnerDict(profile.id),
     profiles.loadWorldDict(profile.id),
-    fetchJson("i18n/he.json") as Promise<Record<string, string>>,
-    fetchJson("content/subjects.json"),
   ]);
   const learner = learnerFor(profile, learnerDict, now());
   const seed = opts.seed;
   const engine = new LearningEngine(content, learner, seed === null || seed === undefined ? {} : { rng: new PyRandom(seed) });
   const world = WorldState.fromDict(worldDict);
   log.info(`Play opened: grade ${profile.grade}, ${learner.answers_total} answers so far, ${world.money} coins`);
-  return new Play(profile, engine, world, texts, SubjectMap.fromDoc(subjects), profiles, log, now);
+  return new Play(profile, engine, world, texts, subjects, profiles, log, now);
 }

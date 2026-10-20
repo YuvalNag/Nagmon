@@ -473,6 +473,8 @@ async function quizAtTheCashier() {
     }
   };
   const answersBefore = learning().answers_total ?? 0;
+  // the test hook: the question picker is seeded and the question can be read (src/app/playConfig.ts)
+  await page.eval(`(localStorage.setItem("nagmon.quiz.seed", "5"), true)`);
   await page.touch(".card");
   await page.waitFor(ready, { timeoutMs: 60_000, what: "the map and the child's play" });
   const stand = async () => {
@@ -602,6 +604,7 @@ async function quizAtTheCashier() {
   await sleep(1000);
   shot("e07_coins");
   // out through the menu, for the parts after this one
+  await page.eval(`(localStorage.removeItem("nagmon.quiz.seed"), true)`);
   key("KEYCODE_BACK");
   await page.waitFor(screen("map-menu"), { what: "the pause menu" });
   await page.touch(id("map_exit"));

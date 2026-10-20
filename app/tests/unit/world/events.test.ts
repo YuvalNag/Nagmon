@@ -119,8 +119,27 @@ describe("Hearthrock's scripts in M4", () => {
     expect(state.variables.get("nagmon_daily_cashier")).toBe(`${DAY}:1`);
     // the quiz's variable is gone: the next talk starts afresh
     expect(state.variables.has("nagmon_cashier_q")).toBe(false);
-    expect(saves()).toBeGreaterThanOrEqual(3);
+    // saved at the answer, and again with the reward's steps together
+    expect(saves()).toBe(2);
     expect(runner.busy).toBe(false);
+  });
+
+  it("saves a reward's steps together: never a cleared answer without its coins", async () => {
+    const snapshots: string[] = [];
+    const state = new WorldState();
+    const h: EventHost = {
+      say: async () => {},
+      quiz: async (_t, _c, answered) => answered("correct"),
+      changed: () => void snapshots.push(JSON.stringify(state.toDict())),
+    };
+    const runner = new EventRunner(city.events, state, h, { grade: 2, today: () => DAY });
+    await runner.start();
+    await runner.talk("nagmon_cashier");
+    const saved = snapshots.map((s) => JSON.parse(s) as { money: number; variables: Record<string, string> });
+    expect(saved.map((s) => [s.money, s.variables["nagmon_cashier_q"] ?? null, s.variables["nagmon_daily_cashier"] ?? null])).toEqual([
+      [0, "correct", null],
+      [20, null, `${DAY}:1`],
+    ]);
   });
 
   it("'super' counts as right too", async () => {

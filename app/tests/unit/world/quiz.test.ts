@@ -69,6 +69,17 @@ describe("the cashier's question", () => {
   });
 });
 
+describe("a question this screen cannot take yet", () => {
+  it.each(["order", "letters"])("a %s question is no question (one tap would always be wrong), and says so", (kind) => {
+    const warnings: string[] = [];
+    const fake = { nextQuestion: () => ({ kind, item_id: "x", choices: [{ id: "a" }], meta: {} }) } as unknown as LearningEngine;
+    const s = new QuizSession(fake, { topic: "english", context: "quest", maxChoices: null }, () => 0, () => {}, (m) => warnings.push(m));
+    expect(s.question).toBeNull();
+    expect(s.phase).toBe("none");
+    expect(warnings.join()).toMatch(/M6/);
+  });
+});
+
 describe("a choice question", () => {
   const seed = () => seedFor("choice");
 

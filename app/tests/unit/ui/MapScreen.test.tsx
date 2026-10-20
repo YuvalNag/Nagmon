@@ -19,11 +19,14 @@ afterEach(cleanup);
 const settle = (ms = 0) => act(() => new Promise((r) => setTimeout(r, ms)));
 
 /** The map with a stand-in scene: it opens Hearthrock and reports who stands in front. */
-async function start({ grade = 2, settings = defaultsForGrade(2).settings as JsonObject } = {}) {
+async function start({ grade = 2, settings = defaultsForGrade(2).settings as JsonObject, world = null as JsonObject | null, menuFirst = false } = {}) {
+  // the test seed: the question showing can be read (window.__nagmonQuiz)
+  localStorage.setItem("nagmon.quiz.seed", "3");
   const fs = new MemoryFileStore();
   const profiles = new ProfileStore(fs);
   // a made-up name
   const profile = await profiles.create({ name: "תמר", avatar: "girl_teal", grade, settings });
+  if (world) await profiles.saveWorldDict(profile.id, world);
   const calls: string[] = [];
   let opts!: MapOptions;
   const load = async () =>
@@ -51,9 +54,17 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
       backRef={backRef}
       onExit={() => calls.push("exit")}
       load={load}
-      openPlay={(o) => openPlay({ ...o, fetchJson, seed: 3 })}
+      openPlay={async (o) => {
+        // the child opens the menu before the play has loaded
+        if (menuFirst) await new Promise((r) => setTimeout(r, 60));
+        return openPlay({ ...o, fetchJson, seed: 3 });
+      }}
     />,
   );
+  if (menuFirst) {
+    for (let i = 0; i < 100 && !container.querySelector("[data-map=ready]"); i++) await settle(5);
+    await act(async () => backRef.current?.());
+  }
   for (let i = 0; i < 400 && !container.querySelector("[data-play=ready][data-map=ready]"); i++) await settle(25);
   const q = (s: string) => container.querySelector(s) as HTMLElement | null;
   const el = (id: string) => q(`[data-id="${id}"]`) as HTMLButtonElement | null;
@@ -184,5 +195,28 @@ describe("talking on the map", () => {
     await back();
     expect(m.q("[data-screen=map-menu]")).not.toBeNull();
     expect(m.calls).not.toContain("exit");
+  });
+
+  it("an answer saved before a kill is paid as the map opens, and the talk button comes back after", async () => {
+    const m = await start({ world: { schema_version: 1, money: 0, variables: { nagmon_cashier_q: "correct" } } });
+    await m.face("nagmon_cashier");
+    expect(m.q("[data-screen=dialog]")).not.toBeNull();
+    expect(m.el("map_talk")).toBeNull();
+    expect((await m.read()).join(" ")).toContain("הנה 20 מטבעות");
+    expect(m.el("coins")?.dataset.coins).toBe("20");
+    await settle(10);
+    expect(m.el("map_talk")).not.toBeNull();
+  });
+
+  it("the pause menu, opened as the map came up, stays on top of a dialog that starts under it", async () => {
+    const m = await start({ world: { schema_version: 1, money: 0, variables: { nagmon_cashier_q: "wrong" } }, menuFirst: true });
+    for (let i = 0; i < 400 && !m.q("[data-play=ready]"); i++) await settle(25);
+    expect(m.q("[data-screen=map-menu]")).not.toBeNull();
+    expect(m.q("[data-screen=dialog]")).toBeNull();
+    // back closes the menu first; then the cashier's words show
+    await act(async () => m.backRef.current?.());
+    await settle();
+    expect(m.q("[data-screen=map-menu]")).toBeNull();
+    expect((await m.read()).join(" ")).toContain("כמעט!");
   });
 });

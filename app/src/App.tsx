@@ -389,8 +389,8 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
         );
       case "play": {
         const child = children.find((c) => c.id === view.id);
-        // a card is only there for a child on the list
-        if (!child) return <main className="screen" data-screen="loading" aria-busy="true" />;
+        // a card is only there for a child on the list: one gone meanwhile leads back to who-plays
+        if (!child) return <Notice text={t("errorTryAgain")} onNext={() => show(WHO)} />;
         return (
           <MapScreen
             profile={child}
