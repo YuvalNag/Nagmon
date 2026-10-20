@@ -90,8 +90,12 @@ def palette_image(image: Image.Image) -> Image.Image | None:
         return None
     if image.getcolors(256) is None:
         return None
-    pixels = np.asarray(image, dtype=np.uint8).reshape(-1, 4)
-    palette, index = np.unique(pixels, axis=0, return_inverse=True)
+    # One big-endian uint32 per pixel (R, G, B, A from the top byte): it
+    # sorts like the (r, g, b, a) tuples, and np.unique on it is fast.
+    rgba = np.ascontiguousarray(np.asarray(image, dtype=np.uint8))
+    keys = rgba.view(">u4").ravel()
+    values, index = np.unique(keys, return_inverse=True)
+    palette = values.astype(">u4").view(np.uint8).reshape(-1, 4)
     out = Image.fromarray(
         index.reshape(image.height, image.width).astype(np.uint8), "P"
     )
