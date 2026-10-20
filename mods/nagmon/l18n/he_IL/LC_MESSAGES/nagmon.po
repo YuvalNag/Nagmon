@@ -48,7 +48,7 @@ msgid "nagmon_pin_mismatch"
 msgstr "הקודים לא זהים. מתחילים שוב."
 
 msgid "nagmon_github_where"
-msgstr "את הטוקן של GitHub מדביקים באזור ההורים, בכפתור \"שליחת נתונים למפתח (GitHub)\"."
+msgstr "מדביקים את הטוקן באזור ההורים: \"שליחת נתונים למפתח (GitHub)\"."
 
 msgid "nagmon_share_log"
 msgstr "שליחת יומן"

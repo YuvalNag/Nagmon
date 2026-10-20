@@ -504,6 +504,8 @@ def test_digit_pad_hides_the_digits(phone, hebrew):
     assert menu.input_controller.current_string == "12"
     assert menu.input_display.text_area.text == "• • _ _"
     assert "1" not in menu.input_display.text_area.text
+    # the empty places say how many are left: no counter beside them
+    assert menu.input_display.char_counter.text == ""
     # the bullet is a real letter of both fonts (not an empty box)
     import pygame.freetype
 

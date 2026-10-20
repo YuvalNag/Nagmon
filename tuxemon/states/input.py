@@ -532,7 +532,11 @@ class InputMenu(Menu[InputMenuObj]):
         self.input_display.update_input_string(self._display_string())
 
     def update_char_counter(self) -> None:
-        """Update the character count display."""
+        """Update the character count display (none for a code: its
+        empty places already show what is left)."""
+        if self.secret:
+            self.input_display.char_counter.text = ""
+            return
         self.input_display.update_char_counter(
             self.input_controller.remaining_chars
         )

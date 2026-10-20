@@ -3,12 +3,16 @@ Plays the game the way a phone does: the Android settings (touch arrows,
 taps, a 20:9 screen) and only taps, no keys (docs/kids/SDD_ANDROID.md §3).
 
 Usage:
-    HOME=/tmp/nagmon-home python tools/dev/touch_tour.py OUTDIR
+    HOME=/tmp/nagmon-home python tools/dev/touch_tour.py OUTDIR [--system-locale]
 
-Steps: "who is playing" -> tap a child -> a question -> tap the right
-answer -> tap "continue" -> the world with the touch arrows -> a wild
-battle's menu. On the way it saves the letter board, a long dialog and
-the battle menu, and checks that the text fits the screen.
+Steps: "who is playing" -> the parent code on its digit pad (twice) ->
+a new child -> a wrong code and the parent area -> "send log" -> tap a
+child -> a question -> tap the right answer -> tap "continue" -> the
+world with the touch arrows -> a wild battle's menu. On the way it saves
+the pad, the letter board, a long dialog and the battle menu, and checks
+that the text fits the screen. ``--system-locale`` keeps the language
+the phone's settings give (no forced Hebrew): a phone must speak Hebrew
+on its own (docs/kids/SDD_ANDROID.md §2.7).
 Exits non-zero if a tap did not do what a child expects.
 """
 
@@ -30,6 +34,7 @@ from nagmon.android.setup import prepare_environment  # noqa: E402
 prepare_environment(os.environ)
 
 out = Path(sys.argv[1])
+FORCE_HEBREW = "--system-locale" not in sys.argv[2:]
 out.mkdir(parents=True, exist_ok=True)
 
 from tuxemon.platform import platform  # noqa: E402
@@ -54,8 +59,9 @@ from tuxemon.locale.locale import T  # noqa: E402
 from tuxemon.session import local_session  # noqa: E402
 from tuxemon.user_config import CONFIG  # noqa: E402
 
-CONFIG.update_locale("he_IL")
-T.change_language("he_IL")
+if FORCE_HEBREW:
+    CONFIG.update_locale("he_IL")
+    T.change_language("he_IL")
 config = CONFIG.copy()
 config.config_model.display.splash = False
 client = LocalPygameClient.create(config, context)
@@ -222,6 +228,11 @@ check(
     "20:9 screen draws at its own 2400x1080",
 )
 check(CONFIG.controller.overlay, "touch arrows are on")
+check(
+    CONFIG.locale.slug == "he_IL" and T.get_current_language() == "he_IL",
+    f"the phone speaks Hebrew ({CONFIG.locale.slug}, forced: {FORCE_HEBREW})",
+)
+check(CONFIG.locale.font_file == "Rubik-Medium.ttf", "with the Rubik font")
 
 from nagmon.runtime import get_runtime  # noqa: E402
 
@@ -230,11 +241,27 @@ step(30)
 check(names()[0] == "ProfileSelectState", "the intro's tap pressed nothing")
 tap_widget("ProfileSelectState", "new_child")
 step(30)
-shot("t00_first_run_pin")
 if names()[0] == "InputMenu":
     step(60)  # the keyboard slides open first
+    shot("t00_first_run_pin")
+    pad = client.active_states[0]
+    chars = {i.game_object.char for i in pad.menu_items} - {None}
+    check(chars == set("0123456789"), f"the code pad has digits only {chars}")
+    check(pad.input_display.prompt.text.count("\n") == 1, "two-line prompt")
+    type_on_screen("1234", before_end="t00b_pin_typed")
+    check(
+        "1" not in pad.input_display.text_area.text,
+        "the typed code is hidden",
+    )
+    check(names()[0] == "InputMenu", "the code is asked again")
+    step(60)
+    shot("t00b2_pin_again")
     type_on_screen("1234")
-    shot("t00b_pin_typed")
+    step(20)
+    shot("t00b3_pin_saved")
+    tap((context.resolution[0] // 2, context.resolution[1] // 3))
+    step(20)
+    shot("t00b4_github_where")
     tap_through_dialogs()
 check(get_runtime().parent.has_pin(), "parent PIN set by tapping digits")
 print("states after PIN:", names())
@@ -276,6 +303,39 @@ client.get_state_by_name("ProfileSelectState").rebuild()
 step(30)
 shot("t01_who_plays")
 check_fits("ProfileSelectState")
+
+# The parent area: a wrong code goes back to the pad, then the right one.
+tap_widget("ProfileSelectState", "parents")
+step(60)
+if names()[0] == "InputMenu":
+    type_on_screen("9999")
+    shot("t01a_wrong_code")
+    tap_through_dialogs()
+    check(names()[0] == "InputMenu", "a wrong code goes back to the pad")
+    step(60)
+    type_on_screen("1234")
+    step(30)
+check(names()[0] == "ParentMenuState", "the parent area after the code")
+if names()[0] == "ParentMenuState":
+    shot("t01c_parent_area")
+    check_fits("ParentMenuState")
+    client.pop_state()
+    step(20)
+
+# "Send log": the share sheet (here a fake one) gets the cleaned log.
+import types  # noqa: E402
+
+shared: list[str] = []
+sys.modules["nagmon.android.crash_dialog"] = types.SimpleNamespace(
+    share=lambda text, **kw: shared.append(text)
+)
+check(tap_widget("ProfileSelectState", "share_log"), "a send-log button")
+step(10)
+check(
+    len(shared) == 1 and "Nagmon start" in shared[0],
+    "send log opens the share sheet with the log",
+)
+del sys.modules["nagmon.android.crash_dialog"]
 
 # A long dialog line wraps inside the box (the longest page of a
 # monster's description: three lines on a phone).

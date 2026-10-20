@@ -49,7 +49,7 @@ msgid "nagmon_pin_mismatch"
 msgstr "The codes are not the same. Starting again."
 
 msgid "nagmon_github_where"
-msgstr "The GitHub token goes in the parent area, under \"Send data to the developer (GitHub)\"."
+msgstr "Paste the token in the parent area: \"Send data to the developer (GitHub)\"."
 
 msgid "nagmon_share_log"
 msgstr "Send log"
