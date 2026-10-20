@@ -57,6 +57,7 @@ def _fake_repo(root: Path) -> Path:
         (root / "buildconfig/android" / rel).write_text(
             (REPO / "buildconfig/android" / rel).read_text()
         )
+    (root / "buildconfig/android/presplash.jpg").write_text("landscape jpg")
     recipes = root / "buildconfig/android/recipes/pygame_ce"
     recipes.mkdir(parents=True)
     (recipes / "__init__.py").write_text("recipe = None\n")
@@ -105,14 +106,61 @@ def test_entry_point_and_recipes_are_in_place(staged):
     assert "prepare_environment" in (out / "main.py").read_text()
     assert (out / "recipes/pygame_ce/__init__.py").is_file()
     assert (out / "icon.png").is_file()
-    assert (out / "presplash.png").is_file()
+    assert (out / "presplash.jpg").is_file()
 
 
-def test_icon_and_presplash_are_the_wise_owl(staged):
-    # docs/kids/SDD_ART.md §3 row 21: the owl the owner drew.
+def test_icon_is_the_wise_owl_and_the_presplash_is_landscape(staged):
+    # docs/kids/SDD_ART.md §3 row 21: the owl the owner drew; the
+    # presplash is the intro's last frame, owl included (SDD_ANDROID §2.7).
     _, out, _ = staged
     assert (out / "icon.png").read_text() == "owl icon png"
-    assert (out / "presplash.png").read_text() == "owl icon png"
+    assert (out / "presplash.jpg").read_text() == "landscape jpg"
+    assert not (out / "presplash.png").exists()
+
+
+def test_the_presplash_is_a_sharp_landscape_jpeg_of_sane_size():
+    from PIL import Image
+
+    path = REPO / stage.PRESPLASH
+    assert path == REPO / "buildconfig/android/presplash.jpg"
+    with Image.open(path) as image:
+        assert image.format == "JPEG"
+        assert image.size == (2400, 1080)
+    assert 100_000 < path.stat().st_size <= 350_000
+
+
+def test_the_presplash_background_is_the_colour_of_its_edges():
+    import make_presplash
+    from PIL import Image
+
+    with Image.open(REPO / stage.PRESPLASH) as image:
+        edge = make_presplash.edge_color(image)
+    want = [int(edge[i : i + 2], 16) for i in (1, 3, 5)]
+    got = [int(stage.PRESPLASH_COLOR[i : i + 2], 16) for i in (1, 3, 5)]
+    assert all(abs(a - b) <= 3 for a, b in zip(want, got)), (edge, got)
+
+
+def test_the_first_screen_is_landscape_and_full_screen(staged):
+    _, out, _ = staged
+    app = _spec(out)["app"]
+    # two orientations make the manifest "unspecified": a phone held
+    # upright showed the presplash upright
+    assert app["android.manifest.orientation"] == "sensorLandscape"
+    assert app["presplash.filename"] == "%(source.dir)s/presplash.jpg"
+    assert app["android.presplash_color"] == stage.PRESPLASH_COLOR
+    src, dest = app["android.add_resources"].split(":")
+    assert dest == "values-v31/styles.xml"
+    assert "android_res" in app["source.exclude_dirs"]
+    styles = (out / src).read_text()
+    assert '<style name="KivySupportCutout">' in styles
+    assert '"android:windowFullscreen">true<' in styles
+    assert (
+        f'"android:windowSplashScreenBackground">{stage.PRESPLASH_COLOR}<'
+        in styles
+    )
+    from xml.etree import ElementTree
+
+    ElementTree.fromstring(styles)  # well formed
 
 
 def test_the_owl_icon_is_512_square():
