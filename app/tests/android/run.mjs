@@ -102,6 +102,9 @@ async function launch() {
 
 await setHebrew();
 await systemReady();
+// the phone shows Android's "full screen" notice once, and the child taps
+// "got it"; here it is marked as seen so the notice does not cover the run
+adb("shell", "settings", "put", "secure", "immersive_mode_confirmations", "confirmed");
 adb("install", "-r", apk);
 adb("shell", "settings", "put", "system", "accelerometer_rotation", "0");
 adb("shell", "settings", "put", "system", "user_rotation", "1");

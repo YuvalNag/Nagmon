@@ -80,18 +80,24 @@ export class WebViewPage {
     throw new Error(`timed out waiting for: ${what}`);
   }
 
-  /** A finger on the element's middle, held like a child's tap. */
+  /**
+   * A finger on the element's middle, held like a child's tap. It goes
+   * through Android's own input (`adb shell input swipe` in place), so
+   * anything the system draws on top, such as its full-screen notice,
+   * gets the touch as it would from a real finger. Touch events sent over
+   * DevTools went straight into the page and passed under that notice.
+   */
   async touch(selector, holdMs = 120) {
     const box = await this.eval(`(() => {
       const e = document.querySelector(${JSON.stringify(selector)});
       if (!e) return null;
       const r = e.getBoundingClientRect();
-      return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+      return { x: (r.x + r.width / 2) * devicePixelRatio, y: (r.y + r.height / 2) * devicePixelRatio };
     })()`);
     if (!box) throw new Error(`nothing to touch: ${selector}`);
-    await this.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [box] });
-    await sleep(holdMs);
-    await this.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+    const [x, y] = [String(Math.round(box.x)), String(Math.round(box.y))];
+    execFileSync("adb", ["shell", "input", "swipe", x, y, x, y, String(holdMs)]);
+    await sleep(80);
   }
 
   close() {
