@@ -12,6 +12,7 @@ import {
   PBKDF2_ITERATIONS,
   ParentStore,
   PinError,
+  PinLockedError,
   constantTimeEqual,
   hashPin,
   limitsFor,
@@ -23,7 +24,8 @@ import {
   weeklyDaysFor,
 } from "../../../src/core/family/parent";
 import { MemorySecretStore, SECRET_KEYS } from "../../../src/platform/secrets";
-import { type FileStore, MemoryFileStore } from "../../../src/platform/storage";
+import { type FileStore, MemoryFileStore, readJson, writeJson } from "../../../src/platform/storage";
+import { valuesFromDict, valuesToDict } from "../../../src/core/family/values";
 
 // PBKDF2 at full strength takes a moment per PIN check.
 const SLOW = { timeout: 60_000 };
@@ -282,6 +284,82 @@ describe("PIN", () => {
     const results = await Promise.all([1, 2, 3, 4, 5, 6].map(() => store.verifyPin("0000")));
     expect(results.filter((r) => r.locked)).toHaveLength(2);
     expect(store.settings.failedAttempts).toBe(5);
+  });
+});
+
+describe("PIN, from the review of app/family", () => {
+  it("two stores on one file share the wrong-PIN count", SLOW, async () => {
+    const a = await ParentStore.open(fs, { clock: clock.now, iterations: MIN_PBKDF2_ITERATIONS });
+    await a.setPin("1234");
+    const b = await ParentStore.open(fs, { clock: clock.now, iterations: MIN_PBKDF2_ITERATIONS });
+    for (let i = 0; i < 4; i++) await a.verifyPin("0000");
+    expect((await b.verifyPin("0000")).locked).toBe(true);
+    expect((await a.verifyPin("1234")).locked).toBe(true);
+    expect((await ParentStore.open(fs)).settings.failedAttempts).toBe(5);
+  });
+
+  it("a check keeps settings changed in memory but not saved yet", SLOW, async () => {
+    await store.setPin("1234");
+    store.settings.shabbatMode = false;
+    await store.verifyPin("0000");
+    expect(store.settings.shabbatMode).toBe(false);
+    expect(store.settings.failedAttempts).toBe(1);
+  });
+
+  it.each([0, -5, 1.5, 1000, 1e9])("a file with %d iterations drops the PIN instead of locking the parent out", async (n) => {
+    await store.setPin("1234");
+    const data = (await readJson(fs, "parent.json")).data!;
+    await writeJson(fs, "parent.json", { ...data, pin_iterations: n });
+    const warnings: string[] = [];
+    const s2 = await ParentStore.open(fs, { onWarning: (m) => warnings.push(m) });
+    expect(s2.hasPin()).toBe(false);
+    expect(warnings.join()).toMatch(/PIN/);
+    expect((await s2.verifyPin("1234")).ok).toBe(false); // resolves, never rejects
+    await s2.setPin("5678"); // the parent can set a new one
+    expect((await s2.verifyPin("5678")).ok).toBe(true);
+  }, 60_000);
+
+  it("a malformed salt or hash drops the PIN too", async () => {
+    await store.setPin("1234");
+    const data = (await readJson(fs, "parent.json")).data!;
+    await writeJson(fs, "parent.json", { ...data, pin_salt: "zz" });
+    expect((await ParentStore.open(fs)).hasPin()).toBe(false);
+    await writeJson(fs, "parent.json", { ...data, pin_hash: "abc" });
+    expect((await ParentStore.open(fs)).hasPin()).toBe(false);
+  }, 60_000);
+
+  it("changing the PIN while locked says locked", SLOW, async () => {
+    await store.setPin("1234");
+    for (let i = 0; i < 5; i++) await store.verifyPin("0000");
+    const err = await store.setPin("5678", { current: "1234" }).catch((e: unknown) => e);
+    expect(err).toBeInstanceOf(PinLockedError);
+    expect(err).toBeInstanceOf(PinError);
+    expect((err as PinLockedError).retryAfterS).toBeCloseTo(60);
+    clock.t += 61;
+    await store.setPin("5678", { current: "1234" });
+    expect((await store.verifyPin("5678")).ok).toBe(true);
+  });
+});
+
+describe("odd keys stay plain data", () => {
+  it("a child id like __proto__ neither pollutes nor leaks", () => {
+    const s = settingsFromDict(
+      JSON.parse('{"profile_limits": {"__proto__": {"daily_max_minutes": 1}}, "weekly_days": {"__proto__": 2}}'),
+    );
+    expect(({} as Record<string, unknown>).daily_max_minutes).toBeUndefined();
+    expect(Object.getPrototypeOf(s.profileLimits)).toBe(Object.prototype);
+    expect(limitsFor(s, "__proto__")).toEqual({ daily_max_minutes: 1 });
+    expect(limitsFor(s, "toString")).toBe(s.defaultLimits);
+    expect(weeklyDaysFor(s, "__proto__", 6)).toBe(2);
+    expect(weeklyDaysFor(s, "constructor", 10)).toBe(4);
+  });
+
+  it("family values keep unknown keys, even toString and __proto__", () => {
+    const v = valuesFromDict(JSON.parse('{"toString": "x", "__proto__": {"a": 1}, "modesty_filter": false}'));
+    expect(v.modestyFilter).toBe(false);
+    expect(v.extra.toString).toBe("x");
+    expect(Object.hasOwn(v.extra, "__proto__")).toBe(true);
+    expect(Object.hasOwn(valuesToDict(v), "__proto__")).toBe(true);
   });
 });
 
