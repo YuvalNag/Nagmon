@@ -8,6 +8,8 @@ import android.view.WindowManager;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
+import androidx.webkit.WebSettingsCompat;
+import androidx.webkit.WebViewFeature;
 import com.getcapacitor.BridgeActivity;
 
 /**
@@ -31,6 +33,11 @@ public class MainActivity extends BridgeActivity {
         // system's font size itself and scales all its text evenly
         // (src/platform/shell.ts), up to 130%.
         getBridge().getWebView().getSettings().setTextZoom(100);
+        // The game has one look: Android's dark mode must not darken the
+        // page by itself (the page also says color-scheme: light).
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.ALGORITHMIC_DARKENING)) {
+            WebSettingsCompat.setAlgorithmicDarkeningAllowed(getBridge().getWebView().getSettings(), false);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             getWindow().getAttributes().layoutInDisplayCutoutMode =
                 WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;

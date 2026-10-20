@@ -61,6 +61,9 @@ const lifecycle = new Lifecycle({
 lifecycle.bind();
 // the system's font size may have changed in Settings meanwhile
 lifecycle.onForeground(() => void applySystemFontScale());
+// the emulator check writes a line of its own, to find it in the saved log
+(globalThis as { __appLogMark?: (text: string) => void }).__appLogMark = (text) =>
+  getLogger("nagmon.check").info(String(text).slice(0, 80));
 // the browser tests and the emulator check read it
 (globalThis as { __lifecycle?: () => object }).__lifecycle = () => ({
   ...lifecycle.snapshot(),

@@ -11,8 +11,8 @@
  * Usage (on the CI host, emulator booted):
  *   node tests/android/run.mjs APK OUTDIR [BENCHMARK_APK]
  */
-import { execFileSync } from "node:child_process";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { execFileSync, spawn } from "node:child_process";
+import { createWriteStream, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { WebViewPage } from "./cdp.mjs";
 
@@ -144,8 +144,28 @@ await systemReady();
 // the phone shows Android's "full screen" notice once, and the child taps
 // "got it"; here it is marked as seen so the notice does not cover the run
 adb("shell", "settings", "put", "secure", "immersive_mode_confirmations", "confirmed");
-// room for the whole run in the log, for when it fails
+// room for the whole run in the log, a clean start, and the whole log
+// streamed to a file: the checks read the file, since the buffer rotates
 adb("logcat", "-G", "16M");
+adb("logcat", "-c");
+const LOGCAT_FILE = join(out, "logcat.txt");
+let logcatDone = false;
+function streamLogcat() {
+  const file = createWriteStream(LOGCAT_FILE, { flags: "a" });
+  const proc = spawn("adb", ["logcat", "-v", "threadtime", "-b", "main,system,crash"], { stdio: ["ignore", "pipe", "ignore"] });
+  proc.stdout.pipe(file);
+  // adb drops now and then: stream again, appending
+  proc.on("exit", () => {
+    if (!logcatDone) setTimeout(streamLogcat, 1000);
+  });
+  return proc;
+}
+let logcatProc = streamLogcat();
+/** The streamed system log so far (a moment's wait, for the last lines to land). */
+async function logFile() {
+  await sleep(1500);
+  return readFileSync(LOGCAT_FILE, "utf8");
+}
 adb("install", "-r", apk);
 adb("shell", "settings", "put", "system", "accelerometer_rotation", "0");
 adb("shell", "settings", "put", "system", "user_rotation", "1");
@@ -225,7 +245,6 @@ const runAs = (...a) => {
     return `(run-as failed: ${String(e).split("\n")[0]})`;
   }
 };
-const logcat = (...a) => execFileSync("adb", ["logcat", "-d", ...a], { encoding: "utf8", maxBuffer: 64 << 20, timeout: 120_000 });
 const key = (code) => adb("shell", "input", "keyevent", code);
 /** Whether the app's activity is the one in front. */
 const inFront = () =>
@@ -290,6 +309,12 @@ const LAYOUT_PROBLEMS = `(() => {
     const b = el.getBoundingClientRect();
     if (b.top < -0.5 || b.left < -0.5 || b.bottom > innerHeight + 0.5 || b.right > innerWidth + 0.5) out.push("off the screen: " + name(el));
     if (b.width < 48 || b.height < 48) out.push("under 48dp: " + name(el) + " " + Math.round(b.width) + "x" + Math.round(b.height));
+    const rad = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0;
+    const inset = Math.min(rad * 0.4 + 2, b.width / 4, b.height / 4);
+    for (const [x, y] of [[b.left + b.width / 2, b.top + b.height / 2], [b.left + inset, b.top + inset], [b.right - inset, b.top + inset], [b.left + inset, b.bottom - inset], [b.right - inset, b.bottom - inset]]) {
+      const hit = document.elementFromPoint(x, y);
+      if (!hit || !el.contains(hit)) { out.push("covered or cut off: " + name(el)); break; }
+    }
   }
   for (const el of document.querySelectorAll(".screen, .screen *")) {
     const cs = getComputedStyle(el);
@@ -358,7 +383,10 @@ async function backEverywhere() {
 /** Home, then the launcher's icon: the same screen, the same name typed, no reload. */
 async function homeAndBack() {
   await toLetters("נו");
-  const before = await page.eval(`(window.__marker = Math.random(), { marker: window.__marker, life: window.__lifecycle() })`);
+  // a line of our own in the app's log: the saved file must have it, so it
+  // is this trip's save that is read, not an older one
+  const mark = `check-home-${Date.now()}`;
+  const before = await page.eval(`(window.__marker = Math.random(), window.__appLogMark(${JSON.stringify(mark)}), { marker: window.__marker, life: window.__lifecycle() })`);
   const pid = pidOf();
   key("KEYCODE_HOME");
   const away = Date.now();
@@ -366,7 +394,8 @@ async function homeAndBack() {
   check(!inFront(), "home: the app went behind the launcher");
   shot("c01_home");
   const saved = runAs("cat", "files/nagmon/app_log.txt");
-  check(/--- saved: background\s*$/.test(saved), "in the background the app's log was written to disk");
+  const at = saved.lastIndexOf(mark);
+  check(at >= 0 && /--- saved: background\s*$/.test(saved.slice(at)), "in the background the app's log was written to disk, with the line written just before");
   // what the launcher's icon sends; the activity is singleTask, so it comes to the front
   adb("shell", "am", "start", "-a", "android.intent.action.MAIN", "-c", "android.intent.category.LAUNCHER", "-n", `${PACKAGE}/.MainActivity`);
   await sleep(1500);
@@ -385,9 +414,14 @@ async function homeAndBack() {
   check(after.screen === "letters" && after.typed === "נו", `the same screen and the same name typed (${after.screen}, "${after.typed}")`);
   check(after.life.backgrounds === before.life.backgrounds + 1 && after.life.foregrounds === before.life.foregrounds + 1, "one trip to the background and back");
   check(after.life.lastFlush === "ok", `everything was written on the way out (${after.life.lastFlush}, ${Math.round(after.life.lastFlushMs)} ms)`);
+  check(after.life.completed === after.life.flushes, `every flush so far completed (${after.life.completed} of ${after.life.flushes})`);
   const counted = after.life.screenTimeMs - before.life.screenTimeMs;
   check(counted < awayMs - 2000, `the screen-time clock stood still in the background (${Math.round(counted)} ms counted in ${awayMs} ms)`);
   check(after.life.gameMs - before.life.gameMs < awayMs - 2000, "the game's clock stood still in the background");
+  // and runs again now that the app is in front
+  await sleep(1000);
+  const running = await page.eval("window.__lifecycle()");
+  check(running.screenTimeMs - after.life.screenTimeMs >= 800, `the screen-time clock runs again in front (${Math.round(running.screenTimeMs - after.life.screenTimeMs)} ms in 1 s)`);
   shot("c02_resumed");
   await back("the name board after coming back", "who-plays");
 }
@@ -422,7 +456,7 @@ const parseDrawn = (line) => {
   const m = line.match(/Fully drawn org\.nagmon\.app\/\.MainActivity: \+(?:(\d+)s)?(\d+)ms/);
   return m ? Number(m[1] ?? 0) * 1000 + Number(m[2]) : null;
 };
-const drawnLines = () => logcat("-s", "ActivityTaskManager:I", "ActivityManager:I").split("\n").filter((l) => parseDrawn(l) !== null);
+const drawnLines = () => readFileSync(LOGCAT_FILE, "utf8").split("\n").filter((l) => parseDrawn(l) !== null);
 const median = (xs) => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)];
 
 /**
@@ -547,6 +581,44 @@ async function largeFont() {
   check((await scale()) === "1", `back at 100%, the page follows (--font-scale ${await scale()})`);
 }
 
+/**
+ * The screen's colour near its four corners (the page's background on
+ * who-plays), from a raw screenshot: RGBA after a 12 or 16 byte header.
+ */
+function cornerColours() {
+  const raw = execFileSync("adb", ["exec-out", "screencap"], { maxBuffer: 64 << 20, timeout: 60_000 });
+  const w = raw.readUInt32LE(0);
+  const h = raw.readUInt32LE(4);
+  const header = raw.length - w * h * 4;
+  const at = (x, y) => [...raw.subarray(header + (y * w + x) * 4, header + (y * w + x) * 4 + 3)];
+  const dx = Math.round(w * 0.03);
+  const dy = Math.round(h * 0.03);
+  return [at(dx, dy), at(w - dx, dy), at(dx, h - dy), at(w - dx, h - dy)];
+}
+
+/** Android's dark mode on: the game keeps its one look (no darkened page), on the same page. */
+async function darkMode() {
+  await onScreen("who-plays", "before dark mode the app is on");
+  const marker = await page.eval("(window.__darkMarker = Math.random())");
+  const css = () => page.eval(`getComputedStyle(document.body).backgroundColor + " " + getComputedStyle(document.querySelector(".screen")).backgroundImage`);
+  const light = { css: await css(), px: cornerColours() };
+  shot("g01_light");
+  adb("shell", "cmd", "uimode", "night", "yes");
+  try {
+    await sleep(3000);
+    shot("g02_dark_mode");
+    const dark = { css: await css(), px: cornerColours() };
+    console.log("corners, light:", JSON.stringify(light.px), "dark mode:", JSON.stringify(dark.px));
+    check((await page.eval("window.__darkMarker")) === marker, "in dark mode, the same page (no reload, no new activity)");
+    check(dark.css === light.css, `in dark mode the page's colours are its own (${dark.css})`);
+    const off = Math.max(...dark.px.flatMap((p, i) => p.map((c, j) => Math.abs(c - light.px[i][j]))));
+    check(off <= 12, `in dark mode the screen is not darkened (largest change ${off} of 255)`);
+  } finally {
+    adb("shell", "cmd", "uimode", "night", "no");
+    await sleep(1500);
+  }
+}
+
 /** 3,000 random events in the app: no crash, no ANR, the process lives on. */
 async function monkey() {
   await onScreen("who-plays", "before monkey the app is on", 30_000);
@@ -569,7 +641,7 @@ async function monkey() {
   check(exit === 0, `monkey ended normally (exit ${exit})`);
   check(new RegExp(`Events injected: ${MONKEY_EVENTS}\\b`).test(out), `monkey sent all ${MONKEY_EVENTS} events (seed ${MONKEY_SEED})`);
   check(!/\/\/ CRASH|\/\/ NOT RESPONDING/.test(out), "monkey saw no crash and no ANR");
-  const log = logcat().split("\n");
+  const log = (await logFile()).split("\n");
   const from = log.findLastIndex((l) => l.includes("NagmonCheck") && l.includes("monkey starts"));
   const during = log.slice(Math.max(0, from));
   const died = during.filter((l) => new RegExp(`Process ${PACKAGE.replace(/\./g, "\\.")} \\(pid \\d+\\) has died|Killing \\d+:${PACKAGE.replace(/\./g, "\\.")}`).test(l));
@@ -579,14 +651,15 @@ async function monkey() {
 }
 
 /** Over the whole run: no crash, no ANR, no names in any log, a clean console. */
-function wholeRun() {
-  const crash = logcat("-b", "crash");
-  check(!crash.includes(PACKAGE), "no crash of the app in the whole run (crash buffer)");
-  const all = logcat();
+async function wholeRun() {
+  const all = await logFile();
+  console.log(`the system log of the run: ${all.split("\n").length} lines in ${LOGCAT_FILE}`);
+  check(all.includes("NagmonShell: activity created"), "the streamed system log has the whole run (the first start is in it)");
   const lines = all.split("\n");
   const fatal = lines.filter((l, i) => /FATAL EXCEPTION/.test(l) && lines.slice(i, i + 3).some((n) => n.includes(`Process: ${PACKAGE}`)));
   check(fatal.length === 0, `no FATAL EXCEPTION in the app${fatal.length ? `: ${fatal.join(" | ")}` : ""}`);
   check(!all.includes(`ANR in ${PACKAGE}`), "no ANR in the app");
+  check(!all.includes(`>>> ${PACKAGE} <<<`), "no native crash of the app (no tombstone)");
   // the activity is created once per process: a second time in the same
   // process is a relaunch, which reloads the page and loses the child's place
   const created = lines.filter((l) => /NagmonShell: activity created/.test(l));
@@ -613,10 +686,12 @@ function wholeRun() {
 
 function dumpLogs() {
   try {
-    console.log("--- crash buffer\n" + logcat("-b", "crash"));
+    const all = readFileSync(LOGCAT_FILE, "utf8");
+    const crashAt = all.indexOf("beginning of crash");
+    console.log("--- crash buffer\n" + (crashAt < 0 ? "(empty)" : all.slice(crashAt).split("\n").slice(0, 80).join("\n")));
     // the app's own lines and its WebView's, from the whole run
     const ours = /nagmon|NagmonShell|AndroidRuntime|chromium|cr_|Capacitor|Console|libc|DEBUG|ActivityManager: (Start|Process|Killing)|Displayed|Fully drawn/;
-    console.log("--- app lines\n" + logcat().split("\n").filter((l) => ours.test(l)).slice(-300).join("\n"));
+    console.log("--- app lines\n" + all.split("\n").filter((l) => ours.test(l)).slice(-300).join("\n"));
   } catch (le) {
     console.log("no logcat:", String(le).split("\n")[0]);
   }
@@ -700,9 +775,12 @@ if (started) {
   await part("killed in the background", killedInBackground);
   await part("cold start", coldStart);
   await part("system font at 130%", largeFont);
+  await part("dark mode", darkMode);
   await part("monkey", monkey);
 }
-wholeRun();
+await wholeRun();
+logcatDone = true;
+logcatProc.kill();
 if (failures.length) dumpLogs();
 page?.close();
 
