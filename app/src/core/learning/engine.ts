@@ -148,7 +148,7 @@ export class LearningEngine {
     const mis = dk ? null : res.misconception;
     const skill = this.content.get(q.skill_id);
     const worked = Boolean(q.meta["worked_example"]);
-    const st = learner.skill(q.skill_id, skill ? skill.grade : null);
+    const st = learner.skill(q.skill_id, skill ? skill.grade : null, q.subject);
     const it = learner.item(q.item_id);
     const bEff = q.difficulty + it.b_offset;
     const guess = questionGuess(q);
@@ -259,7 +259,7 @@ export class LearningEngine {
   // -- progress ------------------------------------------------------------------
   private relevant(subject: string): Skill[] {
     const skills = this.content.bySubject(subject);
-    const rel = skills.filter((s) => s.grade <= this.learner.grade);
+    const rel = skills.filter((s) => s.grade <= this.learner.gradeIn(subject));
     if (rel.length) return rel;
     const low = skills.length ? Math.min(...skills.map((x) => x.grade)) : 0;
     return skills.filter((s) => s.grade === low);

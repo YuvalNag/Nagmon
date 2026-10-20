@@ -377,17 +377,14 @@ test("hold an arrow to walk, let go to stop; the owl, walls and the closed way h
   await steps(page, "up", 1);
 
   // to the closed way to route 8 (39, 15-17), the long way round the
-  // one-way fences: west to the gardener, up the alley at column 23 (the
-  // house doors at (8,13) and (13,13) are closed), east along the fence of
-  // row 9, down the east edge and to the exit
+  // one-way fences: west to the gardener, up the alley at column 5 to row
+  // 9 (the house doors at (8,13) and (13,13) are closed, and (18,13) and
+  // (23,13) lead into the academies), east along the fence of row 9, down
+  // the east edge and to the exit
   d = await toWall(page, "left");
   expect(d.player).toMatchObject({ x: 5, y: 16 }); // the gardener stands on (4,16)
-  await steps(page, "up", 2);
-  d = await toWall(page, "right");
-  expect(d.player).toMatchObject({ x: 25, y: 14 }); // the wall at (26,14)
-  await steps(page, "left", 2);
-  d = await toWall(page, "up");
-  expect(d.player).toMatchObject({ x: 23, y: 9 }); // a fence: no way up from row 9
+  await steps(page, "up", 7);
+  expect((await debug(page))!.player).toMatchObject({ x: 5, y: 9 });
   d = await toWall(page, "right");
   expect(d.player).toMatchObject({ x: 39, y: 9 });
   d = await toWall(page, "down");

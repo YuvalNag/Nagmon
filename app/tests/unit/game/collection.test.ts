@@ -1,0 +1,86 @@
+import { describe, expect, it } from "vitest";
+import { addCreature, bestiary, evolveLevel, giveXp, markSeen, needFor, partner, MAX_LEVEL, type MonsterInfo } from "../../../src/core/game/collection";
+import { WorldState } from "../../../src/core/world/worldState";
+
+const monsters: Record<string, MonsterInfo> = {
+  agnite: { slug: "agnite", types: ["fire"], stage: "basic", evolutions: [{ at_level: 24, monster_slug: "agnidon" }], hasSprite: true },
+  agnidon: { slug: "agnidon", types: ["fire"], stage: "stage1", evolutions: [{ at_level: 36, monster_slug: "agnigon" }], hasSprite: true },
+  agnigon: { slug: "agnigon", types: ["fire"], stage: "stage2", evolutions: [], hasSprite: true },
+  ghost: { slug: "ghost", types: ["shadow"], stage: "basic", evolutions: [{ at_level: 10, monster_slug: "nosprite" }], hasSprite: true },
+  nosprite: { slug: "nosprite", types: [], stage: "stage1", evolutions: [], hasSprite: false },
+};
+
+describe("the child's creatures", () => {
+  it("the first one is the partner; each is seen and caught", () => {
+    const w = new WorldState();
+    expect(partner(w)).toBeNull();
+    const a = addCreature(w, "agnite", 5);
+    const b = addCreature(w, "ghost", 3);
+    expect(partner(w)).toBe(a);
+    expect(a.id).not.toBe(b.id);
+    expect([...w.caught].sort()).toEqual(["agnite", "ghost"]);
+    expect(w.seen.has("agnite")).toBe(true);
+  });
+
+  it("a creature met but not caught is seen only", () => {
+    const w = new WorldState();
+    markSeen(w, "agnidon");
+    expect(bestiary(w, Object.keys(monsters))).toEqual({ seen: 1, caught: 0, total: 5 });
+  });
+
+  it("grows with correct answers: a level takes a few points", () => {
+    const w = new WorldState();
+    const c = addCreature(w, "agnite", 5);
+    const need = needFor(5);
+    expect(need).toBeGreaterThan(1);
+    for (let i = 0; i < need - 1; i++) expect(giveXp(w, c.id, 1, monsters).leveled).toBe(false);
+    expect(giveXp(w, c.id, 1, monsters)).toMatchObject({ leveled: true, level: 6 });
+    expect(c.xp).toBe(0);
+    giveXp(w, c.id, needFor(6) - 1, monsters);
+    expect(c.level).toBe(6);
+    giveXp(w, c.id, 1, monsters);
+    expect(c.level).toBe(7);
+  });
+
+  it("evolves when its species says, a third of the way: level 24 becomes 8", () => {
+    expect(evolveLevel(24)).toBe(8);
+    expect(evolveLevel(36)).toBe(12);
+    const w = new WorldState();
+    const c = addCreature(w, "agnite", 7);
+    let r = { evolvedTo: null as string | null };
+    while (c.level < 8) r = giveXp(w, c.id, needFor(c.level), monsters);
+    expect(r.evolvedTo).toBe("agnidon");
+    expect(c.species).toBe("agnidon");
+    expect(w.caught.has("agnidon")).toBe(true);
+  });
+
+  it("does not evolve into a creature with no picture", () => {
+    const w = new WorldState();
+    const c = addCreature(w, "ghost", 9);
+    giveXp(w, c.id, needFor(9), monsters);
+    expect(c.level).toBe(10);
+    expect(c.species).toBe("ghost");
+  });
+
+  it("stops growing at the top level", () => {
+    const w = new WorldState();
+    const c = addCreature(w, "agnigon", MAX_LEVEL);
+    expect(giveXp(w, c.id, 99, monsters)).toMatchObject({ leveled: false, level: MAX_LEVEL });
+  });
+
+  it("is saved with the world and comes back; an old world file has none", () => {
+    const w = new WorldState();
+    addCreature(w, "agnite", 5);
+    markSeen(w, "ghost");
+    const back = WorldState.fromDict(JSON.parse(JSON.stringify(w.toDict())));
+    expect(back.creatures).toEqual(w.creatures);
+    expect([...back.seen].sort()).toEqual(["agnite", "ghost"]);
+    expect(WorldState.fromDict({ schema_version: 1, money: 3, variables: {} }).creatures).toEqual([]);
+    expect(new WorldState().toDict()).toEqual({ schema_version: 1, money: 0, variables: {} });
+  });
+
+  it("a damaged creature in the file is dropped, not a crash", () => {
+    const back = WorldState.fromDict({ creatures: [{ species: "agnite", level: 4, xp: 1, id: "c1" }, { level: "x" }, null, 5] });
+    expect(back.creatures.map((c) => c.species)).toEqual(["agnite"]);
+  });
+});

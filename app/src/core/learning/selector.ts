@@ -127,7 +127,7 @@ export class QuestionSelector {
 
   /** Below the learner's grade and no sign of difficulty. */
   assumed(skill: Skill): boolean {
-    return skill.grade < this.learner.grade && !this.struggling(skill.id);
+    return skill.grade < this.learner.gradeIn(skill.subject) && !this.struggling(skill.id);
   }
 
   ok(skillId: string): boolean {
@@ -145,13 +145,13 @@ export class QuestionSelector {
       this.unlocked(skill) &&
       !this.mastered(skill.id) &&
       !this.assumed(skill) &&
-      (skill.grade <= this.learner.grade || this.attempted(skill.id))
+      (skill.grade <= this.learner.gradeIn(skill.subject) || this.attempted(skill.id))
     );
   }
 
   isNew(skill: Skill): boolean {
     return (
-      this.unlocked(skill) && !this.mastered(skill.id) && !this.assumed(skill) && !this.attempted(skill.id) && skill.grade > this.learner.grade
+      this.unlocked(skill) && !this.mastered(skill.id) && !this.assumed(skill) && !this.attempted(skill.id) && skill.grade > this.learner.gradeIn(skill.subject)
     );
   }
 
@@ -180,8 +180,8 @@ export class QuestionSelector {
     const st = this.learner.skills.get(skillId);
     if (st !== undefined) return st.theta;
     const skill = this.content.get(skillId);
-    const grade = skill ? skill.grade : this.learner.grade;
-    return initialTheta(this.learner.grade, grade);
+    const own = this.learner.gradeIn(skill?.subject);
+    return initialTheta(own, skill ? skill.grade : own);
   }
 
   theta(skill: Skill): number {
@@ -214,7 +214,7 @@ export class QuestionSelector {
     return genContext({
       skill_id: skill.id,
       subject: skill.subject,
-      grade: this.learner.grade,
+      grade: this.learner.gradeIn(skill.subject),
       age: this.learner.age,
       max_choices: maxChoices,
       prefer_kind: (this.learner.settings["answer_mode"] as string | undefined) ?? null,
@@ -396,7 +396,7 @@ export class QuestionSelector {
     const openAll = pool.filter((s) => this.unlocked(s) && !this.mastered(s.id));
     const open = openAll.length ? openAll : [...pool];
     const low = Math.min(...open.map((s) => s.grade));
-    const near = open.filter((s) => s.grade <= Math.max(low, this.learner.grade));
+    const near = open.filter((s) => s.grade <= Math.max(low, this.learner.gradeIn(s.subject)));
     const skill = this.rng.choice(near.length ? near : open);
     return [this.bestItem(skill, this.jitter(targetF), maxChoices, bias), ANY];
   }
