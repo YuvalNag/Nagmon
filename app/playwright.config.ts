@@ -2,6 +2,8 @@ import { existsSync } from "node:fs";
 import { defineConfig } from "@playwright/test";
 
 const LOCAL_CHROMIUM = "/opt/pw-browsers/chromium";
+// another checkout on the same machine may be testing too: E2E_PORT moves this one
+const PORT = Number(process.env.E2E_PORT ?? 4173);
 
 /**
  * The family's phone: 2400x1080 landscape at about 2.75 device pixels
@@ -21,7 +23,7 @@ export default defineConfig({
   outputDir: "test-results",
   timeout: 60_000,
   use: {
-    baseURL: "http://localhost:4173",
+    baseURL: `http://localhost:${PORT}`,
     ...PHONE,
     launchOptions: {
       // this container has Chromium here; CI uses Playwright's own
@@ -34,8 +36,8 @@ export default defineConfig({
     { name: "phone-en", use: { locale: "en-US" } },
   ],
   webServer: {
-    command: "npm run build && npx vite preview --port 4173 --strictPort",
-    port: 4173,
+    command: `npm run build && npx vite preview --port ${PORT} --strictPort`,
+    port: PORT,
     reuseExistingServer: false,
     timeout: 120_000,
   },
