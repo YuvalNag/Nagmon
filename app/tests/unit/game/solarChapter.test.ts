@@ -286,6 +286,9 @@ describe("the chapter, from the first zone to the badge", () => {
       const p = await visit(maps[z.id]!, w, () => "correct", today);
       for (const n of MISSION_TALKS[z.id]!) await p.runner.talk(slug(n));
       expect(w.money).toBeGreaterThan(wantMoney);
+      // the mission alone is not the zone: the catches come with it
+      expect(refreshProgress(w, [trip]).zonesDone, z.id).toEqual([]);
+      for (const m of z.monsters.slice(0, z.catchNeeded)) w.caught.add(m);
       const r = refreshProgress(w, [trip]);
       expect(r.zonesDone, z.id).toEqual([`solar/${z.id}`]);
       expect(zoneState(trip, z, w)).toEqual({ state: "done" });
@@ -308,13 +311,17 @@ describe("the chapter, from the first zone to the badge", () => {
     for (const z of trip.zones.slice(1)) expect(zoneState(trip, z, w)).toMatchObject({ state: "locked", needLevel: 0 });
   });
 
-  it("catching the zone's animals alone also completes it, with no mission", () => {
+  it("a zone needs its mission AND its catches: neither alone completes it", () => {
     const w = worldAt(1);
     const moon = trip.zones[0]!;
-    for (const m of moon.monsters.slice(0, moon.catchNeeded - 1)) w.caught.add(m);
+    for (const m of moon.monsters.slice(0, moon.catchNeeded)) w.caught.add(m);
     expect(refreshProgress(w, [trip]).zonesDone).toEqual([]);
-    w.caught.add(moon.monsters[moon.catchNeeded - 1]!);
+    w.variables.set(moon.doneVariable!, "yes");
     expect(refreshProgress(w, [trip]).zonesDone).toEqual(["solar/moon"]);
+    const m2 = worldAt(1);
+    m2.variables.set(moon.doneVariable!, "yes");
+    for (const m of moon.monsters.slice(0, moon.catchNeeded - 1)) m2.caught.add(m);
+    expect(refreshProgress(m2, [trip]).zonesDone).toEqual([]);
   });
 
   it("the costs, levels and done variables are in the trip file the app loads", () => {

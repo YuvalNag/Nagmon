@@ -15,8 +15,8 @@ asks the question; events gated on the answer's variable pay (up to
 A mission is a variable ``solar_<zone>_mission`` (not set: not begun;
 ``done``) and, at its end, ``solar_<zone>_done`` = ``yes``, the variable
 the trip file names as the zone's ``done_variable``. The trip engine
-marks the zone done on seeing it (or on three creatures caught, the
-engine's own rule).
+counts the zone done when it sees it AND three of the zone's creatures
+are caught.
 
 ====== =============== ===========================================
 zone   who             what

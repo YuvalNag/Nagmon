@@ -26,8 +26,10 @@
  *         requires: [moon]             # zones that must be done first       [after, needs]
  *         cost: 10                     # coins the vehicle takes             [price, fare]
  *         monsters: [slug, ...]        # the zone's creatures (the bestiary)
- *         catch: 2                     # how many make the zone done (default: half of them)
- *         done_variable: moon_done     # or: a variable the zone's scripts set to "yes"
+ *         catch: 2                     # how many must be caught (default: half of them)
+ *         done_variable: moon_done     # the mission: a variable the zone's scripts set to "yes"
+ *                                      # a zone is done when it has all it asks for:
+ *                                      # the mission AND the catches
  *
  * Nothing here needs the file: with none, there is no trip and the game
  * goes on in town.
@@ -205,10 +207,10 @@ export function refreshProgress(world: WorldState, trips: readonly Trip[]): Prog
       if (world.trips.done.includes(k)) continue;
       const caught = z.monsters.filter((m) => world.caught.has(m)).length;
       const empty = z.monsters.length === 0 && z.doneVariable === null;
-      const done =
-        (z.monsters.length > 0 && caught >= z.catchNeeded) ||
-        (z.doneVariable !== null && world.variables.get(z.doneVariable) === "yes") ||
-        (empty && world.trips.visited.includes(k));
+      // what a zone asks for is all of what it has: its mission (the done variable) AND its catches
+      const caughtEnough = z.monsters.length === 0 || caught >= z.catchNeeded;
+      const missionDone = z.doneVariable === null || world.variables.get(z.doneVariable) === "yes";
+      const done = empty ? world.trips.visited.includes(k) : caughtEnough && missionDone;
       if (done) {
         world.trips.done.push(k);
         zonesDone.push(k);

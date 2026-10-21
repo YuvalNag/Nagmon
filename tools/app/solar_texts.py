@@ -193,12 +193,12 @@ TEXTS: dict[tuple[str, str], tuple[str, str]] = {
         "Welcome to the space station! The telescope shows faraway stars. The light of some of them travelled to us for many years.",
     ),
     ("station", f"{_P}astronomer_how"): (
-        "יש חמישה מקומות: הירח, ליד השמש, כוכבי הלכת הסלעיים, הענקים והקצה. כל מקום נפתח כשהחבר החזק שלכם מגיע לרמה מסוימת, והנסיעה עולה מטבעות. מקום נחשב גמור כשמסיימים בו את המשימה, או כשתופסים בו שלושה יצורים. כשכל החמישה גמורים, מחכה בתפריט הנסיעות מבחן האסטרונומית. מי שמצליח בו מקבל את התג.",
-        "There are five places: the Moon, near the Sun, the rocky planets, the giants and the edge. Each place opens when your strongest friend reaches a certain level, and the trip costs coins. A place is done when you finish its mission there, or catch three creatures there. When all five are done, the astronomer test waits in the trips menu. Whoever passes it gets the badge.",
+        "יש חמישה מקומות: הירח, ליד השמש, כוכבי הלכת הסלעיים, הענקים והקצה. כל מקום נפתח כשהחבר החזק שלכם מגיע לרמה מסוימת, והנסיעה עולה מטבעות. מקום נחשב גמור כשמסיימים בו את המשימה וגם תופסים בו שלושה יצורים. כשכל החמישה גמורים, מחכה בתפריט הנסיעות מבחן האסטרונומית. מי שמצליח בו מקבל את התג.",
+        "There are five places: the Moon, near the Sun, the rocky planets, the giants and the edge. Each place opens when your strongest friend reaches a certain level, and the trip costs coins. A place is done when you finish its mission there and also catch three creatures there. When all five are done, the astronomer test waits in the trips menu. Whoever passes it gets the badge.",
     ),
     ("station", f"{_P}astronomer_ready"): (
-        "כל המקומות גמורים! אפשר לפתוח את תפריט הנסיעות ולגשת למבחן האסטרונומית.",
-        "All five places are done! You can open the trips menu and take the astronomer test.",
+        "כל חמש המשימות גמורות! מי שתפס שלושה יצורים בכל מקום יכול לפתוח את תפריט הנסיעות ולגשת למבחן האסטרונומית.",
+        "All five missions are done! If you caught three creatures in every place, you can open the trips menu and take the astronomer test.",
     ),
     ("station", f"{_P}mila"): (
         "שמונה כוכבי לכת מקיפים את השמש, וכדור הארץ הוא אחד מהם. כדור הארץ מקיף את השמש פעם בשנה. בחלל אין למעלה ולמטה, ולכן אסטרונאוטים מרחפים.",

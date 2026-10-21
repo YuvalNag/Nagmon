@@ -1591,10 +1591,10 @@ msgid "nagmon_solar_station_astronomer"
 msgstr "Welcome to the space station! The telescope shows faraway stars. The light of some of them travelled to us for many years."
 
 msgid "nagmon_solar_station_astronomer_how"
-msgstr "There are five places: the Moon, near the Sun, the rocky planets, the giants and the edge. Each place opens when your strongest friend reaches a certain level, and the trip costs coins. A place is done when you finish its mission there, or catch three creatures there. When all five are done, the astronomer test waits in the trips menu. Whoever passes it gets the badge."
+msgstr "There are five places: the Moon, near the Sun, the rocky planets, the giants and the edge. Each place opens when your strongest friend reaches a certain level, and the trip costs coins. A place is done when you finish its mission there and also catch three creatures there. When all five are done, the astronomer test waits in the trips menu. Whoever passes it gets the badge."
 
 msgid "nagmon_solar_station_astronomer_ready"
-msgstr "All five places are done! You can open the trips menu and take the astronomer test."
+msgstr "All five missions are done! If you caught three creatures in every place, you can open the trips menu and take the astronomer test."
 
 msgid "nagmon_solar_station_mila"
 msgstr "Eight planets go around the Sun, and Earth is one of them. Earth goes around the Sun once a year. In space there is no up or down, so astronauts float."

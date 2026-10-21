@@ -8,7 +8,7 @@
 # species: the animals' category line in the animal album (cat_<species>).
 # npcs: the people standing in the zone's map (mods/nagmon/db/npc).
 # done_variable: set to "yes" by the zone's mission (tools/app/solar_missions.py);
-# the engine also counts the zone done after `catch` of its animals.
+# the engine counts the zone done when the mission is done AND `catch` of its animals are caught.
 # The station is the hub: every zone's exit leads there, and its doors lead
 # to the zones.
 id: solar

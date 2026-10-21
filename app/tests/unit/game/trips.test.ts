@@ -22,7 +22,7 @@ const solar = {
   vehicle: { name_he: "המעבורת של מילה" },
   master: { monster: "jovigale", level: 14, badge: "astronomer", badge_title_he: "מבחן האסטרונומית" },
   zones: [
-    { id: "moon", title_he: "הירח", map: "space_moon", start: { x: 4, y: 9 }, unlock_level: 0, cost: 10, monsters: ["a", "b", "c", "d"] },
+    { id: "moon", title_he: "הירח", map: "space_moon", start: { x: 4, y: 9 }, unlock_level: 0, cost: 10, monsters: ["a", "b", "c", "d"], done_variable: "moon_done" },
     { id: "sun", title_he: "ליד השמש", map: "space_sun", start: { x: 3, y: 3 }, unlock_level: 6, cost: 15, monsters: ["e", "f"], requires: ["moon"] },
     { id: "rocky_planets", title_he: "כוכבי הלכת הסלעיים", map: "space_rocky", unlock_level: 8, cost: 20, monsters: ["g"] },
     { id: "giants", title_he: "הענקים", map: "space_giants", unlock_level: 10, cost: 25, monsters: ["h"], done_variable: "giants_done" },
@@ -110,8 +110,22 @@ describe("zones open by level", () => {
 });
 
 describe("progress", () => {
-  it("a zone is done when enough of its creatures are caught", () => {
+  it("a zone with a mission and creatures is done only when the mission is done AND enough are caught", () => {
     const w = worldWith(5);
+    w.variables.set("moon_done", "yes");
+    expect(refreshProgress(w, [trip]).zonesDone).toEqual([]);
+    w.caught.add("a");
+    w.caught.add("b");
+    expect(refreshProgress(w, [trip]).zonesDone).toEqual(["solar/moon"]);
+    const caughtOnly = worldWith(5);
+    caughtOnly.caught.add("a");
+    caughtOnly.caught.add("b");
+    expect(refreshProgress(caughtOnly, [trip]).zonesDone).toEqual([]);
+  });
+
+  it("a zone is done when its mission is done and enough of its creatures are caught", () => {
+    const w = worldWith(5);
+    w.variables.set("moon_done", "yes");
     expect(refreshProgress(w, [trip]).zonesDone).toEqual([]);
     w.caught.add("a");
     expect(refreshProgress(w, [trip]).zonesDone).toEqual([]);
@@ -122,9 +136,11 @@ describe("progress", () => {
     expect(refreshProgress(w, [trip]).zonesDone).toEqual([]);
   });
 
-  it("or when the zone's own script says so (a variable)", () => {
+  it("a mission alone is not enough, and the zone's own script and its creatures together are", () => {
     const w = worldWith(5);
     w.variables.set("giants_done", "yes");
+    expect(refreshProgress(w, [trip]).zonesDone).toEqual([]);
+    w.caught.add("h");
     expect(refreshProgress(w, [trip]).zonesDone).toEqual(["solar/giants"]);
   });
 
