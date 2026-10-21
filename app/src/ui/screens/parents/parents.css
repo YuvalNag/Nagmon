@@ -117,3 +117,8 @@ button.danger {
 .parents-row .child-avatar {
   height: calc(var(--touch) * 0.8);
 }
+
+/* the battle's switches: one row of three, a little smaller than the doors above */
+.effects-row button {
+  font-size: calc(var(--text) * 0.8);
+}
