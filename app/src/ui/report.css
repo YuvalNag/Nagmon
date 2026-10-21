@@ -2,11 +2,15 @@
    screen where a child plays, and the bottom sheet it opens. */
 
 /* a 48x48 touch area with a 26 px icon, pale and half see-through so it
-   never competes with the game; top middle: the pause button and the name
-   are at the top corners, the coins at the other one */
+   never competes with the game. Top middle: the name and the pause button
+   are at one top corner, the coins at the other, the d-pad and the talk
+   button at the bottom, and the battle's and the question's buttons lower
+   down. Measured on every screen at 100% and 130% text: no button of the
+   game is under it (a heading may be, on the full-page lists; the icon is
+   drawn at the top of its area to stay clear of most). */
 button.report-button {
   position: fixed;
-  top: 2px;
+  top: 0;
   left: 50%;
   margin-left: -24px;
   z-index: 50;
@@ -19,8 +23,9 @@ button.report-button {
   background: transparent;
   opacity: 0.55;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: 3px;
 }
 
 button.report-button[data-pressed] {
