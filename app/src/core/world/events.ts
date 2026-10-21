@@ -30,6 +30,8 @@ export interface EventHost {
    * without an answer (Android's back) never calls it.
    */
   quiz(topic: string, context: string, answered: (word: QuizWord) => void): Promise<void>;
+  /** The tutor's lessons for an institute ("all" lists every lesson); resolves when the child closes them. */
+  openTutor?(institute: string): Promise<void>;
   /**
    * The saved part of the world changed (coins, a variable): save it now.
    * Called before the event waits on the child (a dialog, a question) and
@@ -59,6 +61,7 @@ export const ACTIONS: ReadonlySet<string> = new Set([
   "clear_variable",
   "modify_money",
   "nagmon_daily_count",
+  "open_tutor",
   "ask_quiz",
   "create_npc",
   "char_face",
@@ -287,6 +290,11 @@ export class EventRunner {
         });
         return;
       }
+      case "open_tutor":
+        if (!this.host.openTutor) throw new Error("no tutor screen");
+        this.save();
+        await this.host.openTutor(a.args[0] || "all");
+        return;
       case "create_npc":
         this.characters.add(a.args[0] ?? "");
         return;

@@ -1,8 +1,8 @@
-# Inside a house of Hearthrock: the lab / school: a tutor (placeholder).
+# Inside a house of Hearthrock: the lab / school: a tutor who teaches lessons.
 # The map is a copy of a Tuxemon interior with its events removed
 # (mods/nagmon/maps/nagmon_lab.tmx); the way out, the NPC and the greeting are
 # here. The way in is an event of classic_hearthrock_city.yaml.
-# Placeholder behaviour only: shop, bag and rest logic come later.
+# Talking to the tutor greets, then opens the lesson list (open_tutor all).
 
 events:
 
@@ -38,3 +38,4 @@ events:
     - talk nagmon_house_tutor
     actions:
     - translated_dialog nagmon_world_lab_tutor,nagmon_house_tutor
+    - open_tutor all
