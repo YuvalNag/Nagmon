@@ -1,12 +1,12 @@
 /**
  * A parent's "something is wrong" report, made from inside the game
  * (docs/app/SDD.md §7.2): what the parent tapped and typed, the screen
- * the child was on, and the last lines of the log. Kept on the phone as
- * `profiles/<id>/reports/<UTC>.json` (and a screenshot beside it), and
- * sent only from the parents' area, like the log and the progress.
+ * the child was on, and the last 30 lines of the log. Kept on the phone as
+ * `profiles/<id>/reports/<UTC>.json` (and a screenshot beside it), then
+ * uploaded (src/core/fieldData/uploads.ts).
  *
- * Everything but the text the parent typed has the children's names
- * hidden; the typed text stays as typed.
+ * On the phone the typed text stays as typed; the upload hides the
+ * children's names in it too.
  */
 import { hideNames } from "../crashReport";
 import type { JsonObject } from "../../platform/storage";
@@ -18,7 +18,7 @@ export type ReportChip = (typeof REPORT_CHIPS)[number];
 export const NO_CHIP = "none";
 
 /** The log lines a report keeps (its end). */
-export const REPORT_LOG_LINES = 60;
+export const REPORT_LOG_LINES = 30;
 /** The typed text is cut here: a note, not an essay. */
 export const MAX_TEXT_CHARS = 1000;
 export const SCHEMA_VERSION = 1;

@@ -57,12 +57,12 @@ describe("a report", () => {
     expect(r.bag).toEqual({ tab: "nets" });
   });
 
-  it("keeps the last 60 log lines, with the names hidden", () => {
+  it("keeps the last 30 log lines, with the names hidden", () => {
     const log = Array.from({ length: 100 }, (_, i) => `line ${i + 1}${i === 99 ? " תמר" : ""}`).join("\n") + "\n";
     const r = buildReport(input({ log }));
     const lines = r.log as string[];
     expect(lines).toHaveLength(REPORT_LOG_LINES);
-    expect(lines[0]).toBe("line 41");
+    expect(lines[0]).toBe("line 71");
     expect(lines.at(-1)).toBe("line 100 <child>");
     expect(JSON.stringify(r.log)).not.toContain("תמר");
   });

@@ -10,6 +10,9 @@ interface Props {
   good: boolean;
   /** Checking or sending: the actions wait. */
   busy: boolean;
+  /** Whether the game's reports go up by themselves; undefined while read. */
+  reportsAuto?: boolean;
+  onReportsAuto?: (on: boolean) => void;
   onPaste: () => void;
   onRemove: () => void;
   onCheck: () => void;
@@ -48,6 +51,18 @@ export function GitHubPage(p: Props) {
           <Tap id="gh_paste" className="primary" disabled={busy} onTap={p.onPaste}>
             {t("ghPaste")}
           </Tap>
+        )}
+        {p.masked && p.reportsAuto !== undefined && (
+          <div className="parents-row">
+            <Tap
+              id="gh_reports_auto"
+              aria-pressed={p.reportsAuto}
+              disabled={busy}
+              onTap={() => p.onReportsAuto?.(!p.reportsAuto)}
+            >
+              {p.reportsAuto ? t("ghReportsAutoOn") : t("ghReportsAutoOff")}
+            </Tap>
+          </div>
         )}
         {p.masked && (
           <div className="parents-row">

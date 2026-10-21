@@ -130,6 +130,8 @@ async function main(): Promise<void> {
   const started = await reporter.run(async () => {
     services = await opening;
     performance.mark("nagmon:services");
+    // reports that waited (no network, no token yet) go now, if the parents allow it
+    void services.fieldData.deliverReports();
     root.render(
       <StrictMode>
         <App services={services} onStarted={() => void noteStarted()} lifecycle={lifecycle} />

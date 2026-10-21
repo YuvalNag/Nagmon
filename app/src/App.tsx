@@ -107,6 +107,7 @@ interface Props {
 
 export function App({ services, backButton = bindBackButton, workTimeoutMs = WORK_TIMEOUT_MS, onStarted, lifecycle, openPlay }: Props) {
   const { profiles, parent } = services;
+  const deliverReports = useCallback(() => services.fieldData.deliverReports(), [services]);
   // each screen shown gets a number: a new number is a new, fresh screen
   const [shown, setShown] = useState<{ view: View; n: number }>({ view: WHO, n: 0 });
   const current = useRef<View>(WHO);
@@ -331,7 +332,7 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
   return (
     <>
       <ScreenTime key={shown.n}>{screen(view)}</ScreenTime>
-      {playing && <ReportButton key={view.id} reports={services.reports} child={view.id} backRef={reportBack} />}
+      {playing && <ReportButton key={view.id} reports={services.reports} child={view.id} backRef={reportBack} deliver={deliverReports} />}
     </>
   );
 

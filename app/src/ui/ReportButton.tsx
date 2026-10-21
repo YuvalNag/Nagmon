@@ -5,6 +5,7 @@ import { REPORT_CHIPS, type ReportChip, type ReportContext } from "../core/repor
 import type { Reports } from "../core/report/reports";
 import { currentMap } from "../game/current";
 import { t, type TextKey } from "../i18n";
+import type { ReportDelivery } from "../core/fieldData/uploads";
 import { getLogger, saveAppLog } from "../platform/appLog";
 import { takeScreenshot } from "../platform/screenshot";
 import { ScreenTime } from "./screenTime";
@@ -15,6 +16,8 @@ const log = getLogger("nagmon.report");
 
 /** How long the thank-you stays before the sheet closes. */
 export const THANKS_MS = 1400;
+/** How long the sheet waits for the upload before saying "will be sent when there is a connection". */
+export const DELIVERY_WAIT_MS = 6000;
 
 const CHIP_TEXT: Record<ReportChip, TextKey> = {
   unclear: "reportChipUnclear",
@@ -42,8 +45,8 @@ function Bubble() {
 
 interface SheetProps {
   thanksMs: number;
-  /** Saves the report; rejects when it could not. */
-  onSend: (chip: ReportChip | null, text: string) => Promise<void>;
+  /** Saves the report (and tries to send it); rejects when it could not be saved. */
+  onSend: (chip: ReportChip | null, text: string) => Promise<ReportDelivery>;
   onCancel: () => void;
 }
 
@@ -60,6 +63,7 @@ function Sheet({ thanksMs, onSend, onCancel }: SheetProps) {
   const [text, setText] = useState("");
   const [typing, setTyping] = useState(false);
   const [state, setState] = useState<"idle" | "saving" | "thanks" | "failed">("idle");
+  const [delivery, setDelivery] = useState<ReportDelivery>("off");
   const alive = useRef(true);
   useEffect(() => {
     alive.current = true;
@@ -72,8 +76,11 @@ function Sheet({ thanksMs, onSend, onCancel }: SheetProps) {
     if (state === "saving" || state === "thanks") return;
     setState("saving");
     try {
-      await onSend(chip, text);
-      if (alive.current) setState("thanks");
+      const result = await onSend(chip, text);
+      if (alive.current) {
+        setDelivery(result);
+        setState("thanks");
+      }
     } catch {
       if (alive.current) setState("failed");
     }
@@ -92,8 +99,8 @@ function Sheet({ thanksMs, onSend, onCancel }: SheetProps) {
       <div className="report-layer" data-report-sheet="" data-typing={typing} role="dialog" aria-modal="true" aria-label={t("reportTitle")}>
         <div className="report-sheet">
           {state === "thanks" ? (
-            <p className="report-thanks" role="status" data-id="report_thanks">
-              {t("reportThanks")}
+            <p className="report-thanks" role="status" data-id="report_thanks" data-delivery={delivery}>
+              {delivery === "sent" ? t("reportSentNow") : delivery === "queued" ? t("reportQueued") : t("reportThanks")}
             </p>
           ) : (
             <>
@@ -155,6 +162,10 @@ interface Props {
   backRef?: MutableRefObject<(() => boolean) | null>;
   /** How long the thank-you stays (tests shorten it). */
   thanksMs?: number;
+  /** Uploads what waits (FieldData.deliverReports); without it a report only waits on the phone. */
+  deliver?: () => Promise<ReportDelivery>;
+  /** How long the sheet waits for it (tests shorten it). */
+  deliveryWaitMs?: number;
 }
 
 /**
@@ -162,10 +173,12 @@ interface Props {
  * plays (App mounts it once, never on the code, the parents' area or
  * who-plays). A tap first takes the screenshot, then holds the game still
  * (the map's pause, with its own reason) and opens the sheet. Sending
- * writes the report on the phone (src/core/report/reports.ts); it leaves
- * the phone only from the parents' area, with the parent's confirmation.
+ * writes the report on the phone (src/core/report/reports.ts) and then
+ * uploads it by itself when the parents' area allows it, a token and a
+ * network exist (`deliver`); else it waits on the phone and goes on the
+ * next start. The thank-you says which of the two happened.
  */
-export function ReportButton({ reports, child, backRef, thanksMs = THANKS_MS }: Props) {
+export function ReportButton({ reports, child, backRef, thanksMs = THANKS_MS, deliver, deliveryWaitMs = DELIVERY_WAIT_MS }: Props) {
   const [sheet, setSheet] = useState<{ screen: string; context: ReportContext; shot: string | null } | null>(null);
   const taking = useRef(false);
   const open = sheet !== null;
@@ -213,8 +226,8 @@ export function ReportButton({ reports, child, backRef, thanksMs = THANKS_MS }: 
   }, [backRef, open, close]);
 
   const send = useCallback(
-    async (chip: ReportChip | null, text: string) => {
-      if (!sheet) return;
+    async (chip: ReportChip | null, text: string): Promise<ReportDelivery> => {
+      if (!sheet) return "off";
       try {
         await reports.save({ child, chip, text, screen: sheet.screen, context: sheet.context, screenshot: sheet.shot });
       } catch (e) {
@@ -223,8 +236,19 @@ export function ReportButton({ reports, child, backRef, thanksMs = THANKS_MS }: 
       }
       // the line is in the saved log too
       await saveAppLog();
+      if (!deliver) return "off";
+      // a slow network does not hold the child: the report stays queued and the upload goes on
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      const late = new Promise<ReportDelivery>((resolve) => {
+        timer = setTimeout(() => resolve("queued"), deliveryWaitMs);
+      });
+      try {
+        return await Promise.race([deliver().catch((): ReportDelivery => "queued"), late]);
+      } finally {
+        clearTimeout(timer);
+      }
     },
-    [reports, child, sheet],
+    [reports, child, sheet, deliver, deliveryWaitMs],
   );
 
   return (

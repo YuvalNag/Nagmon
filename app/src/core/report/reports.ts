@@ -4,15 +4,17 @@
  *     profiles/<id>/reports/<UTC>.json   what the parent said and where the child was
  *     profiles/<id>/reports/<UTC>.jpg    the screen at that moment (when the phone could take it)
  *
- * A report waits there until the parents' area sends it (the fourth
- * upload, with the same confirmation); after a good upload its files go.
+ * A report waits there until it is uploaded: by itself right after it is
+ * saved and on every start (FieldData.deliverReports, when the parents'
+ * area allows it), or by the parents' "send reports" button; after a good
+ * upload its files go.
  * At most {@link MAX_WAITING} wait: a new one pushes out the oldest.
  */
 import { DATA_FILES, type FileStore, isJsonObject, joinPath, type JsonObject } from "../../platform/storage";
 import type { FieldLog } from "../game/fieldLog";
 import { buildReport, NO_CHIP, reportStamp, type ReportChip, type ReportContext } from "./report";
 
-export const MAX_WAITING = 30;
+export const MAX_WAITING = 20;
 
 export interface SaveReport {
   /** The profile's id. */

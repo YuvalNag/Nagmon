@@ -80,6 +80,8 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
   const [children, setChildren] = useState<Profile[] | null>(null);
   // the game's "something is wrong" reports waiting on the phone
   const [waiting, setWaiting] = useState(0);
+  // whether the game's reports go up by themselves (the GitHub page's switch)
+  const [auto, setAuto] = useState<boolean | undefined>(undefined);
   const [busy, setBusy] = useState(false);
   const busyRef = useRef(false);
   const job = useRef(0);
@@ -177,6 +179,7 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
       const masked = await fieldData.masked();
       const check = masked ? await fieldData.cachedStatus() : null;
       setGh((g) => ({ ...g, masked, check }));
+      setAuto(masked ? await fieldData.reportsAuto() : undefined);
     } catch (e) {
       // the secure storage could not be read: as if no token
       log.warning("Could not read the GitHub token", e);
@@ -384,6 +387,15 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
       },
       { kind: "token", message: t("errorTryAgain") },
       NETWORK_WORK_MS,
+    );
+  }
+
+  function toggleReportsAuto(on: boolean) {
+    setAuto(on);
+    fieldData.setReportsAuto(on).then(
+      // switched on: what is waiting goes now
+      () => (on ? void fieldData.deliverReports() : undefined),
+      (e) => log.warning("Could not save the reports switch", e),
     );
   }
 
@@ -666,6 +678,8 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
             status={gh.masked === undefined ? "" : status}
             good={good}
             busy={busy || gh.activity !== "idle" || fieldData.sending}
+            reportsAuto={auto}
+            onReportsAuto={toggleReportsAuto}
             onPaste={() => go({ kind: "token" })}
             onRemove={removeToken}
             onCheck={checkNow}

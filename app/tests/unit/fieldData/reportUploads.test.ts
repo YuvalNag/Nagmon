@@ -58,7 +58,7 @@ const IMAGE = btoa("\xff\xd8fake jpeg bytes\xff\xd9");
 
 describe("the reports' upload", () => {
   it("has its own folder in the repo, like the other three", () => {
-    expect(uploadPath("0a1b2c3d", "reports", new Date(NOW))).toBe("devices/0a1b2c3d/reports/20261020T080509Z.json");
+    expect(uploadPath("0a1b2c3d", "reports", new Date(NOW))).toBe("devices/0a1b2c3d/reports/20261020T080509Z/report.json");
   });
 
   it("with none waiting there is nothing to confirm", async () => {
@@ -84,12 +84,13 @@ describe("the reports' upload", () => {
     const p = (await data.prepareReports())!;
     const result = await data.send(p);
     expect(result.code).toBe("ok");
-    expect(puts.map((x) => x.path)).toEqual(["devices/0a1b2c3d/reports/20261020T080509Z.jpg", "devices/0a1b2c3d/reports/20261020T080509Z.json"]);
+    expect(puts.map((x) => x.path)).toEqual(["devices/0a1b2c3d/reports/20261020T080509Z/screenshot.jpg", "devices/0a1b2c3d/reports/20261020T080509Z/report.json"]);
     expect(puts[0]!.content).toBe(IMAGE);
     const json = JSON.parse(text(puts[1]!.content));
     expect(json).toMatchObject({ chip: "unclear", screen: "quiz", screenshot: true });
-    // the typed words arrive as typed, a name in them included
-    expect(json.text).toBe("נועם לא הבין");
+    // the child's name is hidden in the typed words too
+    expect(json.text).not.toContain("נועם");
+    expect(json.text).toContain("לא הבין");
     expect(await data.waitingReports()).toBe(0);
     expect(await fs.list("profiles/p00001/reports")).toEqual([]);
   });

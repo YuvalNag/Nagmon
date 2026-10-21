@@ -27,7 +27,7 @@ afterEach(() => {
 
 const settle = (ms = 0) => act(() => new Promise((r) => setTimeout(r, ms)));
 
-async function start({ saveFails = false } = {}) {
+async function start({ saveFails = false, deliver }: { saveFails?: boolean; deliver?: () => Promise<"sent" | "queued" | "off"> } = {}) {
   const fs = new MemoryFileStore();
   const lines: string[] = [];
   const reports = new Reports({
@@ -51,7 +51,7 @@ async function start({ saveFails = false } = {}) {
   const { container } = render(
     <>
       <main data-screen="bag" data-tab="nets" />
-      <ReportButton reports={reports} child="p00001" backRef={backRef} thanksMs={30} />
+      <ReportButton reports={reports} child="p00001" backRef={backRef} thanksMs={30} deliver={deliver} deliveryWaitMs={20} />
     </>,
   );
   const el = (id: string) => container.querySelector(`[data-id="${id}"]`) as HTMLButtonElement | null;
@@ -118,6 +118,33 @@ describe("the report button", () => {
     await settle(60);
     expect(app.sheet()).toBeNull();
     expect(app.calls).toEqual(["pause report", "resume report"]);
+  });
+
+  it("tells the parent in one line that it went up", async () => {
+    const app = await start({ deliver: async () => "sent" });
+    await app.press("report_open");
+    await settle();
+    await app.press("report_send");
+    await settle(5);
+    expect(app.el("report_thanks")!.textContent).toBe("נשלח");
+  });
+
+  it("offline: it says it will be sent when there is a connection", async () => {
+    const app = await start({ deliver: async () => "queued" });
+    await app.press("report_open");
+    await settle();
+    await app.press("report_send");
+    await settle(5);
+    expect(app.el("report_thanks")!.textContent).toBe("ישלח כשיהיה חיבור");
+  });
+
+  it("a slow upload does not hold the sheet: it says queued", async () => {
+    const app = await start({ deliver: () => new Promise(() => {}) });
+    await app.press("report_open");
+    await settle();
+    await app.press("report_send");
+    await settle(40);
+    expect(app.el("report_thanks")!.textContent).toBe("ישלח כשיהיה חיבור");
   });
 
   it("Send with nothing chosen is allowed and still records the screen", async () => {
