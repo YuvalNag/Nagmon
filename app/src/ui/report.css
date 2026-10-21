@@ -1,0 +1,147 @@
+/* "Something is wrong" (src/ui/ReportButton.tsx): a small icon over every
+   screen where a child plays, and the bottom sheet it opens. */
+
+/* a 48x48 touch area with a 26 px icon, pale and half see-through so it
+   never competes with the game; top middle: the pause button and the name
+   are at the top corners, the coins at the other one */
+button.report-button {
+  position: fixed;
+  top: 2px;
+  left: 50%;
+  margin-left: -24px;
+  z-index: 50;
+  width: 48px;
+  height: 48px;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  opacity: 0.55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.report-button[data-pressed] {
+  opacity: 0.9;
+}
+
+.report-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  background: rgba(10, 25, 30, 0.5);
+}
+
+/* the field has the keyboard: the sheet goes to the top, with the field and
+   its buttons only, where the keyboard cannot cover them */
+.report-layer[data-typing="true"] {
+  justify-content: flex-start;
+}
+
+.report-layer[data-typing="true"] .report-title,
+.report-layer[data-typing="true"] .report-chips {
+  display: none;
+}
+
+.report-sheet {
+  width: min(100%, 46em);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) * 0.6);
+  padding: calc(var(--gap) * 0.8) var(--gap) var(--gap);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 0 -2px 14px rgba(0, 0, 0, 0.4);
+}
+
+.report-layer[data-typing="true"] .report-sheet {
+  border-radius: 0 0 var(--radius) var(--radius);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+
+.report-title {
+  margin: 0;
+  font-size: calc(var(--text) * 1.1);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.report-chips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(var(--gap) * 0.6);
+}
+
+button.report-chip {
+  min-height: 52px;
+  padding: 0 var(--gap);
+  font-size: var(--text);
+  line-height: 1.2;
+}
+
+button.report-chip[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+
+.report-entry {
+  display: flex;
+  gap: calc(var(--gap) * 0.6);
+  align-items: stretch;
+}
+
+.report-text {
+  flex: 1;
+  min-width: 0;
+  min-height: 52px;
+  padding: calc(var(--gap) * 0.5) var(--gap);
+  font: inherit;
+  font-size: var(--text);
+  line-height: 1.3;
+  color: var(--ink);
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  resize: none;
+  -webkit-user-select: text;
+  user-select: text;
+  /* a finger on the field places the cursor */
+  touch-action: manipulation;
+}
+
+.report-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) * 0.6);
+  width: calc(var(--touch) * 2.2);
+}
+
+.report-buttons button {
+  flex: 1;
+  min-height: 52px;
+  padding: 0;
+  font-size: var(--text);
+}
+
+.report-thanks {
+  margin: 0;
+  padding: var(--gap) 0;
+  text-align: center;
+  font-size: calc(var(--text) * 1.2);
+  font-weight: 700;
+}
+
+.report-failed {
+  margin: 0;
+  color: #b3261e;
+  font-weight: 600;
+}

@@ -15,6 +15,7 @@ import { bindBackButton } from "./platform/backButton";
 import { getLogger } from "./platform/appLog";
 import { LetterBoard } from "./ui/LetterBoard";
 import { PinPad } from "./ui/PinPad";
+import { ReportButton } from "./ui/ReportButton";
 import { ScreenTime } from "./ui/screenTime";
 import { Choices } from "./ui/screens/Choices";
 import { Notice } from "./ui/screens/Notice";
@@ -122,6 +123,8 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
   const mapBack = useRef<(() => void) | null>(null);
   // the parents' area's own back: one of its pages back, false on its first
   const parentsBack = useRef<(() => boolean) | null>(null);
+  // the report sheet's own: it closes before anything else goes back
+  const reportBack = useRef<(() => boolean) | null>(null);
   const view = shown.view;
 
   /** Shows a screen. Any work still running is dropped: its screen is gone. */
@@ -199,6 +202,7 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
     () =>
       backButton(() => {
         if (busyRef.current === "locked") return;
+        if (reportBack.current?.()) return;
         if (current.current.kind === "play") {
           mapBack.current?.();
           return;
@@ -320,7 +324,16 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
   // fills in under the child's finger (and a check that saw it empty)
   if (players === "loading" && view.kind === "who") return <main className="screen" data-screen="loading" aria-busy="true" />;
 
-  return <ScreenTime key={shown.n}>{screen(view)}</ScreenTime>;
+  // the "something is wrong" button is on every screen where a child plays,
+  // and nowhere else: not on the code, the parents' area or who-plays
+  const playing = view.kind === "play" && children.some((c) => c.id === view.id);
+
+  return (
+    <>
+      <ScreenTime key={shown.n}>{screen(view)}</ScreenTime>
+      {playing && <ReportButton key={view.id} reports={services.reports} child={view.id} backRef={reportBack} />}
+    </>
+  );
 
   function screen(view: View) {
     switch (view.kind) {

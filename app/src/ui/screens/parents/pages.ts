@@ -37,8 +37,10 @@ export function parentsBackStep(p: ParentsPage): ParentsPage | null {
     case "child-delete":
       return { kind: "child", id: p.id };
     case "token":
-    case "confirm":
       return { kind: "github" };
+    case "confirm":
+      // the reports are sent from the area's first page; the rest from the GitHub page
+      return p.prepared.kind === "reports" ? PARENTS_HOME : { kind: "github" };
     case "notice":
       return p.next;
     default:

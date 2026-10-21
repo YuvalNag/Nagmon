@@ -278,6 +278,73 @@ describe("GitHub", () => {
   });
 });
 
+describe("reports from the game", () => {
+  const save = (app: Awaited<ReturnType<typeof start>>, over = {}) =>
+    app.services.reports.save({ child: app.ids[0]!, chip: "stuck", text: "", screen: "bag", context: {}, screenshot: "QUJD", ...over });
+
+  /** The area's first page again, so it counts the reports waiting now. */
+  const home = async (app: Awaited<ReturnType<typeof start>>) => {
+    await app.press("parents_github");
+    await app.androidBack();
+    await app.waitScreen("parents");
+  };
+
+  it("says nothing when none waits", async () => {
+    const app = await start();
+    expect(app.container.querySelector('[data-id="reports_waiting"]')).toBeNull();
+  });
+
+  it("says how many wait, with a send button; without GitHub the button leads to its page", async () => {
+    const app = await start();
+    await save(app);
+    await home(app);
+    await vi.waitFor(() => expect(app.el("reports_waiting")!.textContent).toContain(t("reportsWaitingOne")));
+    await save(app, { chip: "other" });
+    await home(app);
+    await vi.waitFor(() => expect(app.el("reports_waiting")!.textContent).toContain(t("reportsWaiting", { count: 2 })));
+    await app.press("parents_send_reports");
+    await app.waitScreen("parents-github");
+    expect(app.el("gh_status")!.textContent).toContain("לא מחובר");
+  });
+
+  it("with GitHub: what and where first, nothing sent until the parent confirms; then they leave the phone", async () => {
+    const calls: string[] = [];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (_url: string, init: RequestInit) => {
+        calls.push(init.method ?? "GET");
+        return init.method === "PUT"
+          ? new Response("{}", { status: 201 })
+          : new Response(JSON.stringify({ private: true, permissions: { push: true } }), { status: 200 });
+      }),
+    );
+    const app = await start();
+    await app.services.secrets.set(SECRET_KEYS.githubToken, TOKEN);
+    await save(app);
+    await home(app);
+    await vi.waitFor(() => expect(app.el("parents_send_reports")).not.toBeNull());
+    await app.press("parents_send_reports");
+    await app.waitScreen("parents-confirm");
+    expect(app.text()).toContain(t("ghConfirmReports", { count: 1, kb: 1 }));
+    expect(app.el("confirm_path")!.textContent).toMatch(/^devices\/[0-9a-f]{8}\/reports\/$/);
+    expect(calls).toEqual([]);
+    // back goes to the first page, nothing sent
+    await app.androidBack();
+    await app.waitScreen("parents");
+    expect(calls).toEqual([]);
+    await app.press("parents_send_reports");
+    await app.waitScreen("parents-confirm");
+    await app.press("confirm_yes");
+    await vi.waitFor(() => expect(app.text()).toContain(t("ghSent")));
+    // the check, then the screenshot (check, write), then the JSON (check, write)
+    expect(calls.filter((c) => c === "PUT")).toHaveLength(2);
+    expect(await app.services.reports.count()).toBe(0);
+    await app.press("next");
+    await app.waitScreen("parents");
+    expect(app.container.querySelector('[data-id="reports_waiting"]')).toBeNull();
+  });
+});
+
 describe("Android's back in the area", () => {
   it("goes one page back from every page, and out from the first", () => {
     const child = { kind: "child", id: "p00001" } as const;
@@ -293,6 +360,8 @@ describe("Android's back in the area", () => {
       [{ kind: "pin-new", current: "1234" }, { kind: "home" }],
       [{ kind: "github" }, { kind: "home" }],
       [{ kind: "token" }, { kind: "github" }],
+      [{ kind: "confirm", what: "x", prepared: { kind: "logs", repo: "r/r", path: "p", content: "", bytes: 0, lines: 0 } }, { kind: "github" }],
+      [{ kind: "confirm", what: "x", prepared: { kind: "reports", repo: "r/r", path: "p/", content: "", bytes: 0, lines: 1 } }, { kind: "home" }],
       [{ kind: "notice", text: "x", next: { kind: "children" } }, { kind: "children" }],
     ];
     for (const [from, to] of cases) expect(parentsBackStep(from), from.kind).toEqual(to);

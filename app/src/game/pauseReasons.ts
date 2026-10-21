@@ -3,9 +3,10 @@
  * menu, the app in the background ("lifecycle") and a talk (a dialog or
  * a question over the map) each hold it on their own, so coming back
  * from the background never starts the game under an open menu, and
- * closing the menu never starts it in the background.
+ * closing the menu never starts it in the background. The parent's
+ * "something is wrong" sheet ("report") holds it the same way.
  */
-export type PauseReason = "menu" | "lifecycle" | "talk";
+export type PauseReason = "menu" | "lifecycle" | "talk" | "report";
 
 export class PauseReasons {
   private held = new Set<PauseReason>();

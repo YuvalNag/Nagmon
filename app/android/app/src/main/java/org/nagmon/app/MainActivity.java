@@ -29,6 +29,7 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         registerPlugin(AppShellPlugin.class);
+        registerPlugin(ScreenshotPlugin.class);
         super.onCreate(savedInstanceState);
         // the emulator check fails on "recreated=true": the page was reloaded
         Log.i(TAG, "activity created, recreated=" + (savedInstanceState != null));

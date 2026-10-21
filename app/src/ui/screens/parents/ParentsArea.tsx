@@ -66,6 +66,8 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
   const [shown, setShown] = useState<{ page: ParentsPage; n: number }>({ page: PARENTS_HOME, n: 0 });
   const current = useRef<ParentsPage>(PARENTS_HOME);
   const [children, setChildren] = useState<Profile[] | null>(null);
+  // the game's "something is wrong" reports waiting on the phone
+  const [waiting, setWaiting] = useState(0);
   const [busy, setBusy] = useState(false);
   const busyRef = useRef(false);
   const job = useRef(0);
@@ -140,6 +142,19 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
       });
     }
   }, [page, readChildren, go]);
+
+  // the first page says how many reports wait (read again after a send)
+  useEffect(() => {
+    if (page.kind !== "home") return;
+    let alive = true;
+    fieldData.waitingReports().then(
+      (n) => alive && setWaiting(n),
+      (e) => log.warning("Could not count the waiting reports", e),
+    );
+    return () => {
+      alive = false;
+    };
+  }, [page, fieldData]);
 
   const readGithub = useCallback(async () => {
     try {
@@ -336,7 +351,7 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
   }
 
   /** Gets an upload ready and asks: what, where, then "שליחה". */
-  function ask(kind: Kind) {
+  function ask(kind: Exclude<Kind, "reports">) {
     void work(
       `prepare the ${kind}`,
       async () => {
@@ -369,6 +384,24 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
     );
   }
 
+  /** "שליחת דיווחים": without a connection to GitHub, the page where it is made; else what and where, then "שליחה". */
+  function askReports() {
+    void work(
+      "prepare the reports",
+      async () => {
+        if (!(await fieldData.connected())) return { kind: "github" };
+        const prepared = await fieldData.prepareReports();
+        if (!prepared) {
+          setWaiting(0);
+          return { kind: "notice", text: t("ghNoReports"), next: PARENTS_HOME };
+        }
+        const kb = Math.max(1, Math.round(prepared.bytes / 1024));
+        return { kind: "confirm", prepared, what: t("ghConfirmReports", { count: prepared.lines, kb }) };
+      },
+      { kind: "notice", text: t("errorTryAgain"), next: PARENTS_HOME },
+    );
+  }
+
   function send(p: Extract<ParentsPage, { kind: "confirm" }>) {
     setGh((g) => ({ ...g, activity: "sending" }));
     void work(
@@ -385,7 +418,7 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
           setGh((g) => ({ ...g, check: { code, repo: fieldData.repo } }));
         }
         const text = code === "ok" ? t("ghSent") : githubMessage(code, fieldData.repo);
-        return { kind: "notice", text, next: { kind: "github" } };
+        return { kind: "notice", text, next: p.prepared.kind === "reports" ? PARENTS_HOME : { kind: "github" } };
       },
       { kind: "notice", text: t("errorTryAgain"), next: { kind: "github" } },
       NETWORK_WORK_MS,
@@ -434,6 +467,8 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
         return (
           <ParentsHome
             busy={busy}
+            waiting={waiting}
+            onSendReports={askReports}
             onChildren={() => go({ kind: "children" })}
             onPin={askCurrentPin}
             onGithub={() => go({ kind: "github" })}
