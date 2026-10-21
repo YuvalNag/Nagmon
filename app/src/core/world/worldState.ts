@@ -25,6 +25,11 @@ export interface Creature {
   hearts?: number;
   /** The child's own name for it: kept on the phone, never uploaded or logged. */
   name?: string;
+  /**
+   * Out of Pep in a battle: fell asleep and needs rest (docs/app/BATTLE_V3.md, decisions). Not lost: it can neither
+   * battle nor be used in the field until it is healed, by medicine from the shop or by the nurse at the Rest Center.
+   */
+  fainted?: boolean;
 }
 
 /** Where the child is in the trips (core/game/trips.ts). */
@@ -92,6 +97,7 @@ function creature(v: unknown): Creature | null {
   const out: Creature = { id: typeof c["id"] === "string" && c["id"] ? c["id"] : "", species: c["species"], level: Math.trunc(level), xp: Number.isFinite(xp) && xp > 0 ? Math.trunc(xp) : 0 };
   if (Number.isFinite(hearts) && hearts > 0) out.hearts = Math.min(5, Math.trunc(hearts));
   if (typeof c["name"] === "string" && c["name"].trim()) out.name = c["name"].trim().slice(0, 16);
+  if (c["fainted"] === true) out.fainted = true;
   return out;
 }
 

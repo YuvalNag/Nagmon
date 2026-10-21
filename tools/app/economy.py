@@ -17,13 +17,14 @@ SOURCE = NAG / "economy" / "items.yaml"
 LOOT = NAG / "economy" / "loot.yaml"
 FACTS = NAG / "economy" / "facts.yaml"
 
-KINDS = {"net", "snack", "tonic", "helper", "key"}
+KINDS = {"net", "snack", "tonic", "medicine", "helper", "key"}
 HELPERS = {"hint", "fifty", "pass"}
 #: What each kind must say about itself.
 REQUIRED = {
     "net": ("seal_less",),
     "snack": ("hearts", "xp"),
     "tonic": ("boost_answers",),
+    "medicine": (),
     "helper": ("helper",),
     "key": (),
 }

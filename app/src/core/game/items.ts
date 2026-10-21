@@ -11,7 +11,7 @@
 import { countOneMore, countToday, type WorldState } from "../world/worldState";
 import { giveXp, type Growth, type MonsterInfo } from "./collection";
 
-export type ItemKind = "net" | "snack" | "tonic" | "helper" | "key";
+export type ItemKind = "net" | "snack" | "tonic" | "medicine" | "helper" | "key";
 export type HelperKind = "hint" | "fifty" | "pass";
 
 export interface Item {
@@ -43,7 +43,7 @@ export interface Economy {
   sealCoins: number;
 }
 
-const KINDS = new Set(["net", "snack", "tonic", "helper", "key"]);
+const KINDS = new Set(["net", "snack", "tonic", "medicine", "helper", "key"]);
 const HELPERS = new Set(["hint", "fifty", "pass"]);
 const num = (v: unknown, d = 0): number => (typeof v === "number" && Number.isFinite(v) ? Math.max(0, Math.trunc(v)) : d);
 

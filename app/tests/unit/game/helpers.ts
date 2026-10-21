@@ -1,6 +1,7 @@
 /// <reference types="node" />
 import { readFileSync } from "node:fs";
 import { type ContentLibrary, LearningEngine, LearnerState, loadContent, PyRandom } from "../../../src/core/learning";
+import type { Battle, Round } from "../../../src/core/game/battle";
 import type { QuizSession } from "../../../src/core/world/quiz";
 
 /** The learning content as the app ships it (public/game/content). */
@@ -35,4 +36,58 @@ export function answerRight(s: QuizSession): void {
 export function answerWrong(s: QuizSession): void {
   if (s.phase === "example") s.exampleDone();
   s.dontKnow();
+}
+
+/** Gives the right answer to any kind of question (pad, card, ordered tiles, spelled letters). */
+export function answerRightAny(s: QuizSession): void {
+  if (s.phase === "example") s.exampleDone();
+  const q = s.question!;
+  if (s.input === "order") s.arrange(q.answer as unknown as string[]);
+  else if (s.input === "letters") s.spell(String(q.answer));
+  else answerRight(s);
+}
+
+/**
+ * One cast of the battle: the first card that is open (or the one named), answered right or wrong.
+ * Returns the round that played.
+ */
+export function cast(battle: Battle, right = true, moveId?: string): Round {
+  const card = moveId ? battle.cards().find((c) => c.move.id === moveId)! : battle.cards().find((c) => !c.dimmed)!;
+  const c = battle.choose(card.move.id);
+  if (!c) throw new Error(`card ${card.move.id} is not open`);
+  if (c.round) return c.round;
+  if (right) answerRightAny(c.session!);
+  else answerWrong(c.session!);
+  return battle.last!;
+}
+
+/** Casts right answers until the creature is calm (or won); false if it took more than `max` casts. */
+export function calmIt(battle: Battle, max = 40): boolean {
+  for (let i = 0; i < max && battle.phase === "fighting"; i++) {
+    if (battle.needSwap) {
+      const next = battle.team().find((c) => !c.fainted && c.id !== battle.partner.id);
+      if (!next) return false;
+      battle.swap(next.id);
+    }
+    cast(battle, true);
+  }
+  return battle.phase !== "fighting";
+}
+
+/** A fixed "random" number, or a repeating list of them. */
+export const fixedRng = (...v: number[]) => {
+  let i = 0;
+  return () => v[i++ % v.length]!;
+};
+
+/** A seeded generator (mulberry32). */
+export function seeded(seed: number): () => number {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
 }

@@ -86,21 +86,27 @@ describe("the field log", () => {
   });
 });
 
-describe("the field log of a battle's beats", () => {
-  it("one line each for a beat, the meter, a Special and the cap: ids and numbers only", () => {
+describe("the field log of a battle's moves", () => {
+  it("one line each for a move, a round, a doze, the cap and the end: ids and numbers only", () => {
     const { log, lines } = make();
-    log.beat({ pick: "move", damage: 5, hp: 31, max: 36, assists: 2 });
-    log.meter({ n: 2, size: 3, band: "B" });
-    log.special({ event: "start", hp: 20 });
-    log.special({ event: "end", hp: 8, hits: 2, broken: true });
-    log.cap({ asked: 5, limit: 5, band: "A" });
+    log.move({ n: 1, move: "sum_spark", subject: "math", tier: "N", ok: true, damage: 11, wheel: "sparkle", brilliant: false, ms: 11000.4, fog: 89, max: 100, monster: "mercurip", partner: "heliobud" });
+    log.round({ n: 1, intent: "puff", enemy: 7, first: "me", pep: 43, pepMax: 50, fog: 89, next: "silly", action: "move" });
+    log.doze({ species: "heliobud", n: 6, awake: 2 });
+    log.cap({ asked: 13, limit: 13, band: "B" });
+    log.battleEnd({ result: "ran", questions: 7, correct: 5, ms: 70000.2, turns: 7, secs: 131.6 });
     expect(lines).toEqual([
-      "BEAT pick=move damage=5 hp=31 max=36 assists=2",
-      "METER n=2 size=3 band=B",
-      "SPECIAL event=start hp=20",
-      "SPECIAL event=end hp=8 hits=2 broken=1",
-      "CAP asked=5 limit=5 band=A",
+      "MOVE n=1 move=sum_spark subject=math tier=N ok=1 dmg=11 wheel=sparkle brilliant=0 ms=11000 fog=89 max=100 monster=mercurip partner=heliobud",
+      "ROUND n=1 intent=puff enemy=7 first=me pep=43 pep_max=50 fog=89 next=silly action=move",
+      "DOZE species=heliobud n=6 awake=2",
+      "CAP asked=13 limit=13 band=B",
+      "BATTLE end result=ran questions=7 correct=5 ms=70000 turns=7 secs=132",
     ]);
+  });
+
+  it("the end line without turns and seconds (a seal from an old caller) still writes", () => {
+    const { log, lines } = make();
+    log.battleEnd({ result: "caught", questions: 2, correct: 2, ms: 1000 });
+    expect(lines).toEqual(["BATTLE end result=caught questions=2 correct=2 ms=1000"]);
   });
 });
 

@@ -23,6 +23,22 @@ export interface MonsterInfo {
   stage: string;
   evolutions: readonly { at_level: number; monster_slug: string }[];
   hasSprite: boolean;
+  /** The first form of its family (db history), for the battle's stat table. */
+  family?: string;
+  /** Battle fields of the species when the data has them (docs/app/BATTLE_V3.md 5.7); see battleSpecies.ts. */
+  battle?: BattleFields;
+}
+
+/** The species' own battle numbers and traits; every field is optional (battleSpecies.ts fills the rest). */
+export interface BattleFields {
+  bp?: number;
+  bw?: number;
+  bg?: number;
+  bs?: number;
+  /** Subjects, besides the wheel's, that this species is weak to. */
+  weak?: string[];
+  temperament?: string;
+  subject?: string;
 }
 
 /** Growth points a creature of this level needs for the next level. */

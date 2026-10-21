@@ -385,6 +385,8 @@ export const he = {
   item_pie_desc: "שני לבבות והרבה גדילה.",
   item_growth_tonic_name: "שיקוי גדילה",
   item_growth_tonic_desc: "5 תשובות נכונות גדלות פי 2.",
+  item_medicine_name: "תרופה",
+  item_medicine_desc: "מעירה חבר שנרדם ומחזירה לו כוח.",
   item_hint_feather_name: "נוצת רמז",
   item_hint_feather_desc: "מראה את הצעד הראשון.",
   item_clover_name: "תלתן",

@@ -7,7 +7,7 @@ import { monsterTable } from "../../../src/core/game/monsters";
 import type { ContentLibrary } from "../../../src/core/learning";
 import { SubjectMap } from "../../../src/core/learning/quiz_flow";
 import { WorldState } from "../../../src/core/world/worldState";
-import { answerRight, answerWrong, engineFor, gameJson, shipped } from "./helpers";
+import { answerRight, answerWrong, calmIt, cast, engineFor, fixedRng, gameJson, shipped } from "./helpers";
 
 let content: ContentLibrary;
 beforeAll(() => {
@@ -34,8 +34,9 @@ function calm(over: { species?: string; world?: WorldState; nets?: Record<string
     maxChoices: null,
     field: new FieldLog({ info: (m) => lines.push(m) }),
     onChange: () => {},
+    rng: fixedRng(0.9),
   });
-  for (let i = 0; i < 40 && battle.phase === "fighting"; i++) answerRight(battle.next()!);
+  expect(calmIt(battle)).toBe(true);
   expect(battle.phase).toBe("calm");
   lines.length = 0;
   return { battle, world, lines };
@@ -166,7 +167,7 @@ describe("capture: calm, the net, a seal question, a friend", () => {
     expect(battle.phase).toBe("ran");
     expect(world.creatures).toHaveLength(1);
     expect(countOf(world, "magic_net")).toBe(2);
-    expect(lines).toEqual(["BATTLE end result=calm_left questions=" + battle.stats.questions + " correct=" + battle.stats.correct + " ms=" + Math.round(battle.stats.ms)]);
+    expect(lines).toEqual([expect.stringMatching(new RegExp(`^BATTLE end result=calm_left questions=${battle.stats.questions} correct=${battle.stats.correct} ms=${Math.round(battle.stats.ms)} turns=\\d+ secs=\\d+$`))]);
   });
 
   it("logs each net, each try and the result in one line, with no names", () => {
@@ -190,7 +191,7 @@ describe("capture: calm, the net, a seal question, a friend", () => {
     world.variables.set("nagmon_growth_boost", "5");
     const t = { now: 0 };
     const battle = new Battle({ engine: engineFor(content, 3, 5), world, monsters, subjects, wild: { species: "lunibble", level: 6, table: "t" }, clock: () => (t.now += 20000), maxChoices: null, field: new FieldLog({ info: () => {} }), onChange: () => {} });
-    answerRight(battle.next()!);
+    cast(battle, true, "sum_spark");
     expect(c.xp).toBe(2);
     expect(world.variables.get("nagmon_growth_boost")).toBe("4");
   });

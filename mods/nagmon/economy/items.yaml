@@ -23,6 +23,8 @@ items:
   - {id: biscuit, tab: snacks, kind: snack, price: 25, icon: "🍪", hearts: 2, xp: 2}
   - {id: pie, tab: snacks, kind: snack, price: 60, icon: "🥧", hearts: 2, xp: 4}
   - {id: growth_tonic, tab: snacks, kind: tonic, price: 60, icon: "🧪", boost_answers: 5}
+  # wakes a friend that fell asleep in a battle (the other way is the nurse at the Rest Center, free)
+  - {id: medicine, tab: snacks, kind: medicine, price: 25, icon: "💊"}
   - {id: hint_feather, tab: tools, kind: helper, price: 15, icon: "🪶", helper: hint}
   - {id: clover, tab: tools, kind: helper, price: 20, icon: "🍀", helper: fifty}
   - {id: owl_pass, tab: tools, kind: helper, price: 15, icon: "🦉", helper: pass}

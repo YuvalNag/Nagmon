@@ -55,6 +55,8 @@ export interface QuizRequest {
   kinds?: readonly ("order" | "letters")[];
   /** False: no Elo speed bonus on this question (a battle: the rating is about knowledge, not reflexes). On by default. */
   speed?: boolean;
+  /** The selector's difficulty_bias: positive asks easier items (a battle's tiers, docs/app/BATTLE_V3.md 3.1). */
+  bias?: number;
 }
 
 /** Answered on the number pad. */
@@ -111,6 +113,7 @@ export class QuizSession {
           ...(topic.includes(".") ? { skill_id: topic } : { subject: topic }),
           context,
           max_choices: maxChoices,
+          ...(request.bias !== undefined ? { difficulty_bias: request.bias } : {}),
         });
         if (q.figure && !DRAWN_FIGURE_KINDS.has(q.figure.kind)) skipped = `A ${q.figure.kind} figure is not drawn yet (M6): ${q.item_id}`;
         else if (!takes(q.kind)) skipped = `A ${q.kind} question cannot be answered here yet (M6): ${q.item_id}`;

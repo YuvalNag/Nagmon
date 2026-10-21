@@ -60,28 +60,31 @@ export class FieldLog {
     this.line("BATTLE start", pairs(b));
   }
 
-  battleEnd(b: { result: string; questions: number; correct: number; ms: number }): void {
-    this.line("BATTLE end", pairs({ ...b, ms: Math.round(b.ms) }));
+  /** The fight's end: how many questions, how many turns, how long (seconds, the game's clock), and why. */
+  battleEnd(b: { result: string; questions: number; correct: number; ms: number; turns?: number; secs?: number }): void {
+    const { ms, turns, secs, ...rest } = b;
+    this.line("BATTLE end", pairs({ ...rest, ms: Math.round(ms), ...(turns === undefined ? {} : { turns }), ...(secs === undefined ? {} : { secs: Math.round(secs) }) }));
   }
 
-  /** One answer in a battle: ids and numbers only (no names). */
-  battleResult(b: { n: number; ok: boolean; damage: number; hp: number; max: number; ms: number; monster: string; partner: string }): void {
-    this.line("BATTLE result", pairs({ n: b.n, ok: b.ok ? 1 : 0, damage: b.damage, hp: b.hp, max: b.max, ms: Math.round(b.ms), monster: b.monster, partner: b.partner }));
+  /**
+   * One move cast (the question is the cast): which move and subject, right or wrong, what it took, the wheel and Brilliant
+   * bonuses, the question's time, the fog left. Ids and numbers only (no names).
+   */
+  move(m: { n: number; move: string; subject: string; tier: string; ok: boolean; damage: number; wheel: string; brilliant: boolean; ms: number; fog: number; max: number; monster: string; partner: string }): void {
+    this.line(
+      "MOVE",
+      pairs({ n: m.n, move: m.move, subject: m.subject, tier: m.tier, ok: m.ok ? 1 : 0, dmg: m.damage, wheel: m.wheel, brilliant: m.brilliant ? 1 : 0, ms: Math.round(m.ms), fog: m.fog, max: m.max, monster: m.monster, partner: m.partner }),
+    );
   }
 
-  /** One beat the child picked: which card, what it took, the fog left, the friend's assists left. Ids and numbers only. */
-  beat(b: { pick: string; damage: number; hp: number; max: number; assists: number }): void {
-    this.line("BEAT", pairs(b));
+  /** The end of a round: the enemy's intent and what it did, the first to act, Pep and Fog left, the next intent. */
+  round(r: { n: number; intent: string; enemy: number; first: string; pep: number; pepMax: number; fog: number; next: string; action: string }): void {
+    this.line("ROUND", pairs({ n: r.n, intent: r.intent, enemy: r.enemy, first: r.first, pep: r.pep, pep_max: r.pepMax, fog: r.fog, next: r.next, action: r.action }));
   }
 
-  /** The charge meter after a Power-up answer. */
-  meter(m: { n: number; size: number; band: string }): void {
-    this.line("METER", pairs(m));
-  }
-
-  /** A Special: its start (the fog then), and its end (hits landed, and whether a wrong answer broke the combo). */
-  special(s: { event: "start" | "end"; hp: number; hits?: number; broken?: boolean }): void {
-    this.line("SPECIAL", pairs({ event: s.event, hp: s.hp, ...(s.hits === undefined ? {} : { hits: s.hits }), ...(s.broken === undefined ? {} : { broken: s.broken ? 1 : 0 }) }));
+  /** A friend ran out of Pep and fell asleep; how many friends of the party are still awake. */
+  doze(d: { species: string; n: number; awake: number }): void {
+    this.line("DOZE", pairs(d));
   }
 
   /** The question cap was reached: the creature calmed by itself. */
