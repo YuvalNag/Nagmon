@@ -22,6 +22,7 @@ import { type EncounterTables, encounterTables } from "../core/game/encounters";
 import { repairSave } from "../core/game/saveRepair";
 import { type MonsterTable, monsterTable } from "../core/game/monsters";
 import type { QuizSession } from "../core/world/quiz";
+import { he } from "../i18n";
 import { fillText } from "../core/world/dialog";
 import { localDay, WorldState } from "../core/world/worldState";
 import type { JsonObject } from "../platform/storage";
@@ -121,6 +122,7 @@ export class Play {
   /** The field log: one line for each thing a parent reads back. */
   readonly field: FieldLog;
   private saving: Promise<void> = Promise.resolve();
+  private readonly unknownSpecies = new Set<string>();
 
   constructor(
     readonly profile: Profile,
@@ -188,6 +190,14 @@ export class Play {
   /** A catalogue text with the child's name put in (a missing one shows its id and is logged). */
   text(msgid: string): string {
     const t = this.texts[msgid];
+    // a friend from an old save whose species the game no longer has: a plain name, said once in the log
+    if (t === undefined && !this.monsters[msgid] && this.world.creatures.some((c) => c.species === msgid)) {
+      if (!this.unknownSpecies.has(msgid)) {
+        this.unknownSpecies.add(msgid);
+        this.log.warning(`Unknown species ${msgid}: no picture, no name`);
+      }
+      return he.friendUnknown;
+    }
     if (t === undefined) {
       this.log.warning(`No text for ${msgid}`);
       return msgid;

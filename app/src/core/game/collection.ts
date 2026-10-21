@@ -25,9 +25,14 @@ export interface MonsterInfo {
   hasSprite: boolean;
 }
 
-/** Growth points a creature of this level needs for the next level. */
+/**
+ * Growth points a creature of this level needs for the next level: 6 + level
+ * (docs/app/BATTLE_V3.md 5.4). The first curve (3 + level/2) was about twice
+ * as fast: a parent saw levels 9 to 12 within minutes. Levels already earned
+ * are kept; only the next ones cost more.
+ */
 export function needFor(level: number): number {
-  return 3 + Math.floor(level / 2);
+  return 6 + level;
 }
 
 /** The level at which a species that evolves "at level N" does, here. */

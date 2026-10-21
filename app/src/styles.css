@@ -313,6 +313,13 @@ button.quiet {
   justify-content: space-between;
 }
 
+/* on the map (naming a new friend) the board covers the stage: the stage is positioned, so a board in the flow would sit under it */
+.map-screen > .screen.board {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+}
+
 .board-top .title {
   /* the name bar needs the room more than the question does */
   font-size: var(--text);
@@ -904,7 +911,8 @@ button.quiz-choice {
   flex: 0 0 auto;
 }
 
-.monster-pic > span {
+.monster-pic > span,
+.monster-pic > svg {
   position: absolute;
   top: 0;
   left: 0;

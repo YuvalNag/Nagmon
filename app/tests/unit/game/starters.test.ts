@@ -45,8 +45,10 @@ describe("the three starters", () => {
   });
 
   it("starts at a level that follows the subject's level", () => {
-    expect(starterLevel(0)).toBe(3);
-    expect(starterLevel(4)).toBe(7);
-    expect(starterLevel(9)).toBe(12);
+    // a small first friend: grades 0 to 2 start at 2, grade 9 at 5, never above 6
+    expect([0, 1, 2].map(starterLevel)).toEqual([2, 2, 2]);
+    expect(starterLevel(4)).toBe(3);
+    expect(starterLevel(9)).toBe(5);
+    expect(starterLevel(30)).toBe(6);
   });
 });

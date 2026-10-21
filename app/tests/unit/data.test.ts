@@ -209,6 +209,24 @@ describe("database", () => {
     }
   });
 
+  it("has a picture and a Hebrew name for every creature a child can meet, start with, hatch or evolve into", () => {
+    const trip = read<{ zones: { id: string; monsters: string[] }[] }>("trips/solar.json");
+    const named = new Set<string>();
+    for (const enc of Object.values(encounters)) for (const e of enc.monsters) named.add(e.monster);
+    for (const z of trip.zones) for (const m of z.monsters) named.add(m);
+    // the starters and the eggs draw from the whole table; its evolutions lead inside it
+    for (const [slug, m] of Object.entries(monsters)) {
+      named.add(slug);
+      for (const e of m.evolutions ?? []) named.add(e.monster_slug);
+    }
+    expect(named.size).toBeGreaterThanOrEqual(70);
+    for (const slug of named) {
+      expect(monsters, `${slug} is in db/monsters.json`).toHaveProperty(slug);
+      expect(monsters[slug]!.sprites, `${slug} has a picture`).not.toBeNull();
+      expect(he[slug], `${slug} has a Hebrew name`).toBeTruthy();
+    }
+  });
+
   it("ships every monster sheet", () => {
     for (const m of Object.values(monsters)) {
       expect(m.sprites).not.toBeNull();

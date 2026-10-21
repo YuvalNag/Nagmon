@@ -88,6 +88,16 @@ describe("a child's play", () => {
     expect(errors).toEqual(["Could not save the world"]);
   });
 
+  it("a friend whose species the game no longer has gets a plain name, not its id (an old save)", async () => {
+    const a = await child();
+    const warnings: string[] = [];
+    const play = await openPlay({ ...a, fetchJson, log: { info: () => {}, warning: (m) => warnings.push(m), error: () => {} } });
+    play.world.creatures.push({ id: "c9", species: "flaskling", level: 9, xp: 0 });
+    expect(play.text("flaskling")).toBe("חבר");
+    expect(play.text("flaskling")).toBe("חבר");
+    expect(warnings).toEqual(["Unknown species flaskling: no picture, no name"]);
+  });
+
   it("puts the child's name into the texts, and shows a missing text's id", async () => {
     const a = await child();
     const warnings: string[] = [];

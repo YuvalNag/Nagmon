@@ -28,6 +28,19 @@ describe("the child's creatures", () => {
     expect(bestiary(w, Object.keys(monsters))).toEqual({ seen: 1, caught: 0, total: 5 });
   });
 
+  it("a level costs 6 + the level: 99 points to level 10, 132 to 12, 414 to 24 (about twice as slow as before)", () => {
+    expect(needFor(1)).toBe(7);
+    expect(needFor(10)).toBe(16);
+    const to = (level: number) => Array.from({ length: level - 1 }, (_, i) => needFor(i + 1)).reduce((a, b) => a + b, 0);
+    expect([to(10), to(24)]).toEqual([99, 414]);
+    expect(to(12)).toBe(132);
+    // ten right answers a fight and a few fights a level, not a level a fight
+    const w = new WorldState();
+    const c = addCreature(w, "heliobud", 3);
+    for (let i = 0; i < 8; i++) giveXp(w, c.id, 1, monsters);
+    expect(c.level).toBe(3);
+  });
+
   it("grows with correct answers: a level takes a few points", () => {
     const w = new WorldState();
     const c = addCreature(w, "heliobud", 5);
