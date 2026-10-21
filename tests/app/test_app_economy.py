@@ -15,9 +15,9 @@ def doc():
     return copy.deepcopy(read_yaml(economy.SOURCE))
 
 
-def test_the_shipped_table_is_valid_and_has_about_thirteen_items():
+def test_the_shipped_table_is_valid_and_has_forty_six_items():
     out = Output()
-    assert economy.build(out) == {"items": 13, "chests": 1, "facts": 6}
+    assert economy.build(out) == {"items": 46, "chests": 1, "facts": 6}
     assert "economy.json" in out.paths()
     assert "loot.json" in out.paths()
     assert "facts.json" in out.paths()

@@ -7,30 +7,33 @@ subjects:
     title_en: Math
     color: "#ff8a5b"
     elements: [fire, lightning]
-    # The sun family and the starter that practises math.
-    monsters: [heliobud, heliolynx, heliarch]
+    # Every creature of the solar chapter practises the subject of its
+    # family (mods/nagmon/battle/families.yaml, kept in step by a test).
+    monsters: [heliobud, heliolynx, heliarch, iobud, iolisk, iopyre, gravip, orbitail, gravivault, probip, probewing]
   geometry:
     title_he: גאומטריה
     title_en: Geometry
     color: "#8fb3ff"
     elements: [earth, metal]
-    monsters: [terrabub, terratot, terravault]
+    monsters: [terrabub, terratot, terravault, asterchip, astercrab, asterfort, ganybit, ganyhorn, ganyguard, tiltip, uranurtle, tiltitan]
   science:
     title_he: מדעים
     title_en: Science
     color: "#6cd4a1"
     elements: [water, wood, venom, sky, frost, cosmic]
+    monsters: [lunibble, lunihare, lunwarden, solwind, aurorail, mercurip, mercurush, mercuram, meteet, meteoroar, meteohelm, jovibud, jovihog, jovigale, nepbit, nepdart, nepstorm]
   english:
     title_he: אנגלית
     title_en: English
     color: "#ffd166"
     elements: [normal, heroic]
-    monsters: [sailbit, sailray]
+    monsters: [sailbit, sailray, dustip, zodiacat, europip, europod, europan, kuipip, kuipine, kuipcrest]
   logic:
     title_he: חשיבה
     title_en: Logic
     color: "#c39bff"
     elements: [shadow]
+    monsters: [rustip, marskip, marstrix, roveroo, roverex, titanip, titanewt, titanveil, combit, cometail, cometrail]
   hebrew:
     title_he: עברית
     title_en: Hebrew
@@ -38,4 +41,4 @@ subjects:
     elements: []
     # No element is Hebrew: these monsters ask Hebrew whatever the type of
     # their technique.
-    monsters: [ringlet, saturnip, ringwarden]
+    monsters: [venubud, venumoth, venuveil, ringlet, saturnip, ringwarden, plutot, plutopaw, plutaur]

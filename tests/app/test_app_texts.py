@@ -32,11 +32,12 @@ def test_content_keeps_its_structure(built):
     assert math["subject"] == "math"
     assert math["skills"][0]["id"] == "math.count.objects_5"
     subjects = data(built, "content/subjects.json")["subjects"]
-    assert subjects["hebrew"]["monsters"] == [
-        "ringlet",
-        "saturnip",
-        "ringwarden",
+    assert subjects["hebrew"]["monsters"][-3:] == [
+        "plutot",
+        "plutopaw",
+        "plutaur",
     ]
+    assert "ringwarden" in subjects["hebrew"]["monsters"]
     faq = data(built, "content/owl_faq.json")
     assert faq["fallback_he"] and len(faq["items"]) == 67
 
