@@ -21,6 +21,7 @@ import { Encounters, type Wild } from "../../core/game/encounters";
 import { introNeeded } from "../../core/game/intro";
 import { BattleScreen } from "../BattleScreen";
 import { BagView } from "../BagView";
+import { RestScreen } from "../RestScreen";
 import { ShopScreen } from "../ShopScreen";
 import { FriendsView } from "../FriendsView";
 import { BestiaryScreen } from "../BestiaryScreen";
@@ -559,6 +560,9 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       )}
       {overlay?.kind === "screen" && overlay.screen === "shop" && play && !menuOpen && (
         <ShopScreen key={`shop-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
+      )}
+      {overlay?.kind === "screen" && overlay.screen === "rest" && play && !menuOpen && (
+        <RestScreen key={`rest-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
       )}
       {menuOpen && panel === "trips" && play && (
         <TripScreen

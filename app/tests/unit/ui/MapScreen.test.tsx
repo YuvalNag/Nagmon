@@ -21,6 +21,7 @@ const city = readMap("classic_hearthrock_city", JSON.parse(readFileSync("public/
 
 const readBuilt = (name: string) => readMap(name, JSON.parse(readFileSync(`public/game/maps/${name}.json`, "utf8")) as TiledMap);
 const shop = readBuilt("nagmon_shop");
+const restCenter = readBuilt("nagmon_rest_center");
 
 const tripDoc = {
   id: "solar",
@@ -165,6 +166,30 @@ describe("the shop, from the shopkeeper", () => {
     expect(m.calls).toContain("pause talk");
     await m.press("shop_close");
     expect(m.calls).toContain("resume talk");
+  });
+});
+
+describe("the Rest Center, from the nurse", () => {
+  it("talk: the greeting, then the desk with the friends resting; the daily gift is saved and not given twice", async () => {
+    const creatures = ["heliobud", "lunibble", "terrabub"].map((species, i) => ({ id: `c${i + 1}`, species, level: 5, xp: 0 }));
+    const m = await start({ grade: 3, inside: restCenter, world: { creatures, seen: ["heliobud"], caught: ["heliobud"] } });
+    await m.face("nagmon_house_nurse");
+    await m.press("map_talk");
+    await m.read();
+    expect(m.q("[data-screen=rest]")).not.toBeNull();
+    expect(m.el("rest_friend_c1")).not.toBeNull();
+    await m.press("rest_gift");
+    expect(m.q("[data-id=rest_gift_card]")).not.toBeNull();
+    await settle(30);
+    const saved = (await m.profiles.loadWorldDict(m.profile.id)) as { money: number; items?: Record<string, number>; variables: Record<string, string> };
+    expect(Object.keys(saved.variables).some((k) => k === "nagmon_daily_rest_gift")).toBe(true);
+    expect(saved.money + Object.values(saved.items ?? {}).reduce((a, b) => a + b, 0)).toBeGreaterThan(0);
+    await m.press("rest_gift_ok");
+    expect((m.el("rest_gift") as HTMLButtonElement).disabled).toBe(true);
+    // Android's back leaves to the map
+    await act(async () => m.backRef.current?.());
+    await settle();
+    expect(m.q("[data-screen=rest]")).toBeNull();
   });
 });
 

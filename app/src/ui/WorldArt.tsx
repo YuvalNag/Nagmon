@@ -79,3 +79,44 @@ export function ShelfArt({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+/** The nurse's desk at the Rest Center: a counter with a lamp and a little bell. */
+export function DeskArt() {
+  return (
+    <svg className="desk-art" viewBox="0 0 120 72" role="img" aria-hidden="true" focusable="false">
+      <rect x="4" y="30" width="112" height="38" rx="6" fill="#d9b27c" stroke="#9a6b3a" strokeWidth="3" />
+      <rect x="4" y="26" width="112" height="10" rx="5" fill="#f0cf9a" stroke="#9a6b3a" strokeWidth="3" />
+      <path d="M86 26 V12 h10" fill="none" stroke="#4b6870" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M92 6 h14 l-3 9 h-8 z" fill="#ffe08a" stroke="#c99a1c" strokeWidth="2" />
+      <circle cx="30" cy="22" r="6" fill="#f4c542" stroke="#9a6b00" strokeWidth="2" />
+      <rect x="24" y="26" width="12" height="3" rx="1.5" fill="#9a6b00" />
+      <rect x="18" y="44" width="30" height="16" rx="3" fill="#fff6e3" stroke="#9a6b3a" strokeWidth="2" />
+      <rect x="66" y="44" width="30" height="16" rx="3" fill="#fff6e3" stroke="#9a6b3a" strokeWidth="2" />
+    </svg>
+  );
+}
+
+/** A resting mat under a friend: soft, round, a little pillow. */
+export function MatArt() {
+  return (
+    <svg className="mat-art" viewBox="0 0 120 40" aria-hidden="true" focusable="false">
+      <ellipse cx="60" cy="24" rx="56" ry="14" fill="#b9d9e6" stroke="#6aa3b8" strokeWidth="3" />
+      <ellipse cx="60" cy="22" rx="40" ry="8" fill="#d3ecf4" />
+    </svg>
+  );
+}
+
+/** A gift box (the daily gift): closed, or open with a shine. */
+export function GiftArt({ open = false }: { open?: boolean }) {
+  return (
+    <svg className={`gift-art${open ? " open" : ""}`} viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <rect x="8" y="26" width="48" height="32" rx="4" fill="#ff9fb2" stroke="#b34a62" strokeWidth="3" />
+      <rect x="28" y="26" width="8" height="32" fill="#ffe08a" />
+      <g transform={open ? "translate(0,-10) rotate(-12 32 24)" : undefined}>
+        <rect x="5" y="14" width="54" height="14" rx="4" fill="#ffb7c6" stroke="#b34a62" strokeWidth="3" />
+        <rect x="28" y="14" width="8" height="14" fill="#ffe08a" />
+        <path d="M32 14 c-8 -12 -18 -4 -8 0 z M32 14 c8 -12 18 -4 8 0 z" fill="#ffe08a" stroke="#c99a1c" strokeWidth="2" />
+      </g>
+    </svg>
+  );
+}

@@ -1,0 +1,40 @@
+# What the world gives: the Rest Center's daily gift and the chests
+# (docs/app/FEATURES.md 4.4 and 5.3). The app reads it as game/loot.json
+# (tools/app/economy.py checks and builds it).
+#
+# A prize is exactly one of:
+#   {coins: N}            coins into the wallet
+#   {item: ID, n: N}      an item of items.yaml into the Bag
+#   {hint: N}             hint feathers (the hint token)
+#   {egg: 1}              a mystery egg
+# Nothing here is random: a list is walked round and round by the day's number
+# (the daily gift) or by how many times the chest was opened, so a child can
+# learn what is coming and never gets nothing. A prize that does not fit in a
+# full Bag is given as coins.
+version: 1
+
+# the nurse's gift: one a day for each child
+daily_gift:
+  - {coins: 10}
+  - {item: berry, n: 1}
+  - {coins: 15}
+  - {item: biscuit, n: 1}
+  - {coins: 10}
+  - {hint: 1}
+  - {coins: 20}
+
+# chests by the id the map's event gives: `open_chest <id> <skill-or-subject>`
+#   repeat: daily = opens again each day; once = only one time ever
+#   consolation: the small gift for a child who chooses it after a wrong answer
+chests:
+  home_daily:
+    repeat: daily
+    prizes:
+      - {coins: 30}
+      - {item: berry, n: 2}
+      - {coins: 30}
+      - {hint: 1}
+      - {coins: 40}
+      - {item: clover, n: 1}
+      - {egg: 1}
+    consolation: {coins: 5}

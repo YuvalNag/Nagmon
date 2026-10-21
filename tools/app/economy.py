@@ -14,6 +14,7 @@ from tools.app.common import NAG, Output
 from tools.app.content import read_yaml
 
 SOURCE = NAG / "economy" / "items.yaml"
+LOOT = NAG / "economy" / "loot.yaml"
 
 KINDS = {"net", "snack", "tonic", "helper", "key"}
 HELPERS = {"hint", "fifty", "pass"}
@@ -70,7 +71,71 @@ def check(doc: Any) -> dict[str, Any]:
     return doc
 
 
+#: What a prize may be, and the items a hint and an egg stand for.
+PRIZE_KEYS = ("coins", "item", "hint", "egg")
+HINT_ITEM = "hint_feather"
+EGG_ITEM = "mystery_egg"
+REPEATS = {"daily", "once"}
+
+
+def _whole(v: Any) -> bool:
+    return isinstance(v, int) and not isinstance(v, bool) and v >= 1
+
+
+def check_prize(prize: Any, items: set[str], where: str) -> None:
+    if not isinstance(prize, dict):
+        raise ValueError(f"loot: {where}: a prize is a mapping")
+    keys = [k for k in PRIZE_KEYS if k in prize]
+    if len(keys) != 1:
+        raise ValueError(f"loot: {where}: a prize is exactly one of {PRIZE_KEYS}")
+    kind = keys[0]
+    if not _whole(prize[kind]) and kind != "item":
+        raise ValueError(f"loot: {where}: {kind} is a whole number, 1 or more")
+    if kind == "item":
+        if prize["item"] not in items:
+            raise ValueError(f"loot: {where}: unknown item {prize['item']!r}")
+        if not _whole(prize.get("n", 1)):
+            raise ValueError(f"loot: {where}: n is a whole number, 1 or more")
+    if kind == "egg" and prize["egg"] != 1:
+        raise ValueError(f"loot: {where}: an egg is {{egg: 1}}")
+    extra = set(prize) - {kind, "n"}
+    if extra:
+        raise ValueError(f"loot: {where}: unknown keys {sorted(extra)}")
+
+
+def check_loot(doc: Any, items: set[str]) -> dict[str, Any]:
+    if not isinstance(doc, dict):
+        raise ValueError("loot: needs a mapping")
+    for needed in (HINT_ITEM, EGG_ITEM):
+        if needed not in items:
+            raise ValueError(f"loot: the economy needs the item {needed}")
+    gifts = doc.get("daily_gift")
+    if not isinstance(gifts, list) or not gifts:
+        raise ValueError("loot: daily_gift is a list of prizes")
+    for i, prize in enumerate(gifts):
+        check_prize(prize, items, f"daily_gift[{i}]")
+    chests = doc.get("chests")
+    if not isinstance(chests, dict) or not chests:
+        raise ValueError("loot: chests is a mapping of chest ids")
+    for cid, chest in chests.items():
+        if not isinstance(cid, str) or not cid.replace("_", "").isalnum():
+            raise ValueError(f"loot: bad chest id {cid!r}")
+        if chest.get("repeat") not in REPEATS:
+            raise ValueError(f"loot: {cid}: repeat is one of {sorted(REPEATS)}")
+        prizes = chest.get("prizes")
+        if not isinstance(prizes, list) or not prizes:
+            raise ValueError(f"loot: {cid}: needs a list of prizes")
+        for i, prize in enumerate(prizes):
+            check_prize(prize, items, f"{cid}.prizes[{i}]")
+        if "consolation" not in chest:
+            raise ValueError(f"loot: {cid}: needs a consolation prize (nobody leaves with nothing)")
+        check_prize(chest["consolation"], items, f"{cid}.consolation")
+    return doc
+
+
 def build(out: Output) -> dict[str, Any]:
     doc = check(read_yaml(SOURCE))
     out.add_json("economy.json", doc, compact=True)
-    return {"items": len(doc["items"])}
+    loot = check_loot(read_yaml(LOOT), {i["id"] for i in doc["items"]})
+    out.add_json("loot.json", loot, compact=True)
+    return {"items": len(doc["items"]), "chests": len(loot["chests"])}
