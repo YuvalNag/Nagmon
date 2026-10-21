@@ -82,6 +82,8 @@ describe("meeting wild creatures", () => {
     expect(wildLevel([5, 8], 6, () => 0.999)).toBe(8);
     expect(wildLevel([20, 25], 6, () => 0.5)).toBe(9);
     expect(wildLevel([1, 3], 1, () => 0)).toBe(2);
+    // a first friend of level 2: the first zone's creatures (3 to 6) come at 3 to 5, not at 9 or 12
+    expect([0, 0.5, 0.999].map((r) => wildLevel([3, 6], 2, () => r))).toEqual([3, 5, 5]);
     expect(wildLevel([20, 25], 30, () => 0)).toBe(28);
   });
 });

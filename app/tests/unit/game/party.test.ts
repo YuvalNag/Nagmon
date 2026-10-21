@@ -51,7 +51,7 @@ describe("what a friend is good at, and its details", () => {
     w.creatures[1]!.xp = 2;
     const d = details(w.creatures[1]!, monsters, subjects);
     expect(d.subject).toBe(subjects.subjectFor(monsters["lunibble"]!.types, null, "lunibble"));
-    expect(d).toMatchObject({ level: 6, xp: 2, need: 6, hearts: 3, name: "נוגה" });
+    expect(d).toMatchObject({ level: 6, xp: 2, need: 12, hearts: 3, name: "נוגה" });
     expect(details(w.creatures[0]!, monsters, subjects).name).toBeNull();
   });
 

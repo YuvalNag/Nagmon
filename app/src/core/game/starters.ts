@@ -25,9 +25,13 @@ export interface StarterInput {
   seed: number;
 }
 
-/** A starter's level follows its subject's level. */
+/**
+ * A starter's level follows its subject's level, gently: a first friend is a
+ * small one (2 for a child in grade 0 to 2, 5 for grade 9), it grows with the
+ * child from there. (It was 3 plus the subject's level: 12 at grade 9.)
+ */
 export function starterLevel(subjectLevel: number): number {
-  return Math.max(3, Math.min(12, 3 + subjectLevel));
+  return Math.max(2, Math.min(6, 2 + Math.floor(subjectLevel / 3)));
 }
 
 /** A small seeded generator: the same seed, the same picks. */
