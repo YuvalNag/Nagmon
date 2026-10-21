@@ -103,6 +103,11 @@ export class Battle {
   lastSeal: SealResult | null = null;
   private subject: string;
 
+  /** The subject the questions are about (it shows in the arena's look). */
+  get topic(): string {
+    return this.subject;
+  }
+
   constructor(private readonly o: BattleOptions) {
     const p = partnerOf(o.world);
     if (!p) throw new Error("no partner to battle with");

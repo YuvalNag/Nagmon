@@ -875,29 +875,809 @@ button.quiz-choice {
 
 /* ----------------------------------------------------------- the battle */
 
-.battle-ask {
-  position: absolute;
-  inset: 0;
-}
-
 .battle {
   position: absolute;
   inset: 0;
-  display: grid;
-  /* the arena above, the action bar in the bottom 31% (123 of 393 px on the family's phone) */
-  grid-template-rows: minmax(0, 1fr) max(96px, 31.3vh);
-  background: linear-gradient(#cfe9ee, #bfe3c4);
+  /* the action bar's height; the creatures stand on it, so they stay put when it goes */
+  --bar-h: max(96px, 31.3vh);
+  --impact: 220ms;
+  overflow: hidden;
+  background: #9bd7f0;
 }
 
-.battle-arena {
+/* ---- the scene: a sunny field, soft rays, clouds and leaves drifting (all still for calm effects) ---- */
+
+.battle-scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.scene-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#8ccfee 0%, #d5eef7 42%, #cfe9b8 100%);
+}
+
+/* the ground and trees: the picture is set in the page (src/ui/battle/Stage.tsx), whose address the build keeps */
+.scene-ground {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 66%;
+  background: center bottom / 100% 100% no-repeat;
+  image-rendering: pixelated;
+}
+
+.scene-sun {
+  position: absolute;
+  top: -40%;
+  left: 18%;
+  width: 70%;
+  height: 150%;
+  background: repeating-conic-gradient(from 158deg at 50% 0%, rgba(255, 246, 196, 0.3) 0 5deg, transparent 5deg 15deg);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+  animation: sun-breathe 9s ease-in-out infinite alternate;
+}
+
+.scene-cloud {
+  position: absolute;
+  top: 11%;
+  left: -20%;
+  width: 90px;
+  height: 24px;
+  border-radius: 24px;
+  background: #fff;
+  opacity: 0.92;
+  box-shadow: 28px -12px 0 6px #fff, 58px -3px 0 0 #fff;
+  animation: cloud-drift 80s linear infinite;
+}
+
+.scene-cloud.c2 {
+  top: 24%;
+  transform: scale(0.7);
+  animation-duration: 120s;
+  animation-delay: -60s;
+}
+
+.scene-leaf {
+  position: absolute;
+  top: -4%;
+  width: 10px;
+  height: 6px;
+  border-radius: 10px 0;
+  background: #7fcf6b;
+  opacity: 0.8;
+  animation: leaf-fall 12s linear infinite;
+}
+
+.scene-leaf.f1 { left: 35%; }
+.scene-leaf.f2 { left: 58%; animation-delay: -5s; animation-duration: 15s; }
+.scene-leaf.f3 { left: 82%; animation-delay: -9s; }
+
+@keyframes sun-breathe {
+  from { opacity: 0.55; }
+  to { opacity: 1; }
+}
+
+@keyframes cloud-drift {
+  from { left: -20%; }
+  to { left: 110%; }
+}
+
+@keyframes leaf-fall {
+  from { transform: translate(0, 0) rotate(0deg); }
+  to { transform: translate(-60px, 440px) rotate(540deg); }
+}
+
+/* ---- the two cards in the top corners ---- */
+
+.hud {
+  position: absolute;
+  top: 8px;
+  z-index: 2;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 5px 10px 7px;
+  border: 2px solid #7d97b0;
+  border-radius: 8px;
+  background: rgba(28, 40, 58, 0.9);
+  color: #fff;
+}
+
+.hud-mine { left: max(8px, env(safe-area-inset-left)); }
+.hud-theirs { right: max(8px, env(safe-area-inset-right)); }
+
+.hud-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.battle-name {
+  font-weight: 700;
+  font-size: calc(var(--text) * 0.8);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.battle-level {
+  flex: none;
+  font-size: calc(var(--text) * 0.62);
+  color: #cfe0ee;
+}
+
+.hud .meter {
+  height: max(9px, 2.2vh);
+}
+
+.meter.hp {
+  position: relative;
+}
+
+.meter.hp > span {
+  position: absolute;
+  inset: 0 auto 0 0;
+}
+
+/* the fog drains in two steps: the bar, then its lighter ghost behind it */
+.meter.hp > span.ghost {
+  background: #a9dcb5;
+  transition: width 1s ease-out;
+}
+
+.meter.hp > span.now {
+  transition: width 0.45s ease-out;
+}
+
+.battle-scene[data-fx="right"] .meter.hp > span.ghost { transition-delay: 0.5s; }
+.battle-scene[data-fx="right"] .meter.hp > span.now { transition-delay: var(--impact); }
+
+/* ---- who stands where: the child and the partner at the start, the wild creature at the end ---- */
+
+.stand-mine {
+  position: absolute;
+  left: max(10px, 2%);
+  bottom: var(--bar-h);
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+}
+
+.battle-child {
+  height: 36vh;
+  width: auto;
+}
+
+.stand-mine .battle-pic {
+  margin-inline-start: -6px;
+  margin-bottom: 16px;
+}
+
+.stand-theirs {
+  position: absolute;
+  right: max(8px, env(safe-area-inset-right));
+  top: 84px;
+  bottom: 56px;
+  width: 48%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* a typed answer: the pad takes the bottom end, the wild creature stands a little nearer the middle */
+.battle-scene[data-pad="true"] .stand-theirs {
+  right: 340px;
+  width: 170px;
+}
+
+.battle-pic > .monster-pic {
+  display: block;
+  animation: idle-bob 2.4s ease-in-out infinite;
+}
+
+.battle-pic.theirs > .monster-pic {
+  animation-delay: -1.2s;
+}
+
+@keyframes idle-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.decor-item {
+  position: absolute;
+  font-weight: 800;
+  font-size: 20px;
+  opacity: 0.55;
+  animation: decor-drift 7s ease-in-out infinite alternate;
+}
+
+.decor-item.d0 { left: 22%; top: 6%; }
+.decor-item.d1 { right: 22%; top: 12%; animation-delay: -2s; }
+.decor-item.d2 { left: 30%; bottom: 10%; animation-delay: -4s; }
+.decor-item.d3 { right: 28%; bottom: 4%; animation-delay: -1s; }
+
+@keyframes decor-drift {
+  from { transform: translate(0, 0) rotate(-6deg); }
+  to { transform: translate(5px, -8px) rotate(8deg); }
+}
+
+/* ---- the question: a panel at the top centre; the answers float around the wild creature ---- */
+
+.battle-ask {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.battle-ask button,
+.battle-ask .quiz-top {
+  pointer-events: auto;
+}
+
+.quiz-top {
+  position: absolute;
+  top: 8px;
+  left: 27%;
+  right: 27%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: calc(var(--gap) / 2);
-  min-height: 0;
-  padding: calc(var(--gap) / 2) max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left));
+  gap: 4px;
+  padding: 6px 12px 8px;
+  border: 2px solid #7d97b0;
+  border-radius: 8px;
+  background: rgba(28, 40, 58, 0.94);
+  color: #fff;
 }
+
+.quiz-top p {
+  margin: 0;
+  text-align: center;
+}
+
+.quiz-top .quiz-prompt {
+  gap: calc(var(--gap) / 2);
+}
+
+.quiz-top .figure {
+  height: 16vh;
+  max-width: 22vw;
+}
+
+.quiz-top .quiz-question {
+  font-size: var(--text);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.quiz-top .quiz-en {
+  color: #cfe0ee;
+}
+
+.quiz-top .quiz-typed {
+  min-width: 3em;
+  padding: 0 var(--gap);
+  border-bottom: 3px solid #ffd54a;
+  font-size: calc(var(--text) * 1.1);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.quiz-top.quiz-example {
+  left: 14%;
+  right: 14%;
+  gap: 2px;
+}
+
+.quiz-top.quiz-example .quiz-explain,
+.quiz-top.quiz-example .quiz-owl {
+  font-size: calc(var(--text) * 0.7);
+  line-height: 1.2;
+}
+
+.quiz-top.quiz-example .quiz-question {
+  font-size: calc(var(--text) * 0.85);
+}
+
+.quiz-top .figure .fig-label {
+  fill: var(--ink);
+}
+
+.answer-ring {
+  position: absolute;
+  right: max(8px, env(safe-area-inset-right));
+  top: 84px;
+  bottom: 56px;
+  width: 48%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 112px minmax(0, 1fr);
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "a . b"
+    "c . d";
+  align-items: center;
+  justify-items: center;
+  column-gap: 6px;
+  pointer-events: none;
+}
+
+.answer-ring > button.quiz-choice {
+  min-width: 96px;
+  max-width: 100%;
+  min-height: 56px;
+  padding: 2px 10px;
+  flex-direction: row;
+  gap: 6px;
+  border: 3px solid #2b6c8a;
+  background: #fff;
+  box-shadow: 0 3px 0 rgba(23, 50, 58, 0.35);
+  font-size: calc(var(--text) * 1.1);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.answer-ring .quiz-choice img {
+  height: 6vh;
+}
+
+.answer-ring .float-a { animation: float-a 5.2s ease-in-out infinite; }
+.answer-ring .float-b { animation: float-b 6.1s ease-in-out infinite; }
+.answer-ring .float-c { animation: float-b 5.7s ease-in-out -2s infinite; }
+.answer-ring .float-d { animation: float-a 6.6s ease-in-out -3s infinite; }
+
+@keyframes float-a {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(3px, -6px); }
+}
+
+@keyframes float-b {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-3px, 6px); }
+}
+
+.battle .quiz-keys {
+  position: absolute;
+  right: max(8px, env(safe-area-inset-right));
+  bottom: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 64px);
+  grid-auto-rows: 48px;
+  gap: 4px;
+}
+
+.battle .quiz-keys .key {
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0;
+  font-size: calc(var(--text) * 0.95);
+}
+
+.battle .quiz-keys .key.erase,
+.battle .quiz-keys .key.check {
+  font-size: calc(var(--text) * 0.7);
+}
+
+/* the bottom row: hint, helpers, the owl's bubble, "I don't know" */
+.battle .quiz-foot {
+  position: absolute;
+  left: max(8px, env(safe-area-inset-left));
+  right: max(8px, env(safe-area-inset-right));
+  bottom: 6px;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.battle .quiz-foot[data-pad="true"] {
+  right: 292px;
+}
+
+.battle .quiz-foot button {
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0 calc(var(--gap) * 0.8);
+  font-size: calc(var(--text) * 0.8);
+  pointer-events: auto;
+}
+
+.battle .quiz-foot .quiz-helper {
+  font-size: 24px;
+}
+
+.owl-bubble {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 12px 2px 4px;
+  border: 2px solid #2b6c8a;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  pointer-events: auto;
+}
+
+.owl-bubble[data-hint="true"] {
+  border-color: #c99a1b;
+  background: #fff8dc;
+}
+
+.owl-face {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  background: 0 0 / 80px 40px no-repeat;
+  image-rendering: pixelated;
+}
+
+.owl-line {
+  font-size: calc(var(--text) * 0.7);
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+.battle .quiz-subject {
+  align-self: center;
+  padding: 0 8px;
+  border-radius: 8px;
+  background: rgba(28, 40, 58, 0.78);
+  color: #fff;
+  font-size: calc(var(--text) * 0.7);
+}
+
+.battle .quiz-foot[data-pad="true"] .quiz-subject {
+  display: none;
+}
+
+/* ---- the message box ---- */
+
+.message-box {
+  position: absolute;
+  z-index: 4;
+  margin: 0;
+  padding: 6px 14px;
+  border: 2px solid #7d97b0;
+  border-radius: 8px;
+  background: rgba(28, 40, 58, 0.94);
+  color: #fff;
+  font-size: calc(var(--text) * 0.85);
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.message-box.top {
+  top: 8px;
+  left: 27%;
+  right: 27%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* the result: at the bottom, closing by itself; only its "why?" takes a tap, a tap anywhere else skips */
+.message-box.result {
+  left: 14%;
+  right: 14%;
+  bottom: 8px;
+  min-height: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2px 14px;
+  padding-inline-end: 34px;
+  pointer-events: none;
+}
+
+.message-box.result p {
+  margin: 0;
+}
+
+.msg-line {
+  font-weight: 700;
+}
+
+.msg-icon {
+  display: inline-block;
+  width: 1.3em;
+  margin-inline-end: 4px;
+  color: #ffd54a;
+}
+
+.msg-answer {
+  color: #ffe9a8;
+}
+
+.msg-star {
+  flex-basis: 100%;
+  font-size: 0.8em;
+}
+
+.msg-why {
+  flex-basis: 100%;
+  font-size: 0.78em;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.message-box .chip {
+  pointer-events: auto;
+  color: var(--ink);
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 0.8em;
+}
+
+.msg-more {
+  position: absolute;
+  inset-inline-end: 10px;
+  bottom: 4px;
+  font-size: 0.8em;
+  color: #cfe0ee;
+}
+
+.skip-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.battle-continue {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  z-index: 4;
+  min-width: calc(var(--touch) * 3);
+  transform: translateX(-50%);
+}
+
+/* the five buttons: each at least 120x72 CSS px, Ask twice as wide, 8 px apart */
+.battle .action-bar {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: var(--bar-h);
+  z-index: 3;
+}
+
+/* ---- the battle's effects: the partner's attack, stars, a number, the oops (never a flash, never red) ---- */
+
+.fx-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fx-bolt {
+  position: absolute;
+  left: 20%;
+  top: 48%;
+  width: 0;
+  height: 0;
+  animation: bolt-fly var(--impact) ease-in both;
+}
+
+@keyframes bolt-fly {
+  0% { left: 20%; opacity: 0; }
+  12% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: 74%; opacity: 0; }
+}
+
+.fx-orb {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f4ffe6 0%, #8be88f 50%, rgba(95, 207, 106, 0) 72%);
+}
+
+.fx-leaf {
+  position: absolute;
+  animation: leaf-spin 0.3s linear infinite;
+}
+
+.fx-leaf.l0 { left: -34px; top: -14px; }
+.fx-leaf.l1 { left: -48px; top: 4px; }
+.fx-leaf.l2 { left: -26px; top: 12px; }
+
+@keyframes leaf-spin {
+  to { transform: rotate(360deg); }
+}
+
+.fx-burst {
+  position: absolute;
+  left: 75%;
+  top: 48%;
+}
+
+.fx-star {
+  position: absolute;
+  left: -9px;
+  top: -9px;
+  animation: star-pop 0.55s ease-out var(--impact) both;
+}
+
+@keyframes star-pop {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.3); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.1); }
+}
+
+.fx-number {
+  position: absolute;
+  left: 75%;
+  top: 38%;
+  font-size: calc(var(--text) * 1.4);
+  font-weight: 800;
+  color: #fff3b0;
+  text-shadow: 0 0 3px #1c283a, 0 0 3px #1c283a, 2px 2px 0 #1c283a, -2px -2px 0 #1c283a, 2px -2px 0 #1c283a, -2px 2px 0 #1c283a;
+  animation: number-up 1.1s ease-out var(--impact) both;
+}
+
+@keyframes number-up {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  8% { opacity: 1; }
+  36% { opacity: 1; transform: translate(-50%, -44px); }
+  100% { opacity: 0; transform: translate(-50%, -54px); }
+}
+
+.fx-oops {
+  position: absolute;
+  left: 15%;
+  top: 30%;
+  padding: 0 12px;
+  border: 2px solid #2b6c8a;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-size: calc(var(--text) * 0.9);
+  font-weight: 800;
+  animation: bubble-pop 1.3s ease-out both;
+}
+
+.fx-smirk-wrap {
+  position: absolute;
+  left: 72%;
+  top: 30%;
+  animation: bubble-pop 1.3s ease-out 0.25s both;
+}
+
+@keyframes bubble-pop {
+  0% { opacity: 0; transform: scale(0.4); }
+  18% { opacity: 1; transform: scale(1.1); }
+  30% { transform: scale(1); }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.battle-pic.mine.lunge {
+  animation: lunge 0.63s ease-in-out both;
+}
+
+/* the lunge holds at the far end for 80 ms: the hit-stop */
+@keyframes lunge {
+  0%, 100% { transform: translateX(0); }
+  35%, 48% { transform: translateX(40px); }
+}
+
+.battle-pic.theirs.hit {
+  animation: wild-hit 0.5s ease-in-out var(--impact) both;
+}
+
+@keyframes wild-hit {
+  0%, 100% { transform: translateX(0) scale(1, 1); }
+  20% { transform: translateX(5px) scale(1.06, 0.92); }
+  45% { transform: translateX(-4px) scale(0.98, 1.03); }
+  70% { transform: translateX(2px) scale(1, 1); }
+}
+
+.battle-pic.mine.trip {
+  animation: trip 0.95s ease-in-out both;
+}
+
+@keyframes trip {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(-6px, 0) rotate(-12deg); }
+  45% { transform: translate(-10px, 10px) rotate(-22deg); }
+  75% { transform: translate(-2px, 2px) rotate(5deg); }
+}
+
+.battle-pic.theirs.smirk {
+  animation: wobble 0.8s ease-in-out 2 both;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+
+.battle-pic.theirs.friend,
+.battle-child.cheer {
+  animation: battle-happy 0.9s ease-in-out 2 0.4s both;
+}
+
+.battle-pic.theirs.hit.friend {
+  animation: wild-hit 0.5s ease-in-out var(--impact) both, battle-happy 0.9s ease-in-out 2 0.9s both;
+}
+
+/* calm effects: the parents' switch, or the system's "reduce motion". Nothing drifts or flies; the result shows as fades. */
+.battle[data-calm-fx="true"] .scene-bg *,
+.battle[data-calm-fx="true"] .battle-pic,
+.battle[data-calm-fx="true"] .battle-pic > .monster-pic,
+.battle[data-calm-fx="true"] .battle-child,
+.battle[data-calm-fx="true"] .decor-item,
+.battle[data-calm-fx="true"] .answer-ring button,
+.battle[data-calm-fx="true"] .action-bar button.pulse,
+.battle[data-calm-fx="true"] .fx-oops,
+.battle[data-calm-fx="true"] .fx-smirk-wrap {
+  animation: none !important;
+}
+
+.battle[data-calm-fx="true"] .scene-cloud {
+  left: 20%;
+}
+
+.battle[data-calm-fx="true"] .scene-leaf {
+  display: none;
+}
+
+.battle[data-calm-fx="true"] .fx-star {
+  --dx: 0px;
+  --dy: -34px;
+  animation: calm-fade 1.2s ease both;
+}
+
+.battle[data-calm-fx="true"] .fx-number {
+  animation: calm-fade 1.2s ease both;
+  transform: translateX(-50%);
+}
+
+.battle[data-calm-fx="true"] .fx-oops {
+  opacity: 1;
+}
+
+.battle[data-calm-fx="true"] .meter > span {
+  transition-duration: 0.3s !important;
+  transition-delay: 0s !important;
+}
+
+@keyframes calm-fade {
+  0% { opacity: 0; }
+  30%, 70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
+
 
 /* the five buttons: each at least 120x72 CSS px, Ask twice as wide, 8 px apart */
 .action-bar {
@@ -1289,44 +2069,11 @@ button.quiz-choice {
   min-width: calc(var(--touch) * 3);
 }
 
-.battle-field {
-  display: flex;
-  min-width: 0;
-  gap: var(--gap);
-  width: 100%;
-  justify-content: space-between;
-  align-items: flex-end;
-}
 
-.battle-side {
-  display: flex;
-  align-items: flex-end;
-  gap: var(--gap);
-}
 
-.battle-side.theirs {
-  align-items: flex-start;
-}
 
-.battle-card {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 6.5em;
-  padding: calc(var(--gap) / 2) var(--gap);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--ink);
-}
 
-.battle-name {
-  font-weight: 700;
-  font-size: calc(var(--text) * 0.9);
-}
 
-.battle-level {
-  font-size: calc(var(--text) * 0.75);
-}
 
 .meter {
   height: max(10px, 2.2vh);
@@ -1350,50 +2097,17 @@ button.quiz-choice {
   background: #1f6f8b;
 }
 
-.battle-message {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: 34em;
-  font-size: calc(var(--text) * 0.95);
-  font-weight: 600;
-  color: var(--ink);
-}
 
-.battle-pic.hit {
-  animation: battle-shake 0.5s ease-in-out;
-}
 
-.battle-pic.lunge {
-  animation: battle-lunge 0.5s ease-in-out;
-}
 
-.battle-pic.friend {
-  animation: battle-happy 0.9s ease-in-out 2;
-}
 
-@keyframes battle-shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-8px); }
-  75% { transform: translateX(8px); }
-}
 
-@keyframes battle-lunge {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(28px); }
-}
 
 @keyframes battle-happy {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .battle-pic, .action-bar button.pulse { animation: none !important; }
-  .meter > span { transition: none; }
-}
 
 /* ------------------------------------------------- trips and the bestiary */
 

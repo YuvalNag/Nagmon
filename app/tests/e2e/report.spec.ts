@@ -1,5 +1,5 @@
 import type { Page } from "@playwright/test";
-import { answer, debug, id, openMap, PID, quiz, seedChild, steps } from "./cashier";
+import { battleAnswer, battleResultClosed, debug, id, openMap, PID, quiz, seedChild, steps } from "./cashier";
 import { expect, test } from "./fixtures";
 import { touch } from "./touch";
 
@@ -209,8 +209,8 @@ for (const scale of [1, 1.3]) {
     expect(json.question.skill).toBeTruthy();
     expect(json.question.choices.length).toBeGreaterThan(0);
     expect(json.battle).toMatchObject({ species: expect.any(String) });
-    await answer(page, "right");
-    await touch(page, page.locator(id("quiz_continue")), 30);
+    await battleAnswer(page, "right");
+    await battleResultClosed(page);
     await expect(page.locator("[data-screen=battle][data-view=turn]")).toBeVisible();
     expect(await covers(page)).toEqual([]);
     await shot("turn");

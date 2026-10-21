@@ -251,15 +251,23 @@ describe("talking on the map", () => {
   });
 });
 
+/** In a battle there is no "continue" page: the result shows in the arena and a tap anywhere (after a moment) closes its line. */
+async function closeResult(m: Awaited<ReturnType<typeof start>>) {
+  expect(m.q("[data-screen=battle]")?.dataset.flow).toBe("result");
+  await settle(330);
+  await m.press("battle_skip");
+}
+
 /** Answers the question showing: right (typed or the right card), or "don't know". */
-async function answerQuestion(m: Awaited<ReturnType<typeof start>>, right: boolean) {
+async function answerQuestion(m: Awaited<ReturnType<typeof start>>, right: boolean, inBattle = false) {
   if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
   if (!right) await m.press("quiz_dont_know");
   else if (m.quiz()!.kind === "number") {
     for (const k of m.quiz()!.answer) await m.press(`quiz_key_${k}`);
     await m.press("quiz_check");
   } else await m.press(`quiz_choice_${m.quiz()!.answer}`);
-  await m.press("quiz_continue");
+  if (inBattle) await closeResult(m);
+  else await m.press("quiz_continue");
   // a level-up card may come after a right answer in a battle: tap it away
   if (m.el("growth_close")) await m.press("growth_close");
 }
@@ -370,7 +378,13 @@ describe("a wild creature in the grass", () => {
     // a wrong answer: no damage
     if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
     await m.press("quiz_dont_know");
-    await m.press("quiz_continue");
+    // the arena stays on screen: the oops plays, the line says it, nothing is hurt
+    expect(m.q("[data-screen=battle]")?.dataset.view).toBe("question");
+    expect(m.q("[data-screen=battle]")?.dataset.flow).toBe("result");
+    expect(m.q(".battle-scene")?.dataset.fx).toBe("wrong");
+    expect(m.q("[data-screen=quiz]")).toBeNull();
+    expect(m.el("quiz_continue")).toBeNull();
+    await closeResult(m);
     const full = Number(m.q("[data-screen=battle]")!.dataset.hp);
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("turn");
     expect(m.el("battle_message")?.textContent).toContain("אף אחד לא נפגע");
@@ -378,7 +392,7 @@ describe("a wild creature in the grass", () => {
     // right answers until it is calm
     for (let i = 0; i < 12 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
       await m.press("battle_next");
-      await answerQuestion(m, true);
+      await answerQuestion(m, true, true);
       await settle(5);
     }
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("calm");
@@ -394,13 +408,13 @@ describe("a wild creature in the grass", () => {
     expect(m.q("[data-screen=battle-ask]")?.dataset.seal).toBe("true");
     if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
     await m.press("quiz_dont_know");
-    await m.press("quiz_continue");
+    await closeResult(m);
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("calm");
     expect(m.el("battle_message")?.textContent).toMatch(/אפשר לנסות שוב/);
     // a grown-up creature needs three seal answers: right ones until it is caught
     for (let i = 0; i < 3 && !m.q("[data-screen=battle-caught]"); i++) {
       await m.press("battle_net");
-      await answerQuestion(m, true);
+      await answerQuestion(m, true, true);
     }
     expect(m.q("[data-screen=battle-caught]")).not.toBeNull();
     // a name or skip
@@ -439,15 +453,15 @@ describe("a wild creature in the grass", () => {
     const m = await grass();
     await act(async () => m.opts().onStep?.(5, 8));
     await m.press("battle_fight");
-    await answerQuestion(m, true);
+    await answerQuestion(m, true, true);
     for (let i = 0; i < 12 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
       await m.press("battle_next");
-      await answerQuestion(m, true);
+      await answerQuestion(m, true, true);
       await settle(5);
     }
     for (let i = 0; i < 3 && !m.q("[data-screen=battle-caught]"); i++) {
       await m.press("battle_net");
-      await answerQuestion(m, true);
+      await answerQuestion(m, true, true);
     }
     await m.press("battle_suggest_0");
     await pendingWrites(m.fs);
