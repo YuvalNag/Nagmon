@@ -383,3 +383,54 @@ Done when: a recorded play-through shows the arena visible during questions, the
 - Children and touch, drag and drop: https://oldmagazine.uxpa.org/?p=11776 ; https://developers.google.com/building-for-kids/designing-engaging-apps
 - Juice: https://eastondev.com/blog/en/posts/dev/20260521-game-feedback-feel/ ; https://rpgplayground.com/research-making-a-juicy-game/
 - Accessibility: https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html ; https://gamesforchange.org/studentchallenge/wp-content/uploads/2022/01/Tips_Resources_for-Considering-the-Needs-of-Disabled-Gamers-in-Design.pdf
+
+---
+
+## 8. Parent's direction video
+
+The parent sent a short concept video (AI-generated concept art, not part of the repo) and said: this is the direction the battle should take. What it shows, and what slice 1 and the later slices do with it.
+
+### 8.1 What the video shows
+
+1. **The fog of forgetting, as a story.** A grey, colourless world; the wise owl flies in with a glowing book and colour, seasons and sunlight return in a swirl.
+2. **The battle.** A full-screen scenic backdrop (sunny hills, olive trees, stone houses). The child (seen from the side) at the start side with the partner floating beside them; the wild creature at the other side with small floating geometric objects around it (it is made of cubes and pyramids: the subject shows in its look). Pixel-RPG cards in the corners (name, level, HP and energy bars; the enemy's top end, the partner's top start; the child's own small box in a bottom corner). A pixel-font **question panel at the top centre** ("5+3=?"). The **answers are numbers floating around the enemy** that the child taps. A **helper portrait with a speech bubble** gives the hint. A **message box at the bottom** with a small down arrow. A pause button in a top corner.
+3. **The result.** The child points, the partner launches a magical attack (a green swirl of leaves and stars), the enemy is hit and wobbles, the bars update, then victory: the child raises a fist and smiles, the wild creature turns friendly and calm; the capture comes next.
+
+### 8.2 The recommended merge: Charge-and-Choose in this visual language
+
+Section 4 (the beat loop, the meter, Special, the "not every beat" rule) stays the **rules**; the video is the **look and the way a question is asked**:
+
+| Part of the video | Where it lives in the plan |
+|---|---|
+| Scenic backdrop, soft rays, clouds, leaves | The arena of every slice. |
+| Cards in the corners, the child's own stat box | The HUD; the charge meter (slice 3) goes in the partner's card, the child's box can show the streak dots. |
+| Question panel at the top centre | The panel of every presentation (P1 to P12 draw inside or under it). |
+| Answers floating around the enemy | Presentation P1 (cards), and P2 (throw it): the floating answer is the thing that is thrown. |
+| Helper bubble | The owl's hint, free hint and "the owl helps" (anti-frustration rules 3 and 4). |
+| Message box with the arrow | The result line (1.5 s, "why?" one tap away) and the narration of Move, Friend and Special beats. |
+| Attack, hit, victory pose | The result animations of 4.6; the Special finisher (slice 3) is the same swirl, bigger. |
+| The fog story | The first battle of a new child, and the "fog gone" moment; it needs art (below). |
+
+### 8.3 What slice 1 builds of it, and what it does not
+
+In slice 1 (branch `app/battle-slice1`):
+
+- The scenic backdrop is the existing grass picture with a sky, soft sun rays, two clouds and a few leaves drifting; all of it stands still for calm effects.
+- The child is shown by the chosen hero picture, with the partner floating beside; the wild creature has little shapes (or letters, for Hebrew and English) drifting around it, by subject.
+- Corner cards, the question panel at the top centre, the answers floating around the wild creature in a tidy ring of at most four (each a button of at least 48 CSS px, apart from each other, a slow drift that stops for calm effects). A typed answer keeps a compact number pad at the bottom end, and the wild creature stands nearer the middle.
+- The owl's speech bubble in the bottom row holds the hint (and, before a hint, what to do). The bottom message box shows the result; "why?" opens the explanation.
+- The result: the partner lunges and a green bolt of leaves flies to the creature, a short pause on impact, stars, a number, the fog bar drains with a ghost behind it; a wrong answer is a harmless oops (the partner trips, the wild creature smirks and wobbles). The child cheers when the fog is gone.
+- Calm effects: the parents' switch (per child), or the device's own "reduce motion".
+
+Not in slice 1 (for the later slices, and why): the fog story and the colour returning (needs art and a script); the child seen from the side or behind (we have only front-facing hero pictures); the cube-and-pyramid enemy design (the creatures are the solar ones we ship; the little shapes stand in); a pixel font for the panel (the app has one font, Rubik); a pause button in the arena (Android's back and "going on" exist); the child's own stat box (nothing to put in it before slice 3); a real "throw the number" drag (slice 4, P2); more than four answers (a question with more choices shows the right one and the first others).
+
+### 8.4 Art and assets we do not have (a list for the parent)
+
+1. The grey-to-colour fog story: a grey and a coloured version of one backdrop, the owl flying in with the book, a swirl (a short sprite sheet).
+2. A real scenic backdrop: sunny hills, olive trees and stone houses, in two or three layers for a slow parallax. Today: a forest and grass picture from the Tuxemon set.
+3. The child from the side or behind (and a pointing pose and a fist-raised pose) for each of the three heroes. Today: one front picture each.
+4. The enemy built of cubes, pyramids and spheres, and a small floating-objects sheet for each subject. Today: little drawn shapes and letters.
+5. A pixel font with Hebrew letters and digits for the question panel and the cards.
+6. A helper portrait set (listening, speaking, surprised) for the owl. Today: one owl portrait.
+7. Hand-drawn attack effects (the green swirl, per element, see 4.6); today: CSS and SVG leaves, stars and an orb.
+8. Proper sound design: today the three sounds are plain tones synthesized by `tools/sfx_battle.py`.
