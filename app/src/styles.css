@@ -900,7 +900,8 @@ button.quiz-choice {
   flex: 0 0 auto;
 }
 
-.monster-pic > span {
+.monster-pic > span,
+.monster-pic > svg {
   position: absolute;
   top: 0;
   left: 0;

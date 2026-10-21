@@ -128,6 +128,7 @@ export const he = {
   mapMenu: "תפריט",
   mapPaused: "המשחק עצר",
   mapContinue: "המשך לשחק",
+  friendUnknown: "חבר",
   mapTryAgain: "לנסות שוב",
   mapToWhoPlays: "חזרה למי משחק",
   dpad: "חצים ללכת",
