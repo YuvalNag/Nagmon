@@ -85,13 +85,18 @@ for (const scale of [1, 1.3]) {
     await layout(page, "nets shelf");
     await shot("shelf_nets");
 
-    // three shelves, the nets first, each item with its price from the economy table
-    for (const s of ["nets", "snacks", "helpers"]) await expect(page.locator(id(`shop_shelf_${s}`))).toBeVisible();
+    // four shelves, the nets first, each item with its price from the economy table
+    for (const s of ["nets", "snacks", "helpers", "medicine"]) await expect(page.locator(id(`shop_shelf_${s}`))).toBeVisible();
     await expect(page.locator(id("shop_item_magic_net"))).toContainText("30");
     await touch(page, page.locator(id("shop_shelf_snacks")));
     await expect(page.locator(id("shop_item_biscuit"))).toContainText("25");
     await layout(page, "snacks shelf");
     await shot("shelf_snacks");
+    // the medicine shelf (Battle v3 S1): cards inside the screen, a finger wide
+    await touch(page, page.locator(id("shop_shelf_medicine")));
+    await expect(page.locator("[data-screen=shop][data-shelf=medicine]")).toBeVisible();
+    await layout(page, "medicine shelf");
+    await shot("shelf_medicine");
     await touch(page, page.locator(id("shop_shelf_nets")));
 
     // the net: a wrong amount first (20 is a bit short), then the exact change
