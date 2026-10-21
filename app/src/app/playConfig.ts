@@ -3,8 +3,11 @@
  * learning core (that loads with the child's play, ./play.ts).
  */
 
-/** Who the player may talk to in M4 (core/world/events.ts `talkTo`). */
-export const TALK_TO: ReadonlySet<string> = new Set(["nagmon_cashier"]);
+/** Who the player may talk to (core/world/events.ts `talkTo`): the cashier and the solar-system chapter's people. */
+export const TALK_TO: ReadonlySet<string> = new Set([
+  "nagmon_cashier",
+  ...["astronomer", "mila", "owl", "moon_engineer", "rover_driver", "sage", "grey_hood"].map((n) => `nagmon_solar_${n}`),
+]);
 
 /**
  * A test hook, as `nagmon.map.adaptiveResolution`: a number here seeds

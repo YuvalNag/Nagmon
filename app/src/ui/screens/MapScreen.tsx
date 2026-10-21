@@ -372,8 +372,12 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     if (!runner || !facing || !runner.talkable(facing)) return;
     dpad.clear();
     setTalking(true);
-    void runner.talk(facing).finally(() => setTalking(false));
-  }, [runner, facing, dpad]);
+    // a mission done in a talk may finish a zone: check the trips after it
+    void runner.talk(facing).finally(() => {
+      setTalking(false);
+      checkTrips();
+    });
+  }, [runner, facing, dpad, checkTrips]);
 
   const openMenu = useCallback(() => {
     dpad.clear();

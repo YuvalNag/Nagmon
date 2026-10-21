@@ -1461,50 +1461,122 @@ msgstr "The Sage"
 msgid "nagmon_solar_grey_hood"
 msgstr "The Grey Hood"
 
+msgid "nagmon_solar_quiz_good"
+msgstr "Right! Here are 3 coins for you."
+
+msgid "nagmon_solar_quiz_free"
+msgstr "Right! Well done. The coins for today are all given, but learning is always fun."
+
+msgid "nagmon_solar_quiz_wrong"
+msgstr "No problem! Now we saw the answer. Next time it will be easier."
+
+msgid "nagmon_solar_quiz_mission_wrong"
+msgstr "No problem! Now we saw the answer. You can come back and try again whenever you like."
+
 msgid "nagmon_solar_moon_moon_engineer"
-msgstr "This is the Moon! There is no air here, so nothing can be heard. Try a jump, gravity is weak!"
+msgstr "I am the Moon engineer. The Moon has no air, so there is no wind and no sound. It is full of craters, made when rocks from space hit it."
+
+msgid "nagmon_solar_moon_moon_engineer_ask"
+msgstr "I am writing the craters in my log, and there are so many. Will you help me with one question?"
+
+msgid "nagmon_solar_moon_moon_engineer_good"
+msgstr "Right! The craters are in the log. Here are 10 coins for your help."
 
 msgid "nagmon_solar_moon_owl"
-msgstr "The Moon makes no light of its own. We see sunlight bouncing off it."
+msgstr "The Moon makes no light of its own. We see sunlight coming back from it. The Moon goes around the Earth about once a month."
 
 msgid "nagmon_solar_sun_owl"
-msgstr "The Sun is a star. It is very hot, so we never look straight at it."
+msgstr "The Sun is a star: a giant ball of hot gas. Never look straight at the Sun. Look only through a special filter, with a grown-up."
+
+msgid "nagmon_solar_sun_owl_ask"
+msgstr "My shield filter got lost in the fog! Without it we cannot watch the Sun safely. Maybe the woman in the grey hood found it?"
+
+msgid "nagmon_solar_sun_owl_wait"
+msgstr "We have not found my filter yet. Try asking the woman in the grey hood."
+
+msgid "nagmon_solar_sun_owl_found"
+msgstr "That is my filter! Thank you. A filter like this protects the eyes, and without it we do not look at the Sun. I have one more question for you."
+
+msgid "nagmon_solar_sun_owl_good"
+msgstr "Right! Here are 12 coins, and thank you for finding the filter."
 
 msgid "nagmon_solar_sun_grey_hood"
-msgstr "The fog made me forget how long sunlight takes to reach us. Do you remember?"
+msgstr "The Sun is so big that more than a million Earths would fit inside it. Its light takes about eight minutes to reach us."
+
+msgid "nagmon_solar_sun_grey_hood_filter"
+msgstr "I found a strange filter in the fog. Maybe it is the owl's? Please take it to him."
 
 msgid "nagmon_solar_rocky_planets_rover_driver"
-msgstr "I drive a rover on Mars. The ground is red because it holds rusty iron."
+msgstr "I drive a rover on Mars. The ground there is red, because it holds rusty iron. Mars has a giant volcano called Olympus."
+
+msgid "nagmon_solar_rocky_planets_rover_driver_ask"
+msgstr "Want to ride with me? There are three stops on the way, and a question at each stop."
+
+msgid "nagmon_solar_rocky_planets_rover_driver_good"
+msgstr "We made it! A fine drive. Here are 15 coins."
+
+msgid "nagmon_solar_rocky_planets_rover_driver_weak"
+msgstr "The road was a little bumpy, but we learned on the way. We can drive again whenever you like."
 
 msgid "nagmon_solar_rocky_planets_sage"
-msgstr "The first four planets are rocky: Mercury, Venus, Earth and Mars."
+msgstr "The first four planets are rocky: Mercury, Venus, Earth and Mars. They have hard ground. Earth is the only place we know that has life."
 
 msgid "nagmon_solar_rocky_planets_owl"
-msgstr "Mercury is closest to the Sun, but Venus is the hottest, because of its clouds."
+msgstr "Mercury is closest to the Sun, but Venus is the hottest, because of its thick clouds. One day on Venus is longer than its year."
 
 msgid "nagmon_solar_giants_sage"
-msgstr "Jupiter is the biggest planet, and Saturn has rings of ice and rock."
+msgstr "Jupiter is the biggest planet. Saturn has rings of ice and rock. Both are made mostly of gas."
+
+msgid "nagmon_solar_giants_sage_ask"
+msgstr "A riddle for you: I have beautiful rings of ice and rock, and I am the sixth planet from the Sun. Who am I? We will find the answer after one question."
+
+msgid "nagmon_solar_giants_sage_good"
+msgstr "Right! And the answer to the riddle: Saturn, the planet with the rings. Here are 18 coins."
+
+msgid "nagmon_solar_giants_sage_wrong"
+msgstr "No problem! Now we saw the answer. And the answer to the riddle: Saturn, the planet with the rings. You can try again."
 
 msgid "nagmon_solar_giants_moon_engineer"
-msgstr "Jupiter has many moons. The biggest, Ganymede, is even bigger than Mercury!"
+msgstr "Jupiter has dozens of moons. Ganymede, the biggest, is even bigger across than Mercury. Europa, another moon of Jupiter, is covered with ice."
 
 msgid "nagmon_solar_giants_owl"
-msgstr "There is no ground to stand on at Jupiter. It is mostly gas."
+msgstr "There is no ground to stand on at Jupiter: it is mostly gas. It has a giant red storm, seen for more than a hundred years."
 
 msgid "nagmon_solar_outer_grey_hood"
-msgstr "It is far and cold out here. Neptune and Uranus are ice giants."
+msgstr "It is far and cold out here. Uranus and Neptune are ice giants. Sunlight takes about four hours to reach Neptune."
+
+msgid "nagmon_solar_outer_grey_hood_ask"
+msgstr "I have three cards from the edge of the system. Take a look at them, and then one question."
+
+msgid "nagmon_solar_outer_grey_hood_card1"
+msgstr "First card, Neptune: the planet farthest from the Sun, with very strong winds."
+
+msgid "nagmon_solar_outer_grey_hood_card2"
+msgstr "Second card, Pluto: a dwarf planet, smaller than our Moon, with a heart-shaped region on it."
+
+msgid "nagmon_solar_outer_grey_hood_card3"
+msgstr "Third card, a comet: a ball of ice and dust. When it comes near the Sun, it grows a tail."
+
+msgid "nagmon_solar_outer_grey_hood_good"
+msgstr "Right! The cards are yours to remember. Here are 25 coins."
 
 msgid "nagmon_solar_outer_rover_driver"
-msgstr "Probes fly for years to get here. They have no driver, only an antenna that talks to us."
+msgstr "Probes fly for years to get here. They have no driver, only an antenna that talks to us. Sometimes a signal takes hours to arrive."
 
 msgid "nagmon_solar_outer_owl"
-msgstr "Pluto is a dwarf planet, and comets come from this frozen edge."
+msgstr "Pluto is a dwarf planet. Comets come from the frozen region at the edge of the system. From here the Sun looks like a small star."
 
 msgid "nagmon_solar_station_astronomer"
-msgstr "Welcome to the space station! The telescope shows faraway stars. Each door leads somewhere new."
+msgstr "Welcome to the space station! The telescope shows faraway stars. The light of some of them travelled to us for many years."
+
+msgid "nagmon_solar_station_astronomer_how"
+msgstr "There are five places: the Moon, near the Sun, the rocky planets, the giants and the edge. Each place opens when your strongest friend reaches a certain level, and the trip costs coins. A place is done when you finish its mission there, or catch three creatures there. When all five are done, the astronomer test waits in the trips menu. Whoever passes it gets the badge."
+
+msgid "nagmon_solar_station_astronomer_ready"
+msgstr "All five places are done! You can open the trips menu and take the astronomer test."
 
 msgid "nagmon_solar_station_mila"
-msgstr "My shuttle is waiting. Let us bring back the knowledge the fog took!"
+msgstr "Eight planets go around the Sun, and Earth is one of them. Earth goes around the Sun once a year. In space there is no up or down, so astronauts float."
 
 msgid "cat_moon_critter"
 msgstr "Moon Critter"

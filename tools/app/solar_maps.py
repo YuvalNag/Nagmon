@@ -24,7 +24,7 @@ import numpy as np
 import yaml
 from PIL import Image
 
-from tools.app import maps
+from tools.app import maps, solar_missions
 from tools.app import solar_layouts as L
 from tools.app.common import NAG, Output, rel_repo
 
@@ -266,6 +266,8 @@ def station_plan() -> Plan:
     plan.npcs = list(L.STATION_NPCS)
     for zone, x in L.DOORS.items():
         plan.exits[zone] = (x, 1)
+    plan.exits["exit"] = L.STATION_HOME
+    plan.objects.append((*L.STATION_HOME, doorway))
     if not set(key_cells(plan)) <= reach(plan, plan.spawn):
         raise ValueError("station: not connected")
     return plan
@@ -328,6 +330,11 @@ def events(plan: Plan, info: dict[str, Any]) -> list[tuple]:
                                 "0.3",
                             ],
                         ),
+                        *(
+                            [("char_face", ["player", target["face"]])]
+                            if "face" in target
+                            else []
+                        ),
                     ],
                 ),
             )
@@ -358,16 +365,11 @@ def events(plan: Plan, info: dict[str, Any]) -> list[tuple]:
                 ),
             )
         )
+    for name, conditions, actions, behaviors in solar_missions.zone_events(
+        key
+    ):
         out.append(
-            _event(
-                f"Talk {slug}",
-                (0, 0, 0, 0),
-                _script(
-                    [],
-                    [("translated_dialog", [L.dialog_id(key, slug)])],
-                    [("talk", [slug])],
-                ),
-            )
+            _event(name, (0, 0, 0, 0), _script(conditions, actions, behaviors))
         )
     return out
 
@@ -589,7 +591,22 @@ def targets(table: dict[str, Any]) -> dict[str, dict[str, Any]]:
         zid: {"map": zone["map"], "tile": list(L.SPAWN)}
         for zid, zone in zones.items()
     }
+    out[table["station"]["map"]]["exit"] = hearthrock_landing()
     return out
+
+
+CITY = NAG / "maps" / "classic_hearthrock_city.yaml"
+
+
+def hearthrock_landing() -> dict[str, Any]:
+    """Where the station's door lands: in Hearthrock, the tile in front of
+    the lab's door (the door is entered facing up, so the tile below it)."""
+    door = yaml.safe_load(CITY.read_text("utf-8"))["events"]["Teleport to Lab"]
+    return {
+        "map": "classic_hearthrock_city",
+        "tile": [door["x"], door["y"] + 1],
+        "face": "down",
+    }
 
 
 def plans() -> dict[str, Plan]:

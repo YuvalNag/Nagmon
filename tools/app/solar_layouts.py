@@ -17,6 +17,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+from tools.app.solar_texts import TEXTS
+
 WIDTH, HEIGHT = 30, 20
 
 #: Where the things of a zone stand (tile coordinates).
@@ -217,76 +219,18 @@ ZONES: dict[str, Zone] = {
 #: The station's doorway x per zone, in the order of the trip.
 DOORS = {"moon": 4, "sun": 10, "rocky_planets": 15, "giants": 20, "outer": 25}
 STATION_SPAWN = (15, 10)
+#: The way back to Hearthrock: a doorway in the station's south wall.
+STATION_HOME = (19, 17)
 STATION_SPOTS = [(21, 7), (12, 15)]
 STATION_NPCS = [
     ("nagmon_solar_astronomer", "left"),
     ("nagmon_solar_mila", "right"),
 ]
 
-#: What the people say: (zone or "station", npc slug) -> (Hebrew, English).
-#: Short, friendly, one real fact each; the questions come from the quiz.
-DIALOGS: dict[tuple[str, str], tuple[str, str]] = {
-    ("moon", "nagmon_solar_moon_engineer"): (
-        "זה הירח! אין פה אוויר, אז אי אפשר לשמוע כלום. נסו לקפוץ, כוח המשיכה חלש!",
-        "This is the Moon! There is no air here, so nothing can be heard. Try a jump, gravity is weak!",
-    ),
-    ("moon", "nagmon_solar_owl"): (
-        "הירח לא מאיר בעצמו. אנחנו רואים את אור השמש שחוזר ממנו.",
-        "The Moon makes no light of its own. We see sunlight bouncing off it.",
-    ),
-    ("sun", "nagmon_solar_owl"): (
-        "השמש היא כוכב. היא חמה מאוד, ולכן לא מסתכלים עליה ישר.",
-        "The Sun is a star. It is very hot, so we never look straight at it.",
-    ),
-    ("sun", "nagmon_solar_grey_hood"): (
-        "בגלל הערפל שכחתי כמה זמן לוקח לאור להגיע מהשמש אלינו. אתם זוכרים?",
-        "The fog made me forget how long sunlight takes to reach us. Do you remember?",
-    ),
-    ("rocky_planets", "nagmon_solar_rover_driver"): (
-        "אני נוהג ברובר על מאדים. האדמה כאן אדומה כי יש בה ברזל חלוד.",
-        "I drive a rover on Mars. The ground is red because it holds rusty iron.",
-    ),
-    ("rocky_planets", "nagmon_solar_sage"): (
-        "ארבעת הראשונים הם כוכבי לכת סלעיים: חמה, נוגה, כדור הארץ ומאדים.",
-        "The first four planets are rocky: Mercury, Venus, Earth and Mars.",
-    ),
-    ("rocky_planets", "nagmon_solar_owl"): (
-        "חמה הכי קרוב לשמש, אבל נוגה הכי חמה, בגלל העננים שלה.",
-        "Mercury is closest to the Sun, but Venus is the hottest, because of its clouds.",
-    ),
-    ("giants", "nagmon_solar_sage"): (
-        "צדק הוא הגדול בכוכבי הלכת, ולשבתאי יש טבעות של קרח וסלע.",
-        "Jupiter is the biggest planet, and Saturn has rings of ice and rock.",
-    ),
-    ("giants", "nagmon_solar_moon_engineer"): (
-        "לצדק יש ירחים רבים. גנימד הגדול שבהם גדול אפילו מכוכב חמה!",
-        "Jupiter has many moons. The biggest, Ganymede, is even bigger than Mercury!",
-    ),
-    ("giants", "nagmon_solar_owl"): (
-        "בצדק אין קרקע לעמוד עליה. הוא עשוי בעיקר מגז.",
-        "There is no ground to stand on at Jupiter. It is mostly gas.",
-    ),
-    ("outer", "nagmon_solar_grey_hood"): (
-        "כאן רחוק וקר. נפטון ואורנוס הם ענקי קרח.",
-        "It is far and cold out here. Neptune and Uranus are ice giants.",
-    ),
-    ("outer", "nagmon_solar_rover_driver"): (
-        "גשושיות טסות לכאן שנים. אין להן נהג, רק אנטנה שמדברת איתנו.",
-        "Probes fly for years to get here. They have no driver, only an antenna that talks to us.",
-    ),
-    ("outer", "nagmon_solar_owl"): (
-        "פלוטו הוא כוכב לכת ננסי, ושביטים באים מהקצה הקפוא הזה.",
-        "Pluto is a dwarf planet, and comets come from this frozen edge.",
-    ),
-    ("station", "nagmon_solar_astronomer"): (
-        "ברוכים הבאים לתחנת החלל! דרך הטלסקופ רואים כוכבים רחוקים. כל דלת מובילה למקום אחר.",
-        "Welcome to the space station! The telescope shows faraway stars. Each door leads somewhere new.",
-    ),
-    ("station", "nagmon_solar_mila"): (
-        "המעבורת שלי מחכה. בואו נחזיר את הידע שהערפל לקח!",
-        "My shuttle is waiting. Let us bring back the knowledge the fog took!",
-    ),
-}
+#: What the people say: (zone or "station", npc slug[_part]) -> (Hebrew, English).
+#: The texts are in ``solar_texts``: 2-3 true facts a person, and the steps of
+#: a mission; the questions come from the quiz.
+DIALOGS = TEXTS
 
 
 def dialog_id(zone: str, npc: str) -> str:
