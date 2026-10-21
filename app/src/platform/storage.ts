@@ -30,6 +30,10 @@ export interface FileStore {
   readText(path: string): Promise<string | null>;
   /** Writes a whole file, creating its parent directories. */
   writeText(path: string, text: string): Promise<void>;
+  /** Writes a binary file (a screenshot) given as base64, creating its parent directories. */
+  writeBase64(path: string, base64: string): Promise<void>;
+  /** A binary file as base64, or `null` when there is no such file. */
+  readBase64(path: string): Promise<string | null>;
   /** "file", "dir" or `null` when nothing is there. */
   stat(path: string): Promise<EntryKind | null>;
   /** The entries of a directory (not recursive); `[]` when it is missing. */
@@ -405,6 +409,15 @@ export class MemoryFileStore implements FileStore {
     this.files.set(p, text);
   }
 
+  // a binary file is its base64 text here: the browser has no use for the bytes
+  async writeBase64(path: string, base64: string): Promise<void> {
+    await this.writeText(path, base64);
+  }
+
+  async readBase64(path: string): Promise<string | null> {
+    return this.readText(path);
+  }
+
   async stat(path: string): Promise<EntryKind | null> {
     const p = joinPath(path);
     if (this.files.has(p)) return "file";
@@ -534,6 +547,24 @@ export class CapacitorFileStore implements FileStore {
       encoding: Encoding.UTF8,
       recursive: true,
     });
+  }
+
+  async writeBase64(path: string, base64: string): Promise<void> {
+    // no encoding: the plugin decodes the base64 into the file's bytes
+    await Filesystem.writeFile({ path: joinPath(path), data: base64, directory: this.directory, recursive: true });
+  }
+
+  async readBase64(path: string): Promise<string | null> {
+    const p = joinPath(path);
+    try {
+      const res = await Filesystem.readFile({ path: p, directory: this.directory });
+      if (typeof res.data !== "string") return null;
+      // some versions of the plugin give a data URL
+      return res.data.replace(/^data:[^,]*,/, "");
+    } catch (err) {
+      if ((await this.stat(p)) === null) return null;
+      throw err;
+    }
   }
 
   async stat(path: string): Promise<EntryKind | null> {

@@ -37,3 +37,19 @@ describe("why the map is paused", () => {
     expect(p.resume("talk")).toBe(true);
   });
 });
+
+describe("the report sheet", () => {
+  it("holds the map like the menu does: the map runs again only when the last holder lets go", () => {
+    const r = new PauseReasons();
+    expect(r.pause("report")).toBe(true);
+    expect(r.pause("menu")).toBe(false);
+    expect(r.resume("report")).toBe(false);
+    expect(r.resume("menu")).toBe(true);
+  });
+
+  it("is silent: the music stops under it", () => {
+    const r = new PauseReasons();
+    r.pause("report");
+    expect(r.silent).toBe(true);
+  });
+});

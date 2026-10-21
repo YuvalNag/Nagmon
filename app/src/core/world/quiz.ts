@@ -16,6 +16,7 @@
  * - The engine's own coin count is not paid here: on the map the script
  *   pays (the cashier's 20, under the daily cap).
  */
+import { crumb } from "../game/breadcrumb";
 import type { AnswerOutcome, LearningEngine } from "../learning/engine";
 import { type Choice, DRAWN_FIGURE_KINDS, type Given, type Question } from "../learning/model";
 import { NumberPad } from "../learning/quiz_flow";
@@ -110,6 +111,8 @@ export class QuizSession {
       warn(`A ${q.kind} question has no choices: ${q.item_id}`);
       this.question = null;
     }
+    // for a parent's "something is wrong": which question is on the screen
+    crumb.question(this.question);
     this.phase = this.question === null ? "none" : this.question.meta["worked_example"] ? "example" : "question";
     this.started = clock();
   }

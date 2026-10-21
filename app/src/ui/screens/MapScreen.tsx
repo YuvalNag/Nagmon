@@ -394,6 +394,12 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     crumb.screen(menuOpen ? "menu" : intro ? "intro" : battle ? "battle" : overlay ? overlay.kind : "map");
   }, [menuOpen, overlay, intro, battle]);
 
+  // and the wild creature, for the report's battle part (a question in a battle hides the battle's own page)
+  useEffect(() => {
+    crumb.battle(battle ? battle.wild.species : null);
+    return () => crumb.battle(null);
+  }, [battle]);
+
   // a step in the grass may meet a wild creature (not while the map is held: a talk, the owl, the menu)
   stepRef.current = (x, y) => {
     if (!play || !world || !encounters || held || menuOpen) return;

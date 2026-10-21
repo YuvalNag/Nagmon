@@ -212,9 +212,14 @@ export class GitHubClient {
    * is new, so no `sha` is needed.
    */
   async put(path: string, content: string, message: string): Promise<Upload> {
+    return this.putBase64(path, base64Utf8(content), message);
+  }
+
+  /** The same for a file already in base64 (a screenshot): the same check, the same retries. */
+  async putBase64(path: string, base64: string, message: string): Promise<Upload> {
     const first = await this.check({ fresh: true });
     if (first.code !== "ok") return { code: first.code, path };
-    const body = { message, content: base64Utf8(content) };
+    const body = { message, content: base64 };
     const urlPath = "/contents/" + path.split("/").map(encodeURIComponent).join("/");
     for (let attempt = 1; attempt <= MAX_TRIES; attempt++) {
       let resp: Response;

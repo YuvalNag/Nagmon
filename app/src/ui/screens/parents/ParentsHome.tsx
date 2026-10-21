@@ -4,6 +4,9 @@ import { Bar } from "./Bar";
 
 interface Props {
   busy: boolean;
+  /** Reports from the game's "something is wrong" button, waiting on the phone. */
+  waiting: number;
+  onSendReports: () => void;
   onChildren: () => void;
   onPin: () => void;
   onGithub: () => void;
@@ -13,7 +16,7 @@ interface Props {
 }
 
 /** The parents' area: four big doors and the way out. */
-export function ParentsHome({ busy, onChildren, onPin, onGithub, onShareLog, onReport, onBack }: Props) {
+export function ParentsHome({ busy, waiting, onSendReports, onChildren, onPin, onGithub, onShareLog, onReport, onBack }: Props) {
   return (
     <main className="screen parents-page" data-screen="parents">
       <Bar title={t("parentsTitle")} onBack={onBack} />
@@ -35,6 +38,14 @@ export function ParentsHome({ busy, onChildren, onPin, onGithub, onShareLog, onR
             {t("parentsReport")}
           </Tap>
         </div>
+        {waiting > 0 && (
+          <div className="parents-row" data-id="reports_waiting">
+            <span role="status">{waiting === 1 ? t("reportsWaitingOne") : t("reportsWaiting", { count: waiting })}</span>
+            <Tap id="parents_send_reports" className="primary" disabled={busy} onTap={onSendReports}>
+              {t("reportsSend")}
+            </Tap>
+          </div>
+        )}
       </div>
     </main>
   );

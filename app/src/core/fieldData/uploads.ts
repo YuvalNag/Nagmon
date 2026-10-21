@@ -6,6 +6,7 @@
  *     devices/<install-id>/logs/<UTC>.txt
  *     devices/<install-id>/crashes/<UTC>.txt
  *     devices/<install-id>/progress/<UTC>.json
+ *     devices/<install-id>/reports/<UTC>.json (and .jpg: the screen)
  *
  * The same paths as the old app, so the data repo stays one layout and
  * `tools/field/latest.py` reads both. Every text is cleaned of keys (and,
@@ -16,6 +17,7 @@
  * prepared text to exactly that path.
  */
 import { hideNames, redactSecrets } from "../crashReport";
+import type { Reports, WaitingReport } from "../report/reports";
 import { redact } from "../family/parent";
 import { DATA_FILES, type FileStore, type JsonObject, readJson, writeJson } from "../../platform/storage";
 import { SECRET_KEYS, type SecretStore } from "../../platform/secrets";
@@ -24,11 +26,17 @@ import { type Check, type Fetch, DEFAULT_REPO, GitHubClient, type Upload, forget
 export const DEVICE_FILE = DATA_FILES.device;
 /** The most of the log the share sheet gets (its end), in bytes. */
 export const SHARE_LIMIT = 200_000;
-export const KINDS = { logs: ".txt", crashes: ".txt", progress: ".json" } as const;
+export const KINDS = { logs: ".txt", crashes: ".txt", progress: ".json", reports: ".json" } as const;
 export type Kind = keyof typeof KINDS;
 /** A fine-grained personal access token; a classic `ghp_` one reaches every repo and is refused. */
 export const FINE_GRAINED_RE = /^github_pat_[A-Za-z0-9_]+$/;
 const ID_RE = /^[0-9a-f]{8}$/;
+/**
+ * A screenshot bigger than this (as base64) is not sent: the phone makes
+ * them 80-150 KB, and a repo is no place for megabytes. The report goes
+ * without it.
+ */
+export const MAX_IMAGE_BASE64 = 400_000;
 
 /** 8 random hex digits. */
 function newId(): string {
@@ -69,6 +77,17 @@ async function fingerprint(text: string): Promise<string> {
     .slice(0, 16);
 }
 
+/** One waiting report, ready to go: its two files in the repo. */
+export interface PreparedReport {
+  report: WaitingReport;
+  /** In the repo: `devices/<id>/reports/<stamp>.json`. */
+  path: string;
+  /** In the repo, when the report has a screenshot. */
+  imagePath: string | null;
+  /** The cleaned JSON. */
+  content: string;
+}
+
 /** An upload ready to go: what the confirmation shows is what is sent. */
 export interface Prepared {
   kind: Kind;
@@ -80,6 +99,8 @@ export interface Prepared {
   lines: number;
   /** The crash report before cleaning: marked as sent when it is. */
   crash?: string;
+  /** The waiting reports, for kind "reports": `path` is then their folder, and `lines` their count. */
+  reports?: PreparedReport[];
 }
 
 export interface FieldDataOptions {
@@ -94,6 +115,8 @@ export interface FieldDataOptions {
   /** Lines for the app's log: never a token or a body. */
   log?: (message: string) => void;
   makeId?: () => string;
+  /** The reports waiting on the phone (the game's "something is wrong"). */
+  reports?: Reports;
 }
 
 /** The parent area's side of the data repo: the token, the status, the uploads. */
@@ -106,6 +129,7 @@ export class FieldData {
   #clock: () => number;
   #log: (message: string) => void;
   #makeId: () => string;
+  #reports: Reports | undefined;
   #sending = false;
 
   constructor(o: FieldDataOptions) {
@@ -117,6 +141,7 @@ export class FieldData {
     this.#clock = o.clock ?? Date.now;
     this.#log = o.log ?? (() => undefined);
     this.#makeId = o.makeId ?? newId;
+    this.#reports = o.reports;
   }
 
   toString(): string {
@@ -238,6 +263,57 @@ export class FieldData {
     return { kind, repo: this.repo, path, content, bytes, lines, crash };
   }
 
+  /** How many reports wait on the phone. */
+  async waitingReports(): Promise<number> {
+    return (await this.#reports?.count()) ?? 0;
+  }
+
+  /**
+   * The waiting reports, for the confirmation: their count and size, the
+   * repo and the folder. The typed text stays as typed (names are only
+   * hidden in the rest, when the report is made); keys are hidden here.
+   * Null when none waits.
+   */
+  async prepareReports(): Promise<Prepared | null> {
+    const reports = this.#reports;
+    const waiting = reports ? await reports.waiting() : [];
+    if (!reports || waiting.length === 0) return null;
+    const device = await this.installId();
+    const folder = `devices/${device}/reports/`;
+    const used = new Set<string>();
+    const items: PreparedReport[] = [];
+    let bytes = 0;
+    const enc = new TextEncoder();
+    for (const report of waiting) {
+      const json = await reports.read(report);
+      if (json === null) {
+        // not a report any more (a file cut short): it goes, and nothing else waits for it
+        await reports.done(report);
+        continue;
+      }
+      const content = await this.clean(JSON.stringify(json, null, 1) + "\n", { names: false });
+      // two children in one second: the second file gets its child's id too
+      let name = report.stamp;
+      if (used.has(name)) name = `${name}-${report.child}`;
+      used.add(name);
+      const image = report.imagePath !== null ? `${folder}${name}.jpg` : null;
+      items.push({ report, path: `${folder}${name}.json`, imagePath: image, content });
+      bytes += enc.encode(content).length;
+      if (image !== null) bytes += Math.floor(((await this.imageSize(report)) * 3) / 4);
+    }
+    if (items.length === 0) return null;
+    return { kind: "reports", repo: this.repo, path: folder, content: "", bytes, lines: items.length, reports: items };
+  }
+
+  private async imageSize(r: WaitingReport): Promise<number> {
+    if (r.imagePath === null) return 0;
+    try {
+      return (await this.#fs.readBase64(r.imagePath))?.length ?? 0;
+    } catch {
+      return 0;
+    }
+  }
+
   get sending(): boolean {
     return this.#sending;
   }
@@ -249,6 +325,11 @@ export class FieldData {
     if (t === null) return { code: "not_connected", path: p.path };
     this.#sending = true;
     try {
+      if (p.kind === "reports") {
+        const result = await this.sendReports(p, t);
+        this.#log(`Upload of reports: ${result.code}`);
+        return result;
+      }
       // cleaned once more: a key saved since the confirmation is hidden too
       const content = await this.clean(p.content, { names: p.kind !== "progress" });
       const result = await this.client(t).put(p.path, content, `Field data: ${p.kind}`);
@@ -258,6 +339,35 @@ export class FieldData {
     } finally {
       this.#sending = false;
     }
+  }
+
+  /**
+   * Each waiting report: its screenshot, then its JSON, one after the
+   * other; a report that went up is removed from the phone, so a try
+   * that stops (no network) goes on from where it stopped.
+   */
+  private async sendReports(p: Prepared, token: string): Promise<Upload> {
+    const reports = this.#reports;
+    if (!reports || !p.reports) return { code: "failed", path: p.path };
+    const client = this.client(token);
+    for (const item of p.reports) {
+      const { report } = item;
+      if (item.imagePath !== null && !report.imageSent) {
+        const image = report.imagePath === null ? null : await this.#fs.readBase64(report.imagePath).catch(() => null);
+        // a missing or oversize screenshot does not hold the report back
+        if (image && image.length <= MAX_IMAGE_BASE64) {
+          const sent = await client.putBase64(item.imagePath, image, "Field data: reports");
+          if (sent.code !== "ok") return sent;
+          await reports.markImageSent(report);
+        }
+      }
+      // cleaned once more: a key saved since the confirmation is hidden too
+      const content = await this.clean(item.content, { names: false });
+      const sent = await client.put(item.path, content, "Field data: reports");
+      if (sent.code !== "ok") return sent;
+      await reports.done(report);
+    }
+    return { code: "ok", path: p.path };
   }
 
   // ------------------------------------------------------------ crashes
