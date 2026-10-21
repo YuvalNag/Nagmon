@@ -1,7 +1,8 @@
+import { readFileSync } from "node:fs";
 import type { Page } from "@playwright/test";
 import { answer, coins, debug, id, openMap, quiz, readDialog, saved, seedChild, steps, toCashier } from "./cashier";
 import { expect, test } from "./fixtures";
-import { touch } from "./touch";
+import { touch, typeCode } from "./touch";
 
 /**
  * The tutor's lessons, at the family's phone (873x393, touch only), at 100%
@@ -156,3 +157,58 @@ test("the Notes sheet on the cashier's question, once the Moon lesson is passed"
   await touch(page, page.locator(id("quiz_dont_know")));
   await expect(page.locator("[data-screen=quiz][data-phase=feedback]")).toBeVisible();
 });
+
+for (const scale of scales) {
+  test(`the parents' report and learning pages, at ${scale * 100}% text`, async ({ page }, info) => {
+    await textScale(page, scale);
+    const shot = (name: string) => page.screenshot({ path: info.outputPath(`${scale * 100}-${name}.png`) });
+    // a child who has answered maths at two grades this week
+    const skills = (JSON.parse(readFileSync("public/game/content/skills/math.json", "utf8")) as { skills: { id: string; grade: number }[] }).skills;
+    const at = (g: number) => skills.find((k) => k.grade === g)!.id;
+    const now = Math.floor(Date.now() / 1000);
+    const log = [3, 4].flatMap((g) =>
+      Array.from({ length: 8 }, (_, i) => ({ ts: now - 3600 * (g + i), skill: at(g), item: `i${g}${i}`, subject: "math", correct: g === 3 || i < 6, quality: "correct", elapsed: 7, context: "battle" })),
+    );
+    await page.addInitScript(
+      ({ log }) => {
+        if (localStorage.getItem("seeded")) return;
+        localStorage.setItem("seeded", "1");
+        localStorage.setItem("nagmon-fs:d:profiles", "");
+        localStorage.setItem("nagmon-fs:d:profiles/p00001", "");
+        localStorage.setItem("nagmon-fs:f:profiles/p00001/profile.json", JSON.stringify({ id: "p00001", name: "דנה", avatar: "girl_teal", grade: 3, order: 0, schema_version: 2, settings: { questions_per_battle: 5, learning: {}, lessons: { first_pass_coins: 40, repeat_coins: 10 } } }));
+        localStorage.setItem("nagmon-fs:f:profiles/p00001/learning.json", JSON.stringify({ schema_version: 1, grade: 3, log }));
+      },
+      { log },
+    );
+    await page.goto("/");
+    await touch(page, page.locator(id("parents")), 30);
+    await typeCode(page, "12341234", { holdMs: 30, gapMs: 60 });
+    await touch(page, page.locator(id("next")), 30);
+    await expect(page.locator("[data-screen=parents]")).toBeVisible();
+    await touch(page, page.locator(id("parents_children")), 30);
+    await touch(page, page.locator(id("edit_p00001")), 30);
+    await expect(page.locator("[data-screen=parents-child]")).toBeVisible();
+    await fits(page, "parents-child");
+    await shot("p01_child");
+
+    await touch(page, page.locator(id("child_learning")), 30);
+    await expect(page.locator("[data-screen=parents-learning]")).toBeVisible();
+    await fits(page, "parents-learning");
+    await shot("p02_learning");
+    await touch(page, page.locator(id("learning_start")), 30);
+    await expect(page.locator("[data-screen=parents-learning-start]")).toBeVisible();
+    await fits(page, "parents-learning-start");
+    await shot("p03_start_grade");
+    await touch(page, page.locator(id("back")), 30);
+    await touch(page, page.locator(id("back")), 30);
+    await expect(page.locator("[data-screen=parents-child]")).toBeVisible();
+
+    await touch(page, page.locator(id("child_report")), 30);
+    await expect(page.locator("[data-screen=parents-report]")).toBeVisible({ timeout: 20_000 });
+    await expect(page.locator(id("level_math"))).toContainText("חשבון: כיתה ד׳");
+    await shot("p04_report_top");
+    await page.locator(".report-body").evaluate((el) => (el.scrollTop = el.scrollHeight));
+    await page.waitForTimeout(200);
+    await shot("p05_report_bottom");
+  });
+}

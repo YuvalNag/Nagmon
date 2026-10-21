@@ -122,3 +122,167 @@ button.danger {
 .effects-row button {
   font-size: calc(var(--text) * 0.8);
 }
+
+/* ---- learning settings: steppers and subject switches ---- */
+
+.parents-row.learning-row button {
+  font-size: calc(var(--text) * 0.85);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--gap) / 2);
+}
+
+.stepper button {
+  padding: 0;
+  font-size: calc(var(--text) * 1.3);
+  font-weight: 700;
+}
+
+.stepper-label {
+  min-width: 8em;
+  text-align: center;
+}
+
+.parents-menu.steppers {
+  max-width: 52em;
+}
+
+.parents-menu .stepper-label {
+  min-width: 0;
+  flex: 1;
+  font-size: calc(var(--text) * 0.85);
+  line-height: 1.2;
+}
+
+button.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--gap) / 2);
+}
+
+.toggle-mark {
+  width: 0.9em;
+  height: 0.9em;
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+}
+
+.toggle-mark[data-on="true"] {
+  background: var(--accent);
+}
+
+button[aria-pressed="true"].toggle {
+  border-color: var(--accent);
+}
+
+.parents-body .hint {
+  margin: 0;
+  max-width: 40em;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: calc(var(--text) * 0.8);
+}
+
+/* ---- the learning report: more than a screen, so it scrolls ---- */
+
+.screen.report-page {
+  justify-content: flex-start;
+}
+
+.report-body {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  padding-bottom: var(--gap);
+  touch-action: pan-y;
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17em, 1fr));
+  gap: var(--gap);
+}
+
+.subject-card,
+.report-section {
+  padding: var(--gap);
+  border: 2px solid var(--card-edge);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+.report-page h2 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: calc(var(--text) * 1.1);
+}
+
+.report-page p {
+  margin: 0;
+}
+
+.report-page .note {
+  color: var(--ink-soft);
+  font-size: calc(var(--text) * 0.72);
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+.report-page .chosen {
+  color: var(--ink-soft);
+  font-size: calc(var(--text) * 0.8);
+}
+
+.stat {
+  margin-top: calc(var(--gap) / 2);
+}
+
+.stat-top b {
+  font-size: calc(var(--text) * 1.05);
+}
+
+.trend {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trend[data-trend="up"] {
+  stroke: #256b29;
+}
+
+.report-section ol {
+  margin: 0;
+  padding-inline-start: 1.4em;
+}
+
+.week-days {
+  display: flex;
+  gap: calc(var(--gap) / 2);
+}
+
+.week-days i {
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+}
+
+.week-days i[data-on="true"] {
+  background: var(--accent);
+}

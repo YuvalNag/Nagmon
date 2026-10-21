@@ -290,6 +290,7 @@ export const EVENT_ACTIONS = [
   "modify_money",
   "nagmon_apply_profile",
   "nagmon_daily_count",
+  "open_tutor",
   "play_map_animation",
   "play_music",
   "random_encounter",
