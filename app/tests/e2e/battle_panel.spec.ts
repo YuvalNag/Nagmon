@@ -170,3 +170,47 @@ test("calm effects: the system's 'reduce motion' makes the result a fade, not a 
   expect(moving).toBe("none");
   await page.screenshot({ path: info.outputPath("calm-result.png") });
 });
+
+test("a typed answer: the pad sits at the bottom end, nothing covers the creatures, at 130% text", async ({ page }, info) => {
+  await page.addInitScript(() => {
+    const set = () => document.documentElement?.style.setProperty("--font-scale", "1.3");
+    set();
+    document.addEventListener("DOMContentLoaded", set);
+  });
+  await seedChild(page, { grade: 3, battle: true, settings: { learning: { answer_mode: "number" } } });
+  await openMap(page);
+  await steps(page, "right", 1);
+  await expect(page.locator("[data-screen=battle][data-view=meet]")).toBeVisible();
+  await toQuestion(page, (n) => page.screenshot({ path: info.outputPath(`pad-${n}.png`) }));
+  // the child prefers typing: go on ("don't know" takes no fog) until a question asks for it
+  for (let i = 0; i < 30 && (await quiz(page))!.kind !== "number"; i++) {
+    await touch(page, page.locator(id("quiz_dont_know")), 30);
+    await expect(page.locator("[data-screen=battle]")).toHaveAttribute("data-flow", "result");
+    // a tap anywhere goes on (after the first moments)
+    await page.waitForTimeout(350);
+    await touch(page, page.locator(id("battle_skip")), 30);
+    await expect(page.locator("[data-screen=battle]")).toHaveAttribute("data-asking", "false", { timeout: 3000 });
+    await touch(page, page.locator(id("battle_next")), 30);
+    if ((await quiz(page))?.phase === "example") await touch(page, page.locator(id("quiz_example_done")), 30);
+    await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
+  }
+  if ((await quiz(page))!.kind !== "number") {
+    // the wild creature is met at random: some are of a subject that never types
+    info.annotations.push({ type: "not-checked", description: "no typed question came in 30 tries (a wild creature of another subject)" });
+    return;
+  }
+  await expect(page.locator(".quiz-keys")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  const g = await geometry(page);
+  for (const c of g.creatures) for (const o of g.cover) expect(apart(c, o), `${c.name} is covered by ${o.name}`).toBe(true);
+  for (const b of g.buttons) expect(Math.min(b.w, b.h), `${b.name} is under 48`).toBeGreaterThanOrEqual(48);
+  for (const o of g.cover) {
+    expect(o.r, `${o.name} is cut off`).toBeLessThanOrEqual(g.vw + 0.5);
+    expect(o.b, `${o.name} is cut off`).toBeLessThanOrEqual(g.vh + 0.5);
+  }
+  expect([g.scrollW <= g.vw, g.scrollH <= g.vh, g.sectionOverflow]).toEqual([true, true, false]);
+  await page.screenshot({ path: info.outputPath("pad-question.png") });
+  await answerRight(page);
+  await expect(page.locator("[data-screen=battle]")).toHaveAttribute("data-flow", "result");
+  await expect(page.locator(".fx-number")).toBeVisible();
+});
