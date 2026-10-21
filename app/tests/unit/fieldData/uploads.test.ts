@@ -72,7 +72,7 @@ describe("paths", () => {
     expect(uploadPath("0a1b2c3d", "logs", now)).toBe("devices/0a1b2c3d/logs/20261020T080509Z.txt");
     expect(uploadPath("0a1b2c3d", "crashes", now)).toBe("devices/0a1b2c3d/crashes/20261020T080509Z.txt");
     expect(uploadPath("0a1b2c3d", "progress", now)).toBe("devices/0a1b2c3d/progress/20261020T080509Z.json");
-    expect(Object.keys(KINDS)).toEqual(["logs", "crashes", "progress"]);
+    expect(Object.keys(KINDS)).toEqual(["logs", "crashes", "progress", "reports"]);
   });
 
   it("refuse an unknown kind or a bad install id", () => {
