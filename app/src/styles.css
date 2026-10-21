@@ -3287,3 +3287,14 @@ button.zone {
   .world-card[data-screen="chest-wrong"] .chest-art,
   .world-card[data-screen="found"] .chest-art { animation: none; }
 }
+
+/* a typed answer needs the room: the move's chip waits (its name was on the card just tapped) */
+.battle-ask[data-pad="true"] .cast-chip {
+  display: none;
+}
+
+/* the results card in the message box stays small, so it never reaches the creature */
+.message-box.top .results {
+  font-size: 0.8em;
+  line-height: 1.15;
+}
