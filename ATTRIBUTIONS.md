@@ -2189,6 +2189,8 @@ Sounds
 
 * "coinecho.wav" by [NenadSimic](https://opengameart.org/content/picked-coin-echo-2) is licensed under CC BY 3.0.
 
+* "nagmon_hit.wav", "nagmon_oops.wav" and "nagmon_win.wav" are our own work: sine waves synthesized by `tools/sfx_battle.py`, with no sample or recording from anywhere. They are licensed under GPL-3.0, like the game.
+
 Translations
 --------------
 

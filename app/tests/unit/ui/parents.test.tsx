@@ -9,6 +9,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { App } from "../../../src/App";
 import type { MapLifecycle } from "../../../src/game/mapGame";
 import { openServices } from "../../../src/app/services";
+import { effectsFrom } from "../../../src/core/family/effects";
 import { forgetChecks } from "../../../src/core/fieldData/github";
 import { crumb } from "../../../src/core/game/breadcrumb";
 import { t } from "../../../src/i18n";
@@ -115,6 +116,29 @@ describe("the children", () => {
     await app.androidBack();
     expect(app.screen()).toBe("who-plays");
     expect([...app.container.querySelectorAll(".card")].map((c) => c.textContent)).toEqual(["דנר", "גל"]);
+  });
+
+  it("the battle's switches: less movement, sound and vibration are saved with the child", async () => {
+    const app = await start();
+    const [dana] = app.ids;
+    await app.press("parents_children");
+    await app.waitScreen("parents-children");
+    await app.press(`edit_${dana}`);
+    await app.waitScreen("parents-child");
+    // the defaults: movement follows the device, sound and vibration on
+    expect(app.text()).toContain(t("effectsMotion", { mode: t("effectsMotionSystem") }));
+    expect(app.text()).toContain(t("effectsSound", { state: t("effectsOn") }));
+    await app.press("child_motion");
+    await app.waitScreen("parents-child");
+    await app.press("child_sound");
+    await app.waitScreen("parents-child");
+    await app.press("child_vibration");
+    await app.waitScreen("parents-child");
+    expect(app.text()).toContain(t("effectsMotion", { mode: t("effectsMotionLess") }));
+    expect(app.text()).toContain(t("effectsSound", { state: t("effectsOff") }));
+    expect(app.text()).toContain(t("effectsVibration", { state: t("effectsOff") }));
+    const saved = await app.services.profiles.get(dana!);
+    expect(effectsFrom(saved.settings)).toEqual({ motion: "less", sound: false, vibration: false });
   });
 
   it("a name another child has, or an invalid one, is refused on the board", async () => {

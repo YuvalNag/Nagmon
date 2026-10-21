@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import type { Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
-import { answer, openMap, quiz, readDialog, seedChild, steps, toCashier } from "./cashier";
+import { answer, battleAnswer, battleResultClosed, openMap, quiz, readDialog, seedChild, steps, toCashier } from "./cashier";
 import { fitsAndSharp, touch, typeCode } from "./touch";
 
 /**
@@ -396,22 +396,22 @@ for (const scale of [1, 1.3]) {
     if ((await quiz(page))!.phase === "example") await touch(page, page.locator(id("quiz_example_done")), 30);
     await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
     await audit(page, "41_question", shot);
-    await answer(page, "right");
-    await touch(page, page.locator(id("quiz_continue")), 30);
+    await battleAnswer(page, "right");
+    await battleResultClosed(page);
     await expect(page.locator("[data-screen=battle][data-view=turn]")).toBeVisible();
     await audit(page, "42_turn", shot);
     for (let i = 0; i < 12 && (await page.locator("[data-screen=battle]").getAttribute("data-view")) !== "calm"; i++) {
       await touch(page, page.locator(id("battle_next")), 30);
-      await answer(page, "right");
-      await touch(page, page.locator(id("quiz_continue")), 30);
+      await battleAnswer(page, "right");
+      await battleResultClosed(page);
       if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")), 30);
     }
     await expect(page.locator("[data-screen=battle][data-view=calm]")).toBeVisible();
     await audit(page, "43_calm", shot);
     for (let i = 0; i < 3 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
       await touch(page, page.locator(id("battle_net")), 30);
-      await answer(page, "right");
-      await touch(page, page.locator(id("quiz_continue")), 30);
+      await battleAnswer(page, "right");
+      await battleResultClosed(page);
     }
     await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
     await audit(page, "44_new_friend", shot);

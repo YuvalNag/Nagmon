@@ -103,6 +103,11 @@ export class Battle {
   lastSeal: SealResult | null = null;
   private subject: string;
 
+  /** The subject the questions are about (it shows in the arena's look). */
+  get topic(): string {
+    return this.subject;
+  }
+
   constructor(private readonly o: BattleOptions) {
     const p = partnerOf(o.world);
     if (!p) throw new Error("no partner to battle with");
@@ -200,6 +205,16 @@ export class Battle {
       }
     }
     this.last = { correct, damage, won, growth, coins, partnerBefore, calm: won && !this.o.master };
+    this.o.field.battleResult({
+      n: this.stats.questions,
+      ok: correct,
+      damage,
+      hp: this.hp,
+      max: this.maxHp,
+      ms: session.elapsedMs,
+      monster: this.o.wild.species,
+      partner: partnerBefore,
+    });
     this.o.onChange();
   }
 

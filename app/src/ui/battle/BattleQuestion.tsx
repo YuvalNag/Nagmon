@@ -1,0 +1,180 @@
+import { useEffect, useReducer } from "react";
+import type { AnswerOutcome } from "../../core/learning/engine";
+import { isolateMath } from "../../core/learning/text";
+import type { QuizSession } from "../../core/world/quiz";
+import { itemText, t } from "../../i18n";
+import { Figure } from "../Figure";
+import { HELPERS, label, PAD_KEYS, useQuizProbe } from "../QuizScreen";
+import { ScreenTime } from "../screenTime";
+import { Tap } from "../Tap";
+import { pickOptions } from "./effects";
+
+interface Props {
+  session: QuizSession;
+  text: (msgid: string) => string;
+  subjectTitle: (subject: string) => string;
+  /** The answer was given: the battle plays the result (once for each question). */
+  onResult: (outcome: AnswerOutcome) => void;
+  /** No question could be made, or the owl's pass was used: the battle goes on from here. */
+  onClose: () => void;
+}
+
+/** The slots around the creature, in the order the answers take them (src/styles.css, .answer-ring). */
+const SLOTS = ["a", "b", "c", "d"] as const;
+
+/**
+ * The question as a part of the battle (docs/app/BATTLE.md, "the parent's
+ * direction"): the question in a panel at the top centre, the answers
+ * floating around the wild creature (each a big button of its own, a
+ * calm drift that stops for calm effects), a number pad at the bottom
+ * end for typed answers, and at the bottom the hint, the helpers, the
+ * owl's speech bubble and "I don't know". The creatures stay in view.
+ * There is no feedback page: the answer goes to `onResult`.
+ */
+export function BattleQuestion({ session, text, subjectTitle, onResult, onClose }: Props) {
+  const [, redraw] = useReducer((n: number) => n + 1, 0);
+  useQuizProbe(session);
+  const answered = session.phase === "feedback" ? session.outcome : null;
+  useEffect(() => {
+    if (answered) onResult(answered);
+    // once for each answer; the callback is the battle's and changes with it
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answered]);
+  const q = session.question;
+  const act = (fn: () => unknown) => () => {
+    fn();
+    redraw();
+  };
+
+  if (session.phase === "feedback") return null;
+
+  if (!q || session.phase === "none") {
+    return (
+      <ScreenTime key="none">
+        <section className="quiz-top quiz-none" data-screen="quiz" data-phase="none" role="dialog" aria-label={text("nagmon_quiz_no_question")}>
+          <p className="quiz-question">{text("nagmon_quiz_no_question")}</p>
+          <Tap id="quiz_continue" className="primary" onTap={onClose}>
+            {text("nagmon_continue")}
+          </Tap>
+        </section>
+      </ScreenTime>
+    );
+  }
+
+  const englishFirst = q.subject === "english";
+  const prompt = (
+    <div className="quiz-prompt">
+      {q.figure && <Figure figure={q.figure} />}
+      <p className="quiz-question" data-id="quiz_prompt">
+        {isolateMath(q.prompt_he)}
+        {q.prompt_en && englishFirst && (
+          <span className="quiz-en" lang="en" dir="ltr">
+            {q.prompt_en}
+          </span>
+        )}
+      </p>
+    </div>
+  );
+
+  if (session.phase === "example") {
+    return (
+      <ScreenTime key="example">
+        <section className="quiz-top quiz-example" data-screen="quiz" data-phase="example" role="dialog" aria-label={text("nagmon_owl_shows")}>
+          <p className="quiz-owl">{text("nagmon_owl_shows")}</p>
+          {prompt}
+          <p className="quiz-explain" data-id="quiz_example">
+            {isolateMath(q.explanation_he)}
+          </p>
+          <Tap id="quiz_example_done" className="primary" onTap={act(() => session.exampleDone())}>
+            {text("nagmon_lets_try")}
+          </Tap>
+        </section>
+      </ScreenTime>
+    );
+  }
+
+  const pad = session.usesPad;
+  const options = pad ? [] : pickOptions(session.choices, String(q.answer), SLOTS.length);
+
+  const foot = (
+    <div className="quiz-foot" data-pad={pad}>
+      <Tap id="quiz_hint" disabled={!session.canHint} onTap={act(() => session.hint())}>
+        {text("nagmon_hint")}
+      </Tap>
+      {session.helpersOwned().map((h) => (
+        <Tap
+          key={h.kind}
+          id={`quiz_helper_${h.kind}`}
+          className="quiz-helper"
+          aria-label={`${itemText(HELPERS[h.kind].item, "name")}: ${itemText(HELPERS[h.kind].item, "desc")}`}
+          onTap={() => {
+            const passed = h.kind === "pass";
+            session.useHelper(h.kind);
+            if (passed) onClose();
+            else redraw();
+          }}
+        >
+          <span aria-hidden="true">{HELPERS[h.kind].icon}</span>
+          <small>{h.count}</small>
+        </Tap>
+      ))}
+      {/* the owl's speech bubble: the hint, or what to do */}
+      <div className="owl-bubble" data-id="quiz_hint_text" data-hint={!!session.hintText} role="status">
+        <span className="owl-face" aria-hidden="true" style={{ backgroundImage: "url(game/sprites/portraits/nagmon_owl.png)" }} />
+        <span className="owl-line">{session.hintText ? isolateMath(session.hintText) : t("battlePick")}</span>
+      </div>
+      <span className="quiz-subject">{subjectTitle(q.subject)}</span>
+      <Tap id="quiz_dont_know" onTap={act(() => session.dontKnow())}>
+        {text("nagmon_dont_know")}
+      </Tap>
+    </div>
+  );
+
+  return (
+    <ScreenTime key="question">
+      <section className="quiz-top" data-screen="quiz" data-phase="question" data-kind={q.kind} role="dialog" aria-label={q.prompt_he}>
+        {prompt}
+        {pad && (
+          <p className="quiz-typed" data-id="quiz_typed" aria-live="polite" dir="ltr">
+            {session.pad.text || "_"}
+          </p>
+        )}
+      </section>
+      {!pad && (
+        <div className="answer-ring" dir="ltr" data-count={options.length}>
+          {options.map((c, i) => (
+            <Tap
+              key={c.id}
+              id={`quiz_choice_${c.id}`}
+              className={`quiz-choice float-${SLOTS[i]}`}
+              style={{ gridArea: SLOTS[i]! }}
+              onTap={act(() => session.choose(c.id))}
+            >
+              {c.image && <img src={`game/emoji/${c.image}.svg`} alt="" />}
+              <span>{label(c, englishFirst)}</span>
+            </Tap>
+          ))}
+        </div>
+      )}
+      {pad && (
+        <div className="quiz-keys" dir="ltr">
+          {PAD_KEYS.map((k) => (
+            <Tap key={k} id={`quiz_key_${k}`} className="key" onTap={act(() => session.press(k))}>
+              {k}
+            </Tap>
+          ))}
+          <Tap id="quiz_key_back" className="key erase" onTap={act(() => session.press("back"))}>
+            {text("nagmon_erase")}
+          </Tap>
+          <Tap id="quiz_key_0" className="key" onTap={act(() => session.press("0"))}>
+            0
+          </Tap>
+          <Tap id="quiz_check" className="key check" disabled={!session.pad.text} onTap={act(() => session.check())}>
+            {text("nagmon_check_answer")}
+          </Tap>
+        </div>
+      )}
+      {foot}
+    </ScreenTime>
+  );
+}

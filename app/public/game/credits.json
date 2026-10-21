@@ -1148,6 +1148,63 @@
    "adapted": ""
   },
   {
+   "path": "audio/sfx/battle/nagmon_hit.wav",
+   "kind": "sound",
+   "sources": [
+    "mods/nagmon/sounds/battle/nagmon_hit.wav"
+   ],
+   "credits": [],
+   "authors": [
+    "Nagmon (own work: sine waves synthesized by tools/sfx_battle.py, no samples)"
+   ],
+   "author": "Nagmon (own work: sine waves synthesized by tools/sfx_battle.py, no samples)",
+   "licences": [
+    "GPL-3.0"
+   ],
+   "licence": "GPL-3.0",
+   "note": "Made by the project's own script; nothing from another game or a sound library.",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "audio/sfx/battle/nagmon_oops.wav",
+   "kind": "sound",
+   "sources": [
+    "mods/nagmon/sounds/battle/nagmon_oops.wav"
+   ],
+   "credits": [],
+   "authors": [
+    "Nagmon (own work: sine waves synthesized by tools/sfx_battle.py, no samples)"
+   ],
+   "author": "Nagmon (own work: sine waves synthesized by tools/sfx_battle.py, no samples)",
+   "licences": [
+    "GPL-3.0"
+   ],
+   "licence": "GPL-3.0",
+   "note": "Made by the project's own script; nothing from another game or a sound library.",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "audio/sfx/battle/nagmon_win.wav",
+   "kind": "sound",
+   "sources": [
+    "mods/nagmon/sounds/battle/nagmon_win.wav"
+   ],
+   "credits": [],
+   "authors": [
+    "Nagmon (own work: sine waves synthesized by tools/sfx_battle.py, no samples)"
+   ],
+   "author": "Nagmon (own work: sine waves synthesized by tools/sfx_battle.py, no samples)",
+   "licences": [
+    "GPL-3.0"
+   ],
+   "licence": "GPL-3.0",
+   "note": "Made by the project's own script; nothing from another game or a sound library.",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "audio/sfx/ding.wav",
    "kind": "sound",
    "sources": [

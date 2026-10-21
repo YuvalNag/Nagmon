@@ -1,4 +1,5 @@
 import { type MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
+import type { AnswerOutcome } from "../core/learning/engine";
 import type { Play } from "../app/play";
 import { Battle, type SealResult, type Turn } from "../core/game/battle";
 import { needFor } from "../core/game/collection";
@@ -7,9 +8,15 @@ import { countOf, giveStarterKit } from "../core/game/items";
 import type { QuizSession } from "../core/world/quiz";
 import { t } from "../i18n";
 import { gameClock } from "../platform/lifecycle";
-import { MonsterPic } from "./MonsterPic";
-import { QuizScreen } from "./QuizScreen";
+import { pageSfx } from "../platform/sfx";
+import { effectsFrom } from "../core/family/effects";
 import { ActionBar } from "./battle/ActionBar";
+import { BattleQuestion } from "./battle/BattleQuestion";
+import { planFor } from "./battle/effects";
+import { answered, asking as askingFlow, type Flow, openWhy, remainingMs, tapped, ticked } from "./battle/resultFlow";
+import { ResultBox } from "./battle/ResultBox";
+import { type Fx, Stage } from "./battle/Stage";
+import { useCalm } from "./battle/useCalm";
 import { NameCard } from "./battle/NameCard";
 import { LetterBoard } from "./LetterBoard";
 import { BagView } from "./BagView";
@@ -90,6 +97,14 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   // the level-up or evolution card, shown over the arena until it is tapped
   const [card, setCard] = useState<{ before: string; evolvedTo: string | null; level: number } | null>(null);
   const finished = useRef(false);
+  // the result of the answer now playing in the arena, and the message box under it
+  const [flow, setFlow] = useState<Flow>(askingFlow());
+  const [fx, setFx] = useState<Fx | null>(null);
+  const [outcome, setOutcome] = useState<AnswerOutcome | null>(null);
+  const fxId = useRef(0);
+  const calm = useCalm(play.profile.settings);
+  // three little sounds and a tick, each behind the parents' switch
+  const sfx = useMemo(() => pageSfx(), []);
 
   const leave = () => {
     if (finished.current) return;
@@ -116,8 +131,41 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       leave();
       return;
     }
+    setFlow(askingFlow());
+    setFx(null);
+    setOutcome(null);
     setView({ k: "question", session });
   };
+
+  /** The answer was given: the result plays in the arena now, and the message box opens under it. */
+  const onResult = (o: AnswerOutcome) => {
+    if (view.k !== "question" && view.k !== "seal") return;
+    const turn = view.k === "question" ? battle.last : null;
+    // the answer is counted when it is given, not when the box closes
+    play.logAnswer(view.session, view.k === "seal" ? "seal" : "battle");
+    const switches = effectsFrom(play.profile.settings);
+    const won = view.k === "seal" ? !!battle.lastSeal?.caught : !!turn?.won;
+    void sfx.play(won ? "win" : o.correct ? "hit" : "oops", switches);
+    if (o.correct) sfx.tick(switches);
+    setOutcome(o);
+    setFx({ id: ++fxId.current, correct: o.correct, damage: turn?.damage ?? 0, won: !!turn?.won, plan: planFor(o.correct, calm) });
+    setFlow(answered(o.correct, performance.now()));
+  };
+
+  // the message box closes by itself, or at a tap
+  useEffect(() => {
+    if (flow.k !== "result") return;
+    const left = remainingMs(flow, performance.now());
+    if (left === null) return;
+    const id = setTimeout(() => setFlow((f) => ticked(f, performance.now())), left + 4);
+    return () => clearTimeout(id);
+  }, [flow]);
+  const closeRef = useRef<() => void>(() => undefined);
+  useEffect(() => {
+    if (flow.k !== "done") return;
+    setFlow(askingFlow());
+    closeRef.current();
+  }, [flow]);
 
   const afterQuestion = () => {
     if (view.k === "question" && view.session.passed) {
@@ -125,7 +173,6 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       ask();
       return;
     }
-    if (view.k === "question" && view.session.outcome) play.logAnswer(view.session, "battle");
     const turn = battle.last;
     if (!turn) {
       // closed with no answer (Android's back in the question): nothing is counted
@@ -170,7 +217,6 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       if (next) setView({ k: "seal", session: next });
       return;
     }
-    if (view.session.outcome) play.logAnswer(view.session, "seal");
     const seal = battle.lastSeal;
     if (!seal) {
       setView({ k: "calm", turn: null, seal: null });
@@ -183,14 +229,6 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const wildName = play.text(wild.species);
   const mine = battle.partner;
   const myName = play.text(mine.species);
-
-  if (view.k === "question" || view.k === "seal") {
-    return (
-      <div className="battle-ask" data-screen="battle-ask" data-seal={view.k === "seal"}>
-        <QuizScreen session={view.session} text={(id) => play.text(id)} subjectTitle={(s) => play.subjects.title(s)} onClose={view.k === "seal" ? afterSeal : afterQuestion} />
-      </div>
-    );
-  }
 
   if (card && (view.k === "turn" || view.k === "calm" || view.k === "won")) {
     return (
@@ -242,6 +280,8 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     );
   }
 
+  // a question is a part of the battle: the creatures stay in view while the child thinks
+  const asking = view.k === "question" || view.k === "seal";
   const turn = view.k === "turn" || view.k === "won" || view.k === "calm" ? view.turn : null;
   const seal = view.k === "calm" ? view.seal : null;
   let message = t("battleMeet", { name: wildName, level: wild.level });
@@ -258,51 +298,39 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   }
   if (note && view.k === "calm") extra.push(note);
   const need = needFor(mine.level);
+  const session = asking ? view.session : null;
+  const padAnswer = !!session && session.phase !== "feedback" && session.usesPad && flow.k === "asking";
+  const victory = view.k === "calm" || view.k === "won" || !!(asking && fx?.won);
+  closeRef.current = view.k === "seal" ? afterSeal : afterQuestion;
 
   return (
-    <ScreenTime key={`battle-${view.k}-${tick}`}>
-      <section className="battle" data-screen="battle" data-view={view.k} data-calm={view.k === "calm"} data-hp={battle.hp} data-wild={wild.species}>
-        <div className="battle-arena">
-        <div className="battle-field" dir="ltr">
-          <div className="battle-side mine">
-            <div className={turn?.correct ? "battle-pic lunge" : "battle-pic"} key={`m${tick}`}>
-              <MonsterPic monsters={play.monsters} species={mine.species} side="back" height={0.3} />
-            </div>
-            <div className="battle-card" dir="rtl">
-              <span className="battle-name">{myName}</span>
-              <span className="battle-level">{t("battleLevel", { level: mine.level })}</span>
-              <div className="meter xp" role="progressbar" aria-label={t("battleLevel", { level: mine.level })} aria-valuemin={0} aria-valuemax={need} aria-valuenow={mine.xp}>
-                <span style={{ width: `${Math.min(100, (100 * mine.xp) / need)}%` }} />
-              </div>
-            </div>
-          </div>
-          <div className="battle-side theirs">
-            <div className="battle-card" dir="rtl">
-              <span className="battle-name">{wildName}</span>
-              <span className="battle-level">{t("battleLevel", { level: wild.level })}</span>
-              <div
-                className="meter hp"
-                data-id="wild_hp"
-                role="progressbar"
-                aria-label={t("battleHealth", { name: wildName, hp: battle.hp, max: battle.maxHp })}
-                aria-valuemin={0}
-                aria-valuemax={battle.maxHp}
-                aria-valuenow={battle.hp}
-              >
-                <span style={{ width: `${(100 * battle.hp) / battle.maxHp}%` }} />
-              </div>
-            </div>
-            <div className={turn?.correct && !turn.won ? "battle-pic hit" : turn?.won ? "battle-pic friend" : "battle-pic"} key={`w${tick}`}>
-              <MonsterPic monsters={play.monsters} species={wild.species} side="front" height={0.3} />
-            </div>
-          </div>
-        </div>
-        <p className="battle-message" data-id="battle_message" role="status">
-          {message}
-          {extra.map((x) => (
-            <span key={x}>{x}</span>
-          ))}
-        </p>
+    <ScreenTime key={`battle-${asking ? "ask" : view.k}-${tick}`}>
+      <section className="battle" data-screen="battle" data-calm-fx={calm} data-view={view.k} data-asking={asking} data-flow={flow.k} data-calm={view.k === "calm"} data-hp={battle.hp} data-wild={wild.species}>
+        <Stage
+          monsters={play.monsters}
+          mine={mine}
+          myName={myName}
+          avatar={play.profile.avatar}
+          wildSpecies={wild.species}
+          wildName={wildName}
+          wildLevel={wild.level}
+          hp={battle.hp}
+          maxHp={battle.maxHp}
+          need={need}
+          subject={battle.topic}
+          fx={asking ? fx : null}
+          calm={calm}
+          victory={victory}
+          pad={padAnswer}
+        />
+        {!asking && (
+          <p className="message-box top" data-id="battle_message" role="status">
+            {message}
+            {extra.map((x) => (
+              <span key={x}>{x}</span>
+            ))}
+          </p>
+        )}
         {view.k === "won" && (
           <Tap
             id="battle_done"
@@ -315,8 +343,28 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
             {t("next")}
           </Tap>
         )}
-        </div>
-        {view.k !== "won" && (
+        {asking && (
+          <div className="battle-ask" data-screen="battle-ask" data-seal={view.k === "seal"} data-pad={padAnswer}>
+            <BattleQuestion
+              session={view.session}
+              text={(id) => play.text(id)}
+              subjectTitle={(sub) => play.subjects.title(sub)}
+              onResult={onResult}
+              onClose={view.k === "seal" ? afterSeal : afterQuestion}
+            />
+          </div>
+        )}
+        {asking && flow.k === "result" && outcome && (
+          <ResultBox
+            outcome={outcome}
+            text={(id) => play.text(id)}
+            why={flow.why}
+            stars={outcome.newly_mastered.map((sk) => view.session.skillTitle(sk))}
+            onWhy={() => setFlow((f) => openWhy(f))}
+            onSkip={() => setFlow((f) => tapped(f, performance.now()))}
+          />
+        )}
+        {view.k !== "won" && !asking && (
           <ActionBar
             asked={battle.stats.questions > 0}
             calm={view.k === "calm"}

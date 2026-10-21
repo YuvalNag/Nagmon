@@ -161,3 +161,24 @@ export async function answer(page: Page, how: "right" | "dont_know") {
 }
 
 export const coins = (page: Page) => page.locator(id("coins"));
+
+/** Answers the battle's question (a panel over the arena): right, or "don't know"; the result plays in the arena. */
+export async function battleAnswer(page: Page, how: "right" | "dont_know" = "right") {
+  await expect(page.locator("[data-screen=quiz]")).toBeVisible();
+  if ((await quiz(page))!.phase === "example") await touch(page, page.locator(id("quiz_example_done")));
+  await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
+  const q = (await quiz(page))!;
+  if (how === "dont_know") await touch(page, page.locator(id("quiz_dont_know")));
+  else if (q.kind === "number") {
+    for (const k of String(q.answer)) await touch(page, page.locator(id(`quiz_key_${k}`)));
+    await touch(page, page.locator(id("quiz_check")));
+  } else await touch(page, page.locator(id(`quiz_choice_${q.answer}`)));
+  await expect(page.locator("[data-screen=battle]")).toHaveAttribute("data-flow", "result");
+  return q;
+}
+
+/** The message box closes by itself (about 1.5 s): waits for the battle to go on. */
+export async function battleResultClosed(page: Page) {
+  // the arena again, or what follows it: the level-up card, the new friend
+  await expect(page.locator("[data-screen=battle][data-asking=false], [data-screen=battle-caught], [data-id=growth_close]").first()).toBeVisible({ timeout: 6000 });
+}

@@ -19,17 +19,30 @@ interface Props {
 }
 
 /** The Bag's helpers on the question: a picture and the item behind each. */
-const HELPERS: Record<HelperKind, { icon: string; item: string }> = {
+export const HELPERS: Record<HelperKind, { icon: string; item: string }> = {
   hint: { icon: "🪶", item: "hint_feather" },
   fifty: { icon: "🍀", item: "clover" },
   pass: { icon: "🦉", item: "owl_pass" },
 };
 
-const PAD_KEYS = ["1", "2", "3", "-", "4", "5", "6", ".", "7", "8", "9", "/"];
+export const PAD_KEYS = ["1", "2", "3", "-", "4", "5", "6", ".", "7", "8", "9", "/"];
 
-function label(c: Choice, englishFirst: boolean): string {
+export function label(c: Choice, englishFirst: boolean): string {
   if (englishFirst && c.text_en) return c.text_en;
   return isolateMath(c.text_he || c.text_en || "");
+}
+
+/** The browser tests and the emulator check read the question through window.__nagmonQuiz (only with the test seed). */
+export function useQuizProbe(session: QuizSession): void {
+  useEffect(() => {
+    if (testSeed() === null) return;
+    const w = window as Window & { __nagmonQuiz?: () => unknown };
+    const read = () => ({ phase: session.phase, kind: session.question?.kind ?? null, answer: session.question?.answer ?? null, skill: session.question?.skill_id ?? null });
+    w.__nagmonQuiz = read;
+    return () => {
+      if (w.__nagmonQuiz === read) delete w.__nagmonQuiz;
+    };
+  }, [session]);
 }
 
 /**
@@ -46,16 +59,7 @@ function label(c: Choice, englishFirst: boolean): string {
  */
 export function QuizScreen({ session, text, subjectTitle, onClose }: Props) {
   const [, redraw] = useReducer((n: number) => n + 1, 0);
-  // the browser tests and the emulator check read the question through it (only with the test seed)
-  useEffect(() => {
-    if (testSeed() === null) return;
-    const w = window as Window & { __nagmonQuiz?: () => unknown };
-    const read = () => ({ phase: session.phase, kind: session.question?.kind ?? null, answer: session.question?.answer ?? null, skill: session.question?.skill_id ?? null });
-    w.__nagmonQuiz = read;
-    return () => {
-      if (w.__nagmonQuiz === read) delete w.__nagmonQuiz;
-    };
-  }, [session]);
+  useQuizProbe(session);
   const q = session.question;
   const act = (fn: () => unknown) => () => {
     fn();

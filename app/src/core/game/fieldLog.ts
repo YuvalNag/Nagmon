@@ -64,6 +64,11 @@ export class FieldLog {
     this.line("BATTLE end", pairs({ ...b, ms: Math.round(b.ms) }));
   }
 
+  /** One answer in a battle: ids and numbers only (no names). */
+  battleResult(b: { n: number; ok: boolean; damage: number; hp: number; max: number; ms: number; monster: string; partner: string }): void {
+    this.line("BATTLE result", pairs({ n: b.n, ok: b.ok ? 1 : 0, damage: b.damage, hp: b.hp, max: b.max, ms: Math.round(b.ms), monster: b.monster, partner: b.partner }));
+  }
+
   dialogStart(id: string): void {
     this.line("DIALOG start", pairs({ id }));
   }
