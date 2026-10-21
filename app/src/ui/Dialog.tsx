@@ -7,6 +7,8 @@ export const TYPE_CPS = 45;
 interface Props {
   /** The pages, each at most 120 characters (core/world/dialog.ts). */
   pages: readonly string[];
+  /** A picture behind each page (the same index; none for a page without), e.g. the owl's story cards. */
+  art?: readonly (string | undefined)[];
   /** The last page was read. */
   onDone: () => void;
   /** Android's back: the same as a tap (MapScreen calls it). */
@@ -24,7 +26,7 @@ interface Props {
  *   this one presses nothing under it.
  * - Android's back does what a tap does: it never leaves the map.
  */
-export function Dialog({ pages, onDone, advanceRef }: Props) {
+export function Dialog({ pages, art, onDone, advanceRef }: Props) {
   // the page and how much of it shows; the ref holds the same, so a tap or
   // a back press always acts on what is on the screen now, even two in a row
   const [view, setView] = useState({ page: 0, shown: 0 });
@@ -82,6 +84,7 @@ export function Dialog({ pages, onDone, advanceRef }: Props) {
 
   return (
     <div className="dialog-layer" data-screen="dialog" data-page={view.page} data-pages={pages.length} data-full={full}>
+      {art?.[view.page] && <img className="dialog-art" data-id="dialog_art" src={art[view.page]} alt="" draggable={false} />}
       <Tap id="dialog" className="dialog" aria-label={text} onTap={() => advance.current()}>
         <span className="dialog-box">
           <span className="dialog-text" data-id="dialog_text" aria-hidden="true">

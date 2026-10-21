@@ -4,6 +4,7 @@ import { avatarImage } from "../../core/family/avatars";
 import type { MonsterTable } from "../../core/game/monsters";
 import { t } from "../../i18n";
 import { MonsterPic } from "../MonsterPic";
+import { backdropFor } from "../../game/art";
 import { LIMITS, type FxPlan } from "./effects";
 
 /** The result being played in the arena: which answer, how much it took. Each answer gets a new `id`. */
@@ -42,6 +43,8 @@ interface Props {
   charge?: { filled: number; size: number };
   /** A Special's medals (a hit, a miss, not asked yet), while it is on and just after. */
   medals?: (boolean | null)[] | null;
+  /** The map the battle is on: its zone picks the backdrop. */
+  map?: string;
   /** The ids the tests read. */
   children?: ReactNode;
 }
@@ -126,8 +129,8 @@ function Smirk() {
 }
 
 /**
- * The arena (docs/app/BATTLE.md, "the parent's direction"): a sunny
- * scene, the child and the partner at the start, the wild creature at
+ * The arena (docs/app/BATTLE.md, "the parent's direction"): the zone's
+ * backdrop, the child and the partner at the start, the wild creature at
  * the end with the shapes of its subject around it, the two cards in the
  * top corners, and the result of an answer played on top: the partner's
  * attack, stars, a number, the oops. Nothing in it flashes.
@@ -140,6 +143,7 @@ export function Stage(p: Props) {
   const cls = (base: string, ...on: [boolean, string][]) => [base, ...on.filter(([x]) => x).map(([, c]) => c)].join(" ");
   const attack = !!plan?.attack;
   const need = p.need;
+  const backdrop = backdropFor(p.map);
   return (
     <div
       className="battle-scene"
@@ -151,13 +155,7 @@ export function Stage(p: Props) {
       data-won={!!fx?.won}
     >
       <div className="scene-bg" aria-hidden="true">
-        <span className="scene-ground" style={{ backgroundImage: "url(game/sprites/ui/grass_background.png)" }} />
-        <span className="scene-sun" />
-        <span className="scene-cloud c1" />
-        <span className="scene-cloud c2" />
-        <span className="scene-leaf f1" />
-        <span className="scene-leaf f2" />
-        <span className="scene-leaf f3" />
+        <span className="scene-ground" data-backdrop={backdrop.id} style={{ backgroundImage: `url(${backdrop.url})` }} />
       </div>
 
       <div className="hud hud-mine" dir="rtl">

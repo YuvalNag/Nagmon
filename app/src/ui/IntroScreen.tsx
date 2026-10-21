@@ -6,6 +6,7 @@ import { pickStarters, starterLevel, type StarterOption } from "../core/game/sta
 import { pages } from "../core/world/dialog";
 import { gameClock } from "../platform/lifecycle";
 import { t } from "../i18n";
+import { artUrl } from "../game/art";
 import { Dialog } from "./Dialog";
 import { MonsterPic } from "./MonsterPic";
 import { QuizScreen } from "./QuizScreen";
@@ -79,15 +80,24 @@ export function IntroScreen({ play, onDone, advanceRef, onChanged, chapterSubjec
     setStep({ k: "picked", species: o.species });
   };
 
-  const say = (texts: string[], then: () => void) => (
-    <ScreenTime key={`say-${step.k}`}>
-      <Dialog pages={texts.flatMap((x) => pages(x))} onDone={then} advanceRef={advanceRef} />
-    </ScreenTime>
-  );
+  /** `cards[i]` is the story card (an art id) behind the pages of `texts[i]`; the last card stays for a text with none. */
+  const say = (texts: string[], then: () => void, cards: (string | null)[] = []) => {
+    const pageList = texts.map((x) => pages(x));
+    let card: string | undefined;
+    const art = pageList.flatMap((list, i) => {
+      card = cards[i] ? artUrl(cards[i]!) : card;
+      return list.map(() => card);
+    });
+    return (
+      <ScreenTime key={`say-${step.k}`}>
+        <Dialog pages={pageList.flat()} art={cards.length ? art : undefined} onDone={then} advanceRef={advanceRef} />
+      </ScreenTime>
+    );
+  };
 
   switch (step.k) {
     case "hello":
-      return say([t("introHello", { name: play.profile.name }), t("introStory"), t("introQuestions")], askNext);
+      return say([t("introHello", { name: play.profile.name }), t("introStory"), t("introQuestions")], askNext, ["card_owl_help", "card_forgetting_fog", null]);
     case "ask":
       return (
         <div className="intro-ask" data-screen="intro-ask" data-n={step.n}>
@@ -113,7 +123,7 @@ export function IntroScreen({ play, onDone, advanceRef, onChanged, chapterSubjec
           seed: Math.floor(Math.random() * 2 ** 31),
         });
         setStep({ k: "pick", options });
-      });
+      }, ["card_creature_steps"]);
     case "pick":
       return (
         <ScreenTime key="pick">
@@ -133,6 +143,6 @@ export function IntroScreen({ play, onDone, advanceRef, onChanged, chapterSubjec
         </ScreenTime>
       );
     case "picked":
-      return say([t("introPicked", { creature: play.text(step.species) })], onDone);
+      return say([t("introPicked", { creature: play.text(step.species) })], onDone, ["card_colors_return"]);
   }
 }
