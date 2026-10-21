@@ -200,7 +200,7 @@ for (const scale of [1, 1.3]) {
 
     // ---- a wrong answer: a weak hit (at least 1), nothing lost ----
     const fog1 = after.fog;
-    await touch(page, page.locator(id("battle_move_letter_toss")), 30);
+    await touch(page, page.locator(id("battle_move_add_it_up")), 30);
     await answerOpen(page, "dont_know");
     await shot("6-wrong");
     await battleResultClosed(page);
