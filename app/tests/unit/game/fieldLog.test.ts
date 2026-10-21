@@ -85,3 +85,21 @@ describe("the field log", () => {
     expect(lines[0]).toBe("REPORT screen=none map=none x=? y=?");
   });
 });
+
+describe("the field log of a battle's beats", () => {
+  it("one line each for a beat, the meter, a Special and the cap: ids and numbers only", () => {
+    const { log, lines } = make();
+    log.beat({ pick: "move", damage: 5, hp: 31, max: 36, assists: 2 });
+    log.meter({ n: 2, size: 3, band: "B" });
+    log.special({ event: "start", hp: 20 });
+    log.special({ event: "end", hp: 8, hits: 2, broken: true });
+    log.cap({ asked: 5, limit: 5, band: "A" });
+    expect(lines).toEqual([
+      "BEAT pick=move damage=5 hp=31 max=36 assists=2",
+      "METER n=2 size=3 band=B",
+      "SPECIAL event=start hp=20",
+      "SPECIAL event=end hp=8 hits=2 broken=1",
+      "CAP asked=5 limit=5 band=A",
+    ]);
+  });
+});

@@ -204,12 +204,17 @@ export class Battle {
    */
   pick(beat: Beat): BeatResult | null {
     if (!this.legal()[beat]) return null;
-    if (beat === "power") return { beat, damage: 0 };
+    if (beat === "power") {
+      this.logBeat(beat, 0);
+      return { beat, damage: 0 };
+    }
     if (beat === "special") {
       // the meter is spent; the burst's three questions follow (`next`)
       this.meter = 0;
       this.burst = newBurst();
       this.burstHitSize = burstHit(this.hp);
+      this.logBeat(beat, 0);
+      this.o.field.special({ event: "start", hp: this.hp });
       this.o.onChange();
       return { beat, damage: 0 };
     }
@@ -218,8 +223,13 @@ export class Battle {
     this.hp -= damage;
     this.lastWasQuestion = false;
     this.lastBeat = { beat, damage };
+    this.logBeat(beat, damage);
     this.o.onChange();
     return this.lastBeat;
+  }
+
+  private logBeat(pick: Beat, damage: number): void {
+    this.o.field.beat({ pick, damage, hp: this.hp, max: this.maxHp, assists: this.assistsLeft });
   }
 
   start(map: string): void {
@@ -279,6 +289,7 @@ export class Battle {
     let coins = 0;
     const partnerBefore = this.partner.species;
     const burst = burstLive(this.burst) ? this.burst : null;
+    const meterBefore = this.meter;
     if (burst) burstAnswer(burst, correct);
     else this.meter = charge(this.meter, this.meterSize, correct);
     if (correct) {
@@ -292,7 +303,10 @@ export class Battle {
     this.lastWasQuestion = true;
     // the cap: the creature gets tired and calms by itself, so a run of wrong answers never traps the child
     const capped = this.hp > 0 && this.budget.asked >= this.budget.limit;
-    if (capped) this.hp = 0;
+    if (capped) {
+      this.hp = 0;
+      this.o.field.cap({ asked: this.budget.asked, limit: this.budget.limit, band: this.band });
+    }
     const won = this.hp <= 0;
     if (won) {
       this.o.world.seen.add(this.o.wild.species);
@@ -306,6 +320,8 @@ export class Battle {
     }
     // a burst ends on a wrong answer, after its last question, or when the fog is gone
     const burstOver = !!burst && (burst.broken || !burstLive(burst) || won);
+    if (!burst && this.meter !== meterBefore) this.o.field.meter({ n: this.meter, size: this.meterSize, band: this.band });
+    if (burst && burstOver) this.o.field.special({ event: "end", hp: this.hp, hits: comboOf(burst), broken: burst.broken });
     const snapshot = burst ? { medals: [...burst.medals], combo: comboOf(burst), over: burstOver } : null;
     if (burstOver) this.burst = null;
     this.last = { correct, damage, won, growth, coins, partnerBefore, calm: won && !this.o.master, burst: snapshot, meter: this.meter, capped };

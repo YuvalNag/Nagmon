@@ -512,3 +512,60 @@ describe("speed counts for nothing in a battle", () => {
     expect(fast.engine.learner.log.at(-1)?.elapsed).toBeGreaterThan(0);
   });
 });
+
+describe("the log of the beats", () => {
+  const only = (lines: string[], kind: string) => lines.filter((l) => l.startsWith(`${kind} `));
+
+  it("one line for each beat the child picks, with the damage, the fog and the assists left", () => {
+    const { battle, lines } = make({ age: 9 });
+    battle.pick("move");
+    battle.pick("assist");
+    battle.pick("power");
+    expect(only(lines, "BEAT")).toEqual([
+      expect.stringMatching(/^BEAT pick=move damage=\d+ hp=\d+ max=\d+ assists=2$/),
+      expect.stringMatching(/^BEAT pick=assist damage=\d+ hp=\d+ max=\d+ assists=1$/),
+      "BEAT pick=power damage=0 hp=" + battle.hp + " max=" + battle.maxHp + " assists=1",
+    ]);
+  });
+
+  it("a card that is not open writes nothing", () => {
+    const { battle, lines } = make();
+    play(battle, true);
+    battle.pick("power");
+    expect(only(lines, "BEAT")).toEqual([]);
+  });
+
+  it("the meter has a line when it changes: not for a wrong answer, not for a full meter", () => {
+    const { battle, lines } = make({ age: 6 });
+    play(battle, false);
+    expect(only(lines, "METER")).toEqual([]);
+    battle.pick("move");
+    play(battle, true);
+    expect(only(lines, "METER")).toEqual(["METER n=1 size=2 band=A"]);
+  });
+
+  it("a Special has a start and an end line, with the hits and whether the combo broke", () => {
+    const { battle, lines } = make({ age: 6, partner: 3, wild: 8 });
+    play(battle, true);
+    battle.pick("move");
+    play(battle, true);
+    battle.pick("assist");
+    battle.pick("special");
+    play(battle, true);
+    play(battle, false);
+    expect(only(lines, "SPECIAL")).toEqual([expect.stringMatching(/^SPECIAL event=start hp=\d+$/), expect.stringMatching(/^SPECIAL event=end hp=\d+ hits=1 broken=1$/)]);
+  });
+
+  it("the cap has one line: how many were asked, the limit, the band", () => {
+    const { battle, lines } = make({ age: 6 });
+    for (let i = 0; i < 5; i++) play(battle, false);
+    expect(only(lines, "CAP")).toEqual(["CAP asked=5 limit=5 band=A"]);
+  });
+
+  it("holds no names: only ids and numbers", () => {
+    const { battle, lines } = make({ age: 6 });
+    battle.partner.name = "יוסי";
+    battle.pick("move");
+    for (const l of lines.filter((x) => /^(BEAT|METER|SPECIAL|CAP) /.test(x))) expect(l).toMatch(/^[\x20-\x7e]+$/);
+  });
+});

@@ -69,6 +69,26 @@ export class FieldLog {
     this.line("BATTLE result", pairs({ n: b.n, ok: b.ok ? 1 : 0, damage: b.damage, hp: b.hp, max: b.max, ms: Math.round(b.ms), monster: b.monster, partner: b.partner }));
   }
 
+  /** One beat the child picked: which card, what it took, the fog left, the friend's assists left. Ids and numbers only. */
+  beat(b: { pick: string; damage: number; hp: number; max: number; assists: number }): void {
+    this.line("BEAT", pairs(b));
+  }
+
+  /** The charge meter after a Power-up answer. */
+  meter(m: { n: number; size: number; band: string }): void {
+    this.line("METER", pairs(m));
+  }
+
+  /** A Special: its start (the fog then), and its end (hits landed, and whether a wrong answer broke the combo). */
+  special(s: { event: "start" | "end"; hp: number; hits?: number; broken?: boolean }): void {
+    this.line("SPECIAL", pairs({ event: s.event, hp: s.hp, ...(s.hits === undefined ? {} : { hits: s.hits }), ...(s.broken === undefined ? {} : { broken: s.broken ? 1 : 0 }) }));
+  }
+
+  /** The question cap was reached: the creature calmed by itself. */
+  cap(c: { asked: number; limit: number; band: string }): void {
+    this.line("CAP", pairs(c));
+  }
+
   dialogStart(id: string): void {
     this.line("DIALOG start", pairs({ id }));
   }
