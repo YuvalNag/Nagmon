@@ -286,3 +286,9 @@ button[aria-pressed="true"].toggle {
 .week-days i[data-on="true"] {
   background: var(--accent);
 }
+
+/* the learning report button is regular weight at 100% text: it needs the 7:1 of the enhanced contrast check */
+.parents-row button.primary {
+  background: #165468;
+  border-color: #165468;
+}
