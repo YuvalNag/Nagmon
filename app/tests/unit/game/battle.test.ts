@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { addCreature } from "../../../src/core/game/collection";
 import { Battle, damageFor, hpFor } from "../../../src/core/game/battle";
+import { QUIZ_CAP, questionHit } from "../../../src/core/game/battleBeats";
 import { FieldLog } from "../../../src/core/game/fieldLog";
 import { monsterTable } from "../../../src/core/game/monsters";
 import type { ContentLibrary } from "../../../src/core/learning";
@@ -59,7 +60,7 @@ describe("a battle", () => {
     expect(hp).toBe(hpFor(6));
     const r = play(battle, true);
     expect(r.correct).toBe(true);
-    expect(r.damage).toBeGreaterThanOrEqual(damageFor(6, 1.5));
+    expect(r.damage).toBe(questionHit(damageFor(6, 1.5), battle.maxHp, battle.target));
     expect(battle.hp).toBe(hp - r.damage);
   });
 
@@ -74,11 +75,12 @@ describe("a battle", () => {
     expect(battle.phase).toBe("fighting");
   });
 
-  it("any number of wrong answers never ends it: only a win, or the child going on their way", () => {
+  it("wrong answers alone never end it before the cap: only a win, the cap, or the child going on their way", () => {
     const { battle } = make();
-    for (let i = 0; i < 12; i++) expect(play(battle, false).won).toBe(false);
+    const cap = QUIZ_CAP[battle.band];
+    for (let i = 0; i < cap - 1; i++) expect(play(battle, false).won).toBe(false);
     expect(battle.phase).toBe("fighting");
-    expect(battle.stats.questions).toBe(12);
+    expect(battle.stats.questions).toBe(cap - 1);
     expect(battle.stats.correct).toBe(0);
   });
 
@@ -90,10 +92,10 @@ describe("a battle", () => {
     expect(battle.phase).toBe("calm");
     expect(r.calm).toBe(true);
     expect(battle.hp).toBe(0);
-    expect(world.creatures.map((c) => c.species)).toEqual(["heliobud"]);
+    expect(world.creatures).toHaveLength(1);
     expect(world.seen.has("lunibble")).toBe(true);
     expect(world.caught.has("lunibble")).toBe(false);
-    expect(battle.stats.questions).toBeLessThanOrEqual(8);
+    expect(battle.stats.questions).toBeLessThanOrEqual(QUIZ_CAP[battle.band]);
   });
 
   it("the partner grows with right answers, and the growth is saved each time", () => {
@@ -400,5 +402,70 @@ describe("the charge meter and Special", () => {
     play(battle, true);
     battle.pick("move");
     expect(battle.pick("special")).toBeNull();
+  });
+});
+
+describe("the cap on questions, by age", () => {
+  const ages = [
+    [6, 5],
+    [9, 7],
+    [12, 8],
+  ] as const;
+
+  it.each(ages)("a %s-year-old: at the cap of %s questions, right or wrong, the creature calms by itself", (age, cap) => {
+    const { battle } = make({ age, wild: 14, partner: 2 });
+    let last = play(battle, false);
+    for (let i = 1; i < cap; i++) {
+      expect(battle.phase).toBe("fighting");
+      expect(last.capped).toBe(false);
+      last = play(battle, false);
+    }
+    expect(battle.stats.questions).toBe(cap);
+    expect(last).toMatchObject({ capped: true, won: true, calm: true, correct: false, damage: 0 });
+    expect(battle.phase).toBe("calm");
+    expect(battle.hp).toBe(0);
+  });
+
+  it("the cap counts the wrong answers too, and the child is never punished: no coins lost, no partner changed", () => {
+    const { battle, world } = make({ age: 6 });
+    const before = JSON.stringify(world.creatures);
+    for (let i = 0; i < 5; i++) play(battle, false);
+    expect(battle.phase).toBe("calm");
+    expect(world.money).toBe(0);
+    expect(JSON.stringify(world.creatures)).toBe(before);
+  });
+
+  it("an earlier win is not a cap", () => {
+    const { battle } = make({ age: 12, wild: 2, partner: 12 });
+    let last = play(battle, true);
+    for (let i = 0; i < 8 && !last.won; i++) last = play(battle, true);
+    expect(last.won).toBe(true);
+    expect(last.capped).toBe(false);
+  });
+
+  it("the target in right answers is enough once the free beats took their half (so the child is not asked more than the target)", () => {
+    for (const [age] of ages) {
+      const { battle } = make({ age, wild: 8, partner: 8 });
+      let guard = 0;
+      while (battle.hp > Math.ceil(battle.maxHp / 2) && guard++ < 40) battle.pick("move");
+      let rights = 0;
+      while (battle.phase === "fighting" && guard++ < 80) {
+        play(battle, true);
+        rights++;
+        if (battle.phase === "fighting") battle.pick("move");
+      }
+      expect(rights).toBeLessThanOrEqual(battle.target);
+      expect(battle.stats.questions).toBe(rights);
+    }
+  });
+
+  it("a master's test has a bigger cap and the same fog rule", () => {
+    const plain = make({ age: 9, wild: 12 });
+    const master = make({ age: 9, wild: 12, master: true });
+    expect(master.battle.budget.limit).toBeGreaterThan(plain.battle.budget.limit);
+    let last = play(master.battle, false);
+    for (let i = 0; i < 30 && !last.won; i++) last = play(master.battle, false);
+    expect(last.capped).toBe(true);
+    expect(master.battle.phase).toBe("won");
   });
 });

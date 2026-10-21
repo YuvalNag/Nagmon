@@ -63,7 +63,8 @@ describe("capture: calm, the net, a seal question, a friend", () => {
     answerRight(seal);
     expect(battle.lastSeal).toMatchObject({ correct: true, left: 0, toMeadow: false, full: false, coins: eco.sealCoins });
     expect(battle.phase).toBe("caught");
-    expect(world.creatures.map((c) => c.species)).toEqual(["heliobud", "lunibble"]);
+    expect(world.creatures.map((c) => c.species)[1]).toBe("lunibble");
+    expect(world.creatures).toHaveLength(2);
     expect(world.creatures[1]!.level).toBe(6);
     expect(world.caught.has("lunibble")).toBe(true);
     expect(countOf(world, "magic_net")).toBe(1);

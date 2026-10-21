@@ -13,6 +13,9 @@ import {
   legalBeats,
   METER_SIZE,
   newBurst,
+  QUIZ_CAP,
+  QUIZ_TARGET,
+  questionHit,
 } from "../../../src/core/game/battleBeats";
 
 const base = { fighting: true, lastWasQuestion: false, meterFull: false, assistsLeft: ASSISTS_PER_BATTLE };
@@ -114,5 +117,40 @@ describe("a Special burst", () => {
     expect(burstHit(8)).toBe(3);
     expect(burstHit(1)).toBe(1);
     expect(3 * burstHit(8)).toBeGreaterThanOrEqual(8);
+  });
+});
+
+describe("the questions of a battle, by age", () => {
+  it("3, 4 and 5 fog questions for ages 5 to 7, 8 to 10 and 11 to 14", () => {
+    expect([QUIZ_TARGET.A, QUIZ_TARGET.B, QUIZ_TARGET.C]).toEqual([3, 4, 5]);
+    expect(QUIZ_TARGET[bandOf(6)]).toBe(3);
+    expect(QUIZ_TARGET[bandOf(9)]).toBe(4);
+    expect(QUIZ_TARGET[bandOf(12)]).toBe(5);
+  });
+
+  it("with hard caps of 5, 7 and 8 including the wrong ones", () => {
+    expect([QUIZ_CAP.A, QUIZ_CAP.B, QUIZ_CAP.C]).toEqual([5, 7, 8]);
+    for (const b of ["A", "B", "C"] as const) expect(QUIZ_CAP[b]).toBeGreaterThan(QUIZ_TARGET[b]);
+  });
+
+  it("a meter plus the burst fits in every cap (Special can be reached)", () => {
+    for (const b of ["A", "B", "C"] as const) expect(METER_SIZE[b] + BURST_QUESTIONS).toBeLessThanOrEqual(QUIZ_CAP[b]);
+  });
+
+  it("a right answer takes the half of the fog that free beats cannot, shared over the target", () => {
+    expect(questionHit(14, 36, 3)).toBe(6);
+    expect(questionHit(14, 36, 4)).toBe(5);
+    expect(questionHit(14, 36, 5)).toBe(4);
+    expect(questionHit(3, 36, 3)).toBe(3);
+    expect(questionHit(0, 36, 3)).toBe(1);
+  });
+
+  it("so the target in right answers is enough once free beats took their half", () => {
+    for (const b of ["A", "B", "C"] as const) {
+      for (const maxHp of [24, 36, 60, 72]) {
+        const hit = questionHit(99, maxHp, QUIZ_TARGET[b]);
+        expect(hit * QUIZ_TARGET[b]).toBeGreaterThanOrEqual(Math.floor(maxHp / 2));
+      }
+    }
   });
 });

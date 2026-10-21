@@ -10,7 +10,7 @@
  * - No gore, no fainting, no health for the child's creature at all.
  */
 import type { LearningEngine } from "../learning/engine";
-import type { SubjectMap } from "../learning/quiz_flow";
+import { BattleQuizBudget, type SubjectMap } from "../learning/quiz_flow";
 import { type HelperBag, type HelperKind, type QuizRequest, QuizSession } from "../world/quiz";
 import type { Creature, WorldState } from "../world/worldState";
 import { addCreature, giveXp, type Growth, markSeen, PARTY_SIZE, partner as partnerOf } from "./collection";
@@ -30,8 +30,12 @@ import {
   freeDamage,
   type Legal,
   legalBeats,
+  MASTER_CAP_EXTRA,
   METER_SIZE,
   newBurst,
+  QUIZ_CAP,
+  QUIZ_TARGET,
+  questionHit,
 } from "./battleBeats";
 import type { Wild } from "./encounters";
 import type { FieldLog } from "./fieldLog";
@@ -71,6 +75,8 @@ export interface Turn {
   burst: { medals: (boolean | null)[]; combo: number; over: boolean } | null;
   /** The meter after this answer. */
   meter: number;
+  /** The question cap was reached: the creature calmed by itself (nobody is punished). */
+  capped: boolean;
 }
 
 /** What a free beat (a Move, or the friend's assist) did; a Power-up is only the start of a question. */
@@ -140,6 +146,10 @@ export class Battle {
   /** The charge meter: right Power-up answers fill it; full, it unlocks Special. */
   meter = 0;
   readonly meterSize: number;
+  /** The most fog questions (wrong ones too) this battle asks; at it the creature calms by itself. */
+  readonly budget: BattleQuizBudget;
+  /** The right answers that are enough, by the child's age. */
+  readonly target: number;
   private burstHitSize = 0;
   /** The Special being played: its three questions, in a row. */
   burst: Burst | null = null;
@@ -156,6 +166,8 @@ export class Battle {
     this.partner = p;
     this.band = bandOf(o.age ?? o.engine.learner.age ?? o.engine.learner.grade + 6);
     this.meterSize = METER_SIZE[this.band];
+    this.target = QUIZ_TARGET[this.band];
+    this.budget = new BattleQuizBudget(QUIZ_CAP[this.band] + (o.master ? MASTER_CAP_EXTRA : 0));
     this.maxHp = hpFor(o.wild.level) * (o.master ? 2 : 1);
     this.hp = this.maxHp;
     const info = o.monsters[o.wild.species];
@@ -254,6 +266,7 @@ export class Battle {
 
   private answered(session: QuizSession, correct: boolean, multiplier: number, fast: boolean, earned: number): void {
     this.stats.questions++;
+    this.budget.take();
     this.stats.ms += session.elapsedMs;
     let damage = 0;
     let growth: Growth = { leveled: false, level: this.partner.level, evolvedTo: null };
@@ -266,11 +279,14 @@ export class Battle {
       this.stats.correct++;
       coins = Math.max(1, earned);
       this.o.world.addMoney(coins);
-      damage = Math.min(this.hp, burst ? this.burstHitSize : damageFor(this.partner.level, multiplier));
+      damage = Math.min(this.hp, burst ? this.burstHitSize : questionHit(damageFor(this.partner.level, multiplier), this.maxHp, this.target));
       this.hp -= damage;
       growth = giveXp(this.o.world, this.partner.id, (fast ? 2 : 1) * spendBoost(this.o.world), this.o.monsters);
     }
     this.lastWasQuestion = true;
+    // the cap: the creature gets tired and calms by itself, so a run of wrong answers never traps the child
+    const capped = this.hp > 0 && this.budget.asked >= this.budget.limit;
+    if (capped) this.hp = 0;
     const won = this.hp <= 0;
     if (won) {
       this.o.world.seen.add(this.o.wild.species);
@@ -286,7 +302,7 @@ export class Battle {
     const burstOver = !!burst && (burst.broken || !burstLive(burst) || won);
     const snapshot = burst ? { medals: [...burst.medals], combo: comboOf(burst), over: burstOver } : null;
     if (burstOver) this.burst = null;
-    this.last = { correct, damage, won, growth, coins, partnerBefore, calm: won && !this.o.master, burst: snapshot, meter: this.meter };
+    this.last = { correct, damage, won, growth, coins, partnerBefore, calm: won && !this.o.master, burst: snapshot, meter: this.meter, capped };
     this.o.field.battleResult({
       n: this.stats.questions,
       ok: correct,

@@ -104,3 +104,24 @@ export function burstAnswer(b: Burst, correct: boolean): void {
   b.medals[i] = correct;
   if (!correct) b.broken = true;
 }
+
+// ---- how many fog questions (docs/app/BATTLE.md, 4.4) ----
+
+/** The fog questions a battle is meant to take, by band. */
+export const QUIZ_TARGET: Record<Band, number> = { A: 3, B: 4, C: 5 };
+
+/** The hard cap, wrong answers included: at it the creature calms by itself. */
+export const QUIZ_CAP: Record<Band, number> = { A: 5, B: 7, C: 8 };
+
+/** A master's test is twice the fog: its cap is a little more. */
+export const MASTER_CAP_EXTRA = 3;
+
+/**
+ * What a right Power-up answer takes: the partner's strength, but never
+ * more than the half of the fog that free beats cannot take, shared out
+ * over the target number of questions. (So about the target in right
+ * answers calm a creature once the free beats have done their half.)
+ */
+export function questionHit(strength: number, maxHp: number, target: number): number {
+  return Math.max(1, Math.min(strength, Math.ceil((maxHp * FOG_FLOOR) / target)));
+}

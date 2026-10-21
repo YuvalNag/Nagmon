@@ -10,6 +10,7 @@ import type { QuizSession } from "../core/world/quiz";
 import { t } from "../i18n";
 import { gameClock } from "../platform/lifecycle";
 import { pageSfx } from "../platform/sfx";
+import { ageFromProfile } from "../core/family/age";
 import { effectsFrom } from "../core/family/effects";
 import { ActionBar } from "./battle/ActionBar";
 import { BattleQuestion } from "./battle/BattleQuestion";
@@ -72,6 +73,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       wild,
       clock: () => gameClock.now(),
       maxChoices: play.maxChoices,
+      age: ageFromProfile(play.profile, new Date()),
       field: play.field,
       economy: play.economy,
       onChange: () => {
@@ -323,8 +325,9 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const extra: string[] = [];
   if (turn) {
     message = turn.correct ? t("battleHit", { partner: play.text(turn.partnerBefore), name: wildName, damage: turn.damage }) : t("battleMiss");
-    if (view.k === "calm") message = t("battleCalm", { name: wildName });
+    if (view.k === "calm") message = turn.capped ? t("battleCapped", { name: wildName }) : t("battleCalm", { name: wildName });
     if (turn.won && view.k === "won") extra.unshift(t("battleMasterWon", { name: wildName }));
+    if (turn.capped && view.k === "won") extra.unshift(t("battleCapped", { name: wildName }));
   }
   if (free) {
     message =

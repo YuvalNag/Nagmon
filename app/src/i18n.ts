@@ -178,6 +178,7 @@ export const he = {
   battleMoveHit: "{partner} זז, ו{name} איבד {damage} כוח.",
   battleAssistHit: "החבר עוזר! {name} איבד {damage} כוח.",
   battleSpecial: "מיוחד!",
+  battleCapped: "{name} התעייף והתרגע מעצמו. כל הכבוד על המאמץ!",
   battleCharge: "מד הכוח: {n} מתוך {max}",
   battleCombo: "רצף: {n} פגיעות",
   battleSpecialDone: "מיוחד! {n} פגיעות ברצף!",
