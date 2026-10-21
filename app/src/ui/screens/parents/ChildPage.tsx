@@ -57,6 +57,9 @@ export function ChildPage({ child, message, busy, onName, onGrade, onAvatar, eff
           <Tap id="child_learning" disabled={busy} onTap={onLearning}>
             {t("learningEntry")}
           </Tap>
+          <Tap id="child_quick_buy" disabled={busy} aria-pressed={quickBuy} onTap={() => onQuickBuy(!quickBuy)}>
+            {t("quickBuyState", { state: t(quickBuy ? "effectsOn" : "effectsOff") })}
+          </Tap>
         </div>
         <div className="parents-row effects-row">
           <Tap id="child_motion" disabled={busy} onTap={() => onEffects({ motion: nextMotion(effects.motion) })}>
@@ -67,11 +70,6 @@ export function ChildPage({ child, message, busy, onName, onGrade, onAvatar, eff
           </Tap>
           <Tap id="child_vibration" disabled={busy} aria-pressed={effects.vibration} onTap={() => onEffects({ vibration: !effects.vibration })}>
             {t("effectsVibration", { state: t(effects.vibration ? "effectsOn" : "effectsOff") })}
-          </Tap>
-        </div>
-        <div className="parents-row effects-row">
-          <Tap id="child_quick_buy" disabled={busy} aria-pressed={quickBuy} onTap={() => onQuickBuy(!quickBuy)}>
-            {t("quickBuyState", { state: t(quickBuy ? "effectsOn" : "effectsOff") })}
           </Tap>
         </div>
         <p className="message ok" role="status">
