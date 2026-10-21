@@ -47,9 +47,9 @@ export function LessonList({ rows, save, coins, onPick, onClose }: Props) {
             {t("tutorBack")}
           </Tap>
           <h2 className="title">{t("tutorTitle")}</h2>
-          <StampCardView card={card} />
           <CoinPill coins={coins} />
         </header>
+        <StampCardView card={card} />
         {rows.length === 0 ? (
           <p className="tutor-none" data-id="tutor_none">
             {t("tutorNone")}

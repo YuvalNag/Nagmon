@@ -112,7 +112,7 @@ for (const scale of scales) {
     await expect(page.locator("[data-screen=tutor-list]")).toHaveCount(0);
     await expect(coins(page)).toHaveAttribute("data-coins", "40");
     await expect.poll(async () => (await saved(page, "saves/world.json"))?.["money"]).toBe(40);
-    expect((await saved(page, "saves/world.json"))?.["lessons"]).toEqual({ done: ["moon"], charges: 1 });
+    expect((await saved(page, "saves/world.json"))?.["lessons"]).toEqual({ done: ["moon"], repeatDay: null, charges: 1 });
   });
 }
 
@@ -143,6 +143,7 @@ test("the Notes sheet on the cashier's question, once the Moon lesson is passed"
   const text = page.locator(id("notes_text"));
   await expect(text).toHaveText("הירח מקיף את כדור הארץ, ולכן הצד המואר שרואים משתנה.");
   // the sheet is the lower 45% of the screen; the question stays above it
+  await page.waitForTimeout(500);
   const sheet = (await page.locator(".notes-sheet").boundingBox())!;
   expect(sheet.y).toBeGreaterThan(393 * 0.5);
   expect(sheet.y + sheet.height).toBeLessThanOrEqual(393 + 1);
