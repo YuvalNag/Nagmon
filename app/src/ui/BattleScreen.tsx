@@ -358,7 +358,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
 
   return (
     <ScreenTime key={`battle-${asking ? "ask" : view.k === "free" ? "meet" : view.k}-${tick}`}>
-      <section className="battle" data-screen="battle" data-calm-fx={calm} data-view={view.k} data-asking={asking} data-flow={flow.k} data-calm={view.k === "calm"} data-hp={battle.hp} data-wild={wild.species}>
+      <section className="battle" data-screen="battle" data-calm-fx={calm} data-view={view.k} data-asking={asking} data-flow={flow.k} data-calm={view.k === "calm"} data-hp={battle.hp} data-meter={battle.meter} data-assists={battle.assistsLeft} data-burst={!!medals && view.k !== "turn"} data-wild={wild.species}>
         <Stage
           monsters={play.monsters}
           mine={mine}

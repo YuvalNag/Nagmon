@@ -173,7 +173,7 @@ export const he = {
   battleMove: "תנועה",
   battlePower: "כוח",
   battleAssist: "חבר עוזר",
-  battlePowerRest: "קודם תנועה או חבר",
+  battlePowerRest: "קודם תנועה",
   battleAssistLeft: "נשארו {n}",
   battleMoveHit: "{partner} זז, ו{name} איבד {damage} כוח.",
   battleAssistHit: "החבר עוזר! {name} איבד {damage} כוח.",
