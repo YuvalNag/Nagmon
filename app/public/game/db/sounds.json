@@ -1,4 +1,7 @@
 {
+ "nagmon_sfx_hit": "audio/sfx/battle/nagmon_hit.wav",
+ "nagmon_sfx_oops": "audio/sfx/battle/nagmon_oops.wav",
+ "nagmon_sfx_win": "audio/sfx/battle/nagmon_win.wav",
  "sfx_blaster": "audio/sfx/technique/blaster1.ogg",
  "sfx_kick": "audio/sfx/technique/kick.ogg",
  "sfx_pulse": "audio/sfx/technique/pulse1.ogg",

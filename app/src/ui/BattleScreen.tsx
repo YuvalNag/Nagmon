@@ -8,6 +8,8 @@ import { countOf, giveStarterKit } from "../core/game/items";
 import type { QuizSession } from "../core/world/quiz";
 import { t } from "../i18n";
 import { gameClock } from "../platform/lifecycle";
+import { pageSfx } from "../platform/sfx";
+import { effectsFrom } from "../core/family/effects";
 import { ActionBar } from "./battle/ActionBar";
 import { BattleQuestion } from "./battle/BattleQuestion";
 import { planFor } from "./battle/effects";
@@ -101,6 +103,8 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const [outcome, setOutcome] = useState<AnswerOutcome | null>(null);
   const fxId = useRef(0);
   const calm = useCalm(play.profile.settings);
+  // three little sounds and a tick, each behind the parents' switch
+  const sfx = useMemo(() => pageSfx(), []);
 
   const leave = () => {
     if (finished.current) return;
@@ -139,6 +143,10 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     const turn = view.k === "question" ? battle.last : null;
     // the answer is counted when it is given, not when the box closes
     play.logAnswer(view.session, view.k === "seal" ? "seal" : "battle");
+    const switches = effectsFrom(play.profile.settings);
+    const won = view.k === "seal" ? !!battle.lastSeal?.caught : !!turn?.won;
+    void sfx.play(won ? "win" : o.correct ? "hit" : "oops", switches);
+    if (o.correct) sfx.tick(switches);
     setOutcome(o);
     setFx({ id: ++fxId.current, correct: o.correct, damage: turn?.damage ?? 0, won: !!turn?.won, plan: planFor(o.correct, calm) });
     setFlow(answered(o.correct, performance.now()));

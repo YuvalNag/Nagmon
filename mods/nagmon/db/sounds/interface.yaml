@@ -1,0 +1,7 @@
+# The battle's three sounds: our own, made by tools/sfx_battle.py (sine waves only).
+- file: battle/nagmon_hit.wav
+  slug: nagmon_sfx_hit
+- file: battle/nagmon_oops.wav
+  slug: nagmon_sfx_oops
+- file: battle/nagmon_win.wav
+  slug: nagmon_sfx_win

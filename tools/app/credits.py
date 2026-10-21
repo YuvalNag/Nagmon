@@ -390,6 +390,16 @@ def credit_for(asset: Asset, m: Matcher) -> dict[str, Any]:
             "note": "Licence text shipped with the app.",
             "matched": True,
         }
+    if asset.kind == "sound" and src.startswith(OWN_SOUNDS):
+        return {
+            "credits": [],
+            "authors": [OWN_SOUND["author"]],
+            "author": OWN_SOUND["author"],
+            "licences": [OWN_SOUND["licence"]],
+            "licence": OWN_SOUND["licence"],
+            "note": OWN_SOUND["note"],
+            "matched": True,
+        }
     if _is_owner_art(src):
         return {
             "credits": [],
@@ -457,6 +467,17 @@ def credit_for(asset: Asset, m: Matcher) -> dict[str, Any]:
     if entry is None:
         return _unmatched(group, note)
     return _info([entry], note=note)
+
+
+#: The battle's sounds: synthesized by tools/sfx_battle.py, our own.
+OWN_SOUNDS = "mods/nagmon/sounds/battle/"
+OWN_SOUND = {
+    "author": "Nagmon (own work: sine waves synthesized by "
+    "tools/sfx_battle.py, no samples)",
+    "licence": "GPL-3.0",
+    "note": "Made by the project's own script; nothing from another game "
+    "or a sound library.",
+}
 
 
 def _is_owner_art(src: str) -> bool:
