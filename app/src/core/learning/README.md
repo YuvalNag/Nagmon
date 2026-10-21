@@ -86,7 +86,9 @@ new LearningEngine(content: ContentLibrary, learner: LearnerState, opts?: { rng?
 LearningEngine.restore(content, saved: Record<string, unknown>, opts?): LearningEngine   // saved learning.json, v0 or v1
 engine.nextQuestion({ subject?, skill_id?, skill_ids?, context?, max_choices?, difficulty_bias? }): Question
 engine.submit(q, given: Given, { elapsed_s, context?, hint_used?, dont_know? }): AnswerOutcome
-engine.hint(q): Hint                       // { text_he, eliminate: choice ids }
+engine.hint(q): Hint                       // { text_he, eliminate: choice ids }: the idea and the first step, never the answer
+engine.hintText(q): string                 // the same words with nothing ruled out
+// q.meta.worked_example + q.meta.example: the owl's example is a solved SIBLING item (worked_example.ts), never q itself; none when no sibling exists
 engine.save(): LearnerData                 // write to learning.json after every answer
 engine.subjectProgress(subject): SubjectProgress
 engine.dashboard(): DashboardData          // every number with explanation_he

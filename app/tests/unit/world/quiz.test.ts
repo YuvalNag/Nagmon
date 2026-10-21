@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { readFileSync } from "node:fs";
 import { beforeAll, describe, expect, it } from "vitest";
-import { type ContentLibrary, LearningEngine, LearnerState, loadContent, PyRandom } from "../../../src/core/learning";
+import { type ContentLibrary, displayAnswer, LearningEngine, LearnerState, loadContent, PyRandom } from "../../../src/core/learning";
 import type { AnswerOutcome } from "../../../src/core/learning/engine";
 import { DRAWN_FIGURE_KINDS } from "../../../src/core/learning/model";
 import { QuizSession, resultWord } from "../../../src/core/world/quiz";
@@ -202,6 +202,47 @@ describe("the owl's worked example", () => {
     expect(answers).toHaveLength(1);
     // the time counts from the question, not from the example
     expect(learner.log.at(-1)!.elapsed).toBeCloseTo(2);
+  });
+});
+
+describe("the owl's example is another item of the skill", () => {
+  it("shows a sibling with its own answer and steps; the question that follows is not the example", () => {
+    for (const seed of [1, 2, 3, 4, 5]) {
+      const { s } = session({ workedExamples: true, seed });
+      expect(s.phase).toBe("example");
+      const ex = s.example!;
+      expect(ex).not.toBeNull();
+      expect(ex.item_id).not.toBe(s.question!.item_id);
+      expect(ex.prompt_he).not.toBe(s.question!.prompt_he);
+      expect(ex.answer_he).not.toBe(displayAnswer(s.question!));
+      expect(ex.steps_he).toMatch(/[א-ת]/);
+      // what the example shows is never the asked question's own explanation
+      expect(ex.steps_he).not.toBe(s.question!.explanation_he);
+    }
+  });
+
+  it("no sibling, no example: the question comes at once, rated as any other", () => {
+    const only = { ...session({ seed: 1 }).s.question!, meta: { worked_example: true } };
+    const fake = { nextQuestion: () => only, content } as unknown as LearningEngine;
+    const s = new QuizSession(fake, { topic: "math.money.change_20", context: "shop", maxChoices: null }, () => 0, () => {});
+    expect(s.example).toBeNull();
+    expect(s.phase).toBe("question");
+  });
+
+  it("the example is no question: nothing can be answered while it shows", () => {
+    const { s } = session({ workedExamples: true, seed: 2 });
+    expect(s.phase).toBe("example");
+    expect(s.choose(s.question!.choices[0]!.id)).toBe(false);
+    expect(s.check()).toBe(false);
+    expect(s.dontKnow()).toBe(false);
+  });
+
+  it("the feather and the hint name the idea and do not give the answer", () => {
+    const { s } = session({ grade: 4, seed: 3 });
+    s.hint();
+    const answer = displayAnswer(s.question!);
+    expect(s.hintText).toMatch(/רמז/);
+    expect(s.hintText!.split(/\s+/)).not.toContain(answer);
   });
 });
 

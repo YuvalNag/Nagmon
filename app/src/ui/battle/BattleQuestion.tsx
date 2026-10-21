@@ -5,6 +5,7 @@ import type { QuizSession } from "../../core/world/quiz";
 import { itemText, t } from "../../i18n";
 import { Figure } from "../Figure";
 import { HELPERS, label, PAD_KEYS, useQuizProbe } from "../QuizScreen";
+import { QuizExample } from "../QuizExample";
 import { ScreenTime } from "../screenTime";
 import { Tap } from "../Tap";
 import { pickOptions } from "./effects";
@@ -81,10 +82,7 @@ export function BattleQuestion({ session, text, subjectTitle, onResult, onClose 
       <ScreenTime key="example">
         <section className="quiz-top quiz-example" data-screen="quiz" data-phase="example" role="dialog" aria-label={text("nagmon_owl_shows")}>
           <p className="quiz-owl">{text("nagmon_owl_shows")}</p>
-          {prompt}
-          <p className="quiz-explain" data-id="quiz_example">
-            {isolateMath(q.explanation_he)}
-          </p>
+          {session.example && <QuizExample example={session.example} englishFirst={englishFirst} />}
           <Tap id="quiz_example_done" className="primary" onTap={act(() => session.exampleDone())}>
             {text("nagmon_lets_try")}
           </Tap>

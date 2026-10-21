@@ -6,8 +6,10 @@
  *
  * - The question comes from the learning engine's selector, for this
  *   child, on the script's topic (a subject, or a skill id with a dot).
- * - On a skill's first meeting the owl shows a worked example first;
- *   then the same question is asked.
+ * - On a skill's first meeting the owl shows a worked example first: a
+ *   solved SIBLING of the question (other numbers or words, another
+ *   answer), never the question itself; then a fresh item is asked. A
+ *   skill with no sibling to show has no example.
  * - "רמז" once per question: one wrong choice goes, or a first step is
  *   shown. "לא יודע/ת" is an answer too (counted at half weight).
  * - The answer is given to `onAnswer` at once, before the feedback is
@@ -20,6 +22,7 @@ import { crumb } from "../game/breadcrumb";
 import type { AnswerOutcome, LearningEngine } from "../learning/engine";
 import { type Choice, DRAWN_FIGURE_KINDS, type Given, type Question } from "../learning/model";
 import { NumberPad } from "../learning/quiz_flow";
+import type { WorkedExample } from "../learning/worked_example";
 import type { QuizWord } from "./events";
 
 export type QuizPhase = "none" | "example" | "question" | "feedback" | "passed";
@@ -113,7 +116,8 @@ export class QuizSession {
     }
     // for a parent's "something is wrong": which question is on the screen
     crumb.question(this.question);
-    this.phase = this.question === null ? "none" : this.question.meta["worked_example"] ? "example" : "question";
+    // an example only where there is one to show: another item of the skill, never the asked question
+    this.phase = this.question === null ? "none" : this.example ? "example" : "question";
     this.started = clock();
   }
 
@@ -183,13 +187,9 @@ export class QuizSession {
     return true;
   }
 
-  /** The first solution step, never the answer; the engine's own hint text when there is no step to show. */
+  /** The idea and the first step, never the answer. */
   private firstStep(q: Question): string {
-    const step = (q.explanation_he || "").split(/(?<=[.:!?])\s|\n/)[0]?.trim() ?? "";
-    const answer = String(q.answer);
-    if (step && step.length < 140 && !step.includes(answer)) return `רמז: ${step.replace(/[.:]$/, "")}.`;
-    const own = q.meta["hint_he"];
-    return typeof own === "string" && own ? own : "רמז: קראו שוב את השאלה, ונסו צעד אחד בכל פעם.";
+    return this.engine.hintText(q);
   }
 
   /** The script's word for the answer, once there is one. */
@@ -200,6 +200,13 @@ export class QuizSession {
   /** A skill's name for the child ("a new star in ..."). */
   skillTitle(id: string): string {
     return this.engine.content.get(id)?.title_he ?? id;
+  }
+
+  /** The owl's worked example: a solved sibling of the question, shown before it; null when there is none. */
+  get example(): WorkedExample | null {
+    const q = this.question;
+    const ex = q && q.meta["worked_example"] ? (q.meta["example"] as WorkedExample | undefined) : undefined;
+    return ex ?? null;
   }
 
   /** "Got it, let's try": the worked example is read, the question starts. */

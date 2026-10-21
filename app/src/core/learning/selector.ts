@@ -12,6 +12,7 @@ import { pyRound } from "./py";
 import { PyRandom } from "./random";
 import { initialTheta, pCorrect, questionGuess } from "./rating";
 import { type Clock, DAY, systemClock } from "./srs";
+import { siblingExample } from "./worked_example";
 
 export const FRONTIER = "frontier";
 export const REVIEW = "review";
@@ -411,8 +412,15 @@ export class QuestionSelector {
       !this.attempted(q.skill_id) &&
       q.explanation_he
     ) {
-      meta["worked_example"] = true;
-      learner.worked_examples.add(q.skill_id);
+      // the example is a SIBLING of the asked item (other numbers or words, another answer),
+      // never the item itself; with no sibling to be found there is no example
+      const skill = this.content.get(q.skill_id);
+      const example = skill ? siblingExample(this.content, q, this.ctx(skill, null)) : null;
+      if (example) {
+        meta["worked_example"] = true;
+        meta["example"] = example;
+        learner.worked_examples.add(q.skill_id);
+      }
     }
     this.recent.push(q.item_id);
     return { ...q, meta };

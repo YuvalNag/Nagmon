@@ -6,6 +6,7 @@ import type { HelperKind, QuizSession } from "../core/world/quiz";
 import { itemText, t } from "../i18n";
 import { Figure } from "./Figure";
 import { ScreenTime } from "./screenTime";
+import { QuizExample } from "./QuizExample";
 import { Tap } from "./Tap";
 
 interface Props {
@@ -99,10 +100,7 @@ export function QuizScreen({ session, text, subjectTitle, onClose }: Props) {
       <ScreenTime key="example">
         <section className="quiz quiz-example" data-screen="quiz" data-phase="example" role="dialog" aria-label={text("nagmon_owl_shows")}>
           <p className="quiz-owl">{text("nagmon_owl_shows")}</p>
-          {prompt}
-          <p className="quiz-explain" data-id="quiz_example">
-            {isolateMath(q.explanation_he)}
-          </p>
+          {session.example && <QuizExample example={session.example} englishFirst={englishFirst} />}
           <Tap id="quiz_example_done" className="primary" onTap={act(() => session.exampleDone())}>
             {text("nagmon_lets_try")}
           </Tap>
