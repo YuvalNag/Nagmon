@@ -16,6 +16,7 @@ import type { Creature, WorldState } from "../world/worldState";
 import { addCreature, giveXp, type Growth, markSeen, PARTY_SIZE, partner as partnerOf } from "./collection";
 import { claimSpareNet, countOf, type Economy, type Item, spendBoost, take } from "./items";
 import { setPartner } from "./party";
+import { ASSISTS_PER_BATTLE, type Beat, freeDamage, type Legal, legalBeats } from "./battleBeats";
 import type { Wild } from "./encounters";
 import type { FieldLog } from "./fieldLog";
 import type { MonsterTable } from "./monsters";
@@ -50,6 +51,12 @@ export interface Turn {
   partnerBefore: string;
   /** This answer took the last of the fog: the creature is calm (a master's test: won). */
   calm: boolean;
+}
+
+/** What a free beat (a Move, or the friend's assist) did; a Power-up is only the start of a question. */
+export interface BeatResult {
+  beat: Beat;
+  damage: number;
 }
 
 /** One go at a net: the seal question(s) and what came of them. */
@@ -101,6 +108,12 @@ export class Battle {
   /** Tries at the seal in this meeting (a wrong one is only a try). */
   tries = 0;
   lastSeal: SealResult | null = null;
+  /** The last free beat, for the screen to play. */
+  lastBeat: BeatResult | null = null;
+  /** The friend's assists left in this battle. */
+  assistsLeft = ASSISTS_PER_BATTLE;
+  /** The last beat was a question: the next one is free. */
+  lastWasQuestion = false;
   private subject: string;
 
   /** The subject the questions are about (it shows in the arena's look). */
@@ -129,6 +142,28 @@ export class Battle {
     this.o.field.note("partner", { species: this.partner.species, subject: this.subject });
     this.o.onChange();
     return true;
+  }
+
+  /** The cards the child may pick now (docs/app/BATTLE.md, section 4.1). */
+  legal(): Legal {
+    return legalBeats({ fighting: this.phase === "fighting", lastWasQuestion: this.lastWasQuestion, meterFull: false, assistsLeft: this.assistsLeft });
+  }
+
+  /**
+   * The child picks a card. A Move or a friend's assist plays at once and
+   * asks nothing (it can only take the fog to half); a Power-up only opens
+   * the way to a question (`next`). Null when the card is not open now.
+   */
+  pick(beat: Beat): BeatResult | null {
+    if (!this.legal()[beat]) return null;
+    if (beat === "power") return { beat, damage: 0 };
+    if (beat === "assist") this.assistsLeft--;
+    const damage = freeDamage(this.hp, this.maxHp, damageFor(this.partner.level, 1.5));
+    this.hp -= damage;
+    this.lastWasQuestion = false;
+    this.lastBeat = { beat, damage };
+    this.o.onChange();
+    return this.lastBeat;
   }
 
   start(map: string): void {
@@ -193,6 +228,7 @@ export class Battle {
       this.hp -= damage;
       growth = giveXp(this.o.world, this.partner.id, (fast ? 2 : 1) * spendBoost(this.o.world), this.o.monsters);
     }
+    this.lastWasQuestion = true;
     const won = this.hp <= 0;
     if (won) {
       this.o.world.seen.add(this.o.wild.species);

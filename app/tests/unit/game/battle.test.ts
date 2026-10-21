@@ -217,3 +217,73 @@ describe("the log line for a battle result", () => {
     expect(line).toMatch(/^[\x20-\x7e]+$/);
   });
 });
+
+describe("the beat menu", () => {
+  it("a Move asks nothing, takes a third of a right answer, and counts no question", () => {
+    const { battle } = make();
+    const hp = battle.hp;
+    const r = battle.pick("move")!;
+    expect(r.beat).toBe("move");
+    expect(r.damage).toBeGreaterThan(0);
+    expect(r.damage).toBeLessThan(damageFor(6, 1.5));
+    expect(battle.hp).toBe(hp - r.damage);
+    expect(battle.stats.questions).toBe(0);
+    expect(battle.phase).toBe("fighting");
+  });
+
+  it("free beats stop at half the fog: Move and the friend never calm a creature", () => {
+    const { battle } = make();
+    for (let i = 0; i < 30; i++) battle.pick(i % 3 === 2 ? "assist" : "move");
+    expect(battle.hp).toBeGreaterThanOrEqual(Math.ceil(battle.maxHp / 2));
+    expect(battle.phase).toBe("fighting");
+    expect(battle.pick("move")).not.toBeNull();
+    expect(battle.pick("move")!.damage).toBe(0);
+  });
+
+  it("the friend's assist is limited in a battle", () => {
+    const { battle } = make();
+    expect(battle.assistsLeft).toBe(2);
+    expect(battle.pick("assist")).not.toBeNull();
+    expect(battle.pick("assist")).not.toBeNull();
+    expect(battle.pick("assist")).toBeNull();
+    expect(battle.legal().assist).toBe(false);
+    expect(battle.pick("move")).not.toBeNull();
+  });
+
+  it("never two question beats in a row: a Power-up after an answered question waits for a free beat", () => {
+    const { battle } = make();
+    expect(battle.pick("power")).not.toBeNull();
+    play(battle, true);
+    expect(battle.legal().power).toBe(false);
+    expect(battle.pick("power")).toBeNull();
+    battle.pick("move");
+    expect(battle.legal().power).toBe(true);
+    expect(battle.pick("power")).not.toBeNull();
+  });
+
+  it("a wrong answer is a question beat too: the next beat is free", () => {
+    const { battle } = make();
+    play(battle, false);
+    expect(battle.pick("power")).toBeNull();
+    expect(battle.pick("assist")).not.toBeNull();
+    expect(battle.pick("power")).not.toBeNull();
+  });
+
+  it("a calm creature takes no more beats", () => {
+    const { battle } = make();
+    for (let i = 0; i < 12 && battle.phase === "fighting"; i++) {
+      play(battle, true);
+      battle.pick("move");
+    }
+    expect(battle.phase).toBe("calm");
+    expect(battle.pick("move")).toBeNull();
+    expect(battle.pick("power")).toBeNull();
+  });
+
+  it("a free beat saves the child and the rating nothing: no answer is logged", () => {
+    const { battle, world } = make();
+    battle.pick("move");
+    expect(battle.stats.questions).toBe(0);
+    expect(world.money).toBe(0);
+  });
+});

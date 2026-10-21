@@ -1679,10 +1679,10 @@ button.quiz-choice {
 
 
 
-/* the five buttons: each at least 120x72 CSS px, Ask twice as wide, 8 px apart */
+/* the beat menu: three big cards (Move, Power-up, the friend), then four small buttons; all at least 64x56 CSS px, 8 px apart */
 .action-bar {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1.55fr)) repeat(4, minmax(64px, 1fr));
   gap: 8px;
   padding: 8px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left));
   background: rgba(23, 50, 58, 0.12);
@@ -1694,12 +1694,24 @@ button.quiz-choice {
   align-items: center;
   justify-content: center;
   gap: 2px;
-  min-width: 120px;
-  min-height: 72px;
+  min-width: 64px;
+  min-height: 56px;
   height: 100%;
   padding: 0 4px;
-  font-size: calc(var(--text) * 0.72);
+  font-size: calc(var(--text) * 0.6);
   font-weight: 700;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.action-bar button.card {
+  min-height: 72px;
+  font-size: calc(var(--text) * 0.85);
+}
+
+.action-bar .card-note {
+  font-size: calc(var(--text) * 0.5);
+  font-weight: 500;
   line-height: 1.1;
 }
 
@@ -1708,9 +1720,8 @@ button.quiz-choice {
   line-height: 1.3;
 }
 
-.action-bar button.wide {
-  min-width: 240px;
-  font-size: calc(var(--text) * 0.85);
+.action-bar button.small .act-icon {
+  font-size: calc(var(--text) * 0.9);
 }
 
 .action-bar button.pulse {

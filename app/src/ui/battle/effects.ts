@@ -52,6 +52,14 @@ export function planFor(correct: boolean, calm: boolean): FxPlan {
   };
 }
 
+/** A free beat (a Move, the friend's assist): a small hit, no question behind it. */
+export function planForFree(damage: number, calm: boolean): FxPlan {
+  const hit = damage > 0;
+  const base = { calm, number: hit, flashesPerSecond: 0, shakePx: 0, shakeMs: 0, hitStopMs: 0, oops: false };
+  if (calm) return { ...base, attack: false, stars: hit ? 1 : 0, wildHit: false };
+  return { ...base, attack: hit, stars: hit ? 4 : 0, wildHit: hit };
+}
+
 /** A choice, as far as picking the floating answers needs it. */
 export interface Pickable {
   id: string;

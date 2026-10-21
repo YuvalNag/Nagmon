@@ -1,5 +1,5 @@
 import type { Page } from "@playwright/test";
-import { id, openMap, quiz, seedChild, steps } from "./cashier";
+import { id, openMap, powerUp, quiz, seedChild, steps } from "./cashier";
 import { expect, test } from "./fixtures";
 import { touch } from "./touch";
 
@@ -134,7 +134,7 @@ for (const scale of [1, 1.3]) {
     await shot("after_result");
 
     // a wrong answer: the harmless oops; "why?" is one tap away; a tap anywhere goes on
-    await touch(page, page.locator(id("battle_next")), 30);
+    await powerUp(page);
     await expect(page.locator("[data-screen=quiz][data-phase=question],[data-screen=quiz][data-phase=example]")).toBeVisible();
     if ((await quiz(page))!.phase === "example") await touch(page, page.locator(id("quiz_example_done")), 30);
     await touch(page, page.locator(id("quiz_dont_know")), 30);
@@ -190,7 +190,7 @@ test("a typed answer: the pad sits at the bottom end, nothing covers the creatur
     await page.waitForTimeout(350);
     await touch(page, page.locator(id("battle_skip")), 30);
     await expect(page.locator("[data-screen=battle]")).toHaveAttribute("data-asking", "false", { timeout: 3000 });
-    await touch(page, page.locator(id("battle_next")), 30);
+    await powerUp(page);
     if ((await quiz(page))?.phase === "example") await touch(page, page.locator(id("quiz_example_done")), 30);
     await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
   }
