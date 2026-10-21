@@ -484,7 +484,8 @@ def test_a_house_has_a_host_a_child_can_walk_up_to(built, door):
     hosts = []
     for script in scripts(doc):
         for a in script["actions"]:
-            if a["type"] == "create_npc":
+            # the home's chest and nest are objects, not hosts
+            if a["type"] == "create_npc" and a["args"][0].startswith("nagmon_house_"):
                 hosts.append((int(a["args"][1]), int(a["args"][2])))
         assert [b["type"] for b in script["behaviors"]] in ([], ["talk"])
     assert len(hosts) == 1
@@ -495,7 +496,11 @@ def test_a_house_has_a_host_a_child_can_walk_up_to(built, door):
         if rows[y + dy][x + dx] == "."
     ]
     assert free, f"nobody can stand next to the host at {(x, y)}"
-    talks = [s for s in scripts(doc) if s["behaviors"]]
+    talks = [
+        s
+        for s in scripts(doc)
+        if s["behaviors"] and s["behaviors"][0]["args"][0].startswith("nagmon_house_")
+    ]
     assert len(talks) == 1
 
 

@@ -2221,7 +2221,8 @@ button.zone {
   min-height: 0;
   overflow-y: auto;
   touch-action: pan-y;
-  padding: 6px;
+  /* the "something is wrong" button floats at the top middle: keep the cards under it */
+  padding: 30px 6px 6px;
   border-radius: var(--radius);
   background: #f3e3c7;
   border: 3px solid #b98c52;
@@ -2417,6 +2418,7 @@ button.zone {
 }
 
 .pay-coins {
+  margin-top: 30px;
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
