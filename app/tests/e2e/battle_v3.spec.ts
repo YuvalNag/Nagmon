@@ -67,7 +67,15 @@ async function geometry(page: Page) {
 /** Nothing overlaps, nothing is cut off, nothing scrolls, every button is 48 and more (the cards 150 x 56). */
 async function audit(page: Page, where: string, opts: { cards?: boolean } = {}) {
   await page.evaluate(() => document.fonts.ready);
-  const g = await geometry(page);
+  // the creatures bob and fade: measure once the boxes hold still (two samples agree)
+  let g = await geometry(page);
+  for (let i = 0; i < 20; i++) {
+    await page.waitForTimeout(150);
+    const again = await geometry(page);
+    const same = JSON.stringify([again.creatures, again.cover]) === JSON.stringify([g.creatures, g.cover]);
+    g = again;
+    if (same) break;
+  }
   for (const b of g.bar) {
     expect(Math.min(b.r - b.l, b.b - b.t), `${where}: ${b.name} is under 48`).toBeGreaterThanOrEqual(48);
     expect(b.l, `${where}: ${b.name} is cut off`).toBeGreaterThanOrEqual(-0.5);
