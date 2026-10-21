@@ -9,6 +9,7 @@ import { MISCONCEPTIONS } from "./generators/misconceptions";
 import { ITEMS_MAX, type LearnerData, LearnerState, makeLogEntry } from "./learner";
 import { checkAnswer, type CheckResult, displayAnswer, type Given, type Question } from "./model";
 import { floorDiv, pyRound, pyRoundInt, strip } from "./py";
+import { ideaHint } from "./worked_example";
 import { PyRandom, randomSeed } from "./random";
 import { ageFactor, deadlineS, eloUpdate, logit, pCorrect, questionGuess } from "./rating";
 import { QuestionSelector, type SelectOptions, type SelectorConfig } from "./selector";
@@ -76,8 +77,6 @@ export interface EngineOptions {
   config?: Partial<SelectorConfig>;
 }
 
-const FIRST_STEP = /^(.*?)(?::|\.\s)/;
-
 export class LearningEngine {
   readonly content: ContentLibrary;
   readonly learner: LearnerState;
@@ -115,23 +114,24 @@ export class LearningEngine {
     return this.selector.expected(q);
   }
 
-  /** A first step: drop one wrong choice, or the first worked step. */
+  /**
+   * The hint: the idea of the skill and its first step (never the answer);
+   * on a choice question also one wrong choice to rule out.
+   */
   hint(q: Question): Hint {
+    const lead = this.hintText(q);
     if ((q.kind === "choice" || q.kind === "tap_figure") && q.choices.length > 2) {
       const wrong = q.choices.filter((c) => c.id !== q.answer);
       const plainAll = wrong.filter((c) => !Object.hasOwn(q.misconceptions, c.id));
       const drop = this.rng.choice(plainAll.length ? plainAll : wrong);
-      return { text_he: `אפשר לפסול את התשובה "${drop.text_he}".`, eliminate: [drop.id] };
+      return { text_he: `${lead} אפשר גם לפסול את התשובה "${drop.text_he}".`, eliminate: [drop.id] };
     }
-    let text = q.meta["hint_he"] as string | undefined;
-    if (!text) {
-      const m = FIRST_STEP.exec(q.explanation_he || "");
-      const step = m ? strip(m[1]!) : "";
-      const answer = displayAnswer(q);
-      if (step && !step.includes(answer)) text = `רמז: ${step}.`;
-      else text = "רמז: קראו שוב את השאלה, ונסו צעד אחד בכל פעם.";
-    }
-    return { text_he: text, eliminate: [] };
+    return { text_he: lead, eliminate: [] };
+  }
+
+  /** The hint's words alone, with nothing ruled out: the idea and the first step, never the answer. */
+  hintText(q: Question): string {
+    return ideaHint(q, this.content.get(q.skill_id)?.title_he);
   }
 
   // -- answers -------------------------------------------------------------------

@@ -24,3 +24,5 @@ export { DAY, LeitnerDeck } from "./srs";
 export type { Card, Clock } from "./srs";
 export { BattleQuizBudget, comboBonus, LetterTiles, NumberPad, OrderPicker, powerWithCombo, SubjectMap } from "./quiz_flow";
 export { isolateMath } from "./text";
+export { ideaHint, siblingExample } from "./worked_example";
+export type { WorkedExample } from "./worked_example";
