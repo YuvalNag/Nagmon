@@ -33,18 +33,18 @@ describe("quiz flow", () => {
 
   it("a monster can have its own subject", () => {
     const s = smap();
-    expect(s.subjectFor(["normal"], null, "scrollo")).toBe("hebrew");
-    expect(s.subjectFor(["fire"], { fire: "english" }, "megillon")).toBe("hebrew");
-    expect(s.subjectFor(["normal"], null, "alphabel")).toBe("english");
+    expect(s.subjectFor(["normal"], null, "ringlet")).toBe("hebrew");
+    expect(s.subjectFor(["fire"], { fire: "english" }, "saturnip")).toBe("hebrew");
+    expect(s.subjectFor(["normal"], null, "sailbit")).toBe("english");
     expect(s.subjectFor(["normal"])).toBe("english");
   });
 
   it("the parent choice comes first", () => {
     const s = smap();
-    const choice = { scrollo: "math", normal: "logic" };
-    expect(s.subjectFor(["normal"], choice, "scrollo")).toBe("math");
-    expect(s.subjectFor(["normal"], { normal: "logic" }, "scrollo")).toBe("hebrew");
-    expect(s.subjectFor(["normal"], choice, "alphabel")).toBe("logic");
+    const choice = { ringlet: "math", normal: "logic" };
+    expect(s.subjectFor(["normal"], choice, "ringlet")).toBe("math");
+    expect(s.subjectFor(["normal"], { normal: "logic" }, "ringlet")).toBe("hebrew");
+    expect(s.subjectFor(["normal"], choice, "lunibble")).toBe("logic");
   });
 
   it("subject titles and colors", () => {

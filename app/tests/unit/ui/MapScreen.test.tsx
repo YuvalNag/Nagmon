@@ -23,8 +23,8 @@ const tripDoc = {
   id: "solar",
   title_he: "מערכת השמש",
   zones: [
-    { id: "moon", title_he: "הירח", map: "space_moon", start: { x: 4, y: 9 }, cost: 10, monsters: ["agnite"] },
-    { id: "sun", title_he: "ליד השמש", map: "space_sun", unlock_level: 20, monsters: ["kroki"] },
+    { id: "moon", title_he: "הירח", map: "space_moon", start: { x: 4, y: 9 }, cost: 10, monsters: ["heliobud"] },
+    { id: "sun", title_he: "ליד השמש", map: "space_sun", unlock_level: 20, monsters: ["lunibble"] },
   ],
 };
 /** The game's data, with a trip file and one zone's map built (the other is "coming soon"). */
@@ -325,7 +325,7 @@ describe("the owl's intro", () => {
 });
 
 describe("a wild creature in the grass", () => {
-  const withPartner = { creatures: [{ id: "c1", species: "agnite", level: 6, xp: 0 }], seen: ["agnite"], caught: ["agnite"] };
+  const withPartner = { creatures: [{ id: "c1", species: "heliobud", level: 6, xp: 0 }], seen: ["heliobud"], caught: ["heliobud"] };
 
   async function grass() {
     localStorage.setItem("nagmon.encounter.always", "1");
@@ -406,7 +406,7 @@ describe("a wild creature in the grass", () => {
     expect(m.q("[data-screen=battle]")).toBeNull();
     await pendingWrites(m.fs);
     const world = await m.profiles.loadWorldDict(m.profile.id);
-    expect((world["creatures"] as { species: string; name?: string }[]).map((c) => c.species)).toEqual(["agnite", wildSpecies]);
+    expect((world["creatures"] as { species: string; name?: string }[]).map((c) => c.species)).toEqual(["heliobud", wildSpecies]);
     expect((world["creatures"] as { name?: string }[])[1]!.name).toBeUndefined();
     expect(world["caught"]).toContain(wildSpecies);
     expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
@@ -475,7 +475,7 @@ describe("a wild creature in the grass", () => {
 });
 
 describe("Mila's vehicle and the bestiary", () => {
-  const partner = { creatures: [{ id: "c1", species: "agnite", level: 6, xp: 0 }], seen: ["agnite"], caught: ["agnite"] };
+  const partner = { creatures: [{ id: "c1", species: "heliobud", level: 6, xp: 0 }], seen: ["heliobud"], caught: ["heliobud"] };
 
   it("with no trip file there is no vehicle in the menu, and the bestiary is there", async () => {
     const m = await start({ world: partner });
@@ -521,7 +521,7 @@ describe("Mila's vehicle and the bestiary", () => {
   });
 
   it("the Friends screen from the menu: the party, details, and choosing the partner (saved)", async () => {
-    const two = { creatures: [{ id: "c1", species: "agnite", level: 6, xp: 1, name: "אורי" }, { id: "c2", species: "kroki", level: 7, xp: 0, name: "נוגה" }], seen: ["agnite", "kroki"], caught: ["agnite", "kroki"] };
+    const two = { creatures: [{ id: "c1", species: "heliobud", level: 6, xp: 1, name: "אורי" }, { id: "c2", species: "lunibble", level: 7, xp: 0, name: "נוגה" }], seen: ["heliobud", "lunibble"], caught: ["heliobud", "lunibble"] };
     const m = await start({ world: two });
     await m.press("map_menu");
     await m.press("map_friends");
@@ -536,7 +536,7 @@ describe("Mila's vehicle and the bestiary", () => {
     await pendingWrites(m.fs);
     const world = await m.profiles.loadWorldDict(m.profile.id);
     expect((world["creatures"] as { id: string }[]).map((c) => c.id)).toEqual(["c2", "c1"]);
-    expect(m.logs).toContain("PARTNER species=kroki");
+    expect(m.logs).toContain("PARTNER species=lunibble");
   });
 
   it("the bestiary shows what was met by name and the rest as unknown", async () => {
@@ -544,10 +544,10 @@ describe("Mila's vehicle and the bestiary", () => {
     await m.press("map_menu");
     await m.press("map_bestiary");
     expect(m.el("bestiary_count")?.textContent).toMatch(/נתפסו 1/);
-    expect(m.container.querySelector('[data-species="agnite"]')?.textContent).toContain("אגנייט");
-    expect(m.container.querySelector('[data-species="kroki"]')?.className).toContain("unknown");
+    expect(m.container.querySelector('[data-species="heliobud"]')?.textContent).toContain("שמשון");
+    expect(m.container.querySelector('[data-species="lunibble"]')?.className).toContain("unknown");
     // by zone: the Route's header counts what was caught and seen
-    const zone = m.container.querySelector('[data-species="agnite"]')!.closest("[data-zone]") as HTMLElement;
+    const zone = m.container.querySelector('[data-species="heliobud"]')!.closest("[data-zone]") as HTMLElement;
     expect(zone.dataset.caught).toBe("1");
     expect(m.el(`zone_${zone.dataset.zone}`)?.textContent).toMatch(/נתפסו 1, נראו 1 מתוך/);
     expect(m.container.querySelectorAll("[data-zone]").length).toBeGreaterThan(1);

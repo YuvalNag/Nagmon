@@ -17,7 +17,7 @@ const subjects = SubjectMap.fromDoc(gameJson("content/subjects.json"));
 
 function make(over: { partner?: number; wild?: number; species?: string; world?: WorldState; master?: boolean } = {}) {
   const world = over.world ?? new WorldState();
-  if (!over.world) addCreature(world, "agnite", over.partner ?? 6);
+  if (!over.world) addCreature(world, "heliobud", over.partner ?? 6);
   const lines: string[] = [];
   let changes = 0;
   const t = { now: 0 };
@@ -26,7 +26,7 @@ function make(over: { partner?: number; wild?: number; species?: string; world?:
     world,
     monsters,
     subjects,
-    wild: { species: over.species ?? "kroki", level: over.wild ?? 6, table: "test" },
+    wild: { species: over.species ?? "lunibble", level: over.wild ?? 6, table: "test" },
     clock: () => (t.now += 1500),
     maxChoices: null,
     field: new FieldLog({ info: (m) => lines.push(m) }),
@@ -46,9 +46,9 @@ function play(b: Battle, right: boolean) {
 
 describe("a battle", () => {
   it("asks about the wild creature's subject: a science creature, a science question", () => {
-    const { battle } = make({ species: "kroki" });
+    const { battle } = make({ species: "lunibble" });
     const s = battle.next()!;
-    expect(subjects.subjectFor(monsters["kroki"]!.types, null, "kroki")).toBe("science");
+    expect(subjects.subjectFor(monsters["lunibble"]!.types, null, "lunibble")).toBe("science");
     expect(s.question!.subject).toBe("science");
   });
 
@@ -89,9 +89,9 @@ describe("a battle", () => {
     expect(battle.phase).toBe("calm");
     expect(r.calm).toBe(true);
     expect(battle.hp).toBe(0);
-    expect(world.creatures.map((c) => c.species)).toEqual(["agnite"]);
-    expect(world.seen.has("kroki")).toBe(true);
-    expect(world.caught.has("kroki")).toBe(false);
+    expect(world.creatures.map((c) => c.species)).toEqual(["heliobud"]);
+    expect(world.seen.has("lunibble")).toBe(true);
+    expect(world.caught.has("lunibble")).toBe(false);
     expect(battle.stats.questions).toBeLessThanOrEqual(8);
   });
 
@@ -133,8 +133,8 @@ describe("a battle", () => {
     play(battle, true);
     battle.run();
     expect(battle.phase).toBe("ran");
-    expect(world.seen.has("kroki")).toBe(true);
-    expect(world.caught.has("kroki")).toBe(false);
+    expect(world.seen.has("lunibble")).toBe(true);
+    expect(world.caught.has("lunibble")).toBe(false);
     expect(world.creatures).toHaveLength(1);
   });
 
@@ -144,7 +144,7 @@ describe("a battle", () => {
     play(battle, true);
     battle.run();
     expect(lines.filter((l) => l.startsWith("BATTLE"))).toEqual([
-      "BATTLE start monster=kroki level=6 map=classic_route_1",
+      "BATTLE start monster=lunibble level=6 map=classic_route_1",
       "BATTLE end result=ran questions=1 correct=1 ms=1500",
     ]);
   });
@@ -168,14 +168,14 @@ describe("a battle", () => {
 
   it("Friends: swapping the partner changes who answers and what the questions are about, and costs nothing", () => {
     const world = new WorldState();
-    addCreature(world, "agnite", 6);
-    addCreature(world, "kroki", 6);
-    const { battle, lines } = make({ world, species: "agnite" });
+    addCreature(world, "heliobud", 6);
+    addCreature(world, "lunibble", 6);
+    const { battle, lines } = make({ world, species: "heliobud" });
     const before = battle.next()!.question!.subject;
     expect(battle.swapPartner("c2")).toBe(true);
-    expect(battle.partner.species).toBe("kroki");
+    expect(battle.partner.species).toBe("lunibble");
     expect(world.creatures.map((c) => c.id)).toEqual(["c2", "c1"]);
-    expect(battle.next()!.question!.subject).toBe(subjects.subjectFor(monsters["kroki"]!.types, null, "kroki"));
+    expect(battle.next()!.question!.subject).toBe(subjects.subjectFor(monsters["lunibble"]!.types, null, "lunibble"));
     expect(typeof before).toBe("string");
     expect(battle.swapPartner("c2")).toBe(false);
     expect(lines.some((l) => l.startsWith("PARTNER "))).toBe(true);

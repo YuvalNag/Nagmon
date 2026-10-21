@@ -245,7 +245,7 @@ def test_credits_mark_every_upscaled_picture_as_adapted(built):
     out, _ = built
     doc = data(built, "credits.json")
     upscaled = [a for a in out.assets.values() if a.adapted]
-    assert len(upscaled) > 100
+    assert len(upscaled) > 30
     listed = {a["path"]: a for a in doc["assets"]}
     for asset in upscaled:
         k = int(asset.adapted.removeprefix("xBRZ x"))
@@ -358,5 +358,5 @@ def test_png_bytes_are_lossless(colours):
 
 def test_committed_pictures_are_stored_compactly():
     """A small upscaled sheet ships as a palette PNG."""
-    with Image.open(OUT / "sprites/animations/technique/bite.png") as im:
+    with Image.open(OUT / "sprites/animations/technique/starfall.png") as im:
         assert im.mode == "P"

@@ -32,7 +32,11 @@ def test_content_keeps_its_structure(built):
     assert math["subject"] == "math"
     assert math["skills"][0]["id"] == "math.count.objects_5"
     subjects = data(built, "content/subjects.json")["subjects"]
-    assert subjects["hebrew"]["monsters"] == ["scrollo", "megillon"]
+    assert subjects["hebrew"]["monsters"] == [
+        "ringlet",
+        "saturnip",
+        "ringwarden",
+    ]
     faq = data(built, "content/owl_faq.json")
     assert faq["fallback_he"] and len(faq["items"]) == 67
 
@@ -43,10 +47,14 @@ def test_he_and_en_catalogues_have_the_same_keys(built):
 
 def test_every_nagmon_msgid_is_in_both_catalogues(built):
     he, en = data(built, "i18n/he.json"), data(built, "i18n/en.json")
+    # the Hebrew names of Tuxemon's creatures stay in the file for the
+    # old game; the app does not ship them
+    skipped = i18n.tuxemon_creature_ids()
     for lang in ("he_IL", "en_US"):
         po = i18n.NAG / "l18n" / lang / "LC_MESSAGES" / "nagmon.po"
         for msgid in i18n.load_po(po):
-            assert msgid in he and msgid in en
+            if msgid not in skipped:
+                assert msgid in he and msgid in en
 
 
 def test_hebrew_catalogue_is_hebrew_for_the_nagmon_world(built):
@@ -58,7 +66,7 @@ def test_hebrew_catalogue_is_hebrew_for_the_nagmon_world(built):
 
 def test_only_a_subset_of_tuxemon_texts_ships(built):
     _, report = built
-    assert 700 <= report["i18n"]["from_base"] <= 1000
+    assert 400 <= report["i18n"]["from_base"] <= 700
     assert report["i18n"]["missing"] == []
 
 

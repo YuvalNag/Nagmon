@@ -395,25 +395,25 @@ msgstr ""
 msgid "nagmon_owl_intro_starter"
 msgstr ""
 "שלושה נגמונים קטנים מחכים לחבר.\n"
-"אגנייט הוא נגמון אש. הוא אוהב חשבון.\n"
-"רוקיטן הוא נגמון אדמה. הוא אוהב צורות.\n"
-"קרוקי הוא נגמון מים. הוא אוהב מדעים.\n"
+"שמשון הוא נגמון שמש. הוא אוהב חשבון.\n"
+"ארצון הוא נגמון אדמה. הוא אוהב צורות.\n"
+"סהרית היא נגמון ירח. היא אוהבת מדעים.\n"
 "מי יהיה החבר הראשון שלך?"
 
-msgid "nagmon_owl_picked_agnite"
+msgid "nagmon_owl_picked_heliobud"
 msgstr ""
-"אגנייט קופץ משמחה!\n"
+"שמשון קופץ משמחה!\n"
 "כשהוא תוקף, השאלות יהיו בחשבון."
 
-msgid "nagmon_owl_picked_rockitten"
+msgid "nagmon_owl_picked_terrabub"
 msgstr ""
-"רוקיטן מגרגר בשקט.\n"
+"ארצון מזמזם בשקט.\n"
 "כשהוא תוקף, השאלות יהיו על צורות."
 
-msgid "nagmon_owl_picked_kroki"
+msgid "nagmon_owl_picked_lunibble"
 msgstr ""
-"קרוקי מתיז קצת מים מרוב שמחה.\n"
-"כשהוא תוקף, השאלות יהיו במדעים."
+"סהרית זוהרת קצת משמחה.\n"
+"כשהיא תוקפת, השאלות יהיו במדעים."
 
 msgid "nagmon_owl_gifts"
 msgstr ""
@@ -873,116 +873,6 @@ msgstr "אין עדיין לוג לשליחה."
 
 msgid "nagmon_github_confirm_progress_one"
 msgstr "יישלח: ההתקדמות של ילד אחד, בלי שם, לריפו הנתונים הפרטי {repo}."
-
-# The first subject monsters (docs/kids/SDD_ART.md §2.3).
-msgid "geometrion"
-msgstr "גאומטריון"
-
-msgid "geometrion_description"
-msgstr "פירמידה קטנה שאוהבת פינות. סופרים את הצלעות שלה, והיא זוהרת."
-
-msgid "cat_pyramid"
-msgstr "פירמידה"
-
-msgid "polygonos"
-msgstr "פוליגונוס"
-
-msgid "polygonos_description"
-msgstr "הרבה צורות שאור מחזיק יחד. כל פאה היא מצולע אחר."
-
-msgid "cat_polyhedron"
-msgstr "גוף הנדסי"
-
-msgid "alphabel"
-msgstr "אלפבל"
-
-msgid "alphabel_description"
-msgstr "שועל עם אותיות בפרווה. הוא מכשכש בזנב על כל מילה חדשה."
-
-msgid "cat_letter_fox"
-msgstr "שועל אותיות"
-
-msgid "lexicon"
-msgstr "לקסיקון"
-
-msgid "lexicon_description"
-msgstr "אריה עם כנפיים ומילים ברעמה. יש לו מילה לכל דבר."
-
-msgid "cat_word_lion"
-msgstr "אריה מילים"
-
-# Eight more subject monsters (docs/kids/SDD_ART.md §2.10).
-msgid "pluson"
-msgstr "פלוסון"
-
-msgid "pluson_description"
-msgstr "פלוס קטן עם ניצוץ בזנב. הוא אוהב לחבר דברים."
-
-msgid "cat_plus_spark"
-msgstr "ניצוץ פלוס"
-
-msgid "multivolt"
-msgstr "מולטיוולט"
-
-msgid "multivolt_description"
-msgstr "זנב הברק שלו גדל עם כל תרגיל שפתר."
-
-msgid "cat_volt_plus"
-msgstr "פלוס ברקים"
-
-msgid "flaskling"
-msgstr "מבחנון"
-
-msgid "flaskling_description"
-msgstr "צנצנת עם נבט למעלה. כשהיא סקרנית, עולות בה בועות."
-
-msgid "cat_leaf_flask"
-msgstr "צנצנת עלים"
-
-msgid "botanikos"
-msgstr "בוטניקוס"
-
-msgid "botanikos_description"
-msgstr "גן שלם צומח בזכוכית שלו. הוא מתבונן איך דברים משתנים."
-
-msgid "cat_garden_flask"
-msgstr "צנצנת גן"
-
-msgid "puzzlet"
-msgstr "פאזלון"
-
-msgid "puzzlet_description"
-msgstr "חלק פאזל עם עין סקרנית אחת. הוא מחפש את החלק שמתאים."
-
-msgid "cat_puzzle_piece"
-msgstr "חלק פאזל"
-
-msgid "enigmon"
-msgstr "אניגמון"
-
-msgid "enigmon_description"
-msgstr "הוא פותר חידות לאט ובזהירות, צעד אחר צעד."
-
-msgid "cat_riddle_puzzle"
-msgstr "פאזל חידות"
-
-msgid "scrollo"
-msgstr "גלילון"
-
-msgid "scrollo_description"
-msgstr "מגילה קטנה שאוהבת אותיות. היא קוראת כל שלט שהיא עוברת."
-
-msgid "cat_little_scroll"
-msgstr "מגילה קטנה"
-
-msgid "megillon"
-msgstr "מגילון"
-
-msgid "megillon_description"
-msgstr "מגילה כפולה מלאה סיפורים. היא מספרת אותם בעזרת הסרטים שלה."
-
-msgid "cat_great_scroll"
-msgstr "מגילה גדולה"
 
 # A gentler name for a technique the new logic monsters learn
 # (docs/kids/SDD_ART.md §2.10).

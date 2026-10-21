@@ -26,13 +26,13 @@ describe("the field log", () => {
 
   it("logs battles, purchases, dialogs and the placement", () => {
     const { log, lines } = make();
-    log.battleStart({ monster: "agnite", level: 5, map: "route_1" });
+    log.battleStart({ monster: "heliobud", level: 5, map: "route_1" });
     log.battleEnd({ result: "won", questions: 4, correct: 3, ms: 61000 });
     log.dialogEnd("x", 1500);
     log.purchase({ what: "trip:moon", price: 15, coins: 5 });
     log.placement({ math: 3, english: 1 });
     expect(lines).toEqual([
-      "BATTLE start monster=agnite level=5 map=route_1",
+      "BATTLE start monster=heliobud level=5 map=route_1",
       "BATTLE end result=won questions=4 correct=3 ms=61000",
       "DIALOG end id=x ms=1500",
       "BUY what=trip:moon price=15 coins_left=5",
@@ -43,16 +43,16 @@ describe("the field log", () => {
   it("writes an item use, a capture try, a helper and a partner change as one short line each", () => {
     const { log, lines } = make();
     log.item({ item: "berry", where: "bag", ok: true });
-    log.capture({ species: "kroki", net: "magic_net", ok: false, left: 2, tries: 1 });
+    log.capture({ species: "lunibble", net: "magic_net", ok: false, left: 2, tries: 1 });
     log.helper({ kind: "fifty", skill: "math.add_20" });
-    log.note("partner", { species: "kroki" });
-    log.note("catch", { species: "kroki", level: 6, party: 1 });
+    log.note("partner", { species: "lunibble" });
+    log.note("catch", { species: "lunibble", level: 6, party: 1 });
     expect(lines).toEqual([
       "ITEM use item=berry where=bag ok=1",
-      "CAPTURE try species=kroki net=magic_net ok=0 left=2 tries=1",
+      "CAPTURE try species=lunibble net=magic_net ok=0 left=2 tries=1",
       "HELPER use kind=fifty skill=math.add_20",
-      "PARTNER species=kroki",
-      "CATCH species=kroki level=6 party=1",
+      "PARTNER species=lunibble",
+      "CATCH species=lunibble level=6 party=1",
     ]);
   });
 

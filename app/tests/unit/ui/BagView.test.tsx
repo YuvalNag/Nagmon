@@ -13,7 +13,7 @@ afterEach(cleanup);
 
 function setup(items: Record<string, number>, battle?: BagBattle) {
   const world = new WorldState();
-  addCreature(world, "agnite", 4);
+  addCreature(world, "heliobud", 4);
   const eco = economy(gameJson("economy.json"));
   for (const [id, n] of Object.entries(items)) give(world, eco, id, n);
   world.variables.set("nagmon_kit", "yes");

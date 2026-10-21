@@ -18,13 +18,6 @@ MODS = ROOT / "mods"
 NAGMON = MODS / "nagmon"
 TUXEMON = MODS / "tuxemon"
 
-#: Base form, evolution, subject (mods/nagmon/learning/subjects.yaml).
-FAMILIES = (
-    ("geometrion", "polygonos", "geometry"),
-    ("alphabel", "lexicon", "english"),
-)
-NEW_MONSTERS = [m for base, evo, _ in FAMILIES for m in (base, evo)]
-
 #: NPC slug -> its new combat sheet, and its map sheet (SDD_ART §2.7,
 #: §2.9).
 NPC_SHEETS = {
@@ -69,54 +62,7 @@ def po(locale: str) -> dict[str, str]:
 # ------------------------------------------------------------- monsters
 
 
-@pytest.mark.parametrize("slug", NEW_MONSTERS)
-def test_new_monster_loads_with_its_sheet(moddata, slug):
-    monster = moddata.database["monster"][slug]
-    assert monster.sprites.sheet == f"gfx/sprites/battle/{slug}-sheet"
-    sheet = NAGMON / "gfx" / "sprites" / "battle" / f"{slug}-sheet.png"
-    with Image.open(sheet) as img:
-        assert img.size == (384, 264)  # HD: 3 x 128x88
-
-
-@pytest.mark.parametrize(("base", "evo", "subject"), FAMILIES)
-def test_families_evolve_and_practise_their_subject(
-    moddata, base, evo, subject
-):
-    db = moddata.database
-    first, second = db["monster"][base], db["monster"][evo]
-    assert [(e.monster_slug, e.at_level) for e in first.evolutions] == [
-        (evo, 16)
-    ]
-    assert str(first.stage.value) == "basic"
-    assert str(second.stage.value) == "stage1"
-    subjects = yaml.safe_load((NAGMON / "learning/subjects.yaml").read_text())
-    elements = set(subjects["subjects"][subject]["elements"])
-    for monster in (first, second):
-        assert set(monster.types) <= elements, monster.slug
-        for move in monster.moveset:
-            assert move.technique in db["technique"], move.technique
-        # Most of what it learns asks about its own subject.
-        own = [
-            m
-            for m in monster.moveset
-            if set(db["technique"][m.technique].types) & elements
-        ]
-        assert len(own) >= len(monster.moveset) // 2, monster.slug
-
-
-@pytest.mark.parametrize("slug", NEW_MONSTERS)
-def test_new_monster_strings_in_both_languages(moddata, slug):
-    species = moddata.database["monster"][slug].species
-    for locale in ("en_US", "he_IL"):
-        for key in (slug, f"{slug}_description", f"cat_{species}"):
-            assert po(locale).get(key), f"{locale}: {key}"
-    # A Hebrew name in Hebrew, the English one in English
-    # (docs/kids/SDD_ANDROID.md §2.7; it was English in both).
-    assert po("he_IL")[slug] != po("en_US")[slug]
-    assert po("en_US")[slug].isascii()
-
-
-def test_route_1_meets_the_new_monsters_and_keeps_the_old(moddata):
+def test_route_1_meets_only_the_trip_animals(moddata):
     original = yaml.safe_load(
         (TUXEMON / "db/encounter/spyder_citypark.yaml").read_text()
     )
@@ -124,9 +70,9 @@ def test_route_1_meets_the_new_monsters_and_keeps_the_old(moddata):
         m.monster
         for m in moddata.database["encounter"]["nagmon_route1"].monsters
     ]
-    for entry in original["monsters"]:
-        assert entry["monster"] in ours
-    assert {"geometrion", "alphabel"} <= set(ours)
+    own = {p.stem for p in (NAGMON / "db/monster").glob("*.yaml")}
+    assert set(ours) <= own
+    assert not {e["monster"] for e in original["monsters"]} & set(ours)
     # The table the Spyder maps share stays Tuxemon's.
     shared = moddata.database["encounter"]["spyder_citypark"].monsters
     assert [m.monster for m in shared] == [
@@ -407,14 +353,6 @@ BATCH3_NPCS = [
     ("nagmon_route1_trainer", "nagmon_mailcarrier"),
 ]
 
-#: Base form, evolution, subject.
-BATCH3_FAMILIES = (
-    ("pluson", "multivolt", "math"),
-    ("flaskling", "botanikos", "science"),
-    ("puzzlet", "enigmon", "logic"),
-    ("scrollo", "megillon", "hebrew"),
-)
-
 
 @pytest.mark.parametrize(("slug", "name"), BATCH3_NPCS)
 def test_batch3_npcs_wear_their_sheets(moddata, slug, name):
@@ -452,100 +390,3 @@ def test_girl_curly_is_a_third_hero():
         NAGMON / "gfx/sprites/player/nagmon_hero_curly.png"
     ) as img:
         assert img.size == (384, 384)
-
-
-@pytest.mark.parametrize(("base", "evo", "subject"), BATCH3_FAMILIES)
-def test_batch3_monsters(moddata, base, evo, subject):
-    from nagmon.quiz_flow import SubjectMap
-
-    db = moddata.database
-    smap = SubjectMap.load(NAGMON / "learning/subjects.yaml")
-    first, second = db["monster"][base], db["monster"][evo]
-    assert [(e.monster_slug, e.at_level) for e in first.evolutions] == [
-        (evo, 16)
-    ]
-    for monster in (first, second):
-        sheet = NAGMON / "gfx/sprites/battle" / f"{monster.slug}-sheet.png"
-        with Image.open(sheet) as img:
-            assert img.size == (384, 264)
-        own = 0
-        for move in monster.moveset:
-            assert move.technique in db["technique"], move.technique
-            types = list(db["technique"][move.technique].types)
-            own += smap.subject_for(types, monster=monster.slug) == subject
-        # Everything but the shared fallback (struggle) asks its subject.
-        assert own >= len(monster.moveset) - 1, monster.slug
-        species = monster.species
-        for locale in ("en_US", "he_IL"):
-            for key in (monster.slug, f"{monster.slug}_description"):
-                assert po(locale).get(key), f"{locale}: {key}"
-            assert po(locale).get(f"cat_{species}"), f"{locale}: {species}"
-
-
-def test_route_1_also_meets_pluson_and_flaskling(moddata):
-    table = moddata.database["encounter"]["nagmon_route1"].monsters
-    rates = {m.monster: m.encounter_rate for m in table}
-    assert rates["pluson"] == rates["flaskling"] == 1
-    assert rates["geometrion"] == rates["alphabel"] == 2
-
-
-# ------------------------------------- review: words fit for children
-
-
-def _base_po(locale: str) -> dict[str, str]:
-    from babel.messages.pofile import read_po
-
-    path = TUXEMON / "l18n" / locale / "LC_MESSAGES" / "base.po"
-    with path.open("rb") as fh:
-        return {m.id: m.string for m in read_po(fh) if m.id}
-
-
-NOT_FOR_CHILDREN = {
-    "en_US": (
-        "strangul",
-        "undertaker",
-        "curse",
-        "mob",
-        "stab",
-        "bullet",
-        "flamethrower",
-        "kill",
-        "blood",
-        "death",
-        "wicked",
-        "murder",
-        "choke",
-        "poison",
-        "gun",
-        "cross",
-    ),
-    "he_IL": ("חנק", "קבר", "קללה", "מוות", "הרג", "דם", "לפיתה", "צלב"),
-}
-
-
-def test_the_new_monsters_and_their_moves_use_gentle_words(moddata):
-    slugs = [m for fam in BATCH3_FAMILIES for m in fam[:2]] + NEW_MONSTERS
-    bad = []
-    for locale, words in NOT_FOR_CHILDREN.items():
-        base = _base_po(locale)
-        for slug in slugs:
-            monster = moddata.database["monster"][slug]
-            keys = [slug, f"{slug}_description", f"cat_{monster.species}"]
-            keys += [m.technique for m in monster.moveset]
-            for key in keys:
-                text = (po(locale).get(key) or base.get(key) or "").lower()
-                bad += [
-                    f"{locale} {slug}: {key}={text}"
-                    for w in words
-                    if w in text
-                ]
-    assert not bad, bad
-
-
-def test_multivolt_is_a_volt_plus(moddata):
-    # Not a "cross": a plus sign, the family's own words.
-    assert moddata.database["monster"]["multivolt"].species == "volt_plus"
-    assert po("en_US")["cat_volt_plus"] == "Volt Plus"
-    assert po("he_IL")["cat_volt_plus"] == "פלוס ברקים"
-    for locale in ("en_US", "he_IL"):
-        assert "cat_volt_cross" not in po(locale)

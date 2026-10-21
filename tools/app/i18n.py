@@ -6,7 +6,8 @@ with Nagmon's ``nagmon`` domain as an extra domain): ``nagmon`` in the
 locale, ``base`` in the locale, then the same two in ``en_US``. Fuzzy
 and empty entries are skipped, as when the ``.mo`` files are compiled.
 
-All of ``nagmon.po`` is shipped. Of Tuxemon's 5.4k ``base`` msgids only
+All of ``nagmon.po`` is shipped, except the names of Tuxemon's
+creatures (no creature of Tuxemon is in the app). Of Tuxemon's 5.4k ``base`` msgids only
 the ones the Nagmon world can show (docs/app/INVENTORY.md §5):
 
 * every msgid the converted maps, NPCs and database refer to;
@@ -147,10 +148,37 @@ def engine_ids(known: set[str]) -> set[str]:
     return found & known
 
 
+def tuxemon_creature_ids() -> set[str]:
+    """
+    The msgids of Tuxemon's creatures (name, description, category) that
+    no creature of the app uses. ``nagmon.po`` still holds their Hebrew
+    names for the old game; the app does not ship them.
+    """
+    from tools.app.content import read_yaml
+
+    def species(folder: Path) -> dict[str, str | None]:
+        return {
+            p.stem: (read_yaml(p) or {}).get("species")
+            for p in sorted(folder.glob("*.yaml"))
+        }
+
+    ours = species(NAG / "db" / "monster")
+    ours_species = {v for v in ours.values() if v}
+    ids: set[str] = set()
+    for slug, kind in species(TUX / "db" / "monster").items():
+        if slug in ours:
+            continue
+        ids |= {slug, f"{slug}_description"}
+        if kind and kind not in ours_species:
+            ids.add(f"cat_{kind}")
+    return ids
+
+
 def build(out: Output, used: Iterable[str]) -> dict[str, Any]:
     cats = catalogs()
     base_ids = set(cats["base"]["en"]) | set(cats["base"]["he"])
     nagmon_ids = set(cats["nagmon"]["en"]) | set(cats["nagmon"]["he"])
+    nagmon_ids -= tuxemon_creature_ids()
     used = set(used)
     wanted = set(nagmon_ids)
     wanted |= {

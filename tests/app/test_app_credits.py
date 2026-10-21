@@ -135,10 +135,6 @@ def test_attribution_entries_are_split_with_authors_and_licences():
 def test_adapted_art_says_how_in_its_own_field(built):
     doc = data(built, "credits.json")
     by_path = {a["path"]: a for a in doc["assets"]}
-    # a Tuxemon monster with a real licence: the field and the suffix
-    agnite = by_path["sprites/monsters/agnite-sheet.png"]
-    assert agnite["adapted"] == "xBRZ x3"
-    assert agnite["licence"].endswith(", adapted (xBRZ x3)")
     # owner art has no licence yet: nothing to adapt in it
     wallet = by_path["sprites/objects/nagmon_wallet.png"]
     assert wallet["adapted"] == "xBRZ x4"

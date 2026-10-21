@@ -20,7 +20,7 @@ const eco = economy(gameJson("economy.json"));
 /** A battle whose creature is already calm. */
 function calm(over: { species?: string; world?: WorldState; nets?: Record<string, number> } = {}) {
   const world = over.world ?? new WorldState();
-  if (!over.world) addCreature(world, "agnite", 6);
+  if (!over.world) addCreature(world, "heliobud", 6);
   for (const [id, n] of Object.entries(over.nets ?? { magic_net: 2 })) give(world, eco, id, n);
   const lines: string[] = [];
   const t = { now: 0 };
@@ -29,7 +29,7 @@ function calm(over: { species?: string; world?: WorldState; nets?: Record<string
     world,
     monsters,
     subjects,
-    wild: { species: over.species ?? "kroki", level: 6, table: "test" },
+    wild: { species: over.species ?? "lunibble", level: 6, table: "test" },
     clock: () => (t.now += 1500),
     maxChoices: null,
     field: new FieldLog({ info: (m) => lines.push(m) }),
@@ -44,9 +44,9 @@ function calm(over: { species?: string; world?: WorldState; nets?: Record<string
 describe("capture: calm, the net, a seal question, a friend", () => {
   it("a net cannot be thrown before the creature is calm, or with none in the Bag", () => {
     const world = new WorldState();
-    addCreature(world, "agnite", 6);
+    addCreature(world, "heliobud", 6);
     give(world, eco, "magic_net", 1);
-    const fresh = new Battle({ engine: engineFor(content, 3, 5), world, monsters, subjects, wild: { species: "kroki", level: 6, table: "t" }, clock: () => 0, maxChoices: null, field: new FieldLog({ info: () => {} }), onChange: () => {} });
+    const fresh = new Battle({ engine: engineFor(content, 3, 5), world, monsters, subjects, wild: { species: "lunibble", level: 6, table: "t" }, clock: () => 0, maxChoices: null, field: new FieldLog({ info: () => {} }), onChange: () => {} });
     expect(fresh.throwNet(eco, "magic_net")).toBeNull();
     const { battle } = calm({ nets: {} });
     expect(battle.throwNet(eco, "magic_net")).toBeNull();
@@ -63,9 +63,9 @@ describe("capture: calm, the net, a seal question, a friend", () => {
     answerRight(seal);
     expect(battle.lastSeal).toMatchObject({ correct: true, left: 0, toMeadow: false, full: false, coins: eco.sealCoins });
     expect(battle.phase).toBe("caught");
-    expect(world.creatures.map((c) => c.species)).toEqual(["agnite", "kroki"]);
+    expect(world.creatures.map((c) => c.species)).toEqual(["heliobud", "lunibble"]);
     expect(world.creatures[1]!.level).toBe(6);
-    expect(world.caught.has("kroki")).toBe(true);
+    expect(world.caught.has("lunibble")).toBe(true);
     expect(countOf(world, "magic_net")).toBe(1);
     expect(world.money).toBe(money + eco.sealCoins);
   });
@@ -117,7 +117,7 @@ describe("capture: calm, the net, a seal question, a friend", () => {
 
   it("the fifth friend waits in the Meadow, not the party of four", () => {
     const world = new WorldState();
-    for (let i = 0; i < PARTY_SIZE; i++) addCreature(world, "agnite", 5);
+    for (let i = 0; i < PARTY_SIZE; i++) addCreature(world, "heliobud", 5);
     const { battle } = calm({ world });
     battle.throwNet(eco, "magic_net");
     answerRight(battle.nextSeal(eco)!);
@@ -127,13 +127,13 @@ describe("capture: calm, the net, a seal question, a friend", () => {
 
   it("with the friend count full it is in the Book but does not join, and the net is kept", () => {
     const world = new WorldState();
-    for (let i = 0; i < MAX_CREATURES; i++) addCreature(world, "agnite", 5);
+    for (let i = 0; i < MAX_CREATURES; i++) addCreature(world, "heliobud", 5);
     const { battle } = calm({ world });
     battle.throwNet(eco, "magic_net");
     answerRight(battle.nextSeal(eco)!);
     expect(battle.lastSeal).toMatchObject({ full: true, caught: null });
     expect(world.creatures).toHaveLength(MAX_CREATURES);
-    expect(world.caught.has("kroki")).toBe(true);
+    expect(world.caught.has("lunibble")).toBe(true);
     expect(countOf(world, "magic_net")).toBe(2);
   });
 
@@ -176,19 +176,19 @@ describe("capture: calm, the net, a seal question, a friend", () => {
     battle.nameIt(world.creatures[1]!.id, "נוגה");
     expect(lines.filter((l) => /^(ITEM|CAPTURE|CATCH)/.test(l))).toEqual([
       "ITEM use item=magic_net where=battle ok=1",
-      "CAPTURE try species=kroki net=magic_net ok=0 left=1 tries=1",
-      "CAPTURE try species=kroki net=magic_net ok=1 left=0 tries=2",
-      "CATCH species=kroki level=6 party=1",
+      "CAPTURE try species=lunibble net=magic_net ok=0 left=1 tries=1",
+      "CAPTURE try species=lunibble net=magic_net ok=1 left=0 tries=2",
+      "CATCH species=lunibble level=6 party=1",
     ]);
     expect(lines.join("\n")).not.toContain("נוגה");
   });
 
   it("a growth tonic doubles the partner's growth for its five right answers", () => {
     const world = new WorldState();
-    const c = addCreature(world, "agnite", 6);
+    const c = addCreature(world, "heliobud", 6);
     world.variables.set("nagmon_growth_boost", "5");
     const t = { now: 0 };
-    const battle = new Battle({ engine: engineFor(content, 3, 5), world, monsters, subjects, wild: { species: "kroki", level: 6, table: "t" }, clock: () => (t.now += 20000), maxChoices: null, field: new FieldLog({ info: () => {} }), onChange: () => {} });
+    const battle = new Battle({ engine: engineFor(content, 3, 5), world, monsters, subjects, wild: { species: "lunibble", level: 6, table: "t" }, clock: () => (t.now += 20000), maxChoices: null, field: new FieldLog({ info: () => {} }), onChange: () => {} });
     answerRight(battle.next()!);
     expect(c.xp).toBe(2);
     expect(world.variables.get("nagmon_growth_boost")).toBe("4");

@@ -105,7 +105,7 @@ def _po_names(locale: str) -> dict[str, str]:
 
 def test_the_monsters_a_child_meets_are_found():
     met = met_in_nagmon()
-    assert {"geometrion", "agnite", "rockitten", "kroki", "agnigon"} <= met
+    assert {"lunibble", "heliobud", "terrabub", "mercurip", "marskip"} <= met
     assert all(_monster_file(slug) for slug in met), "a slug with no monster"
     assert len(met) >= 40
 

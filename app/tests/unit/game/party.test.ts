@@ -15,7 +15,7 @@ const subjects = SubjectMap.fromDoc(gameJson("content/subjects.json"));
 
 function world(n: number) {
   const w = new WorldState();
-  for (let i = 0; i < n; i++) addCreature(w, i % 2 ? "kroki" : "agnite", 5 + i);
+  for (let i = 0; i < n; i++) addCreature(w, i % 2 ? "lunibble" : "heliobud", 5 + i);
   return w;
 }
 
@@ -50,7 +50,7 @@ describe("what a friend is good at, and its details", () => {
     w.creatures[1]!.hearts = 3;
     w.creatures[1]!.xp = 2;
     const d = details(w.creatures[1]!, monsters, subjects);
-    expect(d.subject).toBe(subjects.subjectFor(monsters["kroki"]!.types, null, "kroki"));
+    expect(d.subject).toBe(subjects.subjectFor(monsters["lunibble"]!.types, null, "lunibble"));
     expect(d).toMatchObject({ level: 6, xp: 2, need: 6, hearts: 3, name: "נוגה" });
     expect(details(w.creatures[0]!, monsters, subjects).name).toBeNull();
   });
@@ -71,7 +71,8 @@ describe("the bestiary by zone", () => {
     const moon = zones.find((z) => z.id === "solar/moon")!;
     expect(moon.species).toEqual(expect.arrayContaining(["lunibble", "terrabub"]));
     expect(moon).toMatchObject({ seen: 2, caught: 1 });
-    expect(zones.find((z) => z.id === "nagmon_route1")!.title).toBe("דרך 1");
+    // Route 1 meets only the trip's animals, already listed in their zones: no zone of its own
+    expect(zones.find((z) => z.id === "nagmon_route1")).toBeUndefined();
     // every creature with a picture is in exactly one zone
     const all = zones.flatMap((z) => z.species);
     expect(new Set(all).size).toBe(all.length);
