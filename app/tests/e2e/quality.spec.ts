@@ -92,6 +92,8 @@ async function buttons(page: Page): Promise<{ small: string[]; covered: string[]
 /** One screen, checked: what is wrong, by kind. */
 async function audit(page: Page, label: string, shot: (name: string) => Promise<unknown>) {
   await page.evaluate(() => document.fonts.ready);
+  // an arrival (the cards rise, the enemy slides in) is a finite animation: axe measures the colours once it has landed
+  await page.evaluate(() => Promise.all(document.getAnimations().filter((a) => a.effect?.getComputedTiming().iterations !== Infinity).map((a) => a.finished.catch(() => null))));
   await shot(label);
   await fitsAndSharp(page);
   const axe = await new AxeBuilder({ page })

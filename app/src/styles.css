@@ -986,7 +986,7 @@ button.quiz-choice {
 .battle-name {
   font-weight: 700;
   font-size: calc(var(--text) * 0.8);
-  line-height: 1.2;
+  line-height: 1.3;
   overflow-wrap: anywhere;
 }
 
@@ -1212,7 +1212,7 @@ button.quiz-choice {
   background: #fff;
   box-shadow: 0 3px 0 rgba(23, 50, 58, 0.35);
   font-size: calc(var(--text) * 1.1);
-  line-height: 1.15;
+  line-height: 1.3;
   overflow-wrap: anywhere;
 }
 
@@ -1408,7 +1408,7 @@ button.quiz-choice {
 
 .owl-line {
   font-size: calc(var(--text) * 0.7);
-  line-height: 1.15;
+  line-height: 1.3;
   font-weight: 600;
 }
 
@@ -1898,7 +1898,7 @@ button.quiz-choice {
 .move-card .move-name {
   font-size: calc(var(--text) * 0.62);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.25;
   overflow-wrap: anywhere;
 }
 
@@ -1907,7 +1907,7 @@ button.quiz-choice {
   align-items: center;
   gap: 6px;
   font-size: calc(var(--text) * 0.5);
-  line-height: 1;
+  line-height: 1.25;
 }
 
 .move-card .dots {
@@ -2024,7 +2024,7 @@ button.quiz-choice {
 
 .intent .intent-icon {
   font-size: calc(var(--text) * 0.8);
-  line-height: 1.2;
+  line-height: 1.4;
 }
 
 .cast-chip {
@@ -2118,6 +2118,7 @@ button.quiz-choice {
 
 /* the results card (in the message box once the creature is calm) */
 .results {
+  line-height: 1.35;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3296,7 +3297,7 @@ button.zone {
 /* the results card in the message box stays small, so it never reaches the creature */
 .message-box.top .results {
   font-size: 0.8em;
-  line-height: 1.15;
+  line-height: 1.35;
 }
 
 /* the cashier's worked example (a figure, an idea, the steps, the answer and the button) fits the phone at 130% text */
