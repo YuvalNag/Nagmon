@@ -1,6 +1,10 @@
 import { type RefObject, useCallback, useEffect, useRef, useState } from "react";
 import type { Services } from "../../../app/services";
 import { effectsFrom, withEffects } from "../../../core/family/effects";
+import { learningFrom, type LearningPatch, withLearning } from "../../../core/family/learningSettings";
+import type { ContentLibrary } from "../../../core/learning";
+import { buildChildReport, type ChildReport } from "../../../core/learning/parentReport";
+import { localDay, WorldState } from "../../../core/world/worldState";
 import { AVATARS, avatarImage } from "../../../core/family/avatars";
 import { GRADE_NAMES_HE } from "../../../core/family/gradeDefaults";
 import { PinError, PinLockedError } from "../../../core/family/parent";
@@ -20,6 +24,8 @@ import { Notice } from "../Notice";
 import { ChildPage } from "./ChildPage";
 import { ChildrenList } from "./ChildrenList";
 import { Confirm } from "./Confirm";
+import { CoinsPage, LearningPage, StartGradePage, SubjectsPage } from "./LearningPages";
+import { ReportPage } from "./ReportPage";
 import { GitHubPage } from "./GitHubPage";
 import { PARENTS_HOME, type ParentsPage, githubMessage, parentsBackStep, samePage } from "./pages";
 import { ParentsHome } from "./ParentsHome";
@@ -55,14 +61,18 @@ interface Props {
   /** The children changed (a name, a grade, a hero, a delete): who-plays shows them so. */
   onChildren: (list: Profile[]) => void;
   workTimeoutMs?: number;
+  /** The learning content, for the report and the subjects (loaded on first need; the app's own loader by default). */
+  loadContent?: () => Promise<ContentLibrary>;
 }
+
+const loadAppContent = async () => (await import("../../../app/play")).loadLibrary();
 
 /**
  * The parents' area, after the code: the children, the code itself, and
  * sending data to the developer. Each page is a screen of its own (a
  * fresh ScreenTime), and Android's back goes one page back.
  */
-export function ParentsArea({ services, backRef, onExit, onChildren, workTimeoutMs = PARENTS_WORK_MS }: Props) {
+export function ParentsArea({ services, backRef, onExit, onChildren, workTimeoutMs = PARENTS_WORK_MS, loadContent = loadAppContent }: Props) {
   const { profiles, parent, fieldData } = services;
   const [shown, setShown] = useState<{ page: ParentsPage; n: number }>({ page: PARENTS_HOME, n: 0 });
   const current = useRef<ParentsPage>(PARENTS_HOME);
@@ -74,6 +84,10 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
   const job = useRef(0);
   const [gh, setGh] = useState<GhState>({ masked: undefined, check: null, activity: fieldData.sending ? "sending" : "idle" });
   const page = shown.page;
+  // the learning content (once), the subjects it has, and the report being read
+  const contentRef = useRef<Promise<ContentLibrary> | null>(null);
+  const [subjects, setSubjects] = useState<string[]>([]);
+  const [childReport, setChildReport] = useState<{ id: string; data: ChildReport } | null>(null);
 
   const go = useCallback((p: ParentsPage) => {
     const same = samePage(current.current, p);
@@ -178,7 +192,7 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
   const childOf = (id: string) => children?.find((c) => c.id === id) ?? null;
 
   /** Saves a changed child (atomically, through the store) and shows them. */
-  function saveChild(id: string, change: (p: Profile) => void, failed: ParentsPage, taken?: ParentsPage) {
+  function saveChild(id: string, change: (p: Profile) => void, failed: ParentsPage, taken?: ParentsPage, next?: ParentsPage) {
     void work(
       "save the child",
       async () => {
@@ -193,10 +207,61 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
           throw e;
         }
         await readChildren();
-        return { kind: "child", id, message: t("childSaved") };
+        return next ?? { kind: "child", id, message: t("childSaved") };
       },
       failed,
     );
+  }
+
+  /** The learning content, read once; a failed read is tried again next time. */
+  function content(): Promise<ContentLibrary> {
+    if (!contentRef.current) {
+      const read = loadContent();
+      contentRef.current = read;
+      read.catch(() => {
+        if (contentRef.current === read) contentRef.current = null;
+      });
+    }
+    return contentRef.current;
+  }
+
+  /** "דוח למידה": reads the child's learner, world and the content, builds the report (read only). */
+  function openReport(id: string) {
+    void work(
+      "build the learning report",
+      async () => {
+        const [lib, child, learnerDict, worldDict, play] = await Promise.all([
+          content(),
+          profiles.get(id),
+          profiles.loadLearnerDict(id),
+          profiles.loadWorldDict(id),
+          import("../../../app/play"),
+        ]);
+        const learner = play.learnerFor(child, learnerDict, new Date());
+        const world = WorldState.fromDict(worldDict);
+        const data = buildChildReport({ learner, content: lib, now: Date.now() / 1000, world, localDay: (ts) => localDay(new Date(ts * 1000)) });
+        setChildReport({ id, data });
+        return { kind: "child-report", id };
+      },
+      { kind: "notice", text: t("dashFailed"), next: { kind: "child", id } },
+    );
+  }
+
+  /** "הגדרות למידה": the subjects the content has, then the page. */
+  function openLearning(id: string) {
+    void work(
+      "read the learning content",
+      async () => {
+        setSubjects((await content()).subjects());
+        return { kind: "learning", id };
+      },
+      { kind: "notice", text: t("errorTryAgain"), next: { kind: "child", id } },
+    );
+  }
+
+  /** One learning switch changed: saved, and the same page shown again. */
+  function saveLearning(p: ParentsPage & { id: string }, patch: LearningPatch) {
+    saveChild(p.id, (c) => (c.settings = withLearning(c.settings, patch, subjects)), { kind: "notice", text: t("errorTryAgain"), next: p }, undefined, p);
   }
 
   function gotName(p: Extract<ParentsPage, { kind: "child-name" }>, text: string) {
@@ -494,9 +559,28 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
             effects={effectsFrom(child.settings)}
             onEffects={(patch) => saveChild(child.id, (c) => (c.settings = withEffects(c.settings, patch)), { kind: "notice", text: t("errorTryAgain"), next: { kind: "child", id: child.id } })}
             onDelete={() => go({ kind: "child-delete", id: child.id, name: child.name })}
+            onReport={() => openReport(child.id)}
+            onLearning={() => openLearning(child.id)}
             onBack={back}
           />
         );
+      }
+      case "child-report": {
+        const child = childOf(p.id);
+        if (!child || childReport?.id !== p.id) return <main className="screen" data-screen="parents-report" aria-busy="true" />;
+        return <ReportPage report={childReport.data} name={child.name} onBack={back} />;
+      }
+      case "learning":
+      case "learning-subjects":
+      case "learning-start":
+      case "learning-coins": {
+        const child = childOf(p.id);
+        if (!child) return <main className="screen" data-screen="parents-learning" aria-busy="true" />;
+        const common = { settings: learningFrom(child.settings, child.grade), grade: child.grade, subjects, busy, onPatch: (patch: LearningPatch) => saveLearning(p, patch), onBack: back };
+        if (p.kind === "learning-subjects") return <SubjectsPage {...common} />;
+        if (p.kind === "learning-start") return <StartGradePage {...common} />;
+        if (p.kind === "learning-coins") return <CoinsPage {...common} />;
+        return <LearningPage {...common} onSubjects={() => go({ kind: "learning-subjects", id: p.id })} onStart={() => go({ kind: "learning-start", id: p.id })} onCoins={() => go({ kind: "learning-coins", id: p.id })} />;
       }
       case "child-name":
         return (

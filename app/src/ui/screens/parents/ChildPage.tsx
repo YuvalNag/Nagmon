@@ -17,6 +17,9 @@ interface Props {
   /** One of the battle's switches was pressed: the next motion setting, or sound or vibration on or off. */
   onEffects: (patch: Partial<EffectSettings>) => void;
   onDelete: () => void;
+  /** The learning report (read only) and the learning settings. */
+  onReport: () => void;
+  onLearning: () => void;
   onBack: () => void;
 }
 
@@ -27,7 +30,7 @@ const MOTION_TEXT: Record<MotionSetting, "effectsMotionSystem" | "effectsMotionL
 };
 
 /** One child: the name, the grade and the hero to change, and delete far from them. */
-export function ChildPage({ child, message, busy, onName, onGrade, onAvatar, effects, onEffects, onDelete, onBack }: Props) {
+export function ChildPage({ child, message, busy, onName, onGrade, onAvatar, effects, onEffects, onDelete, onReport, onLearning, onBack }: Props) {
   return (
     <main className="screen parents-page" data-screen="parents-child" data-child={child.id} data-grade={child.grade}>
       <Bar title={child.name} onBack={onBack} />
@@ -42,6 +45,14 @@ export function ChildPage({ child, message, busy, onName, onGrade, onAvatar, eff
           <Tap id="child_avatar" disabled={busy} onTap={onAvatar}>
             <img className="child-avatar" src={avatarImage(child.avatar)} alt="" draggable={false} />
             {t("childAvatar")}
+          </Tap>
+        </div>
+        <div className="parents-row learning-row">
+          <Tap id="child_report" className="primary" disabled={busy} onTap={onReport}>
+            {t("dashEntry")}
+          </Tap>
+          <Tap id="child_learning" disabled={busy} onTap={onLearning}>
+            {t("learningEntry")}
           </Tap>
         </div>
         <div className="parents-row effects-row">

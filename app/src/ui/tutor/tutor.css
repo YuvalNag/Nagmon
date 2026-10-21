@@ -59,12 +59,16 @@ button.notes-x {
   position: absolute;
   top: calc(var(--gap) / 2);
   inset-inline-start: calc(var(--gap) / 2);
+  width: var(--touch);
+  height: var(--touch);
   padding: 0;
+  display: grid;
+  place-items: center;
 }
 
 button.notes-x svg {
-  width: 60%;
-  height: 60%;
+  width: 55%;
+  height: 55%;
   fill: none;
   stroke: var(--ink);
   stroke-width: 3;

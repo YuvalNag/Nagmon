@@ -11,6 +11,11 @@ export type ParentsPage =
   | { kind: "child-grade"; id: string }
   | { kind: "child-avatar"; id: string }
   | { kind: "child-delete"; id: string; name: string }
+  | { kind: "child-report"; id: string }
+  | { kind: "learning"; id: string }
+  | { kind: "learning-subjects"; id: string }
+  | { kind: "learning-start"; id: string }
+  | { kind: "learning-coins"; id: string }
   | { kind: "pin-old"; message?: string; attempt?: number }
   | { kind: "pin-new"; current: string; first?: string; message?: string; attempt?: number }
   | { kind: "github" }
@@ -35,7 +40,13 @@ export function parentsBackStep(p: ParentsPage): ParentsPage | null {
     case "child-grade":
     case "child-avatar":
     case "child-delete":
+    case "child-report":
+    case "learning":
       return { kind: "child", id: p.id };
+    case "learning-subjects":
+    case "learning-start":
+    case "learning-coins":
+      return { kind: "learning", id: p.id };
     case "token":
       return { kind: "github" };
     case "confirm":
@@ -50,7 +61,18 @@ export function parentsBackStep(p: ParentsPage): ParentsPage | null {
 
 /** The same page again (the code's second entry, a refused name): it keeps its ScreenTime. */
 export function samePage(a: ParentsPage, b: ParentsPage): boolean {
-  return a.kind === b.kind && (a.kind === "pin-old" || a.kind === "pin-new" || a.kind === "child-name" || a.kind === "token");
+  return (
+    a.kind === b.kind &&
+    (a.kind === "pin-old" ||
+      a.kind === "pin-new" ||
+      a.kind === "child-name" ||
+      a.kind === "token" ||
+      // a switch or a step on the page keeps the page (and the finger's rhythm)
+      a.kind === "learning" ||
+      a.kind === "learning-subjects" ||
+      a.kind === "learning-start" ||
+      a.kind === "learning-coins")
+  );
 }
 
 const MESSAGES: Record<Code, TextKey> = {
