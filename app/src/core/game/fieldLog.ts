@@ -102,6 +102,11 @@ export class FieldLog {
     this.line(kind.toUpperCase(), pairs(p));
   }
 
+  /** A report written from the game's "something is wrong" button: the screen and the chip, ids only (never the typed text). */
+  reportSent(p: { screen: string; chip: string }): void {
+    this.line("REPORT", pairs(p));
+  }
+
   /** The parent's "something is wrong": where the child was. */
   report(): void {
     this.line("REPORT", pairs(this.crumb.snapshot()));
