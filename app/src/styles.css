@@ -2036,6 +2036,7 @@ button.quiz-choice {
   border-radius: 999px;
   border: 2px solid var(--subject, #8a97a6);
   background: #fffdf4;
+  color: #17323a;
   font-size: calc(var(--text) * 0.5);
   font-weight: 700;
 }
