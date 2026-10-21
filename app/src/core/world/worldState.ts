@@ -11,6 +11,8 @@
  *   counter never writes anything.
  */
 
+import { parsePlace, type Place } from "./place";
+
 export const WORLD_SCHEMA_VERSION = 1;
 
 /** One creature of the child: its species (a monsters.json slug), level and the answers it has grown on. */
@@ -57,6 +59,8 @@ export interface WorldData {
   lessons?: LessonSave;
   /** The Bag: how many of each item (only the ones the child has). */
   items?: Record<string, number>;
+  /** Where the child stood last (core/world/place.ts). */
+  place?: Place;
 }
 
 export const noTrips = (): TripSave => ({ done: [], visited: [], badges: [], at: null });
@@ -91,6 +95,8 @@ export class WorldState {
   lessons: LessonSave = noLessons();
   /** The Bag: item id to count. Counts are whole numbers above zero. */
   readonly items = new Map<string, number>();
+  /** Where the child stood last: a map and a tile. */
+  place: Place | null = null;
 
   /** A saved world.json; anything unreadable starts afresh (no coins are made up). */
   static fromDict(data: unknown): WorldState {
@@ -120,6 +126,7 @@ export class WorldState {
         if (typeof n === "number" && Number.isFinite(n) && n >= 1) w.items.set(id, Math.trunc(n));
       }
     }
+    w.place = parsePlace(d["place"]);
     const tr = d["trips"];
     if (typeof tr === "object" && tr !== null && !Array.isArray(tr)) {
       const t = tr as Record<string, unknown>;
@@ -149,6 +156,7 @@ export class WorldState {
     if (this.seen.size) out.seen = [...this.seen].sort();
     if (this.caught.size) out.caught = [...this.caught].sort();
     if (this.items.size) out.items = Object.fromEntries([...this.items].sort(([a], [b]) => (a < b ? -1 : 1)));
+    if (this.place) out.place = { ...this.place };
     const t = this.trips;
     if (t.done.length || t.visited.length || t.badges.length || t.at) out.trips = { done: [...t.done], visited: [...t.visited], badges: [...t.badges], at: t.at };
     const l = this.lessons;

@@ -25,6 +25,7 @@ import { FriendsView } from "../FriendsView";
 import { BestiaryScreen } from "../BestiaryScreen";
 import { TripScreen } from "../TripScreen";
 import { progressPercent, refreshProgress, tripFor, type Trip } from "../../core/game/trips";
+import { PlaceSaver, type Place } from "../../core/world/place";
 import { START_MAP } from "../../game/startMap";
 import { IntroScreen } from "../IntroScreen";
 import { QuizScreen } from "../QuizScreen";
@@ -117,6 +118,13 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   const [, setRunnerTick] = useState(0);
   const seq = useRef(0);
   const lastMap = useRef<string | null>(null);
+  // where the child stands is saved with the world (core/world/place.ts); the map asks for it as it opens
+  const playReady = useRef<{ promise: Promise<Play | null>; resolve: (p: Play | null) => void } | null>(null);
+  if (!playReady.current) {
+    let resolve: (p: Play | null) => void = () => {};
+    playReady.current = { promise: new Promise<Play | null>((r) => (resolve = r)), resolve };
+  }
+  const saver = useRef<PlaceSaver | null>(null);
   const tripsRef = useRef<(map: string) => void>(() => {});
   const shown = useRef<Overlay | null>(null);
   shown.current = overlay;
@@ -130,15 +138,32 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     openPlay({ profiles, profile, seed: testSeed(), log: getLogger("nagmon.play") }).then(
       (p) => {
         if (!alive) return;
+        const saves = new PlaceSaver(
+          (place) => {
+            // the intro starts over from the start: no place until it is done
+            if (introNeeded(p.world)) return;
+            p.world.place = place;
+            void p.saveWorld();
+          },
+          () => Date.now(),
+        );
+        saver.current = saves;
+        playReady.current?.resolve(p);
         setPlay(p);
         setCoins(p.world.money);
         setIntro(introNeeded(p.world));
       },
       // the map still walks; nobody talks
-      (e) => log.error("Could not open the child's play", e),
+      (e) => {
+        playReady.current?.resolve(null);
+        log.error("Could not open the child's play", e);
+      },
     );
     return () => {
       alive = false;
+      // leaving (the menu's exit, Android back): what a step held back is written now
+      saver.current?.flush();
+      saver.current = null;
     };
   }, [profiles, profile, openPlay]);
 
@@ -154,6 +179,10 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           avatar,
           lifecycle,
           map: testStartMap(),
+          resume: async () => {
+            const p = await playReady.current?.promise;
+            return p && !introNeeded(p.world) ? p.world.place : null;
+          },
           clock: () => gameClock.now(),
           input: () => dpad.take(),
           release: () => dpad.clear(),
@@ -169,17 +198,20 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             return talk ? window.innerWidth - talk.left + PAD_GAP : 0;
           },
           onFacing: (who) => alive && setFacing(who),
-          onMap: (w) => {
+          onMap: (w, there) => {
+            const at: Place = there ?? { map: w.name, x: w.start?.x ?? 0, y: w.start?.y ?? 0, facing: "up" };
             if (!alive) return;
             field.mapChange(lastMap.current, w.name);
             lastMap.current = w.name;
             setMapNow(w.name);
             tripsRef.current(w.name);
-            crumb.position(w.name, w.start?.x ?? 0, w.start?.y ?? 0);
+            crumb.position(w.name, at.x, at.y);
+            saver.current?.now(at);
             setWorld(w);
           },
-          onStep: (x, y) => {
+          onStep: (x, y, facing) => {
             crumb.position(lastMap.current ?? "none", x, y);
+            if (lastMap.current) saver.current?.step({ map: lastMap.current, x, y, facing: facing ?? "down" });
             stepRef.current(x, y);
           },
           onBlocked: () => setNote((n) => n + 1),
@@ -196,8 +228,11 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
         if (alive) setStatus("failed");
       },
     );
+    // in the background the app may be ended without a word: write the place now
+    const offBackground = lifecycle?.onBackground(() => saver.current?.flush());
     return () => {
       alive = false;
+      offBackground?.();
       controller?.destroy();
       if (currentMap() === controller) setCurrentMap(null);
       if ((window as Debuggable).__nagmonMap === controller) delete (window as Debuggable).__nagmonMap;
