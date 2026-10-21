@@ -1,4 +1,4 @@
-import { answer, coins, debug, id, openMap, PID, quiz, readDialog, saved, seedChild, steps, toCashier } from "./cashier";
+import { PID, answer, battleAnswer, battleResultClosed, castMove, coins, debug, id, openMap, quiz, readDialog, saved, seedChild, steps, toCashier } from "./cashier";
 import { expect, test } from "./fixtures";
 import { responseTimes, touch, watchEventTiming } from "./touch";
 
@@ -235,44 +235,46 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
   await expect(battle).toBeVisible();
   await expect(battle).toHaveAttribute("data-view", "meet");
   await expect(page.locator(id("dpad"))).toHaveCount(0);
+  await expect(page.locator(".move-card")).toHaveCount(4);
   await shot("b01_meet");
   const hp0 = Number(await battle.getAttribute("data-hp"));
-  await touch(page, page.locator(id("battle_fight")));
 
-  // a wrong answer: nobody is hurt
-  await answer(page, "dont_know");
-  await shot("b02_feedback_wrong");
-  await touch(page, page.locator(id("quiz_continue")));
+  // a wrong answer: the move is weak (a little fog), and nobody is hurt in a lasting way
+  await castMove(page);
+  await battleAnswer(page, "dont_know");
+  await shot("b02_result_wrong");
+  await battleResultClosed(page);
   await expect(battle).toHaveAttribute("data-view", "turn");
-  await expect(page.locator(id("battle_message"))).toContainText("אף אחד לא נפגע");
-  expect(Number(await battle.getAttribute("data-hp"))).toBe(hp0);
-  await shot("b03_no_damage");
+  const hp1 = Number(await battle.getAttribute("data-hp"));
+  expect(hp1).toBeLessThan(hp0);
+  expect(hp1).toBeGreaterThan(hp0 - 15);
+  await shot("b03_weak_hit");
 
   // right answers calm it
-  for (let i = 0; i < 12 && (await battle.getAttribute("data-view")) !== "calm"; i++) {
-    await touch(page, page.locator(id("battle_next")));
-    await answer(page, "right");
-    await touch(page, page.locator(id("quiz_continue")));
-    if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")));
-    await expect(battle).toHaveAttribute("data-view", /turn|calm/);
+  for (let i = 0; i < 20 && (await battle.getAttribute("data-view")) !== "calm"; i++) {
+    await castMove(page);
+    await battleAnswer(page, "right");
     if (i === 0) await shot("b04_hit");
+    await battleResultClosed(page);
+    if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")));
   }
   await expect(battle).toHaveAttribute("data-view", "calm");
   expect(Number(await battle.getAttribute("data-hp"))).toBe(0);
+  await expect(page.locator(id("battle_results"))).toBeVisible();
   await shot("b05_calm");
   // nobody joined yet; the Net pulses
   await expect(page.locator(id("battle_net"))).toBeEnabled();
   // the net, a wrong seal answer (the net bounces back), then a right one
   await touch(page, page.locator(id("battle_net")));
-  await answer(page, "dont_know");
-  await touch(page, page.locator(id("quiz_continue")));
+  await battleAnswer(page, "dont_know");
+  await battleResultClosed(page);
   await expect(battle).toHaveAttribute("data-view", "calm");
   await shot("b06_try_again");
   // a grown-up creature needs three seal answers
   for (let i = 0; i < 3 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
     await touch(page, page.locator(id("battle_net")));
-    await answer(page, "right");
-    await touch(page, page.locator(id("quiz_continue")));
+    await battleAnswer(page, "right");
+    await battleResultClosed(page);
     if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")));
   }
   await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
@@ -286,7 +288,7 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
   expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
 });
 
-test("the battle's action bar: five buttons of 120x72 and more in the bottom 123px, Ask the wide one at the thumb's end", async ({ page }, info) => {
+test("the battle's menu: the friends strip, four move cards of 150x56 and more, Net, Bag and Run, all in the bottom third", async ({ page }, info) => {
   await seedChild(page, { grade: 2, battle: true });
   await openMap(page);
   await steps(page, "right", 1);
@@ -294,21 +296,27 @@ test("the battle's action bar: five buttons of 120x72 and more in the bottom 123
   await expect(battle).toBeVisible();
   await page.screenshot({ path: info.outputPath("bar.png") });
   const boxes = await page.locator(".action-bar button").evaluateAll((els) => els.map((e) => ({ id: (e as HTMLElement).dataset["id"]!, ...(e.getBoundingClientRect().toJSON() as { x: number; y: number; width: number; height: number; right: number; bottom: number }) })));
-  expect(boxes.map((b) => b.id)).toEqual(["battle_fight", "battle_net", "battle_bag", "battle_friends", "battle_run"]);
+  const cards = boxes.filter((b) => b.id.startsWith("battle_move_"));
+  const friends = boxes.filter((b) => b.id.startsWith("battle_friend_"));
+  const side = boxes.filter((b) => ["battle_net", "battle_bag", "battle_run"].includes(b.id));
+  expect([cards.length, friends.length, side.length]).toEqual([4, 1, 3]);
+  for (const b of cards) {
+    expect(b.width, b.id).toBeGreaterThanOrEqual(150);
+    expect(b.height, b.id).toBeGreaterThanOrEqual(56);
+  }
+  for (const b of [...friends, ...side]) expect(Math.min(b.width, b.height), b.id).toBeGreaterThanOrEqual(48);
   for (const b of boxes) {
-    expect(b.width, b.id).toBeGreaterThanOrEqual(120);
-    expect(b.height, b.id).toBeGreaterThanOrEqual(72);
-    expect(b.y, b.id).toBeGreaterThanOrEqual(393 - 123 - 1);
+    expect(b.y, b.id).toBeGreaterThanOrEqual(393 - 142 - 1);
     expect(b.bottom, b.id).toBeLessThanOrEqual(393);
     expect(b.x, b.id).toBeGreaterThanOrEqual(0);
     expect(b.right, b.id).toBeLessThanOrEqual(873);
   }
-  // Hebrew runs right to left: Ask is at the right edge and twice as wide as the others
-  expect(boxes[0]!.width).toBeGreaterThanOrEqual(boxes[1]!.width * 1.9);
-  for (let i = 1; i < boxes.length; i++) expect(boxes[i]!.right).toBeLessThanOrEqual(boxes[i - 1]!.x + 1);
-  // the arena above is not covered by the bar
-  const arena = (await page.locator(".battle-arena").boundingBox())!;
-  expect(arena.y + arena.height).toBeLessThanOrEqual(boxes[0]!.y + 1);
+  // Hebrew runs right to left: the friends strip at the right edge, then the cards, then Net, Bag and Run at the end
+  expect(friends[0]!.x).toBeGreaterThan(cards[0]!.right - 1);
+  expect(Math.max(...side.map((b) => b.right))).toBeLessThanOrEqual(Math.min(...cards.map((c) => c.x)) + 1);
+  // the creatures above are not covered by the bar
+  const pics = await page.locator(".battle-pic .monster-pic").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().bottom));
+  for (const bottom of pics) expect(bottom).toBeLessThanOrEqual(Math.min(...boxes.map((b) => b.y)) + 1);
 });
 
 test("the Bag from the battle: three tabs at the start edge, cards with counts, the panel at the end, all inside the screen", async ({ page }, info) => {
@@ -347,7 +355,7 @@ test("helpers on the question: owned ones sit in the foot, big enough, one use e
   await seedChild(page, { grade: 2, battle: true, items: { hint_feather: 2, clover: 2, owl_pass: 1 } });
   await openMap(page);
   await steps(page, "right", 1);
-  await touch(page, page.locator(id("battle_fight")));
+  await castMove(page);
   if ((await quiz(page))!.phase === "example") await touch(page, page.locator(id("quiz_example_done")));
   await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
   await page.screenshot({ path: info.outputPath("helpers.png") });
@@ -367,7 +375,7 @@ test("helpers on the question: owned ones sit in the foot, big enough, one use e
   expect((world["items"] as Record<string, number>)["hint_feather"]).toBe(1);
 });
 
-test("Friends from the battle: four cards, details at the end, the partner changes and the question follows", async ({ page }, info) => {
+test("Friends from the battle: the strip shows the party, a tap swaps (the turn is used) and the cards follow the new partner", async ({ page }, info) => {
   const party = [
     { id: "c1", species: "heliobud", level: 6, xp: 1 },
     { id: "c2", species: "lunibble", level: 7, xp: 0, name: "נוגה", hearts: 3 },
@@ -378,22 +386,22 @@ test("Friends from the battle: four cards, details at the end, the partner chang
   await seedChild(page, { grade: 2, battle: true, creatures: party });
   await openMap(page);
   await steps(page, "right", 1);
-  await touch(page, page.locator(id("battle_friends")));
-  await expect(page.locator("[data-screen=friends]")).toBeVisible();
-  await expect(page.locator("[data-id^=friend_c]")).toHaveCount(4);
-  await expect(page.locator(id("friends_meadow"))).toBeVisible();
-  await touch(page, page.locator(id("friend_c2")));
+  const battle = page.locator("[data-screen=battle]");
+  await expect(battle).toBeVisible();
+  await expect(page.locator("[data-id^=battle_friend_c]")).toHaveCount(4);
+  await expect(page.locator(id("battle_move_sum_spark"))).toBeVisible();
   await page.screenshot({ path: info.outputPath("friends.png") });
-  const rects = await page.locator("[data-id^=friend_c], [data-id=friend_detail], [data-id=friend_partner]").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON() as { x: number; width: number; height: number; right: number; bottom: number }));
-  for (const b of rects) {
-    expect(b.x).toBeGreaterThanOrEqual(0);
+  for (const b of await page.locator("[data-id^=battle_friend_c]").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON() as { x: number; width: number; height: number; right: number; bottom: number }))) {
+    expect(Math.min(b.width, b.height)).toBeGreaterThanOrEqual(48);
     expect(b.right).toBeLessThanOrEqual(873);
     expect(b.bottom).toBeLessThanOrEqual(393);
-    expect(b.height).toBeGreaterThanOrEqual(48);
   }
-  await touch(page, page.locator(id("friend_partner")));
-  await expect(page.locator(id("friend_said"))).toBeVisible();
-  await touch(page, page.locator(id("sheet_close")));
-  const world = (await saved(page, "saves/world.json"))!;
-  expect((world["creatures"] as { id: string }[])[0]!.id).toBe("c2");
+  await touch(page, page.locator(id("battle_friend_c2")));
+  await expect(battle).toHaveAttribute("data-turn", "playing");
+  await battleResultClosed(page);
+  // the partner is Lunibble now: its own cards (Science), and the world remembers
+  await expect(page.locator(id("battle_move_leaf_flick"))).toBeVisible();
+  await expect(page.locator(id("battle_move_sum_spark"))).toHaveCount(0);
+  await expect(page.locator(id("battle_friend_c2"))).toHaveAttribute("aria-pressed", "true");
+  await expect.poll(async () => ((await saved(page, "saves/world.json"))!["creatures"] as { id: string }[])[0]!.id).toBe("c2");
 });

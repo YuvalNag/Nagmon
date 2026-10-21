@@ -42,14 +42,18 @@ export const TODAY = `(() => { const d = new Date(); const p = (n) => String(n).
  */
 export async function seedChild(
   page: Page,
-  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number>, creatures = null as null | Record<string, unknown>[] } = {},
+  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number>, creatures = null as null | Record<string, unknown>[], battleScale = 0.1, battleStart = {} as Record<string, number> } = {},
 ) {
   await page.addInitScript(
-    ({ grade, settings, world, seed, pid, today, intro, battle, items, creatures }) => {
+    ({ grade, settings, world, seed, pid, today, intro, battle, items, creatures, battleScale, battleStart }) => {
       if (localStorage.getItem("seeded")) return;
       localStorage.setItem("seeded", "1");
       localStorage.setItem("nagmon.map.adaptiveResolution", "off");
       localStorage.setItem("nagmon.quiz.seed", String(seed));
+      // a battle's draws are the same every run, and its beats are short unless a test wants the real ones (battle_v3.spec.ts)
+      localStorage.setItem("nagmon.battle.seed", String(seed));
+      if (battleScale !== 1) localStorage.setItem("nagmon.battle.timescale", String(battleScale));
+      for (const [k, v] of Object.entries(battleStart)) localStorage.setItem(`nagmon.battle.${k}`, String(v));
       localStorage.setItem("nagmon-fs:d:profiles", "");
       localStorage.setItem(`nagmon-fs:d:profiles/${pid}`, "");
       localStorage.setItem(
@@ -72,7 +76,7 @@ export async function seedChild(
         localStorage.setItem(`nagmon-fs:f:profiles/${pid}/saves/world.json`, JSON.stringify({ schema_version: 1, money: have.money, variables, ...extra, ...(Object.keys(items).length ? { items } : {}) }));
       }
     },
-    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle, items, creatures },
+    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle, items, creatures, battleScale, battleStart },
   );
 }
 
@@ -177,18 +181,15 @@ export async function battleAnswer(page: Page, how: "right" | "dont_know" = "rig
   return q;
 }
 
-/** The message box closes by itself (about 1.5 s): waits for the battle to go on. */
+/** The round plays out (the answer's line closes by itself, the enemy has its beat): waits for the menu to be back. */
 export async function battleResultClosed(page: Page) {
-  // the arena again, or what follows it: the level-up card, the new friend
-  await expect(page.locator("[data-screen=battle][data-asking=false], [data-screen=battle-caught], [data-id=growth_close]").first()).toBeVisible({ timeout: 6000 });
+  // the arena again with nothing playing, or what follows it: the level-up card, the new friend
+  await expect(page.locator("[data-screen=battle][data-asking=false][data-turn=idle], [data-screen=battle-caught], [data-id=growth_close]").first()).toBeVisible({ timeout: 15_000 });
 }
 
-/**
- * Opens the next question from the beat menu: never two question beats in a
- * row, so a free Move comes first when the Power-up is resting.
- */
-export async function powerUp(page: Page, steps = 30) {
-  const power = page.locator('[data-id="battle_next"], [data-id="battle_fight"]');
-  if (await power.isDisabled()) await touch(page, page.locator(id("battle_move")), steps);
-  await touch(page, power, steps);
+/** Casts the first move whose card is open: its question opens (the question is the cast). */
+export async function castMove(page: Page, steps = 30) {
+  const card = page.locator(".move-card:not(:disabled)").first();
+  await expect(card).toBeVisible();
+  await touch(page, card, steps);
 }

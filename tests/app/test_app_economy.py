@@ -15,9 +15,9 @@ def doc():
     return copy.deepcopy(read_yaml(economy.SOURCE))
 
 
-def test_the_shipped_table_is_valid_and_has_about_thirteen_items():
+def test_the_shipped_table_is_valid_and_has_about_fourteen_items():
     out = Output()
-    assert economy.build(out) == {"items": 13, "chests": 1, "facts": 6}
+    assert economy.build(out) == {"items": 14, "chests": 1, "facts": 6}
     assert "economy.json" in out.paths()
     assert "loot.json" in out.paths()
     assert "facts.json" in out.paths()
@@ -42,12 +42,13 @@ def test_the_three_helpers_are_there():
 
 
 def test_the_shop_has_three_shelves_of_one_to_six_priced_items():
-    """The shop screen (app/src/core/game/shop.ts) shelves nets, snacks and tonics, helpers."""
+    """The shop screen (app/src/core/game/shop.ts) shelves nets, snacks, tonics and medicine, helpers."""
     d = doc()
     shelf_of = {
         "net": "nets",
         "snack": "snacks",
         "tonic": "snacks",
+        "medicine": "snacks",
         "helper": "helpers",
     }
     for shelf in ("nets", "snacks", "helpers"):

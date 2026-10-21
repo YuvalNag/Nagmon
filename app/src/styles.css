@@ -1095,7 +1095,7 @@ button.quiz-choice {
   width: 48%;
   z-index: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 }
 
@@ -1940,8 +1940,8 @@ button.quiz-choice {
   width: 1.5em;
   height: 1.5em;
   border-radius: 50%;
-  background: var(--subject, #8a97a6);
-  color: #fff;
+  background: var(--subject, #cfd8e0);
+  color: #17323a;
   font-size: calc(var(--text) * 0.55);
   font-weight: 800;
   line-height: 1;
@@ -2044,7 +2044,7 @@ button.quiz-choice {
 }
 
 .loves .subject-dot.unknown {
-  background: #6f8196;
+  background: #cfd8e0;
 }
 
 /* what the enemy will do, over it */

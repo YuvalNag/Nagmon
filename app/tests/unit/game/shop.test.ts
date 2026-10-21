@@ -20,11 +20,11 @@ import { gameJson } from "./helpers";
 const eco = economy(gameJson("economy.json"));
 
 describe("the shelves", () => {
-  it("are three, and each item is on one: nets, snacks and tonics, helpers", () => {
+  it("are three, and each item is on one: nets, snacks, tonics and the medicine for a friend who fell asleep, helpers", () => {
     expect(SHELVES).toEqual(["nets", "snacks", "helpers"]);
     const ids = (s: (typeof SHELVES)[number]) => shelfItems(eco, s).map((i) => i.id);
     expect(ids("nets")).toEqual(["magic_net", "silver_net"]);
-    expect(ids("snacks")).toEqual(["berry", "biscuit", "pie", "growth_tonic"]);
+    expect(ids("snacks")).toEqual(["berry", "biscuit", "pie", "growth_tonic", "medicine"]);
     expect(ids("helpers")).toEqual(["hint_feather", "clover", "owl_pass"]);
   });
 

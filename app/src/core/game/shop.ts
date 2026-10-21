@@ -34,7 +34,7 @@ export const bandOf = (grade: number): Band => (grade <= 1 ? "A" : grade <= 4 ? 
 export function shelfOf(item: Item): Shelf | null {
   if (item.price <= 0) return null;
   if (item.kind === "net") return "nets";
-  if (item.kind === "snack" || item.kind === "tonic") return "snacks";
+  if (item.kind === "snack" || item.kind === "tonic" || item.kind === "medicine") return "snacks";
   if (item.kind === "helper") return "helpers";
   return null;
 }

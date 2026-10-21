@@ -495,7 +495,8 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     );
   }
 
-  if (phase === "carried") {
+  // the lethal round plays first; the card comes once it is over (or at once when the fight never began)
+  if (phase === "carried" && mode !== "playing" && mode !== "question") {
     return (
       <ScreenTime key="carried">
         <section className="growth-card carried" data-screen="carried" role="dialog" aria-label={t("battleCarried")}>

@@ -1,5 +1,5 @@
 import type { Page } from "@playwright/test";
-import { id, openMap, powerUp, quiz, seedChild, steps } from "./cashier";
+import { castMove, id, openMap, quiz, seedChild, steps } from "./cashier";
 import { expect, test } from "./fixtures";
 import { touch } from "./touch";
 
@@ -55,7 +55,7 @@ async function answerRight(page: Page) {
 }
 
 async function toQuestion(page: Page, shot: (n: string) => Promise<unknown>) {
-  await touch(page, page.locator(id("battle_fight")), 30);
+  await castMove(page);
   if ((await quiz(page))!.phase === "example") {
     await expect(page.locator("[data-screen=quiz][data-phase=example]")).toBeVisible();
     await shot("example");
@@ -130,17 +130,19 @@ for (const scale of [1, 1.3]) {
     for (const c of g2.creatures) for (const o of g2.cover.filter((x) => x.name.includes("message"))) expect(apart(c, o), `${c.name} is covered by the message box`).toBe(true);
     // the box closes by itself (no tap)
     await expect(arena).toHaveAttribute("data-view", /turn|calm/, { timeout: 5000 });
-    await expect(page.locator(id("battle_next"))).toBeVisible();
+    await expect(page.locator(".move-card").first()).toBeVisible();
     await shot("after_result");
 
     // a wrong answer: the harmless oops; "why?" is one tap away; a tap anywhere goes on
-    await powerUp(page);
+    await expect(arena).toHaveAttribute("data-turn", "idle", { timeout: 15_000 });
+    await castMove(page);
     await expect(page.locator("[data-screen=quiz][data-phase=question],[data-screen=quiz][data-phase=example]")).toBeVisible();
     if ((await quiz(page))!.phase === "example") await touch(page, page.locator(id("quiz_example_done")), 30);
     await touch(page, page.locator(id("quiz_dont_know")), 30);
     await expect(page.locator(".battle-scene")).toHaveAttribute("data-fx", "wrong");
     await expect(page.locator(".fx-oops")).toBeVisible();
-    await expect(page.locator(".fx-number")).toHaveCount(0);
+    // a wrong answer still moves the fog a little: a small number, never a buzzer
+    await expect(page.locator(".fx-number")).toBeVisible();
     await expect(page.locator(id("quiz_answer"))).toBeVisible();
     await shot("result_wrong");
     await touch(page, page.locator(id("battle_why")), 30);
@@ -150,7 +152,7 @@ for (const scale of [1, 1.3]) {
     await page.waitForTimeout(2800);
     await expect(arena).toHaveAttribute("data-flow", "result");
     await touch(page, page.locator(id("battle_skip")), 30);
-    await expect(arena).toHaveAttribute("data-view", "turn", { timeout: 3000 });
+    await expect(arena).toHaveAttribute("data-view", /turn|swap/, { timeout: 15_000 });
   });
 }
 
@@ -189,8 +191,9 @@ test("a typed answer: the pad sits at the bottom end, nothing covers the creatur
     // a tap anywhere goes on (after the first moments)
     await page.waitForTimeout(350);
     await touch(page, page.locator(id("battle_skip")), 30);
-    await expect(page.locator("[data-screen=battle]")).toHaveAttribute("data-asking", "false", { timeout: 3000 });
-    await powerUp(page);
+    await expect(page.locator("[data-screen=battle][data-turn=idle][data-asking=false]")).toBeVisible({ timeout: 15_000 });
+    if ((await page.locator("[data-screen=battle]").getAttribute("data-view")) === "calm") break;
+    await castMove(page);
     if ((await quiz(page))?.phase === "example") await touch(page, page.locator(id("quiz_example_done")), 30);
     await expect(page.locator("[data-screen=quiz][data-phase=question]")).toBeVisible();
   }

@@ -1,4 +1,4 @@
-/** How a subject looks on a move card and in the chips: a picture character and its colour (the subjects table's own colours are for the map's pages). */
+/** How a subject looks on a move card and in the chips: a picture character and its colour (the subjects table's own colours, light enough for dark text on them). */
 export const SUBJECT_ICON: Readonly<Record<string, string>> = {
   math: "🔢",
   geometry: "🔷",
@@ -10,11 +10,11 @@ export const SUBJECT_ICON: Readonly<Record<string, string>> = {
 
 export const SUBJECT_COLOR: Readonly<Record<string, string>> = {
   math: "#ff8a5b",
-  geometry: "#5b8cf0",
-  science: "#4fb883",
-  english: "#e8b923",
-  hebrew: "#e56fa3",
-  logic: "#9b6cf0",
+  geometry: "#8fb3ff",
+  science: "#6cd4a1",
+  english: "#ffd166",
+  hebrew: "#f4a6c6",
+  logic: "#c39bff",
 };
 
 export const subjectIcon = (s: string | null): string => (s && SUBJECT_ICON[s]) || "⭐";
