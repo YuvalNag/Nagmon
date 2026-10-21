@@ -583,6 +583,1374 @@
  },
  "assets": [
   {
+   "path": "art/backdrops/giants.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/backdrops/giants.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/backdrops/hearthrock.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/backdrops/hearthrock.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/backdrops/moon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/backdrops/moon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/backdrops/night.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/backdrops/night.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/backdrops/outer.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/backdrops/outer.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/backdrops/rocky.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/backdrops/rocky.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/backdrops/sun.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/backdrops/sun.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/cat/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/cat/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/cat/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/cat/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/cat/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/cat/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects/attack_english.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects/attack_english.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects/attack_geometry.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects/attack_geometry.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects/attack_hebrew.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects/attack_hebrew.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects/attack_logic.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects/attack_logic.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects/attack_math.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects/attack_math.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects/attack_science.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects/attack_science.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects/effect_befriend.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects/effect_befriend.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects/effect_heal.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects/effect_heal.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects/effect_hit.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects/effect_hit.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects/effect_levelup.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects/effect_levelup.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects/effect_net.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects/effect_net.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects_additive/attack_english.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects_additive/attack_english.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects_additive/attack_geometry.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects_additive/attack_geometry.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects_additive/attack_hebrew.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects_additive/attack_hebrew.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects_additive/attack_logic.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects_additive/attack_logic.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects_additive/attack_math.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects_additive/attack_math.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects_additive/attack_science.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects_additive/attack_science.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects_additive/effect_befriend.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects_additive/effect_befriend.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects_additive/effect_heal.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects_additive/effect_heal.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects_additive/effect_hit.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects_additive/effect_hit.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects_additive/effect_levelup.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects_additive/effect_levelup.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/effects_additive/effect_net.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/effects_additive/effect_net.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/enemy_parts/english.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/enemy_parts/english.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/enemy_parts/geometry.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/enemy_parts/geometry.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/enemy_parts/hebrew.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/enemy_parts/hebrew.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/enemy_parts/logic.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/enemy_parts/logic.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/enemy_parts/math.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/enemy_parts/math.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/enemy_parts/science.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/enemy_parts/science.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/portraits/mila.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/portraits/mila.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/portraits/owl.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/portraits/owl.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/poses/boy.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/poses/boy.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/poses/curly.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/poses/curly.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/poses/girl.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/poses/girl.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/story/card_colors_return.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/story/card_colors_return.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/story/card_creature_steps.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/story/card_creature_steps.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/story/card_forgetting_fog.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/story/card_forgetting_fog.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/story/card_owl_help.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/story/card_owl_help.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/story/color_burst.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/story/color_burst.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/story/grey_valley.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/story/grey_valley.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/story/season_autumn.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/story/season_autumn.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/story/season_spring.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/story/season_spring.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/story/season_summer.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/story/season_summer.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/story/season_winter.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/story/season_winter.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/title/logo.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/title/logo.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/title/title_band.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/title/title_band.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/title/title_sunrise.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/title/title_sunrise.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/answer_blue.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/answer_blue.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/answer_green.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/answer_green.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/answer_orange.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/answer_orange.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/combo_medal.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/combo_medal.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/down_marker.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/down_marker.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/enemy_name_card.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/enemy_name_card.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/hint_left.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/hint_left.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/hint_right.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/hint_right.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/hp_blue_fill.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/hp_blue_fill.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/hp_frame.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/hp_frame.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/hp_green_fill.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/hp_green_fill.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/hp_orange_fill.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/hp_orange_fill.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/message_frame.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/message_frame.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/partner_name_card.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/partner_name_card.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/pause_button.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/pause_button.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/ui/question_frame.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/ui/question_frame.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "atlas/classic_gym_granite.png",
    "kind": "tileset",
    "sources": [

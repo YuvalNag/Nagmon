@@ -23,6 +23,7 @@ REPO = Path(__file__).resolve().parents[2]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 from tools.app import (  # noqa: E402
+    art2,
     audio,
     content,
     credits,
@@ -67,6 +68,7 @@ def build() -> tuple[Output, dict[str, Any]]:
     report["economy"] = economy.build(out)
     report["emoji"] = emoji.build(out)
     report["display"] = display.build(out)
+    report["art2"] = art2.build(out)
     report["credits"] = credits.build(out)
     report["notes"] = out.notes
     return out, report

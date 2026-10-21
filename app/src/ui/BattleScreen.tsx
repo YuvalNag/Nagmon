@@ -364,6 +364,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
           mine={mine}
           myName={myName}
           avatar={play.profile.avatar}
+          map={map}
           wildSpecies={wild.species}
           wildName={wildName}
           wildLevel={wild.level}
