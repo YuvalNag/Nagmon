@@ -25,12 +25,20 @@ import wave
 from pathlib import Path
 
 RATE = 16_000
-OUT = Path(__file__).resolve().parents[1] / "mods" / "nagmon" / "sounds" / "battle"
+OUT = (
+    Path(__file__).resolve().parents[1]
+    / "mods"
+    / "nagmon"
+    / "sounds"
+    / "battle"
+)
 #: Equal-tempered notes (Hz) the sounds are made of.
 C5, E5, G5, C6, E6, G6 = 523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98
 
 
-def _tone(freq: float, seconds: float, decay: float, *, gain: float = 1.0) -> list[float]:
+def _tone(
+    freq: float, seconds: float, decay: float, *, gain: float = 1.0
+) -> list[float]:
     """A sine note with a 4 ms attack and an exponential decay."""
     n = int(RATE * seconds)
     out = []
@@ -39,7 +47,9 @@ def _tone(freq: float, seconds: float, decay: float, *, gain: float = 1.0) -> li
         attack = min(1.0, t / 0.004)
         env = attack * math.exp(-decay * t)
         # a little second harmonic keeps it soft and bell-like
-        s = math.sin(2 * math.pi * freq * t) + 0.25 * math.sin(4 * math.pi * freq * t)
+        s = math.sin(2 * math.pi * freq * t) + 0.25 * math.sin(
+            4 * math.pi * freq * t
+        )
         out.append(gain * env * s)
     return out
 
@@ -56,7 +66,13 @@ def _mix(parts: list[tuple[float, list[float]]]) -> list[float]:
 
 
 def hit() -> list[float]:
-    return _mix([(0.0, _tone(C6, 0.2, 14)), (0.07, _tone(E6, 0.2, 14)), (0.14, _tone(G6, 0.18, 12))])
+    return _mix(
+        [
+            (0.0, _tone(C6, 0.2, 14)),
+            (0.07, _tone(E6, 0.2, 14)),
+            (0.14, _tone(G6, 0.18, 12)),
+        ]
+    )
 
 
 def oops() -> list[float]:
@@ -66,7 +82,11 @@ def oops() -> list[float]:
     phase = 0.0
     for i in range(n):
         t = i / RATE
-        freq = 420 - 190 * min(1.0, t / 0.16) + 60 * math.sin(2 * math.pi * 11 * t) * min(1.0, t / 0.1)
+        freq = (
+            420
+            - 190 * min(1.0, t / 0.16)
+            + 60 * math.sin(2 * math.pi * 11 * t) * min(1.0, t / 0.1)
+        )
         phase += 2 * math.pi * freq / RATE
         env = min(1.0, t / 0.01) * math.exp(-6 * t)
         out.append(env * math.sin(phase))
@@ -75,7 +95,10 @@ def oops() -> list[float]:
 
 def win() -> list[float]:
     notes = [(0.0, C5), (0.14, E5), (0.28, G5), (0.48, C6)]
-    parts = [(start, _tone(f, 0.3 if start < 0.48 else 0.45, 8)) for start, f in notes]
+    parts = [
+        (start, _tone(f, 0.3 if start < 0.48 else 0.45, 8))
+        for start, f in notes
+    ]
     parts.append((0.48, _tone(E6, 0.45, 9, gain=0.5)))
     return _mix(parts)
 

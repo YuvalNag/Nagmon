@@ -48,6 +48,16 @@ export interface LessonSave {
   charges: number;
 }
 
+/** An egg being warmed: right answers anywhere warm it, and it hatches into a creature of its zone (core/game/eggs.ts). */
+export interface Egg {
+  id: string;
+  /** The encounter table of the zone it was placed in: its creatures are what can hatch. */
+  table: string;
+  /** Right answers so far, and how many it needs. */
+  got: number;
+  need: number;
+}
+
 export interface WorldData {
   schema_version: number;
   money: number;
@@ -61,6 +71,8 @@ export interface WorldData {
   items?: Record<string, number>;
   /** Where the child stood last (core/world/place.ts). */
   place?: Place;
+  /** Eggs being warmed. */
+  eggs?: Egg[];
 }
 
 export const noTrips = (): TripSave => ({ done: [], visited: [], badges: [], at: null });
@@ -83,6 +95,23 @@ function creature(v: unknown): Creature | null {
   return out;
 }
 
+/** The right answers an egg needs when its save does not say. */
+const EGG_DEFAULT_NEED = 10;
+
+function egg(v: unknown): Egg | null {
+  if (typeof v !== "object" || v === null || Array.isArray(v)) return null;
+  const e = v as Record<string, unknown>;
+  if (typeof e["id"] !== "string" || !e["id"] || typeof e["table"] !== "string" || !e["table"]) return null;
+  const need = Number(e["need"]);
+  const got = Number(e["got"]);
+  return {
+    id: e["id"],
+    table: e["table"],
+    got: Number.isFinite(got) && got > 0 ? Math.trunc(got) : 0,
+    need: Number.isFinite(need) && need >= 1 ? Math.trunc(need) : EGG_DEFAULT_NEED,
+  };
+}
+
 export class WorldState {
   money = 0;
   readonly variables = new Map<string, string>();
@@ -97,6 +126,8 @@ export class WorldState {
   readonly items = new Map<string, number>();
   /** Where the child stood last: a map and a tile. */
   place: Place | null = null;
+  /** Eggs being warmed (a few at a time). */
+  eggs: Egg[] = [];
 
   /** A saved world.json; anything unreadable starts afresh (no coins are made up). */
   static fromDict(data: unknown): WorldState {
@@ -127,6 +158,12 @@ export class WorldState {
       }
     }
     w.place = parsePlace(d["place"]);
+    if (Array.isArray(d["eggs"])) {
+      for (const raw of d["eggs"]) {
+        const e = egg(raw);
+        if (e) w.eggs.push(e);
+      }
+    }
     const tr = d["trips"];
     if (typeof tr === "object" && tr !== null && !Array.isArray(tr)) {
       const t = tr as Record<string, unknown>;
@@ -157,6 +194,7 @@ export class WorldState {
     if (this.caught.size) out.caught = [...this.caught].sort();
     if (this.items.size) out.items = Object.fromEntries([...this.items].sort(([a], [b]) => (a < b ? -1 : 1)));
     if (this.place) out.place = { ...this.place };
+    if (this.eggs.length) out.eggs = this.eggs.map((e) => ({ ...e }));
     const t = this.trips;
     if (t.done.length || t.visited.length || t.badges.length || t.at) out.trips = { done: [...t.done], visited: [...t.visited], badges: [...t.badges], at: t.at };
     const l = this.lessons;

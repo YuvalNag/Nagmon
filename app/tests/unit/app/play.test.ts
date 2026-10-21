@@ -112,4 +112,35 @@ describe("a child's play", () => {
     expect(q).toMatch(/^Q subject=math skill=math\.money\.change_20 grade=\d+ theta=-?\d+\.\d\d ok=[01] ms=\d+ ctx=shop$/);
     expect(q).not.toContain("תמר");
   });
+
+  it("a right answer anywhere warms the eggs, and a wrong one does not; the hatch is saved and waits to be told", async () => {
+    const a = await child();
+    const lines: string[] = [];
+    const play = await openPlay({ ...a, fetchJson, seed: 3, log: { info: (m) => lines.push(m), warning: () => {}, error: () => {} } });
+    play.world.eggs.push({ id: "e1", table: "nagmon_route1", got: 8, need: 10 });
+    expect(play.pools("nagmon_route1").length).toBeGreaterThan(3);
+    expect(play.pools("nowhere")).toEqual([]);
+    const answer = (right: boolean, context: string) => {
+      let t = 1000;
+      const s = new QuizSession(play.engine, { topic: "math.money.change_20", context, maxChoices: null }, () => (t += 2500), () => {});
+      if (s.phase === "example") s.exampleDone();
+      if (right) s.choose(s.question!.answer as string) || (s.press(String(s.question!.answer)), s.check());
+      else s.dontKnow();
+      play.logAnswer(s, context);
+    };
+    answer(false, "battle");
+    expect(play.world.eggs[0]!.got).toBe(8);
+    answer(true, "battle");
+    expect(play.world.eggs[0]!.got).toBe(9);
+    expect(play.hatched).toEqual([]);
+    answer(true, "chest");
+    expect(play.world.eggs).toEqual([]);
+    expect(play.hatched).toHaveLength(1);
+    expect(play.world.creatures).toHaveLength(1);
+    expect(lines.some((l) => /^HATCH egg=e1 species=\w+ level=\d+$/.test(l))).toBe(true);
+    await play.idle();
+    const saved = (await a.profiles.loadWorldDict(a.profile.id)) as { creatures?: unknown[]; eggs?: unknown[] };
+    expect(saved.creatures).toHaveLength(1);
+    expect(saved.eggs).toBeUndefined();
+  });
 });

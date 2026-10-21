@@ -14,7 +14,11 @@ def test_three_small_wav_files_of_a_second_or_less():
     for name, data in files.items():
         assert len(data) < 31_000, name
         with wave.open(io.BytesIO(data)) as w:
-            assert (w.getnchannels(), w.getsampwidth(), w.getframerate()) == (1, 2, 16_000)
+            assert (w.getnchannels(), w.getsampwidth(), w.getframerate()) == (
+                1,
+                2,
+                16_000,
+            )
             assert 0.2 < w.getnframes() / w.getframerate() <= 1.0, name
 
 

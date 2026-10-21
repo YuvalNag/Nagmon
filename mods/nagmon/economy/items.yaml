@@ -29,3 +29,5 @@ items:
   - {id: explorer_map, tab: tools, kind: key, price: 0, icon: "🗺️"}
   - {id: station_ticket, tab: tools, kind: key, price: 0, icon: "🎫"}
   - {id: badge_case, tab: tools, kind: key, price: 0, icon: "🏅"}
+  # found in chests, never sold: warmed by right answers until it hatches (place_egg)
+  - {id: mystery_egg, tab: tools, kind: key, price: 0, icon: "🥚"}

@@ -646,7 +646,28 @@ msgstr ""
 msgid "nagmon_world_shop_keeper"
 msgstr ""
 "המוכר אבי: ברוכים הבאים לחנות!\n"
-"אפשר להסתכל, בקרוב המדפים יתמלאו."
+"בחרו מה שאוהבים, ונשלם ביחד."
+
+msgid "nagmon_chest_home"
+msgstr "הארגז של הבית"
+
+msgid "nagmon_nest_home"
+msgstr "הקן"
+
+msgid "nagmon_world_chest_empty_daily"
+msgstr "הארגז ריק עכשיו. מחר יהיה בו משהו חדש!"
+
+msgid "nagmon_world_chest_empty_once"
+msgstr "הארגז הזה כבר פתוח, והפרס אצלך."
+
+msgid "nagmon_world_egg_placed"
+msgstr "הביצה במקום חם! כל תשובה נכונה מחממת אותה קצת."
+
+msgid "nagmon_world_egg_none"
+msgstr "אין לך ביצה עכשיו. אפשר למצוא אחת בארגז."
+
+msgid "nagmon_world_egg_full"
+msgstr "כבר יש ביצים שמתחממות. כשהן יבקעו, יהיה מקום לעוד."
 
 msgid "nagmon_world_lab_tutor"
 msgstr ""

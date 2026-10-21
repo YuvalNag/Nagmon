@@ -647,7 +647,28 @@ msgstr ""
 msgid "nagmon_world_shop_keeper"
 msgstr ""
 "Avi: Welcome to the shop!\n"
-"Look around, the shelves will be full soon."
+"Pick what you like, and we will pay together."
+
+msgid "nagmon_chest_home"
+msgstr "The home chest"
+
+msgid "nagmon_nest_home"
+msgstr "The nest"
+
+msgid "nagmon_world_chest_empty_daily"
+msgstr "The chest is empty for now. Tomorrow there will be something new!"
+
+msgid "nagmon_world_chest_empty_once"
+msgstr "This chest is already open, and the prize is yours."
+
+msgid "nagmon_world_egg_placed"
+msgstr "The egg is somewhere warm! Every right answer warms it a little."
+
+msgid "nagmon_world_egg_none"
+msgstr "You have no egg right now. You can find one in a chest."
+
+msgid "nagmon_world_egg_full"
+msgstr "Eggs are already warming. When they hatch, there will be room for more."
 
 msgid "nagmon_world_lab_tutor"
 msgstr ""

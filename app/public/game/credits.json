@@ -12866,6 +12866,44 @@
    "adapted": "xBRZ x4"
   },
   {
+   "path": "sprites/objects/nagmon_chest.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites_obj/nagmon_chest.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py). Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "sprites/objects/nagmon_nest.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites_obj/nagmon_nest.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py). Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
    "path": "sprites/objects/nagmon_wallet.png",
    "kind": "npc",
    "sources": [

@@ -10,6 +10,7 @@ import { App } from "../../../src/App";
 import type { MapLifecycle } from "../../../src/game/mapGame";
 import { openServices } from "../../../src/app/services";
 import { effectsFrom } from "../../../src/core/family/effects";
+import { quickBuyAllowed } from "../../../src/core/family/shopSettings";
 import { forgetChecks } from "../../../src/core/fieldData/github";
 import { crumb } from "../../../src/core/game/breadcrumb";
 import { t } from "../../../src/i18n";
@@ -139,6 +140,20 @@ describe("the children", () => {
     expect(app.text()).toContain(t("effectsVibration", { state: t("effectsOff") }));
     const saved = await app.services.profiles.get(dana!);
     expect(effectsFrom(saved.settings)).toEqual({ motion: "less", sound: false, vibration: false });
+  });
+
+  it("the shop's quick buy is a switch in the child's page: on at first, saved when turned off", async () => {
+    const app = await start();
+    const [dana] = app.ids;
+    await app.press("parents_children");
+    await app.waitScreen("parents-children");
+    await app.press(`edit_${dana}`);
+    await app.waitScreen("parents-child");
+    expect(app.text()).toContain(t("quickBuyState", { state: t("effectsOn") }));
+    await app.press("child_quick_buy");
+    await app.waitScreen("parents-child");
+    expect(app.text()).toContain(t("quickBuyState", { state: t("effectsOff") }));
+    expect(quickBuyAllowed((await app.services.profiles.get(dana!)).settings)).toBe(false);
   });
 
   it("a name another child has, or an invalid one, is refused on the board", async () => {

@@ -14,6 +14,8 @@ from tools.app.common import NAG, Output
 from tools.app.content import read_yaml
 
 SOURCE = NAG / "economy" / "items.yaml"
+LOOT = NAG / "economy" / "loot.yaml"
+FACTS = NAG / "economy" / "facts.yaml"
 
 KINDS = {"net", "snack", "tonic", "helper", "key"}
 HELPERS = {"hint", "fifty", "pass"}
@@ -40,20 +42,26 @@ def check(doc: Any) -> dict[str, Any]:
             raise ValueError(f"economy: bad or repeated id {iid!r}")
         seen.add(iid)
         if item.get("tab") not in tabs:
-            raise ValueError(f"economy: {iid}: unknown tab {item.get('tab')!r}")
+            raise ValueError(
+                f"economy: {iid}: unknown tab {item.get('tab')!r}"
+            )
         kind = item.get("kind")
         if kind not in KINDS:
             raise ValueError(f"economy: {iid}: unknown kind {kind!r}")
         price = item.get("price")
         if not isinstance(price, int) or isinstance(price, bool) or price < 0:
-            raise ValueError(f"economy: {iid}: the price is a whole number, 0 or more")
+            raise ValueError(
+                f"economy: {iid}: the price is a whole number, 0 or more"
+            )
         if not item.get("icon"):
             raise ValueError(f"economy: {iid}: needs an icon")
         for key in REQUIRED[kind]:
             if key not in item:
                 raise ValueError(f"economy: {iid}: a {kind} needs {key}")
         if kind == "helper" and item["helper"] not in HELPERS:
-            raise ValueError(f"economy: {iid}: unknown helper {item['helper']!r}")
+            raise ValueError(
+                f"economy: {iid}: unknown helper {item['helper']!r}"
+            )
         if kind != "key" and price == 0:
             raise ValueError(f"economy: {iid}: only key items are free")
     for iid in doc.get("starter_kit", {}):
@@ -70,7 +78,111 @@ def check(doc: Any) -> dict[str, Any]:
     return doc
 
 
+#: What a prize may be, and the items a hint and an egg stand for.
+PRIZE_KEYS = ("coins", "item", "hint", "egg")
+HINT_ITEM = "hint_feather"
+EGG_ITEM = "mystery_egg"
+REPEATS = {"daily", "once"}
+
+
+def _whole(v: Any) -> bool:
+    return isinstance(v, int) and not isinstance(v, bool) and v >= 1
+
+
+def check_prize(prize: Any, items: set[str], where: str) -> None:
+    if not isinstance(prize, dict):
+        raise ValueError(f"loot: {where}: a prize is a mapping")
+    keys = [k for k in PRIZE_KEYS if k in prize]
+    if len(keys) != 1:
+        raise ValueError(
+            f"loot: {where}: a prize is exactly one of {PRIZE_KEYS}"
+        )
+    kind = keys[0]
+    if not _whole(prize[kind]) and kind != "item":
+        raise ValueError(f"loot: {where}: {kind} is a whole number, 1 or more")
+    if kind == "item":
+        if prize["item"] not in items:
+            raise ValueError(f"loot: {where}: unknown item {prize['item']!r}")
+        if not _whole(prize.get("n", 1)):
+            raise ValueError(f"loot: {where}: n is a whole number, 1 or more")
+    if kind == "egg" and prize["egg"] != 1:
+        raise ValueError(f"loot: {where}: an egg is {{egg: 1}}")
+    extra = set(prize) - {kind, "n"}
+    if extra:
+        raise ValueError(f"loot: {where}: unknown keys {sorted(extra)}")
+
+
+def check_loot(doc: Any, items: set[str]) -> dict[str, Any]:
+    if not isinstance(doc, dict):
+        raise ValueError("loot: needs a mapping")
+    for needed in (HINT_ITEM, EGG_ITEM):
+        if needed not in items:
+            raise ValueError(f"loot: the economy needs the item {needed}")
+    gifts = doc.get("daily_gift")
+    if not isinstance(gifts, list) or not gifts:
+        raise ValueError("loot: daily_gift is a list of prizes")
+    for i, prize in enumerate(gifts):
+        check_prize(prize, items, f"daily_gift[{i}]")
+    chests = doc.get("chests")
+    if not isinstance(chests, dict) or not chests:
+        raise ValueError("loot: chests is a mapping of chest ids")
+    for cid, chest in chests.items():
+        if not isinstance(cid, str) or not cid.replace("_", "").isalnum():
+            raise ValueError(f"loot: bad chest id {cid!r}")
+        if chest.get("repeat") not in REPEATS:
+            raise ValueError(
+                f"loot: {cid}: repeat is one of {sorted(REPEATS)}"
+            )
+        prizes = chest.get("prizes")
+        if not isinstance(prizes, list) or not prizes:
+            raise ValueError(f"loot: {cid}: needs a list of prizes")
+        for i, prize in enumerate(prizes):
+            check_prize(prize, items, f"{cid}.prizes[{i}]")
+        if "consolation" not in chest:
+            raise ValueError(
+                f"loot: {cid}: needs a consolation prize (nobody leaves with nothing)"
+            )
+        check_prize(chest["consolation"], items, f"{cid}.consolation")
+    return doc
+
+
+#: A sign shows one short line.
+FACT_MAX = 70
+
+
+def check_facts(doc: Any) -> dict[str, Any]:
+    facts = doc.get("facts") if isinstance(doc, dict) else None
+    if not isinstance(facts, dict) or not facts:
+        raise ValueError("facts: needs a mapping of facts")
+    for fid, fact in facts.items():
+        if not isinstance(fid, str) or not fid.replace("_", "").isalnum():
+            raise ValueError(f"facts: bad id {fid!r}")
+        code = fact.get("emoji") if isinstance(fact, dict) else None
+        if not isinstance(code, str) or not code:
+            raise ValueError(f"facts: {fid}: needs an emoji code")
+        text = fact.get("text_he")
+        if not isinstance(text, str) or not text.strip():
+            raise ValueError(f"facts: {fid}: needs a line of text")
+        if len(text) > FACT_MAX or "\n" in text:
+            raise ValueError(
+                f"facts: {fid}: one line, at most {FACT_MAX} characters"
+            )
+    return doc
+
+
+def fact_codes() -> set[str]:
+    """The pictures the facts use (the emoji build ships them)."""
+    return {f["emoji"] for f in read_yaml(FACTS)["facts"].values()}
+
+
 def build(out: Output) -> dict[str, Any]:
+    out.add_json("facts.json", check_facts(read_yaml(FACTS)), compact=True)
     doc = check(read_yaml(SOURCE))
     out.add_json("economy.json", doc, compact=True)
-    return {"items": len(doc["items"])}
+    loot = check_loot(read_yaml(LOOT), {i["id"] for i in doc["items"]})
+    out.add_json("loot.json", loot, compact=True)
+    return {
+        "items": len(doc["items"]),
+        "chests": len(loot["chests"]),
+        "facts": len(read_yaml(FACTS)["facts"]),
+    }

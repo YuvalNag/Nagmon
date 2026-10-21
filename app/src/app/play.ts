@@ -15,6 +15,9 @@ import { SubjectMap } from "../core/learning/quiz_flow";
 import { loadTrips, type Trip } from "../core/game/trips";
 import { FieldLog } from "../core/game/fieldLog";
 import { type Economy, economy } from "../core/game/items";
+import { type Facts, facts } from "../core/game/facts";
+import { type Hatched, warmEggs } from "../core/game/eggs";
+import { type Loot, loot } from "../core/game/loot";
 import { type EncounterTables, encounterTables } from "../core/game/encounters";
 import { type MonsterTable, monsterTable } from "../core/game/monsters";
 import type { QuizSession } from "../core/world/quiz";
@@ -39,6 +42,8 @@ export interface GameData {
   monsters: MonsterTable;
   encounters: EncounterTables;
   economy: Economy;
+  loot: Loot;
+  facts: Facts;
 }
 
 let cached: { fetch: FetchJson; data: Promise<GameData> } | null = null;
@@ -47,7 +52,7 @@ let cached: { fetch: FetchJson; data: Promise<GameData> } | null = null;
 export function loadGameData(fetchJson: FetchJson = fetchGameJson): Promise<GameData> {
   if (cached?.fetch === fetchJson) return cached.data;
   const data = (async () => {
-    const [index, texts, monsters, encounters, eco] = await Promise.all([
+    const [index, texts, monsters, encounters, eco, lootDoc, factsDoc] = await Promise.all([
       fetchJson("content/index.json") as Promise<{ files: { file: string }[] }>,
       fetchJson("i18n/he.json") as Promise<Record<string, string>>,
       fetchJson("db/monsters.json"),
@@ -55,11 +60,15 @@ export function loadGameData(fetchJson: FetchJson = fetchGameJson): Promise<Game
       Promise.resolve(fetchJson("db/encounters.json")).catch(() => ({})),
       // no economy table is a game with an empty Bag, not a broken one
       Promise.resolve(fetchJson("economy.json")).catch(() => ({})),
+      // and none for the daily gift and the chests is a world that gives nothing
+      Promise.resolve(fetchJson("loot.json")).catch(() => ({})),
+      // and none for the signs is signs with nothing to say
+      Promise.resolve(fetchJson("facts.json")).catch(() => ({})),
     ]);
     const files = Object.fromEntries(
       await Promise.all(index.files.map(async (f) => [f.file, await fetchJson(`content/${f.file}`)] as const)),
     );
-    return { content: loadContent(files), subjects: SubjectMap.fromDoc(files["subjects.json"]), texts, monsters: monsterTable(monsters), encounters: encounterTables(encounters), economy: economy(eco) };
+    return { content: loadContent(files), subjects: SubjectMap.fromDoc(files["subjects.json"]), texts, monsters: monsterTable(monsters), encounters: encounterTables(encounters), economy: economy(eco), loot: loot(lootDoc), facts: facts(factsDoc) };
   })();
   cached = { fetch: fetchJson, data };
   data.catch(() => {
@@ -126,15 +135,33 @@ export class Play {
     private readonly profiles: ProfileStore,
     private readonly log: NonNullable<PlayOptions["log"]>,
     private readonly now: () => Date,
+    /** The daily gift and the chests (game/loot.json). */
+    readonly loot: Loot = { dailyGift: [], chests: {} },
+    /** The facts of signs (game/facts.json). */
+    readonly facts: Facts = {},
   ) {
     this.maxChoices = maxChoicesFor(profile);
     this.field = new FieldLog(log);
   }
 
+  /** Friends that hatched from an egg and have not been told about yet (the map shows them when it is free). */
+  readonly hatched: Hatched[] = [];
+
+  /** The creatures an egg of a zone can hatch into: the zone's encounter table, creatures with a picture. */
+  pools = (table: string) =>
+    (this.encounters[table] ?? []).filter((e) => this.monsters[e.monster]?.hasSprite).map((e) => ({ species: e.monster, level: e.levels[0] }));
+
   /** Logs an answered question (subject, skill, level, right or not, ms). */
   logAnswer(session: QuizSession, context: string): void {
     const q = session.question;
     if (!q || !session.outcome) return;
+    // a right answer anywhere warms the eggs; what hatches waits to be told
+    if (session.outcome.correct && this.world.eggs.length) {
+      const out = warmEggs(this.world, this.pools);
+      for (const h of out) this.field.note("hatch", { egg: h.eggId, species: h.species, level: h.level });
+      this.hatched.push(...out);
+      void this.saveWorld();
+    }
     const skill = this.engine.content.get(q.skill_id);
     this.field.question({
       subject: q.subject,
@@ -204,7 +231,7 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   const now = opts.now ?? (() => new Date());
   const log = opts.log ?? { info: () => {}, warning: () => {}, error: () => {} };
   const { profile, profiles } = opts;
-  const [{ content, subjects, texts, monsters, encounters, economy: eco }, learnerDict, worldDict] = await Promise.all([
+  const [{ content, subjects, texts, monsters, encounters, economy: eco, loot: lootTable, facts: factsTable }, learnerDict, worldDict] = await Promise.all([
     loadGameData(fetchJson),
     profiles.loadLearnerDict(profile.id),
     profiles.loadWorldDict(profile.id),
@@ -216,5 +243,5 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   // a trip file that is not there, or a map not built, is not an error: the zone is "coming soon"
   const trips = await loadTrips(fetchJson, (map) => Promise.resolve(fetchJson(`maps/${map}.json`)).then(() => true, () => false)).catch(() => []);
   log.info(`Play opened: grade ${profile.grade}, ${learner.answers_total} answers so far, ${world.money} coins`);
-  return new Play(profile, engine, world, texts, subjects, monsters, encounters, eco, trips, profiles, log, now);
+  return new Play(profile, engine, world, texts, subjects, monsters, encounters, eco, trips, profiles, log, now, lootTable, factsTable);
 }

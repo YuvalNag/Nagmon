@@ -19,10 +19,15 @@ KNOWN_ACTIONS = {
     "choice_monster",
     "clear_variable",
     "create_npc",
+    "give_item",
     "modify_money",
     "nagmon_apply_profile",
     "nagmon_daily_count",
     "open_tutor",
+    "open_chest",
+    "open_rest",
+    "open_shop",
+    "place_egg",
     "play_map_animation",
     "play_music",
     "random_encounter",
@@ -34,6 +39,7 @@ KNOWN_ACTIONS = {
     "set_teleport_faint",
     "set_template",
     "set_variable",
+    "show_fact",
     "start_battle",
     "transition_teleport",
     "translated_dialog",
@@ -167,6 +173,53 @@ def test_events_use_only_known_actions_and_conditions(built, name):
         assert {b["type"] for b in script["behaviors"]} <= KNOWN_BEHAVIORS
         assert {c["type"] for c in script["conditions"]} <= KNOWN_CONDITIONS
         assert {c["operator"] for c in script["conditions"]} <= {"is", "not"}
+
+
+def test_world_object_events_name_chests_facts_and_items_that_exist(built):
+    """open_chest, show_fact and give_item must point at the yaml tables."""
+    out, _ = built
+    chests = json.loads(out.data["loot.json"])["chests"]
+    facts = json.loads(out.data["facts.json"])["facts"]
+    items = {i["id"] for i in json.loads(out.data["economy.json"])["items"]}
+    seen = {"open_chest": 0, "show_fact": 0, "give_item": 0}
+    for name in WORLD_MAPS:
+        for script in scripts(map_doc(built, name)):
+            for action in script["actions"]:
+                args = action["args"]
+                if action["type"] == "open_chest":
+                    assert args[0] in chests, (name, args)
+                    assert len(args) == 2 and args[1], (name, args)
+                elif action["type"] == "show_fact":
+                    assert args[0] in facts, (name, args)
+                elif action["type"] == "give_item":
+                    assert args[0] in items, (name, args)
+                else:
+                    continue
+                seen[action["type"]] += 1
+    assert seen["open_chest"] >= 1  # the home's daily chest
+
+
+def test_the_home_has_a_daily_chest_on_its_reserved_tile_and_an_egg_nest(
+    built,
+):
+    doc = map_doc(built, "nagmon_home")
+    actions = [a for s in scripts(doc) for a in s["actions"]]
+    chest = next(a for a in actions if a["type"] == "open_chest")
+    assert chest["args"][0] == "home_daily"
+    made = {
+        a["args"][0]: a["args"][1:3]
+        for a in actions
+        if a["type"] == "create_npc"
+    }
+    assert made["nagmon_chest_home"] == ["7", "4"]
+    assert "place_egg" in {a["type"] for a in actions}
+    # the chest and the nest stand on free tiles, not in the furniture
+    rows = prop(doc, "collision")["rows"]
+    for x, y in (
+        map(int, made["nagmon_chest_home"]),
+        map(int, made["nagmon_nest_home"]),
+    ):
+        assert rows[y][x] == "."
 
 
 def test_city_has_both_the_tmx_events_and_the_nagmon_events(built):
@@ -441,7 +494,10 @@ def test_a_house_has_a_host_a_child_can_walk_up_to(built, door):
     hosts = []
     for script in scripts(doc):
         for a in script["actions"]:
-            if a["type"] == "create_npc":
+            # the home's chest and nest are objects, not hosts
+            if a["type"] == "create_npc" and a["args"][0].startswith(
+                "nagmon_house_"
+            ):
                 hosts.append((int(a["args"][1]), int(a["args"][2])))
         assert [b["type"] for b in script["behaviors"]] in ([], ["talk"])
     assert len(hosts) == 1
@@ -452,7 +508,12 @@ def test_a_house_has_a_host_a_child_can_walk_up_to(built, door):
         if rows[y + dy][x + dx] == "."
     ]
     assert free, f"nobody can stand next to the host at {(x, y)}"
-    talks = [s for s in scripts(doc) if s["behaviors"]]
+    talks = [
+        s
+        for s in scripts(doc)
+        if s["behaviors"]
+        and s["behaviors"][0]["args"][0].startswith("nagmon_house_")
+    ]
     assert len(talks) == 1
 
 

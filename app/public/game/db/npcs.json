@@ -93,6 +93,33 @@
    "portrait_scale": 3
   }
  },
+ "nagmon_chest_home": {
+  "slug": "nagmon_chest_home",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_chest",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/nagmon_chest.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
  "nagmon_gardener": {
   "slug": "nagmon_gardener",
   "speech": {
@@ -332,6 +359,33 @@
   ],
   "sprites": {
    "map": "sprites/npc/rockitten.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
+ "nagmon_nest_home": {
+  "slug": "nagmon_nest_home",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_nest",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/nagmon_nest.png",
    "frame": [
     64,
     128

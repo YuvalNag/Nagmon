@@ -14,6 +14,10 @@
  * for a later milestone and the log says so once. A condition it does not
  * know never holds.
  */
+import { placeEgg, type Pools } from "../game/eggs";
+import type { Facts } from "../game/facts";
+import { type Economy } from "../game/items";
+import { grant, type Loot, type Prize, pickPrize } from "../game/loot";
 import type { Action, Condition, WorldEvent } from "./mapData";
 import { countOneMore, countToday, type WorldState } from "./worldState";
 
@@ -39,7 +43,42 @@ export interface EventHost {
    * keeps a cleared variable without the coins it paid.
    */
   changed(): void;
+  /**
+   * A whole screen of the game over the map: the shop (`open_shop`), the
+   * Rest Center (`open_rest`). Resolves when the child closes it.
+   */
+  screen?(kind: ScreenKind, arg: string): Promise<void>;
+  /** Shows what was found (a chest opened, an item given); resolves when the child has seen it. */
+  found?(found: Found): Promise<void>;
+  /**
+   * A chest's question was answered wrong: the child tries again, opens
+   * the small gift, or leaves the chest as it is (Android's back). A host
+   * without it gives the gift, so nobody is stuck.
+   */
+  chestWrong?(chest: string): Promise<"again" | "gift" | "leave">;
+  /** A sign's fact: its picture and its line. */
+  fact?(fact: { emoji: string; text: string }): Promise<void>;
   warn?(message: string): void;
+}
+
+/** The screens an event may open. */
+export type ScreenKind = "shop" | "rest";
+
+/** What a child found: a chest's prize, its consolation gift, or an item given on the spot. */
+export interface Found {
+  prize: Prize;
+  how: "chest" | "consolation" | "item";
+}
+
+/** What the world objects (`give_item`, `open_chest`, `place_egg`, `show_fact`) need to know. */
+export interface WorldObjects {
+  economy: Economy;
+  loot: Loot;
+  facts: Facts;
+  /** The creatures of a zone, for an egg that hatches. */
+  pools: Pools;
+  /** The zone of this map (its encounter table): where `place_egg` warms an egg when the event does not say. */
+  zone: string;
 }
 
 export interface RunnerOptions {
@@ -52,6 +91,8 @@ export interface RunnerOptions {
    * cashier only: the others' quests need actions of later milestones.
    */
   talkTo?: ReadonlySet<string>;
+  /** What the world objects need; without it their events stop and say so. */
+  objects?: WorldObjects;
 }
 
 /** The actions this interpreter runs. */
@@ -65,6 +106,12 @@ export const ACTIONS: ReadonlySet<string> = new Set([
   "ask_quiz",
   "create_npc",
   "char_face",
+  "open_shop",
+  "open_rest",
+  "give_item",
+  "open_chest",
+  "place_egg",
+  "show_fact",
 ]);
 
 /** The conditions it knows; any other never holds. */
@@ -244,6 +291,72 @@ export class EventRunner {
     }
   }
 
+  private objectsFor(action: string): WorldObjects {
+    if (!this.opts.objects) throw new Error(`no world objects for ${action}`);
+    return this.opts.objects;
+  }
+
+  /** Saves what changed, then shows what was found (a host that cannot show it just goes on). */
+  private async show(found: Found): Promise<void> {
+    this.save();
+    await this.host.found?.(found);
+  }
+
+  /**
+   * A chest with a question for a lock. A right answer opens it with the
+   * next prize of its list; a wrong one (or "don't know") lets the child
+   * try again or open the small consolation gift, so nobody is stuck or
+   * punished. A daily chest is shut for the rest of the day once opened,
+   * and one that opens once stays open: both say so kindly instead.
+   */
+  private async openChest(args: string[]): Promise<void> {
+    const o = this.objectsFor("open_chest");
+    const [id = "", topic = ""] = args;
+    const chest = o.loot.chests[id];
+    if (!chest || !topic) throw new Error(`bad open_chest ${args.join(",")}`);
+    const vars = this.state.variables;
+    const today = this.opts.today();
+    const key = `chest_${id}`;
+    const done = chest.repeat === "once" ? vars.get(`nagmon_${key}_done`) !== undefined : countToday(vars, key, today) > 0;
+    if (done) {
+      this.save();
+      await this.host.say(chest.repeat === "once" ? "nagmon_world_chest_empty_once" : "nagmon_world_chest_empty_daily", null);
+      return;
+    }
+    for (;;) {
+      let word: QuizWord | null = null;
+      // the answer is the child's own: it only counts once it is given (a question closed with back asks nothing)
+      await this.host.quiz(topic, "chest", (w) => {
+        word = w;
+      });
+      if (word === null) return;
+      if (word === "correct" || word === "super") {
+        const opens = Number(vars.get(`nagmon_${key}_n`)) || 0;
+        vars.set(`nagmon_${key}_n`, String(opens + 1));
+        this.close(chest.repeat, key, today);
+        const got = grant(this.state, o.economy, pickPrize(chest.prizes, opens));
+        this.dirty = true;
+        await this.show({ prize: got, how: "chest" });
+        return;
+      }
+      const choice = this.host.chestWrong ? await this.host.chestWrong(id) : "gift";
+      if (choice === "leave") return;
+      if (choice === "gift") {
+        this.close(chest.repeat, key, today);
+        const got = grant(this.state, o.economy, chest.consolation);
+        this.dirty = true;
+        await this.show({ prize: got, how: "consolation" });
+        return;
+      }
+    }
+  }
+
+  /** The chest is shut: for today, or for ever. */
+  private close(repeat: "daily" | "once", key: string, today: string): void {
+    if (repeat === "once") this.state.variables.set(`nagmon_${key}_done`, "yes");
+    else countOneMore(this.state.variables, key, today);
+  }
+
   /** Hands what changed to the host to save, once. */
   private save(): void {
     if (!this.dirty) return;
@@ -298,6 +411,44 @@ export class EventRunner {
       case "create_npc":
         this.characters.add(a.args[0] ?? "");
         return;
+      case "open_shop":
+      case "open_rest": {
+        if (!this.host.screen) throw new Error(`no screen for ${a.type}`);
+        // what changed so far is saved first: the child may stay long, and a kill must lose nothing
+        this.save();
+        await this.host.screen(a.type === "open_shop" ? "shop" : "rest", a.args[0] ?? "");
+        return;
+      }
+      case "give_item": {
+        const o = this.objectsFor(a.type);
+        const [id = "", count = "1"] = a.args;
+        const n = Number(count);
+        if (!o.economy.items[id] || !Number.isInteger(n) || n < 1) throw new Error(`bad give_item ${a.args.join(",")}`);
+        const got = grant(this.state, o.economy, { coins: 0, item: id, n });
+        this.dirty = true;
+        await this.show({ prize: got, how: "item" });
+        return;
+      }
+      case "open_chest":
+        await this.openChest(a.args);
+        return;
+      case "place_egg": {
+        const o = this.objectsFor(a.type);
+        const r = placeEgg(this.state, o.economy, a.args[0] || o.zone);
+        if (r.ok) this.dirty = true;
+        this.save();
+        await this.host.say(r.ok ? "nagmon_world_egg_placed" : r.reason === "none" ? "nagmon_world_egg_none" : "nagmon_world_egg_full", null);
+        return;
+      }
+      case "show_fact": {
+        const o = this.objectsFor(a.type);
+        const fact = o.facts[a.args[0] ?? ""];
+        if (!fact) throw new Error(`unknown fact ${a.args[0] ?? ""}`);
+        if (!this.host.fact) throw new Error("no screen for show_fact");
+        this.save();
+        await this.host.fact(fact);
+        return;
+      }
       case "char_face":
         // the people face the way the map's start says (mapData.readMap)
         return;

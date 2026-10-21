@@ -2,7 +2,9 @@
 # The map is a copy of a Tuxemon interior with its events removed
 # (mods/nagmon/maps/nagmon_rest_center.tmx); the way out, the NPC and the greeting are
 # here. The way in is an event of classic_hearthrock_city.yaml.
-# Placeholder behaviour only: shop, bag and rest logic come later.
+# The nurse greets the child and opens the Rest Center's desk (open_rest): the
+# friends resting, the party and the Meadow, and the daily gift
+# (app/src/ui/RestScreen.tsx).
 
 events:
 
@@ -38,3 +40,4 @@ events:
     - talk nagmon_house_nurse
     actions:
     - translated_dialog nagmon_world_rest_nurse,nagmon_house_nurse
+    - open_rest

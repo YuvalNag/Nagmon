@@ -1,8 +1,12 @@
-# Inside a house of Hearthrock: the home: a bedroom with a pet; the free tile (7,4) is kept for the future daily chest.
+# Inside a house of Hearthrock: the home: a bedroom with a pet, the daily chest at (7,4) and an egg nest at (1,4).
 # The map is a copy of a Tuxemon interior with its events removed
 # (mods/nagmon/maps/nagmon_home.tmx); the way out, the NPC and the greeting are
 # here. The way in is an event of classic_hearthrock_city.yaml.
-# Placeholder behaviour only: shop, bag and rest logic come later.
+# The daily chest: answer its question to open it (open_chest <id>,<subject or
+# skill>); what is in it is the loot table's (mods/nagmon/economy/loot.yaml), it
+# opens once a day, and a wrong answer only means try again or take a small
+# gift. The nest takes an egg from the Bag (place_egg): right answers warm it
+# until it hatches into a friend of the zone.
 #
 # The staircase tile at (7,2) led upstairs in the old game: closed, and the
 # nooks at (2,2) and (5,2) behind the furniture.
@@ -57,3 +61,33 @@ events:
     - talk nagmon_house_pet
     actions:
     - translated_dialog nagmon_world_home_pet,nagmon_house_pet
+
+  Create Chest:
+    type: event
+    conditions:
+    - not char_exists nagmon_chest_home
+    actions:
+    - create_npc nagmon_chest_home,7,4
+    - char_face nagmon_chest_home,down
+
+  Chest Talk:
+    type: event
+    behav:
+    - talk nagmon_chest_home
+    actions:
+    - open_chest home_daily,science
+
+  Create Nest:
+    type: event
+    conditions:
+    - not char_exists nagmon_nest_home
+    actions:
+    - create_npc nagmon_nest_home,1,4
+    - char_face nagmon_nest_home,down
+
+  Nest Talk:
+    type: event
+    behav:
+    - talk nagmon_nest_home
+    actions:
+    - place_egg
