@@ -8,6 +8,7 @@
  * content are not part of who-plays.
  */
 import { ageFromProfile } from "../core/family/age";
+import { applyStartGrades } from "../core/family/learningSettings";
 import type { Profile, ProfileStore } from "../core/family/profiles";
 import { type ContentLibrary, LearningEngine, LearnerState, loadContent, PyRandom } from "../core/learning";
 import { SubjectMap } from "../core/learning/quiz_flow";
@@ -79,6 +80,8 @@ export function learnerFor(profile: Profile, saved: Record<string, unknown>, now
   learner.age = ageFromProfile(profile, now);
   const learning = profile.settings["learning"];
   if (learning && typeof learning === "object" && !Array.isArray(learning)) Object.assign(learner.settings, learning);
+  // the parent's start grade for a subject is where it begins
+  applyStartGrades(learner, profile.settings);
   return learner;
 }
 

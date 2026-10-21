@@ -204,3 +204,41 @@ export function useNote(state: LessonSave, freeUsed: boolean): NoteUse {
   if (state.charges > 0) return { ok: true, free: false, state: addCharges(state, -1) };
   return { ok: false, free: false, state };
 }
+
+/** The lessons an institute's tutor teaches ("all" is every lesson, for a tutor with no institute of its own). */
+export const lessonsAt = (lessons: readonly Lesson[], institute: string): Lesson[] =>
+  institute === "all" ? [...lessons] : lessons.filter((l) => l.institute === institute);
+
+/** A skill this many grades above the child's level or more is locked in the list (the rest are offered). */
+export const LOCK_GAP = 3;
+
+/** Whether the list shows a lock: the skill is far above the child's level in its subject. */
+export const lessonLocked = (skillGrade: number, level: number): boolean => skillGrade - level >= LOCK_GAP;
+
+export interface StampCard {
+  stamps: { id: string; done: boolean }[];
+  done: number;
+  total: number;
+}
+
+/** The institute's stamp card: a circle for each lesson, stamped once it is passed (never expires). */
+export function stampCard(lessons: readonly Lesson[], state: LessonSave): StampCard {
+  const stamps = lessons.map((l) => ({ id: l.id, done: isLearned(state, l.id) }));
+  return { stamps, done: stamps.filter((s) => s.done).length, total: stamps.length };
+}
+
+export interface PracticeResult {
+  passed: boolean;
+  /** What the pass pays and the new saved state; null when not passed. */
+  award: Award | null;
+}
+
+/**
+ * The practice question was answered: a right answer passes the lesson and
+ * pays (`awardFor`); a wrong one pays nothing, costs nothing and changes
+ * nothing, so the child looks at the cards again as often as they like.
+ */
+export function finishPractice(lesson: Lesson, state: LessonSave, today: string, rewards: Rewards | undefined, correct: boolean): PracticeResult {
+  if (!correct) return { passed: false, award: null };
+  return { passed: true, award: awardFor(lesson.id, state, today, rewards) };
+}

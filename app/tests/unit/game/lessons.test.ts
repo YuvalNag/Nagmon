@@ -1,6 +1,11 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   addCharges,
+  finishPractice,
+  lessonLocked,
+  lessonsAt,
+  stampCard,
   awardFor,
   learnedSkills,
   lessonRewards,
@@ -145,5 +150,64 @@ describe("world state", () => {
   it("reads a damaged lessons field as nothing learned", () => {
     const w = WorldState.fromDict({ lessons: { done: ["a", "a", 3], charges: -4, repeatDay: 7 } });
     expect(w.lessons).toEqual({ done: ["a"], repeatDay: null, charges: 0 });
+  });
+});
+
+describe("the three built solar lessons", () => {
+  const read = (p: string) => JSON.parse(readFileSync(`public/game/${p}`, "utf8")) as unknown;
+  it("load whole: three or four cards each, every card with a picture and a line, a note and a practice", async () => {
+    const all = await loadLessons(async (p) => read(p));
+    expect(all.map((l) => l.id)).toEqual(["moon", "solar_system", "stars"]);
+    for (const l of all) {
+      expect(l.cards.length).toBeGreaterThanOrEqual(3);
+      for (const c of l.cards) {
+        expect(c.emoji, `${l.id}: ${c.text}`).toMatch(/^[0-9a-f]+(-[0-9a-f]+)*$/);
+        expect(c.text.length).toBeLessThan(60);
+      }
+      expect(l.note?.emoji).toBeTruthy();
+      expect(l.practice).toMatchObject({ kind: "bank" });
+    }
+  });
+});
+
+describe("the lesson list", () => {
+  const stars = parseLesson({ ...moonDoc, id: "stars", skill: "science.space.stars" })!;
+  const other = parseLesson({ ...moonDoc, id: "fractions", skill: "math.fractions", institute: "academy" })!;
+
+  it("lists an institute's lessons, or all of them", () => {
+    expect(lessonsAt([moon, stars, other], "station").map((l) => l.id)).toEqual(["moon", "stars"]);
+    expect(lessonsAt([moon, stars, other], "all").map((l) => l.id)).toEqual(["moon", "stars", "fractions"]);
+    expect(lessonsAt([moon], "nowhere")).toEqual([]);
+  });
+
+  it("locks only a skill far above the child's level (three grades or more)", () => {
+    expect(lessonLocked(3, 2)).toBe(false);
+    expect(lessonLocked(4, 2)).toBe(false);
+    expect(lessonLocked(5, 2)).toBe(true);
+    expect(lessonLocked(6, 6)).toBe(false);
+    expect(lessonLocked(1, 5)).toBe(false);
+  });
+
+  it("a stamp card has a circle for each lesson, stamped for the passed ones", () => {
+    const state = { ...noLessonSave(), done: ["stars"] };
+    expect(stampCard([moon, stars], state)).toEqual({ stamps: [{ id: "moon", done: false }, { id: "stars", done: true }], done: 1, total: 2 });
+    expect(stampCard([], state)).toEqual({ stamps: [], done: 0, total: 0 });
+  });
+});
+
+describe("finishPractice", () => {
+  it("a wrong answer pays nothing and changes nothing: the card is looked at again", () => {
+    const s = noLessonSave();
+    expect(finishPractice(moon, s, "2026-10-20", undefined, false)).toEqual({ passed: false, award: null });
+    expect(s.done).toEqual([]);
+  });
+  it("a right answer passes: 40 coins the first time, and the stamp", () => {
+    const r = finishPractice(moon, noLessonSave(), "2026-10-20", undefined, true);
+    expect(r.passed).toBe(true);
+    expect(r.award).toMatchObject({ coins: 40, first: true });
+    expect(r.award?.state.done).toEqual(["moon"]);
+  });
+  it("uses the parent's amounts", () => {
+    expect(finishPractice(moon, noLessonSave(), "d", { firstPass: 25, repeat: 3 }, true).award?.coins).toBe(25);
   });
 });

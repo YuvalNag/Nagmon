@@ -290,3 +290,49 @@ describe("the world's saved state", () => {
     }
   });
 });
+
+describe("open_tutor", () => {
+  const lab = readMap("nagmon_lab", JSON.parse(readFileSync("public/game/maps/nagmon_lab.json", "utf8")) as TiledMap);
+
+  it("is an action the interpreter runs, so talking to the lab's tutor is not left waiting", () => {
+    const ev = lab.events.find((e) => e.actions.some((a) => a.type === "open_tutor"));
+    expect(ev).toBeDefined();
+    expect(unknownActions(ev!)).toEqual([]);
+  });
+
+  it("greets, opens the tutor's lessons for the institute, and the map waits until it closes", async () => {
+    const said: string[] = [];
+    const opened: string[] = [];
+    let close: () => void = () => {};
+    const h: EventHost = {
+      say: async (msgid) => void said.push(msgid),
+      quiz: async () => {},
+      changed: () => {},
+      openTutor: (institute) => {
+        opened.push(institute);
+        return new Promise<void>((r) => (close = r));
+      },
+    };
+    const runner = new EventRunner(lab.events, new WorldState(), h, { grade: 3, today: () => DAY });
+    await runner.start();
+    expect(runner.talkable("nagmon_house_tutor")).toBe(true);
+    const talk = runner.talk("nagmon_house_tutor");
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(said).toEqual(["nagmon_world_lab_tutor"]);
+    expect(opened).toEqual(["all"]);
+    expect(runner.busy).toBe(true);
+    close();
+    await talk;
+    expect(runner.busy).toBe(false);
+  });
+
+  it("a host with no tutor screen only logs it; the rest of the game goes on", async () => {
+    const warnings: string[] = [];
+    const h: EventHost = { say: async () => {}, quiz: async () => {}, changed: () => {}, warn: (m) => void warnings.push(m) };
+    const runner = new EventRunner(lab.events, new WorldState(), h, { grade: 3, today: () => DAY });
+    await runner.start();
+    await runner.talk("nagmon_house_tutor");
+    expect(warnings.join()).toContain("open_tutor");
+  });
+});

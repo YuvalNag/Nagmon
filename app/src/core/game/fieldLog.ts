@@ -111,6 +111,20 @@ export class FieldLog {
     this.line("HELPER use", pairs({ kind: p.kind, skill: p.skill }));
   }
 
+  /** A step of a tutor's lesson (opened, the practice answered, passed): the lesson id and numbers only. */
+  lesson(p: { step: "open" | "practice" | "pass"; id: string; ok?: boolean; coins?: number; first?: boolean }): void {
+    const rest: Record<string, string | number> = { id: p.id };
+    if (p.ok !== undefined) rest["ok"] = p.ok ? 1 : 0;
+    if (p.coins !== undefined) rest["coins"] = p.coins;
+    if (p.first !== undefined) rest["first"] = p.first ? 1 : 0;
+    this.line(`LESSON ${p.step}`, pairs(rest));
+  }
+
+  /** The Notes sheet opened on a question: the skill, whether it was the free use, the charges left (when one was spent). */
+  noteUse(p: { skill: string; free: boolean; charges?: number }): void {
+    this.line("NOTE open", pairs({ skill: p.skill, free: p.free ? 1 : 0, ...(p.charges !== undefined ? { charges: p.charges } : {}) }));
+  }
+
   /** One go at a net's seal: right or wrong (a wrong one only means another try). No names. */
   capture(p: { species: string; net: string; ok: boolean; left: number; tries: number }): void {
     this.line("CAPTURE try", pairs({ species: p.species, net: p.net, ok: p.ok ? 1 : 0, left: p.left, tries: p.tries }));

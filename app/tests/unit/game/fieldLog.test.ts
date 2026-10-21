@@ -103,3 +103,22 @@ describe("the field log of a battle's beats", () => {
     ]);
   });
 });
+
+describe("the lesson lines", () => {
+  it("write ids and numbers only: the lesson, the step, the coins", () => {
+    const { log, lines } = make();
+    log.lesson({ step: "open", id: "moon" });
+    log.lesson({ step: "practice", id: "moon", ok: false });
+    log.lesson({ step: "pass", id: "moon", ok: true, coins: 40, first: true });
+    log.noteUse({ skill: "science.space.moon", free: false, charges: 2 });
+    log.noteUse({ skill: "science.space.moon", free: true });
+    expect(lines).toEqual([
+      "LESSON open id=moon",
+      "LESSON practice id=moon ok=0",
+      "LESSON pass id=moon ok=1 coins=40 first=1",
+      "NOTE open skill=science.space.moon free=0 charges=2",
+      "NOTE open skill=science.space.moon free=1",
+    ]);
+  });
+});
+
