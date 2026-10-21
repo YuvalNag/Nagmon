@@ -1,4 +1,4 @@
-import type { Figure as FigureData } from "../core/learning/model";
+import { DRAWN_FIGURE_KINDS, type Figure as FigureData } from "../core/learning/model";
 import { t } from "../i18n";
 
 /**
@@ -10,7 +10,7 @@ import { t } from "../i18n";
  */
 
 /** The figure kinds drawn here. */
-export const FIGURE_KINDS: ReadonlySet<string> = new Set(["objects"]);
+export const FIGURE_KINDS: ReadonlySet<string> = DRAWN_FIGURE_KINDS;
 
 const W = 300;
 const H = 160;

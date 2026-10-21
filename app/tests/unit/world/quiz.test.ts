@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { beforeAll, describe, expect, it } from "vitest";
 import { type ContentLibrary, LearningEngine, LearnerState, loadContent, PyRandom } from "../../../src/core/learning";
 import type { AnswerOutcome } from "../../../src/core/learning/engine";
+import { DRAWN_FIGURE_KINDS } from "../../../src/core/learning/model";
 import { QuizSession, resultWord } from "../../../src/core/world/quiz";
 import type { QuizWord } from "../../../src/core/world/events";
 
@@ -210,5 +211,23 @@ describe("the script's word", () => {
     expect(resultWord(o("super"))).toBe("super");
     expect(resultWord(o("correct"))).toBe("correct");
     expect(resultWord(o("wrong"))).toBe("wrong");
+  });
+});
+
+describe("questions that need a picture the app cannot draw yet", () => {
+  it("are never asked: a '?' card where the grid should be cannot be answered", () => {
+    // the robot-on-a-grid question needs its grid; logic, geometry and clocks are full of figures
+    for (const topic of ["logic.robot_end", "logic", "geometry", "math"]) {
+      for (let seed = 0; seed < 150; seed++) {
+        const { s } = session({ grade: 4, topic, seed });
+        const kind = s.question?.figure?.kind;
+        if (kind) expect(DRAWN_FIGURE_KINDS.has(kind), `${topic} seed ${seed}: ${kind}`).toBe(true);
+      }
+    }
+  });
+
+  it("still finds a question for a subject whose generators mostly draw figures", () => {
+    const asked = Array.from({ length: 40 }, (_, seed) => session({ grade: 4, topic: "geometry", seed }).s.question).filter(Boolean);
+    expect(asked.length).toBeGreaterThan(20);
   });
 });

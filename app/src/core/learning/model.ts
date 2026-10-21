@@ -89,6 +89,9 @@ export function makeChoice(id: string, textHe: string, textEn: string | null = n
   return { id, text_he: textHe, text_en: textEn, image };
 }
 
+/** The figure kinds the app draws (ui/Figure.tsx). A question whose figure is another kind cannot be answered yet. */
+export const DRAWN_FIGURE_KINDS: ReadonlySet<string> = new Set(["objects"]);
+
 /** A figure spec. */
 export function makeFigure(kind: string, data: Record<string, unknown> = {}): Figure {
   return { kind, data };

@@ -17,7 +17,7 @@
  *   pays (the cashier's 20, under the daily cap).
  */
 import type { AnswerOutcome, LearningEngine } from "../learning/engine";
-import type { Choice, Given, Question } from "../learning/model";
+import { type Choice, DRAWN_FIGURE_KINDS, type Given, type Question } from "../learning/model";
 import { NumberPad } from "../learning/quiz_flow";
 import type { QuizWord } from "./events";
 
@@ -86,11 +86,17 @@ export class QuizSession {
     let q: Question | null = null;
     try {
       const { topic, context, maxChoices } = request;
-      q = engine.nextQuestion({
-        ...(topic.includes(".") ? { skill_id: topic } : { subject: topic }),
-        context,
-        max_choices: maxChoices,
-      });
+      // a question that needs a picture the app does not draw yet (a robot on a grid) would show a "?" card: ask another
+      for (let tries = 0; tries < 12; tries++) {
+        q = engine.nextQuestion({
+          ...(topic.includes(".") ? { skill_id: topic } : { subject: topic }),
+          context,
+          max_choices: maxChoices,
+        });
+        if (!q.figure || DRAWN_FIGURE_KINDS.has(q.figure.kind)) break;
+        warn(`A ${q.figure.kind} figure is not drawn yet (M6): ${q.item_id}`);
+        q = null;
+      }
     } catch (e) {
       // a typo in a script's skill, a broken generator: no question, not a crash
       warn(`No question for ${request.topic}: ${String(e)}`);
