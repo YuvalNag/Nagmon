@@ -1,6 +1,6 @@
 import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Play, PlayOptions } from "../../app/play";
-import { TALK_TO, testAlwaysEncounter, testSeed, testStartMap } from "../../app/playConfig";
+import { TALK_TO, testAlwaysEncounter, testQuizTopic, testSeed, testStartMap } from "../../app/playConfig";
 import type { Profile, ProfileStore } from "../../core/family/profiles";
 import { crumb } from "../../core/game/breadcrumb";
 import { FieldLog } from "../../core/game/fieldLog";
@@ -229,7 +229,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           if (!alive) return resolve();
           const session = new QuizSession(
             play.engine,
-            { topic, context, maxChoices: play.maxChoices },
+            { topic: testQuizTopic() ?? topic, context, maxChoices: play.maxChoices },
             () => gameClock.now(),
             (_outcome, word) => {
               // the learner first, and at once: a kill now loses nothing

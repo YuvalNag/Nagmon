@@ -48,3 +48,16 @@ export function testAlwaysEncounter(): boolean {
     return false;
   }
 }
+
+/** A test hook: the topic every quiz asks (a skill id such as logic.robot_end), only with the test seed. */
+export const QUIZ_TOPIC_KEY = "nagmon.quiz.topic";
+
+export function testQuizTopic(): string | undefined {
+  if (testSeed() === null) return undefined;
+  try {
+    const v = localStorage.getItem(QUIZ_TOPIC_KEY);
+    return v && /^[a-z0-9_.]+$/.test(v) ? v : undefined;
+  } catch {
+    return undefined;
+  }
+}

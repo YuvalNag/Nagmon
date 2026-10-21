@@ -90,7 +90,23 @@ export function makeChoice(id: string, textHe: string, textEn: string | null = n
 }
 
 /** The figure kinds the app draws (ui/Figure.tsx). A question whose figure is another kind cannot be answered yet. */
-export const DRAWN_FIGURE_KINDS: ReadonlySet<string> = new Set(["objects"]);
+export const DRAWN_FIGURE_KINDS: ReadonlySet<string> = new Set([
+  "objects",
+  "grid_path",
+  "grid_area",
+  "grid_numbers",
+  "pattern",
+  "polygon",
+  "circle",
+  "angle",
+  "symmetry",
+  "coordinate",
+  "number_line",
+  "solid",
+  "clock",
+  "pie",
+  "bar_model",
+]);
 
 /** A figure spec. */
 export function makeFigure(kind: string, data: Record<string, unknown> = {}): Figure {

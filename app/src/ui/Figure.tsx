@@ -1,12 +1,18 @@
+import type { ReactElement } from "react";
 import { DRAWN_FIGURE_KINDS, type Figure as FigureData } from "../core/learning/model";
 import { t } from "../i18n";
+import { GridArea, GridNumbers, GridPath, Pattern } from "./figures/grids";
+import { BarModel, Clock, Pie } from "./figures/misc";
+import { Angle, Circle, Coordinate, NumberLine, Polygon, Symmetry } from "./figures/plane";
+import { Solid } from "./figures/solids";
 
 /**
  * A question's picture, drawn in SVG (crisp, right to left safe), from
- * the figure the generator made (nagmon/ui/figures.py). M4 draws the kind
- * the cashier's questions use, "objects": emoji to count, groups to add,
- * and coins and notes. The other 14 kinds are M6; until then a neutral
- * "?" card is drawn, never an error.
+ * the figure the generator made (nagmon/ui/figures.py): "objects" here
+ * (emoji to count, groups to add, coins and notes), the rest in
+ * ./figures/*. A kind drawn is in DRAWN_FIGURE_KINDS (core/learning/model.ts),
+ * so a question is only asked when its picture can be drawn; a neutral
+ * "?" card is the fallback, never an error.
  */
 
 /** The figure kinds drawn here. */
@@ -118,12 +124,30 @@ function Objects({ data }: { data: Record<string, unknown> }) {
   );
 }
 
+const DRAWERS: Record<string, (p: { data: Record<string, unknown> }) => ReactElement | null> = {
+  objects: Objects,
+  grid_path: GridPath,
+  grid_area: GridArea,
+  grid_numbers: GridNumbers,
+  pattern: Pattern,
+  polygon: Polygon,
+  circle: Circle,
+  angle: Angle,
+  symmetry: Symmetry,
+  coordinate: Coordinate,
+  number_line: NumberLine,
+  solid: Solid,
+  clock: Clock,
+  pie: Pie,
+  bar_model: BarModel,
+};
+
 export function Figure({ figure }: { figure: FigureData }) {
-  const known = FIGURE_KINDS.has(figure.kind);
+  const Draw = FIGURE_KINDS.has(figure.kind) ? DRAWERS[figure.kind] : undefined;
   return (
     <svg className="figure" data-id="figure" data-kind={figure.kind} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={t("quizPicture")}>
-      {known ? (
-        <Objects data={(figure.data ?? {}) as Record<string, unknown>} />
+      {Draw ? (
+        <Draw data={(figure.data ?? {}) as Record<string, unknown>} />
       ) : (
         <g>
           <rect x={2} y={2} width={W - 4} height={H - 4} rx={12} fill="#ffffff" stroke="#9cc7d1" strokeWidth={3} />
