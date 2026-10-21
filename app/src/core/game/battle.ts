@@ -205,6 +205,16 @@ export class Battle {
       }
     }
     this.last = { correct, damage, won, growth, coins, partnerBefore, calm: won && !this.o.master };
+    this.o.field.battleResult({
+      n: this.stats.questions,
+      ok: correct,
+      damage,
+      hp: this.hp,
+      max: this.maxHp,
+      ms: session.elapsedMs,
+      monster: this.o.wild.species,
+      partner: partnerBefore,
+    });
     this.o.onChange();
   }
 

@@ -138,13 +138,14 @@ describe("a battle", () => {
     expect(world.creatures).toHaveLength(1);
   });
 
-  it("writes its start and end to the log, in one line each", () => {
+  it("writes its start, each answer and its end to the log, in one line each", () => {
     const { battle, lines } = make();
     battle.start("classic_route_1");
     play(battle, true);
     battle.run();
     expect(lines.filter((l) => l.startsWith("BATTLE"))).toEqual([
       "BATTLE start monster=lunibble level=6 map=classic_route_1",
+      expect.stringMatching(/^BATTLE result n=1 ok=1 /),
       "BATTLE end result=ran questions=1 correct=1 ms=1500",
     ]);
   });
@@ -185,5 +186,34 @@ describe("a battle", () => {
   it("no partner (an old save): the battle cannot start", () => {
     const world = new WorldState();
     expect(() => make({ world })).toThrow(/partner/);
+  });
+});
+
+describe("the log line for a battle result", () => {
+  it("one line for each answer, with ids and numbers only", () => {
+    const { battle, lines } = make();
+    play(battle, true);
+    play(battle, false);
+    const results = lines.filter((l) => l.startsWith("BATTLE result"));
+    expect(results).toHaveLength(2);
+    expect(results[0]).toMatch(/^BATTLE result n=1 ok=1 damage=\d+ hp=\d+ max=\d+ ms=\d+ monster=lunibble partner=heliobud$/);
+    expect(results[1]).toMatch(/^BATTLE result n=2 ok=0 damage=0 hp=\d+ max=\d+ ms=\d+ monster=lunibble partner=heliobud$/);
+  });
+
+  it("the numbers are the turn's: the damage taken and the fog left", () => {
+    const { battle, lines } = make();
+    const turn = play(battle, true);
+    const line = lines.find((l) => l.startsWith("BATTLE result"))!;
+    expect(line).toContain(`damage=${turn.damage}`);
+    expect(line).toContain(`hp=${battle.hp} max=${battle.maxHp}`);
+  });
+
+  it("holds no name: only ids (species) and numbers", () => {
+    const { battle, lines } = make();
+    battle.partner.name = "יוסי";
+    play(battle, true);
+    const line = lines.find((l) => l.startsWith("BATTLE result"))!;
+    expect(line).not.toContain("יוסי");
+    expect(line).toMatch(/^[\x20-\x7e]+$/);
   });
 });
