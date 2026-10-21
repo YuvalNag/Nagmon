@@ -25,6 +25,7 @@
 import Phaser from "phaser";
 import { mapZoom, scrollFor, snap } from "../core/world/camera";
 import { type Dir, STEP } from "../core/world/grid";
+import { placeIsFree, type Place } from "../core/world/place";
 import { blockedAhead, readMap, teleportAt, type Placement, type TiledMap, type WorldMap } from "../core/world/mapData";
 import { avatarSheet, frameIndex, npcSheet, type Sheet, worldSize } from "../core/world/sprites";
 import { Walker } from "../core/world/walker";
@@ -67,9 +68,15 @@ export interface MapOptions {
    */
   onFacing?: (slug: string | null) => void;
   /** The hero finished a step onto this tile. */
-  onStep?: (x: number, y: number) => void;
-  /** A map was entered (the first, or through a door): its events run (core/world/events.ts). */
-  onMap?: (world: WorldMap) => void;
+  onStep?: (x: number, y: number, facing?: Dir) => void;
+  /** A map was entered (the first, or through a door): its events run (core/world/events.ts). `at` is where the hero stands. */
+  onMap?: (world: WorldMap, at?: Place) => void;
+  /**
+   * Where the child left off (the saved place), asked once as the map
+   * opens: the hero stands there if the map exists and the tile is free,
+   * else on the map's own start, else in the town.
+   */
+  resume?: () => Promise<Place | null>;
   /**
    * The app's lifecycle (src/platform/lifecycle.ts): the map pauses in the
    * background (loop, music, d-pad) and goes on in the foreground.
@@ -259,8 +266,18 @@ class MapScene extends Phaser.Scene {
     });
     if (this.dead) return;
     this.player = this.add.sprite(0, 0, "hero", 1).setOrigin(0.5, 1);
-    const name = this.opts.map ?? START_MAP;
-    if (!(await this.enter(name, null))) return;
+    const saved = await this.opts.resume?.().catch(() => null);
+    if (this.dead) return;
+    let opened = false;
+    if (saved) {
+      try {
+        opened = await this.enter(saved.map, { x: saved.x, y: saved.y, facing: saved.facing }, true);
+        if (this.dead) return;
+      } catch (e) {
+        log.warning(`The saved map ${saved.map} did not open (${e instanceof Error ? e.message : String(e)}): the town instead`);
+      }
+    }
+    if (!opened && !(await this.enter(saved ? START_MAP : (this.opts.map ?? START_MAP), null))) return;
     this.busy = false;
     this.opts.onReady?.();
   }
@@ -285,7 +302,7 @@ class MapScene extends Phaser.Scene {
    * Loads a map (if it is not in memory) and puts the hero on it. False
    * if the map closed while it loaded: nothing more is done.
    */
-  private async enter(name: string, at: { x: number; y: number; facing: Dir | null } | null): Promise<boolean> {
+  private async enter(name: string, at: { x: number; y: number; facing: Dir | null } | null, resumed = false): Promise<boolean> {
     if (!this.cache.tilemap.exists(tilesKey(name))) {
       await this.loadAll(() => this.load.tilemapTiledJSON(tilesKey(name), `game/maps/${name}.json`));
       if (this.dead) return false;
@@ -339,6 +356,11 @@ class MapScene extends Phaser.Scene {
       log.info(`Left off ${name}: no sheet, or one drawn over twice its pixels: ${this.leftOff.join(", ")}`);
     }
 
+    // a place from the save must still be open ground: else the map's own start
+    if (resumed && at && !placeIsFree(world.collision, at.x, at.y, (x, y) => this.occupied.has(`${x},${y}`))) {
+      log.info(`The saved tile ${at.x},${at.y} on ${name} is not free: the map's start`);
+      at = null;
+    }
     const start = at ?? { ...(world.start ?? { x: Math.floor(world.width / 2), y: Math.floor(world.height / 2) }), facing: "up" as Dir };
     this.walker.place(start.x, start.y, start.facing ?? this.walker.facing);
     this.layout();
@@ -346,7 +368,7 @@ class MapScene extends Phaser.Scene {
     this.remember(name);
     this.entered();
     log.info(`Map ${name}, the hero at ${start.x},${start.y}, zoom ${this.zoom}`);
-    this.opts.onMap?.(world);
+    this.opts.onMap?.(world, { map: name, x: start.x, y: start.y, facing: start.facing ?? this.walker.facing });
     this.lookAhead();
     return true;
   }
@@ -461,7 +483,7 @@ class MapScene extends Phaser.Scene {
       if (e.kind === "arrived") {
         this.leftFoot = !this.leftFoot;
         this.stepCount++;
-        this.opts.onStep?.(e.x, e.y);
+        this.opts.onStep?.(e.x, e.y, this.walker.facing);
         const t = teleportAt(world, e.x, e.y, this.walker.facing);
         if (t) {
           // stop on the door: the step after it must not start

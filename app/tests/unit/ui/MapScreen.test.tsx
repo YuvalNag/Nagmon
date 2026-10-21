@@ -54,10 +54,12 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
   if (saved) await profiles.saveWorldDict(profile.id, saved);
   const calls: string[] = [];
   let opts!: MapOptions;
+  let resumed: unknown = "never asked";
   const load = async () =>
     ({
       startMap: (o: MapOptions) => {
         opts = o;
+        void Promise.resolve(o.resume?.()).then((r) => (resumed = r));
         setTimeout(() => {
           o.onMap?.(city);
           o.onReady?.();
@@ -118,7 +120,7 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
     return out;
   };
   const quiz = () => (window as unknown as { __nagmonQuiz?: () => { phase: string; kind: string; answer: string; skill: string } }).__nagmonQuiz?.();
-  return { fs, profiles, profile, calls, logs, backRef, q, el, press, face, read, quiz, container, opts: () => opts };
+  return { fs, profiles, profile, resumed: () => resumed, calls, logs, backRef, q, el, press, face, read, quiz, container, opts: () => opts };
 }
 
 describe("talking on the map", () => {
@@ -553,5 +555,31 @@ describe("Mila's vehicle and the bestiary", () => {
     expect(m.container.querySelectorAll("[data-zone]").length).toBeGreaterThan(1);
     await m.press("bestiary_close");
     expect(m.q("[data-screen=map-menu]")).not.toBeNull();
+  });
+});
+
+describe("coming back to the same place", () => {
+  const saved = async (m: Awaited<ReturnType<typeof start>>) => (await m.profiles.loadWorldDict(m.profile.id))["place"];
+
+  it("saves the tile on a map change, holds steps back for two seconds, and writes the last one on leaving", async () => {
+    const m = await start();
+    await act(async () => m.opts().onMap?.(city, { map: "classic_hearthrock_city", x: 7, y: 8, facing: "left" }));
+    await settle(20);
+    expect(await saved(m)).toEqual({ map: "classic_hearthrock_city", x: 7, y: 8, facing: "left" });
+    await act(async () => m.opts().onStep?.(7, 9, "down"));
+    await settle(20);
+    expect(await saved(m)).toEqual({ map: "classic_hearthrock_city", x: 7, y: 8, facing: "left" });
+    // the screen goes away (the menu's exit, Android back)
+    cleanup();
+    await settle(20);
+    expect(await saved(m)).toEqual({ map: "classic_hearthrock_city", x: 7, y: 9, facing: "down" });
+  });
+
+  it("asks the map to open on the saved place, but not for a child still in the intro", async () => {
+    const place = { map: "classic_hearthrock_city", x: 3, y: 4, facing: "right" };
+    const m = await start({ world: { place } });
+    expect(m.resumed()).toEqual(place);
+    const fresh = await start({ world: { place, variables: {} }, fresh: true });
+    expect(fresh.resumed()).toBeNull();
   });
 });
