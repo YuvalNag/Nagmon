@@ -41,7 +41,7 @@ interface Out {
   calm: boolean;
 }
 
-function fight(band: Band, acc: number, seed: number): Out {
+function fight(band: Band, seed: number): Out {
   const rng = seeded(seed);
   const world = new WorldState();
   for (const sp of starters) addCreature(world, sp, 10);
@@ -90,8 +90,8 @@ function fight(band: Band, acc: number, seed: number): Out {
 const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const pct = (xs: number[], p: number) => [...xs].sort((a, b) => a - b)[Math.min(xs.length - 1, Math.floor(p * xs.length))]!;
 
-function run(band: Band, acc: number, n = 2000) {
-  const outs = Array.from({ length: n }, (_, i) => fight(band, acc, 1000 + i * 7 + band.charCodeAt(0)));
+function run(band: Band, n = 2000) {
+  const outs = Array.from({ length: n }, (_, i) => fight(band, 1000 + i * 7 + band.charCodeAt(0)));
   const qs = outs.map((o) => o.questions);
   return {
     q: mean(qs),
@@ -111,7 +111,7 @@ describe("a wild fight, simulated 2,000 times a band (docs/app/BATTLE_V3.md 5.9 
   const rows: [Band, number][] = [["A", 0.72], ["B", 0.72], ["C", 0.72]];
   for (const [band, acc] of rows) {
     it(`band ${band} at ${acc * 100}% right`, () => {
-      const r = run(band, acc);
+      const r = run(band);
       // eslint-disable-next-line no-console
       console.log(`SIM band=${band} acc=${acc} q=${r.q.toFixed(2)} p10=${r.p10} p90=${r.p90} max=${r.maxQ} turns=${r.turns.toFixed(2)} maxTurns=${r.maxTurns} min=${r.minutes.toFixed(2)} faint=${(r.faint * 100).toFixed(1)}% capped=${(r.capped * 100).toFixed(1)}% calm=${(r.ended * 100).toFixed(1)}%`);
       expect(r.q).toBeGreaterThanOrEqual(5.5);

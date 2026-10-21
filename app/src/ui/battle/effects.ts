@@ -37,8 +37,9 @@ export interface FxPlan {
   flashesPerSecond: number;
 }
 
-export function planFor(correct: boolean, calm: boolean): FxPlan {
-  const base = { calm, number: correct, flashesPerSecond: 0, shakePx: 0, shakeMs: 0, hitStopMs: 0 };
+/** A wrong answer still takes a little fog (BATTLE_V3: x0.35): `weak` is that number, shown without a hit. */
+export function planFor(correct: boolean, calm: boolean, weak = 0): FxPlan {
+  const base = { calm, number: correct || weak > 0, flashesPerSecond: 0, shakePx: 0, shakeMs: 0, hitStopMs: 0 };
   if (calm) return { ...base, attack: false, stars: correct ? 1 : 0, wildHit: false, oops: !correct };
   return {
     ...base,

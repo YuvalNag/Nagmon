@@ -411,17 +411,25 @@ describe("talking on the map", () => {
   });
 });
 
-/** In a battle there is no "continue" page: the result shows in the arena and a tap anywhere (after a moment) closes its line. */
+/** The answer's line shows (when the round's order puts the enemy first it comes a beat later), and a tap after a moment closes it. */
 async function closeResult(m: Awaited<ReturnType<typeof start>>) {
+  for (let i = 0; i < 400 && m.q("[data-screen=battle]")?.dataset.flow !== "result"; i++) await settle(5);
   expect(m.q("[data-screen=battle]")?.dataset.flow).toBe("result");
   await settle(330);
   await m.press("battle_skip");
 }
 
-/** The next question from the beat menu: a free Move first when the Power-up rests (never two questions in a row). */
-async function powerUp(m: Awaited<ReturnType<typeof start>>) {
-  if ((m.el("battle_next") as HTMLButtonElement).disabled) await m.press("battle_move");
-  await m.press("battle_next");
+/** The round plays out (a beat of ours, a beat of the enemy's), and the menu is back. */
+async function roundEnds(m: Awaited<ReturnType<typeof start>>) {
+  for (let i = 0; i < 600 && m.q("[data-screen=battle]")?.dataset.turn === "playing"; i++) await settle(5);
+  expect(m.q("[data-screen=battle]")?.dataset.turn).toBe("idle");
+}
+
+/** The first move card that is open: its question opens (the question is the cast). */
+async function castFirst(m: Awaited<ReturnType<typeof start>>) {
+  const card = m.container.querySelector<HTMLButtonElement>(".move-card:not(:disabled)");
+  if (!card) throw new Error("no open move card");
+  await m.press(card.dataset.id!);
 }
 
 /** Answers the question showing: right (typed or the right card), or "don't know". */
@@ -432,8 +440,10 @@ async function answerQuestion(m: Awaited<ReturnType<typeof start>>, right: boole
     for (const k of m.quiz()!.answer) await m.press(`quiz_key_${k}`);
     await m.press("quiz_check");
   } else await m.press(`quiz_choice_${m.quiz()!.answer}`);
-  if (inBattle) await closeResult(m);
-  else await m.press("quiz_continue");
+  if (inBattle) {
+    await closeResult(m);
+    if (m.q("[data-screen=battle]")) await roundEnds(m);
+  } else await m.press("quiz_continue");
   // a level-up card may come after a right answer in a battle: tap it away
   if (m.el("growth_close")) await m.press("growth_close");
 }
@@ -505,6 +515,9 @@ describe("a wild creature in the grass", () => {
 
   async function grass() {
     localStorage.setItem("nagmon.encounter.always", "1");
+    // the round's beats are short here, and the enemy's draws are the same every run
+    localStorage.setItem("nagmon.battle.timescale", "0.02");
+    localStorage.setItem("nagmon.battle.seed", "7");
     const m = await start({ world: withPartner });
     await act(async () => {
       m.opts().onMap?.(route);
@@ -512,7 +525,11 @@ describe("a wild creature in the grass", () => {
     await settle(20);
     return m;
   }
-  afterEach(() => localStorage.removeItem("nagmon.encounter.always"));
+  afterEach(() => {
+    localStorage.removeItem("nagmon.encounter.always");
+    localStorage.removeItem("nagmon.battle.timescale");
+    localStorage.removeItem("nagmon.battle.seed");
+  });
 
   it("a step in the grass meets one; the map holds still, and a step on the road does not", async () => {
     const m = await grass();
@@ -521,8 +538,14 @@ describe("a wild creature in the grass", () => {
     await act(async () => m.opts().onStep?.(5, 8));
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("meet");
     expect(m.calls).toContain("pause talk");
-    expect(m.el("battle_fight")).not.toBeNull();
+    // the four move cards (the question is the cast), the friends strip, Net, Bag and Run
+    expect(m.container.querySelectorAll(".move-card")).toHaveLength(4);
+    expect(m.container.querySelectorAll(".portrait")).toHaveLength(1);
     expect(m.el("battle_run")).not.toBeNull();
+    expect(m.el("battle_fight")).toBeNull();
+    expect(m.q("[data-id=wild_hp]")).not.toBeNull();
+    expect(m.q("[data-id=partner_pep]")).not.toBeNull();
+    expect(m.q("[data-id=battle_intent]")).not.toBeNull();
     expect(m.el("dpad")).toBeNull();
   });
 
@@ -537,33 +560,42 @@ describe("a wild creature in the grass", () => {
   });
 
   it("wrong answers hurt nobody; right ones calm it; a net and a seal answer make it a friend, saved", async () => {
+    localStorage.setItem("nagmon.encounter.always", "1");
+    localStorage.setItem("nagmon.battle.timescale", "0.02");
+    localStorage.setItem("nagmon.battle.seed", "7");
     const m = await grass();
     await act(async () => m.opts().onStep?.(5, 8));
     const wildSpecies = m.q("[data-screen=battle]")!.dataset.wild!;
-    await m.press("battle_fight");
-    // a wrong answer: no damage
-    if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
-    await m.press("quiz_dont_know");
-    // the arena stays on screen: the oops plays, the line says it, nothing is hurt
+    const fog0 = Number(m.q("[data-screen=battle]")!.dataset.hp);
+    await castFirst(m);
+    // a wrong answer: the move is weak (a little fog, at least 1), nobody is hurt in a lasting way, nothing is taken
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("question");
-    expect(m.q("[data-screen=battle]")?.dataset.flow).toBe("result");
-    expect(m.q(".battle-scene")?.dataset.fx).toBe("wrong");
+    if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
+    // the move being cast heads the question
+    expect(m.q("[data-screen=battle-ask] .cast-chip")).not.toBeNull();
+    await m.press("quiz_dont_know");
     expect(m.q("[data-screen=quiz]")).toBeNull();
     expect(m.el("quiz_continue")).toBeNull();
     await closeResult(m);
-    const full = Number(m.q("[data-screen=battle]")!.dataset.hp);
+    await roundEnds(m);
+    const fog1 = Number(m.q("[data-screen=battle]")!.dataset.hp);
+    expect(fog1).toBeLessThan(fog0);
+    expect(fog1).toBeGreaterThan(fog0 - 12);
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("turn");
-    expect(m.el("battle_message")?.textContent).toContain("אף אחד לא נפגע");
     expect((m.el("battle_net") as HTMLButtonElement).disabled).toBe(true);
+    expect(m.logs.some((l) => /^MOVE n=1 move=\w+ subject=\w+ tier=\w ok=0 dmg=\d+ /.test(l))).toBe(true);
     // right answers until it is calm
-    for (let i = 0; i < 12 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
-      await powerUp(m);
+    for (let i = 0; i < 20 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
+      await castFirst(m);
       await answerQuestion(m, true, true);
       await settle(5);
     }
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("calm");
     expect(Number(m.q("[data-screen=battle]")!.dataset.hp)).toBe(0);
-    expect(full).toBeGreaterThan(0);
+    // the results card: the stars and the coins
+    expect(m.q("[data-id=battle_results]")).not.toBeNull();
+    expect(m.q("[data-star=calm]")?.getAttribute("data-on")).toBe("true");
+    expect(Number(m.q("[data-id=battle_results]")!.getAttribute("data-coins"))).toBeGreaterThanOrEqual(5 + 3);
     expect(m.el("battle_message")?.textContent).toMatch(/נרגע/);
     expect((m.el("battle_net") as HTMLButtonElement).disabled).toBe(false);
     // no friend joined by itself
@@ -592,6 +624,10 @@ describe("a wild creature in the grass", () => {
     expect((world["creatures"] as { name?: string }[])[1]!.name).toBeUndefined();
     expect(world["caught"]).toContain(wildSpecies);
     expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
+    // the log of the fight: moves, rounds, and one end line with questions, turns and seconds
+    expect(m.logs.filter((l) => l.startsWith("MOVE ")).length).toBeGreaterThanOrEqual(2);
+    expect(m.logs.filter((l) => l.startsWith("ROUND ")).length).toBeGreaterThanOrEqual(2);
+    expect(m.logs.some((l) => /^BATTLE end result=caught questions=\d+ correct=\d+ ms=\d+ turns=\d+ secs=\d+$/.test(l))).toBe(true);
   });
 
   it("the owl's pass in a battle: a new question, nothing answered or counted, the pass used up and logged", async () => {
@@ -602,7 +638,7 @@ describe("a wild creature in the grass", () => {
     });
     await settle(20);
     await act(async () => m.opts().onStep?.(5, 8));
-    await m.press("battle_fight");
+    await castFirst(m);
     if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
     expect(m.el("quiz_helper_pass")).not.toBeNull();
     await m.press("quiz_helper_pass");
@@ -618,10 +654,8 @@ describe("a wild creature in the grass", () => {
   it("a name picked from the three, kept in the save", async () => {
     const m = await grass();
     await act(async () => m.opts().onStep?.(5, 8));
-    await m.press("battle_fight");
-    await answerQuestion(m, true, true);
-    for (let i = 0; i < 12 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
-      await powerUp(m);
+    for (let i = 0; i < 20 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
+      await castFirst(m);
       await answerQuestion(m, true, true);
       await settle(5);
     }

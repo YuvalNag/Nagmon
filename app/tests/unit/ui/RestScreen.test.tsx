@@ -12,11 +12,12 @@ import { gameJson } from "../game/helpers";
 
 afterEach(cleanup);
 
-function setup(o: { friends?: number; today?: string; vars?: Record<string, string> } = {}) {
+function setup(o: { friends?: number; today?: string; vars?: Record<string, string>; asleep?: number[] } = {}) {
   const world = new WorldState();
   const species = ["heliobud", "lunibble", "terrabub", "rustip", "ringlet", "meteet"];
   for (let i = 0; i < (o.friends ?? 6); i++) addCreature(world, species[i % species.length]!, 3 + i);
   if (world.creatures[1]) world.creatures[1].hearts = 3;
+  for (const i of o.asleep ?? []) if (world.creatures[i]) world.creatures[i]!.fainted = true;
   for (const [k, v] of Object.entries(o.vars ?? {})) world.variables.set(k, v);
   const lines: string[] = [];
   const play = {
@@ -147,5 +148,34 @@ describe("the daily gift", () => {
     expect((m.q("rest_gift") as HTMLButtonElement).disabled).toBe(false);
     await m.press("rest_gift");
     expect(m.world.money + countOf(m.world, "berry") + countOf(m.world, "biscuit") + countOf(m.world, "hint_feather")).toBeGreaterThan(0);
+  });
+});
+
+describe("the nurse (fainted friends wake here, free)", () => {
+  it("wakes every friend that fell asleep, the Meadow too, costs nothing, is saved and logged", async () => {
+    const m = setup({ asleep: [0, 5] });
+    m.world.money = 7;
+    expect(m.q("rest_friend_c1")!.getAttribute("data-asleep")).toBe("true");
+    expect(m.q("rest_friend_c1")!.textContent).toContain("נרדם");
+    await m.press("rest_nurse");
+    expect(m.world.creatures.every((c) => !c.fainted)).toBe(true);
+    expect(m.world.money).toBe(7);
+    expect(m.q("rest_said")!.textContent).toContain("2 חברים התעוררו");
+    expect(m.play.saveWorld).toHaveBeenCalled();
+    expect(m.lines.find((l) => l.startsWith("NURSE"))).toBe("NURSE woke=2");
+    expect(m.q("rest_friend_c1")!.getAttribute("data-asleep")).toBe("false");
+  });
+
+  it("with everybody awake she says so and changes nothing", async () => {
+    const m = setup();
+    await m.press("rest_nurse");
+    expect(m.q("rest_said")!.textContent).toContain("כולם ערים");
+    expect(m.play.saveWorld).not.toHaveBeenCalled();
+  });
+
+  it("a sleeping friend cannot be made the partner", async () => {
+    const m = setup({ asleep: [1] });
+    await m.press("rest_friend_c2");
+    expect((m.q("rest_partner") as HTMLButtonElement).disabled).toBe(true);
   });
 });

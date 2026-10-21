@@ -909,7 +909,7 @@ button.quiz-choice {
   position: absolute;
   inset: 0;
   /* the action bar's height; the creatures stand on it, so they stay put when it goes */
-  --bar-h: max(96px, 31.3vh);
+  --bar-h: max(124px, 36vh);
   --impact: 220ms;
   overflow: hidden;
   background: #9bd7f0;
@@ -1044,56 +1044,6 @@ button.quiz-choice {
   height: max(9px, 2.2vh);
 }
 
-/* the charge meter (round pips) and a Special's combo (round numbered medals): never a star */
-.charge,
-.combo {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  min-height: 20px;
-}
-
-.charge .pip,
-.combo .medal {
-  flex: none;
-  width: 20px;
-  height: 20px;
-  box-sizing: border-box;
-  border: 2px solid #cfe0ee;
-  border-radius: 50%;
-  background: transparent;
-  transition: background-color 0.3s ease-out, border-color 0.3s ease-out;
-}
-
-.charge .pip[data-on="true"] {
-  border-color: #ffd54a;
-  background: #ffd54a;
-}
-
-.charge[data-full="true"] .pip {
-  box-shadow: 0 0 6px 1px rgba(255, 213, 74, 0.7);
-}
-
-.combo .medal {
-  display: grid;
-  place-items: center;
-  font-size: 12px;
-  font-weight: 800;
-  color: #cfe0ee;
-}
-
-.combo .medal[data-state="hit"] {
-  border-color: #ffd54a;
-  background: #ffd54a;
-  color: #4a3500;
-}
-
-.combo .medal[data-state="miss"] {
-  border-color: #8a97a6;
-  background: #8a97a6;
-  color: #fff;
-}
-
 .meter.hp {
   position: relative;
 }
@@ -1140,8 +1090,8 @@ button.quiz-choice {
 .stand-theirs {
   position: absolute;
   right: max(8px, env(safe-area-inset-right));
-  top: 84px;
-  bottom: 56px;
+  top: 96px;
+  bottom: calc(var(--bar-h) + 4px);
   width: 48%;
   z-index: 1;
   display: flex;
@@ -1852,10 +1802,10 @@ button.quiz-choice {
 
 
 
-/* the beat menu: three big cards (Move, Power-up, the friend), then four small buttons; all at least 64x56 CSS px, 8 px apart */
+/* the menu (docs/app/BATTLE_V3.md 2.2): the friends strip (2 x 2 portraits), the four move cards (2 x 2, each at least 150 x 56), Net, Bag and Run */
 .action-bar {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1.55fr)) repeat(4, minmax(64px, 1fr));
+  grid-template-columns: calc(2 * 56px + 8px) minmax(0, 1fr) calc(3 * 64px + 16px);
   gap: 8px;
   padding: 8px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left));
   background: rgba(23, 50, 58, 0.12);
@@ -1867,8 +1817,8 @@ button.quiz-choice {
   align-items: center;
   justify-content: center;
   gap: 2px;
-  min-width: 64px;
-  min-height: 56px;
+  min-width: 48px;
+  min-height: 48px;
   height: 100%;
   padding: 0 4px;
   font-size: calc(var(--text) * 0.6);
@@ -1877,24 +1827,185 @@ button.quiz-choice {
   overflow-wrap: anywhere;
 }
 
-.action-bar button.card {
-  min-height: 72px;
-  font-size: calc(var(--text) * 0.85);
-}
-
-.action-bar .card-note {
-  font-size: calc(var(--text) * 0.5);
-  font-weight: 500;
-  line-height: 1.1;
-}
-
 .action-bar .act-icon {
-  font-size: calc(var(--text) * 1.1);
+  font-size: calc(var(--text) * 0.9);
   line-height: 1.3;
 }
 
-.action-bar button.small .act-icon {
-  font-size: calc(var(--text) * 0.9);
+.friends-strip {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 56px);
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 8px;
+}
+
+.friends-strip li {
+  display: flex;
+  min-height: 0;
+}
+
+.action-bar button.portrait {
+  position: relative;
+  width: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  justify-content: flex-end;
+  background: #fffdf4;
+}
+
+.action-bar button.portrait > .monster-pic {
+  margin-bottom: 8px;
+  pointer-events: none;
+}
+
+.action-bar button.portrait.active {
+  border-color: var(--accent);
+  border-width: 3px;
+}
+
+.action-bar button.portrait.asleep {
+  background: #cdd6e4;
+}
+
+.action-bar button.portrait.asleep > .monster-pic {
+  filter: grayscale(0.7);
+  opacity: 0.7;
+}
+
+.portrait .zz {
+  position: absolute;
+  top: 1px;
+  inset-inline-end: 2px;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.portrait .pep-mini {
+  position: absolute;
+  inset: auto 5px 4px 5px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(23, 50, 58, 0.25);
+  overflow: hidden;
+}
+
+.portrait .pep-mini > span {
+  display: block;
+  height: 100%;
+  background: #3f9d58;
+}
+
+.move-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 8px;
+  min-width: 0;
+}
+
+.move-grid[data-count="1"] .move-card {
+  grid-column: 1 / -1;
+}
+
+.action-bar button.move-card {
+  position: relative;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3px;
+  min-height: 56px;
+  padding: 3px 8px;
+  text-align: start;
+  border-inline-start: 7px solid var(--subject, #8a97a6);
+  background: #fffdf4;
+}
+
+.move-card .card-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.subject-dot {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background: var(--subject, #8a97a6);
+  color: #fff;
+  font-size: calc(var(--text) * 0.55);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.move-card .move-name {
+  font-size: calc(var(--text) * 0.62);
+  font-weight: 800;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.move-card .card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: calc(var(--text) * 0.5);
+  line-height: 1;
+}
+
+.move-card .dots {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.move-card .dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid #4a6a73;
+  box-sizing: border-box;
+}
+
+.move-card .dots i[data-on="true"] {
+  background: #4a6a73;
+}
+
+.action-bar button.move-card.sparkle {
+  box-shadow: 0 0 0 3px #ffd54a inset;
+}
+
+.action-bar button.move-card.sturdy .move-name {
+  opacity: 0.75;
+}
+
+.action-bar button.move-card.dimmed {
+  opacity: 0.4;
+}
+
+.action-bar button.move-card.queued {
+  outline: 3px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.move-card .card-note {
+  font-size: calc(var(--text) * 0.45);
+  font-weight: 500;
+}
+
+.side-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(64px, 1fr));
+  gap: 8px;
 }
 
 .action-bar button.pulse {
@@ -1905,6 +2016,216 @@ button.quiz-choice {
 @keyframes net-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(31, 111, 139, 0.55); }
   50% { box-shadow: 0 0 0 8px rgba(31, 111, 139, 0); }
+}
+
+/* the bars: Pep of the partner, Fog of the enemy */
+.meter.pep > span {
+  background: #3f9d58;
+}
+
+.meter.pep[data-asleep="true"] > span {
+  background: #8a97a6;
+}
+
+.hud .meter.xp {
+  height: max(5px, 1.2vh);
+}
+
+.loves {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: calc(var(--text) * 0.5);
+  color: #cfe0ee;
+}
+
+.loves .subject-dot {
+  font-size: calc(var(--text) * 0.5);
+}
+
+.loves .subject-dot.unknown {
+  background: #6f8196;
+}
+
+/* what the enemy will do, over it */
+.intent {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  transform: translateX(-50%);
+  border: 2px solid #7d97b0;
+  border-radius: 999px;
+  background: #fff;
+  color: #17323a;
+  font-weight: 800;
+  font-size: calc(var(--text) * 0.6);
+  white-space: nowrap;
+}
+
+[dir="rtl"] .intent,
+.battle-scene .intent {
+  transform: translateX(-50%);
+  inset-inline-start: auto;
+  left: 50%;
+}
+
+.intent .intent-icon {
+  font-size: calc(var(--text) * 0.8);
+  line-height: 1.2;
+}
+
+.cast-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 1px 10px 1px 2px;
+  border-radius: 999px;
+  border: 2px solid var(--subject, #8a97a6);
+  background: #fffdf4;
+  font-size: calc(var(--text) * 0.5);
+  font-weight: 700;
+}
+
+.battle-pic.mine[data-asleep="true"] > .monster-pic {
+  filter: grayscale(0.6);
+  opacity: 0.8;
+  animation: none;
+}
+
+.battle-pic .blanket {
+  position: absolute;
+  inset-inline-end: -4px;
+  top: -6px;
+  font-size: calc(var(--text) * 0.9);
+}
+
+.battle-pic.mine,
+.battle-pic.theirs {
+  position: relative;
+}
+
+.skip-layer.arena {
+  inset: 0 0 var(--bar-h) 0;
+}
+
+/* the enemy's action, on the partner */
+.fx-layer.enemy .fx-cloud {
+  position: absolute;
+  top: 46%;
+  font-size: calc(var(--text) * 1.1);
+  animation: cloud-fly 0.55s ease-in both;
+}
+
+@keyframes cloud-fly {
+  0% { left: 68%; opacity: 0; }
+  15% { opacity: 1; }
+  100% { left: 24%; opacity: 0; }
+}
+
+.fx-layer.enemy .fx-number.mine {
+  left: 20%;
+  top: 40%;
+  color: #ffe08a;
+}
+
+.fx-layer.enemy .fx-number.giggle {
+  left: 72%;
+  top: 30%;
+  color: #b8f0c0;
+}
+
+.fx-layer.enemy .fx-notes {
+  position: absolute;
+  left: 72%;
+  top: 28%;
+  font-size: calc(var(--text) * 1.1);
+  animation: notes-rise 1s ease-out both;
+}
+
+@keyframes notes-rise {
+  from { transform: translateY(8px); opacity: 0; }
+  30% { opacity: 1; }
+  to { transform: translateY(-14px); opacity: 0; }
+}
+
+.fx-number[data-wheel="sparkle"] {
+  text-shadow: 0 0 0 #ffd54a, 0 0 6px #ffd54a, 0 0 2px #ffd54a;
+  color: #fff3b0;
+}
+
+.fx-number[data-wheel="sturdy"] {
+  color: #b9c4cf;
+}
+
+.fx-number .fx-brilliant {
+  margin-inline-start: 4px;
+}
+
+/* the results card (in the message box once the creature is calm) */
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.results p {
+  margin: 0;
+}
+
+.results-stars {
+  display: flex;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85em;
+}
+
+.results-stars li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.results-stars li[data-on="false"] {
+  opacity: 0.6;
+}
+
+.results-pay,
+.results-asleep {
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+/* a round's arrival: the enemy slides in, the cards rise (still for calm effects) */
+.battle[data-intro="true"] .stand-theirs {
+  animation: enemy-in 0.9s ease-out both;
+}
+
+.battle[data-intro="true"] .action-bar {
+  animation: bar-rise 0.4s ease-out 0.3s both;
+}
+
+@keyframes enemy-in {
+  from { transform: translateX(60%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes bar-rise {
+  from { transform: translateY(30%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.battle[data-calm-fx="true"][data-intro="true"] .stand-theirs,
+.battle[data-calm-fx="true"][data-intro="true"] .action-bar {
+  animation: none;
 }
 
 .sheet {

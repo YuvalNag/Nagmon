@@ -1,10 +1,14 @@
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 import type { Creature } from "../../core/world/worldState";
 import { avatarImage } from "../../core/family/avatars";
+import type { IntentView } from "../../core/game/battle";
+import type { WheelHit } from "../../core/game/battleNumbers";
 import type { MonsterTable } from "../../core/game/monsters";
 import { t } from "../../i18n";
 import { MonsterPic } from "../MonsterPic";
 import { LIMITS, type FxPlan } from "./effects";
+import * as fx from "./fx";
+import { INTENT_ICON, subjectColor, subjectIcon } from "./subjects";
 
 /** The result being played in the arena: which answer, how much it took. Each answer gets a new `id`. */
 export interface Fx {
@@ -14,6 +18,18 @@ export interface Fx {
   /** The answer took the last of the fog: a victory pose follows the hit. */
   won: boolean;
   plan: FxPlan;
+  /** The wheel's Sparkle (a gold ring on the number) or Sturdy (a grey number). */
+  wheel?: WheelHit;
+  /** A Brilliant hit. */
+  brilliant?: boolean;
+}
+
+/** What the enemy did this round, played on the partner: a Puff, a Giggle, a Silly Dance. Each gets a new `id`. */
+export interface EnemyFx {
+  id: number;
+  kind: "puff" | "giggle" | "silly";
+  /** Pep taken (a Puff) or fog given back (a Giggle). */
+  amount: number;
 }
 
 interface Props {
@@ -26,6 +42,10 @@ interface Props {
   wildLevel: number;
   hp: number;
   maxHp: number;
+  /** The partner's Pep, now and at most (the bar). */
+  pep: { now: number; max: number };
+  /** The partner fell asleep: it lies down under a blanket. */
+  asleep: boolean;
   /** Points the partner needs for its next level. */
   need: number;
   /** The subject of the questions: it shows in the little shapes around the wild creature. */
@@ -38,10 +58,14 @@ interface Props {
   victory: boolean;
   /** A typed answer: the pad is at the bottom end and the wild creature stands a little to the start. */
   pad: boolean;
-  /** The charge meter: pips filled out of its size. */
-  charge?: { filled: number; size: number };
-  /** A Special's medals (a hit, a miss, not asked yet), while it is on and just after. */
-  medals?: (boolean | null)[] | null;
+  /** What the enemy will do this round, shown over it (its look depends on the age band). */
+  intent: IntentView | null;
+  /** 1: the icon; 2: the icon and a number; 3: the icon, a number and who is faster (ages 5-7, 8-10, 11 and up). */
+  detail: 1 | 2 | 3;
+  /** The subjects the enemy loves (the chip), or null when the child does not know them yet (a "?"). */
+  loves: { id: string; title: string }[] | null;
+  /** The enemy's action of this round, in play. */
+  enemyFx: EnemyFx | null;
   /** The ids the tests read. */
   children?: ReactNode;
 }
@@ -67,28 +91,6 @@ function Decor({ subject }: { subject: string }) {
           </svg>
         ),
       )}
-    </div>
-  );
-}
-
-/** The partner's charge meter as round pips, or a Special's combo as round numbered medals. Never a star. */
-export function Charge({ charge, medals }: { charge: { filled: number; size: number }; medals: (boolean | null)[] | null }) {
-  if (medals) {
-    return (
-      <div className="combo" data-id="battle_combo" role="img" aria-label={t("battleCombo", { n: medals.filter((m) => m === true).length })}>
-        {medals.map((m, i) => (
-          <span key={i} className="medal" data-state={m === null ? "wait" : m ? "hit" : "miss"} aria-hidden="true">
-            {i + 1}
-          </span>
-        ))}
-      </div>
-    );
-  }
-  return (
-    <div className="charge" data-id="battle_charge" data-filled={charge.filled} data-full={charge.filled >= charge.size} role="img" aria-label={t("battleCharge", { n: charge.filled, max: charge.size })}>
-      {Array.from({ length: charge.size }, (_, i) => (
-        <span key={i} className="pip" data-on={i < charge.filled} aria-hidden="true" />
-      ))}
     </div>
   );
 }
@@ -133,10 +135,23 @@ function Smirk() {
  * attack, stars, a number, the oops. Nothing in it flashes.
  */
 export function Stage(p: Props) {
-  const fx = p.fx;
-  const plan = fx?.plan ?? null;
-  const right = !!fx && fx.correct;
-  const wrong = !!fx && !fx.correct;
+  const fxr = p.fx;
+  const plan = fxr?.plan ?? null;
+  const right = !!fxr && fxr.correct;
+  const wrong = !!fxr && !fxr.correct;
+  const mineRef = useRef<HTMLDivElement>(null);
+  const theirsRef = useRef<HTMLDivElement>(null);
+  // the enemy's action: it steps toward the partner, which shakes and dips (the animations of fx.ts: movement stops for calm effects)
+  const enemyId = p.enemyFx?.id ?? 0;
+  const enemyKind = p.enemyFx?.kind;
+  useEffect(() => {
+    if (!enemyId) return;
+    if (enemyKind === "puff") {
+      void fx.lunge(theirsRef.current, -1, 36);
+      void fx.shake(mineRef.current, 5);
+      void fx.flash(mineRef.current);
+    } else if (enemyKind === "giggle") void fx.flash(theirsRef.current);
+  }, [enemyId, enemyKind]);
   const cls = (base: string, ...on: [boolean, string][]) => [base, ...on.filter(([x]) => x).map(([, c]) => c)].join(" ");
   const attack = !!plan?.attack;
   const need = p.need;
@@ -144,11 +159,11 @@ export function Stage(p: Props) {
     <div
       className="battle-scene"
       dir="ltr"
-      data-fx={fx ? (fx.correct ? "right" : "wrong") : "none"}
+      data-fx={fxr ? (fxr.correct ? "right" : "wrong") : "none"}
       data-calm-fx={p.calm}
       data-victory={p.victory}
       data-pad={p.pad}
-      data-won={!!fx?.won}
+      data-won={!!fxr?.won}
     >
       <div className="scene-bg" aria-hidden="true">
         <span className="scene-ground" style={{ backgroundImage: "url(game/sprites/ui/grass_background.png)" }} />
@@ -165,10 +180,21 @@ export function Stage(p: Props) {
           <span className="battle-name">{p.myName}</span>
           <span className="battle-level">{t("battleLevel", { level: p.mine.level })}</span>
         </span>
+        <div
+          className="meter pep"
+          data-id="partner_pep"
+          data-asleep={p.asleep}
+          role="progressbar"
+          aria-label={t("battlePepLabel", { name: p.myName, pep: p.pep.now, max: p.pep.max })}
+          aria-valuemin={0}
+          aria-valuemax={p.pep.max}
+          aria-valuenow={p.pep.now}
+        >
+          <span style={{ width: `${Math.min(100, (100 * p.pep.now) / Math.max(1, p.pep.max))}%` }} />
+        </div>
         <div className="meter xp" role="progressbar" aria-label={t("battleLevel", { level: p.mine.level })} aria-valuemin={0} aria-valuemax={need} aria-valuenow={p.mine.xp}>
           <span style={{ width: `${Math.min(100, (100 * p.mine.xp) / need)}%` }} />
         </div>
-        {p.charge && <Charge charge={p.charge} medals={p.medals ?? null} />}
       </div>
       <div className="hud hud-theirs" dir="rtl">
         <span className="hud-name">
@@ -187,24 +213,68 @@ export function Stage(p: Props) {
           <span className="ghost" style={{ width: `${(100 * p.hp) / p.maxHp}%` }} />
           <span className="now" style={{ width: `${(100 * p.hp) / p.maxHp}%` }} />
         </div>
+        <div className="loves" data-id="battle_loves" data-known={p.loves !== null} aria-label={p.loves ? t("battleLoves", { subjects: p.loves.map((l) => l.title).join(", ") }) : t("battleLovesUnknown")}>
+          <span className="loves-word">{t("battleLovesWord")}</span>
+          {p.loves ? (
+            p.loves.map((s) => (
+              <span key={s.id} className="subject-dot" data-subject={s.id} style={{ ["--subject" as string]: subjectColor(s.id) }} aria-hidden="true">
+                {subjectIcon(s.id)}
+              </span>
+            ))
+          ) : (
+            <span className="subject-dot unknown" aria-hidden="true">
+              ?
+            </span>
+          )}
+        </div>
       </div>
 
       <div className="stand-mine">
         <img className={cls("battle-child", [p.victory, "cheer"])} src={avatarImage(p.avatar)} alt="" draggable={false} />
-        <div className={cls("battle-pic mine", [attack && right, "lunge"], [wrong && !!plan?.oops && !plan.calm, "trip"])}>
+        <div ref={mineRef} className={cls("battle-pic mine", [attack && right, "lunge"], [wrong && !!plan?.oops && !plan.calm, "trip"])} data-asleep={p.asleep}>
           <MonsterPic monsters={p.monsters} species={p.mine.species} side="back" height={0.26} />
+          {p.asleep && (
+            <span className="blanket" aria-hidden="true">
+              💤
+            </span>
+          )}
         </div>
       </div>
 
       <div className="stand-theirs">
         <Decor subject={p.subject} />
-        <div className={cls("battle-pic theirs", [!!plan?.wildHit, "hit"], [wrong && !!plan?.oops && !plan.calm, "smirk"], [p.victory, "friend"])}>
+        {p.intent && (
+          <div
+            className="intent"
+            data-id="battle_intent"
+            data-intent={p.intent.id}
+            data-amount={p.intent.amount}
+            data-first={p.intent.first}
+            role="img"
+            aria-label={`${t(`intent_${p.intent.id}` as const)}${p.detail >= 2 && p.intent.amount > 0 ? `, ${t("intentAbout", { n: p.intent.amount })}` : ""}${p.detail >= 3 ? `, ${p.intent.first ? t("intentFirst") : t("intentSecond")}` : ""}`}
+          >
+            <span className="intent-icon" aria-hidden="true">
+              {INTENT_ICON[p.intent.id]}
+            </span>
+            {p.detail >= 2 && p.intent.amount > 0 && (
+              <span className="intent-n" aria-hidden="true" dir="ltr">
+                ~{p.intent.amount}
+              </span>
+            )}
+            {p.detail >= 3 && (
+              <span className="intent-first" aria-hidden="true">
+                {p.intent.first ? "⚡1" : "⚡2"}
+              </span>
+            )}
+          </div>
+        )}
+        <div ref={theirsRef} className={cls("battle-pic theirs", [!!plan?.wildHit, "hit"], [wrong && !!plan?.oops && !plan.calm, "smirk"], [p.victory, "friend"])}>
           <MonsterPic monsters={p.monsters} species={p.wildSpecies} side="front" height={0.26} />
         </div>
       </div>
 
-      {fx && plan && (
-        <div className="fx-layer" key={fx.id} aria-hidden="true">
+      {fxr && plan && (
+        <div className="fx-layer" key={fxr.id} aria-hidden="true">
           {attack && (
             <span className="fx-bolt">
               <Leaf i={0} />
@@ -220,9 +290,10 @@ export function Stage(p: Props) {
               ))}
             </span>
           )}
-          {plan.number && fx.damage > 0 && (
-            <span className="fx-number" dir="ltr">
-              {`-${fx.damage}`}
+          {plan.number && fxr.damage > 0 && (
+            <span className="fx-number" dir="ltr" data-wheel={fxr.wheel ?? "none"} data-brilliant={!!fxr.brilliant}>
+              {`-${fxr.damage}`}
+              {fxr.brilliant && <span className="fx-brilliant">✨</span>}
             </span>
           )}
           {wrong && plan.oops && !plan.calm && (
@@ -234,6 +305,18 @@ export function Stage(p: Props) {
             </>
           )}
           {wrong && plan.oops && plan.calm && <span className="fx-oops static">?</span>}
+        </div>
+      )}
+      {p.enemyFx && (
+        <div className="fx-layer enemy" key={`e${p.enemyFx.id}`} data-kind={p.enemyFx.kind} aria-hidden="true">
+          {p.enemyFx.kind === "puff" && (
+            <>
+              <span className="fx-cloud">☁️</span>
+              <span className="fx-number mine" dir="ltr">{`-${p.enemyFx.amount}`}</span>
+            </>
+          )}
+          {p.enemyFx.kind === "giggle" && <span className="fx-number giggle" dir="ltr">{p.enemyFx.amount > 0 ? `+${p.enemyFx.amount}` : "😄"}</span>}
+          {p.enemyFx.kind === "silly" && <span className="fx-notes">🎵</span>}
         </div>
       )}
       {p.children}

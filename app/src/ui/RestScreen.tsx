@@ -1,5 +1,6 @@
 import { type MutableRefObject, useEffect, useState } from "react";
 import type { Play } from "../app/play";
+import { fainted, nurseHeals } from "../core/game/faint";
 import { claimDailyGift, giftTaken, type Prize } from "../core/game/loot";
 import { partyOf, setPartner } from "../core/game/party";
 import { meadow, swapWithMeadow } from "../core/game/rest";
@@ -90,6 +91,14 @@ export function RestScreen({ play, onClose, onChanged, backRef }: Props) {
     changed();
   };
 
+  /** The nurse wakes every friend that fell asleep in a battle, free (the only other way is medicine from the shop). */
+  const nurse = () => {
+    const n = nurseHeals(world);
+    play.field.note("nurse", { woke: n });
+    setSaid(n > 0 ? t("restNurseDone", { n }) : t("restNurseNone"));
+    if (n > 0) changed();
+  };
+
   const takeGift = () => {
     const r = claimDailyGift(world, play.economy, play.loot, play.today());
     if (!r.claimed || !r.prize) return;
@@ -100,6 +109,7 @@ export function RestScreen({ play, onClose, onChanged, backRef }: Props) {
 
   const heart = (c: Creature) => (pop?.id === c.id ? <span key={pop.n} className="heart-pop" aria-hidden="true">❤️</span> : null);
   const selected = byId(sel);
+  const sleepers = fainted(world).length;
 
   if (gift) {
     const look = prizeLook(play.economy, gift);
@@ -140,7 +150,7 @@ export function RestScreen({ play, onClose, onChanged, backRef }: Props) {
               <ul className="rest-party" aria-label={t("restHello")}>
                 {party.map((c) => (
                   <li key={c.id}>
-                    <Tap id={`rest_friend_${c.id}`} className="rest-card" data-mood="cheerful" aria-pressed={sel === c.id} aria-label={`${nameOf(c)} ${t("battleLevel", { level: c.level })}`} onTap={() => tap(c)}>
+                    <Tap id={`rest_friend_${c.id}`} className="rest-card" data-mood={c.fainted ? "asleep" : "cheerful"} data-asleep={c.fainted === true} aria-pressed={sel === c.id} aria-label={`${nameOf(c)} ${t("battleLevel", { level: c.level })}`} onTap={() => tap(c)}>
                       <span className="rest-pic">
                         <MonsterPic monsters={play.monsters} species={c.species} height={0.17} />
                         <span className="zzz" aria-hidden="true">
@@ -153,6 +163,7 @@ export function RestScreen({ play, onClose, onChanged, backRef }: Props) {
                       <span className="friend-sub">
                         {t("battleLevel", { level: c.level })}
                         {c.id === first?.id ? ` · ${t("friendsIsPartner")}` : ""}
+                        {c.fainted ? ` · ${t("restAsleep")}` : ""}
                       </span>
                       <span className="rest-hearts" role="img" aria-label={t("restHearts", { n: c.hearts ?? 0 })}>
                         {hearts(c.hearts ?? 0)}
@@ -191,7 +202,10 @@ export function RestScreen({ play, onClose, onChanged, backRef }: Props) {
                 {t("restGiftDone")}
               </span>
             )}
-            <Tap id="rest_partner" disabled={!selected || !inParty(selected.id) || selected.id === first?.id} onTap={makePartner}>
+            <Tap id="rest_nurse" className={sleepers > 0 ? "primary" : ""} data-asleep={sleepers} onTap={nurse}>
+              {t("restNurseHeal")}
+            </Tap>
+            <Tap id="rest_partner" disabled={!selected || !inParty(selected.id) || selected.id === first?.id || selected.fainted === true} onTap={makePartner}>
               {t("friendsMakePartner")}
             </Tap>
             <span className="rest-said" data-id="rest_said" role="status">

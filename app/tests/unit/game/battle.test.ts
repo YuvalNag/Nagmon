@@ -9,7 +9,7 @@ import { WIGGLE } from "../../../src/core/game/moves";
 import type { ContentLibrary } from "../../../src/core/learning";
 import { SubjectMap } from "../../../src/core/learning/quiz_flow";
 import { WorldState } from "../../../src/core/world/worldState";
-import { answerWrong, calmIt, cast, engineFor, fixedRng, gameJson, seeded, shipped } from "./helpers";
+import { calmIt, cast, engineFor, fixedRng, gameJson, seeded, shipped } from "./helpers";
 
 let content: ContentLibrary;
 beforeAll(() => {

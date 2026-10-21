@@ -1,6 +1,5 @@
 import { useState } from "react";
 import type { Play } from "../app/play";
-import type { Battle } from "../core/game/battle";
 import { details, meadowCount, partyOf, setPartner } from "../core/game/party";
 import type { Creature } from "../core/world/worldState";
 import { t } from "../i18n";
@@ -11,8 +10,6 @@ import { EggRing } from "./WorldArt";
 
 interface Props {
   play: Play;
-  /** In a battle: the partner is changed through it (the questions follow). */
-  battle?: Battle;
   onClose: () => void;
   /** The partner changed (saved already). */
   onChanged?: () => void;
@@ -27,7 +24,7 @@ const hearts = (n: number) => "❤️".repeat(n) + "🤍".repeat(5 - n);
  * button that makes it the partner (the first, who answers). The
  * friends in the Meadow are only counted here.
  */
-export function FriendsView({ play, battle, onClose, onChanged }: Props) {
+export function FriendsView({ play, onClose, onChanged }: Props) {
   const party = partyOf(play.world);
   const [pickedId, setPickedId] = useState(party[0]?.id ?? "");
   const [said, setSaid] = useState<string | null>(null);
@@ -36,9 +33,8 @@ export function FriendsView({ play, battle, onClose, onChanged }: Props) {
   const nameOf = (c: Creature) => c.name ?? play.text(c.species);
 
   const makePartner = (c: Creature) => {
-    const ok = battle ? battle.swapPartner(c.id) : setPartner(play.world, c.id);
-    if (!ok) return;
-    if (!battle) play.field.note("partner", { species: c.species });
+    if (c.fainted || !setPartner(play.world, c.id)) return;
+    play.field.note("partner", { species: c.species });
     void play.saveWorld();
     setSaid(t("friendsSwapped", { name: nameOf(c) }));
     onChanged?.();
@@ -61,6 +57,11 @@ export function FriendsView({ play, battle, onClose, onChanged }: Props) {
                   <span className="friend-sub">
                     {t("battleLevel", { level: c.level })} · {play.subjects.title(dd.subject)}
                   </span>
+                  {c.fainted && (
+                    <span className="friend-first" data-id={`friend_asleep_${c.id}`}>
+                      {t("friendsAsleep")}
+                    </span>
+                  )}
                   {c.id === first?.id && (
                     <span className="friend-first" data-id="friend_first">
                       {t("friendsIsPartner")}
@@ -87,7 +88,7 @@ export function FriendsView({ play, battle, onClose, onChanged }: Props) {
             <span role="img" aria-label={t("friendsHearts", { n: d.hearts })}>
               {hearts(d.hearts)}
             </span>
-            <Tap id="friend_partner" className="primary" disabled={chosen.id === first?.id} onTap={() => makePartner(chosen)}>
+            <Tap id="friend_partner" className="primary" disabled={chosen.id === first?.id || chosen.fainted === true} onTap={() => makePartner(chosen)}>
               {t("friendsMakePartner")}
             </Tap>
             {said && (

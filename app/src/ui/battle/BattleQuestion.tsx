@@ -20,6 +20,8 @@ interface Props {
   onResult: (outcome: AnswerOutcome) => void;
   /** No question could be made, or the owl's pass was used: the battle goes on from here. */
   onClose: () => void;
+  /** The move being cast (BATTLE_V3 2.2): its name and subject sit at the head of the panel, so the child sees what the answer casts. */
+  cast?: { name: string; subject: string; icon: string; color: string };
 }
 
 /** The look of the question now open (the battle uses it to make room at the side). */
@@ -43,7 +45,7 @@ const SLOTS = ["a", "b", "c", "d"] as const;
  * owl's speech bubble and "I don't know". The creatures stay in view.
  * There is no feedback page: the answer goes to `onResult`.
  */
-export function BattleQuestion({ session, text, subjectTitle, onResult, onClose }: Props) {
+export function BattleQuestion({ session, text, subjectTitle, onResult, onClose, cast }: Props) {
   const [, redraw] = useReducer((n: number) => n + 1, 0);
   // the tiles tapped so far (order: card ids; letters: tile numbers), for this question only
   const [tapped, setTapped] = useState<{ session: QuizSession; picks: string[] }>({ session, picks: [] });
@@ -80,6 +82,14 @@ export function BattleQuestion({ session, text, subjectTitle, onResult, onClose 
   const englishFirst = q.subject === "english";
   const prompt = (
     <div className="quiz-prompt">
+      {cast && (
+        <span className="cast-chip" data-id="battle_cast" style={{ ["--subject" as string]: cast.color }}>
+          <span className="subject-dot" aria-hidden="true">
+            {cast.icon}
+          </span>
+          {cast.subject ? `${cast.name} · ${cast.subject}` : cast.name}
+        </span>
+      )}
       <Passage q={q} />
       {q.figure && <Figure figure={q.figure} />}
       <p className="quiz-question" data-id="quiz_prompt">

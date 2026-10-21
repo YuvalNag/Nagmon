@@ -1,28 +1,49 @@
 import { act, cleanup, render } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { ASSISTS_PER_BATTLE, type Legal, legalBeats } from "../../../src/core/game/battleBeats";
-import { ActionBar, type ActionBarProps } from "../../../src/ui/battle/ActionBar";
+import { afterEach, describe, expect, it } from "vitest";
+import type { Card } from "../../../src/core/game/battle";
+import { DEFAULT_MOVES, equipped, WIGGLE } from "../../../src/core/game/moves";
+import { monsterTable } from "../../../src/core/game/monsters";
+import { moveText } from "../../../src/i18n";
+import { ActionBar, type ActionBarProps, type Friend } from "../../../src/ui/battle/ActionBar";
+import { gameJson } from "../game/helpers";
 
 afterEach(cleanup);
 
 let host: HTMLElement;
+const monsters = monsterTable(gameJson("db/monsters.json"));
+const titles: Record<string, string> = { math: "חשבון", geometry: "גאומטריה", science: "מדעים", english: "אנגלית", hebrew: "עברית", logic: "חשיבה" };
 
-const open = (over: Partial<Parameters<typeof legalBeats>[0]> = {}): Legal =>
-  legalBeats({ fighting: true, lastWasQuestion: false, meterFull: false, assistsLeft: ASSISTS_PER_BATTLE, ...over });
+const card = (id: string, over: Partial<Card> = {}): Card => {
+  const move = DEFAULT_MOVES[id]!;
+  return { move, left: move.charges, max: move.charges, dimmed: false, hit: null, home: true, ...over };
+};
+const cards = (): Card[] => equipped("math", 6).map((m) => card(m.id));
+const friends = (): Friend[] => [
+  { id: "c1", species: "heliobud", name: "ניצן", active: true, fainted: false, pep: 1 },
+  { id: "c2", species: "lunibble", name: "ירח", active: false, fainted: false, pep: 0.5 },
+  { id: "c3", species: "terrabub", name: "אדמה", active: false, fainted: true, pep: 0 },
+];
 
 function show(over: Partial<ActionBarProps> = {}) {
   cleanup();
   const calls: string[] = [];
   const props: ActionBarProps = {
-    asked: false,
+    monsters,
+    cards: cards(),
+    moveName: moveText,
+    subjectTitle: (s) => titles[s] ?? s,
+    friends: friends(),
     calm: false,
     canNet: false,
-    legal: open(),
-    assistsLeft: ASSISTS_PER_BATTLE,
-    onBeat: (b) => calls.push(b),
+    live: true,
+    idle: true,
+    queued: null,
+    pick: false,
+    turn: 0,
+    onMove: (id) => calls.push(`move:${id}`),
+    onFriend: (id) => calls.push(`friend:${id}`),
     onNet: () => calls.push("net"),
     onBag: () => calls.push("bag"),
-    onFriends: () => calls.push("friends"),
     onLeave: () => calls.push("leave"),
     ...over,
   };
@@ -34,91 +55,120 @@ async function tap(b: HTMLButtonElement) {
   await act(async () => b.click());
 }
 
-describe("the battle's beat menu", () => {
-  it("has three big cards (Move, Power-up, friend) and four small buttons (Net, Bag, Friends, Leave)", () => {
+describe("the battle's menu (BATTLE_V3 2.2)", () => {
+  it("has the friends strip, the four move cards in a 2 x 2 grid, and Net, Bag and Run", () => {
     show();
     const ids = [...host.querySelectorAll("button")].map((b) => b.dataset["id"]);
-    expect(ids).toEqual(["battle_move", "battle_fight", "battle_friend", "battle_net", "battle_bag", "battle_friends", "battle_run"]);
-    expect([...host.querySelectorAll("button.card")]).toHaveLength(3);
-    expect([...host.querySelectorAll("button.small")]).toHaveLength(4);
+    expect(ids).toEqual(["battle_friend_c1", "battle_friend_c2", "battle_friend_c3", "battle_move_number_nudge", "battle_move_sum_spark", "battle_move_block_bounce", "battle_move_letter_toss", "battle_net", "battle_bag", "battle_run"]);
+    expect(host.querySelectorAll(".move-grid .move-card")).toHaveLength(4);
     expect(host.querySelector(".action-bar")!.getAttribute("role")).toBe("toolbar");
   });
 
-  it("each card picks its own beat, once", async () => {
+  it("each card casts its own move, once; a friend's portrait swaps; Net, Bag and Run do their own", async () => {
+    const m = show({ canNet: true });
+    await tap(m.el("battle_move_sum_spark"));
+    await tap(m.el("battle_move_letter_toss"));
+    await tap(m.el("battle_friend_c2"));
+    await tap(m.el("battle_net"));
+    await tap(m.el("battle_bag"));
+    await tap(m.el("battle_run"));
+    expect(m.calls).toEqual(["move:sum_spark", "move:letter_toss", "friend:c2", "net", "bag", "leave"]);
+  });
+
+  it("a card shows the move's name, its subject, its flames, a tier badge and the charges as dots, and says all of it to a screen reader", () => {
     const m = show();
-    await tap(m.el("battle_move"));
-    await tap(m.el("battle_fight"));
-    await tap(m.el("battle_friend"));
-    expect(m.calls).toEqual(["move", "power", "assist"]);
+    const c = m.el("battle_move_sum_spark");
+    expect(c.textContent).toContain(moveText("sum_spark"));
+    expect(c.querySelector(".flames")!.textContent).toBe("🔥🔥");
+    expect(c.querySelectorAll(".dots i")).toHaveLength(5);
+    expect(c.querySelectorAll(".dots i[data-on=true]")).toHaveLength(5);
+    expect(c.getAttribute("aria-label")).toBe("ניצוץ סכום, חשבון, נשארו 10 מתוך 10");
+    expect(m.el("battle_move_number_nudge").querySelector(".flames")!.textContent).toBe("🔥");
+    expect(c.getAttribute("data-tier")).toBe("N");
   });
 
-  it("after the first question the Power-up's id reads 'next'", () => {
-    const next = show({ asked: true });
-    expect(next.el("battle_fight")).toBeNull();
-    expect(next.el("battle_next").textContent).toContain("כוח");
+  it("charges show in proportion: half the charges is about half the dots", () => {
+    const m = show({ cards: [card("sum_spark", { left: 3, max: 10 }), card("number_nudge")] });
+    expect(m.el("battle_move_sum_spark").querySelectorAll(".dots i[data-on=true]")).toHaveLength(2);
   });
 
-  it("just after a question the Power-up rests and says what to do; Move and the friend stay open", async () => {
-    const m = show({ legal: open({ lastWasQuestion: true }) });
-    expect(m.el("battle_fight").disabled).toBe(true);
-    expect(m.el("battle_fight").textContent).toContain("קודם תנועה");
-    expect(m.el("battle_move").disabled).toBe(false);
-    expect(m.el("battle_friend").disabled).toBe(false);
-    await tap(m.el("battle_fight"));
+  it("a Sparkle shows on the card and in its label; Sturdy shows a shield", () => {
+    const m = show({ cards: [card("sum_spark", { hit: "sparkle" }), card("block_bounce", { hit: "sturdy" }), card("number_nudge")] });
+    expect(m.el("battle_move_sum_spark").classList.contains("sparkle")).toBe(true);
+    expect(m.el("battle_move_sum_spark").textContent).toContain("✨");
+    expect(m.el("battle_move_sum_spark").getAttribute("aria-label")).toContain("מנצנץ");
+    expect(m.el("battle_move_block_bounce").textContent).toContain("🛡️");
+    expect(m.el("battle_move_number_nudge").getAttribute("data-hit")).toBe("none");
+  });
+
+  it("a card with no charges left is dimmed and cannot be tapped", async () => {
+    const m = show({ cards: [card("sum_spark", { left: 0, dimmed: true }), card("number_nudge")] });
+    expect(m.el("battle_move_sum_spark").disabled).toBe(true);
+    expect(m.el("battle_move_sum_spark").classList.contains("dimmed")).toBe(true);
+    await tap(m.el("battle_move_sum_spark"));
     expect(m.calls).toEqual([]);
   });
 
-  it("the friend's card shows how many assists are left, and rests when none", () => {
-    const some = show({ assistsLeft: 1 });
-    expect(some.el("battle_friend").textContent).toContain("1");
-    const none = show({ assistsLeft: 0, legal: open({ assistsLeft: 0 }) });
-    expect(none.el("battle_friend").disabled).toBe(true);
+  it("the Little Wiggle is the one card when the four are out: wide, with no question and no dots", () => {
+    const m = show({ cards: [card(WIGGLE, { left: null, max: null, home: false })] });
+    expect(host.querySelector(".move-grid")!.getAttribute("data-count")).toBe("1");
+    expect(m.el(`battle_move_${WIGGLE}`).textContent).toContain("בלי שאלה");
+    expect(m.el(`battle_move_${WIGGLE}`).textContent).toContain("∞");
   });
 
-  it("a full meter puts Special in Move's place", async () => {
-    const m = show({ legal: open({ meterFull: true }) });
-    expect(m.el("battle_move")).toBeNull();
-    expect(m.el("battle_special").className).toContain("pulse");
-    await tap(m.el("battle_special"));
-    expect(m.calls).toEqual(["special"]);
+  it("the partner is marked, a sleeping friend is dimmed with a Zz and cannot be tapped", async () => {
+    const m = show();
+    expect(m.el("battle_friend_c1").getAttribute("aria-pressed")).toBe("true");
+    expect(m.el("battle_friend_c1").disabled).toBe(true);
+    expect(m.el("battle_friend_c3").disabled).toBe(true);
+    expect(m.el("battle_friend_c3").getAttribute("data-asleep")).toBe("true");
+    expect(m.el("battle_friend_c3").textContent).toContain("💤");
+    expect(m.el("battle_friend_c3").getAttribute("aria-label")).toContain("נרדם");
+    await tap(m.el("battle_friend_c3"));
+    expect(m.calls).toEqual([]);
   });
 
-  it("the Power-up pulses when the fog is at its floor (a nudge, never a force)", () => {
-    expect(show({ nudge: true }).el("battle_fight").className).toContain("pulse");
-    expect(show().el("battle_fight").className).not.toContain("pulse");
-  });
-
-  it("the Net waits until the creature is calm, then pulses; the three cards rest", async () => {
-    const waiting = show();
-    expect(waiting.el("battle_net").disabled).toBe(true);
-    await tap(waiting.el("battle_net"));
-    expect(waiting.calls).toEqual([]);
-    const calm = show({ calm: true, canNet: true, legal: open({ fighting: false }) });
-    expect(calm.el("battle_net").disabled).toBe(false);
-    expect(calm.el("battle_net").className).toContain("pulse");
-    for (const id of ["battle_move", "battle_fight", "battle_friend"]) expect(calm.el(id).disabled).toBe(true);
-    await tap(calm.el("battle_net"));
-    expect(calm.calls).toEqual(["net"]);
-  });
-
-  it("Leave is always there, and free, even when the creature is calm", async () => {
-    const m = show({ calm: true, canNet: true });
+  it("while our own animation plays the cards and the Bag rest; Run is always free", async () => {
+    const m = show({ live: false, idle: false });
+    expect(m.el("battle_move_sum_spark").disabled).toBe(true);
+    expect(m.el("battle_bag").disabled).toBe(true);
+    expect(m.el("battle_friend_c2").disabled).toBe(true);
     expect(m.el("battle_run").disabled).toBe(false);
     await tap(m.el("battle_run"));
     expect(m.calls).toEqual(["leave"]);
   });
 
-  it("Bag and Friends are shortcuts that always open", async () => {
-    const m = show();
-    await tap(m.el("battle_bag"));
-    await tap(m.el("battle_friends"));
-    expect(m.calls).toEqual(["bag", "friends"]);
+  it("late in a round the cards take taps (they wait for the end) and the queued one is marked", () => {
+    const m = show({ live: true, idle: false, queued: "sum_spark" });
+    expect(m.el("battle_move_sum_spark").disabled).toBe(false);
+    expect(m.el("battle_move_sum_spark").classList.contains("queued")).toBe(true);
+    expect(m.el("battle_friend_c2").disabled).toBe(true);
   });
 
-  it("each tap is one call", async () => {
-    const onBeat = vi.fn();
-    const m = show({ onBeat });
-    await tap(m.el("battle_fight"));
-    expect(onBeat).toHaveBeenCalledTimes(1);
+  it("when the partner fell asleep the cards wait and the friends who are awake pulse (a free swap)", async () => {
+    const f = friends();
+    f[0] = { ...f[0]!, fainted: true, pep: 0 };
+    const m = show({ pick: true, friends: f });
+    expect(m.el("battle_move_sum_spark").disabled).toBe(true);
+    expect(m.el("battle_friend_c2").disabled).toBe(false);
+    expect(m.el("battle_friend_c2").classList.contains("pulse")).toBe(true);
+    await tap(m.el("battle_friend_c2"));
+    expect(m.calls).toEqual(["friend:c2"]);
+  });
+
+  it("calm: only the Net is the next step; the cards rest", () => {
+    const m = show({ calm: true, canNet: true });
+    expect(m.el("battle_net").disabled).toBe(false);
+    expect(m.el("battle_net").classList.contains("pulse")).toBe(true);
+    expect(m.el("battle_move_sum_spark").disabled).toBe(true);
+  });
+
+  it("with no net to throw, Net rests", () => {
+    expect(show({ canNet: false }).el("battle_net").disabled).toBe(true);
+  });
+
+  it("every button has a label a screen reader can read (text or aria-label)", () => {
+    show();
+    for (const b of host.querySelectorAll("button")) expect((b.getAttribute("aria-label") ?? b.textContent ?? "").trim().length).toBeGreaterThan(0);
   });
 });
