@@ -28,6 +28,13 @@ describe("the child's learner", () => {
     expect([l.grade, l.age, l.timerOn]).toEqual([3, 9, false]);
   });
 
+  it("the parent's start grade is where a subject begins, over what the placement found; the subjects switches reach the engine", () => {
+    const saved = { schema_version: 1, grade: 3, age: 9, subject_grade: { math: 1, english: 2 } };
+    const l = learnerFor(profile(3, { learning: { start_grade: { math: 5 }, subjects: ["math", "logic"] } }), saved, new Date(2026, 9, 20));
+    expect([l.gradeIn("math"), l.gradeIn("english"), l.gradeIn("logic")]).toEqual([5, 2, 3]);
+    expect(l.enabledSubjects).toEqual(["math", "logic"]);
+  });
+
   it("only the youngest are held to a few choices", () => {
     expect(maxChoicesFor(profile(0, defaultsForGrade(0).settings))).toBe(3);
     expect(maxChoicesFor(profile(1, defaultsForGrade(1).settings))).toBe(3);
