@@ -43,6 +43,8 @@ export interface QuizRequest {
   maxChoices: number | null;
   /** The Bag's helpers, where they may be used (a battle); none on the map. */
   helpers?: HelperBag;
+  /** False: no Elo speed bonus on this question (a battle: the rating is about knowledge, not reflexes). On by default. */
+  speed?: boolean;
 }
 
 /** Answered on the number pad. */
@@ -248,6 +250,7 @@ export class QuizSession {
       context: this.request.context,
       hint_used: this.hintUsed,
       dont_know: dontKnow,
+      ...(this.request.speed === false ? { speed_bonus: false } : {}),
     });
     this.gaveUp = dontKnow;
     this.phase = "feedback";

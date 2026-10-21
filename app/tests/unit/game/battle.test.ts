@@ -469,3 +469,46 @@ describe("the cap on questions, by age", () => {
     expect(master.battle.phase).toBe("won");
   });
 });
+
+describe("speed counts for nothing in a battle", () => {
+  /** One right answer at `ms` per answer, with the learner's timer on. */
+  function timed(ms: number) {
+    const world = new WorldState();
+    addCreature(world, "heliobud", 6);
+    const engine = engineFor(content, 5, 5, { timer: true });
+    const t = { now: 0 };
+    const battle = new Battle({
+      engine,
+      world,
+      monsters,
+      subjects,
+      wild: { species: "lunibble", level: 6, table: "test" },
+      clock: () => (t.now += ms),
+      maxChoices: null,
+      age: 10,
+      field: new FieldLog({ info: () => {} }),
+      onChange: () => {},
+    });
+    const s = battle.next()!;
+    answerRight(s);
+    return { battle, engine, skill: s.question!.skill_id, world, quality: s.outcome!.quality };
+  }
+
+  it("a fast right answer and a slow one take the same fog and give the same growth", () => {
+    const fast = timed(300);
+    const slow = timed(90_000);
+    expect(fast.battle.last!.damage).toBe(slow.battle.last!.damage);
+    expect(fast.world.creatures[0]!.xp).toBe(slow.world.creatures[0]!.xp);
+  });
+
+  it("and move the rating the same: the Elo speed bonus is off", () => {
+    const fast = timed(300);
+    const slow = timed(90_000);
+    expect(fast.engine.learner.skills.get(fast.skill)!.theta).toBeCloseTo(slow.engine.learner.skills.get(slow.skill)!.theta, 10);
+  });
+
+  it("the time is still logged for the parents' dashboard", () => {
+    const fast = timed(300);
+    expect(fast.engine.learner.log.at(-1)?.elapsed).toBeGreaterThan(0);
+  });
+});

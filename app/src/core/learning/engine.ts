@@ -68,6 +68,12 @@ export interface SubmitOptions {
   context?: string;
   hint_used?: boolean;
   dont_know?: boolean;
+  /**
+   * The Elo speed bonus for a fast right answer (on by default, with the
+   * learner's timer). A battle turns it off: the rating stays about
+   * knowledge, not reflexes. The time is still logged.
+   */
+  speed_bonus?: boolean;
 }
 
 export interface EngineOptions {
@@ -164,7 +170,7 @@ export class LearningEngine {
         nItem: it.n,
         elapsedS,
         deadlineS: deadlineS(q.kind, learner.age),
-        timer: timer && !hintUsed,
+        timer: timer && !hintUsed && (opts.speed_bonus ?? true),
         weight,
       });
       st.theta = upd.theta;

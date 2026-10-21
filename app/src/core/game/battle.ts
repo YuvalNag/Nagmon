@@ -6,7 +6,9 @@
  * - A right answer takes health from the wild creature; a wrong answer
  *   takes nothing from anyone. Nothing here can lose: the only ends are
  *   winning (the creature becomes a friend) and going on one's way.
- * - A right answer also grows the partner (two points when it was fast).
+ * - A right answer also grows the partner. Speed counts for nothing here:
+ *   not in the damage, not in the growth, not in the rating (the engine's
+ *   Elo speed bonus is off in a battle).
  * - No gore, no fainting, no health for the child's creature at all.
  */
 import type { LearningEngine } from "../learning/engine";
@@ -49,7 +51,10 @@ export function hpFor(level: number): number {
   return 18 + 3 * level;
 }
 
-/** What a right answer takes: the partner's level and how well it was answered (1.5 right, 2 fast). */
+/** A right answer's power: always the same, however fast it came (rating and damage are about knowledge, not reflexes). */
+export const RIGHT_MULTIPLIER = 1.5;
+
+/** What a right answer takes: the partner's level and the multiplier (a battle always uses RIGHT_MULTIPLIER). */
 export function damageFor(partnerLevel: number, multiplier: number): number {
   return Math.round((3 + partnerLevel) * multiplier);
 }
@@ -228,7 +233,7 @@ export class Battle {
         this.o.engine,
         this.request("battle"),
         this.o.clock,
-        (outcome) => this.answered(session, outcome.correct, outcome.power_multiplier, outcome.quality === "super", outcome.coins),
+        (outcome) => this.answered(session, outcome.correct, RIGHT_MULTIPLIER, false, outcome.coins),
         this.o.warn,
       );
       if (session.question) return session;
@@ -237,7 +242,8 @@ export class Battle {
   }
 
   private request(context: string): QuizRequest {
-    const r: QuizRequest = { topic: this.subject, context, maxChoices: this.o.maxChoices };
+    // no Elo speed bonus in a battle: the rating stays about knowledge, not reflexes
+    const r: QuizRequest = { topic: this.subject, context, maxChoices: this.o.maxChoices, speed: false };
     const bag = this.helperBag();
     if (bag) r.helpers = bag;
     return r;
