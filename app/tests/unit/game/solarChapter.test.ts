@@ -9,11 +9,12 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { TALK_TO } from "../../../src/app/playConfig";
+import { countOf, economy } from "../../../src/core/game/items";
 import { addCreature } from "../../../src/core/game/collection";
 import { Encounters, encounterTables } from "../../../src/core/game/encounters";
 import { monsterTable } from "../../../src/core/game/monsters";
 import { parseTrip, progressPercent, refreshProgress, travelTo, zoneState, type Trip, type Zone } from "../../../src/core/game/trips";
-import { EventRunner, type EventHost, type QuizWord } from "../../../src/core/world/events";
+import { EventRunner, type EventHost, type Found, type QuizWord, type WorldObjects } from "../../../src/core/world/events";
 import { inBox, readMap, type TiledMap, type WorldMap } from "../../../src/core/world/mapData";
 import { WorldState } from "../../../src/core/world/worldState";
 import { loadLessons, type Lesson } from "../../../src/core/game/lessons";
@@ -48,6 +49,7 @@ interface Play {
   said: string[];
   topics: string[];
   tutors: string[];
+  found: Found[];
 }
 
 /** The map's events run for the child, who answers every question as `word` says. */
@@ -55,6 +57,7 @@ async function visit(map: WorldMap, world: WorldState, word: () => QuizWord, day
   const said: string[] = [];
   const topics: string[] = [];
   const tutors: string[] = [];
+  const found: Found[] = [];
   const host: EventHost = {
     say: async (msgid) => void said.push(msgid),
     quiz: async (topic, _context, answered) => {
@@ -63,11 +66,16 @@ async function visit(map: WorldMap, world: WorldState, word: () => QuizWord, day
     },
     changed: () => {},
     openTutor: async (institute) => void tutors.push(institute),
+    found: async (f) => void found.push(f),
   };
-  const runner = new EventRunner(map.events, world, host, { grade: 3, today: day, talkTo: TALK_TO });
+  const runner = new EventRunner(map.events, world, host, { grade: 3, today: day, talkTo: TALK_TO, objects: OBJECTS });
   await runner.start();
-  return { runner, said, topics, tutors };
+  return { runner, said, topics, tutors, found };
 }
+
+const OBJECTS: WorldObjects = { economy: economy(gameJson("economy.json")), loot: { daily_gift: [], chests: {} } as unknown as WorldObjects["loot"], facts: {}, pools: () => [], zone: "solar_moon" };
+/** The one item a mission gives on its first completion, by zone (tools/app/solar_texts.py MISSION_ITEMS). */
+const MISSION_ITEMS: Record<string, string> = { moon: "magic_net", sun: "hint_feather", rocky_planets: "silver_net", giants: "growth_tonic", outer: "clover" };
 
 const slug = (n: string) => `nagmon_solar_${n}`;
 const worldAt = (level: number): WorldState => {
@@ -179,6 +187,25 @@ describe("each zone's mission", () => {
       await again.runner.talk(slug(MISSION_TALKS[z.id]![0]!));
       expect(w.money - money).toBeLessThanOrEqual(QUIZ_COINS);
     }
+  });
+
+  it("gives one useful item with the coins on the first completion only, shown as found", async () => {
+    for (const z of trip.zones) {
+      const w = new WorldState();
+      const item = MISSION_ITEMS[z.id]!;
+      expect(OBJECTS.economy.items[item], z.id).toBeDefined();
+      const wrong = await visit(maps[z.id]!, w, () => "wrong");
+      for (const n of MISSION_TALKS[z.id]!) await wrong.runner.talk(slug(n));
+      expect(countOf(w, item), z.id).toBe(0);
+      const right = await visit(maps[z.id]!, w, () => "correct");
+      for (const n of MISSION_TALKS[z.id]!) await right.runner.talk(slug(n));
+      expect(countOf(w, item), z.id).toBe(1);
+      expect(right.found.filter((f) => f.how === "item").map((f) => f.prize.item), z.id).toEqual([item]);
+      const again = await visit(maps[z.id]!, w, () => "correct");
+      for (const n of MISSION_TALKS[z.id]!) await again.runner.talk(slug(n));
+      expect(countOf(w, item), z.id).toBe(1);
+    }
+    expect(new Set(Object.values(MISSION_ITEMS)).size).toBe(5);
   });
 
   it("the sun's filter must be fetched: the owl alone cannot finish it", async () => {

@@ -26,6 +26,15 @@ MISSION_COINS = {
     "giants": 18,
     "outer": 25,
 }
+#: The one item a zone's mission gives besides the coins, on its first
+#: completion (ids of mods/nagmon/economy/items.yaml; a different one per zone).
+MISSION_ITEMS = {
+    "moon": "magic_net",
+    "sun": "hint_feather",
+    "rocky_planets": "silver_net",
+    "giants": "growth_tonic",
+    "outer": "clover",
+}
 QUIZ_COINS = 3
 DAILY_LIMIT = 3
 

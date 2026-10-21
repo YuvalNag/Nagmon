@@ -6,7 +6,7 @@ question each of them asks, and one small mission in every zone.
 Only what the app's event interpreter runs is used here
 (``app/src/core/world/events.ts``): ``translated_dialog``,
 ``set_variable``, ``clear_variable``, ``modify_money``,
-``nagmon_daily_count``, ``ask_quiz``, ``open_tutor``; the conditions ``variable_set``,
+``nagmon_daily_count``, ``ask_quiz``, ``open_tutor``, ``give_item``; the conditions ``variable_set``,
 ``one_of`` and ``nagmon_daily_below``. The pattern is the one of the
 gardener and the tourist of Hearthrock: a talk event says the facts and
 asks the question; events gated on the answer's variable pay (up to
@@ -36,7 +36,12 @@ from itertools import product
 from typing import Any
 
 from tools.app.solar_layouts import dialog_id
-from tools.app.solar_texts import DAILY_LIMIT, MISSION_COINS, QUIZ_COINS
+from tools.app.solar_texts import (
+    DAILY_LIMIT,
+    MISSION_COINS,
+    MISSION_ITEMS,
+    QUIZ_COINS,
+)
 
 SUBJECT = "science"
 RIGHT = "correct:super:skip"
@@ -161,6 +166,7 @@ def _mission_end(
                 ("set_variable", [f"{done_variable(zone)}:yes"]),
                 ("modify_money", ["player", MISSION_COINS[zone]]),
                 good,
+                ("give_item", [MISSION_ITEMS[zone]]),
             ],
         ),
         _auto(
@@ -314,6 +320,8 @@ def _rocky() -> list[Spec]:
                     ("modify_money", ["player", MISSION_COINS[zone]]),
                 ]
             acts.append(_say(zone, short, label))
+            if label == "good":
+                acts.append(("give_item", [MISSION_ITEMS[zone]]))
             out.append(
                 _auto(f"Drive {label} {''.join(map(str, combo))}", conds, acts)
             )

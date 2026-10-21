@@ -27,6 +27,7 @@ RUNS = {
     "nagmon_daily_count",
     "ask_quiz",
     "open_tutor",
+    "give_item",
     "create_npc",
     "char_face",
 }
