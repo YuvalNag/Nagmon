@@ -3298,3 +3298,22 @@ button.zone {
   font-size: 0.8em;
   line-height: 1.15;
 }
+
+/* the cashier's worked example (a figure, an idea, the steps, the answer and the button) fits the phone at 130% text */
+.quiz.quiz-example {
+  gap: 2px;
+}
+
+.quiz.quiz-example .figure {
+  height: 16vh;
+}
+
+.quiz.quiz-example .quiz-explain,
+.quiz.quiz-example .quiz-owl {
+  font-size: calc(var(--text) * 0.7);
+  line-height: 1.35;
+}
+
+.quiz.quiz-example .quiz-question {
+  font-size: calc(var(--text) * 0.85);
+}
