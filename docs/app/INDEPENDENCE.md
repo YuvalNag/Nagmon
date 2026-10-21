@@ -156,7 +156,7 @@ loaders are Tuxemon's. Our own format is cheap (S) and removes the question.
 ## 4. Replacing each category
 
 Effort: S = a day or less, M = a few days, L = weeks. "Generator" means the
-image generator the family already uses for creatures and people.
+image generator already used for creatures and people.
 
 | Category | How to replace | Effort | Order |
 |---|---|---|---|
