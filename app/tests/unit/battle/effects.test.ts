@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { LIMITS, pickOptions, planFor } from "../../../src/ui/battle/effects";
+import { LIMITS, pickOptions, planFor, planForFree as freePlan } from "../../../src/ui/battle/effects";
 
 describe("the effects plan", () => {
   it("a right answer: the attack, stars, a number, the wild creature hit, a short hit-stop", () => {
@@ -53,5 +53,22 @@ describe("the floating answers", () => {
     expect(pickOptions(cards(6), "0").map((c) => c.id)).toEqual(["0", "1", "2", "3"]);
     // an answer that is not among them: the first four
     expect(pickOptions(cards(6), "x")).toHaveLength(4);
+  });
+});
+
+describe("a free beat's effect", () => {
+  it("a small hit: the attack flies, a few stars, a number; nothing flashes", () => {
+    const p = freePlan(5, false);
+    expect(p).toMatchObject({ attack: true, number: true, wildHit: true, oops: false, flashesPerSecond: 0 });
+    expect(p.stars).toBeGreaterThan(0);
+    expect(p.stars).toBeLessThan(10);
+  });
+
+  it("at the fog floor (no damage) it is a cheerful gesture: no number, no hit", () => {
+    expect(freePlan(0, false)).toMatchObject({ number: false, wildHit: false, stars: 0, oops: false });
+  });
+
+  it("with calm effects nothing flies", () => {
+    expect(freePlan(5, true)).toMatchObject({ attack: false, wildHit: false, stars: 1 });
   });
 });

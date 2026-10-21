@@ -38,6 +38,10 @@ interface Props {
   victory: boolean;
   /** A typed answer: the pad is at the bottom end and the wild creature stands a little to the start. */
   pad: boolean;
+  /** The charge meter: pips filled out of its size. */
+  charge?: { filled: number; size: number };
+  /** A Special's medals (a hit, a miss, not asked yet), while it is on and just after. */
+  medals?: (boolean | null)[] | null;
   /** The ids the tests read. */
   children?: ReactNode;
 }
@@ -63,6 +67,28 @@ function Decor({ subject }: { subject: string }) {
           </svg>
         ),
       )}
+    </div>
+  );
+}
+
+/** The partner's charge meter as round pips, or a Special's combo as round numbered medals. Never a star. */
+export function Charge({ charge, medals }: { charge: { filled: number; size: number }; medals: (boolean | null)[] | null }) {
+  if (medals) {
+    return (
+      <div className="combo" data-id="battle_combo" role="img" aria-label={t("battleCombo", { n: medals.filter((m) => m === true).length })}>
+        {medals.map((m, i) => (
+          <span key={i} className="medal" data-state={m === null ? "wait" : m ? "hit" : "miss"} aria-hidden="true">
+            {i + 1}
+          </span>
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div className="charge" data-id="battle_charge" data-filled={charge.filled} data-full={charge.filled >= charge.size} role="img" aria-label={t("battleCharge", { n: charge.filled, max: charge.size })}>
+      {Array.from({ length: charge.size }, (_, i) => (
+        <span key={i} className="pip" data-on={i < charge.filled} aria-hidden="true" />
+      ))}
     </div>
   );
 }
@@ -142,6 +168,7 @@ export function Stage(p: Props) {
         <div className="meter xp" role="progressbar" aria-label={t("battleLevel", { level: p.mine.level })} aria-valuemin={0} aria-valuemax={need} aria-valuenow={p.mine.xp}>
           <span style={{ width: `${Math.min(100, (100 * p.mine.xp) / need)}%` }} />
         </div>
+        {p.charge && <Charge charge={p.charge} medals={p.medals ?? null} />}
       </div>
       <div className="hud hud-theirs" dir="rtl">
         <span className="hud-name">

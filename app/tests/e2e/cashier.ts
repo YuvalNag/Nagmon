@@ -182,3 +182,13 @@ export async function battleResultClosed(page: Page) {
   // the arena again, or what follows it: the level-up card, the new friend
   await expect(page.locator("[data-screen=battle][data-asking=false], [data-screen=battle-caught], [data-id=growth_close]").first()).toBeVisible({ timeout: 6000 });
 }
+
+/**
+ * Opens the next question from the beat menu: never two question beats in a
+ * row, so a free Move comes first when the Power-up is resting.
+ */
+export async function powerUp(page: Page, steps = 30) {
+  const power = page.locator('[data-id="battle_next"], [data-id="battle_fight"]');
+  if (await power.isDisabled()) await touch(page, page.locator(id("battle_move")), steps);
+  await touch(page, power, steps);
+}

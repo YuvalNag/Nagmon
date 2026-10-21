@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { addCreature } from "../../../src/core/game/collection";
 import { Battle, damageFor, hpFor } from "../../../src/core/game/battle";
+import { QUIZ_CAP, questionHit } from "../../../src/core/game/battleBeats";
 import { FieldLog } from "../../../src/core/game/fieldLog";
 import { monsterTable } from "../../../src/core/game/monsters";
 import type { ContentLibrary } from "../../../src/core/learning";
@@ -15,7 +16,7 @@ beforeAll(() => {
 const monsters = monsterTable(gameJson("db/monsters.json"));
 const subjects = SubjectMap.fromDoc(gameJson("content/subjects.json"));
 
-function make(over: { partner?: number; wild?: number; species?: string; world?: WorldState; master?: boolean } = {}) {
+function make(over: { partner?: number; wild?: number; species?: string; world?: WorldState; master?: boolean; age?: number } = {}) {
   const world = over.world ?? new WorldState();
   if (!over.world) addCreature(world, "heliobud", over.partner ?? 6);
   const lines: string[] = [];
@@ -29,6 +30,7 @@ function make(over: { partner?: number; wild?: number; species?: string; world?:
     wild: { species: over.species ?? "lunibble", level: over.wild ?? 6, table: "test" },
     clock: () => (t.now += 1500),
     maxChoices: null,
+    ...(over.age ? { age: over.age } : {}),
     field: new FieldLog({ info: (m) => lines.push(m) }),
     onChange: () => changes++,
     ...(over.master ? { master: true } : {}),
@@ -58,7 +60,7 @@ describe("a battle", () => {
     expect(hp).toBe(hpFor(6));
     const r = play(battle, true);
     expect(r.correct).toBe(true);
-    expect(r.damage).toBeGreaterThanOrEqual(damageFor(6, 1.5));
+    expect(r.damage).toBe(questionHit(damageFor(6, 1.5), battle.maxHp, battle.target));
     expect(battle.hp).toBe(hp - r.damage);
   });
 
@@ -73,11 +75,12 @@ describe("a battle", () => {
     expect(battle.phase).toBe("fighting");
   });
 
-  it("any number of wrong answers never ends it: only a win, or the child going on their way", () => {
+  it("wrong answers alone never end it before the cap: only a win, the cap, or the child going on their way", () => {
     const { battle } = make();
-    for (let i = 0; i < 12; i++) expect(play(battle, false).won).toBe(false);
+    const cap = QUIZ_CAP[battle.band];
+    for (let i = 0; i < cap - 1; i++) expect(play(battle, false).won).toBe(false);
     expect(battle.phase).toBe("fighting");
-    expect(battle.stats.questions).toBe(12);
+    expect(battle.stats.questions).toBe(cap - 1);
     expect(battle.stats.correct).toBe(0);
   });
 
@@ -89,10 +92,10 @@ describe("a battle", () => {
     expect(battle.phase).toBe("calm");
     expect(r.calm).toBe(true);
     expect(battle.hp).toBe(0);
-    expect(world.creatures.map((c) => c.species)).toEqual(["heliobud"]);
+    expect(world.creatures).toHaveLength(1);
     expect(world.seen.has("lunibble")).toBe(true);
     expect(world.caught.has("lunibble")).toBe(false);
-    expect(battle.stats.questions).toBeLessThanOrEqual(8);
+    expect(battle.stats.questions).toBeLessThanOrEqual(QUIZ_CAP[battle.band]);
   });
 
   it("the partner grows with right answers, and the growth is saved each time", () => {
@@ -215,5 +218,354 @@ describe("the log line for a battle result", () => {
     const line = lines.find((l) => l.startsWith("BATTLE result"))!;
     expect(line).not.toContain("יוסי");
     expect(line).toMatch(/^[\x20-\x7e]+$/);
+  });
+});
+
+describe("the beat menu", () => {
+  it("a Move asks nothing, takes a third of a right answer, and counts no question", () => {
+    const { battle } = make();
+    const hp = battle.hp;
+    const r = battle.pick("move")!;
+    expect(r.beat).toBe("move");
+    expect(r.damage).toBeGreaterThan(0);
+    expect(r.damage).toBeLessThan(damageFor(6, 1.5));
+    expect(battle.hp).toBe(hp - r.damage);
+    expect(battle.stats.questions).toBe(0);
+    expect(battle.phase).toBe("fighting");
+  });
+
+  it("free beats stop at half the fog: Move and the friend never calm a creature", () => {
+    const { battle } = make();
+    for (let i = 0; i < 30; i++) battle.pick(i % 3 === 2 ? "assist" : "move");
+    expect(battle.hp).toBeGreaterThanOrEqual(Math.ceil(battle.maxHp / 2));
+    expect(battle.phase).toBe("fighting");
+    expect(battle.pick("move")).not.toBeNull();
+    expect(battle.pick("move")!.damage).toBe(0);
+  });
+
+  it("the friend's assist is limited in a battle", () => {
+    const { battle } = make();
+    expect(battle.assistsLeft).toBe(2);
+    expect(battle.pick("assist")).not.toBeNull();
+    expect(battle.pick("assist")).not.toBeNull();
+    expect(battle.pick("assist")).toBeNull();
+    expect(battle.legal().assist).toBe(false);
+    expect(battle.pick("move")).not.toBeNull();
+  });
+
+  it("never two question beats in a row: a Power-up after an answered question waits for a free beat", () => {
+    const { battle } = make();
+    expect(battle.pick("power")).not.toBeNull();
+    play(battle, true);
+    expect(battle.legal().power).toBe(false);
+    expect(battle.pick("power")).toBeNull();
+    battle.pick("move");
+    expect(battle.legal().power).toBe(true);
+    expect(battle.pick("power")).not.toBeNull();
+  });
+
+  it("a wrong answer is a question beat too: the next beat is free", () => {
+    const { battle } = make();
+    play(battle, false);
+    expect(battle.pick("power")).toBeNull();
+    expect(battle.pick("assist")).not.toBeNull();
+    expect(battle.pick("power")).not.toBeNull();
+  });
+
+  it("a calm creature takes no more beats", () => {
+    const { battle } = make();
+    for (let i = 0; i < 12 && battle.phase === "fighting"; i++) {
+      play(battle, true);
+      battle.pick("move");
+    }
+    expect(battle.phase).toBe("calm");
+    expect(battle.pick("move")).toBeNull();
+    expect(battle.pick("power")).toBeNull();
+  });
+
+  it("a free beat saves the child and the rating nothing: no answer is logged", () => {
+    const { battle, world } = make();
+    battle.pick("move");
+    expect(battle.stats.questions).toBe(0);
+    expect(world.money).toBe(0);
+  });
+});
+
+describe("the charge meter and Special", () => {
+  /** Charges the meter of a 6-year-old (2 pips): two right Power-ups with a free beat between. */
+  function charged() {
+    const m = make({ age: 6, partner: 3, wild: 8 });
+    play(m.battle, true);
+    m.battle.pick("move");
+    play(m.battle, true);
+    return m;
+  }
+
+  it("the meter's size follows the age: 2 pips for a 6-year-old, 3 for an 9-year-old", () => {
+    expect(make({ age: 6 }).battle.meterSize).toBe(2);
+    expect(make({ age: 9 }).battle.meterSize).toBe(3);
+    expect(make({ age: 13 }).battle.meterSize).toBe(3);
+  });
+
+  it("a right Power-up answer charges a pip; a wrong one neither fills nor empties it", () => {
+    const { battle } = make({ age: 9 });
+    play(battle, true);
+    expect(battle.meter).toBe(1);
+    battle.pick("move");
+    play(battle, false);
+    expect(battle.meter).toBe(1);
+  });
+
+  it("free beats do not charge it", () => {
+    const { battle } = make({ age: 9 });
+    battle.pick("move");
+    battle.pick("assist");
+    expect(battle.meter).toBe(0);
+  });
+
+  it("a full meter swaps Move for Special, on a free beat only", () => {
+    const { battle } = charged();
+    expect(battle.meter).toBe(battle.meterSize);
+    expect(battle.legal()).toMatchObject({ special: false, move: true, power: false });
+    battle.pick("assist");
+    expect(battle.legal()).toMatchObject({ special: true, move: false, power: true });
+    expect(battle.pick("move")).toBeNull();
+  });
+
+  it("Special spends the meter and starts a burst of three questions", () => {
+    const { battle } = charged();
+    battle.pick("assist");
+    expect(battle.pick("special")).not.toBeNull();
+    expect(battle.meter).toBe(0);
+    expect(battle.burst?.medals).toEqual([null, null, null]);
+  });
+
+  it("each right answer of the burst lands a hit and fills a medal; the burst's answers do not charge", () => {
+    const { battle } = charged();
+    battle.pick("assist");
+    battle.pick("special");
+    const hp = battle.hp;
+    const t1 = play(battle, true);
+    expect(t1.damage).toBeGreaterThan(0);
+    expect(t1.burst).toMatchObject({ medals: [true, null, null], combo: 1, over: false });
+    expect(battle.hp).toBe(hp - t1.damage);
+    expect(battle.meter).toBe(0);
+    expect(battle.burst).not.toBeNull();
+  });
+
+  it("three right answers in a row finish the burst and take the fog it began with", () => {
+    const { battle } = charged();
+    battle.pick("assist");
+    battle.pick("special");
+    const start = battle.hp;
+    let last = play(battle, true);
+    last = play(battle, true);
+    last = play(battle, true);
+    expect(last.burst).toMatchObject({ medals: [true, true, true], combo: 3, over: true });
+    expect(battle.burst).toBeNull();
+    expect(battle.hp).toBe(Math.max(0, start - 3 * Math.ceil(start / 3)));
+    expect(battle.phase).toBe("calm");
+  });
+
+  it("a wrong answer in a burst just ends the combo: no damage, nothing lost, the fog stays, no more burst questions", () => {
+    const { battle, world } = charged();
+    battle.pick("assist");
+    battle.pick("special");
+    play(battle, true);
+    const hp = battle.hp;
+    const money = world.money;
+    const t = play(battle, false);
+    expect(t.burst).toMatchObject({ medals: [true, false, null], combo: 1, over: true });
+    expect(t).toMatchObject({ damage: 0, correct: false });
+    expect(battle.hp).toBe(hp);
+    expect(world.money).toBe(money);
+    expect(battle.burst).toBeNull();
+    expect(battle.phase).toBe("fighting");
+    // after a burst the next beat is a free one
+    expect(battle.legal().power).toBe(false);
+    expect(battle.legal().move).toBe(true);
+  });
+
+  it("each question of the burst is rated by the engine on its own, like any other answer", () => {
+    const { battle } = charged();
+    battle.pick("assist");
+    battle.pick("special");
+    const before = battle.stats.questions;
+    play(battle, true);
+    play(battle, true);
+    expect(battle.stats.questions).toBe(before + 2);
+  });
+
+  it("the burst is not offered without a full meter", () => {
+    const { battle } = make({ age: 6 });
+    expect(battle.pick("special")).toBeNull();
+    play(battle, true);
+    battle.pick("move");
+    expect(battle.pick("special")).toBeNull();
+  });
+});
+
+describe("the cap on questions, by age", () => {
+  const ages = [
+    [6, 5],
+    [9, 7],
+    [12, 8],
+  ] as const;
+
+  it.each(ages)("a %s-year-old: at the cap of %s questions, right or wrong, the creature calms by itself", (age, cap) => {
+    const { battle } = make({ age, wild: 14, partner: 2 });
+    let last = play(battle, false);
+    for (let i = 1; i < cap; i++) {
+      expect(battle.phase).toBe("fighting");
+      expect(last.capped).toBe(false);
+      last = play(battle, false);
+    }
+    expect(battle.stats.questions).toBe(cap);
+    expect(last).toMatchObject({ capped: true, won: true, calm: true, correct: false, damage: 0 });
+    expect(battle.phase).toBe("calm");
+    expect(battle.hp).toBe(0);
+  });
+
+  it("the cap counts the wrong answers too, and the child is never punished: no coins lost, no partner changed", () => {
+    const { battle, world } = make({ age: 6 });
+    const before = JSON.stringify(world.creatures);
+    for (let i = 0; i < 5; i++) play(battle, false);
+    expect(battle.phase).toBe("calm");
+    expect(world.money).toBe(0);
+    expect(JSON.stringify(world.creatures)).toBe(before);
+  });
+
+  it("an earlier win is not a cap", () => {
+    const { battle } = make({ age: 12, wild: 2, partner: 12 });
+    let last = play(battle, true);
+    for (let i = 0; i < 8 && !last.won; i++) last = play(battle, true);
+    expect(last.won).toBe(true);
+    expect(last.capped).toBe(false);
+  });
+
+  it("the target in right answers is enough once the free beats took their half (so the child is not asked more than the target)", () => {
+    for (const [age] of ages) {
+      const { battle } = make({ age, wild: 8, partner: 8 });
+      let guard = 0;
+      while (battle.hp > Math.ceil(battle.maxHp / 2) && guard++ < 40) battle.pick("move");
+      let rights = 0;
+      while (battle.phase === "fighting" && guard++ < 80) {
+        play(battle, true);
+        rights++;
+        if (battle.phase === "fighting") battle.pick("move");
+      }
+      expect(rights).toBeLessThanOrEqual(battle.target);
+      expect(battle.stats.questions).toBe(rights);
+    }
+  });
+
+  it("a master's test has a bigger cap and the same fog rule", () => {
+    const plain = make({ age: 9, wild: 12 });
+    const master = make({ age: 9, wild: 12, master: true });
+    expect(master.battle.budget.limit).toBeGreaterThan(plain.battle.budget.limit);
+    let last = play(master.battle, false);
+    for (let i = 0; i < 30 && !last.won; i++) last = play(master.battle, false);
+    expect(last.capped).toBe(true);
+    expect(master.battle.phase).toBe("won");
+  });
+});
+
+describe("speed counts for nothing in a battle", () => {
+  /** One right answer at `ms` per answer, with the learner's timer on. */
+  function timed(ms: number) {
+    const world = new WorldState();
+    addCreature(world, "heliobud", 6);
+    const engine = engineFor(content, 5, 5, { timer: true });
+    const t = { now: 0 };
+    const battle = new Battle({
+      engine,
+      world,
+      monsters,
+      subjects,
+      wild: { species: "lunibble", level: 6, table: "test" },
+      clock: () => (t.now += ms),
+      maxChoices: null,
+      age: 10,
+      field: new FieldLog({ info: () => {} }),
+      onChange: () => {},
+    });
+    const s = battle.next()!;
+    answerRight(s);
+    return { battle, engine, skill: s.question!.skill_id, world, quality: s.outcome!.quality };
+  }
+
+  it("a fast right answer and a slow one take the same fog and give the same growth", () => {
+    const fast = timed(300);
+    const slow = timed(90_000);
+    expect(fast.battle.last!.damage).toBe(slow.battle.last!.damage);
+    expect(fast.world.creatures[0]!.xp).toBe(slow.world.creatures[0]!.xp);
+  });
+
+  it("and move the rating the same: the Elo speed bonus is off", () => {
+    const fast = timed(300);
+    const slow = timed(90_000);
+    expect(fast.engine.learner.skills.get(fast.skill)!.theta).toBeCloseTo(slow.engine.learner.skills.get(slow.skill)!.theta, 10);
+  });
+
+  it("the time is still logged for the parents' dashboard", () => {
+    const fast = timed(300);
+    expect(fast.engine.learner.log.at(-1)?.elapsed).toBeGreaterThan(0);
+  });
+});
+
+describe("the log of the beats", () => {
+  const only = (lines: string[], kind: string) => lines.filter((l) => l.startsWith(`${kind} `));
+
+  it("one line for each beat the child picks, with the damage, the fog and the assists left", () => {
+    const { battle, lines } = make({ age: 9 });
+    battle.pick("move");
+    battle.pick("assist");
+    battle.pick("power");
+    expect(only(lines, "BEAT")).toEqual([
+      expect.stringMatching(/^BEAT pick=move damage=\d+ hp=\d+ max=\d+ assists=2$/),
+      expect.stringMatching(/^BEAT pick=assist damage=\d+ hp=\d+ max=\d+ assists=1$/),
+      "BEAT pick=power damage=0 hp=" + battle.hp + " max=" + battle.maxHp + " assists=1",
+    ]);
+  });
+
+  it("a card that is not open writes nothing", () => {
+    const { battle, lines } = make();
+    play(battle, true);
+    battle.pick("power");
+    expect(only(lines, "BEAT")).toEqual([]);
+  });
+
+  it("the meter has a line when it changes: not for a wrong answer, not for a full meter", () => {
+    const { battle, lines } = make({ age: 6 });
+    play(battle, false);
+    expect(only(lines, "METER")).toEqual([]);
+    battle.pick("move");
+    play(battle, true);
+    expect(only(lines, "METER")).toEqual(["METER n=1 size=2 band=A"]);
+  });
+
+  it("a Special has a start and an end line, with the hits and whether the combo broke", () => {
+    const { battle, lines } = make({ age: 6, partner: 3, wild: 8 });
+    play(battle, true);
+    battle.pick("move");
+    play(battle, true);
+    battle.pick("assist");
+    battle.pick("special");
+    play(battle, true);
+    play(battle, false);
+    expect(only(lines, "SPECIAL")).toEqual([expect.stringMatching(/^SPECIAL event=start hp=\d+$/), expect.stringMatching(/^SPECIAL event=end hp=\d+ hits=1 broken=1$/)]);
+  });
+
+  it("the cap has one line: how many were asked, the limit, the band", () => {
+    const { battle, lines } = make({ age: 6 });
+    for (let i = 0; i < 5; i++) play(battle, false);
+    expect(only(lines, "CAP")).toEqual(["CAP asked=5 limit=5 band=A"]);
+  });
+
+  it("holds no names: only ids and numbers", () => {
+    const { battle, lines } = make({ age: 6 });
+    battle.partner.name = "יוסי";
+    battle.pick("move");
+    for (const l of lines.filter((x) => /^(BEAT|METER|SPECIAL|CAP) /.test(x))) expect(l).toMatch(/^[\x20-\x7e]+$/);
   });
 });

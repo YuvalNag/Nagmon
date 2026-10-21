@@ -1,6 +1,8 @@
 # BATTLE: a better, more playable battle (research and design)
 
-Status: design only. Nothing here is in the code unless a section says "today". Language of the game stays Hebrew (RTL); this document is English.
+Status: slices 1 and 2 are in the code (branch `app/battle-slice2`); the rest is design. Nothing else here is in the code unless a section says "today".
+
+Slice 2, as built (differences from the design): the beat menu (Move / Power-up / friend assist, 2 assists a battle, no intent bubbles yet); never two question beats in a row, with no override; free beats stop at 50% of the fog; the meter is 2 pips for ages 5 to 7 and 3 pips after (not 3 and 4, so that a meter plus the burst fits the cap of 5 / 7 / 8); Special (a burst of 3, each right answer takes a third of the fog left when it began, round numbered medals, a wrong answer ends the combo) takes Move's place on a free beat; fog questions 3 / 4 / 5 with hard caps 5 / 7 / 8 (`BattleQuizBudget`), a right answer takes half the fog shared over the target, at the cap the creature calms by itself (a master's test: cap + 3); no Elo speed bonus in battle (`speed_bonus: false`), damage and growth no longer depend on speed; presentations built: true/false thumbs, order (P8), letters (P10), picture tiles, and a calm list for 5 to 6 answers. Not built: throw it (P2), number-line slide (P9; the only number_line question asks for a distance, not a point), build the number (P5), the rotation rule. Log lines: BEAT, METER, SPECIAL, CAP. Language of the game stays Hebrew (RTL); this document is English.
 Trigger: the parent's feedback after playing: the battle is not good; make it more interesting, interactive and visual; a question every moment is tiring.
 Scope: `app/src/core/game/battle.ts`, `app/src/ui/BattleScreen.tsx`, `app/src/ui/QuizScreen.tsx`, `app/src/ui/battle/*`, the learning engine (`app/src/core/learning`). Phone, landscape, 873x393 CSS px.
 

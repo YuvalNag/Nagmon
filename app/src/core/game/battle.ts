@@ -6,16 +6,39 @@
  * - A right answer takes health from the wild creature; a wrong answer
  *   takes nothing from anyone. Nothing here can lose: the only ends are
  *   winning (the creature becomes a friend) and going on one's way.
- * - A right answer also grows the partner (two points when it was fast).
+ * - A right answer also grows the partner. Speed counts for nothing here:
+ *   not in the damage, not in the growth, not in the rating (the engine's
+ *   Elo speed bonus is off in a battle).
  * - No gore, no fainting, no health for the child's creature at all.
  */
 import type { LearningEngine } from "../learning/engine";
-import type { SubjectMap } from "../learning/quiz_flow";
+import { BattleQuizBudget, type SubjectMap } from "../learning/quiz_flow";
 import { type HelperBag, type HelperKind, type QuizRequest, QuizSession } from "../world/quiz";
 import type { Creature, WorldState } from "../world/worldState";
 import { addCreature, giveXp, type Growth, markSeen, PARTY_SIZE, partner as partnerOf } from "./collection";
 import { claimSpareNet, countOf, type Economy, type Item, spendBoost, take } from "./items";
 import { setPartner } from "./party";
+import {
+  ASSISTS_PER_BATTLE,
+  type Beat,
+  type Band,
+  bandOf,
+  type Burst,
+  burstAnswer,
+  burstLive,
+  burstHit,
+  charge,
+  comboOf,
+  freeDamage,
+  type Legal,
+  legalBeats,
+  MASTER_CAP_EXTRA,
+  METER_SIZE,
+  newBurst,
+  QUIZ_CAP,
+  QUIZ_TARGET,
+  questionHit,
+} from "./battleBeats";
 import type { Wild } from "./encounters";
 import type { FieldLog } from "./fieldLog";
 import type { MonsterTable } from "./monsters";
@@ -28,7 +51,10 @@ export function hpFor(level: number): number {
   return 18 + 3 * level;
 }
 
-/** What a right answer takes: the partner's level and how well it was answered (1.5 right, 2 fast). */
+/** A right answer's power: always the same, however fast it came (rating and damage are about knowledge, not reflexes). */
+export const RIGHT_MULTIPLIER = 1.5;
+
+/** What a right answer takes: the partner's level and the multiplier (a battle always uses RIGHT_MULTIPLIER). */
 export function damageFor(partnerLevel: number, multiplier: number): number {
   return Math.round((3 + partnerLevel) * multiplier);
 }
@@ -50,6 +76,18 @@ export interface Turn {
   partnerBefore: string;
   /** This answer took the last of the fog: the creature is calm (a master's test: won). */
   calm: boolean;
+  /** This answer was a question of a Special: the medals so far, and whether the burst is over. */
+  burst: { medals: (boolean | null)[]; combo: number; over: boolean } | null;
+  /** The meter after this answer. */
+  meter: number;
+  /** The question cap was reached: the creature calmed by itself (nobody is punished). */
+  capped: boolean;
+}
+
+/** What a free beat (a Move, or the friend's assist) did; a Power-up is only the start of a question. */
+export interface BeatResult {
+  beat: Beat;
+  damage: number;
 }
 
 /** One go at a net: the seal question(s) and what came of them. */
@@ -74,6 +112,8 @@ export interface BattleOptions {
   wild: Wild;
   clock: () => number;
   maxChoices: number | null;
+  /** The child's age: it sets the meter's size (3 or 4 pips). The learner's own age when left out. */
+  age?: number;
   field: FieldLog;
   /** The economy: with it, the Bag's helpers can be used on the questions. */
   economy?: Economy;
@@ -101,6 +141,23 @@ export class Battle {
   /** Tries at the seal in this meeting (a wrong one is only a try). */
   tries = 0;
   lastSeal: SealResult | null = null;
+  /** The last free beat, for the screen to play. */
+  lastBeat: BeatResult | null = null;
+  /** The friend's assists left in this battle. */
+  assistsLeft = ASSISTS_PER_BATTLE;
+  /** The last beat was a question: the next one is free. */
+  lastWasQuestion = false;
+  readonly band: Band;
+  /** The charge meter: right Power-up answers fill it; full, it unlocks Special. */
+  meter = 0;
+  readonly meterSize: number;
+  /** The most fog questions (wrong ones too) this battle asks; at it the creature calms by itself. */
+  readonly budget: BattleQuizBudget;
+  /** The right answers that are enough, by the child's age. */
+  readonly target: number;
+  private burstHitSize = 0;
+  /** The Special being played: its three questions, in a row. */
+  burst: Burst | null = null;
   private subject: string;
 
   /** The subject the questions are about (it shows in the arena's look). */
@@ -112,6 +169,10 @@ export class Battle {
     const p = partnerOf(o.world);
     if (!p) throw new Error("no partner to battle with");
     this.partner = p;
+    this.band = bandOf(o.age ?? o.engine.learner.age ?? o.engine.learner.grade + 6);
+    this.meterSize = METER_SIZE[this.band];
+    this.target = QUIZ_TARGET[this.band];
+    this.budget = new BattleQuizBudget(QUIZ_CAP[this.band] + (o.master ? MASTER_CAP_EXTRA : 0));
     this.maxHp = hpFor(o.wild.level) * (o.master ? 2 : 1);
     this.hp = this.maxHp;
     const info = o.monsters[o.wild.species];
@@ -131,6 +192,46 @@ export class Battle {
     return true;
   }
 
+  /** The cards the child may pick now (docs/app/BATTLE.md, section 4.1). */
+  legal(): Legal {
+    return legalBeats({ fighting: this.phase === "fighting", lastWasQuestion: this.lastWasQuestion, meterFull: this.meter >= this.meterSize, assistsLeft: this.assistsLeft });
+  }
+
+  /**
+   * The child picks a card. A Move or a friend's assist plays at once and
+   * asks nothing (it can only take the fog to half); a Power-up only opens
+   * the way to a question (`next`). Null when the card is not open now.
+   */
+  pick(beat: Beat): BeatResult | null {
+    if (!this.legal()[beat]) return null;
+    if (beat === "power") {
+      this.logBeat(beat, 0);
+      return { beat, damage: 0 };
+    }
+    if (beat === "special") {
+      // the meter is spent; the burst's three questions follow (`next`)
+      this.meter = 0;
+      this.burst = newBurst();
+      this.burstHitSize = burstHit(this.hp);
+      this.logBeat(beat, 0);
+      this.o.field.special({ event: "start", hp: this.hp });
+      this.o.onChange();
+      return { beat, damage: 0 };
+    }
+    if (beat === "assist") this.assistsLeft--;
+    const damage = freeDamage(this.hp, this.maxHp, damageFor(this.partner.level, 1.5));
+    this.hp -= damage;
+    this.lastWasQuestion = false;
+    this.lastBeat = { beat, damage };
+    this.logBeat(beat, damage);
+    this.o.onChange();
+    return this.lastBeat;
+  }
+
+  private logBeat(pick: Beat, damage: number): void {
+    this.o.field.beat({ pick, damage, hp: this.hp, max: this.maxHp, assists: this.assistsLeft });
+  }
+
   start(map: string): void {
     this.o.field.battleStart({ monster: this.o.wild.species, level: this.o.wild.level, map });
   }
@@ -142,7 +243,7 @@ export class Battle {
         this.o.engine,
         this.request("battle"),
         this.o.clock,
-        (outcome) => this.answered(session, outcome.correct, outcome.power_multiplier, outcome.quality === "super", outcome.coins),
+        (outcome) => this.answered(session, outcome.correct, RIGHT_MULTIPLIER, false, outcome.coins),
         this.o.warn,
       );
       if (session.question) return session;
@@ -151,7 +252,8 @@ export class Battle {
   }
 
   private request(context: string): QuizRequest {
-    const r: QuizRequest = { topic: this.subject, context, maxChoices: this.o.maxChoices };
+    // no Elo speed bonus in a battle: the rating stays about knowledge, not reflexes
+    const r: QuizRequest = { topic: this.subject, context, maxChoices: this.o.maxChoices, speed: false, kinds: ["order", "letters"] };
     const bag = this.helperBag();
     if (bag) r.helpers = bag;
     return r;
@@ -180,18 +282,30 @@ export class Battle {
 
   private answered(session: QuizSession, correct: boolean, multiplier: number, fast: boolean, earned: number): void {
     this.stats.questions++;
+    this.budget.take();
     this.stats.ms += session.elapsedMs;
     let damage = 0;
     let growth: Growth = { leveled: false, level: this.partner.level, evolvedTo: null };
     let coins = 0;
     const partnerBefore = this.partner.species;
+    const burst = burstLive(this.burst) ? this.burst : null;
+    const meterBefore = this.meter;
+    if (burst) burstAnswer(burst, correct);
+    else this.meter = charge(this.meter, this.meterSize, correct);
     if (correct) {
       this.stats.correct++;
       coins = Math.max(1, earned);
       this.o.world.addMoney(coins);
-      damage = Math.min(this.hp, damageFor(this.partner.level, multiplier));
+      damage = Math.min(this.hp, burst ? this.burstHitSize : questionHit(damageFor(this.partner.level, multiplier), this.maxHp, this.target));
       this.hp -= damage;
       growth = giveXp(this.o.world, this.partner.id, (fast ? 2 : 1) * spendBoost(this.o.world), this.o.monsters);
+    }
+    this.lastWasQuestion = true;
+    // the cap: the creature gets tired and calms by itself, so a run of wrong answers never traps the child
+    const capped = this.hp > 0 && this.budget.asked >= this.budget.limit;
+    if (capped) {
+      this.hp = 0;
+      this.o.field.cap({ asked: this.budget.asked, limit: this.budget.limit, band: this.band });
     }
     const won = this.hp <= 0;
     if (won) {
@@ -204,7 +318,13 @@ export class Battle {
         this.phase = "calm";
       }
     }
-    this.last = { correct, damage, won, growth, coins, partnerBefore, calm: won && !this.o.master };
+    // a burst ends on a wrong answer, after its last question, or when the fog is gone
+    const burstOver = !!burst && (burst.broken || !burstLive(burst) || won);
+    if (!burst && this.meter !== meterBefore) this.o.field.meter({ n: this.meter, size: this.meterSize, band: this.band });
+    if (burst && burstOver) this.o.field.special({ event: "end", hp: this.hp, hits: comboOf(burst), broken: burst.broken });
+    const snapshot = burst ? { medals: [...burst.medals], combo: comboOf(burst), over: burstOver } : null;
+    if (burstOver) this.burst = null;
+    this.last = { correct, damage, won, growth, coins, partnerBefore, calm: won && !this.o.master, burst: snapshot, meter: this.meter, capped };
     this.o.field.battleResult({
       n: this.stats.questions,
       ok: correct,

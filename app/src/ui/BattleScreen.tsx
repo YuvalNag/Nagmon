@@ -1,7 +1,8 @@
 import { type MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
 import type { AnswerOutcome } from "../core/learning/engine";
 import type { Play } from "../app/play";
-import { Battle, type SealResult, type Turn } from "../core/game/battle";
+import { Battle, type BeatResult, type SealResult, type Turn } from "../core/game/battle";
+import { atFloor, type Beat } from "../core/game/battleBeats";
 import { needFor } from "../core/game/collection";
 import type { Wild } from "../core/game/encounters";
 import { countOf, giveStarterKit } from "../core/game/items";
@@ -9,12 +10,14 @@ import type { QuizSession } from "../core/world/quiz";
 import { t } from "../i18n";
 import { gameClock } from "../platform/lifecycle";
 import { pageSfx } from "../platform/sfx";
+import { ageFromProfile } from "../core/family/age";
 import { effectsFrom } from "../core/family/effects";
 import { ActionBar } from "./battle/ActionBar";
-import { BattleQuestion } from "./battle/BattleQuestion";
-import { planFor } from "./battle/effects";
+import { BattleQuestion, presentationFor } from "./battle/BattleQuestion";
+import { planFor, planForFree } from "./battle/effects";
 import { answered, asking as askingFlow, type Flow, openWhy, remainingMs, tapped, ticked } from "./battle/resultFlow";
 import { ResultBox } from "./battle/ResultBox";
+import { usesSide } from "./battle/presentation";
 import { type Fx, Stage } from "./battle/Stage";
 import { useCalm } from "./battle/useCalm";
 import { NameCard } from "./battle/NameCard";
@@ -45,6 +48,8 @@ type View =
   | { k: "question"; session: QuizSession }
   | { k: "seal"; session: QuizSession }
   | { k: "turn"; turn: Turn }
+  /** A free beat (a Move or the friend's assist) just played. */
+  | { k: "free"; beat: BeatResult }
   /** The fog is gone: the net is the next step. `seal` is what the last try said. */
   | { k: "calm"; turn: Turn | null; seal: SealResult | null }
   /** A master's test, won. */
@@ -69,6 +74,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       wild,
       clock: () => gameClock.now(),
       maxChoices: play.maxChoices,
+      age: ageFromProfile(play.profile, new Date()),
       field: play.field,
       economy: play.economy,
       onChange: () => {
@@ -102,6 +108,8 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const [fx, setFx] = useState<Fx | null>(null);
   const [outcome, setOutcome] = useState<AnswerOutcome | null>(null);
   const fxId = useRef(0);
+  // a Special's medals, from its start until the next beat
+  const [medals, setMedals] = useState<(boolean | null)[] | null>(null);
   const calm = useCalm(play.profile.settings);
   // three little sounds and a tick, each behind the parents' switch
   const sfx = useMemo(() => pageSfx(), []);
@@ -147,6 +155,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     const won = view.k === "seal" ? !!battle.lastSeal?.caught : !!turn?.won;
     void sfx.play(won ? "win" : o.correct ? "hit" : "oops", switches);
     if (o.correct) sfx.tick(switches);
+    if (turn?.burst) setMedals([...turn.burst.medals]);
     setOutcome(o);
     setFx({ id: ++fxId.current, correct: o.correct, damage: turn?.damage ?? 0, won: !!turn?.won, plan: planFor(o.correct, calm) });
     setFlow(answered(o.correct, performance.now()));
@@ -167,6 +176,28 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     closeRef.current();
   }, [flow]);
 
+  /** The child picks one of the big cards. */
+  const onBeat = (beat: Beat) => {
+    if (beat === "power" || beat === "special") {
+      if (!battle.pick(beat)) return;
+      setMedals(beat === "special" ? [...battle.burst!.medals] : null);
+      if (beat === "special") void sfx.play("win", effectsFrom(play.profile.settings));
+      ask();
+      return;
+    }
+    setMedals(null);
+    const r = battle.pick(beat);
+    if (!r) return;
+    const switches = effectsFrom(play.profile.settings);
+    void sfx.play(r.damage > 0 ? "hit" : "oops", switches);
+    setNote(null);
+    setView({ k: "free", beat: r });
+    // the old result clears first, so the attack plays again for each beat
+    setFx(null);
+    const id = ++fxId.current;
+    setTimeout(() => setFx((cur) => cur ?? { id, correct: true, damage: r.damage, won: false, plan: planForFree(r.damage, calm) }), 40);
+  };
+
   const afterQuestion = () => {
     if (view.k === "question" && view.session.passed) {
       // the owl's pass: a new question, nothing counted
@@ -174,6 +205,12 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       return;
     }
     const turn = battle.last;
+    if (turn?.burst && !turn.burst.over && battle.phase === "fighting" && view.k === "question") {
+      // the burst goes on: the next of its three questions
+      if (turn.growth.leveled) setCard({ before: turn.partnerBefore, evolvedTo: turn.growth.evolvedTo, level: turn.growth.level });
+      ask();
+      return;
+    }
     if (!turn) {
       // closed with no answer (Android's back in the question): nothing is counted
       setView({ k: "meet" });
@@ -283,13 +320,27 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   // a question is a part of the battle: the creatures stay in view while the child thinks
   const asking = view.k === "question" || view.k === "seal";
   const turn = view.k === "turn" || view.k === "won" || view.k === "calm" ? view.turn : null;
+  const free = view.k === "free" ? view.beat : null;
   const seal = view.k === "calm" ? view.seal : null;
   let message = t("battleMeet", { name: wildName, level: wild.level });
   const extra: string[] = [];
   if (turn) {
     message = turn.correct ? t("battleHit", { partner: play.text(turn.partnerBefore), name: wildName, damage: turn.damage }) : t("battleMiss");
-    if (view.k === "calm") message = t("battleCalm", { name: wildName });
+    if (view.k === "calm") message = turn.capped ? t("battleCapped", { name: wildName }) : t("battleCalm", { name: wildName });
     if (turn.won && view.k === "won") extra.unshift(t("battleMasterWon", { name: wildName }));
+    if (turn.capped && view.k === "won") extra.unshift(t("battleCapped", { name: wildName }));
+  }
+  if (free) {
+    message =
+      free.damage <= 0
+        ? t("battleHalfFog", { name: wildName })
+        : free.beat === "assist"
+          ? t("battleAssistHit", { name: wildName, damage: free.damage })
+          : t("battleMoveHit", { partner: play.text(mine.species), name: wildName, damage: free.damage });
+  }
+  if (turn?.burst?.over && view.k === "turn") {
+    const b = turn.burst;
+    message = b.combo === 0 ? t("battleSpecialEnd") : b.medals.includes(false) ? `${t("battleSpecialDone", { n: b.combo })} ${t("battleSpecialEnd")}` : t("battleSpecialDone", { n: b.combo });
   }
   if (view.k === "calm" && !turn) message = t("battleCalm", { name: wildName });
   if (seal) {
@@ -299,13 +350,15 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   if (note && view.k === "calm") extra.push(note);
   const need = needFor(mine.level);
   const session = asking ? view.session : null;
-  const padAnswer = !!session && session.phase !== "feedback" && session.usesPad && flow.k === "asking";
+  // a typed answer, tiles or a list of answers take the bottom end: the wild creature stands nearer the middle
+  const look = session && session.phase !== "feedback" ? presentationFor(session) : null;
+  const padAnswer = !!look && usesSide(look) && flow.k === "asking";
   const victory = view.k === "calm" || view.k === "won" || !!(asking && fx?.won);
   closeRef.current = view.k === "seal" ? afterSeal : afterQuestion;
 
   return (
-    <ScreenTime key={`battle-${asking ? "ask" : view.k}-${tick}`}>
-      <section className="battle" data-screen="battle" data-calm-fx={calm} data-view={view.k} data-asking={asking} data-flow={flow.k} data-calm={view.k === "calm"} data-hp={battle.hp} data-wild={wild.species}>
+    <ScreenTime key={`battle-${asking ? "ask" : view.k === "free" ? "meet" : view.k}-${tick}`}>
+      <section className="battle" data-screen="battle" data-calm-fx={calm} data-view={view.k} data-asking={asking} data-flow={flow.k} data-calm={view.k === "calm"} data-hp={battle.hp} data-meter={battle.meter} data-assists={battle.assistsLeft} data-burst={!!medals && view.k !== "turn"} data-wild={wild.species}>
         <Stage
           monsters={play.monsters}
           mine={mine}
@@ -318,10 +371,12 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
           maxHp={battle.maxHp}
           need={need}
           subject={battle.topic}
-          fx={asking ? fx : null}
+          fx={asking || view.k === "free" ? fx : null}
           calm={calm}
           victory={victory}
           pad={padAnswer}
+          charge={{ filled: battle.meter, size: battle.meterSize }}
+          medals={medals}
         />
         {!asking && (
           <p className="message-box top" data-id="battle_message" role="status">
@@ -369,7 +424,10 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
             asked={battle.stats.questions > 0}
             calm={view.k === "calm"}
             canNet={view.k === "calm"}
-            onAsk={ask}
+            legal={battle.legal()}
+            assistsLeft={battle.assistsLeft}
+            nudge={atFloor(battle.hp, battle.maxHp)}
+            onBeat={onBeat}
             onNet={onNet}
             onBag={() => setSheet("bag")}
             onFriends={() => setSheet("friends")}

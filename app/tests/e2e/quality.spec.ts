@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import type { Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
-import { answer, battleAnswer, battleResultClosed, openMap, quiz, readDialog, seedChild, steps, toCashier } from "./cashier";
+import { answer, battleAnswer, battleResultClosed, openMap, powerUp, quiz, readDialog, seedChild, steps, toCashier } from "./cashier";
 import { fitsAndSharp, touch, typeCode } from "./touch";
 
 /**
@@ -401,7 +401,7 @@ for (const scale of [1, 1.3]) {
     await expect(page.locator("[data-screen=battle][data-view=turn]")).toBeVisible();
     await audit(page, "42_turn", shot);
     for (let i = 0; i < 12 && (await page.locator("[data-screen=battle]").getAttribute("data-view")) !== "calm"; i++) {
-      await touch(page, page.locator(id("battle_next")), 30);
+      await powerUp(page);
       await battleAnswer(page, "right");
       await battleResultClosed(page);
       if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")), 30);

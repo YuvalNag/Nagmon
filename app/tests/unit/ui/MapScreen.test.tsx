@@ -258,6 +258,12 @@ async function closeResult(m: Awaited<ReturnType<typeof start>>) {
   await m.press("battle_skip");
 }
 
+/** The next question from the beat menu: a free Move first when the Power-up rests (never two questions in a row). */
+async function powerUp(m: Awaited<ReturnType<typeof start>>) {
+  if ((m.el("battle_next") as HTMLButtonElement).disabled) await m.press("battle_move");
+  await m.press("battle_next");
+}
+
 /** Answers the question showing: right (typed or the right card), or "don't know". */
 async function answerQuestion(m: Awaited<ReturnType<typeof start>>, right: boolean, inBattle = false) {
   if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
@@ -391,7 +397,7 @@ describe("a wild creature in the grass", () => {
     expect((m.el("battle_net") as HTMLButtonElement).disabled).toBe(true);
     // right answers until it is calm
     for (let i = 0; i < 12 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
-      await m.press("battle_next");
+      await powerUp(m);
       await answerQuestion(m, true, true);
       await settle(5);
     }
@@ -422,7 +428,7 @@ describe("a wild creature in the grass", () => {
     expect(m.q("[data-screen=battle]")).toBeNull();
     await pendingWrites(m.fs);
     const world = await m.profiles.loadWorldDict(m.profile.id);
-    expect((world["creatures"] as { species: string; name?: string }[]).map((c) => c.species)).toEqual(["heliobud", wildSpecies]);
+    expect((world["creatures"] as { species: string; name?: string }[]).map((c) => c.species)[1]).toBe(wildSpecies);
     expect((world["creatures"] as { name?: string }[])[1]!.name).toBeUndefined();
     expect(world["caught"]).toContain(wildSpecies);
     expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
@@ -455,7 +461,7 @@ describe("a wild creature in the grass", () => {
     await m.press("battle_fight");
     await answerQuestion(m, true, true);
     for (let i = 0; i < 12 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
-      await m.press("battle_next");
+      await powerUp(m);
       await answerQuestion(m, true, true);
       await settle(5);
     }

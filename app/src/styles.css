@@ -1014,6 +1014,56 @@ button.quiz-choice {
   height: max(9px, 2.2vh);
 }
 
+/* the charge meter (round pips) and a Special's combo (round numbered medals): never a star */
+.charge,
+.combo {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 20px;
+}
+
+.charge .pip,
+.combo .medal {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  border: 2px solid #cfe0ee;
+  border-radius: 50%;
+  background: transparent;
+  transition: background-color 0.3s ease-out, border-color 0.3s ease-out;
+}
+
+.charge .pip[data-on="true"] {
+  border-color: #ffd54a;
+  background: #ffd54a;
+}
+
+.charge[data-full="true"] .pip {
+  box-shadow: 0 0 6px 1px rgba(255, 213, 74, 0.7);
+}
+
+.combo .medal {
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #cfe0ee;
+}
+
+.combo .medal[data-state="hit"] {
+  border-color: #ffd54a;
+  background: #ffd54a;
+  color: #4a3500;
+}
+
+.combo .medal[data-state="miss"] {
+  border-color: #8a97a6;
+  background: #8a97a6;
+  color: #fff;
+}
+
 .meter.hp {
   position: relative;
 }
@@ -1285,6 +1335,99 @@ button.quiz-choice {
 
 .battle .quiz-foot[data-pad="true"] {
   right: 292px;
+}
+
+/* order, letters and a long list of answers take the bottom end, as the pad does */
+.battle .quiz-foot[data-tiles="true"] {
+  right: 352px;
+}
+
+.battle .quiz-foot[data-tiles="true"] .quiz-subject {
+  display: none;
+}
+
+.battle .quiz-tiles {
+  position: absolute;
+  right: max(8px, env(safe-area-inset-right));
+  bottom: 8px;
+  width: 332px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(48px, auto);
+  gap: 4px;
+}
+
+.battle .quiz-tiles[data-look="letters"] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.battle .quiz-tiles .tile {
+  position: relative;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 2px 6px;
+  gap: 4px;
+  border: 3px solid #2b6c8a;
+  background: #fff;
+  font-size: calc(var(--text) * 0.8);
+  font-weight: 700;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.battle .quiz-tiles .tile[data-picked="true"] {
+  border-color: #c99a1b;
+  background: #fff1c2;
+}
+
+.battle .quiz-tiles .tile img {
+  height: 5vh;
+}
+
+.battle .quiz-tiles .tile-n {
+  position: absolute;
+  top: -6px;
+  inset-inline-start: -6px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #c99a1b;
+  color: #fff;
+  font-size: 14px;
+}
+
+.battle .quiz-tiles .key {
+  min-height: 48px;
+  font-size: calc(var(--text) * 0.7);
+}
+
+.battle .quiz-tiles[data-look="letters"] .key {
+  grid-column: span 2;
+}
+
+/* true or false: two big thumbs; picture answers: the picture first */
+.answer-ring .thumb {
+  min-width: 120px;
+  min-height: 72px;
+  flex-direction: column;
+  gap: 0;
+}
+
+.answer-ring .thumb-icon {
+  font-size: calc(var(--text) * 1.5);
+  line-height: 1.1;
+}
+
+.answer-ring[data-look="pictures"] > button.quiz-choice {
+  flex-direction: column;
+  gap: 0;
+  min-height: 72px;
+}
+
+.answer-ring[data-look="pictures"] .quiz-choice img {
+  height: 9vh;
 }
 
 .battle .quiz-foot button {
@@ -1679,10 +1822,10 @@ button.quiz-choice {
 
 
 
-/* the five buttons: each at least 120x72 CSS px, Ask twice as wide, 8 px apart */
+/* the beat menu: three big cards (Move, Power-up, the friend), then four small buttons; all at least 64x56 CSS px, 8 px apart */
 .action-bar {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1.55fr)) repeat(4, minmax(64px, 1fr));
   gap: 8px;
   padding: 8px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left));
   background: rgba(23, 50, 58, 0.12);
@@ -1694,12 +1837,24 @@ button.quiz-choice {
   align-items: center;
   justify-content: center;
   gap: 2px;
-  min-width: 120px;
-  min-height: 72px;
+  min-width: 64px;
+  min-height: 56px;
   height: 100%;
   padding: 0 4px;
-  font-size: calc(var(--text) * 0.72);
+  font-size: calc(var(--text) * 0.6);
   font-weight: 700;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.action-bar button.card {
+  min-height: 72px;
+  font-size: calc(var(--text) * 0.85);
+}
+
+.action-bar .card-note {
+  font-size: calc(var(--text) * 0.5);
+  font-weight: 500;
   line-height: 1.1;
 }
 
@@ -1708,9 +1863,8 @@ button.quiz-choice {
   line-height: 1.3;
 }
 
-.action-bar button.wide {
-  min-width: 240px;
-  font-size: calc(var(--text) * 0.85);
+.action-bar button.small .act-icon {
+  font-size: calc(var(--text) * 0.9);
 }
 
 .action-bar button.pulse {
