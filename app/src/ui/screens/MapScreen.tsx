@@ -29,6 +29,9 @@ import { PlaceSaver, type Place } from "../../core/world/place";
 import { START_MAP } from "../../game/startMap";
 import { IntroScreen } from "../IntroScreen";
 import { QuizScreen } from "../QuizScreen";
+import type { Lesson } from "../../core/game/lessons";
+import { loadGameLessons } from "../tutor/lessonData";
+import { TUTOR_NPCS, TutorScreen } from "../tutor/TutorScreen";
 import { ScreenTime } from "../screenTime";
 import { Tap } from "../Tap";
 
@@ -62,7 +65,10 @@ interface Props {
   openPlay?: LoadPlay;
 }
 
-type Shown = { kind: "dialog"; pages: string[]; done: () => void } | { kind: "quiz"; session: QuizSession; done: () => void };
+type Shown =
+  | { kind: "dialog"; pages: string[]; done: () => void }
+  | { kind: "quiz"; session: QuizSession; done: () => void }
+  | { kind: "tutor"; institute: string; done: () => void };
 /** What lies over the map: a dialog or a question, each its own screen (`n`). */
 type Overlay = Shown & { n: number };
 
@@ -103,6 +109,9 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   const [facing, setFacing] = useState<string | null>(null);
   const [talking, setTalking] = useState(false);
   const [overlay, setOverlay] = useState<Overlay | null>(null);
+  // the tutor's lessons, read once the child's play is open
+  const [lessons, setLessons] = useState<Lesson[]>([]);
+  const tutorBack = useRef<(() => void) | null>(null);
   const [coins, setCoins] = useState<number | null>(null);
   // the owl's intro, for a child who has not had it: placement, then the choice of a creature
   const [intro, setIntro] = useState(false);
@@ -239,6 +248,15 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     };
   }, [avatar, dpad, load, lifecycle]);
 
+  useEffect(() => {
+    if (!play) return;
+    let alive = true;
+    void loadGameLessons().then((l) => alive && setLessons(l));
+    return () => {
+      alive = false;
+    };
+  }, [play]);
+
   // the map's people and their words: a runner for each map entered
   useEffect(() => {
     if (!play || !world || intro) return;
@@ -276,6 +294,11 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           );
           show({ kind: "quiz", session, done: resolve });
         }),
+      openTutor: (institute) =>
+        new Promise<void>((resolve) => {
+          if (!alive) return resolve();
+          show({ kind: "tutor", institute, done: resolve });
+        }),
       changed: () => {
         if (!alive) return;
         setCoins(play.world.money);
@@ -283,7 +306,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       },
       warn: (m) => log.warning(m),
     };
-    const r = new EventRunner(world.events, play.world, host, { grade: play.profile.grade, today: () => play.today(), talkTo: TALK_TO });
+    const r = new EventRunner(world.events, play.world, host, { grade: play.profile.grade, today: () => play.today(), talkTo: new Set([...TALK_TO, ...TUTOR_NPCS]) });
     const waiting = r.waiting();
     if (waiting.length) log.info(`${world.name}: ${waiting.length} events wait for later milestones`);
     setRunner(r);
@@ -410,6 +433,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       else if (intro) dialogAdvance.current?.();
       else if (overlay?.kind === "dialog") dialogAdvance.current?.();
       else if (overlay?.kind === "quiz") closeOverlay();
+      else if (overlay?.kind === "tutor") (tutorBack.current ?? closeOverlay)();
       else if (held) return;
       else openMenu();
     };
@@ -467,7 +491,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           </Tap>
         </div>
       )}
-      {status === "ready" && coins !== null && overlay?.kind !== "quiz" && !intro && !battle && (
+      {status === "ready" && coins !== null && overlay?.kind !== "quiz" && overlay?.kind !== "tutor" && !intro && !battle && (
         <p className="map-coins" data-id="coins" data-coins={coins} role="status" aria-label={t("mapCoins", { coins })}>
           <Coin />
           <span>{coins}</span>
@@ -540,8 +564,28 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             text={(id) => play.text(id)}
             subjectTitle={(s) => play.subjects.title(s)}
             onClose={closeOverlay}
+            notes={{
+              lessons,
+              save: () => play.world.lessons,
+              onUse: (use, skill) => {
+                play.world.lessons = use.state;
+                play.field.noteUse({ skill, free: use.free, ...(use.free ? {} : { charges: use.state.charges }) });
+                void play.saveWorld();
+              },
+            }}
           />
         </ScreenTime>
+      )}
+      {overlay?.kind === "tutor" && play && !menuOpen && (
+        <TutorScreen
+          key={`tutor-${overlay.n}`}
+          play={play}
+          lessons={lessons}
+          institute={overlay.institute}
+          backRef={tutorBack}
+          onClose={closeOverlay}
+          onChanged={() => setCoins(play.world.money)}
+        />
       )}
       {menuOpen && panel === "trips" && play && (
         <TripScreen

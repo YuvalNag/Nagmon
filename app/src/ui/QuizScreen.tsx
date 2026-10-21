@@ -1,5 +1,6 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { testSeed } from "../app/playConfig";
+import { type Lesson, type LessonSave, type NoteUse, notesFor } from "../core/game/lessons";
 import type { Choice } from "../core/learning/model";
 import { isolateMath } from "../core/learning/text";
 import type { HelperKind, QuizSession } from "../core/world/quiz";
@@ -7,6 +8,16 @@ import { itemText, t } from "../i18n";
 import { Figure } from "./Figure";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
+import { Notes } from "./tutor/Notes";
+
+/** What the question screen needs to offer the Notes of a lesson the child has passed. */
+export interface QuizNotes {
+  lessons: readonly Lesson[];
+  /** The child's lessons save, read when drawn (the charges change as notes are used). */
+  save: () => LessonSave;
+  /** A note was opened (allowed): the caller keeps the new save and logs it. */
+  onUse: (use: NoteUse, skill: string) => void;
+}
 
 interface Props {
   session: QuizSession;
@@ -16,6 +27,8 @@ interface Props {
   subjectTitle: (subject: string) => string;
   /** The quiz is done: "continue" after the feedback, or no question to ask. */
   onClose: () => void;
+  /** The tutor's lessons, for the Notes button; none: no button. */
+  notes?: QuizNotes;
 }
 
 /** The Bag's helpers on the question: a picture and the item behind each. */
@@ -57,8 +70,10 @@ export function useQuizProbe(session: QuizSession): void {
  * - Android's back closes the quiz (MapScreen): before an answer nothing
  *   is counted; after it, it is "continue".
  */
-export function QuizScreen({ session, text, subjectTitle, onClose }: Props) {
+export function QuizScreen({ session, text, subjectTitle, onClose, notes }: Props) {
   const [, redraw] = useReducer((n: number) => n + 1, 0);
+  // the free use of the Notes is one for the whole quiz
+  const freeNoteUsed = useRef(false);
   useQuizProbe(session);
   const q = session.question;
   const act = (fn: () => unknown) => () => {
@@ -171,6 +186,21 @@ export function QuizScreen({ session, text, subjectTitle, onClose }: Props) {
           <small>{h.count}</small>
         </Tap>
       ))}
+      {notes && (
+        <Notes
+          note={notesFor(notes.lessons, notes.save(), q.skill_id)}
+          skill={q.skill_id}
+          questionKey={q.item_id}
+          save={notes.save()}
+          freeUsed={freeNoteUsed.current}
+          onUse={(use) => {
+            freeNoteUsed.current = true;
+            session.notesOpened();
+            notes.onUse(use, q.skill_id);
+            redraw();
+          }}
+        />
+      )}
       <Tap id="quiz_dont_know" onTap={act(() => session.dontKnow())}>
         {text("nagmon_dont_know")}
       </Tap>

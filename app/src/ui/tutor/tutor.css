@@ -1,0 +1,436 @@
+/* The tutor's screens and the Notes sheet (src/ui/tutor/): every one fits
+   the phone (873x393) at 130% text without scrolling. */
+
+/* ---- the Notes sheet: the lower 45% of the box it is mounted in ---- */
+
+.notes-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* a tap on the question above closes the sheet; it is invisible */
+button.notes-outside {
+  position: absolute;
+  inset: 0 0 45% 0;
+  width: 100%;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.notes-sheet {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--gap) * 1.5);
+  padding: var(--gap) calc(var(--touch) + var(--gap));
+  border-top: 3px solid var(--accent);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: #fffaf0;
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.3);
+  pointer-events: auto;
+  animation: notes-up 0.22s ease-out;
+}
+
+@keyframes notes-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notes-sheet {
+    animation: none;
+  }
+}
+
+button.notes-x {
+  position: absolute;
+  top: calc(var(--gap) / 2);
+  inset-inline-start: calc(var(--gap) / 2);
+  padding: 0;
+}
+
+button.notes-x svg {
+  width: 60%;
+  height: 60%;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.notes-picture {
+  flex: none;
+  height: min(100%, 18vh);
+  width: auto;
+}
+
+.quiz .notes-text,
+.notes-text {
+  margin: 0;
+  max-width: 24em;
+  font-size: calc(var(--text) * 1.1);
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: start;
+}
+
+/* the book button, in the question's foot */
+button.notes-button {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--gap) / 2);
+  padding: 0 var(--gap);
+}
+
+button.notes-button small {
+  font-size: calc(var(--text) * 0.65);
+  color: var(--ink-soft);
+}
+
+/* ---- the tutor's room: the list, the cards, the result ---- */
+
+.tutor {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+  padding: var(--gap) max(16px, env(safe-area-inset-right)) var(--gap) max(16px, env(safe-area-inset-left));
+  background: linear-gradient(#fdf3dc, #f3dfb4);
+  color: var(--ink);
+}
+
+.tutor p {
+  margin: 0;
+}
+
+.tutor-top {
+  flex: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.tutor-top .title {
+  margin: 0;
+  font-size: calc(var(--text) * 1.2);
+}
+
+/* the coins sit in the bar's flow here, at the far end */
+.tutor .map-coins {
+  position: static;
+  margin-inline-start: auto;
+}
+
+.coin-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.check-icon {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* the stamp card: a ring for each lesson, a star stamp once it is passed */
+.stamp-card {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--gap) / 2);
+  padding: calc(var(--gap) / 3) var(--gap);
+  border: 2px solid #c9a45c;
+  border-radius: var(--radius);
+  background: #fffaf0;
+}
+
+.stamp {
+  width: calc(var(--touch) * 0.62);
+  height: calc(var(--touch) * 0.62);
+  display: grid;
+  place-items: center;
+  border: 3px dashed #c9a45c;
+  border-radius: 50%;
+}
+
+.stamp[data-stamped="true"] {
+  border: 3px solid #b3871f;
+  background: #ffd54a;
+}
+
+.stamp svg {
+  width: 72%;
+  height: 72%;
+  fill: #8a5a00;
+}
+
+.stamp[data-fresh="true"] {
+  animation: stamp-land 0.6s ease-out 0.5s both;
+}
+
+@keyframes stamp-land {
+  0% {
+    transform: scale(2.2) rotate(-18deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(0.9) rotate(4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+  }
+}
+
+ul.lesson-cards {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  gap: var(--gap);
+}
+
+button.lesson-card {
+  position: relative;
+  width: calc(var(--touch) * 3.6);
+  min-height: calc(var(--touch) * 2.6);
+  padding: var(--gap);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--gap) / 2);
+  border: 3px solid #c9a45c;
+  background: #fffdf6;
+  font-weight: 700;
+}
+
+button.lesson-card img {
+  height: 12vh;
+  width: auto;
+}
+
+button.lesson-card[data-done="true"] {
+  border-color: #3f9142;
+}
+
+button.lesson-card:disabled {
+  opacity: 0.55;
+}
+
+.lesson-title {
+  font-size: calc(var(--text) * 1.05);
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* a stamp or an empty circle at the card's corner */
+.lesson-mark {
+  position: absolute;
+  top: calc(var(--gap) / 2);
+  inset-inline-start: calc(var(--gap) / 2);
+  width: calc(var(--touch) * 0.6);
+  height: calc(var(--touch) * 0.6);
+  border: 3px solid #c9a45c;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.lesson-mark[data-stamped="true"] {
+  border-color: #3f9142;
+  background: #3f9142;
+}
+
+.lesson-lock {
+  position: absolute;
+  top: calc(var(--gap) / 2);
+  inset-inline-start: calc(var(--gap) / 2);
+  width: calc(var(--touch) * 0.6);
+  height: calc(var(--touch) * 0.6);
+  fill: #6a7a80;
+  stroke: #6a7a80;
+  stroke-width: 2.5;
+}
+
+.tutor-none {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  font-size: calc(var(--text) * 1.2);
+}
+
+/* one card of a lesson: the whole screen is the "continue" button */
+button.lesson-tap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: calc(var(--touch) + var(--gap)) max(16px, env(safe-area-inset-right)) calc(var(--gap) * 2.5);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+}
+
+.lesson-picture {
+  flex: 0 1 auto;
+  min-height: 0;
+  height: 40vh;
+  width: auto;
+  max-width: 60vw;
+  object-fit: contain;
+}
+
+.lesson-line {
+  max-width: 24em;
+  font-size: calc(var(--text) * 1.45);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.lesson-line mark {
+  padding: 0 0.15em;
+  border-radius: 0.25em;
+  background: #ffe08a;
+  color: inherit;
+}
+
+.lesson-dots {
+  position: absolute;
+  bottom: calc(var(--gap) * 0.8);
+  display: flex;
+  gap: calc(var(--gap) / 2);
+}
+
+.lesson-dots i {
+  width: calc(var(--gap) * 0.8);
+  height: calc(var(--gap) * 0.8);
+  border-radius: 50%;
+  border: 2px solid #b3871f;
+  background: transparent;
+}
+
+.lesson-dots i[data-on="true"] {
+  background: #b3871f;
+}
+
+button.lesson-back {
+  position: absolute;
+  top: var(--gap);
+  inset-inline-start: max(16px, env(safe-area-inset-left));
+  z-index: 2;
+}
+
+.lesson-count {
+  position: absolute;
+  top: var(--gap);
+  inset-inline-end: max(16px, env(safe-area-inset-right));
+  color: var(--ink-soft);
+  font-size: calc(var(--text) * 0.8);
+}
+
+/* the result: coins fly up, the stamp lands */
+.tutor-result,
+.tutor-again {
+  justify-content: center;
+}
+
+.tutor-result .title {
+  margin: 0;
+  font-size: var(--text-big);
+  color: #256b29;
+}
+
+.tutor-pays {
+  font-size: calc(var(--text) * 1.25);
+  font-weight: 700;
+  text-align: center;
+}
+
+.tutor-stamp-line,
+.tutor-gift {
+  min-height: 1.35em;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.tutor-gift {
+  min-height: 0;
+}
+
+.tutor-says {
+  max-width: 24em;
+  font-size: calc(var(--text) * 1.4);
+  font-weight: 700;
+  text-align: center;
+}
+
+.coin-burst {
+  position: relative;
+  width: 100%;
+  height: calc(var(--touch) * 0.8);
+}
+
+.coin-burst span {
+  position: absolute;
+  left: calc(50% + (var(--i) - 2) * 2.2em);
+  bottom: 0;
+  font-size: calc(var(--text) * 1.6);
+  animation: coin-rise 1.1s ease-out calc(var(--i) * 0.1s) both;
+}
+
+@keyframes coin-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(1.4em) scale(0.5);
+  }
+  25% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-0.2em) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coin-burst span,
+  .stamp[data-fresh="true"] {
+    animation: none;
+  }
+}
