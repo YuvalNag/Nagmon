@@ -1,4 +1,4 @@
-import { answer, coins, debug, id, openMap, PID, quiz, readDialog, saved, seedChild, steps, toCashier } from "./cashier";
+import { answer, battleAnswer, battleResultClosed, coins, debug, id, openMap, PID, powerUp, quiz, readDialog, saved, seedChild, steps, toCashier } from "./cashier";
 import { expect, test } from "./fixtures";
 import { responseTimes, touch, watchEventTiming } from "./touch";
 
@@ -284,6 +284,54 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
   expect((world["creatures"] as unknown[]).length).toBe(2);
   expect((world["caught"] as string[]).length).toBe(2);
   expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
+});
+
+test("naming a new friend with the letter board: the board covers the map, every key can be tapped, the name is saved", async ({ page }, info) => {
+  await seedChild(page, { grade: 2, battle: true, creatures: [{ id: "c1", species: "heliobud", level: 12, xp: 0 }] });
+  await openMap(page);
+  await steps(page, "right", 1);
+  const battle = page.locator("[data-screen=battle]");
+  await expect(battle).toBeVisible();
+  const growth = async () => {
+    if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")), 30);
+  };
+  for (let i = 0; i < 30 && (await battle.getAttribute("data-view")) !== "calm"; i++) {
+    await powerUp(page);
+    await battleAnswer(page, "right");
+    await battleResultClosed(page);
+    await growth();
+  }
+  await expect(battle).toHaveAttribute("data-view", "calm");
+  for (let i = 0; i < 6 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
+    await touch(page, page.locator(id("battle_net")));
+    await battleAnswer(page, "right");
+    await battleResultClosed(page);
+    await growth();
+  }
+  await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
+  await touch(page, page.locator(id("battle_name_own")));
+
+  // the board is on top of the map: its keys are what a finger hits (the old bug: the map's canvas lay over it)
+  const board = page.locator("[data-screen=letters]");
+  await expect(board).toBeVisible();
+  await page.screenshot({ path: info.outputPath("n01_board.png") });
+  for (const key of ["letter_נ", "letter_ת", "board_done", "board_delete"]) {
+    const hit = await page.locator(id(key)).evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      const top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+      return { inside: !!top && (top === el || el.contains(top)), w: r.width, h: r.height, bottom: r.bottom };
+    });
+    expect(hit.inside, key).toBe(true);
+    expect(Math.min(hit.w, hit.h), key).toBeGreaterThanOrEqual(40);
+    expect(hit.bottom, key).toBeLessThanOrEqual(393);
+  }
+  await expect(page.locator(id("board_done"))).toBeDisabled();
+  for (const c of "נתן") await touch(page, page.locator(id(`letter_${c}`)));
+  await expect(page.locator(id("typed"))).toHaveText("נתן");
+  await touch(page, page.locator(id("board_done")));
+  await expect(battle).toHaveCount(0);
+  await expect(page.locator(id("dpad"))).toBeVisible();
+  await expect.poll(async () => ((await saved(page, "saves/world.json"))?.["creatures"] as { name?: string }[] | undefined)?.[1]?.name).toBe("נתן");
 });
 
 test("the battle's action bar: five buttons of 120x72 and more in the bottom 123px, Ask the wide one at the thumb's end", async ({ page }, info) => {
