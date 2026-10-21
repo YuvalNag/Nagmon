@@ -15,7 +15,7 @@ beforeAll(() => {
 const monsters = monsterTable(gameJson("db/monsters.json"));
 const subjects = SubjectMap.fromDoc(gameJson("content/subjects.json"));
 
-function make(over: { partner?: number; wild?: number; species?: string; world?: WorldState; master?: boolean } = {}) {
+function make(over: { partner?: number; wild?: number; species?: string; world?: WorldState; master?: boolean; age?: number } = {}) {
   const world = over.world ?? new WorldState();
   if (!over.world) addCreature(world, "heliobud", over.partner ?? 6);
   const lines: string[] = [];
@@ -29,6 +29,7 @@ function make(over: { partner?: number; wild?: number; species?: string; world?:
     wild: { species: over.species ?? "lunibble", level: over.wild ?? 6, table: "test" },
     clock: () => (t.now += 1500),
     maxChoices: null,
+    ...(over.age ? { age: over.age } : {}),
     field: new FieldLog({ info: (m) => lines.push(m) }),
     onChange: () => changes++,
     ...(over.master ? { master: true } : {}),
@@ -285,5 +286,119 @@ describe("the beat menu", () => {
     battle.pick("move");
     expect(battle.stats.questions).toBe(0);
     expect(world.money).toBe(0);
+  });
+});
+
+describe("the charge meter and Special", () => {
+  /** Charges the meter of a 6-year-old (2 pips): two right Power-ups with a free beat between. */
+  function charged() {
+    const m = make({ age: 6, partner: 3, wild: 8 });
+    play(m.battle, true);
+    m.battle.pick("move");
+    play(m.battle, true);
+    return m;
+  }
+
+  it("the meter's size follows the age: 2 pips for a 6-year-old, 3 for an 9-year-old", () => {
+    expect(make({ age: 6 }).battle.meterSize).toBe(2);
+    expect(make({ age: 9 }).battle.meterSize).toBe(3);
+    expect(make({ age: 13 }).battle.meterSize).toBe(3);
+  });
+
+  it("a right Power-up answer charges a pip; a wrong one neither fills nor empties it", () => {
+    const { battle } = make({ age: 9 });
+    play(battle, true);
+    expect(battle.meter).toBe(1);
+    battle.pick("move");
+    play(battle, false);
+    expect(battle.meter).toBe(1);
+  });
+
+  it("free beats do not charge it", () => {
+    const { battle } = make({ age: 9 });
+    battle.pick("move");
+    battle.pick("assist");
+    expect(battle.meter).toBe(0);
+  });
+
+  it("a full meter swaps Move for Special, on a free beat only", () => {
+    const { battle } = charged();
+    expect(battle.meter).toBe(battle.meterSize);
+    expect(battle.legal()).toMatchObject({ special: false, move: true, power: false });
+    battle.pick("assist");
+    expect(battle.legal()).toMatchObject({ special: true, move: false, power: true });
+    expect(battle.pick("move")).toBeNull();
+  });
+
+  it("Special spends the meter and starts a burst of three questions", () => {
+    const { battle } = charged();
+    battle.pick("assist");
+    expect(battle.pick("special")).not.toBeNull();
+    expect(battle.meter).toBe(0);
+    expect(battle.burst?.medals).toEqual([null, null, null]);
+  });
+
+  it("each right answer of the burst lands a hit and fills a medal; the burst's answers do not charge", () => {
+    const { battle } = charged();
+    battle.pick("assist");
+    battle.pick("special");
+    const hp = battle.hp;
+    const t1 = play(battle, true);
+    expect(t1.damage).toBeGreaterThan(0);
+    expect(t1.burst).toMatchObject({ medals: [true, null, null], combo: 1, over: false });
+    expect(battle.hp).toBe(hp - t1.damage);
+    expect(battle.meter).toBe(0);
+    expect(battle.burst).not.toBeNull();
+  });
+
+  it("three right answers in a row finish the burst and take the fog it began with", () => {
+    const { battle } = charged();
+    battle.pick("assist");
+    battle.pick("special");
+    const start = battle.hp;
+    let last = play(battle, true);
+    last = play(battle, true);
+    last = play(battle, true);
+    expect(last.burst).toMatchObject({ medals: [true, true, true], combo: 3, over: true });
+    expect(battle.burst).toBeNull();
+    expect(battle.hp).toBe(Math.max(0, start - 3 * Math.ceil(start / 3)));
+    expect(battle.phase).toBe("calm");
+  });
+
+  it("a wrong answer in a burst just ends the combo: no damage, nothing lost, the fog stays, no more burst questions", () => {
+    const { battle, world } = charged();
+    battle.pick("assist");
+    battle.pick("special");
+    play(battle, true);
+    const hp = battle.hp;
+    const money = world.money;
+    const t = play(battle, false);
+    expect(t.burst).toMatchObject({ medals: [true, false, null], combo: 1, over: true });
+    expect(t).toMatchObject({ damage: 0, correct: false });
+    expect(battle.hp).toBe(hp);
+    expect(world.money).toBe(money);
+    expect(battle.burst).toBeNull();
+    expect(battle.phase).toBe("fighting");
+    // after a burst the next beat is a free one
+    expect(battle.legal().power).toBe(false);
+    expect(battle.legal().move).toBe(true);
+  });
+
+  it("each question of the burst is rated by the engine on its own, like any other answer", () => {
+    const { battle } = charged();
+    battle.pick("assist");
+    battle.pick("special");
+    const before = battle.stats.questions;
+    play(battle, true);
+    play(battle, true);
+    expect(battle.stats.questions).toBe(before + 2);
+  });
+
+  it("the burst is not offered without a full meter", () => {
+    const { battle } = make({ age: 6 });
+    expect(battle.pick("special")).toBeNull();
+    play(battle, true);
+    battle.pick("move");
+    expect(battle.pick("special")).toBeNull();
   });
 });

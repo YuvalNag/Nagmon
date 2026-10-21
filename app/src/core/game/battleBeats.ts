@@ -47,3 +47,60 @@ export function freeDamage(hp: number, maxHp: number, rightDamage: number): numb
 export function atFloor(hp: number, maxHp: number): boolean {
   return hp <= Math.ceil(maxHp * FOG_FLOOR);
 }
+
+// ---- age bands (docs/app/BATTLE.md, 2.4 and 4.4) ----
+
+export type Band = "A" | "B" | "C";
+
+/** A: 5 to 7, B: 8 to 10, C: 11 and up. */
+export function bandOf(age: number): Band {
+  return age <= 7 ? "A" : age <= 10 ? "B" : "C";
+}
+
+/**
+ * Pips that fill the meter. Pips plus the burst's three questions have to
+ * fit in the battle's question cap (5 / 7 / 8), or Special could never be
+ * reached: so 2 for the youngest, 3 after (the design note had 3 and 4).
+ */
+export const METER_SIZE: Record<Band, number> = { A: 2, B: 3, C: 3 };
+
+/** The questions of one Special: a burst of three. */
+export const BURST_QUESTIONS = 3;
+
+/** A right Power-up answer adds one pip, up to the size; a wrong one changes nothing (never empties, never fills). */
+export function charge(meter: number, size: number, correct: boolean): number {
+  return correct ? Math.min(size, meter + 1) : meter;
+}
+
+/** What each hit of a burst takes: a third of the fog left when it began, so three hits calm the creature. */
+export function burstHit(hpAtStart: number): number {
+  return Math.max(1, Math.ceil(hpAtStart / BURST_QUESTIONS));
+}
+
+export interface Burst {
+  /** One slot for each question: a hit (true), a miss (false) or not asked yet (null). */
+  medals: (boolean | null)[];
+  /** The combo is over: a wrong answer, or the cap. */
+  broken: boolean;
+}
+
+export function newBurst(): Burst {
+  return { medals: Array.from({ length: BURST_QUESTIONS }, () => null), broken: false };
+}
+
+export function comboOf(b: Burst): number {
+  return b.medals.filter((m) => m === true).length;
+}
+
+/** A burst is on while it has questions left and the combo holds. */
+export function burstLive(b: Burst | null): b is Burst {
+  return !!b && !b.broken && b.medals.some((m) => m === null);
+}
+
+/** Records one answer of the burst: a right one lands a hit; a wrong one ends the combo (the rest stay unasked). */
+export function burstAnswer(b: Burst, correct: boolean): void {
+  const i = b.medals.indexOf(null);
+  if (i < 0 || b.broken) return;
+  b.medals[i] = correct;
+  if (!correct) b.broken = true;
+}

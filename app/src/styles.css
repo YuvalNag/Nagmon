@@ -1014,6 +1014,56 @@ button.quiz-choice {
   height: max(9px, 2.2vh);
 }
 
+/* the charge meter (round pips) and a Special's combo (round numbered medals): never a star */
+.charge,
+.combo {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 20px;
+}
+
+.charge .pip,
+.combo .medal {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  border: 2px solid #cfe0ee;
+  border-radius: 50%;
+  background: transparent;
+  transition: background-color 0.3s ease-out, border-color 0.3s ease-out;
+}
+
+.charge .pip[data-on="true"] {
+  border-color: #ffd54a;
+  background: #ffd54a;
+}
+
+.charge[data-full="true"] .pip {
+  box-shadow: 0 0 6px 1px rgba(255, 213, 74, 0.7);
+}
+
+.combo .medal {
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #cfe0ee;
+}
+
+.combo .medal[data-state="hit"] {
+  border-color: #ffd54a;
+  background: #ffd54a;
+  color: #4a3500;
+}
+
+.combo .medal[data-state="miss"] {
+  border-color: #8a97a6;
+  background: #8a97a6;
+  color: #fff;
+}
+
 .meter.hp {
   position: relative;
 }

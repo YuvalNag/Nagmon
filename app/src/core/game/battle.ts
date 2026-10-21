@@ -16,7 +16,23 @@ import type { Creature, WorldState } from "../world/worldState";
 import { addCreature, giveXp, type Growth, markSeen, PARTY_SIZE, partner as partnerOf } from "./collection";
 import { claimSpareNet, countOf, type Economy, type Item, spendBoost, take } from "./items";
 import { setPartner } from "./party";
-import { ASSISTS_PER_BATTLE, type Beat, freeDamage, type Legal, legalBeats } from "./battleBeats";
+import {
+  ASSISTS_PER_BATTLE,
+  type Beat,
+  type Band,
+  bandOf,
+  type Burst,
+  burstAnswer,
+  burstLive,
+  burstHit,
+  charge,
+  comboOf,
+  freeDamage,
+  type Legal,
+  legalBeats,
+  METER_SIZE,
+  newBurst,
+} from "./battleBeats";
 import type { Wild } from "./encounters";
 import type { FieldLog } from "./fieldLog";
 import type { MonsterTable } from "./monsters";
@@ -51,6 +67,10 @@ export interface Turn {
   partnerBefore: string;
   /** This answer took the last of the fog: the creature is calm (a master's test: won). */
   calm: boolean;
+  /** This answer was a question of a Special: the medals so far, and whether the burst is over. */
+  burst: { medals: (boolean | null)[]; combo: number; over: boolean } | null;
+  /** The meter after this answer. */
+  meter: number;
 }
 
 /** What a free beat (a Move, or the friend's assist) did; a Power-up is only the start of a question. */
@@ -81,6 +101,8 @@ export interface BattleOptions {
   wild: Wild;
   clock: () => number;
   maxChoices: number | null;
+  /** The child's age: it sets the meter's size (3 or 4 pips). The learner's own age when left out. */
+  age?: number;
   field: FieldLog;
   /** The economy: with it, the Bag's helpers can be used on the questions. */
   economy?: Economy;
@@ -114,6 +136,13 @@ export class Battle {
   assistsLeft = ASSISTS_PER_BATTLE;
   /** The last beat was a question: the next one is free. */
   lastWasQuestion = false;
+  readonly band: Band;
+  /** The charge meter: right Power-up answers fill it; full, it unlocks Special. */
+  meter = 0;
+  readonly meterSize: number;
+  private burstHitSize = 0;
+  /** The Special being played: its three questions, in a row. */
+  burst: Burst | null = null;
   private subject: string;
 
   /** The subject the questions are about (it shows in the arena's look). */
@@ -125,6 +154,8 @@ export class Battle {
     const p = partnerOf(o.world);
     if (!p) throw new Error("no partner to battle with");
     this.partner = p;
+    this.band = bandOf(o.age ?? o.engine.learner.age ?? o.engine.learner.grade + 6);
+    this.meterSize = METER_SIZE[this.band];
     this.maxHp = hpFor(o.wild.level) * (o.master ? 2 : 1);
     this.hp = this.maxHp;
     const info = o.monsters[o.wild.species];
@@ -146,7 +177,7 @@ export class Battle {
 
   /** The cards the child may pick now (docs/app/BATTLE.md, section 4.1). */
   legal(): Legal {
-    return legalBeats({ fighting: this.phase === "fighting", lastWasQuestion: this.lastWasQuestion, meterFull: false, assistsLeft: this.assistsLeft });
+    return legalBeats({ fighting: this.phase === "fighting", lastWasQuestion: this.lastWasQuestion, meterFull: this.meter >= this.meterSize, assistsLeft: this.assistsLeft });
   }
 
   /**
@@ -157,6 +188,14 @@ export class Battle {
   pick(beat: Beat): BeatResult | null {
     if (!this.legal()[beat]) return null;
     if (beat === "power") return { beat, damage: 0 };
+    if (beat === "special") {
+      // the meter is spent; the burst's three questions follow (`next`)
+      this.meter = 0;
+      this.burst = newBurst();
+      this.burstHitSize = burstHit(this.hp);
+      this.o.onChange();
+      return { beat, damage: 0 };
+    }
     if (beat === "assist") this.assistsLeft--;
     const damage = freeDamage(this.hp, this.maxHp, damageFor(this.partner.level, 1.5));
     this.hp -= damage;
@@ -220,11 +259,14 @@ export class Battle {
     let growth: Growth = { leveled: false, level: this.partner.level, evolvedTo: null };
     let coins = 0;
     const partnerBefore = this.partner.species;
+    const burst = burstLive(this.burst) ? this.burst : null;
+    if (burst) burstAnswer(burst, correct);
+    else this.meter = charge(this.meter, this.meterSize, correct);
     if (correct) {
       this.stats.correct++;
       coins = Math.max(1, earned);
       this.o.world.addMoney(coins);
-      damage = Math.min(this.hp, damageFor(this.partner.level, multiplier));
+      damage = Math.min(this.hp, burst ? this.burstHitSize : damageFor(this.partner.level, multiplier));
       this.hp -= damage;
       growth = giveXp(this.o.world, this.partner.id, (fast ? 2 : 1) * spendBoost(this.o.world), this.o.monsters);
     }
@@ -240,7 +282,11 @@ export class Battle {
         this.phase = "calm";
       }
     }
-    this.last = { correct, damage, won, growth, coins, partnerBefore, calm: won && !this.o.master };
+    // a burst ends on a wrong answer, after its last question, or when the fog is gone
+    const burstOver = !!burst && (burst.broken || !burstLive(burst) || won);
+    const snapshot = burst ? { medals: [...burst.medals], combo: comboOf(burst), over: burstOver } : null;
+    if (burstOver) this.burst = null;
+    this.last = { correct, damage, won, growth, coins, partnerBefore, calm: won && !this.o.master, burst: snapshot, meter: this.meter };
     this.o.field.battleResult({
       n: this.stats.questions,
       ok: correct,

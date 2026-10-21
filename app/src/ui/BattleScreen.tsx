@@ -105,6 +105,8 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const [fx, setFx] = useState<Fx | null>(null);
   const [outcome, setOutcome] = useState<AnswerOutcome | null>(null);
   const fxId = useRef(0);
+  // a Special's medals, from its start until the next beat
+  const [medals, setMedals] = useState<(boolean | null)[] | null>(null);
   const calm = useCalm(play.profile.settings);
   // three little sounds and a tick, each behind the parents' switch
   const sfx = useMemo(() => pageSfx(), []);
@@ -150,6 +152,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     const won = view.k === "seal" ? !!battle.lastSeal?.caught : !!turn?.won;
     void sfx.play(won ? "win" : o.correct ? "hit" : "oops", switches);
     if (o.correct) sfx.tick(switches);
+    if (turn?.burst) setMedals([...turn.burst.medals]);
     setOutcome(o);
     setFx({ id: ++fxId.current, correct: o.correct, damage: turn?.damage ?? 0, won: !!turn?.won, plan: planFor(o.correct, calm) });
     setFlow(answered(o.correct, performance.now()));
@@ -172,11 +175,14 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
 
   /** The child picks one of the big cards. */
   const onBeat = (beat: Beat) => {
-    if (beat === "power") {
-      if (!battle.pick("power")) return;
+    if (beat === "power" || beat === "special") {
+      if (!battle.pick(beat)) return;
+      setMedals(beat === "special" ? [...battle.burst!.medals] : null);
+      if (beat === "special") void sfx.play("win", effectsFrom(play.profile.settings));
       ask();
       return;
     }
+    setMedals(null);
     const r = battle.pick(beat);
     if (!r) return;
     const switches = effectsFrom(play.profile.settings);
@@ -196,6 +202,12 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       return;
     }
     const turn = battle.last;
+    if (turn?.burst && !turn.burst.over && battle.phase === "fighting" && view.k === "question") {
+      // the burst goes on: the next of its three questions
+      if (turn.growth.leveled) setCard({ before: turn.partnerBefore, evolvedTo: turn.growth.evolvedTo, level: turn.growth.level });
+      ask();
+      return;
+    }
     if (!turn) {
       // closed with no answer (Android's back in the question): nothing is counted
       setView({ k: "meet" });
@@ -322,6 +334,10 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
           ? t("battleAssistHit", { name: wildName, damage: free.damage })
           : t("battleMoveHit", { partner: play.text(mine.species), name: wildName, damage: free.damage });
   }
+  if (turn?.burst?.over && view.k === "turn") {
+    const b = turn.burst;
+    message = b.combo === 0 ? t("battleSpecialEnd") : b.medals.includes(false) ? `${t("battleSpecialDone", { n: b.combo })} ${t("battleSpecialEnd")}` : t("battleSpecialDone", { n: b.combo });
+  }
   if (view.k === "calm" && !turn) message = t("battleCalm", { name: wildName });
   if (seal) {
     message = seal.correct ? t("battleSealOpen", { left: seal.left }) : t("battleSealMiss");
@@ -353,6 +369,8 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
           calm={calm}
           victory={victory}
           pad={padAnswer}
+          charge={{ filled: battle.meter, size: battle.meterSize }}
+          medals={medals}
         />
         {!asking && (
           <p className="message-box top" data-id="battle_message" role="status">

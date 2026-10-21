@@ -1,5 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { ASSISTS_PER_BATTLE, FOG_FLOOR, freeDamage, legalBeats } from "../../../src/core/game/battleBeats";
+import {
+  ASSISTS_PER_BATTLE,
+  bandOf,
+  BURST_QUESTIONS,
+  burstAnswer,
+  burstLive,
+  burstHit,
+  charge,
+  comboOf,
+  FOG_FLOOR,
+  freeDamage,
+  legalBeats,
+  METER_SIZE,
+  newBurst,
+} from "../../../src/core/game/battleBeats";
 
 const base = { fighting: true, lastWasQuestion: false, meterFull: false, assistsLeft: ASSISTS_PER_BATTLE };
 
@@ -51,5 +65,54 @@ describe("a free beat's damage", () => {
   it("an odd fog rounds the floor up: the fog stays at or above half", () => {
     expect(freeDamage(19, 37, 30)).toBe(0);
     expect(freeDamage(20, 37, 30)).toBe(1);
+  });
+});
+
+describe("the charge meter", () => {
+  it("a right answer fills one pip, up to the size", () => {
+    expect(charge(0, 3, true)).toBe(1);
+    expect(charge(2, 3, true)).toBe(3);
+    expect(charge(3, 3, true)).toBe(3);
+  });
+
+  it("a wrong answer neither fills nor empties it", () => {
+    for (const m of [0, 1, 3]) expect(charge(m, 3, false)).toBe(m);
+  });
+
+  it("the youngest fill 2 pips, the others 3, so a meter plus a burst fits in the question cap", () => {
+    expect([bandOf(5), bandOf(7), bandOf(8), bandOf(10), bandOf(11), bandOf(14)]).toEqual(["A", "A", "B", "B", "C", "C"]);
+    expect(METER_SIZE).toEqual({ A: 2, B: 3, C: 3 });
+  });
+});
+
+describe("a Special burst", () => {
+  it("is three questions, each right one landing a hit", () => {
+    const b = newBurst();
+    expect(BURST_QUESTIONS).toBe(3);
+    for (let i = 0; i < 3; i++) {
+      expect(burstLive(b)).toBe(true);
+      burstAnswer(b, true);
+    }
+    expect(comboOf(b)).toBe(3);
+    expect(burstLive(b)).toBe(false);
+    expect(b.broken).toBe(false);
+  });
+
+  it("a wrong answer ends the combo: the burst is over, the hits already landed stay", () => {
+    const b = newBurst();
+    burstAnswer(b, true);
+    burstAnswer(b, false);
+    expect(burstLive(b)).toBe(false);
+    expect(b.broken).toBe(true);
+    expect(comboOf(b)).toBe(1);
+    burstAnswer(b, true);
+    expect(comboOf(b)).toBe(1);
+  });
+
+  it("each hit takes a third of the fog left at the start: three hits calm it", () => {
+    expect(burstHit(30)).toBe(10);
+    expect(burstHit(8)).toBe(3);
+    expect(burstHit(1)).toBe(1);
+    expect(3 * burstHit(8)).toBeGreaterThanOrEqual(8);
   });
 });
