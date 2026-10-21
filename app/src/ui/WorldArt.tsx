@@ -120,3 +120,70 @@ export function GiftArt({ open = false }: { open?: boolean }) {
     </svg>
   );
 }
+
+/** A chest, shut or open. */
+export function ChestArt({ open = false }: { open?: boolean }) {
+  return (
+    <svg className={`chest-art${open ? " open" : ""}`} viewBox="0 0 96 80" role="img" aria-hidden="true" focusable="false">
+      <rect x="8" y="34" width="80" height="40" rx="5" fill="#b9814a" stroke="#6d4620" strokeWidth="3.5" />
+      <rect x="8" y="46" width="80" height="6" fill="#d9a56a" />
+      {open ? (
+        <>
+          <path d="M10 34 L18 8 H78 L86 34 Z" fill="#c8915a" stroke="#6d4620" strokeWidth="3.5" strokeLinejoin="round" />
+          <ellipse cx="48" cy="36" rx="34" ry="5" fill="#ffe08a" />
+          <path d="M30 28 l4 -10 M48 26 v-12 M66 28 l-4 -10" stroke="#ffe08a" strokeWidth="3.5" strokeLinecap="round" />
+        </>
+      ) : (
+        <>
+          <path d="M8 36 Q8 10 48 10 Q88 10 88 36 Z" fill="#c8915a" stroke="#6d4620" strokeWidth="3.5" strokeLinejoin="round" />
+          <rect x="40" y="34" width="16" height="16" rx="3" fill="#f4c542" stroke="#9a6b00" strokeWidth="3" />
+          <circle cx="48" cy="42" r="2.5" fill="#6d4620" />
+        </>
+      )}
+    </svg>
+  );
+}
+
+/** A spotted egg. */
+export function EggArt() {
+  return (
+    <svg className="egg-art" viewBox="0 0 48 60" role="img" aria-hidden="true" focusable="false">
+      <path d="M24 3 C36 3 44 24 44 38 C44 50 35 57 24 57 C13 57 4 50 4 38 C4 24 12 3 24 3 Z" fill="#fff6e3" stroke="#9a6b3a" strokeWidth="3" />
+      <circle cx="17" cy="32" r="4" fill="#7fc8a9" />
+      <circle cx="31" cy="26" r="3.2" fill="#f2a65a" />
+      <circle cx="29" cy="42" r="4.5" fill="#8fb3ff" />
+      <circle cx="16" cy="46" r="2.5" fill="#ffb7c6" />
+    </svg>
+  );
+}
+
+/**
+ * An egg inside a ring that fills as right answers warm it: `got` of
+ * `need` (the Friends screen).
+ */
+export function EggRing({ got, need }: { got: number; need: number }) {
+  const r = 26;
+  const c = 2 * Math.PI * r;
+  const share = need > 0 ? Math.max(0, Math.min(1, got / need)) : 0;
+  return (
+    <span className="egg-ring" role="progressbar" aria-valuemin={0} aria-valuemax={need} aria-valuenow={got}>
+      <svg className="egg-ring-svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <circle cx="32" cy="32" r={r} fill="none" stroke="#d3ecf4" strokeWidth="6" />
+        <circle cx="32" cy="32" r={r} fill="none" stroke="#f2a65a" strokeWidth="6" strokeLinecap="round" strokeDasharray={`${c * share} ${c}`} transform="rotate(-90 32 32)" data-share={share.toFixed(2)} />
+      </svg>
+      <span className="egg-ring-egg">
+        <EggArt />
+      </span>
+    </span>
+  );
+}
+
+/** A sign or notice board with a picture on it. */
+export function NoticeArt({ children }: { children: ReactNode }) {
+  return (
+    <span className="notice-art">
+      <span className="notice-board">{children}</span>
+      <span className="notice-post" aria-hidden="true" />
+    </span>
+  );
+}

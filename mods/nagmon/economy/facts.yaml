@@ -1,0 +1,25 @@
+# One-line facts for signs and notice boards (docs/app/FEATURES.md 5.3): the
+# map's event `show_fact <id>` shows the picture and the line. The app reads
+# it as game/facts.json (tools/app/economy.py checks and builds it).
+#   emoji: the picture's code in the emoji set (mods/nagmon/gfx/emoji)
+#   text_he: one short line, at most 70 characters, true and simple
+version: 1
+facts:
+  owl_night:
+    emoji: "1f989"
+    text_he: "ינשוף רואה היטב בלילה, ולכן הוא צד כשחשוך."
+  bee_flowers:
+    emoji: "1f41d"
+    text_he: "דבורה מבקרת בהרבה פרחים ביום אחד ואוספת צוף."
+  moon_light:
+    emoji: "1f319"
+    text_he: "הירח לא מאיר בעצמו. הוא מחזיר אלינו את האור של השמש."
+  water_cycle:
+    emoji: "1f4a7"
+    text_he: "מים עולים מהים לשמיים וחוזרים אלינו כגשם."
+  seed_tree:
+    emoji: "1f331"
+    text_he: "מזרע קטן אחד יכול לגדול עץ גדול."
+  butterfly_change:
+    emoji: "1f98b"
+    text_he: "זחל קטן הופך לפרפר: הוא משתנה כשהוא גדל."

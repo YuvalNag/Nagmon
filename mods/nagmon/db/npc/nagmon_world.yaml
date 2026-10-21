@@ -193,3 +193,28 @@
     sprite_name: nagmon_granny
     combat_sheet: nagmon_granny
     slug: granny
+# World objects of the houses: one picture each on the map. Stand-ins until the
+# generated art exists (docs/app/FEATURES.md status table): small pixel drawings,
+# a chest and a straw nest with an egg (mods/nagmon/sprites_obj).
+- slug: nagmon_chest_home
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_chest
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true
+- slug: nagmon_nest_home
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_nest
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true

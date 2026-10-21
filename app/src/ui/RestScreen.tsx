@@ -4,8 +4,9 @@ import { claimDailyGift, giftTaken, type Prize } from "../core/game/loot";
 import { partyOf, setPartner } from "../core/game/party";
 import { meadow, swapWithMeadow } from "../core/game/rest";
 import type { Creature } from "../core/world/worldState";
-import { itemText, t } from "../i18n";
+import { t } from "../i18n";
 import { MonsterPic } from "./MonsterPic";
+import { prizeLook } from "./prizeLook";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
 import { DeskArt, GiftArt, MatArt } from "./WorldArt";
@@ -20,15 +21,6 @@ interface Props {
 }
 
 const hearts = (n: number) => "❤️".repeat(n) + "🤍".repeat(5 - n);
-
-/** What a prize is, in words and in a picture. */
-function prizeLook(play: Play, p: Prize): { icon: string; words: string } {
-  if (p.item) {
-    const name = itemText(p.item, "name");
-    return { icon: play.economy.items[p.item]?.icon ?? "🎁", words: p.n > 1 ? t("restCoinsItem", { n: p.n, name }) : name };
-  }
-  return { icon: "🪙", words: t("restCoins", { n: p.coins }) };
-}
 
 /**
  * The Rest Center (docs/app/FEATURES.md 4.4): the nurse's desk. The
@@ -110,7 +102,7 @@ export function RestScreen({ play, onClose, onChanged, backRef }: Props) {
   const selected = byId(sel);
 
   if (gift) {
-    const look = prizeLook(play, gift);
+    const look = prizeLook(play.economy, gift);
     return (
       <ScreenTime key="gift">
         <div className="sheet rest" role="dialog" aria-label={t("restTitle")} data-screen="rest" data-mode="gift">

@@ -5,7 +5,7 @@ import type { Profile, ProfileStore } from "../../core/family/profiles";
 import { crumb } from "../../core/game/breadcrumb";
 import { FieldLog } from "../../core/game/fieldLog";
 import { pages } from "../../core/world/dialog";
-import { EventRunner, type EventHost, type ScreenKind } from "../../core/world/events";
+import { EventRunner, type EventHost, type Found, type ScreenKind } from "../../core/world/events";
 import type { WorldMap } from "../../core/world/mapData";
 import { QuizSession } from "../../core/world/quiz";
 import { currentMap, setCurrentMap } from "../../game/current";
@@ -22,6 +22,7 @@ import { introNeeded } from "../../core/game/intro";
 import { BattleScreen } from "../BattleScreen";
 import { BagView } from "../BagView";
 import { RestScreen } from "../RestScreen";
+import { ChestWrongCard, FactCard, FoundCard } from "../WorldCards";
 import { ShopScreen } from "../ShopScreen";
 import { FriendsView } from "../FriendsView";
 import { BestiaryScreen } from "../BestiaryScreen";
@@ -36,6 +37,9 @@ import { Tap } from "../Tap";
 
 const log = getLogger("nagmon.map");
 const field = new FieldLog(getLogger("nagmon.field"));
+
+/** Where an egg placed on a map with no wild creatures of its own warms: the town's own zone. */
+export const DEFAULT_ZONE = "nagmon_route1";
 
 /** How long the "closed way" note stays up. */
 export const NOTE_MS = 3500;
@@ -68,7 +72,11 @@ type Shown =
   | { kind: "dialog"; pages: string[]; done: () => void }
   | { kind: "quiz"; session: QuizSession; done: () => void }
   /** A whole screen of a place (the shop, the Rest Center), opened by an event. */
-  | { kind: "screen"; screen: ScreenKind; arg: string; done: () => void };
+  | { kind: "screen"; screen: ScreenKind; arg: string; done: () => void }
+  /** The world's small cards: what a chest gave, the choice after a wrong answer at a chest, a sign's fact. */
+  | { kind: "found"; found: Found; done: () => void }
+  | { kind: "chest-wrong"; choose: (c: "again" | "gift" | "leave") => void; done: () => void }
+  | { kind: "fact"; fact: { emoji: string; text: string }; done: () => void };
 /** What lies over the map: a dialog or a question, each its own screen (`n`). */
 type Overlay = Shown & { n: number };
 
@@ -290,6 +298,24 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           play.field.note("screen", { open: kind });
           show({ kind: "screen", screen: kind, arg, done: resolve });
         }),
+      found: (found) =>
+        new Promise<void>((resolve) => {
+          if (!alive) return resolve();
+          play.field.note("found", { how: found.how, ...(found.prize.item ? { item: found.prize.item, n: found.prize.n } : { coins: found.prize.coins }) });
+          show({ kind: "found", found, done: resolve });
+        }),
+      chestWrong: (chest) =>
+        new Promise((resolve) => {
+          if (!alive) return resolve("leave");
+          play.field.note("chest", { id: chest, wrong: 1 });
+          // closing the card (Android's back) leaves the chest as it is
+          show({ kind: "chest-wrong", choose: resolve, done: () => resolve("leave") });
+        }),
+      fact: (fact) =>
+        new Promise<void>((resolve) => {
+          if (!alive) return resolve();
+          show({ kind: "fact", fact, done: resolve });
+        }),
       changed: () => {
         if (!alive) return;
         setCoins(play.world.money);
@@ -297,7 +323,12 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       },
       warn: (m) => log.warning(m),
     };
-    const r = new EventRunner(world.events, play.world, host, { grade: play.profile.grade, today: () => play.today(), talkTo: TALK_TO });
+    const r = new EventRunner(world.events, play.world, host, {
+      grade: play.profile.grade,
+      today: () => play.today(),
+      talkTo: TALK_TO,
+      objects: { economy: play.economy, loot: play.loot, facts: play.facts, pools: play.pools, zone: world.encounters[0]?.table ?? DEFAULT_ZONE },
+    });
     const waiting = r.waiting();
     if (waiting.length) log.info(`${world.name}: ${waiting.length} events wait for later milestones`);
     setRunner(r);
@@ -425,6 +456,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       else if (overlay?.kind === "dialog") dialogAdvance.current?.();
       else if (overlay?.kind === "quiz") closeOverlay();
       else if (overlay?.kind === "screen") (screenBack.current ?? closeOverlay)();
+      else if (overlay) closeOverlay();
       else if (held) return;
       else openMenu();
     };
@@ -460,6 +492,13 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     dpad.clear();
     setBattle({ wild, map: world.name });
   };
+
+  // a friend hatched from an egg (a right answer anywhere warmed it): told once the map is free
+  useEffect(() => {
+    if (!play || held || menuOpen || !play.hatched.length) return;
+    const names = play.hatched.splice(0).map((h) => t("eggHatched", { name: play.text(h.species) }));
+    tell(names);
+  }, [play, held, menuOpen, tell, overlay, battle]);
 
   const canTalk = !held && !!facing && !!runner && runner.talkable(facing);
 
@@ -561,6 +600,21 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       {overlay?.kind === "screen" && overlay.screen === "shop" && play && !menuOpen && (
         <ShopScreen key={`shop-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
       )}
+      {overlay?.kind === "found" && play && !menuOpen && <FoundCard key={`found-${overlay.n}`} found={overlay.found} economy={play.economy} onClose={closeOverlay} />}
+      {overlay?.kind === "chest-wrong" && !menuOpen && (
+        <ChestWrongCard
+          key={`wrong-${overlay.n}`}
+          onChoose={(c) => {
+            // the card closes, and the event goes on with the child's choice
+            const o = overlay;
+            shown.current = null;
+            setOverlay(null);
+            o.choose(c);
+            o.done();
+          }}
+        />
+      )}
+      {overlay?.kind === "fact" && !menuOpen && <FactCard key={`fact-${overlay.n}`} fact={overlay.fact} onClose={closeOverlay} />}
       {overlay?.kind === "screen" && overlay.screen === "rest" && play && !menuOpen && (
         <RestScreen key={`rest-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
       )}

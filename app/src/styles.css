@@ -2694,3 +2694,140 @@ button.zone {
   .heart-pop,
   .rest-gift-card .gift-art { animation: none; }
 }
+
+/* ----------------------------------------- chests, eggs, signs (the world) */
+
+.world-card {
+  background: linear-gradient(var(--bg), var(--bg-deep));
+  color: var(--ink);
+  text-align: center;
+  padding: var(--gap);
+  z-index: 6;
+}
+
+.world-card strong {
+  max-width: 40em;
+  font-size: calc(var(--text) * 0.95);
+}
+
+.chest-art {
+  width: calc(var(--touch) * 2);
+  height: calc(var(--touch) * 1.7);
+}
+
+.world-card[data-screen="chest-wrong"] .chest-art {
+  animation: chest-wobble 0.6s ease-in-out;
+}
+
+.world-card[data-screen="found"] .chest-art {
+  animation: bought-hop 0.7s ease-out;
+}
+
+@keyframes chest-wobble {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-6deg); }
+  75% { transform: rotate(6deg); }
+}
+
+.found-prize,
+.gift-prize {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+}
+
+.prize-glyph {
+  font-size: 56px;
+  line-height: 1.2;
+}
+
+.prize-coin {
+  width: 56px;
+  height: 56px;
+}
+
+.egg-art {
+  width: 44px;
+  height: 56px;
+}
+
+.found-prize .egg-art,
+.gift-prize .egg-art {
+  width: 52px;
+  height: 66px;
+}
+
+.friends-eggs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--gap);
+  align-items: center;
+  font-size: calc(var(--text) * 0.6);
+}
+
+.friends-eggs li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.egg-ring {
+  position: relative;
+  display: inline-flex;
+  width: 56px;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+}
+
+.egg-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.egg-ring-egg {
+  display: flex;
+}
+
+.egg-ring-egg .egg-art {
+  width: 24px;
+  height: 31px;
+}
+
+.notice-art {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notice-board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--touch) * 2.4);
+  height: calc(var(--touch) * 1.8);
+  border-radius: var(--radius);
+  background: #f3e3c7;
+  border: 5px solid #b98c52;
+}
+
+.notice-post {
+  width: 14px;
+  height: 18px;
+  background: #b98c52;
+}
+
+.fact-pic {
+  width: calc(var(--touch) * 1.4);
+  height: calc(var(--touch) * 1.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world-card[data-screen="chest-wrong"] .chest-art,
+  .world-card[data-screen="found"] .chest-art { animation: none; }
+}

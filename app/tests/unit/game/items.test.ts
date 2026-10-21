@@ -10,8 +10,8 @@ const eco = economy(gameJson("economy.json"));
 const monsters = monsterTable(gameJson("db/monsters.json"));
 
 describe("the economy table", () => {
-  it("is the shipped one: about twelve items, three tabs, every item priced and in a tab", () => {
-    expect(Object.keys(eco.items)).toHaveLength(12);
+  it("is the shipped one: about thirteen items, three tabs, every item priced and in a tab", () => {
+    expect(Object.keys(eco.items)).toHaveLength(13);
     expect(eco.tabs).toHaveLength(3);
     for (const i of Object.values(eco.items)) {
       expect(eco.tabs).toContain(i.tab);

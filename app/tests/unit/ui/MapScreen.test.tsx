@@ -22,6 +22,7 @@ const city = readMap("classic_hearthrock_city", JSON.parse(readFileSync("public/
 const readBuilt = (name: string) => readMap(name, JSON.parse(readFileSync(`public/game/maps/${name}.json`, "utf8")) as TiledMap);
 const shop = readBuilt("nagmon_shop");
 const restCenter = readBuilt("nagmon_rest_center");
+const home = readBuilt("nagmon_home");
 
 const tripDoc = {
   id: "solar",
@@ -190,6 +191,95 @@ describe("the Rest Center, from the nurse", () => {
     await act(async () => m.backRef.current?.());
     await settle();
     expect(m.q("[data-screen=rest]")).toBeNull();
+  });
+});
+
+describe("the home: the daily chest and the egg nest", () => {
+  type Mounted = Awaited<ReturnType<typeof start>>;
+  /** Answers the chest's question: right, or "don't know"; closes the feedback. */
+  const answer = async (m: Mounted, right: boolean) => {
+    expect(m.q("[data-screen=quiz]")).not.toBeNull();
+    if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
+    const q = m.quiz()!;
+    if (!right) await m.press("quiz_dont_know");
+    else if (q.kind === "number") {
+      for (const k of String(q.answer)) await m.press(`quiz_key_${k}`);
+      await m.press("quiz_check");
+    } else await m.press(`quiz_choice_${q.answer}`);
+    await m.press("quiz_continue");
+  };
+  const world = (extra: JsonObject = {}) => ({ money: 0, creatures: [{ id: "c1", species: "heliobud", level: 5, xp: 0 }], seen: ["heliobud"], caught: ["heliobud"], ...extra });
+
+  it("the chest: a question, a right answer opens it, the prize is saved; it is shut for the rest of the day", async () => {
+    const m = await start({ grade: 3, inside: home, world: world() });
+    await m.face("nagmon_chest_home");
+    expect(m.el("map_talk")).not.toBeNull();
+    await m.press("map_talk");
+    await answer(m, true);
+    expect(m.q("[data-screen=found]")?.dataset.how).toBe("chest");
+    expect(m.el("found_text")!.textContent).toContain("30");
+    await settle(30);
+    expect(((await m.profiles.loadWorldDict(m.profile.id)) as { money: number }).money).toBe(30);
+    await m.press("found_ok");
+    expect(m.el("coins")?.dataset.coins).toBe("30");
+    // again today: kindly shut, no question
+    await m.press("map_talk");
+    expect(await m.read()).toEqual(["הארגז ריק עכשיו. מחר יהיה בו משהו חדש!"]);
+    expect(m.q("[data-screen=quiz]")).toBeNull();
+    expect(m.logs.some((l) => l.startsWith("FOUND how=chest coins=30"))).toBe(true);
+  });
+
+  it("a wrong answer takes nothing: try again, or a small gift; the gift closes the chest for today", async () => {
+    const m = await start({ grade: 3, inside: home, world: world() });
+    await m.face("nagmon_chest_home");
+    await m.press("map_talk");
+    await answer(m, false);
+    expect(m.q("[data-screen=chest-wrong]")).not.toBeNull();
+    expect(m.el("coins")?.dataset.coins).toBe("0");
+    await m.press("chest_again");
+    await answer(m, false);
+    await m.press("chest_gift");
+    expect(m.q("[data-screen=found]")?.dataset.how).toBe("consolation");
+    expect(m.el("coins")?.dataset.coins).toBe("5");
+    await m.press("found_ok");
+  });
+
+  it("Android's back from the wrong-answer card leaves the chest as it was", async () => {
+    const m = await start({ grade: 3, inside: home, world: world() });
+    await m.face("nagmon_chest_home");
+    await m.press("map_talk");
+    await answer(m, false);
+    await act(async () => m.backRef.current?.());
+    await settle();
+    expect(m.q("[data-screen=chest-wrong]")).toBeNull();
+    expect(m.el("coins")?.dataset.coins).toBe("0");
+    expect(m.el("map_talk")).not.toBeNull();
+  });
+
+  it("the nest takes the egg from the Bag, and right answers anywhere warm it until a friend hatches", async () => {
+    const m = await start({ grade: 3, inside: home, world: world({ items: { mystery_egg: 1 }, eggs: [] }) });
+    await m.face("nagmon_nest_home");
+    await m.press("map_talk");
+    expect(await m.read()).toEqual(["הביצה במקום חם! כל תשובה נכונה מחממת אותה קצת."]);
+    await settle(30);
+    const saved = (await m.profiles.loadWorldDict(m.profile.id)) as { eggs?: { got: number; need: number }[]; items?: Record<string, number> };
+    expect(saved.eggs).toHaveLength(1);
+    expect(saved.items).toBeUndefined();
+  });
+
+  it("an egg one answer from hatching: the chest's right answer hatches it, and the child is told when the card is closed", async () => {
+    const m = await start({ grade: 3, inside: home, world: world({ eggs: [{ id: "e1", table: "nagmon_route1", got: 9, need: 10 }] }) });
+    await m.face("nagmon_chest_home");
+    await m.press("map_talk");
+    await answer(m, true);
+    await m.press("found_ok");
+    await settle();
+    const text = (await m.read()).join(" ");
+    expect(text).toContain("הביצה בקעה");
+    await settle(30);
+    const saved = (await m.profiles.loadWorldDict(m.profile.id)) as { creatures: unknown[]; eggs?: unknown[] };
+    expect(saved.creatures).toHaveLength(2);
+    expect(saved.eggs).toBeUndefined();
   });
 });
 

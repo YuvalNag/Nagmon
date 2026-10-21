@@ -15,6 +15,7 @@ from tools.app.content import read_yaml
 
 SOURCE = NAG / "economy" / "items.yaml"
 LOOT = NAG / "economy" / "loot.yaml"
+FACTS = NAG / "economy" / "facts.yaml"
 
 KINDS = {"net", "snack", "tonic", "helper", "key"}
 HELPERS = {"hint", "fifty", "pass"}
@@ -133,9 +134,37 @@ def check_loot(doc: Any, items: set[str]) -> dict[str, Any]:
     return doc
 
 
+#: A sign shows one short line.
+FACT_MAX = 70
+
+
+def check_facts(doc: Any) -> dict[str, Any]:
+    facts = doc.get("facts") if isinstance(doc, dict) else None
+    if not isinstance(facts, dict) or not facts:
+        raise ValueError("facts: needs a mapping of facts")
+    for fid, fact in facts.items():
+        if not isinstance(fid, str) or not fid.replace("_", "").isalnum():
+            raise ValueError(f"facts: bad id {fid!r}")
+        code = fact.get("emoji") if isinstance(fact, dict) else None
+        if not isinstance(code, str) or not code:
+            raise ValueError(f"facts: {fid}: needs an emoji code")
+        text = fact.get("text_he")
+        if not isinstance(text, str) or not text.strip():
+            raise ValueError(f"facts: {fid}: needs a line of text")
+        if len(text) > FACT_MAX or "\n" in text:
+            raise ValueError(f"facts: {fid}: one line, at most {FACT_MAX} characters")
+    return doc
+
+
+def fact_codes() -> set[str]:
+    """The pictures the facts use (the emoji build ships them)."""
+    return {f["emoji"] for f in read_yaml(FACTS)["facts"].values()}
+
+
 def build(out: Output) -> dict[str, Any]:
+    out.add_json("facts.json", check_facts(read_yaml(FACTS)), compact=True)
     doc = check(read_yaml(SOURCE))
     out.add_json("economy.json", doc, compact=True)
     loot = check_loot(read_yaml(LOOT), {i["id"] for i in doc["items"]})
     out.add_json("loot.json", loot, compact=True)
-    return {"items": len(doc["items"]), "chests": len(loot["chests"])}
+    return {"items": len(doc["items"]), "chests": len(loot["chests"]), "facts": len(read_yaml(FACTS)["facts"])}

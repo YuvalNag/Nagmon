@@ -17,9 +17,10 @@ def doc():
 
 def test_the_shipped_table_is_valid_and_has_about_thirteen_items():
     out = Output()
-    assert economy.build(out) == {"items": 13, "chests": 1}
+    assert economy.build(out) == {"items": 13, "chests": 1, "facts": 6}
     assert "economy.json" in out.paths()
     assert "loot.json" in out.paths()
+    assert "facts.json" in out.paths()
 
 
 def test_every_tab_has_items_and_nets_come_in_two_strengths():
@@ -112,3 +113,38 @@ def test_a_loot_table_with_a_mistake_stops_the_build(change):
     change(d)
     with pytest.raises(ValueError):
         economy.check_loot(d, item_ids())
+
+
+# ---- the facts of signs and notice boards
+
+
+def facts():
+    return copy.deepcopy(read_yaml(economy.FACTS))
+
+
+def test_the_shipped_facts_are_valid_one_liners_with_a_picture_that_exists():
+    from tools.app import emoji
+
+    d = economy.check_facts(facts())
+    assert len(d["facts"]) >= 5
+    for fid, fact in d["facts"].items():
+        assert emoji.resolve(fact["emoji"]), fid
+    assert economy.fact_codes() == {f["emoji"] for f in d["facts"].values()}
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        lambda d: d["facts"].clear(),
+        lambda d: d["facts"]["owl_night"].pop("emoji"),
+        lambda d: d["facts"]["owl_night"].update(text_he=""),
+        lambda d: d["facts"]["owl_night"].update(text_he="א" * 71),
+        lambda d: d["facts"]["owl_night"].update(text_he="שורה\nשתיים"),
+        lambda d: d["facts"].update({"bad id": d["facts"]["owl_night"]}),
+    ],
+)
+def test_a_fact_with_a_mistake_stops_the_build(change):
+    d = facts()
+    change(d)
+    with pytest.raises(ValueError):
+        economy.check_facts(d)

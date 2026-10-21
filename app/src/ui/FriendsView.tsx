@@ -7,6 +7,7 @@ import { t } from "../i18n";
 import { Sheet } from "./battle/Sheet";
 import { MonsterPic } from "./MonsterPic";
 import { Tap } from "./Tap";
+import { EggRing } from "./WorldArt";
 
 interface Props {
   play: Play;
@@ -95,6 +96,16 @@ export function FriendsView({ play, battle, onClose, onChanged }: Props) {
               </span>
             )}
           </div>
+        )}
+        {play.world.eggs.length > 0 && (
+          <ul className="friends-eggs" data-id="friends_eggs" aria-label={t("eggsTitle")}>
+            {play.world.eggs.map((e) => (
+              <li key={e.id} data-id={`egg_${e.id}`} data-got={e.got}>
+                <EggRing got={e.got} need={e.need} />
+                <span>{t("eggProgress", { got: e.got, need: e.need })}</span>
+              </li>
+            ))}
+          </ul>
         )}
         {meadowCount(play.world) > 0 && (
           <p className="friends-meadow" data-id="friends_meadow">
