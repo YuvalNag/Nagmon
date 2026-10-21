@@ -204,6 +204,7 @@ test("a typed answer: the pad sits at the bottom end, nothing covers the creatur
   }
   await expect(page.locator(".quiz-keys")).toBeVisible();
   await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({ path: info.outputPath("pad-question.png") });
   const g = await geometry(page);
   for (const c of g.creatures) for (const o of g.cover) expect(apart(c, o), `${c.name} is covered by ${o.name}`).toBe(true);
   for (const b of g.buttons) expect(Math.min(b.w, b.h), `${b.name} is under 48`).toBeGreaterThanOrEqual(48);
@@ -212,7 +213,6 @@ test("a typed answer: the pad sits at the bottom end, nothing covers the creatur
     expect(o.b, `${o.name} is cut off`).toBeLessThanOrEqual(g.vh + 0.5);
   }
   expect([g.scrollW <= g.vw, g.scrollH <= g.vh, g.sectionOverflow]).toEqual([true, true, false]);
-  await page.screenshot({ path: info.outputPath("pad-question.png") });
   await answerRight(page);
   await expect(page.locator("[data-screen=battle]")).toHaveAttribute("data-flow", "result");
   await expect(page.locator(".fx-number")).toBeVisible();

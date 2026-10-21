@@ -21,6 +21,8 @@ interface Props {
   /** No question could be made, or the owl's pass was used: the battle goes on from here. */
   onClose: () => void;
   /** The move being cast (BATTLE_V3 2.2): its name and subject sit at the head of the panel, so the child sees what the answer casts. */
+  /** The phase of the question changed (the battle redraws what depends on its look). */
+  onPhase?: () => void;
   cast?: { name: string; subject: string; icon: string; color: string };
 }
 
@@ -45,7 +47,7 @@ const SLOTS = ["a", "b", "c", "d"] as const;
  * owl's speech bubble and "I don't know". The creatures stay in view.
  * There is no feedback page: the answer goes to `onResult`.
  */
-export function BattleQuestion({ session, text, subjectTitle, onResult, onClose, cast }: Props) {
+export function BattleQuestion({ session, text, subjectTitle, onResult, onClose, cast, onPhase }: Props) {
   const [, redraw] = useReducer((n: number) => n + 1, 0);
   // the tiles tapped so far (order: card ids; letters: tile numbers), for this question only
   const [tapped, setTapped] = useState<{ session: QuizSession; picks: string[] }>({ session, picks: [] });
@@ -58,6 +60,11 @@ export function BattleQuestion({ session, text, subjectTitle, onResult, onClose,
     // once for each answer; the callback is the battle's and changes with it
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [answered]);
+  // the session moves on by itself (the example is done): the battle re-reads the look to make room at the side
+  useEffect(() => {
+    onPhase?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session.phase]);
   const q = session.question;
   const act = (fn: () => unknown) => () => {
     fn();

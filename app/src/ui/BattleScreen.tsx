@@ -1,4 +1,4 @@
-import { type MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
+import { type MutableRefObject, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import type { AnswerOutcome } from "../core/learning/engine";
 import type { Play } from "../app/play";
 import { Battle, type Round, type RoundEvent, type SealResult } from "../core/game/battle";
@@ -149,6 +149,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     },
     [],
   );
+  const [, lookChanged] = useReducer((n: number) => n + 1, 0);
   const [flow, setFlow] = useState<Flow>(askingFlow());
   const [fx, setFx] = useState<Fx | null>(null);
   const [enemyFx, setEnemyFx] = useState<EnemyFx | null>(null);
@@ -668,13 +669,14 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
               subjectTitle={subjectTitle}
               onResult={onResult}
               onClose={afterQuestion}
+              onPhase={lookChanged}
               cast={{ name: cast.move.he, subject: cast.move.subject !== "any" ? subjectTitle(cast.move.subject) : "", icon: subjectIcon(cast.move.subject), color: subjectColor(cast.move.subject) }}
             />
           </div>
         )}
         {mode === "seal" && sealSession && (
           <div className="battle-ask" data-screen="battle-ask" data-seal="true" data-pad={padAnswer}>
-            <BattleQuestion session={sealSession} text={(id) => play.text(id)} subjectTitle={subjectTitle} onResult={onSealResult} onClose={afterSeal} />
+            <BattleQuestion session={sealSession} text={(id) => play.text(id)} subjectTitle={subjectTitle} onResult={onSealResult} onClose={afterSeal} onPhase={lookChanged} />
           </div>
         )}
         {asking && flow.k === "result" && outcome && (
