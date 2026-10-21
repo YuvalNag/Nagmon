@@ -7,6 +7,8 @@
 # and the forms it evolves into (never wild: the child evolves them).
 # species: the animals' category line in the animal album (cat_<species>).
 # npcs: the people standing in the zone's map (mods/nagmon/db/npc).
+# done_variable: set to "yes" by the zone's mission (tools/app/solar_missions.py);
+# the engine also counts the zone done after `catch` of its animals.
 # The station is the hub: every zone's exit leads there, and its doors lead
 # to the zones.
 id: solar
@@ -32,6 +34,7 @@ zones:
   - id: moon
     monsters: [lunibble, lunihare, lunwarden, terrabub, terratot, terravault]
     catch: 3
+    done_variable: solar_moon_done
     start: {x: 3, y: 16}
     unlock_level: 0
     cost: 0
@@ -50,6 +53,7 @@ zones:
   - id: sun
     monsters: [heliobud, heliolynx, heliarch, solwind, aurorail, sailbit, sailray]
     catch: 3
+    done_variable: solar_sun_done
     start: {x: 3, y: 16}
     unlock_level: 3
     cost: 10
@@ -70,6 +74,7 @@ zones:
   - id: rocky_planets
     monsters: [mercurip, mercurush, mercuram, venubud, venumoth, venuveil, rustip, marskip, marstrix, roveroo, roverex, asterchip, astercrab, asterfort, meteet, meteoroar, meteohelm, dustip, zodiacat]
     catch: 3
+    done_variable: solar_rocky_planets_done
     start: {x: 3, y: 16}
     unlock_level: 5
     cost: 15
@@ -94,6 +99,7 @@ zones:
   - id: giants
     monsters: [jovibud, jovihog, jovigale, iobud, iolisk, iopyre, europip, europod, europan, ganybit, ganyhorn, ganyguard, ringlet, saturnip, ringwarden, titanip, titanewt, titanveil, gravip, orbitail, gravivault]
     catch: 3
+    done_variable: solar_giants_done
     start: {x: 3, y: 16}
     unlock_level: 8
     cost: 20
@@ -118,6 +124,7 @@ zones:
   - id: outer
     monsters: [tiltip, uranurtle, tiltitan, nepbit, nepdart, nepstorm, plutot, plutopaw, plutaur, kuipip, kuipine, kuipcrest, combit, cometail, cometrail, probip, probewing]
     catch: 3
+    done_variable: solar_outer_done
     start: {x: 3, y: 16}
     unlock_level: 11
     cost: 30

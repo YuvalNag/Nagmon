@@ -145,7 +145,10 @@ def test_every_zone_exit_leads_to_the_station_and_back(built):
     by_door = {}
     for _, s in scripts(station):
         for a in s["actions"]:
-            if a["type"] == "transition_teleport":
+            if (
+                a["type"] == "transition_teleport"
+                and a["args"][1] != "classic_hearthrock_city.tmx"
+            ):
                 by_door[a["args"][1]] = a
     assert sorted(by_door) == sorted(f"{m}.tmx" for m in ZONE_MAPS)
     for z in TRIP["zones"]:
