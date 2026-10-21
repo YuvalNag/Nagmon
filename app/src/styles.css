@@ -2207,3 +2207,285 @@ button.zone {
 .beast-fact {
   font-size: calc(var(--text) * 0.7);
 }
+
+/* ---------------------------------------------------------------- the shop */
+
+.sheet.shop {
+  display: grid;
+  /* the shelf rail at the start edge, the shelves, the chosen item at the end (230 px) */
+  grid-template-columns: 64px minmax(0, 1fr) 230px;
+  gap: var(--gap);
+}
+
+.shelf-art {
+  min-height: 0;
+  overflow-y: auto;
+  touch-action: pan-y;
+  padding: 6px;
+  border-radius: var(--radius);
+  background: #f3e3c7;
+  border: 3px solid #b98c52;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: minmax(150px, auto);
+  gap: 10px 8px;
+  align-content: start;
+}
+
+/* each row of cards stands on a wooden board */
+.shop-grid {
+  background-image: linear-gradient(to bottom, transparent calc(150px - 8px), #b98c52 calc(150px - 8px), #b98c52 150px, transparent 150px);
+  background-size: 100% calc(150px + 10px);
+}
+
+.shop-card {
+  position: relative;
+  padding: 4px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  background: var(--card);
+}
+
+.shop-card[aria-pressed="true"] {
+  border-color: var(--accent);
+  border-width: 4px;
+}
+
+.shop-name {
+  font-size: calc(var(--text) * 0.62);
+  line-height: 1.15;
+  font-weight: 700;
+  text-align: center;
+}
+
+.price-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  padding: 0 0.5em;
+  border-radius: 999px;
+  background: #fff4cf;
+  border: 2px solid #c99a1c;
+  font-size: calc(var(--text) * 0.7);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.price-chip.big {
+  font-size: calc(var(--text) * 0.9);
+}
+
+.coin-icon {
+  width: 1em;
+  height: 1em;
+  flex: none;
+}
+
+.shop-wallet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  align-self: flex-end;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.shop-detail .bag-big {
+  font-size: 44px;
+}
+
+.shop-bought {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  text-align: center;
+}
+
+.bought-icon {
+  font-size: 72px;
+  line-height: 1.2;
+  animation: bought-hop 0.7s ease-out;
+}
+
+@keyframes bought-hop {
+  0% { transform: scale(0.4); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.bought-back {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* the pay step */
+
+.shop-pay {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(180px, 250px) minmax(0, 1fr);
+  gap: var(--gap);
+  min-height: 0;
+}
+
+.pay-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: var(--gap);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  overflow-y: auto;
+}
+
+.pay-icon {
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+.pay-name {
+  font-size: calc(var(--text) * 0.7);
+}
+
+.pay-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--radius);
+  background: #dff3e4;
+  border: 2px solid #2f7d4f;
+  font-size: calc(var(--text) * 0.65);
+}
+
+.pay-unit {
+  font-size: calc(var(--text) * 0.55);
+  color: var(--ink-soft);
+}
+
+.pay-target {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: center;
+}
+
+.pay-target .stack-art {
+  width: 30px;
+  height: 36px;
+}
+
+.pay-say {
+  margin: 0;
+  min-height: 2.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--text) * 0.7);
+  font-weight: 700;
+}
+
+.shop-pay[data-say="more"] .pay-say,
+.shop-pay[data-say="less"] .pay-say,
+.shop-pay[data-say="help"] .pay-say,
+.shop-pay[data-say="helped"] .pay-say {
+  color: var(--accent);
+}
+
+.pay-count {
+  font-size: calc(var(--text) * 1.2);
+  font-variant-numeric: tabular-nums;
+}
+
+.pay-work {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  min-height: 0;
+}
+
+.pay-coins {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pay-coin {
+  padding: 2px;
+  min-width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-coin svg,
+.pay-token svg {
+  width: 52px;
+  height: 52px;
+}
+
+.pay-coin .bill,
+.pay-token .bill {
+  width: 62px;
+  height: 40px;
+}
+
+.pay-tray {
+  flex: 1;
+  min-height: 72px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 4px;
+  padding: 6px;
+  border-radius: var(--radius);
+  border: 3px dashed #c99a1c;
+  background: #fffaf0;
+  overflow-y: auto;
+}
+
+.pay-token {
+  min-width: 52px;
+  min-height: 52px;
+  padding: 0;
+  border-width: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border-color: transparent;
+}
+
+.pay-token[data-counted="yes"] {
+  background: #fff4cf;
+  border-color: #c99a1c;
+}
+
+.pay-token[data-current="yes"] {
+  transform: scale(1.18);
+}
+
+.pay-buttons {
+  display: flex;
+  gap: var(--gap);
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bought-icon { animation: none; }
+  .pay-token[data-current="yes"] { transform: none; }
+}

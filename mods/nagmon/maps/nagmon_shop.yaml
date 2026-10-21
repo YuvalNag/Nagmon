@@ -2,7 +2,8 @@
 # The map is a copy of a Tuxemon interior with its events removed
 # (mods/nagmon/maps/nagmon_shop.tmx); the way out, the NPC and the greeting are
 # here. The way in is an event of classic_hearthrock_city.yaml.
-# Placeholder behaviour only: shop, bag and rest logic come later.
+# The shopkeeper greets the child and opens the shop screen (open_shop): three
+# shelves, and a purchase that is a small lesson in money (app/src/ui/ShopScreen.tsx).
 
 events:
 
@@ -38,3 +39,4 @@ events:
     - talk nagmon_house_shopkeeper
     actions:
     - translated_dialog nagmon_world_shop_keeper,nagmon_house_shopkeeper
+    - open_shop hearthrock

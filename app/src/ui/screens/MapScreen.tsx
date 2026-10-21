@@ -5,7 +5,7 @@ import type { Profile, ProfileStore } from "../../core/family/profiles";
 import { crumb } from "../../core/game/breadcrumb";
 import { FieldLog } from "../../core/game/fieldLog";
 import { pages } from "../../core/world/dialog";
-import { EventRunner, type EventHost } from "../../core/world/events";
+import { EventRunner, type EventHost, type ScreenKind } from "../../core/world/events";
 import type { WorldMap } from "../../core/world/mapData";
 import { QuizSession } from "../../core/world/quiz";
 import { currentMap, setCurrentMap } from "../../game/current";
@@ -21,6 +21,7 @@ import { Encounters, type Wild } from "../../core/game/encounters";
 import { introNeeded } from "../../core/game/intro";
 import { BattleScreen } from "../BattleScreen";
 import { BagView } from "../BagView";
+import { ShopScreen } from "../ShopScreen";
 import { FriendsView } from "../FriendsView";
 import { BestiaryScreen } from "../BestiaryScreen";
 import { TripScreen } from "../TripScreen";
@@ -62,7 +63,11 @@ interface Props {
   openPlay?: LoadPlay;
 }
 
-type Shown = { kind: "dialog"; pages: string[]; done: () => void } | { kind: "quiz"; session: QuizSession; done: () => void };
+type Shown =
+  | { kind: "dialog"; pages: string[]; done: () => void }
+  | { kind: "quiz"; session: QuizSession; done: () => void }
+  /** A whole screen of a place (the shop, the Rest Center), opened by an event. */
+  | { kind: "screen"; screen: ScreenKind; arg: string; done: () => void };
 /** What lies over the map: a dialog or a question, each its own screen (`n`). */
 type Overlay = Shown & { n: number };
 
@@ -129,6 +134,8 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   const shown = useRef<Overlay | null>(null);
   shown.current = overlay;
   const dialogAdvance = useRef<(() => void) | null>(null);
+  // Android's back inside a place's screen: one step back, or out
+  const screenBack = useRef<(() => void) | null>(null);
   const menuOpen = menu > 0;
   const { avatar } = profile;
 
@@ -276,6 +283,12 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           );
           show({ kind: "quiz", session, done: resolve });
         }),
+      screen: (kind, arg) =>
+        new Promise<void>((resolve) => {
+          if (!alive) return resolve();
+          play.field.note("screen", { open: kind });
+          show({ kind: "screen", screen: kind, arg, done: resolve });
+        }),
       changed: () => {
         if (!alive) return;
         setCoins(play.world.money);
@@ -410,6 +423,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       else if (intro) dialogAdvance.current?.();
       else if (overlay?.kind === "dialog") dialogAdvance.current?.();
       else if (overlay?.kind === "quiz") closeOverlay();
+      else if (overlay?.kind === "screen") (screenBack.current ?? closeOverlay)();
       else if (held) return;
       else openMenu();
     };
@@ -426,7 +440,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
 
   // the last screen, for the parent's "something is wrong"
   useEffect(() => {
-    crumb.screen(menuOpen ? "menu" : intro ? "intro" : battle ? "battle" : overlay ? overlay.kind : "map");
+    crumb.screen(menuOpen ? "menu" : intro ? "intro" : battle ? "battle" : overlay ? (overlay.kind === "screen" ? overlay.screen : overlay.kind) : "map");
   }, [menuOpen, overlay, intro, battle]);
 
   // and the wild creature, for the report's battle part (a question in a battle hides the battle's own page)
@@ -542,6 +556,9 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             onClose={closeOverlay}
           />
         </ScreenTime>
+      )}
+      {overlay?.kind === "screen" && overlay.screen === "shop" && play && !menuOpen && (
+        <ShopScreen key={`shop-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
       )}
       {menuOpen && panel === "trips" && play && (
         <TripScreen

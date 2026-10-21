@@ -33,6 +33,16 @@ def test_the_three_helpers_are_there():
     assert {i["helper"] for i in d["items"] if i["kind"] == "helper"} == {"hint", "fifty", "pass"}
 
 
+def test_the_shop_has_three_shelves_of_one_to_six_priced_items():
+    """The shop screen (app/src/core/game/shop.ts) shelves nets, snacks and tonics, helpers."""
+    d = doc()
+    shelf_of = {"net": "nets", "snack": "snacks", "tonic": "snacks", "helper": "helpers"}
+    for shelf in ("nets", "snacks", "helpers"):
+        items = [i for i in d["items"] if shelf_of.get(i["kind"]) == shelf]
+        assert 1 <= len(items) <= 6, shelf
+        assert all(i["price"] > 0 for i in items)
+
+
 @pytest.mark.parametrize(
     "change",
     [

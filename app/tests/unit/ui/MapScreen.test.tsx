@@ -19,6 +19,9 @@ const fetchJson: FetchJson = async (path) => {
 const route = readMap("classic_route_1", JSON.parse(readFileSync("public/game/maps/classic_route_1.json", "utf8")) as TiledMap);
 const city = readMap("classic_hearthrock_city", JSON.parse(readFileSync("public/game/maps/classic_hearthrock_city.json", "utf8")) as TiledMap);
 
+const readBuilt = (name: string) => readMap(name, JSON.parse(readFileSync(`public/game/maps/${name}.json`, "utf8")) as TiledMap);
+const shop = readBuilt("nagmon_shop");
+
 const tripDoc = {
   id: "solar",
   title_he: "מערכת השמש",
@@ -40,7 +43,7 @@ afterEach(cleanup);
 const settle = (ms = 0) => act(() => new Promise((r) => setTimeout(r, ms)));
 
 /** The map with a stand-in scene: it opens Hearthrock and reports who stands in front. */
-async function start({ grade = 2, settings = defaultsForGrade(2).settings as JsonObject, world = null as JsonObject | null, menuFirst = false, fresh = false, trips = false } = {}) {
+async function start({ grade = 2, settings = defaultsForGrade(2).settings as JsonObject, world = null as JsonObject | null, menuFirst = false, fresh = false, trips = false, inside = null as null | typeof city } = {}) {
   // the test seed: the question showing can be read (window.__nagmonQuiz)
   localStorage.setItem("nagmon.quiz.seed", "3");
   const fs = new MemoryFileStore();
@@ -61,7 +64,7 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
         opts = o;
         void Promise.resolve(o.resume?.()).then((r) => (resumed = r));
         setTimeout(() => {
-          o.onMap?.(city);
+          o.onMap?.(inside ?? city);
           o.onReady?.();
         }, 0);
         return {
@@ -122,6 +125,48 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
   const quiz = () => (window as unknown as { __nagmonQuiz?: () => { phase: string; kind: string; answer: string; skill: string } }).__nagmonQuiz?.();
   return { fs, profiles, profile, resumed: () => resumed, calls, logs, backRef, q, el, press, face, read, quiz, container, opts: () => opts };
 }
+
+describe("the shop, from the shopkeeper", () => {
+  it("talk: the greeting, then the shop with its shelves; a purchase is saved and logged; back goes to the map", async () => {
+    const m = await start({ grade: 3, inside: shop, world: { money: 100 } });
+    await m.face("nagmon_house_shopkeeper");
+    expect(m.el("map_talk")).not.toBeNull();
+    await m.press("map_talk");
+    await m.read();
+    expect(m.q("[data-screen=shop]")).not.toBeNull();
+    expect(m.el("shop_item_magic_net")!.textContent).toContain("30");
+    await m.press("shop_buy");
+    await m.press("pay_coin_20");
+    await m.press("pay_coin_10");
+    await m.press("pay_go");
+    // the two coins are counted aloud first
+    for (let i = 0; i < 40 && !m.q("[data-id=shop_bought]"); i++) await settle(100);
+    expect(m.q("[data-id=shop_bought]")).not.toBeNull();
+    // the world is saved with the coins and the Bag
+    await settle(30);
+    const saved = (await m.profiles.loadWorldDict(m.profile.id)) as { money: number; items?: Record<string, number> };
+    expect(saved.money).toBe(73);
+    expect(saved.items).toEqual({ magic_net: 1 });
+    expect(m.logs.some((l) => l.startsWith("BUY what=magic_net"))).toBe(true);
+    // Android's back: out of the bought card to the shelves, then to the map
+    await act(async () => m.backRef.current?.());
+    expect(m.q("[data-screen=shop][data-mode=browse]")).not.toBeNull();
+    await act(async () => m.backRef.current?.());
+    await settle();
+    expect(m.q("[data-screen=shop]")).toBeNull();
+    expect(m.q("[data-screen=play]")).not.toBeNull();
+  });
+
+  it("the map holds still while the shop is open", async () => {
+    const m = await start({ inside: shop });
+    await m.face("nagmon_house_shopkeeper");
+    await m.press("map_talk");
+    await m.read();
+    expect(m.calls).toContain("pause talk");
+    await m.press("shop_close");
+    expect(m.calls).toContain("resume talk");
+  });
+});
 
 describe("talking on the map", () => {
   it("shows the talk button only facing the cashier, beside a coin count", async () => {

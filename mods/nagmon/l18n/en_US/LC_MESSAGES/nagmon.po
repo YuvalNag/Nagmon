@@ -647,7 +647,7 @@ msgstr ""
 msgid "nagmon_world_shop_keeper"
 msgstr ""
 "Avi: Welcome to the shop!\n"
-"Look around, the shelves will be full soon."
+"Pick what you like, and we will pay together."
 
 msgid "nagmon_world_lab_tutor"
 msgstr ""

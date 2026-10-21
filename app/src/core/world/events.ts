@@ -37,8 +37,16 @@ export interface EventHost {
    * keeps a cleared variable without the coins it paid.
    */
   changed(): void;
+  /**
+   * A whole screen of the game over the map: the shop (`open_shop`), the
+   * Rest Center (`open_rest`). Resolves when the child closes it.
+   */
+  screen?(kind: ScreenKind, arg: string): Promise<void>;
   warn?(message: string): void;
 }
+
+/** The screens an event may open. */
+export type ScreenKind = "shop" | "rest";
 
 export interface RunnerOptions {
   /** The playing child's grade, 0 (kindergarten) to 9. */
@@ -62,6 +70,8 @@ export const ACTIONS: ReadonlySet<string> = new Set([
   "ask_quiz",
   "create_npc",
   "char_face",
+  "open_shop",
+  "open_rest",
 ]);
 
 /** The conditions it knows; any other never holds. */
@@ -290,6 +300,14 @@ export class EventRunner {
       case "create_npc":
         this.characters.add(a.args[0] ?? "");
         return;
+      case "open_shop":
+      case "open_rest": {
+        if (!this.host.screen) throw new Error(`no screen for ${a.type}`);
+        // what changed so far is saved first: the child may stay long, and a kill must lose nothing
+        this.save();
+        await this.host.screen(a.type === "open_shop" ? "shop" : "rest", a.args[0] ?? "");
+        return;
+      }
       case "char_face":
         // the people face the way the map's start says (mapData.readMap)
         return;

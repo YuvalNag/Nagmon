@@ -16,6 +16,9 @@ interface Props {
   effects: EffectSettings;
   /** One of the battle's switches was pressed: the next motion setting, or sound or vibration on or off. */
   onEffects: (patch: Partial<EffectSettings>) => void;
+  /** The shop's quick buy (a child who has mastered money may skip the pay step): on or off. */
+  quickBuy: boolean;
+  onQuickBuy: (on: boolean) => void;
   onDelete: () => void;
   onBack: () => void;
 }
@@ -27,7 +30,7 @@ const MOTION_TEXT: Record<MotionSetting, "effectsMotionSystem" | "effectsMotionL
 };
 
 /** One child: the name, the grade and the hero to change, and delete far from them. */
-export function ChildPage({ child, message, busy, onName, onGrade, onAvatar, effects, onEffects, onDelete, onBack }: Props) {
+export function ChildPage({ child, message, busy, onName, onGrade, onAvatar, effects, onEffects, quickBuy, onQuickBuy, onDelete, onBack }: Props) {
   return (
     <main className="screen parents-page" data-screen="parents-child" data-child={child.id} data-grade={child.grade}>
       <Bar title={child.name} onBack={onBack} />
@@ -53,6 +56,11 @@ export function ChildPage({ child, message, busy, onName, onGrade, onAvatar, eff
           </Tap>
           <Tap id="child_vibration" disabled={busy} aria-pressed={effects.vibration} onTap={() => onEffects({ vibration: !effects.vibration })}>
             {t("effectsVibration", { state: t(effects.vibration ? "effectsOn" : "effectsOff") })}
+          </Tap>
+        </div>
+        <div className="parents-row effects-row">
+          <Tap id="child_quick_buy" disabled={busy} aria-pressed={quickBuy} onTap={() => onQuickBuy(!quickBuy)}>
+            {t("quickBuyState", { state: t(quickBuy ? "effectsOn" : "effectsOff") })}
           </Tap>
         </div>
         <p className="message ok" role="status">

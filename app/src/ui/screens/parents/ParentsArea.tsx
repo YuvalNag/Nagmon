@@ -1,6 +1,7 @@
 import { type RefObject, useCallback, useEffect, useRef, useState } from "react";
 import type { Services } from "../../../app/services";
 import { effectsFrom, withEffects } from "../../../core/family/effects";
+import { quickBuyAllowed, withQuickBuy } from "../../../core/family/shopSettings";
 import { AVATARS, avatarImage } from "../../../core/family/avatars";
 import { GRADE_NAMES_HE } from "../../../core/family/gradeDefaults";
 import { PinError, PinLockedError } from "../../../core/family/parent";
@@ -493,6 +494,8 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
             onAvatar={() => go({ kind: "child-avatar", id: child.id })}
             effects={effectsFrom(child.settings)}
             onEffects={(patch) => saveChild(child.id, (c) => (c.settings = withEffects(c.settings, patch)), { kind: "notice", text: t("errorTryAgain"), next: { kind: "child", id: child.id } })}
+            quickBuy={quickBuyAllowed(child.settings)}
+            onQuickBuy={(on) => saveChild(child.id, (c) => (c.settings = withQuickBuy(c.settings, on)), { kind: "notice", text: t("errorTryAgain"), next: { kind: "child", id: child.id } })}
             onDelete={() => go({ kind: "child-delete", id: child.id, name: child.name })}
             onBack={back}
           />
