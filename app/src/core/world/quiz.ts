@@ -43,13 +43,20 @@ export interface QuizRequest {
   maxChoices: number | null;
   /** The Bag's helpers, where they may be used (a battle); none on the map. */
   helpers?: HelperBag;
+  /**
+   * Kinds this screen can take besides the pad and the choice cards: a screen
+   * that draws the tiles for them lists them (the battle does). The others
+   * stay blocked, and the question is asked again (a tap would always be
+   * graded wrong and mark a right-thinking child down).
+   */
+  kinds?: readonly ("order" | "letters")[];
   /** False: no Elo speed bonus on this question (a battle: the rating is about knowledge, not reflexes). On by default. */
   speed?: boolean;
 }
 
 /** Answered on the number pad. */
 const PAD_KINDS = new Set(["number"]);
-/** Answered by tapping one choice. "order" and "letters" need their own input (M6). */
+/** Answered by tapping one choice. "order" and "letters" need their own input: a request lists them in `kinds` when its screen draws it. */
 const CHOICE_KINDS = new Set(["choice", "true_false", "tap_figure"]);
 
 /** What the script sees for an answer (ask_quiz.result_word). */
@@ -105,11 +112,12 @@ export class QuizSession {
       warn(`No question for ${request.topic}: ${String(e)}`);
     }
     this.question = q;
-    if (q && !PAD_KINDS.has(q.kind) && !CHOICE_KINDS.has(q.kind)) {
+    const takes = (kind: string) => PAD_KINDS.has(kind) || CHOICE_KINDS.has(kind) || (request.kinds as readonly string[] | undefined)?.includes(kind) === true;
+    if (q && !takes(q.kind)) {
       // one tap would always be graded wrong and mark a right-thinking child down
       warn(`A ${q.kind} question cannot be answered here yet (M6): ${q.item_id}`);
       this.question = null;
-    } else if (q && CHOICE_KINDS.has(q.kind) && q.choices.length === 0) {
+    } else if (q && (CHOICE_KINDS.has(q.kind) || q.kind === "order" || q.kind === "letters") && q.choices.length === 0) {
       warn(`A ${q.kind} question has no choices: ${q.item_id}`);
       this.question = null;
     }
@@ -122,6 +130,13 @@ export class QuizSession {
   /** Answered on the number pad (otherwise by a choice). */
   get usesPad(): boolean {
     return this.question !== null && PAD_KINDS.has(this.question.kind);
+  }
+
+  /** How the answer is given: the number pad, one tap on a card, tapping the cards in order, or spelling from letter tiles. */
+  get input(): "pad" | "choice" | "order" | "letters" {
+    const kind = this.question?.kind;
+    if (kind === "order" || kind === "letters") return kind;
+    return this.usesPad ? "pad" : "choice";
   }
 
   /** The choices still shown (a hint takes one away). */
@@ -138,7 +153,7 @@ export class QuizSession {
   helpersOwned(): { kind: HelperKind; count: number }[] {
     const bag = this.request.helpers;
     if (!bag || this.phase !== "question" || this.helperUsed) return [];
-    const fiftyOk = !this.usesPad && this.choices.length > 2;
+    const fiftyOk = this.input === "choice" && this.choices.length > 2;
     return (["hint", "fifty", "pass"] as const).flatMap((kind) => {
       const count = kind === "fifty" && !fiftyOk ? 0 : bag.count(kind);
       return count > 0 ? [{ kind, count }] : [];
@@ -162,7 +177,7 @@ export class QuizSession {
     const bag = this.request.helpers;
     const q = this.question;
     if (!bag || !q || this.phase !== "question" || this.helperUsed || bag.count(kind) < 1) return false;
-    if (kind === "fifty" && (this.usesPad || this.choices.length <= 2)) return false;
+    if (kind === "fifty" && (this.input !== "choice" || this.choices.length <= 2)) return false;
     if (!bag.spend(kind)) return false;
     this.helperUsed = true;
     bag.used?.(kind, q);
@@ -231,8 +246,23 @@ export class QuizSession {
   }
 
   choose(id: string): boolean {
-    if (this.phase !== "question" || this.usesPad || !this.choices.some((c) => c.id === id)) return false;
+    if (this.phase !== "question" || this.input !== "choice" || !this.choices.some((c) => c.id === id)) return false;
     return this.answer(id, false);
+  }
+
+  /** The cards tapped in order (an "order" question): all of them, each once. */
+  arrange(ids: readonly string[]): boolean {
+    const q = this.question;
+    if (this.phase !== "question" || !q || this.input !== "order") return false;
+    const all = q.choices.map((c) => c.id);
+    if (ids.length !== all.length || new Set(ids).size !== ids.length || !ids.every((i) => all.includes(i))) return false;
+    return this.answer(ids, false);
+  }
+
+  /** The word spelled from the letter tiles (a "letters" question). */
+  spell(word: string): boolean {
+    if (this.phase !== "question" || this.input !== "letters" || !word.trim()) return false;
+    return this.answer(word, false);
   }
 
   dontKnow(): boolean {

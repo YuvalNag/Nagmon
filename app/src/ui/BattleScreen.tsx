@@ -13,10 +13,11 @@ import { pageSfx } from "../platform/sfx";
 import { ageFromProfile } from "../core/family/age";
 import { effectsFrom } from "../core/family/effects";
 import { ActionBar } from "./battle/ActionBar";
-import { BattleQuestion } from "./battle/BattleQuestion";
+import { BattleQuestion, presentationFor } from "./battle/BattleQuestion";
 import { planFor, planForFree } from "./battle/effects";
 import { answered, asking as askingFlow, type Flow, openWhy, remainingMs, tapped, ticked } from "./battle/resultFlow";
 import { ResultBox } from "./battle/ResultBox";
+import { usesSide } from "./battle/presentation";
 import { type Fx, Stage } from "./battle/Stage";
 import { useCalm } from "./battle/useCalm";
 import { NameCard } from "./battle/NameCard";
@@ -349,7 +350,9 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   if (note && view.k === "calm") extra.push(note);
   const need = needFor(mine.level);
   const session = asking ? view.session : null;
-  const padAnswer = !!session && session.phase !== "feedback" && session.usesPad && flow.k === "asking";
+  // a typed answer, tiles or a list of answers take the bottom end: the wild creature stands nearer the middle
+  const look = session && session.phase !== "feedback" ? presentationFor(session) : null;
+  const padAnswer = !!look && usesSide(look) && flow.k === "asking";
   const victory = view.k === "calm" || view.k === "won" || !!(asking && fx?.won);
   closeRef.current = view.k === "seal" ? afterSeal : afterQuestion;
 

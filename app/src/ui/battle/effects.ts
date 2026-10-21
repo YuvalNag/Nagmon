@@ -60,6 +60,8 @@ export function planForFree(damage: number, calm: boolean): FxPlan {
   return { ...base, attack: hit, stars: hit ? 4 : 0, wildHit: hit };
 }
 
+export { MAX_FLOATING, MAX_SHOWN } from "./presentation";
+
 /** A choice, as far as picking the floating answers needs it. */
 export interface Pickable {
   id: string;

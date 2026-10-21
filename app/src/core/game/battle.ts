@@ -243,7 +243,7 @@ export class Battle {
 
   private request(context: string): QuizRequest {
     // no Elo speed bonus in a battle: the rating stays about knowledge, not reflexes
-    const r: QuizRequest = { topic: this.subject, context, maxChoices: this.o.maxChoices, speed: false };
+    const r: QuizRequest = { topic: this.subject, context, maxChoices: this.o.maxChoices, speed: false, kinds: ["order", "letters"] };
     const bag = this.helperBag();
     if (bag) r.helpers = bag;
     return r;
