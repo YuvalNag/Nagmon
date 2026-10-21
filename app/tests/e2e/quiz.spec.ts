@@ -334,6 +334,18 @@ test("naming a new friend with the letter board: the board covers the map, every
   await expect.poll(async () => ((await saved(page, "saves/world.json"))?.["creatures"] as { name?: string }[] | undefined)?.[1]?.name).toBe("נתן");
 });
 
+test("a new child (grade 0): the first map opens under the owl, not a black screen; the owl speaks", async ({ page }) => {
+  const cdp = await page.context().newCDPSession(page);
+  // a phone is slower than this machine
+  await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
+  await seedChild(page, { grade: 0, intro: true });
+  await page.goto("/");
+  await touch(page, page.locator(id(`child_${PID}`)));
+  await expect(page.locator("[data-screen=play][data-map=ready][data-play=ready]")).toBeVisible({ timeout: 10_000 });
+  await expect(page.locator("[data-screen=map-failed]")).toHaveCount(0);
+  await expect(page.locator("[data-screen=dialog]")).toBeVisible();
+});
+
 test("the battle's action bar: five buttons of 120x72 and more in the bottom 123px, Ask the wide one at the thumb's end", async ({ page }, info) => {
   await seedChild(page, { grade: 2, battle: true });
   await openMap(page);
