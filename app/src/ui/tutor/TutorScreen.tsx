@@ -20,7 +20,7 @@ import { LessonPlayer } from "./LessonPlayer";
 const log = getLogger("nagmon.tutor");
 
 /** The people who teach: talking to them opens their lessons (events.ts `open_tutor`). */
-export const TUTOR_NPCS: readonly string[] = ["nagmon_house_tutor"];
+export const TUTOR_NPCS: readonly string[] = ["nagmon_house_tutor", "nagmon_solar_astronomer"];
 
 /** How many times a practice question is asked for before there is "no question now". */
 const PRACTICE_TRIES = 6;

@@ -16,6 +16,8 @@ import { parseTrip, progressPercent, refreshProgress, travelTo, zoneState, type 
 import { EventRunner, type EventHost, type QuizWord } from "../../../src/core/world/events";
 import { inBox, readMap, type TiledMap, type WorldMap } from "../../../src/core/world/mapData";
 import { WorldState } from "../../../src/core/world/worldState";
+import { loadLessons, type Lesson } from "../../../src/core/game/lessons";
+import { TUTOR_NPCS } from "../../../src/ui/tutor/TutorScreen";
 import { gameJson } from "./helpers";
 
 const trip: Trip = parseTrip(gameJson("trips/solar.json"))!;
@@ -45,12 +47,14 @@ interface Play {
   runner: EventRunner;
   said: string[];
   topics: string[];
+  tutors: string[];
 }
 
 /** The map's events run for the child, who answers every question as `word` says. */
 async function visit(map: WorldMap, world: WorldState, word: () => QuizWord, day: () => string = () => "2026-10-20"): Promise<Play> {
   const said: string[] = [];
   const topics: string[] = [];
+  const tutors: string[] = [];
   const host: EventHost = {
     say: async (msgid) => void said.push(msgid),
     quiz: async (topic, _context, answered) => {
@@ -58,10 +62,11 @@ async function visit(map: WorldMap, world: WorldState, word: () => QuizWord, day
       answered(word());
     },
     changed: () => {},
+    openTutor: async (institute) => void tutors.push(institute),
   };
   const runner = new EventRunner(map.events, world, host, { grade: 3, today: day, talkTo: TALK_TO });
   await runner.start();
-  return { runner, said, topics };
+  return { runner, said, topics, tutors };
 }
 
 const slug = (n: string) => `nagmon_solar_${n}`;
@@ -124,6 +129,25 @@ describe("the six maps' people", () => {
     const after = await visit(station, w, () => "correct");
     await after.runner.talk(slug("astronomer"));
     expect(after.said).toContain("nagmon_solar_station_astronomer_ready");
+  });
+});
+
+describe("the astronomer's lessons", () => {
+  it("talking to her opens the station's lessons, and she is a tutor on the map", async () => {
+    const p = await visit(station, new WorldState(), () => "correct");
+    await p.runner.talk(slug("astronomer"));
+    expect(p.tutors).toEqual(["station"]);
+    expect(TUTOR_NPCS).toContain(slug("astronomer"));
+  });
+
+  it("the station has lessons of four cards and a practice question", async () => {
+    const lessons: Lesson[] = await loadLessons(async (p) => gameJson(p));
+    const mine = lessons.filter((l) => l.institute === "station");
+    expect(mine.length).toBeGreaterThan(0);
+    for (const l of mine) {
+      expect(l.cards).toHaveLength(4);
+      expect(l.practice).not.toBeNull();
+    }
   });
 });
 

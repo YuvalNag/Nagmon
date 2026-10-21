@@ -26,6 +26,7 @@ RUNS = {
     "modify_money",
     "nagmon_daily_count",
     "ask_quiz",
+    "open_tutor",
     "create_npc",
     "char_face",
 }
@@ -263,6 +264,19 @@ def test_the_astronomer_knows_when_all_five_zones_are_done(built):
     assert {c["args"][0] for c in ready["conditions"]} == {
         f"{z['done_variable']}:yes" for z in ZONES
     }
+
+
+def test_the_astronomer_opens_the_stations_lessons(built):
+    d = doc(built, STATION["map"])
+    talk = next(
+        s for n, s in scripts(d) if n == "Talk station/astronomer lessons"
+    )
+    assert [(a["type"], a["args"]) for a in talk["actions"]] == [
+        ("open_tutor", [STATION["id"]])
+    ]
+    assert talk["behaviors"] == [
+        {"type": "talk", "args": ["nagmon_solar_astronomer"]}
+    ]
 
 
 # --------------------------------------------------------------- 3. exits

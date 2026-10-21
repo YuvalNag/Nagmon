@@ -6,7 +6,7 @@ question each of them asks, and one small mission in every zone.
 Only what the app's event interpreter runs is used here
 (``app/src/core/world/events.ts``): ``translated_dialog``,
 ``set_variable``, ``clear_variable``, ``modify_money``,
-``nagmon_daily_count``, ``ask_quiz``; the conditions ``variable_set``,
+``nagmon_daily_count``, ``ask_quiz``, ``open_tutor``; the conditions ``variable_set``,
 ``one_of`` and ``nagmon_daily_below``. The pattern is the one of the
 gardener and the tourist of Hearthrock: a talk event says the facts and
 asks the question; events gated on the answer's variable pay (up to
@@ -395,6 +395,13 @@ def _station() -> list[Spec]:
             short,
             [],
             [_ask(_var(zone, short, "q"))],
+        ),
+        # her lessons: the tutor's room, the station's institute
+        _talk(
+            f"Talk {zone}/{short} lessons",
+            short,
+            [],
+            [("open_tutor", [zone])],
         ),
         *_daily_events(zone, short),
         *_plain(zone, "mila"),
