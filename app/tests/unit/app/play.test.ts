@@ -149,3 +149,25 @@ describe("a child's play", () => {
     expect(saved.eggs).toBeUndefined();
   });
 });
+
+describe("an old save", () => {
+  it("opens with its unknown creatures replaced or dropped, and logs ids only", async () => {
+    const a = await child();
+    await a.profiles.saveWorldDict(a.profile.id, {
+      schema_version: 1,
+      money: 3,
+      variables: { nagmon_intro_done: "yes" },
+      creatures: [{ id: "c1", species: "flaskling", level: 9, xp: 0, name: "דובי" }],
+    });
+    const lines: string[] = [];
+    const warnings: string[] = [];
+    const play = await openPlay({ ...a, fetchJson, log: { info: (m) => lines.push(m), warning: (m) => warnings.push(m), error: () => {} } });
+    expect(play.world.creatures).toHaveLength(1);
+    expect(play.monsters[play.world.creatures[0]!.species]).toBeTruthy();
+    expect(play.world.money).toBe(3);
+    const repair = lines.find((l) => l.startsWith("Old save repaired"));
+    expect(repair).toContain("flaskling");
+    expect(repair).not.toContain("דובי");
+    expect(warnings).toEqual([]);
+  });
+});

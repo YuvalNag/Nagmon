@@ -19,6 +19,7 @@ import { type Facts, facts } from "../core/game/facts";
 import { type Hatched, warmEggs } from "../core/game/eggs";
 import { type Loot, loot } from "../core/game/loot";
 import { type EncounterTables, encounterTables } from "../core/game/encounters";
+import { repairSave } from "../core/game/saveRepair";
 import { type MonsterTable, monsterTable } from "../core/game/monsters";
 import type { QuizSession } from "../core/world/quiz";
 import { fillText } from "../core/world/dialog";
@@ -240,6 +241,10 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   const seed = opts.seed;
   const engine = new LearningEngine(content, learner, seed === null || seed === undefined ? {} : { rng: new PyRandom(seed) });
   const world = WorldState.fromDict(worldDict);
+  const repair = repairSave(world, monsters);
+  if (repair.replaced.length || repair.dropped.length || repair.starter) {
+    log.info(`Old save repaired: replaced ${JSON.stringify(repair.replaced)}, dropped ${JSON.stringify(repair.dropped)}, starter ${repair.starter ?? "none"}`);
+  }
   // a trip file that is not there, or a map not built, is not an error: the zone is "coming soon"
   const trips = await loadTrips(fetchJson, (map) => Promise.resolve(fetchJson(`maps/${map}.json`)).then(() => true, () => false)).catch(() => []);
   log.info(`Play opened: grade ${profile.grade}, ${learner.answers_total} answers so far, ${world.money} coins`);
