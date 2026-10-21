@@ -77,6 +77,18 @@ def test_the_lesson_is_sound(name):
     assert any("א" <= c <= "ת" for c in doc["cards"][0]["he"])
 
 
+CARD_KEYS = {"emoji", "he", "en", "highlight"}
+
+
+@pytest.mark.parametrize("name", sorted(DOCS))
+def test_a_card_has_only_its_own_keys_and_a_picture_code_that_is_text(name):
+    """A comma inside a flow mapping splits a card; a bare 2600 is a number."""
+    doc = DOCS[name]
+    for card in [*doc["cards"], doc["notes"]]:
+        assert set(card) <= CARD_KEYS, (name, card)
+        assert isinstance(card["emoji"], str), (name, card)
+
+
 @pytest.mark.parametrize("name", sorted(DOCS))
 def test_the_practice_is_one_question_with_one_right_answer(name):
     practice = DOCS[name]["practice"]

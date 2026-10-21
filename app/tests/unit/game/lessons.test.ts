@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   addCharges,
@@ -145,5 +146,22 @@ describe("world state", () => {
   it("reads a damaged lessons field as nothing learned", () => {
     const w = WorldState.fromDict({ lessons: { done: ["a", "a", 3], charges: -4, repeatDay: 7 } });
     expect(w.lessons).toEqual({ done: ["a"], repeatDay: null, charges: 0 });
+  });
+});
+
+describe("the three built solar lessons", () => {
+  const read = (p: string) => JSON.parse(readFileSync(`public/game/${p}`, "utf8")) as unknown;
+  it("load whole: three or four cards each, every card with a picture and a line, a note and a practice", async () => {
+    const all = await loadLessons(async (p) => read(p));
+    expect(all.map((l) => l.id)).toEqual(["moon", "solar_system", "stars"]);
+    for (const l of all) {
+      expect(l.cards.length).toBeGreaterThanOrEqual(3);
+      for (const c of l.cards) {
+        expect(c.emoji, `${l.id}: ${c.text}`).toMatch(/^[0-9a-f]+(-[0-9a-f]+)*$/);
+        expect(c.text.length).toBeLessThan(60);
+      }
+      expect(l.note?.emoji).toBeTruthy();
+      expect(l.practice).toMatchObject({ kind: "bank" });
+    }
   });
 });

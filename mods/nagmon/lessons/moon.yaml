@@ -6,9 +6,9 @@ title_he: הירח
 title_en: The Moon
 cards:
 - {emoji: 1f319, he: למה הירח משנה צורה?, en: Why does the Moon change shape?}
-- {emoji: 2600, he: הירח לא מאיר בעצמו. השמש מאירה אותו., en: The Moon makes no light. The Sun lights it., highlight: השמש}
+- {emoji: '2600', he: הירח לא מאיר בעצמו. השמש מאירה אותו., en: The Moon makes no light. The Sun lights it., highlight: השמש}
 - {emoji: 1f315, he: הירח מקיף את כדור הארץ. אנחנו רואים רק את החלק המואר., en: The Moon circles Earth. We see only the lit part.}
-- {emoji: 1f9d1-200d-1f680, he: על הירח אין אוויר, והכבידה חלשה., en: The Moon has no air, and gravity is weak.}
+- {emoji: 1f9d1-200d-1f680, he: 'על הירח אין אוויר, והכבידה חלשה.', en: 'The Moon has no air, and gravity is weak.'}
 notes:
   emoji: 1f311
   he: הירח מקיף את כדור הארץ, ולכן הצד המואר שרואים משתנה.
