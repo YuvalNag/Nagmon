@@ -74,6 +74,8 @@ export class QuizSession {
   private hintUsed = false;
   /** One helper of the Bag for each question. */
   private helperUsed = false;
+  /** The Notes sheet was opened on this question. */
+  private noteUsed = false;
   private started: number;
 
   constructor(
@@ -130,6 +132,15 @@ export class QuizSession {
   /** Whether the hint can still be asked for. */
   get canHint(): boolean {
     return this.phase === "question" && !this.hintUsed;
+  }
+
+  /**
+   * The Notes sheet (a passed lesson's idea card) was opened on this
+   * question: a right answer counts half in the rating, as with a hint
+   * (docs/app/FEATURES.md 4.17). It does not use up the hint.
+   */
+  notesOpened(): void {
+    if (this.phase === "question") this.noteUsed = true;
   }
 
   /** The helpers of the Bag still usable on this question (one for each question), with their counts. */
@@ -246,7 +257,7 @@ export class QuizSession {
     this.outcome = this.engine.submit(q, given, {
       elapsed_s: elapsed,
       context: this.request.context,
-      hint_used: this.hintUsed,
+      hint_used: this.hintUsed || this.noteUsed,
       dont_know: dontKnow,
     });
     this.gaveUp = dontKnow;
