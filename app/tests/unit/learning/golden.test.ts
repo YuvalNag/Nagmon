@@ -4,6 +4,7 @@
  * question, field by field (canonical JSON hashed per skill and context;
  * the hashes come from `golden/make_golden.py`).
  */
+import { writeFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { genContext } from "../../../src/core/learning/generators/common";
 import { PyRandom } from "../../../src/core/learning/random";
@@ -18,7 +19,29 @@ interface Golden {
 
 const G = golden as unknown as Golden;
 
-describe("golden: TS generators replay the Python ones", () => {
+/**
+ * The question-quality work (docs/app/QUESTION_AUDIT.md) changed what some generators draw (the answer's place among
+ * the options, the shape-of-things variant), so the hashes are now this app's own. UPDATE_GOLDEN=1 rewrites them.
+ */
+function regenerate(): void {
+  const lib = library();
+  for (const [sid, entry] of Object.entries(G.skills)) {
+    const skill = lib.skill(sid);
+    entry.hashes = G.contexts.map((extra) => {
+      let h = 0x811c9dc5;
+      for (let seed = 0; seed < G.seeds; seed++) {
+        const ctx = extra === null ? undefined : genContext({ skill_id: skill.id, subject: skill.subject, grade: skill.grade, ...extra });
+        h = fnv1a(canonical(lib.generate(sid, new PyRandom(seed), ctx)) + "\n", h);
+      }
+      return h.toString(16).padStart(8, "0");
+    });
+  }
+  writeFileSync(new URL("./golden/generators.json", import.meta.url), JSON.stringify(G, null, 1) + "\n");
+}
+
+if (process.env["UPDATE_GOLDEN"] === "1") regenerate();
+
+describe("golden: generators keep drawing the same questions for the same seed", () => {
   const lib = library();
   const ported = Object.keys(G.skills).filter((sid) => lib.skills.has(sid));
 

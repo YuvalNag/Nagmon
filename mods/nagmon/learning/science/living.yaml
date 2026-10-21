@@ -170,8 +170,8 @@ items:
   prompt_en: Paper is made from wood. The paper itself is...
   choices:
   - {he: 'דומם, אבל מקורו בצומח', en: 'non-living, but made from a plant'}
-  - {he: יצור חי, en: a living thing}
-  - {he: בעל חיים, en: an animal}
+  - {he: "יצור חי, כי הוא עשוי מעץ", en: "a living thing, because it is made of wood"}
+  - {he: "בעל חיים שמקורו בעץ", en: "an animal that comes from a tree"}
   answer: 0
   explanation_he: הנייר הגיע מעץ שהיה חי, אבל הנייר עצמו לא גדל ולא ניזון. לכן הוא דומם.
   explanation_en: Paper came from a once-living tree, but paper itself doesn't grow or feed, so it is non-living.
@@ -643,8 +643,8 @@ items:
   prompt_he: מה יש בתא צמח ואין בתא של בעל חיים?
   prompt_en: What does a plant cell have that an animal cell doesn't?
   choices:
-  - {he: גרעין, en: a nucleus}
-  - {he: קרום תא, en: a cell membrane}
+  - {he: "גרעין שמכיל את החומר התורשתי", en: "a nucleus that holds the genetic material"}
+  - {he: "קרום תא שעוטף את התא", en: "a cell membrane that wraps the cell"}
   - {he: דופן תא וכלורופלסטים, en: a cell wall and chloroplasts}
   answer: 2
   explanation_he: לתא צמח יש דופן קשיחה שנותנת לו צורה, וכלורופלסטים שבהם מתרחשת הפוטוסינתזה. קרום וגרעין יש בשניהם.

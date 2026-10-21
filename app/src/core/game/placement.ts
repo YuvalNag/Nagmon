@@ -19,10 +19,12 @@ import { QuizSession } from "../world/quiz";
 export const PLACEMENT_QUESTIONS = 6;
 const MAX_GRADE = 9;
 /** How many grades above and below the parent's grade the placement may go. */
-export const UP = 2;
-export const DOWN = 3;
+export const UP = 1;
+export const DOWN = 2;
 /** Skills tried for a subject before it is left out (a kind the screen cannot answer yet). */
 const TRIES = 6;
+/** Draws of one skill, looking for a form that is not true-or-false. */
+const FORM_TRIES = 4;
 
 /** The order subjects are asked in: the young start with Hebrew, the others leave it for last (its content ends at grade 2). */
 export function subjectOrder(grade: number): string[] {
@@ -104,14 +106,21 @@ export class Placement {
       for (const skill of order) {
         // the placement is not a lesson: no worked example
         this.engine.learner.worked_examples.add(skill.id);
-        const session = new QuizSession(
-          this.engine,
-          { topic: skill.id, context: "placement", maxChoices: this.opts.maxChoices },
-          this.opts.clock,
-          () => {},
-          this.opts.warn,
-        );
-        if (session.question) {
+        // a right-or-wrong question is a coin toss: ask another form of the skill, when it has one
+        let session: QuizSession | null = null;
+        for (let t = 0; t < FORM_TRIES; t++) {
+          const s = new QuizSession(
+            this.engine,
+            { topic: skill.id, context: "placement", maxChoices: this.opts.maxChoices },
+            this.opts.clock,
+            () => {},
+            this.opts.warn,
+          );
+          if (!s.question) break;
+          session = s;
+          if (s.question.kind !== "true_false") break;
+        }
+        if (session?.question) {
           this.open = { subject, level: this.level, session };
           return session;
         }

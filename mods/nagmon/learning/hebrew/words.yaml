@@ -773,7 +773,7 @@ items:
   prompt_en: What is the plural of "regel" (leg)?
   choices:
   - {he: רגלות, en: raglot (not a word)}
-  - {he: רגלים, en: raglim (pilgrimage festivals)}
+  - {he: רגליות, en: ragliyot (not a word)}
   - {he: רגליים, en: legs}
   answer: 2
   explanation_he: 'לאיברים שבאים בזוג מוסיפים "יים": רגליים, ידיים, עיניים, אוזניים.'
@@ -834,7 +834,7 @@ items:
   choices:
   - {he: ציפורה, en: tsipora (a name)}
   - {he: ציפורים, en: birds}
-  - {he: ציפורות, en: tsiporot (not a word)}
+  - {he: ציפורי, en: tsipori (not a plural)}
   answer: 1
   explanation_he: '"ציפור" היא מילה בנקבה, אבל ברבים אומרים "ציפורים".'
   explanation_en: '"Tsipor" is feminine, but its plural is "tsiporim".'
@@ -945,9 +945,8 @@ items:
   prompt_he: '"שמש" היא מילה ב...'
   prompt_en: '"Shemesh" (sun) is a ... word'
   choices:
-  - {he: 'זכר: "השמש חם"', en: 'masculine: "the sun is hot"'}
-  - {he: 'נקבה: "השמש חמה"', en: 'feminine: "the sun is hot"'}
-  - {he: אין לה מין, en: it has no gender}
+  - {he: זכר, en: masculine}
+  - {he: נקבה, en: feminine}
   answer: 1
   explanation_he: בעברית של היום אומרים "השמש חמה" ו"השמש זורחת", בנקבה.
   explanation_en: In modern Hebrew we say "hashemesh chama" and "hashemesh zorachat", feminine.
@@ -960,9 +959,8 @@ items:
   prompt_he: '"עיר" היא מילה ב...'
   prompt_en: '"Ir" (city) is a ... word'
   choices:
-  - {he: 'נקבה: "עיר גדולה"', en: 'feminine: "a big city"'}
-  - {he: רבים, en: plural}
-  - {he: 'זכר: "עיר גדול"', en: 'masculine: "a big city"'}
+  - {he: נקבה, en: feminine}
+  - {he: זכר, en: masculine}
   answer: 0
   explanation_he: '"עיר" היא נקבה אף שאין בסופה "ה": אומרים "עיר גדולה". כך גם "ארץ יפה".'
   explanation_en: '"Ir" is feminine though it doesn''t end in "-a": "ir gdola". Same with "eretz yafa".'

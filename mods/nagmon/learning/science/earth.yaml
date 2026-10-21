@@ -191,8 +191,8 @@ items:
   prompt_en: What are clouds made of?
   choices:
   - {he: טיפות מים זעירות או גבישי קרח, en: tiny water droplets or ice crystals, emoji: '2601'}
-  - {he: עשן, en: smoke, emoji: 1f525}
-  - {he: צמר גפן, en: cotton wool, emoji: 1f9f6}
+  - {he: "עשן קל שעולה מהאדמה", en: "light smoke rising from the ground", emoji: 1f525}
+  - {he: "צמר גפן שמרחף באוויר", en: "cotton wool floating in the air", emoji: 1f9f6}
   answer: 0
   explanation_he: עננים נוצרים כשאדי מים באוויר מתקררים ומתעבים לטיפות זעירות. כשהטיפות גדלות, יורד גשם.
   explanation_en: Clouds form when water vapor cools and condenses into tiny droplets. When the drops grow big, it rains.
@@ -246,9 +246,9 @@ items:
   prompt_he: מה זה שרב (חמסין)?
   prompt_en: What is a sharav (hamsin)?
   choices:
-  - {he: שלג בירושלים, en: snow in Jerusalem}
+  - {he: "מזג אוויר קר ושלג על ההרים", en: "cold weather and snow on the mountains"}
   - {he: מזג אוויר חם ויבש עם רוח מהמדבר, en: 'hot, dry weather with wind from the desert'}
-  - {he: גשם חזק בקיץ, en: heavy rain in summer}
+  - {he: "גשם חזק עם רעמים וברקים בקיץ", en: "heavy rain with thunder and lightning in summer"}
   answer: 1
   explanation_he: בשרב נושבת רוח חמה ויבשה מהמדבר, ולעיתים יש אובך. חשוב לשתות הרבה ולהישאר בצל.
   explanation_en: In a sharav hot dry desert winds blow, sometimes with dust haze. Drink plenty and stay in the shade.
@@ -559,9 +559,9 @@ items:
   prompt_he: ממה מורכבת האדמה בגינה?
   prompt_en: What is garden soil made of?
   choices:
-  - {he: רק חול, en: only sand}
+  - {he: "רק חול וסלעים גדולים", en: "only sand and big rocks"}
   - {he: 'גרגרי סלע, שאריות צמחים, מים ואוויר', en: 'rock bits, plant remains, water and air'}
-  - {he: רק מים, en: only water}
+  - {he: "רק מים ושאריות אוכל", en: "only water and food scraps"}
   answer: 1
   explanation_he: הקרקע נוצרת מסלעים שהתפוררו, מעורבבים בשאריות של צמחים ובעלי חיים שהתפרקו (רקבובית), מים ואוויר.
   explanation_en: Soil forms from crumbled rock mixed with decayed plant and animal remains (humus), water and air.
@@ -605,8 +605,8 @@ items:
   prompt_en: What rock is "Jerusalem stone" used in Jerusalem buildings?
   choices:
   - {he: אבן גיר ודולומיט, en: limestone and dolomite}
-  - {he: זכוכית, en: glass}
-  - {he: גרניט, en: granite}
+  - {he: "זכוכית שנמסה והתקררה", en: "glass that melted and cooled"}
+  - {he: "גרניט שחור וכהה", en: "dark black granite"}
   answer: 0
   explanation_he: אבן ירושלמית היא סלע משקע בהיר, בעיקר גיר ודולומיט. בירושלים נהוג לצפות בה בניינים.
   explanation_en: Jerusalem stone is a pale sedimentary rock, mainly limestone and dolomite. Buildings in Jerusalem are traditionally faced with it.
@@ -964,8 +964,8 @@ items:
   prompt_en: What causes most earthquakes?
   choices:
   - {he: תזוזה פתאומית של לוחות בקרום כדור הארץ, en: sudden movement of plates in Earth's crust}
-  - {he: רוחות חזקות, en: strong winds}
-  - {he: גלים בים, en: ocean waves}
+  - {he: "רוחות חזקות שנושבות על ההרים", en: "strong winds blowing on the mountains"}
+  - {he: "גלים גבוהים בים הגדול", en: "high waves in the big sea"}
   answer: 0
   explanation_he: קרום כדור הארץ מחולק ללוחות שזזים לאט. לפעמים הם נתקעים, ואז משתחררים בבת אחת, והאדמה רועדת.
   explanation_en: Earth's crust is split into slowly moving plates. Sometimes they stick, then slip all at once, and the ground shakes.
@@ -1004,9 +1004,9 @@ items:
   prompt_he: מה תפקיד שכבת האוזון באטמוספרה?
   prompt_en: What does the ozone layer in the atmosphere do?
   choices:
-  - {he: מאירה בלילה, en: glows at night}
+  - {he: "מאירה את השמיים בלילה", en: "lights up the sky at night"}
   - {he: מסננת חלק גדול מהקרינה העל-סגולה של השמש, en: filters much of the sun's ultraviolet radiation}
-  - {he: מייצרת גשם, en: makes rain}
+  - {he: "מייצרת גשם ועננים", en: "makes rain and clouds"}
   answer: 1
   explanation_he: האוזון בולע את רוב הקרינה העל-סגולה המזיקה. בלעדיו היו הרבה יותר כוויות ונזקים לעור ולעיניים.
   explanation_en: Ozone absorbs most harmful ultraviolet radiation. Without it there'd be far more sunburn and damage to skin and eyes.

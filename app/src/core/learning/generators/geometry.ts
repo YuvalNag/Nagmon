@@ -211,10 +211,48 @@ register("geometry.size_compare", (rng, _params, ctx) => {
   });
 });
 
+/** Everyday things whose outline is one plain shape (a second way to ask the basic shapes, with no picture). */
+const SHAPE_THINGS: Readonly<Record<string, readonly [string, string][]>> = {
+  circle: [
+    ["גלגל של אופניים", "a bicycle wheel"],
+    ["צלחת", "a plate"],
+    ["פיצה שלמה", "a whole pizza"],
+  ],
+  triangle: [
+    ["פרוסת פיצה", "a slice of pizza"],
+    ["כובע של ליצן", "a clown's hat"],
+    ["דגל משולש", "a pennant flag"],
+  ],
+  rectangle: [
+    ["דלת", "a door"],
+    ["מסך של טלוויזיה", "a TV screen"],
+    ["שוקולד בצורת לוח", "a bar of chocolate"],
+  ],
+  square: [
+    ["משבצת במחברת", "a square in a notebook"],
+    ["אריח ריצוף ריבועי", "a square floor tile"],
+    ["כרית ריבועית", "a square cushion"],
+  ],
+};
+
 register("geometry.shape_identify", (rng, params, ctx) => {
   const names = asList<string>(params["shapes"], ["triangle", "square", "rectangle", "circle"]);
   const shape = rng.choice(names);
   const [he, fig] = SHAPES[shape]!;
+  const things = SHAPE_THINGS[shape];
+  if (things && params["things"] !== false && rng.random() < 0.4) {
+    const [thing, thingEn] = rng.choice(things);
+    const dis = names.filter((s) => s !== shape).map((s) => opt(SHAPES[s]![0], { en: s, tag: CONFUSABLE.has(`${shape}|${s}`) ? "shape_confusion" : null }));
+    return optionsQuestion(rng, ctx, {
+      item_id: `geometry.shape_identify:thing:${shape}:${thingEn}`,
+      prompt_he: `מה הצורה של ${thing}?`,
+      prompt_en: `What shape is ${thingEn}?`,
+      correct: opt(he, { en: shape }),
+      distractors: dis,
+      explanation_he: `הצורה של ${thing} היא ${he}: ${SHAPE_WHY[shape]}.`,
+      difficulty: -0.6 + 0.3 * B(shape === "rectangle" || shape === "square"),
+    });
+  }
   const dis = names.filter((s) => s !== shape).map((s) => opt(SHAPES[s]![0], { en: s, tag: CONFUSABLE.has(`${shape}|${s}`) ? "shape_confusion" : null }));
   return optionsQuestion(rng, ctx, {
     item_id: `geometry.shape_identify:${shape}`,
@@ -273,6 +311,7 @@ register("geometry.polygon_count", (rng, params, ctx) => {
       [2 * n, "vertices_sides_confusion"],
     ],
     explanation_he: `סופרים מסביב ומסמנים מאיפה התחלנו: ${n} ${word}. ` + `במצולע מספר הצלעות שווה למספר הקודקודים.`,
+    min_value: 3,
     difficulty: -0.8 + 0.15 * n,
     figure: fig,
     calc: `${n}`,

@@ -21,211 +21,211 @@
   "english.grammar.articles": {
    "generator": "bank",
    "hashes": [
-    "50f79b50",
-    "50f79b50",
-    "50f79b50",
-    "50f79b50",
-    "50f79b50"
+    "e6824200",
+    "e6824200",
+    "e6824200",
+    "e6824200",
+    "e6824200"
    ]
   },
   "english.grammar.be": {
    "generator": "bank",
    "hashes": [
-    "8e66ff75",
-    "8e66ff75",
-    "8e66ff75",
-    "8e66ff75",
-    "8e66ff75"
+    "6db0c714",
+    "6db0c714",
+    "6db0c714",
+    "6db0c714",
+    "6db0c714"
    ]
   },
   "english.grammar.can": {
    "generator": "bank",
    "hashes": [
-    "6b05c237",
-    "6b05c237",
-    "6b05c237",
-    "6b05c237",
-    "6b05c237"
+    "c53d320b",
+    "c53d320b",
+    "c53d320b",
+    "c53d320b",
+    "c53d320b"
    ]
   },
   "english.grammar.comparatives": {
    "generator": "bank",
    "hashes": [
-    "901ecd89",
-    "901ecd89",
-    "901ecd89",
-    "901ecd89",
-    "901ecd89"
+    "b35dff05",
+    "b35dff05",
+    "b35dff05",
+    "b35dff05",
+    "b35dff05"
    ]
   },
   "english.grammar.conditionals": {
    "generator": "bank",
    "hashes": [
-    "04291de4",
-    "04291de4",
-    "04291de4",
-    "04291de4",
-    "04291de4"
+    "703e74a5",
+    "703e74a5",
+    "703e74a5",
+    "703e74a5",
+    "703e74a5"
    ]
   },
   "english.grammar.countable": {
    "generator": "bank",
    "hashes": [
-    "2df5f42d",
-    "2df5f42d",
-    "2df5f42d",
-    "593165e6",
-    "2df5f42d"
+    "4cf8e9c5",
+    "4cf8e9c5",
+    "4cf8e9c5",
+    "342dd6b9",
+    "4cf8e9c5"
    ]
   },
   "english.grammar.future": {
    "generator": "bank",
    "hashes": [
-    "ea139122",
-    "ea139122",
-    "ea139122",
-    "ea139122",
-    "ea139122"
+    "8aab6fbe",
+    "8aab6fbe",
+    "8aab6fbe",
+    "8aab6fbe",
+    "8aab6fbe"
    ]
   },
   "english.grammar.have_has": {
    "generator": "bank",
    "hashes": [
-    "90a3c9d9",
-    "90a3c9d9",
-    "90a3c9d9",
-    "90a3c9d9",
-    "90a3c9d9"
+    "9f2d7a06",
+    "9f2d7a06",
+    "9f2d7a06",
+    "9f2d7a06",
+    "9f2d7a06"
    ]
   },
   "english.grammar.modals": {
    "generator": "bank",
    "hashes": [
-    "27272b8b",
-    "27272b8b",
-    "27272b8b",
-    "27272b8b",
-    "27272b8b"
+    "0aea30bb",
+    "0aea30bb",
+    "0aea30bb",
+    "0aea30bb",
+    "0aea30bb"
    ]
   },
   "english.grammar.past_irregular": {
    "generator": "bank",
    "hashes": [
-    "717c6571",
-    "717c6571",
-    "717c6571",
-    "717c6571",
-    "717c6571"
+    "a66f1f3c",
+    "a66f1f3c",
+    "a66f1f3c",
+    "a66f1f3c",
+    "a66f1f3c"
    ]
   },
   "english.grammar.past_regular": {
    "generator": "bank",
    "hashes": [
-    "39fad73e",
-    "39fad73e",
-    "39fad73e",
-    "39fad73e",
-    "39fad73e"
+    "0e19a993",
+    "0e19a993",
+    "0e19a993",
+    "0e19a993",
+    "0e19a993"
    ]
   },
   "english.grammar.plurals": {
    "generator": "bank",
    "hashes": [
-    "b68e0fd5",
-    "b68e0fd5",
-    "b68e0fd5",
-    "b68e0fd5",
-    "b68e0fd5"
+    "c61bd004",
+    "c61bd004",
+    "c61bd004",
+    "c61bd004",
+    "c61bd004"
    ]
   },
   "english.grammar.possessives": {
    "generator": "bank",
    "hashes": [
-    "75ecd57c",
-    "75ecd57c",
-    "75ecd57c",
-    "75ecd57c",
-    "75ecd57c"
+    "24117d8a",
+    "24117d8a",
+    "24117d8a",
+    "24117d8a",
+    "24117d8a"
    ]
   },
   "english.grammar.prepositions": {
    "generator": "bank",
    "hashes": [
-    "a2ec6407",
-    "a2ec6407",
-    "a2ec6407",
-    "a2ec6407",
-    "a2ec6407"
+    "6d434fad",
+    "6d434fad",
+    "6d434fad",
+    "6d434fad",
+    "6d434fad"
    ]
   },
   "english.grammar.present_continuous": {
    "generator": "bank",
    "hashes": [
-    "68b6ce00",
-    "68b6ce00",
-    "68b6ce00",
-    "68b6ce00",
-    "68b6ce00"
+    "10c66cd0",
+    "10c66cd0",
+    "10c66cd0",
+    "10c66cd0",
+    "10c66cd0"
    ]
   },
   "english.grammar.present_perfect": {
    "generator": "bank",
    "hashes": [
-    "8286d0a4",
-    "8286d0a4",
-    "8286d0a4",
-    "8286d0a4",
-    "8286d0a4"
+    "4e528579",
+    "4e528579",
+    "4e528579",
+    "4e528579",
+    "4e528579"
    ]
   },
   "english.grammar.present_simple": {
    "generator": "bank",
    "hashes": [
-    "9f2ca07d",
-    "9f2ca07d",
-    "9f2ca07d",
-    "9f2ca07d",
-    "9f2ca07d"
+    "2b93ae70",
+    "2b93ae70",
+    "2b93ae70",
+    "2b93ae70",
+    "2b93ae70"
    ]
   },
   "english.grammar.pronouns": {
    "generator": "bank",
    "hashes": [
-    "f2b445d4",
-    "f2b445d4",
-    "f2b445d4",
-    "f2b445d4",
-    "f2b445d4"
+    "8f5d0f6a",
+    "8f5d0f6a",
+    "8f5d0f6a",
+    "8f5d0f6a",
+    "8f5d0f6a"
    ]
   },
   "english.grammar.question_words": {
    "generator": "bank",
    "hashes": [
-    "3893ebb8",
-    "3893ebb8",
-    "3893ebb8",
-    "3893ebb8",
-    "3893ebb8"
+    "87015669",
+    "87015669",
+    "87015669",
+    "87015669",
+    "87015669"
    ]
   },
   "english.grammar.superlatives": {
    "generator": "bank",
    "hashes": [
-    "b482155e",
-    "b482155e",
-    "b482155e",
-    "b482155e",
-    "b482155e"
+    "8105af96",
+    "8105af96",
+    "8105af96",
+    "8105af96",
+    "8105af96"
    ]
   },
   "english.grammar.there_is_are": {
    "generator": "bank",
    "hashes": [
-    "bb961fc8",
-    "bb961fc8",
-    "bb961fc8",
-    "bb961fc8",
-    "bb961fc8"
+    "a288c1ad",
+    "a288c1ad",
+    "a288c1ad",
+    "a288c1ad",
+    "a288c1ad"
    ]
   },
   "english.phonics.cvc": {
@@ -591,10 +591,10 @@
   "geometry.angle.pairs": {
    "generator": "geometry.angle_pair",
    "hashes": [
-    "a01b6af2",
-    "6692e40c",
-    "a01b6af2",
-    "6692e40c",
+    "5d236954",
+    "cff9a129",
+    "5d236954",
+    "cff9a129",
     "77581ca6"
    ]
   },
@@ -621,90 +621,90 @@
   "geometry.angle.vertical": {
    "generator": "geometry.angle_pair",
    "hashes": [
-    "1ef01029",
-    "b5d6dae0",
-    "1ef01029",
-    "b5d6dae0",
+    "6f512461",
+    "bd51d5a2",
+    "6f512461",
+    "bd51d5a2",
     "7d1d5be2"
    ]
   },
   "geometry.area.grid": {
    "generator": "geometry.grid_area",
    "hashes": [
-    "81fe05c9",
-    "74326638",
-    "81fe05c9",
-    "74326638",
+    "fb62b94c",
+    "1e18edf9",
+    "fb62b94c",
+    "1e18edf9",
     "ba3bb93e"
    ]
   },
   "geometry.area.parallelogram": {
    "generator": "geometry.area",
    "hashes": [
-    "791ae773",
-    "386552a1",
-    "791ae773",
-    "386552a1",
+    "7a570dbf",
+    "bdf446f8",
+    "7a570dbf",
+    "bdf446f8",
     "84a398c9"
    ]
   },
   "geometry.area.rectangle": {
    "generator": "geometry.area",
    "hashes": [
-    "b40485af",
-    "92ef9814",
-    "b40485af",
-    "92ef9814",
+    "3b85046f",
+    "f4fdf408",
+    "3b85046f",
+    "f4fdf408",
     "980bc800"
    ]
   },
   "geometry.area.trapezoid": {
    "generator": "geometry.area",
    "hashes": [
-    "4c4898ed",
-    "7ee2c1a5",
-    "4c4898ed",
-    "7ee2c1a5",
+    "a006e204",
+    "53844fd0",
+    "a006e204",
+    "53844fd0",
     "7a7e1d32"
    ]
   },
   "geometry.area.triangle": {
    "generator": "geometry.area",
    "hashes": [
-    "4ca48e77",
-    "ff6ae5ad",
-    "4ca48e77",
-    "ff6ae5ad",
+    "bf36b0f9",
+    "2d00ec11",
+    "bf36b0f9",
+    "2d00ec11",
     "d941592b"
    ]
   },
   "geometry.circle.area": {
    "generator": "geometry.area",
    "hashes": [
-    "da71c116",
-    "bc5dc1cc",
-    "da71c116",
-    "bc5dc1cc",
+    "302b3879",
+    "30a3d90f",
+    "302b3879",
+    "30a3d90f",
     "4ad5c32c"
    ]
   },
   "geometry.circle.circumference": {
    "generator": "geometry.circumference",
    "hashes": [
-    "9a1479f5",
-    "c22186f4",
-    "9a1479f5",
-    "c22186f4",
+    "7a8bfce8",
+    "bdc4bdea",
+    "7a8bfce8",
+    "bdc4bdea",
     "974d66bc"
    ]
   },
   "geometry.coordinates.distance": {
    "generator": "geometry.coordinates",
    "hashes": [
-    "de840acc",
-    "f03dd0fe",
-    "de840acc",
-    "f03dd0fe",
+    "423a6159",
+    "7ff3244b",
+    "423a6159",
+    "7ff3244b",
     "7bb7b24d"
    ]
   },
@@ -731,100 +731,100 @@
   "geometry.measure.decimals": {
    "generator": "geometry.units",
    "hashes": [
-    "7324cc4e",
-    "ef1368e7",
-    "7324cc4e",
-    "ef1368e7",
+    "ab0a6ed4",
+    "70977f92",
+    "ab0a6ed4",
+    "70977f92",
     "c968fb4c"
    ]
   },
   "geometry.measure.units": {
    "generator": "geometry.units",
    "hashes": [
-    "25fd82eb",
-    "52a278ea",
-    "25fd82eb",
-    "52a278ea",
+    "f5d19169",
+    "16016feb",
+    "f5d19169",
+    "16016feb",
     "6fa4a371"
    ]
   },
   "geometry.measure.units_length": {
    "generator": "geometry.units",
    "hashes": [
-    "4897a072",
-    "88342465",
-    "4897a072",
-    "88342465",
+    "818e300d",
+    "f0d72ebf",
+    "818e300d",
+    "f0d72ebf",
     "71b15506"
    ]
   },
   "geometry.perimeter.formula": {
    "generator": "geometry.perimeter",
    "hashes": [
-    "9ee5245e",
-    "8fe58013",
-    "9ee5245e",
-    "8fe58013",
+    "afe1fda8",
+    "231823bb",
+    "afe1fda8",
+    "231823bb",
     "b72a55c3"
    ]
   },
   "geometry.perimeter.grid": {
    "generator": "geometry.grid_perimeter",
    "hashes": [
-    "aee4fa8d",
-    "a6ef57d0",
-    "aee4fa8d",
-    "a6ef57d0",
+    "17bd5c47",
+    "9ca7d5a1",
+    "17bd5c47",
+    "9ca7d5a1",
     "7c94e5eb"
    ]
   },
   "geometry.perimeter.missing_side": {
    "generator": "geometry.perimeter",
    "hashes": [
-    "86d5e7ae",
-    "1ccbd141",
-    "86d5e7ae",
-    "1ccbd141",
+    "07c12fc2",
+    "41f235bc",
+    "07c12fc2",
+    "41f235bc",
     "721b542d"
    ]
   },
   "geometry.polygon.angle_sum": {
    "generator": "geometry.polygon_angle_sum",
    "hashes": [
-    "760c368a",
-    "8785457f",
-    "760c368a",
-    "8785457f",
+    "30feff8f",
+    "7940c204",
+    "30feff8f",
+    "7940c204",
     "bcd658a3"
    ]
   },
   "geometry.polygon.sides": {
    "generator": "geometry.polygon_count",
    "hashes": [
-    "44dd81dd",
-    "7bf7ddc6",
-    "44dd81dd",
-    "7bf7ddc6",
-    "bed407e5"
+    "918c6380",
+    "3995f4e7",
+    "918c6380",
+    "3995f4e7",
+    "4d5bc26d"
    ]
   },
   "geometry.pythagoras.hyp": {
    "generator": "geometry.pythagoras",
    "hashes": [
-    "e9370397",
-    "456d5cc4",
-    "e9370397",
-    "456d5cc4",
+    "f12720b7",
+    "04b21f4f",
+    "f12720b7",
+    "04b21f4f",
     "ffd20188"
    ]
   },
   "geometry.pythagoras.leg": {
    "generator": "geometry.pythagoras",
    "hashes": [
-    "ab2a563f",
-    "9dd6c568",
-    "ab2a563f",
-    "9dd6c568",
+    "edca6aad",
+    "dde14f32",
+    "edca6aad",
+    "dde14f32",
     "71519d26"
    ]
   },
@@ -841,40 +841,40 @@
   "geometry.shapes.identify": {
    "generator": "geometry.shape_identify",
    "hashes": [
-    "34dec640",
-    "34dec640",
-    "3edb28df",
-    "34dec640",
-    "3edb28df"
+    "e0ce3d17",
+    "e0ce3d17",
+    "b105835d",
+    "e0ce3d17",
+    "b105835d"
    ]
   },
   "geometry.shapes.more": {
    "generator": "geometry.shape_identify",
    "hashes": [
-    "b34a8870",
-    "7157a9bd",
-    "b34a8870",
-    "7157a9bd",
-    "b34a8870"
+    "327bdffb",
+    "5a9e2b3e",
+    "327bdffb",
+    "5a9e2b3e",
+    "327bdffb"
    ]
   },
   "geometry.shapes.quads_basic": {
    "generator": "geometry.shape_identify",
    "hashes": [
-    "238c008a",
-    "ac067d09",
-    "238c008a",
-    "ac067d09",
-    "238c008a"
+    "31da777f",
+    "56e37dcf",
+    "31da777f",
+    "56e37dcf",
+    "31da777f"
    ]
   },
   "geometry.similarity": {
    "generator": "geometry.similarity",
    "hashes": [
-    "7c7f1121",
-    "fbbac732",
-    "7c7f1121",
-    "fbbac732",
+    "7fcf56fa",
+    "589aa819",
+    "7fcf56fa",
+    "589aa819",
     "95261942"
    ]
   },
@@ -891,20 +891,20 @@
   "geometry.solids.count": {
    "generator": "geometry.solid_count",
    "hashes": [
-    "1d57fb82",
-    "26a5a66c",
-    "1d57fb82",
-    "26a5a66c",
+    "449511cf",
+    "1f297bbc",
+    "449511cf",
+    "1f297bbc",
     "79b2fa08"
    ]
   },
   "geometry.solids.euler": {
    "generator": "geometry.euler",
    "hashes": [
-    "f4f06984",
-    "a385cef2",
-    "f4f06984",
-    "a385cef2",
+    "fded3720",
+    "b64548ce",
+    "fded3720",
+    "b64548ce",
     "6a7123d2"
    ]
   },
@@ -951,20 +951,20 @@
   "geometry.triangle.sum": {
    "generator": "geometry.triangle_sum",
    "hashes": [
-    "09f4482c",
-    "7fa18411",
-    "09f4482c",
-    "7fa18411",
+    "c6ebb9f4",
+    "1e603f41",
+    "c6ebb9f4",
+    "1e603f41",
     "fa907613"
    ]
   },
   "geometry.volume.box": {
    "generator": "geometry.volume",
    "hashes": [
-    "8877247f",
-    "dc63f72b",
-    "8877247f",
-    "dc63f72b",
+    "9ebf3d68",
+    "315003b6",
+    "9ebf3d68",
+    "315003b6",
     "685d331e"
    ]
   },
@@ -1041,11 +1041,11 @@
   "hebrew.words.gender": {
    "generator": "bank",
    "hashes": [
-    "2fe935fe",
-    "2fe935fe",
-    "2fe935fe",
-    "2fe935fe",
-    "2fe935fe"
+    "efc1c318",
+    "efc1c318",
+    "efc1c318",
+    "efc1c318",
+    "efc1c318"
    ]
   },
   "hebrew.words.opposites": {
@@ -1061,11 +1061,11 @@
   "hebrew.words.plural": {
    "generator": "bank",
    "hashes": [
-    "c9180c7e",
-    "c9180c7e",
-    "c9180c7e",
-    "c9180c7e",
-    "c9180c7e"
+    "3c6476a8",
+    "3c6476a8",
+    "3c6476a8",
+    "3c6476a8",
+    "3c6476a8"
    ]
   },
   "hebrew.words.rhymes": {
@@ -1081,20 +1081,20 @@
   "logic.analogy.numbers": {
    "generator": "logic.analogy",
    "hashes": [
-    "85ba4f89",
-    "fb16c8ae",
-    "85ba4f89",
-    "fb16c8ae",
+    "0989a04a",
+    "8c910f36",
+    "0989a04a",
+    "8c910f36",
     "15b11c83"
    ]
   },
   "logic.balance.puzzle": {
    "generator": "logic.balance",
    "hashes": [
-    "fb943007",
-    "1e2dbed3",
-    "fb943007",
-    "1e2dbed3",
+    "e391c1d8",
+    "7bc0a6f4",
+    "e391c1d8",
+    "7bc0a6f4",
     "204c9200"
    ]
   },
@@ -1181,30 +1181,30 @@
   "logic.sequence.arithmetic": {
    "generator": "logic.sequence",
    "hashes": [
-    "c5d3f7eb",
-    "e8084775",
-    "c5d3f7eb",
-    "e8084775",
+    "ddd8f338",
+    "afdbfe95",
+    "ddd8f338",
+    "afdbfe95",
     "8fdfe502"
    ]
   },
   "logic.sequence.geometric": {
    "generator": "logic.sequence",
    "hashes": [
-    "37669617",
-    "ddf9635e",
-    "37669617",
-    "ddf9635e",
+    "3e3f5d77",
+    "1ba7fc6b",
+    "3e3f5d77",
+    "1ba7fc6b",
     "224fb4da"
    ]
   },
   "logic.sequence.mixed": {
    "generator": "logic.sequence",
    "hashes": [
-    "99599150",
-    "3d911441",
-    "99599150",
-    "3d911441",
+    "962d294d",
+    "ce1f99d1",
+    "962d294d",
+    "ce1f99d1",
     "61ff3070"
    ]
   },
@@ -1222,119 +1222,119 @@
    "generator": "logic.sudoku",
    "hashes": [
     "790b2bc3",
-    "79451cef",
+    "3ae151cb",
     "790b2bc3",
-    "79451cef",
+    "3ae151cb",
     "d1dd9931"
    ]
   },
   "logic.sudoku.row": {
    "generator": "logic.sudoku",
    "hashes": [
-    "f6c64aa5",
-    "c3477743",
-    "f6c64aa5",
-    "c3477743",
+    "2eb1fcb5",
+    "dd034c9d",
+    "2eb1fcb5",
+    "dd034c9d",
     "a1067981"
    ]
   },
   "math.add.missing_10": {
    "generator": "arithmetic.missing_addend",
    "hashes": [
-    "360d0aad",
-    "5c427aac",
-    "080b2ccd",
-    "5c427aac",
+    "0a34f28b",
+    "6d8a0e9b",
+    "cf846fd5",
+    "6d8a0e9b",
     "c396daab"
    ]
   },
   "math.add.missing_100": {
    "generator": "arithmetic.missing_addend",
    "hashes": [
-    "1a679fc3",
-    "51c4a6de",
-    "1a679fc3",
-    "51c4a6de",
+    "27a9828f",
+    "4d845571",
+    "27a9828f",
+    "4d845571",
     "8c4eb063"
    ]
   },
   "math.add.within_10": {
    "generator": "arithmetic.add",
    "hashes": [
-    "5747190a",
-    "3de904f5",
-    "519ba462",
-    "3de904f5",
+    "23e459d1",
+    "7539862f",
+    "caa9dbaf",
+    "7539862f",
     "6bcc190c"
    ]
   },
   "math.add.within_100": {
    "generator": "arithmetic.add",
    "hashes": [
-    "7bbaaa18",
-    "84934742",
-    "7bbaaa18",
-    "84934742",
+    "01816b82",
+    "153ba8dc",
+    "01816b82",
+    "153ba8dc",
     "f118047c"
    ]
   },
   "math.add.within_1000": {
    "generator": "arithmetic.add",
    "hashes": [
-    "e5fb5cef",
-    "6034dd28",
-    "e5fb5cef",
-    "6034dd28",
+    "5aab88f4",
+    "191445b2",
+    "5aab88f4",
+    "191445b2",
     "d726fc89"
    ]
   },
   "math.add.within_100_no_carry": {
    "generator": "arithmetic.add",
    "hashes": [
-    "dae2aa9d",
-    "e8599999",
-    "dae2aa9d",
-    "e8599999",
+    "629bccdb",
+    "8c0487a0",
+    "629bccdb",
+    "8c0487a0",
     "39928a33"
    ]
   },
   "math.add.within_20": {
    "generator": "arithmetic.add",
    "hashes": [
-    "82a7064a",
-    "6def2ee5",
-    "3ad5b93a",
-    "6def2ee5",
+    "5c26ba0b",
+    "67567e6f",
+    "b8297292",
+    "67567e6f",
     "2f63edda"
    ]
   },
   "math.add.within_5": {
    "generator": "arithmetic.add",
    "hashes": [
-    "d65d8e63",
-    "d65d8e63",
-    "590d6dd6",
-    "d65d8e63",
+    "8926d3b1",
+    "8926d3b1",
+    "a7587e20",
+    "8926d3b1",
     "3bd910e0"
    ]
   },
   "math.algebra.substitute": {
    "generator": "algebra.substitute",
    "hashes": [
-    "6ea9af45",
-    "52c36501",
-    "6ea9af45",
-    "52c36501",
+    "23edd30f",
+    "d7a6d309",
+    "23edd30f",
+    "d7a6d309",
     "1079d2be"
    ]
   },
   "math.average": {
    "generator": "arithmetic.average",
    "hashes": [
-    "250d9935",
-    "44990329",
-    "250d9935",
-    "44990329",
+    "48d290bc",
+    "96b00d94",
+    "48d290bc",
+    "96b00d94",
     "946ab69d"
    ]
   },
@@ -1371,40 +1371,40 @@
   "math.count.objects_10": {
    "generator": "arithmetic.count",
    "hashes": [
-    "52bf4933",
-    "52bf4933",
-    "849a4a98",
-    "52bf4933",
+    "1b69fd89",
+    "1b69fd89",
+    "9563288a",
+    "1b69fd89",
     "830fe423"
    ]
   },
   "math.count.objects_20": {
    "generator": "arithmetic.count",
    "hashes": [
-    "1ab4f1ed",
-    "3a706476",
-    "2d807596",
-    "3a706476",
+    "7cd7ff30",
+    "bb4f3e7e",
+    "9933a406",
+    "bb4f3e7e",
     "28dc3a0e"
    ]
   },
   "math.count.objects_5": {
    "generator": "arithmetic.count",
    "hashes": [
-    "0161407a",
-    "0161407a",
-    "11315301",
-    "0161407a",
+    "1e6cb04a",
+    "1e6cb04a",
+    "aa67eddb",
+    "1e6cb04a",
     "720c850e"
    ]
   },
   "math.decimal.add_sub": {
    "generator": "decimals.addsub",
    "hashes": [
-    "2f9ed8dc",
-    "aee5b70c",
-    "2f9ed8dc",
-    "aee5b70c",
+    "b1c1ddf6",
+    "662f5a71",
+    "b1c1ddf6",
+    "662f5a71",
     "408b6b80"
    ]
   },
@@ -1421,50 +1421,50 @@
   "math.decimal.mul10": {
    "generator": "decimals.mul_pow10",
    "hashes": [
-    "c1026d54",
-    "944797a5",
-    "c1026d54",
-    "944797a5",
+    "7b185bac",
+    "0dcd5e2e",
+    "7b185bac",
+    "0dcd5e2e",
     "a0d144f9"
    ]
   },
   "math.decimal.mul_div": {
    "generator": "decimals.muldiv",
    "hashes": [
-    "35399987",
-    "e6b346f1",
-    "35399987",
-    "e6b346f1",
+    "594621bb",
+    "332564bb",
+    "594621bb",
+    "332564bb",
     "7954a9a3"
    ]
   },
   "math.div.facts": {
    "generator": "arithmetic.div_facts",
    "hashes": [
-    "67e94d01",
-    "879e9544",
-    "67e94d01",
-    "879e9544",
+    "eb45f3f5",
+    "4dea1b53",
+    "eb45f3f5",
+    "4dea1b53",
     "714c9473"
    ]
   },
   "math.div.long": {
    "generator": "arithmetic.div_long",
    "hashes": [
-    "7df45e3e",
-    "3e77ba70",
-    "7df45e3e",
-    "3e77ba70",
+    "4af366df",
+    "d3d95829",
+    "4af366df",
+    "d3d95829",
     "1f4b36f3"
    ]
   },
   "math.div.remainder": {
    "generator": "arithmetic.div_remainder",
    "hashes": [
-    "7ba4d427",
-    "5133c4bf",
-    "7ba4d427",
-    "5133c4bf",
+    "9b932fb9",
+    "99a610b6",
+    "9b932fb9",
+    "99a610b6",
     "358d8fdb"
    ]
   },
@@ -1481,40 +1481,40 @@
   "math.equation.both_sides": {
    "generator": "algebra.equation",
    "hashes": [
-    "b3b150bc",
-    "313bdd86",
-    "b3b150bc",
-    "313bdd86",
+    "8c1f50c0",
+    "ed433750",
+    "8c1f50c0",
+    "ed433750",
     "684c5a5c"
    ]
   },
   "math.equation.negatives": {
    "generator": "algebra.equation",
    "hashes": [
-    "f314fe2e",
-    "c358df6a",
-    "f314fe2e",
-    "c358df6a",
+    "d06c2e7f",
+    "554200dc",
+    "d06c2e7f",
+    "554200dc",
     "72e17cf6"
    ]
   },
   "math.equation.one_step": {
    "generator": "algebra.equation",
    "hashes": [
-    "cabde17a",
-    "be7bd666",
-    "cabde17a",
-    "be7bd666",
+    "b0400681",
+    "6db027a2",
+    "b0400681",
+    "6db027a2",
     "736d968c"
    ]
   },
   "math.equation.two_step": {
    "generator": "algebra.equation",
    "hashes": [
-    "10ba8cc4",
-    "a6cf2af9",
-    "10ba8cc4",
-    "a6cf2af9",
+    "2afe19e8",
+    "62617e67",
+    "2afe19e8",
+    "62617e67",
     "8d125fab"
    ]
   },
@@ -1541,20 +1541,20 @@
   "math.fraction.add_diff": {
    "generator": "fractions.addsub",
    "hashes": [
-    "3ba5f930",
-    "12e14cb9",
-    "3ba5f930",
-    "12e14cb9",
+    "95ee75d4",
+    "4679f420",
+    "95ee75d4",
+    "4679f420",
     "42894df3"
    ]
   },
   "math.fraction.add_same": {
    "generator": "fractions.addsub",
    "hashes": [
-    "01d5c079",
-    "01688ecf",
-    "01d5c079",
-    "01688ecf",
+    "0b077343",
+    "7aa46b32",
+    "0b077343",
+    "7aa46b32",
     "60c28efc"
    ]
   },
@@ -1571,10 +1571,10 @@
   "math.fraction.equivalent": {
    "generator": "fractions.equivalent",
    "hashes": [
-    "76489f8c",
-    "af2a5924",
-    "76489f8c",
-    "af2a5924",
+    "7eae9594",
+    "446e3815",
+    "7eae9594",
+    "446e3815",
     "df2e7950"
    ]
   },
@@ -1591,140 +1591,140 @@
   "math.fraction.mul_whole": {
    "generator": "fractions.mul_whole",
    "hashes": [
-    "a6d23ad2",
-    "e1943f01",
-    "a6d23ad2",
-    "e1943f01",
+    "058d6cc0",
+    "048b73c6",
+    "058d6cc0",
+    "048b73c6",
     "3ffb4739"
    ]
   },
   "math.fraction.of_quantity": {
    "generator": "fractions.of_quantity",
    "hashes": [
-    "b4432f6f",
-    "04654163",
-    "b4432f6f",
-    "04654163",
+    "f9c409a7",
+    "fb93114a",
+    "f9c409a7",
+    "fb93114a",
     "98db3f3f"
    ]
   },
   "math.function.linear_value": {
    "generator": "algebra.linear",
    "hashes": [
-    "e621b85a",
-    "4530eaac",
-    "e621b85a",
-    "4530eaac",
+    "3a3fd698",
+    "75febf71",
+    "3a3fd698",
+    "75febf71",
     "56f89611"
    ]
   },
   "math.function.slope": {
    "generator": "algebra.linear",
    "hashes": [
-    "a013fde2",
-    "fcc9101d",
-    "a013fde2",
-    "fcc9101d",
+    "b7aaef3b",
+    "d5e1e1ae",
+    "b7aaef3b",
+    "d5e1e1ae",
     "65d7a7f3"
    ]
   },
   "math.money.change": {
    "generator": "arithmetic.money_change",
    "hashes": [
-    "a381fe3d",
-    "a66a79d2",
-    "a381fe3d",
-    "a66a79d2",
+    "5877611d",
+    "2027620f",
+    "5877611d",
+    "2027620f",
     "ae09d105"
    ]
   },
   "math.money.change_20": {
    "generator": "arithmetic.money_change",
    "hashes": [
-    "f6644e7b",
-    "009d5fcd",
-    "f6644e7b",
-    "009d5fcd",
+    "655ff70b",
+    "2580c1d8",
+    "655ff70b",
+    "2580c1d8",
     "7bff4d6d"
    ]
   },
   "math.money.coins": {
    "generator": "arithmetic.money_count",
    "hashes": [
-    "6b23dad7",
-    "edd29ef0",
-    "7b9f0b3f",
-    "edd29ef0",
+    "91fad0d0",
+    "36e0488e",
+    "61d59ee0",
+    "36e0488e",
     "32b41ecf"
    ]
   },
   "math.mul.facts_all": {
    "generator": "arithmetic.mul_facts",
    "hashes": [
-    "4dbbe0ad",
-    "851c2c24",
-    "4dbbe0ad",
-    "851c2c24",
+    "8271cffa",
+    "c76fd96d",
+    "8271cffa",
+    "c76fd96d",
     "165560c4"
    ]
   },
   "math.mul.facts_basic": {
    "generator": "arithmetic.mul_facts",
    "hashes": [
-    "1629e5d7",
-    "d1d47133",
-    "1629e5d7",
-    "d1d47133",
+    "4ac3aa1a",
+    "cbae2fdd",
+    "4ac3aa1a",
+    "cbae2fdd",
     "33986288"
    ]
   },
   "math.mul.intro": {
    "generator": "arithmetic.mul_facts",
    "hashes": [
-    "5fe2f28d",
-    "c8e36197",
-    "5fe2f28d",
-    "c8e36197",
+    "2a5cddbc",
+    "9b0dd7e9",
+    "2a5cddbc",
+    "9b0dd7e9",
     "48373d2a"
    ]
   },
   "math.mul.multi_digit": {
    "generator": "arithmetic.mul_multi",
    "hashes": [
-    "61bcba8c",
-    "ecc08544",
-    "61bcba8c",
-    "ecc08544",
+    "80802f93",
+    "3fcc39fe",
+    "80802f93",
+    "3fcc39fe",
     "29330940"
    ]
   },
   "math.mul.three_by_one": {
    "generator": "arithmetic.mul_multi",
    "hashes": [
-    "5ce786b8",
-    "d03bf63a",
-    "5ce786b8",
-    "d03bf63a",
+    "5bd1b335",
+    "047d5999",
+    "5bd1b335",
+    "047d5999",
     "1bab059d"
    ]
   },
   "math.mul.two_by_two": {
    "generator": "arithmetic.mul_multi",
    "hashes": [
-    "fa97959d",
-    "d5ea73cf",
-    "fa97959d",
-    "d5ea73cf",
+    "a842e3dc",
+    "7f840f45",
+    "a842e3dc",
+    "7f840f45",
     "d4a98763"
    ]
   },
   "math.negative.add_sub": {
    "generator": "algebra.negative",
    "hashes": [
-    "e43760a9",
-    "bdebab6e",
-    "e43760a9",
-    "bdebab6e",
+    "28990e05",
+    "1cdfe5a5",
+    "28990e05",
+    "1cdfe5a5",
     "5311ae79"
    ]
   },
@@ -1741,170 +1741,170 @@
   "math.negative.mul_div": {
    "generator": "algebra.negative",
    "hashes": [
-    "465ad432",
-    "e4495fb5",
-    "465ad432",
-    "e4495fb5",
+    "6cbc68b5",
+    "bde5484b",
+    "6cbc68b5",
+    "bde5484b",
     "294999d4"
    ]
   },
   "math.number.large": {
    "generator": "arithmetic.place_value",
    "hashes": [
-    "87005955",
-    "f5bb31ff",
-    "87005955",
-    "f5bb31ff",
+    "80c84ac6",
+    "08a3ca78",
+    "80c84ac6",
+    "08a3ca78",
     "7724b77d"
    ]
   },
   "math.number.recognize_10": {
    "generator": "arithmetic.recognize",
    "hashes": [
-    "22700ae3",
-    "22700ae3",
-    "18bc3479",
-    "22700ae3",
-    "18bc3479"
+    "9fd32b52",
+    "9fd32b52",
+    "1f6ba5d2",
+    "9fd32b52",
+    "1f6ba5d2"
    ]
   },
   "math.number.to_100": {
    "generator": "arithmetic.neighbors",
    "hashes": [
-    "1d74562b",
-    "a64d88f8",
-    "0983e5d5",
-    "a64d88f8",
+    "7ef671dd",
+    "117a6f99",
+    "3c61f511",
+    "117a6f99",
     "486cc18a"
    ]
   },
   "math.number.to_1000": {
    "generator": "arithmetic.place_value",
    "hashes": [
-    "97b44f4b",
-    "034f9782",
-    "97b44f4b",
-    "034f9782",
+    "b6f2ec2d",
+    "5afd0fed",
+    "b6f2ec2d",
+    "5afd0fed",
     "fcd24884"
    ]
   },
   "math.number.to_10000": {
    "generator": "arithmetic.place_value",
    "hashes": [
-    "d0d135da",
-    "14785670",
-    "d0d135da",
-    "14785670",
+    "2826df67",
+    "76e8683d",
+    "2826df67",
+    "76e8683d",
     "cd9d4451"
    ]
   },
   "math.order_ops.basic": {
    "generator": "arithmetic.order_ops",
    "hashes": [
-    "3ccf5fab",
-    "57a9beac",
-    "3ccf5fab",
-    "57a9beac",
+    "ef6c4d0a",
+    "5ebf8d88",
+    "ef6c4d0a",
+    "5ebf8d88",
     "2d62c71d"
    ]
   },
   "math.order_ops.parens": {
    "generator": "arithmetic.order_ops",
    "hashes": [
-    "b9538a93",
-    "1451bb43",
-    "b9538a93",
-    "1451bb43",
+    "1c38068d",
+    "9dcba33f",
+    "1c38068d",
+    "9dcba33f",
     "915f80a9"
    ]
   },
   "math.patterns.skip_count": {
    "generator": "arithmetic.pattern",
    "hashes": [
-    "260e1c00",
-    "99d8883f",
-    "260e1c00",
-    "99d8883f",
+    "384c1187",
+    "68a8f6f6",
+    "384c1187",
+    "68a8f6f6",
     "3769675d"
    ]
   },
   "math.percent.change": {
    "generator": "percent.change",
    "hashes": [
-    "308a2573",
-    "e4b0174f",
-    "308a2573",
-    "e4b0174f",
+    "0c856120",
+    "85a9656d",
+    "0c856120",
+    "85a9656d",
     "9edfa27c"
    ]
   },
   "math.percent.discount": {
    "generator": "percent.discount",
    "hashes": [
-    "1a13f930",
-    "038e6764",
-    "1a13f930",
-    "038e6764",
+    "dbeea48d",
+    "2011e666",
+    "dbeea48d",
+    "2011e666",
     "56dd8b1a"
    ]
   },
   "math.percent.of": {
    "generator": "percent.of",
    "hashes": [
-    "78452d5a",
-    "4bbbe973",
-    "78452d5a",
-    "4bbbe973",
+    "f6404fdd",
+    "778b1652",
+    "f6404fdd",
+    "778b1652",
     "13ddbe6d"
    ]
   },
   "math.place_value.tens_ones": {
    "generator": "arithmetic.place_value",
    "hashes": [
-    "42e08258",
-    "7c47a895",
-    "4dcfee41",
-    "7c47a895",
+    "c489a249",
+    "74cec45b",
+    "1a841481",
+    "74cec45b",
     "c9fa37d0"
    ]
   },
   "math.powers.basic": {
    "generator": "algebra.powers",
    "hashes": [
-    "8d6e2604",
-    "67cd73bd",
-    "8d6e2604",
-    "67cd73bd",
+    "111f7f2b",
+    "8ebd0d47",
+    "111f7f2b",
+    "8ebd0d47",
     "3e00a06e"
    ]
   },
   "math.powers.laws": {
    "generator": "algebra.powers",
    "hashes": [
-    "77de708f",
-    "4878e071",
-    "77de708f",
-    "4878e071",
+    "bb7987ff",
+    "aad1d9b7",
+    "bb7987ff",
+    "aad1d9b7",
     "5e467bc3"
    ]
   },
   "math.powers.scientific": {
    "generator": "algebra.powers",
    "hashes": [
-    "654344d9",
-    "a0ad41be",
-    "654344d9",
-    "a0ad41be",
+    "41e69e15",
+    "d6729008",
+    "41e69e15",
+    "d6729008",
     "998edfd2"
    ]
   },
   "math.ratio.share": {
    "generator": "ratio.share",
    "hashes": [
-    "8b36a92f",
-    "156b299f",
-    "8b36a92f",
-    "156b299f",
+    "dc8957ed",
+    "303606a7",
+    "dc8957ed",
+    "303606a7",
     "2f870e31"
    ]
   },
@@ -1921,80 +1921,80 @@
   "math.roots.square": {
    "generator": "algebra.powers",
    "hashes": [
-    "e3e34078",
-    "3b27b19c",
-    "e3e34078",
-    "3b27b19c",
+    "c6aba285",
+    "5ee732f5",
+    "c6aba285",
+    "5ee732f5",
     "9e523070"
    ]
   },
   "math.round.hundreds": {
    "generator": "arithmetic.rounding",
    "hashes": [
-    "03383e04",
-    "51152b37",
-    "03383e04",
-    "51152b37",
+    "36b9b02d",
+    "383576d0",
+    "36b9b02d",
+    "383576d0",
     "fe025989"
    ]
   },
   "math.round.tens": {
    "generator": "arithmetic.rounding",
    "hashes": [
-    "51b14232",
-    "ca630f37",
-    "51b14232",
-    "ca630f37",
+    "4e4993ae",
+    "55f3744a",
+    "4e4993ae",
+    "55f3744a",
     "442d1fb8"
    ]
   },
   "math.sub.within_10": {
    "generator": "arithmetic.sub",
    "hashes": [
-    "d776574c",
-    "60a3c2c1",
-    "f79ba404",
-    "60a3c2c1",
+    "7ff9661a",
+    "4668fe00",
+    "c8ec6557",
+    "4668fe00",
     "04be1b8b"
    ]
   },
   "math.sub.within_100": {
    "generator": "arithmetic.sub",
    "hashes": [
-    "f48f4ca8",
-    "cee339d9",
-    "f48f4ca8",
-    "cee339d9",
+    "cc85ccc8",
+    "d989bcb0",
+    "cc85ccc8",
+    "d989bcb0",
     "c8de6b58"
    ]
   },
   "math.sub.within_1000": {
    "generator": "arithmetic.sub",
    "hashes": [
-    "ce18a9e3",
-    "d74d5170",
-    "ce18a9e3",
-    "d74d5170",
+    "4e89d298",
+    "6a5145ff",
+    "4e89d298",
+    "6a5145ff",
     "9fce5cf1"
    ]
   },
   "math.sub.within_100_no_borrow": {
    "generator": "arithmetic.sub",
    "hashes": [
-    "a459d935",
-    "7955c687",
-    "a459d935",
-    "7955c687",
+    "834b3616",
+    "420cf33b",
+    "834b3616",
+    "420cf33b",
     "29318077"
    ]
   },
   "math.sub.within_20": {
    "generator": "arithmetic.sub",
    "hashes": [
-    "a39a9639",
-    "91fd3542",
-    "8543350e",
-    "91fd3542",
+    "88db2349",
+    "81fb0ee6",
+    "5ebdceb8",
+    "81fb0ee6",
     "c16e2ee7"
    ]
   },
@@ -2021,51 +2021,51 @@
   "math.wp.add_sub_20": {
    "generator": "word.problem",
    "hashes": [
-    "62a1f792",
-    "bc84832c",
-    "3c8e9600",
-    "bc84832c",
+    "066f26ed",
+    "c57f9580",
+    "963666c1",
+    "c57f9580",
     "a48c7af2"
    ]
   },
   "math.wp.mul_div": {
    "generator": "word.problem",
    "hashes": [
-    "563c49d2",
-    "07a3cddb",
-    "563c49d2",
-    "07a3cddb",
+    "805985eb",
+    "c178acc9",
+    "805985eb",
+    "c178acc9",
     "ba0c6b58"
    ]
   },
   "math.wp.multi_step": {
    "generator": "word.problem",
    "hashes": [
-    "51de5542",
-    "b875678f",
-    "51de5542",
-    "b875678f",
+    "ed517bcc",
+    "d2fdf23e",
+    "ed517bcc",
+    "d2fdf23e",
     "ca762f2c"
    ]
   },
   "math.wp.percent": {
    "generator": "word.problem",
    "hashes": [
-    "436dd5e9",
-    "b4aac685",
-    "436dd5e9",
-    "b4aac685",
+    "5120afc6",
+    "3d5394b2",
+    "5120afc6",
+    "3d5394b2",
     "8ceb99e3"
    ]
   },
   "science.animals.adaptations": {
    "generator": "bank",
    "hashes": [
-    "b68d7606",
-    "b68d7606",
-    "b68d7606",
-    "b68d7606",
-    "b68d7606"
+    "2ed7d724",
+    "2ed7d724",
+    "2ed7d724",
+    "2ed7d724",
+    "2ed7d724"
    ]
   },
   "science.animals.foodchains": {
@@ -2091,11 +2091,11 @@
   "science.animals.habitats": {
    "generator": "bank",
    "hashes": [
-    "49cfb6d3",
-    "49cfb6d3",
-    "49cfb6d3",
-    "49cfb6d3",
-    "49cfb6d3"
+    "7a50e36f",
+    "7a50e36f",
+    "7a50e36f",
+    "7a50e36f",
+    "7a50e36f"
    ]
   },
   "science.animals.israel": {
@@ -2111,21 +2111,21 @@
   "science.animals.lifecycles": {
    "generator": "bank",
    "hashes": [
-    "c354c925",
-    "c354c925",
-    "c354c925",
-    "c354c925",
-    "c354c925"
+    "61480999",
+    "61480999",
+    "61480999",
+    "61480999",
+    "61480999"
    ]
   },
   "science.body.advanced": {
    "generator": "bank",
    "hashes": [
-    "d35ff1f4",
-    "d35ff1f4",
-    "d35ff1f4",
-    "d35ff1f4",
-    "d35ff1f4"
+    "80abc9e1",
+    "80abc9e1",
+    "80abc9e1",
+    "80abc9e1",
+    "80abc9e1"
    ]
   },
   "science.body.health": {
@@ -2141,11 +2141,11 @@
   "science.body.nutrition": {
    "generator": "bank",
    "hashes": [
-    "a216f9cc",
-    "a216f9cc",
-    "a216f9cc",
-    "a216f9cc",
-    "a216f9cc"
+    "aad125ee",
+    "aad125ee",
+    "aad125ee",
+    "aad125ee",
+    "aad125ee"
    ]
   },
   "science.body.parts": {
@@ -2171,11 +2171,11 @@
   "science.body.systems": {
    "generator": "bank",
    "hashes": [
-    "4beb6f1c",
-    "4beb6f1c",
-    "4beb6f1c",
-    "4beb6f1c",
-    "4beb6f1c"
+    "76b8b5da",
+    "76b8b5da",
+    "76b8b5da",
+    "76b8b5da",
+    "76b8b5da"
    ]
   },
   "science.earth.israel": {
@@ -2191,11 +2191,11 @@
   "science.earth.rocks_soil": {
    "generator": "bank",
    "hashes": [
-    "2060580a",
-    "2060580a",
-    "2060580a",
-    "2060580a",
-    "2060580a"
+    "90b9db47",
+    "90b9db47",
+    "90b9db47",
+    "90b9db47",
+    "90b9db47"
    ]
   },
   "science.earth.seasons": {
@@ -2211,11 +2211,11 @@
   "science.earth.structure": {
    "generator": "bank",
    "hashes": [
-    "3b726d1e",
-    "3b726d1e",
-    "3b726d1e",
-    "3b726d1e",
-    "3b726d1e"
+    "ca06ed6a",
+    "ca06ed6a",
+    "ca06ed6a",
+    "ca06ed6a",
+    "ca06ed6a"
    ]
   },
   "science.earth.water_cycle": {
@@ -2231,31 +2231,31 @@
   "science.earth.weather": {
    "generator": "bank",
    "hashes": [
-    "6a11924b",
-    "6a11924b",
-    "6a11924b",
-    "6a11924b",
-    "6a11924b"
+    "6db66c3e",
+    "6db66c3e",
+    "6db66c3e",
+    "6db66c3e",
+    "6db66c3e"
    ]
   },
   "science.ecology.ecosystems": {
    "generator": "bank",
    "hashes": [
-    "3d95c82c",
-    "3d95c82c",
-    "3d95c82c",
-    "3d95c82c",
-    "3d95c82c"
+    "b939b62c",
+    "b939b62c",
+    "b939b62c",
+    "b939b62c",
+    "b939b62c"
    ]
   },
   "science.ecology.environment": {
    "generator": "bank",
    "hashes": [
-    "2422bb5b",
-    "2422bb5b",
-    "2422bb5b",
-    "2422bb5b",
-    "2422bb5b"
+    "4efa3d74",
+    "4efa3d74",
+    "4efa3d74",
+    "4efa3d74",
+    "4efa3d74"
    ]
   },
   "science.ecology.recycling": {
@@ -2281,31 +2281,31 @@
   "science.elements.cards": {
    "generator": "bank",
    "hashes": [
-    "bb307649",
-    "bb307649",
-    "bb307649",
-    "bb307649",
-    "bb307649"
+    "330a490b",
+    "330a490b",
+    "330a490b",
+    "330a490b",
+    "330a490b"
    ]
   },
   "science.energy.electricity": {
    "generator": "bank",
    "hashes": [
-    "118dacda",
-    "118dacda",
-    "118dacda",
-    "118dacda",
-    "118dacda"
+    "2434a13a",
+    "2434a13a",
+    "2434a13a",
+    "2434a13a",
+    "2434a13a"
    ]
   },
   "science.energy.forces": {
    "generator": "bank",
    "hashes": [
-    "a04fac2a",
-    "a04fac2a",
-    "a04fac2a",
-    "a04fac2a",
-    "a04fac2a"
+    "c1952f40",
+    "c1952f40",
+    "c1952f40",
+    "c1952f40",
+    "c1952f40"
    ]
   },
   "science.energy.forms": {
@@ -2341,21 +2341,21 @@
   "science.energy.machines": {
    "generator": "bank",
    "hashes": [
-    "c506c0c3",
-    "c506c0c3",
-    "c506c0c3",
-    "c506c0c3",
-    "c506c0c3"
+    "02258d20",
+    "02258d20",
+    "02258d20",
+    "02258d20",
+    "02258d20"
    ]
   },
   "science.energy.magnets": {
    "generator": "bank",
    "hashes": [
-    "305cd257",
-    "305cd257",
-    "305cd257",
-    "305cd257",
-    "305cd257"
+    "283c6f29",
+    "283c6f29",
+    "283c6f29",
+    "283c6f29",
+    "283c6f29"
    ]
   },
   "science.energy.motion": {
@@ -2381,21 +2381,21 @@
   "science.living.basic": {
    "generator": "bank",
    "hashes": [
-    "253f8672",
-    "253f8672",
-    "253f8672",
-    "253f8672",
-    "253f8672"
+    "2674eacf",
+    "2674eacf",
+    "2674eacf",
+    "2674eacf",
+    "2674eacf"
    ]
   },
   "science.living.cells": {
    "generator": "bank",
    "hashes": [
-    "d657d8c5",
-    "d657d8c5",
-    "d657d8c5",
-    "fdbbb4c0",
-    "d657d8c5"
+    "995aeb94",
+    "995aeb94",
+    "995aeb94",
+    "7e6543df",
+    "995aeb94"
    ]
   },
   "science.living.classify": {
@@ -2421,11 +2421,11 @@
   "science.matter.changes": {
    "generator": "bank",
    "hashes": [
-    "3cd30506",
-    "3cd30506",
-    "3cd30506",
-    "99cdf23f",
-    "3cd30506"
+    "2effa56a",
+    "2effa56a",
+    "2effa56a",
+    "0da57783",
+    "2effa56a"
    ]
   },
   "science.matter.density": {
@@ -2441,11 +2441,11 @@
   "science.matter.materials": {
    "generator": "bank",
    "hashes": [
-    "e200a8e9",
-    "e200a8e9",
-    "e200a8e9",
-    "e200a8e9",
-    "e200a8e9"
+    "6831d22e",
+    "6831d22e",
+    "6831d22e",
+    "6831d22e",
+    "6831d22e"
    ]
   },
   "science.matter.mixtures": {
@@ -2461,11 +2461,11 @@
   "science.matter.particles": {
    "generator": "bank",
    "hashes": [
-    "899d5c9d",
-    "899d5c9d",
-    "899d5c9d",
-    "899d5c9d",
-    "899d5c9d"
+    "666d3895",
+    "666d3895",
+    "666d3895",
+    "666d3895",
+    "666d3895"
    ]
   },
   "science.matter.reactions": {
@@ -2541,21 +2541,21 @@
   "science.space.day_night": {
    "generator": "bank",
    "hashes": [
-    "ae38f744",
-    "ae38f744",
-    "ae38f744",
-    "8500af30",
-    "ae38f744"
+    "92770692",
+    "92770692",
+    "92770692",
+    "d4acfa5e",
+    "92770692"
    ]
   },
   "science.space.moon": {
    "generator": "bank",
    "hashes": [
-    "67d5d33a",
-    "67d5d33a",
-    "67d5d33a",
-    "0b82f1e0",
-    "67d5d33a"
+    "42d1fc0a",
+    "42d1fc0a",
+    "42d1fc0a",
+    "cade1558",
+    "42d1fc0a"
    ]
   },
   "science.space.solar_system": {
@@ -2571,51 +2571,51 @@
   "science.space.stars": {
    "generator": "bank",
    "hashes": [
-    "40673474",
-    "40673474",
-    "40673474",
-    "591e2044",
-    "40673474"
+    "0d9634e6",
+    "0d9634e6",
+    "0d9634e6",
+    "2d4a9f36",
+    "0d9634e6"
    ]
   },
   "science.tech.coding": {
    "generator": "bank",
    "hashes": [
-    "41114a28",
-    "41114a28",
-    "41114a28",
-    "41114a28",
-    "41114a28"
+    "42be9d68",
+    "42be9d68",
+    "42be9d68",
+    "42be9d68",
+    "42be9d68"
    ]
   },
   "science.tech.how": {
    "generator": "bank",
    "hashes": [
-    "76c46fc2",
-    "76c46fc2",
-    "76c46fc2",
-    "76c46fc2",
-    "76c46fc2"
+    "b9bb9632",
+    "b9bb9632",
+    "b9bb9632",
+    "b9bb9632",
+    "b9bb9632"
    ]
   },
   "science.tech.inventions": {
    "generator": "bank",
    "hashes": [
-    "5eeba640",
-    "5eeba640",
-    "5eeba640",
-    "5eeba640",
-    "5eeba640"
+    "5e195f28",
+    "5e195f28",
+    "5e195f28",
+    "5e195f28",
+    "5e195f28"
    ]
   },
   "science.tech.safety": {
    "generator": "bank",
    "hashes": [
-    "575cf911",
-    "575cf911",
-    "575cf911",
-    "575cf911",
-    "575cf911"
+    "a678e09b",
+    "a678e09b",
+    "a678e09b",
+    "a678e09b",
+    "a678e09b"
    ]
   }
  }

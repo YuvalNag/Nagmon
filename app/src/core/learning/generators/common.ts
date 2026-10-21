@@ -245,6 +245,9 @@ export interface NumericSpec {
   meta?: Readonly<Record<string, unknown>> | null;
   choice_only?: boolean;
   step?: FracLike | null;
+  /** No option below or above these (sides of a polygon, numbers of a 1-4 grid): a wrong one that cannot exist is no distractor. */
+  min_value?: FracLike | null;
+  max_value?: FracLike | null;
 }
 
 /**
@@ -263,11 +266,14 @@ export function numericQuestion(rng: PyRandom, ctx: GenContext, params: Params, 
   }
   const asChoice = spec.choice_only || chooseKindChoice(rng, ctx, params);
   const seen = new Set<string>([ans.key()]);
+  const lowest = spec.min_value === null || spec.min_value === undefined ? null : Fraction.coerce(spec.min_value);
+  const highest = spec.max_value === null || spec.max_value === undefined ? null : Fraction.coerce(spec.max_value);
+  const outOfRange = (v: Fraction): boolean => (lowest !== null && v.lt(lowest)) || (highest !== null && v.gt(highest));
   const cands: [Fraction, string | null][] = [];
   for (const [value, tag] of spec.distractors ?? []) {
     if (value === null || value === undefined) continue;
     const v = Fraction.coerce(value);
-    if (seen.has(v.key()) || (v.lt(0) && !allowNegative)) continue;
+    if (seen.has(v.key()) || (v.lt(0) && !allowNegative) || outOfRange(v)) continue;
     if (style === "int" && v.d !== 1n) continue;
     if (style === "money" && v.mul(100).d !== 1n) continue;
     seen.add(v.key());
@@ -291,22 +297,35 @@ export function numericQuestion(rng: PyRandom, ctx: GenContext, params: Params, 
     return makeQuestion({ ...bs, kind: "number", answer: key(ans, style), misconceptions: mis });
   }
   const n = nOptions(ctx);
-  let tagged = cands.filter((c) => c[1]);
-  const plain = cands.filter((c) => !c[1]);
-  if (tagged.length > n - 1) tagged = rng.sample(tagged, n - 1);
-  rng.shuffle(plain);
-  const picked: [Fraction, string | null][] = [...tagged, ...plain.slice(0, Math.max(0, n - 1 - tagged.length))];
   const step = Fraction.coerce(spec.step ?? (ans.d === 1n ? 1 : new Fraction(1n, ans.d)));
-  let k = 1;
-  while (picked.length < n - 1 && k < 200) {
-    for (const v of [ans.add(step.mul(k)), ans.sub(step.mul(k))]) {
-      if (picked.length >= n - 1) break;
-      if (seen.has(v.key()) || (v.lt(0) && !allowNegative)) continue;
-      seen.add(v.key());
-      picked.push([v, null]);
+  // The answer takes a random place among the options (smallest, second, ...): with the wrong ones always
+  // clustered on both sides of it, "not the smallest and not the largest" was right four times in five.
+  // On each side the misconception distractors come first, then the plain ones, then the next steps away.
+  const ordered = (below: boolean): [Fraction, string | null][] => {
+    const side = cands.filter((c) => c[0].lt(ans) === below);
+    const tagged = side.filter((c) => c[1]);
+    const plain = side.filter((c) => !c[1]);
+    rng.shuffle(tagged);
+    rng.shuffle(plain);
+    const list = [...tagged, ...plain];
+    const have = new Set(list.map((c) => c[0].key()));
+    for (let k = 1; k <= 200 && list.length < n; k++) {
+      const v = below ? ans.sub(step.mul(k)) : ans.add(step.mul(k));
+      if (seen.has(v.key()) || have.has(v.key()) || (v.lt(0) && !allowNegative) || outOfRange(v)) continue;
+      if (style === "int" && v.d !== 1n) continue;
+      if (style === "money" && v.mul(100).d !== 1n) continue;
+      have.add(v.key());
+      list.push([v, null]);
     }
-    k += 1;
-  }
+    return list;
+  };
+  const lower = ordered(true);
+  const upper = ordered(false);
+  const wantBelow = rng.randint(0, n - 1);
+  let nBelow = Math.min(wantBelow, lower.length);
+  let nAbove = Math.min(n - 1 - nBelow, upper.length);
+  nBelow = Math.min(n - 1 - nAbove, lower.length);
+  const picked: [Fraction, string | null][] = [...lower.slice(0, nBelow), ...upper.slice(0, nAbove)];
   const opts = [[ans, null] as [Fraction, string | null], ...picked].sort((x, y) => x[0].cmp(y[0]));
   const choices: Choice[] = [];
   const mis: Record<string, string> = {};

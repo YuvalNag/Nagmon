@@ -22,8 +22,8 @@ items:
   prompt_en: Who do you tell if you see something scary or unpleasant online?
   choices:
   - {he: להורה או למבוגר שסומכים עליו, en: a parent or a trusted adult}
-  - {he: לאף אחד, en: nobody}
-  - {he: לזר בצ'אט, en: a stranger in a chat}
+  - {he: "לאף אחד, כדי שלא יכעסו עליי", en: "to nobody, so no one gets angry"}
+  - {he: "לזר שכתב לי בצ'אט, כי הוא נחמד", en: "to a stranger who wrote to me in a chat, because he is nice"}
   answer: 0
   explanation_he: מבוגר שאנחנו סומכים עליו יכול לעזור ולהגן. אין סיבה להתבייש לספר.
   explanation_en: A trusted adult can help and protect you. There's no reason to be embarrassed to tell.
@@ -104,8 +104,8 @@ items:
   prompt_en: What is a strong password?
   choices:
   - {he: 'ארוכה, עם אותיות, מספרים וסימנים', en: 'long, with letters, numbers and symbols'}
-  - {he: השם שלך, en: your name}
-  - {he: '1234', en: '1234'}
+  - {he: "שם קצר ופשוט שקל לזכור", en: "a short, simple name that is easy to remember"}
+  - {he: "ספרות קצרות בסדר עולה, כמו 1234", en: "a few digits in order, like 1234"}
   answer: 0
   explanation_he: סיסמה ארוכה ומגוונת קשה לנחש. לא מספרים אותה לחברים, רק להורים.
   explanation_en: A long varied password is hard to guess. Don't tell friends, only parents.
@@ -231,8 +231,8 @@ items:
   prompt_he: איזו המצאה ישראלית עוזרת לשמור קבצים ולהעביר אותם במחשב?
   prompt_en: Which Israeli invention helps store and move computer files?
   choices:
-  - {he: המכונית, en: the car}
-  - {he: המקרר, en: the refrigerator}
+  - {he: "מכונת כביסה עם מסך מגע", en: "a washing machine with a touch screen"}
+  - {he: "מקרר שמדבר עם הבעלים", en: "a fridge that talks to its owner"}
   - {he: החסן הנייד (דיסק און קי), en: the USB flash drive (Disk-on-Key)}
   answer: 2
   explanation_he: דיסק און קי פותח בחברה הישראלית אם-סיסטמס. הוא שומר מידע בשבב קטן בלי חלקים זזים.
@@ -288,8 +288,8 @@ items:
   prompt_he: איזו תרופה חשובה גילה אלכסנדר פלמינג במקרה?
   prompt_en: Which important medicine did Alexander Fleming discover by accident?
   choices:
-  - {he: ויטמין C, en: vitamin C}
-  - {he: אספירין, en: aspirin}
+  - {he: "ויטמין C מפירות הדר", en: "vitamin C from citrus fruit"}
+  - {he: "אספירין נגד כאבי ראש", en: "aspirin for headaches"}
   - {he: 'פניצילין, אנטיביוטיקה', en: 'penicillin, an antibiotic'}
   answer: 2
   explanation_he: בשנת 1928 פלמינג שם לב שעובש עצר את גדילת החיידקים בצלחת. מזה פותח הפניצילין, שהציל מיליוני אנשים.
@@ -370,8 +370,8 @@ items:
   prompt_he: מהו אלגוריתם?
   prompt_en: What is an algorithm?
   choices:
-  - {he: סוג של מחשב, en: a kind of computer}
-  - {he: משחק כדור, en: a ball game}
+  - {he: "סוג של מחשב קטן שאפשר לשאת", en: "a kind of small computer you can carry"}
+  - {he: "משחק כדור עם חוקים", en: "a ball game with rules"}
   - {he: רשימת הוראות לפי סדר לביצוע משימה, en: a step-by-step list of instructions for a task}
   answer: 2
   explanation_he: 'מתכון לעוגה הוא אלגוריתם: הוראות מסודרות שמביאות לתוצאה. גם תוכנה היא אוסף של אלגוריתמים.'
@@ -631,8 +631,8 @@ items:
   prompt_en: What heats food in a microwave oven?
   choices:
   - {he: גלים שמרעידים את מולקולות המים באוכל, en: waves that shake the water molecules in food}
-  - {he: אש קטנה בפנים, en: a small fire inside}
-  - {he: אור השמש, en: sunlight}
+  - {he: "להבה קטנה שבוערת בתוך התנור", en: "a small flame burning inside the oven"}
+  - {he: "אור השמש שנכנס מהחלון", en: "sunlight coming in through the window"}
   answer: 0
   explanation_he: גלי המיקרו גורמים למולקולות המים באוכל לנוע מהר, והתנועה הופכת לחום.
   explanation_en: Microwaves make water molecules in food move rapidly, and that motion becomes heat.
@@ -671,9 +671,9 @@ items:
   prompt_he: מה עושה העדשה במצלמה?
   prompt_en: What does a camera's lens do?
   choices:
-  - {he: מקליטה קול, en: records sound, emoji: 1f3a4}
+  - {he: "מקליטה את הקול של הצילום", en: "records the sound of the shot", emoji: 1f3a4}
   - {he: ממקדת את האור ליצירת תמונה חדה, en: focuses light to make a sharp image, emoji: 1f4f7}
-  - {he: מייצרת אור, en: makes light, emoji: 1f4a1}
+  - {he: "מייצרת אור לתמונה", en: "makes light for the picture", emoji: 1f4a1}
   answer: 1
   explanation_he: העדשה מכופפת את קרני האור כך שהן נפגשות על החיישן, וכך נוצרת תמונה. גם בעין שלנו יש עדשה.
   explanation_en: The lens bends light rays to meet on the sensor, forming an image. Our eyes have a lens too.

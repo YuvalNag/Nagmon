@@ -4,6 +4,7 @@ import { isolateMath } from "../../core/learning/text";
 import type { QuizSession } from "../../core/world/quiz";
 import { itemText, t } from "../../i18n";
 import { Figure } from "../Figure";
+import { Passage } from "../Passage";
 import { HELPERS, label, PAD_KEYS, useQuizProbe } from "../QuizScreen";
 import { QuizExample } from "../QuizExample";
 import { ScreenTime } from "../screenTime";
@@ -79,6 +80,7 @@ export function BattleQuestion({ session, text, subjectTitle, onResult, onClose 
   const englishFirst = q.subject === "english";
   const prompt = (
     <div className="quiz-prompt">
+      <Passage q={q} />
       {q.figure && <Figure figure={q.figure} />}
       <p className="quiz-question" data-id="quiz_prompt">
         {isolateMath(q.prompt_he)}

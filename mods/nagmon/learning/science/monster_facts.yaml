@@ -578,8 +578,8 @@ items:
   prompt_he: למה בצק לחם תופח?
   prompt_en: Why does bread dough rise?
   choices:
-  - {he: המלח מתנפח, en: the salt swells}
-  - {he: הקמח נמס, en: the flour melts}
+  - {he: "המלח בבצק מתנפח ומרים אותו", en: "the salt in the dough swells and lifts it"}
+  - {he: "הקמח נמס ונהפך לנוזל", en: "the flour melts and turns to liquid"}
   - {he: שמרים מייצרים בו בועות גז, en: yeast makes gas bubbles in it}
   answer: 2
   explanation_he: השמרים אוכלים סוכר ומשחררים פחמן דו-חמצני. הבועות נלכדות בבצק ומנפחות אותו.
@@ -650,8 +650,8 @@ items:
   prompt_en: What is the fastest animal in the world?
   choices:
   - {he: 'הבז הנודד, בצלילה', en: 'the peregrine falcon, when diving'}
-  - {he: הצ'יטה, en: the cheetah}
-  - {he: הסוס, en: the horse}
+  - {he: "הצ'יטה, בריצה על הקרקע", en: "the cheetah, running on the ground"}
+  - {he: "הסוס, בדהירה", en: "the horse, galloping"}
   answer: 0
   explanation_he: הצ'יטה היא המהירה ביותר ביבשה, אבל הבז הנודד צולל באוויר במהירות של יותר מ-300 קמ"ש.
   explanation_en: The cheetah is fastest on land, but the peregrine falcon dives through the air at over 300 km/h.

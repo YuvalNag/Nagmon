@@ -415,9 +415,9 @@ items:
   prompt_he: מהי שמורת טבע?
   prompt_en: What is a nature reserve?
   choices:
-  - {he: חניון, en: a parking lot}
+  - {he: "חניון גדול ליד הכביש", en: "a big parking lot by the road"}
   - {he: שטח מוגן ששומר על צמחים ובעלי חיים, en: a protected area preserving plants and animals}
-  - {he: גן שעשועים, en: a playground}
+  - {he: "גן שעשועים עם מתקנים לילדים", en: "a playground with rides for children"}
   answer: 1
   explanation_he: בשמורות טבע אסור לפגוע בצמחים ובבעלי חיים. בישראל יש שמורות רבות, כמו עין גדי, החולה וגמלא.
   explanation_en: In nature reserves you mustn't harm plants or animals. Israel has many, like Ein Gedi, Hula and Gamla.
@@ -471,9 +471,9 @@ items:
   prompt_he: מה גורם להתחממות כדור הארץ, לפי רוב המדענים?
   prompt_en: According to most scientists, what drives global warming?
   choices:
-  - {he: יותר מדי עצים, en: too many trees}
+  - {he: "יותר מדי עצים ביערות", en: "too many trees in the forests"}
   - {he: עלייה בגזי חממה כמו פחמן דו-חמצני, en: more greenhouse gases like carbon dioxide}
-  - {he: הירח מתקרב, en: the moon getting closer}
+  - {he: "הירח מתקרב אל כדור הארץ", en: "the moon getting closer to Earth"}
   answer: 1
   explanation_he: שריפת דלקים כמו נפט ופחם מוסיפה לאוויר פחמן דו-חמצני. גזי חממה לוכדים חום, והטמפרטורה הממוצעת עולה.
   explanation_en: Burning fuels like oil and coal adds carbon dioxide to the air. Greenhouse gases trap heat, raising the average temperature.
@@ -542,9 +542,9 @@ items:
   prompt_he: מהי מערכת אקולוגית?
   prompt_en: What is an ecosystem?
   choices:
-  - {he: רק הצמחים באזור, en: only an area's plants}
+  - {he: "רק הצמחים והאדמה באזור", en: "only the plants and soil of an area"}
   - {he: 'יצורים חיים וסביבתם, שמשפיעים זה על זה', en: 'living things and their surroundings, interacting'}
-  - {he: קבוצה של מכונות, en: a group of machines}
+  - {he: "קבוצה של מכונות שעובדות יחד", en: "a group of machines that work together"}
   answer: 1
   explanation_he: במערכת אקולוגית, כמו בריכה או יער, היצורים קשורים זה לזה ולמים, לאדמה, לאור ולאוויר.
   explanation_en: In an ecosystem, like a pond or forest, living things are linked to each other and to water, soil, light and air.

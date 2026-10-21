@@ -3862,3 +3862,802 @@ items:
     answer: false
     explanation_he: "אחרי if לא כותבים will: If it rains, I will take an umbrella."
     tags: [conditionals]
+
+  - id: eng.gr.be.x01
+    skill: english.grammar.be
+    kind: true_false
+    grade: 3
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "My friends are at school."
+    answer: true
+    explanation_he: "my friends ברבים, לכן are, והמשפט נכון."
+    tags: [be]
+  - id: eng.gr.be.x02
+    skill: english.grammar.be
+    kind: choice
+    grade: 3
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "She ___ ten years old."
+    choices:
+      - {en: "am"}
+      - {en: "is"}
+      - {en: "are"}
+    answer: 1
+    explanation_he: "עם she משתמשים ב-is."
+    tags: [be]
+  - id: eng.gr.be.x03
+    skill: english.grammar.be
+    kind: choice
+    grade: 3
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "I ___ a student."
+    choices:
+      - {en: "is"}
+      - {en: "are"}
+      - {en: "am"}
+    answer: 2
+    explanation_he: "עם I משתמשים ב-am."
+    tags: [be]
+  - id: eng.gr.have_has.x01
+    skill: english.grammar.have_has
+    kind: true_false
+    grade: 3
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "My sister has a red bike."
+    answer: true
+    explanation_he: "my sister היא she, לכן has, והמשפט נכון."
+    tags: [have_has]
+  - id: eng.gr.have_has.x02
+    skill: english.grammar.have_has
+    kind: choice
+    grade: 3
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "They ___ two dogs."
+    choices:
+      - {en: "has"}
+      - {en: "have"}
+      - {en: "having"}
+    answer: 1
+    explanation_he: "עם they משתמשים ב-have."
+    tags: [have_has]
+  - id: eng.gr.have_has.x03
+    skill: english.grammar.have_has
+    kind: choice
+    grade: 3
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "The boy ___ a new ball."
+    choices:
+      - {en: "have"}
+      - {en: "has"}
+      - {en: "is"}
+    answer: 1
+    explanation_he: "the boy הוא he, לכן has."
+    tags: [have_has]
+  - id: eng.gr.there_is_are.x01
+    skill: english.grammar.there_is_are
+    kind: true_false
+    grade: 3
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "There are three cats on the sofa."
+    answer: true
+    explanation_he: "three cats ברבים, לכן there are, והמשפט נכון."
+    tags: [there_is_are]
+  - id: eng.gr.there_is_are.x02
+    skill: english.grammar.there_is_are
+    kind: choice
+    grade: 3
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "There ___ a book on the table."
+    choices:
+      - {en: "are"}
+      - {en: "is"}
+      - {en: "am"}
+    answer: 1
+    explanation_he: "book אחד, לכן there is."
+    tags: [there_is_are]
+  - id: eng.gr.there_is_are.x03
+    skill: english.grammar.there_is_are
+    kind: choice
+    grade: 3
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "There ___ many birds in the tree."
+    choices:
+      - {en: "is"}
+      - {en: "are"}
+      - {en: "am"}
+    answer: 1
+    explanation_he: "many birds ברבים, לכן there are."
+    tags: [there_is_are]
+  - id: eng.gr.articles.x01
+    skill: english.grammar.articles
+    kind: true_false
+    grade: 3
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "I eat an apple every day."
+    answer: true
+    explanation_he: "apple מתחילה בתנועה, לכן an, והמשפט נכון."
+    tags: [articles]
+  - id: eng.gr.articles.x02
+    skill: english.grammar.articles
+    kind: choice
+    grade: 3
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "He has ___ orange."
+    choices:
+      - {en: "a"}
+      - {en: "an"}
+      - {en: "any"}
+    answer: 1
+    explanation_he: "orange מתחילה בתנועה, לכן an."
+    tags: [articles]
+  - id: eng.gr.articles.x03
+    skill: english.grammar.articles
+    kind: choice
+    grade: 3
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "___ moon is bright tonight."
+    choices:
+      - {en: "A"}
+      - {en: "An"}
+      - {en: "The"}
+    answer: 2
+    explanation_he: "יש רק ירח אחד, לכן the."
+    tags: [articles]
+  - id: eng.gr.plurals.x01
+    skill: english.grammar.plurals
+    kind: true_false
+    grade: 3
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "I have two boxes."
+    answer: true
+    explanation_he: "box מקבלת es ברבים: boxes, והמשפט נכון."
+    tags: [plurals]
+  - id: eng.gr.plurals.x02
+    skill: english.grammar.plurals
+    kind: choice
+    grade: 3
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "Three ___ are in the garden."
+    choices:
+      - {en: "childs"}
+      - {en: "children"}
+      - {en: "childrens"}
+    answer: 1
+    explanation_he: "הרבים של child הוא children."
+    tags: [plurals]
+  - id: eng.gr.plurals.x03
+    skill: english.grammar.plurals
+    kind: choice
+    grade: 3
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "I see two ___."
+    choices:
+      - {en: "mouses"}
+      - {en: "mice"}
+      - {en: "mouse"}
+    answer: 1
+    explanation_he: "הרבים של mouse הוא mice."
+    tags: [plurals]
+  - id: eng.gr.pronouns.x01
+    skill: english.grammar.pronouns
+    kind: true_false
+    grade: 4
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "Tom is my brother. He is ten."
+    answer: true
+    explanation_he: "Tom הוא בן, לכן he, והמשפט נכון."
+    tags: [pronouns]
+  - id: eng.gr.pronouns.x02
+    skill: english.grammar.pronouns
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "My sister is tall. ___ is a basketball player."
+    choices:
+      - {en: "He"}
+      - {en: "She"}
+      - {en: "It"}
+    answer: 1
+    explanation_he: "sister היא בת, לכן she."
+    tags: [pronouns]
+  - id: eng.gr.pronouns.x03
+    skill: english.grammar.pronouns
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "Look at the dogs. ___ are happy."
+    choices:
+      - {en: "They"}
+      - {en: "He"}
+      - {en: "We"}
+    answer: 0
+    explanation_he: "the dogs ברבים, לכן they."
+    tags: [pronouns]
+  - id: eng.gr.possessives.x01
+    skill: english.grammar.possessives
+    kind: true_false
+    grade: 4
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "This is our house."
+    answer: true
+    explanation_he: "our פירושו שלנו, והמשפט נכון."
+    tags: [possessives]
+  - id: eng.gr.possessives.x02
+    skill: english.grammar.possessives
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "Dan has a cat. ___ cat is white."
+    choices:
+      - {en: "His"}
+      - {en: "He"}
+      - {en: "Him"}
+    answer: 0
+    explanation_he: "his פירושו שלו."
+    tags: [possessives]
+  - id: eng.gr.possessives.x03
+    skill: english.grammar.possessives
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "We wash ___ hands before dinner."
+    choices:
+      - {en: "our"}
+      - {en: "ours"}
+      - {en: "we"}
+    answer: 0
+    explanation_he: "לפני שם עצם משתמשים ב-our."
+    tags: [possessives]
+  - id: eng.gr.prepositions.x01
+    skill: english.grammar.prepositions
+    kind: true_false
+    grade: 4
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "The cat is under the table."
+    answer: true
+    explanation_he: "under פירושו מתחת, והמשפט נכון."
+    tags: [prepositions]
+  - id: eng.gr.prepositions.x02
+    skill: english.grammar.prepositions
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "We go to school ___ bus."
+    choices:
+      - {en: "by"}
+      - {en: "in"}
+      - {en: "at"}
+    answer: 0
+    explanation_he: "אומרים by bus."
+    tags: [prepositions]
+  - id: eng.gr.prepositions.x03
+    skill: english.grammar.prepositions
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "My birthday is ___ July."
+    choices:
+      - {en: "in"}
+      - {en: "on"}
+      - {en: "at"}
+    answer: 0
+    explanation_he: "עם חודשים משתמשים ב-in."
+    tags: [prepositions]
+  - id: eng.gr.present_simple.x01
+    skill: english.grammar.present_simple
+    kind: true_false
+    grade: 4
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "He plays football every day."
+    answer: true
+    explanation_he: "עם he מוסיפים s לפועל: plays, והמשפט נכון."
+    tags: [present_simple]
+  - id: eng.gr.present_simple.x02
+    skill: english.grammar.present_simple
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "My mother ___ coffee in the morning."
+    choices:
+      - {en: "drink"}
+      - {en: "drinks"}
+      - {en: "drinking"}
+    answer: 1
+    explanation_he: "עם she ו-he מוסיפים s."
+    tags: [present_simple]
+  - id: eng.gr.present_simple.x03
+    skill: english.grammar.present_simple
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "They ___ to school by bus."
+    choices:
+      - {en: "goes"}
+      - {en: "go"}
+      - {en: "going"}
+    answer: 1
+    explanation_he: "עם they לא מוסיפים s."
+    tags: [present_simple]
+  - id: eng.gr.present_continuous.x01
+    skill: english.grammar.present_continuous
+    kind: true_false
+    grade: 4
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "The children are playing in the yard."
+    answer: true
+    explanation_he: "are + פועל עם ing, והמשפט נכון."
+    tags: [present_continuous]
+  - id: eng.gr.present_continuous.x02
+    skill: english.grammar.present_continuous
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "Listen! The baby ___."
+    choices:
+      - {en: "is crying"}
+      - {en: "crying"}
+      - {en: "are crying"}
+    answer: 0
+    explanation_he: "baby אחד, לכן is crying."
+    tags: [present_continuous]
+  - id: eng.gr.present_continuous.x03
+    skill: english.grammar.present_continuous
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "We ___ TV at the moment."
+    choices:
+      - {en: "are watching"}
+      - {en: "is watching"}
+      - {en: "watching"}
+    answer: 0
+    explanation_he: "עם we משתמשים ב-are."
+    tags: [present_continuous]
+  - id: eng.gr.question_words.x01
+    skill: english.grammar.question_words
+    kind: true_false
+    grade: 4
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "What is your name?"
+    answer: true
+    explanation_he: "what שואלים על דבר או שם, והמשפט נכון."
+    tags: [question_words]
+  - id: eng.gr.question_words.x02
+    skill: english.grammar.question_words
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "___ is your birthday? - It's in May."
+    choices:
+      - {en: "When"}
+      - {en: "Who"}
+      - {en: "Where"}
+    answer: 0
+    explanation_he: "when שואלים על זמן."
+    tags: [question_words]
+  - id: eng.gr.question_words.x03
+    skill: english.grammar.question_words
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "___ old are you? - I'm nine."
+    choices:
+      - {en: "How"}
+      - {en: "What"}
+      - {en: "Who"}
+    answer: 0
+    explanation_he: "שואלים How old are you?"
+    tags: [question_words]
+  - id: eng.gr.can.x01
+    skill: english.grammar.can
+    kind: true_false
+    grade: 4
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "I can swim."
+    answer: true
+    explanation_he: "אחרי can בא הפועל בלי to, והמשפט נכון."
+    tags: [can]
+  - id: eng.gr.can.x02
+    skill: english.grammar.can
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "She ___ play the piano."
+    choices:
+      - {en: "can"}
+      - {en: "cans"}
+      - {en: "can to"}
+    answer: 0
+    explanation_he: "can לא משתנה ולא מקבל s."
+    tags: [can]
+  - id: eng.gr.can.x03
+    skill: english.grammar.can
+    kind: choice
+    grade: 4
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "___ you help me, please?"
+    choices:
+      - {en: "Can"}
+      - {en: "Cans"}
+      - {en: "Do can"}
+    answer: 0
+    explanation_he: "שואלים Can you...?"
+    tags: [can]
+  - id: eng.gr.past_regular.x01
+    skill: english.grammar.past_regular
+    kind: true_false
+    grade: 5
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "Yesterday I walked to school."
+    answer: true
+    explanation_he: "פועל רגיל בעבר מקבל ed: walked, והמשפט נכון."
+    tags: [past_regular]
+  - id: eng.gr.past_regular.x02
+    skill: english.grammar.past_regular
+    kind: choice
+    grade: 5
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "We ___ football last Friday."
+    choices:
+      - {en: "play"}
+      - {en: "played"}
+      - {en: "playing"}
+    answer: 1
+    explanation_he: "last Friday הוא עבר, לכן played."
+    tags: [past_regular]
+  - id: eng.gr.past_regular.x03
+    skill: english.grammar.past_regular
+    kind: choice
+    grade: 5
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "She ___ the door and went in."
+    choices:
+      - {en: "open"}
+      - {en: "opened"}
+      - {en: "opening"}
+    answer: 1
+    explanation_he: "בעבר מוסיפים ed: opened."
+    tags: [past_regular]
+  - id: eng.gr.past_irregular.x01
+    skill: english.grammar.past_irregular
+    kind: true_false
+    grade: 5
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "I saw a big dog yesterday."
+    answer: true
+    explanation_he: "saw הוא העבר של see, והמשפט נכון."
+    tags: [past_irregular]
+  - id: eng.gr.past_irregular.x02
+    skill: english.grammar.past_irregular
+    kind: choice
+    grade: 5
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "He ___ a cake last night."
+    choices:
+      - {en: "maked"}
+      - {en: "made"}
+      - {en: "make"}
+    answer: 1
+    explanation_he: "העבר של make הוא made."
+    tags: [past_irregular]
+  - id: eng.gr.past_irregular.x03
+    skill: english.grammar.past_irregular
+    kind: choice
+    grade: 5
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "They ___ to the zoo on Sunday."
+    choices:
+      - {en: "goed"}
+      - {en: "went"}
+      - {en: "go"}
+    answer: 1
+    explanation_he: "העבר של go הוא went."
+    tags: [past_irregular]
+  - id: eng.gr.future.x01
+    skill: english.grammar.future
+    kind: true_false
+    grade: 6
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "We will visit Grandma tomorrow."
+    answer: true
+    explanation_he: "will + פועל לעתיד, והמשפט נכון."
+    tags: [future]
+  - id: eng.gr.future.x02
+    skill: english.grammar.future
+    kind: choice
+    grade: 6
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "Tomorrow I ___ to the beach."
+    choices:
+      - {en: "am going"}
+      - {en: "went"}
+      - {en: "going"}
+    answer: 0
+    explanation_he: "tomorrow הוא עתיד: am going."
+    tags: [future]
+  - id: eng.gr.future.x03
+    skill: english.grammar.future
+    kind: choice
+    grade: 6
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "It ___ rain tonight."
+    choices:
+      - {en: "will"}
+      - {en: "is"}
+      - {en: "was"}
+    answer: 0
+    explanation_he: "will + פועל מבטא עתיד."
+    tags: [future]
+  - id: eng.gr.comparatives.x01
+    skill: english.grammar.comparatives
+    kind: true_false
+    grade: 6
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "A rabbit is faster than a turtle."
+    answer: true
+    explanation_he: "fast מקבלת er בהשוואה: faster, והמשפט נכון."
+    tags: [comparatives]
+  - id: eng.gr.comparatives.x02
+    skill: english.grammar.comparatives
+    kind: choice
+    grade: 6
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "This book is ___ than that one."
+    choices:
+      - {en: "interesting"}
+      - {en: "more interesting"}
+      - {en: "interestinger"}
+    answer: 1
+    explanation_he: "למילים ארוכות מוסיפים more."
+    tags: [comparatives]
+  - id: eng.gr.comparatives.x03
+    skill: english.grammar.comparatives
+    kind: choice
+    grade: 6
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "My brother is ___ than me."
+    choices:
+      - {en: "taller"}
+      - {en: "tallest"}
+      - {en: "more tall"}
+    answer: 0
+    explanation_he: "tall קצרה, לכן taller."
+    tags: [comparatives]
+  - id: eng.gr.superlatives.x01
+    skill: english.grammar.superlatives
+    kind: true_false
+    grade: 6
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "Mount Everest is the highest mountain in the world."
+    answer: true
+    explanation_he: "the + est מבטא הכי: highest, והמשפט נכון."
+    tags: [superlatives]
+  - id: eng.gr.superlatives.x02
+    skill: english.grammar.superlatives
+    kind: choice
+    grade: 6
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "She is the ___ girl in our class."
+    choices:
+      - {en: "smarter"}
+      - {en: "smartest"}
+      - {en: "most smart"}
+    answer: 1
+    explanation_he: "the + est מבטא הכי."
+    tags: [superlatives]
+  - id: eng.gr.superlatives.x03
+    skill: english.grammar.superlatives
+    kind: choice
+    grade: 6
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "This is the ___ day of my life."
+    choices:
+      - {en: "happiest"}
+      - {en: "happier"}
+      - {en: "most happy"}
+    answer: 0
+    explanation_he: "happy הופכת ל-happiest."
+    tags: [superlatives]
+  - id: eng.gr.countable.x01
+    skill: english.grammar.countable
+    kind: true_false
+    grade: 6
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "I don't have much time."
+    answer: true
+    explanation_he: "time אינו ניתן לספירה, לכן much, והמשפט נכון."
+    tags: [countable]
+  - id: eng.gr.countable.x02
+    skill: english.grammar.countable
+    kind: choice
+    grade: 6
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "How ___ apples do you want?"
+    choices:
+      - {en: "much"}
+      - {en: "many"}
+      - {en: "little"}
+    answer: 1
+    explanation_he: "apples ניתן לספירה, לכן many."
+    tags: [countable]
+  - id: eng.gr.countable.x03
+    skill: english.grammar.countable
+    kind: choice
+    grade: 6
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "There isn't ___ water in the bottle."
+    choices:
+      - {en: "many"}
+      - {en: "much"}
+      - {en: "a few"}
+    answer: 1
+    explanation_he: "water אינו ניתן לספירה, לכן much."
+    tags: [countable]
+  - id: eng.gr.modals.x01
+    skill: english.grammar.modals
+    kind: true_false
+    grade: 6
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "You should drink more water."
+    answer: true
+    explanation_he: "אחרי should בא הפועל בלי to, והמשפט נכון."
+    tags: [modals]
+  - id: eng.gr.modals.x02
+    skill: english.grammar.modals
+    kind: choice
+    grade: 6
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "Students ___ be quiet in the library."
+    choices:
+      - {en: "must"}
+      - {en: "musts"}
+      - {en: "to must"}
+    answer: 0
+    explanation_he: "must לא משתנה."
+    tags: [modals]
+  - id: eng.gr.modals.x03
+    skill: english.grammar.modals
+    kind: choice
+    grade: 6
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "___ I open the window? It's hot."
+    choices:
+      - {en: "May"}
+      - {en: "Does"}
+      - {en: "Am"}
+    answer: 0
+    explanation_he: "מבקשים רשות עם May I...?"
+    tags: [modals]
+  - id: eng.gr.present_perfect.x01
+    skill: english.grammar.present_perfect
+    kind: true_false
+    grade: 8
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "I have lived in Haifa for ten years."
+    answer: true
+    explanation_he: "have + פועל בצורה השלישית, ו-for מציין משך, והמשפט נכון."
+    tags: [present_perfect]
+  - id: eng.gr.present_perfect.x02
+    skill: english.grammar.present_perfect
+    kind: choice
+    grade: 8
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "She has ___ her homework already."
+    choices:
+      - {en: "finish"}
+      - {en: "finished"}
+      - {en: "finishing"}
+    answer: 1
+    explanation_he: "אחרי has בא הפועל בצורה השלישית."
+    tags: [present_perfect]
+  - id: eng.gr.present_perfect.x03
+    skill: english.grammar.present_perfect
+    kind: choice
+    grade: 8
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "Have you ever ___ sushi?"
+    choices:
+      - {en: "eat"}
+      - {en: "ate"}
+      - {en: "eaten"}
+    answer: 2
+    explanation_he: "אחרי have בא הפועל בצורה השלישית."
+    tags: [present_perfect]
+  - id: eng.gr.conditionals.x01
+    skill: english.grammar.conditionals
+    kind: true_false
+    grade: 8
+    difficulty: -0.5
+    prompt_he: "האם המשפט נכון?"
+    prompt_en: "If you heat ice, it melts."
+    answer: true
+    explanation_he: "אמת כללית: if + הווה, ואז הווה, והמשפט נכון."
+    tags: [conditionals]
+  - id: eng.gr.conditionals.x02
+    skill: english.grammar.conditionals
+    kind: choice
+    grade: 8
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "If I ___ rich, I would buy a boat."
+    choices:
+      - {en: "am"}
+      - {en: "were"}
+      - {en: "will be"}
+    answer: 1
+    explanation_he: "ב-if דמיוני משתמשים ב-were."
+    tags: [conditionals]
+  - id: eng.gr.conditionals.x03
+    skill: english.grammar.conditionals
+    kind: choice
+    grade: 8
+    difficulty: 0.0
+    prompt_he: "בחרו את המילה החסרה"
+    prompt_en: "If it rains tomorrow, we ___ at home."
+    choices:
+      - {en: "will stay"}
+      - {en: "stayed"}
+      - {en: "staying"}
+    answer: 0
+    explanation_he: "if + הווה, ואז will + פועל."
+    tags: [conditionals]

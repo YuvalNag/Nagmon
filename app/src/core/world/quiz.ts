@@ -99,33 +99,34 @@ export class QuizSession {
     warn: (message: string) => void = () => {},
   ) {
     let q: Question | null = null;
+    const takes = (kind: string) => PAD_KINDS.has(kind) || CHOICE_KINDS.has(kind) || (request.kinds as readonly string[] | undefined)?.includes(kind) === true;
     try {
       const { topic, context, maxChoices } = request;
-      // a question that needs a picture the app does not draw yet (a robot on a grid) would show a "?" card: ask another
+      // a question that needs a picture the app does not draw yet (a robot on a grid), or an input this screen
+      // does not have (ordering tiles on the map): ask another. One tap on those would always be graded wrong
+      // and mark a right-thinking child down.
+      let skipped = "";
       for (let tries = 0; tries < 12; tries++) {
         q = engine.nextQuestion({
           ...(topic.includes(".") ? { skill_id: topic } : { subject: topic }),
           context,
           max_choices: maxChoices,
         });
-        if (!q.figure || DRAWN_FIGURE_KINDS.has(q.figure.kind)) break;
-        warn(`A ${q.figure.kind} figure is not drawn yet (M6): ${q.item_id}`);
+        if (q.figure && !DRAWN_FIGURE_KINDS.has(q.figure.kind)) skipped = `A ${q.figure.kind} figure is not drawn yet (M6): ${q.item_id}`;
+        else if (!takes(q.kind)) skipped = `A ${q.kind} question cannot be answered here yet (M6): ${q.item_id}`;
+        else if ((CHOICE_KINDS.has(q.kind) || q.kind === "order" || q.kind === "letters") && q.choices.length === 0) skipped = `A ${q.kind} question has no choices: ${q.item_id}`;
+        else {
+          skipped = "";
+          break;
+        }
         q = null;
       }
+      if (skipped) warn(skipped);
     } catch (e) {
       // a typo in a script's skill, a broken generator: no question, not a crash
       warn(`No question for ${request.topic}: ${String(e)}`);
     }
     this.question = q;
-    const takes = (kind: string) => PAD_KINDS.has(kind) || CHOICE_KINDS.has(kind) || (request.kinds as readonly string[] | undefined)?.includes(kind) === true;
-    if (q && !takes(q.kind)) {
-      // one tap would always be graded wrong and mark a right-thinking child down
-      warn(`A ${q.kind} question cannot be answered here yet (M6): ${q.item_id}`);
-      this.question = null;
-    } else if (q && (CHOICE_KINDS.has(q.kind) || q.kind === "order" || q.kind === "letters") && q.choices.length === 0) {
-      warn(`A ${q.kind} question has no choices: ${q.item_id}`);
-      this.question = null;
-    }
     // for a parent's "something is wrong": which question is on the screen
     crumb.question(this.question);
     // an example only where there is one to show: another item of the skill, never the asked question

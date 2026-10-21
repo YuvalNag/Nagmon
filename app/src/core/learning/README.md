@@ -11,6 +11,13 @@ ratings θ and b agree with Python to about 1e-14 relative: V8's `Math.exp`
 and `Math.log` can differ from C's by one ulp. A test that compares θ or b
 across the two languages must use a tolerance.
 
+## Parity with Python after the question-quality work
+
+`golden/generators.json` is now this app's own record: `app/tests/unit/learning/golden.test.ts` keeps it, and
+`UPDATE_GOLDEN=1 npx vitest run tests/unit/learning/golden.test.ts` rewrites it. Some generators intentionally draw
+differently from the old Python ones (the answer's place among numeric options, `min_value`, a shapes-of-things form),
+and the selector has variety guards the Python one does not (docs/app/QUESTION_AUDIT.md).
+
 ## Tests: Python file → TS file
 
 Counts are collected test cases (pytest `--collect-only`, Vitest cases), so

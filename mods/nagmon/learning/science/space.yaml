@@ -76,8 +76,8 @@ items:
   prompt_en: How long does Earth take to spin around once?
   choices:
   - {he: 'כ-24 שעות, יממה', en: 'about 24 hours, one day', emoji: 1f550}
-  - {he: שבוע, en: a week, emoji: 1f4c5}
-  - {he: שנה, en: a year, emoji: 1f4c6}
+  - {he: "כ-7 ימים, שבוע", en: "about 7 days, a week", emoji: 1f4c5}
+  - {he: "כ-365 ימים, שנה", en: "about 365 days, a year", emoji: 1f4c6}
   answer: 0
   explanation_he: 'סיבוב אחד סביב הציר הוא יממה: יום ולילה ביחד.'
   explanation_en: 'One spin on the axis is one full day: day and night together.'
@@ -234,9 +234,9 @@ items:
   prompt_he: כמה זמן עובר מירח מלא אחד לירח המלא הבא?
   prompt_en: How long from one full moon to the next?
   choices:
-  - {he: שנה, en: a year}
+  - {he: "שנה שלמה, בערך 365 ימים", en: "a whole year, about 365 days"}
   - {he: 'כחודש, בערך 29.5 ימים', en: 'about a month, roughly 29.5 days'}
-  - {he: שבוע, en: a week}
+  - {he: "שבוע אחד, בערך 7 ימים", en: "one week, about 7 days"}
   answer: 1
   explanation_he: זה מחזור מופעי הירח. המילה חודש קשורה למילה חדש, כי בלוח העברי כל חודש מתחיל במולד הירח.
   explanation_en: That's the moon's phase cycle. The Hebrew word for month, chodesh, is linked to "new", since each Hebrew month begins with the new moon.
@@ -702,8 +702,8 @@ items:
   prompt_en: What lets us see very distant galaxies?
   choices:
   - {he: 'טלסקופים גדולים, גם בחלל', en: 'large telescopes, including in space', emoji: 1f52d}
-  - {he: מיקרוסקופ, en: a microscope, emoji: 1f52c}
-  - {he: משקפי שמש, en: sunglasses, emoji: 1f576}
+  - {he: "מיקרוסקופ חזק מאוד", en: "a very strong microscope", emoji: 1f52c}
+  - {he: "משקפי שמש מיוחדים", en: "special sunglasses", emoji: 1f576}
   answer: 0
   explanation_he: טלסקופים אוספים הרבה אור. טלסקופי החלל, כמו האבל וג'יימס ווב, רואים בלי הפרעה של האטמוספרה.
   explanation_en: Telescopes gather lots of light. Space telescopes like Hubble and James Webb see without the atmosphere getting in the way.
@@ -1036,8 +1036,8 @@ items:
   prompt_en: What are the dark spots sometimes seen on the sun?
   choices:
   - {he: אזורים קרים יותר על פני השמש, en: 'cooler areas on the sun''s surface'}
-  - {he: חורים בשמש, en: holes in the sun}
-  - {he: הצל של הירח, en: 'the moon''s shadow'}
+  - {he: "חורים שדרכם רואים את החלל", en: "holes through which we see space"}
+  - {he: "הצל של הירח על השמש", en: "the shadow of the moon on the sun"}
   answer: 0
   explanation_he: 'כתמי שמש הם אזורים קרים יותר, ולכן הם נראים כהים לעומת שאר פני השמש. מסתכלים עליהם רק בציוד מיוחד, אף פעם לא ישר.'
   explanation_en: 'Sunspots are cooler areas, so they look dark compared with the rest of the sun''s surface. They are only viewed with special equipment, never directly.'

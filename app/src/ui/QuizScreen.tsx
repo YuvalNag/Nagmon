@@ -6,6 +6,7 @@ import { isolateMath } from "../core/learning/text";
 import type { HelperKind, QuizSession } from "../core/world/quiz";
 import { itemText, t } from "../i18n";
 import { Figure } from "./Figure";
+import { Passage } from "./Passage";
 import { ScreenTime } from "./screenTime";
 import { QuizExample } from "./QuizExample";
 import { Tap } from "./Tap";
@@ -98,6 +99,7 @@ export function QuizScreen({ session, text, subjectTitle, onClose, notes }: Prop
   const englishFirst = q.subject === "english";
   const prompt = (
     <div className="quiz-prompt">
+      <Passage q={q} />
       {q.figure && <Figure figure={q.figure} />}
       <p className="quiz-question" data-id="quiz_prompt">
         {isolateMath(q.prompt_he)}

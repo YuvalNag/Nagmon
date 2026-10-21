@@ -604,8 +604,8 @@ items:
   prompt_he: איזה מזון נותן לגוף אנרגיה מהירה בעזרת פחמימות?
   prompt_en: Which food gives quick energy from carbohydrates?
   choices:
-  - {he: מלח, en: salt, emoji: 1f9c2}
-  - {he: מים, en: water, emoji: 1f4a7}
+  - {he: "מלח ותבלינים", en: "salt and spices", emoji: 1f9c2}
+  - {he: "מים ומשקאות ללא סוכר", en: "water and drinks without sugar", emoji: 1f4a7}
   - {he: 'לחם, אורז ופסטה', en: 'bread, rice and pasta', emoji: 1f35e}
   answer: 2
   explanation_he: פחמימות הן הדלק העיקרי של הגוף. דגנים מלאים נותנים אנרגיה לאורך זמן וגם סיבים.
@@ -645,8 +645,8 @@ items:
   prompt_he: באילו מזונות יש הרבה ויטמין C?
   prompt_en: Which foods are rich in vitamin C?
   choices:
-  - {he: שמן, en: oil, emoji: 1fad7}
-  - {he: סוכר לבן, en: white sugar, emoji: 1f36c}
+  - {he: "שמן זית וחמאה", en: "olive oil and butter", emoji: 1fad7}
+  - {he: "סוכר לבן וממתקים", en: "white sugar and sweets", emoji: 1f36c}
   - {he: 'פלפל אדום, תפוזים וקיווי', en: 'red pepper, oranges and kiwi', emoji: 1fad1}
   answer: 2
   explanation_he: ויטמין C עוזר לרפא פצעים ולחזק את מערכת החיסון. יש ממנו הרבה בפירות וירקות טריים.
@@ -801,8 +801,8 @@ items:
   prompt_he: מה עושה מערכת הדם (מחזור הדם)?
   prompt_en: What does the circulatory system do?
   choices:
-  - {he: מייצרת קול, en: makes sound}
-  - {he: מעכלת אוכל, en: digests food}
+  - {he: "מייצרת את הקול של הגוף", en: "makes the voice of the body"}
+  - {he: "מעכלת את האוכל שאוכלים", en: "digests the food we eat"}
   - {he: מובילה חמצן ומזון לכל תאי הגוף, en: carries oxygen and food to all cells}
   answer: 2
   explanation_he: הלב שואב דם בעורקים לכל הגוף. הדם מוסר חמצן ומזון לתאים, אוסף פסולת וחוזר בוורידים ללב.
@@ -1052,9 +1052,9 @@ items:
   prompt_he: מה הכבד עושה?
   prompt_en: What does the liver do?
   choices:
-  - {he: שואב דם, en: pumps blood}
+  - {he: "שואב דם לכל הגוף", en: "pumps blood to the whole body"}
   - {he: מנקה רעלים ועוזר בעיכול שומנים, en: removes toxins and helps digest fats}
-  - {he: שולט בשרירים, en: controls muscles}
+  - {he: "שולט בתנועה של השרירים", en: "controls the movement of the muscles"}
   answer: 1
   explanation_he: הכבד הוא האיבר הפנימי הגדול ביותר. הוא מפרק חומרים מזיקים ומייצר מרה, שעוזרת לעכל שומנים.
   explanation_en: The liver is the largest internal organ. It breaks down harmful substances and makes bile, which helps digest fats.

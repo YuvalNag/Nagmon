@@ -666,6 +666,36 @@ button.dialog {
   max-width: 34em;
 }
 
+.quiz-passage {
+  max-width: 34em;
+  max-height: 34vh;
+  overflow-y: auto;
+  padding: calc(var(--gap) / 2) var(--gap);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  text-align: start;
+  font-size: 0.9em;
+  line-height: 1.35;
+}
+
+.quiz-passage p {
+  margin: 0 0 calc(var(--gap) / 3);
+  text-align: start;
+}
+
+.quiz-passage-title {
+  font-weight: 700;
+}
+
+.quiz-passage-he summary {
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+
+.quiz-top .quiz-passage {
+  max-height: 22vh;
+}
+
 .quiz-en {
   display: block;
   font-size: 0.85em;

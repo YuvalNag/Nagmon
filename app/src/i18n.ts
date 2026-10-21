@@ -296,6 +296,7 @@ export const he = {
   notesNoMore: "אין עוד מחברות",
   quizDontKnowFeedback: "זה בסדר לא לדעת! ככה פותרים:",
   quizPicture: "תמונה לשאלה",
+  quizPassageHebrew: "בעברית",
   quizExampleIdea: "הרעיון: {idea}",
   quizExampleAnswer: "התשובה: {answer}",
   quizExampleNext: "עכשיו שאלה חדשה, עם מספרים או מילים אחרים. תורכם לפתור!",

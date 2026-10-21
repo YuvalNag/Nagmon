@@ -38,6 +38,16 @@ export interface SelectorConfig {
   struggling_acc: number;
   remedial_min_n: number;
   closeness_floor: number;
+  /** How many of the latest questions the skill, shape and kind guards look at. */
+  skill_window: number;
+  /** A prerequisite counts as met after this many answers... */
+  competent_min_n: number;
+  /** ...with at least this share of the latest ten right. */
+  competent_acc: number;
+  /** Highest grade above the child's level a stretch question may come from. */
+  stretch_up: number;
+  /** Lowest grade below the child's level that review and fallbacks may reach. */
+  band_down: number;
 }
 
 export const DEFAULT_SELECTOR_CONFIG: Readonly<SelectorConfig> = {
@@ -48,13 +58,18 @@ export const DEFAULT_SELECTOR_CONFIG: Readonly<SelectorConfig> = {
   focus_share: 0.6,
   focus_weight: 4.0,
   candidates: 8,
-  recent_n: 8,
+  recent_n: 30,
   stale_days: 14.0,
   target_jitter: 0.025,
   struggling_min_n: 5,
   struggling_acc: 0.5,
   remedial_min_n: 4,
   closeness_floor: 0.05,
+  skill_window: 6,
+  competent_min_n: 3,
+  competent_acc: 0.6,
+  stretch_up: 1,
+  band_down: 2,
 };
 
 export interface SelectOptions {
@@ -65,6 +80,15 @@ export interface SelectOptions {
   context?: string;
   max_choices?: number | null;
   difficulty_bias?: number;
+}
+
+/** A question's wording with its numbers taken out: "5 + 3" and "7 + 2" are the same shape. */
+export function promptShape(q: Pick<Question, "prompt_he" | "prompt_en">): string {
+  return `${q.prompt_he}|${q.prompt_en ?? ""}`
+    .replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069]/g, "")
+    .replace(/\d+(?:[.,/]\d+)?/g, "#")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /** A recent-items window of fixed length (Python's `deque(maxlen=n)`). */
@@ -96,6 +120,10 @@ export class QuestionSelector {
   readonly clock: Clock;
   readonly config: SelectorConfig;
   private readonly recent: Recent;
+  /** The skills, wordings and kinds of the latest questions, newest last (the variety guards). */
+  private recentSkills: string[] = [];
+  private recentShapes: string[] = [];
+  private recentKinds: string[] = [];
   private bossKey: readonly string[] = [];
   private bossCounts = new Map<string, number>();
 
@@ -106,7 +134,28 @@ export class QuestionSelector {
     this.clock = clock;
     this.config = { ...DEFAULT_SELECTOR_CONFIG, ...(config ?? {}) };
     const n = Math.trunc(Number(learner.settings["recent_n"] ?? this.config.recent_n));
-    this.recent = new Recent(n, n > 0 ? learner.log.slice(-n).map((e) => e.item) : []);
+    this.recent = new Recent(Math.max(n, 0), n > 0 ? learner.log.slice(-n).map((e) => e.item) : []);
+    this.recentSkills = learner.log.slice(-this.config.skill_window).map((e) => e.skill);
+  }
+
+  // -- variety -------------------------------------------------------------------
+  private latestSkills(): string[] {
+    return this.recentSkills.slice(-this.config.skill_window);
+  }
+
+  /** How welcome a skill is now: 1 when it was not asked lately, less for each time it was. */
+  private freshness(skillId: string): number {
+    const w = this.latestSkills();
+    const n = w.filter((s) => s === skillId).length;
+    const f = n === 0 ? 1 : n === 1 ? 0.4 : n === 2 ? 0.08 : 0.01;
+    return w[w.length - 1] === skillId ? f * 0.5 : f;
+  }
+
+  /** Asking this skill now would be a third in a row, or a fourth in the window: only when nothing else is left. */
+  private overused(skillId: string): boolean {
+    const w = this.latestSkills();
+    const n = w.filter((s) => s === skillId).length;
+    return n >= 3 || (w.length >= 2 && w[w.length - 1] === skillId && w[w.length - 2] === skillId);
   }
 
   // -- skill status ----------------------------------------------------------
@@ -131,8 +180,21 @@ export class QuestionSelector {
     return skill.grade < this.learner.gradeIn(skill.subject) && !this.struggling(skill.id);
   }
 
+  /** Tried enough, and mostly right: the idea is there, though the skill is not mastered yet. */
+  competent(skillId: string): boolean {
+    const st = this.learner.skills.get(skillId);
+    if (st === undefined || st.n < this.config.competent_min_n) return false;
+    const acc = st.recentAccuracy(10);
+    return acc !== null && acc >= this.config.competent_acc;
+  }
+
+  /**
+   * A prerequisite is met when it is mastered, below the child's level, or the child has shown the idea
+   * (competent). Waiting for mastery alone left a child on one skill for dozens of questions: a first-grade
+   * science child had a single skill, of fourteen items, until it was mastered.
+   */
   ok(skillId: string): boolean {
-    if (this.mastered(skillId)) return true;
+    if (this.mastered(skillId) || this.competent(skillId)) return true;
     const skill = this.content.get(skillId);
     return skill !== undefined && this.assumed(skill);
   }
@@ -207,19 +269,45 @@ export class QuestionSelector {
   }
 
   private weighted(skills: readonly Skill[], weights: readonly number[]): Skill {
-    return this.rng.choices(skills, weights, 1)[0]!;
+    // the variety guard: a skill that was asked too often lately waits, unless it is the only one
+    const ok = skills.map((s) => !this.overused(s.id));
+    if (ok.some(Boolean) && !ok.every(Boolean)) {
+      const keep = skills.map((_, i) => i).filter((i) => ok[i]);
+      return this.rng.choices(
+        keep.map((i) => skills[i]!),
+        keep.map((i) => weights[i]! * this.freshness(skills[i]!.id)),
+        1,
+      )[0]!;
+    }
+    return this.rng.choices(
+      skills,
+      weights.map((w, i) => w * this.freshness(skills[i]!.id)),
+      1,
+    )[0]!;
   }
 
   // -- item choice -------------------------------------------------------------
-  private ctx(skill: Skill, maxChoices: number | null): GenContext {
+  private ctx(skill: Skill, maxChoices: number | null, rotate = false): GenContext {
     return genContext({
       skill_id: skill.id,
       subject: skill.subject,
       grade: this.learner.gradeIn(skill.subject),
       age: this.learner.age,
       max_choices: maxChoices,
-      prefer_kind: (this.learner.settings["answer_mode"] as string | undefined) ?? null,
+      prefer_kind: (this.learner.settings["answer_mode"] as string | undefined) ?? (rotate ? this.rotatedKind(maxChoices) : null),
     });
+  }
+
+  /**
+   * A typed answer now and then: three choice-like questions in a row (and a child who may type:
+   * eight or older, no cap on choices) ask the next one that can be typed on the number pad.
+   * Skills that have no typed form ignore it.
+   */
+  private rotatedKind(maxChoices: number | null): string | null {
+    const age = this.learner.age;
+    if (maxChoices || (age !== null ? age <= 7 : this.learner.grade <= 1)) return null;
+    const last = this.recentKinds.slice(-3);
+    return last.length === 3 && last.every((k) => k !== "number") ? "number" : null;
   }
 
   /** P(correct) for this learner, with the item's per-child offset. */
@@ -229,9 +317,23 @@ export class QuestionSelector {
     return pCorrect(this.thetaOf(q.skill_id), bv + bias, questionGuess(q));
   }
 
-  /** Of `candidates` seeds, the item whose expected P is closest to `target`, skipping recent items. */
-  bestItem(skill: Skill, target: number, maxChoices: number | null, bias: number): Question {
-    const ctx = this.ctx(skill, maxChoices);
+  /** What a candidate costs beyond its distance from the target: the wording or kind of the last few questions again. */
+  private samenessCost(q: Question): number {
+    let cost = 0;
+    const shape = promptShape(q);
+    const shapes = this.recentShapes.slice(-3);
+    if (shapes.includes(shape)) cost += 0.12;
+    const kinds = this.recentKinds.slice(-2);
+    if (kinds.length === 2 && kinds[0] === kinds[1] && kinds[1] === q.kind) cost += 0.06;
+    return cost;
+  }
+
+  /**
+   * Of `candidates` seeds, the item whose expected P is closest to `target`, skipping recent items
+   * and, at equal distance, preferring another wording and kind than the last few questions.
+   */
+  bestItem(skill: Skill, target: number, maxChoices: number | null, bias: number, rotate = false): Question {
+    const ctx = this.ctx(skill, maxChoices, rotate);
     let best: [number, Question] | null = null;
     let fallback: [number, Question] | null = null;
     const tries = this.config.candidates;
@@ -243,9 +345,12 @@ export class QuestionSelector {
       const gap = Math.abs(this.expected(q, bias) - target);
       if (this.recent.has(q.item_id)) {
         if (fallback === null || gap < fallback[0]) fallback = [gap, q];
-      } else if (best === null || gap < best[0]) {
-        best = [gap, q];
-        if (gap < 0.015) break;
+      } else {
+        const cost = gap + this.samenessCost(q);
+        if (best === null || cost < best[0]) {
+          best = [cost, q];
+          if (cost < 0.015) break;
+        }
       }
       i += 1;
     }
@@ -280,12 +385,35 @@ export class QuestionSelector {
       }
     }
     const weights = cands.map((s) => this.closeness(s, target) * (this.isFocus(s) ? this.config.focus_weight : 1.0));
+    // Few skills left on the frontier: the neighbours of the level join in (lighter), so a battle is not one skill five times.
+    const fresh = cands.filter((s) => !this.overused(s.id)).length;
+    if (fresh < 3) {
+      for (const s of this.neighbours(pool)) {
+        if (names.has(s.id)) continue;
+        cands.push(s);
+        weights.push(0.5 * this.closeness(s, target));
+      }
+    }
     return this.weighted(cands, weights);
+  }
+
+  /** Skills of the pool within a grade of the child's level that are open to them (mastered ones too: a review). */
+  private neighbours(pool: readonly Skill[]): Skill[] {
+    return pool.filter((s) => {
+      const level = this.learner.gradeIn(s.subject);
+      return s.grade >= level - 1 && s.grade <= level + 1 && this.unlocked(s);
+    });
+  }
+
+  /** The lowest grade the review and fallback questions may come from: the level less the band. */
+  private floorOf(skill: Skill): number {
+    return this.learner.gradeIn(skill.subject) - this.config.band_down;
   }
 
   private pickInterleave(pool: readonly Skill[], target: number): Skill | null {
     const now = this.clock();
-    const cands = pool.filter((s) => this.attempted(s.id));
+    let cands = pool.filter((s) => this.attempted(s.id) && s.grade >= this.floorOf(s));
+    if (cands.length < 2) cands = pool.filter((s) => this.attempted(s.id));
     if (cands.length < 2) return null;
     const weights = cands.map((s) => {
       const days = (now - this.learner.skills.get(s.id)!.last) / DAY;
@@ -295,17 +423,19 @@ export class QuestionSelector {
   }
 
   private pickStretch(pool: readonly Skill[]): Skill | null {
-    let cands = pool.filter((s) => this.isNew(s));
+    // one grade up at most: a stretch is a step, not a jump
+    let cands = pool.filter((s) => this.isNew(s) && s.grade <= this.learner.gradeIn(s.subject) + this.config.stretch_up);
     if (!cands.length) return null;
     const low = Math.min(...cands.map((s) => s.grade));
     cands = cands.filter((s) => s.grade === low);
-    return this.rng.choice(cands);
+    const fresh = cands.filter((s) => !this.overused(s.id));
+    return this.rng.choice(fresh.length ? fresh : cands);
   }
 
   private pickReview(pool: readonly Skill[], maxChoices: number | null): Question | null {
     const ids = new Set(pool.map((s) => s.id));
     for (const card of this.learner.srs.due(this.clock(), (sid) => ids.has(sid))) {
-      if (this.recent.has(card.item_id)) continue;
+      if (this.recent.has(card.item_id) || this.overused(card.skill_id)) continue;
       const skill = this.content.skills.get(card.skill_id)!;
       const ctx = this.ctx(skill, maxChoices);
       if (card.seed === null || card.seed === undefined) return this.bestItem(skill, this.learner.targetReview, maxChoices, 0.0);
@@ -314,13 +444,32 @@ export class QuestionSelector {
     }
     const now = this.clock();
     const stale = pool.filter(
-      (s) => this.mastered(s.id) && now - (this.learner.skills.get(s.id)?.last ?? 0.0) > this.config.stale_days * DAY,
+      (s) =>
+        this.mastered(s.id) &&
+        !this.overused(s.id) &&
+        s.grade >= this.floorOf(s) &&
+        now - (this.learner.skills.get(s.id)?.last ?? 0.0) > this.config.stale_days * DAY,
     );
     if (stale.length) {
       const skill = this.rng.choice(stale);
       return this.bestItem(skill, this.learner.targetReview, maxChoices, 0.0);
     }
     return null;
+  }
+
+  /**
+   * A script names a skill (the cashier asks change from 20 of everyone). On the map, for a child far
+   * above it, the family's skill nearest their level is asked instead: a grade-9 child had change from
+   * 20 five times in one session. Lessons and the placement name their skill on purpose and keep it.
+   */
+  private forcedSkill(skill: Skill, context: string): Skill {
+    if (context !== "shop") return skill;
+    const level = this.learner.gradeIn(skill.subject);
+    if (skill.grade >= level - this.config.band_down) return skill;
+    const family = skill.id.split(".").slice(0, 2).join(".") + ".";
+    const kin = [...this.content.skills.values()].filter((k) => k.id.startsWith(family));
+    kin.sort((a, b) => Math.abs(a.grade - level) - Math.abs(b.grade - level) || a.grade - b.grade);
+    return kin[0] ?? skill;
   }
 
   // -- main entry ----------------------------------------------------------------
@@ -338,7 +487,7 @@ export class QuestionSelector {
     let workedOk = true;
 
     if (skillId !== null) {
-      const skill = this.content.skill(skillId);
+      const skill = this.forcedSkill(this.content.skill(skillId), context);
       q = this.bestItem(skill, this.jitter(targetF), maxChoices, bias);
       bucket = FORCED;
     } else if (context === "boss" && skillIds && skillIds.length) {
@@ -361,7 +510,7 @@ export class QuestionSelector {
       if (focus.length && this.rng.random() < this.config.focus_share) {
         const weights = focus.map((s) => this.closeness(s, targetF));
         const skill = this.weighted(focus, weights);
-        q = this.bestItem(skill, this.jitter(targetF), maxChoices, bias);
+        q = this.bestItem(skill, this.jitter(targetF), maxChoices, bias, true);
         bucket = FOCUS;
       } else {
         [q, bucket] = this.bucketed(pool, context, targetF, maxChoices, bias);
@@ -382,24 +531,28 @@ export class QuestionSelector {
       if (bucket === FRONTIER) {
         if (context === "battle" && this.rng.random() < c.interleave_in_battle) {
           const skill = this.pickInterleave(pool, targetF);
-          if (skill !== null) return [this.bestItem(skill, this.jitter(targetF), maxChoices, bias), INTERLEAVE];
+          if (skill !== null) return [this.bestItem(skill, this.jitter(targetF), maxChoices, bias, true), INTERLEAVE];
         }
         const skill = this.pickFrontier(pool, targetF);
-        if (skill !== null) return [this.bestItem(skill, this.jitter(targetF), maxChoices, bias), FRONTIER];
+        if (skill !== null) return [this.bestItem(skill, this.jitter(targetF), maxChoices, bias, true), FRONTIER];
       } else if (bucket === REVIEW) {
         const q = this.pickReview(pool, maxChoices);
         if (q !== null) return [q, REVIEW];
       } else {
         const skill = this.pickStretch(pool);
-        if (skill !== null) return [this.bestItem(skill, this.jitter(targetF), maxChoices, bias), STRETCH];
+        if (skill !== null) return [this.bestItem(skill, this.jitter(targetF), maxChoices, bias, true), STRETCH];
       }
     }
+    // Nothing on the frontier, due or new: the skills nearest the child's level, the open ones first.
+    const gap = (s: Skill): number => Math.abs(s.grade - this.learner.gradeIn(s.subject));
     const openAll = pool.filter((s) => this.unlocked(s) && !this.mastered(s.id));
     const open = openAll.length ? openAll : [...pool];
-    const low = Math.min(...open.map((s) => s.grade));
-    const near = open.filter((s) => s.grade <= Math.max(low, this.learner.gradeIn(s.subject)));
-    const skill = this.rng.choice(near.length ? near : open);
-    return [this.bestItem(skill, this.jitter(targetF), maxChoices, bias), ANY];
+    const fresh = open.filter((s) => !this.overused(s.id));
+    const from = fresh.length ? fresh : open;
+    const nearest = Math.min(...from.map(gap));
+    const near = from.filter((s) => gap(s) === nearest);
+    const skill = this.rng.choice(near);
+    return [this.bestItem(skill, this.jitter(targetF), maxChoices, bias, true), ANY];
   }
 
   private finish(q: Question, bucket: string, workedOk: boolean): Question {
@@ -423,6 +576,11 @@ export class QuestionSelector {
       }
     }
     this.recent.push(q.item_id);
+    this.recentSkills.push(q.skill_id);
+    this.recentShapes.push(promptShape(q));
+    this.recentKinds.push(q.kind);
+    const keep = Math.max(this.config.skill_window, 8);
+    for (const list of [this.recentSkills, this.recentShapes, this.recentKinds]) if (list.length > keep) list.splice(0, list.length - keep);
     return { ...q, meta };
   }
 }

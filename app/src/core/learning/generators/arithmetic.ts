@@ -74,6 +74,7 @@ register("arithmetic.count", (rng, params, ctx) => {
     figure: makeFigure("objects", { emoji: code, count: n }),
     calc: `${n}`,
     allow_negative: false,
+    min_value: 1,
   });
 });
 

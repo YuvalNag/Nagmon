@@ -35,9 +35,9 @@ items:
   prompt_he: איזה חומר מתאים למעיל גשם?
   prompt_en: Which material suits a raincoat?
   choices:
-  - {he: נייר, en: paper}
+  - {he: "נייר שסופג את המים", en: "paper that soaks up water"}
   - {he: ניילון שלא נותן למים לעבור, en: nylon that keeps water out}
-  - {he: צמר גפן, en: cotton wool}
+  - {he: "צמר גפן שמחזיק מים", en: "cotton wool that holds water"}
   answer: 1
   explanation_he: מעיל גשם צריך להיות עמיד למים. ניילון ופלסטיק לא סופגים מים, ונייר וצמר גפן סופגים.
   explanation_en: A raincoat must be waterproof. Nylon and plastic don't absorb water; paper and cotton wool do.
@@ -471,8 +471,8 @@ items:
   prompt_en: What is the direct change from solid to gas, as in dry ice, called?
   choices:
   - {he: המראה (סובלימציה), en: sublimation}
-  - {he: התכה, en: melting}
-  - {he: התעבות, en: condensation}
+  - {he: "התכה, מעבר ממוצק לנוזל", en: "melting, from solid to liquid"}
+  - {he: "התעבות, מעבר מגז לנוזל", en: "condensation, from gas to liquid"}
   answer: 0
   explanation_he: קרח יבש הוא פחמן דו-חמצני מוצק. בטמפרטורת החדר הוא הופך ישר לגז, בלי להיות נוזל.
   explanation_en: Dry ice is solid carbon dioxide. At room temperature it turns straight into gas without becoming liquid.
@@ -905,8 +905,8 @@ items:
   prompt_he: מהי מולקולה?
   prompt_en: What is a molecule?
   choices:
-  - {he: סוג של תא, en: a kind of cell}
-  - {he: אטום שבור, en: a broken atom}
+  - {he: "סוג של תא קטן בגוף", en: "a kind of small cell in the body"}
+  - {he: "אטום שנשבר לשני חלקים", en: "an atom broken in two"}
   - {he: קבוצה של אטומים שקשורים יחד, en: a group of atoms bonded together}
   answer: 2
   explanation_he: במולקולה אטומים מחוברים בקשרים כימיים. למשל, מולקולת חמצן O2 היא שני אטומי חמצן.

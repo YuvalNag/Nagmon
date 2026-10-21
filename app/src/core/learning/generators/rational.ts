@@ -672,6 +672,8 @@ register("ratio.share", (rng, params, ctx) => {
       `${ltr(`${total} : ${a + c} = ${unit}`)}. ` +
       `${asked}: ${ltr(`${askSecond ? c : a} × ${unit} = ${ans}`)}.`,
     difficulty: 0.0 + 0.4 * scale(total, 6, 120),
+    min_value: 1,
+    step: unit,
     calc: `F(${total} * ${askSecond ? c : a}, ${a + c})`,
   });
 });

@@ -132,9 +132,9 @@ items:
   prompt_he: איך אפשר לזהות מה הקוטב הצפוני של מגנט לא מסומן?
   prompt_en: How can you find the north pole of an unmarked magnet?
   choices:
-  - {he: לטעום אותו, en: taste it}
+  - {he: "לטעום אותו ולראות אם הוא מתוק", en: "to taste it and see if it is sweet"}
   - {he: לתלות אותו ולראות לאן הוא פונה, en: hang it freely and see where it points}
-  - {he: לשקול אותו, en: weigh it}
+  - {he: "לשקול אותו ולהשוות בין הקצוות", en: "to weigh it and compare the ends"}
   answer: 1
   explanation_he: מגנט שתלוי בחופשיות מסתובב כמו מצפן, והקצה שפונה לצפון הוא הקוטב הצפוני שלו.
   explanation_en: A freely hanging magnet turns like a compass, and the end that points north is its north pole.
@@ -950,8 +950,8 @@ items:
   prompt_en: What can a force do to an object?
   choices:
   - {he: 'להזיז, לעצור, לשנות כיוון או צורה', en: 'move it, stop it, change its direction or shape'}
-  - {he: רק לחמם אותו, en: only heat it}
-  - {he: רק לצבוע אותו, en: only color it}
+  - {he: "רק לחמם אותו ולא יותר", en: "only to heat it and nothing more"}
+  - {he: "רק לשנות את הצבע שלו", en: "only to change its color"}
   answer: 0
   explanation_he: כוח יכול להתחיל תנועה, לעצור אותה, לשנות את כיוונה, ואפילו למעוך חפץ, כמו בצק.
   explanation_en: A force can start motion, stop it, change its direction, and even squash an object, like dough.
@@ -1144,9 +1144,9 @@ items:
   prompt_he: משפשפים בלון בשיער, והוא נדבק לקיר. למה?
   prompt_en: A balloon rubbed on hair sticks to the wall. Why?
   choices:
-  - {he: הבלון רטוב, en: the balloon is wet, emoji: 1f4a7}
+  - {he: "הבלון רטוב ולכן הוא דבק", en: "the balloon is wet, so it sticks", emoji: 1f4a7}
   - {he: 'חשמל סטטי: הבלון קיבל מטען חשמלי', en: 'static electricity: the balloon gained a charge', emoji: 1f388}
-  - {he: הקיר מגנטי, en: the wall is magnetic, emoji: 1f9f2}
+  - {he: "הקיר מגנטי ומושך את הבלון", en: "the wall is magnetic and pulls the balloon", emoji: 1f9f2}
   answer: 1
   explanation_he: בשפשוף עוברים אלקטרונים מהשיער לבלון. לבלון יש עכשיו מטען שלילי, והוא נמשך לקיר.
   explanation_en: Rubbing moves electrons from hair to the balloon, giving it a negative charge that attracts it to the wall.
@@ -1343,9 +1343,9 @@ items:
   prompt_he: איזו מכונה פשוטה מסתתרת בבורג או במכסה של צנצנת?
   prompt_en: Which simple machine is hidden in a screw or a jar lid?
   choices:
-  - {he: גלגלת, en: a pulley}
+  - {he: "גלגלת שמושכת חבל", en: "a pulley that pulls a rope"}
   - {he: מישור משופע מלופף, en: an inclined plane wrapped around}
-  - {he: מנוף, en: a lever}
+  - {he: "מנוף שמרים משא", en: "a lever that lifts a load"}
   answer: 1
   explanation_he: ההברגה היא בעצם רמפה שמלופפת סביב גליל. כל סיבוב מקדם את הבורג קצת, בכוח קטן.
   explanation_en: The thread is really a ramp wrapped around a cylinder. Each turn advances the screw a little with little force.

@@ -38,11 +38,27 @@ describe("the owl's placement", () => {
     expect(p.history.map((h) => h.level)).toEqual([4, 5, 4, 5, 4, 5]);
   });
 
-  it("never goes more than two grades above the parent's grade, or three below it", () => {
+  it("asks a form that is not a coin toss when the skill has one: true-or-false is rare", () => {
+    const kinds: string[] = [];
+    for (let seed = 1; seed <= 25; seed++) {
+      const engine = engineFor(content, 4, seed);
+      let t = 0;
+      const p = new Placement(engine, { grade: 4, clock: () => (t += 1000), maxChoices: null });
+      for (let s = p.next(); s; s = p.next()) {
+        kinds.push(s.question!.kind);
+        answerRight(s);
+        p.answered(s);
+      }
+    }
+    expect(kinds.length).toBe(150);
+    expect(kinds.filter((k) => k === "true_false").length / kinds.length).toBeLessThan(0.05);
+  });
+
+  it("never goes more than one grade above the parent's grade, or two below it", () => {
     const up = run(3, () => true).p.history.map((h) => h.level);
-    expect(Math.max(...up)).toBe(5);
+    expect(Math.max(...up)).toBe(4);
     const down = run(3, () => false).p.history.map((h) => h.level);
-    expect(Math.min(...down)).toBe(0);
+    expect(Math.min(...down)).toBe(1);
     expect(run(1, () => false).p.history.map((h) => h.level).at(-1)).toBe(0);
   });
 

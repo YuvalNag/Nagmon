@@ -222,8 +222,8 @@ items:
   prompt_en: What is a habitat?
   choices:
   - {he: המקום הטבעי שבו יצור חי ומוצא את צרכיו, en: the natural home where a living thing finds its needs}
-  - {he: בית של בני אדם, en: a house for people}
-  - {he: גן חיות, en: a zoo}
+  - {he: "בית שבני אדם בונים לחיות המחמד שלהם", en: "a house people build for their pets"}
+  - {he: "מקום שבו מציגים חיות מכל העולם", en: "a place that shows animals from all over the world"}
   answer: 0
   explanation_he: בית גידול הוא סביבה טבעית שיש בה מזון, מים, מחסה ותנאים שמתאימים ליצור.
   explanation_en: A habitat is a natural environment with the food, water, shelter and conditions a creature needs.
@@ -263,8 +263,8 @@ items:
   prompt_en: Which habitat has the most kinds of animals and plants?
   choices:
   - {he: יער גשם טרופי, en: tropical rainforest}
-  - {he: קוטב, en: polar region}
-  - {he: מדבר, en: desert}
+  - {he: "הקוטב הקר והמושלג", en: "the cold, snowy pole"}
+  - {he: "מדבר חם ויבש", en: "a hot, dry desert"}
   answer: 0
   explanation_he: ביער הגשם חם ולח כל השנה, ויש הרבה מזון. לכן חיים בו יותר מינים מכל בית גידול יבשתי אחר.
   explanation_en: A rainforest is warm and wet all year with lots of food, so it holds more species than any other land habitat.
@@ -518,8 +518,8 @@ items:
   prompt_en: What helps an owl find food at night?
   choices:
   - {he: עיניים גדולות ושמיעה חדה, en: big eyes and sharp hearing}
-  - {he: אף ארוך, en: a long nose}
-  - {he: קשקשים, en: scales}
+  - {he: "אף ארוך וחוש ריח חזק", en: "a long nose and a strong sense of smell"}
+  - {he: "קשקשים שמבריקים באור", en: "scales that shine in the light"}
   answer: 0
   explanation_he: עיני הינשוף קולטות הרבה אור, ושמיעתו כל כך טובה שהוא שומע עכבר זז בתוך העשב.
   explanation_en: Owl eyes gather lots of light, and their hearing is so sharp they can hear a mouse moving in the grass.
@@ -658,9 +658,9 @@ items:
   prompt_he: איך נקרא שינוי צורה גדול במהלך החיים, כמו מזחל לפרפר?
   prompt_en: What is the big change in body form, like caterpillar to butterfly, called?
   choices:
-  - {he: נדידה, en: migration}
+  - {he: "נדידה לארצות חמות", en: "migrating to warm countries"}
   - {he: גלגול (מטמורפוזה), en: metamorphosis}
-  - {he: תרדמה, en: hibernation}
+  - {he: "תרדמה בחורף", en: "hibernating in winter"}
   answer: 1
   explanation_he: בגלגול הגוף משתנה לגמרי. כך זה אצל פרפרים, דבורים, חיפושיות וצפרדעים.
   explanation_en: In metamorphosis the body changes completely, as in butterflies, bees, beetles and frogs.

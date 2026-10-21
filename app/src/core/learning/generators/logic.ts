@@ -270,6 +270,8 @@ register("logic.sudoku", (rng, params, ctx) => {
         .slice(0, 2),
       explanation_he: `בשורה כבר יש ` + `${row.filter((v) => v !== ans).join(", ")}. ` + `המספר שחסר הוא ${ans}.`,
       difficulty: -0.5 + 0.1 * (n - 4),
+      min_value: 1,
+      max_value: n,
       figure: makeFigure("grid_numbers", { grid: [row.map((v, i) => (i === hole ? null : v))], target: [0, hole] }),
       choice_only: false,
       calc: `${floorDiv(n * (n + 1), 2)} - ${sum - ans}`,
@@ -296,6 +298,8 @@ register("logic.sudoku", (rng, params, ctx) => {
     explanation_he:
       `בשורה חסרים ${rowMissing[0]} ו־${rowMissing[1]}. ` + `בעמודה כבר יש ${colVals.join(", ")}, ` + `ולכן המספר הוא ${ans}.`,
     difficulty: 0.3,
+    min_value: 1,
+    max_value: 4,
     figure: makeFigure("grid_numbers", { grid: shown, target: [r, c], boxes: 2 }),
     calc: `${ans}`,
   });

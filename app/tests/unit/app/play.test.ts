@@ -43,6 +43,11 @@ describe("the child's learner", () => {
   });
 });
 
+/** Presses a number's keys one at a time, as the pad takes them. */
+function typeOut(s: QuizSession, text: string): void {
+  for (const ch of text) s.press(ch);
+}
+
 describe("a child's play", () => {
   it("loads the content once per run", async () => {
     expect(await loadLibrary(fetchJson)).toBe(await loadLibrary(fetchJson));
@@ -106,7 +111,7 @@ describe("a child's play", () => {
     let t = 1000;
     const session = new QuizSession(play.engine, { topic: "math.money.change_20", context: "shop", maxChoices: null }, () => (t += 2500), () => {});
     if (session.phase === "example") session.exampleDone();
-    session.choose(session.question!.answer as string) || (session.press("0"), session.check());
+    session.choose(session.question!.answer as string) || (typeOut(session, String(session.question!.answer)), session.check());
     play.logAnswer(session, "shop");
     const q = lines.find((l) => l.startsWith("Q "))!;
     expect(q).toMatch(/^Q subject=math skill=math\.money\.change_20 grade=\d+ theta=-?\d+\.\d\d ok=[01] ms=\d+ ctx=shop$/);
@@ -124,7 +129,7 @@ describe("a child's play", () => {
       let t = 1000;
       const s = new QuizSession(play.engine, { topic: "math.money.change_20", context, maxChoices: null }, () => (t += 2500), () => {});
       if (s.phase === "example") s.exampleDone();
-      if (right) s.choose(s.question!.answer as string) || (s.press(String(s.question!.answer)), s.check());
+      if (right) s.choose(s.question!.answer as string) || (typeOut(s, String(s.question!.answer)), s.check());
       else s.dontKnow();
       play.logAnswer(s, context);
     };

@@ -34,6 +34,18 @@ describe("order and letters questions", () => {
     expect(warnings.join()).toMatch(/cannot be answered/);
   });
 
+  it("a screen without the input asks again, and gets a question it can take (a map question was lost to an order one)", () => {
+    const tf = trueFalse();
+    const { engine } = open(tf);
+    const drawn = [order(), letters(), tf];
+    let i = 0;
+    engine.nextQuestion = () => drawn[i++]!;
+    const warnings: string[] = [];
+    const s = new QuizSession(engine, { topic: "english", context: "shop", maxChoices: null }, () => 0, () => {}, (m) => warnings.push(m));
+    expect(s.question?.kind).toBe("true_false");
+    expect(warnings).toEqual([]);
+  });
+
   it("the battle's request lists them, and then they are questions", () => {
     expect(open(order(), { kinds: ["order", "letters"] }).s.question?.kind).toBe("order");
     expect(open(letters(), { kinds: ["order", "letters"] }).s.question?.kind).toBe("letters");
