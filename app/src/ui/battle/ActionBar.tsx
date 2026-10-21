@@ -1,5 +1,5 @@
 import type { Card } from "../../core/game/battle";
-import { flames, type Tier } from "../../core/game/moves";
+import { flames } from "../../core/game/moves";
 import type { MonsterTable } from "../../core/game/monsters";
 import { t } from "../../i18n";
 import { MonsterPic } from "../MonsterPic";
@@ -48,8 +48,8 @@ export interface ActionBarProps {
   onLeave: () => void;
 }
 
-const TIER_ICON: Record<Tier, string> = { E: "🍃", N: "⭐", S: "👑", F: "✨", U: "⭐", C: "⭐", K: "⭐", Q: "⭐", W: "" };
-const TIER_WORD: Record<Tier, "tierEasy" | "tierNormal" | "tierStretch"> = { E: "tierEasy", N: "tierNormal", S: "tierStretch", F: "tierStretch", U: "tierNormal", C: "tierNormal", K: "tierNormal", Q: "tierEasy", W: "tierEasy" };
+const TIER_ICON: Record<string, string> = { E: "🍃", N: "⭐", S: "👑", F: "✨", U: "⭐", C: "⭐", K: "⭐", Q: "⭐", W: "" };
+const TIER_WORD: Record<string, "tierEasy" | "tierNormal" | "tierStretch"> = { E: "tierEasy", N: "tierNormal", S: "tierStretch", F: "tierStretch", U: "tierNormal", C: "tierNormal", K: "tierNormal", Q: "tierEasy", W: "tierEasy" };
 
 /** Charges as up to five dots, in proportion (the number is in the label). */
 function Dots({ left, max }: { left: number | null; max: number | null }) {
@@ -106,7 +106,7 @@ export function ActionBar(p: ActionBarProps) {
         </ul>
         <div className="move-grid" role="group" aria-label={t("battleMoves")} data-count={p.cards.length}>
           {p.cards.map((c) => {
-            const subject = c.move.subject;
+            const subject = c.move.subject === "any" ? null : c.move.subject;
             const title = subject ? p.subjectTitle(subject) : t("battleNoSubject");
             const label = `${p.moveName(c.move.id)}, ${title}${c.left !== null ? `, ${t("battleCharges", { n: c.left, max: c.max ?? c.left })}` : ""}${c.hit === "sparkle" ? `, ${t("battleSparkle")}` : c.hit === "sturdy" ? `, ${t("battleSturdy")}` : ""}`;
             return (
@@ -131,8 +131,8 @@ export function ActionBar(p: ActionBarProps) {
                 <span className="card-meta" aria-hidden="true">
                   <span className="flames">{"🔥".repeat(flames(c.move.tier))}</span>
                   {c.move.tier !== "W" && (
-                    <span className="tier" title={t(TIER_WORD[c.move.tier])}>
-                      {TIER_ICON[c.move.tier]}
+                    <span className="tier" title={t(TIER_WORD[c.move.tier] ?? "tierNormal")}>
+                      {TIER_ICON[c.move.tier] ?? "⭐"}
                     </span>
                   )}
                   <Dots left={c.left} max={c.max} />

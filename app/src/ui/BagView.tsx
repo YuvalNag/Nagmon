@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Play } from "../app/play";
 import { needFor } from "../core/game/collection";
-import { fainted as asleepFriends, useMedicine } from "../core/game/faint";
+import { fainted as asleepFriends, wakeWith } from "../core/game/faint";
 import { countOf, feed, giveStarterKit, type Item, itemsInTab } from "../core/game/items";
 import { itemText, type TextKey, t } from "../i18n";
 import { ScreenTime } from "./screenTime";
@@ -17,8 +17,8 @@ export interface BagBattle {
   onNet: (itemId: string) => void;
   /** Medicine for a sleeping friend of the team (the Bag closes); false when it could not be used. */
   onMedicine?: (itemId: string, creatureId: string) => boolean;
-  /** The ids of the team in the battle: only they can be woken here. */
-  team?: string[];
+  /** The friends of the team a medicine can be used on now (ids): decided by the battle. */
+  targets?: (itemId: string) => string[];
 }
 
 interface Props {
@@ -51,8 +51,8 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
   const [, redraw] = useState(0);
 
   const items = itemsInTab(play.world, eco, tab);
-  // who is asleep and can be woken: in a battle, the team; outside, any friend
-  const sleepers = asleepFriends(play.world).filter((c) => !battle?.team || battle.team.includes(c.id)).slice(0, 8);
+  // who the picked medicine can be used on: in a battle the battle says; outside one only a wake works, on any sleeping friend
+  const targetsOf = (i: Item) => (battle?.targets ? battle.targets(i.id).flatMap((id) => play.world.creatures.filter((c) => c.id === id)) : i.healsDozing ? asleepFriends(play.world) : []).slice(0, 8);
   const item: Item | undefined = picked && countOf(play.world, picked) > 0 ? eco.items[picked] : items[0];
 
   const changed = () => {
@@ -65,7 +65,7 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
   const why = (i: Item): string | null => {
     if (i.kind === "key") return t("bagKeyItem");
     if (i.kind === "helper") return t("bagInQuestion");
-    if (i.kind === "medicine") return sleepers.length ? null : t("bagNoSleeper");
+    if (i.kind === "medicine") return targetsOf(i).length ? null : battle ? t("bagNoSleeper") : i.healsDozing ? t("bagNoSleeper") : t("bagOnlyInBattle");
     if (battle) {
       if (i.kind === "net") return battle.calm ? null : t("bagNeedCalm");
       return t("bagNotInBattle");
@@ -93,7 +93,7 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
         if (!battle.onMedicine(i.id, creatureId)) setSaid(t("bagNoSleeper"));
         return;
       }
-      const ok = useMedicine(play.world, eco, creatureId, i.id);
+      const ok = wakeWith(play.world, eco, creatureId, i.id) > 0;
       play.field.item({ item: i.id, where: "bag", ok });
       if (!ok) {
         setSaid(t("bagNoSleeper"));
@@ -159,9 +159,9 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
             <>
               <strong>{t("bagWho")}</strong>
               <div className="bag-who">
-                {(item.kind === "medicine" ? sleepers : play.world.creatures.slice(0, 4)).map((c) => (
+                {(item.kind === "medicine" ? targetsOf(item) : play.world.creatures.slice(0, 4)).map((c) => (
                   <Tap key={c.id} id={`bag_who_${c.id}`} onTap={() => give(item, c.id)}>
-                    {c.name ?? play.text(c.species)} {t("battleLevel", { level: c.level })} {item.kind === "medicine" ? "💤" : `${c.xp}/${needFor(c.level)}`}
+                    {c.name ?? play.text(c.species)} {t("battleLevel", { level: c.level })} {item.kind === "medicine" ? (c.fainted ? "💤" : "") : `${c.xp}/${needFor(c.level)}`}
                   </Tap>
                 ))}
               </div>

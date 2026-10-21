@@ -9,11 +9,14 @@ import { WIGGLE } from "../../../src/core/game/moves";
 import type { ContentLibrary } from "../../../src/core/learning";
 import { SubjectMap } from "../../../src/core/learning/quiz_flow";
 import { WorldState } from "../../../src/core/world/worldState";
-import { calmIt, cast, engineFor, fixedRng, gameJson, seeded, shipped } from "./helpers";
+import type { BattleData } from "../../../src/core/data/battleTypes";
+import { battleData, calmIt, cast, engineFor, fixedRng, gameJson, seeded, shipped } from "./helpers";
 
 let content: ContentLibrary;
-beforeAll(() => {
+let data: BattleData;
+beforeAll(async () => {
   content = shipped();
+  data = await battleData();
 });
 const monsters = monsterTable(gameJson("db/monsters.json"));
 const subjects = SubjectMap.fromDoc(gameJson("content/subjects.json"));
@@ -40,6 +43,7 @@ function make(over: Over = {}) {
   const t = { now: 0 };
   const battle = new Battle({
     engine: engineFor(content, over.grade ?? 3, 5),
+    data,
     world,
     monsters,
     subjects,
@@ -63,13 +67,13 @@ describe("the four cards", () => {
   it("a Math partner of level 6 has its easy and normal move and two coverage moves (the wheel gives a real choice)", () => {
     const { battle } = make();
     const cards = battle.cards();
-    expect(cards.map((c) => c.move.id)).toEqual(["number_nudge", "sum_spark", "block_bounce", "letter_toss"]);
-    expect(cards.map((c) => c.home)).toEqual([true, true, false, false]);
+    expect(cards.map((c) => c.move.id)).toEqual(["sum_spark", "add_it_up", "number_nudge", "block_bounce"]);
+    expect(cards.map((c) => c.home)).toEqual([true, true, true, false]);
     expect(cards.map((c) => [c.left, c.max])).toEqual([
-      [15, 15],
       [10, 10],
       [10, 10],
       [15, 15],
+      [10, 10],
     ]);
   });
 
@@ -94,7 +98,7 @@ describe("the four cards", () => {
     battle.choose("sum_spark");
     battle.cancel();
     expect(battle.stats.questions).toBe(0);
-    expect(battle.cards()[1]!.left).toBe(10);
+    expect(battle.cards().find((c) => c.move.id === "sum_spark")!.left).toBe(10);
     expect(battle.turns).toBe(0);
   });
 
@@ -110,7 +114,7 @@ describe("the four cards", () => {
 
   it("all four empty: the Little Wiggle is the only card, with no question, no limit and a small hit", () => {
     const m = make({ wild: 30, partner: 1, rng: fixedRng(0.9), debug: { charges: 1 } });
-    for (const id of ["number_nudge", "sum_spark", "block_bounce", "letter_toss"]) cast(m.battle, true, id);
+    for (const id of m.battle.cards().map((c) => c.move.id)) cast(m.battle, true, id);
     expect(m.battle.cards().map((c) => c.move.id)).toEqual([WIGGLE]);
     const questions = m.battle.stats.questions;
     const fog = m.battle.fog;
@@ -157,7 +161,7 @@ describe("a right answer attacks, a wrong one is weak, nobody loses anything", (
   it("a wrong answer costs its charge like any cast, and nothing more", () => {
     const { battle } = make();
     cast(battle, false, "sum_spark");
-    expect(battle.cards()[1]!.left).toBe(9);
+    expect(battle.cards().find((c) => c.move.id === "sum_spark")!.left).toBe(9);
   });
 
   it("the wheel: a move of the subject the enemy is weak to is a Sparkle, and the child can see it (ages 5 to 7)", () => {
@@ -165,8 +169,7 @@ describe("a right answer attacks, a wrong one is weak, nobody loses anything", (
     const { battle } = make({ age: 6 });
     const cards = battle.cards();
     expect(cards.find((c) => c.move.id === "block_bounce")!.hit).toBe("sparkle");
-    // English is Sturdy against Science (the one before it on the wheel); Math is Lunibble's own weak subject (data)
-    expect(cards.find((c) => c.move.id === "letter_toss")!.hit).toBe("sturdy");
+    // Math is Lunibble's own weak subject (the data's second one)
     expect(cards.find((c) => c.move.id === "sum_spark")!.hit).toBe("sparkle");
     const r = cast(battle, true, "block_bounce");
     expect(r.wheel).toBe("sparkle");
@@ -183,7 +186,7 @@ describe("a right answer attacks, a wrong one is weak, nobody loses anything", (
     cast(a.battle, true, "sum_spark");
     const same = cast(a.battle, true, "sum_spark").damage;
     const b = make({ rng: fixedRng(0.5) });
-    cast(b.battle, true, "letter_toss");
+    cast(b.battle, true, "block_bounce");
     const mixed = cast(b.battle, true, "sum_spark").damage;
     expect(mixed).toBeGreaterThanOrEqual(same);
   });
@@ -395,16 +398,16 @@ describe("fainting is real", () => {
 
   it("medicine from the Bag wakes a sleeping friend at half Pep; the friend is awake for good", () => {
     const m = make({ species: "mercurip", rng: fixedRng(0.2), team: ["heliobud", "lunibble", "terrabub"], debug: { pep: 1 } });
-    give(m.world, eco, "medicine", 1);
+    give(m.world, eco, "wake_berry", 1);
     cast(m.battle, true, "sum_spark");
     expect(m.battle.needSwap).toBe(true);
-    expect(m.battle.medicine("c1", "medicine")).toBe("free");
+    expect(m.battle.medicine("c1", "wake_berry")).toBe("free");
     expect(m.world.creatures.find((c) => c.id === "c1")!.fainted).toBeUndefined();
     const c1 = m.world.creatures.find((c) => c.id === "c1")!;
     expect(m.battle.pepOf(c1)).toBe(Math.ceil(m.battle.maxPepOf(c1) / 2));
-    expect(m.world.items.has("medicine")).toBe(false);
+    expect(m.world.items.has("wake_berry")).toBe(false);
     // refused for an awake friend, and when there is none
-    expect(m.battle.medicine("c2", "medicine")).toBeNull();
+    expect(m.battle.medicine("c2", "wake_berry")).toBeNull();
     // the partner itself woke: nobody needs to be picked, and the fight goes on with it
     expect(m.battle.needSwap).toBe(false);
     expect(m.battle.partner.id).toBe("c1");
@@ -485,7 +488,7 @@ describe("the end: calm, the question cap, rewards", () => {
     let last: Round | null = null;
     for (let i = 0; i < cap && m.battle.phase === "fighting"; i++) {
       if (m.battle.needSwap) m.battle.swap(m.battle.team().find((c) => !c.fainted && c.id !== m.battle.partner.id)!.id);
-      last = cast(m.battle, false, i % 2 ? "sum_spark" : "letter_toss");
+      last = cast(m.battle, false);
     }
     expect(m.battle.stats.questions).toBe(cap);
     expect(last!.capped).toBe(true);
@@ -613,6 +616,7 @@ describe("speed counts for nothing in the rating", () => {
     const t = { now: 0 };
     const battle = new Battle({
       engine,
+      data,
       world,
       monsters,
       subjects,

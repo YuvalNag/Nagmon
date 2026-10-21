@@ -109,9 +109,18 @@ def background(s, built, rel, im):
     return display.background_scale(im.size, s.size)
 
 
+def unused(s, built, rel, im):
+    """Art in the manifest (art/manifest.json) no screen shows yet."""
+    return 0
+
+
 #: Where every shipped picture is shown: (path pattern, what, the
 #: enlargement on a screen). The first matching row wins.
 DISPLAY = [
+    ("art/backdrops/*", "battle backdrop", background),
+    ("art/story/*", "story card", background),
+    ("art/title/title_*", "title", background),
+    ("art/*", "art for the battle (not shown yet)", unused),
     ("sprites/monsters/*", "battle monster and menu icon", monster),
     ("atlas/*.png", "map tiles", atlas),
     ("sprites/npc/*", "map characters", by_scale("map")),

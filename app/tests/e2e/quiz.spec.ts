@@ -288,6 +288,66 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
   expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
 });
 
+test("naming a new friend with the letter board: the board covers the map, every key can be tapped, the name is saved", async ({ page }, info) => {
+  await seedChild(page, { grade: 2, battle: true, creatures: [{ id: "c1", species: "heliobud", level: 12, xp: 0 }] });
+  await openMap(page);
+  await steps(page, "right", 1);
+  const battle = page.locator("[data-screen=battle]");
+  await expect(battle).toBeVisible();
+  const growth = async () => {
+    if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")), 30);
+  };
+  for (let i = 0; i < 30 && (await battle.getAttribute("data-view")) !== "calm"; i++) {
+    await castMove(page);
+    await battleAnswer(page, "right");
+    await battleResultClosed(page);
+    await growth();
+  }
+  await expect(battle).toHaveAttribute("data-view", "calm");
+  for (let i = 0; i < 6 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
+    await touch(page, page.locator(id("battle_net")));
+    await battleAnswer(page, "right");
+    await battleResultClosed(page);
+    await growth();
+  }
+  await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
+  await touch(page, page.locator(id("battle_name_own")));
+
+  // the board is on top of the map: its keys are what a finger hits (the old bug: the map's canvas lay over it)
+  const board = page.locator("[data-screen=letters]");
+  await expect(board).toBeVisible();
+  await page.screenshot({ path: info.outputPath("n01_board.png") });
+  for (const key of ["letter_נ", "letter_ת", "board_done", "board_delete"]) {
+    const hit = await page.locator(id(key)).evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      const top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+      return { inside: !!top && (top === el || el.contains(top)), w: r.width, h: r.height, bottom: r.bottom };
+    });
+    expect(hit.inside, key).toBe(true);
+    expect(Math.min(hit.w, hit.h), key).toBeGreaterThanOrEqual(40);
+    expect(hit.bottom, key).toBeLessThanOrEqual(393);
+  }
+  await expect(page.locator(id("board_done"))).toBeDisabled();
+  for (const c of "נתן") await touch(page, page.locator(id(`letter_${c}`)));
+  await expect(page.locator(id("typed"))).toHaveText("נתן");
+  await touch(page, page.locator(id("board_done")));
+  await expect(battle).toHaveCount(0);
+  await expect(page.locator(id("dpad"))).toBeVisible();
+  await expect.poll(async () => ((await saved(page, "saves/world.json"))?.["creatures"] as { name?: string }[] | undefined)?.[1]?.name).toBe("נתן");
+});
+
+test("a new child (grade 0): the first map opens under the owl, not a black screen; the owl speaks", async ({ page }) => {
+  const cdp = await page.context().newCDPSession(page);
+  // a phone is slower than this machine
+  await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
+  await seedChild(page, { grade: 0, intro: true });
+  await page.goto("/");
+  await touch(page, page.locator(id(`child_${PID}`)));
+  await expect(page.locator("[data-screen=play][data-map=ready][data-play=ready]")).toBeVisible({ timeout: 10_000 });
+  await expect(page.locator("[data-screen=map-failed]")).toHaveCount(0);
+  await expect(page.locator("[data-screen=dialog]")).toBeVisible();
+});
+
 test("the battle's menu: the friends strip, four move cards of 150x56 and more, Net, Bag and Run, all in the bottom third", async ({ page }, info) => {
   await seedChild(page, { grade: 2, battle: true });
   await openMap(page);

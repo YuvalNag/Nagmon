@@ -1,142 +1,143 @@
-import { describe, expect, it } from "vitest";
-import { addCreature } from "../../../src/core/game/collection";
-import { awakeParty, faint, fainted, nurseHeals, partyDown, usable, useMedicine } from "../../../src/core/game/faint";
-import { BIG_PUFF, drawIntent, GIGGLE_EVERY, type IntentId, WEIGHTS } from "../../../src/core/game/intents";
-import { countOf, economy, give } from "../../../src/core/game/items";
-import { equipped, flames, movesFrom, DEFAULT_MOVES, WIGGLE } from "../../../src/core/game/moves";
-import { monsterTable } from "../../../src/core/game/monsters";
-import { CHAPTER1, speciesBattle } from "../../../src/core/game/battleSpecies";
+import { beforeAll, describe, expect, it } from "vitest";
+import type { BattleData } from "../../../src/core/data/battleTypes";
 import { WHEEL } from "../../../src/core/game/battleNumbers";
-import { SubjectMap } from "../../../src/core/learning/quiz_flow";
+import { creatureStats, speciesBattle } from "../../../src/core/game/battleSpecies";
+import { addCreature } from "../../../src/core/game/collection";
+import { awakeParty, faint, fainted, nurseHeals, partyDown, usable, wakeWith } from "../../../src/core/game/faint";
+import { BIG_PUFF, drawIntent, giggleEvery, giggleShare, type IntentId, puffPower, weightsOf } from "../../../src/core/game/intents";
+import { countOf, economy, give } from "../../../src/core/game/items";
+import { cardMoves, flames, isHit, WIGGLE } from "../../../src/core/game/moves";
 import { WorldState } from "../../../src/core/world/worldState";
-import { gameJson } from "./helpers";
+import { battleData, gameJson } from "./helpers";
 
 const eco = economy(gameJson("economy.json"));
-const monsters = monsterTable(gameJson("db/monsters.json"));
-const subjects = SubjectMap.fromDoc(gameJson("content/subjects.json"));
+let data: BattleData;
+beforeAll(async () => {
+  data = await battleData();
+});
 
-describe("enemy intents (4.3)", () => {
+describe("the battle data is the app's own (core/data/battleTypes.ts)", () => {
+  it("loads and checks the seven files: 50 moves, 14 statuses, 9 intents, 5 temperaments, 8 gifts, 25 families, 70 species", () => {
+    expect([data.moves.length, data.statuses.length, data.intents.length, Object.keys(data.temperaments).length, Object.keys(data.gifts).length, Object.keys(data.families).length, Object.keys(data.species).length]).toEqual([50, 14, 9, 5, 8, 25, 70]);
+  });
+
+  it("the rules are the numbers of BATTLE_V3 section 5 (the code's own constants agree with the file)", () => {
+    const r = data.rules;
+    expect(r.wheel).toEqual(WHEEL);
+    expect([r.wheel_mult.sparkle, r.wheel_mult.sturdy]).toEqual([1.5, 0.67]);
+    expect([r.fog_kind.wild, r.fog_kind.master, r.bands.A.gentle, r.bands.B.gentle, r.bands.C.gentle]).toEqual([2.0, 4.2, 0.55, 0.9, 1.15]);
+    expect(r.dozing.heal_only_with).toEqual(["medicine", "nurse"]);
+    expect(r.dozing.wakes_at_battle_end).toBe(false);
+  });
+});
+
+describe("enemy intents (4.3), from intents.json", () => {
   const calm = { lastWasBigPuff: false, sinceGiggle: 99, fogFull: false, puffIsBig: false };
 
-  it("the weights add up to the spec's table: a Puff is its attacks, a Silly Dance is its self-care", () => {
-    // the spec's 4.3 table, with Big Puff, Dizzy Swirl and Sticky Mud as attacks and Thicken, Cheer Up, Drowsy Mist as self-care
-    expect(WEIGHTS.shy).toEqual({ puff: 30, giggle: 20, silly: 30 + 20 });
-    expect(WEIGHTS.playful).toEqual({ puff: 30 + 15 + 10, giggle: 0, silly: 30 + 15 });
-    expect(WEIGHTS.grumpy).toEqual({ puff: 50 + 20 + 15, giggle: 0, silly: 15 });
-    expect(WEIGHTS.sleepy).toEqual({ puff: 30, giggle: 15, silly: 25 + 30 });
-    expect(WEIGHTS.proud).toEqual({ puff: 35 + 25, giggle: 0, silly: 20 + 20 });
-    for (const w of Object.values(WEIGHTS)) expect(w.puff + w.giggle + w.silly).toBe(100);
+  it("a temperament's weights are folded onto Puff, Giggle and Silly and still add up to 100", () => {
+    for (const t of Object.keys(data.temperaments)) {
+      const w = weightsOf(data, t);
+      expect(w.puff + w.giggle + w.silly, t).toBe(100);
+    }
+    // attacks (Big Puff, Dizzy Swirl, Sticky Mud) are a Puff; self-care (Thicken, Cheer Up, Drowsy Mist) a Silly Dance
+    expect(weightsOf(data, "shy")).toEqual({ puff: 30, giggle: 20, silly: 50 });
+    expect(weightsOf(data, "playful")).toEqual({ puff: 55, giggle: 0, silly: 45 });
+    expect(weightsOf(data, "grumpy")).toEqual({ puff: 85, giggle: 0, silly: 15 });
+    expect(weightsOf(data, "sleepy")).toEqual({ puff: 30, giggle: 15, silly: 55 });
+    expect(weightsOf(data, "proud")).toEqual({ puff: 60, giggle: 0, silly: 40 });
+  });
+
+  it("the numbers come from the data: a Puff is 50 (40 for a boss), a Giggle gives back 5% at most once in 3 rounds", () => {
+    expect([puffPower(data, false), puffPower(data, true), giggleShare(data), giggleEvery(data)]).toEqual([50, 40, 0.05, 3]);
   });
 
   it("a draw follows the weights", () => {
-    expect(drawIntent(0.0, "shy", calm)).toBe("puff");
-    expect(drawIntent(0.29, "shy", calm)).toBe("puff");
-    expect(drawIntent(0.3, "shy", calm)).toBe("giggle");
-    expect(drawIntent(0.5, "shy", calm)).toBe("silly");
-    expect(drawIntent(0.99, "grumpy", calm)).toBe("silly");
+    const shy = weightsOf(data, "shy");
+    expect(drawIntent(0.0, shy, calm)).toBe("puff");
+    expect(drawIntent(0.29, shy, calm)).toBe("puff");
+    expect(drawIntent(0.3, shy, calm)).toBe("giggle");
+    expect(drawIntent(0.5, shy, calm)).toBe("silly");
   });
 
   it("over many draws every temperament gets its own mix", () => {
-    for (const [t, w] of Object.entries(WEIGHTS)) {
+    for (const t of Object.keys(data.temperaments)) {
+      const w = weightsOf(data, t);
       const n = 4000;
       const count: Record<IntentId, number> = { puff: 0, giggle: 0, silly: 0 };
-      for (let i = 0; i < n; i++) count[drawIntent((i + 0.5) / n, t as keyof typeof WEIGHTS, calm)]++;
+      for (let i = 0; i < n; i++) count[drawIntent((i + 0.5) / n, w, calm)]++;
       expect(count.puff / n).toBeCloseTo(w.puff / 100, 2);
     }
   });
 
-  it("a Giggle comes at most once in three rounds and only when there is fog to give back; otherwise it is a Silly turn", () => {
-    expect(drawIntent(0.4, "shy", { ...calm, sinceGiggle: GIGGLE_EVERY - 1 })).toBe("silly");
-    expect(drawIntent(0.4, "shy", { ...calm, sinceGiggle: GIGGLE_EVERY })).toBe("giggle");
-    expect(drawIntent(0.4, "shy", { ...calm, fogFull: true })).toBe("silly");
-  });
-
-  it("after a big Puff the child gets a Silly turn rather than another big Puff; a small Puff may follow", () => {
-    expect(drawIntent(0.1, "grumpy", { ...calm, lastWasBigPuff: true, puffIsBig: true })).toBe("silly");
-    expect(drawIntent(0.1, "grumpy", { ...calm, lastWasBigPuff: true, puffIsBig: false })).toBe("puff");
+  it("a Giggle at most once in three rounds and only with fog to give back; after a big Puff a Silly turn", () => {
+    const shy = weightsOf(data, "shy");
+    expect(drawIntent(0.4, shy, { ...calm, sinceGiggle: 2 })).toBe("silly");
+    expect(drawIntent(0.4, shy, { ...calm, sinceGiggle: 3 })).toBe("giggle");
+    expect(drawIntent(0.4, shy, { ...calm, fogFull: true })).toBe("silly");
+    const grumpy = weightsOf(data, "grumpy");
+    expect(drawIntent(0.1, grumpy, { ...calm, lastWasBigPuff: true, puffIsBig: true })).toBe("silly");
+    expect(drawIntent(0.1, grumpy, { ...calm, lastWasBigPuff: true, puffIsBig: false })).toBe("puff");
     expect(BIG_PUFF).toBe(0.15);
   });
 });
 
-describe("the moves table (3)", () => {
-  it("the default has the plain attacks of the six subjects and the Little Wiggle", () => {
-    const subjectsOf = new Set(Object.values(DEFAULT_MOVES).map((m) => m.subject));
-    for (const s of WHEEL) expect(subjectsOf.has(s)).toBe(true);
-    for (const s of WHEEL) {
-      const mine = Object.values(DEFAULT_MOVES).filter((m) => m.subject === s);
-      expect(mine.map((m) => [m.tier, m.mp, m.charges]).sort()).toEqual([["E", 40, 15], ["N", 60, 10]]);
+describe("the cards of a creature (3)", () => {
+  const ids = (slug: string, level: number, subject: string) => cardMoves(data, slug, level, subject).map((m) => m.id);
+
+  it("a Math starter at level 6: its own hits from the data's equipped list, then coverage from other subjects", () => {
+    const m = cardMoves(data, "heliobud", 6, "math");
+    expect(m).toHaveLength(4);
+    expect(m.slice(0, 3).map((x) => x.id)).toEqual(["sum_spark", "add_it_up", "number_nudge"]);
+    expect(m.slice(0, 3).every((x) => x.subject === "math")).toBe(true);
+    expect(m[3]!.subject).not.toBe("math");
+  });
+
+  it("only moves that are a hit with a question reach the cards: no utility, no Finale, no Wiggle among real ones", () => {
+    for (const slug of ["heliobud", "lunibble", "terrabub", "mercurip", "heliolynx"]) {
+      for (const level of [1, 3, 6, 10, 15]) {
+        const m = cardMoves(data, slug, level, data.species[slug]!.subject);
+        expect(m.length, `${slug} ${level}`).toBeGreaterThanOrEqual(1);
+        expect(m.length).toBeLessThanOrEqual(4);
+        expect(m.every(isHit), `${slug} ${level}`).toBe(true);
+        expect(new Set(m.map((x) => x.id)).size).toBe(m.length);
+      }
     }
-    expect(DEFAULT_MOVES[WIGGLE]).toMatchObject({ tier: "W", mp: 25, charges: null });
+    expect(ids("lunibble", 6, "science")).not.toContain("healing_rain");
+  });
+
+  it("what a creature knows follows its level: a move is not offered before it is learned", () => {
+    expect(ids("heliobud", 3, "math")).not.toContain("add_it_up");
+    expect(ids("heliobud", 4, "math")).toContain("add_it_up");
+    expect(ids("heliobud", 8, "math")).toContain("times_twister");
+  });
+
+  it("a stretch move asks a stretch question; the Wiggle asks none and has no limit", () => {
+    expect(data.movesById["times_twister"]).toMatchObject({ tier: "S", question: "S", power: 85 });
+    expect(data.movesById[WIGGLE]).toMatchObject({ tier: "W", question: "none", charges: null, power: 25 });
     expect(flames("E")).toBeLessThan(flames("N"));
   });
 
-  it("the spec's names for the first six: Number Nudge, Sum Spark, Dot Tap, Block Bounce, Leaf Flick, Splash", () => {
-    for (const id of ["number_nudge", "sum_spark", "dot_tap", "block_bounce", "leaf_flick", "splash"]) expect(DEFAULT_MOVES[id]).toBeDefined();
-  });
-
-  it("a loaded table adds moves and keeps the plain attacks and the Wiggle; unreadable rows are left out", () => {
-    const t = movesFrom({
-      moves: [
-        { id: "times_twister", subject: "math", tier: "S", mp: 85, charges: 6, lv: 8 },
-        { id: "bad_tier", subject: "math", tier: "X", mp: 1, charges: 1, lv: 1 },
-        { id: "bad_subject", subject: "art", tier: "E", mp: 1, charges: 1, lv: 1 },
-        { subject: "math", tier: "E" },
-        "nonsense",
-      ],
-    });
-    expect(t["times_twister"]).toEqual({ id: "times_twister", subject: "math", tier: "S", mp: 85, charges: 6, lv: 8 });
-    expect(t["bad_tier"]).toBeUndefined();
-    expect(t["bad_subject"]).toBeUndefined();
-    expect(t["sum_spark"]).toBeDefined();
-    expect(t[WIGGLE]).toBeDefined();
-    expect(Object.keys(movesFrom(null))).toEqual(Object.keys(DEFAULT_MOVES));
-  });
-
-  it("a creature knows the plain attacks of its own subject up to its level, and two coverage moves besides", () => {
-    for (const s of WHEEL) {
-      const m = equipped(s, 6);
-      expect(m).toHaveLength(4);
-      expect(m.slice(0, 2).map((x) => [x.subject, x.tier])).toEqual([[s, "E"], [s, "N"]]);
-      expect(new Set(m.map((x) => x.subject)).size).toBe(3);
-    }
-    const heavy = movesFrom({ moves: [{ id: "late", subject: "math", tier: "N", mp: 70, charges: 8, lv: 9 }] });
-    expect(equipped("math", 5, heavy).map((x) => x.id)).not.toContain("late");
+  it("an unknown species still gets cards (the plain attacks of the wheel's coverage), never an empty grid", () => {
+    expect(cardMoves(data, "nobody", 5, "math").length).toBeGreaterThanOrEqual(1);
   });
 });
 
-describe("species in a battle (5.7)", () => {
-  it("the first chapter's table: 25 families, each with a subject, bases around 8 to 13 and one extra weak subject", () => {
-    expect(Object.keys(CHAPTER1)).toHaveLength(25);
-    for (const [slug, row] of Object.entries(CHAPTER1)) {
-      expect(WHEEL, slug).toContain(row.subject);
-      expect(WHEEL, slug).toContain(row.weak);
-      for (const b of row.bases) expect(b, slug).toBeGreaterThanOrEqual(7);
-      for (const b of row.bases) expect(b, slug).toBeLessThanOrEqual(13);
-    }
-    // every family of the first chapter's zones is in the table
-    const roots = Object.values(monsters).filter((m) => m.family === m.slug && m.slug in CHAPTER1);
-    expect(roots.length).toBeGreaterThanOrEqual(20);
+describe("species in a battle (5.7), from species_battle.json", () => {
+  it("every species has stats of the starters' table: Heliobud level 10 is Pep 50, Power 49, Guard 36, Speed 45", () => {
+    const sp = speciesBattle(data, "heliobud");
+    expect(creatureStats(sp, 10)).toEqual({ pep: 50, power: 49, guard: 36, speed: 45 });
+    expect(creatureStats(speciesBattle(data, "heliolynx"), 14)).toEqual({ pep: 72, power: 72, guard: 52, speed: 66 });
+    expect(creatureStats(speciesBattle(data, "heliarch"), 24)).toEqual({ pep: 123, power: 127, guard: 92, speed: 116 });
   });
 
-  it("a grown-up form uses its family's table and its own stage", () => {
-    const sp = speciesBattle(monsters["heliolynx"], "heliolynx", subjects);
-    expect(sp).toMatchObject({ stage: "stage1", subject: "math", weak: ["science"], temperament: "playful", bases: { bp: 10, bw: 11, bg: 8, bs: 10 } });
+  it("the subject, the extra weak subject and the temperament come from the data", () => {
+    expect(speciesBattle(data, "mercurip")).toMatchObject({ subject: "science", weak: ["hebrew"], temperament: "playful" });
+    expect(speciesBattle(data, "rustip")).toMatchObject({ subject: "logic", weak: ["hebrew"], temperament: "grumpy" });
+    expect(speciesBattle(data, "terrabub")).toMatchObject({ subject: "geometry", weak: ["science"] });
   });
 
-  it("the data's own fields win over the table, and an unknown species is plain", () => {
-    const info = { slug: "x", types: [], stage: "basic", evolutions: [], hasSprite: true, battle: { bp: 12, weak: ["logic"], temperament: "shy", subject: "hebrew" } };
-    expect(speciesBattle(info, "x", subjects)).toMatchObject({ subject: "hebrew", weak: ["logic"], temperament: "shy", bases: { bp: 12, bw: 10, bg: 10, bs: 10 } });
-    expect(speciesBattle(undefined, "nobody", subjects)).toMatchObject({ temperament: "playful", weak: [], bases: { bp: 10, bw: 10, bg: 10, bs: 10 } });
-  });
-
-  it("the db's own battle fields are read from the monsters table, nested or at the top", () => {
-    const t = monsterTable({
-      a: { stage: "basic", types: [], sprites: null, evolutions: [], history: [{ slug: "a" }], battle: { bp: 11, bw: 9, weak: ["math"] } },
-      b: { stage: "basic", types: [], sprites: null, evolutions: [], bp: 8, bs: 12, temperament: "grumpy" },
-    });
-    expect(t["a"]!.battle).toEqual({ bp: 11, bw: 9, weak: ["math"] });
-    expect(t["a"]!.family).toBe("a");
-    expect(t["b"]!.battle).toEqual({ bp: 8, bs: 12, temperament: "grumpy" });
+  it("an unknown species is plain", () => {
+    expect(speciesBattle(data, "nobody", "geometry")).toMatchObject({ subject: "geometry", temperament: "playful", weak: [], bases: { bp: 10, bw: 10, bg: 10, bs: 10 } });
   });
 });
 
@@ -169,22 +170,26 @@ describe("fainting rules (the parent's decision)", () => {
     expect(nurseHeals(w)).toBe(0);
   });
 
-  it("medicine heals one sleeping friend and is used up; it does nothing for an awake one, an unknown one, or another item", () => {
+  it("only medicine that wakes can wake: the Wake Berry (half Pep) and the Sunrise Berry (full), not the heals", () => {
     const w = team();
-    give(w, eco, "medicine", 2);
-    give(w, eco, "berry", 1);
+    give(w, eco, "wake_berry", 1);
+    give(w, eco, "sunrise_berry", 1);
+    give(w, eco, "spring_tonic", 1);
     faint(w.creatures[1]!);
-    expect(useMedicine(w, eco, "c1", "medicine")).toBe(false);
-    expect(countOf(w, "medicine")).toBe(2);
-    expect(useMedicine(w, eco, "nope", "medicine")).toBe(false);
-    expect(useMedicine(w, eco, "c2", "berry")).toBe(false);
-    expect(useMedicine(w, eco, "c2", "medicine")).toBe(true);
+    expect(wakeWith(w, eco, "c1", "wake_berry")).toBe(0);
+    expect(wakeWith(w, eco, "c2", "spring_tonic")).toBe(0);
+    expect(wakeWith(w, eco, "nope", "wake_berry")).toBe(0);
+    expect(w.creatures[1]!.fainted).toBe(true);
+    expect(wakeWith(w, eco, "c2", "wake_berry")).toBe(0.5);
     expect(w.creatures[1]!.fainted).toBeUndefined();
-    expect(countOf(w, "medicine")).toBe(1);
+    expect(countOf(w, "wake_berry")).toBe(0);
+    faint(w.creatures[2]!);
+    expect(wakeWith(w, eco, "c3", "sunrise_berry")).toBe(1);
   });
 
-  it("the shop sells the medicine for 25 coins, in the snacks tab", () => {
-    expect(eco.items["medicine"]).toMatchObject({ kind: "medicine", price: 25, tab: "snacks" });
+  it("the shop sells the waking medicine: the Wake Berry for 25 coins on the medicine shelf", () => {
+    expect(eco.items["wake_berry"]).toMatchObject({ kind: "medicine", price: 25, shelf: "medicine", healsDozing: true, effect: "wake" });
+    expect(Object.values(eco.items).filter((i) => i.healsDozing).map((i) => i.id)).toEqual(["wake_berry", "sunrise_berry"]);
   });
 
   it("fainted is saved with the creature and comes back; an awake creature writes nothing extra", () => {
@@ -195,7 +200,6 @@ describe("fainting rules (the parent's decision)", () => {
     expect("fainted" in d.creatures[0]!).toBe(false);
     const back = WorldState.fromDict(d);
     expect(back.creatures.map((c) => c.fainted === true)).toEqual([false, false, true, false, false]);
-    // an old save has none
     expect(WorldState.fromDict({ schema_version: 1, money: 0, variables: {}, creatures: [{ id: "c1", species: "heliobud", level: 3, xp: 0 }] }).creatures[0]!.fainted).toBeUndefined();
   });
 });

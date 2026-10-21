@@ -8,6 +8,7 @@ stops the build and not a child's game. The shape is read by
 
 from __future__ import annotations
 
+import re
 from typing import Any
 
 from tools.app.common import NAG, Output
@@ -17,17 +18,107 @@ SOURCE = NAG / "economy" / "items.yaml"
 LOOT = NAG / "economy" / "loot.yaml"
 FACTS = NAG / "economy" / "facts.yaml"
 
-KINDS = {"net", "snack", "tonic", "medicine", "helper", "key"}
+KINDS = {
+    "net",
+    "snack",
+    "tonic",
+    "helper",
+    "key",
+    # BATTLE_V3: the app's items.ts does not know these yet and leaves them
+    # out of the Bag until the engine reads them
+    "medicine",
+    "befriend_tool",
+    "evolution_card",
+}
+#: kinds the shop of today shelves by themselves (app/src/core/game/shop.ts)
+OLD_SHELF = {
+    "net": "nets",
+    "snack": "snacks",
+    "tonic": "snacks",
+    "helper": "helpers",
+}
+SHELF_SIZE = 6
+MEDICINE_EFFECTS = {"heal_pep", "cleanse", "wake", "refill_charges"}
+TOOL_SCOPES = {"any", "subject", "zone"}
+CARDS = {"zone", "subject", "bright", "rainbow"}
+SOLD_AFTER = re.compile(r"(guardians:[1-9]|guardian:[a-z_]+|keeper:1)")
 HELPERS = {"hint", "fifty", "pass"}
 #: What each kind must say about itself.
 REQUIRED = {
     "net": ("seal_less",),
     "snack": ("hearts", "xp"),
     "tonic": ("boost_answers",),
-    "medicine": (),
     "helper": ("helper",),
     "key": (),
+    "medicine": ("effect", "name_he", "name_en", "desc_he"),
+    "befriend_tool": ("tool_mult", "scope", "name_he", "name_en", "desc_he"),
+    "evolution_card": ("card", "name_he", "name_en", "desc_he"),
 }
+
+
+def check_new_kind(
+    iid: str, item: dict[str, Any], doc: dict[str, Any]
+) -> None:
+    """The items of the new battle: medicine, befriend tools, cards."""
+    from tools.app import moves
+
+    kind = item["kind"]
+    if kind in OLD_SHELF.values() or kind not in (
+        "medicine",
+        "befriend_tool",
+        "evolution_card",
+    ):
+        return
+    moves.check_text(f"item {iid}.name", item["name_he"], limit=moves.NAME_MAX)
+    moves.check_text(f"item {iid}.desc", item["desc_he"], limit=moves.DESC_MAX)
+    moves.check_english(f"item {iid}", item["name_en"])
+    if "sold_after" in item and not SOLD_AFTER.fullmatch(item["sold_after"]):
+        raise ValueError(f"economy: {iid}: bad sold_after")
+    if kind == "medicine":
+        eff = item["effect"]
+        if eff not in MEDICINE_EFFECTS:
+            raise ValueError(f"economy: {iid}: unknown effect {eff!r}")
+        if eff in ("heal_pep", "wake"):
+            share = item.get("heal_share")
+            if not isinstance(share, (int, float)) or not 0 < share <= 1:
+                raise ValueError(f"economy: {iid}: heal_share is in (0, 1]")
+        # the parent's rule: only medicine that wakes a dozing friend may
+        if bool(item.get("heals_dozing")) != (eff == "wake"):
+            raise ValueError(f"economy: {iid}: only wake medicine wakes")
+    if kind == "befriend_tool":
+        mult = item["tool_mult"]
+        if not isinstance(mult, (int, float)) or not 1 <= mult <= 3:
+            raise ValueError(f"economy: {iid}: tool_mult is 1 to 3")
+        if item["scope"] not in TOOL_SCOPES:
+            raise ValueError(f"economy: {iid}: unknown scope")
+        if (item["scope"] == "any") != ("scope_id" not in item):
+            raise ValueError(f"economy: {iid}: scope_id for subject and zone")
+    if kind == "evolution_card" and item["card"] not in CARDS:
+        raise ValueError(f"economy: {iid}: unknown card {item['card']!r}")
+
+
+def shelf_of(item: dict[str, Any]) -> str | None:
+    """The shelf an item stands on, or None when it is not sold."""
+    if item.get("sold") is False or item["price"] <= 0:
+        return None
+    return item.get("shelf") or OLD_SHELF.get(item["kind"])
+
+
+def check_shelves(doc: dict[str, Any]) -> None:
+    shelves = doc.get("shelves")
+    if not isinstance(shelves, list) or len(set(shelves)) != len(shelves):
+        raise ValueError("economy: shelves is a list of shelf ids")
+    counts: dict[str, int] = {}
+    for item in doc["items"]:
+        shelf = shelf_of(item)
+        if shelf is None:
+            continue
+        if shelf not in shelves:
+            raise ValueError(f"economy: {item['id']}: unknown shelf {shelf!r}")
+        counts[shelf] = counts.get(shelf, 0) + 1
+    for shelf, n in counts.items():
+        if n > SHELF_SIZE:
+            raise ValueError(f"economy: shelf {shelf} holds {n}, at most 6")
 
 
 def check(doc: Any) -> dict[str, Any]:
@@ -63,8 +154,10 @@ def check(doc: Any) -> dict[str, Any]:
             raise ValueError(
                 f"economy: {iid}: unknown helper {item['helper']!r}"
             )
-        if kind != "key" and price == 0:
+        if kind != "key" and price == 0 and item.get("sold") is not False:
             raise ValueError(f"economy: {iid}: only key items are free")
+        check_new_kind(iid, item, doc)
+    check_shelves(doc)
     for iid in doc.get("starter_kit", {}):
         if iid not in seen:
             raise ValueError(f"economy: starter kit has unknown item {iid}")

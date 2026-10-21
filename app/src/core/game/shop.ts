@@ -17,10 +17,10 @@ import type { WorldState } from "../world/worldState";
 import { countOf, type Economy, give, type Item } from "./items";
 
 export type Band = "A" | "B" | "C";
-export type Shelf = "nets" | "snacks" | "helpers";
+export type Shelf = "nets" | "snacks" | "helpers" | "medicine";
 
 /** The three shelves, in the order the shop shows them. */
-export const SHELVES: readonly Shelf[] = ["nets", "snacks", "helpers"];
+export const SHELVES: readonly Shelf[] = ["nets", "snacks", "helpers", "medicine"];
 /** Items on a shelf at a time. */
 export const SHELF_SIZE = 6;
 export const DISCOUNT_PERCENT = 10;
@@ -33,8 +33,10 @@ export const bandOf = (grade: number): Band => (grade <= 1 ? "A" : grade <= 4 ? 
 
 export function shelfOf(item: Item): Shelf | null {
   if (item.price <= 0) return null;
+  // the data says where medicine sits: most of it on its own shelf, a mint and an energy berry among the snacks
+  if (item.kind === "medicine") return item.shelf === "snacks" ? "snacks" : "medicine";
   if (item.kind === "net") return "nets";
-  if (item.kind === "snack" || item.kind === "tonic" || item.kind === "medicine") return "snacks";
+  if (item.kind === "snack" || item.kind === "tonic") return "snacks";
   if (item.kind === "helper") return "helpers";
   return null;
 }
@@ -44,7 +46,9 @@ export function shelfItems(eco: Economy, shelf: Shelf): Item[] {
   return eco.order
     .map((id) => eco.items[id]!)
     .filter((i) => shelfOf(i) === shelf)
-    .slice(0, SHELF_SIZE);
+    // the youngest count to ten with stacks of at most 100, so the shop sells nothing dearer than that (All Better, 110, waits)
+    .filter((i) => i.price <= 100)
+    .slice(0, shelf === "medicine" ? 8 : SHELF_SIZE);
 }
 
 /** A tenth of the price, rounded down: the price is never more than listed. */

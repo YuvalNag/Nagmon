@@ -39,15 +39,15 @@ export function nurseHeals(world: WorldState): number {
 export const partyDown = (world: WorldState): boolean => world.creatures.length > 0 && awakeParty(world).length === 0;
 
 /**
- * Medicine from the shop on one friend. Refused (nothing used up) for an
- * unknown friend or item, one that is not medicine, no medicine in the Bag,
- * or a friend who is awake.
+ * Medicine that wakes (an item with `healsDozing`: the Wake Berry, the Sunrise Berry) on one friend that fell asleep.
+ * Refused (nothing used up) for an unknown friend or item, medicine that does not wake, none in the Bag, or a
+ * friend who is awake. Returns the share of its Pep the friend wakes with (0 when refused).
  */
-export function useMedicine(world: WorldState, eco: Economy, creatureId: string, itemId: string): boolean {
+export function wakeWith(world: WorldState, eco: Economy, creatureId: string, itemId: string): number {
   const item = eco.items[itemId];
   const c = world.creatures.find((x) => x.id === creatureId);
-  if (!item || item.kind !== "medicine" || !c || !c.fainted || countOf(world, itemId) < 1) return false;
+  if (!item || item.kind !== "medicine" || !item.healsDozing || !c || !c.fainted || countOf(world, itemId) < 1) return 0;
   take(world, itemId);
   delete c.fainted;
-  return true;
+  return Math.max(0.1, item.healShare);
 }

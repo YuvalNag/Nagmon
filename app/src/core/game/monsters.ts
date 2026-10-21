@@ -1,7 +1,7 @@
 /**
  * The monsters table (db/monsters.json), as much of it as the game uses.
  */
-import type { BattleFields, MonsterInfo } from "./collection";
+import type { MonsterInfo } from "./collection";
 
 export interface MonsterSprites {
   sheet: string;
@@ -11,29 +11,6 @@ export interface MonsterSprites {
 }
 
 export type MonsterTable = Record<string, MonsterInfo & { sprites: MonsterSprites | null }>;
-
-const num = (v: unknown): number | undefined => (typeof v === "number" && Number.isFinite(v) && v > 0 ? v : undefined);
-
-/** The battle fields, read from `battle: {..}` or the entry's own top level (the spec's names: bp, bw, bg, bs, weak, temperament, subject). */
-function battleFields(m: Record<string, unknown>): BattleFields | undefined {
-  const src = typeof m["battle"] === "object" && m["battle"] !== null ? (m["battle"] as Record<string, unknown>) : m;
-  const out: BattleFields = {};
-  for (const k of ["bp", "bw", "bg", "bs"] as const) {
-    const n = num(src[k]);
-    if (n !== undefined) out[k] = n;
-  }
-  if (Array.isArray(src["weak"])) out.weak = (src["weak"] as unknown[]).map(String);
-  if (typeof src["temperament"] === "string") out.temperament = src["temperament"];
-  if (typeof src["subject"] === "string") out.subject = src["subject"];
-  return Object.keys(out).length ? out : undefined;
-}
-
-/** The first form of the family, from the entry's history. */
-function familyOf(m: Record<string, unknown>): string | undefined {
-  const h = m["history"];
-  const first = Array.isArray(h) ? (h[0] as Record<string, unknown> | undefined) : undefined;
-  return typeof first?.["slug"] === "string" ? first["slug"] : undefined;
-}
 
 /** From the parsed db/monsters.json; an entry with no readable fields is left out. */
 export function monsterTable(doc: unknown): MonsterTable {
@@ -61,8 +38,6 @@ export function monsterTable(doc: unknown): MonsterTable {
       evolutions,
       hasSprite: sprites !== null,
       sprites,
-      ...(familyOf(m) ? { family: familyOf(m)! } : {}),
-      ...(battleFields(m) ? { battle: battleFields(m)! } : {}),
     };
   }
   return out;

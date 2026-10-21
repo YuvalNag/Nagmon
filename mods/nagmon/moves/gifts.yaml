@@ -1,0 +1,12 @@
+# Gifts: a creature's passive trait (BATTLE_V3.md 3.5). Each species has one,
+# chosen in mods/nagmon/battle/families.yaml. Built into gifts.json.
+version: 1
+gifts:
+  - {id: brave_heart, he: לב אמיץ, en: Brave Heart, effect: {kind: survive_once, left_pep: 1, per: battle}, default_for_bands: [A], desc_he: "פעם אחת בקרב נשאר עם טיפת כוח."}
+  - {id: cheerful, he: עליז, en: Cheerful, effect: {kind: start_spark, spark: 1}, desc_he: "מתחיל את הקרב עם כוכב אחד."}
+  - {id: steady, he: יציב, en: Steady, effect: {kind: immune, status: dizzy}, desc_he: "לא מסתחרר בקלות."}
+  - {id: warm_fog, he: ערפל חמים, en: Warm Fog, effect: {kind: heal_bonus, mult: 1.2}, desc_he: "מרפא קצת יותר חזק."}
+  - {id: quick_learner, he: לומד מהיר, en: Quick Learner, effect: {kind: growth_bonus, mult: 1.2, applies: [know_how, growth_points]}, desc_he: "לומד וגדל קצת יותר מהר."}
+  - {id: curious, he: סקרן, en: Curious, effect: {kind: befriend_bonus, mult: 1.15, as: partner}, desc_he: "חברים חדשים אוהבים אותו."}
+  - {id: sturdy_shell, he: קונכייה עמידה, en: Sturdy Shell, effect: {kind: shield_longer, rounds: 1}, desc_he: "המגנים שלו נשארים עוד סבב."}
+  - {id: sparkly, he: נוצץ, en: Sparkly, effect: {kind: sparkle_mult, mult: 1.65, instead_of: 1.5}, desc_he: "כשהוא מנצנץ, זה נוצץ יותר."}

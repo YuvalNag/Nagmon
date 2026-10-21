@@ -23,27 +23,16 @@ export interface MonsterInfo {
   stage: string;
   evolutions: readonly { at_level: number; monster_slug: string }[];
   hasSprite: boolean;
-  /** The first form of its family (db history), for the battle's stat table. */
-  family?: string;
-  /** Battle fields of the species when the data has them (docs/app/BATTLE_V3.md 5.7); see battleSpecies.ts. */
-  battle?: BattleFields;
 }
 
-/** The species' own battle numbers and traits; every field is optional (battleSpecies.ts fills the rest). */
-export interface BattleFields {
-  bp?: number;
-  bw?: number;
-  bg?: number;
-  bs?: number;
-  /** Subjects, besides the wheel's, that this species is weak to. */
-  weak?: string[];
-  temperament?: string;
-  subject?: string;
-}
-
-/** Growth points a creature of this level needs for the next level. */
+/**
+ * Growth points a creature of this level needs for the next level: 6 + level
+ * (docs/app/BATTLE_V3.md 5.4). The first curve (3 + level/2) was about twice
+ * as fast: a parent saw levels 9 to 12 within minutes. Levels already earned
+ * are kept; only the next ones cost more.
+ */
 export function needFor(level: number): number {
-  return 3 + Math.floor(level / 2);
+  return 6 + level;
 }
 
 /** The level at which a species that evolves "at level N" does, here. */

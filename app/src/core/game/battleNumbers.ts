@@ -61,6 +61,11 @@ export const FOG_LENGTH = { short: 0.75, normal: 1.0, long: 1.3 } as const;
  */
 export const S1_PACING = 0.75;
 
+/** Fog from the data's own multipliers (battle_rules.json: the kind's and the band's). */
+export function fogFrom(level: number, kind: number, band: number, length = 1.0): number {
+  return Math.max(1, floor(floor((10 * (level + 10)) / 4) * kind * band * length));
+}
+
 export function fogOf(level: number, kind: FightKind, band: Band, length = 1.0): number {
   return Math.max(1, floor(floor((10 * (level + 10)) / 4) * FOG_KIND[kind] * FOG_BAND[band] * length));
 }

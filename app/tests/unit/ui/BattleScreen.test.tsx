@@ -8,13 +8,15 @@ import { monsterTable } from "../../../src/core/game/monsters";
 import type { ContentLibrary } from "../../../src/core/learning";
 import { SubjectMap } from "../../../src/core/learning/quiz_flow";
 import { WorldState } from "../../../src/core/world/worldState";
-import { he } from "../../../src/i18n";
 import { BattleScreen } from "../../../src/ui/BattleScreen";
-import { engineFor, gameJson, shipped } from "../game/helpers";
+import type { BattleData } from "../../../src/core/data/battleTypes";
+import { battleData, engineFor, gameJson, shipped } from "../game/helpers";
 
 let content: ContentLibrary;
-beforeAll(() => {
+let bdata: BattleData;
+beforeAll(async () => {
   content = shipped();
+  bdata = await battleData();
 });
 afterEach(() => {
   cleanup();
@@ -43,6 +45,7 @@ function setup(o: { team?: string[]; wild?: string; level?: number; items?: Reco
   const play = {
     world,
     engine,
+    battle: bdata,
     economy: eco,
     monsters: monsterTable(gameJson("db/monsters.json")),
     subjects: SubjectMap.fromDoc(gameJson("content/subjects.json")),
@@ -123,7 +126,7 @@ describe("the arena of a battle (BATTLE_V3 S1)", () => {
     expect(m.data("view")).toBe("question");
     for (let i = 0; i < 50 && !m.el("quiz_dont_know"); i++) await settle(5);
     if (m.el("quiz_example_done")) await m.press("quiz_example_done");
-    expect(m.q(".cast-chip")!.textContent).toContain(he.move_sum_spark);
+    expect(m.q(".cast-chip")!.textContent).toContain("ניצוץ סכום");
     await m.press("quiz_dont_know");
     for (let i = 0; i < 200 && m.data("flow") !== "result"; i++) await settle(5);
     await settle(330);
@@ -188,17 +191,17 @@ describe("fainting (the parent's decision)", () => {
 
   it("medicine from the Bag wakes the sleeping partner for good, free, and the fight goes on with it", async () => {
     localStorage.setItem("nagmon.battle.pep", "1");
-    const m = setup({ wild: "mercurip", items: { medicine: 1 } });
+    const m = setup({ wild: "mercurip", items: { wake_berry: 1 } });
     for (let i = 0; i < 14 && m.data("view") !== "swap"; i++) await m.wrongRound();
     expect(m.data("view")).toBe("swap");
     await m.press("battle_bag");
     await m.press("bag_tab_snacks");
-    await m.press("bag_item_medicine");
+    await m.press("bag_item_wake_berry");
     expect(m.el("bag_why")).toBeNull();
     await m.press("bag_use");
     await m.press("bag_who_c1");
     expect(m.world.creatures[0]!.fainted).toBeUndefined();
-    expect(m.world.items.has("medicine")).toBe(false);
+    expect(m.world.items.has("wake_berry")).toBe(false);
     expect(m.data("view")).toBe("turn");
     expect(m.container.querySelectorAll(".move-card:not(:disabled)").length).toBeGreaterThan(0);
   });

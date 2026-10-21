@@ -92,42 +92,51 @@ describe("the Bag", () => {
   });
 });
 
-describe("medicine (wakes a friend that fell asleep)", () => {
+describe("medicine (only the Wake Berry and the Sunrise Berry wake a friend that fell asleep)", () => {
   it("outside a battle it wakes the friend you pick, and only sleeping friends are offered", async () => {
-    const m = setup({ medicine: 2 });
+    const m = setup({ wake_berry: 2 });
     m.world.creatures.push({ id: "c2", species: "lunibble", level: 3, xp: 0, fainted: true });
     await m.press("bag_tab_snacks");
-    await m.press("bag_item_medicine");
+    await m.press("bag_item_wake_berry");
     expect(m.q("bag_why")).toBeNull();
     await m.press("bag_use");
     expect(m.q("bag_who_c1")).toBeNull();
     await m.press("bag_who_c2");
     expect(m.world.creatures[1]!.fainted).toBeUndefined();
-    expect(countOf(m.world, "medicine")).toBe(1);
+    expect(countOf(m.world, "wake_berry")).toBe(1);
     expect(m.q("bag_said")!.textContent).toContain("התעורר");
-    expect(m.lines).toEqual(["ITEM use item=medicine where=bag ok=1"]);
+    expect(m.lines).toEqual(["ITEM use item=wake_berry where=bag ok=1"]);
   });
 
   it("with nobody asleep it says so and cannot be used", async () => {
-    const m = setup({ medicine: 1 });
+    const m = setup({ wake_berry: 1 });
     await m.press("bag_tab_snacks");
     expect(m.q("bag_use")!.disabled).toBe(true);
     expect(m.q("bag_why")!.textContent).toContain("אף חבר");
-    expect(countOf(m.world, "medicine")).toBe(1);
+    expect(countOf(m.world, "wake_berry")).toBe(1);
   });
 
-  it("in a battle it goes through the battle (the friend of the team is picked there)", async () => {
+  it("a heal (Dew Drop) is for a battle: outside one it says so, and it does not wake anyone", async () => {
+    const m = setup({ dew_drop: 1 });
+    m.world.creatures[0]!.fainted = true;
+    await m.press("bag_tab_snacks");
+    expect(m.q("bag_use")!.disabled).toBe(true);
+    expect(m.q("bag_why")!.textContent).toContain("בזמן קרב");
+    expect(m.world.creatures[0]!.fainted).toBe(true);
+  });
+
+  it("in a battle the battle says who it can be used on, and takes it from there", async () => {
     const onMedicine = vi.fn(() => true);
-    const m = setup({ medicine: 1 }, { calm: false, onNet: () => {}, onMedicine, team: ["c1", "c2"] });
+    const m = setup({ wake_berry: 1 }, { calm: false, onNet: () => {}, onMedicine, targets: () => ["c2"] });
     m.world.creatures.push({ id: "c2", species: "lunibble", level: 3, xp: 0, fainted: true });
     m.world.creatures.push({ id: "c9", species: "terrabub", level: 3, xp: 0, fainted: true });
     await m.press("bag_tab_snacks");
     await m.press("bag_use");
-    // c9 is asleep in the Meadow: not part of this team
+    // c9 is asleep in the Meadow: not a target of this fight
     expect(m.q("bag_who_c9")).toBeNull();
     await m.press("bag_who_c2");
-    expect(onMedicine).toHaveBeenCalledWith("medicine", "c2");
+    expect(onMedicine).toHaveBeenCalledWith("wake_berry", "c2");
     // the battle itself uses it up and wakes the friend; the view does not
-    expect(countOf(m.world, "medicine")).toBe(1);
+    expect(countOf(m.world, "wake_berry")).toBe(1);
   });
 });

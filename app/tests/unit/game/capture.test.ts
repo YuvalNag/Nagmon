@@ -7,11 +7,14 @@ import { monsterTable } from "../../../src/core/game/monsters";
 import type { ContentLibrary } from "../../../src/core/learning";
 import { SubjectMap } from "../../../src/core/learning/quiz_flow";
 import { WorldState } from "../../../src/core/world/worldState";
-import { answerRight, answerWrong, calmIt, cast, engineFor, fixedRng, gameJson, shipped } from "./helpers";
+import type { BattleData } from "../../../src/core/data/battleTypes";
+import { battleData, answerRight, answerWrong, calmIt, cast, engineFor, fixedRng, gameJson, shipped } from "./helpers";
 
 let content: ContentLibrary;
-beforeAll(() => {
+let data: BattleData;
+beforeAll(async () => {
   content = shipped();
+  data = await battleData();
 });
 const monsters = monsterTable(gameJson("db/monsters.json"));
 const subjects = SubjectMap.fromDoc(gameJson("content/subjects.json"));
@@ -26,6 +29,7 @@ function calm(over: { species?: string; world?: WorldState; nets?: Record<string
   const t = { now: 0 };
   const battle = new Battle({
     engine: engineFor(content, 3, 5),
+    data,
     world,
     monsters,
     subjects,
@@ -47,7 +51,7 @@ describe("capture: calm, the net, a seal question, a friend", () => {
     const world = new WorldState();
     addCreature(world, "heliobud", 6);
     give(world, eco, "magic_net", 1);
-    const fresh = new Battle({ engine: engineFor(content, 3, 5), world, monsters, subjects, wild: { species: "lunibble", level: 6, table: "t" }, clock: () => 0, maxChoices: null, field: new FieldLog({ info: () => {} }), onChange: () => {} });
+    const fresh = new Battle({ engine: engineFor(content, 3, 5), data, world, monsters, subjects, wild: { species: "lunibble", level: 6, table: "t" }, clock: () => 0, maxChoices: null, field: new FieldLog({ info: () => {} }), onChange: () => {} });
     expect(fresh.throwNet(eco, "magic_net")).toBeNull();
     const { battle } = calm({ nets: {} });
     expect(battle.throwNet(eco, "magic_net")).toBeNull();
@@ -190,7 +194,7 @@ describe("capture: calm, the net, a seal question, a friend", () => {
     const c = addCreature(world, "heliobud", 6);
     world.variables.set("nagmon_growth_boost", "5");
     const t = { now: 0 };
-    const battle = new Battle({ engine: engineFor(content, 3, 5), world, monsters, subjects, wild: { species: "lunibble", level: 6, table: "t" }, clock: () => (t.now += 20000), maxChoices: null, field: new FieldLog({ info: () => {} }), onChange: () => {} });
+    const battle = new Battle({ engine: engineFor(content, 3, 5), data, world, monsters, subjects, wild: { species: "lunibble", level: 6, table: "t" }, clock: () => (t.now += 20000), maxChoices: null, field: new FieldLog({ info: () => {} }), onChange: () => {} });
     cast(battle, true, "sum_spark");
     expect(c.xp).toBe(2);
     expect(world.variables.get("nagmon_growth_boost")).toBe("4");

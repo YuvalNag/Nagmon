@@ -20,12 +20,14 @@ import { gameJson } from "./helpers";
 const eco = economy(gameJson("economy.json"));
 
 describe("the shelves", () => {
-  it("are three, and each item is on one: nets, snacks, tonics and the medicine for a friend who fell asleep, helpers", () => {
-    expect(SHELVES).toEqual(["nets", "snacks", "helpers"]);
+  it("are four, and each item is on one: nets, snacks, tonics and the medicine for a friend who fell asleep, helpers", () => {
+    expect(SHELVES).toEqual(["nets", "snacks", "helpers", "medicine"]);
     const ids = (s: (typeof SHELVES)[number]) => shelfItems(eco, s).map((i) => i.id);
     expect(ids("nets")).toEqual(["magic_net", "silver_net"]);
-    expect(ids("snacks")).toEqual(["berry", "biscuit", "pie", "growth_tonic", "medicine"]);
+    expect(ids("snacks")).toEqual(["berry", "biscuit", "pie", "growth_tonic", "fresh_mint", "energy_berry"]);
     expect(ids("helpers")).toEqual(["hint_feather", "clover", "owl_pass"]);
+    // the medicine shelf: heals, and the two berries that wake a friend who fell asleep (the parent: waking is medicine or the nurse)
+    expect(ids("medicine")).toEqual(["dew_drop", "spring_tonic", "sunny_syrup", "wake_berry", "sunrise_berry"]);
   });
 
   it("sell nothing that is free (the key items are found, not bought) and show at most six", () => {
@@ -54,9 +56,7 @@ describe("the pay plan", () => {
     expect([payPlan(15, "A").unit, payPlan(15, "A").target]).toEqual([5, 3]);
     expect([payPlan(25, "A").unit, payPlan(25, "A").target]).toEqual([5, 5]);
     expect([payPlan(90, "A").unit, payPlan(90, "A").target]).toEqual([10, 9]);
-    for (const id of eco.order) {
-      const i = eco.items[id]!;
-      if (i.price === 0) continue;
+    for (const s of SHELVES) for (const i of shelfItems(eco, s)) {
       const q = payPlan(i.price, "A");
       expect(q.target).toBeLessThanOrEqual(10);
       expect(q.target * q.unit).toBe(i.price);

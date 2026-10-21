@@ -69,7 +69,12 @@ interface Props {
   lifecycle?: MapLifecycle;
   load?: Load;
   openPlay?: LoadPlay;
+  /** How long the map may take to open before it says so (ms). */
+  openWaitMs?: number;
 }
+
+/** A map that is not open after this long is stuck: the child gets a message and a button, not a black screen. */
+const OPEN_WAIT_MS = 10_000;
 
 type Shown =
   | { kind: "dialog"; pages: string[]; done: () => void }
@@ -108,11 +113,13 @@ function Coin() {
  * question) holds the map still; the menu (and Android's back) pauses the
  * game: continue, or back to "who plays".
  */
-export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load = loadGame, openPlay = loadPlay }: Props) {
+export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load = loadGame, openPlay = loadPlay, openWaitMs = OPEN_WAIT_MS }: Props) {
   const stage = useRef<HTMLDivElement>(null);
   const [dpad] = useState(() => new DpadState());
   const [ctl, setCtl] = useState<MapController | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "failed">("loading");
+  // "try again" after a map that did not open
+  const [attempt, setAttempt] = useState(0);
   const [menu, setMenu] = useState(0);
   const [note, setNote] = useState(0);
   const [play, setPlay] = useState<Play | null>(null);
@@ -193,6 +200,12 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   useEffect(() => {
     let alive = true;
     let controller: MapController | null = null;
+    // a map that never opens (a stuck load) is told, not left black
+    const stuck = setTimeout(() => {
+      if (!alive) return;
+      log.error(`The map did not open within ${openWaitMs / 1000} s (map code ${controller ? "loaded" : "not loaded"}, paused: ${controller ? JSON.stringify(controller.debug()?.paused ?? controller.paused) : "?"})`);
+      setStatus("failed");
+    }, openWaitMs);
     load().then(
       ({ startMap }) => {
         if (!alive || !stage.current) return;
@@ -238,8 +251,16 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             stepRef.current(x, y);
           },
           onBlocked: () => setNote((n) => n + 1),
-          onReady: () => alive && setStatus("ready"),
-          onError: () => alive && setStatus("failed"),
+          onReady: () => {
+            if (!alive) return;
+            clearTimeout(stuck);
+            setStatus("ready");
+          },
+          onError: () => {
+            if (!alive) return;
+            clearTimeout(stuck);
+            setStatus("failed");
+          },
         });
         setCurrentMap(controller);
         // the browser tests and the emulator check read the map through it
@@ -255,12 +276,13 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     const offBackground = lifecycle?.onBackground(() => saver.current?.flush());
     return () => {
       alive = false;
+      clearTimeout(stuck);
       offBackground?.();
       controller?.destroy();
       if (currentMap() === controller) setCurrentMap(null);
       if ((window as Debuggable).__nagmonMap === controller) delete (window as Debuggable).__nagmonMap;
     };
-  }, [avatar, dpad, load, lifecycle]);
+  }, [avatar, dpad, load, lifecycle, openWaitMs, attempt]);
 
   useEffect(() => {
     if (!play) return;
@@ -465,10 +487,11 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   // a talk holds it still too (the d-pad lets go), with the music on
   const held = talking || overlay !== null || intro || battle !== null;
   useEffect(() => {
-    if (!ctl || !held) return;
+    // not before the map is open: its loader runs in the game loop, which a pause puts to sleep
+    if (!ctl || !held || status !== "ready") return;
     ctl.pause("talk");
     return () => ctl.resume("talk");
-  }, [ctl, held]);
+  }, [ctl, held, status]);
 
   // Android's back: the dialog goes on, the question closes, the menu opens and closes
   useEffect(() => {
@@ -542,7 +565,19 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       {status === "failed" && (
         <div className="map-overlay" data-screen="map-failed">
           <p className="notice">{t("mapFailed")}</p>
-          <Tap id="map_back" className="primary" onTap={onExit}>
+          <Tap
+            id="map_retry"
+            className="primary"
+            onTap={() => {
+              setCtl(null);
+              setWorld(null);
+              setStatus("loading");
+              setAttempt((n) => n + 1);
+            }}
+          >
+            {t("mapTryAgain")}
+          </Tap>
+          <Tap id="map_back" className="quiet" onTap={onExit}>
             {t("mapToWhoPlays")}
           </Tap>
         </div>

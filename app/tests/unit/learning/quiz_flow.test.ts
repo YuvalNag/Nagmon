@@ -44,7 +44,10 @@ describe("quiz flow", () => {
     const choice = { ringlet: "math", normal: "logic" };
     expect(s.subjectFor(["normal"], choice, "ringlet")).toBe("math");
     expect(s.subjectFor(["normal"], { normal: "logic" }, "ringlet")).toBe("hebrew");
-    expect(s.subjectFor(["normal"], choice, "lunibble")).toBe("logic");
+    // a creature the subject table does not list follows the parent's choice for its type
+    expect(s.subjectFor(["normal"], choice, "unlisted_creature")).toBe("logic");
+    // a listed one keeps its family's subject (mods/nagmon/battle/families.yaml)
+    expect(s.subjectFor(["normal"], choice, "lunibble")).toBe("science");
   });
 
   it("subject titles and colors", () => {

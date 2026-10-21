@@ -1,14 +1,14 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { Battle } from "../../../src/core/game/battle";
 import { type Band, QUESTION_CAP } from "../../../src/core/game/battleNumbers";
-import { CHAPTER1 } from "../../../src/core/game/battleSpecies";
 import { addCreature } from "../../../src/core/game/collection";
 import { FieldLog } from "../../../src/core/game/fieldLog";
 import { monsterTable } from "../../../src/core/game/monsters";
 import type { ContentLibrary } from "../../../src/core/learning";
 import { SubjectMap } from "../../../src/core/learning/quiz_flow";
 import { WorldState } from "../../../src/core/world/worldState";
-import { engineFor, gameJson, seeded, shipped } from "./helpers";
+import type { BattleData } from "../../../src/core/data/battleTypes";
+import { battleData, engineFor, gameJson, seeded, shipped } from "./helpers";
 
 /**
  * Appendix A of docs/app/BATTLE_V3.md as a seeded test of the real rules (the Battle class itself, with the answers
@@ -18,8 +18,10 @@ import { engineFor, gameJson, seeded, shipped } from "./helpers";
  */
 
 let content: ContentLibrary;
-beforeAll(() => {
+let data: BattleData;
+beforeAll(async () => {
   content = shipped();
+  data = await battleData();
 });
 const monsters = monsterTable(gameJson("db/monsters.json"));
 const subjects = SubjectMap.fromDoc(gameJson("content/subjects.json"));
@@ -29,7 +31,7 @@ const ACC: Record<Band, { E: number; N: number }> = { A: { E: 0.9, N: 0.8 }, B: 
 const TURN_S = 5.9;
 const Q_S = { E: 6, N: 11 } as const;
 
-const families = Object.keys(CHAPTER1);
+
 const starters = ["heliobud", "terrabub", "lunibble"];
 
 interface Out {
@@ -48,9 +50,11 @@ function fight(band: Band, seed: number): Out {
   // a random starter leads
   const lead = starters[Math.floor(rng() * 3)]!;
   world.creatures.sort((a, b) => (a.species === lead ? -1 : b.species === lead ? 1 : 0));
+  const families = Object.keys(data.families);
   const wild = families[Math.floor(rng() * families.length)]!;
   const battle = new Battle({
     engine: engineFor(content, 3, 1),
+    data,
     world,
     monsters,
     subjects,

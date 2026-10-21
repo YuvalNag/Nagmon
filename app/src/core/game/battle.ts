@@ -30,14 +30,12 @@ import {
   partner as partnerOf,
 } from "./collection";
 import { claimSpareNet, countOf, type Economy, type Item, spendBoost, take } from "./items";
-import { awakeParty, faint, nurseHeals, partyDown, useMedicine, usable } from "./faint";
+import type { BattleData, Move } from "../data/battleTypes";
+import { awakeParty, faint, nurseHeals, partyDown, usable, wakeWith } from "./faint";
 import { setPartner } from "./party";
 import {
   BRILLIANT_COIN_MAX,
   CATCH_POINTS,
-  GENTLE,
-  QUESTION_CAP,
-  RIGHT_CHANCE,
   S1_PACING,
   ROLL_MIN,
   STAR_COINS,
@@ -47,16 +45,15 @@ import {
   type WheelHit,
   bandOf,
   damageOf,
-  fogOf,
-  MP,
+  fogFrom,
   weakSubjects,
   wheelHit,
   wheelMult,
   winCoins,
 } from "./battleNumbers";
-import { creatureStats, speciesBattle, type SpeciesBattle } from "./battleSpecies";
-import { BIG_PUFF, drawIntent, GIGGLE_SHARE, type IntentId } from "./intents";
-import { DEFAULT_MOVES, equipped, type Move, type MoveTable, type Tier, WIGGLE } from "./moves";
+import { creatureStats, speciesBattle, type SpeciesTraits } from "./battleSpecies";
+import { BIG_PUFF, drawIntent, giggleEvery, giggleShare, type IntentId, puffPower, type Weights, weightsOf } from "./intents";
+import { cardMoves, WIGGLE } from "./moves";
 import type { Wild } from "./encounters";
 import type { FieldLog } from "./fieldLog";
 import type { MonsterTable } from "./monsters";
@@ -64,8 +61,6 @@ import type { MonsterTable } from "./monsters";
 export const MAX_CREATURES = 60;
 export { PARTY_SIZE };
 
-/** The master's test has the guardian's caps: its fight is about twice as long (5.5). */
-const MASTER_CAP: Record<Band, number> = { A: 18, B: 22, C: 19 };
 /** The expected number a Puff shows over the creature (the roll fixed at its middle). */
 const SHOWN_ROLL = 0.96;
 /** A lucky star: one right answer in sixteen is Brilliant. */
@@ -188,8 +183,8 @@ export interface BattleOptions {
   /** The creatures or the learner changed: save them. */
   onChange: () => void;
   warn?: (message: string) => void;
-  /** The moves table (game/moves.json); the plain attacks when left out. */
-  moves?: MoveTable;
+  /** The battle's data (game/moves.json, species_battle.json, intents.json, battle_rules.json ...). */
+  data: BattleData;
   /** A random number in [0, 1): a test passes a seeded one. */
   rng?: () => number;
   /** The tests' hook: start the partner's Pep or the enemy's Fog at this number. */
@@ -216,7 +211,7 @@ export class Battle {
   readonly maxFog: number;
   fog: number;
   /** The enemy's traits: subject, weak subjects, temperament, stats. */
-  readonly enemy: SpeciesBattle & { level: number; speed: number; power: number };
+  readonly enemy: SpeciesTraits & { level: number; speed: number; power: number; guard: number };
   /** The intent shown now (null when the fight is over). */
   intent: IntentView | null = null;
   /** Rounds played. */
@@ -241,7 +236,8 @@ export class Battle {
   /** Friends that fell asleep in this fight. */
   fainted = 0;
 
-  private readonly moves: MoveTable;
+  private readonly data: BattleData;
+  private readonly weights: Weights;
   private readonly rng: () => number;
   private readonly pep = new Map<string, number>();
   private readonly charges = new Map<string, number>();
@@ -260,18 +256,20 @@ export class Battle {
   constructor(private readonly o: BattleOptions) {
     const w = o.world;
     if (!partnerOf(w)) throw new Error("no partner to battle with");
-    this.moves = o.moves ?? DEFAULT_MOVES;
+    this.data = o.data;
     this.rng = o.rng ?? Math.random;
     this.startedAt = o.clock();
     this.band = bandOf(o.age ?? o.engine.learner.age ?? o.engine.learner.grade + 6);
     this.kind = o.master ? "master" : "wild";
     this.seenBefore = w.seen.has(o.wild.species);
-    const sp = speciesBattle(o.monsters[o.wild.species], o.wild.species, o.subjects);
+    const sp = speciesBattle(o.data, o.wild.species, o.subjects.subjectFor(o.monsters[o.wild.species]?.types ?? [], null, o.wild.species));
     const st = creatureStats(sp, o.wild.level);
-    this.enemy = { ...sp, level: o.wild.level, speed: st.speed, power: st.power };
-    this.maxFog = fogOf(o.wild.level, this.kind, this.band, S1_PACING);
+    this.enemy = { ...sp, level: o.wild.level, speed: st.speed, power: st.power, guard: st.guard };
+    this.weights = weightsOf(o.data, sp.temperament);
+    const rules = o.data.rules;
+    this.maxFog = fogFrom(o.wild.level, rules.fog_kind[this.kind], rules.bands[this.band].fog, S1_PACING);
     this.fog = o.debug?.fog ?? this.maxFog;
-    this.budget = new BattleQuizBudget(o.master ? MASTER_CAP[this.band] : QUESTION_CAP[this.band]);
+    this.budget = new BattleQuizBudget(rules.bands[this.band].question_cap[o.master ? "guardian" : "wild"]);
     markSeen(w, o.wild.species);
     // everybody awake starts full; the fainted wait for medicine or the nurse
     for (const c of w.creatures.slice(0, PARTY_SIZE)) if (usable(c)) this.pep.set(c.id, this.maxPepOf(c));
@@ -311,8 +309,8 @@ export class Battle {
   }
 
   /** The species' traits of one of the child's creatures. */
-  traits(c: Creature): SpeciesBattle {
-    return speciesBattle(this.o.monsters[c.species], c.species, this.o.subjects);
+  traits(c: Creature): SpeciesTraits {
+    return speciesBattle(this.data, c.species, this.o.subjects.subjectFor(this.o.monsters[c.species]?.types ?? [], null, c.species));
   }
 
   maxPepOf(c: Creature): number {
@@ -350,13 +348,13 @@ export class Battle {
     const p = this.partner;
     const tr = this.traits(p);
     const show = this.revealed();
-    const cards = equipped(tr.subject, p.level, this.moves).map<Card>((m) => {
+    const cards = cardMoves(this.data, p.species, p.level, tr.subject).map<Card>((m) => {
       const max = m.charges;
       const left = max === null ? null : (this.charges.get(`${p.id}:${m.id}`) ?? Math.min(max, this.o.debug?.charges ?? max));
-      return { move: m, left, max, dimmed: left !== null && left <= 0, hit: show && m.subject ? wheelHit(m.subject, this.enemy.subject, this.enemy.weak) : null, home: m.subject === tr.subject };
+      return { move: m, left, max, dimmed: left !== null && left <= 0, hit: show && m.subject !== "any" ? wheelHit(m.subject, this.enemy.subject, this.enemy.weak) : null, home: m.subject === tr.subject };
     });
     if (cards.length === 0 || cards.every((c) => c.dimmed)) {
-      const wiggle = this.moves[WIGGLE] ?? DEFAULT_MOVES[WIGGLE]!;
+      const wiggle = this.data.movesById[WIGGLE]!;
       return [{ move: wiggle, left: null, max: null, dimmed: false, hit: null, home: false }];
     }
     return cards;
@@ -368,12 +366,12 @@ export class Battle {
     const p = this.partnerOrNull();
     const pepMax = p ? this.maxPepOf(p) : 1;
     const amount = p ? this.puffAmount(p, SHOWN_ROLL) : 0;
-    const id = drawIntent(this.rng(), this.enemy.temperament, {
+    const id = drawIntent(this.rng(), this.weights, {
       lastWasBigPuff: this.lastWasBigPuff,
       sinceGiggle: this.sinceGiggle,
       fogFull: this.fog >= this.maxFog,
       puffIsBig: amount > BIG_PUFF * pepMax,
-    });
+    }, giggleEvery(this.data));
     return { id, amount: id === "puff" ? amount : 0, first: p ? this.enemy.speed > creatureStats(this.traits(p), p.level).speed : false };
   }
 
@@ -385,12 +383,12 @@ export class Battle {
   private puffAmount(c: Creature, roll: number): number {
     return damageOf({
       level: this.enemy.level,
-      mp: this.kind === "master" ? MP.puffBoss : MP.puff,
+      mp: puffPower(this.data, this.kind === "master"),
       power: this.enemy.power,
       guard: creatureStats(this.traits(c), c.level).guard,
       right: true,
       roll,
-      gentle: GENTLE[this.band],
+      gentle: this.data.rules.bands[this.band].gentle,
     });
   }
 
@@ -441,7 +439,7 @@ export class Battle {
 
   /** The tier of the question: easier by one after three wrong answers in a row (E stays E). */
   private questionTier(move: Move): "E" | "N" | "S" {
-    const t: "E" | "N" | "S" = move.tier === "E" ? "E" : move.tier === "S" ? "S" : "N";
+    const t: "E" | "N" | "S" = move.question === "E" ? "E" : move.question === "S" ? "S" : "N";
     if (!this.easier) return t;
     return t === "S" ? "N" : "E";
   }
@@ -451,13 +449,13 @@ export class Battle {
     const target = this.o.engine.learner.targetFrontier;
     // no Elo speed bonus in a battle: the rating stays about knowledge, not reflexes
     const r: QuizRequest = {
-      topic: move.subject!,
+      topic: move.subject,
       context: "battle",
       maxChoices: this.o.maxChoices,
       speed: false,
       // easy moves use the quick shapes only; the others may use ordering and letter tiles
       kinds: tier === "E" ? [] : ["order", "letters"],
-      bias: biasFor(RIGHT_CHANCE[this.band][tier], target),
+      bias: biasFor(this.data.rules.bands[this.band].right_chance[tier], target),
     };
     const bag = this.helperBag();
     if (bag) r.helpers = bag;
@@ -558,7 +556,7 @@ export class Battle {
       const p = this.partner;
       const mine = creatureStats(this.traits(p), p.level);
       const tr = this.traits(p);
-      const subject = a.move.subject;
+      const subject = a.move.subject === "any" ? null : a.move.subject;
       const hit = subject ? wheelHit(subject, this.enemy.subject, this.enemy.weak) : null;
       let brilliant = false;
       if (a.question) {
@@ -566,7 +564,7 @@ export class Battle {
           this.stats.correct++;
           this.rightStreak++;
           this.wrongStreak = 0;
-          brilliant = this.rightStreak % 3 === 0 || this.rng() < LUCKY_STAR;
+          brilliant = this.rightStreak % 3 === 0 || this.rng() < LUCKY_STAR || a.move.tier === "S";
           round.growth = giveXp(w, p.id, spendBoost(w), this.o.monsters);
         } else {
           this.rightStreak = 0;
@@ -583,7 +581,7 @@ export class Battle {
         this.fog,
         damageOf({
           level: p.level,
-          mp: a.move.mp,
+          mp: a.move.power ?? 0,
           power: mine.power,
           guard: this.enemyGuard(),
           home: subject !== null && subject === tr.subject,
@@ -636,7 +634,7 @@ export class Battle {
         const max = this.maxPepOf(p);
         let pep = this.pepOf(p) - amount;
         // Brave Heart (the youngest band): the first hit that would put a friend to sleep leaves it at 1 Pep
-        if (pep <= 0 && this.band === "A" && !this.brave.has(p.id)) {
+        if (pep <= 0 && this.data.rules.bands[this.band].brave_heart_default && !this.brave.has(p.id)) {
           this.brave.add(p.id);
           pep = 1;
         }
@@ -645,7 +643,7 @@ export class Battle {
         this.sinceGiggle++;
       } else if (intent.id === "giggle") {
         kind = "giggle";
-        amount = Math.max(0, Math.min(this.maxFog - this.fog, Math.ceil(this.maxFog * GIGGLE_SHARE)));
+        amount = Math.max(0, Math.min(this.maxFog - this.fog, Math.ceil(this.maxFog * giggleShare(this.data))));
         this.fog += amount;
         this.sinceGiggle = 0;
         this.lastWasBigPuff = false;
@@ -660,10 +658,6 @@ export class Battle {
     // a swap, or medicine, comes before the enemy's action; a move goes by Speed
     const mine = a.kind !== "move" || this.meFirst();
     round.first = mine ? "me" : "them";
-    if (a.kind === "medicine") {
-      const max = this.o.world.creatures.find((c) => c.id === a.to);
-      if (max) this.pep.set(a.to, Math.ceil(this.maxPepOf(max) / 2));
-    }
     if (mine) {
       doMine();
       doTheirs();
@@ -724,7 +718,7 @@ export class Battle {
   }
 
   private enemyGuard(): number {
-    return creatureStats(this.enemy, this.enemy.level).guard;
+    return this.enemy.guard;
   }
 
   /** The fog is gone: the creature sits down, calm, and pays (a master's test is won). */
@@ -769,19 +763,47 @@ export class Battle {
     return this.play({ kind: "swap", to: id });
   }
 
-  /** Medicine from the Bag on a sleeping friend of the party: it wakes at half Pep. Free while a friend must be picked, else it costs the turn. */
+  /** The friends of the team a medicine can be used on now (ids): the sleeping for a wake, the hurt for a heal, the partner for a refill. */
+  medicineTargets(itemId: string): string[] {
+    const item = this.o.economy?.items[itemId];
+    if (!item || item.kind !== "medicine" || (this.phase !== "fighting" && this.phase !== "calm")) return [];
+    const team = this.team();
+    if (item.effect === "wake") return team.filter((c) => !usable(c)).map((c) => c.id);
+    if (item.effect === "heal_pep") return team.filter((c) => usable(c) && this.pepOf(c) < this.maxPepOf(c)).map((c) => c.id);
+    if (item.effect === "refill_charges") return this.cards().some((c) => c.left !== null && c.max !== null && c.left < c.max) ? [this.partner.id] : [];
+    return [];
+  }
+
+  /**
+   * Medicine from the Bag. A Wake Berry wakes a sleeping friend of the party at part of its Pep, for good; a heal
+   * gives Pep back to an awake one; the Energy Berry refills the partner's emptiest move. Free while a friend must be
+   * picked (or the creature is calm), else it costs the turn. Null when it cannot be used.
+   */
   medicine(creatureId: string, itemId: string): Round | "free" | null {
     const eco = this.o.economy;
-    if (!eco || (this.phase !== "fighting" && this.phase !== "calm")) return null;
-    if (!this.team().some((c) => c.id === creatureId)) return null;
-    if (!useMedicine(this.o.world, eco, creatureId, itemId)) return null;
-    this.o.field.item({ item: itemId, where: "battle", ok: true });
+    const item = eco?.items[itemId];
+    if (!eco || !item || (this.phase !== "fighting" && this.phase !== "calm")) return null;
+    if (!this.medicineTargets(itemId).includes(creatureId)) return null;
+    if (countOf(this.o.world, itemId) < 1) return null;
     const c = this.o.world.creatures.find((x) => x.id === creatureId)!;
+    const max = this.maxPepOf(c);
+    if (item.effect === "wake") {
+      const share = wakeWith(this.o.world, eco, creatureId, itemId);
+      if (!share) return null;
+      this.pep.set(c.id, Math.max(1, Math.ceil(max * share)));
+    } else {
+      take(this.o.world, itemId);
+      if (item.effect === "heal_pep") this.pep.set(c.id, Math.min(max, this.pepOf(c) + Math.ceil(max * item.healShare)));
+      else if (item.effect === "refill_charges") {
+        const worst = this.cards().filter((x) => x.left !== null && x.max !== null).sort((a, b) => a.left! / a.max! - b.left! / b.max!)[0];
+        if (worst) this.charges.set(`${c.id}:${worst.move.id}`, worst.max!);
+      }
+    }
+    this.o.field.item({ item: itemId, where: "battle", ok: true });
     if (this.phase === "calm" || this.needSwap) {
-      this.pep.set(c.id, Math.ceil(this.maxPepOf(c) / 2));
       // the partner itself woke: nobody needs to be picked
-      if (c.id === this.partner.id) this.needSwap = false;
-      if (this.phase === "fighting" && this.intent === null) this.intent = this.drawNext();
+      if (c.id === this.partner.id && usable(c)) this.needSwap = false;
+      if (this.phase === "fighting" && this.intent === null && !this.needSwap) this.intent = this.drawNext();
       this.o.onChange();
       return "free";
     }
@@ -914,8 +936,4 @@ export class Battle {
     });
   }
 
-  /** Which tiers exist on the cards, for the tests. */
-  tiers(): Tier[] {
-    return this.cards().map((c) => c.move.tier);
-  }
 }

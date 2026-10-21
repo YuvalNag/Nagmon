@@ -9,7 +9,7 @@ import { usable } from "../core/game/faint";
 import { seededRng } from "../core/game/rng";
 import { countOf, giveStarterKit } from "../core/game/items";
 import type { QuizSession } from "../core/world/quiz";
-import { moveText, t } from "../i18n";
+import { t } from "../i18n";
 import { gameClock } from "../platform/lifecycle";
 import { pageSfx } from "../platform/sfx";
 import { ageFromProfile } from "../core/family/age";
@@ -98,6 +98,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     const debug = { ...(pep ? { pep } : {}), ...(fog ? { fog } : {}), ...(charges ? { charges } : {}) };
     const b = new Battle({
       engine: play.engine,
+      data: play.battle!,
       world: play.world,
       monsters: play.monsters,
       subjects: play.subjects,
@@ -239,7 +240,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     if (ev.who === "me") {
       if (ev.kind === "swap") return t("battleSwapped", { name: nameOf(ev.creature) });
       if (ev.kind === "medicine") return t("battleMedicineUsed", { name: nameOf(ev.creature) });
-      const move = moveText(round.move?.id ?? "");
+      const move = round.move?.he ?? "";
       const parts = [round.correct || round.move?.tier === "W" ? t("battleCastHit", { move, name: wildName, damage: ev.amount }) : t("battleCastWeak", { damage: ev.amount })];
       if (round.wheel === "sparkle") parts.push(t("battleSparkleHit"));
       if (round.wheel === "sturdy") parts.push(t("battleSturdyHit", { name: wildName }));
@@ -603,6 +604,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
           mine={mine}
           myName={myName}
           avatar={play.profile.avatar}
+          map={map}
           wildSpecies={wild.species}
           wildName={wildName}
           wildLevel={wild.level}
@@ -666,7 +668,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
               subjectTitle={subjectTitle}
               onResult={onResult}
               onClose={afterQuestion}
-              cast={{ name: moveText(cast.move.id), subject: cast.move.subject ? subjectTitle(cast.move.subject) : "", icon: subjectIcon(cast.move.subject), color: subjectColor(cast.move.subject) }}
+              cast={{ name: cast.move.he, subject: cast.move.subject !== "any" ? subjectTitle(cast.move.subject) : "", icon: subjectIcon(cast.move.subject), color: subjectColor(cast.move.subject) }}
             />
           </div>
         )}
@@ -699,7 +701,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
           <ActionBar
             monsters={play.monsters}
             cards={battle.cards()}
-            moveName={moveText}
+            moveName={(id) => play.battle?.movesById[id]?.he ?? id}
             subjectTitle={subjectTitle}
             friends={friends}
             calm={phase === "calm"}
@@ -716,7 +718,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
             onLeave={leave}
           />
         )}
-        {sheet === "bag" && <BagView play={play} battle={{ calm: phase === "calm", onNet: throwNet, onMedicine, team: team.map((c) => c.id) }} onClose={() => setSheet(null)} />}
+        {sheet === "bag" && <BagView play={play} battle={{ calm: phase === "calm", onNet: throwNet, onMedicine, targets: (itemId) => battle.medicineTargets(itemId) }} onClose={() => setSheet(null)} />}
       </section>
     </ScreenTime>
   );

@@ -3,6 +3,7 @@ import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import { createRef, type MutableRefObject } from "react";
 import { afterEach, describe, expect, it } from "vitest";
+import { appLogText, installAppLog, uninstallAppLog } from "../../../src/platform/appLog";
 import { openPlay, type FetchJson } from "../../../src/app/play";
 import { defaultsForGrade } from "../../../src/core/family/gradeDefaults";
 import { ProfileStore } from "../../../src/core/family/profiles";
@@ -45,7 +46,7 @@ afterEach(cleanup);
 const settle = (ms = 0) => act(() => new Promise((r) => setTimeout(r, ms)));
 
 /** The map with a stand-in scene: it opens Hearthrock and reports who stands in front. */
-async function start({ grade = 2, settings = defaultsForGrade(2).settings as JsonObject, world = null as JsonObject | null, menuFirst = false, fresh = false, trips = false, inside = null as null | typeof city } = {}) {
+async function start({ grade = 2, settings = defaultsForGrade(2).settings as JsonObject, world = null as JsonObject | null, menuFirst = false, fresh = false, trips = false, inside = null as null | typeof city, stallWhenPaused = false, neverReady = false, openWait = undefined as number | undefined } = {}) {
   // the test seed: the question showing can be read (window.__nagmonQuiz)
   localStorage.setItem("nagmon.quiz.seed", "3");
   const fs = new MemoryFileStore();
@@ -65,13 +66,18 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
       startMap: (o: MapOptions) => {
         opts = o;
         void Promise.resolve(o.resume?.()).then((r) => (resumed = r));
-        setTimeout(() => {
+        // the real scene loads its map in the game loop: asleep, it never opens
+        const held = new Set<string>();
+        const open = () => {
+          if (neverReady) return;
+          if (stallWhenPaused && held.size) return void setTimeout(open, 5);
           o.onMap?.(inside ?? city);
           o.onReady?.();
-        }, 0);
+        };
+        setTimeout(open, stallWhenPaused ? 100 : 0);
         return {
-          pause: (why: string) => calls.push(`pause ${why}`),
-          resume: (why: string) => calls.push(`resume ${why}`),
+          pause: (why: string) => (held.add(why), calls.push(`pause ${why}`)),
+          resume: (why: string) => (held.delete(why), calls.push(`resume ${why}`)),
           paused: false,
           destroy: () => calls.push("destroy"),
           debug: () => null,
@@ -88,6 +94,7 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
       backRef={backRef}
       onExit={() => calls.push("exit")}
       load={load}
+      openWaitMs={openWait}
       openPlay={async (o) => {
         // the child opens the menu before the play has loaded
         if (menuFirst) await new Promise((r) => setTimeout(r, 60));
@@ -100,7 +107,7 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
     for (let i = 0; i < 100 && !container.querySelector("[data-map=ready]"); i++) await settle(5);
     await act(async () => backRef.current?.());
   }
-  for (let i = 0; i < 400 && !container.querySelector("[data-play=ready][data-map=ready]"); i++) await settle(25);
+  for (let i = 0; i < 400 && !neverReady && !container.querySelector("[data-play=ready][data-map=ready]"); i++) await settle(25);
   const q = (s: string) => container.querySelector(s) as HTMLElement | null;
   const el = (id: string) => q(`[data-id="${id}"]`) as HTMLButtonElement | null;
   // a keyboard or switch press (no pointer): ScreenTime does not apply
@@ -127,6 +134,29 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
   const quiz = () => (window as unknown as { __nagmonQuiz?: () => { phase: string; kind: string; answer: string; skill: string } }).__nagmonQuiz?.();
   return { fs, profiles, profile, resumed: () => resumed, calls, logs, backRef, q, el, press, face, read, quiz, container, opts: () => opts };
 }
+
+describe("a new child's first map", () => {
+  it("opens under the owl's intro: the map is not held still before it is ready (the loop is asleep, so it would never load)", async () => {
+    const m = await start({ fresh: true, grade: 0, stallWhenPaused: true });
+    expect(m.q("[data-screen=play][data-map=ready]")).not.toBeNull();
+    expect(m.q("[data-screen=dialog]")).not.toBeNull();
+    // the owl holds it once it is open
+    expect(m.calls).toContain("pause talk");
+  });
+
+  it("a map that does not open in 10 s says so, logs why, and offers a retry", async () => {
+    uninstallAppLog();
+    await installAppLog(new MemoryFileStore());
+    const m = await start({ neverReady: true, openWait: 30 });
+    await settle(80);
+    expect(m.q("[data-screen=map-failed]")).not.toBeNull();
+    expect(m.el("map_retry")).not.toBeNull();
+    expect(appLogText()).toContain("The map did not open within");
+    uninstallAppLog();
+    await m.press("map_retry");
+    expect(m.q("[data-map=loading]")).not.toBeNull();
+  });
+});
 
 describe("the shop, from the shopkeeper", () => {
   it("talk: the greeting, then the shop with its shelves; a purchase is saved and logged; back goes to the map", async () => {

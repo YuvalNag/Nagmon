@@ -10,8 +10,8 @@ import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
 import { CoinIcon, ShelfArt } from "./WorldArt";
 
-const SHELF_TEXT: Record<Shelf, TextKey> = { nets: "tabNets", snacks: "shelfSnacks", helpers: "shelfHelpers" };
-const SHELF_ICON: Record<Shelf, string> = { nets: "🥅", snacks: "🍓", helpers: "🪶" };
+const SHELF_TEXT: Record<Shelf, TextKey> = { nets: "tabNets", snacks: "shelfSnacks", helpers: "shelfHelpers", medicine: "shelfMedicine" };
+const SHELF_ICON: Record<Shelf, string> = { nets: "🥅", snacks: "🍓", helpers: "🪶", medicine: "💊" };
 
 interface Props {
   play: Play;

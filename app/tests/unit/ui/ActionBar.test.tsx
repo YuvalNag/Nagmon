@@ -1,23 +1,29 @@
 import { act, cleanup, render } from "@testing-library/react";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import type { Card } from "../../../src/core/game/battle";
-import { DEFAULT_MOVES, equipped, WIGGLE } from "../../../src/core/game/moves";
+import type { BattleData } from "../../../src/core/data/battleTypes";
+import { cardMoves, WIGGLE } from "../../../src/core/game/moves";
 import { monsterTable } from "../../../src/core/game/monsters";
-import { moveText } from "../../../src/i18n";
 import { ActionBar, type ActionBarProps, type Friend } from "../../../src/ui/battle/ActionBar";
-import { gameJson } from "../game/helpers";
+import { battleData, gameJson } from "../game/helpers";
 
 afterEach(cleanup);
+
+let data: BattleData;
+beforeAll(async () => {
+  data = await battleData();
+});
+const moveText = (id: string) => data.movesById[id]?.he ?? id;
 
 let host: HTMLElement;
 const monsters = monsterTable(gameJson("db/monsters.json"));
 const titles: Record<string, string> = { math: "חשבון", geometry: "גאומטריה", science: "מדעים", english: "אנגלית", hebrew: "עברית", logic: "חשיבה" };
 
 const card = (id: string, over: Partial<Card> = {}): Card => {
-  const move = DEFAULT_MOVES[id]!;
+  const move = data.movesById[id]!;
   return { move, left: move.charges, max: move.charges, dimmed: false, hit: null, home: true, ...over };
 };
-const cards = (): Card[] => equipped("math", 6).map((m) => card(m.id));
+const cards = (): Card[] => cardMoves(data, "heliobud", 6, "math").map((m) => card(m.id));
 const friends = (): Friend[] => [
   { id: "c1", species: "heliobud", name: "ניצן", active: true, fainted: false, pep: 1 },
   { id: "c2", species: "lunibble", name: "ירח", active: false, fainted: false, pep: 0.5 },
@@ -59,7 +65,7 @@ describe("the battle's menu (BATTLE_V3 2.2)", () => {
   it("has the friends strip, the four move cards in a 2 x 2 grid, and Net, Bag and Run", () => {
     show();
     const ids = [...host.querySelectorAll("button")].map((b) => b.dataset["id"]);
-    expect(ids).toEqual(["battle_friend_c1", "battle_friend_c2", "battle_friend_c3", "battle_move_number_nudge", "battle_move_sum_spark", "battle_move_block_bounce", "battle_move_letter_toss", "battle_net", "battle_bag", "battle_run"]);
+    expect(ids).toEqual(["battle_friend_c1", "battle_friend_c2", "battle_friend_c3", "battle_move_sum_spark", "battle_move_add_it_up", "battle_move_number_nudge", "battle_move_block_bounce", "battle_net", "battle_bag", "battle_run"]);
     expect(host.querySelectorAll(".move-grid .move-card")).toHaveLength(4);
     expect(host.querySelector(".action-bar")!.getAttribute("role")).toBe("toolbar");
   });
@@ -67,12 +73,12 @@ describe("the battle's menu (BATTLE_V3 2.2)", () => {
   it("each card casts its own move, once; a friend's portrait swaps; Net, Bag and Run do their own", async () => {
     const m = show({ canNet: true });
     await tap(m.el("battle_move_sum_spark"));
-    await tap(m.el("battle_move_letter_toss"));
+    await tap(m.el("battle_move_add_it_up"));
     await tap(m.el("battle_friend_c2"));
     await tap(m.el("battle_net"));
     await tap(m.el("battle_bag"));
     await tap(m.el("battle_run"));
-    expect(m.calls).toEqual(["move:sum_spark", "move:letter_toss", "friend:c2", "net", "bag", "leave"]);
+    expect(m.calls).toEqual(["move:sum_spark", "move:add_it_up", "friend:c2", "net", "bag", "leave"]);
   });
 
   it("a card shows the move's name, its subject, its flames, a tier badge and the charges as dots, and says all of it to a screen reader", () => {

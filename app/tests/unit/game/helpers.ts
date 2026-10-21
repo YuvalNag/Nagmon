@@ -1,6 +1,7 @@
 /// <reference types="node" />
 import { readFileSync } from "node:fs";
 import { type ContentLibrary, LearningEngine, LearnerState, loadContent, PyRandom } from "../../../src/core/learning";
+import { type BattleData, loadBattleData } from "../../../src/core/data/battleTypes";
 import type { Battle, Round } from "../../../src/core/game/battle";
 import type { QuizSession } from "../../../src/core/world/quiz";
 
@@ -81,3 +82,7 @@ export const fixedRng = (...v: number[]) => {
 };
 
 export { seededRng as seeded } from "../../../src/core/game/rng";
+
+let loaded: Promise<BattleData> | null = null;
+/** The battle's data as the app ships it (public/game: moves, statuses, intents, species, rules ...), loaded and checked once. */
+export const battleData = (): Promise<BattleData> => (loaded ??= loadBattleData(async (p) => gameJson(p)));

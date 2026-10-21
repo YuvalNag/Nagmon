@@ -1,0 +1,90 @@
+# Guardians, the master and Keepers of the solar chapter (BATTLE_V3.md 5.5, 5.6).
+# The WILD tables are not copied here: tools/app/moves.py reads them from
+# mods/nagmon/db/encounter/*.yaml (made by tools/art/import_solar_monsters.py)
+# so there is one source. Phases split the fog at 100-66, 66-33, 33-0 percent;
+# `cycle` is the order of intents inside a phase (it repeats); `windup_every`
+# makes a Big Puff at least that often. Moon phase 3 has the Big Puff in its
+# cycle. A guardian cannot be put to sleep for more than one action and
+# resists a major status for 3 rounds (statuses.yaml).
+version: 1
+guardians:
+  - zone: moon
+    species: lunwarden
+    title_he: שומר המכתש
+    title_en: the Crater Keeper
+    level_floor: 7
+    subject: science
+    weak: [geometry, math]
+    phases:
+      - {cycle: [fog_puff, giggle, silly_dance], windup_every: null}
+      - {cycle: [thicken, fog_puff], windup_every: 3}
+      - {cycle: [cheer_up, fog_puff, fog_puff, big_puff], windup_every: null}
+    reward: {evolution_card: zone_card_moon, move_card_subject: science}
+  - zone: sun
+    species: heliarch
+    title_he: שומר השמש
+    title_en: the Sun Keeper
+    level_floor: 8
+    subject: math
+    weak: [hebrew, science]
+    phases:
+      - {cycle: [fog_puff, cheer_up], windup_every: null}
+      - {cycle: [dizzy_swirl, fog_puff], windup_every: 3}
+      - {cycle: [cheer_up, fog_puff, cheer_up, fog_puff], windup_every: 2}
+    reward: {evolution_card: zone_card_sun, move_card_subject: math}
+  - zone: rocky_planets
+    species: marstrix
+    title_he: שומר החולות האדומים
+    title_en: the Red Dune Keeper
+    level_floor: 10
+    subject: logic
+    weak: [math, hebrew]
+    phases:
+      - {cycle: [fog_puff, sticky_mud], windup_every: null}
+      - {cycle: [thicken, fog_puff], windup_every: 3}
+      - {cycle: [sticky_mud, cheer_up, fog_puff], windup_every: 2}
+    reward: {evolution_card: zone_card_planet, move_card_subject: logic}
+  - zone: giants
+    species: ringwarden
+    title_he: שומר הטבעות
+    title_en: the Ring Keeper
+    level_floor: 13
+    subject: hebrew
+    weak: [english, math]
+    phases:
+      - {cycle: [fog_puff, silly_dance], windup_every: null}
+      - {cycle: [drowsy_mist, thicken, fog_puff], windup_every: 3}
+      - {cycle: [thicken, fog_puff], windup_every: 2}
+    reward: {evolution_card: zone_card_giant, move_card_subject: hebrew}
+  - zone: outer
+    species: nepstorm
+    title_he: שומר הקצה
+    title_en: the Far Keeper
+    level_floor: 16
+    subject: science
+    weak: [geometry, hebrew]
+    phases:
+      - {cycle: [fog_puff, dizzy_swirl], windup_every: null}
+      - {cycle: [thicken, sticky_mud, fog_puff], windup_every: 3}
+      - {cycle: [fog_puff, big_puff, big_puff], windup_every: 2, double_windup: true}
+    reward: {evolution_card: zone_card_far, bright_card_chance: 0.5}
+master:
+  species: jovigale
+  title_he: מבחן האסטרונומית
+  title_en: the Astronomer's Test
+  level_floor: 18
+  subject: science
+  # spec 5.6 says Hebrew as the second weak subject; its own family table
+  # (5.7, Jovibud) says Logic: the family table wins, so there is one truth
+  weak: [geometry, logic]
+  phases:
+    - {mixed: true}
+    - {cycle: [thicken, fog_puff], windup_every: 3}
+    - {cycle: [fog_puff, cheer_up], windup_every: 2, final_windup: {id: starlight_windup, power: 80, stagger_ends_fight: calm}}
+  reward: {badge: astronomer, evolution_card: rainbow_card, egg: true}
+keepers:
+  creatures: 2
+  second_level_plus: 1
+  picks_sparkle_move: true
+  swaps_once: true
+  befriend: false

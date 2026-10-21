@@ -19,7 +19,8 @@ vehicle:
   name_en: Mila's ship
 master:
   monster: jovigale
-  level: 14
+  # 18, above the outer zone's wild creatures (up to 15): docs/app/BATTLE_V3.md 5.5
+  level: 18
   badge: astronomer
   badge_title_he: מבחן האסטרונומית
 chapter: solar_system

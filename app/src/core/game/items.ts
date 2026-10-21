@@ -8,6 +8,7 @@
  *   helpers inside one (capture.ts, core/world/quiz.ts).
  * - Never stuck: with no net at all, the owl gives one a day.
  */
+import { addItemText } from "../../i18n";
 import { countOneMore, countToday, type WorldState } from "../world/worldState";
 import { giveXp, type Growth, type MonsterInfo } from "./collection";
 
@@ -30,6 +31,12 @@ export interface Item {
   /** A tonic: how many right answers grow twice as fast. */
   boostAnswers: number;
   helper: HelperKind | null;
+  /** The shop shelf the data names (medicine has its own), or null. */
+  shelf: string | null;
+  /** Medicine: what it does (heal_pep, wake, cleanse, refill_charges), the share of Pep it gives, and whether it wakes a friend who fell asleep. */
+  effect: string | null;
+  healShare: number;
+  healsDozing: boolean;
 }
 
 export interface Economy {
@@ -68,7 +75,13 @@ export function economy(doc: unknown): Economy {
       xp: num(r["xp"]),
       boostAnswers: num(r["boost_answers"]),
       helper: HELPERS.has(String(r["helper"])) ? (r["helper"] as HelperKind) : null,
+      shelf: typeof r["shelf"] === "string" ? r["shelf"] : null,
+      effect: typeof r["effect"] === "string" ? r["effect"] : null,
+      healShare: typeof r["heal_share"] === "number" ? Math.max(0, Math.min(1, r["heal_share"])) : 0,
+      healsDozing: r["heals_dozing"] === true,
     };
+    // the data's own words for an item with no entry in the texts (the medicine of the new battle)
+    if (typeof r["name_he"] === "string") addItemText(r["id"], r["name_he"], typeof r["desc_he"] === "string" ? r["desc_he"] : "");
     order.push(r["id"]);
   }
   const kit: Record<string, number> = {};

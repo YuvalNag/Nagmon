@@ -482,6 +482,8 @@ OWN_SOUND = {
 
 def _is_owner_art(src: str) -> bool:
     p = PurePosixPath(src)
+    if src.startswith("app/public/game/art/"):
+        return True
     if not src.startswith("mods/nagmon/"):
         return False
     if p.name.startswith("nagmon_") or "/owl/" in src:
