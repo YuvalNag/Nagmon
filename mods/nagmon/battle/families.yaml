@@ -1,0 +1,39 @@
+# The 25 families of the solar chapter (docs/app/BATTLE_V3.md 5.7).
+# One row per base form; its stage 1 and stage 2 forms (mods/nagmon/trips/solar.yaml)
+# share subject, weak subjects, temperament, gift and signature move.
+#   subject       the school subject the family practises
+#   weak          [the subject the wheel makes it weak to, one more from data]
+#   temperament   shy playful grumpy sleepy proud (moves/intents.yaml)
+#   bases         Pep / Power / Guard / Speed of the basic form (stage 1 x1.2, stage 2 x1.45)
+#   catch_rate    the basic form's befriend base (stage 1: 150, stage 2: 100)
+#   gift          one of moves/gifts.yaml
+#   signature     (null for the three starters: they learn an off-subject move from a lesson card)
+#                 replaces one home move (a utility or a stretch move of the
+#                 same tier) by a move of another subject, learned at the same level
+version: 1
+families:
+  lunibble: {subject: science,  weak: [geometry, math],    temperament: playful, bases: [10, 9, 9, 11],  catch_rate: 200, gift: cheerful, signature: null}
+  terrabub: {subject: geometry, weak: [logic, science],    temperament: sleepy,  bases: [11, 8, 11, 8],  catch_rate: 200, gift: sturdy_shell, signature: null}
+  heliobud: {subject: math,     weak: [hebrew, science],   temperament: playful, bases: [10, 11, 8, 10], catch_rate: 200, gift: quick_learner, signature: null}
+  solwind:  {subject: science,  weak: [geometry, english], temperament: playful, bases: [9, 10, 8, 12],  catch_rate: 190, gift: sparkly,       signature: {replace: healing_rain, with: cheer_cheer}}
+  sailbit:  {subject: english,  weak: [science, logic],    temperament: shy,     bases: [9, 9, 9, 12],   catch_rate: 200, gift: curious,       signature: {replace: alphabet_soup, with: healing_rain}}
+  mercurip: {subject: science,  weak: [geometry, hebrew],  temperament: playful, bases: [9, 9, 9, 13],   catch_rate: 190, gift: cheerful,      signature: {replace: fresh_air, with: riddle_fog}}
+  venubud:  {subject: hebrew,   weak: [english, logic],    temperament: shy,     bases: [11, 8, 10, 9],  catch_rate: 190, gift: warm_fog,      signature: {replace: proverb_shield, with: round_bubble}}
+  rustip:   {subject: logic,    weak: [math, hebrew],      temperament: grumpy,  bases: [10, 11, 9, 9],  catch_rate: 190, gift: steady,        signature: {replace: swap_trick, with: proverb_shield}}
+  roveroo:  {subject: logic,    weak: [math, geometry],    temperament: proud,   bases: [10, 9, 11, 10], catch_rate: 180, gift: brave_heart,   signature: {replace: riddle_fog, with: round_bubble}}
+  asterchip: {subject: geometry, weak: [logic, english],   temperament: sleepy,  bases: [9, 10, 12, 7],  catch_rate: 200, gift: sturdy_shell,  signature: {replace: round_bubble, with: detective_lens}}
+  meteet:   {subject: science,  weak: [geometry, hebrew],  temperament: grumpy,  bases: [8, 12, 8, 12],  catch_rate: 180, gift: sparkly,       signature: {replace: sunbeam, with: proverb_shield}}
+  dustip:   {subject: english,  weak: [science, math],     temperament: shy,     bases: [10, 8, 9, 12],  catch_rate: 200, gift: curious,       signature: {replace: cheer_cheer, with: riddle_fog}}
+  jovibud:  {subject: science,  weak: [geometry, logic],   temperament: proud,   bases: [12, 10, 10, 8], catch_rate: 170, gift: warm_fog,      signature: {replace: healing_rain, with: lullaby}}
+  iobud:    {subject: math,     weak: [hebrew, english],   temperament: grumpy,  bases: [10, 12, 8, 10], catch_rate: 170, gift: quick_learner, signature: {replace: times_twister, with: warm_bloom}}
+  europip:  {subject: english,  weak: [science, geometry], temperament: shy,     bases: [11, 8, 11, 10], catch_rate: 170, gift: steady,        signature: {replace: echo, with: story_hug}}
+  ganybit:  {subject: geometry, weak: [logic, hebrew],     temperament: sleepy,  bases: [12, 9, 12, 7],  catch_rate: 170, gift: brave_heart,   signature: {replace: angle_trap, with: mind_glimmer}}
+  ringlet:  {subject: hebrew,   weak: [english, math],     temperament: proud,   bases: [11, 9, 11, 9],  catch_rate: 160, gift: quick_learner, signature: {replace: story_hug, with: healing_rain}}
+  titanip:  {subject: logic,    weak: [math, science],     temperament: sleepy,  bases: [11, 10, 10, 9], catch_rate: 160, gift: steady,        signature: {replace: swap_trick, with: healing_rain}}
+  gravip:   {subject: math,     weak: [hebrew, logic],     temperament: proud,   bases: [10, 10, 12, 8], catch_rate: 160, gift: brave_heart,   signature: {replace: times_twister, with: sentence_spiral}}
+  tiltip:   {subject: geometry, weak: [logic, math],       temperament: playful, bases: [11, 9, 11, 9],  catch_rate: 150, gift: cheerful,      signature: {replace: round_bubble, with: cheer_cheer}}
+  nepbit:   {subject: science,  weak: [geometry, hebrew],  temperament: playful, bases: [10, 10, 10, 10], catch_rate: 150, gift: sparkly,       signature: {replace: fresh_air, with: round_bubble}}
+  plutot:   {subject: hebrew,   weak: [english, geometry], temperament: shy,     bases: [9, 9, 9, 13],   catch_rate: 140, gift: curious,       signature: {replace: proverb_shield, with: cheer_cheer}}
+  kuipip:   {subject: english,  weak: [science, hebrew],   temperament: playful, bases: [10, 10, 9, 11], catch_rate: 150, gift: cheerful,      signature: {replace: alphabet_soup, with: round_bubble}}
+  combit:   {subject: logic,    weak: [math, english],     temperament: grumpy,  bases: [9, 11, 8, 12],  catch_rate: 140, gift: quick_learner, signature: {replace: detective_lens, with: cheer_cheer}}
+  probip:   {subject: math,     weak: [hebrew, geometry],  temperament: proud,   bases: [10, 10, 10, 10], catch_rate: 130, gift: sturdy_shell,  signature: {replace: times_twister, with: story_storm}}

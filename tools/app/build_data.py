@@ -5,7 +5,8 @@
     python tools/app/build_data.py --check   # fail if it is out of date
 
 One source for everything the app ships: the learning content, the
-texts, the four maps with their atlases, the database subset with its
+battle's moves and numbers, the texts, the four maps with their atlases,
+the database subset with its
 sprites, the music and sounds, the emoji subset and the credits.
 """
 
@@ -33,6 +34,7 @@ from tools.app import (  # noqa: E402
     i18n,
     lessons,
     maps,
+    moves,
     solar_maps,
     trips,
 )
@@ -65,6 +67,7 @@ def build() -> tuple[Output, dict[str, Any]]:
     report["trips"] = trips.build(out)
     report["lessons"] = lessons.build(out)
     report["economy"] = economy.build(out)
+    report["battle"] = moves.build(out)
     report["emoji"] = emoji.build(out)
     report["display"] = display.build(out)
     report["credits"] = credits.build(out)

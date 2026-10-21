@@ -297,7 +297,7 @@ describe("the chapter, from the first zone to the badge", () => {
     }
 
     // the master test: the child wins it, the badge is kept, the test is no longer news
-    expect(trip.master).toMatchObject({ badge: "astronomer", level: 14 });
+    expect(trip.master).toMatchObject({ badge: "astronomer", level: 18 });
     expect(monsters[trip.master.monster!]).toBeTruthy();
     expect(progressPercent(w, trip)).toBeLessThan(100);
     w.trips.badges.push(`solar/${trip.master.badge}`);
