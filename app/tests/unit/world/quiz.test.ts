@@ -214,10 +214,19 @@ describe("the script's word", () => {
   });
 });
 
-describe("questions that need a picture the app cannot draw yet", () => {
-  it("are never asked: a '?' card where the grid should be cannot be answered", () => {
+describe("questions that need a picture", () => {
+  it("the robot-on-a-grid question is asked again now that its grid is drawn", () => {
+    const kinds = new Set<string>();
+    for (let seed = 0; seed < 20; seed++) {
+      const q = session({ grade: 4, topic: "logic.robot.path_end", seed }).s.question;
+      if (q) kinds.add(q.figure?.kind ?? "none");
+    }
+    expect([...kinds]).toEqual(["grid_path"]);
+  });
+
+  it("are never asked when the app cannot draw them: a '?' card where the grid should be cannot be answered", () => {
     // the robot-on-a-grid question needs its grid; logic, geometry and clocks are full of figures
-    for (const topic of ["logic.robot_end", "logic", "geometry", "math"]) {
+    for (const topic of ["logic.robot.path_end", "logic.robot.loops", "logic", "geometry", "math"]) {
       for (let seed = 0; seed < 150; seed++) {
         const { s } = session({ grade: 4, topic, seed });
         const kind = s.question?.figure?.kind;

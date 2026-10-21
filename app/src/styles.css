@@ -7,6 +7,14 @@
   --accent-ink: #ffffff;
   --card: #ffffff;
   --card-edge: #9cc7d1;
+  /* the figures' pastels: blue and orange differ in lightness too, never red against green */
+  --fig-fill: #a9d6e5;
+  --fig-top: #d3ecf4;
+  --fig-side: #86bdd0;
+  --fig-alt: #ffd9b3;
+  --fig-accent: #f2a65a;
+  --fig-grid: #a9c3ca;
+  --fig-paper: #fffdf6;
   /* a finger is about 9 mm: 13% of the phone's height in landscape */
   --touch: max(52px, 13vh);
   --gap: max(10px, 2.5vh);
@@ -640,7 +648,7 @@ button.dialog {
 
 .figure {
   flex: 0 0 auto;
-  height: 30vh;
+  height: 34vh;
   max-width: 40vw;
 }
 
