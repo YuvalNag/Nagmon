@@ -396,24 +396,24 @@ msgstr ""
 msgid "nagmon_owl_intro_starter"
 msgstr ""
 "Three little monsters are waiting for a friend.\n"
-"Agnite is a fire monster. It loves math.\n"
-"Rockitten is an earth monster. It loves shapes.\n"
-"Kroki is a water monster. It loves science.\n"
+"Heliobud is a sun monster. It loves math.\n"
+"Terrabub is an earth monster. It loves shapes.\n"
+"Lunibble is a moon monster. It loves science.\n"
 "Who will be your first friend?"
 
-msgid "nagmon_owl_picked_agnite"
+msgid "nagmon_owl_picked_heliobud"
 msgstr ""
-"Agnite jumps for joy!\n"
+"Heliobud jumps for joy!\n"
 "When it attacks, the questions will be about math."
 
-msgid "nagmon_owl_picked_rockitten"
+msgid "nagmon_owl_picked_terrabub"
 msgstr ""
-"Rockitten purrs quietly.\n"
+"Terrabub hums quietly.\n"
 "When it attacks, the questions will be about shapes."
 
-msgid "nagmon_owl_picked_kroki"
+msgid "nagmon_owl_picked_lunibble"
 msgstr ""
-"Kroki splashes a little water with joy.\n"
+"Lunibble glows a little with joy.\n"
 "When it attacks, the questions will be about science."
 
 msgid "nagmon_owl_gifts"
@@ -874,116 +874,6 @@ msgstr "There is no log to send yet."
 
 msgid "nagmon_github_confirm_progress_one"
 msgstr "To be sent: progress of one child, without the name, to the private data repo {repo}."
-
-# The first subject monsters (docs/kids/SDD_ART.md §2.3).
-msgid "geometrion"
-msgstr "Geometrion"
-
-msgid "geometrion_description"
-msgstr "A little pyramid that loves corners. Count its sides and it glows."
-
-msgid "cat_pyramid"
-msgstr "Pyramid"
-
-msgid "polygonos"
-msgstr "Polygonos"
-
-msgid "polygonos_description"
-msgstr "Many shapes held together by light. Every face is a different polygon."
-
-msgid "cat_polyhedron"
-msgstr "Polyhedron"
-
-msgid "alphabel"
-msgstr "Alphabel"
-
-msgid "alphabel_description"
-msgstr "A fox with letters in its fur. It wags its tail at every new word."
-
-msgid "cat_letter_fox"
-msgstr "Letter Fox"
-
-msgid "lexicon"
-msgstr "Lexicon"
-
-msgid "lexicon_description"
-msgstr "A winged lion with words in its mane. It knows a word for everything."
-
-msgid "cat_word_lion"
-msgstr "Word Lion"
-
-# Eight more subject monsters (docs/kids/SDD_ART.md §2.10).
-msgid "pluson"
-msgstr "Pluson"
-
-msgid "pluson_description"
-msgstr "A little plus with a spark in its tail. It loves adding things up."
-
-msgid "cat_plus_spark"
-msgstr "Plus Spark"
-
-msgid "multivolt"
-msgstr "Multivolt"
-
-msgid "multivolt_description"
-msgstr "Its lightning tail grew with every sum it solved."
-
-msgid "cat_volt_plus"
-msgstr "Volt Plus"
-
-msgid "flaskling"
-msgstr "Flaskling"
-
-msgid "flaskling_description"
-msgstr "A flask with a sprout on top. Bubbles rise when it is curious."
-
-msgid "cat_leaf_flask"
-msgstr "Leaf Flask"
-
-msgid "botanikos"
-msgstr "Botanikos"
-
-msgid "botanikos_description"
-msgstr "A whole garden grows in its glass. It watches how things change."
-
-msgid "cat_garden_flask"
-msgstr "Garden Flask"
-
-msgid "puzzlet"
-msgstr "Puzzlet"
-
-msgid "puzzlet_description"
-msgstr "A puzzle piece with one curious eye. It looks for the piece that fits."
-
-msgid "cat_puzzle_piece"
-msgstr "Puzzle Piece"
-
-msgid "enigmon"
-msgstr "Enigmon"
-
-msgid "enigmon_description"
-msgstr "It solves riddles slowly and carefully, one step at a time."
-
-msgid "cat_riddle_puzzle"
-msgstr "Riddle Puzzle"
-
-msgid "scrollo"
-msgstr "Scrollo"
-
-msgid "scrollo_description"
-msgstr "A small scroll that loves letters. It reads every sign it passes."
-
-msgid "cat_little_scroll"
-msgstr "Little Scroll"
-
-msgid "megillon"
-msgstr "Megillon"
-
-msgid "megillon_description"
-msgstr "A double scroll full of stories. It tells them with its ribbons."
-
-msgid "cat_great_scroll"
-msgstr "Great Scroll"
 
 # A gentler name for a technique the new logic monsters learn
 # (docs/kids/SDD_ART.md §2.10).

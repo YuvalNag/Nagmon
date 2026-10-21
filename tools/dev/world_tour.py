@@ -287,11 +287,11 @@ close_dialogs()
 # A wild battle with the new subject monsters (docs/kids/SDD_ART.md).
 close_dialogs()
 step(10)
-ex("add_monster", ["alphabel", "10"])
+ex("add_monster", ["sailbit", "10"])
 party = player().monsters
 party.insert(0, party.pop())
 # skip: the action waits for the battle to end; let the frames run it.
-ex("wild_encounter", ["geometrion", "6"], True)
+ex("wild_encounter", ["lunibble", "6"], True)
 for _ in range(60):
     if "CombatState" in names():
         break
@@ -396,14 +396,14 @@ for name, where in (
     back_to_world()
     step(20)
     shot(name)
-ex("add_monster", ["scrollo", "10"])
+ex("add_monster", ["ringlet", "10"])
 party = player().monsters
 party.insert(0, party.pop())
-ex("wild_encounter", ["puzzlet", "6"], True)
+ex("wild_encounter", ["dustip", "6"], True)
 for _ in range(60):
     if "CombatState" in names():
         break
     step(10)
 step(240)
-shot("world_14_battle_scrollo")
+shot("world_14_battle_ringlet")
 back_to_world()

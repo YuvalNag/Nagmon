@@ -13,7 +13,7 @@
  *     subject: science                 # the trip's subject; starters and questions follow it
  *     vehicle: {name_he: ...}          # Mila's vehicle
  *     master:                          # the test at the end
- *       monster: enigmon               # the master's creature (any species of the table)
+ *       monster: jovigale               # the master's creature (any species of the table)
  *       level: 14
  *       badge: astronomer              # the badge's id
  *       badge_title_he: מבחן האסטרונומית

@@ -1,7 +1,6 @@
 # Route 1: a friendly duel, a bilingual sign and Pitzi the lost kitten.
 # The wild encounters are the tmx's, in the same grass, from our own table
-# (nagmon_route1: Tuxemon's monsters and the first subject monsters,
-# docs/kids/SDD_ART.md §2.3).
+# (nagmon_route1: the first animals of the solar-system trip).
 events:
 
   # ------------------------------------------------ wild encounters
@@ -55,8 +54,8 @@ events:
     actions:
     - create_npc nagmon_route1_trainer,30,16
     - char_face nagmon_route1_trainer,right
-    - add_monster nut,5,nagmon_route1_trainer,3,5
-    - add_monster dandicub,6,nagmon_route1_trainer,3,5
+    - add_monster lunibble,5,nagmon_route1_trainer,3,5
+    - add_monster dustip,6,nagmon_route1_trainer,3,5
 
   Trainer Talk:
     type: event

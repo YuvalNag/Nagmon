@@ -497,7 +497,7 @@ if names()[:1] == ["WorldState"]:
 
     # A wild battle: the battle menu fits and its words are big.
     ex = client.event_engine.execute_action
-    ex("wild_encounter", ["geometrion", "6"], True)
+    ex("wild_encounter", ["lunibble", "6"], True)
     for _ in range(80):
         if names()[:1] == ["MainCombatMenuState"]:
             break

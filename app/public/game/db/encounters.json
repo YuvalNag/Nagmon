@@ -6,10 +6,42 @@
     "exp_req_mod": 3,
     "held_items": [],
     "level_range": [
-     5,
-     8
+     3,
+     6
     ],
-    "monster": "cardiling",
+    "monster": "lunibble",
+    "variables": [
+     {
+      "key": "daytime",
+      "value": "true"
+     }
+    ]
+   },
+   {
+    "encounter_rate": 3,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     3,
+     6
+    ],
+    "monster": "terrabub",
+    "variables": [
+     {
+      "key": "daytime",
+      "value": "true"
+     }
+    ]
+   },
+   {
+    "encounter_rate": 2,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     4,
+     7
+    ],
+    "monster": "heliobud",
     "variables": [
      {
       "key": "daytime",
@@ -22,10 +54,10 @@
     "exp_req_mod": 3,
     "held_items": [],
     "level_range": [
-     8,
-     11
+     4,
+     7
     ],
-    "monster": "cardiwing",
+    "monster": "mercurip",
     "variables": [
      {
       "key": "daytime",
@@ -38,90 +70,10 @@
     "exp_req_mod": 3,
     "held_items": [],
     "level_range": [
-     6,
-     9
+     4,
+     7
     ],
-    "monster": "cataspike",
-    "variables": [
-     {
-      "key": "daytime",
-      "value": "true"
-     }
-    ]
-   },
-   {
-    "encounter_rate": 3,
-    "exp_req_mod": 3,
-    "held_items": [],
-    "level_range": [
-     5,
-     8
-    ],
-    "monster": "eyenemy",
-    "variables": [
-     {
-      "key": "daytime",
-      "value": "true"
-     }
-    ]
-   },
-   {
-    "encounter_rate": 3,
-    "exp_req_mod": 3,
-    "held_items": [],
-    "level_range": [
-     8,
-     12
-    ],
-    "monster": "axolightl",
-    "variables": [
-     {
-      "key": "daytime",
-      "value": "false"
-     }
-    ]
-   },
-   {
-    "encounter_rate": 1,
-    "exp_req_mod": 3,
-    "held_items": [],
-    "level_range": [
-     8,
-     12
-    ],
-    "monster": "tourbidi",
-    "variables": [
-     {
-      "key": "daytime",
-      "value": "false"
-     }
-    ]
-   },
-   {
-    "encounter_rate": 3,
-    "exp_req_mod": 3,
-    "held_items": [],
-    "level_range": [
-     8,
-     12
-    ],
-    "monster": "squabbit",
-    "variables": [
-     {
-      "key": "daytime",
-      "value": "false"
-     }
-    ]
-   },
-   {
-    "encounter_rate": 1,
-    "exp_req_mod": 3,
-    "held_items": [],
-    "level_range": [
-     9,
-     14
-    ],
-    "monster": "puparmor",
+    "monster": "sailbit",
     "variables": [
      {
       "key": "daytime",
@@ -134,21 +86,58 @@
     "exp_req_mod": 3,
     "held_items": [],
     "level_range": [
-     5,
-     8
+     4,
+     7
     ],
-    "monster": "geometrion",
-    "variables": []
+    "monster": "solwind",
+    "variables": [
+     {
+      "key": "daytime",
+      "value": "false"
+     }
+    ]
    },
    {
     "encounter_rate": 2,
     "exp_req_mod": 3,
     "held_items": [],
     "level_range": [
+     4,
+     7
+    ],
+    "monster": "venubud",
+    "variables": [
+     {
+      "key": "daytime",
+      "value": "false"
+     }
+    ]
+   },
+   {
+    "encounter_rate": 1,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
      5,
      8
     ],
-    "monster": "alphabel",
+    "monster": "meteet",
+    "variables": [
+     {
+      "key": "daytime",
+      "value": "false"
+     }
+    ]
+   },
+   {
+    "encounter_rate": 2,
+    "exp_req_mod": 3,
+    "held_items": [],
+    "level_range": [
+     4,
+     7
+    ],
+    "monster": "rustip",
     "variables": []
    },
    {
@@ -159,18 +148,7 @@
      5,
      8
     ],
-    "monster": "pluson",
-    "variables": []
-   },
-   {
-    "encounter_rate": 1,
-    "exp_req_mod": 3,
-    "held_items": [],
-    "level_range": [
-     5,
-     8
-    ],
-    "monster": "flaskling",
+    "monster": "ringlet",
     "variables": []
    }
   ],

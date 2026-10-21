@@ -95,7 +95,7 @@ describe("the first nets and the owl's spare net", () => {
 describe("snacks and tonics outside a battle", () => {
   function friend() {
     const w = new WorldState();
-    const c = addCreature(w, "agnite", 4);
+    const c = addCreature(w, "heliobud", 4);
     return { w, c };
   }
 

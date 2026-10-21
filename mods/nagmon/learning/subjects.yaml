@@ -7,11 +7,14 @@ subjects:
     title_en: Math
     color: "#ff8a5b"
     elements: [fire, lightning]
+    # The sun family and the starter that practises math.
+    monsters: [heliobud, heliolynx, heliarch]
   geometry:
     title_he: גאומטריה
     title_en: Geometry
     color: "#8fb3ff"
     elements: [earth, metal]
+    monsters: [terrabub, terratot, terravault]
   science:
     title_he: מדעים
     title_en: Science
@@ -22,6 +25,7 @@ subjects:
     title_en: English
     color: "#ffd166"
     elements: [normal, heroic]
+    monsters: [sailbit, sailray]
   logic:
     title_he: חשיבה
     title_en: Logic
@@ -33,5 +37,5 @@ subjects:
     color: "#f4a6c6"
     elements: []
     # No element is Hebrew: these monsters ask Hebrew whatever the type of
-    # their technique (docs/kids/SDD_ART.md §2.10).
-    monsters: [scrollo, megillon]
+    # their technique.
+    monsters: [ringlet, saturnip, ringwarden]

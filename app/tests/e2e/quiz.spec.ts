@@ -369,11 +369,11 @@ test("helpers on the question: owned ones sit in the foot, big enough, one use e
 
 test("Friends from the battle: four cards, details at the end, the partner changes and the question follows", async ({ page }, info) => {
   const party = [
-    { id: "c1", species: "agnite", level: 6, xp: 1 },
-    { id: "c2", species: "kroki", level: 7, xp: 0, name: "נוגה", hearts: 3 },
-    { id: "c3", species: "squabbit", level: 5, xp: 0 },
-    { id: "c4", species: "alphabel", level: 5, xp: 0 },
-    { id: "c5", species: "pluson", level: 5, xp: 0 },
+    { id: "c1", species: "heliobud", level: 6, xp: 1 },
+    { id: "c2", species: "lunibble", level: 7, xp: 0, name: "נוגה", hearts: 3 },
+    { id: "c3", species: "terrabub", level: 5, xp: 0 },
+    { id: "c4", species: "sailbit", level: 5, xp: 0 },
+    { id: "c5", species: "solwind", level: 5, xp: 0 },
   ];
   await seedChild(page, { grade: 2, battle: true, creatures: party });
   await openMap(page);

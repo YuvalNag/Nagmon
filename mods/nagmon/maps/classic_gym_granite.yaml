@@ -1,13 +1,14 @@
 # Granite Academy (geometry): the master test, then a friendly duel (docs/kids/SDD_WORLD.md §2.5).
 # Merged into tuxemon's classic_gym_granite.tmx.
 #
-# The tmx has its own "Talk Gym Leader" event (a level-20 battle, no test)
-# that only runs while the player has not beaten the leader. Recording one
-# win here, once, retires it; our events below take over the leader.
+# The tmx has its own "Talk Gym Leader" event (a level-20 battle with
+# Tuxemon's creatures, no test): "Academy Setup" replaces it, and records
+# one win once, so the old game's leader is ours from the start.
 events:
 
   Academy Setup:
     type: event
+    replaces: Talk Gym Leader
     conditions:
     - not variable_set nagmon_granite_setup
     actions:
@@ -20,8 +21,8 @@ events:
     - is char_exists classic_gym_leader_granite
     - is party_size classic_gym_leader_granite,equals,0
     actions:
-    - add_monster hydrone,8,classic_gym_leader_granite,5,10
-    - add_monster nudikill,9,classic_gym_leader_granite,5,10
+    - add_monster marskip,8,classic_gym_leader_granite,5,10
+    - add_monster asterchip,9,classic_gym_leader_granite,5,10
 
   # ------------------------------------------------- the master test
   Master Talk:

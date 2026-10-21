@@ -1,37 +1,15 @@
-# Route 1's own wild encounters (docs/kids/SDD_ART.md §2.3): every entry
-# of mods/tuxemon/db/encounter/spyder_citypark.yaml (the table the TMX
-# uses, shared with the Spyder maps), plus the first subject monsters
-# (and, rarer, Pluson and Flaskling),
-# day and night. mods/nagmon/maps/classic_route_1.yaml points our Route 1
+# Route 1's own wild encounters: the first animals of the solar-system
+# trip (mods/nagmon/trips/solar.yaml), base forms only, at low levels, day
+# and night. mods/nagmon/maps/classic_route_1.yaml points our Route 1
 # here; the Spyder maps keep Tuxemon's table.
 monsters:
 - encounter_rate: 3
   exp_req_mod: 3
   held_items: []
   level_range:
-  - 5
-  - 8
-  monster: cardiling
-  variables:
-    - key: daytime
-      value: "true"
-- encounter_rate: 1
-  exp_req_mod: 3
-  held_items: []
-  level_range:
-  - 8
-  - 11
-  monster: cardiwing
-  variables:
-    - key: daytime
-      value: "true"
-- encounter_rate: 3
-  exp_req_mod: 3
-  held_items: []
-  level_range:
+  - 3
   - 6
-  - 9
-  monster: cataspike
+  monster: lunibble
   variables:
     - key: daytime
       value: "true"
@@ -39,9 +17,29 @@ monsters:
   exp_req_mod: 3
   held_items: []
   level_range:
-  - 5
-  - 8
-  monster: eyenemy
+  - 3
+  - 6
+  monster: terrabub
+  variables:
+    - key: daytime
+      value: "true"
+- encounter_rate: 2
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 4
+  - 7
+  monster: heliobud
+  variables:
+    - key: daytime
+      value: "true"
+- encounter_rate: 1
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 4
+  - 7
+  monster: mercurip
   variables:
     - key: daytime
       value: "true"
@@ -49,39 +47,9 @@ monsters:
   exp_req_mod: 3
   held_items: []
   level_range:
-  - 8
-  - 12
-  monster: axolightl
-  variables:
-    - key: daytime
-      value: "false"
-- encounter_rate: 1
-  exp_req_mod: 3
-  held_items: []
-  level_range:
-  - 8
-  - 12
-  monster: tourbidi
-  variables:
-    - key: daytime
-      value: "false"
-- encounter_rate: 3
-  exp_req_mod: 3
-  held_items: []
-  level_range:
-  - 8
-  - 12
-  monster: squabbit
-  variables:
-    - key: daytime
-      value: "false"
-- encounter_rate: 1
-  exp_req_mod: 3
-  held_items: []
-  level_range:
-  - 9
-  - 14
-  monster: puparmor
+  - 4
+  - 7
+  monster: sailbit
   variables:
     - key: daytime
       value: "false"
@@ -89,17 +57,39 @@ monsters:
   exp_req_mod: 3
   held_items: []
   level_range:
-  - 5
-  - 8
-  monster: geometrion
-  variables: []
+  - 4
+  - 7
+  monster: solwind
+  variables:
+    - key: daytime
+      value: "false"
 - encounter_rate: 2
   exp_req_mod: 3
   held_items: []
   level_range:
+  - 4
+  - 7
+  monster: venubud
+  variables:
+    - key: daytime
+      value: "false"
+- encounter_rate: 1
+  exp_req_mod: 3
+  held_items: []
+  level_range:
   - 5
   - 8
-  monster: alphabel
+  monster: meteet
+  variables:
+    - key: daytime
+      value: "false"
+- encounter_rate: 2
+  exp_req_mod: 3
+  held_items: []
+  level_range:
+  - 4
+  - 7
+  monster: rustip
   variables: []
 - encounter_rate: 1
   exp_req_mod: 3
@@ -107,14 +97,6 @@ monsters:
   level_range:
   - 5
   - 8
-  monster: pluson
-  variables: []
-- encounter_rate: 1
-  exp_req_mod: 3
-  held_items: []
-  level_range:
-  - 5
-  - 8
-  monster: flaskling
+  monster: ringlet
   variables: []
 slug: nagmon_route1

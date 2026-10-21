@@ -135,6 +135,19 @@ def nagmon_slugs(name: str) -> set[str]:
     }
 
 
+def app_monsters() -> dict[str, dict[str, Any]]:
+    """
+    The app's creatures: only those declared in ``mods/nagmon/db/monster``
+    (the animals of the app's own trip files). Tuxemon's creatures are not
+    in the app: a slug that only ``mods/tuxemon`` knows is not here.
+    """
+    return {
+        slug: rec
+        for slug, rec in table("monster").items()
+        if all(s.startswith("mods/nagmon/") for s in rec["_source"])
+    }
+
+
 def _args(scripts: Iterable[dict[str, Any]], action: str) -> list[list[str]]:
     return [
         a["args"] for s in scripts for a in s["actions"] if a["type"] == action
@@ -186,7 +199,7 @@ def world_refs(scripts: list[dict[str, Any]]) -> dict[str, set[str]]:
 
 
 def evolution_closure(slugs: set[str]) -> set[str]:
-    monsters = table("monster")
+    monsters = app_monsters()
     found: set[str] = set()
     pending = sorted(slugs)
     while pending:
@@ -506,7 +519,7 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
     monsters = {}
     techniques_wanted: set[str] = set()
     for slug in sorted(monster_slugs):
-        rec = _strip(table("monster")[slug])
+        rec = _strip(app_monsters()[slug])
         rec["sprites"] = monster_sprites(sprites, slug)
         for move in rec.get("moveset") or []:
             techniques_wanted.add(move["technique"])

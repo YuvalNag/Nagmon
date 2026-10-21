@@ -118,36 +118,36 @@ events:
     - is variable_set nagmon_intro_seen:yes
     - not variable_set nagmon_starter
     actions:
-    - choice_monster agnite:rockitten:kroki,nagmon_starter
+    - choice_monster heliobud:terrabub:lunibble,nagmon_starter
 
-  Starter Agnite:
+  Starter Heliobud:
     type: event
     conditions:
-    - is variable_set nagmon_starter:agnite
+    - is variable_set nagmon_starter:heliobud
     - not variable_set nagmon_has_starter
     actions:
-    - add_monster agnite,7
-    - translated_dialog nagmon_owl_picked_agnite,nagmon_owl
+    - add_monster heliobud,7
+    - translated_dialog nagmon_owl_picked_heliobud,nagmon_owl
     - set_variable nagmon_has_starter:yes
 
-  Starter Rockitten:
+  Starter Terrabub:
     type: event
     conditions:
-    - is variable_set nagmon_starter:rockitten
+    - is variable_set nagmon_starter:terrabub
     - not variable_set nagmon_has_starter
     actions:
-    - add_monster rockitten,7
-    - translated_dialog nagmon_owl_picked_rockitten,nagmon_owl
+    - add_monster terrabub,7
+    - translated_dialog nagmon_owl_picked_terrabub,nagmon_owl
     - set_variable nagmon_has_starter:yes
 
-  Starter Kroki:
+  Starter Lunibble:
     type: event
     conditions:
-    - is variable_set nagmon_starter:kroki
+    - is variable_set nagmon_starter:lunibble
     - not variable_set nagmon_has_starter
     actions:
-    - add_monster kroki,7
-    - translated_dialog nagmon_owl_picked_kroki,nagmon_owl
+    - add_monster lunibble,7
+    - translated_dialog nagmon_owl_picked_lunibble,nagmon_owl
     - set_variable nagmon_has_starter:yes
 
   Owl Gifts:

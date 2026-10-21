@@ -63,7 +63,7 @@ export async function seedChild(
         const variables = Object.fromEntries(Object.entries(have.variables).map(([k, v]) => [k, v.replace("{today}", day)]));
         if (!intro) variables["nagmon_intro_done"] = "yes";
         // a partner, Route 1 to start on, and a wild creature at every step in the grass
-        const extra = battle ? { creatures: creatures ?? [{ id: "c1", species: "agnite", level: 6, xp: 0 }], seen: ["agnite"], caught: ["agnite"] } : {};
+        const extra = battle ? { creatures: creatures ?? [{ id: "c1", species: "heliobud", level: 6, xp: 0 }], seen: ["heliobud"], caught: ["heliobud"] } : {};
         if (battle) {
           localStorage.setItem("nagmon.map.start", "classic_route_1");
           localStorage.setItem("nagmon.encounter.always", "1");

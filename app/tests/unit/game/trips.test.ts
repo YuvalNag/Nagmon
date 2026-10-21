@@ -20,7 +20,7 @@ const solar = {
   title_he: "מערכת השמש",
   subject: "science",
   vehicle: { name_he: "המעבורת של מילה" },
-  master: { monster: "enigmon", level: 14, badge: "astronomer", badge_title_he: "מבחן האסטרונומית" },
+  master: { monster: "jovigale", level: 14, badge: "astronomer", badge_title_he: "מבחן האסטרונומית" },
   zones: [
     { id: "moon", title_he: "הירח", map: "space_moon", start: { x: 4, y: 9 }, unlock_level: 0, cost: 10, monsters: ["a", "b", "c", "d"] },
     { id: "sun", title_he: "ליד השמש", map: "space_sun", start: { x: 3, y: 3 }, unlock_level: 6, cost: 15, monsters: ["e", "f"], requires: ["moon"] },
@@ -38,7 +38,7 @@ describe("reading a trip", () => {
     expect(trip.subject).toBe("science");
     expect(trip.zones.map((z) => z.id)).toEqual(["moon", "sun", "rocky_planets", "giants", "outer"]);
     expect(trip.zones[0]).toMatchObject({ map: "space_moon", start: { x: 4, y: 9 }, unlockLevel: 0, cost: 10, catchNeeded: 2 });
-    expect(trip.master).toMatchObject({ monster: "enigmon", level: 14, badge: "astronomer" });
+    expect(trip.master).toMatchObject({ monster: "jovigale", level: 14, badge: "astronomer" });
   });
 
   it("is tolerant: other names for the same things, missing fields, unknown ones", () => {
@@ -75,14 +75,14 @@ describe("reading a trip", () => {
 
 function worldWith(level: number): WorldState {
   const w = new WorldState();
-  addCreature(w, "agnite", level);
+  addCreature(w, "heliobud", level);
   return w;
 }
 
 describe("zones open by level", () => {
   it("the best creature's level counts, not the partner's alone", () => {
     const w = worldWith(4);
-    addCreature(w, "kroki", 9);
+    addCreature(w, "lunibble", 9);
     expect(bestLevel(w)).toBe(9);
     expect(bestLevel(new WorldState())).toBe(0);
   });

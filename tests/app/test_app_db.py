@@ -8,20 +8,6 @@ from tools.app import db, emoji
 from tools.app.common import Output
 from tools.app.db import table
 
-NAGMON_MONSTERS = {
-    "alphabel",
-    "botanikos",
-    "enigmon",
-    "flaskling",
-    "geometrion",
-    "lexicon",
-    "megillon",
-    "multivolt",
-    "pluson",
-    "polygonos",
-    "puzzlet",
-    "scrollo",
-}
 WORLD_MUSIC = {
     "music_town_theme",
     "music_cathedral_theme",
@@ -37,17 +23,19 @@ def data(built, rel):
     return json.loads(out.data[rel])
 
 
-def test_world_uses_111_monsters_with_the_82_nagmon_ones(built):
+def test_world_uses_the_70_solar_monsters_and_no_other(built):
     monsters = data(built, "db/monsters.json")
-    assert len(monsters) == 111
-    assert NAGMON_MONSTERS <= set(monsters)
-    assert {"agnite", "rockitten", "kroki", "nut", "dandicub"} <= set(monsters)
+    assert len(monsters) == 70
+    assert {"lunibble", "heliobud", "terrabub", "jovigale"} <= set(monsters)
+    assert not {"agnite", "rockitten", "kroki", "nut", "dandicub"} & set(
+        monsters
+    )
 
 
 def test_every_encounter_monster_exists(built):
     monsters = data(built, "db/monsters.json")
     route = data(built, "db/encounters.json")["nagmon_route1"]
-    assert len(route["monsters"]) == 12
+    assert len(route["monsters"]) == 10
     assert {m["monster"] for m in route["monsters"]} <= set(monsters)
 
 
@@ -59,7 +47,7 @@ def test_every_evolution_and_technique_exists(built):
             assert evo["monster_slug"] in monsters
         for move in rec["moveset"]:
             assert move["technique"] in techniques
-    assert len(techniques) == 130
+    assert len(techniques) == 10
 
 
 def test_nagmon_record_replaces_the_tuxemon_record_of_the_same_slug():
@@ -70,12 +58,10 @@ def test_nagmon_record_replaces_the_tuxemon_record_of_the_same_slug():
 
 def test_all_monster_sheets_are_hd(built):
     monsters = data(built, "db/monsters.json")
-    sprites = monsters["geometrion"]["sprites"]
-    assert sprites["scale"] == 3
-    assert sprites["front"] == [0, 0, 192, 192]
-    # a 1x Tuxemon sheet ships as xBRZ x3: the same scale
-    assert monsters["agnite"]["sprites"]["scale"] == 3
-    assert monsters["agnite"]["sprites"]["front"] == [0, 0, 192, 192]
+    for slug in ("lunibble", "jovigale"):
+        sprites = monsters[slug]["sprites"]
+        assert sprites["scale"] >= 3, slug
+        assert sprites["front"][:2] == [0, 0], slug
 
 
 def test_every_picture_a_record_names_is_shipped(built):
@@ -152,10 +138,10 @@ def test_map_sheets_say_their_frame_size(built):
     assert npcs["nagmon_sign_route1"]["sprites"]["frame"] == [64, 64]
 
 
-def test_frighten_shows_a_gentle_animation_not_a_skull(built):
+def test_no_technique_shows_a_skull(built):
     out, _ = built
     techniques = data(built, "db/techniques.json")
-    assert techniques["frighten"]["visuals"]["animation"] == "sparks_white"
+    assert "frighten" not in techniques  # only the solar animals' ten ship
     for rec in techniques.values():
         assert rec["visuals"]["animation"] != "skull"
     assert "skull" not in data(built, "db/animations.json")
@@ -206,14 +192,14 @@ def test_each_hero_has_a_trimmed_front_card(built):
 
 def test_one_name_cannot_hold_two_pictures():
     sprites = db.Sprites(Output())
-    rel = "gfx/sprites/battle/agnite-sheet.png"
+    rel = "gfx/sprites/battle/lunibble-sheet.png"
     first = sprites.upscaled(rel, "x/a.png", "monster", 3)
     assert sprites.upscaled(rel, "x/a.png", "monster", 3) == first
     with pytest.raises(ValueError, match="already made"):
         sprites.upscaled(rel, "x/a.png", "monster", 4)
     with pytest.raises(ValueError, match="already made"):
         sprites.upscaled(
-            "gfx/sprites/battle/nut-sheet.png", "x/a.png", "monster", 3
+            "gfx/sprites/battle/jovigale-sheet.png", "x/a.png", "monster", 3
         )
     with pytest.raises(ValueError, match="already made"):
         sprites.upscaled(rel, "x/a.png", "monster", 3, [(0, 0, 64, 64)])
