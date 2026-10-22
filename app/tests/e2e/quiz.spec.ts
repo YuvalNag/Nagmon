@@ -51,7 +51,10 @@ test("the cashier: talk, a right answer (+20 coins), a 'don't know' (an explanat
   await expect(layer).toHaveAttribute("data-page", "0");
   await shot("q02_dialog_hello");
   const hello = await readDialog(page);
-  expect(hello).toEqual(["המוכר אבי: שלום! אני סופר את הכסף בקופה.", "אפשר לעזור לי עם חשבון קטן?"]);
+  // his greeting of the day is the first page of the same box; the old words follow, as before
+  expect(hello).toHaveLength(3);
+  expect(hello[0]).toMatch(/^המוכר אבי: /);
+  expect(hello.slice(1)).toEqual(["המוכר אבי: שלום! אני סופר את הכסף בקופה.", "אפשר לעזור לי עם חשבון קטן?"]);
 
   // the question, for a child in grade 2: the change from 20
   await expect(page.locator("[data-screen=quiz]")).toBeVisible();
@@ -150,8 +153,12 @@ test("Android's back in the dialog goes on in it, in the question closes it, and
   await back();
   await expect(layer).toHaveAttribute("data-full", "true");
   await expect(layer).toHaveAttribute("data-page", "0");
+  // three pages: his greeting of the day, then the old two
   await back();
   await expect(layer).toHaveAttribute("data-page", "1");
+  await expect(layer).toHaveAttribute("data-full", "true", { timeout: 10_000 });
+  await back();
+  await expect(layer).toHaveAttribute("data-page", "2");
   await expect(layer).toHaveAttribute("data-full", "true", { timeout: 10_000 });
   await back();
   // the question; back closes it with nothing counted

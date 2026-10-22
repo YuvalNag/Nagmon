@@ -100,6 +100,13 @@ describe("the cast is data", () => {
     for (const [spot, s] of Object.entries(city.placement!.spots)) expect(route.has(`${s.x},${s.y}`), `${spot} is on the test route`).toBe(false);
   });
 
+  it("no spot is on a tile where a map's own script puts someone (a quest's prop comes and goes)", () => {
+    for (const [name, m] of placed) {
+      const props = m.events.flatMap((e) => e.actions).filter((a) => a.type === "create_npc").map((a) => `${a.args[1]},${a.args[2]}`);
+      for (const [spot, s] of Object.entries(m.placement!.spots)) expect(props, `${name}/${spot}`).not.toContain(`${s.x},${s.y}`);
+    }
+  });
+
   it("with every spot taken the hero can still reach every exit and every spot's side", () => {
     for (const [name, m] of placed) {
       const block = new Set(Object.values(m.placement!.spots).map((s) => `${s.x},${s.y}`));

@@ -1,6 +1,6 @@
 import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Play, PlayOptions } from "../../app/play";
-import { testAlwaysEncounter, testQuizTopic, testSeed, testStartMap } from "../../app/playConfig";
+import { testAlwaysEncounter, testHour, testQuizTopic, testSeed, testStartMap } from "../../app/playConfig";
 import type { Profile, ProfileStore } from "../../core/family/profiles";
 import { crumb } from "../../core/game/breadcrumb";
 import { FieldLog } from "../../core/game/fieldLog";
@@ -215,7 +215,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   // the map's code and the child's play load side by side
   useEffect(() => {
     let alive = true;
-    openPlay({ profiles, profile, seed: testSeed(), log: getLogger("nagmon.play") }).then(
+    openPlay({ profiles, profile, seed: testSeed(), hour: testHour(), log: getLogger("nagmon.play") }).then(
       (p) => {
         if (!alive) return;
         const saves = new PlaceSaver(

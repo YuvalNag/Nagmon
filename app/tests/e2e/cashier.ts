@@ -50,6 +50,8 @@ export async function seedChild(
       localStorage.setItem("seeded", "1");
       localStorage.setItem("nagmon.map.adaptiveResolution", "off");
       localStorage.setItem("nagmon.quiz.seed", String(seed));
+      // the people of the town are those of ten in the morning, whatever the machine's clock says
+      localStorage.setItem("nagmon.clock.hour", "10");
       // a battle's draws are the same every run, and its beats are short unless a test wants the real ones (battle_v3.spec.ts)
       localStorage.setItem("nagmon.battle.seed", String(seed));
       if (battleScale !== 1) localStorage.setItem("nagmon.battle.timescale", String(battleScale));
@@ -117,8 +119,9 @@ export async function steps(page: Page, dir: string, n: number) {
 /** From the start (29,16) to (14,15), facing the cashier at (14,14) (the shop door at (13,13) stays free). */
 export async function toCashier(page: Page) {
   expect((await debug(page))!.player).toMatchObject({ x: 29, y: 16 });
-  // nobody to talk to at the start: the owl's words wait for M5
-  await expect(page.locator(id("map_talk"))).toHaveCount(0);
+  // the owl stands in front of the start and can be talked to now: every person of the world can (W1)
+  expect((await debug(page))!.inFront).toBe("nagmon_owl");
+  await expect(page.locator(id("map_talk"))).toBeVisible();
   await steps(page, "left", 15);
   await steps(page, "up", 1);
   const d = (await debug(page))!;

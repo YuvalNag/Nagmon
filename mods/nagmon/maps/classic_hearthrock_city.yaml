@@ -29,7 +29,7 @@ placement:
     market_stall: [20, 14, down]
     market_stall_2: [21, 14, down]
     pharmacy_door: [10, 14, down]
-    tailor_door: [12, 7, down]
+    tailor_door: [12, 8, down]
     clock_corner: [8, 8, down]
     library_steps: [28, 7, down]
     workshop_door: [31, 7, down]

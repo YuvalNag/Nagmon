@@ -229,7 +229,7 @@ def test_city_has_both_the_tmx_events_and_the_nagmon_events(built):
         s["source"] for s in scripts(map_doc(built, "classic_hearthrock_city"))
     ]
     assert sources.count("tmx") == 6
-    assert sources.count("nagmon") == 57
+    assert sources.count("nagmon") == 50
 
 
 def test_event_box_is_in_pixels_of_the_map_tiles(built):

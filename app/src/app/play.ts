@@ -124,6 +124,8 @@ export interface PlayOptions {
   now?: () => Date;
   /** Seeds the question picker (the browser tests' hook); random otherwise. */
   seed?: number | null;
+  /** The hour of the day the people of the world keep (the browser tests' hook); the clock's otherwise. */
+  hour?: number | null;
   log?: { info(m: string): void; warning(m: string): void; error(m: string, e?: unknown): void };
 }
 
@@ -201,9 +203,14 @@ export class Play {
     return localDay(this.now());
   }
 
+  /** The hour the people of the world keep when a test fixes it (never on a phone). */
+  hourOverride: number | null = null;
+
   /** The phone's clock now (the day part of the people's day). */
   clock(): Date {
-    return this.now();
+    const d = this.now();
+    if (this.hourOverride !== null) d.setHours(this.hourOverride, 0, 0, 0);
+    return d;
   }
 
   /** A catalogue text with the child's name put in (a missing one shows its id and is logged). */
@@ -277,5 +284,7 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   // a trip file that is not there, or a map not built, is not an error: the zone is "coming soon"
   const trips = await loadTrips(fetchJson, (map) => Promise.resolve(fetchJson(`maps/${map}.json`)).then(() => true, () => false)).catch(() => []);
   log.info(`Play opened: grade ${profile.grade}, ${learner.answers_total} answers so far, ${world.money} coins`);
-  return new Play(profile, engine, world, texts, subjects, monsters, encounters, eco, trips, profiles, log, now, lootTable, factsTable, battleData, peopleTable);
+  const play = new Play(profile, engine, world, texts, subjects, monsters, encounters, eco, trips, profiles, log, now, lootTable, factsTable, battleData, peopleTable);
+  if (typeof opts.hour === "number") play.hourOverride = opts.hour;
+  return play;
 }

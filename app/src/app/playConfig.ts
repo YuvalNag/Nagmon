@@ -22,6 +22,22 @@ export function testSeed(): number | null {
 }
 
 /**
+ * A test hook: the hour of the day (0 to 23) the people of the world keep, so a browser test meets the
+ * same people whatever time the machine says. It moves the day part of the town only, never the date.
+ * Never set on a phone.
+ */
+export const HOUR_KEY = "nagmon.clock.hour";
+
+export function testHour(): number | null {
+  try {
+    const v = localStorage.getItem(HOUR_KEY);
+    return v !== null && /^([01]?\d|2[0-3])$/.test(v) ? Number(v) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Test hooks for the browser tests, as the quiz seed: a map to start on
  * (instead of Hearthrock), and an encounter in every step in the grass.
  * Never set on a phone.
