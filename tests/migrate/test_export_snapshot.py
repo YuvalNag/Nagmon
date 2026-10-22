@@ -81,7 +81,7 @@ def make_repo(tmp_path: Path) -> Path:
     (repo / "art_sources").mkdir()
     (repo / "art_sources" / "big.png").write_bytes(b"\x89PNG\0\0")
     (repo / "docs" / "app").mkdir(parents=True)
-    (repo / "docs" / "app" / "d.md").write_text("log devices/77bcce20/logs/x.txt\n", encoding="utf-8")
+    (repo / "docs" / "app" / "d.md").write_text("log devices/<device-id>/logs/x.txt\n", encoding="utf-8")
     (repo / "README.md").write_text("old\n", encoding="utf-8")
     git(repo, "init", "-q", "-b", "main")
     git(repo, "add", "-A")
@@ -111,7 +111,6 @@ def test_export_end_to_end(tmp_path):
     assert "YuvalNag/nagmon-game" in readme and "{{" not in readme
     assert (out / ".github" / "workflows" / "data.yml").is_file()
     assert git(repo, "rev-parse", "HEAD").strip() in (out / "EXPORT_INFO.txt").read_text()
-    # a device id in the docs is redacted
     assert "devices/<device-id>/" in (out / "docs" / "app" / "d.md").read_text()
     # a second export into a folder with files is refused (never deletes)
     assert run_export(repo, out).returncode != 0
@@ -161,3 +160,13 @@ def test_chunks_respect_the_limit_and_put_deletes_first(tmp_path):
         (repo / name).write_bytes(b"x" * size)
     got = chunks.make_chunks(repo, ["a", "b", "c", "d"], ["gone"], 13)
     assert got == [["gone", "a", "b"], ["c"], ["d"]]
+
+
+def test_a_real_device_id_in_the_docs_stops_the_export(tmp_path):
+    repo = make_repo(tmp_path)
+    (repo / "docs" / "app" / "d.md").write_text("log devices/77bcce20/logs/x.txt\n", encoding="utf-8")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "leak")
+    r = run_export(repo, tmp_path / "out")
+    assert r.returncode != 0
+    assert "a real device id in docs/app/d.md" in r.stderr

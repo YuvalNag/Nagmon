@@ -40,8 +40,10 @@ cd /home/user/wt-app
 python3 tools/migrate/push_chunks.py --export /home/user/export-game \
         --repo /home/user/nagmon-game --plan                       # see the parts
 python3 tools/migrate/push_chunks.py --export /home/user/export-game \
-        --repo /home/user/nagmon-game --push --pause 5
+        --repo /home/user/nagmon-game --push --pause 5   # branch main (--branch)
 ```
+
+The new repo is private, `YuvalNag/nagmon-game`, default branch `main`. The docs say `devices/<device-id>/`; a real device id in `docs/` stops the export (nothing is rewritten silently). The Android signing key of the new repo is a new one (made by the CI or from the `ANDROID_KEYSTORE_*` secrets), so the first install over an old build needs an uninstall.
 
 If a push fails after the retries, run the same command again: it continues
 with what still differs. `--limit-mb 8` makes the parts smaller.

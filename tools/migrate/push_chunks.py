@@ -95,7 +95,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--export", type=Path, required=True)
     ap.add_argument("--repo", type=Path, required=True, help="a clone of the new repo (empty on the first run)")
-    ap.add_argument("--branch", default="main")
+    ap.add_argument("--branch", default="main", help="branch to push (default main, the new repo's default branch)")
     ap.add_argument("--remote", default="origin")
     ap.add_argument("--limit-mb", type=float, default=15.0, help="most bytes of file content per commit/push (default 15)")
     ap.add_argument("--message", default=None, help="first line of every commit (default: Snapshot of <source commit>)")

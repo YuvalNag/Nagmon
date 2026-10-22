@@ -23,7 +23,6 @@ turns it into a few small commits.
 from __future__ import annotations
 
 import argparse
-import io
 import re
 import subprocess
 import sys
@@ -52,11 +51,9 @@ FORBIDDEN_PATHS = (
     re.compile(r"\.(keystore|jks|p12)$"),
     re.compile(r"(^|/)\.env($|\.)"),
 )
-#: docs quote the device the parent's phone sends (devices/<id>/logs/...);
-#: the id is replaced. Only in docs: the tests' fake ids stay as they are.
-REDACTIONS = (
-    (re.compile(r"^docs/"), re.compile(r"\bdevices/[0-9a-f]{8}/"), "devices/<device-id>/"),
-)
+#: docs say ``devices/<device-id>/``; a real 8-hex id there is a leak (only
+#: docs: the tests' fake ids stay as they are).
+DOC_DEVICE_ID = (re.compile(r"^docs/"), re.compile(r"\bdevices/[0-9a-f]{8}/"))
 #: words that only warn (a person reads the hits): not a block
 REVIEW_WORDS = re.compile(r"\bFAMILY\b")
 
@@ -164,7 +161,6 @@ def main() -> int:
     left = Counter()          # deciding rule -> files
     left_bytes = Counter()
     rewritten: Counter[str] = Counter()
-    redacted: Counter[str] = Counter()
     problems: list[str] = []
     review: list[str] = []
     written: set[str] = set()
@@ -200,12 +196,8 @@ def main() -> int:
                     rewritten[path] = n
                     data = new_text.encode("utf-8")
                     text = new_text
-                for path_rx, rx, repl in REDACTIONS:
-                    if path_rx.match(path):
-                        text, n = rx.subn(repl, text)
-                        if n:
-                            redacted[path] += n
-                            data = text.encode("utf-8")
+                if DOC_DEVICE_ID[0].match(path) and DOC_DEVICE_ID[1].search(text):
+                    problems.append(f"a real device id in {path} (write devices/<device-id>/)")
                 low = text.lower()
                 for label, rx in BUILTIN_FORBIDDEN.items():
                     if rx.search(text):
@@ -253,10 +245,6 @@ def main() -> int:
     if rewritten:
         print(f"renamed {OLD_NAME} -> {args.new_name} in {len(rewritten)} files:", file=sys.stderr)
         for path, n in sorted(rewritten.items()):
-            print(f"  {n:3d}  {path}", file=sys.stderr)
-    if redacted:
-        print(f"device ids redacted in {len(redacted)} files:", file=sys.stderr)
-        for path, n in sorted(redacted.items()):
             print(f"  {n:3d}  {path}", file=sys.stderr)
     if review:
         print("to read by a person (the word FAMILY appears):", file=sys.stderr)
