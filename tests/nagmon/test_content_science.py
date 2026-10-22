@@ -73,7 +73,21 @@ def _bank_files() -> list[Path]:
     return sorted(p for d in BANK_DIRS for p in (LEARNING / d).glob("*.yaml"))
 
 
-BANKS = {p.relative_to(LEARNING).as_posix(): _load(p) for p in _bank_files()}
+def _flatten_passages(passages):
+    """A reading-passage file (a list) as an ordinary bank: questions inherit skill, grade and tags."""
+    items = []
+    for passage in passages:
+        inherited = {k: passage[k] for k in ("skill", "grade", "tags") if k in passage}
+        items.extend({**inherited, **q} for q in passage["questions"])
+    return {"skill": passages[0]["skill"], "items": items}
+
+
+def _load_bank(path: Path):
+    doc = _load(path)
+    return _flatten_passages(doc) if isinstance(doc, list) else doc
+
+
+BANKS = {p.relative_to(LEARNING).as_posix(): _load_bank(p) for p in _bank_files()}
 SKILLS = {
     subject: _load(LEARNING / rel)
     for subject, rel in SKILL_FILES.items()
@@ -108,7 +122,7 @@ def test_content_present():
     science_items = [i for rel, _, i in ITEMS if rel.startswith("science/")]
     hebrew_items = [i for rel, _, i in ITEMS if rel.startswith("hebrew/")]
     assert len(science_items) >= 600
-    assert len(hebrew_items) >= 120
+    assert len(hebrew_items) >= 700
 
 
 @pytest.mark.parametrize("rel", sorted(BANKS))
@@ -319,7 +333,7 @@ def test_skill_file_shape(subject):
 
 def test_skill_counts():
     assert len(SKILLS["science"]["skills"]) >= 40
-    assert len(SKILLS["hebrew"]["skills"]) >= 8
+    assert len(SKILLS["hebrew"]["skills"]) >= 35
 
 
 def _skill_items(skill):
