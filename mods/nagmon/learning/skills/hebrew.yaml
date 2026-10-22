@@ -165,3 +165,38 @@ skills:
   prereq: [hebrew.vocab.synonyms]
   generator: bank
   params: {bank: hebrew/vocab.yaml, tags: [homonyms]}
+- id: hebrew.grammar.prefixes_suffixes
+  grade: 5
+  title_he: אותיות שימוש וסיומות
+  title_en: Prefix letters and endings
+  prereq: [hebrew.grammar.agreement, hebrew.grammar.roots]
+  generator: bank
+  params: {bank: hebrew/grammar.yaml, tags: [affixes]}
+- id: hebrew.grammar.roots
+  grade: 5
+  title_he: שורשים
+  title_en: Roots
+  prereq: [hebrew.grammar.parts_of_speech, hebrew.vocab.synonyms]
+  generator: bank
+  params: {bank: hebrew/grammar.yaml, tags: [roots]}
+- id: hebrew.reading.passage_5
+  grade: 5
+  title_he: 'הבנת הנקרא: קטע ארוך יותר'
+  title_en: 'Reading comprehension, grade 5'
+  prereq: [hebrew.reading.passage_4]
+  generator: bank
+  params: {bank: hebrew/passages_5.yaml, tags: [passage_5]}
+- id: hebrew.text.text_types
+  grade: 5
+  title_he: סוגי טקסטים
+  title_en: Text types
+  prereq: [hebrew.reading.passage_4]
+  generator: bank
+  params: {bank: hebrew/text.yaml, tags: [text_types]}
+- id: hebrew.vocab.proverbs
+  grade: 5
+  title_he: פתגמים וניבים
+  title_en: Proverbs and idioms
+  prereq: [hebrew.vocab.homonyms]
+  generator: bank
+  params: {bank: hebrew/vocab.yaml, tags: [proverbs]}

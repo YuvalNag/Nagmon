@@ -1,4 +1,4 @@
-# Nagmon learning content - hebrew / vocab (grades 3-4): synonyms, homonyms, proverbs and idioms, figurative language, register
+# Nagmon learning content - hebrew / vocab (grades 3-5): synonyms, homonyms, proverbs and idioms, figurative language, register
 # Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
 # Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
 # Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
@@ -644,3 +644,403 @@ items:
   explanation_he: 'מה נופל מהשולחן? כלי אוכל. כף היד לא נופלת מהשולחן.'
   explanation_en: 'What falls off a table? A spoon. A hand does not fall off a table.'
   tags: [homonyms]
+- id: heb.proverb.001
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מה פירוש הניב "קבר את הראש בחול"?'
+  prompt_en: 'What does the idiom "buried his head in the sand" mean?'
+  choices:
+  - {he: התעלם מבעיה במקום להתמודד, en: Ignored a problem instead of facing it}
+  - {he: חיפש משהו שאבד בחול על החוף, en: Looked for something lost in the sand}
+  - {he: שיחק עם חברים בחוף הים, en: Played with friends at the beach}
+  answer: 0
+  explanation_he: 'מי שקובר את הראש בחול לא רואה את הבעיה, אבל היא לא נעלמת. כך מתנהג מי שמתעלם ממנה.'
+  explanation_en: 'Someone who buries his head does not see the problem, but it does not disappear.'
+  tags: [proverbs]
+- id: heb.proverb.002
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'מה פירוש הניב "שבר את הראש"?'
+  prompt_en: 'What does the idiom "broke his head" mean?'
+  choices:
+  - {he: נפל והתחבט חזק ברצפה בבית, en: Fell and hit the floor hard}
+  - {he: כעס מאוד על חבר קרוב, en: Got very angry at a close friend}
+  - {he: חשב הרבה כדי לפתור בעיה, en: Thought hard to solve a problem}
+  answer: 2
+  explanation_he: 'שוברים את הראש כשחושבים חזק על בעיה, למשל על חידה קשה.'
+  explanation_en: 'We "break our head" when thinking hard about a problem, such as a hard riddle.'
+  tags: [proverbs]
+- id: heb.proverb.003
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'מה פירוש הניב "ירד לו האסימון"?'
+  prompt_en: 'What does the idiom "the token dropped for him" mean?'
+  choices:
+  - {he: הוא איבד מטבע בדרך לבית, en: He lost a coin on the way home}
+  - {he: הוא סוף סוף הבין, en: He finally understood}
+  - {he: הוא קנה משהו בחנות, en: He bought something in a shop}
+  answer: 1
+  explanation_he: 'פעם צריך היה להכניס אסימון לטלפון ציבורי, והוא היה נופל לפני שהשיחה מתחילה. כך אומרים כשמישהו מבין.'
+  explanation_en: In old public phones a token had to drop before the call began. We say it when someone finally understands.
+  tags: [proverbs]
+- id: heb.proverb.004
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'מה פירוש הניב "לב של זהב"?'
+  prompt_en: 'What does the idiom "a heart of gold" mean?'
+  choices:
+  - {he: אדם טוב שאכפת לו מאחרים, en: A good person who cares about others}
+  - {he: אדם עשיר שיש לו הרבה כסף, en: A rich person with a lot of money}
+  - {he: אדם שאוהב לענוד תכשיטים, en: A person who loves wearing jewelry}
+  answer: 0
+  explanation_he: 'מי שיש לו לב של זהב הוא אדם טוב שדואג לאחרים, ולא בהכרח עשיר.'
+  explanation_en: 'Someone with a heart of gold is good and cares for others, not necessarily rich.'
+  tags: [proverbs]
+- id: heb.proverb.005
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מה פירוש הניב "ידיים של זהב"?'
+  prompt_en: 'What does the idiom "hands of gold" mean?'
+  choices:
+  - {he: אדם שעונד טבעות יקרות, en: A person who wears expensive rings}
+  - {he: אדם מוכשר בעבודת ידיים, en: A person skilled at handwork}
+  - {he: אדם שתמיד מנקה את ידיו, en: A person who always cleans his hands}
+  answer: 1
+  explanation_he: 'אומרים כך על מי שמצליח ליצור ולתקן בכישרון, למשל נגר או תופרת.'
+  explanation_en: 'We say it about someone who builds or fixes with skill, like a carpenter or a seamstress.'
+  tags: [proverbs]
+- id: heb.proverb.006
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מה פירוש הניב "שבר את הקרח"?'
+  prompt_en: 'What does the idiom "broke the ice" mean?'
+  choices:
+  - {he: שבר חלון בטעות במסיבה, en: Broke a window by accident at a party}
+  - {he: הכין קרח לשתייה קרה, en: Made ice for a cold drink}
+  - {he: פתח שיחה והפיג מבוכה, en: Opened a conversation and eased awkwardness}
+  answer: 2
+  explanation_he: 'כשאנשים לא מכירים, יש "קרח". מי שמדבר ראשון שובר אותו, וכולם נינוחים יותר.'
+  explanation_en: 'When people do not know each other there is "ice". Whoever speaks first breaks it.'
+  tags: [proverbs]
+- id: heb.proverb.007
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מה פירוש הביטוי "על קצות האצבעות"?'
+  prompt_en: 'What does the expression "on tiptoes" mean?'
+  choices:
+  - {he: במהירות רבה מאוד, en: Very fast}
+  - {he: בקול רם ובשמחה, en: Loudly and happily}
+  - {he: בזהירות ובשקט, en: Carefully and quietly}
+  answer: 2
+  explanation_he: 'הולכים על קצות האצבעות כדי לא להרעיש, למשל כשתינוק ישן.'
+  explanation_en: 'We walk on tiptoes so as not to make noise, for example when a baby sleeps.'
+  tags: [proverbs]
+- id: heb.proverb.008
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'מה פירוש הניב "לרדת מהפסים"?'
+  prompt_en: 'What does the idiom "to go off the rails" mean?'
+  choices:
+  - {he: לחכות לרכבת על הרציף, en: To wait for a train on the platform}
+  - {he: להתנהג לא כמו שצריך, en: To behave the wrong way}
+  - {he: להגיע בזמן לכל מקום, en: To arrive on time everywhere}
+  answer: 1
+  explanation_he: רכבת שיורדת מהפסים לא יכולה לנסוע כראוי. על אדם שמאבד שליטה אומרים כך.
+  explanation_en: A train off its rails cannot travel properly. We say it of a person who loses control.
+  tags: [proverbs]
+- id: heb.proverb.009
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מה פירוש הביטוי "לא עצם עין כל הלילה"?'
+  prompt_en: 'What does "did not close an eye all night" mean?'
+  choices:
+  - {he: לא ישן כל הלילה, en: Did not sleep all night}
+  - {he: לא הסתכל על שום דבר, en: Did not look at anything}
+  - {he: כאבו לו מאוד העיניים, en: His eyes hurt a lot}
+  answer: 0
+  explanation_he: עוצמים עין כדי לישון. מי שלא עצם עין נשאר ער כל הלילה.
+  explanation_en: We close our eyes to sleep. Someone who did not close an eye stayed awake all night.
+  tags: [proverbs]
+- id: heb.proverb.010
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מה פירוש הביטוי "הכול עובד כמו שעון"?'
+  prompt_en: 'What does "everything works like a clock" mean?'
+  choices:
+  - {he: הכול נעצר לפתע ואיש לא יודע למה, en: 'Everything suddenly stops, no one knows why'}
+  - {he: הכול מתנהל בדיוק ללא תקלות, en: 'Everything runs precisely, without problems'}
+  - {he: כולם מסתכלים בשעון הקיר, en: Everyone looks at the wall clock}
+  answer: 1
+  explanation_he: שעון טוב מתקתק בדיוק. כך אומרים כשהכול מתנהל מצוין.
+  explanation_en: A good clock ticks precisely. We say this when everything goes very well.
+  tags: [proverbs]
+- id: heb.proverb.011
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'מה פירוש הניב "שפך את הלב"?'
+  prompt_en: 'What does the idiom "poured out his heart" mean?'
+  choices:
+  - {he: שפך מים על הרצפה בטעות, en: Spilled water on the floor by mistake}
+  - {he: בכה כי נפצע ברגל, en: Cried because his leg was hurt}
+  - {he: סיפר בכנות מה הרגיש, en: Told honestly what he felt}
+  answer: 2
+  explanation_he: שופכים את הלב כשמספרים לחבר בכנות מה מרגישים ואין מה להסתיר.
+  explanation_en: We pour out our heart when we tell a friend honestly what we feel.
+  tags: [proverbs]
+- id: heb.proverb.012
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'מה פירוש הפתגם "חוכמה אחרי מעשה"?'
+  prompt_en: 'What does the saying "wisdom after the deed" mean?'
+  choices:
+  - {he: הבין מה לעשות רק כשכבר מאוחר, en: Understood what to do only when it was too late}
+  - {he: חשב היטב לפני שהחליט לפעול, en: Thought well before deciding to act}
+  - {he: למד חוכמה מהספרים בספרייה, en: Learned wisdom from books in the library}
+  answer: 0
+  explanation_he: אחרי מעשה קל להבין מה היה אפשר לעשות אחרת. אבל זה כבר מאוחר.
+  explanation_en: 'After the deed it is easy to see what could have been done differently, but it is too late.'
+  tags: [proverbs]
+- id: heb.proverb.013
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'מה פירוש הניב "שתי ציפורים במכה אחת"?'
+  prompt_en: 'What does the idiom "two birds with one blow" mean?'
+  choices:
+  - {he: להשיג שתי מטרות בפעולה אחת, en: To achieve two goals with one action}
+  - {he: לצוד ציפורים בשדה פתוח בבוקר, en: To hunt birds in an open field in the morning}
+  - {he: לעשות שני דברים בלי להתאמץ, en: To do two things without effort}
+  answer: 0
+  explanation_he: 'מי שמגיע למקום וגם קונה בדרך מה שצריך חוסך זמן: שתי מטרות במאמץ אחד.'
+  explanation_en: 'Someone who arrives and also buys what they need on the way saves time: two goals, one effort.'
+  tags: [proverbs]
+- id: heb.proverb.014
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'מה פירוש הפתגם "לא כל הנוצץ זהב"?'
+  prompt_en: 'What does the saying "not all that glitters is gold" mean?'
+  choices:
+  - {he: כל זהב אמיתי נוצץ מאוד, en: All real gold glitters a lot}
+  - {he: צריך לצחצח תכשיטים ישנים, en: Old jewelry must be polished}
+  - {he: דבר יפה אינו תמיד יקר, en: A pretty thing is not always valuable}
+  answer: 2
+  explanation_he: 'לפעמים משהו נראה מרשים מבחוץ, אבל בפנים הוא לא שווה הרבה.'
+  explanation_en: Sometimes something looks impressive on the outside but is not worth much inside.
+  tags: [proverbs]
+- id: heb.proverb.015
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'מה פירוש הפתגם "מים שקטים חודרים עמוק"?'
+  prompt_en: 'What does the saying "still waters run deep" mean?'
+  choices:
+  - {he: כל ים שקט הוא עמוק מאוד, en: Every quiet sea is very deep}
+  - {he: אדם שקט יכול להיות עמוק, en: A quiet person can be deep}
+  - {he: אסור לדבר בקול רם בים, en: One must not speak loudly at sea}
+  answer: 1
+  explanation_he: לא תמיד מי שמדבר מעט הוא פשוט. לפעמים יש לו המון מחשבות.
+  explanation_en: Someone who speaks little is not always simple. Sometimes they have many thoughts.
+  tags: [proverbs]
+- id: heb.proverb.016
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'על מי מתאים לומר "קבר את הראש בחול"?'
+  prompt_en: 'About whom would you say "buried his head in the sand"?'
+  choices:
+  - {he: ילד שמתעלם מציון גרוע, en: A child who ignores a bad grade}
+  - {he: ילד שבנה טירת חול בחוף, en: A child who built a sand castle}
+  - {he: ילד שאסף צדפות על החוף, en: A child who collected shells on the beach}
+  answer: 0
+  explanation_he: 'מי שמתעלם מציון גרוע במקום להתמודד איתו, קובר את הראש בחול.'
+  explanation_en: Someone who ignores a bad grade instead of facing it buries his head in the sand.
+  tags: [proverbs]
+- id: heb.proverb.017
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'על מי מתאים לומר "ירד לו האסימון"?'
+  prompt_en: 'About whom would you say "the token dropped"?'
+  choices:
+  - {he: מי שנפל מהאופניים בדרך לבית הספר, en: Someone who fell off a bike on the way to school}
+  - {he: מי שהבין את הבדיחה אחרי דקות, en: Someone who got the joke after minutes}
+  - {he: מי שאיבד את המפתח בדרך לבית הספר, en: Someone who lost his key on the way to school}
+  answer: 1
+  explanation_he: 'אומרים זאת על מי שהבין משהו באיחור, כמו בדיחה.'
+  explanation_en: 'We say it about someone who understood something late, like a joke.'
+  tags: [proverbs]
+- id: heb.proverb.018
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'באיזה מצב מתאים לומר "הלך על קצות האצבעות"?'
+  prompt_en: 'In which situation would you say "walked on tiptoes"?'
+  choices:
+  - {he: רץ במגרש הכדורגל בהפסקה, en: Ran on the football field at break}
+  - {he: צעק לחבר שהלך רחוק מהבית, en: Shouted to a friend who went far from home}
+  - {he: עבר ליד חדר שבו ישן תינוק, en: Passed a room where a baby slept}
+  answer: 2
+  explanation_he: 'צועדים על קצות האצבעות כדי לא להעיר, ולכן זה מתאים למקום שבו ישן תינוק.'
+  explanation_en: 'We walk on tiptoes so as not to wake someone, so it suits a place where a baby sleeps.'
+  tags: [proverbs]
+- id: heb.proverb.019
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'על מי מתאים לומר "יש לה ידיים של זהב"?'
+  prompt_en: 'About whom would you say "she has golden hands"?'
+  choices:
+  - {he: אישה שעונדת צמיד זהב יקר, en: A woman who wears an expensive gold bracelet}
+  - {he: אישה שתמיד מאחרת לשיעור הראשון, en: A woman who is always late for first class}
+  - {he: תופרת שמלות ומתקנת הכול, en: A woman who sews dresses and fixes everything}
+  answer: 2
+  explanation_he: ידיים של זהב נאמר על מי שמצליחה בעבודת ידיים.
+  explanation_en: '"Golden hands" is said of someone successful at handwork.'
+  tags: [proverbs]
+- id: heb.proverb.020
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'השלימו: "לא כל הנוצץ ___".'
+  prompt_en: 'Complete: "Not all that glitters is ___".'
+  choices:
+  - {he: זהב, en: gold}
+  - {he: יפה, en: pretty}
+  - {he: ברזל, en: iron}
+  answer: 0
+  explanation_he: 'זה הפתגם: לא כל מה שנוצץ הוא זהב. אותו מסר מתאים גם לדברים אחרים שנראים טוב.'
+  explanation_en: 'That is the saying: not all that glitters is gold.'
+  tags: [proverbs]
+- id: heb.proverb.021
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'השלימו: "ציפור אחת ביד טובה מ___ על העץ".'
+  prompt_en: 'Complete: "One bird in the hand is better than ___ on the tree".'
+  choices:
+  - {he: שלושה, en: three}
+  - {he: שתיים, en: two}
+  - {he: עשרה, en: ten}
+  answer: 1
+  explanation_he: הפתגם אומר שעדיף משהו קטן שיש לך בוודאות מדבר גדול יותר שאולי יגיע.
+  explanation_en: 'The saying: a small sure thing is better than a bigger one that may come.'
+  tags: [proverbs]
+- id: heb.proverb.022
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'השלימו: "מים שקטים חודרים ___".'
+  prompt_en: 'Complete: "Still waters ___ deep".'
+  choices:
+  - {he: עמוק, en: deep}
+  - {he: רחוק, en: far}
+  - {he: מהר, en: fast}
+  answer: 0
+  explanation_he: 'הפתגם מדבר על מים שקטים, וההמשך מראה שהם עמוקים. כך גם אנשים שקטים.'
+  explanation_en: The saying is about quiet water that turns out deep. So too quiet people.
+  tags: [proverbs]
+- id: heb.proverb.023
+  skill: hebrew.vocab.proverbs
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'השלימו: "שתי ציפורים ב___ אחת".'
+  prompt_en: 'Complete: "Two birds with one ___".'
+  choices:
+  - {he: יד, en: hand}
+  - {he: תנועה, en: movement}
+  - {he: מכה, en: blow}
+  answer: 2
+  explanation_he: 'הניב המוכר הוא שתי ציפורים במכה אחת: שתי מטרות בפעולה אחת.'
+  explanation_en: 'The known idiom is two birds with one blow: two goals, one action.'
+  tags: [proverbs]
+- id: heb.proverb.024
+  skill: hebrew.vocab.proverbs
+  kind: true_false
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'הניב "שבר את הראש" פירושו שהראש נפצע.'
+  prompt_en: 'The idiom "broke his head" means that his head was injured.'
+  answer: false
+  explanation_he: כאן לא מדובר בפציעה. שוברים את הראש כשחושבים הרבה.
+  explanation_en: 'It is not about an injury. You "break your head" when you think hard.'
+  tags: [proverbs]
+- id: heb.proverb.025
+  skill: hebrew.vocab.proverbs
+  kind: true_false
+  grade: 5
+  difficulty: 0.5
+  prompt_he: אפשר להבין ניב לפי כל מילה לחוד.
+  prompt_en: You can understand an idiom from each word separately.
+  answer: false
+  explanation_he: 'ניב הוא צירוף שמשמעותו אינה סכום המילים. "ירד לו האסימון" אינו קשור לאסימון ממש.'
+  explanation_en: An idiom is a phrase whose meaning is not the sum of its words.
+  tags: [proverbs]
+- id: heb.proverb.026
+  skill: hebrew.vocab.proverbs
+  kind: true_false
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'כשאומרים "לב של זהב" מתכוונים לאדם טוב.'
+  prompt_en: 'When we say "a heart of gold" we mean a good person.'
+  answer: true
+  explanation_he: 'זהב הוא דבר יקר, ולכן הניב מדבר על לב יקר: טוב ונדיב.'
+  explanation_en: 'Gold is precious, so the idiom speaks of a precious heart: kind and generous.'
+  tags: [proverbs]
+- id: heb.proverb.027
+  skill: hebrew.vocab.proverbs
+  kind: true_false
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'הפתגם "מים שקטים חודרים עמוק" מדבר על חיות הים.'
+  prompt_en: 'The saying "still waters run deep" is about sea animals.'
+  answer: false
+  explanation_he: הפתגם משתמש במים כדי לדבר על אנשים. אדם שקט יכול להיות מלא מחשבות.
+  explanation_en: The saying uses water to speak about people. A quiet person can be full of thoughts.
+  tags: [proverbs]
+- id: heb.proverb.028
+  skill: hebrew.vocab.proverbs
+  kind: true_false
+  grade: 5
+  difficulty: 0.0
+  prompt_he: '"שפך את הלב" אומר שמישהו סיפר בכנות מה הוא מרגיש.'
+  prompt_en: '"Poured out his heart" means someone honestly told how he feels.'
+  answer: true
+  explanation_he: 'מי ששופך את הלב מספר מה עובר עליו, בלי להסתיר.'
+  explanation_en: 'Someone who pours out his heart tells what he is going through, without hiding.'
+  tags: [proverbs]

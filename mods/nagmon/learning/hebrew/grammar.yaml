@@ -1,4 +1,4 @@
-# Nagmon learning content - hebrew / grammar (grades 3-4): parts of speech, agreement, tenses, person, subject and predicate, roots, affixes, binyanim, construct state
+# Nagmon learning content - hebrew / grammar (grades 3-5): parts of speech, agreement, tenses, person, subject and predicate, roots, affixes, binyanim, construct state
 # Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
 # Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
 # Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
@@ -1777,3 +1777,837 @@ items:
   explanation_he: 'מי עפה? ציפור. היא הנושא, והמילים "מעל העץ" מספרות איפה.'
   explanation_en: 'Who flew? A bird. It is the subject, and "above the tree" says where.'
   tags: [subject_predicate]
+- id: heb.root.001
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'מהו השורש של המילה "כתבתי"?'
+  prompt_en: 'What is the root of the word "כתבתי"?'
+  choices:
+  - {he: כ-ת-י, en: כ-ת-י}
+  - {he: כ-ת-ב, en: כ-ת-ב}
+  - {he: ת-ב-י, en: ת-ב-י}
+  answer: 1
+  explanation_he: 'השורש הוא האותיות שנשארות בכל המילים מהמשפחה: כותב, מכתב, כתובת. הסוף "תי" מסמן "אני".'
+  explanation_en: 'The root is the letters that stay in all words of the family: writes, letter, address. The ending "-ti" marks "I".'
+  tags: [roots]
+- id: heb.root.002
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'מהו השורש של המילה "למדנו"?'
+  prompt_en: 'What is the root of the word "למדנו"?'
+  choices:
+  - {he: ל-מ-נ, en: ל-מ-נ}
+  - {he: מ-ד-נ, en: מ-ד-נ}
+  - {he: ל-מ-ד, en: ל-מ-ד}
+  answer: 2
+  explanation_he: 'מילים כמו לומד, תלמיד ולמידה משתמשות באותן שלוש אותיות. הסוף "נו" מסמן "אנחנו".'
+  explanation_en: 'Words like "learns", "pupil" and "learning" use the same three letters. The ending "-nu" marks "we".'
+  tags: [roots]
+- id: heb.root.003
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'מהו השורש של המילה "אכלנו"?'
+  prompt_en: 'What is the root of the word "אכלנו"?'
+  choices:
+  - {he: א-כ-ל, en: א-כ-ל}
+  - {he: כ-ל-נ, en: כ-ל-נ}
+  - {he: א-ל-נ, en: א-ל-נ}
+  answer: 0
+  explanation_he: 'אוכל, מאכל ואכילה חולקים את האותיות א-כ-ל. הסוף "נו" אינו חלק מהשורש.'
+  explanation_en: 'Food, dish and eating share the letters a-ch-l. The ending "-nu" is not part of the root.'
+  tags: [roots]
+- id: heb.root.004
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מהו השורש של המילה "מכתב"?'
+  prompt_en: 'What is the root of the word "מכתב"?'
+  choices:
+  - {he: מ-כ-ת, en: מ-כ-ת}
+  - {he: מ-ת-ב, en: מ-ת-ב}
+  - {he: כ-ת-ב, en: כ-ת-ב}
+  answer: 2
+  explanation_he: 'האות מ בהתחלה היא תוספת שיוצרת שם עצם. השורש הוא כ-ת-ב, כמו בכתב וכותב.'
+  explanation_en: 'The initial "m" is an addition that forms a noun. The root is k-t-v, as in "wrote" and "writes".'
+  tags: [roots]
+- id: heb.root.005
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מהו השורש של המילה "משחק"?'
+  prompt_en: 'What is the root of the word "משחק"?'
+  choices:
+  - {he: מ-ש-ח, en: מ-ש-ח}
+  - {he: ש-ח-ק, en: ש-ח-ק}
+  - {he: מ-ח-ק, en: מ-ח-ק}
+  answer: 1
+  explanation_he: 'האות מ בהתחלה אינה מהשורש. מוציאים אותה ונשארים עם ש-ח-ק, כמו בשחקן ושיחקנו.'
+  explanation_en: 'The initial "m" is not from the root. Remove it and you get sh-ch-k, as in "player" and "we played".'
+  tags: [roots]
+- id: heb.root.006
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מהו השורש של המילה "שמחה"?'
+  prompt_en: 'What is the root of the word "שמחה"?'
+  choices:
+  - {he: ש-מ-ח, en: ש-מ-ח}
+  - {he: ש-מ-ה, en: ש-מ-ה}
+  - {he: מ-ח-ה, en: מ-ח-ה}
+  answer: 0
+  explanation_he: 'שמח, משמח ושמחה באים כולם מאותן אותיות. הסוף "ה" רק מסמן נקבה.'
+  explanation_en: 'Happy, gladdening and joy all come from the same letters. The ending "-ah" only marks feminine.'
+  tags: [roots]
+- id: heb.root.007
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מהו השורש של המילה "מגדל"?'
+  prompt_en: 'What is the root of the word "מגדל"?'
+  choices:
+  - {he: ג-ד-ל, en: ג-ד-ל}
+  - {he: מ-ג-ד, en: מ-ג-ד}
+  - {he: מ-ד-ל, en: מ-ד-ל}
+  answer: 0
+  explanation_he: 'מגדל הוא משהו שגדל לגובה. השורש ג-ד-ל מופיע גם ב"גדול" וב"גדלנו".'
+  explanation_en: 'A tower is something that grows tall. The root g-d-l also appears in "big" and "we grew".'
+  tags: [roots]
+- id: heb.root.008
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מהו השורש של המילה "פתחתי"?'
+  prompt_en: 'What is the root of the word "פתחתי"?'
+  choices:
+  - {he: פ-ת-י, en: פ-ת-י}
+  - {he: ת-ח-י, en: ת-ח-י}
+  - {he: פ-ת-ח, en: פ-ת-ח}
+  answer: 2
+  explanation_he: 'פתח, מפתח ופתיחה הם מאותו שורש: פ-ת-ח. הסוף "תי" מסמן "אני".'
+  explanation_en: 'Opening, key and opening all share the root p-t-ch. The ending "-ti" marks "I".'
+  tags: [roots]
+- id: heb.root.009
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מהו השורש של המילה "שומר"?'
+  prompt_en: 'What is the root of the word "שומר"?'
+  choices:
+  - {he: ש-ו-מ, en: ש-ו-מ}
+  - {he: ש-מ-ר, en: ש-מ-ר}
+  - {he: ו-מ-ר, en: ו-מ-ר}
+  answer: 1
+  explanation_he: 'שומר, שמירה ומשמר הם באותה משפחה. האות ו אינה חלק מהשורש כאן.'
+  explanation_en: 'Guard, guarding and watch are in the same family. The letter "vav" is not part of the root here.'
+  tags: [roots]
+- id: heb.root.010
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מהו השורש של המילה "קריאה"?'
+  prompt_en: 'What is the root of the word "קריאה"?'
+  choices:
+  - {he: ק-ר-י, en: ק-ר-י}
+  - {he: ק-ר-א, en: ק-ר-א}
+  - {he: ר-י-א, en: ר-י-א}
+  answer: 1
+  explanation_he: 'קריאה באה מהפועל לקרוא: קראתי, קורא. השורש הוא ק-ר-א.'
+  explanation_en: '"Reading" comes from the verb "to read". The root is k-r-a.'
+  tags: [roots]
+- id: heb.root.011
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'מהו השורש של המילה "מחברת"?'
+  prompt_en: 'What is the root of the word "מחברת"?'
+  choices:
+  - {he: ח-ב-ר, en: ח-ב-ר}
+  - {he: מ-ח-ב, en: מ-ח-ב}
+  - {he: ב-ר-ת, en: ב-ר-ת}
+  answer: 0
+  explanation_he: 'מחברת היא חיבור של דפים, ולכן קרובה למילים חבר וחיבור. האות מ והסוף ת הם תוספות.'
+  explanation_en: 'A notebook is pages joined together, so it is close to "friend" and "connection". The "m" and final "t" are additions.'
+  tags: [roots]
+- id: heb.root.012
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'מהו השורש של המילה "ציור"?'
+  prompt_en: 'What is the root of the word "ציור"?'
+  choices:
+  - {he: צ-ו-ר, en: צ-ו-ר}
+  - {he: י-ו-ר, en: י-ו-ר}
+  - {he: צ-י-ר, en: צ-י-ר}
+  answer: 2
+  explanation_he: 'ציור וציירתי הם מאותו שורש: צ-י-ר. האות ו היא צליל שנוסף.'
+  explanation_en: '"Drawing" and "I drew" share the root ts-y-r. The vav is just an added vowel sound.'
+  tags: [roots]
+- id: heb.root.013
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'מהו השורש של המילה "בישול"?'
+  prompt_en: 'What is the root of the word "בישול"?'
+  choices:
+  - {he: ב-ש-ו, en: ב-ש-ו}
+  - {he: ש-ו-ל, en: ש-ו-ל}
+  - {he: ב-ש-ל, en: ב-ש-ל}
+  answer: 2
+  explanation_he: 'מבשל, בישלנו ובישול באים כולם מ-ב-ש-ל. האות י היא תוספת.'
+  explanation_en: '"Cooks", "we cooked" and "cooking" all come from b-sh-l. The "y" is an addition.'
+  tags: [roots]
+- id: heb.root.014
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'מהו השורש של המילה "ריקוד"?'
+  prompt_en: 'What is the root of the word "ריקוד"?'
+  choices:
+  - {he: ר-ק-ד, en: ר-ק-ד}
+  - {he: ר-י-ק, en: ר-י-ק}
+  - {he: י-ק-ד, en: י-ק-ד}
+  answer: 0
+  explanation_he: רקדנית ורקדתי חולקות את ר-ק-ד. האות י נוספת רק במילה ריקוד.
+  explanation_en: '"Dancer" and "I danced" share r-k-d. The "y" appears only in "dance".'
+  tags: [roots]
+- id: heb.root.015
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 1.5
+  prompt_he: 'מהו השורש של המילה "הדלקנו"?'
+  prompt_en: 'What is the root of the word "הדלקנו"?'
+  choices:
+  - {he: ה-ד-ל, en: ה-ד-ל}
+  - {he: ד-ל-ק, en: ד-ל-ק}
+  - {he: ל-ק-נ, en: ל-ק-נ}
+  answer: 1
+  explanation_he: 'דלק ודליקה קרובות. האות ה בהתחלה והסוף "נו" הם תוספות, ונשאר ד-ל-ק.'
+  explanation_en: '"Fuel" and "blaze" are close. The initial "h" and ending "-nu" are additions, leaving d-l-k.'
+  tags: [roots]
+- id: heb.root.016
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'איזו מילה אינה מהשורש כ-ת-ב?'
+  prompt_en: 'Which word is not from the root k-t-v?'
+  choices:
+  - {he: כתר, en: crown}
+  - {he: כתובת, en: address}
+  - {he: מכתב, en: letter}
+  answer: 0
+  explanation_he: 'כתובת ומכתב קשורות לכתיבה. כתר נראה דומה, אבל הוא מהשורש כ-ת-ר ופירושו כובע של מלך.'
+  explanation_en: 'Address and letter relate to writing. "Keter" looks similar but is from k-t-r: a king''s crown.'
+  tags: [roots]
+- id: heb.root.017
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'איזו מילה אינה מהשורש ל-מ-ד?'
+  prompt_en: 'Which word is not from the root l-m-d?'
+  choices:
+  - {he: למידה, en: learning}
+  - {he: מלמד, en: teaches}
+  - {he: לימון, en: lemon}
+  answer: 2
+  explanation_he: 'למידה ומלמד קשורות להוראה וללימוד. לימון הוא פרי, ואין לו קשר לשורש ל-מ-ד.'
+  explanation_en: Learning and teacher relate to study. A lemon is a fruit with no link to the root.
+  tags: [roots]
+- id: heb.root.018
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'איזו מילה אינה מהשורש ש-מ-ר?'
+  prompt_en: 'Which word is not from the root sh-m-r?'
+  choices:
+  - {he: שומר, en: guard}
+  - {he: שמן, en: oil}
+  - {he: משמר, en: watch}
+  answer: 1
+  explanation_he: 'שומר ומשמר קשורות לשמירה. שמן הוא נוזל חלק, והשורש שלו ש-מ-ן.'
+  explanation_en: Guard and watch relate to guarding. Oil is a smooth liquid; its root is sh-m-n.
+  tags: [roots]
+- id: heb.root.019
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'איזו מילה אינה מהשורש ג-ד-ל?'
+  prompt_en: 'Which word is not from the root g-d-l?'
+  choices:
+  - {he: גדול, en: big}
+  - {he: מגדל, en: tower}
+  - {he: גדי, en: kid (young goat)}
+  answer: 2
+  explanation_he: 'גדול ומגדל קשורות לגדילה. גדי הוא ילד של עז, והשורש שלו הוא ג-ד-י.'
+  explanation_en: 'Big and tower relate to growth. A "gdi" is a young goat, with the root g-d-y.'
+  tags: [roots]
+- id: heb.root.020
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'איזו מילה אינה מהשורש ש-ח-ק?'
+  prompt_en: 'Which word is not from the root sh-ch-k?'
+  choices:
+  - {he: שחקן, en: player}
+  - {he: שחור, en: black}
+  - {he: משחק, en: game}
+  answer: 1
+  explanation_he: 'שחקן ומשחק קשורות למשחק. שחור הוא צבע, והוא נראה דומה בגלל האותיות בלבד.'
+  explanation_en: Player and game relate to playing. Black is a color; it looks similar only because of the letters.
+  tags: [roots]
+- id: heb.root.021
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'איזו מילה אינה מהשורש ס-פ-ר?'
+  prompt_en: 'Which word is not from the root s-f-r?'
+  choices:
+  - {he: ספינה, en: ship}
+  - {he: מספר, en: number}
+  - {he: ספרייה, en: library}
+  answer: 0
+  explanation_he: 'מספר וספרייה קשורות לספר ולספירה. ספינה היא כלי שט, והשורש שלה ס-פ-נ.'
+  explanation_en: 'Number and library relate to book and counting. A ship is a vessel, root s-f-n.'
+  tags: [roots]
+- id: heb.root.022
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'איזו מילה אינה מהשורש ע-ב-ד?'
+  prompt_en: 'Which word is not from the root a-v-d?'
+  choices:
+  - {he: עבודה, en: work}
+  - {he: עבר, en: past}
+  - {he: עובד, en: worker}
+  answer: 1
+  explanation_he: עבודה ועובד קשורות לעבודה. המילה עבר היא מהשורש ע-ב-ר ופירושה זמן שהיה.
+  explanation_en: 'Work and worker relate to working. "Avar" is from a-v-r and means a time that was.'
+  tags: [roots]
+- id: heb.root.023
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'איזו מילה אינה מהשורש פ-ת-ח?'
+  prompt_en: 'Which word is not from the root p-t-ch?'
+  choices:
+  - {he: מפתח, en: key}
+  - {he: פתיחה, en: opening}
+  - {he: פתית, en: flake}
+  answer: 2
+  explanation_he: 'מפתח ופתיחה קשורות לפתיחה. פתית, כמו פתית שלג, מגיעה מהשורש פ-ת-ת: פירורים קטנים.'
+  explanation_en: 'Key and opening relate to opening. A flake, like a snowflake, is from p-t-t: tiny crumbs.'
+  tags: [roots]
+- id: heb.root.024
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'איזו מילה היא מהשורש ב-ש-ל?'
+  prompt_en: 'Which word is from the root b-sh-l?'
+  choices:
+  - {he: מבשל, en: cooks}
+  - {he: בשר, en: meat}
+  - {he: שביל, en: path}
+  answer: 0
+  explanation_he: 'מבשל מגיע מבישול. בשר ושביל משתמשות באותן אותיות בסדר אחר, אבל השורשים שלהן שונים.'
+  explanation_en: '"Mevashel" comes from cooking. Meat and path use similar letters, but other roots.'
+  tags: [roots]
+- id: heb.root.025
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'איזו מילה היא מהשורש ר-ק-ד?'
+  prompt_en: 'Which word is from the root r-k-d?'
+  choices:
+  - {he: רקדנית, en: dancer (f.)}
+  - {he: רקע, en: background}
+  - {he: קרקע, en: ground}
+  answer: 0
+  explanation_he: רקדנית היא מי שרוקדת. רקע וקרקע שייכות לשורשים אחרים.
+  explanation_en: 'A dancer is someone who dances. "Background" and "ground" belong to other roots.'
+  tags: [roots]
+- id: heb.root.026
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'איזו מילה היא מהשורש צ-י-ר?'
+  prompt_en: 'Which word is from the root ts-y-r?'
+  choices:
+  - {he: ציפור, en: bird}
+  - {he: צינור, en: pipe}
+  - {he: צייר, en: painter}
+  answer: 2
+  explanation_he: 'צייר הוא מי שמצייר. ציפור וצינור מתחילות באותן אותיות, אבל השורשים שונים.'
+  explanation_en: A painter is someone who draws. Bird and pipe begin the same but have different roots.
+  tags: [roots]
+- id: heb.root.027
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'כמה אותיות יש בדרך כלל בשורש?'
+  prompt_en: 'How many letters does a root usually have?'
+  choices:
+  - {he: שתיים, en: two}
+  - {he: שלוש, en: three}
+  - {he: חמש, en: five}
+  answer: 1
+  explanation_he: 'רוב השורשים בעברית בנויים משלוש אותיות, כמו כ-ת-ב ו-ל-מ-ד.'
+  explanation_en: 'Most Hebrew roots are built from three letters, like k-t-v and l-m-d.'
+  tags: [roots]
+- id: heb.root.028
+  skill: hebrew.grammar.roots
+  kind: true_false
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'למילים "כותב" ו"מכתב" יש אותו שורש.'
+  prompt_en: 'The words "kotev" and "michtav" have the same root.'
+  answer: true
+  explanation_he: 'שתיהן מגיעות מ-כ-ת-ב, והמשמעות שלהן קרובה: כתיבה.'
+  explanation_en: 'Both come from k-t-v, and their meanings are close: writing.'
+  tags: [roots]
+- id: heb.root.029
+  skill: hebrew.grammar.roots
+  kind: true_false
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'למילים "ספר" ו"ספינה" יש אותו שורש.'
+  prompt_en: 'The words "sefer" and "sefina" have the same root.'
+  answer: false
+  explanation_he: 'ספר ושם דומה, אבל ספינה היא כלי שיט ויש לה שורש אחר. אותיות דומות לא מספיקות כדי להיות באותו שורש.'
+  explanation_en: 'Similar letters are not enough: a ship has a different root.'
+  tags: [roots]
+- id: heb.root.030
+  skill: hebrew.grammar.roots
+  kind: true_false
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'השורש של המילה "גדול" הוא ג-ד-ל.'
+  prompt_en: 'The root of "gadol" is g-d-l.'
+  answer: true
+  explanation_he: 'המילה גדול מורכבת מאותן שלוש אותיות, וכך גם גדלנו, מגדל והגדלה.'
+  explanation_en: 'The word is made of the same three letters, as are "we grew", tower and enlargement.'
+  tags: [roots]
+- id: heb.root.031
+  skill: hebrew.grammar.roots
+  kind: true_false
+  grade: 5
+  difficulty: -1.0
+  prompt_he: כל המילים שמתחילות באות ש הן מאותו שורש.
+  prompt_en: All words that begin with the letter shin are from the same root.
+  answer: false
+  explanation_he: 'שורש הוא קבוצה של אותיות שחוזרות במילים קרובות במשמעות, ולא רק אות ראשונה זהה.'
+  explanation_en: 'A root is a group of letters recurring in words with related meaning, not just a shared first letter.'
+  tags: [roots]
+- id: heb.root.032
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מה אפשר לדעת על מילים מאותו שורש?'
+  prompt_en: 'What can we know about words from the same root?'
+  choices:
+  - {he: הן נשמעות בדיוק אותו דבר, en: They sound exactly alike}
+  - {he: יש קשר בין המשמעויות שלהן, en: Their meanings are related}
+  - {he: הן תמיד באורך זהה, en: They are always the same length}
+  answer: 1
+  explanation_he: 'מילים מאותו שורש קשורות ברעיון: כותב, מכתב וכתובת קשורות כולן לכתיבה.'
+  explanation_en: 'Words from one root share an idea: writer, letter and address all relate to writing.'
+  tags: [roots]
+- id: heb.root.033
+  skill: hebrew.grammar.roots
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'אילו אותיות נוספו למילה "מטבח" לעומת השורש ט-ב-ח?'
+  prompt_en: 'Which letter was added in "mitbach" compared to the root t-b-ch?'
+  choices:
+  - {he: מ, en: mem}
+  - {he: ט, en: tet}
+  - {he: ח, en: chet}
+  answer: 0
+  explanation_he: 'השורש ט-ב-ח נשאר במילה, והאות מ בהתחלה היא תוספת. ב"מטבח" מבשלים וטובחים אוכל.'
+  explanation_en: 'The root t-b-ch stays in the word and the initial "m" is an addition.'
+  tags: [roots]
+- id: heb.affix.001
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'מה פירוש המילה "בגינה"?'
+  prompt_en: 'What does the word "bagina" mean?'
+  choices:
+  - {he: אל הגינה, en: to the garden}
+  - {he: בתוך הגינה, en: in the garden}
+  - {he: מהגינה, en: from the garden}
+  answer: 1
+  explanation_he: 'האות ב בתחילת המילה פירושה "בתוך". היא אות שימוש, ואינה חלק מהמילה גינה.'
+  explanation_en: 'The letter bet at the start means "in". It is a prefix letter, not part of the word "garden".'
+  tags: [affixes]
+- id: heb.affix.002
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'מה פירוש המילה "לגינה"?'
+  prompt_en: 'What does the word "lagina" mean?'
+  choices:
+  - {he: בתוך הגינה, en: in the garden}
+  - {he: מהגינה, en: from the garden}
+  - {he: אל הגינה, en: to the garden}
+  answer: 2
+  explanation_he: 'האות ל בתחילת המילה פירושה "אל", כמו הליכה אל מקום.'
+  explanation_en: 'The letter lamed at the start means "to", like going to a place.'
+  tags: [affixes]
+- id: heb.affix.003
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'מה פירוש המילה "מהגינה"?'
+  prompt_en: 'What does the word "mehagina" mean?'
+  choices:
+  - {he: מתוך הגינה, en: from the garden}
+  - {he: אל הגינה, en: to the garden}
+  - {he: בתוך הגינה, en: in the garden}
+  answer: 0
+  explanation_he: 'האות מ פירושה "מ..." (מן). מי שבא מהגינה יצא ממנה.'
+  explanation_en: 'The letter mem means "from". Someone who comes "from the garden" left it.'
+  tags: [affixes]
+- id: heb.affix.004
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'איזו אות פירושה "וגם" כשהיא בתחילת מילה?'
+  prompt_en: 'Which letter means "and" at the start of a word?'
+  choices:
+  - {he: ה, en: hey}
+  - {he: ו, en: vav}
+  - {he: ש, en: shin}
+  answer: 1
+  explanation_he: 'האות ו מחברת בין מילים: "לחם וחמאה" פירושו לחם וגם חמאה.'
+  explanation_en: 'The letter vav connects words: "bread and butter" means bread together with butter.'
+  tags: [affixes]
+- id: heb.affix.005
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'איך מוסיפים "ה" הידיעה למילה "ילד"?'
+  prompt_en: 'How do we add "the" to the word "yeled"?'
+  choices:
+  - {he: הילד, en: the boy}
+  - {he: בילד, en: in a boy}
+  - {he: וילד, en: and a boy}
+  answer: 0
+  explanation_he: 'האות ה בתחילת המילה אומרת שמדובר בילד מסוים וידוע: הילד.'
+  explanation_en: 'The letter hey at the start tells us it is a specific, known boy: "the boy".'
+  tags: [affixes]
+- id: heb.affix.006
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'איך כותבים במילה אחת "אל הים"?'
+  prompt_en: 'How do you write "to the sea" in one word?'
+  choices:
+  - {he: בים, en: in the sea}
+  - {he: הים, en: the sea}
+  - {he: לים, en: to the sea}
+  answer: 2
+  explanation_he: 'ל פירושה "אל", והיא נדבקת למילה: לים.'
+  explanation_en: 'Lamed means "to" and attaches to the word: "layam".'
+  tags: [affixes]
+- id: heb.affix.007
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'איך כותבים במילה אחת "מן הבית"?'
+  prompt_en: 'How do you write "from the house" in one word?'
+  choices:
+  - {he: לבית, en: to the house}
+  - {he: בבית, en: in the house}
+  - {he: מהבית, en: from the house}
+  answer: 2
+  explanation_he: 'האות מ מחליפה את "מן", ונדבקת למילה עם ה הידיעה: מהבית.'
+  explanation_en: 'The letter mem replaces "min" and attaches with "ha": "mehabayit".'
+  tags: [affixes]
+- id: heb.affix.008
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'מה פירוש האות ש בתחילת המילה "שאכלנו" במשפט "הלחם שאכלנו"?'
+  prompt_en: 'What does the letter shin mean at the start of "sheachalnu" in "the bread that we ate"?'
+  choices:
+  - {he: אשר, en: that}
+  - {he: וגם, en: and}
+  - {he: אל, en: to}
+  answer: 0
+  explanation_he: 'האות ש מחליפה את המילה "אשר" וקושרת בין חלקי המשפט: הלחם שאכלנו.'
+  explanation_en: 'Shin replaces "asher" (that) and links parts of the sentence.'
+  tags: [affixes]
+- id: heb.affix.009
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'מה פירוש המילה "כדוב"?'
+  prompt_en: 'What does the word "kedov" mean?'
+  choices:
+  - {he: בתוך דוב, en: inside a bear}
+  - {he: כמו דוב, en: like a bear}
+  - {he: אל הדוב, en: to the bear}
+  answer: 1
+  explanation_he: 'האות כ בתחילת מילה פירושה "כמו": כדוב הוא "כמו דוב".'
+  explanation_en: 'Kaf at the start of a word means "like": "kedov" is "like a bear".'
+  tags: [affixes]
+- id: heb.affix.010
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'מה הסיומת שהופכת את "ילד" לרבים?'
+  prompt_en: 'What ending makes "yeled" plural?'
+  choices:
+  - {he: ות, en: '-ot'}
+  - {he: י, en: '-i'}
+  - {he: ים, en: '-im'}
+  answer: 2
+  explanation_he: 'ילד הוא זכר, ולכן רבים שלו הוא ילדים. ות מתאים בדרך כלל לנקבה, כמו ילדות.'
+  explanation_en: '"Yeled" is masculine, so its plural is "yeladim". "-ot" usually fits feminine, like "yeladot".'
+  tags: [affixes]
+- id: heb.affix.011
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'מה הסיומת שהופכת את "ילדה" לרבים?'
+  prompt_en: 'What ending makes "yalda" plural?'
+  choices:
+  - {he: ות, en: '-ot'}
+  - {he: ים, en: '-im'}
+  - {he: י, en: '-i'}
+  answer: 0
+  explanation_he: 'ילדה היא נקבה, ולכן הרבים הוא ילדות: מורידים את ה ומוסיפים ות.'
+  explanation_en: '"Yalda" is feminine, so the plural is "yeladot": drop the final "a" and add "-ot".'
+  tags: [affixes]
+- id: heb.affix.012
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מה פירוש המילה "ביתי"?'
+  prompt_en: 'What does the word "beiti" mean?'
+  choices:
+  - {he: הבית שלך, en: your house}
+  - {he: הבית שלי, en: my house}
+  - {he: הבית שלנו, en: our house}
+  answer: 1
+  explanation_he: 'הסוף י מסמן "שלי". כך גם בספרי (הספר שלי) ובחברי (החבר שלי).'
+  explanation_en: 'The ending -i marks "my". So too "sifri" (my book) and "chaveri" (my friend).'
+  tags: [affixes]
+- id: heb.affix.013
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'מה פירוש המילה "ספרנו"?'
+  prompt_en: 'What does the word "sifrenu" mean?'
+  choices:
+  - {he: הספר שלנו, en: our book}
+  - {he: הספר שלי, en: my book}
+  - {he: הספר שלהם, en: their book}
+  answer: 0
+  explanation_he: 'הסוף נו מסמן "שלנו", כמו "ביתנו" (הבית שלנו).'
+  explanation_en: 'The ending "-nu" marks "our", like "beitenu" (our house).'
+  tags: [affixes]
+- id: heb.affix.014
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'מה פירוש המילה "ספרך"?'
+  prompt_en: 'What does the word "sifrecha" mean?'
+  choices:
+  - {he: הספר שלו, en: his book}
+  - {he: הספר שלך, en: your book}
+  - {he: הספר שלנו, en: our book}
+  answer: 1
+  explanation_he: 'הסוף ך מסמן "שלך", כשפונים לאדם אחד.'
+  explanation_en: 'The ending "-cha" marks "your", when speaking to one person.'
+  tags: [affixes]
+- id: heb.affix.015
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'מה פירוש המילה "ילדיהם"?'
+  prompt_en: 'What does the word "yaldeihem" mean?'
+  choices:
+  - {he: הילדים שלנו, en: our children}
+  - {he: הילדים שלך, en: your children}
+  - {he: הילדים שלהם, en: their children}
+  answer: 2
+  explanation_he: 'הסוף יהם מסמן "שלהם" ומראה שיש יותר מילד אחד.'
+  explanation_en: 'The ending "-eihem" marks "their" and shows there is more than one child.'
+  tags: [affixes]
+- id: heb.affix.016
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'פרקו את המילה "ולבית" לחלקים.'
+  prompt_en: 'Break the word "velabayit" into parts.'
+  choices:
+  - {he: ול + בית, en: '"vel" + house'}
+  - {he: ו + לב + ית, en: 'and + heart + "it"'}
+  - {he: ו + ל + בית, en: and + to + house}
+  answer: 2
+  explanation_he: 'שתי אותיות שימוש בתחילת המילה: ו (וגם) ול (אל). מה שנשאר הוא המילה בית.'
+  explanation_en: 'Two prefix letters: vav (and) and lamed (to). What remains is the word "house".'
+  tags: [affixes]
+- id: heb.affix.017
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'מה נשאר מהמילה "והחתולים" אחרי שמוציאים אותיות שימוש וסיומת?'
+  prompt_en: 'What remains of "vehachatulim" after removing prefix letters and ending?'
+  choices:
+  - {he: חתול, en: cat}
+  - {he: חתולים, en: cats}
+  - {he: החתול, en: the cat}
+  answer: 0
+  explanation_he: 'מוציאים את ו (וגם), את ה (הידיעה) ואת הסיומת ים, ונשארת המילה חתול.'
+  explanation_en: 'Remove the vav, the "ha" and the ending "-im", and the word "chatul" remains.'
+  tags: [affixes]
+- id: heb.affix.018
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 1.5
+  prompt_he: 'מהו השורש של המילה "מהמשחקים"?'
+  prompt_en: 'What is the root of the word "mehamischakim"?'
+  choices:
+  - {he: מ-ה-מ, en: m-h-m}
+  - {he: ש-ח-ק, en: sh-ch-k}
+  - {he: ח-ק-י, en: ch-k-y}
+  answer: 1
+  explanation_he: 'מוציאים את מ ו-ה בהתחלה, את מ של "משחק" ואת הסיומת ים, ונשארים עם ש-ח-ק.'
+  explanation_en: Remove the prefix letters and endings; what remains is sh-ch-k.
+  tags: [affixes]
+- id: heb.affix.019
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 2.0
+  prompt_he: 'מהו השורש של המילה "ושכתבנו"?'
+  prompt_en: 'What is the root of the word "veshekatavnu"?'
+  choices:
+  - {he: ש-כ-ת, en: sh-k-t}
+  - {he: כ-ת-ב, en: k-t-v}
+  - {he: ו-ש-כ, en: v-sh-k}
+  answer: 1
+  explanation_he: 'ו (וגם) ו-ש (ש) הן אותיות שימוש, והסוף נו מסמן אנחנו. נשארו האותיות כ-ת-ב.'
+  explanation_en: 'Vav and shin are prefix letters and "-nu" marks "we". What remains is k-t-v.'
+  tags: [affixes]
+- id: heb.affix.020
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: true_false
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'המילה "ובבית" מכילה שתי אותיות שימוש.'
+  prompt_en: 'The word "uvabayit" has two prefix letters.'
+  answer: true
+  explanation_he: 'ו (וגם) ו-ב (בתוך) הן אותיות שימוש, ואחריהן המילה בית.'
+  explanation_en: 'Vav (and) and bet (in) are prefix letters, and then comes the word "bayit".'
+  tags: [affixes]
+- id: heb.affix.021
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: true_false
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'האות ב במילה "בית" היא אות שימוש.'
+  prompt_en: 'The letter bet in "bayit" is a prefix letter.'
+  answer: false
+  explanation_he: 'במילה בית האות ב היא חלק מהמילה עצמה. אם מוציאים אותה נשארת "ית", שאינה מילה.'
+  explanation_en: 'In "bayit" the bet is part of the word; removing it leaves no word.'
+  tags: [affixes]
+- id: heb.affix.022
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: true_false
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'האות ה בתחילת המילה "הילד" היא ה הידיעה.'
+  prompt_en: 'The letter hey at the start of "hayeled" is the definite article.'
+  answer: true
+  explanation_he: 'ה הידיעה אומרת "ה": הילד, הכלב, הבית. היא נוספת לשם עצם ידוע.'
+  explanation_en: 'The article means "the": the boy, the dog, the house. It is added to a known noun.'
+  tags: [affixes]
+- id: heb.affix.023
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: true_false
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'האות ל במילה "לימון" היא אות שימוש.'
+  prompt_en: 'The letter lamed in "limon" is a prefix letter.'
+  answer: false
+  explanation_he: 'לימון הוא פרי, והאות ל היא חלק ממנו. אם מוציאים אותה נשאר "ימון", שאינה מילה.'
+  explanation_en: 'A lemon is a fruit, and the lamed is part of it. Without it "imon" is not a word.'
+  tags: [affixes]
+- id: heb.affix.024
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: true_false
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'הסיומת "ים" בדרך כלל מסמנת רבים.'
+  prompt_en: 'The ending "-im" usually marks the plural.'
+  answer: true
+  explanation_he: 'ילד-ילדים, ספר-ספרים, כלב-כלבים. בדרך כלל זה זכר רבים.'
+  explanation_en: 'Boy-boys, book-books, dog-dogs. Usually this is masculine plural.'
+  tags: [affixes]
+- id: heb.affix.025
+  skill: hebrew.grammar.prefixes_suffixes
+  kind: choice
+  grade: 5
+  difficulty: 1.0
+  prompt_he: 'איזו מילה מתחילה באות שימוש?'
+  prompt_en: 'Which word begins with a prefix letter?'
+  choices:
+  - {he: שולחן, en: table}
+  - {he: מטבח, en: kitchen}
+  - {he: לספרייה, en: to the library}
+  answer: 2
+  explanation_he: 'ל בלספרייה פירושה "אל", וספרייה היא המילה. בשולחן ובמטבח האות הראשונה היא חלק מהמילה.'
+  explanation_en: 'In "lasifriya" the lamed means "to". In "shulchan" and "mitbach" the first letter belongs to the word.'
+  tags: [affixes]

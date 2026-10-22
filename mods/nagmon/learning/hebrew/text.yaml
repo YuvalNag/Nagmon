@@ -1,4 +1,4 @@
-# Nagmon learning content - hebrew / text (grades 3-4): sentence types, punctuation, text types, text analysis, argument
+# Nagmon learning content - hebrew / text (grades 3-5): sentence types, punctuation, text types, text analysis, argument
 # Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
 # Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
 # Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
@@ -651,3 +651,333 @@ items:
   explanation_he: 'המשפט הראשון שואל, והוא מתחיל במילת השאלה "איפה".'
   explanation_en: 'The first asks something, and it begins with the question word "where".'
   tags: [punctuation]
+- id: heb.ttype.001
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'איזה סוג טקסט זה? "פעם אחת חי בכפר קטן ילד בשם נדב שאהב לצייר."'
+  prompt_en: 'What kind of text is this? "Once a boy named Nadav, who loved to draw, lived in a small village."'
+  choices:
+  - {he: סיפור, en: story}
+  - {he: הוראות, en: instructions}
+  - {he: מכתב, en: letter}
+  answer: 0
+  explanation_he: 'יש דמות (נדב) ופתיחה של סיפור: "פעם אחת". זה סיפור.'
+  explanation_en: 'There is a character (Nadav) and a story opening: "once upon a time". This is a story.'
+  tags: [text_types]
+- id: heb.ttype.002
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'איזה סוג טקסט זה? "לטיגריסים יש פסים, ואין שניים עם אותו דגם."'
+  prompt_en: 'What kind of text is this? "Tigers have stripes, and no two have the same pattern."'
+  choices:
+  - {he: סיפור, en: story}
+  - {he: שיר, en: poem}
+  - {he: טקסט מידע, en: informational text}
+  answer: 2
+  explanation_he: 'הטקסט מוסר עובדות על חיה, בלי דמויות ובלי עלילה. זה טקסט מידע.'
+  explanation_en: 'The text gives facts about an animal, without characters or plot. This is informational.'
+  tags: [text_types]
+- id: heb.ttype.003
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'איזה סוג טקסט זה? "קחו שתי ביצים והקציפו אותן. הוסיפו קמח ומעט חלב."'
+  prompt_en: 'What kind of text is this? "Take two eggs and whisk them. Add flour and a little milk."'
+  choices:
+  - {he: סיפור, en: story}
+  - {he: הוראות, en: instructions}
+  - {he: פרסומת, en: advertisement}
+  answer: 1
+  explanation_he: 'הפעלים "קחו", "הקציפו", "הוסיפו" אומרים מה לעשות, שלב אחרי שלב. אלה הוראות.'
+  explanation_en: 'The verbs "take", "whisk", "add" say what to do step by step. These are instructions.'
+  tags: [text_types]
+- id: heb.ttype.004
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'איזה סוג טקסט זה? "שלום סבתא, מתגעגע אליך מאוד. נתראה בקרוב, נועם."'
+  prompt_en: 'What kind of text is this? "Hello Grandma, I miss you very much. See you soon, Noam."'
+  choices:
+  - {he: שיר, en: poem}
+  - {he: הוראות, en: instructions}
+  - {he: מכתב, en: letter}
+  answer: 2
+  explanation_he: הטקסט פונה לאדם מסוים (סבתא) ונגמר בשם הכותב. זה מכתב.
+  explanation_en: 'The text addresses a specific person (Grandma) and ends with the writer''s name. It is a letter.'
+  tags: [text_types]
+- id: heb.ttype.005
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'איזה סוג טקסט זה? "ירד הגשם על העיר, רטוב הרחוב, רטוב הקיר."'
+  prompt_en: 'What kind of text is this? "Rain fell on the city, wet the street, wet the wall."'
+  choices:
+  - {he: טקסט מידע, en: informational text}
+  - {he: שיר, en: poem}
+  - {he: הזמנה, en: invitation}
+  answer: 1
+  explanation_he: יש כאן חרוזים (עיר-קיר) ושורות קצרות. זה שיר.
+  explanation_en: It has rhymes (ir-kir) and short lines. This is a poem.
+  tags: [text_types]
+- id: heb.ttype.006
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'איזה סוג טקסט זה? "מחר בארבע אחר הצהריים מוזמנים לחגוג עם דנה יום הולדת תשע!"'
+  prompt_en: 'What kind of text is this? "Tomorrow at four in the afternoon you are invited to celebrate Dana''s ninth birthday!"'
+  choices:
+  - {he: הזמנה, en: invitation}
+  - {he: מכתב, en: letter}
+  - {he: סיפור, en: story}
+  answer: 0
+  explanation_he: כתוב מתי ואיפה האירוע ומי מוזמן. זו הזמנה.
+  explanation_en: It says when the event is and who is invited. It is an invitation.
+  tags: [text_types]
+- id: heb.ttype.007
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'איזה סוג טקסט זה? "הגלידה החדשה שלנו קרה, טעימה וזולה! בואו לטעום עוד היום!"'
+  prompt_en: 'What kind of text is this? "Our new ice cream is cold, tasty and cheap! Come taste it today!"'
+  choices:
+  - {he: שיר, en: poem}
+  - {he: פרסומת, en: advertisement}
+  - {he: טקסט מידע, en: informational text}
+  answer: 1
+  explanation_he: הטקסט משבח מוצר ומזמין לקנות. זו פרסומת.
+  explanation_en: The text praises a product and invites you to buy. It is an advertisement.
+  tags: [text_types]
+- id: heb.ttype.008
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'איזה סוג טקסט זה? "ביום שלישי ייפתח בעיר מוזיאון חדש לילדים."'
+  prompt_en: 'What kind of text is this? "On Tuesday a new children''s museum will open in the city."'
+  choices:
+  - {he: סיפור, en: story}
+  - {he: הוראות, en: instructions}
+  - {he: כתבה בעיתון, en: news report}
+  answer: 2
+  explanation_he: 'הטקסט מדווח על אירוע אמיתי, מתי ואיפה. כך נראית כתבה בעיתון.'
+  explanation_en: 'The text reports a real event, when and where. This is how a news report looks.'
+  tags: [text_types]
+- id: heb.ttype.009
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'מה מטרת הוראות?'
+  prompt_en: 'What is the purpose of instructions?'
+  choices:
+  - {he: ללמד איך עושים משהו, en: To teach how to do something}
+  - {he: לשכנע לקנות מוצר, en: To convince us to buy a product}
+  - {he: לספר סיפור מצחיק, en: To tell a funny story}
+  answer: 0
+  explanation_he: 'מי שקורא הוראות רוצה לדעת איך מרכיבים, מבשלים או משתמשים.'
+  explanation_en: 'A reader of instructions wants to know how to build, cook or use something.'
+  tags: [text_types]
+- id: heb.ttype.010
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מה מטרת פרסומת?'
+  prompt_en: 'What is the purpose of an advertisement?'
+  choices:
+  - {he: לספר על חיים של דמות, en: 'To tell about a character''s life'}
+  - {he: ללמד איך מכינים עוגה, en: To teach how to bake a cake}
+  - {he: לשכנע אותנו לקנות או לבוא, en: To persuade us to buy or come}
+  answer: 2
+  explanation_he: פרסומת מנסה לגרום לנו לרצות מוצר או שירות.
+  explanation_en: An advertisement tries to make us want a product or service.
+  tags: [text_types]
+- id: heb.ttype.011
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מה מטרת טקסט מידע?'
+  prompt_en: 'What is the purpose of an informational text?'
+  choices:
+  - {he: לשעשע בחרוזים, en: To amuse with rhymes}
+  - {he: להביא עובדות ולהסביר, en: To give facts and explain}
+  - {he: להזמין לאירוע, en: To invite to an event}
+  answer: 1
+  explanation_he: 'טקסט מידע מלמד אותנו משהו על העולם, למשל על חיות או על מקומות.'
+  explanation_en: 'An informational text teaches us something about the world, e.g. about animals or places.'
+  tags: [text_types]
+- id: heb.ttype.012
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'מה מטרת סיפור?'
+  prompt_en: 'What is the purpose of a story?'
+  choices:
+  - {he: לספר על דמויות ואירועים, en: To tell about characters and events}
+  - {he: לתת הוראות הפעלה, en: To give operating instructions}
+  - {he: לדווח על חדשות, en: To report news}
+  answer: 0
+  explanation_he: 'בסיפור יש דמויות ועלילה, ולפעמים גם מסר.'
+  explanation_en: 'A story has characters and a plot, and sometimes a message.'
+  tags: [text_types]
+- id: heb.ttype.013
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: -1.0
+  prompt_he: 'באיזה סוג טקסט נמצא חרוזים בדרך כלל?'
+  prompt_en: 'In which kind of text do we usually find rhymes?'
+  choices:
+  - {he: הוראות, en: instructions}
+  - {he: כתבה, en: news report}
+  - {he: שיר, en: poem}
+  answer: 2
+  explanation_he: 'חרוזים הם צלילים דומים בסוף שורות, ויש הרבה מהם בשירים.'
+  explanation_en: 'Rhymes are similar sounds at the ends of lines, and poems have many.'
+  tags: [text_types]
+- id: heb.ttype.014
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'איזה טקסט מתחיל במילה "שלום" ונגמר בשם הכותב?'
+  prompt_en: 'Which text begins with "hello" and ends with the writer''s name?'
+  choices:
+  - {he: מכתב, en: letter}
+  - {he: מתכון, en: recipe}
+  - {he: כתבה, en: news report}
+  answer: 0
+  explanation_he: 'מכתב כתוב לאדם מסוים, ולכן מתחיל בפנייה ונגמר בחתימה.'
+  explanation_en: 'A letter is written to a specific person, so it opens with a greeting and ends with a signature.'
+  tags: [text_types]
+- id: heb.ttype.015
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'איפה נצפה למצוא את הכותרות "מצרכים" ו"אופן ההכנה"?'
+  prompt_en: 'Where would we expect to find the headings "ingredients" and "method"?'
+  choices:
+  - {he: בשיר, en: in a poem}
+  - {he: במתכון, en: in a recipe}
+  - {he: בהזמנה, en: in an invitation}
+  answer: 1
+  explanation_he: 'מתכון הוא סוג של הוראות, והוא כולל רשימת חומרים ושלבי עבודה.'
+  explanation_en: 'A recipe is a kind of instructions: a list of ingredients and steps.'
+  tags: [text_types]
+- id: heb.ttype.016
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: 0.0
+  prompt_he: 'איזה טקסט מציין מתי ואיפה יתקיים אירוע?'
+  prompt_en: 'Which text says when and where an event takes place?'
+  choices:
+  - {he: שיר, en: poem}
+  - {he: סיפור, en: story}
+  - {he: הזמנה, en: invitation}
+  answer: 2
+  explanation_he: 'בהזמנה כתובים שעה, תאריך ומקום, כדי שהמוזמן יידע לבוא.'
+  explanation_en: 'An invitation has the time, date and place, so the guest knows to come.'
+  tags: [text_types]
+- id: heb.ttype.017
+  skill: hebrew.text.text_types
+  kind: choice
+  grade: 5
+  difficulty: 0.5
+  prompt_he: 'איזה משפט מתאים לפתיחת סיפור?'
+  prompt_en: 'Which sentence fits the opening of a story?'
+  choices:
+  - {he: לפניכם הוראות להרכבת המדף., en: Here are the instructions for assembling the shelf.}
+  - {he: תמר התעוררה וגילתה מעטפה על הכרית., en: Tamar woke and found an envelope on her pillow.}
+  - {he: הזמנה לכל תלמידי כיתה ה., en: An invitation to all fifth graders.}
+  answer: 1
+  explanation_he: 'בסיפור יש דמות ואירוע, ולכן הפתיחה על תמר ועל המעטפה מתאימה.'
+  explanation_en: 'A story has a character and an event, so the opening about Tamar and the envelope fits.'
+  tags: [text_types]
+- id: heb.ttype.018
+  skill: hebrew.text.text_types
+  kind: order
+  grade: 5
+  difficulty: 0.0
+  prompt_he: סדרו את שלבי ההכנה של כריך.
+  prompt_en: Put the steps of making a sandwich in order.
+  choices:
+  - {he: סוגרים ואוכלים, en: Close it and eat}
+  - {he: מניחים גבינה, en: Add cheese}
+  - {he: פורסים לחם, en: Slice bread}
+  - {he: מורחים חמאה, en: Spread butter}
+  answer: [2, 3, 1, 0]
+  explanation_he: 'בהוראות יש סדר: קודם החומר, אחר כך מוסיפים עליו, ובסוף אוכלים.'
+  explanation_en: 'Instructions have an order: first the base, then the additions, and finally eating.'
+  tags: [text_types]
+- id: heb.ttype.019
+  skill: hebrew.text.text_types
+  kind: order
+  grade: 5
+  difficulty: 0.0
+  prompt_he: סדרו את חלקי המכתב.
+  prompt_en: Put the parts of a letter in order.
+  choices:
+  - {he: 'מחבק, רועי', en: 'Hugs, Roi'}
+  - {he: 'מה שלומך? אצלנו הכול בסדר', en: 'How are you? We are fine'}
+  - {he: שלום סבא, en: Hello Grandpa}
+  answer: [2, 1, 0]
+  explanation_he: 'מכתב מתחיל בפנייה, יש בו את התוכן, וחותמים בסופו.'
+  explanation_en: 'A letter begins with a greeting, has its content, and ends with a signature.'
+  tags: [text_types]
+- id: heb.ttype.020
+  skill: hebrew.text.text_types
+  kind: true_false
+  grade: 5
+  difficulty: -1.0
+  prompt_he: בסיפור יש דמויות ועלילה.
+  prompt_en: A story has characters and a plot.
+  answer: true
+  explanation_he: בסיפור מישהו עושה משהו ומשהו קורה לו. זה ההבדל מטקסט מידע.
+  explanation_en: In a story someone does something and something happens. That differs from an informational text.
+  tags: [text_types]
+- id: heb.ttype.021
+  skill: hebrew.text.text_types
+  kind: true_false
+  grade: 5
+  difficulty: 0.0
+  prompt_he: טקסט מידע ממציא דמויות.
+  prompt_en: An informational text invents characters.
+  answer: false
+  explanation_he: טקסט מידע מביא עובדות אמיתיות. דמויות מומצאות שייכות לסיפור.
+  explanation_en: An informational text gives real facts. Invented characters belong in a story.
+  tags: [text_types]
+- id: heb.ttype.022
+  skill: hebrew.text.text_types
+  kind: true_false
+  grade: 5
+  difficulty: 0.0
+  prompt_he: הוראות כתובות בדרך כלל לפי סדר השלבים.
+  prompt_en: Instructions are usually written in the order of the steps.
+  answer: true
+  explanation_he: 'הקורא צריך לעשות כל שלב אחרי שקודמו הסתיים, ולכן הסדר חשוב.'
+  explanation_en: 'The reader must do each step after the previous one ends, so the order matters.'
+  tags: [text_types]
+- id: heb.ttype.023
+  skill: hebrew.text.text_types
+  kind: true_false
+  grade: 5
+  difficulty: 0.0
+  prompt_he: פרסומת מנסה לשכנע אותנו.
+  prompt_en: An advertisement tries to persuade us.
+  answer: true
+  explanation_he: מטרת הפרסומת היא שנרצה מוצר או נבוא למקום. לכן היא משבחת אותו.
+  explanation_en: The advertisement wants us to like a product or visit a place. So it praises it.
+  tags: [text_types]
