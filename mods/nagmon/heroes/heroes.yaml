@@ -1,0 +1,65 @@
+# The heroes a child can be (docs/app/HEROES.md).
+#
+# One entry per hero. The build (tools/app/heroes.py) checks this file and
+# ships it as game/heroes.json; the app reads the roster from there and has
+# no hero list of its own. To add a hero: add the art (see the doc), then
+# add an entry here. Nothing in app/src changes.
+#
+# Art ids are ids of art/manifest.json (sprite.npc.*, sprite.portrait.*,
+# sprite.avatar.*). A picture whose file is not in the build is drawn from
+# its placeholder.
+
+# The most heroes this file may list (the picker scrolls past 5).
+max_heroes: 12
+
+# For a saved id that is no hero (an unknown key).
+fallback: boy_blue
+
+# Ids the old app saved -> the hero they are drawn as.
+legacy:
+  boy_light: boy_blue
+  boy_dark: boy_blue
+  girl_light: girl_teal
+  girl_dark: girl_curly
+
+heroes:
+  - id: boy_blue
+    order: 10            # picker order, lowest first
+    enabled: true        # false: not offered, but a saved child still shows
+    name: {he: כחול, en: Blue}
+    art:
+      map: sprite.npc.nagmon_hero_boy          # walk sheet, 3x4 frames
+      portrait: sprite.portrait.nagmon_hero_boy # dialog / large portrait
+      face: sprite.avatar.boy_blue             # card and battle picture
+    colors: {primary: "#305070", secondary: "#503010"}
+    # the sheets for the art pipeline (tools/app/db.py)
+    source: {sprite: nagmon_hero_boy, combat_sheet: nagmon_hero_boy}
+    # variants: optional looks of the same hero, each may swap any art id.
+    # Data only (no picker for them yet). Example:
+    #   variants:
+    #     - id: kippah
+    #       kind: head_covering
+    #       name: {he: כיפה, en: Kippah}
+    #       art: {map: sprite.npc.nagmon_hero_boy_kippah}
+
+  - id: girl_teal
+    order: 20
+    enabled: true
+    name: {he: פרחים, en: Flowers}
+    art:
+      map: sprite.npc.nagmon_hero_girl
+      portrait: sprite.portrait.nagmon_hero_girl
+      face: sprite.avatar.girl_teal
+    colors: {primary: "#309090", secondary: "#905030"}
+    source: {sprite: nagmon_hero_girl, combat_sheet: nagmon_hero_girl}
+
+  - id: girl_curly
+    order: 30
+    enabled: true
+    name: {he: תלתלים, en: Curls}
+    art:
+      map: sprite.npc.nagmon_hero_curly
+      portrait: sprite.portrait.nagmon_hero_curly
+      face: sprite.avatar.girl_curly
+    colors: {primary: "#2a9090", secondary: "#301010"}
+    source: {sprite: nagmon_hero_curly, combat_sheet: nagmon_hero_curly}

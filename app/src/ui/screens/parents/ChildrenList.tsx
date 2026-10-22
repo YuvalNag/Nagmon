@@ -1,4 +1,4 @@
-import { avatarImage } from "../../../core/family/avatars";
+import { heroes } from "../../../core/family/heroes";
 import type { Profile } from "../../../core/family/profiles";
 import { t } from "../../../i18n";
 import { Tap } from "../../Tap";
@@ -22,7 +22,7 @@ export function ChildrenList({ children, onPick, onBack }: Props) {
           <div className={children.length >= 6 ? "cards many" : "cards"}>
             {children.map((p) => (
               <Tap key={p.id} id={`edit_${p.id}`} className="card" onTap={() => onPick(p.id)}>
-                <img src={avatarImage(p.avatar)} alt="" draggable={false} />
+                <img src={heroes.faceUrl(p.avatar)} alt="" draggable={false} />
                 <span>{p.name}</span>
               </Tap>
             ))}

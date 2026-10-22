@@ -1,12 +1,12 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { avatarSheet, frameIndex, npcSheet, worldSize } from "../../../src/core/world/sprites";
+import { frameIndex, heroSheet, npcSheet, worldSize } from "../../../src/core/world/sprites";
 
 const db = (f: string) => JSON.parse(readFileSync(`public/game/db/${f}.json`, "utf8"));
 
 describe("map sheets", () => {
   it("gives each hero its HD sheet, 128x256 per frame", () => {
-    expect(avatarSheet(db("avatars"), "girl_teal")).toMatchObject({
+    expect(heroSheet("girl_teal")).toMatchObject({
       url: "game/sprites/npc/nagmon_hero_girl.png",
       frameWidth: 128,
       frameHeight: 256,
@@ -14,8 +14,8 @@ describe("map sheets", () => {
   });
 
   it("draws an old app's key and an unknown key as a hero", () => {
-    expect(avatarSheet(db("avatars"), "girl_dark").url).toBe("game/sprites/npc/nagmon_hero_curly.png");
-    expect(avatarSheet(db("avatars"), "nobody").url).toBe("game/sprites/npc/nagmon_hero_boy.png");
+    expect(heroSheet("girl_dark").url).toBe("game/sprites/npc/nagmon_hero_curly.png");
+    expect(heroSheet("nobody").url).toBe("game/sprites/npc/nagmon_hero_boy.png");
   });
 
   it("finds the owl's sheet", () => {

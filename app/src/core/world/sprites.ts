@@ -1,8 +1,9 @@
 import { artFile } from "../../game/artSource";
+import { heroes, type Roster } from "../family/heroes";
 import type { Dir } from "./grid";
 
 /**
- * Map sheets (db/avatars.json, db/npcs.json): 3 frames across (step,
+ * Map sheets (heroes.json, db/npcs.json): 3 frames across (step,
  * stand, step) and 4 directions down (down, left, right, up), each
  * frame two tiles tall.
  */
@@ -37,22 +38,17 @@ export function worldSize(sheet: Sheet, tileSize: number, sourceTile: number): {
   return { width, height: (width * sheet.frameHeight) / sheet.frameWidth };
 }
 
-interface AvatarsDb {
-  avatars: ({ key: string } & SheetRecord)[];
-  legacy: Record<string, string>;
-  fallback: string;
-}
-
 interface NpcsDb {
   [slug: string]: { sprites?: SheetRecord };
 }
 
 const ROWS: Readonly<Record<Dir, number>> = { down: 0, left: 1, right: 2, up: 3 };
 
-/** The map sheet of the hero a profile's avatar key draws (old keys and unknown ones too). */
-export function avatarSheet(db: AvatarsDb, key: string): Sheet {
-  const want = db.avatars.find((a) => a.key === key) ? key : (db.legacy[key] ?? db.fallback);
-  return sheetOf(db.avatars.find((x) => x.key === want) ?? db.avatars[0]);
+/** The map sheet of the hero a profile's avatar id draws (old ids and unknown ones too; a variant may have its own sheet). */
+export function heroSheet(id: string, variant?: string, roster: Roster = heroes): Sheet {
+  const f = roster.file(id, "map", variant);
+  const [frameWidth, frameHeight] = f.frame ?? [0, 0];
+  return { url: artFile(f.file), frameWidth, frameHeight, scale: f.scale ?? null };
 }
 
 export function npcSheet(db: NpcsDb, slug: string): Sheet | null {

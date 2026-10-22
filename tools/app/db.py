@@ -41,8 +41,9 @@ from typing import Any
 
 from PIL import Image
 
-from tools.app import hd, overlays, skins
+from tools.app import hd, heroes, overlays, skins
 from tools.app.common import MOD_ORDER, MODS, Output, mod_file, rel_repo
+from tools.app.content import read_yaml
 
 EXTENSIONS = [".json", ".yaml", ".yml"]
 SHEET_LAYOUT = (128, 88)
@@ -56,17 +57,6 @@ RECTS = {
 MENU_MUSIC = ("music_main_theme",)
 #: Technique animations too scary for young kids -> a gentle one.
 GENTLE_ANIMATIONS = {"frighten": "sparks_white"}
-#: The avatars a child can pick: the owner's three modest HD heroes. The
-#: Tuxemon ones (sleeveless map sheets) are gone; the keys old profiles
-#: stored map to a hero.
-AVATAR_KEYS = ("boy_blue", "girl_teal", "girl_curly")
-AVATAR_LEGACY = {
-    "boy_light": "boy_blue",
-    "boy_dark": "boy_blue",
-    "girl_light": "girl_teal",
-    "girl_dark": "girl_curly",
-}
-AVATAR_FALLBACK = "boy_blue"
 #: A character's map sheet: 3 frames across, 4 directions down.
 SHEET_COLUMNS, SHEET_ROWS = 3, 4
 #: One frame of a 1x character map sheet; a 1x combat sheet's width.
@@ -765,41 +755,50 @@ def avatar_card(out: Output, key: str, combat_sheet: str) -> str:
 
 def avatar_records(sprites: Sprites) -> dict[str, Any]:
     """
-    The child's avatars: the HD heroes of ``nagmon.game_flow.AVATARS``,
-    a map from every other old key to a hero, and the fallback.
+    The child's avatars: the heroes of ``mods/nagmon/heroes/heroes.yaml``
+    (the same roster the app ships as ``heroes.json``), a map from every
+    old key to a hero, and the fallback. The old game's list
+    (``nagmon.game_flow.AVATARS``) only adds a hero's old label and gender.
     """
     from nagmon.game_flow import AVATARS
 
+    roster = read_yaml(heroes.SOURCE)
     by_key = {avatar.key: avatar for avatar in AVATARS}
-    old_keys = set(by_key) - set(AVATAR_KEYS)
-    if old_keys != set(AVATAR_LEGACY):
+    ids = {h["id"] for h in roster["heroes"]}
+    legacy = dict(roster.get("legacy") or {})
+    old_keys = set(by_key) - ids
+    if not old_keys <= set(legacy):
         raise ValueError(f"avatar keys without a hero: {sorted(old_keys)}")
     records = []
-    for key in AVATAR_KEYS:
-        avatar = by_key[key]
-        portrait, portrait_scale = combat_sheet(sprites, avatar.combat_sheet)
-        records.append(
-            {
-                "key": avatar.key,
-                "sprite": avatar.sprite,
-                "combat_sheet": avatar.combat_sheet,
-                "gender": avatar.gender,
-                "label_he": avatar.label_he,
-                **map_sheet(
-                    sprites,
-                    f"sprites/{avatar.sprite}.png",
-                    f"npc/{avatar.sprite}.png",
-                    False,
-                ),
-                "portrait": portrait,
-                "portrait_scale": portrait_scale,
-                "card": avatar_card(
-                    sprites.out, avatar.key, avatar.combat_sheet
-                ),
-            }
+    for h in sorted(roster["heroes"], key=lambda h: h["order"]):
+        key = h["id"]
+        source = h["source"]
+        old = by_key.get(key)
+        portrait, portrait_scale = combat_sheet(
+            sprites, source["combat_sheet"]
         )
+        record: dict[str, Any] = {
+            "key": key,
+            "sprite": source["sprite"],
+            "combat_sheet": source["combat_sheet"],
+        }
+        if old is not None:
+            record["gender"] = old.gender
+        record["label_he"] = old.label_he if old else h["name"]["he"]
+        record.update(
+            map_sheet(
+                sprites,
+                f"sprites/{source['sprite']}.png",
+                f"npc/{source['sprite']}.png",
+                False,
+            )
+        )
+        record["portrait"] = portrait
+        record["portrait_scale"] = portrait_scale
+        record["card"] = avatar_card(sprites.out, key, source["combat_sheet"])
+        records.append(record)
     return {
         "avatars": records,
-        "legacy": dict(AVATAR_LEGACY),
-        "fallback": AVATAR_FALLBACK,
+        "legacy": legacy,
+        "fallback": roster["fallback"],
     }

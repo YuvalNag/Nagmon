@@ -6,7 +6,7 @@ import type { ContentLibrary } from "../../../core/learning";
 import { buildChildReport, type ChildReport } from "../../../core/learning/parentReport";
 import { localDay, WorldState } from "../../../core/world/worldState";
 import { quickBuyAllowed, withQuickBuy } from "../../../core/family/shopSettings";
-import { AVATARS, avatarImage } from "../../../core/family/avatars";
+import { heroChoices } from "../../../core/family/heroes";
 import { GRADE_NAMES_HE } from "../../../core/family/gradeDefaults";
 import { PinError, PinLockedError } from "../../../core/family/parent";
 import { ProfileError, ProfileNameTakenError, type Profile, validateName } from "../../../core/family/profiles";
@@ -625,7 +625,7 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
             screen="parents-avatar"
             title={t("avatarTitle")}
             busy={busy}
-            choices={AVATARS.map((a) => ({ id: a.key, label: a.labelHe, image: avatarImage(a.key) }))}
+            choices={heroChoices()}
             onPick={(key) => saveChild(p.id, (c) => (c.avatar = key), { kind: "child", id: p.id, message: t("errorTryAgain") })}
             onBack={back}
           />

@@ -1,6 +1,6 @@
 import { type ReactNode, useEffect, useRef } from "react";
 import type { Creature } from "../../core/world/worldState";
-import { avatarImage } from "../../core/family/avatars";
+import { heroes } from "../../core/family/heroes";
 import type { IntentView } from "../../core/game/battle";
 import type { IntentId } from "../../core/data/battleTypes";
 import type { Badge } from "../../core/game/battleStatus";
@@ -285,7 +285,7 @@ export function Stage(p: Props) {
       </div>
 
       <div className="stand-mine">
-        <img className={cls("battle-child", [p.victory, "cheer"])} src={avatarImage(p.avatar)} alt="" draggable={false} />
+        <img className={cls("battle-child", [p.victory, "cheer"])} src={heroes.faceUrl(p.avatar)} alt="" draggable={false} />
         <div ref={mineRef} className={cls("battle-pic mine", [attack && right, "lunge"], [wrong && !!plan?.oops && !plan.calm, "trip"])} data-asleep={p.asleep}>
           <MonsterPic monsters={p.monsters} species={p.mine.species} side="back" height={0.26} />
           {p.asleep && (

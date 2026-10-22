@@ -27,7 +27,7 @@ import { mapZoom, scrollFor, snap } from "../core/world/camera";
 import { type Dir, STEP } from "../core/world/grid";
 import { placeIsFree, type Place } from "../core/world/place";
 import { blockedAhead, readMap, teleportAt, type Placement, type TiledMap, type WorldMap } from "../core/world/mapData";
-import { avatarSheet, frameIndex, npcSheet, type Sheet, worldSize } from "../core/world/sprites";
+import { frameIndex, heroSheet, npcSheet, type Sheet, worldSize } from "../core/world/sprites";
 import { Walker } from "../core/world/walker";
 import { getLogger } from "../platform/appLog";
 import { FrameStats, type FrameSummary } from "../platform/frameStats";
@@ -52,7 +52,7 @@ export const CONTEXT_WAIT_MS = 5000;
 
 export interface MapOptions {
   parent: HTMLElement;
-  /** The profile's avatar key (core/family/avatars.ts). */
+  /** The profile's avatar id (a hero of core/family/heroes.ts). */
   avatar: string;
   /** The direction asked for this frame (the d-pad's `take`). */
   input: () => Dir | null;
@@ -248,7 +248,6 @@ class MapScene extends Phaser.Scene {
   }
 
   preload(): void {
-    this.load.json("db:avatars", "game/db/avatars.json");
     this.load.json("db:npcs", "game/db/npcs.json");
     this.load.json("db:music", "game/db/music.json");
   }
@@ -263,7 +262,7 @@ class MapScene extends Phaser.Scene {
   }
 
   private async begin(): Promise<void> {
-    this.playerSheet = avatarSheet(this.cache.json.get("db:avatars"), this.opts.avatar);
+    this.playerSheet = heroSheet(this.opts.avatar);
     await this.loadAll(() => {
       this.load.spritesheet("hero", this.playerSheet.url, {
         frameWidth: this.playerSheet.frameWidth,
