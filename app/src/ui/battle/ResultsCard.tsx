@@ -7,6 +7,8 @@ interface Props {
   asleep: string[];
   /** The line that opens the card: the creature is calm. */
   line: string;
+  /** What the creature left (an Evolution Card), as a sentence, or null. */
+  found?: string | null;
 }
 
 /**
@@ -14,7 +16,7 @@ interface Props {
  * always; Steady when nobody fell asleep; Bright for two Brilliant hits),
  * the coins and the growth points. A star that is missing takes nothing away.
  */
-export function ResultsCard({ reward, asleep, line }: Props) {
+export function ResultsCard({ reward, asleep, line, found }: Props) {
   const stars: ["calm" | "steady" | "bright", boolean][] = [
     ["calm", true],
     ["steady", reward.stars.steady],
@@ -34,6 +36,12 @@ export function ResultsCard({ reward, asleep, line }: Props) {
       <p className="results-pay">
         {t("resultsCoins", { coins: reward.coins })} · {t("resultsPoints", { n: reward.points })}
       </p>
+      {found && (
+        <p className="results-found" data-id="battle_found">
+          <span aria-hidden="true">🎁 </span>
+          {found}
+        </p>
+      )}
       {asleep.length > 0 && (
         <p className="results-asleep" data-id="battle_asleep">
           {t("resultsAsleep", { names: asleep.join(", ") })}

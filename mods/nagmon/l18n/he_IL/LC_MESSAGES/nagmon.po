@@ -1107,6 +1107,112 @@ msgstr "קוראים להם \"הכובענים\", כי הראש שלהם מזכ�
 msgid "dandicub_description"
 msgstr "אחרי שהגורים נולדים, הם מרחפים לכל קצות העולם ומחפשים מקום חדש לגדול בו."
 
+# --- evolution (BATTLE_V3 S4): the app's own texts, app_<key> of app/src/i18nEvolution.ts (kept in step by tests/app/test_app_evolution_texts.py) ---
+
+msgid "app_evoWarm"
+msgstr "{name} מרגיש משהו חם בפנים…"
+
+msgid "app_evoGo"
+msgstr "להתפתח!"
+
+msgid "app_evoLater"
+msgstr "אחר כך"
+
+msgid "app_evoSkip"
+msgstr "דילוג"
+
+msgid "app_evoDone"
+msgstr "ממשיכים"
+
+msgid "app_evoShelf"
+msgstr "כרטיסי התפתחות"
+
+msgid "app_evoFound"
+msgstr "{name} השאיר לך מתנה: {card}!"
+
+msgid "app_evoNoTarget"
+msgstr "אין עכשיו חבר שהכרטיס הזה מתאים לו."
+
+msgid "app_evoNotYet"
+msgstr "הכרטיס הזה מתאים מרמה {level}."
+
+msgid "app_evoWhoCard"
+msgstr "מי יתפתח?"
+
+msgid "app_evoCardInBattle"
+msgstr "כרטיסי התפתחות משתמשים מחוץ לקרב."
+
+msgid "app_evoChecklist"
+msgstr "מה חסר כדי להתפתח?"
+
+msgid "app_evoReady"
+msgstr "{name} מוכן להתפתח!"
+
+msgid "app_evoGateLevel"
+msgstr "רמה {have} מתוך {need}"
+
+msgid "app_evoGateKnow"
+msgstr "ידע ב{subject} {have} מתוך {need}"
+
+msgid "app_evoGateStars"
+msgstr "כוכבים ב{subject} {have} מתוך {need}"
+
+msgid "app_evoGateHearts"
+msgstr "לבבות {have} מתוך {need}"
+
+msgid "app_evoGateLesson"
+msgstr "שיעור אצל המורה"
+
+msgid "app_evoGatePlace"
+msgstr "לעמוד במקום של {name}"
+
+msgid "app_evoNoForm"
+msgstr "אין לו צורה גדולה יותר."
+
+msgid "app_evoKeepSmall"
+msgstr "להישאר קטן"
+
+msgid "app_evoKeepSmallOn"
+msgstr "נשאר קטן וחמוד"
+
+msgid "app_evoShimmer"
+msgstr "זוהר מהלמידה"
+
+msgid "app_evoStatPep"
+msgstr "מרץ"
+
+msgid "app_evoStatPower"
+msgstr "כוח"
+
+msgid "app_evoStatGuard"
+msgstr "הגנה"
+
+msgid "app_evoStatSpeed"
+msgstr "מהירות"
+
+msgid "app_evoOwl"
+msgstr "כל הכבוד! הלמידה שלך עזרה לו לגדול."
+
+msgid "app_evoBook"
+msgstr "רשומה חדשה בספר"
+
+msgid "app_evoShimmerLine"
+msgstr "הוא זוהר בצבע של {subject}!"
+
+msgid "app_evoEffectsAnim"
+msgstr "התפתחות: {mode}"
+
+msgid "app_evoEffectsLong"
+msgstr "ארוכה"
+
+msgid "app_evoEffectsShort"
+msgstr "קצרה"
+
+msgid "app_evoTutorGift"
+msgstr "המורה נתנה לך מתנה: {name}!"
+
+# --- end of the evolution texts ---
+
 # --- solar-system animals (tools/art/import_solar_monsters.py) ---
 
 msgid "lunibble"

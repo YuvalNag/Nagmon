@@ -14,6 +14,8 @@ import { type ContentLibrary, LearningEngine, LearnerState, loadContent, PyRando
 import { SubjectMap } from "../core/learning/quiz_flow";
 import { loadTrips, type Trip } from "../core/game/trips";
 import { FieldLog } from "../core/game/fieldLog";
+import { configureGrowth } from "../core/game/collection";
+import { addKnowHow, checkGates, type Evolved, type EvolveCtx, evolve, evolveWithCard } from "../core/game/evolution";
 import { type Economy, economy } from "../core/game/items";
 import { type Facts, facts } from "../core/game/facts";
 import { type MailData, mailData } from "../core/game/mail";
@@ -192,6 +194,11 @@ export class Play {
       this.hatched.push(...out);
       void this.saveWorld();
     }
+    // Know-how: a right answer in the partner's home subject, outside a battle (a battle counts its own)
+    if (session.outcome.correct && context !== "battle" && context !== "gift") {
+      const lead = this.world.creatures[0];
+      if (lead && this.subjectOf(lead.species) === q.subject) addKnowHow(lead, 1);
+    }
     const skill = this.engine.content.get(q.skill_id);
     this.field.question({
       subject: q.subject,
@@ -202,6 +209,48 @@ export class Play {
       ms: session.elapsedMs,
       context,
     });
+  }
+
+  /** The home subject of a species: the battle data's, or the one its element practises. */
+  subjectOf(species: string): string {
+    return this.battle?.species[species]?.subject ?? this.subjects.subjectFor(this.monsters[species]?.types ?? [], null, species);
+  }
+
+  /**
+   * What the evolution checks need (core/game/evolution.ts), read live: the stars the learner earned, the lessons
+   * passed, the zone the child stands in. Null in a build without battle data (no evolution then).
+   */
+  evolveCtx(): EvolveCtx | null {
+    if (!this.battle) return null;
+    return {
+      monsters: this.monsters,
+      battle: this.battle,
+      rules: this.battle.rules.evolution,
+      stars: (s) => this.engine.learner.stars.get(s) ?? 0,
+      lessons: this.world.lessons.done,
+      zone: this.world.trips.at?.split("/")[1] ?? null,
+      subjectOf: (sp) => this.subjectOf(sp),
+    };
+  }
+
+  /**
+   * The child evolves a friend: by learning (every gate must be met) or with a card from the Bag (the card is used up).
+   * Null, and nothing changed, when it is not allowed. The world is saved and one line of ids goes to the log.
+   */
+  evolveNow(creatureId: string, how: "learning" | "card", itemId?: string): Evolved | null {
+    const ctx = this.evolveCtx();
+    const c = this.world.creatures.find((x) => x.id === creatureId);
+    if (!ctx || !c) return null;
+    let done: Evolved | null = null;
+    if (how === "card") done = itemId ? evolveWithCard(this.world, this.economy, ctx, itemId, creatureId) : null;
+    else {
+      const check = checkGates(c, ctx);
+      if (check?.ready) done = evolve(this.world, creatureId, check.form.to, "learning");
+    }
+    if (!done) return null;
+    this.field.note("evolve", { from: done.before, to: done.after, how: done.how, level: c.level });
+    void this.saveWorld();
+    return done;
   }
 
   /** A warning in the log. */
@@ -295,6 +344,8 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   // a trip file that is not there, or a map not built, is not an error: the zone is "coming soon"
   const trips = await loadTrips(fetchJson, (map) => Promise.resolve(fetchJson(`maps/${map}.json`)).then(() => true, () => false)).catch(() => []);
   log.info(`Play opened: grade ${profile.grade}, ${learner.answers_total} answers so far, ${world.money} coins`);
+  // the growth curve is the data's (the rules file); the first curve stays when a build has no battle data
+  if (battleData) configureGrowth(battleData.rules.growth);
   const play = new Play(profile, engine, world, texts, subjects, monsters, encounters, eco, trips, profiles, log, now, lootTable, factsTable, battleData, objectsTable, mailTable, peopleTable);
   if (typeof opts.hour === "number") play.hourOverride = opts.hour;
   return play;

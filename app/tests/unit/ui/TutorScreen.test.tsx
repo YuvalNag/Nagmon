@@ -7,7 +7,10 @@ import { FieldLog } from "../../../src/core/game/fieldLog";
 import { type Lesson, loadLessons } from "../../../src/core/game/lessons";
 import { WorldState } from "../../../src/core/world/worldState";
 import { TutorScreen } from "../../../src/ui/tutor/TutorScreen";
+import { economy } from "../../../src/core/game/items";
 import { engineFor, gameJson, shipped } from "../game/helpers";
+
+const eco = economy(gameJson("economy.json"));
 
 let content: ContentLibrary;
 let lessons: Lesson[];
@@ -21,7 +24,7 @@ afterEach(() => {
   localStorage.clear();
 });
 
-function setup(opts: { grade?: number; world?: (w: WorldState) => void; settings?: Record<string, unknown>; institute?: string } = {}) {
+function setup(opts: { grade?: number; world?: (w: WorldState) => void; settings?: Record<string, unknown>; institute?: string; every?: number } = {}) {
   const grade = opts.grade ?? 4;
   const world = new WorldState();
   world.addMoney(7);
@@ -40,6 +43,9 @@ function setup(opts: { grade?: number; world?: (w: WorldState) => void; settings
     saveLearner: vi.fn(async () => {}),
     saveWorld: vi.fn(async () => {}),
     logAnswer: vi.fn(),
+    economy: eco,
+    // the shipped rules, with the tutor's gift as often as the test wants (the data says every 4th)
+    battle: { rules: { evolution: { find: { tutor_every: opts.every ?? 4 } } } },
   } as unknown as Play;
   let closed = 0;
   let changed = 0;
@@ -146,6 +152,28 @@ describe("a lesson", () => {
     await m.press("tutor_done");
     expect(m.screen()).toBe("tutor-list");
     expect(m.q("lesson_moon")!.getAttribute("data-done")).toBe("true");
+  });
+
+  it("every Nth lesson passed for the first time in a subject, the tutor gives that subject's Evolution Card (the data's N); a repeat gives none", async () => {
+    const none = setup();
+    await toPractice(none);
+    await answerPractice(none, true);
+    await none.press("quiz_continue");
+    expect(none.world.items.size).toBe(0);
+    expect(none.q("tutor_card_gift")).toBeNull();
+    cleanup();
+    const m = setup({ every: 1 });
+    await toPractice(m);
+    await answerPractice(m, true);
+    await m.press("quiz_continue");
+    expect(m.world.items.get("subject_card_science")).toBe(1);
+    expect(m.q("tutor_card_gift")!.textContent).toContain("כרטיס התפתחות מדעים");
+    expect(m.lines.some((l) => l.startsWith("CARD_FOUND item=subject_card_science"))).toBe(true);
+    await m.press("tutor_done");
+    await toPractice(m);
+    await answerPractice(m, true);
+    await m.press("quiz_continue");
+    expect(m.world.items.get("subject_card_science")).toBe(1);
   });
 
   it("a wrong answer costs and pays nothing: the tutor says to look again and the cards replay", async () => {

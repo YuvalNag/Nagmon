@@ -3,6 +3,7 @@ import { addCreature } from "../../../src/core/game/collection";
 import { partyOf } from "../../../src/core/game/party";
 import { meadow, swapWithMeadow } from "../../../src/core/game/rest";
 import { WorldState } from "../../../src/core/world/worldState";
+import { gameJson } from "./helpers";
 
 function world(n: number) {
   const w = new WorldState();
@@ -49,5 +50,20 @@ describe("swapping a friend of the party with one from the Meadow", () => {
     const w = world(3);
     expect(meadow(w)).toEqual([]);
     expect(swapWithMeadow(w, "c1", "c2")).toBe(false);
+  });
+});
+
+describe("carried back to the Rest Center (the parent's decision on fainting)", () => {
+  it("the place the team wakes is on the Rest Center's map, on a free tile, in front of the nurse, away from the door", async () => {
+    const { CARRIED_TO } = await import("../../../src/core/game/faint");
+    const { readMap } = await import("../../../src/core/world/mapData");
+    const map = readMap(CARRIED_TO.map, gameJson(`maps/${CARRIED_TO.map}.json`));
+    const { x, y } = CARRIED_TO.at;
+    expect(map.collision.isWall(x, y)).toBe(false);
+    expect(map.collision.cell(x, y)).toBe(".");
+    const nurse = map.npcs.find((n) => n.slug === "nagmon_house_nurse");
+    expect(nurse).toBeDefined();
+    // two tiles below the nurse: she can be talked to by walking up
+    expect([x, y - 2]).toEqual([nurse!.x, nurse!.y]);
   });
 });

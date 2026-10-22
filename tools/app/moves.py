@@ -803,10 +803,43 @@ def with_numbers(
     return out
 
 
+def check_growth(rules: dict[str, Any]) -> None:
+    """The growth and evolution numbers the app reads (BATTLE_V3 5.4, 7)."""
+    g, e = rules["growth"], rules["evolution"]
+    for key in ("need_base", "need_per_level"):
+        if not isinstance(g.get(key), int) or g[key] < 1:
+            raise ValueError(
+                f"rules: growth.{key} is a whole number, 1 or more"
+            )
+    for key in ("level", "know_how", "stars", "hearts"):
+        v = e[key]
+        if len(v) != 2 or not all(isinstance(n, int) and n >= 0 for n in v):
+            raise ValueError(f"rules: evolution.{key} is two whole numbers")
+        if v[0] > v[1]:
+            raise ValueError(f"rules: evolution.{key} grows with the stage")
+    if not -6 <= e["card_level_offset"] <= 0:
+        raise ValueError("rules: evolution.card_level_offset is -6 to 0")
+    find = e["find"]
+    for kind in ("zone", "subject", "bright"):
+        chance = find["wild_win"][kind]
+        if not isinstance(chance, (int, float)) or not 0 <= chance <= 0.25:
+            raise ValueError(f"rules: find.wild_win.{kind} is 0 to 0.25")
+    if not isinstance(find["tutor_every"], int) or find["tutor_every"] < 1:
+        raise ValueError("rules: find.tutor_every is 1 or more")
+    a = e["animation"]
+    if not 0 < a["calm_s"] < a["short_s"] < a["long_s"] <= 12:
+        raise ValueError(
+            "rules: animation is calm < short < long, at most 12 s"
+        )
+    if not 1 < a["skip_rate"] <= 6:
+        raise ValueError("rules: animation.skip_rate is above 1, at most 6")
+
+
 # -------------------------------------------------------------------- build
 def load() -> dict[str, Any]:
     """Every source, read and checked; the data the build writes."""
     rules = read_yaml(RULES)
+    check_growth(rules)
     status_doc = read_yaml(STATUSES)
     statuses = check_statuses(status_doc)
     status_ids = {s["id"] for s in statuses}

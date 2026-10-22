@@ -1,10 +1,11 @@
 import type { CSSProperties } from "react";
 import type { Lesson, StampCard } from "../../core/game/lessons";
-import { t } from "../../i18n";
+import { itemText, t } from "../../i18n";
 import { ScreenTime } from "../screenTime";
 import { Tap } from "../Tap";
 import { CoinIcon, CoinPill } from "./icons";
 import { StampCardView } from "./StampCard";
+import "../../i18nEvolution";
 
 export interface Passed {
   lesson: Lesson;
@@ -13,6 +14,8 @@ export interface Passed {
   first: boolean;
   /** One more note charge was given (the first pass). */
   gift: number;
+  /** An Evolution Card the tutor gave (every Nth first pass in a subject): the item's id, or null. */
+  giftCard: string | null;
   card: StampCard;
   /** The child's coins after the award. */
   total: number;
@@ -51,6 +54,11 @@ export function LessonResult({ passed, onDone }: { passed: Passed; onDone: () =>
           {passed.card.total > 0 && passed.card.done === passed.card.total ? t("tutorAllStamps") : first ? t("tutorNewStamp") : ""}
         </p>
         {passed.gift > 0 && <p className="tutor-gift">{t("tutorNoteGift")}</p>}
+        {passed.giftCard && (
+          <p className="tutor-gift" data-id="tutor_card_gift">
+            {t("evoTutorGift", { name: itemText(passed.giftCard, "name") })}
+          </p>
+        )}
         <Tap id="tutor_done" className="primary" onTap={onDone}>
           {t("tutorDone")}
         </Tap>

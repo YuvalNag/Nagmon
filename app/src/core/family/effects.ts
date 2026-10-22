@@ -9,13 +9,17 @@ import type { JsonObject } from "../../platform/storage";
 export type MotionSetting = "system" | "less" | "full";
 export const MOTIONS: readonly MotionSetting[] = ["system", "less", "full"];
 
+/** The evolution animation: the whole (about 10.6 s) or the short one the parent can choose (about 6 s, BATTLE_V3 7.4). */
+export type EvolutionLength = "long" | "short";
+
 export interface EffectSettings {
   motion: MotionSetting;
   sound: boolean;
   vibration: boolean;
+  evolution: EvolutionLength;
 }
 
-export const DEFAULT_EFFECTS: Readonly<EffectSettings> = { motion: "system", sound: true, vibration: true };
+export const DEFAULT_EFFECTS: Readonly<EffectSettings> = { motion: "system", sound: true, vibration: true, evolution: "long" };
 
 /** The volume of the battle's sounds: low, the parents' switch is on or off. */
 export const SFX_VOLUME = 0.35;
@@ -31,13 +35,14 @@ export function effectsFrom(settings: unknown): EffectSettings {
     motion,
     sound: typeof raw["sound"] === "boolean" ? raw["sound"] : DEFAULT_EFFECTS.sound,
     vibration: typeof raw["vibration"] === "boolean" ? raw["vibration"] : DEFAULT_EFFECTS.vibration,
+    evolution: raw["evolution"] === "short" || raw["evolution"] === "long" ? raw["evolution"] : DEFAULT_EFFECTS.evolution,
   };
 }
 
 /** The settings with the effects changed; the rest of the settings stays as it is. */
 export function withEffects(settings: JsonObject, patch: Partial<EffectSettings>): JsonObject {
   const now = { ...effectsFrom(settings), ...patch };
-  return { ...settings, effects: { motion: now.motion, sound: now.sound, vibration: now.vibration } };
+  return { ...settings, effects: { motion: now.motion, sound: now.sound, vibration: now.vibration, evolution: now.evolution } };
 }
 
 /** The next motion setting, for one button that goes round: system, less, full. */
