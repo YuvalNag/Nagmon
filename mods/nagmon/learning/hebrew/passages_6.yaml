@@ -1,0 +1,388 @@
+# Nagmon Hebrew reading passages, grade 6 (SDD_CONTENT section 5): original short texts written for this game.
+# Each passage names its skill and tags; its questions are regular bank items that inherit grade, skill and tags.
+# Hebrew only, without niqqud. The passage shows on the question screen (meta.passage_he).
+
+- id: pass6.01
+  grade: 6
+  skill: hebrew.reading.passage_6
+  tags: [passage_6]
+  title: ההצגה של איילת
+  text_he: >-
+    שבוע לפני ההצגה של כיתה ו' גילתה איילת שהיא שכחה את כל המילים של התפקיד שלה. היא ישבה בחדר, מלמלה לעצמה, והרגישה שהבטן שלה מתהפכת.
+    אמא הציעה: "נתחיל מההתחלה, משפט אחד בכל פעם."
+    במשך ארבעה ימים חזרו על הטקסט בזמן הכנת הארוחה, ואפילו בדרך לבית הספר.
+    בערב ההצגה עמדה איילת על הבמה ולא שכחה אף מילה.
+    אחרי התשואות חיפשה את אמא בקהל, וראתה אותה מנופפת בשתי ידיים, עם דמעות של גאווה בעיניים.
+  questions:
+    - id: heb.pass6.001
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מה הציעה אמא כדי לעזור לאיילת?'
+      prompt_en: 'What did Mom suggest to help Ayelet?'
+      choices:
+      - {he: לוותר על התפקיד ולבקש מחברה להחליף, en: To give up the role and ask a friend to replace her}
+      - {he: לקרוא את כל הטקסט בקול רם בבת אחת, en: To read the whole text aloud at once}
+      - {he: לחזור על הטקסט משפט אחד בכל פעם, en: To go over the text one sentence at a time}
+      answer: 2
+      explanation_he: 'אמא אמרה: "נתחיל מההתחלה, משפט אחד בכל פעם".'
+      explanation_en: 'Mom said: "let us start from the beginning, one sentence at a time".'
+    - id: heb.pass6.002
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'כמה ימים חזרו על הטקסט?'
+      prompt_en: 'For how many days did they rehearse the text?'
+      choices:
+      - {he: שבעה, en: Seven}
+      - {he: ארבעה, en: Four}
+      - {he: יומיים, en: Two}
+      answer: 1
+      explanation_he: 'כתוב: "במשך ארבעה ימים חזרו על הטקסט".'
+      explanation_en: 'It says: "for four days they repeated the text".'
+    - id: heb.pass6.003
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'איך אפשר לדעת שאיילת הייתה לחוצה?'
+      prompt_en: 'How can we tell Ayelet was stressed?'
+      choices:
+      - {he: הבטן שלה התהפכה והיא מלמלה לעצמה, en: Her stomach turned and she mumbled to herself}
+      - {he: היא צחקה והתבדחה עם כל החברות בכיתה, en: She laughed and joked with all the girls in class}
+      - {he: היא ישנה כל היום ולא התכוננה לכלום, en: She slept all day and prepared for nothing}
+      answer: 0
+      explanation_he: בטן שמתהפכת ומלמול הם סימנים של לחץ לפני אירוע.
+      explanation_en: A turning stomach and mumbling are signs of stress before an event.
+    - id: heb.pass6.004
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה אפשר להסיק על אמא?'
+      prompt_en: 'What can we conclude about Mom?'
+      choices:
+      - {he: היא תומכת ומתמידה, en: She is supportive and persistent}
+      - {he: היא רצתה שאיילת תוותר, en: She wanted Ayelet to quit}
+      - {he: היא לא התעניינה בהצגה, en: She was not interested in the play}
+      answer: 0
+      explanation_he: 'אמא הציעה פתרון, חזרה על הטקסט כמה ימים ואף הגיעה להצגה. כך נוהגת אם תומכת.'
+      explanation_en: 'Mom proposed a solution, rehearsed for days and came to the play. That is a supportive mother.'
+    - id: heb.pass6.005
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה פירוש "דמעות של גאווה"?'
+      prompt_en: 'What does "tears of pride" mean?'
+      choices:
+      - {he: בכי מכאב ומפחד מהבמה, en: Crying from pain and fear of the stage}
+      - {he: בכי מהתרגשות ושמחה, en: Crying out of excitement and joy}
+      - {he: בכי מכעס על הבמאי והשחקנים, en: Crying from anger at the director and actors}
+      answer: 1
+      explanation_he: 'אמא התרגשה מההצלחה של איילת, ולכן בכתה מאושר.'
+      explanation_en: 'Mom was moved by Ayelet''s success, so she cried from happiness.'
+- id: pass6.02
+  grade: 6
+  skill: hebrew.reading.passage_6
+  tags: [passage_6]
+  title: הציפורים הנודדות
+  text_he: >-
+    ישראל נמצאת על אחד מנתיבי הנדידה הגדולים בעולם. פעמיים בשנה, בסתיו ובאביב, עוברות מעל הארץ מאות מיליוני ציפורים בדרכן בין אירופה לאפריקה.
+    הסיבה היא שהארץ משמשת גשר יבשתי בין אירופה, אסיה ואפריקה. ציפורים גדולות מעדיפות לעוף מעל היבשה, שם האוויר החם עולה ועוזר להן לרחף בלי להתאמץ.
+    חלק מהעגורים נשארים בעמק החולה לכל החורף, ואחרים ממשיכים דרומה.
+    כדי שהציפורים יוכלו לנוח ולאכול בדרכן, חשוב לשמור על אזורי הביצות והאגמים.
+  questions:
+    - id: heb.pass6.006
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מדוע ישראל חשובה לציפורים נודדות?'
+      prompt_en: 'Why is Israel important to migrating birds?'
+      choices:
+      - {he: יש בה חורף קר מאוד ושלג רב, en: It has a very cold winter and much snow}
+      - {he: אין בה בני אדם שמפריעים לציפורים, en: There are no people who disturb the birds}
+      - {he: היא על נתיב הנדידה בין היבשות, en: It is on the migration route between continents}
+      answer: 2
+      explanation_he: הקטע אומר שישראל נמצאת על אחד מנתיבי הנדידה הגדולים בעולם.
+      explanation_en: 'The text says Israel lies on one of the world''s great migration routes.'
+    - id: heb.pass6.007
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מתי עוברות הציפורים מעל הארץ?'
+      prompt_en: 'When do the birds pass over the country?'
+      choices:
+      - {he: בסתיו ובאביב, en: In autumn and spring}
+      - {he: בקיץ ובחורף, en: In summer and winter}
+      - {he: רק בלילות הקיץ, en: Only on summer nights}
+      answer: 0
+      explanation_he: 'כתוב: "פעמיים בשנה, בסתיו ובאביב".'
+      explanation_en: 'It says: "twice a year, in autumn and spring".'
+    - id: heb.pass6.008
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'למה ציפורים גדולות מעדיפות לעוף מעל היבשה?'
+      prompt_en: 'Why do large birds prefer to fly over land?'
+      choices:
+      - {he: אין שם רוח כלל ולכן קל לעוף שם, en: 'There is no wind, so it is easy to fly there'}
+      - {he: האוויר החם שעולה עוזר להן לרחף, en: The rising warm air helps them glide}
+      - {he: הן פוחדות מהמים העמוקים והקרים בים, en: 'They are afraid of the deep, cold water of the sea'}
+      answer: 1
+      explanation_he: 'מעל היבשה עולה אוויר חם, והציפורים משתמשות בו כדי לרחף בלי להתאמץ.'
+      explanation_en: 'Warm air rises over land, and the birds use it to glide without effort.'
+    - id: heb.pass6.009
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'איפה חלק מהעגורים נשארים לחורף?'
+      prompt_en: 'Where do some of the cranes stay for the winter?'
+      choices:
+      - {he: בים המלח, en: At the Dead Sea}
+      - {he: בהרי הגליל, en: In the Galilee mountains}
+      - {he: בעמק החולה, en: In the Hula Valley}
+      answer: 2
+      explanation_he: 'כתוב: "חלק מהעגורים נשארים בעמק החולה לכל החורף".'
+      explanation_en: It says some of the cranes stay in the Hula Valley all winter.
+    - id: heb.pass6.010
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'למה חשוב לשמור על ביצות ואגמים?'
+      prompt_en: 'Why is it important to protect swamps and lakes?'
+      choices:
+      - {he: כדי שהציפורים יוכלו לנוח ולאכול, en: So the birds can rest and eat}
+      - {he: כדי שיהיה בהם יותר דגים לדייגים, en: So there will be more fish for fishermen}
+      - {he: כדי שאפשר יהיה לבנות שם בתים, en: So that houses can be built there}
+      answer: 0
+      explanation_he: 'הקטע מסיים בכך שהציפורים צריכות לנוח ולאכול בדרכן, ובשביל זה צריך את אזורי המים.'
+      explanation_en: 'The text ends by saying the birds need to rest and eat on their way, which needs water areas.'
+    - id: heb.pass6.011
+      kind: true_false
+      difficulty: 0.5
+      prompt_he: 'לפי הקטע, כל העגורים ממשיכים דרומה ואינם נשארים בישראל.'
+      prompt_en: 'According to the text, all the cranes continue south and do not stay in Israel.'
+      answer: false
+      explanation_he: 'הקטע אומר שחלק מהעגורים נשארים בעמק החולה, ואחרים ממשיכים.'
+      explanation_en: The text says some cranes stay in the Hula Valley while others continue.
+- id: pass6.03
+  grade: 6
+  skill: hebrew.reading.passage_6
+  tags: [passage_6]
+  title: יומן מסע
+  text_he: >-
+    יום ראשון. התעוררנו בחמש בבוקר, כשעוד היה חשוך. אבא הכין סנדוויצ'ים ואמא ארזה בקבוקי מים. לפני שיצאנו הוא אמר: "היום הולכים לעין גדי."
+    יום ראשון, אחר הצהריים. הלכנו שעתיים בשביל חם ומאובק. רותם התלונן שהרגליים שלו כואבות, אבל כשהגענו לנחל ראינו מפל קטן בתוך הסלעים, והכול נשכח.
+    ירדנו אל המים ושכשכנו רגליים. מים קרירים, צלולים, ובשפע. ליד הנחל ראינו יעל הרים שעמד על סלע ולא פחד מאיתנו.
+    בערב חזרנו עייפים ומאושרים. אני חושבת שזה היה הטיול הכי טוב בקיץ.
+  questions:
+    - id: heb.pass6.012
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'באיזה סוג טקסט מדובר?'
+      prompt_en: 'What kind of text is this?'
+      choices:
+      - {he: הוראות הפעלה למכשיר חשמלי, en: Operating instructions for an electric device}
+      - {he: יומן אישי של מטייל, en: 'A hiker''s personal diary'}
+      - {he: כתבה בעיתון על טיול בעין גדי, en: A news report about a trip to Ein Gedi}
+      answer: 1
+      explanation_he: 'הכותבת מספרת בגוף ראשון מה קרה בכל חלק של היום, ומציינת תאריכים. זה יומן.'
+      explanation_en: 'The writer tells in the first person what happened in each part of the day, with dates. That is a diary.'
+    - id: heb.pass6.013
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'כמה זמן הלכו בשביל?'
+      prompt_en: 'How long did they walk on the trail?'
+      choices:
+      - {he: חצי שעה, en: Half an hour}
+      - {he: שעתיים, en: Two hours}
+      - {he: ארבע שעות, en: Four hours}
+      answer: 1
+      explanation_he: 'כתוב: "הלכנו שעתיים בשביל חם ומאובק".'
+      explanation_en: 'It says: "we walked two hours on a hot, dusty trail".'
+    - id: heb.pass6.014
+      kind: choice
+      difficulty: 0.5
+      prompt_he: 'למה רותם שכח שכואבות לו הרגליים?'
+      prompt_en: 'Why did Rotem forget that his legs hurt?'
+      choices:
+      - {he: כי ישב לנוח בצל עץ גדול, en: Because he sat to rest in the shade of a big tree}
+      - {he: כי אבא סחב אותו עד סוף הדרך, en: Because Dad carried him to the end of the way}
+      - {he: כי ראה מפל קטן בסלעים, en: Because he saw a small waterfall in the rocks}
+      answer: 2
+      explanation_he: 'כשהגיעו לנחל וראו מפל, "הכול נשכח", כולל הכאב ברגליים.'
+      explanation_en: 'When they reached the stream and saw the waterfall, "everything was forgotten", including sore legs.'
+    - id: heb.pass6.015
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'איזו חיה ראו ליד הנחל?'
+      prompt_en: 'Which animal did they see by the stream?'
+      choices:
+      - {he: יעל הרים, en: An ibex}
+      - {he: צבי הנגב, en: A Negev gazelle}
+      - {he: שועל, en: A fox}
+      answer: 0
+      explanation_he: 'הכותבת כותבת שראו יעל הרים על סלע, והוא לא פחד.'
+      explanation_en: 'The writer says they saw an ibex on a rock, unafraid.'
+    - id: heb.pass6.016
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'איך הרגישה הכותבת בסוף היום?'
+      prompt_en: 'How did the writer feel at the end of the day?'
+      choices:
+      - {he: כעוסה ועצובה, en: Angry and sad}
+      - {he: עייפה ומאושרת, en: Tired and happy}
+      - {he: משועממת ורעבה, en: Bored and hungry}
+      answer: 1
+      explanation_he: 'כתוב: "חזרנו עייפים ומאושרים".'
+      explanation_en: 'It says: "we returned tired and happy".'
+    - id: heb.pass6.017
+      kind: order
+      difficulty: 0.5
+      prompt_he: סדרו את אירועי היום לפי הסדר.
+      prompt_en: 'Put the day''s events in order.'
+      choices:
+      - {he: שכשכו ברגליים בנחל, en: They splashed their feet in the stream}
+      - {he: חזרו הביתה עייפים, en: They came home tired}
+      - {he: קמו בחמש בבוקר, en: They woke up at five}
+      - {he: הלכו בשביל חם, en: They walked on a hot trail}
+      answer: [2, 3, 0, 1]
+      explanation_he: 'הסדר בקטע הוא לפי שעות היום: בוקר, הליכה, נחל וערב.'
+      explanation_en: 'The order follows the day''s hours: morning, walking, the stream and evening.'
+- id: pass6.04
+  grade: 6
+  skill: hebrew.reading.passage_6
+  tags: [passage_6]
+  title: 'האם ללמוד בשעה מאוחרת?'
+  text_he: >-
+    לאחרונה עולה הצעה לפתוח את יום הלימודים בתשע במקום בשמונה. כדאי לבחון אותה.
+    המצדדים בהצעה אומרים שילדים בגיל ההתבגרות צריכים לישון יותר. לדבריהם, כשמתחילים מאוחר יותר, התלמידים ערניים וקשובים בשיעורים הראשונים.
+    המתנגדים אומרים שאם הלימודים יתחילו מאוחר, הם גם יסתיימו מאוחר, ואז יישאר פחות זמן לחוגים ולמשחק.
+    לדעתי כדאי לנסות את ההצעה לתקופה קצרה ולבדוק: האם הציונים והמצב הרוח משתפרים? רק אחרי הניסוי נוכל להחליט בצורה נכונה.
+  questions:
+    - id: heb.pass6.018
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מה ההצעה שעולה בקטע?'
+      prompt_en: 'What proposal is raised in the text?'
+      choices:
+      - {he: לפתוח את יום הלימודים בתשע, en: To start the school day at nine}
+      - {he: לקצר את יום הלימודים בשעה אחת, en: To shorten the school day by one hour}
+      - {he: לבטל את כל החוגים אחר הצהריים, en: To cancel all afternoon clubs}
+      answer: 0
+      explanation_he: 'המשפט הראשון: "לפתוח את יום הלימודים בתשע במקום בשמונה".'
+      explanation_en: 'The first sentence: "to open the school day at nine instead of eight".'
+    - id: heb.pass6.019
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה הטענה של המצדדים בהצעה?'
+      prompt_en: 'What is the claim of the supporters of the proposal?'
+      choices:
+      - {he: ילדים אוהבים לאכול ארוחת בוקר גדולה, en: Children like to eat a big breakfast}
+      - {he: אין צורך בהפסקות כשמתחילים מאוחר, en: There is no need for breaks when starting late}
+      - {he: צריך יותר שינה כדי להיות ערניים, en: More sleep is needed to be alert}
+      answer: 2
+      explanation_he: 'לפי המצדדים, שינה נוספת הופכת את התלמידים לערניים וקשובים.'
+      explanation_en: 'According to the supporters, extra sleep makes pupils alert and attentive.'
+    - id: heb.pass6.020
+      kind: choice
+      difficulty: 0.5
+      prompt_he: 'מה הטענה של המתנגדים?'
+      prompt_en: 'What is the claim of the opponents?'
+      choices:
+      - {he: הלימודים יהיו קשים ומעייפים יותר, en: Studies will be harder and more tiring}
+      - {he: הלימודים ייגמרו מאוחר ויהיה פחות זמן, en: School will end late and there will be less time}
+      - {he: המורים יצטרכו לעבוד יותר שעות בשבוע, en: Teachers will need to work more hours per week}
+      answer: 1
+      explanation_he: 'המתנגדים אומרים שאם מתחילים מאוחר, גם מסיימים מאוחר.'
+      explanation_en: 'The opponents say that if school starts late, it will also end late.'
+    - id: heb.pass6.021
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה מציעה הכותבת לעשות?'
+      prompt_en: 'What does the writer suggest doing?'
+      choices:
+      - {he: לנסות לתקופה קצרה ולבדוק את התוצאות, en: To try it for a short period and check the results}
+      - {he: לקבל את ההצעה מיד ולהחיל אותה בכל הארץ, en: To accept the proposal now and apply it nationwide}
+      - {he: לדחות את ההצעה לגמרי ולא לחשוב עליה, en: To reject the proposal completely without thinking about it}
+      answer: 0
+      explanation_he: 'הכותבת אומרת: "כדאי לנסות את ההצעה לתקופה קצרה ולבדוק".'
+      explanation_en: She says it is worth trying the proposal for a short period and checking.
+    - id: heb.pass6.022
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה מטרת הטקסט?'
+      prompt_en: 'What is the purpose of the text?'
+      choices:
+      - {he: לספר סיפור מצחיק על ילד שאהב לצייר, en: To tell a funny story about a boy who loved to draw}
+      - {he: להסביר איך מכינים מתכון פשוט לעוגה, en: To explain how to make a simple cake recipe}
+      - {he: להציג שתי דעות ולהביע דעה משלה, en: To present two views and express her own}
+      answer: 2
+      explanation_he: 'הכותבת מביאה טענות של שני הצדדים ואז כותבת "לדעתי". זה טקסט טיעון.'
+      explanation_en: 'The writer presents both sides, then writes "in my opinion". This is an argument text.'
+- id: pass6.05
+  grade: 6
+  skill: hebrew.reading.passage_6
+  tags: [passage_6]
+  title: ים המלח
+  text_he: >-
+    ים המלח הוא המקום הנמוך ביותר ביבשה בעולם, כארבע מאות ושלושים מטרים מתחת לפני הים. המים בו מלוחים פי כמה ממי הים הרגילים, ולכן אנשים צפים בו בלי לשחות, וקוראים בו עיתון בשכיבה.
+    בגלל המליחות כמעט אין בו דגים וצמחים, ומכאן שמו. סביבו אפשר למצוא מינרלים וחול שמשתמשים בהם לטיפוח ולרפואה.
+    בעשורים האחרונים מפלס המים יורד, כי מעט מים זורמים אליו מהירדן, והאידוי חזק. כדי להבין כמה מהר זה קורה, אפשר לראות את הקו הישן של החוף, הרחק מהמים של היום.
+  questions:
+    - id: heb.pass6.023
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מה מיוחד במיקום של ים המלח?'
+      prompt_en: 'What is special about the location of the Dead Sea?'
+      choices:
+      - {he: הוא המקום הנמוך ביותר ביבשה בעולם, en: It is the lowest place on land in the world}
+      - {he: הוא המקום הגבוה ביותר ביבשה בעולם, en: It is the highest place on land in the world}
+      - {he: הוא נמצא בקצה הצפוני של הארץ, en: It is at the northern end of the country}
+      answer: 0
+      explanation_he: 'הקטע אומר שהוא הנמוך ביותר ביבשה, כארבע מאות ושלושים מטרים מתחת לפני הים.'
+      explanation_en: 'The text says it is the lowest on land, about 430 meters below sea level.'
+    - id: heb.pass6.024
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'למה אנשים צפים בים המלח בלי לשחות?'
+      prompt_en: 'Why do people float in the Dead Sea without swimming?'
+      choices:
+      - {he: המים בו חמים מאוד ולכן הם קלים, en: 'Its water is very warm, so it is light'}
+      - {he: המים בו מלוחים מאוד, en: Its water is very salty}
+      - {he: הוא רדוד מאוד ואפשר ללכת בו, en: It is very shallow and you can walk in it}
+      answer: 1
+      explanation_he: 'מים מלוחים מאוד דוחפים את הגוף כלפי מעלה, ולכן צפים בו בקלות.'
+      explanation_en: 'Very salty water pushes the body upward, so people float easily.'
+    - id: heb.pass6.025
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'למה כמעט אין בו חיים?'
+      prompt_en: 'Why is there almost no life in it?'
+      choices:
+      - {he: בגלל הקור החזק בלילות החורף, en: Because of the strong cold in winter nights}
+      - {he: בגלל הרוח החזקה שנושבת בו תמיד, en: Because of the strong wind that always blows there}
+      - {he: בגלל המליחות הגבוהה, en: Because of the high salinity}
+      answer: 2
+      explanation_he: 'הקטע אומר: "בגלל המליחות כמעט אין בו דגים וצמחים".'
+      explanation_en: 'The text says: "because of the salinity there are almost no fish or plants".'
+    - id: heb.pass6.026
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'למה מפלס ים המלח יורד?'
+      prompt_en: 'Why is the level of the Dead Sea dropping?'
+      choices:
+      - {he: כי הוא זורם דרך נהר אל הים התיכון, en: Because it flows through a river to the Mediterranean}
+      - {he: 'מעט מים זורמים אליו, והאידוי חזק', en: 'Little water flows in, and evaporation is strong'}
+      - {he: כי אנשים שותים ממנו הרבה כל יום, en: Because people drink a lot from it every day}
+      answer: 1
+      explanation_he: 'הירדן מביא אליו מעט מים, והחום מאדה הרבה, ולכן המפלס יורד.'
+      explanation_en: 'The Jordan brings little water and the heat evaporates a lot, so the level drops.'
+    - id: heb.pass6.027
+      kind: choice
+      difficulty: 1.5
+      prompt_he: 'מה אפשר ללמוד מהקו הישן של החוף?'
+      prompt_en: 'What can we learn from the old shoreline?'
+      choices:
+      - {he: שהמים נסוגו והמפלס ירד, en: That the water retreated and the level dropped}
+      - {he: שהים גדל בשנים האחרונות, en: That the sea has grown in recent years}
+      - {he: שהחוף נבנה מחדש כל שנה, en: That the shore is rebuilt each year}
+      answer: 0
+      explanation_he: 'אם הקו הישן רחוק מהמים של היום, המים נסוגו, כלומר המפלס ירד.'
+      explanation_en: 'If the old line is far from today''s water, the water retreated, meaning the level dropped.'
+    - id: heb.pass6.028
+      kind: true_false
+      difficulty: 0.0
+      prompt_he: 'לפי הקטע, ים המלח מלוח פחות מהים הרגיל.'
+      prompt_en: 'According to the text, the Dead Sea is less salty than the regular sea.'
+      answer: false
+      explanation_he: הקטע אומר שהוא מלוח פי כמה ממי הים הרגילים.
+      explanation_en: The text says it is several times saltier than regular sea water.

@@ -1,4 +1,4 @@
-# Nagmon learning content - hebrew / text (grades 3-5): sentence types, punctuation, text types, text analysis, argument
+# Nagmon learning content - hebrew / text (grades 3-7): sentence types, punctuation, text types, text analysis, argument
 # Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
 # Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
 # Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
@@ -981,3 +981,332 @@ items:
   explanation_he: מטרת הפרסומת היא שנרצה מוצר או נבוא למקום. לכן היא משבחת אותו.
   explanation_en: The advertisement wants us to like a product or visit a place. So it praises it.
   tags: [text_types]
+- id: heb.tanal.001
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: -1.0
+  prompt_he: 'השלימו במילת קישור: "לא למדתי למבחן, ___ קיבלתי ציון נמוך."'
+  prompt_en: 'Complete with a connecting word: "I did not study for the test, ___ I got a low grade."'
+  choices:
+  - {he: ולכן, en: and therefore}
+  - {he: אבל, en: but}
+  - {he: אפילו, en: even}
+  answer: 0
+  explanation_he: 'ציון נמוך הוא תוצאה של כך שלא למדתי, וכדי לחבר סיבה לתוצאה משתמשים ב"לכן".'
+  explanation_en: 'A low grade is the result of not studying; to link cause and result we use "therefore".'
+  tags: [text_analysis]
+- id: heb.tanal.002
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: -1.0
+  prompt_he: 'השלימו במילת קישור: "הוא רצה לצאת לטיול, ___ ירד גשם."'
+  prompt_en: 'Complete with a connecting word: "He wanted to go on a trip, ___ it rained."'
+  choices:
+  - {he: לכן, en: therefore}
+  - {he: אבל, en: but}
+  - {he: כאשר, en: when}
+  answer: 1
+  explanation_he: 'הגשם מפריע למה שהוא רצה. כדי להראות ניגוד אומרים "אבל".'
+  explanation_en: 'The rain interferes with what he wanted. To show contrast we say "but".'
+  tags: [text_analysis]
+- id: heb.tanal.003
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: -1.0
+  prompt_he: 'השלימו במילת קישור: "נשארנו בבית ___ היה קר מאוד."'
+  prompt_en: 'Complete with a connecting word: "We stayed home ___ it was very cold."'
+  choices:
+  - {he: אבל, en: but}
+  - {he: אחרי, en: after}
+  - {he: כי, en: because}
+  answer: 2
+  explanation_he: 'הקור הוא הסיבה לכך שנשארנו. כדי להסביר סיבה משתמשים ב"כי".'
+  explanation_en: 'The cold is the reason we stayed. To explain a reason we use "because".'
+  tags: [text_analysis]
+- id: heb.tanal.004
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 0.0
+  prompt_he: 'השלימו במילת קישור: "אם נקרא כל יום, ___ נשתפר בקריאה."'
+  prompt_en: 'Complete: "If we read every day, ___ we will improve at reading."'
+  choices:
+  - {he: אבל, en: but}
+  - {he: אז, en: then}
+  - {he: כי, en: because}
+  answer: 1
+  explanation_he: 'המשפט פותח ב"אם", והמשכו הוא התוצאה, שמתחילה ב"אז".'
+  explanation_en: 'The sentence opens with "if", and its result begins with "then".'
+  tags: [text_analysis]
+- id: heb.tanal.005
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 0.0
+  prompt_he: 'איזו מילה מראה ניגוד בין שני חלקי משפט?'
+  prompt_en: 'Which word shows contrast between two parts of a sentence?'
+  choices:
+  - {he: אבל, en: but}
+  - {he: לכן, en: therefore}
+  - {he: בנוסף, en: in addition}
+  answer: 0
+  explanation_he: 'אבל מצביעה על כך שהחלק השני מנוגד לראשון. לכן מראה תוצאה, ובנוסף מוסיף עוד דבר.'
+  explanation_en: '"But" shows the second part opposes the first. "Therefore" shows a result and "in addition" adds something.'
+  tags: [text_analysis]
+- id: heb.tanal.006
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 0.0
+  prompt_he: 'איזו מילה מראה תוצאה?'
+  prompt_en: 'Which word shows a result?'
+  choices:
+  - {he: אבל, en: but}
+  - {he: למשל, en: for example}
+  - {he: לכן, en: therefore}
+  answer: 2
+  explanation_he: 'לכן מחברת בין סיבה לתוצאה: "ירד גשם, לכן נשארנו בבית".'
+  explanation_en: '"Therefore" links cause and result: "it rained, so we stayed home".'
+  tags: [text_analysis]
+- id: heb.tanal.007
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'איזו מילה מוסיפה עוד נימוק?'
+  prompt_en: 'Which word adds another reason?'
+  choices:
+  - {he: אבל, en: but}
+  - {he: כאשר, en: when}
+  - {he: בנוסף, en: in addition}
+  answer: 2
+  explanation_he: 'בנוסף אומרת שיש עוד דבר באותו כיוון, למשל: "הים יפה, ובנוסף הוא קרוב".'
+  explanation_en: '"In addition" says there is one more point in the same direction.'
+  tags: [text_analysis]
+- id: heb.tanal.008
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: -1.0
+  prompt_he: 'איזו כותרת מתאימה ביותר? "דבורים אוספות צוף מפרחים ובכוורת מכינות ממנו דבש."'
+  prompt_en: 'Which title fits best? "Bees collect nectar from flowers and make honey from it in the hive."'
+  choices:
+  - {he: הפרחים הגדולים בעולם, en: The biggest flowers in the world}
+  - {he: איך דבורים מכינות דבש, en: How bees make honey}
+  - {he: למה כדאי לאכול ירקות, en: Why it is worth eating vegetables}
+  answer: 1
+  explanation_he: 'כותרת טובה אומרת על מה הטקסט. הטקסט מדבר על הכנת דבש, ולא על ירקות או על גודל פרחים.'
+  explanation_en: A good title says what the text is about. This text is about making honey.
+  tags: [text_analysis]
+- id: heb.tanal.009
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'מהו הרעיון המרכזי? "הליכה מחזקת את הלב ומשפרת את מצב הרוח. מספיקות עשר דקות ביום."'
+  prompt_en: 'What is the main idea? "Walking strengthens the heart and improves mood. Ten minutes a day is enough."'
+  choices:
+  - {he: הליכה קצרה טובה לגוף ולנפש, en: A short walk is good for body and mind}
+  - {he: הליכה היא ספורט תחרותי, en: Walking is a competitive sport}
+  - {he: כדאי ללכת רק בבוקר, en: It is best to walk only in the morning}
+  answer: 0
+  explanation_he: 'שני המשפטים מדברים על תועלת של הליכה, ואומרים שגם עשר דקות מספיקות. זה הרעיון המרכזי.'
+  explanation_en: 'Both sentences talk about the benefit of walking, even for ten minutes. That is the main idea.'
+  tags: [text_analysis]
+- id: heb.tanal.010
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'מהו הרעיון המרכזי? "ציפורים נודדות מעל ישראל פעמיים בשנה. בעמק החולה הן נחות ואוכלות."'
+  prompt_en: 'What is the main idea? "Birds migrate over Israel twice a year. In the Hula Valley they rest and eat."'
+  choices:
+  - {he: ציפורים גרות רק בעמק החולה, en: Birds live only in the Hula Valley}
+  - {he: ציפורים לא אוהבות לעוף, en: Birds do not like to fly}
+  - {he: ישראל היא תחנה חשובה לציפורים נודדות, en: Israel is an important stop for migrating birds}
+  answer: 2
+  explanation_he: שני המשפטים מראים שציפורים עוברות בארץ ונחות בה. הרעיון הוא שהיא תחנה חשובה עבורן.
+  explanation_en: Both sentences show that birds pass through and rest here. The idea is that it is an important stop for them.
+  tags: [text_analysis]
+- id: heb.tanal.011
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 0.0
+  prompt_he: 'מה אפשר להסיק? "דני חיפש בתיק בבהלה, ואז נשם לרווחה כשמצא את המפתחות."'
+  prompt_en: 'What can we conclude? "Danny searched his bag in a panic, then breathed with relief when he found the keys."'
+  choices:
+  - {he: שדני איבד את התיק, en: That Danny lost the bag}
+  - {he: שדני הרגיש הקלה, en: That Danny felt relief}
+  - {he: שדני כעס על חבר, en: That Danny was angry at a friend}
+  answer: 1
+  explanation_he: נשימה לרווחה היא סימן להקלה אחרי חשש. מי שמצא את מה שחיפש מרגיש הקלה.
+  explanation_en: Breathing with relief is a sign of relief after worry. Someone who found what he sought feels relief.
+  tags: [text_analysis]
+- id: heb.tanal.012
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'מה אפשר להסיק? "המורה חייכה, תלתה את הציור על הקיר ואמרה לרועי: אתה אמן."'
+  prompt_en: 'What can we conclude? "The teacher smiled, hung the picture on the wall and told Roi: you are an artist."'
+  choices:
+  - {he: שהמורה מעריכה את רועי, en: That the teacher values Roi}
+  - {he: שהמורה כועסת על רועי, en: That the teacher is angry at Roi}
+  - {he: שרועי איבד את הציור, en: That Roi lost the picture}
+  answer: 0
+  explanation_he: 'חיוך, תליית הציור ומילה טובה מראים הערכה. המורה אינה כועסת.'
+  explanation_en: 'A smile, hanging the picture and a kind word show appreciation. The teacher is not angry.'
+  tags: [text_analysis]
+- id: heb.tanal.013
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'מה מטרת המשפט? "אסור להאכיל ברווזים בלחם, כי זה מזיק להם."'
+  prompt_en: 'What is the purpose of the sentence? "Do not feed ducks bread, because it harms them."'
+  choices:
+  - {he: לספר בדיחה על ברווזים, en: To tell a joke about ducks}
+  - {he: להזהיר ולהסביר למה, en: To warn and explain why}
+  - {he: לפרסם מאפייה חדשה, en: To advertise a new bakery}
+  answer: 1
+  explanation_he: 'המשפט אוסר פעולה ומסביר בעזרת "כי" למה. זו אזהרה עם נימוק.'
+  explanation_en: 'The sentence forbids an action and explains why with "because". It is a warning with a reason.'
+  tags: [text_analysis]
+- id: heb.tanal.014
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: -1.0
+  prompt_he: 'מה הסיבה? "בגלל הרוח החזקה, הדלת נטרקה."'
+  prompt_en: 'What is the cause? "Because of the strong wind, the door slammed."'
+  choices:
+  - {he: הדלת נטרקה, en: The door slammed}
+  - {he: מישהו עזב את הבית, en: Someone left the house}
+  - {he: הרוח החזקה, en: The strong wind}
+  answer: 2
+  explanation_he: 'המילים "בגלל" מציינות את הסיבה: הרוח החזקה. הדלת הנטרקת היא התוצאה.'
+  explanation_en: '"Because of" marks the cause: the strong wind. The slamming door is the result.'
+  tags: [text_analysis]
+- id: heb.tanal.015
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: -1.0
+  prompt_he: 'מה התוצאה? "בגלל הרוח החזקה, הדלת נטרקה."'
+  prompt_en: 'What is the result? "Because of the strong wind, the door slammed."'
+  choices:
+  - {he: הדלת נטרקה, en: The door slammed}
+  - {he: הרוח החזקה, en: The strong wind}
+  - {he: הרוח נחלשה, en: The wind weakened}
+  answer: 0
+  explanation_he: 'התוצאה היא מה שקרה בעקבות הסיבה: הדלת נטרקה.'
+  explanation_en: 'The result is what happened because of the cause: the door slammed.'
+  tags: [text_analysis]
+- id: heb.tanal.016
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 0.0
+  prompt_he: 'דנה ודני הלכו לים. הוא שחה והיא בנתה טירה. מי בנתה טירה?'
+  prompt_en: 'Dana and Danny went to the sea. He swam and she built a castle. Who built a castle?'
+  choices:
+  - {he: דני, en: Danny}
+  - {he: שניהם, en: Both}
+  - {he: דנה, en: Dana}
+  answer: 2
+  explanation_he: 'המילה "היא" מתייחסת לדנה, כי דנה היא נקבה. דני הוא "הוא".'
+  explanation_en: '"She" refers to Dana, because Dana is female. Danny is "he".'
+  tags: [text_analysis]
+- id: heb.tanal.017
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'מה פירוש "רדוד" במשפט: "הנחל היה רדוד, וחצינו אותו ברגל"?'
+  prompt_en: 'What does "radud" mean in: "The stream was radud, and we crossed it on foot"?'
+  choices:
+  - {he: לא עמוק, en: not deep}
+  - {he: מהיר מאוד, en: very fast}
+  - {he: רחב מאוד, en: very wide}
+  answer: 0
+  explanation_he: חוצים ברגל רק נחל שאינו עמוק. הרמז במשפט עוזר להבין את המילה.
+  explanation_en: You can cross on foot only a stream that is not deep. The clue in the sentence explains the word.
+  tags: [text_analysis]
+- id: heb.tanal.018
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: 'מה פירוש "נבוך" במשפט: "הוא הסמיק ונבוך כשכולם הביטו בו"?'
+  prompt_en: 'What does "navoch" mean in: "He blushed and was navoch when everyone looked at him"?'
+  choices:
+  - {he: שמח מאוד, en: very happy}
+  - {he: מובך ולא נוח, en: embarrassed and uncomfortable}
+  - {he: כועס מאוד, en: very angry}
+  answer: 1
+  explanation_he: 'הסמקה כשמסתכלים עליך מרמזת על מבוכה, וזה פירוש המילה.'
+  explanation_en: 'Blushing when people look at you hints at embarrassment, which is the word''s meaning.'
+  tags: [text_analysis]
+- id: heb.tanal.019
+  skill: hebrew.text.text_analysis
+  kind: choice
+  grade: 7
+  difficulty: 1.5
+  prompt_he: 'מה פירוש "מהוסס" במשפט: "הוא התקרב מהוסס, ועצר לפני שדפק על הדלת"?'
+  prompt_en: 'What does "mehusas" mean in: "He approached mehusas, and stopped before knocking"?'
+  choices:
+  - {he: 'לא בטוח, מהסס', en: 'unsure, hesitating'}
+  - {he: בטוח בעצמו, en: sure of himself}
+  - {he: עייף מאוד, en: very tired}
+  answer: 0
+  explanation_he: מי שעוצר לפני שדופק על הדלת אינו בטוח. מהוסס הוא מי שמהסס.
+  explanation_en: 'Someone who stops before knocking is unsure. "Mehusas" is someone who hesitates.'
+  tags: [text_analysis]
+- id: heb.tanal.020
+  skill: hebrew.text.text_analysis
+  kind: true_false
+  grade: 7
+  difficulty: -1.0
+  prompt_he: כותרת טובה אומרת על מה הטקסט.
+  prompt_en: A good title says what the text is about.
+  answer: true
+  explanation_he: 'הכותרת מאפשרת לקורא לדעת מראש מה הנושא, ולכן היא צריכה להתאים לתוכן.'
+  explanation_en: 'A title lets the reader know the subject in advance, so it must fit the content.'
+  tags: [text_analysis]
+- id: heb.tanal.021
+  skill: hebrew.text.text_analysis
+  kind: true_false
+  grade: 7
+  difficulty: 0.0
+  prompt_he: הרעיון המרכזי הוא פרט אחד קטן בטקסט.
+  prompt_en: The main idea is one small detail of the text.
+  answer: false
+  explanation_he: הרעיון המרכזי הוא מה שהטקסט כולו אומר. פרט הוא רק חלק קטן שתומך בו.
+  explanation_en: The main idea is what the whole text says. A detail is a small part that supports it.
+  tags: [text_analysis]
+- id: heb.tanal.022
+  skill: hebrew.text.text_analysis
+  kind: true_false
+  grade: 7
+  difficulty: 0.0
+  prompt_he: 'מילת הקישור "לכן" מחברת בין סיבה לתוצאה.'
+  prompt_en: 'The connecting word "lachen" links a cause and a result.'
+  answer: true
+  explanation_he: '"ירד גשם, לכן נשארנו בבית": הגשם הוא הסיבה, והישארות בבית היא התוצאה.'
+  explanation_en: '"It rained, therefore we stayed home": the rain is the cause, staying home the result.'
+  tags: [text_analysis]
+- id: heb.tanal.023
+  skill: hebrew.text.text_analysis
+  kind: true_false
+  grade: 7
+  difficulty: 0.0
+  prompt_he: אפשר להבין מילה חדשה לפי המשפט שסביבה.
+  prompt_en: You can understand a new word from the sentence around it.
+  answer: true
+  explanation_he: המילים שבסביבה נותנות רמזים. כך מבינים מילה גם בלי מילון.
+  explanation_en: The surrounding words give clues. That is how we understand a word even without a dictionary.
+  tags: [text_analysis]

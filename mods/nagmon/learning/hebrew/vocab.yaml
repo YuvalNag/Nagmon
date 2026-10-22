@@ -1,4 +1,4 @@
-# Nagmon learning content - hebrew / vocab (grades 3-5): synonyms, homonyms, proverbs and idioms, figurative language, register
+# Nagmon learning content - hebrew / vocab (grades 3-6): synonyms, homonyms, proverbs and idioms, figurative language, register
 # Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
 # Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
 # Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
@@ -1044,3 +1044,358 @@ items:
   explanation_he: 'מי ששופך את הלב מספר מה עובר עליו, בלי להסתיר.'
   explanation_en: 'Someone who pours out his heart tells what he is going through, without hiding.'
   tags: [proverbs]
+- id: heb.figur.001
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: -1.0
+  prompt_he: 'איזה אמצעי יש במשפט? "הילד רץ כמו ברק."'
+  prompt_en: 'What device is in the sentence? "The boy ran like lightning."'
+  choices:
+  - {he: האנשה, en: personification}
+  - {he: דימוי, en: simile}
+  - {he: הפלגה, en: hyperbole}
+  answer: 1
+  explanation_he: 'משווים בין הילד לברק בעזרת המילה "כמו". זה דימוי.'
+  explanation_en: 'The boy is compared to lightning using "like". That is a simile.'
+  tags: [figurative]
+- id: heb.figur.002
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: -1.0
+  prompt_he: 'איזה אמצעי יש במשפט? "הרוח לחשה בין העצים."'
+  prompt_en: 'What device is in the sentence? "The wind whispered among the trees."'
+  choices:
+  - {he: האנשה, en: personification}
+  - {he: דימוי, en: simile}
+  - {he: הפלגה, en: hyperbole}
+  answer: 0
+  explanation_he: 'לחישה היא משהו שאנשים עושים. הרוח "לוחשת", ולכן יש כאן האנשה.'
+  explanation_en: 'Whispering is something people do. The wind "whispers", so this is personification.'
+  tags: [figurative]
+- id: heb.figur.003
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: -1.0
+  prompt_he: 'איזה אמצעי יש במשפט? "אמרתי לך מיליון פעם לסדר את החדר!"'
+  prompt_en: 'What device is in the sentence? "I told you a million times to tidy your room!"'
+  choices:
+  - {he: דימוי, en: simile}
+  - {he: האנשה, en: personification}
+  - {he: הפלגה, en: hyperbole}
+  answer: 2
+  explanation_he: לא נאמר מיליון פעם באמת. המספר מוגזם כדי להדגיש. זו הפלגה.
+  explanation_en: It was not really said a million times. The number is exaggerated for emphasis. That is hyperbole.
+  tags: [figurative]
+- id: heb.figur.004
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: -1.0
+  prompt_he: 'איזה אמצעי יש במשפט? "השמש חייכה אלינו מהשמיים."'
+  prompt_en: 'What device is in the sentence? "The sun smiled at us from the sky."'
+  choices:
+  - {he: דימוי, en: simile}
+  - {he: הפלגה, en: hyperbole}
+  - {he: האנשה, en: personification}
+  answer: 2
+  explanation_he: 'חיוך הוא של אדם, אבל כאן הוא מיוחס לשמש. זו האנשה.'
+  explanation_en: A smile belongs to a person but here it is given to the sun. That is personification.
+  tags: [figurative]
+- id: heb.figur.005
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: -1.0
+  prompt_he: 'איזה אמצעי יש במשפט? "היא יפה כמו פרח."'
+  prompt_en: 'What device is in the sentence? "She is as pretty as a flower."'
+  choices:
+  - {he: הפלגה, en: hyperbole}
+  - {he: דימוי, en: simile}
+  - {he: האנשה, en: personification}
+  answer: 1
+  explanation_he: 'יש השוואה בעזרת "כמו" בין אדם לפרח, ולכן זה דימוי.'
+  explanation_en: 'It compares a person to a flower using "like". That is a simile.'
+  tags: [figurative]
+- id: heb.figur.006
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: 'איזה אמצעי יש במשפט? "יש לי אלף דברים לעשות היום."'
+  prompt_en: 'What device is in the sentence? "I have a thousand things to do today."'
+  choices:
+  - {he: הפלגה, en: hyperbole}
+  - {he: דימוי, en: simile}
+  - {he: האנשה, en: personification}
+  answer: 0
+  explanation_he: 'אלף הוא מספר מוגזם, שמראה שיש הרבה עבודה. זו הפלגה.'
+  explanation_en: A thousand is an exaggeration that shows there is a lot of work. That is hyperbole.
+  tags: [figurative]
+- id: heb.figur.007
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: 'איזה אמצעי יש במשפט? "הגלים רקדו על החוף."'
+  prompt_en: 'What device is in the sentence? "The waves danced on the shore."'
+  choices:
+  - {he: דימוי, en: simile}
+  - {he: הפלגה, en: hyperbole}
+  - {he: האנשה, en: personification}
+  answer: 2
+  explanation_he: 'רקידה היא פעולה של אדם. הגלים אינם רוקדים באמת, ולכן זו האנשה.'
+  explanation_en: 'Dancing is a human action. Waves do not really dance, so this is personification.'
+  tags: [figurative]
+- id: heb.figur.008
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: 'איזה אמצעי יש במשפט? "הוא חזק כמו שור."'
+  prompt_en: 'What device is in the sentence? "He is as strong as an ox."'
+  choices:
+  - {he: האנשה, en: personification}
+  - {he: דימוי, en: simile}
+  - {he: הפלגה, en: hyperbole}
+  answer: 1
+  explanation_he: 'משווים את חוזקו של אדם לחוזק של שור. המילה "כמו" מסמנת דימוי.'
+  explanation_en: 'A man''s strength is compared with an ox''s. The word "like" marks a simile.'
+  tags: [figurative]
+- id: heb.figur.009
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: 'איזה אמצעי יש במשפט? "חיכיתי בתור נצח."'
+  prompt_en: 'What device is in the sentence? "I waited in line for an eternity."'
+  choices:
+  - {he: הפלגה, en: hyperbole}
+  - {he: האנשה, en: personification}
+  - {he: דימוי, en: simile}
+  answer: 0
+  explanation_he: לא חיכו נצח באמת. המילה מגזימה כדי להדגיש שהיה ארוך. זו הפלגה.
+  explanation_en: No one waits an eternity. The word exaggerates to stress it was long. That is hyperbole.
+  tags: [figurative]
+- id: heb.figur.010
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 0.5
+  prompt_he: 'איזה אמצעי יש במשפט? "העננים בכו על העיר."'
+  prompt_en: 'What device is in the sentence? "The clouds cried over the city."'
+  choices:
+  - {he: האנשה, en: personification}
+  - {he: הפלגה, en: hyperbole}
+  - {he: דימוי, en: simile}
+  answer: 0
+  explanation_he: 'בכי הוא של בני אדם, והוא מתאר כאן גשם. זו האנשה.'
+  explanation_en: 'Crying is human, and here it describes rain. That is personification.'
+  tags: [figurative]
+- id: heb.figur.011
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 0.5
+  prompt_he: 'איזה אמצעי יש במשפט? "הכיתה הייתה רועשת כמו כוורת."'
+  prompt_en: 'What device is in the sentence? "The class was as noisy as a beehive."'
+  choices:
+  - {he: האנשה, en: personification}
+  - {he: דימוי, en: simile}
+  - {he: הפלגה, en: hyperbole}
+  answer: 1
+  explanation_he: 'משווים בין הכיתה לכוורת מזמזמת, בעזרת "כמו". דימוי.'
+  explanation_en: 'The class is compared to a buzzing hive using "like". A simile.'
+  tags: [figurative]
+- id: heb.figur.012
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: 'איזה משפט כולל דימוי?'
+  prompt_en: 'Which sentence contains a simile?'
+  choices:
+  - {he: הצב צעד מאוד לאט, en: The turtle walked very slowly}
+  - {he: השעון צעק לי שמאחר, en: The clock screamed that I am late}
+  - {he: הוא איטי כמו צב, en: He is as slow as a turtle}
+  answer: 2
+  explanation_he: 'רק במשפט הראשון יש השוואה בעזרת "כמו". במשפט השלישי השעון "צועק", וזו האנשה.'
+  explanation_en: 'Only the first compares with "like". In the third the clock "screams", which is personification.'
+  tags: [figurative]
+- id: heb.figur.013
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: -1.0
+  prompt_he: 'מה אומר הדימוי "קל כמו נוצה"?'
+  prompt_en: 'What does the simile "light as a feather" say?'
+  choices:
+  - {he: צבעוני מאוד, en: Very colorful}
+  - {he: עף בשמיים, en: Flies in the sky}
+  - {he: קל מאוד, en: Very light}
+  answer: 2
+  explanation_he: 'נוצה קלה מאוד, ולכן מי שקל כמוה כמעט לא שוקל כלום.'
+  explanation_en: 'A feather is very light, so something "light as a feather" weighs almost nothing.'
+  tags: [figurative]
+- id: heb.figur.014
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: 'מה אומר הדימוי "שקט כמו דג"?'
+  prompt_en: 'What does the simile "quiet as a fish" say?'
+  choices:
+  - {he: מסריח מאוד, en: Very smelly}
+  - {he: 'שקט מאוד, בלי קול', en: 'Very quiet, without a sound'}
+  - {he: שוחה מהר, en: Swims fast}
+  answer: 1
+  explanation_he: 'דגים לא משמיעים קול, ולכן שקט כמו דג פירושו שאינו משמיע שום קול.'
+  explanation_en: 'Fish make no sound, so "quiet as a fish" means making no sound at all.'
+  tags: [figurative]
+- id: heb.figur.015
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: 'מה ההבדל בין דימוי להאנשה?'
+  prompt_en: 'What is the difference between a simile and personification?'
+  choices:
+  - {he: 'דימוי משווה, והאנשה מתארת דבר כאדם', en: A simile compares; personification describes a thing as a person}
+  - {he: 'דימוי הוא מספר גדול, והאנשה מספר קטן', en: 'A simile is a large number, personification a small one'}
+  - {he: אין הבדל, en: There is no difference}
+  answer: 0
+  explanation_he: 'אפשר לזהות דימוי לפי "כמו". בהאנשה משהו שאינו אדם מתנהג כמו אדם, למשל רוח שלוחשת.'
+  explanation_en: 'A simile can be spotted by "like". In personification a non-human acts like a person, e.g. a whispering wind.'
+  tags: [figurative]
+- id: heb.figur.016
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 0.0
+  prompt_he: 'השלימו דימוי: "חזק כמו ___".'
+  prompt_en: 'Complete the simile: "strong as a ___".'
+  choices:
+  - {he: אריה, en: lion}
+  - {he: נוצה, en: feather}
+  - {he: ענן, en: cloud}
+  answer: 0
+  explanation_he: 'אריה הוא חיה חזקה, ולכן מתאימה לדימוי של חוזק. נוצה וענן קלים.'
+  explanation_en: 'A lion is a strong animal, so it suits a simile of strength. A feather and a cloud are light.'
+  tags: [figurative]
+- id: heb.figur.017
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: -1.0
+  prompt_he: 'השלימו דימוי: "איטי כמו ___".'
+  prompt_en: 'Complete the simile: "slow as a ___".'
+  choices:
+  - {he: ברק, en: lightning}
+  - {he: חץ, en: arrow}
+  - {he: צב, en: turtle}
+  answer: 2
+  explanation_he: 'צב הולך לאט, ולכן הוא מתאים לדימוי של איטיות. ברק וחץ מהירים.'
+  explanation_en: 'A turtle walks slowly, so it fits a simile of slowness. Lightning and an arrow are fast.'
+  tags: [figurative]
+- id: heb.figur.018
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 0.5
+  prompt_he: 'השלימו דימוי: "ערמומי כמו ___".'
+  prompt_en: 'Complete the simile: "sly as a ___".'
+  choices:
+  - {he: כבש, en: lamb}
+  - {he: שועל, en: fox}
+  - {he: דג, en: fish}
+  answer: 1
+  explanation_he: 'בסיפורים השועל נחשב חכם ומתחכם, ולכן אומרים "ערמומי כמו שועל".'
+  explanation_en: 'In stories the fox is clever and tricky, so we say "sly as a fox".'
+  tags: [figurative]
+- id: heb.figur.019
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 0.5
+  prompt_he: 'מה פירוש "יש לי פרפרים בבטן"?'
+  prompt_en: 'What does "I have butterflies in my stomach" mean?'
+  choices:
+  - {he: אני רעב מאוד, en: I am very hungry}
+  - {he: אני מתרגש וקצת חושש, en: I am excited and a little nervous}
+  - {he: אני אוהב פרפרים, en: I love butterflies}
+  answer: 1
+  explanation_he: אין פרפרים באמת. זו דרך ציורית לתאר תחושה של התרגשות לפני אירוע חשוב.
+  explanation_en: There are no real butterflies. It is a picturesque way to describe excitement before an important event.
+  tags: [figurative]
+- id: heb.figur.020
+  skill: hebrew.vocab.figurative
+  kind: choice
+  grade: 6
+  difficulty: 1.0
+  prompt_he: 'איזה משפט אינו הפלגה?'
+  prompt_en: 'Which sentence is not a hyperbole?'
+  choices:
+  - {he: אכלתי שתי פרוסות לחם, en: I ate two slices of bread}
+  - {he: אכלתי כל כך הרבה שאתפוצץ, en: I ate so much I will explode}
+  - {he: הרעב אכל אותי מבפנים, en: Hunger ate me from inside}
+  answer: 0
+  explanation_he: המשפט הראשון מדווח עובדה בלי להגזים. בשני האחרים יש גוזמה או ציור מילולי.
+  explanation_en: The first states a fact without exaggeration. The others exaggerate or use pictorial language.
+  tags: [figurative]
+- id: heb.figur.021
+  skill: hebrew.vocab.figurative
+  kind: true_false
+  grade: 6
+  difficulty: -1.0
+  prompt_he: 'במשפט "אני רעב כמו זאב" יש דימוי.'
+  prompt_en: 'In "I am hungry as a wolf" there is a simile.'
+  answer: true
+  explanation_he: 'יש השוואה בעזרת "כמו" בין רעבון של אדם לזאב.'
+  explanation_en: 'It compares a person''s hunger with a wolf''s using "like".'
+  tags: [figurative]
+- id: heb.figur.022
+  skill: hebrew.vocab.figurative
+  kind: true_false
+  grade: 6
+  difficulty: -1.0
+  prompt_he: הפלגה מגזימה כדי להדגיש.
+  prompt_en: Hyperbole exaggerates in order to stress.
+  answer: true
+  explanation_he: 'המגזים אינו משקר. הוא רוצה להראות כמה משהו גדול או קשה, למשל "מיליון פעם".'
+  explanation_en: 'The speaker is not lying. He wants to show how big or hard something is, e.g. "a million times".'
+  tags: [figurative]
+- id: heb.figur.023
+  skill: hebrew.vocab.figurative
+  kind: true_false
+  grade: 6
+  difficulty: 0.0
+  prompt_he: האנשה אומרת שדבר מתנהג כמו אדם.
+  prompt_en: Personification says that a thing acts like a person.
+  answer: true
+  explanation_he: 'כשאומרים שהעץ מנפנף בידיו או הירח מחייך, נותנים להם תכונות של אדם.'
+  explanation_en: 'When we say the tree waves its arms or the moon smiles, we give them human traits.'
+  tags: [figurative]
+- id: heb.figur.024
+  skill: hebrew.vocab.figurative
+  kind: true_false
+  grade: 6
+  difficulty: 0.5
+  prompt_he: 'כל משפט עם המילה "כמו" הוא הפלגה.'
+  prompt_en: 'Every sentence with the word "like" is a hyperbole.'
+  answer: false
+  explanation_he: 'משפט עם "כמו" הוא בדרך כלל דימוי. הפלגה היא גוזמה, ואין צורך ב"כמו".'
+  explanation_en: 'A sentence with "like" is usually a simile. Hyperbole is exaggeration and needs no "like".'
+  tags: [figurative]
+- id: heb.figur.025
+  skill: hebrew.vocab.figurative
+  kind: true_false
+  grade: 6
+  difficulty: 1.0
+  prompt_he: 'במשפט "הים שותק" יש האנשה.'
+  prompt_en: 'In the sentence "The sea is silent" there is personification.'
+  answer: true
+  explanation_he: 'שתיקה היא של בני אדם. כאן היא מתארת ים רגוע, ולכן זו האנשה.'
+  explanation_en: 'Silence is human. Here it describes a calm sea, so it is personification.'
+  tags: [figurative]

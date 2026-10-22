@@ -200,3 +200,45 @@ skills:
   prereq: [hebrew.vocab.homonyms]
   generator: bank
   params: {bank: hebrew/vocab.yaml, tags: [proverbs]}
+- id: hebrew.grammar.binyanim
+  grade: 6
+  title_he: בניינים
+  title_en: Binyanim (verb patterns)
+  prereq: [hebrew.grammar.roots, hebrew.grammar.tenses]
+  generator: bank
+  params: {bank: hebrew/grammar.yaml, tags: [binyanim]}
+- id: hebrew.reading.passage_6
+  grade: 6
+  title_he: 'הבנת הנקרא: טקסטים מגוונים'
+  title_en: 'Reading comprehension, grade 6'
+  prereq: [hebrew.reading.passage_5]
+  generator: bank
+  params: {bank: hebrew/passages_6.yaml, tags: [passage_6]}
+- id: hebrew.vocab.figurative
+  grade: 6
+  title_he: 'לשון ציורית: דימוי, האנשה, הפלגה'
+  title_en: Figurative language
+  prereq: [hebrew.vocab.proverbs]
+  generator: bank
+  params: {bank: hebrew/vocab.yaml, tags: [figurative]}
+- id: hebrew.grammar.smichut
+  grade: 7
+  title_he: סמיכות
+  title_en: Construct state (smichut)
+  prereq: [hebrew.grammar.prefixes_suffixes, hebrew.grammar.agreement]
+  generator: bank
+  params: {bank: hebrew/grammar.yaml, tags: [smichut]}
+- id: hebrew.reading.passage_7
+  grade: 7
+  title_he: 'הבנת הנקרא: קטעים ושירים'
+  title_en: 'Reading comprehension, grade 7'
+  prereq: [hebrew.reading.passage_6]
+  generator: bank
+  params: {bank: hebrew/passages_7.yaml, tags: [passage_7]}
+- id: hebrew.text.text_analysis
+  grade: 7
+  title_he: 'ניתוח טקסט: רעיון מרכזי, קישור והיקש'
+  title_en: 'Text analysis: main idea, connectors, inference'
+  prereq: [hebrew.text.text_types, hebrew.reading.passage_6]
+  generator: bank
+  params: {bank: hebrew/text.yaml, tags: [text_analysis]}
