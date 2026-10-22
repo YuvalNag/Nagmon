@@ -43,7 +43,7 @@
       prompt_he: 'מה פירוש דברי מיכל "אתה כותב כמו שר. תכתוב כמו יוסי"?'
       prompt_en: 'What does Michal mean by "you write like a minister. Write like Yossi"?'
       choices:
-      - {he: שיחקה שר ממשלה, en: That he should imitate a minister}
+      - {he: שימשיך להשתמש במילים של שרים, en: 'That he should keep using ministers'' words'}
       - {he: שיכתוב בקול טבעי שלו, en: That he should write in his own natural voice}
       - {he: שיעביר את הנאום לאחרים, en: That he should pass the speech to others}
       answer: 1

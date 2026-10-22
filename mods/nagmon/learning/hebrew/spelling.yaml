@@ -73,7 +73,7 @@ items:
   prompt_he: מצאו את המילה הכתובה נכון.
   prompt_en: Find the word that is written correctly.
   choices:
-  - {he: כוף, en: כוף}
+  - {he: כופ, en: כופ}
   - {he: קוף, en: קוף}
   - {he: קוס, en: קוס}
   answer: 1
@@ -150,7 +150,7 @@ items:
   choices:
   - {he: ארוחה, en: ארוחה}
   - {he: ערוחה, en: ערוחה}
-  - {he: ארוכה, en: ארוכה}
+  - {he: אירוחה, en: אירוחה}
   answer: 0
   explanation_he: 'ארוחה מתחילה באות א ונגמרת באות ה. אין בה ע, גם אם היא נשמעת כך.'
   explanation_en: '"Arucha" starts with an alef and ends with a hey.'

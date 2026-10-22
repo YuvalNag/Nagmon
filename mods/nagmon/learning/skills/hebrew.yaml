@@ -221,6 +221,13 @@ skills:
   prereq: [hebrew.vocab.proverbs]
   generator: bank
   params: {bank: hebrew/vocab.yaml, tags: [figurative]}
+- id: hebrew.grammar.clauses
+  grade: 7
+  title_he: 'משפט מורכב: סיבה, תנאי, תכלית וויתור'
+  title_en: 'Complex sentences: reason, condition, purpose, concession'
+  prereq: [hebrew.text.text_analysis, hebrew.grammar.subject_predicate]
+  generator: bank
+  params: {bank: hebrew/grammar.yaml, tags: [clauses]}
 - id: hebrew.grammar.smichut
   grade: 7
   title_he: סמיכות
@@ -242,6 +249,13 @@ skills:
   prereq: [hebrew.text.text_types, hebrew.reading.passage_6]
   generator: bank
   params: {bank: hebrew/text.yaml, tags: [text_analysis]}
+- id: hebrew.grammar.word_formation
+  grade: 8
+  title_he: בניית מילים ומשפחות מילים
+  title_en: 'Word formation: action nouns, endings and word families'
+  prereq: [hebrew.grammar.roots, hebrew.grammar.binyanim]
+  generator: bank
+  params: {bank: hebrew/grammar.yaml, tags: [word_formation]}
 - id: hebrew.reading.passage_8
   grade: 8
   title_he: 'הבנת הנקרא: טקסטים מורכבים'
@@ -249,6 +263,13 @@ skills:
   prereq: [hebrew.reading.passage_7]
   generator: bank
   params: {bank: hebrew/passages_8.yaml, tags: [passage_8]}
+- id: hebrew.text.summary
+  grade: 8
+  title_he: סיכום וניסוח מחדש
+  title_en: Summarizing and paraphrasing
+  prereq: [hebrew.text.text_analysis, hebrew.reading.passage_7]
+  generator: bank
+  params: {bank: hebrew/text.yaml, tags: [summary]}
 - id: hebrew.vocab.register
   grade: 8
   title_he: 'רמות לשון: רשמית, תקנית ודיבור'
@@ -270,3 +291,17 @@ skills:
   prereq: [hebrew.text.text_analysis, hebrew.vocab.register]
   generator: bank
   params: {bank: hebrew/text.yaml, tags: [argument]}
+- id: hebrew.text.poetry
+  grade: 9
+  title_he: 'ניתוח שיר: תמונה, חריזה וצליל'
+  title_en: 'Reading poems: imagery, rhyme and sound'
+  prereq: [hebrew.vocab.figurative, hebrew.reading.passage_8]
+  generator: bank
+  params: {bank: hebrew/text.yaml, tags: [poetry]}
+- id: hebrew.text.tone
+  grade: 9
+  title_he: 'טון ומשמעות מרומזת: אירוניה והמעטה'
+  title_en: 'Tone and implied meaning: irony and understatement'
+  prereq: [hebrew.text.text_analysis, hebrew.vocab.register]
+  generator: bank
+  params: {bank: hebrew/text.yaml, tags: [tone]}

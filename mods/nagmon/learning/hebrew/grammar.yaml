@@ -1,4 +1,4 @@
-# Nagmon learning content - hebrew / grammar (grades 3-7): parts of speech, agreement, tenses, person, subject and predicate, roots, affixes, binyanim, construct state
+# Nagmon learning content - hebrew / grammar (grades 3-8): parts of speech, agreement, tenses, person, subject and predicate, roots, affixes, binyanim, construct state
 # Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
 # Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
 # Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
@@ -727,7 +727,7 @@ items:
   - {he: עתיד, en: future}
   - {he: עבר, en: past}
   answer: 2
-  explanation_he: 'המילה "אתמול" ו"שיחקנו" מראות שזה כבר קרה. משפט כזה כתוב בזמן עבר.'
+  explanation_he: 'המילים "אתמול" ו"שיחקנו" מראות שזה כבר קרה. משפט כזה כתוב בזמן עבר.'
   explanation_en: 'The words "yesterday" and "we played" show it already happened. This is the past tense.'
   tags: [tenses]
 - id: heb.tense.002
@@ -742,7 +742,7 @@ items:
   - {he: עתיד, en: future}
   - {he: הווה, en: present}
   answer: 1
-  explanation_he: 'המילה "מחר" ו"נלך" מראות שזה עוד לא קרה. משפט כזה כתוב בזמן עתיד.'
+  explanation_he: 'המילים "מחר" ו"נלך" מראות שזה עוד לא קרה. משפט כזה כתוב בזמן עתיד.'
   explanation_en: '"Tomorrow" and "we will go" show it has not happened yet. This is the future tense.'
   tags: [tenses]
 - id: heb.tense.003
@@ -757,7 +757,7 @@ items:
   - {he: עבר, en: past}
   - {he: עתיד, en: future}
   answer: 0
-  explanation_he: 'המילה "עכשיו" ו"קוראת" מראות שזה קורה ברגע זה. זה זמן הווה.'
+  explanation_he: 'המילים "עכשיו" ו"קוראת" מראות שזה קורה ברגע זה. זה זמן הווה.'
   explanation_en: '"Now" and "reads" show it is happening at this moment. This is the present tense.'
   tags: [tenses]
 - id: heb.tense.004
@@ -2217,7 +2217,7 @@ items:
   prompt_he: 'למילים "ספר" ו"ספינה" יש אותו שורש.'
   prompt_en: 'The words "sefer" and "sefina" have the same root.'
   answer: false
-  explanation_he: 'ספר ושם דומה, אבל ספינה היא כלי שיט ויש לה שורש אחר. אותיות דומות לא מספיקות כדי להיות באותו שורש.'
+  explanation_he: 'בספר ובספינה יש אותן אותיות בהתחלה, אבל ספינה היא כלי שיט ויש לה שורש אחר. אותיות דומות אינן מספיקות כדי להיות באותו שורש.'
   explanation_en: 'Similar letters are not enough: a ship has a different root.'
   tags: [roots]
 - id: heb.root.030
@@ -2314,7 +2314,7 @@ items:
   - {he: מתוך הגינה, en: from the garden}
   - {he: בתוך הגינה, en: in the garden}
   answer: 1
-  explanation_he: 'האות מ פירושה "מ..." (מן). מי שבא מהגינה יצא ממנה.'
+  explanation_he: 'האות מ בתחילת המילה פירושה "מתוך" (מן). מי שבא מהגינה יצא ממנה.'
   explanation_en: 'The letter mem means "from". Someone who comes "from the garden" left it.'
   tags: [affixes]
 - id: heb.affix.004
@@ -3095,9 +3095,9 @@ items:
   prompt_he: 'איזה צירוף כתוב נכון?'
   prompt_en: 'Which phrase is written correctly?'
   choices:
-  - {he: הדלת הבית, en: (the article on the wrong word)}
+  - {he: הדלת הבית, en: (article on the first word)}
   - {he: דלת הבית, en: the door of the house}
-  - {he: דלת הבתים הגדולה, en: (a different phrase)}
+  - {he: הדלת בית, en: '(article on the first word, none on the second)'}
   answer: 1
   explanation_he: 'בסמיכות מוסיפים "ה" הידיעה רק למילה השנייה: דלת הבית. לא כותבים "הדלת הבית".'
   explanation_en: 'In a construct the article is added only to the second word: "delet habayit". Not "hadelet habayit".'
@@ -3386,3 +3386,702 @@ items:
   explanation_he: בעל חיים הוא צירוף סמיכות שפירושו חיה. הוא מראה שלפעמים הצירוף נושא משמעות חדשה.
   explanation_en: '"Ba''al chayim" is a construct meaning an animal. It shows a construct can carry a new meaning.'
   tags: [smichut]
+- id: heb.clause.001
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: -1.0
+  prompt_he: 'איזה סוג חלק משפט פותח ב"כי"? "נשארנו בבית, כי ירד גשם."'
+  prompt_en: 'What kind of clause does "ki" open? "We stayed home because it rained."'
+  choices:
+  - {he: תנאי, en: condition}
+  - {he: סיבה, en: reason}
+  - {he: תכלית, en: purpose}
+  answer: 1
+  explanation_he: 'המילה "כי" מסבירה למה נשארנו בבית. חלק משפט כזה נקרא משפט סיבה.'
+  explanation_en: 'The word "ki" explains why we stayed home. Such a clause is a clause of reason.'
+  tags: [clauses]
+- id: heb.clause.002
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: -1.0
+  prompt_he: 'איזה סוג חלק משפט פותח ב"אם"? "אם תתאמן, תשתפר."'
+  prompt_en: 'What kind of clause does "im" open? "If you practice, you will improve."'
+  choices:
+  - {he: סיבה, en: reason}
+  - {he: זמן, en: time}
+  - {he: תנאי, en: condition}
+  answer: 2
+  explanation_he: המשפט אומר מה יקרה בתנאי שתתאמן. משפט כזה נקרא משפט תנאי.
+  explanation_en: The sentence says what will happen on condition that you practice. That is a conditional clause.
+  tags: [clauses]
+- id: heb.clause.003
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 0.0
+  prompt_he: 'איזה סוג חלק משפט פותח ב"כדי ש"? "למדתי כדי שאצליח במבחן."'
+  prompt_en: 'What kind of clause does "kedei she" open? "I studied so that I would succeed in the test."'
+  choices:
+  - {he: תכלית, en: purpose}
+  - {he: סיבה, en: reason}
+  - {he: ויתור, en: concession}
+  answer: 0
+  explanation_he: '"כדי ש" אומרת למה למדתי בכוונה: המטרה היא להצליח. זה משפט תכלית.'
+  explanation_en: '"Kedei she" tells the aim of studying: to succeed. That is a clause of purpose.'
+  tags: [clauses]
+- id: heb.clause.004
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 0.0
+  prompt_he: 'איזה סוג חלק משפט פותח ב"למרות ש"? "למרות שהיה קר, יצאנו לטיול."'
+  prompt_en: 'What kind of clause does "lamrot she" open? "Although it was cold, we went on a trip."'
+  choices:
+  - {he: סיבה, en: reason}
+  - {he: ויתור, en: concession}
+  - {he: תכלית, en: purpose}
+  answer: 1
+  explanation_he: 'הקור היה אמור להפריע, אבל יצאנו בכל זאת. כך נראה משפט ויתור, או ניגוד.'
+  explanation_en: The cold should have stopped us but we went anyway. That is a clause of concession.
+  tags: [clauses]
+- id: heb.clause.005
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: -1.0
+  prompt_he: 'איזה סוג חלק משפט פותח ב"כאשר"? "כאשר צלצל הפעמון, יצאנו להפסקה."'
+  prompt_en: 'What kind of clause does "ka''asher" open? "When the bell rang, we went out to break."'
+  choices:
+  - {he: זמן, en: time}
+  - {he: תנאי, en: condition}
+  - {he: סיבה, en: reason}
+  answer: 0
+  explanation_he: '"כאשר" אומרת מתי קרה הדבר. משפט כזה נקרא משפט זמן.'
+  explanation_en: '"Ka''asher" says when it happened. Such a clause is a clause of time.'
+  tags: [clauses]
+- id: heb.clause.006
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 0.0
+  prompt_he: 'השלימו במילת קישור: "אני לוקח מטרייה ___ ירד גשם."'
+  prompt_en: 'Complete: "I take an umbrella ___ it rains."'
+  choices:
+  - {he: כי, en: because}
+  - {he: למרות ש, en: although}
+  - {he: אם, en: if}
+  answer: 2
+  explanation_he: 'הפעולה תלויה בכך שירד גשם, ולכן מתאימה מילת תנאי: אם.'
+  explanation_en: 'The action depends on rain falling, so a conditional word fits: if.'
+  tags: [clauses]
+- id: heb.clause.007
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'השלימו במילת קישור: "הוא התאמן הרבה ___ ינצח בתחרות."'
+  prompt_en: 'Complete: "He trained a lot ___ he would win the competition."'
+  choices:
+  - {he: אם, en: if}
+  - {he: כי, en: because}
+  - {he: כדי ש, en: so that}
+  answer: 2
+  explanation_he: 'הוא התאמן כדי להשיג מטרה: לנצח. מתאימה מילת תכלית: כדי ש.'
+  explanation_en: 'He trained for a goal: to win. A purpose word fits: so that.'
+  tags: [clauses]
+- id: heb.clause.008
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: -1.0
+  prompt_he: 'השלימו במילת קישור: "היא ישנה במיטה ___ הייתה עייפה מאוד."'
+  prompt_en: 'Complete: "She slept in bed ___ she was very tired."'
+  choices:
+  - {he: אם, en: if}
+  - {he: כי, en: because}
+  - {he: כדי ש, en: so that}
+  answer: 1
+  explanation_he: 'העייפות היא הסיבה לשינה, ולכן מתאימה מילת סיבה: כי.'
+  explanation_en: 'Tiredness is the reason for sleeping, so a reason word fits: because.'
+  tags: [clauses]
+- id: heb.clause.009
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'השלימו במילת קישור: "___ הוא קטן, הוא מצליח לרוץ מהר."'
+  prompt_en: 'Complete: "___ he is small, he manages to run fast."'
+  choices:
+  - {he: למרות שהוא, en: although he}
+  - {he: מפני שהוא, en: because he}
+  - {he: כדי שהוא, en: so that he}
+  answer: 0
+  explanation_he: 'קטן אמור להאט, אבל הוא רץ מהר. זה ניגוד, ולכן מתאים "למרות ש".'
+  explanation_en: 'Being small should slow him but he runs fast. That is contrast, so "although" fits.'
+  tags: [clauses]
+- id: heb.clause.010
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'השלימו במילת קישור: "___ נגיע הביתה, נאכל ארוחת ערב."'
+  prompt_en: 'Complete: "___ we get home, we will eat supper."'
+  choices:
+  - {he: אילו נגיע, en: if only we arrive}
+  - {he: כשנגיע, en: when we arrive}
+  - {he: כי נגיע, en: because we arrive}
+  answer: 1
+  explanation_he: 'כאן אומרים מתי נאכל: בזמן שנגיע. זה משפט זמן.'
+  explanation_en: 'We say when we will eat: at the time we arrive. This is a clause of time.'
+  tags: [clauses]
+- id: heb.clause.011
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'איזה משפט מכיל משפט תנאי?'
+  prompt_en: 'Which sentence contains a conditional clause?'
+  choices:
+  - {he: 'אם תסדר את החדר, נצא לגן שעשועים.', en: If you tidy the room we will go to the playground.}
+  - {he: סידרתי את החדר כי אמא ביקשה ממני., en: I tidied the room because Mom asked me.}
+  - {he: סידרתי את החדר כדי שיהיה נקי יותר., en: I tidied the room so it would be cleaner.}
+  answer: 0
+  explanation_he: רק במשפט הראשון היציאה לגן תלויה בכך שהחדר יסודר. זה תנאי.
+  explanation_en: Only in the first does going to the playground depend on the room being tidied. That is a condition.
+  tags: [clauses]
+- id: heb.clause.012
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'איזה משפט מכיל משפט תכלית?'
+  prompt_en: 'Which sentence contains a purpose clause?'
+  choices:
+  - {he: חסכתי כסף כי אהבתי מאוד לחסוך בקופה., en: I saved money because I loved saving in the piggy bank.}
+  - {he: חסכתי כסף למרות שלא רציתי כלל לחסוך., en: I saved money although I did not want to save at all.}
+  - {he: חסכתי כסף כדי שאוכל לקנות אופניים., en: I saved money so I could buy a bike.}
+  answer: 2
+  explanation_he: 'במשפט הראשון החיסכון נעשה למטרה: לקנות אופניים. זו תכלית.'
+  explanation_en: 'In the first, the saving has an aim: to buy a bike. That is purpose.'
+  tags: [clauses]
+- id: heb.clause.013
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: 'איזה משפט מכיל משפט ויתור?'
+  prompt_en: 'Which sentence contains a concession clause?'
+  choices:
+  - {he: עליתי על הבמה כי קראו לי., en: I went up on stage because they called me.}
+  - {he: 'למרות שפחדתי, עליתי על הבמה.', en: 'Although I was afraid, I went up on stage.'}
+  - {he: עליתי על הבמה כדי שיראו אותי., en: I went up on stage so they would see me.}
+  answer: 1
+  explanation_he: 'הפחד היה אמור לעצור אותי, אבל עליתי. זה ויתור.'
+  explanation_en: 'Fear should have stopped me, but I went up. That is concession.'
+  tags: [clauses]
+- id: heb.clause.014
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: 'איזה משפט כתוב נכון?'
+  prompt_en: 'Which sentence is written correctly?'
+  choices:
+  - {he: 'אם ירד שלג, בנינו איש שלג.', en: 'If it snows, we built a snowman.'}
+  - {he: 'אם ירד שלג, אני בונה אתמול איש שלג.', en: (tenses do not match)}
+  - {he: 'אם ירד שלג, נבנה איש שלג.', en: 'If it snows, we will build a snowman.'}
+  answer: 2
+  explanation_he: 'אחרי "אם" שמדברת על העתיד, גם ההמשך בעתיד: ירד, נבנה.'
+  explanation_en: 'After "im" about the future, the continuation is also future: it will snow, we will build.'
+  tags: [clauses]
+- id: heb.clause.015
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'איזו מילה מראה סיבה?'
+  prompt_en: 'Which word shows a reason?'
+  choices:
+  - {he: מפני ש, en: because}
+  - {he: אף על פי ש, en: although}
+  - {he: כדי ש, en: so that}
+  answer: 0
+  explanation_he: '"מפני ש" פירושה "בגלל ש". היא מסבירה למה קרה דבר.'
+  explanation_en: '"Mipnei she" means "because". It explains why something happened.'
+  tags: [clauses]
+- id: heb.clause.016
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: 'איזו מילה מראה תכלית?'
+  prompt_en: 'Which word shows purpose?'
+  choices:
+  - {he: על מנת ש, en: in order that}
+  - {he: מפני ש, en: because}
+  - {he: אילו, en: if only}
+  answer: 0
+  explanation_he: '"על מנת ש" פירושה "כדי ש": היא מציינת את המטרה.'
+  explanation_en: '"Al menat she" means "so that": it states the goal.'
+  tags: [clauses]
+- id: heb.clause.017
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: 'איזו מילה מראה ויתור?'
+  prompt_en: 'Which word shows concession?'
+  choices:
+  - {he: מפני ש, en: because}
+  - {he: כדי ש, en: so that}
+  - {he: אף על פי ש, en: even though}
+  answer: 2
+  explanation_he: '"אף על פי ש" פירושה "למרות ש". היא מראה שהתוצאה קרתה בניגוד לצפוי.'
+  explanation_en: '"Af al pi she" means "although". It shows the result happened contrary to expectation.'
+  tags: [clauses]
+- id: heb.clause.018
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 0.5
+  prompt_he: 'מה הקשר בין "הלכנו הביתה" ל"כי התחיל להחשיך"?'
+  prompt_en: 'What is the link between "we went home" and "because it began to get dark"?'
+  choices:
+  - {he: התכלית היא שהתחיל להחשיך, en: The purpose is that it began to get dark}
+  - {he: הסיבה היא שהתחיל להחשיך, en: The reason is that it began to get dark}
+  - {he: התנאי הוא שהתחיל להחשיך, en: The condition is that it began to get dark}
+  answer: 1
+  explanation_he: 'החשכה גרמה להליכה הביתה, ולכן היא הסיבה, ולא מטרה או תנאי.'
+  explanation_en: 'The darkness caused going home, so it is the reason, not a purpose or a condition.'
+  tags: [clauses]
+- id: heb.clause.019
+  skill: hebrew.grammar.clauses
+  kind: choice
+  grade: 7
+  difficulty: 1.0
+  prompt_he: 'איפה שמים פסיק? "כשהגענו לחוף התחלנו לבנות טירה."'
+  prompt_en: 'Where does the comma go? "When we reached the beach we began to build a castle."'
+  choices:
+  - {he: 'אחרי "התחלנו"', en: 'after "we began"'}
+  - {he: 'אחרי "לחוף"', en: 'after "to the beach"'}
+  - {he: 'אחרי "כשהגענו"', en: 'after "when we arrived"'}
+  answer: 1
+  explanation_he: הפסיק מפריד בין משפט הזמן (כשהגענו לחוף) לבין המשפט הראשי (התחלנו לבנות).
+  explanation_en: The comma separates the time clause from the main clause.
+  tags: [clauses]
+- id: heb.clause.020
+  skill: hebrew.grammar.clauses
+  kind: true_false
+  grade: 7
+  difficulty: 0.0
+  prompt_he: 'המשפט "אם לא ארגיש טוב, אשאר בבית" הוא משפט תנאי.'
+  prompt_en: '"If I do not feel well, I will stay home" is a conditional sentence.'
+  answer: true
+  explanation_he: הישארות בבית תלויה בכך שלא ארגיש טוב. זה בדיוק משפט תנאי.
+  explanation_en: Staying home depends on not feeling well. That is exactly a conditional sentence.
+  tags: [clauses]
+- id: heb.clause.021
+  skill: hebrew.grammar.clauses
+  kind: true_false
+  grade: 7
+  difficulty: 0.0
+  prompt_he: 'המילה "למרות ש" מראה סיבה.'
+  prompt_en: 'The word "lamrot she" shows a reason.'
+  answer: false
+  explanation_he: '"למרות ש" מראה ניגוד או ויתור. סיבה מציגים עם "כי" או "מפני ש".'
+  explanation_en: '"Lamrot she" shows contrast or concession. A reason is shown with "ki" or "mipnei she".'
+  tags: [clauses]
+- id: heb.clause.022
+  skill: hebrew.grammar.clauses
+  kind: true_false
+  grade: 7
+  difficulty: 1.0
+  prompt_he: 'אפשר להחליף את "כדי ש" ב"על מנת ש" בלי לשנות את המשמעות.'
+  prompt_en: '"Kedei she" can be replaced by "al menat she" without changing the meaning.'
+  answer: true
+  explanation_he: 'שתיהן מציינות תכלית. "על מנת ש" נשמעת גבוהה יותר.'
+  explanation_en: 'Both mark purpose. "Al menat she" sounds more elevated.'
+  tags: [clauses]
+- id: heb.clause.023
+  skill: hebrew.grammar.clauses
+  kind: true_false
+  grade: 7
+  difficulty: 1.0
+  prompt_he: 'במשפט "אכלתי כי הייתי רעב" החלק "כי הייתי רעב" הוא משפט תכלית.'
+  prompt_en: 'In "I ate because I was hungry" the part "because I was hungry" is a purpose clause.'
+  answer: false
+  explanation_he: 'הרעב הוא הסיבה לאכילה, לא המטרה שלה. לכן זה משפט סיבה.'
+  explanation_en: 'Hunger is the reason for eating, not its goal. So it is a reason clause.'
+  tags: [clauses]
+- id: heb.clause.024
+  skill: hebrew.grammar.clauses
+  kind: true_false
+  grade: 7
+  difficulty: -1.0
+  prompt_he: משפט תנאי מתאר מה יקרה אם משהו אחר יקרה.
+  prompt_en: A conditional sentence describes what will happen if something else happens.
+  answer: true
+  explanation_he: 'התוצאה תלויה בתנאי, כמו "אם תלמד, תצליח".'
+  explanation_en: 'The result depends on the condition, like "if you study, you will succeed".'
+  tags: [clauses]
+- id: heb.wordf.001
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'מהו שם הפעולה של הפועל "לכתוב"?'
+  prompt_en: 'What is the action noun of the verb "likhtov"?'
+  choices:
+  - {he: כתיבה, en: writing}
+  - {he: כתב, en: handwriting}
+  - {he: כותב, en: writer}
+  answer: 0
+  explanation_he: 'שם פעולה אומר את הפעולה כשם עצם. מהפועל לכתוב נוצר "כתיבה".'
+  explanation_en: 'An action noun names the action. From "to write" comes "ktiva".'
+  tags: [word_formation]
+- id: heb.wordf.002
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'מהו שם הפעולה של הפועל "לקרוא"?'
+  prompt_en: 'What is the action noun of the verb "likro"?'
+  choices:
+  - {he: קורא, en: reader}
+  - {he: קריאה, en: reading}
+  - {he: מקרא, en: legend}
+  answer: 1
+  explanation_he: 'שם הפעולה של לקרוא הוא "קריאה", כמו בקריאה של ספר.'
+  explanation_en: 'The action noun of "to read" is "kri''a", as in reading a book.'
+  tags: [word_formation]
+- id: heb.wordf.003
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'מהו שם הפעולה של הפועל "לבנות"?'
+  prompt_en: 'What is the action noun of the verb "livnot"?'
+  choices:
+  - {he: בניין, en: a building}
+  - {he: בונה, en: builder}
+  - {he: בנייה, en: building}
+  answer: 2
+  explanation_he: 'בנייה היא הפעולה של לבנות. "בניין" הוא התוצאה: הדבר שנבנה.'
+  explanation_en: '"Bniya" is the act of building. "Binyan" is the result: the thing that was built.'
+  tags: [word_formation]
+- id: heb.wordf.004
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.0
+  prompt_he: 'מהו שם הפעולה של הפועל "ללכת"?'
+  prompt_en: 'What is the action noun of the verb "lalechet"?'
+  choices:
+  - {he: הליכה, en: walking}
+  - {he: הולך, en: walker}
+  - {he: דרך, en: road}
+  answer: 0
+  explanation_he: 'מהפועל ללכת נוצר שם הפעולה "הליכה".'
+  explanation_en: 'From the verb "to walk" comes the action noun "halicha".'
+  tags: [word_formation]
+- id: heb.wordf.005
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'מהו שם הפעולה של הפועל "לשיר"?'
+  prompt_en: 'What is the action noun of the verb "lashir"?'
+  choices:
+  - {he: שיר, en: a song}
+  - {he: שר, en: sings}
+  - {he: שירה, en: singing}
+  answer: 2
+  explanation_he: 'שירה היא הפעולה של לשיר, ו"שיר" הוא הדבר ששרים.'
+  explanation_en: '"Shira" is the act of singing, and "shir" is the thing that is sung.'
+  tags: [word_formation]
+- id: heb.wordf.006
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'מהו שם הפעולה של הפועל "לבשל"?'
+  prompt_en: 'What is the action noun of the verb "levashel"?'
+  choices:
+  - {he: מבשל, en: cooks}
+  - {he: בישול, en: cooking}
+  - {he: מטבח, en: kitchen}
+  answer: 1
+  explanation_he: 'שם הפעולה של פועל מבניין פיעל, כמו לבשל, מסתיים לרוב ב"ול": בישול.'
+  explanation_en: 'The action noun of a pi''el verb like "levashel" usually has the pattern "bishul".'
+  tags: [word_formation]
+- id: heb.wordf.007
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'מהו שם הפעולה של הפועל "לצייר"?'
+  prompt_en: 'What is the action noun of the verb "letzayer"?'
+  choices:
+  - {he: ציור, en: drawing}
+  - {he: צייר, en: painter}
+  - {he: מצייר, en: draws}
+  answer: 0
+  explanation_he: 'ציור הוא שם הפעולה, והוא גם התוצאה: הציור על הדף. "צייר" הוא האדם.'
+  explanation_en: '"Tziyur" is the action noun, and also the result: the drawing on the page. "Tzayar" is the person.'
+  tags: [word_formation]
+- id: heb.wordf.008
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'מי שמשחק נקרא:'
+  prompt_en: 'The one who plays is called:'
+  choices:
+  - {he: משחק, en: game}
+  - {he: שחיקה, en: wear}
+  - {he: שחקן, en: player}
+  answer: 2
+  explanation_he: 'הסיומת ן יוצרת שם של מי שעושה: שחקן, רקדן, זמרן.'
+  explanation_en: 'The ending -an forms the name of the doer: player, dancer.'
+  tags: [word_formation]
+- id: heb.wordf.009
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'מי שרוקד נקרא:'
+  prompt_en: 'The one who dances is called:'
+  choices:
+  - {he: ריקוד, en: dance}
+  - {he: רקדן, en: dancer}
+  - {he: רקדנות, en: dancing (the art)}
+  answer: 1
+  explanation_he: 'מי שרוקד הוא רקדן, עם הסיומת ן. ריקוד הוא הפעולה.'
+  explanation_en: 'Someone who dances is a "rakdan", with the ending -an. "Rikud" is the action.'
+  tags: [word_formation]
+- id: heb.wordf.010
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'מה אומרת הסיומת "ייה" במילה "מאפייה"?'
+  prompt_en: 'What does the ending "-iya" mean in "ma''afiya"?'
+  choices:
+  - {he: מי שעושה את הפעולה במקצועו, en: The one who does the action as a profession}
+  - {he: מקום שבו עושים או מוכרים, en: A place where something is made or sold}
+  - {he: זמן מסוים שבו קורה משהו חשוב, en: A certain time when something important happens}
+  answer: 1
+  explanation_he: 'מאפייה היא מקום של מאפים. כך גם ספרייה, מכבסה, מסעדה.'
+  explanation_en: A bakery is a place of baked goods. So too library and laundry.
+  tags: [word_formation]
+- id: heb.wordf.011
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.0
+  prompt_he: 'איזה שם עצם מציין מקום?'
+  prompt_en: 'Which noun denotes a place?'
+  choices:
+  - {he: ספר, en: book}
+  - {he: ספרן, en: librarian}
+  - {he: ספרייה, en: library}
+  answer: 2
+  explanation_he: 'ספרייה היא המקום של הספרים. ספרן הוא מי שעובד בה, וספר הוא החפץ.'
+  explanation_en: A library is the place of books. A librarian works in it and a book is the object.
+  tags: [word_formation]
+- id: heb.wordf.012
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'איזה שם תואר נוצר מהמילה "עיר"?'
+  prompt_en: 'Which adjective is formed from the word "ir"?'
+  choices:
+  - {he: עירוני, en: urban}
+  - {he: עירום, en: naked}
+  - {he: עיוור, en: blind}
+  answer: 0
+  explanation_he: 'שם תואר מהשם "עיר" הוא עירוני, עם הסיומת ני. כך גם חבר-חברי.'
+  explanation_en: 'The adjective from "city" is "ironi", with an ending. Likewise friend-friendly.'
+  tags: [word_formation]
+- id: heb.wordf.013
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'איזה שם תואר נוצר מהמילה "משפחה"?'
+  prompt_en: 'Which adjective is formed from the word "mishpacha"?'
+  choices:
+  - {he: משפטי, en: legal}
+  - {he: משפחה, en: family}
+  - {he: משפחתי, en: family-related}
+  answer: 2
+  explanation_he: 'משפחתי הוא שם תואר מהמילה משפחה. משפטי קשור למשפט בבית משפט, ולכן הוא משמעות אחרת.'
+  explanation_en: '"Mishpachti" is an adjective from "family". "Mishpati" relates to law, a different meaning.'
+  tags: [word_formation]
+- id: heb.wordf.014
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איזה שם תואר נוצר מהמילה "ים"?'
+  prompt_en: 'Which adjective is formed from the word "yam"?'
+  choices:
+  - {he: ימי, en: marine}
+  - {he: ימים, en: seas}
+  - {he: ימין, en: right}
+  answer: 0
+  explanation_he: 'ימי הוא שם תואר שמראה קשר לים, כמו בחיל הים או בחיים ימיים.'
+  explanation_en: '"Yami" is an adjective showing a link to the sea.'
+  tags: [word_formation]
+- id: heb.wordf.015
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'איזו מילה נוצרה מהשורש ל-מ-ד ומציינת מי שלומד?'
+  prompt_en: 'Which word is formed from the root l-m-d and denotes the one who studies?'
+  choices:
+  - {he: למידה, en: learning}
+  - {he: תלמיד, en: pupil}
+  - {he: מלמד, en: teacher}
+  answer: 1
+  explanation_he: 'תלמיד הוא מי שלומד. מלמד הוא מי שמלמד, ולמידה היא הפעולה.'
+  explanation_en: '"Talmid" is the one who studies. "Melamed" teaches and "lemida" is the action.'
+  tags: [word_formation]
+- id: heb.wordf.016
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.0
+  prompt_he: 'איזו מילה היא שם הפועל?'
+  prompt_en: 'Which word is the infinitive (shem hapoal)?'
+  choices:
+  - {he: לרוץ, en: to run}
+  - {he: ריצה, en: running}
+  - {he: רץ, en: runs}
+  answer: 0
+  explanation_he: 'שם הפועל מתחיל ב-ל ופירושו "to ...": לרוץ. ריצה היא שם פעולה, ורץ הוא פועל בהווה.'
+  explanation_en: 'The infinitive begins with "l" and means "to ...": to run. "Ritza" is an action noun and "ratz" is present.'
+  tags: [word_formation]
+- id: heb.wordf.017
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'מה ההבדל בין "ללמוד" ל"למידה"?'
+  prompt_en: 'What is the difference between "lilmod" and "lemida"?'
+  choices:
+  - {he: הראשון שם עצם והשני פועל, en: The first is a noun and the second a verb}
+  - {he: שניהם שמות תואר, en: Both are adjectives}
+  - {he: הראשון פועל והשני שם עצם, en: The first is a verb and the second a noun}
+  answer: 2
+  explanation_he: 'ללמוד היא שם הפועל, ולמידה היא שם הפעולה: שם עצם.'
+  explanation_en: '"Lilmod" is the infinitive and "lemida" is the action noun, a noun.'
+  tags: [word_formation]
+- id: heb.wordf.018
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איזו מילה שייכת למשפחת המילים של "כתב"?'
+  prompt_en: 'Which word belongs to the word family of "katav"?'
+  choices:
+  - {he: כתף, en: shoulder}
+  - {he: כתבה, en: a news article}
+  - {he: כתום, en: orange}
+  answer: 1
+  explanation_he: כתבה נוצרה מהשורש כ-ת-ב. כתף וכתום הן משורשים אחרים.
+  explanation_en: '"Katava" was formed from k-t-v. "Katef" and "katom" come from other roots.'
+  tags: [word_formation]
+- id: heb.wordf.019
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איזו מילה אינה נוצרה מהשורש ש-מ-ר?'
+  prompt_en: 'Which word is not formed from the root sh-m-r?'
+  choices:
+  - {he: שמירה, en: guarding}
+  - {he: שמש, en: sun}
+  - {he: שומר, en: guard}
+  answer: 1
+  explanation_he: שמירה ושומר מגיעות מ-ש-מ-ר. שמש היא מקור אחר.
+  explanation_en: '"Shmira" and "shomer" come from sh-m-r. "Shemesh" has another source.'
+  tags: [word_formation]
+- id: heb.wordf.020
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'מה שם הפעולה של הפועל "לחשוב"?'
+  prompt_en: 'What is the action noun of the verb "lachshov"?'
+  choices:
+  - {he: חשיבה, en: thinking}
+  - {he: חושב, en: thinker}
+  - {he: מחשב, en: computer}
+  answer: 0
+  explanation_he: 'חשיבה היא הפעולה של לחשוב. "מחשב" נוצר מאותו שורש אבל הוא מכשיר.'
+  explanation_en: '"Chshiva" is the act of thinking. "Machshev" comes from the same root but is a device.'
+  tags: [word_formation]
+- id: heb.wordf.021
+  skill: hebrew.grammar.word_formation
+  kind: choice
+  grade: 8
+  difficulty: 1.5
+  prompt_he: 'מה הקשר בין "מכונה" ל"מכונית"?'
+  prompt_en: 'What is the link between "mechona" and "mechonit"?'
+  choices:
+  - {he: אין ביניהן שום קשר משמעותי, en: There is no meaningful link between them}
+  - {he: הן שתיהן שמות של אנשים מפורסמים, en: Both are names of famous people}
+  - {he: 'מאותו שורש: מכונית היא סוג מכונה', en: 'Same root: a car is a kind of machine'}
+  answer: 2
+  explanation_he: 'מכונית נוצרה מ"מכונה" עם סיומת ית: מכונה שנוסעים בה.'
+  explanation_en: '"Mechonit" was formed from "mechona" with the ending -it: a small machine for driving.'
+  tags: [word_formation]
+- id: heb.wordf.022
+  skill: hebrew.grammar.word_formation
+  kind: true_false
+  grade: 8
+  difficulty: 0.0
+  prompt_he: הסיומת ן יוצרת לפעמים שם של מי שעושה פעולה.
+  prompt_en: The ending -an sometimes forms the name of one who does an action.
+  answer: true
+  explanation_he: 'כך נוצרו שחקן, רקדן ואמן. הסיומת מציינת את בעל המקצוע או העיסוק.'
+  explanation_en: 'That is how player, dancer and artist were formed.'
+  tags: [word_formation]
+- id: heb.wordf.023
+  skill: hebrew.grammar.word_formation
+  kind: true_false
+  grade: 8
+  difficulty: 0.5
+  prompt_he: '"בניין" ו"בנייה" אומרות בדיוק אותו דבר.'
+  prompt_en: '"Binyan" and "bniya" mean exactly the same thing.'
+  answer: false
+  explanation_he: 'בנייה היא הפעולה, ובניין הוא מה שנבנה. הן קרובות אבל לא זהות.'
+  explanation_en: '"Bniya" is the action and "binyan" is what was built. They are close but not identical.'
+  tags: [word_formation]
+- id: heb.wordf.024
+  skill: hebrew.grammar.word_formation
+  kind: true_false
+  grade: 8
+  difficulty: 0.5
+  prompt_he: אפשר להבין מילה חדשה אם מכירים את השורש והסיומת.
+  prompt_en: You can understand a new word if you know the root and the ending.
+  answer: true
+  explanation_he: 'השורש נותן את הרעיון והסיומת או התבנית מראה אם זה אדם, מקום או פעולה.'
+  explanation_en: 'The root gives the idea and the ending or pattern shows whether it is a person, place or action.'
+  tags: [word_formation]
+- id: heb.wordf.025
+  skill: hebrew.grammar.word_formation
+  kind: true_false
+  grade: 8
+  difficulty: 0.0
+  prompt_he: 'המילה "ספרייה" מציינת אדם שעובד בספרים.'
+  prompt_en: 'The word "sifriya" denotes a person who works with books.'
+  answer: false
+  explanation_he: ספרייה היא מקום. אדם שעובד בה הוא ספרן.
+  explanation_en: 'A "sifriya" is a place. A person who works there is a librarian.'
+  tags: [word_formation]

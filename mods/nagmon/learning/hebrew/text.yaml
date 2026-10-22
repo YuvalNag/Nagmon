@@ -851,7 +851,7 @@ items:
   kind: choice
   grade: 5
   difficulty: -1.0
-  prompt_he: 'באיזה סוג טקסט נמצא חרוזים בדרך כלל?'
+  prompt_he: 'באיזה סוג טקסט מוצאים חרוזים בדרך כלל?'
   prompt_en: 'In which kind of text do we usually find rhymes?'
   choices:
   - {he: הוראות, en: instructions}
@@ -1662,3 +1662,918 @@ items:
   explanation_he: 'מספיק מקרה אחד חריג כדי להפריך משפט שאומר "תמיד" או "כל". ניסוח זהיר חזק יותר.'
   explanation_en: 'One exception is enough to refute a statement with "always" or "all". Careful wording is stronger.'
   tags: [argument]
+- id: heb.summ.001
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'איזה סיכום מתאים ביותר? "הדובים נרדמים בחורף ומתעוררים באביב. בזמן השינה הם לא אוכלים."'
+  prompt_en: 'Which summary fits best? "Bears fall asleep in winter and wake in spring. While asleep they do not eat."'
+  choices:
+  - {he: דובים ישנים בחורף בלי לאכול, en: Bears sleep in winter without eating}
+  - {he: דובים אוהבים לאכול דגים, en: Bears like to eat fish}
+  - {he: האביב הוא עונה יפה, en: Spring is a lovely season}
+  answer: 0
+  explanation_he: 'סיכום טוב כולל את הרעיון המרכזי בקצרה: דובים ישנים ולא אוכלים בחורף.'
+  explanation_en: 'A good summary gives the main idea briefly: bears sleep and do not eat in winter.'
+  tags: [summary]
+- id: heb.summ.002
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 0.0
+  prompt_he: 'איזה סיכום מתאים ביותר? "גשם יורד כשהעננים כבדים. הגשם ממלא נחלים ומשקה את השדות."'
+  prompt_en: 'Which summary fits best? "Rain falls when clouds are heavy. Rain fills streams and waters the fields."'
+  choices:
+  - {he: עננים יכולים להיות לבנים או אפורים, en: Clouds can be white or gray}
+  - {he: השדות בישראל גדולים ופתוחים מאוד, en: The fields in Israel are very big and open}
+  - {he: הגשם יורד מעננים כבדים ומועיל לשדות, en: Rain falls from heavy clouds and helps the fields}
+  answer: 2
+  explanation_he: הסיכום מזכיר גם את הסיבה (עננים כבדים) וגם את התועלת (נחלים ושדות).
+  explanation_en: The summary mentions both the cause (heavy clouds) and the benefit (streams and fields).
+  tags: [summary]
+- id: heb.summ.003
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 0.0
+  prompt_he: 'איזה סיכום מתאים ביותר? "נועם כתב מכתב ארוך. הוא סיפר בו על הטיול, על החברים ועל הים."'
+  prompt_en: 'Which summary fits best? "Noam wrote a long letter. In it he told about the trip, the friends and the sea."'
+  choices:
+  - {he: נועם אוהב ים וטיולים עם חברים, en: Noam likes the sea and trips with friends}
+  - {he: נועם כתב מכתב על הטיול שלו, en: Noam wrote a letter about his trip}
+  - {he: המכתב הגיע באיחור של שבוע שלם, en: The letter arrived a whole week late}
+  answer: 1
+  explanation_he: 'סיכום אומר מה עשה נועם ועל מה: כתב מכתב על הטיול. שאר הפרטים הם תוספות.'
+  explanation_en: 'A summary says what Noam did and about what: wrote a letter about the trip. The rest is detail.'
+  tags: [summary]
+- id: heb.summ.004
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'איזה סיכום מתאים ביותר? "הספרייה תיסגר לשיפוץ. במשך חודשיים אפשר להשאיל ספרים בבית הספר."'
+  prompt_en: 'Which summary fits best? "The library will close for renovation. For two months one can borrow books at school."'
+  choices:
+  - {he: הספרייה גדולה ויפה ויש בה הרבה ספרים, en: The library is big and lovely with many books}
+  - {he: 'הספרייה סגורה, ומשאילים בבית הספר', en: 'The library is closed, borrowing is at school'}
+  - {he: הספרים ישנים מאוד ולכן הם לא מתאימים, en: The books are very old so they do not suit}
+  answer: 1
+  explanation_he: 'הסיכום כולל את שני הפרטים החשובים: הסגירה וההחלפה בהשאלה בבית הספר.'
+  explanation_en: 'The summary includes the two key points: the closing and the substitute of borrowing at school.'
+  tags: [summary]
+- id: heb.summ.005
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'איזה משפט אומר את אותו דבר במילים אחרות? "הילד מיהר לבית הספר."'
+  prompt_en: 'Which sentence says the same in other words? "The boy hurried to school."'
+  choices:
+  - {he: הילד הלך לאט לאט אל בית הספר, en: The boy walked very slowly to school}
+  - {he: הילד נשאר בבית ולא הלך ללמוד, en: The boy stayed home and did not go to study}
+  - {he: הילד רץ במהירות אל בית הספר, en: The boy ran quickly to school}
+  answer: 2
+  explanation_he: 'ניסוח מחדש שומר על המשמעות ומחליף מילים. "מיהר" ו"רץ במהירות" דומות.'
+  explanation_en: 'A paraphrase keeps the meaning and changes words. "Hurried" and "ran quickly" are close.'
+  tags: [summary]
+- id: heb.summ.006
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'איזה משפט אומר את אותו דבר במילים אחרות? "המורה שיבחה את התלמיד שהשתפר."'
+  prompt_en: 'Which sentence says the same in other words? "The teacher praised the pupil who had improved."'
+  choices:
+  - {he: התלמיד שהשתפר קיבל שבח מהמורה, en: The pupil who improved got praise from the teacher}
+  - {he: המורה ביקשה מהתלמיד להשתפר מיד, en: The teacher asked the pupil to improve at once}
+  - {he: התלמיד שיבח את המורה שהשתפרה, en: The pupil praised the teacher who had improved}
+  answer: 0
+  explanation_he: במשפט הנכון מי שהשתפר מקבל שבח מהמורה. בשני האחרים הכיוון או המשמעות שונים.
+  explanation_en: In the correct one the one who improved gets praise from the teacher. The other two change direction or meaning.
+  tags: [summary]
+- id: heb.summ.007
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'איזה משפט אומר את אותו דבר במילים אחרות? "הדרך הייתה ארוכה ומתישה."'
+  prompt_en: 'Which sentence says the same in other words? "The way was long and exhausting."'
+  choices:
+  - {he: המסע נמשך זמן רב והיה קשה מאוד, en: The journey lasted long and was very hard}
+  - {he: 'הדרך הייתה קצרה, נעימה וקלה מאוד', en: 'The way was short, pleasant and very easy'}
+  - {he: לא הייתה שום דרך להגיע לשם בכלל, en: There was no way to get there at all}
+  answer: 0
+  explanation_he: 'ארוכה פירושה נמשכת זמן רב, ומתישה פירושה קשה מאוד. שני הצירופים משקפים זאת.'
+  explanation_en: '"Long" means lasting long, and "exhausting" means very hard. Both phrases reflect this.'
+  tags: [summary]
+- id: heb.summ.008
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איזה סיכום כולל דעה שלא נאמרה בטקסט?'
+  prompt_en: 'Which summary includes an opinion not said in the text?'
+  choices:
+  - {he: דבורים אוספות צוף מפרחים ומכינות דבש, en: Bees collect nectar from flowers and make honey}
+  - {he: ברור שהדבורים הן החרקים החשובים ביותר, en: It is clear that bees are the most important insects}
+  - {he: דבורים חיות בכוורת יחד עם מלכה אחת, en: Bees live in a hive together with one queen}
+  answer: 1
+  explanation_he: 'סיכום טוב אינו מוסיף דעות. אם בטקסט לא נאמר שהדבורים החשובות ביותר, אסור להוסיף זאת.'
+  explanation_en: 'A good summary adds no opinions. If the text did not say bees are the most important, we must not add it.'
+  tags: [summary]
+- id: heb.summ.009
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'מה חסר בסיכום "ילדים הלכו" כסיכום של סיפור על טיול בהר?'
+  prompt_en: 'What is missing in the summary "Children went" as a summary of a story about a hike in the mountains?'
+  choices:
+  - {he: עוד תיאורים של הנוף, en: More descriptions of the scenery}
+  - {he: שמות כל הילדים, en: Names of all the children}
+  - {he: 'לאן, למה ומה קרה', en: 'Where, why and what happened'}
+  answer: 2
+  explanation_he: 'סיכום צריך לענות על שאלות חשובות: מי, לאן, למה, מה קרה. התיאורים המפורטים אינם הכרחיים.'
+  explanation_en: 'A summary must answer key questions: who, where, why, what happened. Detailed descriptions are not essential.'
+  tags: [summary]
+- id: heb.summ.010
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איזה סיכום ארוך מדי?'
+  prompt_en: 'Which summary is too long?'
+  choices:
+  - {he: העתקה של כמעט כל משפטי הטקסט, en: 'Copying almost all the text''s sentences'}
+  - {he: משפט אחד שמכיל את הרעיון המרכזי, en: One sentence with the main idea}
+  - {he: שני משפטים קצרים עם הפרטים החשובים, en: Two short sentences with key details}
+  answer: 0
+  explanation_he: 'סיכום קצר מהטקסט. אם מעתיקים כמעט את כל הטקסט, זה לא סיכום.'
+  explanation_en: A summary is shorter than the text. Copying almost all of it is not a summary.
+  tags: [summary]
+- id: heb.summ.011
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'איזה משפט הוא סיכום של: "קודם חפרו, אחר כך זרעו, ולבסוף השקו"?'
+  prompt_en: 'Which sentence summarizes: "First they dug, then sowed, and finally watered"?'
+  choices:
+  - {he: הם אהבו מאוד את הגינה החדשה שלהם, en: They loved their new garden very much}
+  - {he: הם נטעו גינה בשלושה שלבים, en: They planted a garden in three stages}
+  - {he: הם קנו זרעים בחנות הקרובה לבית, en: They bought seeds at the shop near the house}
+  answer: 1
+  explanation_he: 'הסיכום מאחד את שלושת השלבים למשפט אחד: נטיעה בשלושה שלבים.'
+  explanation_en: 'The summary merges the three stages into one sentence: planting in three stages.'
+  tags: [summary]
+- id: heb.summ.012
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 0.0
+  prompt_he: 'איזה סיכום נכון? "השמש זורחת במזרח. בערב היא שוקעת במערב."'
+  prompt_en: 'Which summary is correct? "The sun rises in the east. In the evening it sets in the west."'
+  choices:
+  - {he: השמש זורחת במערב ושוקעת במזרח, en: The sun rises in the west and sets in the east}
+  - {he: השמש זורחת רק בבוקר, en: The sun rises only in the morning}
+  - {he: השמש זורחת במזרח ושוקעת במערב, en: The sun rises in the east and sets in the west}
+  answer: 2
+  explanation_he: סיכום אינו משנה עובדות. כאן המזרח והמערב נשמרים במקומם הנכון.
+  explanation_en: A summary does not change facts. Here east and west keep their correct places.
+  tags: [summary]
+- id: heb.summ.013
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איזו כותרת שומרת על הרעיון: "חוקרים גילו שמים נקיים מביאים יותר דגים לנחל."?'
+  prompt_en: 'Which title keeps the idea: "Researchers found that clean water brings more fish to a stream"?'
+  choices:
+  - {he: עוד דג קטן בנחל הגדול, en: Another small fish in the big stream}
+  - {he: איך מלמדים דג קטן לשחות, en: How to teach a small fish to swim}
+  - {he: 'נחל נקי, נחל מלא דגים', en: 'A clean stream, a stream full of fish'}
+  answer: 2
+  explanation_he: 'הכותרת צריכה להזכיר את הקשר שבטקסט: מים נקיים ויותר דגים.'
+  explanation_en: 'The title must mention the link in the text: clean water and more fish.'
+  tags: [summary]
+- id: heb.summ.014
+  skill: hebrew.text.summary
+  kind: order
+  grade: 8
+  difficulty: 0.5
+  prompt_he: סדרו את משפטי הסיכום כך שהם מספרים את אותו סיפור.
+  prompt_en: Put the summary sentences in order so they tell the same story.
+  choices:
+  - {he: חבר עזר לו להוריד אותו מהעץ, en: A friend helped him get it down from the tree}
+  - {he: הילד הודה לחבר, en: The boy thanked the friend}
+  - {he: ילד איבד את כובעו ברוח, en: A boy lost his hat in the wind}
+  answer: [2, 0, 1]
+  explanation_he: 'בסיכום שומרים על סדר האירועים: איבוד, עזרה, תודה.'
+  explanation_en: 'A summary keeps the order of events: loss, help, thanks.'
+  tags: [summary]
+- id: heb.summ.015
+  skill: hebrew.text.summary
+  kind: true_false
+  grade: 8
+  difficulty: -1.0
+  prompt_he: סיכום טוב קצר מהטקסט המקורי.
+  prompt_en: A good summary is shorter than the original text.
+  answer: true
+  explanation_he: המטרה של סיכום היא לומר את העיקר בקיצור.
+  explanation_en: The aim of a summary is to say the main point briefly.
+  tags: [summary]
+- id: heb.summ.016
+  skill: hebrew.text.summary
+  kind: true_false
+  grade: 8
+  difficulty: 0.0
+  prompt_he: בסיכום מוסיפים דעה אישית של המסכם.
+  prompt_en: 'In a summary we add the summarizer''s personal opinion.'
+  answer: false
+  explanation_he: 'סיכום מוסר מה כתוב בטקסט, בלי להוסיף את מה שאנחנו חושבים.'
+  explanation_en: A summary reports what is in the text without adding what we think.
+  tags: [summary]
+- id: heb.summ.017
+  skill: hebrew.text.summary
+  kind: true_false
+  grade: 8
+  difficulty: 0.0
+  prompt_he: ניסוח מחדש שומר על המשמעות ומשנה מילים.
+  prompt_en: A paraphrase keeps the meaning and changes words.
+  answer: true
+  explanation_he: 'כך אפשר לומר אותו דבר בדרך אחרת, למשל "מיהר" ו"רץ במהירות".'
+  explanation_en: 'That way we can say the same thing differently, e.g. "hurried" and "ran quickly".'
+  tags: [summary]
+- id: heb.summ.018
+  skill: hebrew.text.summary
+  kind: true_false
+  grade: 8
+  difficulty: 0.5
+  prompt_he: אפשר להשמיט בסיכום פרטים לא חשובים.
+  prompt_en: We may omit unimportant details in a summary.
+  answer: true
+  explanation_he: 'סיכום מצמצם. הפרטים החשובים נשארים, והפחות חשובים אפשר להשמיט.'
+  explanation_en: A summary condenses. Key details stay and less important ones can be left out.
+  tags: [summary]
+- id: heb.summ.019
+  skill: hebrew.text.summary
+  kind: true_false
+  grade: 8
+  difficulty: 1.0
+  prompt_he: כותרת אינה יכולה להיות סיכום קצר של הטקסט.
+  prompt_en: A title cannot be a short summary of the text.
+  answer: false
+  explanation_he: 'כותרת טובה היא סיכום קצרצר שמראה על מה הטקסט, ולכן היא יכולה להיות כזו.'
+  explanation_en: 'A good title is a tiny summary showing what the text is about, so it can be one.'
+  tags: [summary]
+- id: heb.summ.020
+  skill: hebrew.text.summary
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איזה פרט חשוב יותר לסיכום הסיפור: "יעל מצאה כלב. היא נתנה לו שם, ואחר כך מצאה את בעליו והחזירה אותו."?'
+  prompt_en: 'Which detail is more important for summarizing: "Yael found a dog. She gave it a name, and then found its owner and returned it."?'
+  choices:
+  - {he: השם החדש שיעל נתנה לכלב הקטן, en: The new name Yael gave the little dog}
+  - {he: מציאת הבעלים והחזרת הכלב, en: Finding the owner and returning the dog}
+  - {he: הצבע והגודל של הכלב שמצאה, en: The color and size of the dog she found}
+  answer: 1
+  explanation_he: בסיפור העיקר הוא ההחזרה לבעלים. שם הכלב וצבעו הם פרטים משניים.
+  explanation_en: The key of the story is returning it to the owner. The name and color are secondary details.
+  tags: [summary]
+- id: heb.poetry.001
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 0.0
+  prompt_he: 'מה התמונה בשורה: "העננים צעדו כצאן אפור על פני השמיים"?'
+  prompt_en: 'What is the image in the line: "The clouds marched like a gray flock across the sky"?'
+  choices:
+  - {he: 'דימוי: העננים כמו צאן', en: 'A simile: clouds like a flock'}
+  - {he: הפלגה בגודל ובמספר העננים, en: Hyperbole in the size and number of clouds}
+  - {he: חזרה על אותה מילה בשורה, en: Repetition of the same word in the line}
+  answer: 0
+  explanation_he: 'יש השוואה בעזרת "כ": העננים והצאן. לכן זה דימוי, והצעידה מוסיפה גם האנשה.'
+  explanation_en: 'There is a comparison with "ke": clouds and a flock. So it is a simile, and the marching adds personification.'
+  tags: [poetry]
+- id: heb.poetry.002
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 0.0
+  prompt_he: 'מה אמצעי הציור בשורה: "הלילה פרש שמיכה כחולה על העיר"?'
+  prompt_en: 'What device is in the line: "The night spread a blue blanket over the city"?'
+  choices:
+  - {he: 'דימוי עם המילה "כמו"', en: 'A simile with "like"'}
+  - {he: שאלה לקורא, en: A question to the reader}
+  - {he: 'האנשה: הלילה פורש', en: 'Personification: night spreads'}
+  answer: 2
+  explanation_he: 'הלילה אינו אדם ואינו פורש שמיכה. זו האנשה, בליווי תמונה של שמיכה כחולה.'
+  explanation_en: The night is not a person and cannot spread a blanket. It is personification with a blanket image.
+  tags: [poetry]
+- id: heb.poetry.003
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'אילו שורות מתחרזות? "ירד גשם על הגג / והרחוב נהיה נחל / אני עומד ליד החלון / וחולם על חג."'
+  prompt_en: 'Which lines rhyme? "Rain fell on the roof / and the street became a stream / I stand by the window / dreaming of a holiday."'
+  choices:
+  - {he: 'השורה השנייה והשלישית: נחל-חלון', en: 'Lines two and three: nachal-chalon'}
+  - {he: 'השורה הראשונה והרביעית: גג-חג', en: 'Lines one and four: gag-chag'}
+  - {he: כל ארבע השורות מתחרזות יחד, en: All four lines rhyme together}
+  answer: 1
+  explanation_he: גג וחג נגמרות באותו צליל ולכן מתחרזות. נחל וחלון אינן מתחרזות.
+  explanation_en: '"Gag" and "chag" end with the same sound so they rhyme. "Nachal" and "chalon" do not.'
+  tags: [poetry]
+- id: heb.poetry.004
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 0.0
+  prompt_he: 'מה מרגיש הדובר? "אני יושב לבד, והשעון מתקתק לאט. כל דקה נראית כמו שעה."'
+  prompt_en: 'How does the speaker feel? "I sit alone and the clock ticks slowly. Every minute seems like an hour."'
+  choices:
+  - {he: שמחה גדולה, en: Great joy}
+  - {he: בדידות ושעמום, en: Loneliness and boredom}
+  - {he: התרגשות לפני מסיבה, en: Excitement before a party}
+  answer: 1
+  explanation_he: 'לבד, שעון איטי ודקות ארוכות הם סימנים לבדידות ולשעמום.'
+  explanation_en: 'Alone, a slow clock and long minutes are signs of loneliness and boredom.'
+  tags: [poetry]
+- id: heb.poetry.005
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מה אפשר לומר על הצלילים בשורה: "רחש עלים, רשרוש רוח, רחשי ערב"?'
+  prompt_en: 'What can be said about the sounds in the line: "a rustle of leaves, a whisper of wind, rustlings of evening"?'
+  choices:
+  - {he: השורה מתחרזת עם שורה אחרת, en: The line rhymes with another line}
+  - {he: אין בה שום דבר מיוחד או מעניין, en: There is nothing special or interesting about it}
+  - {he: חזרה על ר ו-ש יוצרת תחושת רשרוש, en: Repeating r and sh creates a feeling of rustling}
+  answer: 2
+  explanation_he: 'הצלילים ר ו-ש חוזרים, והם נשמעים כמו רשרוש. כך הצליל עצמו מוסיף אווירה.'
+  explanation_en: The sounds r and sh repeat and sound like rustling. So the sound itself adds atmosphere.
+  tags: [poetry]
+- id: heb.poetry.006
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 0.0
+  prompt_he: 'איזו שורה מכילה ניגוד?'
+  prompt_en: 'Which line contains a contrast?'
+  choices:
+  - {he: בחוץ חם ובפנים קר, en: Hot outside and cold inside}
+  - {he: השמש זורחת מעל הים, en: The sun shines over the sea}
+  - {he: ציפור שרה על הענף, en: A bird sings on the branch}
+  answer: 0
+  explanation_he: 'ניגוד הוא שני דברים הפוכים בשורה אחת: חם וקר, בחוץ ובפנים.'
+  explanation_en: 'A contrast is two opposite things in one line: hot and cold, outside and inside.'
+  tags: [poetry]
+- id: heb.poetry.007
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'מה מוסיפה החזרה בשורות: "עוד יום, עוד יום, עוד יום של חול"?'
+  prompt_en: 'What does the repetition add in the lines: "Another day, another day, another day of routine"?'
+  choices:
+  - {he: הומור גדול והרבה צחוק בשיר, en: Great humor and a lot of laughter in the poem}
+  - {he: תחושה של שגרה ושל משך ארוך, en: A feeling of routine and long duration}
+  - {he: מידע חדש על היום ועל השעה, en: New information about the day and the hour}
+  answer: 1
+  explanation_he: המילים החוזרות יוצרות קצב אחיד ומראות שהימים דומים זה לזה.
+  explanation_en: Repeated words create an even rhythm and show that the days are alike.
+  tags: [poetry]
+- id: heb.poetry.008
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מה פירוש הדימוי בשורה: "הזמן הוא נהר שלא עוצר"?'
+  prompt_en: 'What does the image in the line "time is a river that does not stop" mean?'
+  choices:
+  - {he: שהזמן זורם תמיד ולא חוזר, en: That time always flows and does not return}
+  - {he: שבנהר יש הרבה מים ושקט גדול, en: That a river has a lot of water and great quiet}
+  - {he: שצריך לשחות בנהר כל בוקר, en: That one must swim in the river every morning}
+  answer: 0
+  explanation_he: 'זו מטפורה: הזמן מושווה לנהר, וכמו נהר הוא נע קדימה בלי לחזור.'
+  explanation_en: 'This is a metaphor: time is compared to a river, which moves forward without returning.'
+  tags: [poetry]
+- id: heb.poetry.009
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 1.5
+  prompt_he: 'מה ההבדל בין מטפורה לדימוי?'
+  prompt_en: 'What is the difference between a metaphor and a simile?'
+  choices:
+  - {he: במטפורה יש תמיד מספרים גדולים, en: A metaphor always has big numbers}
+  - {he: אין שום הבדל ביניהם בכלל, en: There is no difference between them at all}
+  - {he: 'במטפורה אין "כמו", הדבר הוא דבר אחר', en: 'A metaphor has no "like", one thing is another'}
+  answer: 2
+  explanation_he: 'דימוי: "הזמן כמו נהר". מטפורה: "הזמן הוא נהר". במטפורה ההשוואה מוסתרת.'
+  explanation_en: 'Simile: "time is like a river". Metaphor: "time is a river". In a metaphor the comparison is hidden.'
+  tags: [poetry]
+- id: heb.poetry.010
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'איזו שורה היא מטפורה?'
+  prompt_en: 'Which line is a metaphor?'
+  choices:
+  - {he: הילדות היא גן פורח, en: Childhood is a blooming garden}
+  - {he: הילדות כמו גן פורח, en: Childhood is like a blooming garden}
+  - {he: בילדות היו לי גן וחברים, en: In childhood I had a garden and friends}
+  answer: 0
+  explanation_he: 'במשפט הראשון הילדות "היא" גן, בלי המילה כמו. זו מטפורה.'
+  explanation_en: 'In the first, childhood "is" a garden, without the word "like". That is a metaphor.'
+  tags: [poetry]
+- id: heb.poetry.011
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מה מעביר הקצב המהיר בשורות קצרות: "רץ. עוצר. נושם. רץ."?'
+  prompt_en: 'What does the quick rhythm of short lines convey: "Runs. Stops. Breathes. Runs."?'
+  choices:
+  - {he: שינה ורוגע גדול, en: Sleep and great calm}
+  - {he: מתח ותנועה מהירה, en: Tension and quick movement}
+  - {he: שעמום ארוך ומתיש, en: 'Long, tiring boredom'}
+  answer: 1
+  explanation_he: משפטים קצרים ורצופים יוצרים תחושה של תנועה מהירה ומתח.
+  explanation_en: Short consecutive sentences create a feeling of fast movement and tension.
+  tags: [poetry]
+- id: heb.poetry.012
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מה אפשר לומר על השורה: "שמש, שמש, תעלי מהר"?'
+  prompt_en: 'What can be said about the line: "Sun, sun, rise quickly"?'
+  choices:
+  - {he: השמש עונה לשאלה שהדובר שאל, en: The sun answers a question the speaker asked}
+  - {he: זה מתכון לעוגה עם חלמון שמש, en: It is a recipe for a cake with a sun-yolk}
+  - {he: הדובר פונה לשמש כאל אדם, en: The speaker addresses the sun as a person}
+  answer: 2
+  explanation_he: 'פנייה לשמש כאל אדם היא האנשה, והחזרה על "שמש" מוסיפה געגוע.'
+  explanation_en: 'Addressing the sun as a person is personification, and the repetition of "sun" adds longing.'
+  tags: [poetry]
+- id: heb.poetry.013
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'למה משורר בוחר מילים כמו "רשרוש", "טפטוף" ו"המהום"?'
+  prompt_en: 'Why does a poet choose words like "rustle", "drip" and "hum"?'
+  choices:
+  - {he: כי הן קצרות ונוחות להקלדה, en: Because they are short and easy to type}
+  - {he: כי הן לא מובנות, en: Because they are not understood}
+  - {he: כי הצליל מזכיר את הדבר עצמו, en: Because the sound recalls the thing itself}
+  answer: 2
+  explanation_he: מילים שנשמעות כמו מה שהן מתארות מוסיפות תחושה חזקה לשיר.
+  explanation_en: Words that sound like what they describe add a strong feeling to the poem.
+  tags: [poetry]
+- id: heb.poetry.014
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'מה הכוונה ב"ליבי רץ אחריך"?'
+  prompt_en: 'What is meant by "my heart runs after you"?'
+  choices:
+  - {he: שהדובר מתגעגע ורוצה להיות קרוב, en: That the speaker longs and wants to be near}
+  - {he: שהלב נפל מהגוף ורץ בכביש, en: That the heart fell out of the body and ran in the road}
+  - {he: שהדובר רץ מרתון שלם אחריו, en: That the speaker ran a whole marathon after him}
+  answer: 0
+  explanation_he: ללב אין רגליים. זו דרך ציורית לתאר געגוע וצורך להיות עם מישהו.
+  explanation_en: A heart has no legs. It is a figurative way to describe longing and a need to be with someone.
+  tags: [poetry]
+- id: heb.poetry.015
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 0.0
+  prompt_he: 'איזה רגש מביע שיר שפותח: "הכול כל כך אפור, והרחוב ריק, ואין מי שישאל מה שלומי"?'
+  prompt_en: 'Which feeling does a poem opening like this express: "Everything is so gray, the street is empty and no one asks how I am"?'
+  choices:
+  - {he: הצלחה וגאווה, en: Success and pride}
+  - {he: עצב ובדידות, en: Sadness and loneliness}
+  - {he: הרפתקנות ומתח, en: Adventure and suspense}
+  answer: 1
+  explanation_he: 'אפור, רחוב ריק ואף אחד שלא שואל מראים עצב ובדידות.'
+  explanation_en: 'Gray, an empty street and no one asking show sadness and loneliness.'
+  tags: [poetry]
+- id: heb.poetry.016
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'איזה שיר מתאים לכותרת "כשהים נרדם"?'
+  prompt_en: 'Which poem fits the title "When the sea falls asleep"?'
+  choices:
+  - {he: הרכבת יוצאת בשמונה בבוקר מהתחנה, en: The train leaves at eight in the morning from the station}
+  - {he: 'הגלים נרגעים, ורק הירח נשאר ער', en: The waves calm down and only the moon stays awake}
+  - {he: מחר יש מבחן קשה בחשבון בכיתה, en: Tomorrow there is a hard math test in class}
+  answer: 1
+  explanation_he: 'הכותרת מדברת על ים רגוע כמו אדם ישן, והשורה הראשונה ממשיכה את התמונה הזו.'
+  explanation_en: 'The title describes a calm sea like a sleeping person, and the first line continues that image.'
+  tags: [poetry]
+- id: heb.poetry.017
+  skill: hebrew.text.poetry
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מדוע שירים נכתבים לעתים בשורות קצרות?'
+  prompt_en: 'Why are poems often written in short lines?'
+  choices:
+  - {he: כדי לשים דגש על מילים ולתת קצב, en: To stress words and give a rhythm}
+  - {he: כי אין מספיק מקום בדף הנייר, en: Because there is not enough room on the sheet of paper}
+  - {he: כי השיר בלי משמעות מיוחדת, en: Because the poem has no special meaning}
+  answer: 0
+  explanation_he: 'שבירת השורה יוצרת הפסקה, נותנת משקל למילה ומשפיעה על הקצב.'
+  explanation_en: 'Breaking the line creates a pause, gives weight to a word and affects the rhythm.'
+  tags: [poetry]
+- id: heb.poetry.018
+  skill: hebrew.text.poetry
+  kind: true_false
+  grade: 9
+  difficulty: 0.0
+  prompt_he: 'כשכותבים "הלילה פרש שמיכה" זו האנשה.'
+  prompt_en: 'Writing "the night spread a blanket" is personification.'
+  answer: true
+  explanation_he: 'פרישת שמיכה היא פעולה של אדם. הלילה "עושה" אותה, ולכן זו האנשה.'
+  explanation_en: 'Spreading a blanket is a human action. The night "does" it, so this is personification.'
+  tags: [poetry]
+- id: heb.poetry.019
+  skill: hebrew.text.poetry
+  kind: true_false
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'מטפורה חייבת להכיל את המילה "כמו".'
+  prompt_en: 'A metaphor must contain the word "like".'
+  answer: false
+  explanation_he: 'המילה "כמו" שייכת לדימוי. במטפורה אומרים שדבר הוא דבר אחר.'
+  explanation_en: 'The word "like" belongs to a simile. In a metaphor we say one thing is another.'
+  tags: [poetry]
+- id: heb.poetry.020
+  skill: hebrew.text.poetry
+  kind: true_false
+  grade: 9
+  difficulty: -1.0
+  prompt_he: חריזה היא אותו צליל בסוף שורות.
+  prompt_en: Rhyme is the same sound at the ends of lines.
+  answer: true
+  explanation_he: 'שורות שנגמרות באותו צליל מתחרזות, כמו גג וחג.'
+  explanation_en: 'Lines that end with the same sound rhyme, like "gag" and "chag".'
+  tags: [poetry]
+- id: heb.poetry.021
+  skill: hebrew.text.poetry
+  kind: true_false
+  grade: 9
+  difficulty: 0.0
+  prompt_he: בשיר אסור להשתמש בחזרה על מילים.
+  prompt_en: In a poem one must not repeat words.
+  answer: false
+  explanation_he: 'חזרה היא אמצעי נפוץ בשירה, והיא מדגישה רגש ויוצרת קצב.'
+  explanation_en: Repetition is a common poetic device; it stresses feeling and creates rhythm.
+  tags: [poetry]
+- id: heb.poetry.022
+  skill: hebrew.text.poetry
+  kind: true_false
+  grade: 9
+  difficulty: 0.5
+  prompt_he: אפשר להבין את רגש השיר גם לפי הצבעים והצלילים שבו.
+  prompt_en: 'We can understand a poem''s mood also from its colors and sounds.'
+  answer: true
+  explanation_he: 'צבעים כמו אפור, וצלילים כמו שקט או רעם, מביעים אווירה ורגש.'
+  explanation_en: Colors like gray and sounds like quiet or thunder express atmosphere and feeling.
+  tags: [poetry]
+- id: heb.tone.001
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'מה הטון בשורה: "איזה יופי, עוד שיעור בלי הפסקה"?'
+  prompt_en: 'What is the tone in the line: "How lovely, another lesson with no break"?'
+  choices:
+  - {he: שמח באמת ומרוצה מהשיעור, en: Truly happy and pleased with the lesson}
+  - {he: מופתע לטובה מההפסקה שהגיעה, en: Pleasantly surprised by the break that came}
+  - {he: 'אירוני: הכוונה ההפוכה', en: 'Ironic: the opposite is meant'}
+  answer: 2
+  explanation_he: 'מי שמתלונן על שיעור בלי הפסקה אינו מתכוון ל"איזה יופי". הוא אומר את ההפך כדי להתלונן.'
+  explanation_en: 'Someone complaining about a lesson without a break does not mean "how lovely". He says the opposite to complain.'
+  tags: [tone]
+- id: heb.tone.002
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מה הטון במשפט: "הציון שלי היה לא משהו" כשהציון הוא 20?'
+  prompt_en: 'What is the tone in the sentence: "My grade was not much" when the grade is 20?'
+  choices:
+  - {he: 'המעטה: דיבור עדין על דבר גרוע', en: 'Understatement: gentle talk about something bad'}
+  - {he: 'הפלגה: מגזימים בגלוי ובכוונה', en: 'Exaggeration: openly and intentionally overstating'}
+  - {he: 'התפעלות: מתפעלים מאוד מהציון', en: 'Admiration: greatly admiring the grade'}
+  answer: 0
+  explanation_he: 'ציון 20 הוא נמוך מאוד, ו"לא משהו" נשמע עדין. זה הפך של הגזמה, ונקרא המעטה.'
+  explanation_en: 'A grade of 20 is very low, and "not much" sounds gentle. It is the opposite of exaggeration, called understatement.'
+  tags: [tone]
+- id: heb.tone.003
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'מה הכוונה של הדובר: "בדיוק מה שהייתי צריך, עוד ערימה של שיעורי בית!"'
+  prompt_en: 'What does the speaker mean: "Exactly what I needed, another pile of homework!"'
+  choices:
+  - {he: שהוא מודה למורה על השיעורים, en: That he thanks the teacher for the homework}
+  - {he: שהוא אינו שמח בכלל מהשיעורים, en: That he is not happy at all about the homework}
+  - {he: שהוא מבקש עוד שיעורים לשבוע, en: That he asks for more homework for the week}
+  answer: 1
+  explanation_he: 'המילים טובות, אבל המשמעות הפוכה. כך נשמעת אירוניה.'
+  explanation_en: The words are good but the meaning is opposite. That is how irony sounds.
+  tags: [tone]
+- id: heb.tone.004
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'איזה משפט כתוב בטון לגלגני?'
+  prompt_en: 'Which sentence is written in a mocking tone?'
+  choices:
+  - {he: 'תודה על העזרה, היא באמת עזרה לי', en: 'Thanks for the help, it really helped me'}
+  - {he: 'אני מצטער, טעיתי בחישוב', en: 'I am sorry, I made a calculation error'}
+  - {he: 'כמובן, אתה הכי חכם וצודק תמיד', en: 'Of course, you are the smartest and always right'}
+  answer: 2
+  explanation_he: ההגזמה בשבח מראה שהכוונה לעקוץ. בשני האחרים הדובר כן.
+  explanation_en: The exaggerated praise shows the aim is to sting. In the other two the speaker is sincere.
+  tags: [tone]
+- id: heb.tone.005
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: -1.0
+  prompt_he: 'מה הטון של: "אני מבקש בנימוס לא להשאיר פסולת בחצר"?'
+  prompt_en: 'What is the tone of: "I politely ask not to leave litter in the yard"?'
+  choices:
+  - {he: כועס ומאיים בקול רם, en: Angry and threatening in a loud voice}
+  - {he: מנומס ועניינית, en: Polite and factual}
+  - {he: מבדח ומצחיק מאוד, en: Joking and very funny}
+  answer: 1
+  explanation_he: 'המילים "אני מבקש בנימוס" מראות שהדובר רוצה לשכנע בנעימות.'
+  explanation_en: 'The words "I politely ask" show the speaker wants to persuade pleasantly.'
+  tags: [tone]
+- id: heb.tone.006
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: -1.0
+  prompt_he: 'איזו מילה מרמזת על טון כועס?'
+  prompt_en: 'Which word hints at an angry tone?'
+  choices:
+  - {he: 'די כבר!', en: 'Enough already!'}
+  - {he: בבקשה, en: please}
+  - {he: תודה רבה, en: thank you very much}
+  answer: 0
+  explanation_he: 'קריאה כמו "די כבר!" מביעה כעס. בבקשה ותודה הן מילים מנומסות.'
+  explanation_en: 'A call like "enough already!" expresses anger. Please and thanks are polite words.'
+  tags: [tone]
+- id: heb.tone.007
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מה אומר משפט שנגמר בשלוש נקודות: "ובכן, ניסינו הכול..."?'
+  prompt_en: 'What does a sentence ending with three dots say: "Well, we tried everything..."?'
+  choices:
+  - {he: המשפט תם לגמרי ואין בו דבר נוסף, en: The sentence is complete with nothing more}
+  - {he: 'יש עוד משהו שלא נאמר, אולי אכזבה', en: 'There is something unsaid, perhaps disappointment'}
+  - {he: המשפט שואל שאלה ומחכה לתשובה מיד, en: The sentence asks a question and awaits an answer at once}
+  answer: 1
+  explanation_he: 'שלוש נקודות רומזות להמשך שלא נאמר, ובמקרה הזה לרגש של אכזבה או חוסר אונים.'
+  explanation_en: 'Three dots hint at something unsaid, here a feeling of disappointment or helplessness.'
+  tags: [tone]
+- id: heb.tone.008
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מה מבינים מהמשפט: "הוא תמיד ממהר, והפעם האיחור הגיע לפניו"?'
+  prompt_en: 'What do we understand from: "He is always in a hurry, and this time the lateness arrived before him"?'
+  choices:
+  - {he: 'שהוא איחר, והכותב אומר זאת בהומור', en: 'That he was late, and the writer says so humorously'}
+  - {he: שהוא הגיע מוקדם מאוד לפני כולם, en: That he arrived very early before everyone}
+  - {he: שהאיחור הוא אדם שהלך לפניו, en: That lateness is a person who walked before him}
+  answer: 0
+  explanation_he: 'האיחור כאילו הגיע קודם: דרך הומוריסטית להגיד שהוא איחר.'
+  explanation_en: 'Lateness as if it arrived first: a humorous way to say he was late.'
+  tags: [tone]
+- id: heb.tone.009
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'איזה משפט מביע ביקורת בעדינות?'
+  prompt_en: 'Which sentence expresses criticism gently?'
+  choices:
+  - {he: זה נורא ואין מה לשפר בכלל כאן, en: This is terrible and nothing can be improved here}
+  - {he: אף אחד לא יבין את זה לעולם, en: No one will ever understand this}
+  - {he: אולי כדאי לחשוב שוב על הניסוח, en: Perhaps it is worth thinking again about the wording}
+  answer: 2
+  explanation_he: 'הניסוח "אולי כדאי" מציע במקום להאשים, ולכן הביקורת עדינה.'
+  explanation_en: 'The wording "perhaps it is worth" suggests instead of blaming, so the criticism is gentle.'
+  tags: [tone]
+- id: heb.tone.010
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'איזה משפט מכיל הפלגה (הגזמה)?'
+  prompt_en: 'Which sentence contains exaggeration?'
+  choices:
+  - {he: חיכיתי לך עשר דקות בלבד ליד השער, en: I waited for you only ten minutes at the gate}
+  - {he: חיכיתי לך שנים על גבי שנים, en: I waited for you years upon years}
+  - {he: חיכיתי לך ליד השער כמה רגעים, en: I waited for you at the gate a few moments}
+  answer: 1
+  explanation_he: '"שנים על גבי שנים" מוגזם, והוא נועד להראות שהזמן נראה ארוך. שני האחרים עובדתיים.'
+  explanation_en: '"Years upon years" is exaggerated to show it felt long. The other two are factual.'
+  tags: [tone]
+- id: heb.tone.011
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.5
+  prompt_he: 'למה כותבים לפעמים בלשון המעטה?'
+  prompt_en: 'Why do writers sometimes use understatement?'
+  choices:
+  - {he: כי אין להם מילים אחרות לתאר זאת, en: Because they have no other words to describe it}
+  - {he: כדי שלא יבינו אותם בכלל לעולם, en: So that they will never be understood at all}
+  - {he: כדי להביע דבר רציני בעדינות, en: To express something serious gently}
+  answer: 2
+  explanation_he: 'המעטה כמו "קצת חם" ליום לוהט יוצרת הומור או רכות.'
+  explanation_en: 'Understatement like "a bit warm" for a scorching day creates humor or softness.'
+  tags: [tone]
+- id: heb.tone.012
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'איזה משפט כתוב בטון מתנשא?'
+  prompt_en: 'Which sentence is written in a condescending tone?'
+  choices:
+  - {he: 'אתה לא תבין, זה קשה מדי בשבילך', en: 'You will not understand, it is too hard for you'}
+  - {he: 'אסביר לך שוב, אם תרצה, בשמחה', en: 'I will explain again to you, if you wish, gladly'}
+  - {he: 'שאל אותי כל שאלה, אשמח לעזור', en: 'Ask me any question, I would be glad to help'}
+  answer: 0
+  explanation_he: 'משפט שמניח שהשומע אינו מסוגל לא מכבד אותו, ולכן הטון מתנשא.'
+  explanation_en: 'A sentence that assumes the listener cannot does not respect him, so the tone is condescending.'
+  tags: [tone]
+- id: heb.tone.013
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: -1.0
+  prompt_he: 'איזה משפט מביע גאווה?'
+  prompt_en: 'Which sentence expresses pride?'
+  choices:
+  - {he: 'סוף סוף עשיתי זאת, והצלחתי לבד!', en: 'At last I did it, and I managed alone!'}
+  - {he: 'לא יודע, אולי זה בכלל לא חשוב', en: 'Don''t know, maybe it is not important at all'}
+  - {he: הלוואי שלא הייתי צריך לעשות זאת, en: I wish I had not had to do it}
+  answer: 0
+  explanation_he: '"סוף סוף" ו"הצלחתי לבד" מראות סיפוק והישג.'
+  explanation_en: '"At last" and "I managed alone" show satisfaction and achievement.'
+  tags: [tone]
+- id: heb.tone.014
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.5
+  prompt_he: 'קורא כתב: "תודה רבה על העיכוב, הרבה זמן רציתי להמתין". מה הכוונה?'
+  prompt_en: 'A reader wrote: "Thanks so much for the delay, I have long wanted to wait". What is meant?'
+  choices:
+  - {he: תודה כנה על האיחור הגדול הזה, en: Sincere thanks for this big delay}
+  - {he: בקשה להאריך את ההמתנה עוד קצת, en: A request to lengthen the waiting a bit more}
+  - {he: ביקורת אירונית על האיחור, en: Ironic criticism of the lateness}
+  answer: 2
+  explanation_he: אף אחד אינו רוצה באמת להמתין. המשפט אומר ההפך כדי להתלונן.
+  explanation_en: No one truly wants to wait. The sentence says the opposite in order to complain.
+  tags: [tone]
+- id: heb.tone.015
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מה ההבדל בין "הוא ממהר" ל"הוא טס"?'
+  prompt_en: 'What is the difference between "he hurries" and "he flies"?'
+  choices:
+  - {he: הראשון מגזים כדי להדגיש רוגע, en: The first exaggerates to stress calm}
+  - {he: השני מגזים כדי להדגיש מהירות, en: The second exaggerates to stress speed}
+  - {he: אין שום קשר ביניהם בכלל לעולם, en: There is no link between them ever at all}
+  answer: 1
+  explanation_he: '"טס" כאן אומר ממהר מאוד, והמילה מוגזמת בכוונה, כמו הפלגה.'
+  explanation_en: '"Flies" here means very fast, an intentional exaggeration like hyperbole.'
+  tags: [tone]
+- id: heb.tone.016
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'איזו משמעות מרומזת בשאלה: "אתה באמת חושב שזה רעיון טוב?"'
+  prompt_en: 'What meaning is hinted at by the question: "Do you really think this is a good idea?"'
+  choices:
+  - {he: שהדובר מרוצה מאוד מהרעיון הזה, en: That the speaker is very pleased with this idea}
+  - {he: שהדובר מפקפק ואינו חושב שזה טוב, en: That the speaker doubts and does not think it is good}
+  - {he: שהדובר לא מבין את המילים שנאמרו, en: That the speaker does not understand the words said}
+  answer: 1
+  explanation_he: שאלה כזו לפעמים אינה בקשת מידע אלא דרך להביע ספק.
+  explanation_en: Such a question is sometimes not a request for information but a way to express doubt.
+  tags: [tone]
+- id: heb.tone.017
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מה אפשר להסיק מהמשפט: "היא חייכה חיוך דק וגלגלה את עיניה"?'
+  prompt_en: 'What can we conclude from: "She smiled a thin smile and rolled her eyes"?'
+  choices:
+  - {he: 'שהיא לא מתלהבת, אולי מגלגלת', en: 'That she is not enthusiastic, perhaps mocking'}
+  - {he: שהיא מאושרת מאוד מהמתנה שקיבלה, en: That she is very happy with the gift she received}
+  - {he: שהיא ישנה עמוק בכיסא שליד, en: That she is fast asleep in the chair nearby}
+  answer: 0
+  explanation_he: חיוך דק וגלגול עיניים הם סימנים לחוסר התלהבות או ללגלוג.
+  explanation_en: A thin smile and rolled eyes signal lack of enthusiasm or mockery.
+  tags: [tone]
+- id: heb.tone.018
+  skill: hebrew.text.tone
+  kind: choice
+  grade: 9
+  difficulty: 1.5
+  prompt_he: 'מה פירוש "הכותב כתב בין השורות"?'
+  prompt_en: 'What does "the writer wrote between the lines" mean?'
+  choices:
+  - {he: שהוא כתב בין שורות הדף במחברת, en: That he wrote between the lines of the page in a notebook}
+  - {he: שהוא שכח לכתוב כמה שורות בדף, en: That he forgot to write a few lines on the page}
+  - {he: שיש משמעות שלא נאמרה במפורש, en: That there is a meaning not stated explicitly}
+  answer: 2
+  explanation_he: קוראים בין השורות כשמבינים משמעות שהכותב רמז לה בלי לומר.
+  explanation_en: We read between the lines when we understand a meaning the writer hinted at without saying.
+  tags: [tone]
+- id: heb.tone.019
+  skill: hebrew.text.tone
+  kind: true_false
+  grade: 9
+  difficulty: 0.0
+  prompt_he: באירוניה אומרים דבר אחד ומתכוונים להפוכו.
+  prompt_en: In irony we say one thing and mean the opposite.
+  answer: true
+  explanation_he: 'למשל "איזה יום נהדר" בגשם סוחף: הכוונה שהיום לא נעים.'
+  explanation_en: 'For instance "what a wonderful day" in pouring rain: the meaning is that the day is unpleasant.'
+  tags: [tone]
+- id: heb.tone.020
+  skill: hebrew.text.tone
+  kind: true_false
+  grade: 9
+  difficulty: 0.0
+  prompt_he: הטון של טקסט משפיע על האופן שבו מבינים אותו.
+  prompt_en: The tone of a text affects how it is understood.
+  answer: true
+  explanation_he: 'אותו משפט יכול להישמע רציני, מצחיק או עוקצני, לפי הטון.'
+  explanation_en: 'The same sentence can sound serious, funny or stinging, depending on the tone.'
+  tags: [tone]
+- id: heb.tone.021
+  skill: hebrew.text.tone
+  kind: true_false
+  grade: 9
+  difficulty: 0.5
+  prompt_he: הפלגה והמעטה הן אותו דבר.
+  prompt_en: Exaggeration and understatement are the same thing.
+  answer: false
+  explanation_he: 'הפלגה מגדילה ("מיליון פעם"), והמעטה מקטינה ("קצת קר" בקוטב). הן הפוכות.'
+  explanation_en: 'Exaggeration enlarges ("a million times"), understatement diminishes ("a bit cold" at the Pole). They are opposites.'
+  tags: [tone]
+- id: heb.tone.022
+  skill: hebrew.text.tone
+  kind: true_false
+  grade: 9
+  difficulty: 1.0
+  prompt_he: כל שאלה היא תמיד בקשת מידע.
+  prompt_en: Every question is always a request for information.
+  answer: false
+  explanation_he: 'יש שאלות רטוריות שאינן מבקשות תשובה, אלא מביעות דעה או ספק.'
+  explanation_en: 'Some questions are rhetorical: they do not ask for an answer but express an opinion or doubt.'
+  tags: [tone]
+- id: heb.tone.023
+  skill: hebrew.text.tone
+  kind: true_false
+  grade: 9
+  difficulty: 1.0
+  prompt_he: אפשר להבין לפעמים מהטון שהכותב מתכוון להפוך ממה שכתב.
+  prompt_en: From the tone we can sometimes understand that the writer means the opposite of what he wrote.
+  answer: true
+  explanation_he: 'כשהטון אירוני, המשמעות האמיתית נמצאת בין השורות ולא במילים עצמן.'
+  explanation_en: 'When the tone is ironic, the real meaning is between the lines and not in the words themselves.'
+  tags: [tone]

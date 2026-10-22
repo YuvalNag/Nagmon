@@ -2617,6 +2617,326 @@
     "a678e09b",
     "a678e09b"
    ]
+  },
+  "hebrew.grammar.agreement": {
+   "generator": "bank",
+   "hashes": [
+    "61a43930",
+    "61a43930",
+    "61a43930",
+    "61a43930",
+    "61a43930"
+   ]
+  },
+  "hebrew.grammar.parts_of_speech": {
+   "generator": "bank",
+   "hashes": [
+    "b85e0419",
+    "b85e0419",
+    "b85e0419",
+    "b85e0419",
+    "b85e0419"
+   ]
+  },
+  "hebrew.reading.passage_3": {
+   "generator": "bank",
+   "hashes": [
+    "56f399f0",
+    "56f399f0",
+    "56f399f0",
+    "56f399f0",
+    "56f399f0"
+   ]
+  },
+  "hebrew.spelling.similar_sounds": {
+   "generator": "bank",
+   "hashes": [
+    "a6577709",
+    "a6577709",
+    "a6577709",
+    "a6577709",
+    "a6577709"
+   ]
+  },
+  "hebrew.text.sentence_types": {
+   "generator": "bank",
+   "hashes": [
+    "6997a7a1",
+    "6997a7a1",
+    "6997a7a1",
+    "6997a7a1",
+    "6997a7a1"
+   ]
+  },
+  "hebrew.vocab.synonyms": {
+   "generator": "bank",
+   "hashes": [
+    "599db4e7",
+    "599db4e7",
+    "599db4e7",
+    "599db4e7",
+    "599db4e7"
+   ]
+  },
+  "hebrew.grammar.person": {
+   "generator": "bank",
+   "hashes": [
+    "6d996772",
+    "6d996772",
+    "6d996772",
+    "6d996772",
+    "6d996772"
+   ]
+  },
+  "hebrew.grammar.subject_predicate": {
+   "generator": "bank",
+   "hashes": [
+    "55f86799",
+    "55f86799",
+    "55f86799",
+    "55f86799",
+    "55f86799"
+   ]
+  },
+  "hebrew.grammar.tenses": {
+   "generator": "bank",
+   "hashes": [
+    "37cc0023",
+    "37cc0023",
+    "37cc0023",
+    "37cc0023",
+    "37cc0023"
+   ]
+  },
+  "hebrew.reading.passage_4": {
+   "generator": "bank",
+   "hashes": [
+    "5418a15f",
+    "5418a15f",
+    "5418a15f",
+    "5418a15f",
+    "5418a15f"
+   ]
+  },
+  "hebrew.text.punctuation": {
+   "generator": "bank",
+   "hashes": [
+    "c398cceb",
+    "c398cceb",
+    "c398cceb",
+    "c398cceb",
+    "c398cceb"
+   ]
+  },
+  "hebrew.vocab.homonyms": {
+   "generator": "bank",
+   "hashes": [
+    "e942cc54",
+    "e942cc54",
+    "e942cc54",
+    "e942cc54",
+    "e942cc54"
+   ]
+  },
+  "hebrew.grammar.prefixes_suffixes": {
+   "generator": "bank",
+   "hashes": [
+    "2d9009db",
+    "2d9009db",
+    "2d9009db",
+    "2d9009db",
+    "2d9009db"
+   ]
+  },
+  "hebrew.grammar.roots": {
+   "generator": "bank",
+   "hashes": [
+    "d7ef4b4e",
+    "d7ef4b4e",
+    "d7ef4b4e",
+    "d7ef4b4e",
+    "d7ef4b4e"
+   ]
+  },
+  "hebrew.reading.passage_5": {
+   "generator": "bank",
+   "hashes": [
+    "5a730e76",
+    "5a730e76",
+    "5a730e76",
+    "5a730e76",
+    "5a730e76"
+   ]
+  },
+  "hebrew.text.text_types": {
+   "generator": "bank",
+   "hashes": [
+    "ccbb371c",
+    "ccbb371c",
+    "ccbb371c",
+    "ccbb371c",
+    "ccbb371c"
+   ]
+  },
+  "hebrew.vocab.proverbs": {
+   "generator": "bank",
+   "hashes": [
+    "e0938d6b",
+    "e0938d6b",
+    "e0938d6b",
+    "e0938d6b",
+    "e0938d6b"
+   ]
+  },
+  "hebrew.grammar.binyanim": {
+   "generator": "bank",
+   "hashes": [
+    "bac39ffe",
+    "bac39ffe",
+    "bac39ffe",
+    "bac39ffe",
+    "bac39ffe"
+   ]
+  },
+  "hebrew.reading.passage_6": {
+   "generator": "bank",
+   "hashes": [
+    "dc369c09",
+    "dc369c09",
+    "dc369c09",
+    "dc369c09",
+    "dc369c09"
+   ]
+  },
+  "hebrew.vocab.figurative": {
+   "generator": "bank",
+   "hashes": [
+    "f463e624",
+    "f463e624",
+    "f463e624",
+    "f463e624",
+    "f463e624"
+   ]
+  },
+  "hebrew.grammar.smichut": {
+   "generator": "bank",
+   "hashes": [
+    "949fb2f7",
+    "949fb2f7",
+    "949fb2f7",
+    "949fb2f7",
+    "949fb2f7"
+   ]
+  },
+  "hebrew.reading.passage_7": {
+   "generator": "bank",
+   "hashes": [
+    "e1975559",
+    "e1975559",
+    "e1975559",
+    "e1975559",
+    "e1975559"
+   ]
+  },
+  "hebrew.text.text_analysis": {
+   "generator": "bank",
+   "hashes": [
+    "8779008a",
+    "8779008a",
+    "8779008a",
+    "8779008a",
+    "8779008a"
+   ]
+  },
+  "hebrew.reading.passage_8": {
+   "generator": "bank",
+   "hashes": [
+    "b1d9752f",
+    "b1d9752f",
+    "b1d9752f",
+    "b1d9752f",
+    "b1d9752f"
+   ]
+  },
+  "hebrew.vocab.register": {
+   "generator": "bank",
+   "hashes": [
+    "1c07a934",
+    "1c07a934",
+    "1c07a934",
+    "1c07a934",
+    "1c07a934"
+   ]
+  },
+  "hebrew.reading.passage_9": {
+   "generator": "bank",
+   "hashes": [
+    "ea16cace",
+    "ea16cace",
+    "ea16cace",
+    "ea16cace",
+    "ea16cace"
+   ]
+  },
+  "hebrew.text.argument": {
+   "generator": "bank",
+   "hashes": [
+    "fe029a19",
+    "fe029a19",
+    "fe029a19",
+    "fe029a19",
+    "fe029a19"
+   ]
+  },
+  "hebrew.grammar.clauses": {
+   "generator": "bank",
+   "hashes": [
+    "73237a71",
+    "73237a71",
+    "73237a71",
+    "73237a71",
+    "73237a71"
+   ]
+  },
+  "hebrew.grammar.word_formation": {
+   "generator": "bank",
+   "hashes": [
+    "0eb3040d",
+    "0eb3040d",
+    "0eb3040d",
+    "0eb3040d",
+    "0eb3040d"
+   ]
+  },
+  "hebrew.text.summary": {
+   "generator": "bank",
+   "hashes": [
+    "47f7d4a5",
+    "47f7d4a5",
+    "47f7d4a5",
+    "47f7d4a5",
+    "47f7d4a5"
+   ]
+  },
+  "hebrew.text.poetry": {
+   "generator": "bank",
+   "hashes": [
+    "be150c46",
+    "be150c46",
+    "be150c46",
+    "be150c46",
+    "be150c46"
+   ]
+  },
+  "hebrew.text.tone": {
+   "generator": "bank",
+   "hashes": [
+    "cff45230",
+    "cff45230",
+    "cff45230",
+    "cff45230",
+    "cff45230"
+   ]
   }
  }
 }

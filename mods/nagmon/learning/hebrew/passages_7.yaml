@@ -158,11 +158,11 @@
     - id: heb.pass7.012
       kind: true_false
       difficulty: 1.5
-      prompt_he: 'לפי הקטע, בבוקר יש יותר כחול בשמיים מאשר בערב.'
-      prompt_en: 'According to the text, there is more blue in the sky in the morning than in the evening.'
+      prompt_he: 'לפי הקטע, בשקיעה האור עובר דרך שכבת אוויר קצרה יותר מאשר ביום.'
+      prompt_en: 'According to the text, at sunset the light passes through a shorter layer of air than by day.'
       answer: false
-      explanation_he: הקטע אינו משווה בוקר לערב. הוא משווה צהריים (כחול) לשקיעה (אדום).
-      explanation_en: The text does not compare morning to evening. It contrasts the day (blue) with sunset (red).
+      explanation_he: 'בשקיעה האור עובר דרך שכבת אוויר ארוכה יותר, ולא קצרה יותר. לכן הכחול מתפזר בדרך ונשארים אדום וכתום.'
+      explanation_en: 'At sunset the light passes through a longer layer of air, not a shorter one. So the blue scatters on the way.'
 - id: pass7.03
   grade: 7
   skill: hebrew.reading.passage_7
@@ -408,7 +408,7 @@
       prompt_en: 'Why did the old man "laugh and cry at once"?'
       choices:
       - {he: התרגש מהאהבה והנאמנות של הכלב, en: 'He was moved by the dog''s love and loyalty'}
-      - {he: הוא כאב ברגל אחרי שנפל בתחנה, en: His leg hurt after he fell at the station}
+      - {he: כאבה לו הרגל אחרי שנפל בתחנה, en: His leg hurt after he fell at the station}
       - {he: הוא כעס על התושבים שהאכילו כלבים, en: He was angry at the residents who fed dogs}
       answer: 0
       explanation_he: שמחה והתרגשות יכולות לגרום גם לצחוק וגם לדמעות. הכלב חיכה לו כל הזמן.

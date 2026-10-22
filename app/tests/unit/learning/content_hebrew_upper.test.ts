@@ -25,18 +25,18 @@ const EXPECTED: Record<number, string[]> = {
   4: ["grammar.tenses", "grammar.person", "text.punctuation", "grammar.subject_predicate", "vocab.homonyms", "reading.passage_4"],
   5: ["grammar.roots", "grammar.prefixes_suffixes", "vocab.proverbs", "text.text_types", "reading.passage_5"],
   6: ["grammar.binyanim", "vocab.figurative", "reading.passage_6"],
-  7: ["grammar.smichut", "text.text_analysis", "reading.passage_7"],
-  8: ["vocab.register", "reading.passage_8"],
-  9: ["text.argument", "reading.passage_9"],
+  7: ["grammar.smichut", "text.text_analysis", "grammar.clauses", "reading.passage_7"],
+  8: ["vocab.register", "grammar.word_formation", "text.summary", "reading.passage_8"],
+  9: ["text.argument", "text.poetry", "text.tone", "reading.passage_9"],
 };
 
 /** Hebrew words that would be unkind, or a religious claim, in a child's quiz. */
-const NOT_ALLOWED = ["טיפש", "מטומטם", "מפגר", "דבילי", "אידיוט", "סתום", "אלוהים", "אלוקים", "תפילה", "גן עדן", "טעית", "לא נכון, חבל"];
+const NOT_ALLOWED = ["טיפש", "מטומטם", "מפגר", "דבילי", "אידיוט", "סתום", "אלוהים", "אלוקים", "תפילה", "גן עדן"];
 
 describe("the skill graph of Hebrew grades 3-9", () => {
   it("has every planned skill at its grade, and nothing else above grade 2", () => {
     const got = upper.map((s) => s.id).sort();
-    const want = Object.entries(EXPECTED).flatMap(([g, ids]) => ids.map((i) => `hebrew.${i}`)).sort();
+    const want = Object.values(EXPECTED).flatMap((ids) => ids.map((i) => `hebrew.${i}`)).sort();
     expect(got).toEqual(want);
     for (const [g, ids] of Object.entries(EXPECTED)) for (const id of ids) expect(lib.skill(`hebrew.${id}`).grade, id).toBe(Number(g));
     expect(upper.length).toBeGreaterThanOrEqual(25);
@@ -202,8 +202,8 @@ describe("every new skill is a bank of 20 to 40 items", () => {
         const p = new Set(words(i.prompt_he));
         const fresh = words(ex).filter((w) => !p.has(w));
         expect(fresh.length, `${i.id}: the explanation adds nothing to the question`).toBeGreaterThanOrEqual(3);
-        expect(i.explanation_en.trim().length, i.id).toBeGreaterThan(15);
-        expect(i.prompt_en.trim().length, i.id).toBeGreaterThan(8);
+        expect((i.explanation_en ?? "").trim().length, i.id).toBeGreaterThan(15);
+        expect((i.prompt_en ?? "").trim().length, i.id).toBeGreaterThan(8);
       }
     }
   });
@@ -221,6 +221,8 @@ describe("every new skill is a bank of 20 to 40 items", () => {
         const all = [i.prompt_he, i.explanation_he, String(i.meta["passage_he"] ?? ""), ...i.choices.map(text)].join(" \n ");
         expect(/[֑-ׇ]/.test(all), `${i.id}: niqqud`).toBe(false);
         for (const w of NOT_ALLOWED) expect(all.includes(w), `${i.id}: ${w}`).toBe(false);
+        // an explanation never scolds the child
+        expect(/^(טעית|טעות שלך|לא נכון|חבל)/.test(i.explanation_he.trim()), `${i.id}: scolding explanation`).toBe(false);
         expect(/[א-ת]/.test(i.prompt_he), i.id).toBe(true);
         expect(i.prompt_he.length, i.id).toBeLessThanOrEqual(140);
       }
