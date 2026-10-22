@@ -3526,6 +3526,8 @@ button.zone {
 .item-icon {
   width: auto;
   vertical-align: middle;
+  /* the sheet's cells are about half picture: bigger than the emoji, but the line keeps its height */
+  margin-block: -0.3em;
   image-rendering: auto;
 }
 

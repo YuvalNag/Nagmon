@@ -477,7 +477,7 @@ def tags_from_note(note: str, status: str) -> list[str]:
         out.append("size_off")
     if "margin" in n:
         out.append("margins")
-    if status != "accepted" and not out:
+    if status != "accepted" and not out and note.strip():
         out.append("see_note")
     return out
 

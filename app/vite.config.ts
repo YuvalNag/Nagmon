@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, rmSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vitest/config";
 
@@ -9,7 +10,8 @@ import { defineConfig, type Plugin } from "vitest/config";
  * out of dist/ (so out of the APK) unless the build is run with
  * NAGMON_CHAPTER_ART=1. docs/app/ART_ASSETS.md.
  */
-const manifestPath = join(__dirname, "public", "game", "art", "manifest.json");
+const here = dirname(fileURLToPath(import.meta.url));
+const manifestPath = join(here, "public", "game", "art", "manifest.json");
 const lazyChapters = existsSync(manifestPath) && JSON.parse(readFileSync(manifestPath, "utf8")).chapters_lazy === true;
 const shipChapters = process.env["NAGMON_CHAPTER_ART"] === "1" || !lazyChapters;
 
@@ -17,7 +19,7 @@ const leaveOutChapterArt = (): Plugin => ({
   name: "nagmon-leave-out-chapter-art",
   apply: "build",
   closeBundle() {
-    if (!shipChapters) rmSync(join(__dirname, "dist", "game", "art", "chapters"), { recursive: true, force: true });
+    if (!shipChapters) rmSync(join(here, "dist", "game", "art", "chapters"), { recursive: true, force: true });
   },
 });
 

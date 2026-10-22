@@ -293,6 +293,7 @@ def test_note_tags():
     assert "wrong_hand" in art3.tags_from_note(
         "scroll is physicalLEFT; required physicalRIGHT", "needs_revision"
     )
+    assert art3.tags_from_note("", "draft") == []  # nothing to see
     assert art3.tags_from_note("fine", "accepted") == []
     assert art3.tags_from_note("something", "needs_revision") == ["see_note"]
 
