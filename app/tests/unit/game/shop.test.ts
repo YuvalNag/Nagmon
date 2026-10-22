@@ -30,10 +30,10 @@ describe("the shelves", () => {
     expect(ids("medicine")).toEqual(["dew_drop", "spring_tonic", "sunny_syrup", "wake_berry", "sunrise_berry"]);
   });
 
-  it("sell nothing that is free (the key items are found, not bought) and show at most six", () => {
+  it("sell nothing that is free (the key items are found, not bought) and show at most six (the nets shelf scrolls)", () => {
     const all = SHELVES.flatMap((s) => shelfItems(eco, s));
     expect(all.every((i) => i.price > 0)).toBe(true);
-    for (const s of SHELVES) expect(shelfItems(eco, s).length).toBeLessThanOrEqual(6);
+    for (const s of SHELVES.filter((x) => x !== "nets")) expect(shelfItems(eco, s).length).toBeLessThanOrEqual(6);
   });
 
   it("prices come from the economy table", () => {
@@ -256,5 +256,37 @@ describe("the money skill and the quick buy", () => {
     expect(moneyMastered(new Map(), "B", w.variables)).toBe(true);
     recordPay(w.variables, false);
     expect(moneyMastered(new Map(), "B", w.variables)).toBe(false);
+  });
+});
+
+describe("Friendship Cards on the nets shelf (S3)", () => {
+  const ids = (w?: WorldState) => shelfItems(eco, "nets", w).map((i) => i.id);
+  it("are not sold before the gates are met; the Star Net is never sold", () => {
+    const w = new WorldState();
+    expect(ids(w)).toEqual(["magic_net", "silver_net"]);
+    expect(ids()).toEqual(["magic_net", "silver_net"]);
+    expect(ids(w)).not.toContain("star_net");
+  });
+  it("a finished zone stands in for the first Keeper and guardian until S5: the six subject cards and that zone's card appear", () => {
+    const w = new WorldState();
+    w.trips.done.push("solar/moon");
+    const got = ids(w);
+    expect(got.slice(0, 2)).toEqual(["magic_net", "silver_net"]);
+    expect(got.filter((i) => i.startsWith("friend_card_"))).toHaveLength(6);
+    expect(got).toContain("zone_friend_card_moon");
+    expect(got).not.toContain("zone_friend_card_sun");
+    expect(got).not.toContain("star_net");
+    w.trips.done.push("solar/sun");
+    expect(ids(w)).toContain("zone_friend_card_sun");
+  });
+  it("every card can be paid by the youngest with at most ten stacks, and costs what the data says", () => {
+    const w = new WorldState();
+    for (const z of ["moon", "sun", "rocky_planets", "giants", "outer"]) w.trips.done.push(`solar/${z}`);
+    const cards = shelfItems(eco, "nets", w).filter((i) => i.kind === "befriend_tool");
+    expect(cards).toHaveLength(11);
+    for (const c of cards) {
+      expect(c.price).toBe(c.scope === "zone" ? 60 : 45);
+      expect(payPlan(c.price, "A").target).toBeLessThanOrEqual(10);
+    }
   });
 });

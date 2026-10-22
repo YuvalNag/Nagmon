@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import type { Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
-import { answer, battleAnswer, battleResultClosed, castMove, openMap, quiz, readDialog, seedChild, steps, toCashier } from "./cashier";
+import { answer, battleAnswer, battleResultClosed, castMove, openMap, quiz, readDialog, seedChild, steps, throwNow, toCashier } from "./cashier";
 import { fitsAndSharp, touch, typeCode } from "./touch";
 
 /**
@@ -388,7 +388,7 @@ for (const scale of [1, 1.3]) {
       set();
       document.addEventListener("DOMContentLoaded", set);
     }, scale);
-    await seedChild(page, { grade: 2, battle: true });
+    await seedChild(page, { grade: 2, battle: true, befriendDice: "0" });
     const shot = (name: string) => page.screenshot({ path: info.outputPath(`${scale * 100}-battle-${name}.png`) });
     await openMap(page);
     await steps(page, "right", 1);
@@ -410,12 +410,12 @@ for (const scale of [1, 1.3]) {
     }
     await expect(page.locator("[data-screen=battle][data-view=calm]")).toBeVisible();
     await audit(page, "43_calm", shot);
-    for (let i = 0; i < 3 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
-      await touch(page, page.locator(id("battle_net")), 30);
-      await battleAnswer(page, "right");
-      await battleResultClosed(page);
+    await throwNow(page);
+    for (let i = 0; i < 10 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
+      if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")), 30);
+      await page.waitForTimeout(200);
     }
-    await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
+    await expect(page.locator("[data-screen=battle-caught]")).toBeVisible({ timeout: 20_000 });
     await audit(page, "44_new_friend", shot);
   });
 }
