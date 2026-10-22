@@ -2,7 +2,7 @@
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import { createRef, type MutableRefObject } from "react";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import { appLogText, installAppLog, uninstallAppLog } from "../../../src/platform/appLog";
 import { openPlay, type FetchJson } from "../../../src/app/play";
 import { defaultsForGrade } from "../../../src/core/family/gradeDefaults";
@@ -11,6 +11,10 @@ import { readMap, type TiledMap } from "../../../src/core/world/mapData";
 import type { MapOptions } from "../../../src/game/mapGame";
 import { type JsonObject, MemoryFileStore, pendingWrites } from "../../../src/platform/storage";
 import { MapScreen } from "../../../src/ui/screens/MapScreen";
+import { preloadAll } from "../../../src/ui/lazy";
+
+// the rarely used screens are separate chunks: fetched once, so each test finds them as soon as it asks
+beforeAll(() => preloadAll());
 
 const fetchJson: FetchJson = async (path) => {
   // the built game has a trip file now; these tests are about the game without one

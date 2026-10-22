@@ -123,6 +123,7 @@ export const he = {
   switchPlayer: "החלפת שחקן",
   hello: "שלום, {name}!",
   mapLoading: "המפה נפתחת...",
+  screenLoading: "רגע...",
   mapFailed: "המפה לא נפתחה. נסו שוב.",
   mapClosedWay: "הדרך הזאת עוד סגורה. יש עוד הרבה לראות בעיר!",
   mapMenu: "תפריט",

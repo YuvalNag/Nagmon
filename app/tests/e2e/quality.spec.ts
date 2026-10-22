@@ -267,7 +267,7 @@ test("the start loads only what who-plays needs: no game engine, a small script"
   console.log(`scripts at start: ${scripts.length}, ${Math.round(total / 1024)} KiB`);
   // Phaser is about 1.2 MB: the map and battle load it when they open
   expect(scripts.filter((s) => s.engine).map((s) => s.url)).toEqual([]);
-  expect(total).toBeLessThan(600 * 1024);
+  expect(total).toBeLessThan(450 * 1024); // 390 KiB since the battle, shop, parents and tutor screens are lazy (was 600)
 });
 
 test("who-plays with eight children, the longest name among them, at 130% text", async ({ page }, info) => {

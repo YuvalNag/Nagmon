@@ -21,7 +21,7 @@ import { Choices } from "./ui/screens/Choices";
 import { Notice } from "./ui/screens/Notice";
 import type { MapLifecycle } from "./game/mapGame";
 import { MapScreen } from "./ui/screens/MapScreen";
-import { ParentsArea } from "./ui/screens/parents/ParentsArea";
+import { Later, Parents } from "./ui/lazy";
 import { WhoPlays } from "./ui/screens/WhoPlays";
 
 const log = getLogger("nagmon.screens");
@@ -409,13 +409,15 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
         return <Notice text={view.text} onNext={() => show(view.next)} />;
       case "parents":
         return (
-          <ParentsArea
-            services={services}
-            backRef={parentsBack}
-            onExit={() => show(WHO)}
-            onChildren={setChildren}
-            workTimeoutMs={workTimeoutMs}
-          />
+          <Later over={false}>
+            <Parents.Screen
+              services={services}
+              backRef={parentsBack}
+              onExit={() => show(WHO)}
+              onChildren={setChildren}
+              workTimeoutMs={workTimeoutMs}
+            />
+          </Later>
         );
       case "play": {
         const child = children.find((c) => c.id === view.id);
