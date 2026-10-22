@@ -1,0 +1,115 @@
+{
+ "version": 1,
+ "max": 12,
+ "fallback": "boy_blue",
+ "legacy": {
+  "boy_light": "boy_blue",
+  "boy_dark": "boy_blue",
+  "girl_light": "girl_teal",
+  "girl_dark": "girl_curly"
+ },
+ "heroes": [
+  {
+   "id": "boy_blue",
+   "order": 10,
+   "enabled": true,
+   "name": {
+    "he": "כחול",
+    "en": "Blue"
+   },
+   "colors": {
+    "primary": "#305070",
+    "secondary": "#503010"
+   },
+   "art": {
+    "map": "sprite.npc.nagmon_hero_boy",
+    "portrait": "sprite.portrait.nagmon_hero_boy",
+    "face": "sprite.avatar.boy_blue"
+   },
+   "files": {
+    "map": {
+     "file": "sprites/npc/nagmon_hero_boy.png",
+     "frame": [
+      128,
+      256
+     ],
+     "scale": 8
+    },
+    "portrait": {
+     "file": "sprites/portraits/nagmon_hero_boy.png"
+    },
+    "face": {
+     "file": "avatars/boy_blue.png"
+    }
+   }
+  },
+  {
+   "id": "girl_teal",
+   "order": 20,
+   "enabled": true,
+   "name": {
+    "he": "פרחים",
+    "en": "Flowers"
+   },
+   "colors": {
+    "primary": "#309090",
+    "secondary": "#905030"
+   },
+   "art": {
+    "map": "sprite.npc.nagmon_hero_girl",
+    "portrait": "sprite.portrait.nagmon_hero_girl",
+    "face": "sprite.avatar.girl_teal"
+   },
+   "files": {
+    "map": {
+     "file": "sprites/npc/nagmon_hero_girl.png",
+     "frame": [
+      128,
+      256
+     ],
+     "scale": 8
+    },
+    "portrait": {
+     "file": "sprites/portraits/nagmon_hero_girl.png"
+    },
+    "face": {
+     "file": "avatars/girl_teal.png"
+    }
+   }
+  },
+  {
+   "id": "girl_curly",
+   "order": 30,
+   "enabled": true,
+   "name": {
+    "he": "תלתלים",
+    "en": "Curls"
+   },
+   "colors": {
+    "primary": "#2a9090",
+    "secondary": "#301010"
+   },
+   "art": {
+    "map": "sprite.npc.nagmon_hero_curly",
+    "portrait": "sprite.portrait.nagmon_hero_curly",
+    "face": "sprite.avatar.girl_curly"
+   },
+   "files": {
+    "map": {
+     "file": "sprites/npc/nagmon_hero_curly.png",
+     "frame": [
+      128,
+      256
+     ],
+     "scale": 8
+    },
+    "portrait": {
+     "file": "sprites/portraits/nagmon_hero_curly.png"
+    },
+    "face": {
+     "file": "avatars/girl_curly.png"
+    }
+   }
+  }
+ ]
+}

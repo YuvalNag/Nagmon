@@ -1,4 +1,4 @@
-import { AVATAR_KEYS } from "../core/family/avatars";
+import { heroes } from "../core/family/heroes";
 import { ParentStore } from "../core/family/parent";
 import { ProfileStore } from "../core/family/profiles";
 import { FieldData } from "../core/fieldData/uploads";
@@ -28,7 +28,7 @@ export async function openServices(
   fs: FileStore = createFileStore(),
   secrets: SecretStore = new MemorySecretStore(),
 ): Promise<Services> {
-  const profiles = new ProfileStore(fs, { avatars: AVATAR_KEYS });
+  const profiles = new ProfileStore(fs, { avatars: heroes.keys });
   const log = getLogger("nagmon.field_data");
   const reports = new Reports({
     fs,

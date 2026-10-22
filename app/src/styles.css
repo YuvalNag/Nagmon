@@ -233,6 +233,32 @@ button.quiet {
   line-height: max(32px, calc(var(--line) * 1em));
 }
 
+/* the heroes (and any picture choices) past five: rows that wrap, and
+   scroll when the rows do not fit (12 heroes at 130% text) */
+.cards.wrap {
+  flex: 1 1 0;
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--touch) * 2.4), 1fr));
+  align-content: start;
+  justify-content: stretch;
+  width: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+.cards.wrap .card {
+  height: auto;
+  min-height: calc(var(--touch) * 2);
+  justify-content: flex-start;
+  padding: calc(var(--gap) / 2);
+}
+
+.cards.wrap .card img {
+  height: 14vh;
+}
+
 .tools {
   align-items: center;
   flex-wrap: nowrap;

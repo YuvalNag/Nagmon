@@ -1,5 +1,5 @@
 import { type EffectSettings, type MotionSetting, nextMotion } from "../../../core/family/effects";
-import { avatarImage } from "../../../core/family/avatars";
+import { heroes } from "../../../core/family/heroes";
 import { GRADE_NAMES_HE } from "../../../core/family/gradeDefaults";
 import type { Profile } from "../../../core/family/profiles";
 import { t } from "../../../i18n";
@@ -47,7 +47,7 @@ export function ChildPage({ child, message, busy, onName, onGrade, onAvatar, eff
             {t("childGrade", { grade: GRADE_NAMES_HE[child.grade] ?? String(child.grade) })}
           </Tap>
           <Tap id="child_avatar" disabled={busy} onTap={onAvatar}>
-            <img className="child-avatar" src={avatarImage(child.avatar)} alt="" draggable={false} />
+            <img className="child-avatar" src={heroes.faceUrl(child.avatar)} alt="" draggable={false} />
             {t("childAvatar")}
           </Tap>
         </div>

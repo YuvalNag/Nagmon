@@ -2,7 +2,7 @@
  * Where a picture of the owner comes from: the real file, or its placeholder.
  *
  * docs/app/ART_DELIVERY.md, slice A1. Every owner picture (art/, the creature sheets, the people's
- * map sheets, the portraits, the avatar cards) has a flat placeholder of the same size under
+ * map sheets, the portraits, the hero faces) has a flat placeholder of the same size under
  * `game/placeholders/` (tools/app/placeholders.py). A picture whose file is not in the build is
  * drawn from its placeholder, so the game never shows a broken image. Nothing else in `src/` writes
  * these paths: it asks `artUrl(id)` (game/art.ts) or `artFile(file)` here (src/lint.test: no raw path).
@@ -48,11 +48,6 @@ export function artFileState(file: string): "real" | "placeholder" {
 /** The address of an owner picture (or any file under game/) by its path under game/: the real one, or the placeholder's. */
 export function artFile(file: string): string {
   return `game/${artFileState(file) === "real" ? file : placeholderFile(file)}`;
-}
-
-/** The card picture of an avatar key (`boy_blue`...). */
-export function avatarCardUrl(key: string): string {
-  return artFile(`avatars/${key}.png`);
 }
 
 /** Declares which files are not there (replaces the earlier list) and tells the listeners. Used by tests and later by the pack installer. */

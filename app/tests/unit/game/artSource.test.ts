@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import manifest from "../../../public/game/art/manifest.json";
 import { artState, artUrl, backdropFor, frameStyle } from "../../../src/game/art";
-import { artFile, artFileState, avatarCardUrl, forcePlaceholders, isOwnerArt, onArtChanged, placeholderFile, setArtMissing } from "../../../src/game/artSource";
+import { artFile, artFileState, forcePlaceholders, isOwnerArt, onArtChanged, placeholderFile, setArtMissing } from "../../../src/game/artSource";
 
 const GAME = join(__dirname, "..", "..", "..", "public", "game");
 const assets = manifest.assets as unknown as { id: string; file: string; size: [number, number]; frame: [number, number]; pack?: string; status?: string; kind: string }[];
@@ -46,7 +46,7 @@ describe("the resolver, with all the art present", () => {
     expect(artUrl("backdrop_moon")).toBe("game/art/backdrops/moon.webp");
     expect(backdropFor("solar_giants").url).toBe("game/art/backdrops/giants.webp");
     expect(artState("backdrop_moon")).toBe("real");
-    expect(avatarCardUrl("boy_blue")).toBe("game/avatars/boy_blue.png");
+    expect(artFile("avatars/boy_blue.png")).toBe("game/avatars/boy_blue.png");
     expect(artFile("sprites/monsters/asterchip-sheet.png")).toBe("game/sprites/monsters/asterchip-sheet.png");
     expect(artFile("sprites/ui/hp.png")).toBe("game/sprites/ui/hp.png");
   });
@@ -69,7 +69,7 @@ describe("the resolver, with a file missing", () => {
   it("covers the sprites that are not under art/", () => {
     setArtMissing(["sprites/monsters/asterchip-sheet.png", "avatars/girl_teal.png", "sprites/npc/nagmon_owl.png"]);
     expect(artFile("sprites/monsters/asterchip-sheet.png")).toBe("game/placeholders/sprites/monsters/asterchip-sheet.png");
-    expect(avatarCardUrl("girl_teal")).toBe("game/placeholders/avatars/girl_teal.png");
+    expect(artFile("avatars/girl_teal.png")).toBe("game/placeholders/avatars/girl_teal.png");
     expect(artFileState("sprites/npc/nagmon_owl.png")).toBe("placeholder");
   });
   it("never swaps a file that is not the owner's", () => {

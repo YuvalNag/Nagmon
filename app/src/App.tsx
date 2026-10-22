@@ -1,6 +1,6 @@
 import { type ComponentProps, useCallback, useEffect, useRef, useState } from "react";
 import type { Services } from "./app/services";
-import { AVATARS, avatarImage } from "./core/family/avatars";
+import { heroChoices } from "./core/family/heroes";
 import { defaultsForGrade, GRADE_NAMES_HE } from "./core/family/gradeDefaults";
 import {
   MAX_PROFILES,
@@ -403,7 +403,7 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
             screen="avatar"
             title={t("avatarTitle")}
             busy={busy !== "no"}
-            choices={AVATARS.map((a) => ({ id: a.key, label: a.labelHe, image: avatarImage(a.key) }))}
+            choices={heroChoices()}
             onPick={(key) => create(view, key)}
             onBack={() => show({ kind: "grade", name: view.name })}
           />
