@@ -17,7 +17,11 @@
 import { placeEgg, type Pools } from "../game/eggs";
 import type { Facts } from "../game/facts";
 import { type Economy } from "../game/items";
+import { readFact } from "../game/journal";
+import { type MailData, queueEvent } from "../game/mail";
 import { grant, type Loot, type Prize, pickPrize } from "../game/loot";
+import type { ObjectDefs } from "../game/objects";
+import { meet } from "../game/people";
 import type { Action, Condition, WorldEvent } from "./mapData";
 import { countOneMore, countToday, type WorldState } from "./worldState";
 
@@ -62,7 +66,7 @@ export interface EventHost {
 }
 
 /** The screens an event may open. */
-export type ScreenKind = "shop" | "rest";
+export type ScreenKind = "shop" | "rest" | "object";
 
 /** What a child found: a chest's prize, its consolation gift, or an item given on the spot. */
 export interface Found {
@@ -79,6 +83,12 @@ export interface WorldObjects {
   pools: Pools;
   /** The zone of this map (its encounter table): where `place_egg` warms an egg when the event does not say. */
   zone: string;
+  /** The working objects' definitions (`open_object`, core/game/objects.ts); none when the build has none. */
+  defs?: ObjectDefs;
+  /** The authored letters (`send_letter <id>` queues one for the next morning). */
+  mail?: MailData;
+  /** The slugs of the people of the PC's directory: talking to one of them means the child has met them (core/game/people.ts). */
+  people?: ReadonlySet<string>;
 }
 
 export interface RunnerOptions {
@@ -112,6 +122,8 @@ export const ACTIONS: ReadonlySet<string> = new Set([
   "open_chest",
   "place_egg",
   "show_fact",
+  "open_object",
+  "send_letter",
 ]);
 
 /** The conditions it knows; any other never holds. */
@@ -244,6 +256,9 @@ export class EventRunner {
     this.running = true;
     try {
       for (const e of events) if (this.ready(e)) await this.run(e);
+      // someone of the town: met, and a heart more on a new day (the PC's People tab)
+      if (this.opts.objects?.people?.has(slug) && meet(this.state, slug, this.opts.today())) this.dirty = true;
+      this.save();
       await this.settle();
     } finally {
       this.running = false;
@@ -445,8 +460,28 @@ export class EventRunner {
         const fact = o.facts[a.args[0] ?? ""];
         if (!fact) throw new Error(`unknown fact ${a.args[0] ?? ""}`);
         if (!this.host.fact) throw new Error("no screen for show_fact");
+        // a sign read is a fact learned: it goes in the journal, once
+        if (readFact(this.state, a.args[0] ?? "", this.opts.today())) this.dirty = true;
         this.save();
         await this.host.fact(fact);
+        return;
+      }
+      case "send_letter": {
+        // an event letter (thanks from someone helped, a gift): it arrives the next morning
+        const o = this.objectsFor(a.type);
+        const id = a.args[0] ?? "";
+        if (!o.mail?.letters[id]) throw new Error(`unknown letter ${id}`);
+        if (queueEvent(this.state, o.mail, id, this.opts.today())) this.dirty = true;
+        return;
+      }
+      case "open_object": {
+        const o = this.objectsFor(a.type);
+        const id = a.args[0] ?? "";
+        if (!o.defs?.[id]) throw new Error(`unknown object ${id}`);
+        if (!this.host.screen) throw new Error("no screen for open_object");
+        // what changed so far is saved first: the child may stay long, and a kill must lose nothing
+        this.save();
+        await this.host.screen("object", id);
         return;
       }
       case "char_face":

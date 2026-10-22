@@ -655,6 +655,27 @@ msgstr "The home chest"
 msgid "nagmon_nest_home"
 msgstr "The nest"
 
+msgid "nagmon_obj_pc"
+msgstr "The PC"
+
+msgid "nagmon_obj_mailbox"
+msgstr "The mailbox"
+
+msgid "nagmon_obj_bookshelf"
+msgstr "The bookshelf"
+
+msgid "nagmon_obj_library"
+msgstr "The library"
+
+msgid "nagmon_obj_tv"
+msgstr "The TV"
+
+msgid "nagmon_obj_fridge"
+msgstr "The fridge"
+
+msgid "nagmon_obj_noticeboard"
+msgstr "The notice board"
+
 msgid "nagmon_world_chest_empty_daily"
 msgstr "The chest is empty for now. Tomorrow there will be something new!"
 

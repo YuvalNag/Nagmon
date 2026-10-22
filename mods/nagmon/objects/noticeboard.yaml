@@ -1,0 +1,26 @@
+# The notice board of the square (docs/app/WORLD_V2.md sections 7.3 and 8, object 6). W2 builds the screen and
+# the data contract only (core/game/board.ts): three daily cards (easy, normal, learning), a weekly card on
+# Sundays, accept is free and kept. The postings below are the static source; the real generator and the
+# quest engine are slice W3, which replaces the source and reads `board.accepted`.
+id: noticeboard
+screen: board
+title_he: לוח המודעות
+sprite: nagmon_noticeboard
+places:
+  - {map: classic_hearthrock_city, x: 18, y: 15}
+postings:
+  - {id: board_easy_book, slot: easy, giver_he: המורה, giver: nagmon_house_tutor, emoji: "1f4da", goal_he: "להביא ספר מהמעבדה לבית של השכנה"}
+  - {id: board_easy_note, slot: easy, giver_he: הגננת מיכל, giver: nagmon_gardener, emoji: "1f4dd", goal_he: "לשאול את סבתא רינה אם היא רוצה פרחים"}
+  - {id: board_easy_bell, slot: easy, giver_he: המוכר אבי, giver: nagmon_cashier, emoji: "1f514", goal_he: "לספר למורה שהחנות נפתחת"}
+  - {id: board_easy_cat, slot: easy, giver_he: יואב, giver: nagmon_kid, emoji: "1f431", goal_he: "לבדוק אם פיצי אכלה ארוחת בוקר"}
+  - {id: board_normal_grass, slot: normal, giver_he: האחות דנה, giver: nagmon_house_nurse, emoji: "1f33f", goal_he: "לפגוש שני חברים חדשים בדשא"}
+  - {id: board_normal_show, slot: normal, giver_he: טום התייר, giver: nagmon_tourist, emoji: "1f4f7", goal_he: "להראות לטום חבר אחד מהקבוצה"}
+  - {id: board_normal_berries, slot: normal, giver_he: הגננת מיכל, giver: nagmon_gardener, emoji: "1f353", goal_he: "לאסוף שלושה פירות מהגינה"}
+  - {id: board_normal_walk, slot: normal, giver_he: סבתא רינה, giver: nagmon_granny, emoji: "1f6b6", goal_he: "לטייל עם החבר שלכם ליד הנחל"}
+  - {id: board_learn_science, slot: learning, giver_he: הינשוף החכם, giver: nagmon_owl, emoji: "1f52c", goal_he: "לענות על שלוש שאלות במדעים"}
+  - {id: board_learn_math, slot: learning, giver_he: המוכר אבי, giver: nagmon_cashier, emoji: "1f522", goal_he: "לספור מטבעות נכון שלוש פעמים"}
+  - {id: board_learn_english, slot: learning, giver_he: טום התייר, giver: nagmon_tourist, emoji: "1f524", goal_he: "ללמוד שלוש מילים באנגלית"}
+  - {id: board_learn_read, slot: learning, giver_he: המורה, giver: nagmon_house_tutor, emoji: "1f4d6", goal_he: "לקרוא שלושה ספרים במדף"}
+  - {id: board_weekly_sky, slot: weekly, giver_he: האסטרונומית, giver: nagmon_solar_astronomer, emoji: "1f52d", goal_he: "להסתכל בשמיים ולספר איזה ירח רואים"}
+  - {id: board_weekly_town, slot: weekly, giver_he: סבתא רינה, giver: nagmon_granny, emoji: "1f3e1", goal_he: "לבקר ארבעה בתים בעיר"}
+  - {id: board_weekly_friends, slot: weekly, giver_he: האחות דנה, giver: nagmon_house_nurse, emoji: "1f49b", goal_he: "לתת לכל חבר בקבוצה תשומת לב"}

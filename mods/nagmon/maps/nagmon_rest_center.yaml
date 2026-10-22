@@ -41,3 +41,20 @@ events:
     actions:
     - translated_dialog nagmon_world_rest_nurse,nagmon_house_nurse
     - open_rest
+
+  # ---- working objects (mods/nagmon/objects/*.yaml; tools/app/objects.py checks that these events match them)
+
+  Create PC:
+    type: event
+    conditions:
+    - not char_exists nagmon_obj_pc
+    actions:
+    - create_npc nagmon_obj_pc,1,3
+    - char_face nagmon_obj_pc,down
+
+  PC Talk:
+    type: event
+    behav:
+    - talk nagmon_obj_pc
+    actions:
+    - open_object pc

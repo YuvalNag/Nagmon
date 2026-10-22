@@ -61,6 +61,11 @@ export interface EncountersOptions {
   cooldownSteps?: number;
   /** A browser test's hook: every step in an area meets one. */
   always?: boolean;
+  /**
+   * The creature of the day (the TV): its weight in the table is multiplied by `factor` (1.25), so it is met a
+   * little more often. A hint, never a prize: it changes what is met, not whether anything is.
+   */
+  boost?: () => { species: string; factor: number } | null;
 }
 
 export const DEFAULT_COOLDOWN = 6;
@@ -87,10 +92,12 @@ export class Encounters {
     const day = (this.o.daytime ?? (() => true))();
     const pool = (this.o.tables[area.table] ?? []).filter((e) => this.o.monsters[e.monster]?.hasSprite && (e.daytime === null || e.daytime === day));
     if (!pool.length) return null;
-    let pick = this.random() * pool.reduce((n, e) => n + e.rate, 0);
+    const boost = this.o.boost?.() ?? null;
+    const weight = (e: TableEntry) => (boost && e.monster === boost.species ? e.rate * boost.factor : e.rate);
+    let pick = this.random() * pool.reduce((n, e) => n + weight(e), 0);
     let chosen = pool[pool.length - 1]!;
     for (const e of pool) {
-      pick -= e.rate;
+      pick -= weight(e);
       if (pick < 0) {
         chosen = e;
         break;

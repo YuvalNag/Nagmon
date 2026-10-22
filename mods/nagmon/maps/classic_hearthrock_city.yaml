@@ -596,3 +596,20 @@ events:
     - is variable_set nagmon_wallet:returned
     actions:
     - translated_dialog nagmon_world_granny_happy
+
+  # ---- working objects (mods/nagmon/objects/*.yaml; tools/app/objects.py checks that these events match them)
+
+  Create Notice Board:
+    type: event
+    conditions:
+    - not char_exists nagmon_obj_noticeboard
+    actions:
+    - create_npc nagmon_obj_noticeboard,18,15
+    - char_face nagmon_obj_noticeboard,down
+
+  Notice Board Talk:
+    type: event
+    behav:
+    - talk nagmon_obj_noticeboard
+    actions:
+    - open_object noticeboard

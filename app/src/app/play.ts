@@ -16,6 +16,8 @@ import { loadTrips, type Trip } from "../core/game/trips";
 import { FieldLog } from "../core/game/fieldLog";
 import { type Economy, economy } from "../core/game/items";
 import { type Facts, facts } from "../core/game/facts";
+import { type MailData, mailData } from "../core/game/mail";
+import { type ObjectDefs, objectDefs } from "../core/game/objects";
 import { type BattleData, loadBattleData } from "../core/data/battleTypes";
 import { type Hatched, warmEggs } from "../core/game/eggs";
 import { type Loot, loot } from "../core/game/loot";
@@ -47,6 +49,9 @@ export interface GameData {
   economy: Economy;
   loot: Loot;
   facts: Facts;
+  /** The working objects' definitions (game/objects.json) and the authored letters (game/mail.json). */
+  objects: ObjectDefs;
+  mail: MailData;
   /** The battle's data (moves, species, intents, rules); null when the build has none (no battles then). */
   battle: BattleData | null;
 }
@@ -57,7 +62,7 @@ let cached: { fetch: FetchJson; data: Promise<GameData> } | null = null;
 export function loadGameData(fetchJson: FetchJson = fetchGameJson): Promise<GameData> {
   if (cached?.fetch === fetchJson) return cached.data;
   const data = (async () => {
-    const [index, texts, monsters, encounters, eco, lootDoc, factsDoc, battle] = await Promise.all([
+    const [index, texts, monsters, encounters, eco, lootDoc, factsDoc, objectsDoc, mailDoc, battle] = await Promise.all([
       fetchJson("content/index.json") as Promise<{ files: { file: string }[] }>,
       fetchJson("i18n/he.json") as Promise<Record<string, string>>,
       fetchJson("db/monsters.json"),
@@ -69,13 +74,16 @@ export function loadGameData(fetchJson: FetchJson = fetchGameJson): Promise<Game
       Promise.resolve(fetchJson("loot.json")).catch(() => ({})),
       // and none for the signs is signs with nothing to say
       Promise.resolve(fetchJson("facts.json")).catch(() => ({})),
+      // and none for the working objects is a house with no PC and no mail, not a broken one
+      Promise.resolve(fetchJson("objects.json")).catch(() => ({})),
+      Promise.resolve(fetchJson("mail.json")).catch(() => ({})),
       // the battle data is checked as it loads; a build without it has no battles, not a broken game
       loadBattleData(fetchJson).catch(() => null),
     ]);
     const files = Object.fromEntries(
       await Promise.all(index.files.map(async (f) => [f.file, await fetchJson(`content/${f.file}`)] as const)),
     );
-    return { content: loadContent(files), subjects: SubjectMap.fromDoc(files["subjects.json"]), texts, monsters: monsterTable(monsters), encounters: encounterTables(encounters), economy: economy(eco), loot: loot(lootDoc), facts: facts(factsDoc), battle };
+    return { content: loadContent(files), subjects: SubjectMap.fromDoc(files["subjects.json"]), texts, monsters: monsterTable(monsters), encounters: encounterTables(encounters), economy: economy(eco), loot: loot(lootDoc), facts: facts(factsDoc), objects: objectDefs(objectsDoc), mail: mailData(mailDoc), battle };
   })();
   cached = { fetch: fetchJson, data };
   data.catch(() => {
@@ -149,6 +157,9 @@ export class Play {
     readonly facts: Facts = {},
     /** The battle's data (game/moves.json and its sisters). */
     readonly battle: BattleData | null = null,
+    /** The working objects (the PC, the mailbox, the TV...) and the letters. */
+    readonly objects: ObjectDefs = {},
+    readonly mail: MailData = { senders: {}, letters: {}, gifts: [] },
   ) {
     this.maxChoices = maxChoicesFor(profile);
     this.field = new FieldLog(log);
@@ -249,7 +260,7 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   const now = opts.now ?? (() => new Date());
   const log = opts.log ?? { info: () => {}, warning: () => {}, error: () => {} };
   const { profile, profiles } = opts;
-  const [{ content, subjects, texts, monsters, encounters, economy: eco, loot: lootTable, facts: factsTable, battle: battleData }, learnerDict, worldDict] = await Promise.all([
+  const [{ content, subjects, texts, monsters, encounters, economy: eco, loot: lootTable, facts: factsTable, objects: objectsTable, mail: mailTable, battle: battleData }, learnerDict, worldDict] = await Promise.all([
     loadGameData(fetchJson),
     profiles.loadLearnerDict(profile.id),
     profiles.loadWorldDict(profile.id),
@@ -265,5 +276,5 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   // a trip file that is not there, or a map not built, is not an error: the zone is "coming soon"
   const trips = await loadTrips(fetchJson, (map) => Promise.resolve(fetchJson(`maps/${map}.json`)).then(() => true, () => false)).catch(() => []);
   log.info(`Play opened: grade ${profile.grade}, ${learner.answers_total} answers so far, ${world.money} coins`);
-  return new Play(profile, engine, world, texts, subjects, monsters, encounters, eco, trips, profiles, log, now, lootTable, factsTable, battleData);
+  return new Play(profile, engine, world, texts, subjects, monsters, encounters, eco, trips, profiles, log, now, lootTable, factsTable, battleData, objectsTable, mailTable);
 }

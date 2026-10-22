@@ -1,0 +1,9 @@
+# The library in the lab (docs/app/WORLD_V2.md section 8, object 3): the same bookshelf screen with a shelf for
+# each of the six subjects. Reading counts for the same daily stamp as the shelf at home.
+id: library
+screen: bookshelf
+title_he: הספרייה
+sprite: nagmon_bookshelf
+mode: library
+places:
+  - {map: nagmon_lab, x: 7, y: 3}

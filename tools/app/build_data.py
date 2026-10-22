@@ -36,6 +36,7 @@ from tools.app import (  # noqa: E402
     lessons,
     maps,
     moves,
+    objects,
     solar_maps,
     trips,
 )
@@ -68,6 +69,7 @@ def build() -> tuple[Output, dict[str, Any]]:
     report["trips"] = trips.build(out)
     report["lessons"] = lessons.build(out)
     report["economy"] = economy.build(out)
+    report["objects"] = objects.build(out)
     report["battle"] = moves.build(out)
     report["emoji"] = emoji.build(out)
     report["display"] = display.build(out)

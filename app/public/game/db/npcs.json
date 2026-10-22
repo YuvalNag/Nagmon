@@ -393,6 +393,195 @@
    "scale": 4
   }
  },
+ "nagmon_obj_bookshelf": {
+  "slug": "nagmon_obj_bookshelf",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_bookshelf",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_objects.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/nagmon_bookshelf.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
+ "nagmon_obj_fridge": {
+  "slug": "nagmon_obj_fridge",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_fridge",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_objects.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/nagmon_fridge.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
+ "nagmon_obj_library": {
+  "slug": "nagmon_obj_library",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_bookshelf",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_objects.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/nagmon_bookshelf.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
+ "nagmon_obj_mailbox": {
+  "slug": "nagmon_obj_mailbox",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_mailbox",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_objects.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/nagmon_mailbox.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
+ "nagmon_obj_noticeboard": {
+  "slug": "nagmon_obj_noticeboard",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_noticeboard",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_objects.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/nagmon_noticeboard.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
+ "nagmon_obj_pc": {
+  "slug": "nagmon_obj_pc",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_pc",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_objects.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/nagmon_pc.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
+ "nagmon_obj_tv": {
+  "slug": "nagmon_obj_tv",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_tv",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_objects.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/nagmon_tv.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
  "nagmon_owl": {
   "slug": "nagmon_owl",
   "speech": {

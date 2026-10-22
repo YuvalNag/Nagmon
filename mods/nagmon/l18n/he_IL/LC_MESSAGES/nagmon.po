@@ -654,6 +654,27 @@ msgstr "הארגז של הבית"
 msgid "nagmon_nest_home"
 msgstr "הקן"
 
+msgid "nagmon_obj_pc"
+msgstr "המחשב"
+
+msgid "nagmon_obj_mailbox"
+msgstr "תיבת הדואר"
+
+msgid "nagmon_obj_bookshelf"
+msgstr "מדף הספרים"
+
+msgid "nagmon_obj_library"
+msgstr "הספרייה"
+
+msgid "nagmon_obj_tv"
+msgstr "הטלוויזיה"
+
+msgid "nagmon_obj_fridge"
+msgstr "המקרר"
+
+msgid "nagmon_obj_noticeboard"
+msgstr "לוח המודעות"
+
 msgid "nagmon_world_chest_empty_daily"
 msgstr "הארגז ריק עכשיו. מחר יהיה בו משהו חדש!"
 

@@ -9,6 +9,8 @@
  * fridge's snacks) is in its own definition and read by its own module.
  */
 
+import type { Person } from "./people";
+
 /** The generic screens (ui/pc/ObjectScreen.tsx picks the component by this). */
 export const SCREENS = ["pc", "mailbox", "bookshelf", "tv", "fridge", "board"] as const;
 export type ObjectScreenKind = (typeof SCREENS)[number];
@@ -55,3 +57,12 @@ export function objectDefs(doc: unknown): ObjectDefs {
 
 /** The slugs of every object prop, for the allow-list of who may be talked to. */
 export const objectSlugs = (defs: ObjectDefs): string[] => Object.values(defs).map((d) => d.slug);
+
+/** The People tab's directory (the PC's definition): who can be met, what they offer, a picture code. */
+export function directoryOf(defs: ObjectDefs): Person[] {
+  const raw = defs["pc"]?.data["people"];
+  return (Array.isArray(raw) ? raw : []).flatMap((p): Person[] => {
+    const q = rec(p);
+    return typeof q["slug"] === "string" && typeof q["name_he"] === "string" ? [{ slug: q["slug"], name: q["name_he"], offers: String(q["offers_he"] ?? ""), emoji: typeof q["emoji"] === "string" ? q["emoji"] : "1f9d1" }] : [];
+  });
+}

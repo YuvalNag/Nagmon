@@ -22,6 +22,9 @@ import { introNeeded } from "../../core/game/intro";
 import { BattleScreen } from "../BattleScreen";
 import { BagView } from "../BagView";
 import { RestScreen } from "../RestScreen";
+import { ObjectScreen } from "../pc/ObjectScreen";
+import { directoryOf, objectSlugs } from "../../core/game/objects";
+import { creatureOfDay, CREATURE_BOOST, tvData } from "../../core/game/tv";
 import { ChestWrongCard, FactCard, FoundCard } from "../WorldCards";
 import { ShopScreen } from "../ShopScreen";
 import { FriendsView } from "../FriendsView";
@@ -369,8 +372,17 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     const r = new EventRunner(world.events, play.world, host, {
       grade: play.profile.grade,
       today: () => play.today(),
-      talkTo: new Set([...TALK_TO, ...TUTOR_NPCS]),
-      objects: { economy: play.economy, loot: play.loot, facts: play.facts, pools: play.pools, zone: world.encounters[0]?.table ?? DEFAULT_ZONE },
+      talkTo: new Set([...TALK_TO, ...TUTOR_NPCS, ...objectSlugs(play.objects)]),
+      objects: {
+        economy: play.economy,
+        loot: play.loot,
+        facts: play.facts,
+        pools: play.pools,
+        zone: world.encounters[0]?.table ?? DEFAULT_ZONE,
+        defs: play.objects,
+        mail: play.mail,
+        people: new Set(directoryOf(play.objects).map((p) => p.slug)),
+      },
     });
     const waiting = r.waiting();
     if (waiting.length) log.info(`${world.name}: ${waiting.length} events wait for later milestones`);
@@ -400,6 +412,12 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
               return h >= 6 && h < 18;
             },
             always: testAlwaysEncounter(),
+            // the TV's creature of the day is met a little more in the grass that day (a hint, never a prize)
+            boost: () => {
+              const tv = play.objects["tv"];
+              const c = tv ? creatureOfDay(tvData(tv.data), play.monsters, play.today()) : null;
+              return c ? { species: c.species, factor: CREATURE_BOOST } : null;
+            },
           })
         : null,
     [play],
@@ -696,6 +714,9 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
         />
       )}
       {overlay?.kind === "fact" && !menuOpen && <FactCard key={`fact-${overlay.n}`} fact={overlay.fact} onClose={closeOverlay} />}
+      {overlay?.kind === "screen" && overlay.screen === "object" && play && play.objects[overlay.arg] && !menuOpen && (
+        <ObjectScreen key={`object-${overlay.n}`} play={play} def={play.objects[overlay.arg]!} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
+      )}
       {overlay?.kind === "screen" && overlay.screen === "rest" && play && !menuOpen && (
         <RestScreen key={`rest-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
       )}

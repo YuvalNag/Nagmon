@@ -1,0 +1,10 @@
+# The bookshelf at home (docs/app/WORLD_V2.md section 8, object 3): three books out today, one page each (a
+# picture and one fact from facts.yaml), then an optional recall question; three different books in a day give a
+# reading stamp, ten stamps a bookmark charm and 20 coins. Also opens the Book (the bestiary).
+id: bookshelf
+screen: bookshelf
+title_he: מדף הספרים
+sprite: nagmon_bookshelf
+mode: daily
+places:
+  - {map: nagmon_home, x: 5, y: 2}

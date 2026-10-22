@@ -4862,6 +4862,27 @@
    "adapted": ""
   },
   {
+   "path": "emoji/1f3e1.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f3e1.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/1f3e5.svg",
    "kind": "emoji",
    "sources": [
@@ -6798,6 +6819,27 @@
    "kind": "emoji",
    "sources": [
     "mods/nagmon/gfx/emoji/svg/1f4d6.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "emoji/1f4da.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f4da.svg"
    ],
    "credits": [
     "emoji-nagmon-twemoji"
@@ -10427,6 +10469,27 @@
    "adapted": ""
   },
   {
+   "path": "emoji/1f9f3.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f9f3.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/1f9f6.svg",
    "kind": "emoji",
    "sources": [
@@ -10599,6 +10662,27 @@
    "kind": "emoji",
    "sources": [
     "mods/nagmon/gfx/emoji/svg/1fa77.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "emoji/1fa7a.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1fa7a.svg"
    ],
    "credits": [
     "emoji-nagmon-twemoji"
@@ -14612,6 +14696,25 @@
    "adapted": "xBRZ x4"
   },
   {
+   "path": "sprites/objects/nagmon_bookshelf.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites_obj/nagmon_bookshelf.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py). Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
    "path": "sprites/objects/nagmon_chest.png",
    "kind": "npc",
    "sources": [
@@ -14631,10 +14734,105 @@
    "adapted": "xBRZ x4"
   },
   {
+   "path": "sprites/objects/nagmon_fridge.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites_obj/nagmon_fridge.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py). Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "sprites/objects/nagmon_mailbox.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites_obj/nagmon_mailbox.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py). Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
    "path": "sprites/objects/nagmon_nest.png",
    "kind": "npc",
    "sources": [
     "mods/nagmon/sprites_obj/nagmon_nest.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py). Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "sprites/objects/nagmon_noticeboard.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites_obj/nagmon_noticeboard.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py). Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "sprites/objects/nagmon_pc.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites_obj/nagmon_pc.png"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "HD (xBRZ x4) upscale of the original picture, made by the app build (tools/app/hd.py). Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1).",
+   "matched": true,
+   "adapted": "xBRZ x4"
+  },
+  {
+   "path": "sprites/objects/nagmon_tv.png",
+   "kind": "npc",
+   "sources": [
+    "mods/nagmon/sprites_obj/nagmon_tv.png"
    ],
    "credits": [],
    "authors": [
