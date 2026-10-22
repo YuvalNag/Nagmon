@@ -1,6 +1,6 @@
 # Art delivery: private, lazy packs
 
-Status: **spec, nothing built yet.** Everything below is a plan. Statements about
+Status: **spec; slice A1 (manifest `pack`/`status`, sprite entries, placeholders `tools/app/placeholders.py`, `src/game/artSource.ts` resolver, raw-path lint) is built on `app/art-delivery-a1`; A2+ are not.** Everything below is a plan. Statements about
 what exists in the code were read from `nagmon-app` at `d3cc775`. Statements about
 GitHub, Capacitor and Android behaviour that were not verified on a device are
 marked **(verify)**; slice A1 starts with a spike that settles them.

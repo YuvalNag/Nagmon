@@ -3,6 +3,7 @@ import type { AnswerOutcome } from "../../core/learning/engine";
 import { isolateMath } from "../../core/learning/text";
 import type { QuizSession } from "../../core/world/quiz";
 import { itemText, t } from "../../i18n";
+import { artUrl } from "../../game/art";
 import { Figure } from "../Figure";
 import { Passage } from "../Passage";
 import { HELPERS, label, PAD_KEYS, useQuizProbe } from "../QuizScreen";
@@ -163,7 +164,7 @@ export function BattleQuestion({ session, text, subjectTitle, onResult, onClose,
       ))}
       {/* the owl's speech bubble: the hint, or what to do */}
       <div className="owl-bubble" data-id="quiz_hint_text" data-hint={!!session.hintText} role="status">
-        <span className="owl-face" aria-hidden="true" style={{ backgroundImage: "url(game/sprites/portraits/nagmon_owl.png)" }} />
+        <span className="owl-face" aria-hidden="true" style={{ backgroundImage: `url(${artUrl("sprite.portrait.nagmon_owl")})` }} />
         <span className="owl-line">{session.hintText ? isolateMath(session.hintText) : t("battlePick")}</span>
       </div>
       <span className="quiz-subject">{subjectTitle(q.subject)}</span>

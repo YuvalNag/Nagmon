@@ -64,6 +64,11 @@ def is_real_licence(licence: str) -> bool:
 #: How the HD tilesets were made (tools/art/upscale_tiles.py).
 TILES_XBRZ = "xBRZ x4"
 ADAPTED_XBRZ = adapted("CC BY-SA 4.0", TILES_XBRZ)
+PLACEHOLDER = {
+    "author": "Nagmon placeholders",
+    "licence": "GPL-3.0",
+    "note": "Flat stand-in picture drawn by the build (tools/app/placeholders.py).",
+}
 ADAPTED_MODEST = "CC BY-SA 4.0, adapted (modest version)"
 OWNER = {
     "author": "the Nagmon owner (made with image generators)",
@@ -398,6 +403,16 @@ def credit_for(asset: Asset, m: Matcher) -> dict[str, Any]:
             "licences": [OWN_SOUND["licence"]],
             "licence": OWN_SOUND["licence"],
             "note": OWN_SOUND["note"],
+            "matched": True,
+        }
+    if asset.kind == "placeholder":
+        return {
+            "credits": [],
+            "authors": [PLACEHOLDER["author"]],
+            "author": PLACEHOLDER["author"],
+            "licences": [PLACEHOLDER["licence"]],
+            "licence": PLACEHOLDER["licence"],
+            "note": PLACEHOLDER["note"],
             "matched": True,
         }
     if _is_owner_art(src):

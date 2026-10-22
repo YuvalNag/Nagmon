@@ -142,7 +142,9 @@ def pictures(built):
     return sorted(
         p
         for p in out.paths()
+        # a placeholder has the size of the picture it stands for (placeholders.py)
         if p.endswith((".png", ".jpg", ".jpeg", ".webp"))
+        and not p.startswith("placeholders/")
     )
 
 

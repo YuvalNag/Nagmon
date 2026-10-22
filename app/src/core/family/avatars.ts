@@ -1,3 +1,5 @@
+import { avatarCardUrl } from "../../game/artSource";
+
 /**
  * The characters a child can be. Only the owner's HD heroes, all modest
  * (docs/kids/SDD_MODESTY.md); Tuxemon's heroine wears a short skirt and
@@ -33,5 +35,5 @@ export const AVATAR_KEYS: ReadonlySet<string> = new Set([
 /** The picture to draw for a stored key; an unknown key gets the first hero. */
 export function avatarImage(key: string): string {
   const hero = AVATARS.some((a) => a.key === key) ? key : (OLD_KEYS[key] ?? AVATARS[0].key);
-  return `game/avatars/${hero}.png`;
+  return avatarCardUrl(hero);
 }
