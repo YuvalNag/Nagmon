@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { conditionHolds, EventRunner, type EventHost, type QuizWord, unknownActions } from "../../../src/core/world/events";
+import { conditionHolds, EventRunner, type EventHost, type People, type QuizWord, unknownActions } from "../../../src/core/world/events";
 import { readMap, type TiledMap, type WorldEvent } from "../../../src/core/world/mapData";
 import { WorldState } from "../../../src/core/world/worldState";
 
@@ -30,9 +30,25 @@ function host(answers: (QuizWord | "back")[] = []) {
 
 const DAY = "2026-10-20";
 
-async function cityRunner(grade: number, answers: (QuizWord | "back")[] = [], state = new WorldState(), today = () => DAY) {
+/** The resolver's answer and nothing else: these people exist on the map, with no words of their own (the old scripts alone talk). */
+function placedOnly(slugs: string[]): People {
+  return {
+    defined: () => false,
+    greet: async () => null,
+    chips: () => [],
+    topic: async () => null,
+    farewell: async () => null,
+    level: () => 0,
+    flags: () => [],
+    placed: () => slugs.map((slug) => ({ slug })),
+  };
+}
+
+const TOWN_NOW = ["nagmon_owl", "nagmon_cashier", "nagmon_tourist", "nagmon_gardener", "nagmon_kid", "nagmon_granny"];
+
+async function cityRunner(grade: number, answers: (QuizWord | "back")[] = [], state = new WorldState(), today = () => DAY, placed = ["nagmon_cashier"]) {
   const rec = host(answers);
-  const runner = new EventRunner(city.events, state, rec.h, { grade, today, talkTo: new Set(["nagmon_cashier"]) });
+  const runner = new EventRunner(city.events, state, rec.h, { grade, today, talkTo: new Set(["nagmon_cashier"]), people: placedOnly(placed) });
   await runner.start();
   return { runner, state, ...rec };
 }
@@ -81,9 +97,9 @@ describe("the conditions", () => {
 });
 
 describe("Hearthrock's scripts in M4", () => {
-  it("creates the same people the map places at the start, and nothing else runs", async () => {
-    const { runner, said, quizzes, state } = await cityRunner(2);
-    expect([...runner.characters].sort()).toEqual(city.npcs.map((n) => n.slug).sort());
+  it("has the resolver's people exist (place_npcs) and the map's own props, and nothing else runs", async () => {
+    const { runner, said, quizzes, state } = await cityRunner(2, [], new WorldState(), () => DAY, TOWN_NOW);
+    expect([...runner.characters].sort()).toEqual([...TOWN_NOW, ...city.npcs.map((n) => n.slug)].sort());
     expect(said).toEqual([]);
     expect(quizzes).toEqual([]);
     // the new game's start (nagmon_apply_profile) waits for M5: no owl intro
@@ -91,7 +107,7 @@ describe("Hearthrock's scripts in M4", () => {
     expect(runner.waiting()).toEqual(expect.arrayContaining(["Nagmon Start", "Owl Gifts", "Wallet Found"]));
   });
 
-  it("lets the player talk to the cashier only", async () => {
+  it("lets the player talk only to who a test limits it to (the build has no allow-list)", async () => {
     const { runner } = await cityRunner(2);
     expect(runner.talkable("nagmon_cashier")).toBe(true);
     for (const slug of ["nagmon_owl", "nagmon_tourist", "nagmon_gardener", "nagmon_kid", "nagmon_granny", "nobody"]) {
@@ -199,7 +215,7 @@ describe("Hearthrock's scripts in M4", () => {
       quiz: async () => {},
       changed: () => {},
     };
-    const runner = new EventRunner(city.events, new WorldState(), h, { grade: 2, today: () => DAY });
+    const runner = new EventRunner(city.events, new WorldState(), h, { grade: 2, today: () => DAY, people: placedOnly(["nagmon_cashier"]) });
     await runner.start();
     const first = runner.talk("nagmon_cashier");
     expect(runner.busy).toBe(true);

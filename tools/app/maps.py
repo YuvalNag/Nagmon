@@ -48,7 +48,7 @@ from typing import Any
 
 from PIL import Image
 
-from tools.app import overlays
+from tools.app import npcs, overlays
 from tools.app.common import NAG, TUX, WORLD_MAPS, Output
 
 SRC_TILE = 16
@@ -636,6 +636,17 @@ def convert(
             "value": surface,
         },
     ]
+    # who may stand where, for the placement resolver (tools/app/npcs.py)
+    placement = npcs.read_placement(tmx.name)
+    if placement:
+        properties.append(
+            {
+                "name": "nagmon_placement",
+                "type": "class",
+                "propertytype": "NagmonPlacement",
+                "value": placement,
+            }
+        )
     width, height = atlas.size
     tileset = {
         "firstgid": 1,

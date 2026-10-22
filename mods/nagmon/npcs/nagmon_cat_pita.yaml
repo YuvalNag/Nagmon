@@ -1,0 +1,32 @@
+# Pita the Cat (docs/app/WORLD_V2.md 6: row 23). A cat: her words are what the child reads in her meows. Uses the pet cat's sheet.
+id: nagmon_cat_pita
+short: pita
+class: W
+name_he: פיתה החתולה
+name_en: Pita the Cat
+role: animal
+age_feel: animal
+sprite: rockitten
+voice:
+  style: "only meows; the text is what a child imagines she says"
+  quirks: ["stretches and yawns"]
+  catchphrases: ["מיאו."]
+  register: simple
+personality: [aloof, curious, sleepy]
+knows:
+  topics:
+    - {id: meow, label_he: "מה היא אומרת?", icon: "1f408", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["find the sunniest spot"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  roam: {map: classic_hearthrock_city, spots: [corner_lane, flowerbed, bench_east, park_bench, pond_view, east_gate]}
+  night: true
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {purr: true}
+relationship:
+  memory_flags: [asked_meow]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

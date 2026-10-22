@@ -1,0 +1,31 @@
+# Noga the Astronomer (docs/app/WORLD_V2.md 6: row 27). Trip master and tutor at the station; her badge test, lessons and question stay as they are.
+id: nagmon_solar_astronomer
+short: noga
+class: M
+name_he: האסטרונומית נוגה
+name_en: Noga the Astronomer
+role: tutor
+age_feel: elder
+sprite: nagmon_astronomer
+voice:
+  style: "precise, enthusiastic, loves telescopes"
+  quirks: ["peers through an imaginary telescope"]
+  catchphrases: ["תסתכלו למעלה!"]
+  register: formal
+personality: [precise, enthusiastic, welcoming]
+knows:
+  topics:
+    - {id: stars, label_he: "על כוכבים", icon: "2b50", unlock: 0}
+    - {id: trip, label_he: "על המסעות", icon: "1f680", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["every child takes one good look at the sky"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  fixed: {maps: [solar_station]}
+offers: {tutor: station}
+relationship:
+  memory_flags: [asked_stars, asked_trip]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

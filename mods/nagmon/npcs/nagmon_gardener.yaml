@@ -1,0 +1,40 @@
+# Michal the gardener (docs/app/WORLD_V2.md 6.1 row 6): dreamy, plant facts.
+# Her science question (classic_hearthrock_city.yaml) goes on after her greeting.
+id: nagmon_gardener
+short: michal
+class: M
+name_he: הגננת מיכל
+name_en: Michal the Gardener
+role: gardener
+age_feel: adult
+sprite: nagmon_teacher
+voice:
+  style: "dreamy, soft-spoken, talks to plants, notices small growing things"
+  quirks: ["wipes soil off her hands", "tilts her head at a leaf"]
+  catchphrases: ["הכל גדל בזמנו."]
+  register: gentle
+personality: [dreamy, gentle, curious about growing things]
+knows:
+  topics:
+    - {id: plants, label_he: "מה גדל כאן?", icon: "1f331", unlock: 0}
+    - {id: berries, label_he: "תותים וגרגרים", icon: "1f353", unlock: 0}
+    - {id: fact, label_he: "עובדה מהגינה", icon: "1f33b", unlock: 0}
+    - {id: weather, label_he: "מה מזג האוויר?", icon: "1f324", unlock: 0}
+  facts: [seed_tree, bee_flowers, butterfly_change]
+doesnt_know: [anything about families, plants that are dangerous to eat]
+never_says: [anything scary, telling a child to taste a wild plant]
+goals: ["fill the town with flowers"]
+likes:
+  loved: [berry]
+  liked: [pie]
+schedule:
+  rules:
+    - {when: {phase: [morning, evening]}, at: {map: classic_hearthrock_city, spot: greenhouse}}
+    - {when: {phase: [afternoon]}, at: {map: classic_hearthrock_city, spot: flowerbed}}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers:
+  quests: [q_baskets]
+relationship:
+  memory_flags: [asked_plants, asked_berries, asked_fact, asked_weather]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

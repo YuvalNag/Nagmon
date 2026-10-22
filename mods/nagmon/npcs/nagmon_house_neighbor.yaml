@@ -1,0 +1,31 @@
+# Galit the Neighbour (docs/app/WORLD_V2.md 6: row 24). Lives in the friend house; placed by that map's own create_npc. Shares Rina's sheet.
+id: nagmon_house_neighbor
+short: galit
+class: R
+name_he: השכנה גלית
+name_en: Galit the Neighbour
+role: host
+age_feel: adult
+sprite: nagmon_granny
+voice:
+  style: "chatty, always cooking, offers a taste"
+  quirks: ["stirs a pot that is not there"]
+  catchphrases: ["טעמו, טעמו!"]
+  register: playful
+personality: [chatty, hospitable, warm]
+knows:
+  topics:
+    - {id: soup, label_he: "מה מבשלים?", icon: "1f372", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["nobody leaves her house hungry"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  fixed: {map: nagmon_friend_house}
+offers: {daily_snack: later}
+relationship:
+  memory_flags: [asked_soup, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

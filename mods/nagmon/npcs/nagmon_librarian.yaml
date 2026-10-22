@@ -1,0 +1,35 @@
+# Larisa the Librarian (docs/app/WORLD_V2.md 6: row 13). Art is a stand-in (the grey hood with her cards): needs a librarian sheet.
+id: nagmon_librarian
+short: larisa
+class: R
+name_he: לריסה הספרנית
+name_en: Larisa the Librarian
+role: librarian
+age_feel: adult
+sprite: nagmon_grey_hood
+voice:
+  style: "whisper-voiced, loves lists, speaks softly"
+  quirks: ["holds a finger to her lips"]
+  catchphrases: ["ששש... רגע של קריאה."]
+  register: gentle
+personality: [quiet, orderly, dreamy]
+knows:
+  topics:
+    - {id: books, label_he: "ספר היום", icon: "1f4da", unlock: 0}
+    - {id: quiet, label_he: "רגע של שקט", icon: "1f92b", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["a book for every child"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: library_steps}}
+    - {when: {phase: [evening]}, at: null}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {quests: [q_shelves]}
+relationship:
+  memory_flags: [asked_books, asked_quiet, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

@@ -1,0 +1,34 @@
+# Hana the Tailor (docs/app/WORLD_V2.md 6: row 20). Art is a stand-in (shares the teacher's sheet): needs a tailor sheet.
+id: nagmon_tailor
+short: hana
+class: R
+name_he: חנה התופרת
+name_en: Hana the Tailor
+role: tailor
+age_feel: adult
+sprite: nagmon_teacher
+voice:
+  style: "fussy about sleeves, kind, hums while she measures"
+  quirks: ["holds a pin between her lips"]
+  catchphrases: ["בדיוק במידה."]
+  register: gentle
+personality: [careful, kind, exact]
+knows:
+  topics:
+    - {id: sewing, label_he: "איך תופרים?", icon: "1f9f5", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["dress everyone in something that fits"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: tailor_door}}
+    - {when: {phase: [evening]}, at: null}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {shop: cosmetics_later}
+relationship:
+  memory_flags: [asked_sewing, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

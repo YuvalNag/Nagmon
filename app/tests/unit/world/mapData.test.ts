@@ -17,14 +17,13 @@ describe("Hearthrock, as the build converted it", () => {
     expect(city.start).toEqual({ x: 29, y: 16 });
   });
 
-  it("has the owl at (29,15) facing down, and no caped owl on a new game", () => {
-    const owls = city.npcs.filter((n) => n.slug === "nagmon_owl");
-    expect(owls).toEqual([{ slug: "nagmon_owl", x: 29, y: 15, facing: "down" }]);
-    expect(city.npcs.map((n) => n.slug)).toEqual(
-      expect.arrayContaining(["nagmon_cashier", "nagmon_tourist", "nagmon_gardener", "nagmon_kid", "nagmon_granny"]),
-    );
-    // the kitten comes home only after the quest
-    expect(city.npcs.some((n) => n.slug === "nagmon_kitten")).toBe(false);
+  it("has the owl's post at (29,15) facing down; the people of the town are the resolver's, not the map's", () => {
+    expect(city.placement?.spots["owl_post"]).toEqual({ x: 29, y: 15, facing: "down" });
+    expect(city.placement?.spots["cashier_post"]).toEqual({ x: 14, y: 14, facing: "down" });
+    expect(city.placement?.maxNpcs).toBe(10);
+    // what the map itself creates is the quest's prop (the wallet); the kitten comes home only after the quest
+    expect(city.npcs.map((n) => n.slug)).toEqual(["nagmon_wallet"]);
+    expect(city.placed).toEqual([]);
   });
 
   it("goes up to route 1 and into both academies", () => {
@@ -96,6 +95,8 @@ describe("the conditions a map's start needs", () => {
   it("puts on the owl's cape once the Granite academy is done", () => {
     const json = JSON.parse(readFileSync("public/game/maps/classic_hearthrock_city.json", "utf8")) as TiledMap;
     const later = readMap("classic_hearthrock_city", json, { variables: state.variables, characters: new Set() });
-    expect(later.npcs.filter((n) => n.slug === "nagmon_owl")).toHaveLength(1);
+    // the owl is the resolver's now (an anchor at the lab porch), the same one before and after the badge
+    expect(later.npcs.filter((n) => n.slug === "nagmon_owl")).toHaveLength(0);
+    expect(later.placement?.spots["owl_post"]).toBeDefined();
   });
 });

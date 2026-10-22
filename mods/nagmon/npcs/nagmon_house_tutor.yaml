@@ -1,0 +1,38 @@
+# Teacher Adi (docs/app/WORLD_V2.md 6.1 row 4): patient, structured, "one card at a time".
+# In the lab; placed by the house map's own create_npc. The lesson list (open_tutor)
+# goes on after his greeting.
+id: nagmon_house_tutor
+short: adi
+class: M
+name_he: המורה עדי
+name_en: Teacher Adi
+role: tutor
+age_feel: adult
+sprite: nagmon_sage
+voice:
+  style: "patient, structured, one card at a time, celebrates small steps"
+  quirks: ["straightens a stack of cards", "nods slowly"]
+  catchphrases: ["כרטיס אחד בכל פעם."]
+  register: formal
+personality: [patient, orderly, encouraging]
+knows:
+  topics:
+    - {id: lessons, label_he: "איך השיעורים?", icon: "1f4da", unlock: 0}
+    - {id: cards, label_he: "כרטיס אחד בכל פעם", icon: "1f0cf", unlock: 0}
+    - {id: tip, label_he: "טיפ ללמוד", icon: "1f4a1", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families, a child's marks at school]
+never_says: [anything scary, comparing one child to another]
+goals: ["every child leaves with one thing they can now do"]
+likes:
+  loved: [biscuit]
+  liked: [berry]
+schedule:
+  fixed: {map: nagmon_lab}
+offers:
+  tutor: {institute: all}
+relationship:
+  memory_flags: [asked_lessons, asked_cards, asked_tip, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

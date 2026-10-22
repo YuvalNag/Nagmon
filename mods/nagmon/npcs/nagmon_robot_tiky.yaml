@@ -1,0 +1,32 @@
+# Tiky the Robot (docs/app/WORLD_V2.md 6: row 22). Art is a stand-in (needs a small helper robot sheet).
+id: nagmon_robot_tiky
+short: tiky
+class: W
+name_he: טיקי הרובוט
+name_en: Tiky the Robot
+role: robot
+age_feel: robot
+sprite: nagmon_moon_engineer
+voice:
+  style: "literal, polite, beeps between words"
+  quirks: ["beeps when it thinks"]
+  catchphrases: ["ביפ! מוכן לעזור."]
+  register: simple
+personality: [literal, polite, helpful]
+knows:
+  topics:
+    - {id: beep, label_he: "מה אתה עושה?", icon: "1f916", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["help with everything it understands"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  roam: {map: classic_hearthrock_city, spots: [plaza_west, plaza_mid, fountain, plaza_east, south_east]}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {tips: map}
+relationship:
+  memory_flags: [asked_beep, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}
