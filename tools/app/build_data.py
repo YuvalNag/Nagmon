@@ -39,6 +39,7 @@ from tools.app import (  # noqa: E402
     npcs,
     objects,
     quests,
+    review,
     solar_maps,
     trips,
 )
@@ -74,6 +75,7 @@ def build() -> tuple[Output, dict[str, Any]]:
     report["objects"] = objects.build(out)
     report["npcs"] = npcs.build(out)
     report["quests"] = quests.build(out)
+    report["review"] = review.build(out)
     report["battle"] = moves.build(out)
     report["emoji"] = emoji.build(out)
     report["display"] = display.build(out)
