@@ -20,5 +20,46 @@ export const SUBJECT_COLOR: Readonly<Record<string, string>> = {
 export const subjectIcon = (s: string | null): string => (s && SUBJECT_ICON[s]) || "⭐";
 export const subjectColor = (s: string | null): string => (s && SUBJECT_COLOR[s]) || "#8a97a6";
 
-/** The little picture of each of the enemy's intents. */
-export const INTENT_ICON: Readonly<Record<string, string>> = { puff: "☁️", giggle: "😄", silly: "🎵" };
+/** The little picture of each of the enemy's intents (placeholder art: soft emoji, until the art pass). */
+export const INTENT_ICON: Readonly<Record<string, string>> = {
+  fog_puff: "☁️",
+  big_puff: "🌫️",
+  thicken: "🌥️",
+  giggle: "😄",
+  drowsy_mist: "🌙",
+  dizzy_swirl: "🌀",
+  sticky_mud: "🟤",
+  cheer_up: "⬆️",
+  silly_dance: "🎵",
+};
+
+/** A status badge (4.1): a shape that is not colour alone (an emoji of the shape) on a round of the status's colour. */
+export const STATUS_GLYPH: Readonly<Record<string, string>> = {
+  drowsy: "🌙",
+  dizzy: "😵‍💫",
+  slow: "🐌",
+  shield: "🫧",
+  regen: "🌿",
+  boost: "⬆️",
+  weaken: "⬇️",
+  focus: "🎯",
+  giggly: "🤭",
+  mark: "🔖",
+  sniffly: "💧",
+  windup: "⭕",
+  calm: "😊",
+  dozing: "💤",
+};
+
+/** The effect glyph of a move card: what the move does besides a plain hit (a tiny picture beside the flames). */
+export function moveGlyph(move: { id: string; tier: string; effects: { type: string; status?: string }[] }): string | null {
+  if (move.id === "echo") return "🔁";
+  const order = ["status", "weaken", "boost", "shield", "heal", "regen", "cleanse", "mirror", "mark", "finisher", "reveal", "focus", "swap_boosts", "ignore_shield"] as const;
+  const glyph: Record<string, string> = { weaken: "⬇️", boost: "⬆️", shield: "🫧", heal: "💚", regen: "🌿", cleanse: "🍃", mirror: "🪞", mark: "🔖", finisher: "🔨", reveal: "🔍", focus: "🎯", swap_boosts: "🔀", ignore_shield: "🔓" };
+  for (const kind of order) {
+    const e = move.effects.find((x) => x.type === kind);
+    if (!e) continue;
+    return kind === "status" ? (STATUS_GLYPH[e.status ?? ""] ?? null) : (glyph[kind] ?? null);
+  }
+  return null;
+}

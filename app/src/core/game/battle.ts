@@ -288,7 +288,7 @@ export interface BattleOptions {
   /** A random number in [0, 1): a test passes a seeded one. */
   rng?: () => number;
   /** The tests' hook: start the partner's Pep or the enemy's Fog at this number. */
-  debug?: { pep?: number; fog?: number; charges?: number; spark?: number; cards?: string[] };
+  debug?: { pep?: number; fog?: number; charges?: number; spark?: number; cards?: string[]; intents?: IntentId[] };
 }
 
 /** How many times a question is tried for before the battle ends in peace. */
@@ -589,7 +589,14 @@ export class Battle {
     };
   }
 
+  private scripted = 0;
   private draw(p: Creature | null): IntentId {
+    // the tests' hook: a list of intents to use in order (then the draws go on)
+    const scripted = this.o.debug?.intents?.[this.scripted];
+    if (scripted) {
+      this.scripted++;
+      return scripted;
+    }
     return drawIntent(this.rng(), this.weights, this.intentState(p), giggleEvery(this.data));
   }
 

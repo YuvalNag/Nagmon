@@ -1,7 +1,8 @@
 import { type MutableRefObject, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import type { AnswerOutcome } from "../core/learning/engine";
 import type { Play } from "../app/play";
-import { Battle, type Round, type RoundEvent, type SealResult } from "../core/game/battle";
+import { Battle, type Effect, type Round, type RoundEvent, type SealResult } from "../core/game/battle";
+import type { IntentId, StatusId } from "../core/data/battleTypes";
 import type { Move } from "../core/game/moves";
 import { needFor } from "../core/game/collection";
 import type { Wild } from "../core/game/encounters";
@@ -23,8 +24,9 @@ import { answered, asking as askingFlow, type Flow, openWhy, remainingMs, tapped
 import { ResultBox } from "./battle/ResultBox";
 import { ResultsCard } from "./battle/ResultsCard";
 import { usesSide } from "./battle/presentation";
-import { type EnemyFx, type Fx, Stage } from "./battle/Stage";
-import { subjectColor, subjectIcon } from "./battle/subjects";
+import { type Aura, type EnemyFx, type Fx, Stage } from "./battle/Stage";
+import { INTENT_ICON, STATUS_GLYPH, subjectColor, subjectIcon } from "./battle/subjects";
+import type { StatusLook } from "./battle/StatusBadges";
 import { useCalm } from "./battle/useCalm";
 import { NameCard } from "./battle/NameCard";
 import { LetterBoard } from "./LetterBoard";
@@ -63,7 +65,27 @@ function hook(key: string): number | undefined {
 }
 
 /** The lengths of a round's beats, in ms (9.1): our animation, the enemy's, the ticks; the menu is live 0.6 s into the enemy's. */
-const BEAT = { ours: 1500, theirs: 1500, swap: 800, asleep: 1400, tick: 400, live: 600 } as const;
+const BEAT = { ours: 1500, theirs: 1500, swap: 800, asleep: 1400, tick: 400, live: 600, quick: 900 } as const;
+
+/** The glyph of an effect's glow on a creature. */
+const AURA_GLYPH: Record<Effect["kind"], string> = {
+  status: "💫",
+  heal: "💚",
+  shield: "🫧",
+  regen: "🌿",
+  boost: "⬆️",
+  weaken: "⬇️",
+  cleanse: "🍃",
+  mirror: "🪞",
+  mark: "🔖",
+  reveal: "🔍",
+  focus: "🎯",
+  swap_boosts: "🔀",
+  echo: "🔁",
+  resist: "🔒",
+  spark: "⭐",
+  windup: "⭕",
+};
 
 export interface BattleProbe {
   phase: string;
@@ -78,6 +100,12 @@ export interface BattleProbe {
   needSwap: boolean;
   cards: { id: string; left: number | null; dimmed: boolean; hit: string | null }[];
   team: { id: string; fainted: boolean }[];
+  spark: number;
+  yawning: boolean;
+  finale: { ready: boolean; spark: number } | null;
+  badges: { mine: string[]; theirs: string[] };
+  peek: string[];
+  windup: boolean;
 }
 
 /**
@@ -95,7 +123,15 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     const pep = hook("nagmon.battle.pep");
     const fog = hook("nagmon.battle.fog");
     const seed = hook("nagmon.battle.seed");
-    const debug = { ...(pep ? { pep } : {}), ...(fog ? { fog } : {}), ...(charges ? { charges } : {}) };
+    const spark = hook("nagmon.battle.spark");
+    let intents: IntentId[] | undefined;
+    try {
+      const raw = localStorage.getItem("nagmon.battle.intents");
+      if (raw) intents = raw.split(",").filter((x) => x in INTENT_ICON) as IntentId[];
+    } catch {
+      intents = undefined;
+    }
+    const debug = { ...(intents ? { intents } : {}), ...(pep ? { pep } : {}), ...(fog ? { fog } : {}), ...(charges ? { charges } : {}), ...(spark ? { spark } : {}) };
     const b = new Battle({
       engine: play.engine,
       data: play.battle!,
@@ -153,6 +189,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const [flow, setFlow] = useState<Flow>(askingFlow());
   const [fx, setFx] = useState<Fx | null>(null);
   const [enemyFx, setEnemyFx] = useState<EnemyFx | null>(null);
+  const [auras, setAuras] = useState<Aura[]>([]);
   const [outcome, setOutcome] = useState<AnswerOutcome | null>(null);
   const fxId = useRef(0);
   // the move being asked, and the question
@@ -219,6 +256,12 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       needSwap: battle.needSwap,
       cards: battle.cards().map((c) => ({ id: c.move.id, left: c.left, dimmed: c.dimmed, hit: c.hit })),
       team: battle.team().map((c) => ({ id: c.id, fainted: !usable(c) })),
+      spark: battle.spark,
+      yawning: battle.yawning,
+      finale: battle.finaleCard() ? { ready: battle.finaleCard()!.ready, spark: battle.spark } : null,
+      badges: { mine: battle.badgesOf("mine").map((b) => b.id), theirs: battle.badgesOf("theirs").map((b) => b.id) },
+      peek: battle.peek,
+      windup: !!battle.windup,
     });
     return () => {
       delete w.__nagmonBattle;
@@ -231,10 +274,55 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     return c ? (c.name ?? play.text(c.species)) : "";
   };
   const subjectTitle = (s: string) => play.subjects.title(s);
+  const statusLook: StatusLook = {
+    name: (id: StatusId) => play.battle?.statusesById[id]?.he ?? id,
+    hex: (id: StatusId) => play.battle?.statusesById[id]?.hex ?? "#c8c8d8",
+    stat: (st: string) => t(`stat_${st}` as "stat_power"),
+    subject: subjectTitle,
+  };
   const flowDone = () =>
     new Promise<void>((r) => {
       flowWait.current = r;
     });
+
+  const stat = (st: string) => t(`stat_${st}` as "stat_power");
+  /** One line for what a move did besides taking Fog (the child's own effects only: the enemy's mist has its own beat). */
+  const effectLine = (e: Effect, partner: string): string | null => {
+    switch (e.kind) {
+      case "status":
+        return e.on === "them" && e.status ? t(`battleStatusOn_${e.status}` as "battleStatusOn_slow", { name: wildName }) : null;
+      case "resist":
+        return t("battleResist", { name: wildName });
+      case "weaken":
+        return t("battleWeakened", { stat: stat(e.stat ?? "power"), name: wildName });
+      case "boost":
+        return t("battleBoosted", { stat: stat(e.stat ?? "power"), partner });
+      case "shield":
+        return t("battleShielded", { partner });
+      case "heal":
+        return t("battleHealed", { partner, n: e.amount ?? 0 });
+      case "regen":
+        return t("battleRegen");
+      case "cleanse":
+        return t("battleCleansed", { partner });
+      case "mirror":
+        return t("battleMirror");
+      case "mark":
+        return t("battleMark", { name: wildName });
+      case "reveal":
+        return t("battleRevealed", { name: wildName });
+      case "focus":
+        return t("battleFocus");
+      case "swap_boosts":
+        return t("battleSwapBoosts");
+      case "echo":
+        return t("battleEcho");
+      default:
+        return null;
+    }
+  };
+  /** The effects of the child's own move, in the order they happened (the enemy's mist is not one of them). */
+  const myEffects = (round: Round) => round.effects.filter((e) => !(e.on === "me" && (e.kind === "status" || e.kind === "windup")) && e.kind !== "windup");
 
   /** The words of one beat of a round. */
   const say = (ev: RoundEvent, round: Round): string => {
@@ -242,16 +330,47 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       if (ev.kind === "swap") return t("battleSwapped", { name: nameOf(ev.creature) });
       if (ev.kind === "medicine") return t("battleMedicineUsed", { name: nameOf(ev.creature) });
       const move = round.move?.he ?? "";
-      const parts = [round.correct || round.move?.tier === "W" ? t("battleCastHit", { move, name: wildName, damage: ev.amount }) : t("battleCastWeak", { damage: ev.amount })];
+      const partner = nameOf(ev.creature);
+      const lines = myEffects(round).map((e) => effectLine(e, partner)).filter((x): x is string => !!x);
+      if (ev.kind === "utility") return [t("battleUtility", { move }), ...lines.slice(0, 2)].join(" ");
+      const parts = [round.correct || round.move?.tier === "W" || round.move?.question === "none" ? t("battleCastHit", { move, name: wildName, damage: ev.amount }) : t("battleCastWeak", { damage: ev.amount })];
       if (round.wheel === "sparkle") parts.push(t("battleSparkleHit"));
       if (round.wheel === "sturdy") parts.push(t("battleSturdyHit", { name: wildName }));
       if (round.brilliant) parts.push(t("battleBrilliantHit"));
+      if (lines[0]) parts.push(lines[0]);
       return parts.join(" ");
     }
-    if (ev.kind === "puff") return t("battlePuff", { name: wildName, partner: nameOf(ev.creature), damage: ev.amount });
-    if (ev.kind === "giggle") return t("battleGiggle", { name: wildName });
-    return t("battleSilly", { name: wildName });
+    const partner = nameOf(ev.creature);
+    switch (ev.kind) {
+      case "puff":
+        return ev.intent === "big_puff" ? t("battleBigPuff", { partner, damage: ev.amount }) : t("battlePuff", { name: wildName, partner, damage: ev.amount });
+      case "windup":
+        return t("battleWindup", { name: wildName });
+      case "stagger":
+        return t("battleStagger", { name: wildName });
+      case "thicken":
+        return t("battleThicken", { name: wildName });
+      case "giggle":
+        return t("battleGiggle", { name: wildName });
+      case "cheer":
+        return t("battleCheer", { name: wildName });
+      case "mist":
+        return t(`battleMist_${ev.status ?? "slow"}` as "battleMist_slow", { partner });
+      case "sleep":
+        return t("battleSleep", { name: wildName });
+      case "stumble":
+        return t("battleStumble", { name: wildName });
+      default:
+        return t("battleSilly", { name: wildName });
+    }
   };
+
+  /** Glows on the creatures for a move's effects (at most three). */
+  const aurasOf = (round: Round): Aura[] =>
+    myEffects(round)
+      .filter((e) => e.kind !== "spark")
+      .slice(0, 3)
+      .map((e) => ({ id: ++fxId.current, on: e.on, kind: e.kind as Aura["kind"], glyph: e.kind === "status" && e.status ? (STATUS_GLYPH[e.status] ?? "💫") : AURA_GLYPH[e.kind] }));
 
   /**
    * Plays a round in order (9.1): our beat (the answer's result line shows with it), the enemy's, the end of the
@@ -272,19 +391,29 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       if (!alive.current) return;
       setMsg(say(ev, round));
       setShown({ fog: ev.fog, pep: ev.pep });
-      if (ev.who === "me" && ev.kind === "hit") {
+      if (ev.who === "me" && (ev.kind === "hit" || ev.kind === "utility")) {
         const id = ++fxId.current;
-        const question = !!out && round.move?.tier !== "W";
-        setFx({
-          id,
-          correct: round.correct,
-          damage: ev.amount,
-          won: round.calm && !round.capped,
-          plan: question ? planFor(round.correct, calm, ev.amount) : planForFree(ev.amount, calm),
-          wheel: round.wheel,
-          brilliant: round.brilliant,
-        });
-        void sfx.play(round.calm ? "win" : round.correct ? "hit" : "oops", switches);
+        const question = !!out && round.move?.tier !== "W" && round.move?.question !== "none";
+        const subject = round.move && round.move.subject !== "any" && ev.kind === "hit" ? round.move.subject : null;
+        if (ev.kind === "hit") {
+          setFx({
+            id,
+            correct: round.correct,
+            damage: ev.amount,
+            won: round.calm && !round.capped,
+            plan: question ? planFor(round.correct, calm, ev.amount) : planForFree(ev.amount, calm),
+            wheel: round.wheel,
+            brilliant: round.brilliant,
+            subject: round.correct || !question ? subject : null,
+            ...(round.finale ? { finaleStep: 3 } : {}),
+          });
+          void sfx.play(round.calm ? "win" : round.correct ? "hit" : "oops", switches);
+        } else {
+          // a utility move: the glow on the creature it is for; no number
+          setFx({ id, correct: round.correct, damage: 0, won: false, plan: { ...planForFree(0, calm), oops: false, wildHit: false, attack: false, stars: round.correct ? (calm ? 1 : 4) : 0 }, wheel: null });
+          void sfx.play(round.correct ? "hit" : "oops", switches);
+        }
+        setAuras(aurasOf(round));
         if (round.correct) sfx.tick(switches);
         if (question && out) {
           setOutcome(out);
@@ -293,14 +422,16 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
           if (!alive.current) return;
           setOutcome(null);
         } else await pace.wait(BEAT.ours);
+        setAuras([]);
       } else if (ev.who === "me") {
         await pace.wait(BEAT.swap);
       } else {
         const id = ++fxId.current;
-        setEnemyFx({ id, kind: ev.kind as EnemyFx["kind"], amount: ev.amount });
+        const kind = ev.kind as EnemyFx["kind"];
+        setEnemyFx({ id, kind, amount: ev.amount, ...(ev.intent === "big_puff" && ev.kind === "puff" ? { big: true } : {}), ...(ev.status ? { glyph: STATUS_GLYPH[ev.status] } : {}), ...(ev.returned ? { returned: ev.returned } : {}) });
         // the menu is live from 0.6 s into the enemy's animation
         setTimeout(() => alive.current && setLive(true), BEAT.live * scale);
-        await pace.wait(BEAT.theirs);
+        await pace.wait(ev.kind === "sleep" || ev.kind === "silly" || ev.kind === "cheer" || ev.kind === "thicken" ? BEAT.quick : BEAT.theirs);
         if (!alive.current) return;
         setEnemyFx(null);
       }
@@ -316,6 +447,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     setShown(null);
     setFx(null);
     setEnemyFx(null);
+    setAuras([]);
     setLive(true);
     setCast(null);
     setMsg(round.needSwap ? t("battleAsleep", { name: nameOf(round.fainted ?? battle.partner.id) }) : null);
@@ -367,6 +499,33 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const onResult = (o: AnswerOutcome) => {
     if (!cast) return;
     play.logAnswer(cast.session, "battle");
+    // a Finale: the first two answers land a hit at once, and the next question follows; the round comes after the third
+    if (battle.finaleOpen && battle.finaleStep) {
+      const step = battle.finaleStep;
+      const id = ++fxId.current;
+      setFx({ id, correct: step.correct, damage: step.damage, won: false, plan: planFor(step.correct, calm, step.damage), wheel: step.wheel, brilliant: step.brilliant, subject: step.correct && cast.move.subject !== "any" ? cast.move.subject : null, finaleStep: step.i + 1 });
+      setShown({ fog: step.fog, pep: battle.partnerPep.now });
+      const switches = effectsFrom(play.profile.settings);
+      void sfx.play(step.correct ? "hit" : "oops", switches);
+      if (step.correct) sfx.tick(switches);
+      setOutcome(o);
+      setFlow(answered(o.correct, performance.now()));
+      const move = cast.move;
+      void flowDone().then(() => {
+        if (!alive.current) return;
+        setOutcome(null);
+        setFx(null);
+        setShown(null);
+        const next = battle.nextFinale();
+        if (!next) {
+          setCast(null);
+          setMode("menu");
+          return;
+        }
+        setCast({ session: next, move });
+      });
+      return;
+    }
     const round = battle.last;
     if (!round || round.n !== battle.turns) return;
     void playRound(round, o);
@@ -487,12 +646,18 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
 
   const mine = battle.partner;
   const myName = nameOf(mine.id);
+  /** What the partner learns at the level it just reached (the learnset of the data). */
+  const learnedLine = (level: number): string => {
+    const rows = play.battle?.species[mine.species]?.learnset.filter((r) => r.level === level && r.move !== "little_wiggle") ?? [];
+    const names = rows.map((r) => play.battle?.movesById[r.move]?.he).filter((x): x is string => !!x);
+    return names.length ? t("battleLearned", { partner: myName, moves: names.join(", ") }) : "";
+  };
   const phase = battle.phase;
 
   if (card && mode !== "question" && mode !== "playing" && mode !== "seal") {
     return (
       <ScreenTime key={`card-${tick}`}>
-        <GrowthCard monsters={play.monsters} before={card.before} evolvedTo={card.evolvedTo} level={card.level} name={(sp) => play.text(sp)} onClose={() => setCard(null)} />
+        <GrowthCard monsters={play.monsters} before={card.before} evolvedTo={card.evolvedTo} level={card.level} name={(sp) => play.text(sp)} learned={learnedLine(card.level)} onClose={() => setCard(null)} />
       </ScreenTime>
     );
   }
@@ -581,6 +746,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const line = msg ?? (battle.turns === 0 && mode === "menu" ? meet : null);
   const calmLine = battle.reward?.capped ? t("battleCapped", { name: wildName }) : phase === "won" ? t("battleMasterWon", { name: wildName }) : t("battleCalm", { name: wildName });
   const needBar = mode === "menu" || mode === "playing";
+  const finaleCard = battle.finaleCard();
 
   return (
     <ScreenTime key="battle">
@@ -623,6 +789,16 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
           detail={detail}
           loves={loves}
           enemyFx={enemyFx}
+          auras={auras}
+          spark={{ n: battle.spark, max: battle.sparkMax }}
+          badges={{ mine: battle.badgesOf("mine"), theirs: battle.badgesOf("theirs") }}
+          look={statusLook}
+          peek={battle.peek.length && mode !== "playing" ? battle.peek : []}
+          yawning={battle.yawning && mode === "menu"}
+          onWake={() => {
+            battle.wakeTap();
+            nudge((n) => n + 1);
+          }}
         />
         {!asking && calmView && battle.reward && (
           <div className="message-box top" data-id="battle_message" role="status">
@@ -698,6 +874,12 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
             onWhy={() => setFlow((f) => openWhy(f))}
             onSkip={() => setFlow((f) => tapped(f, performance.now()))}
           />
+        )}
+        {finaleCard?.ready && mode === "menu" && live && phase === "fighting" && !battle.needSwap && (
+          <Tap id="battle_finale" className="finale-pill pulse" aria-label={t("battleFinaleName", { move: finaleCard.move.he })} onTap={() => onMove(finaleCard.move.id)}>
+            <span aria-hidden="true">✨ </span>
+            {t("battleFinaleReady")}
+          </Tap>
         )}
         {phase !== "won" && needBar && (
           <ActionBar

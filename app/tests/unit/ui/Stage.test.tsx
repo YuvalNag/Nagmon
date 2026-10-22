@@ -30,7 +30,7 @@ function show(over: Partial<Parameters<typeof Stage>[0]> = {}) {
       calm={false}
       victory={false}
       pad={false}
-      intent={{ id: "puff", amount: 7, first: true }}
+      intent={{ id: "fog_puff", amount: 7, first: true }}
       detail={2}
       loves={[{ id: "geometry", title: "גאומטריה" }]}
       enemyFx={null}
@@ -71,11 +71,11 @@ describe("the enemy's intent over it, by age", () => {
     const c = q(show({ detail: 3 }), "[data-id=battle_intent]")!;
     expect(c.querySelector(".intent-first")!.textContent).toBe("⚡1");
     expect(c.getAttribute("aria-label")).toContain("פועל ראשון");
-    expect(q(show({ detail: 3, intent: { id: "puff", amount: 7, first: false } }), ".intent-first")!.textContent).toBe("⚡2");
+    expect(q(show({ detail: 3, intent: { id: "fog_puff", amount: 7, first: false } }), ".intent-first")!.textContent).toBe("⚡2");
   });
 
   it("a Silly turn shows no number; no intent shows no bubble", () => {
-    expect(q(show({ intent: { id: "silly", amount: 0, first: false } }), ".intent-n")).toBeNull();
+    expect(q(show({ intent: { id: "silly_dance", amount: 0, first: false } }), ".intent-n")).toBeNull();
     expect(q(show({ intent: { id: "giggle", amount: 0, first: false } }), "[data-id=battle_intent]")!.getAttribute("data-intent")).toBe("giggle");
     expect(q(show({ intent: null }), "[data-id=battle_intent]")).toBeNull();
   });

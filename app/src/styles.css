@@ -3318,3 +3318,236 @@ button.zone {
 .quiz.quiz-example .quiz-question {
   font-size: calc(var(--text) * 0.85);
 }
+
+/* ---- battle S2 (docs/app/BATTLE_V3.md 12.2): Spark, status badges, the windup ring, effect sheets, glows ---- */
+
+.hud-extra {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 22px;
+  flex-wrap: wrap;
+}
+
+.spark {
+  display: inline-flex;
+  gap: 1px;
+  font-size: calc(var(--text) * 0.62);
+  line-height: 1;
+}
+
+.spark i {
+  font-style: normal;
+  color: #5b6f87;
+}
+
+.spark i[data-on="true"] {
+  color: #ffd54a;
+}
+
+.spark[data-full="true"] i[data-on="true"] {
+  text-shadow: 0 0 5px #ffd54a;
+}
+
+.badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.badge {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 1.55em;
+  height: 1.55em;
+  border-radius: 50%;
+  border: 2px solid var(--badge, #c8c8d8);
+  background: #fffdf4;
+  font-size: calc(var(--text) * 0.5);
+  line-height: 1;
+}
+
+.badge-glyph {
+  font-size: 0.95em;
+}
+
+.badge-n {
+  position: absolute;
+  inset-inline-end: -4px;
+  bottom: -4px;
+  min-width: 1.1em;
+  padding: 0 2px;
+  border-radius: 999px;
+  background: var(--badge, #c8c8d8);
+  color: #17323a;
+  font-size: 0.7em;
+  font-weight: 800;
+  text-align: center;
+}
+
+.badge-lock {
+  position: absolute;
+  inset-inline-start: -4px;
+  top: -5px;
+  font-size: 0.65em;
+}
+
+.badge[data-status="boost"] .badge-glyph { color: #17323a; }
+.badges[data-side="theirs"] { margin-inline-start: auto; }
+
+/* a Big Puff's ring: a small orange 1 on the intent bubble */
+.intent-ring {
+  display: inline-grid;
+  place-items: center;
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  border: 3px solid #ff8a5b;
+  color: #17323a;
+  font-size: 0.8em;
+  font-weight: 800;
+}
+
+.intent-ring[data-release="true"] {
+  background: #ffe1d2;
+}
+
+.intent[data-intent="big_puff"] {
+  border-color: #ff8a5b;
+}
+
+.intent-peek {
+  position: absolute;
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  gap: 6px;
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: calc(var(--text) * 0.6);
+}
+
+.wake-tap {
+  position: absolute;
+  left: 6%;
+  bottom: calc(var(--bar-h) + 8px);
+  z-index: 3;
+  width: 56px;
+  height: 56px;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+  border: 3px solid #8fa3b8;
+  background: #fffdf4;
+  font-size: 26px;
+  line-height: 1;
+  animation: net-pulse 1.1s ease-in-out infinite;
+}
+
+/* an effect sheet of the art manifest, played once over a creature (additive: it glows over the picture) */
+.sprite-fx {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.sprite-sheet {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 400% 200%;
+}
+
+.fx-layer.aura .aura-glyph {
+  position: absolute;
+  top: 40%;
+  font-size: calc(var(--text) * 1.2);
+  transform: translateX(-50%);
+  animation: notes-rise 1.2s ease-out both;
+}
+
+.fx-layer.enemy .fx-cloud[data-big="true"] {
+  font-size: calc(var(--text) * 1.8);
+}
+
+.fx-layer.enemy .fx-ring {
+  position: absolute;
+  left: 75%;
+  top: 40%;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  border: 4px solid #ff8a5b;
+  background: rgba(255, 255, 255, 0.8);
+  color: #17323a;
+  font-weight: 800;
+  animation: notes-rise 1.2s ease-out both;
+}
+
+.fx-step {
+  margin-inline-start: 6px;
+  font-size: 0.5em;
+  color: #cfe0ee;
+}
+
+.move-card .glyph {
+  font-size: 1.1em;
+}
+
+.move-card .card-note.why {
+  color: #5b4a1a;
+}
+
+.growth-learned {
+  margin: 0;
+  font-weight: 700;
+  text-align: center;
+}
+
+.action-bar button.finale[data-ready="true"] {
+  border-color: #ffd54a;
+  box-shadow: 0 0 0 3px #ffd54a inset;
+}
+
+.battle[data-calm-fx="true"] .wake-tap,
+.battle[data-calm-fx="true"] .fx-layer.aura .aura-glyph {
+  animation: none;
+}
+
+/* the Finale: a pill over the middle of the ground when the Spark meter is full (the cards stay as they are) */
+.finale-pill {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--bar-h) + 6px);
+  z-index: 4;
+  transform: translateX(-50%);
+  min-height: 48px;
+  padding: 0 18px;
+  border: 3px solid #ffd54a;
+  border-radius: 999px;
+  background: #fff7d1;
+  color: #17323a;
+  font-size: calc(var(--text) * 0.7);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.finale-pill.pulse {
+  animation: net-pulse 1.1s ease-in-out infinite;
+}
+
+.battle[data-calm-fx="true"] .finale-pill.pulse {
+  animation: none;
+}

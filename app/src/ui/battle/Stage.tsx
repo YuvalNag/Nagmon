@@ -2,13 +2,18 @@ import { type ReactNode, useEffect, useRef } from "react";
 import type { Creature } from "../../core/world/worldState";
 import { avatarImage } from "../../core/family/avatars";
 import type { IntentView } from "../../core/game/battle";
+import type { IntentId } from "../../core/data/battleTypes";
+import type { Badge } from "../../core/game/battleStatus";
 import type { WheelHit } from "../../core/game/battleNumbers";
 import type { MonsterTable } from "../../core/game/monsters";
 import { t } from "../../i18n";
 import { MonsterPic } from "../MonsterPic";
+import { Tap } from "../Tap";
 import { backdropFor } from "../../game/art";
 import { LIMITS, type FxPlan } from "./effects";
 import * as fx from "./fx";
+import { SpriteFx } from "./SpriteFx";
+import { type StatusLook, StatusBadges } from "./StatusBadges";
 import { INTENT_ICON, subjectColor, subjectIcon } from "./subjects";
 
 /** The result being played in the arena: which answer, how much it took. Each answer gets a new `id`. */
@@ -23,14 +28,32 @@ export interface Fx {
   wheel?: WheelHit;
   /** A Brilliant hit. */
   brilliant?: boolean;
+  /** The subject of the move: its attack sheet plays on the enemy (null: the Little Wiggle's own bolt only). */
+  subject?: string | null;
+  /** A Finale's hit, 1 to 3: the label over the number. */
+  finaleStep?: number;
+}
+
+/** A utility move's glow on one of the creatures: a heal, a shield, a boost ... Each gets a new `id`. */
+export interface Aura {
+  id: number;
+  on: "me" | "them";
+  kind: "heal" | "shield" | "boost" | "weaken" | "regen" | "cleanse" | "mirror" | "focus" | "status" | "mark" | "reveal" | "swap_boosts" | "echo" | "resist";
+  glyph: string;
 }
 
 /** What the enemy did this round, played on the partner: a Puff, a Giggle, a Silly Dance. Each gets a new `id`. */
 export interface EnemyFx {
   id: number;
-  kind: "puff" | "giggle" | "silly";
+  kind: "puff" | "windup" | "stagger" | "thicken" | "giggle" | "silly" | "cheer" | "mist" | "sleep" | "stumble";
   /** Pep taken (a Puff) or fog given back (a Giggle). */
   amount: number;
+  /** A Big Puff (the windup's release). */
+  big?: boolean;
+  /** The glyph of a status mist. */
+  glyph?: string;
+  /** Fog a mirror gave back. */
+  returned?: number;
 }
 
 interface Props {
@@ -67,6 +90,18 @@ interface Props {
   loves: { id: string; title: string }[] | null;
   /** The enemy's action of this round, in play. */
   enemyFx: EnemyFx | null;
+  /** Glows of the utility moves and the effects on the two creatures. */
+  auras?: Aura[];
+  /** Spark: the stars of the meter (shared by the team). */
+  spark?: { n: number; max: number };
+  /** The status icons beside the two bars, and how to look them up. */
+  badges?: { mine: Badge[]; theirs: Badge[] };
+  look?: StatusLook;
+  /** Intents the child has seen ahead (Detective Lens). */
+  peek?: IntentId[];
+  /** The Yawn is on the partner: a tap wakes it (three wake it at once). */
+  yawning?: boolean;
+  onWake?: () => void;
   /** The map the battle is on: its zone picks the backdrop. */
   map?: string;
   /** The ids the tests read. */
@@ -150,10 +185,13 @@ export function Stage(p: Props) {
   useEffect(() => {
     if (!enemyId) return;
     if (enemyKind === "puff") {
-      void fx.lunge(theirsRef.current, -1, 36);
-      void fx.shake(mineRef.current, 5);
+      void fx.lunge(theirsRef.current, -1, p.enemyFx?.big ? 56 : 36);
+      void fx.shake(mineRef.current, p.enemyFx?.big ? 6 : 5);
       void fx.flash(mineRef.current);
-    } else if (enemyKind === "giggle") void fx.flash(theirsRef.current);
+    } else if (enemyKind === "giggle" || enemyKind === "thicken" || enemyKind === "cheer") void fx.flash(theirsRef.current);
+    else if (enemyKind === "windup") void fx.lunge(theirsRef.current, 1, 14);
+    else if (enemyKind === "stagger" || enemyKind === "stumble") void fx.shake(theirsRef.current, 6);
+    else if (enemyKind === "mist") void fx.flash(mineRef.current);
   }, [enemyId, enemyKind]);
   const cls = (base: string, ...on: [boolean, string][]) => [base, ...on.filter(([x]) => x).map(([, c]) => c)].join(" ");
   const attack = !!plan?.attack;
@@ -193,6 +231,20 @@ export function Stage(p: Props) {
         <div className="meter xp" role="progressbar" aria-label={t("battleLevel", { level: p.mine.level })} aria-valuemin={0} aria-valuemax={need} aria-valuenow={p.mine.xp}>
           <span style={{ width: `${Math.min(100, (100 * p.mine.xp) / need)}%` }} />
         </div>
+        {(p.spark || (p.badges && p.badges.mine.length > 0)) && (
+          <div className="hud-extra">
+            {p.spark && (
+              <span className="spark" data-id="battle_spark" data-n={p.spark.n} data-full={p.spark.n >= p.spark.max} role="img" aria-label={t("battleSparkLabel", { n: p.spark.n, max: p.spark.max })}>
+                {Array.from({ length: p.spark.max }, (_, i) => (
+                  <i key={i} data-on={i < p.spark!.n} aria-hidden="true">
+                    ★
+                  </i>
+                ))}
+              </span>
+            )}
+            {p.badges && p.look && <StatusBadges badges={p.badges.mine} look={p.look} side="mine" />}
+          </div>
+        )}
       </div>
       <div className="hud hud-theirs" dir="rtl">
         <span className="hud-name">
@@ -224,6 +276,7 @@ export function Stage(p: Props) {
               ?
             </span>
           )}
+          {p.badges && p.look && <StatusBadges badges={p.badges.theirs} look={p.look} side="theirs" />}
         </div>
       </div>
 
@@ -249,11 +302,16 @@ export function Stage(p: Props) {
             data-amount={p.intent.amount}
             data-first={p.intent.first}
             role="img"
-            aria-label={`${t(`intent_${p.intent.id}` as const)}${p.detail >= 2 && p.intent.amount > 0 ? `, ${t("intentAbout", { n: p.intent.amount })}` : ""}${p.detail >= 3 ? `, ${p.intent.first ? t("intentFirst") : t("intentSecond")}` : ""}`}
+            aria-label={`${t(`intent_${p.intent.id}` as const)}${p.intent.id === "big_puff" ? `, ${p.intent.release ? t("intentRelease") : t("intentWindup")}` : ""}${p.detail >= 2 && p.intent.amount > 0 ? `, ${t("intentAbout", { n: p.intent.amount })}` : ""}${p.detail >= 3 ? `, ${p.intent.first ? t("intentFirst") : t("intentSecond")}` : ""}`}
           >
             <span className="intent-icon" aria-hidden="true">
               {INTENT_ICON[p.intent.id]}
             </span>
+            {p.intent.id === "big_puff" && (
+              <span className="intent-ring" data-release={!!p.intent.release} aria-hidden="true">
+                1
+              </span>
+            )}
             {p.detail >= 2 && p.intent.amount > 0 && (
               <span className="intent-n" aria-hidden="true" dir="ltr">
                 ~{p.intent.amount}
@@ -281,6 +339,9 @@ export function Stage(p: Props) {
               <span className="fx-orb" />
             </span>
           )}
+          {right && fxr.subject && !plan.calm && <SpriteFx id={`fx_attack_${fxr.subject}`} calm={false} at={{ left: 75, top: 48 }} delay={220} size={150} />}
+          {right && plan.calm && fxr.subject && <SpriteFx id={`fx_attack_${fxr.subject}`} calm at={{ left: 75, top: 48 }} size={120} />}
+          {fxr.damage > 0 && !fxr.subject && !plan.calm && <SpriteFx id="fx_effect_hit" calm={false} at={{ left: 75, top: 48 }} delay={220} size={110} />}
           {plan.stars > 0 && (
             <span className="fx-burst">
               {Array.from({ length: Math.min(plan.stars, LIMITS.maxParticles) }, (_, i) => (
@@ -292,6 +353,7 @@ export function Stage(p: Props) {
             <span className="fx-number" dir="ltr" data-wheel={fxr.wheel ?? "none"} data-brilliant={!!fxr.brilliant}>
               {`-${fxr.damage}`}
               {fxr.brilliant && <span className="fx-brilliant">✨</span>}
+              {fxr.finaleStep ? <span className="fx-step">{fxr.finaleStep}/3</span> : null}
             </span>
           )}
           {wrong && plan.oops && !plan.calm && (
@@ -309,13 +371,49 @@ export function Stage(p: Props) {
         <div className="fx-layer enemy" key={`e${p.enemyFx.id}`} data-kind={p.enemyFx.kind} aria-hidden="true">
           {p.enemyFx.kind === "puff" && (
             <>
-              <span className="fx-cloud">☁️</span>
+              <span className="fx-cloud" data-big={!!p.enemyFx.big}>
+                {p.enemyFx.big ? "🌫️" : "☁️"}
+              </span>
               <span className="fx-number mine" dir="ltr">{`-${p.enemyFx.amount}`}</span>
+              {!!p.enemyFx.returned && <span className="fx-number giggle" dir="ltr">{`-${p.enemyFx.returned}`}</span>}
             </>
           )}
+          {p.enemyFx.kind === "windup" && <span className="fx-ring">1</span>}
           {p.enemyFx.kind === "giggle" && <span className="fx-number giggle" dir="ltr">{p.enemyFx.amount > 0 ? `+${p.enemyFx.amount}` : "😄"}</span>}
           {p.enemyFx.kind === "silly" && <span className="fx-notes">🎵</span>}
+          {p.enemyFx.kind === "thicken" && <span className="fx-notes">🌥️</span>}
+          {p.enemyFx.kind === "cheer" && <span className="fx-notes">⬆️</span>}
+          {p.enemyFx.kind === "stagger" && <span className="fx-notes">💫</span>}
+          {p.enemyFx.kind === "stumble" && <span className="fx-notes">💫</span>}
+          {p.enemyFx.kind === "sleep" && <span className="fx-notes">💤</span>}
+          {p.enemyFx.kind === "mist" && (
+            <span className="fx-cloud mist" data-glyph={p.enemyFx.glyph}>
+              {p.enemyFx.glyph ?? "🌫️"}
+            </span>
+          )}
         </div>
+      )}
+      {(p.auras ?? []).map((a) => (
+        <div className="fx-layer aura" key={`a${a.id}`} data-on={a.on} data-kind={a.kind} aria-hidden="true">
+          {a.kind === "heal" && a.on === "me" && !p.calm && <SpriteFx id="fx_effect_heal" calm={false} at={{ left: 20, top: 52 }} size={130} />}
+          <span className="aura-glyph" style={{ left: a.on === "me" ? "20%" : "75%" }}>
+            {a.glyph}
+          </span>
+        </div>
+      ))}
+      {p.peek && p.peek.length > 0 && (
+        <div className="intent-peek" data-id="battle_peek" aria-label={t("intentNext", { names: p.peek.map((id) => t(`intent_${id}` as const)).join(", ") })} role="img">
+          {p.peek.map((id, i) => (
+            <span key={i} aria-hidden="true">
+              {INTENT_ICON[id]}
+            </span>
+          ))}
+        </div>
+      )}
+      {p.yawning && p.onWake && (
+        <Tap id="battle_wake" className="wake-tap" aria-label={t("battleWake")} onTap={p.onWake}>
+          <span aria-hidden="true">💤</span>
+        </Tap>
       )}
       {p.children}
     </div>
