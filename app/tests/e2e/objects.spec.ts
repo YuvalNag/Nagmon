@@ -403,7 +403,7 @@ test("the library and the notice board open and fit, at 130% text", async ({ pag
 test("the notice board in the square: cards, accept once, kept for good, at 130% text", async ({ page }, info) => {
   await textScale(page, 1.3);
   const shot = (name: string) => page.screenshot({ path: info.outputPath(`130-${name}.png`) });
-  await seed(page, { map: "classic_hearthrock_city", x: 18, y: 16, facing: "up", friends: 2 });
+  await seed(page, { map: "classic_hearthrock_city", x: 21, y: 16, facing: "up", friends: 2 });
   await openMap(page);
   await shot("square_map");
   expect((await debug(page))!.inFront).toBe("nagmon_obj_noticeboard");

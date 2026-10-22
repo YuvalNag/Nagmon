@@ -16,7 +16,7 @@ Stand-ins: `mods/nagmon/sprites_obj/nagmon_<name>.png` (pixel drawings made for 
 | `obj_bookshelf` | home nook (5,2), lab library (7,3) | one picture; a second with a book half out for "books not read today" |
 | `obj_tv` | friend's house (2,2) | off, on |
 | `obj_fridge` | friend's house (7,2) | closed, open |
-| `obj_noticeboard` | Hearthrock square (18,15) | empty, with cards |
+| `obj_noticeboard` | Hearthrock square (21,15) | empty, with cards |
 
 Also wanted: a soft glow or small bounce cue for "this can be tapped" on every object (the spec asks for a
 visible cue; none is drawn yet).

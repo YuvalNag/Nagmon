@@ -267,7 +267,8 @@ test("the start loads only what who-plays needs: no game engine, a small script"
   console.log(`scripts at start: ${scripts.length}, ${Math.round(total / 1024)} KiB`);
   // Phaser is about 1.2 MB: the map and battle load it when they open
   expect(scripts.filter((s) => s.engine).map((s) => s.url)).toEqual([]);
-  expect(total).toBeLessThan(600 * 1024);
+  // W2 (working objects): the saves of the mail, journal, PC, people and board are read at the start (5 kB)
+  expect(total).toBeLessThan(610 * 1024);
 });
 
 test("who-plays with eight children, the longest name among them, at 130% text", async ({ page }, info) => {

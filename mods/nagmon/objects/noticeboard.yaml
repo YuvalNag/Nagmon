@@ -7,7 +7,7 @@ screen: board
 title_he: לוח המודעות
 sprite: nagmon_noticeboard
 places:
-  - {map: classic_hearthrock_city, x: 18, y: 15}
+  - {map: classic_hearthrock_city, x: 21, y: 15}
 postings:
   - {id: board_easy_book, slot: easy, giver_he: המורה, giver: nagmon_house_tutor, emoji: "1f4da", goal_he: "להביא ספר מהמעבדה לבית של השכנה"}
   - {id: board_easy_note, slot: easy, giver_he: הגננת מיכל, giver: nagmon_gardener, emoji: "1f4dd", goal_he: "לשאול את סבתא רינה אם היא רוצה פרחים"}

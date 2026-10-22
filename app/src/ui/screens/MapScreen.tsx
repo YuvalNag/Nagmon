@@ -1,4 +1,4 @@
-import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, type MutableRefObject, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Play, PlayOptions } from "../../app/play";
 import { TALK_TO, testAlwaysEncounter, testQuizTopic, testSeed, testStartMap } from "../../app/playConfig";
 import type { Profile, ProfileStore } from "../../core/family/profiles";
@@ -22,7 +22,6 @@ import { introNeeded } from "../../core/game/intro";
 import { BattleScreen } from "../BattleScreen";
 import { BagView } from "../BagView";
 import { RestScreen } from "../RestScreen";
-import { ObjectScreen } from "../pc/ObjectScreen";
 import { directoryOf, objectSlugs } from "../../core/game/objects";
 import { creatureOfDay, CREATURE_BOOST, tvData } from "../../core/game/tv";
 import { ChestWrongCard, FactCard, FoundCard } from "../WorldCards";
@@ -40,6 +39,9 @@ import { loadGameLessons } from "../tutor/lessonData";
 import { TUTOR_NPCS, TutorScreen } from "../tutor/TutorScreen";
 import { ScreenTime } from "../screenTime";
 import { Tap } from "../Tap";
+
+// the working objects' screens load when the first one is opened: the start script stays small
+const ObjectScreen = lazy(() => import("../pc/ObjectScreen").then((m) => ({ default: m.ObjectScreen })));
 
 const log = getLogger("nagmon.map");
 const field = new FieldLog(getLogger("nagmon.field"));
@@ -715,7 +717,9 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       )}
       {overlay?.kind === "fact" && !menuOpen && <FactCard key={`fact-${overlay.n}`} fact={overlay.fact} onClose={closeOverlay} />}
       {overlay?.kind === "screen" && overlay.screen === "object" && play && play.objects[overlay.arg] && !menuOpen && (
-        <ObjectScreen key={`object-${overlay.n}`} play={play} def={play.objects[overlay.arg]!} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
+        <Suspense fallback={null}>
+          <ObjectScreen key={`object-${overlay.n}`} play={play} def={play.objects[overlay.arg]!} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
+        </Suspense>
       )}
       {overlay?.kind === "screen" && overlay.screen === "rest" && play && !menuOpen && (
         <RestScreen key={`rest-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
