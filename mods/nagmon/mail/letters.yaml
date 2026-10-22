@@ -1,0 +1,117 @@
+# The authored letters (docs/app/WORLD_V2.md 8.1): shipped as game/mail.json (tools/app/objects.py checks and
+# builds it; app/src/core/game/mail.ts reads it). Written in the plural or without a "you" at all, so every child
+# reads it as theirs; {name} becomes the child's name when the letter is read.
+#   senders: who writes. `always` = known from the start (the owl); the others write once the child has met them.
+#   letters: id -> sender, kind (postcard: one a day, a rotating sender among those known; event: sent by the
+#     game the next morning after something, core/game/mail.ts `queueEvent`, the `send_letter` action), and
+#     three variants. A variant may carry a verbatim fact of the fact base (`fact`: an id of economy/facts.yaml,
+#     with `recall: true` for the optional recall question) and, for an event letter, a small gift.
+#   gifts: what 1 postcard in 4 may carry (at most 20 coins a week come from mail).
+senders:
+  nagmon_owl: {name_he: הינשוף החכם, always: true, emoji: "1f989"}
+  nagmon_cashier: {name_he: המוכר אבי, emoji: "1f9d1"}
+  nagmon_house_nurse: {name_he: האחות דנה, emoji: "1fa7a"}
+  nagmon_house_tutor: {name_he: המורה, emoji: "1f4da"}
+  nagmon_gardener: {name_he: הגננת מיכל, emoji: "1f33b"}
+  nagmon_tourist: {name_he: טום התייר, emoji: "1f9f3"}
+  nagmon_granny: {name_he: סבתא רינה, emoji: "1f475"}
+  nagmon_kid: {name_he: יואב, emoji: "1f9d2"}
+  nagmon_solar_astronomer: {name_he: האסטרונומית, emoji: "1f52d"}
+  nagmon_solar_mila: {name_he: מילה, emoji: "1f680"}
+gifts:
+  - {coins: 10}
+  - {item: berry}
+  - {item: hint_feather}
+letters:
+  postcard_owl:
+    from: nagmon_owl
+    kind: postcard
+    variants:
+      - {text_he: "שלום {name}! הינשוף מצא משהו מעניין בספרים ורצה לשתף.", fact: owl_night, recall: true}
+      - {text_he: "בוקר טוב {name}! הנה עובדה קטנה לדרך.", fact: logic_pattern, recall: true}
+      - {text_he: "{name}, הינשוף הסתכל בכוכבים וחשב עליכם.", fact: moon_phases, recall: true}
+  postcard_cashier:
+    from: nagmon_cashier
+    kind: postcard
+    variants:
+      - {text_he: "שלום {name}! בקופה למדתי משהו שכדאי לדעת.", fact: math_dozen, recall: true}
+      - {text_he: "{name}, אבי מהחנות שלח ברכה ועובדה על מספרים.", fact: math_hundred, recall: true}
+      - {text_he: "ספרתי את הקופה היום וחשבתי עליכם, {name}.", fact: math_double, recall: true}
+  postcard_nurse:
+    from: nagmon_house_nurse
+    kind: postcard
+    variants:
+      - {text_he: "שלום {name}! החברים במרכז המנוחה שולחים חיבוק ועובדה על הגוף.", fact: heart_pump, recall: true}
+      - {text_he: "{name}, האחות דנה כותבת: לישון טוב עוזר לגדול.", fact: bones_hold, recall: true}
+      - {text_he: "מרכז המנוחה מחכה לביקור, {name}. בינתיים, עובדה קטנה.", fact: bat_mammal, recall: true}
+  postcard_tutor:
+    from: nagmon_house_tutor
+    kind: postcard
+    variants:
+      - {text_he: "שלום {name}! המורה שלחה עובדה על אותיות.", fact: he_final_letters, recall: true}
+      - {text_he: "{name}, במעבדה למדנו משהו על המילים שלנו.", fact: he_noun, recall: true}
+      - {text_he: "המורה מחכה לכם בשיעור הבא, {name}. הנה משהו לחשוב עליו.", fact: he_opposites, recall: true}
+  postcard_gardener:
+    from: nagmon_gardener
+    kind: postcard
+    variants:
+      - {text_he: "שלום {name}! מהגינה של מיכל, עם הרבה שמש.", fact: plants_sun, recall: true}
+      - {text_he: "{name}, הפרחים בגינה שולחים ריח טוב ועובדה אחת.", fact: tree_roots, recall: true}
+      - {text_he: "מיכל מהגינה כותבת: תמיד אפשר ללמוד מהטבע, {name}.", fact: bee_flowers, recall: true}
+  postcard_tourist:
+    from: nagmon_tourist
+    kind: postcard
+    variants:
+      - {text_he: "Hello {name}! טום התייר שולח מילה באנגלית.", fact: en_hello, recall: true}
+      - {text_he: "Hi {name}! טום מצא עוד מילה שכדאי לדעת.", fact: en_apple, recall: true}
+      - {text_he: "Dear {name}, טום מתרגל עברית ושולח לכם אנגלית.", fact: en_thanks, recall: true}
+  postcard_granny:
+    from: nagmon_granny
+    kind: postcard
+    variants:
+      - {text_he: "{name} שלום! סבתא רינה שולחת חיבוק ועובדה על מילים.", fact: he_palindrome, recall: true}
+      - {text_he: "בוקר טוב {name}! סבתא רינה מזכירה: בעברית קוראים מימין לשמאל.", fact: he_right_to_left, recall: true}
+      - {text_he: "{name}, סבתא רינה ישבה בגינה וחשבה על תבניות.", fact: logic_series, recall: true}
+  postcard_kid:
+    from: nagmon_kid
+    kind: postcard
+    variants:
+      - {text_he: "שלום {name}! יואב ופיצי שולחים עובדה על חיות.", fact: spider_legs, recall: true}
+      - {text_he: "{name}, יואב כותב: נמלים הן מדהימות!", fact: ants_team, recall: true}
+      - {text_he: "פיצי אמרה מיאו, ויואב שלח לכם עובדה, {name}.", fact: whale_mammal, recall: true}
+  postcard_astronomer:
+    from: nagmon_solar_astronomer
+    kind: postcard
+    variants:
+      - {text_he: "שלום {name}! האסטרונומית שלחה עובדה על השמש.", fact: sun_star, recall: true}
+      - {text_he: "{name}, מהטלסקופ רואים הרבה. הנה משהו על כוכבי לכת.", fact: jupiter_big, recall: true}
+      - {text_he: "הערב הירח יפה, {name}. הנה עובדה על כוכבי הלכת.", fact: saturn_rings, recall: true}
+  postcard_mila:
+    from: nagmon_solar_mila
+    kind: postcard
+    variants:
+      - {text_he: "שלום {name}! מילה מהדרך שולחת עובדה על צורות.", fact: geo_triangle, recall: true}
+      - {text_he: "{name}, בנסיעות הכי כיף לחשוב על צורות.", fact: geo_circle, recall: true}
+      - {text_he: "מילה כותבת: כל דרך מתחילה בצעד קטן, {name}.", fact: logic_mistake, recall: true}
+  # event letters: sent the morning after (the `send_letter <id>` action; the quest slice sends the rest)
+  thanks_helped:
+    from: nagmon_granny
+    kind: event
+    variants:
+      - {text_he: "היקרים, תודה שעזרתם לי, {name}. אני עדיין מחייכת."}
+      - {text_he: "תודה רבה על העזרה, {name}. עשיתם לי יום טוב."}
+      - {text_he: "{name}, זוכרים איך עזרתם לי? תודה, זה היה חשוב לי."}
+  thanks_friend:
+    from: nagmon_kid
+    kind: event
+    variants:
+      - {text_he: "{name}, פיצי ואני אומרים תודה גדולה!"}
+      - {text_he: "תודה שעזרתם, {name}. מחר נשחק יחד."}
+      - {text_he: "{name}, יש לנו חבר חדש בזכותכם. תודה!"}
+  level3_gift:
+    from: nagmon_owl
+    kind: event
+    variants:
+      - {text_he: "{name}, החברות שלכם גדלה! הינשוף שלח מתנה קטנה.", gift: {item: berry}}
+      - {text_he: "כל הכבוד על החברות, {name}. הנה פינוק לדרך.", gift: {item: berry}}
+      - {text_he: "{name}, חברים טובים מקבלים מתנה. הנה היא.", gift: {item: hint_feather}}

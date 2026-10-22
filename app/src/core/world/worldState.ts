@@ -11,9 +11,20 @@
  *   counter never writes anything.
  */
 
+import { boardIsEmpty, type BoardSave, noBoard, parseBoard } from "../game/board";
+import { journalIsEmpty, type JournalSave, noJournal, parseJournal } from "../game/journal";
+import { mailIsEmpty, type MailSave, noMail, parseMail } from "../game/mail";
+import { noPc, parsePc, pcIsEmpty, type PcSave } from "../game/pcBox";
+import { type MetSave, parseMet } from "../game/people";
+import { type NpcRecord, parseRecords, recordsToDict } from "./memory";
 import { parsePlace, type Place } from "./place";
 
-export const WORLD_SCHEMA_VERSION = 1;
+/**
+ * 2: the people of the world (`npcs`, `npc_seed`; docs/app/WORLD_V2.md 5.5).
+ * A save of version 1 loads as it is: the people start empty, and the file
+ * is written as 2 the next time it is saved.
+ */
+export const WORLD_SCHEMA_VERSION = 2;
 
 /** One creature of the child: its species (a monsters.json slug), level and the answers it has grown on. */
 export interface Creature {
@@ -78,6 +89,24 @@ export interface WorldData {
   place?: Place;
   /** Eggs being warmed. */
   eggs?: Egg[];
+  /**
+   * The working objects of the houses (docs/app/WORLD_V2.md 8), each additive and optional: a world with none of
+   * them is the file it always was.
+   */
+  /** The mail box (core/game/mail.ts). */
+  mail?: MailSave;
+  /** What the child read and the reading stamps (core/game/journal.ts). */
+  journal?: JournalSave;
+  /** The PC's item box and the starred friends (core/game/pcBox.ts). */
+  pc?: PcSave;
+  /** The people met (core/game/people.ts). */
+  met?: MetSave;
+  /** The notice board's accepted postings (core/game/board.ts). */
+  board?: BoardSave;
+  /** What each person of the world remembers (core/world/memory.ts): ids and numbers, no text. */
+  npcs?: Record<string, NpcRecord>;
+  /** A random number of this child's world, so the people's days differ between children (not an id). */
+  npc_seed?: number;
 }
 
 export const noTrips = (): TripSave => ({ done: [], visited: [], badges: [], at: null });
@@ -134,6 +163,16 @@ export class WorldState {
   place: Place | null = null;
   /** Eggs being warmed (a few at a time). */
   eggs: Egg[] = [];
+  /** The working objects' saves (see {@link WorldData}). */
+  mail: MailSave = noMail();
+  journal: JournalSave = noJournal();
+  pc: PcSave = noPc();
+  met: MetSave = {};
+  board: BoardSave = noBoard();
+  /** The people's memory of the child, by the person's slug. */
+  npcs = new Map<string, NpcRecord>();
+  /** Where this child's town days come from (made once, on the first need). */
+  npcSeed: number | null = null;
 
   /** A saved world.json; anything unreadable starts afresh (no coins are made up). */
   static fromDict(data: unknown): WorldState {
@@ -170,6 +209,14 @@ export class WorldState {
         if (e) w.eggs.push(e);
       }
     }
+    if (d["mail"] !== undefined) w.mail = parseMail(d["mail"]);
+    if (d["journal"] !== undefined) w.journal = parseJournal(d["journal"]);
+    if (d["pc"] !== undefined) w.pc = parsePc(d["pc"]);
+    if (d["met"] !== undefined) w.met = parseMet(d["met"]);
+    if (d["board"] !== undefined) w.board = parseBoard(d["board"]);
+    w.npcs = parseRecords(d["npcs"]);
+    const seed = d["npc_seed"];
+    if (typeof seed === "number" && Number.isInteger(seed) && seed >= 0 && seed <= 0xffffffff) w.npcSeed = seed;
     const tr = d["trips"];
     if (typeof tr === "object" && tr !== null && !Array.isArray(tr)) {
       const t = tr as Record<string, unknown>;
@@ -201,6 +248,13 @@ export class WorldState {
     if (this.items.size) out.items = Object.fromEntries([...this.items].sort(([a], [b]) => (a < b ? -1 : 1)));
     if (this.place) out.place = { ...this.place };
     if (this.eggs.length) out.eggs = this.eggs.map((e) => ({ ...e }));
+    if (!mailIsEmpty(this.mail)) out.mail = structuredClone(this.mail);
+    if (!journalIsEmpty(this.journal)) out.journal = structuredClone(this.journal);
+    if (!pcIsEmpty(this.pc)) out.pc = structuredClone(this.pc);
+    if (Object.keys(this.met).length) out.met = structuredClone(this.met);
+    if (!boardIsEmpty(this.board)) out.board = structuredClone(this.board);
+    if (this.npcs.size) out.npcs = recordsToDict(this.npcs);
+    if (this.npcSeed !== null) out.npc_seed = this.npcSeed;
     const t = this.trips;
     if (t.done.length || t.visited.length || t.badges.length || t.at) out.trips = { done: [...t.done], visited: [...t.visited], badges: [...t.badges], at: t.at };
     const l = this.lessons;

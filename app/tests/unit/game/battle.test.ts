@@ -135,7 +135,7 @@ describe("a right answer attacks, a wrong one is weak, nobody loses anything", (
   it("Sum Spark, right: the formula's number (stats of 5.1, Home bonus, no Mix on the first move)", () => {
     // fixed rng 0.5: roll 0.96, no lucky star. Heliobud 6: Power 38; Lunibble 6: Guard 31
     // a plain matchup: Sailbit is English, and Math is neither a Sparkle nor Sturdy against it
-    const { battle } = make({ species: "sailbit" });
+    const { battle } = make({ species: "sailbit", rng: fixedRng(0.95, 0.5, 0.5) });
     const r = cast(battle, true, "sum_spark");
     const want = damageOf({ level: 6, mp: MP.N, power: 38, guard: 31, home: true, right: true, roll: 0.96 });
     expect(want).toBe(10);
@@ -209,7 +209,7 @@ describe("a right answer attacks, a wrong one is weak, nobody loses anything", (
 describe("the round: intents, Speed, Pep", () => {
   it("the enemy's intent is shown before the child chooses and is the one it uses", () => {
     const { battle } = make({ species: "mercurip", rng: fixedRng(0.2) });
-    expect(battle.intent!.id).toBe("puff");
+    expect(battle.intent!.id).toBe("fog_puff");
     expect(battle.intent!.amount).toBeGreaterThan(0);
     const shown = battle.intent!;
     const r = cast(battle, true, "sum_spark");
@@ -245,12 +245,12 @@ describe("the round: intents, Speed, Pep", () => {
 
   it("a Silly turn takes nothing from anyone; a Giggle gives a little fog back, at most once in three rounds", () => {
     const silly = make({ species: "lunibble", rng: fixedRng(0.9) });
-    expect(silly.battle.intent!.id).toBe("silly");
+    expect(silly.battle.intent!.id).toBe("silly_dance");
     const r = cast(silly.battle, true, "sum_spark");
     expect(r.enemyDamage).toBe(0);
     expect(silly.battle.partnerPep.now).toBe(silly.battle.partnerPep.max);
     // a Sleepy creature (Puff 30, Giggle 15, Silly 25) draws a Giggle at 0.5 of 70 (x = 35 >= 30)
-    const g = make({ species: "terrabub", rng: fixedRng(0.45) });
+    const g = make({ species: "terrabub", rng: fixedRng(0.4) });
     const kinds: string[] = [];
     for (let i = 0; i < 6 && g.battle.phase === "fighting"; i++) {
       const round = cast(g.battle, false, "number_nudge");

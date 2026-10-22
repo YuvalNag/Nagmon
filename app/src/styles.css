@@ -555,6 +555,23 @@ button.map-menu {
   pointer-events: none;
 }
 
+/* the "ask" button sits above "talk" in the same column, a little smaller */
+.map-talk-slot:has(.map-ask) {
+  height: calc(var(--touch) * 2.7);
+  flex-direction: column;
+  gap: 8px;
+}
+
+button.map-ask {
+  flex: 0 0 auto;
+  min-height: var(--touch);
+  padding: 0 8px;
+  font-size: calc(var(--text) * 1.05);
+  font-weight: 700;
+  pointer-events: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
 button.map-talk {
   flex: 1;
   padding: 0;
@@ -1036,7 +1053,8 @@ button.quiz-choice {
 }
 
 .battle-child {
-  height: 36vh;
+  /* clear of the partner's card (its Spark/status row makes it taller at big text) */
+  height: min(36vh, calc(100vh - var(--bar-h) - 124px));
   width: auto;
 }
 
@@ -1935,8 +1953,9 @@ button.quiz-choice {
   box-shadow: 0 0 0 3px #ffd54a inset;
 }
 
+/* the Sturdy mark (a shield) says it; the name keeps its full contrast (the enhanced contrast check) */
 .action-bar button.move-card.sturdy .move-name {
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .action-bar button.move-card.dimmed {
@@ -3185,6 +3204,32 @@ button.zone {
   font-size: calc(var(--text) * 0.95);
 }
 
+/* what to ask a person: big chips, a picture and a few words each */
+.topics-card .topic-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 44em;
+}
+
+button.topic-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: calc(var(--touch) * 2.6);
+  min-height: calc(var(--touch) * 1.5);
+  padding: 6px 10px;
+  font-weight: 700;
+}
+
+button.topic-chip img {
+  width: 32px;
+  height: 32px;
+}
+
 .chest-art {
   width: calc(var(--touch) * 2);
   height: calc(var(--touch) * 1.7);
@@ -3335,6 +3380,255 @@ button.zone {
 
 .quiz.quiz-example .quiz-question {
   font-size: calc(var(--text) * 0.85);
+}
+
+/* ---- battle S2 (docs/app/BATTLE_V3.md 12.2): Spark, status badges, the windup ring, effect sheets, glows ---- */
+
+.hud-extra {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 22px;
+  flex-wrap: wrap;
+}
+
+.spark {
+  display: inline-flex;
+  gap: 1px;
+  font-size: calc(var(--text) * 0.62);
+  line-height: 1.4;
+}
+
+.spark i {
+  font-style: normal;
+  line-height: 1.4;
+  color: #5b6f87;
+}
+
+.spark i[data-on="true"] {
+  color: #ffd54a;
+}
+
+.spark[data-full="true"] i[data-on="true"] {
+  text-shadow: 0 0 5px #ffd54a;
+}
+
+.badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.badge {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 1.55em;
+  height: 1.55em;
+  border-radius: 50%;
+  border: 2px solid var(--badge, #c8c8d8);
+  background: #fffdf4;
+  font-size: calc(var(--text) * 0.5);
+  line-height: 1;
+}
+
+.badge-glyph {
+  font-size: 0.95em;
+  line-height: 1.35;
+  display: inline-block;
+}
+
+.badge-n {
+  position: absolute;
+  inset-inline-end: -4px;
+  bottom: -4px;
+  min-width: 1.1em;
+  padding: 0 2px;
+  border-radius: 999px;
+  background: var(--badge, #c8c8d8);
+  color: #17323a;
+  font-size: 0.7em;
+  font-weight: 800;
+  text-align: center;
+}
+
+.badge-lock {
+  position: absolute;
+  inset-inline-start: -4px;
+  top: -5px;
+  font-size: 0.65em;
+}
+
+.badge[data-status="boost"] .badge-glyph { color: #17323a; }
+.badges[data-side="theirs"] { margin-inline-start: auto; }
+
+/* a Big Puff's ring: a small orange 1 on the intent bubble */
+.intent-ring {
+  display: inline-grid;
+  place-items: center;
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  border: 3px solid #ff8a5b;
+  color: #17323a;
+  font-size: 0.8em;
+  font-weight: 800;
+}
+
+.intent-ring[data-release="true"] {
+  background: #ffe1d2;
+}
+
+.intent[data-intent="big_puff"] {
+  border-color: #ff8a5b;
+}
+
+.intent-peek {
+  position: absolute;
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  gap: 6px;
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: calc(var(--text) * 0.6);
+}
+
+.wake-tap {
+  position: absolute;
+  left: 25%;
+  bottom: calc(var(--bar-h) + 30px);
+  z-index: 3;
+  width: 56px;
+  height: 56px;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+  border: 3px solid #8fa3b8;
+  background: #fffdf4;
+  font-size: 26px;
+  line-height: 1;
+  animation: net-pulse 1.1s ease-in-out infinite;
+}
+
+/* an effect sheet of the art manifest, played once over a creature (additive: it glows over the picture) */
+.sprite-fx {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.sprite-sheet {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 400% 200%;
+}
+
+.fx-layer.aura .aura-glyph {
+  position: absolute;
+  top: 40%;
+  font-size: calc(var(--text) * 1.2);
+  transform: translateX(-50%);
+  animation: notes-rise 1.2s ease-out both;
+}
+
+.fx-layer.enemy .fx-cloud[data-big="true"] {
+  font-size: calc(var(--text) * 1.8);
+}
+
+.fx-layer.enemy .fx-ring {
+  position: absolute;
+  left: 75%;
+  top: 40%;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  border: 4px solid #ff8a5b;
+  background: rgba(255, 255, 255, 0.8);
+  color: #17323a;
+  font-weight: 800;
+  animation: notes-rise 1.2s ease-out both;
+}
+
+.fx-step {
+  margin-inline-start: 6px;
+  font-size: 0.5em;
+  color: #cfe0ee;
+}
+
+.move-card .glyph {
+  font-size: 0.95em;
+  line-height: 1.3;
+  display: inline-block;
+}
+
+.move-card .card-meta .why {
+  font-weight: 700;
+}
+
+.move-card .card-note.why {
+  color: #5b4a1a;
+}
+
+.growth-learned {
+  margin: 0;
+  font-weight: 700;
+  text-align: center;
+}
+
+.action-bar button.finale[data-ready="true"] {
+  border-color: #ffd54a;
+  box-shadow: 0 0 0 3px #ffd54a inset;
+}
+
+.battle[data-calm-fx="true"] .wake-tap,
+.battle[data-calm-fx="true"] .fx-layer.aura .aura-glyph {
+  animation: none;
+}
+
+/* the Finale: a pill over the middle of the ground when the Spark meter is full (the cards stay as they are) */
+.finale-pill {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--bar-h) + 6px);
+  z-index: 4;
+  transform: translateX(-50%);
+  min-height: 48px;
+  padding: 0 18px;
+  border: 3px solid #ffd54a;
+  border-radius: 999px;
+  background: #fff7d1;
+  color: #17323a;
+  font-size: calc(var(--text) * 0.7);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.finale-pill.pulse {
+  animation: net-pulse 1.1s ease-in-out infinite;
+}
+
+.battle[data-calm-fx="true"] .finale-pill.pulse {
+  animation: none;
+}
+
+.fx-layer.aura .aura-n {
+  margin-inline-start: 4px;
+  font-size: 0.8em;
+  font-weight: 800;
+  color: #b8f0c0;
+  text-shadow: 0 0 3px #1c283a, 2px 2px 0 #1c283a, -2px -2px 0 #1c283a;
 }
 
 /* ---- befriending (docs/app/BATTLE_V3.md 8): the tray, the throw, the creature's mood ---- */
@@ -3544,4 +3838,21 @@ button.zone {
 
 .trips-mila {
   vertical-align: middle;
+}
+
+/* a hit mark (sparkle, shield) sits on the card's corner: in the meta row it made the row wrap and the card taller at big text */
+.action-bar button.move-card {
+  position: relative;
+}
+
+.move-card .card-meta .mark {
+  position: absolute;
+  inset-inline-end: 4px;
+  top: 2px;
+  font-size: calc(var(--text) * 0.5);
+  line-height: 1;
+}
+
+.move-card .card-meta .flames {
+  white-space: nowrap;
 }

@@ -5,7 +5,7 @@ import { t } from "../../i18n";
 import { MonsterPic } from "../MonsterPic";
 import { ScreenTime } from "../screenTime";
 import { Tap } from "../Tap";
-import { subjectColor, subjectIcon } from "./subjects";
+import { moveGlyph, subjectColor, subjectIcon } from "./subjects";
 
 /** One portrait of the friends strip. */
 export interface Friend {
@@ -135,7 +135,8 @@ export function ActionBar(p: ActionBarProps) {
                       {TIER_ICON[c.move.tier] ?? "⭐"}
                     </span>
                   )}
-                  <Dots left={c.left} max={c.max} />
+                  {c.why && c.why !== "charges" ? <span className="why">{t(c.why === "yawn" ? "battleWhyYawn" : c.why === "dizzy" ? "battleWhyDizzy" : "battleWhyEcho")}</span> : <Dots left={c.left} max={c.max} />}
+                  {moveGlyph(c.move) && <span className="glyph">{moveGlyph(c.move)}</span>}
                   {c.hit === "sparkle" && <span className="mark sparkle">✨</span>}
                   {c.hit === "sturdy" && <span className="mark sturdy">🛡️</span>}
                 </span>

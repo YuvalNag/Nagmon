@@ -94,7 +94,7 @@ export function BattleQuestion({ session, text, subjectTitle, onResult, onClose,
           <span className="subject-dot" aria-hidden="true">
             {cast.icon}
           </span>
-          {cast.subject ? `${cast.name} · ${cast.subject}` : cast.name}
+          {cast.subject && cast.name.length <= 12 ? `${cast.name} · ${cast.subject}` : cast.name}
         </span>
       )}
       <Passage q={q} />

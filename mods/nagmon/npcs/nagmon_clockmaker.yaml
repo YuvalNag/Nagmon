@@ -1,0 +1,35 @@
+# Yosef the Clockmaker (docs/app/WORLD_V2.md 6: row 21). Art is a stand-in (the astronomer's sheet): needs a clockmaker sheet.
+id: nagmon_clockmaker
+short: yosef
+class: R
+name_he: יוסף השען
+name_en: Yosef the Clockmaker
+role: clockmaker
+age_feel: elder
+sprite: nagmon_astronomer
+voice:
+  style: "precise, loves the word exactly, speaks in measured steps"
+  quirks: ["listens to a ticking watch"]
+  catchphrases: ["בדיוק."]
+  register: formal
+personality: [precise, calm, fond of ticking]
+knows:
+  topics:
+    - {id: time, label_he: "מה השעה?", icon: "1f550", unlock: 0}
+    - {id: tick, label_he: "איך שעון עובד?", icon: "23f0", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["every clock in town tells the same time"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: clock_corner}}
+    - {when: {phase: [evening]}, at: null}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {quests: [q_clocks]}
+relationship:
+  memory_flags: [asked_time, asked_tick, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

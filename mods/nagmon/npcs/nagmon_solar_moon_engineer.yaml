@@ -1,0 +1,31 @@
+# Yael the Engineer (docs/app/WORLD_V2.md 6: row 33). The engineer on the Moon and in the giants zone; the crater log mission stays as it is.
+id: nagmon_solar_moon_engineer
+short: yael
+class: M
+name_he: המהנדסת יעל
+name_en: Yael the Engineer
+role: engineer
+age_feel: adult
+sprite: nagmon_moon_engineer
+voice:
+  style: "practical, patient, explains with tools in hand"
+  quirks: ["turns a wrench in her hand"]
+  catchphrases: ["צעד אחד, בדיוק."]
+  register: simple
+personality: [practical, patient, calm]
+knows:
+  topics:
+    - {id: tools, label_he: "על כלים", icon: "1f527", unlock: 0}
+    - {id: moon, label_he: "על הירח", icon: "1f319", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["build things that last"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  fixed: {maps: [solar_moon, solar_giants]}
+offers: {quests: [q_craters]}
+relationship:
+  memory_flags: [asked_tools, asked_moon]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

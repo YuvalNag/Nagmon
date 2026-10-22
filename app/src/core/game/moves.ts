@@ -11,9 +11,13 @@ import type { BattleData, Move } from "../data/battleTypes";
 export type { Move };
 export const WIGGLE = "little_wiggle";
 
-/** The tiers whose cast is a hit in S1. */
-const HITS = new Set(["E", "N", "S", "C", "K", "Q"]);
-export const isHit = (m: Move): boolean => HITS.has(m.tier) && m.power !== null && m.hits === 1;
+/** The tiers a card of the grid can show: every tier but the Finale (its own slot) and the fallback. */
+const CARD_TIERS = new Set(["E", "N", "S", "C", "K", "Q", "U"]);
+export const isCard = (m: Move): boolean => CARD_TIERS.has(m.tier);
+/** A move that takes Fog (a hit), not a utility. */
+export const isHit = (m: Move): boolean => m.power !== null && m.hits === 1 && m.tier !== "W";
+/** A hit a coverage slot may use: a plain attack. */
+const isPlain = (m: Move): boolean => isHit(m) && (m.tier === "E" || m.tier === "N");
 
 /** What a card shows: the flames (1 to 4), by tier. */
 export const flames = (tier: string): number => ({ E: 1, N: 2, S: 3, F: 4, C: 1, K: 3, Q: 1, U: 1, W: 1 })[tier] ?? 1;
@@ -33,24 +37,38 @@ const WHEEL_STEP = (wheel: string[], subject: string, by: number): string | unde
 };
 
 /**
- * The cards of a species at a level: its own equipped moves that S1 can play (up to four, in the data's order),
- * then known home hits to fill, then, for a real choice on the wheel before lesson cards (S2), a normal move two
- * places on and an easy one four places on, from other subjects. The Little Wiggle only when nothing else is left.
+ * The cards of a species at a level (3.3): its own equipped moves of the data (up to four, in the data's order; the
+ * placeholder Little Wiggle slots are left out), then, for a real choice on the wheel until Move Cards exist (lessons,
+ * chests and the shop), a normal move two places on and an easy one four places on, from other subjects, to fill what
+ * is empty. The Little Wiggle only when nothing else is left. The Finale has its own slot (`finaleOf`).
  */
 export function cardMoves(data: BattleData, slug: string, level: number, subject: string): Move[] {
   const sp = data.species[slug];
   const out: Move[] = [];
   const add = (m: Move | undefined) => {
-    if (m && isHit(m) && !out.some((x) => x.id === m.id) && out.length < 4) out.push(m);
+    if (m && isCard(m) && m.unlock_level <= Math.max(level, 1) && !out.some((x) => x.id === m.id) && out.length < 4) out.push(m);
   };
   if (sp) {
     for (const id of equippedAt(sp.equipped, level)) add(data.movesById[id]);
-    for (const row of sp.learnset) if (row.level <= level) add(data.movesById[row.move]);
+    for (const row of sp.learnset) if (row.level <= level && out.length < 2) add(data.movesById[row.move]);
   }
   const wheel = data.rules.wheel;
-  const first = (s: string | undefined, tier: string) => data.moves.filter((m) => m.subject === s && m.tier === tier && m.unlock_level <= level).sort((a, b) => a.unlock_level - b.unlock_level)[0];
+  const first = (s: string | undefined, tier: string) => data.moves.filter((m) => m.subject === s && m.tier === tier && isPlain(m) && m.unlock_level <= level).sort((a, b) => a.unlock_level - b.unlock_level)[0];
   add(first(WHEEL_STEP(wheel, subject, 2), "N"));
   add(first(WHEEL_STEP(wheel, subject, 4), "E"));
   if (out.length === 0) out.push(data.movesById[WIGGLE]!);
   return out;
+}
+
+/** The Finale of a species when its creature has reached the level; null before. */
+export function finaleOf(data: BattleData, slug: string, level: number): Move | null {
+  const id = data.species[slug]?.finale;
+  const m = id ? data.movesById[id] : undefined;
+  return m && m.tier === "F" && m.unlock_level <= level ? m : null;
+}
+
+/** Every move a creature knows at a level, by the data's learnset (the Book and the move lab read it). */
+export function knownMoves(data: BattleData, slug: string, level: number): Move[] {
+  const sp = data.species[slug];
+  return (sp?.learnset ?? []).filter((r) => r.level <= level).map((r) => data.movesById[r.move]!).filter(Boolean);
 }

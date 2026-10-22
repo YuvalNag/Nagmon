@@ -167,7 +167,7 @@ for (const scale of [1, 1.3]) {
     // ---- the menu: 4 cards, the strip, the bars, the intent, what the enemy loves ----
     const p0 = await probe(page);
     expect(p0.cards).toHaveLength(4);
-    expect(p0.intent).toMatch(/puff|giggle|silly/);
+    expect(p0.intent).toMatch(/puff|giggle|silly|thicken|mist|swirl|mud|cheer/);
     expect(p0.team).toHaveLength(3);
     await expect(page.locator(".move-card")).toHaveCount(4);
     await expect(page.locator(id("partner_pep"))).toBeVisible();

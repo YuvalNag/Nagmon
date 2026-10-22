@@ -17,16 +17,34 @@
 import { placeEgg, type Pools } from "../game/eggs";
 import type { Facts } from "../game/facts";
 import { type Economy } from "../game/items";
+import { readFact } from "../game/journal";
+import { type MailData, queueEvent } from "../game/mail";
 import { grant, type Loot, type Prize, pickPrize } from "../game/loot";
+import type { ObjectDefs } from "../game/objects";
+import { meet } from "../game/people";
+import type { Chip, Spoken } from "./director";
 import type { Action, Condition, WorldEvent } from "./mapData";
+import { phaseOf } from "./npcs";
+import { weekdayOf } from "./rand";
 import { countOneMore, countToday, type WorldState } from "./worldState";
 
 /** What `ask_quiz` writes into its variable (mods/nagmon/event/actions/ask_quiz.py). */
 export type QuizWord = "super" | "correct" | "wrong" | "skip";
 
 export interface EventHost {
-  /** Shows a catalogue text (a msgid) as a dialog; resolves when the child has read it. */
-  say(msgid: string, speaker: string | null): Promise<void>;
+  /**
+   * Shows a catalogue text (a msgid) as a dialog; resolves when the child has read it.
+   * `lead` is what the person of the world opened the talk with (core/world/director.ts):
+   * it is the first page(s) of this same dialog, not a box of its own.
+   */
+  say(msgid: string, speaker: string | null, lead?: readonly string[]): Promise<void>;
+  /** A line of a person of the world on its own (a greeting with no dialog of the events after it, a topic's answer); resolves when read. */
+  line?(text: string): Promise<void>;
+  /**
+   * The topic chips of a person: resolves with the id the child tapped, or null when
+   * the child is done (the "bye" button, Android's back).
+   */
+  topics?(slug: string, chips: readonly Chip[]): Promise<string | null>;
   /**
    * Asks a question on `topic` (a subject, or a skill id with a dot).
    * `answered` is called the moment the child answers, before the
@@ -62,7 +80,7 @@ export interface EventHost {
 }
 
 /** The screens an event may open. */
-export type ScreenKind = "shop" | "rest";
+export type ScreenKind = "shop" | "rest" | "object";
 
 /** What a child found: a chest's prize, its consolation gift, or an item given on the spot. */
 export interface Found {
@@ -79,6 +97,33 @@ export interface WorldObjects {
   pools: Pools;
   /** The zone of this map (its encounter table): where `place_egg` warms an egg when the event does not say. */
   zone: string;
+  /** The working objects' definitions (`open_object`, core/game/objects.ts); none when the build has none. */
+  defs?: ObjectDefs;
+  /** The authored letters (`send_letter <id>` queues one for the next morning). */
+  mail?: MailData;
+  /** The slugs of the people of the PC's directory: talking to one of them means the child has met them (core/game/people.ts). */
+  people?: ReadonlySet<string>;
+}
+
+/**
+ * The people of the world as the interpreter sees them (core/world/director.ts
+ * implements it): who has a definition, what they say, the chips they offer
+ * and who the resolver put on this map now. Any person with a definition can
+ * be talked to: there is no allow-list.
+ */
+export interface People {
+  defined(slug: string): boolean;
+  /** The opening of a talk (records the talk); null if the person has no words. */
+  greet(slug: string): Promise<Spoken | null>;
+  /** The topic chips open now at the child's friendship. */
+  chips(slug: string): readonly Chip[];
+  topic(slug: string, id: string): Promise<Spoken | null>;
+  farewell(slug: string): Promise<Spoken | null>;
+  /** Friendship level 0 to 3, and the flags the person remembers. */
+  level(slug: string): number;
+  flags(slug: string): readonly string[];
+  /** Who stands on this map now. */
+  placed(): readonly { slug: string }[];
 }
 
 export interface RunnerOptions {
@@ -86,9 +131,13 @@ export interface RunnerOptions {
   grade: number;
   /** The phone's local day, `YYYY-MM-DD` (worldState.localDay). */
   today: () => string;
+  /** The phone's local hour, 0 to 23 (the day part for `phase_is`); the clock's when not given. */
+  hour?: () => number;
+  /** The people of the world; without them only the map's own talk events speak. */
+  people?: People;
   /**
-   * Who the player may talk to; everyone when not given. M4 opens the
-   * cashier only: the others' quests need actions of later milestones.
+   * Who the player may talk to; everyone when not given (a test may limit it).
+   * An event that uses an action this interpreter does not know never runs anyway.
    */
   talkTo?: ReadonlySet<string>;
   /** What the world objects need; without it their events stop and say so. */
@@ -112,6 +161,9 @@ export const ACTIONS: ReadonlySet<string> = new Set([
   "open_chest",
   "place_egg",
   "show_fact",
+  "open_object",
+  "send_letter",
+  "place_npcs",
 ]);
 
 /** The conditions it knows; any other never holds. */
@@ -121,6 +173,12 @@ export const CONDITIONS: ReadonlySet<string> = new Set([
   "char_exists",
   "profile_grade_at_least",
   "nagmon_daily_below",
+  "npcs_placed",
+  "npc_here",
+  "phase_is",
+  "weekday_is",
+  "friendship_at_least",
+  "npc_flag",
 ]);
 
 export interface ConditionContext {
@@ -128,7 +186,17 @@ export interface ConditionContext {
   characters: ReadonlySet<string>;
   grade: number;
   today: string;
+  /** `place_npcs` has run on this map. */
+  placed?: boolean;
+  /** The day part and the weekday (0 = Sunday) now. */
+  phase?: string;
+  weekday?: number;
+  /** The people of the world: friendship level and remembered flags; without them those conditions never hold. */
+  friendship?: (slug: string) => number;
+  npcFlags?: (slug: string) => readonly string[];
 }
+
+const WEEKDAY_NAMES = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
 /** `key:value` at the first colon; a key alone has no value. */
 function keyValue(arg: string): [string, string | undefined] {
@@ -159,6 +227,30 @@ export function conditionHolds(c: Condition, ctx: ConditionContext): boolean {
     case "nagmon_daily_below":
       value = countToday(ctx.variables, c.args[0] ?? "", ctx.today) < Number(c.args[1]);
       break;
+    case "npcs_placed":
+      value = ctx.placed === true;
+      break;
+    case "npc_here":
+      value = ctx.characters.has(c.args[0] ?? "");
+      break;
+    case "phase_is":
+      value = ctx.phase !== undefined && (c.args[0] ?? "").split(":").includes(ctx.phase);
+      break;
+    case "weekday_is":
+      value =
+        ctx.weekday !== undefined &&
+        (c.args[0] ?? "")
+          .split(":")
+          .some((d) => (/^\d$/.test(d) ? Number(d) : WEEKDAY_NAMES.indexOf(d)) === ctx.weekday);
+      break;
+    case "friendship_at_least":
+      if (!ctx.friendship) return false;
+      value = ctx.friendship(c.args[0] ?? "") >= Number(c.args[1]);
+      break;
+    case "npc_flag":
+      if (!ctx.npcFlags) return false;
+      value = ctx.npcFlags(c.args[0] ?? "").includes(c.args[1] ?? "");
+      break;
     default:
       return false;
   }
@@ -181,6 +273,10 @@ export class EventRunner {
   private running = false;
   /** The world changed since the last `changed()`. */
   private dirty = false;
+  /** `place_npcs` has run. */
+  private placed = false;
+  /** What a person of the world just opened the talk with, until a dialog of the talk carries it. */
+  private lead: string[] = [];
   private readonly warned = new Set<number>();
   private readonly autos: WorldEvent[];
   private readonly talks: WorldEvent[];
@@ -206,7 +302,18 @@ export class EventRunner {
   }
 
   private ctx(): ConditionContext {
-    return { variables: this.state.variables, characters: this.characters, grade: this.opts.grade, today: this.opts.today() };
+    const today = this.opts.today();
+    const people = this.opts.people;
+    return {
+      variables: this.state.variables,
+      characters: this.characters,
+      grade: this.opts.grade,
+      today,
+      placed: this.placed,
+      phase: phaseOf(this.opts.hour ? this.opts.hour() : new Date().getHours()),
+      weekday: weekdayOf(today),
+      ...(people ? { friendship: (s: string) => people.level(s), npcFlags: (s: string) => people.flags(s) } : {}),
+    };
   }
 
   /** Whether `e` may run now: every action known and every condition holding. */
@@ -220,9 +327,19 @@ export class EventRunner {
     return this.talks.filter((e) => talkTarget(e) === slug && this.ready(e));
   }
 
+  /** Whether this person is one of the world (has a definition) and may be talked to. */
+  private known(slug: string): boolean {
+    return (this.opts.people?.defined(slug) ?? false) && (!this.opts.talkTo || this.opts.talkTo.has(slug));
+  }
+
   /** Whether talking to `slug` now would start something (the map's "talk" button). */
   talkable(slug: string): boolean {
-    return !this.running && this.characters.has(slug) && this.talksFor(slug).length > 0;
+    return !this.running && this.characters.has(slug) && (this.known(slug) || this.talksFor(slug).length > 0);
+  }
+
+  /** Whether the person has topic chips to offer now (the map's "ask" button). */
+  askable(slug: string): boolean {
+    return !this.running && this.characters.has(slug) && this.known(slug) && !!this.host.topics && (this.opts.people?.chips(slug).length ?? 0) > 0;
   }
 
   /** The map opened: the events that hold run (who is created, a reward left from before). */
@@ -236,19 +353,83 @@ export class EventRunner {
     }
   }
 
-  /** The player talks to `slug`: its talk events, then whatever they set off. False if nothing ran. */
+  /**
+   * The player talks to `slug`. A person of the world opens with a line of
+   * their own (the first page of the first dialog of the talk), then the
+   * talk events run, then whatever they set off. False if nothing ran.
+   */
   async talk(slug: string): Promise<boolean> {
     if (this.running || !this.characters.has(slug)) return false;
     const events = this.talksFor(slug);
-    if (!events.length) return false;
+    const person = this.known(slug);
+    if (!events.length && !person) return false;
     this.running = true;
     try {
+      if (person) {
+        const spoken = await this.opts.people!.greet(slug);
+        this.dirty = true;
+        this.lead = spoken ? [`${spoken.speaker}: ${spoken.text}`] : [];
+      }
       for (const e of events) if (this.ready(e)) await this.run(e);
+      // someone of the town without a definition in the people system: met, and a heart more on a new day (the PC's People tab); the others have their friendship there
+      if (!person && this.opts.objects?.people?.has(slug) && meet(this.state, slug, this.opts.today())) this.dirty = true;
+      // no dialog of the events carried the greeting: it is said on its own, before what they set off
+      if (this.lead.length) await this.flushLead();
+      this.save();
       await this.settle();
+    } finally {
+      this.lead = [];
+      this.running = false;
+    }
+    return true;
+  }
+
+  /**
+   * The child asks `slug` about a topic: chips, an answer, chips again, until
+   * the child is done; then a word of goodbye if anything was asked. A new
+   * topic is a friendship point (core/world/director.ts). False if nothing ran.
+   */
+  async ask(slug: string): Promise<boolean> {
+    const people = this.opts.people;
+    if (!people || !this.askable(slug)) return false;
+    this.running = true;
+    try {
+      let asked = 0;
+      for (;;) {
+        const chips = people.chips(slug);
+        if (!chips.length) break;
+        this.save();
+        const id = await this.host.topics!(slug, chips);
+        if (id === null || !chips.some((c) => c.id === id)) break;
+        const spoken = await people.topic(slug, id);
+        this.dirty = true;
+        asked++;
+        this.save();
+        if (spoken) {
+          await this.host.line?.(`${spoken.speaker}: ${spoken.text}`);
+          const fact = spoken.fact ? this.opts.objects?.facts[spoken.fact] : undefined;
+          if (fact) await this.host.fact?.(fact);
+        }
+      }
+      if (asked > 0) {
+        const bye = await people.farewell(slug);
+        this.dirty = true;
+        this.save();
+        if (bye) await this.host.line?.(`${bye.speaker}: ${bye.text}`);
+      }
     } finally {
       this.running = false;
     }
     return true;
+  }
+
+  /** What opened the talk, if no dialog has carried it yet, said now on its own. */
+  private async flushLead(): Promise<void> {
+    if (!this.lead.length) return;
+    const text = this.lead.join("\n");
+    this.lead = [];
+    this.save();
+    await this.host.line?.(text);
   }
 
   /**
@@ -298,6 +479,7 @@ export class EventRunner {
 
   /** Saves what changed, then shows what was found (a host that cannot show it just goes on). */
   private async show(found: Found): Promise<void> {
+    if (this.lead.length) await this.flushLead();
     this.save();
     await this.host.found?.(found);
   }
@@ -311,6 +493,7 @@ export class EventRunner {
    */
   private async openChest(args: string[]): Promise<void> {
     const o = this.objectsFor("open_chest");
+    if (this.lead.length) await this.flushLead();
     const [id = "", topic = ""] = args;
     const chest = o.loot.chests[id];
     if (!chest || !topic) throw new Error(`bad open_chest ${args.join(",")}`);
@@ -367,10 +550,13 @@ export class EventRunner {
   private async act(a: Action): Promise<void> {
     const vars = this.state.variables;
     switch (a.type) {
-      case "translated_dialog":
+      case "translated_dialog": {
         this.save();
-        await this.host.say(a.args[0] ?? "", a.args[1] ?? null);
+        const lead = this.lead;
+        this.lead = [];
+        await this.host.say(a.args[0] ?? "", a.args[1] ?? null, lead.length ? lead : undefined);
         return;
+      }
       case "set_variable": {
         const [key, value] = keyValue(a.args[0] ?? "");
         vars.set(key, value ?? "");
@@ -392,6 +578,7 @@ export class EventRunner {
         return;
       case "ask_quiz": {
         const [topic = "", variable = "", context = "quest"] = a.args;
+        if (this.lead.length) await this.flushLead();
         this.save();
         // a question with no answer (none found, or closed with back) writes nothing:
         // no reward for nothing answered (the old game wrote "skip", which paid)
@@ -405,15 +592,22 @@ export class EventRunner {
       }
       case "open_tutor":
         if (!this.host.openTutor) throw new Error("no tutor screen");
+        if (this.lead.length) await this.flushLead();
         this.save();
         await this.host.openTutor(a.args[0] || "all");
         return;
       case "create_npc":
         this.characters.add(a.args[0] ?? "");
         return;
+      case "place_npcs":
+        // the resolver's people (core/world/resolver.ts), decided when the map opened
+        for (const p of this.opts.people?.placed() ?? []) this.characters.add(p.slug);
+        this.placed = true;
+        return;
       case "open_shop":
       case "open_rest": {
         if (!this.host.screen) throw new Error(`no screen for ${a.type}`);
+        if (this.lead.length) await this.flushLead();
         // what changed so far is saved first: the child may stay long, and a kill must lose nothing
         this.save();
         await this.host.screen(a.type === "open_shop" ? "shop" : "rest", a.args[0] ?? "");
@@ -436,6 +630,7 @@ export class EventRunner {
         const o = this.objectsFor(a.type);
         const r = placeEgg(this.state, o.economy, a.args[0] || o.zone);
         if (r.ok) this.dirty = true;
+        if (this.lead.length) await this.flushLead();
         this.save();
         await this.host.say(r.ok ? "nagmon_world_egg_placed" : r.reason === "none" ? "nagmon_world_egg_none" : "nagmon_world_egg_full", null);
         return;
@@ -445,8 +640,29 @@ export class EventRunner {
         const fact = o.facts[a.args[0] ?? ""];
         if (!fact) throw new Error(`unknown fact ${a.args[0] ?? ""}`);
         if (!this.host.fact) throw new Error("no screen for show_fact");
+        if (this.lead.length) await this.flushLead();
+        // a sign read is a fact learned: it goes in the journal, once
+        if (readFact(this.state, a.args[0] ?? "", this.opts.today())) this.dirty = true;
         this.save();
         await this.host.fact(fact);
+        return;
+      }
+      case "send_letter": {
+        // an event letter (thanks from someone helped, a gift): it arrives the next morning
+        const o = this.objectsFor(a.type);
+        const id = a.args[0] ?? "";
+        if (!o.mail?.letters[id]) throw new Error(`unknown letter ${id}`);
+        if (queueEvent(this.state, o.mail, id, this.opts.today())) this.dirty = true;
+        return;
+      }
+      case "open_object": {
+        const o = this.objectsFor(a.type);
+        const id = a.args[0] ?? "";
+        if (!o.defs?.[id]) throw new Error(`unknown object ${id}`);
+        if (!this.host.screen) throw new Error("no screen for open_object");
+        // what changed so far is saved first: the child may stay long, and a kill must lose nothing
+        this.save();
+        await this.host.screen("object", id);
         return;
       }
       case "char_face":

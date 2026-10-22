@@ -39,3 +39,20 @@ events:
     actions:
     - translated_dialog nagmon_world_lab_tutor,nagmon_house_tutor
     - open_tutor all
+
+  # ---- working objects (mods/nagmon/objects/*.yaml; tools/app/objects.py checks that these events match them)
+
+  Create Library:
+    type: event
+    conditions:
+    - not char_exists nagmon_obj_library
+    actions:
+    - create_npc nagmon_obj_library,7,3
+    - char_face nagmon_obj_library,down
+
+  Library Talk:
+    type: event
+    behav:
+    - talk nagmon_obj_library
+    actions:
+    - open_object library

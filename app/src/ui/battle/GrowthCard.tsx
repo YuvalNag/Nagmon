@@ -12,6 +12,8 @@ interface Props {
   level: number;
   /** A catalogue name for a species. */
   name: (species: string) => string;
+  /** What it learned at this level (the line under the title), or empty. */
+  learned?: string;
   onClose: () => void;
 }
 
@@ -20,7 +22,7 @@ interface Props {
  * closed by a tap. An evolution shows the old creature, an arrow and
  * the new one.
  */
-export function GrowthCard({ monsters, before, evolvedTo, level, name, onClose }: Props) {
+export function GrowthCard({ monsters, before, evolvedTo, level, name, learned, onClose }: Props) {
   const title = evolvedTo ? t("cardEvolved", { old: name(before), name: name(evolvedTo) }) : t("cardLevelUp", { name: name(before), level });
   return (
     <section className="growth-card" data-screen="growth-card" data-kind={evolvedTo ? "evolution" : "level"} role="dialog" aria-label={title}>
@@ -37,6 +39,11 @@ export function GrowthCard({ monsters, before, evolvedTo, level, name, onClose }
         {title}
       </h2>
       {evolvedTo && <p className="growth-level">{t("cardLevelUp", { name: name(evolvedTo), level })}</p>}
+      {learned && (
+        <p className="growth-learned" data-id="growth_learned">
+          {learned}
+        </p>
+      )}
       <Tap id="growth_close" className="primary" onTap={onClose}>
         {t("cardContinue")}
       </Tap>

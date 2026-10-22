@@ -1,0 +1,40 @@
+# Nurse Dana (docs/app/WORLD_V2.md 6.1 row 3): calm and gentle, in the Rest Center
+# all day and all night. Placed by the house map's own create_npc (the resolver
+# leaves house interiors alone); her desk (open_rest) goes on after her greeting.
+id: nagmon_house_nurse
+short: dana
+class: M
+name_he: האחות דנה
+name_en: Nurse Dana
+role: healer
+age_feel: adult
+sprite: nagmon_teacher
+voice:
+  style: "calm, gentle, never hurries, one small health thought at a time"
+  quirks: ["smooths the blanket", "hums quietly"]
+  catchphrases: ["לאט לאט, הכל בסדר."]
+  register: gentle
+personality: [calm, caring, patient]
+knows:
+  topics:
+    - {id: rest, label_he: "איך נחים?", icon: "1f634", unlock: 0}
+    - {id: health, label_he: "מה בריא?", icon: "2764", unlock: 0}
+    - {id: friends, label_he: "איך החברים?", icon: "1f43e", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families, how a child feels inside]
+never_says: [anything scary, medical advice for real illness]
+goals: ["every friend rests well"]
+likes:
+  loved: [berry]
+  liked: [biscuit]
+schedule:
+  fixed: {map: nagmon_rest_center}
+  night: true
+offers:
+  heal: true
+  daily_gift: true
+relationship:
+  memory_flags: [asked_rest, asked_health, asked_friends, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

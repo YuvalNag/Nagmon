@@ -45,11 +45,15 @@ export interface Wild {
   table: string;
 }
 
-/** A wild creature's level: its table's range, brought near the partner's (two below to three above). */
-export function wildLevel(range: readonly [number, number], partner: number, random: () => number): number {
+/**
+ * A wild creature's level: its table's range, brought near the partner's (two below to three above). `shift` is the
+ * age band's (docs/app/BATTLE_V3.md 5.5: ages 5-7 one level lower, 8-10 none, 11-14 one higher): it moves that window.
+ */
+export function wildLevel(range: readonly [number, number], partner: number, random: () => number, shift = 0): number {
   const [lo, hi] = range;
   const picked = lo + Math.floor(random() * (hi - lo + 1));
-  return Math.max(2, Math.min(MAX_LEVEL, Math.max(partner - 2, Math.min(partner + 3, picked))));
+  const near = partner + shift;
+  return Math.max(2, Math.min(MAX_LEVEL, Math.max(near - 2, Math.min(near + 3, picked))));
 }
 
 export interface EncountersOptions {
@@ -61,6 +65,11 @@ export interface EncountersOptions {
   cooldownSteps?: number;
   /** A browser test's hook: every step in an area meets one. */
   always?: boolean;
+  /**
+   * The creature of the day (the TV): its weight in the table is multiplied by `factor` (1.25), so it is met a
+   * little more often. A hint, never a prize: it changes what is met, not whether anything is.
+   */
+  boost?: () => { species: string; factor: number } | null;
 }
 
 export const DEFAULT_COOLDOWN = 6;
@@ -78,7 +87,7 @@ export class Encounters {
   }
 
   /** The hero stepped onto (x, y): a creature meets them, or null. */
-  step(map: WorldMap, x: number, y: number, partnerLevel: number): Wild | null {
+  step(map: WorldMap, x: number, y: number, partnerLevel: number, shift = 0): Wild | null {
     const area = this.area(map, x, y);
     if (!area) return null;
     this.since++;
@@ -87,17 +96,19 @@ export class Encounters {
     const day = (this.o.daytime ?? (() => true))();
     const pool = (this.o.tables[area.table] ?? []).filter((e) => this.o.monsters[e.monster]?.hasSprite && (e.daytime === null || e.daytime === day));
     if (!pool.length) return null;
-    let pick = this.random() * pool.reduce((n, e) => n + e.rate, 0);
+    const boost = this.o.boost?.() ?? null;
+    const weight = (e: TableEntry) => (boost && e.monster === boost.species ? e.rate * boost.factor : e.rate);
+    let pick = this.random() * pool.reduce((n, e) => n + weight(e), 0);
     let chosen = pool[pool.length - 1]!;
     for (const e of pool) {
-      pick -= e.rate;
+      pick -= weight(e);
       if (pick < 0) {
         chosen = e;
         break;
       }
     }
     this.since = 0;
-    return { species: chosen.monster, level: wildLevel(chosen.levels, partnerLevel, this.random), table: area.table };
+    return { species: chosen.monster, level: wildLevel(chosen.levels, partnerLevel, this.random, shift), table: area.table };
   }
 
   /** Quiet steps again (a map was entered, a battle was left). */

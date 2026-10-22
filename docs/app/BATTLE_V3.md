@@ -1,6 +1,6 @@
 # BATTLE V3: a longer, kinder, move-choosing creature battle (design spec)
 
-Status: **slice S1 (12.1) is built on branch `app/battle-v3-s1`, see "S1, as built" under 12.1; everything else is still design.** Written 2026-10-21 after the parent played build 104 (battle slice 2) and was not happy. This document replaces the "Concept A/B/C" discussion of `BATTLE.md` for everything about the battle loop. `BATTLE.md` stays as the record of slices 1 and 2 and of the research behind the question presentations (section 4.5 there) and the anti-frustration rules (4.10), which still apply.
+Status: **slices S1 (12.1) and S2 (12.2) are built (S2 on branch `app/battle-v3-s2`), see "as built" under each; S3 to S5 are still design.** Written 2026-10-21 after the parent played build 104 (battle slice 2) and was not happy. This document replaces the "Concept A/B/C" discussion of `BATTLE.md` for everything about the battle loop. `BATTLE.md` stays as the record of slices 1 and 2 and of the research behind the question presentations (section 4.5 there) and the anti-frustration rules (4.10), which still apply.
 Scope: `app/src/core/game/battle*.ts`, `app/src/ui/BattleScreen.tsx`, `app/src/ui/battle/*`, `app/src/ui/QuizScreen.tsx`, the economy (`mods/nagmon/economy/items.yaml`), `collection.ts` (growth and evolution), the first chapter data (`mods/nagmon/trips/solar.yaml`, `mods/nagmon/learning/subjects.yaml`, `mods/nagmon/db/monster/*`). Phone, landscape, 873 x 393 CSS px.
 Language: this document is English; the game stays Hebrew (RTL). All move and creature names below are English placeholders to be written in Hebrew later.
 Tone rules from the parent, kept everywhere: modest and kind; no violence, no gore; creatures are **fogged**, and the player **calms and befriends** them, never defeats or kills them. "Fainting" is a creature **dozing off** and it always wakes up.
@@ -1009,6 +1009,29 @@ Content: all 50 moves (3.2), the 14 statuses (4.1) and stat stages (4.2), Marks 
 Tests: one table-driven test per move (effect, wrong version, charges, unlock level) from `moves.yaml`; status rules (Drowsy and Dizzy exclusive, boss immunity, softened versions on our side, nothing wastes an answer); Windup and Stagger at exactly 25% of max Fog; Marks (2 maximum, 2 rounds, finisher multipliers 1.5 / 1.75 / 2.0); Finale chain bonus and reset; bonus cap 2.5; the simulation reproduces the Appendix A tables within 0.5 questions; no flashing (the effect plan test of slice 2 extended).
 
 Acceptance: every move can be seen in the "move lab" debug page; the parent reads the first-chapter moves and approves names (Hebrew included); no status makes the child lose an answered question.
+
+#### S2, as built (differences from the text above, and what was measured)
+
+* **Engine**: `battle.ts` (rounds, moves, intents, Spark, Finale), `battleStatus.ts` (the status state of one fighter: Drowsy, Dizzy, Slow, Shield, Regen, Boost and Weaken as stat stages, Focus, Giggly, Mark, Sniffly, mirror, boss locks; pure), `intents.ts` (the nine intents and the draw rules). All 50 moves play from `moves.json`: damage with the status chances, Marks and the finisher (x1.5 / 1.75 / 2.0, consumed), utility moves with their wrong versions, Quick (priority), Echo (60% of the last damage move, no question), Swap Trick, Detective Lens (reveals the weak subject and the next two intents, shown beside the bubble), Mind Glimmer (ignores the shield), the Little Wiggle. A move that is only a utility never takes Fog; a hit takes at least 1 (a shield aside).
+* **Windup and Stagger**: a Big Puff is shown as a ring with a 1; the enemy does nothing that round, and lets go at the **end of the next round**; a round that takes 25% of the maximum Fog (a Finale counts as one round) staggers it, a Drowsy or a Dizzy stumble cancels it. Wild creatures use the Big Puff from level 8.
+* **Spark and the Finale**: +1 for a right answer, +2 for a right stretch answer, +1 for a hit of 15% of max Pep, +1 for the enemy's Silly Dance, +1 after three wrong answers in a row. The Finale (level 6, the species' own) is a pill over the middle of the ground when the meter is full, not a bar in the grid (the grid has no room at 873 x 393 and 130% text); three questions, a hit after each (the first two at once), chain x1.0 / 1.15 / 1.3 that a wrong answer resets, the enemy answers after the third; the last hit's extra (shield, slow, giggle, heal, dizzy) lands when its answer was right. The question chip says "Finale 2/3".
+* **Statuses**: 14 badges (emoji shapes on round badges in the status colour, arrows for stages, a lock for a boss's immunity) beside the two bars. Ours are softened: Yawn (only easy moves, power -25%, three taps on the sleepy-face button wake it), Dizzy (no stretch moves for 2 rounds), Slow. A status never costs an answered question: the answered move always plays, then the enemy's mist lands. Boss immunity applies to the master's test (guardians come with S5).
+* **Cards**: the creature's `equipped` list from the data (utility moves included), then, until Move Cards exist, one normal and one easy **coverage** move from other subjects to fill what is empty (as in S1). Dimmed cards say why (Yawn, Dizzy, needs a first move). With all dimmed, the Little Wiggle. **Not built**: Move Cards (lessons, chests, shop), move equipment in the Friends screen, the move lab page (the data and the card list are ready for them); the new moves a level brings are told on the level-up card.
+* **Gifts** (the data's gift of each species): Cheerful, Steady (the enemy's and ours), Warm Fog, Sturdy Shell (ours and the enemy's Thicken), Sparkly (x1.65), Quick Learner (+20% growth points, with a carried fraction), Brave Heart (also the default of band A). Curious is for S3.
+* **Pacing**: `S1_PACING` is 1.0 again. With the Finale and the stretch moves the spec's wild Fog still gave 10.8 questions in band B (the spec's own simulation had 8.2, because its player meets a weak enemy half of the time; the card list has fewer Sparkle hits), so `FOG_TUNE` (battleNumbers.ts) multiplies the Fog of a wild fight by 0.7 and the master's by 0.7; the data and `fogOf` still hold the spec's numbers. Measured with `tests/unit/game/battleSim.test.ts` (the real `Battle`, 2,000 wild fights a band at 72% right, 500 master fights; player: Sparkle 60% of the time when on a card, chain starters and finishers, stretch in bands B and C, the Finale when ready, never a utility move):
+
+  | fight | questions (mean) | p10 to p90 | most | turns | fight minutes | someone fainted | question cap hit |
+  |---|---|---|---|---|---|---|---|
+  | wild A | 6.75 | 4 to 10 | 12 | 5.0 | 1.8 | 0% | 3.8% |
+  | wild B | 8.54 | 6 to 13 | 15 | 6.4 | 2.4 | 0.1% | 5.8% |
+  | wild C | 7.79 | 5 to 11 | 13 | 5.7 | 2.2 | 0.1% | 8.8% |
+  | master A | 13.9 | 8 to 18 | 20 | 10.2 | 3.7 | 0% | 22% |
+  | master B | 17.6 | 11 to 23 | 24 | 13.0 | 4.9 | 9.8% | 28% |
+  | master C | 15.6 | 11 to 20 | 21 | 11.1 | 4.4 | 10.2% | 28% |
+
+  (A Finale can pass the cap by up to two questions, so "most" can be over the cap.)
+* **Enemy level**: the band's shift (A -1, B 0, C +1) moves the window around the partner's level (two below to three above) in `wildLevel`; the spec's exact "clamp to the zone" is S5.
+* **Test hooks** added: `nagmon.battle.spark`, `nagmon.battle.intents` (a comma list of intent ids used in order), and `debug.cards` (the engine option that sets the card list; the move lab will use it).
 
 ### 12.3 S3: Befriending (effort M)
 

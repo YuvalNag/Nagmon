@@ -4,9 +4,9 @@ import { WHEEL } from "../../../src/core/game/battleNumbers";
 import { creatureStats, speciesBattle } from "../../../src/core/game/battleSpecies";
 import { addCreature } from "../../../src/core/game/collection";
 import { awakeParty, faint, fainted, nurseHeals, partyDown, usable, wakeWith } from "../../../src/core/game/faint";
-import { BIG_PUFF, drawIntent, giggleEvery, giggleShare, type IntentId, puffPower, weightsOf } from "../../../src/core/game/intents";
+import { BIG_PUFF, bigPuffPower, drawIntent, giggleEvery, giggleShare, type IntentId, puffPower, weightsOf } from "../../../src/core/game/intents";
 import { countOf, economy, give } from "../../../src/core/game/items";
-import { cardMoves, flames, isHit, WIGGLE } from "../../../src/core/game/moves";
+import { cardMoves, flames, isCard, finaleOf, WIGGLE } from "../../../src/core/game/moves";
 import { WorldState } from "../../../src/core/world/worldState";
 import { battleData, gameJson } from "./helpers";
 
@@ -32,51 +32,66 @@ describe("the battle data is the app's own (core/data/battleTypes.ts)", () => {
 });
 
 describe("enemy intents (4.3), from intents.json", () => {
-  const calm = { lastWasBigPuff: false, sinceGiggle: 99, fogFull: false, puffIsBig: false };
+  const calm = { lastWasBigPuff: false, sinceGiggle: 99, fogFull: false, puffIsBig: false, level: 10 };
 
-  it("a temperament's weights are folded onto Puff, Giggle and Silly and still add up to 100", () => {
+  it("the five temperaments' weights are the data's own and add up to 100; the spec's table", () => {
     for (const t of Object.keys(data.temperaments)) {
       const w = weightsOf(data, t);
-      expect(w.puff + w.giggle + w.silly, t).toBe(100);
+      expect(Object.values(w).reduce((a, b) => a + (b ?? 0), 0), t).toBe(100);
     }
-    // attacks (Big Puff, Dizzy Swirl, Sticky Mud) are a Puff; self-care (Thicken, Cheer Up, Drowsy Mist) a Silly Dance
-    expect(weightsOf(data, "shy")).toEqual({ puff: 30, giggle: 20, silly: 50 });
-    expect(weightsOf(data, "playful")).toEqual({ puff: 55, giggle: 0, silly: 45 });
-    expect(weightsOf(data, "grumpy")).toEqual({ puff: 85, giggle: 0, silly: 15 });
-    expect(weightsOf(data, "sleepy")).toEqual({ puff: 30, giggle: 15, silly: 55 });
-    expect(weightsOf(data, "proud")).toEqual({ puff: 60, giggle: 0, silly: 40 });
+    expect(weightsOf(data, "shy")).toEqual({ thicken: 30, giggle: 20, fog_puff: 30, silly_dance: 20 });
+    expect(weightsOf(data, "playful")).toEqual({ silly_dance: 30, fog_puff: 30, dizzy_swirl: 15, sticky_mud: 10, cheer_up: 15 });
+    expect(weightsOf(data, "grumpy")).toEqual({ fog_puff: 50, big_puff: 20, cheer_up: 15, sticky_mud: 15 });
+    expect(weightsOf(data, "sleepy")).toEqual({ drowsy_mist: 30, silly_dance: 25, fog_puff: 30, giggle: 15 });
+    expect(weightsOf(data, "proud")).toEqual({ cheer_up: 20, big_puff: 25, fog_puff: 35, thicken: 20 });
   });
 
-  it("the numbers come from the data: a Puff is 50 (40 for a boss), a Giggle gives back 5% at most once in 3 rounds", () => {
-    expect([puffPower(data, false), puffPower(data, true), giggleShare(data), giggleEvery(data)]).toEqual([50, 40, 0.05, 3]);
+  it("the numbers come from the data: a Puff is 50 (40 for a boss), a Big Puff 60, a Giggle gives back 5% at most once in 3 rounds", () => {
+    expect([puffPower(data, false), puffPower(data, true), bigPuffPower(data), giggleShare(data), giggleEvery(data)]).toEqual([50, 40, 60, 0.05, 3]);
   });
 
-  it("a draw follows the weights", () => {
+  it("a draw follows the weights, in the order of the nine intents", () => {
     const shy = weightsOf(data, "shy");
-    expect(drawIntent(0.0, shy, calm)).toBe("puff");
-    expect(drawIntent(0.29, shy, calm)).toBe("puff");
-    expect(drawIntent(0.3, shy, calm)).toBe("giggle");
-    expect(drawIntent(0.5, shy, calm)).toBe("silly");
+    expect(drawIntent(0.0, shy, calm)).toBe("fog_puff");
+    expect(drawIntent(0.29, shy, calm)).toBe("fog_puff");
+    expect(drawIntent(0.3, shy, calm)).toBe("thicken");
+    expect(drawIntent(0.6, shy, calm)).toBe("giggle");
+    expect(drawIntent(0.9, shy, calm)).toBe("silly_dance");
   });
 
   it("over many draws every temperament gets its own mix", () => {
     for (const t of Object.keys(data.temperaments)) {
       const w = weightsOf(data, t);
       const n = 4000;
-      const count: Record<IntentId, number> = { puff: 0, giggle: 0, silly: 0 };
-      for (let i = 0; i < n; i++) count[drawIntent((i + 0.5) / n, w, calm)]++;
-      expect(count.puff / n).toBeCloseTo(w.puff / 100, 2);
+      const count: Partial<Record<IntentId, number>> = {};
+      // level 20 and a calm state: nothing is replaced
+      for (let i = 0; i < n; i++) {
+        const id = drawIntent((i + 0.5) / n, w, { ...calm, level: 20 });
+        count[id] = (count[id] ?? 0) + 1;
+      }
+      for (const [id, pct] of Object.entries(w)) expect((count[id as IntentId] ?? 0) / n, `${t} ${id}`).toBeCloseTo((pct ?? 0) / 100, 2);
     }
   });
 
-  it("a Giggle at most once in three rounds and only with fog to give back; after a big Puff a Silly turn", () => {
+  it("the rules: Giggle once in three rounds and only with fog to give; a Silly turn after a big hit; no Big Puff before level 8; never two statuses in a row; Drowsy Mist is a Silly Dance in band A", () => {
     const shy = weightsOf(data, "shy");
-    expect(drawIntent(0.4, shy, { ...calm, sinceGiggle: 2 })).toBe("silly");
-    expect(drawIntent(0.4, shy, { ...calm, sinceGiggle: 3 })).toBe("giggle");
-    expect(drawIntent(0.4, shy, { ...calm, fogFull: true })).toBe("silly");
+    expect(drawIntent(0.6, shy, { ...calm, sinceGiggle: 2 })).toBe("silly_dance");
+    expect(drawIntent(0.6, shy, { ...calm, sinceGiggle: 3 })).toBe("giggle");
+    expect(drawIntent(0.6, shy, { ...calm, fogFull: true })).toBe("silly_dance");
     const grumpy = weightsOf(data, "grumpy");
-    expect(drawIntent(0.1, grumpy, { ...calm, lastWasBigPuff: true, puffIsBig: true })).toBe("silly");
-    expect(drawIntent(0.1, grumpy, { ...calm, lastWasBigPuff: true, puffIsBig: false })).toBe("puff");
+    expect(drawIntent(0.1, grumpy, { ...calm, lastWasBigPuff: true, puffIsBig: true })).toBe("silly_dance");
+    expect(drawIntent(0.1, grumpy, { ...calm, lastWasBigPuff: true, puffIsBig: false })).toBe("fog_puff");
+    expect(drawIntent(0.6, grumpy, calm)).toBe("big_puff");
+    expect(drawIntent(0.6, grumpy, { ...calm, level: 7 })).toBe("fog_puff");
+    const playful = weightsOf(data, "playful");
+    expect(drawIntent(0.4, playful, calm)).toBe("dizzy_swirl");
+    expect(drawIntent(0.4, playful, { ...calm, lastWasStatus: true })).toBe("silly_dance");
+    expect(drawIntent(0.4, playful, { ...calm, childMajor: true })).toBe("silly_dance");
+    const sleepy = weightsOf(data, "sleepy");
+    expect(drawIntent(0.6, sleepy, calm)).toBe("drowsy_mist");
+    expect(drawIntent(0.6, sleepy, { ...calm, bandA: true })).toBe("silly_dance");
+    expect(drawIntent(0.6, sleepy, { ...calm, childMajor: true })).toBe("silly_dance");
+    expect(drawIntent(0.1, weightsOf(data, "proud"), { ...calm, powerMax: true })).toBe("fog_puff");
     expect(BIG_PUFF).toBe(0.15);
   });
 });
@@ -92,17 +107,27 @@ describe("the cards of a creature (3)", () => {
     expect(m[3]!.subject).not.toBe("math");
   });
 
-  it("only moves that are a hit with a question reach the cards: no utility, no Finale, no Wiggle among real ones", () => {
-    for (const slug of ["heliobud", "lunibble", "terrabub", "mercurip", "heliolynx"]) {
+  it("the grid holds up to four of the creature's real moves (utility moves too); no Finale, no Wiggle among them", () => {
+    for (const slug of ["heliobud", "lunibble", "terrabub", "mercurip", "heliolynx", "venubud", "rustip"]) {
       for (const level of [1, 3, 6, 10, 15]) {
         const m = cardMoves(data, slug, level, data.species[slug]!.subject);
         expect(m.length, `${slug} ${level}`).toBeGreaterThanOrEqual(1);
         expect(m.length).toBeLessThanOrEqual(4);
-        expect(m.every(isHit), `${slug} ${level}`).toBe(true);
+        expect(m.every(isCard), `${slug} ${level}`).toBe(true);
+        expect(m.every((x) => x.unlock_level <= level), `${slug} ${level}`).toBe(true);
         expect(new Set(m.map((x) => x.id)).size).toBe(m.length);
       }
     }
-    expect(ids("lunibble", 6, "science")).not.toContain("healing_rain");
+    expect(ids("lunibble", 6, "science")).toContain("healing_rain");
+    expect(ids("terrabub", 3, "geometry")).toContain("round_bubble");
+    expect(ids("venubud", 5, "hebrew")).toContain("lullaby");
+  });
+
+  it("the Finale has its own slot, from level 6, the creature's subject", () => {
+    expect(finaleOf(data, "heliobud", 5)).toBeNull();
+    expect(finaleOf(data, "heliobud", 6)?.id).toBe("star_shower");
+    expect(finaleOf(data, "lunibble", 6)?.id).toBe("comet_parade");
+    expect(finaleOf(data, "venubud", 9)?.id).toBe("song_of_letters");
   });
 
   it("what a creature knows follows its level: a move is not offered before it is learned", () => {

@@ -1,0 +1,31 @@
+# Noam in the Grey Hood (docs/app/WORLD_V2.md 6: row 39). The grey hood in the sun and outer zones; the filter and the three cards stay as they are.
+id: nagmon_solar_grey_hood
+short: noam
+class: M
+name_he: נועם עם הברדס
+name_en: Noam in the Grey Hood
+role: guide
+age_feel: adult
+sprite: nagmon_grey_hood
+voice:
+  style: "mysterious, speaks in short gentle riddles"
+  quirks: ["holds the cards close"]
+  catchphrases: ["הקלפים יודעים."]
+  register: gentle
+personality: [mysterious, gentle, calm]
+knows:
+  topics:
+    - {id: cards, label_he: "על הקלפים", icon: "1f0cf", unlock: 0}
+    - {id: far, label_he: "רחוק וקר", icon: "1f31f", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["hand the right card to the right visitor"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  fixed: {maps: [solar_sun, solar_outer]}
+offers: {riddles: cards}
+relationship:
+  memory_flags: [asked_cards, asked_far]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

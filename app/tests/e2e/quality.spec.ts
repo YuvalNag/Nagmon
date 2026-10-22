@@ -267,6 +267,7 @@ test("the start loads only what who-plays needs: no game engine, a small script"
   console.log(`scripts at start: ${scripts.length}, ${Math.round(total / 1024)} KiB`);
   // Phaser is about 1.2 MB: the map and battle load it when they open
   expect(scripts.filter((s) => s.engine).map((s) => s.url)).toEqual([]);
+  // W2 adds the reads of the mail, journal, PC, people and board saves (5 kB)
   expect(total).toBeLessThan(450 * 1024); // 390 KiB since the battle, shop, parents and tutor screens are lazy (was 600)
 });
 
@@ -277,6 +278,8 @@ test("who-plays with eight children, the longest name among them, at 130% text",
     document.addEventListener("DOMContentLoaded", set);
     if (localStorage.getItem("seeded")) return;
     localStorage.setItem("seeded", "1");
+    // the town's people are those of ten in the morning, whatever the machine's clock says
+    localStorage.setItem("nagmon.clock.hour", "10");
     // made-up names
     ["אבגדהוזחטיכלמנסע", "בר", "גל", "דנה", "הדר", "ורד", "זיו", "חן"].forEach((name, i) => {
       const pid = `p0000${i}`;

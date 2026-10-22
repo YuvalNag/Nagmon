@@ -1,0 +1,16 @@
+# The fridge in the friend's house (docs/app/WORLD_V2.md section 8, object 5): once a day the child picks one
+# of three snacks (from this pool, by the day) and the partner gets a heart. Free; the second tap says
+# "tomorrow". It moves upstairs in W5 (change the place here and the map's events).
+id: fridge
+screen: fridge
+title_he: המקרר
+sprite: nagmon_fridge
+places:
+  - {map: nagmon_friend_house, x: 7, y: 2}
+snacks:
+  - {id: berry, emoji: "1f353", name_he: תות}
+  - {id: cookie, emoji: "1f36a", name_he: עוגייה}
+  - {id: bun, emoji: "1f35e", name_he: לחמנייה}
+  - {id: juice, emoji: "1f9c3", name_he: מיץ}
+  - {id: apple, emoji: "1f34e", name_he: תפוח}
+  - {id: carrot, emoji: "1f955", name_he: גזר}
