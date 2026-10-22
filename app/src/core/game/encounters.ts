@@ -45,11 +45,15 @@ export interface Wild {
   table: string;
 }
 
-/** A wild creature's level: its table's range, brought near the partner's (two below to three above). */
-export function wildLevel(range: readonly [number, number], partner: number, random: () => number): number {
+/**
+ * A wild creature's level: its table's range, brought near the partner's (two below to three above). `shift` is the
+ * age band's (docs/app/BATTLE_V3.md 5.5: ages 5-7 one level lower, 8-10 none, 11-14 one higher): it moves that window.
+ */
+export function wildLevel(range: readonly [number, number], partner: number, random: () => number, shift = 0): number {
   const [lo, hi] = range;
   const picked = lo + Math.floor(random() * (hi - lo + 1));
-  return Math.max(2, Math.min(MAX_LEVEL, Math.max(partner - 2, Math.min(partner + 3, picked))));
+  const near = partner + shift;
+  return Math.max(2, Math.min(MAX_LEVEL, Math.max(near - 2, Math.min(near + 3, picked))));
 }
 
 export interface EncountersOptions {
@@ -78,7 +82,7 @@ export class Encounters {
   }
 
   /** The hero stepped onto (x, y): a creature meets them, or null. */
-  step(map: WorldMap, x: number, y: number, partnerLevel: number): Wild | null {
+  step(map: WorldMap, x: number, y: number, partnerLevel: number, shift = 0): Wild | null {
     const area = this.area(map, x, y);
     if (!area) return null;
     this.since++;
@@ -97,7 +101,7 @@ export class Encounters {
       }
     }
     this.since = 0;
-    return { species: chosen.monster, level: wildLevel(chosen.levels, partnerLevel, this.random), table: area.table };
+    return { species: chosen.monster, level: wildLevel(chosen.levels, partnerLevel, this.random, shift), table: area.table };
   }
 
   /** Quiet steps again (a map was entered, a battle was left). */

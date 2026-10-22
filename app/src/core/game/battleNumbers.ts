@@ -58,11 +58,11 @@ export const FOG_LENGTH = { short: 0.75, normal: 1.0, long: 1.3 } as const;
  * (1.0). What is left is the tuning that the seeded simulation asks for (tests/unit/game/battleSim.test.ts, the real
  * `Battle` class, answers at the tier table's chances): the spec's Fog (kind 2.0) gives about 10.8 questions in band B,
  * where the spec's own simulation had 8.2, because a real card list has fewer Sparkle hits than the spec's player (who
- * met a weak enemy half of the time). `FOG_TUNE` brings the wild fight back to 6 to 9 questions; the data and the
+ * met a weak enemy half of the time). `FOG_TUNE` brings the wild fight back to 6 to 9 questions (and the master's test to 15 to 18: 0.7 for both, the master having no script yet); the data and the
  * spec's table (`fogOf`) are untouched, so the Length knob and the Fog tests still read the spec's numbers.
  */
 export const S1_PACING = 1.0;
-export const FOG_TUNE: Readonly<Record<FightKind, number>> = { wild: 0.7, keeper: 1.0, guardian: 1.0, master: 1.0 };
+export const FOG_TUNE: Readonly<Record<FightKind, number>> = { wild: 0.7, keeper: 1.0, guardian: 1.0, master: 0.7 };
 
 /** Fog from the data's own multipliers (battle_rules.json: the kind's and the band's). */
 export function fogFrom(level: number, kind: number, band: number, length = 1.0): number {

@@ -41,12 +41,13 @@ interface Out {
   secs: number;
   capped: boolean;
   calm: boolean;
+  won: boolean;
 }
 
-function fight(band: Band, seed: number): Out {
+function fight(band: Band, seed: number, master = false): Out {
   const rng = seeded(seed);
   const world = new WorldState();
-  for (const sp of starters) addCreature(world, sp, 10);
+  for (const sp of starters) addCreature(world, sp, master ? 16 : 10);
   // a random starter leads
   const lead = starters[Math.floor(rng() * 3)]!;
   world.creatures.sort((a, b) => (a.species === lead ? -1 : b.species === lead ? 1 : 0));
@@ -58,7 +59,8 @@ function fight(band: Band, seed: number): Out {
     world,
     monsters,
     subjects,
-    wild: { species: wild, level: 10, table: "sim" },
+    wild: { species: wild, level: master ? 18 : 10, table: "sim" },
+    ...(master ? { master: true } : {}),
     clock: () => 0,
     maxChoices: null,
     age: AGE[band],
@@ -107,14 +109,14 @@ function fight(band: Band, seed: number): Out {
     battle.castScripted(card.move.id, right);
     secs += (tier === "S" ? 16 : Q_S[tier]) + TURN_S;
   }
-  return { questions: battle.stats.questions, turns: battle.turns, fainted: battle.fainted, secs, capped: !!battle.reward?.capped, calm: battle.phase === "calm" };
+  return { questions: battle.stats.questions, turns: battle.turns, fainted: battle.fainted, secs, capped: !!battle.reward?.capped, calm: battle.phase === "calm" || battle.phase === "won", won: battle.phase === "won" };
 }
 
 const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const pct = (xs: number[], p: number) => [...xs].sort((a, b) => a - b)[Math.min(xs.length - 1, Math.floor(p * xs.length))]!;
 
-function run(band: Band, n = 2000) {
-  const outs = Array.from({ length: n }, (_, i) => fight(band, 1000 + i * 7 + band.charCodeAt(0)));
+function run(band: Band, n = 2000, master = false) {
+  const outs = Array.from({ length: n }, (_, i) => fight(band, 1000 + i * 7 + band.charCodeAt(0), master));
   const qs = outs.map((o) => o.questions);
   return {
     q: mean(qs),
@@ -127,6 +129,7 @@ function run(band: Band, n = 2000) {
     faint: outs.filter((o) => o.fainted > 0).length / n,
     capped: outs.filter((o) => o.capped).length / n,
     ended: outs.filter((o) => o.calm).length / n,
+    won: outs.filter((o) => o.won).length / n,
   };
 }
 
@@ -143,6 +146,20 @@ describe("a wild fight, simulated 2,000 times a band (docs/app/BATTLE_V3.md 5.9 
       expect(r.maxTurns).toBeLessThanOrEqual(16);
       expect(r.faint).toBeLessThan(0.05);
       expect(r.ended).toBe(1);
+    });
+  }
+});
+
+describe("a master's test, simulated (5.5: 15 to 18 questions, about 6 minutes)", () => {
+  for (const band of ["A", "B", "C"] as Band[]) {
+    it(`band ${band}`, () => {
+      const r = run(band, 500, true);
+      process.stderr.write(`SIM master band=${band} q=${r.q.toFixed(2)} p10=${r.p10} p90=${r.p90} max=${r.maxQ} turns=${r.turns.toFixed(2)} min=${r.minutes.toFixed(2)} faint=${(r.faint * 100).toFixed(1)}% capped=${(r.capped * 100).toFixed(1)}%\n`);
+      expect(r.ended).toBe(1);
+      // 5.5: 15 to 18 questions (a band of ages 5-7 a little less: its Fog is lighter)
+      expect(r.q).toBeGreaterThanOrEqual(13);
+      expect(r.q).toBeLessThanOrEqual(19);
+      expect(r.maxTurns).toBeLessThanOrEqual(40);
     });
   }
 });

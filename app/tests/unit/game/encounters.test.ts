@@ -86,4 +86,10 @@ describe("meeting wild creatures", () => {
     expect([0, 0.5, 0.999].map((r) => wildLevel([3, 6], 2, () => r))).toEqual([3, 5, 5]);
     expect(wildLevel([20, 25], 30, () => 0)).toBe(28);
   });
+
+  it("the age band shifts it (5.5): ages 5-7 one level lower, 8-10 the same, 11-14 one higher", () => {
+    // the zone's 5 to 20 range, a partner of level 10: the window is 8 to 13, moved by the shift
+    expect([-1, 0, 1].map((shift) => wildLevel([5, 20], 10, () => 0.999, shift))).toEqual([12, 13, 14]);
+    expect([-1, 0, 1].map((shift) => wildLevel([3, 6], 10, () => 0, shift))).toEqual([7, 8, 9]);
+  });
 });

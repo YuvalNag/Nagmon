@@ -5,6 +5,8 @@ import type { Profile, ProfileStore } from "../../core/family/profiles";
 import { crumb } from "../../core/game/breadcrumb";
 import { FieldLog } from "../../core/game/fieldLog";
 import { pages } from "../../core/world/dialog";
+import { ageFromProfile } from "../../core/family/age";
+import { bandOf, LEVEL_SHIFT } from "../../core/game/battleNumbers";
 import { EventRunner, type EventHost, type Found, type ScreenKind } from "../../core/world/events";
 import type { WorldMap } from "../../core/world/mapData";
 import { QuizSession } from "../../core/world/quiz";
@@ -536,7 +538,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     if (!play || !world || !encounters || held || menuOpen) return;
     const mine = partnerOf(play.world);
     if (!mine) return;
-    const wild = encounters.step(world, x, y, mine.level);
+    const wild = encounters.step(world, x, y, mine.level, LEVEL_SHIFT[bandOf(ageFromProfile(play.profile, new Date()))]);
     if (!wild) return;
     dpad.clear();
     setBattle({ wild, map: world.name });
