@@ -425,7 +425,7 @@ button[aria-pressed="true"].toggle {
 .review-field {
   flex: 1;
   min-width: 0;
-  min-height: calc(var(--touch) * 1.5);
+  height: calc(var(--touch) * 2.1);
   padding: calc(var(--gap) / 2) var(--gap);
   font: inherit;
   font-size: calc(var(--text) * 1.1);
@@ -447,7 +447,17 @@ button[aria-pressed="true"].toggle {
 
 .review-edit .message {
   margin: 0;
-  min-height: 1.35em;
+}
+
+.review-edit .message:empty {
+  display: none;
+}
+
+/* the keyboard is open (about half of the landscape phone): the field and its two buttons first */
+@media (max-height: 300px) {
+  .review-edit .review-ctx {
+    display: none;
+  }
 }
 
 .review-done {

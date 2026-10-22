@@ -278,21 +278,24 @@ export class FieldData {
     try {
       if (!store || !(await this.reportsAuto())) return "off";
       if (this.#sending) return "queued";
-      const waiting = await store.unsent();
-      if (waiting.length === 0) return "sent";
       const token = await this.token();
       if (token === null) return "off";
       this.#sending = true;
       try {
-        // one folder a second at most: two sends in one second must not share a path
-        this.#lastReviewAt = Math.max(this.#clock(), this.#lastReviewAt + 1000);
-        const path = reviewPath(await this.installId(), new Date(this.#lastReviewAt));
-        const content = await this.clean(decisionsFile(waiting), { names: false });
-        const result = await this.client(token).put(path, content, "Field data: review");
-        this.#log(`Upload of review: ${result.code}`);
-        if (result.code !== "ok") return "queued";
-        await store.markSent(waiting);
-        return "sent";
+        // decisions made while an upload runs go in the next round, a few rounds at most
+        for (let round = 0; round < 3; round++) {
+          const waiting = await store.unsent();
+          if (waiting.length === 0) return "sent";
+          // one folder a second at most: two sends in one second must not share a path
+          this.#lastReviewAt = Math.max(this.#clock(), this.#lastReviewAt + 1000);
+          const path = reviewPath(await this.installId(), new Date(this.#lastReviewAt));
+          const content = await this.clean(decisionsFile(waiting), { names: false });
+          const result = await this.client(token).put(path, content, "Field data: review");
+          this.#log(`Upload of review: ${result.code}`);
+          if (result.code !== "ok") return "queued";
+          await store.markSent(waiting);
+        }
+        return (await store.waiting()) === 0 ? "sent" : "queued";
       } finally {
         this.#sending = false;
       }

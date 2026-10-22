@@ -77,9 +77,23 @@ export function ReviewPage({ store, deliver, names, loadItems = () => loadReview
   const seen = progress(list, decisions, filter);
   const skipped = list.filter((i) => decisionFor(i, decisions)?.action === "skip").length;
 
+  // one upload at a time; a decision made meanwhile asks for one more round
+  const sending = useRef(false);
+  const again = useRef(false);
   const send = useCallback(async () => {
-    const result = await deliver();
-    setState(result);
+    if (sending.current) {
+      again.current = true;
+      return;
+    }
+    sending.current = true;
+    try {
+      do {
+        again.current = false;
+        setState(await deliver());
+      } while (again.current);
+    } finally {
+      sending.current = false;
+    }
     setWaiting(await store.waiting());
   }, [deliver, store]);
 
@@ -198,7 +212,7 @@ export function ReviewPage({ store, deliver, names, loadItems = () => loadReview
                 aria-label={t("reviewEditLabel")}
                 lang="he"
                 dir="rtl"
-                rows={3}
+                rows={2}
                 defaultValue={item.he}
                 autoCapitalize="none"
                 autoComplete="off"

@@ -590,7 +590,9 @@ def apply(
         elif did in done:
             refuse(did, "decided twice in one file")
         elif d.get("baseHash") != item.hash:
-            refuse(did, "the line has changed since: its hash is not the baseHash")
+            refuse(
+                did, "the line has changed since: its hash is not the baseHash"
+            )
         elif action == "approve":
             accept(did, item.he)
         else:

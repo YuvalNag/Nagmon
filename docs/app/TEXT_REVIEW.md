@@ -157,6 +157,7 @@ uploads (keys and children's names are removed).
 ## 9. Deferred
 
 - items whose source is twinned: `item_*` UI keys (economy YAML), `i18nEvolution.ts` (`.po` catalogue);
+- real-device check of the keyboard (the e2e shrinks the viewport to 230 px high to stand in for it);
 - Hebrew in learning content (`mods/nagmon/learning`: questions, passages), the moves and the battle texts;
 - an "undo" for a decision already sent;
 - showing the parent a whole conversation (greeting, topic, farewell) in order.
