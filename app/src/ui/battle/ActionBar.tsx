@@ -135,13 +135,12 @@ export function ActionBar(p: ActionBarProps) {
                       {TIER_ICON[c.move.tier] ?? "⭐"}
                     </span>
                   )}
-                  <Dots left={c.left} max={c.max} />
+                  {c.why && c.why !== "charges" ? <span className="why">{t(c.why === "yawn" ? "battleWhyYawn" : c.why === "dizzy" ? "battleWhyDizzy" : "battleWhyEcho")}</span> : <Dots left={c.left} max={c.max} />}
                   {moveGlyph(c.move) && <span className="glyph">{moveGlyph(c.move)}</span>}
                   {c.hit === "sparkle" && <span className="mark sparkle">✨</span>}
                   {c.hit === "sturdy" && <span className="mark sturdy">🛡️</span>}
                 </span>
                 {c.move.tier === "W" && <small className="card-note">{t("battleWiggleNote")}</small>}
-                {c.why && c.why !== "charges" && <small className="card-note why">{t(c.why === "yawn" ? "battleWhyYawn" : c.why === "dizzy" ? "battleWhyDizzy" : "battleWhyEcho")}</small>}
               </Tap>
             );
           })}

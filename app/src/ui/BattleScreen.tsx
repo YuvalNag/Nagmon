@@ -370,7 +370,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     myEffects(round)
       .filter((e) => e.kind !== "spark")
       .slice(0, 3)
-      .map((e) => ({ id: ++fxId.current, on: e.on, kind: e.kind as Aura["kind"], glyph: e.kind === "status" && e.status ? (STATUS_GLYPH[e.status] ?? "💫") : AURA_GLYPH[e.kind] }));
+      .map((e) => ({ id: ++fxId.current, on: e.on, kind: e.kind as Aura["kind"], glyph: e.kind === "status" && e.status ? (STATUS_GLYPH[e.status] ?? "💫") : AURA_GLYPH[e.kind], ...(e.kind === "heal" && e.amount ? { amount: e.amount } : {}) }));
 
   /**
    * Plays a round in order (9.1): our beat (the answer's result line shows with it), the enemy's, the end of the
@@ -846,7 +846,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
               onResult={onResult}
               onClose={afterQuestion}
               onPhase={lookChanged}
-              cast={{ name: cast.move.he, subject: cast.move.subject !== "any" ? subjectTitle(cast.move.subject) : "", icon: subjectIcon(cast.move.subject), color: subjectColor(cast.move.subject) }}
+              cast={{ name: cast.move.tier === "F" ? `${t("battleFinale")} ${Math.min(3, (battle.finale?.step ?? 0) + 1)}/3` : cast.move.he, subject: cast.move.subject !== "any" ? subjectTitle(cast.move.subject) : "", icon: subjectIcon(cast.move.subject), color: subjectColor(cast.move.subject) }}
             />
           </div>
         )}

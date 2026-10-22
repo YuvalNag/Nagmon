@@ -5,7 +5,7 @@ import * as fx from "./fx";
 /**
  * One effect of the art manifest (game/art/manifest.json: `fx_attack_<subject>`, `fx_effect_hit`, `fx_effect_heal`,
  * with their `_add` additive twins): a sheet of 8 frames (4 x 2, 320 px each) played once over a spot of the arena
- * with the Web Animations API (src/ui/battle/fx.ts). The additive sheet glows over the picture (`screen`). The calm
+ * with the Web Animations API (src/ui/battle/fx.ts). The calm
  * switch plays one still frame that fades in and out. It removes itself when it is done. Never a flash: one soft
  * fade, 560 ms.
  */
@@ -42,7 +42,7 @@ export function SpriteFx({ id, calm, at, delay = 0, size = 120, tint }: Props) {
   const [gone, setGone] = useState(false);
   let url = "";
   try {
-    url = artUrl(`${id}_add`);
+    url = artUrl(id);
   } catch {
     url = "";
   }

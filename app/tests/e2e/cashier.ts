@@ -42,7 +42,7 @@ export const TODAY = `(() => { const d = new Date(); const p = (n) => String(n).
  */
 export async function seedChild(
   page: Page,
-  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number>, creatures = null as null | Record<string, unknown>[], battleScale = 0.1, battleStart = {} as Record<string, number> } = {},
+  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number>, creatures = null as null | Record<string, unknown>[], battleScale = 0.1, battleStart = {} as Record<string, number | string> } = {},
 ) {
   await page.addInitScript(
     ({ grade, settings, world, seed, pid, today, intro, battle, items, creatures, battleScale, battleStart }) => {

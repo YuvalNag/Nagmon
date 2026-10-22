@@ -40,6 +40,8 @@ export interface Aura {
   on: "me" | "them";
   kind: "heal" | "shield" | "boost" | "weaken" | "regen" | "cleanse" | "mirror" | "focus" | "status" | "mark" | "reveal" | "swap_boosts" | "echo" | "resist";
   glyph: string;
+  /** A number beside the glyph (a heal's "+n"). */
+  amount?: number;
 }
 
 /** What the enemy did this round, played on the partner: a Puff, a Giggle, a Silly Dance. Each gets a new `id`. */
@@ -398,6 +400,11 @@ export function Stage(p: Props) {
           {a.kind === "heal" && a.on === "me" && !p.calm && <SpriteFx id="fx_effect_heal" calm={false} at={{ left: 20, top: 52 }} size={130} />}
           <span className="aura-glyph" style={{ left: a.on === "me" ? "20%" : "75%" }}>
             {a.glyph}
+            {a.amount ? (
+              <span className="aura-n" dir="ltr">
+                {a.kind === "heal" ? `+${a.amount}` : a.amount}
+              </span>
+            ) : null}
           </span>
         </div>
       ))}

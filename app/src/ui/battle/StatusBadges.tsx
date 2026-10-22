@@ -25,12 +25,12 @@ interface Props {
 export function StatusBadges({ badges, look, side }: Props) {
   if (badges.length === 0) return null;
   return (
-    <ul className="badges" data-side={side} data-id={`badges_${side}`} aria-label={t("statusLabel", { name: "" }).trim()}>
+    <div className="badges" data-side={side} data-id={`badges_${side}`} role="group" aria-label={t("statusLabel", { name: "" }).trim()}>
       {badges.map((b, i) => {
         const hex = b.id === "mark" && b.variant ? subjectColor(b.variant) : look.hex(b.id);
         const name = look.name(b.id) + (b.variant ? ` (${b.id === "mark" ? look.subject(b.variant) : look.stat(b.variant)})` : "");
         return (
-          <li key={`${b.id}-${b.variant ?? ""}-${i}`} className="badge" data-status={b.id} data-n={b.n ?? 0} data-locked={!!b.locked} style={{ ["--badge" as string]: hex }} role="img" aria-label={t("statusLabel", { name })} title={name}>
+          <span key={`${b.id}-${b.variant ?? ""}-${i}`} className="badge" data-status={b.id} data-n={b.n ?? 0} data-locked={!!b.locked} style={{ ["--badge" as string]: hex }} role="img" aria-label={t("statusLabel", { name })} title={name}>
             <span className="badge-glyph" aria-hidden="true">
               {STATUS_GLYPH[b.id] ?? "•"}
             </span>
@@ -44,9 +44,9 @@ export function StatusBadges({ badges, look, side }: Props) {
                 🔒
               </span>
             )}
-          </li>
+          </span>
         );
       })}
-    </ul>
+    </div>
   );
 }

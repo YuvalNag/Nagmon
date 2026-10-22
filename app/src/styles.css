@@ -3436,8 +3436,8 @@ button.zone {
 
 .wake-tap {
   position: absolute;
-  left: 6%;
-  bottom: calc(var(--bar-h) + 8px);
+  left: 25%;
+  bottom: calc(var(--bar-h) + 30px);
   z-index: 3;
   width: 56px;
   height: 56px;
@@ -3456,7 +3456,6 @@ button.zone {
   position: absolute;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  mix-blend-mode: screen;
 }
 
 .sprite-sheet {
@@ -3503,7 +3502,14 @@ button.zone {
 }
 
 .move-card .glyph {
-  font-size: 1.1em;
+  font-size: 0.95em;
+  line-height: 1;
+  display: inline-block;
+  max-height: 1.25em;
+}
+
+.move-card .card-meta .why {
+  font-weight: 700;
 }
 
 .move-card .card-note.why {
@@ -3550,4 +3556,12 @@ button.zone {
 
 .battle[data-calm-fx="true"] .finale-pill.pulse {
   animation: none;
+}
+
+.fx-layer.aura .aura-n {
+  margin-inline-start: 4px;
+  font-size: 0.8em;
+  font-weight: 800;
+  color: #b8f0c0;
+  text-shadow: 0 0 3px #1c283a, 2px 2px 0 #1c283a, -2px -2px 0 #1c283a;
 }
