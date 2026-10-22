@@ -1,0 +1,332 @@
+# Nagmon learning content - hebrew / vocab (grades 3): synonyms, homonyms, proverbs and idioms, figurative language, register
+# Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
+# Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
+# Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
+
+skill: hebrew.vocab.synonyms
+items:
+- id: heb.syn.001
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזו מילה דומה במשמעות ל"שמח"?
+  prompt_en: Which word is close in meaning to "same'ach" (happy)?
+  choices:
+  - {he: עצוב, en: sad}
+  - {he: עייף, en: tired}
+  - {he: עליז, en: cheerful}
+  answer: 2
+  explanation_he: 'שמח ועליז אומרים כמעט אותו דבר: מישהו שנהנה ומרגיש טוב. עצוב הוא ההפך, ועייף הוא משהו אחר.'
+  explanation_en: 'Happy and cheerful mean almost the same: someone who feels good. Sad is the opposite.'
+  tags: [synonyms]
+- id: heb.syn.002
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזו מילה דומה במשמעות ל"מהיר"?
+  prompt_en: Which word is close in meaning to "mahir" (fast)?
+  choices:
+  - {he: זריז, en: quick}
+  - {he: איטי, en: slow}
+  - {he: כבד, en: heavy}
+  answer: 0
+  explanation_he: 'מהיר וזריז הם מילים נרדפות: שניהם אומרים שמשהו קורה בלי לבזבז זמן. איטי הוא ההפך.'
+  explanation_en: 'Fast and quick are synonyms: both mean no time is wasted. Slow is the opposite.'
+  tags: [synonyms]
+- id: heb.syn.003
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזו מילה דומה במשמעות ל"קטן מאוד"?
+  prompt_en: Which word is close in meaning to "very small"?
+  choices:
+  - {he: עצום, en: huge}
+  - {he: זעיר, en: tiny}
+  - {he: צר, en: narrow}
+  answer: 1
+  explanation_he: 'זעיר פירושו קטן מאוד. עצום הוא ההפך: גדול מאוד.'
+  explanation_en: '"Za''ir" means very small. "Atsum" is the opposite: very big.'
+  tags: [synonyms]
+- id: heb.syn.004
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזו מילה דומה במשמעות ל"יפה"?
+  prompt_en: Which word is close in meaning to "yafe" (beautiful)?
+  choices:
+  - {he: מוזר, en: strange}
+  - {he: מקסים, en: lovely}
+  - {he: חזק, en: strong}
+  answer: 1
+  explanation_he: יפה ומקסים אומרים שמשהו נעים לעין או ללב. מוזר וחזק אומרים דברים אחרים.
+  explanation_en: Beautiful and lovely both say something is pleasant to see. Strange and strong mean other things.
+  tags: [synonyms]
+- id: heb.syn.005
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזו מילה דומה במשמעות ל"לדבר"?
+  prompt_en: Which word is close in meaning to "ledaber" (to talk)?
+  choices:
+  - {he: לשוחח, en: to chat}
+  - {he: לשתוק, en: to be silent}
+  - {he: לשבת, en: to sit}
+  answer: 0
+  explanation_he: לדבר ולשוחח אומרים כמעט אותו דבר. לשתוק הוא ההפך.
+  explanation_en: To talk and to chat mean almost the same. To be silent is the opposite.
+  tags: [synonyms]
+- id: heb.syn.006
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזו מילה דומה במשמעות ל"לסיים"?
+  prompt_en: Which word is close in meaning to "lesayem" (to finish)?
+  choices:
+  - {he: להתחיל, en: to start}
+  - {he: להמשיך, en: to continue}
+  - {he: לגמור, en: to end}
+  answer: 2
+  explanation_he: 'לסיים ולגמור הן מילים נרדפות. להתחיל הוא ההפך, ולהמשיך הוא עוד משהו אחר.'
+  explanation_en: To finish and to end are synonyms. To start is the opposite.
+  tags: [synonyms]
+- id: heb.syn.007
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזו מילה דומה במשמעות ל"לקנות"?
+  prompt_en: Which word is close in meaning to "liknot" (to buy)?
+  choices:
+  - {he: למכור, en: to sell}
+  - {he: לרכוש, en: to purchase}
+  - {he: להשאיר, en: to leave}
+  answer: 1
+  explanation_he: 'לקנות ולרכוש הן מילים נרדפות: נותנים כסף ומקבלים משהו. למכור הוא ההפך.'
+  explanation_en: 'To buy and to purchase are synonyms: you give money and get something. To sell is the opposite.'
+  tags: [synonyms]
+- id: heb.syn.008
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: איזו מילה דומה במשמעות ל"לברוח"?
+  prompt_en: Which word is close in meaning to "liv'roach" (to run away)?
+  choices:
+  - {he: להימלט, en: to escape}
+  - {he: להישאר, en: to stay}
+  - {he: להתקרב, en: to come closer}
+  answer: 0
+  explanation_he: לברוח ולהימלט פירושם ללכת מהר ממקום מסוכן. להישאר הוא ההפך.
+  explanation_en: To run away and to escape both mean to leave a dangerous place quickly. To stay is the opposite.
+  tags: [synonyms]
+- id: heb.syn.009
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: איזו מילה דומה במשמעות ל"פחד"?
+  prompt_en: Which word is close in meaning to "pachad" (fear)?
+  choices:
+  - {he: צחוק, en: laughter}
+  - {he: כבוד, en: respect}
+  - {he: חשש, en: worry}
+  answer: 2
+  explanation_he: 'פחד וחשש הן תחושות דומות: מרגישים שמשהו רע עלול לקרות. החשש קטן מהפחד.'
+  explanation_en: 'Fear and worry are similar feelings: you feel something bad might happen. Worry is smaller than fear.'
+  tags: [synonyms]
+- id: heb.syn.010
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: איזו מילה דומה במשמעות ל"חכם"?
+  prompt_en: Which word is close in meaning to "chacham" (clever)?
+  choices:
+  - {he: נבון, en: wise}
+  - {he: עצלן, en: lazy}
+  - {he: סקרן, en: curious}
+  answer: 0
+  explanation_he: חכם ונבון אומרים שהאדם מבין היטב וחושב טוב. עצלן וסקרן מתארים תכונות אחרות.
+  explanation_en: Clever and wise say a person understands well and thinks well. Lazy and curious are other traits.
+  tags: [synonyms]
+- id: heb.syn.011
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: איזו מילה דומה במשמעות ל"רכב"?
+  prompt_en: Which word is close in meaning to "rechev" (vehicle)?
+  choices:
+  - {he: שביל, en: path}
+  - {he: מכונית, en: car}
+  - {he: רמזור, en: traffic light}
+  answer: 1
+  explanation_he: 'מכונית היא סוג של רכב, ובשפה היומיומית אומרים כמעט אותו דבר. שביל ורמזור הם דברים אחרים.'
+  explanation_en: 'A car is a kind of vehicle, and in everyday speech they are almost the same. A path and a traffic light are something else.'
+  tags: [synonyms]
+- id: heb.syn.012
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: 'אפשר להחליף את המילה "הרגיש" במשפט "הילד הרגיש עצוב" במילה:'
+  prompt_en: Which word can replace "hargish" (felt) in "The boy felt sad"?
+  choices:
+  - {he: שר, en: sang}
+  - {he: רץ, en: ran}
+  - {he: חש, en: felt}
+  answer: 2
+  explanation_he: 'חש והרגיש הן מילים נרדפות: שתיהן מספרות מה קורה בתוך הלב. שר ורץ הם מעשים.'
+  explanation_en: Both words tell what happens inside the heart. Singing and running are actions.
+  tags: [synonyms]
+- id: heb.syn.013
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזו מילה אינה נרדפת לשאר?
+  prompt_en: Which word is not a synonym of the others?
+  choices:
+  - {he: מהיר, en: fast}
+  - {he: איטי, en: slow}
+  - {he: זריז, en: quick}
+  answer: 1
+  explanation_he: 'מהיר וזריז אומרים שמשהו קורה מהר. איטי הוא ההפך משניהם, ולכן הוא לא שייך.'
+  explanation_en: 'Fast and quick both mean speedy. Slow is the opposite of both, so it does not belong.'
+  tags: [synonyms]
+- id: heb.syn.014
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזו מילה אינה נרדפת לשאר?
+  prompt_en: Which word is not a synonym of the others?
+  choices:
+  - {he: עצוב, en: sad}
+  - {he: שמח, en: happy}
+  - {he: עליז, en: cheerful}
+  answer: 0
+  explanation_he: 'שמח ועליז הן רגשות טובים דומים. עצוב הוא רגש הפוך, ולכן הוא לא שייך.'
+  explanation_en: 'Happy and cheerful are similar good feelings. Sad is the opposite feeling, so it does not belong.'
+  tags: [synonyms]
+- id: heb.syn.015
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: איזו מילה אינה נרדפת לשאר?
+  prompt_en: Which word is not a synonym of the others?
+  choices:
+  - {he: קטן, en: small}
+  - {he: זעיר, en: tiny}
+  - {he: ענק, en: giant}
+  answer: 2
+  explanation_he: 'קטן וזעיר אומרים שמשהו לא גדול. ענק הוא גדול מאוד, ולכן הוא לא שייך.'
+  explanation_en: 'Small and tiny both say something is not big. Giant means very big, so it does not belong.'
+  tags: [synonyms]
+- id: heb.syn.016
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה זוג הוא מילים נרדפות?
+  prompt_en: Which pair are synonyms?
+  choices:
+  - {he: לסיים - לגמור, en: to finish - to end}
+  - {he: לבנות - להרוס, en: to build - to destroy}
+  - {he: לפתוח - לסגור, en: to open - to close}
+  answer: 0
+  explanation_he: לסיים ולגמור אומרים אותו דבר. בשני הזוגות האחרים המילים הפוכות במשמעותן.
+  explanation_en: To finish and to end mean the same. In the other pairs the words are opposites.
+  tags: [synonyms]
+- id: heb.syn.017
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: איזה זוג הוא מילים נרדפות?
+  prompt_en: Which pair are synonyms?
+  choices:
+  - {he: מהר - לאט, en: fast - slowly}
+  - {he: חם - קר, en: hot - cold}
+  - {he: מהר - בזריזות, en: fast - quickly}
+  answer: 2
+  explanation_he: מהר ובזריזות אומרים אותו דבר. בשני הזוגות האחרים המילים הפוכות.
+  explanation_en: '"Fast" and "quickly" say the same. In the other pairs the words are opposites.'
+  tags: [synonyms]
+- id: heb.syn.018
+  skill: hebrew.vocab.synonyms
+  kind: true_false
+  grade: 3
+  difficulty: -1.0
+  prompt_he: המילים "לגמור" ו"לסיים" דומות במשמעות.
+  prompt_en: The words "ligmor" and "lesayem" are close in meaning.
+  answer: true
+  explanation_he: 'שתיהן אומרות שמשהו הגיע לסופו: אפשר לומר "גמרתי לאכול" או "סיימתי לאכול".'
+  explanation_en: 'Both say that something has come to its end: "I finished eating" either way.'
+  tags: [synonyms]
+- id: heb.syn.019
+  skill: hebrew.vocab.synonyms
+  kind: true_false
+  grade: 3
+  difficulty: -1.0
+  prompt_he: המילים "חם" ו"קר" דומות במשמעות.
+  prompt_en: The words "cham" and "kar" (hot and cold) are close in meaning.
+  answer: false
+  explanation_he: 'חם וקר הפוכים זה מזה. מילים נרדפות הן מילים שאומרות כמעט אותו דבר, כמו "חם" ו"לוהט".'
+  explanation_en: 'Hot and cold are opposites. Synonyms say almost the same thing, like "hot" and "burning".'
+  tags: [synonyms]
+- id: heb.syn.020
+  skill: hebrew.vocab.synonyms
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: המילים "קטן" ו"זעיר" דומות במשמעות.
+  prompt_en: The words "katan" and "za'ir" are close in meaning.
+  answer: true
+  explanation_he: 'זעיר הוא קטן מאוד, ולכן המילים קרובות. מילים נרדפות לא תמיד זהות לגמרי, אבל קרובות.'
+  explanation_en: 'Za''ir means very small, so the words are close. Synonyms are not always identical, only close.'
+  tags: [synonyms]
+- id: heb.syn.021
+  skill: hebrew.vocab.synonyms
+  kind: true_false
+  grade: 3
+  difficulty: 0.5
+  prompt_he: המילים "לרוץ" ו"ללכת" נרדפות לגמרי.
+  prompt_en: 'The words "larutz" and "lalechet" (to run, to walk) are fully synonymous.'
+  answer: false
+  explanation_he: 'רצים מהר יותר מהולכים. שתי המילים קשורות, אבל הן לא אומרות אותו דבר.'
+  explanation_en: 'Running is faster than walking. The words are related, but they do not say the same thing.'
+  tags: [synonyms]
+- id: heb.syn.022
+  skill: hebrew.vocab.synonyms
+  kind: true_false
+  grade: 3
+  difficulty: 1.0
+  prompt_he: המילים "ילדה" ו"בת" לפעמים אומרות אותו דבר.
+  prompt_en: The words "yalda" and "bat" sometimes mean the same.
+  answer: true
+  explanation_he: 'אפשר לומר "ילדה קטנה" או "בת קטנה". בהקשרים אחרים "בת" היא הבת של ההורים, ולכן הן לא תמיד זהות.'
+  explanation_en: You can say "little girl" in both ways. In other contexts "bat" means a parent's daughter.
+  tags: [synonyms]
+- id: heb.syn.023
+  skill: hebrew.vocab.synonyms
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מה פירוש המילה "זעיר"?
+  prompt_en: What does "za'ir" mean?
+  choices:
+  - {he: מהיר מאוד, en: very fast}
+  - {he: קטן מאוד, en: very small}
+  - {he: חזק מאוד, en: very strong}
+  answer: 1
+  explanation_he: 'זעיר פירושו קטן מאוד, למשל "נמלה זעירה".'
+  explanation_en: '"Za''ir" means very small, for example "a tiny ant".'
+  tags: [synonyms]

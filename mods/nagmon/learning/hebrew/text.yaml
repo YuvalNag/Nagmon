@@ -1,0 +1,362 @@
+# Nagmon learning content - hebrew / text (grades 3): sentence types, punctuation, text types, text analysis, argument
+# Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
+# Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
+# Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
+
+skill: hebrew.text.sentence_types
+items:
+- id: heb.stype.001
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזה סוג משפט זה? "הילדים הולכים לים."
+  prompt_en: What kind of sentence is this? "The children are going to the sea."
+  choices:
+  - {he: משפט שאלה, en: question}
+  - {he: משפט ציווי, en: command}
+  - {he: משפט סיפורי, en: statement}
+  answer: 2
+  explanation_he: 'המשפט מספר משהו, ולכן הוא משפט סיפורי. הוא נגמר בנקודה.'
+  explanation_en: 'The sentence tells something, so it is a statement. It ends with a period.'
+  tags: [sentence_types]
+- id: heb.stype.002
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזה סוג משפט זה? "מתי נצא לטיול?"
+  prompt_en: What kind of sentence is this? "When will we go on the trip?"
+  choices:
+  - {he: משפט שאלה, en: question}
+  - {he: משפט סיפורי, en: statement}
+  - {he: משפט קריאה, en: exclamation}
+  answer: 0
+  explanation_he: 'המשפט שואל משהו וגם נגמר בסימן שאלה, ולכן הוא משפט שאלה.'
+  explanation_en: 'The sentence asks something and ends with a question mark, so it is a question.'
+  tags: [sentence_types]
+- id: heb.stype.003
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'איזה סוג משפט זה? "סגור את הדלת, בבקשה."'
+  prompt_en: 'What kind of sentence is this? "Close the door, please."'
+  choices:
+  - {he: משפט סיפורי, en: statement}
+  - {he: משפט ציווי, en: command}
+  - {he: משפט שאלה, en: question}
+  answer: 1
+  explanation_he: 'המשפט מבקש מאדם לעשות משהו. משפט כזה נקרא משפט ציווי, גם כשמבקשים יפה.'
+  explanation_en: 'The sentence asks someone to do something. That is a command, even when asked politely.'
+  tags: [sentence_types]
+- id: heb.stype.004
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזה סוג משפט זה? "איזה יום יפה!"
+  prompt_en: What kind of sentence is this? "What a beautiful day!"
+  choices:
+  - {he: משפט סיפורי, en: statement}
+  - {he: משפט ציווי, en: command}
+  - {he: משפט קריאה, en: exclamation}
+  answer: 2
+  explanation_he: 'המשפט מביע התפעלות ונגמר בסימן קריאה, ולכן הוא משפט קריאה.'
+  explanation_en: 'The sentence shows excitement and ends with an exclamation mark, so it is an exclamation.'
+  tags: [sentence_types]
+- id: heb.stype.005
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה סוג משפט זה? "שבו במקומות."
+  prompt_en: What kind of sentence is this? "Sit in your places."
+  choices:
+  - {he: משפט ציווי, en: command}
+  - {he: משפט סיפורי, en: statement}
+  - {he: משפט קריאה, en: exclamation}
+  answer: 0
+  explanation_he: 'אומרים לכם מה לעשות, ולכן זה משפט ציווי.'
+  explanation_en: 'You are told what to do, so this is a command.'
+  tags: [sentence_types]
+- id: heb.stype.006
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה סוג משפט זה? "כמה גדול הפיל הזה!"
+  prompt_en: What kind of sentence is this? "How big this elephant is!"
+  choices:
+  - {he: משפט שאלה, en: question}
+  - {he: משפט קריאה, en: exclamation}
+  - {he: משפט סיפורי, en: statement}
+  answer: 1
+  explanation_he: 'המשפט אינו שואל באמת. הוא מביע הפתעה, ולכן הוא משפט קריאה, וצריך לסיים אותו בסימן קריאה.'
+  explanation_en: 'It does not really ask. It shows surprise, so it is an exclamation and ends with "!".'
+  tags: [sentence_types]
+- id: heb.stype.007
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזה סוג משפט זה? "מה השעה?"
+  prompt_en: What kind of sentence is this? "What time is it?"
+  choices:
+  - {he: משפט סיפורי, en: statement}
+  - {he: משפט ציווי, en: command}
+  - {he: משפט שאלה, en: question}
+  answer: 2
+  explanation_he: 'שואלים כדי לקבל תשובה, ולכן זה משפט שאלה.'
+  explanation_en: 'We ask to get an answer, so this is a question.'
+  tags: [sentence_types]
+- id: heb.stype.008
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה סוג משפט זה? "אמא הכינה עוגה."
+  prompt_en: What kind of sentence is this? "Mom made a cake."
+  choices:
+  - {he: משפט סיפורי, en: statement}
+  - {he: משפט קריאה, en: exclamation}
+  - {he: משפט ציווי, en: command}
+  answer: 0
+  explanation_he: 'המשפט מספר מה קרה, בלי לשאול ובלי לבקש. לכן הוא משפט סיפורי.'
+  explanation_en: 'The sentence tells what happened, without asking or requesting. So it is a statement.'
+  tags: [sentence_types]
+- id: heb.stype.009
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: איזה סוג משפט זה? "אל תיגע בכיריים."
+  prompt_en: What kind of sentence is this? "Do not touch the stove."
+  choices:
+  - {he: משפט סיפורי, en: statement}
+  - {he: משפט ציווי, en: command}
+  - {he: משפט שאלה, en: question}
+  answer: 1
+  explanation_he: 'גם כשאומרים "אל" ולא לעשות משהו, זה משפט ציווי.'
+  explanation_en: 'Even when we say not to do something, it is a command.'
+  tags: [sentence_types]
+- id: heb.stype.010
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה סוג משפט זה? "איפה הכובע שלי?"
+  prompt_en: What kind of sentence is this? "Where is my hat?"
+  choices:
+  - {he: משפט קריאה, en: exclamation}
+  - {he: משפט שאלה, en: question}
+  - {he: משפט סיפורי, en: statement}
+  answer: 1
+  explanation_he: 'המילה "איפה" פותחת שאלה, ובסוף המשפט יש סימן שאלה.'
+  explanation_en: 'The word "where" starts a question, and the sentence ends with a question mark.'
+  tags: [sentence_types]
+- id: heb.stype.011
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'איזה סוג משפט זה? "וואו, איזה ציור מקסים!"'
+  prompt_en: 'What kind of sentence is this? "Wow, what a lovely drawing!"'
+  choices:
+  - {he: משפט סיפורי, en: statement}
+  - {he: משפט שאלה, en: question}
+  - {he: משפט קריאה, en: exclamation}
+  answer: 2
+  explanation_he: 'המשפט מביע התפעלות, ולכן הוא משפט קריאה.'
+  explanation_en: 'The sentence shows admiration, so it is an exclamation.'
+  tags: [sentence_types]
+- id: heb.stype.012
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה סוג משפט זה? "השמש זורחת מהמזרח."
+  prompt_en: What kind of sentence is this? "The sun rises in the east."
+  choices:
+  - {he: משפט סיפורי, en: statement}
+  - {he: משפט שאלה, en: question}
+  - {he: משפט קריאה, en: exclamation}
+  answer: 0
+  explanation_he: 'המשפט מוסר עובדה, ולכן הוא משפט סיפורי.'
+  explanation_en: 'The sentence gives a fact, so it is a statement.'
+  tags: [sentence_types]
+- id: heb.stype.013
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה סוג משפט זה? "תנו לי בבקשה את הספר."
+  prompt_en: What kind of sentence is this? "Please give me the book."
+  choices:
+  - {he: משפט סיפורי, en: statement}
+  - {he: משפט קריאה, en: exclamation}
+  - {he: משפט ציווי, en: command}
+  answer: 2
+  explanation_he: 'מבקשים ממישהו לתת, ולכן זה משפט ציווי.'
+  explanation_en: 'We ask someone to give, so this is a command.'
+  tags: [sentence_types]
+- id: heb.stype.014
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזה משפט הוא משפט שאלה?
+  prompt_en: Which sentence is a question?
+  choices:
+  - {he: פתחו את החלון., en: Open the window.}
+  - {he: מי פתח את החלון?, en: Who opened the window?}
+  - {he: החלון פתוח., en: The window is open.}
+  answer: 1
+  explanation_he: רק המשפט הראשון שואל משהו. הוא מתחיל ב"מי" ונגמר בסימן שאלה.
+  explanation_en: Only the first sentence asks something. It starts with "who" and ends with a question mark.
+  tags: [sentence_types]
+- id: heb.stype.015
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה משפט הוא משפט ציווי?
+  prompt_en: Which sentence is a command?
+  choices:
+  - {he: הביאו את התיקים., en: Bring the bags.}
+  - {he: הם הביאו את התיקים., en: They brought the bags.}
+  - {he: מי הביא את התיקים?, en: Who brought the bags?}
+  answer: 0
+  explanation_he: המשפט הראשון אומר מה לעשות. בשני האחרים מספרים או שואלים.
+  explanation_en: The first tells what to do. The others tell or ask.
+  tags: [sentence_types]
+- id: heb.stype.016
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה משפט הוא משפט קריאה?
+  prompt_en: Which sentence is an exclamation?
+  choices:
+  - {he: הים כחול., en: The sea is blue.}
+  - {he: האם הים כחול?, en: Is the sea blue?}
+  - {he: כמה הים כחול!, en: How blue the sea is!}
+  answer: 2
+  explanation_he: 'רק המשפט הראשון מביע התפעלות, ולכן הוא נגמר בסימן קריאה.'
+  explanation_en: 'Only the first shows amazement, so it ends with an exclamation mark.'
+  tags: [sentence_types]
+- id: heb.stype.017
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'איזה סימן מתאים בסוף: "מי בא איתנו"?'
+  prompt_en: 'Which mark fits at the end: "Who is coming with us"?'
+  choices:
+  - {he: סימן שאלה (?), en: question mark (?)}
+  - {he: נקודה (.), en: period (.)}
+  - {he: סימן קריאה (!), en: exclamation mark (!)}
+  answer: 0
+  explanation_he: 'המשפט שואל, ולכן בסופו סימן שאלה.'
+  explanation_en: 'The sentence asks, so it ends with a question mark.'
+  tags: [sentence_types]
+- id: heb.stype.018
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'איזה סימן מתאים בסוף: "איזה כיף לשחק בים"?'
+  prompt_en: 'Which mark fits at the end: "What fun to play in the sea"?'
+  choices:
+  - {he: נקודה (.), en: period (.)}
+  - {he: סימן קריאה (!), en: exclamation mark (!)}
+  - {he: סימן שאלה (?), en: question mark (?)}
+  answer: 1
+  explanation_he: 'המשפט מביע שמחה גדולה, ולכן בסופו סימן קריאה.'
+  explanation_en: 'The sentence shows great joy, so it ends with an exclamation mark.'
+  tags: [sentence_types]
+- id: heb.stype.019
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'איזה סימן מתאים בסוף: "הכלב ישן על השטיח"?'
+  prompt_en: 'Which mark fits at the end: "The dog is sleeping on the rug"?'
+  choices:
+  - {he: סימן שאלה (?), en: question mark (?)}
+  - {he: סימן קריאה (!), en: exclamation mark (!)}
+  - {he: נקודה (.), en: period (.)}
+  answer: 2
+  explanation_he: 'המשפט מספר משהו רגיל, ולכן בסופו נקודה.'
+  explanation_en: 'The sentence tells something ordinary, so it ends with a period.'
+  tags: [sentence_types]
+- id: heb.stype.020
+  skill: hebrew.text.sentence_types
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: איך הופכים את המשפט "הילד אוכל תפוח" לשאלה?
+  prompt_en: How do you turn "The boy eats an apple" into a question?
+  choices:
+  - {he: הילד אוכל תפוח!, en: The boy eats an apple!}
+  - {he: מה הילד אוכל?, en: What does the boy eat?}
+  - {he: 'אכול תפוח, ילד.', en: 'Eat an apple, boy.'}
+  answer: 1
+  explanation_he: 'כדי לשאול משתמשים במילת שאלה כמו "מה", ובסוף שמים סימן שאלה.'
+  explanation_en: 'To ask, we use a question word like "what" and finish with a question mark.'
+  tags: [sentence_types]
+- id: heb.stype.021
+  skill: hebrew.text.sentence_types
+  kind: true_false
+  grade: 3
+  difficulty: -1.0
+  prompt_he: המשפט "מה אתה אוכל?" הוא משפט שאלה.
+  prompt_en: The sentence "What are you eating?" is a question.
+  answer: true
+  explanation_he: המשפט פותח במילת שאלה ונגמר בסימן שאלה.
+  explanation_en: It starts with a question word and ends with a question mark.
+  tags: [sentence_types]
+- id: heb.stype.022
+  skill: hebrew.text.sentence_types
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: המשפט "קחו מטרייה" הוא משפט סיפורי.
+  prompt_en: The sentence "Take an umbrella" is a statement.
+  answer: false
+  explanation_he: 'המשפט אומר לאנשים מה לעשות, ולכן הוא משפט ציווי ולא סיפורי.'
+  explanation_en: 'The sentence tells people what to do, so it is a command and not a statement.'
+  tags: [sentence_types]
+- id: heb.stype.023
+  skill: hebrew.text.sentence_types
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: משפט קריאה מביע התפעלות או רגש חזק.
+  prompt_en: An exclamation shows amazement or a strong feeling.
+  answer: true
+  explanation_he: 'משפט קריאה אומר כמה אנחנו מתפעלים, שמחים או מופתעים, ובסופו סימן קריאה.'
+  explanation_en: 'An exclamation shows how amazed, happy or surprised we are, and ends with an exclamation mark.'
+  tags: [sentence_types]
+- id: heb.stype.024
+  skill: hebrew.text.sentence_types
+  kind: true_false
+  grade: 3
+  difficulty: 0.5
+  prompt_he: כל משפט שנגמר בנקודה הוא משפט ציווי.
+  prompt_en: Every sentence that ends with a period is a command.
+  answer: false
+  explanation_he: 'רוב המשפטים עם נקודה הם משפטים סיפוריים. ציווי יכול להיגמר בנקודה, אבל זה לא תמיד כך.'
+  explanation_en: 'Most sentences with a period are statements. A command can end with a period, but not always.'
+  tags: [sentence_types]
+- id: heb.stype.025
+  skill: hebrew.text.sentence_types
+  kind: true_false
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'משפט שאלה אפשר לזהות לפי מילה כמו "מי", "מתי" או "איפה".'
+  prompt_en: 'A question can be recognised by a word like "who", "when" or "where".'
+  answer: true
+  explanation_he: 'אלה מילות שאלה. הן עוזרות לדעת שהמשפט שואל, אבל יש גם שאלות בלעדיהן, כמו "באת היום?".'
+  explanation_en: 'These are question words. They help, but some questions have none, like "Did you come today?".'
+  tags: [sentence_types]

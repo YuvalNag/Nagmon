@@ -1,0 +1,351 @@
+# Nagmon Hebrew reading passages, grade 3 (SDD_CONTENT section 5): original short texts written for this game.
+# Each passage names its skill and tags; its questions are regular bank items that inherit grade, skill and tags.
+# Hebrew only, without niqqud. The passage shows on the question screen (meta.passage_he).
+
+- id: pass3.01
+  grade: 3
+  skill: hebrew.reading.passage_3
+  tags: [passage_3]
+  title: הכובע של עומר
+  text_he: >-
+    עומר קיבל מסבתא כובע כחול. הוא אהב אותו מאוד ולבש אותו בכל יום.
+    ביום חם אחד, בדרך לבית הספר, נשבה רוח חזקה והכובע עף מהראש שלו.
+    עומר רץ אחריו עד שהכובע נתפס בענף של עץ.
+    חבר שלו, איתי, עלה על ספסל והוריד את הכובע.
+    עומר חייך ואמר: "תודה, איתי! אתה חבר טוב."
+  questions:
+    - id: heb.pass3.001
+      kind: choice
+      difficulty: -1.0
+      prompt_he: מי נתן לעומר את הכובע?
+      prompt_en: Who gave Omer the hat?
+      choices:
+      - {he: אמא, en: Mom}
+      - {he: איתי, en: Itai}
+      - {he: סבתא, en: Grandma}
+      answer: 2
+      explanation_he: 'בתחילת הקטע כתוב: "עומר קיבל מסבתא כובע כחול".'
+      explanation_en: 'The start says: "Omer got a blue hat from Grandma".'
+    - id: heb.pass3.002
+      kind: choice
+      difficulty: -1.0
+      prompt_he: איפה נתפס הכובע?
+      prompt_en: Where did the hat get stuck?
+      choices:
+      - {he: על גג של בית, en: On a roof}
+      - {he: בענף של עץ, en: On a tree branch}
+      - {he: בתוך שלולית, en: In a puddle}
+      answer: 1
+      explanation_he: כתוב שהכובע "נתפס בענף של עץ".
+      explanation_en: It says the hat "got stuck on a tree branch".
+    - id: heb.pass3.003
+      kind: choice
+      difficulty: 0.0
+      prompt_he: מה גרם לכובע לעוף?
+      prompt_en: What made the hat fly off?
+      choices:
+      - {he: רוח חזקה, en: A strong wind}
+      - {he: עומר זרק אותו, en: Omer threw it}
+      - {he: גשם כבד, en: Heavy rain}
+      answer: 0
+      explanation_he: 'כתוב: "נשבה רוח חזקה והכובע עף מהראש שלו".'
+      explanation_en: 'It says: "a strong wind blew and the hat flew off his head".'
+    - id: heb.pass3.004
+      kind: choice
+      difficulty: 0.0
+      prompt_he: איך איתי עזר לעומר?
+      prompt_en: How did Itai help Omer?
+      choices:
+      - {he: רץ אחרי הרוח, en: He ran after the wind}
+      - {he: נתן לו כובע אחר, en: He gave him another hat}
+      - {he: עלה על ספסל והוריד את הכובע, en: He stood on a bench and got the hat down}
+      answer: 2
+      explanation_he: איתי עלה על ספסל כדי להגיע לענף והוריד את הכובע.
+      explanation_en: Itai climbed on a bench to reach the branch and took the hat down.
+    - id: heb.pass3.005
+      kind: true_false
+      difficulty: 0.0
+      prompt_he: עומר כעס על איתי.
+      prompt_en: Omer was angry at Itai.
+      answer: false
+      explanation_he: עומר חייך ואמר "תודה". מי שמודה ומחייך לא כועס.
+      explanation_en: Omer smiled and said "thank you". Someone who smiles and thanks is not angry.
+- id: pass3.02
+  grade: 3
+  skill: hebrew.reading.passage_3
+  tags: [passage_3]
+  title: גינה בבית הספר
+  text_he: >-
+    בכיתה ג' החליטו התלמידים לנטוע גינה קטנה בחצר בית הספר.
+    קודם הם חפרו באדמה בעזרת כפות קטנות. אחר כך זרעו זרעים של צנוניות ושל חמניות.
+    כל יום תלמיד תורן אחר השקה את הערוגה.
+    אחרי שבועיים הציצו עלים ירוקים מתוך האדמה, והתלמידים קפצו משמחה.
+    עכשיו הם מחכים לראות מה יצמח.
+  questions:
+    - id: heb.pass3.006
+      kind: choice
+      difficulty: -1.0
+      prompt_he: מה עשו התלמידים קודם כול?
+      prompt_en: What did the pupils do first?
+      choices:
+      - {he: זרעו זרעים, en: They sowed seeds}
+      - {he: חפרו באדמה, en: They dug in the soil}
+      - {he: השקו את הערוגה, en: They watered the bed}
+      answer: 1
+      explanation_he: 'לפי הסדר בקטע: קודם חפרו, אחר כך זרעו, ואחר כך השקו.'
+      explanation_en: 'In the order of the text: first they dug, then sowed, then watered.'
+    - id: heb.pass3.007
+      kind: choice
+      difficulty: -1.0
+      prompt_he: אילו זרעים זרעו?
+      prompt_en: Which seeds did they sow?
+      choices:
+      - {he: עגבניות ופלפלים, en: Tomatoes and peppers}
+      - {he: גזר ובצל, en: Carrots and onions}
+      - {he: צנוניות וחמניות, en: Radishes and sunflowers}
+      answer: 2
+      explanation_he: 'כתוב: "זרעו זרעים של צנוניות ושל חמניות".'
+      explanation_en: 'It says: "sowed seeds of radishes and sunflowers".'
+    - id: heb.pass3.008
+      kind: choice
+      difficulty: 0.0
+      prompt_he: מי השקה את הערוגה?
+      prompt_en: Who watered the garden bed?
+      choices:
+      - {he: תלמיד תורן אחר בכל יום, en: A different pupil on duty each day}
+      - {he: המורה בלבד, en: The teacher alone}
+      - {he: שומר בית הספר, en: The school guard}
+      answer: 0
+      explanation_he: כל יום תלמיד תורן אחר השקה את הערוגה.
+      explanation_en: Each day a different pupil on duty watered the bed.
+    - id: heb.pass3.009
+      kind: choice
+      difficulty: 0.0
+      prompt_he: מה קרה אחרי שבועיים?
+      prompt_en: What happened after two weeks?
+      choices:
+      - {he: הצנוניות כבר גדלו, en: The radishes had grown}
+      - {he: עלים ירוקים הציצו מהאדמה, en: Green leaves peeked out of the soil}
+      - {he: הגינה התייבשה, en: The garden dried up}
+      answer: 1
+      explanation_he: אחרי שבועיים רק הציצו עלים ירוקים. עוד לא גדל שום דבר גדול.
+      explanation_en: After two weeks only green leaves peeked out. Nothing big had grown yet.
+    - id: heb.pass3.010
+      kind: choice
+      difficulty: -1.0
+      prompt_he: איך התלמידים הרגישו כשראו את העלים?
+      prompt_en: How did the pupils feel when they saw the leaves?
+      choices:
+      - {he: כועסים, en: Angry}
+      - {he: עייפים, en: Tired}
+      - {he: שמחים, en: Happy}
+      answer: 2
+      explanation_he: 'הם "קפצו משמחה", ולכן הם היו שמחים.'
+      explanation_en: 'They "jumped for joy", so they were happy.'
+- id: pass3.03
+  grade: 3
+  skill: hebrew.reading.passage_3
+  tags: [passage_3]
+  title: הסרטן בחוף
+  text_he: >-
+    ביום חם הלכה משפחת כהן לחוף הים.
+    דנה, בת השמונה, בנתה טירה גדולה מחול רטוב.
+    פתאום היא ראתה סרטן קטן הולך הצידה, לאט לאט.
+    הוא עצר ליד הטירה, הרים את הצבתות שלו, ואז נעלם בתוך חור קטן בחול.
+    דנה צחקה ואמרה לאחיה: "נראה שגם לסרטן יש בית!"
+  questions:
+    - id: heb.pass3.011
+      kind: choice
+      difficulty: -1.0
+      prompt_he: מה דנה בנתה?
+      prompt_en: What did Dana build?
+      choices:
+      - {he: טירה מחול, en: A sand castle}
+      - {he: סירה מנייר, en: A paper boat}
+      - {he: גשר מאבנים, en: A bridge of stones}
+      answer: 0
+      explanation_he: 'כתוב: "דנה בנתה טירה גדולה מחול רטוב".'
+      explanation_en: 'It says: "Dana built a big castle out of wet sand".'
+    - id: heb.pass3.012
+      kind: choice
+      difficulty: 0.0
+      prompt_he: איך הסרטן הלך?
+      prompt_en: How did the crab walk?
+      choices:
+      - {he: מהר קדימה, en: Fast forward}
+      - {he: הצידה ולאט, en: Sideways and slowly}
+      - {he: אחורה בקפיצות, en: Backwards in jumps}
+      answer: 1
+      explanation_he: 'הסרטן "הולך הצידה, לאט לאט".'
+      explanation_en: 'The crab was "walking sideways, slowly".'
+    - id: heb.pass3.013
+      kind: choice
+      difficulty: 0.0
+      prompt_he: לאן נעלם הסרטן?
+      prompt_en: Where did the crab disappear to?
+      choices:
+      - {he: לתוך הים, en: Into the sea}
+      - {he: מתחת לסלע, en: Under a rock}
+      - {he: לחור קטן בחול, en: Into a small hole in the sand}
+      answer: 2
+      explanation_he: כתוב שהוא נעלם "בתוך חור קטן בחול".
+      explanation_en: It says he vanished "into a small hole in the sand".
+    - id: heb.pass3.014
+      kind: choice
+      difficulty: 0.5
+      prompt_he: מה דנה התכוונה כשאמרה "גם לסרטן יש בית"?
+      prompt_en: What did Dana mean by "the crab has a home too"?
+      choices:
+      - {he: שהסרטן בנה את הטירה, en: That the crab built the castle}
+      - {he: שהחור בחול הוא הבית של הסרטן, en: That the hole in the sand is the crab's home}
+      - {he: שהיא רוצה לגור בים, en: That she wants to live in the sea}
+      answer: 1
+      explanation_he: 'הסרטן נכנס לחור, ודנה הבינה שזה המקום שבו הוא גר, כמו שלה יש בית.'
+      explanation_en: 'The crab went into the hole, and Dana understood that this is where it lives, as she has a home.'
+    - id: heb.pass3.015
+      kind: true_false
+      difficulty: 0.0
+      prompt_he: דנה פחדה מהסרטן.
+      prompt_en: Dana was afraid of the crab.
+      answer: false
+      explanation_he: דנה צחקה ודיברה עם אחיה. מי שמפחד לא צוחק.
+      explanation_en: Dana laughed and talked with her brother. Someone afraid does not laugh.
+- id: pass3.04
+  grade: 3
+  skill: hebrew.reading.passage_3
+  tags: [passage_3]
+  title: בספרייה
+  text_he: >-
+    אחרי הלימודים נכנס יובל לספרייה של השכונה.
+    הספרנית, גברת רוזן, חייכה אליו והראתה לו מדף עם ספרים על חיות.
+    יובל בחר ספר על פינגווינים וגילה שהאבא הפינגווין שומר על הביצה עד שהגוזל בוקע ממנה.
+    הוא רשם את הספר בכרטיס ההשאלה ושם אותו בתיק.
+    "אחזיר אותו בעוד שבועיים," הבטיח.
+  questions:
+    - id: heb.pass3.016
+      kind: choice
+      difficulty: -1.0
+      prompt_he: על מה היה הספר שיובל בחר?
+      prompt_en: What was the book Yuval chose about?
+      choices:
+      - {he: דובים, en: Bears}
+      - {he: פינגווינים, en: Penguins}
+      - {he: דגים, en: Fish}
+      answer: 1
+      explanation_he: 'כתוב: "יובל בחר ספר על פינגווינים".'
+      explanation_en: 'It says: "Yuval chose a book about penguins".'
+    - id: heb.pass3.017
+      kind: choice
+      difficulty: 0.0
+      prompt_he: מי שומר על הביצה לפי הספר?
+      prompt_en: 'Who guards the egg, according to the book?'
+      choices:
+      - {he: האמא הפינגווין, en: The mother penguin}
+      - {he: כל הלהקה, en: The whole flock}
+      - {he: האבא הפינגווין, en: The father penguin}
+      answer: 2
+      explanation_he: יובל גילה שהאבא הפינגווין הוא ששומר על הביצה.
+      explanation_en: Yuval found out that the father penguin is the one who guards the egg.
+    - id: heb.pass3.018
+      kind: choice
+      difficulty: 0.0
+      prompt_he: איפה רשמו את הספר?
+      prompt_en: Where was the book recorded?
+      choices:
+      - {he: בכרטיס ההשאלה, en: On the lending card}
+      - {he: במחברת של יובל, en: In Yuval's notebook}
+      - {he: בלוח הכיתה, en: On the class board}
+      answer: 0
+      explanation_he: הוא רשם את הספר בכרטיס ההשאלה.
+      explanation_en: He recorded the book on the lending card.
+    - id: heb.pass3.019
+      kind: choice
+      difficulty: -1.0
+      prompt_he: מתי יובל הבטיח להחזיר את הספר?
+      prompt_en: When did Yuval promise to return the book?
+      choices:
+      - {he: מחר, en: Tomorrow}
+      - {he: בעוד חודש, en: In a month}
+      - {he: בעוד שבועיים, en: In two weeks}
+      answer: 2
+      explanation_he: 'יובל אמר: "אחזיר אותו בעוד שבועיים".'
+      explanation_en: 'Yuval said: "I will return it in two weeks".'
+    - id: heb.pass3.020
+      kind: choice
+      difficulty: 0.5
+      prompt_he: מה אפשר להבין על הספרנית?
+      prompt_en: What can we understand about the librarian?
+      choices:
+      - {he: היא נחמדת ועוזרת לילדים, en: She is nice and helps children}
+      - {he: היא כועסת על הילדים, en: She is angry at the children}
+      - {he: היא לא אוהבת ספרים, en: She does not like books}
+      answer: 0
+      explanation_he: הספרנית חייכה והראתה ליובל איפה הספרים על חיות. מי שעושה כך נחמד ועוזר.
+      explanation_en: The librarian smiled and showed Yuval where the animal books are. Someone who does that is kind and helpful.
+- id: pass3.05
+  grade: 3
+  skill: hebrew.reading.passage_3
+  tags: [passage_3]
+  title: חיי הדבורים
+  text_he: >-
+    דבורים חיות יחד בכוורת, ובכל כוורת יש מלכה אחת.
+    הדבורים הפועלות יוצאות מהכוורת, מבקרות בפרחים ואוספות מהם צוף מתוק. בתוך הכוורת הצוף הופך לדבש.
+    כשדבורה מוצאת שדה מלא בפרחים, היא רוקדת ריקוד מיוחד כדי לספר לחברותיה איפה הוא.
+    הדבורים גם עוזרות לפרחים: כשהן עוברות מפרח לפרח הן מעבירות אבקה, וכך נוצרים פירות וזרעים.
+  questions:
+    - id: heb.pass3.021
+      kind: choice
+      difficulty: -1.0
+      prompt_he: כמה מלכות יש בכל כוורת?
+      prompt_en: How many queens are in each hive?
+      choices:
+      - {he: שתיים, en: Two}
+      - {he: אחת, en: One}
+      - {he: עשר, en: Ten}
+      answer: 1
+      explanation_he: 'כתוב: "בכל כוורת יש מלכה אחת".'
+      explanation_en: 'It says: "in each hive there is one queen".'
+    - id: heb.pass3.022
+      kind: choice
+      difficulty: 0.0
+      prompt_he: ממה הופך הדבש?
+      prompt_en: What does honey come from?
+      choices:
+      - {he: ממים ומסוכר, en: From water and sugar}
+      - {he: מצוף של פרחים, en: From the nectar of flowers}
+      - {he: מעלים ירוקים, en: From green leaves}
+      answer: 1
+      explanation_he: 'הדבורים אוספות צוף מתוק, ובכוורת הצוף הופך לדבש.'
+      explanation_en: 'The bees collect sweet nectar, and in the hive the nectar becomes honey.'
+    - id: heb.pass3.023
+      kind: choice
+      difficulty: 0.0
+      prompt_he: איך דבורה מספרת לחברותיה איפה יש פרחים?
+      prompt_en: How does a bee tell her friends where the flowers are?
+      choices:
+      - {he: היא רוקדת ריקוד מיוחד, en: She does a special dance}
+      - {he: היא משמיעה צליל חזק, en: She makes a loud sound}
+      - {he: היא משאירה פתק, en: She leaves a note}
+      answer: 0
+      explanation_he: 'הקטע אומר: "היא רוקדת ריקוד מיוחד כדי לספר".'
+      explanation_en: 'The text says: "she dances a special dance to tell".'
+    - id: heb.pass3.024
+      kind: choice
+      difficulty: 0.5
+      prompt_he: מה הדבורים מעבירות מפרח לפרח?
+      prompt_en: What do the bees carry from flower to flower?
+      choices:
+      - {he: דבש, en: Honey}
+      - {he: זרעים, en: Seeds}
+      - {he: אבקה, en: Pollen}
+      answer: 2
+      explanation_he: כשהדבורים עוברות מפרח לפרח הן מעבירות אבקה.
+      explanation_en: 'When bees go from flower to flower, they carry pollen.'
+    - id: heb.pass3.025
+      kind: true_false
+      difficulty: 0.0
+      prompt_he: 'לפי הקטע, הדבורים גרות בקן על העצים.'
+      prompt_en: 'According to the text, bees live in a nest on trees.'
+      answer: false
+      explanation_he: 'הדבורים חיות בכוורת, ולא בקן על עץ.'
+      explanation_en: 'Bees live in a hive, not in a nest on a tree.'

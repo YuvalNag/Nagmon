@@ -1,0 +1,717 @@
+# Nagmon learning content - hebrew / grammar (grades 3): parts of speech, agreement, tenses, person, subject and predicate, roots, affixes, binyanim, construct state
+# Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
+# Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
+# Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
+
+skill: hebrew.grammar.parts_of_speech
+items:
+- id: heb.pos.001
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'מה סוג המילה "ספר" במשפט: "הילדה קראה ספר"?'
+  prompt_en: 'What kind of word is "sefer" (book) in: "The girl read a book"?'
+  choices:
+  - {he: פועל, en: verb}
+  - {he: שם תואר, en: adjective}
+  - {he: שם עצם, en: noun}
+  answer: 2
+  explanation_he: 'ספר הוא דבר שאפשר להחזיק ביד, ולכן הוא שם עצם. שם עצם הוא שם של אדם, חיה, דבר או מקום.'
+  explanation_en: 'A book is a thing you can hold, so it is a noun. A noun names a person, an animal, a thing or a place.'
+  tags: [parts_of_speech]
+- id: heb.pos.002
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'מה סוג המילה "קראה" במשפט: "הילדה קראה ספר"?'
+  prompt_en: 'What kind of word is "kar''a" (read) in: "The girl read a book"?'
+  choices:
+  - {he: שם עצם, en: noun}
+  - {he: פועל, en: verb}
+  - {he: שם תואר, en: adjective}
+  answer: 1
+  explanation_he: קראה מספרת מה הילדה עושה. מילה שמספרת מה עושים או מה קורה היא פועל.
+  explanation_en: It tells what the girl does. A word that tells what someone does or what happens is a verb.
+  tags: [parts_of_speech]
+- id: heb.pos.003
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'מה סוג המילה "גדול" במשפט: "בגינה יש עץ גדול"?'
+  prompt_en: 'What kind of word is "gadol" (big) in: "There is a big tree in the garden"?'
+  choices:
+  - {he: שם תואר, en: adjective}
+  - {he: שם עצם, en: noun}
+  - {he: פועל, en: verb}
+  answer: 0
+  explanation_he: 'גדול אומר איך העץ נראה. מילה שמתארת אדם, חיה או דבר היא שם תואר.'
+  explanation_en: 'It says what the tree is like. A word that describes a person, animal or thing is an adjective.'
+  tags: [parts_of_speech]
+- id: heb.pos.004
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזו מילה במשפט "הכלב הקטן רץ בגינה" היא שם תואר?
+  prompt_en: Which word in "The small dog runs in the garden" is an adjective?
+  choices:
+  - {he: הכלב, en: the dog}
+  - {he: הקטן, en: the small}
+  - {he: רץ, en: runs}
+  answer: 1
+  explanation_he: 'הקטן מתאר את הכלב: איזה כלב? קטן. הכלב הוא שם עצם, ורץ הוא פועל.'
+  explanation_en: '"Small" describes the dog: which dog? A small one. "Dog" is a noun and "runs" is a verb.'
+  tags: [parts_of_speech]
+- id: heb.pos.005
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזו מילה במשפט "דנה שותה מיץ קר" היא פועל?
+  prompt_en: Which word in "Dana drinks cold juice" is a verb?
+  choices:
+  - {he: מיץ, en: juice}
+  - {he: קר, en: cold}
+  - {he: שותה, en: drinks}
+  answer: 2
+  explanation_he: 'שותה מספרת מה דנה עושה. מיץ הוא שם עצם, וקר הוא שם תואר.'
+  explanation_en: '"Drinks" tells what Dana does. "Juice" is a noun and "cold" is an adjective.'
+  tags: [parts_of_speech]
+- id: heb.pos.006
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזו מילה היא שם עצם?
+  prompt_en: Which word is a noun?
+  choices:
+  - {he: חלון, en: window}
+  - {he: לרקוד, en: to dance}
+  - {he: שמח, en: happy}
+  answer: 0
+  explanation_he: 'חלון הוא דבר, ולכן הוא שם עצם. לרקוד היא פועל, ושמח הוא שם תואר.'
+  explanation_en: 'A window is a thing, so it is a noun. "To dance" is a verb and "happy" is an adjective.'
+  tags: [parts_of_speech]
+- id: heb.pos.007
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזו מילה היא פועל?
+  prompt_en: Which word is a verb?
+  choices:
+  - {he: מחברת, en: notebook}
+  - {he: כותב, en: writes}
+  - {he: כחול, en: blue}
+  answer: 1
+  explanation_he: 'כותב אומר מה עושים. מחברת היא דבר, וכחול מתאר צבע.'
+  explanation_en: '"Writes" says what someone does. A notebook is a thing and blue describes a color.'
+  tags: [parts_of_speech]
+- id: heb.pos.008
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזו מילה היא שם תואר?
+  prompt_en: Which word is an adjective?
+  choices:
+  - {he: עצוב, en: sad}
+  - {he: ילד, en: boy}
+  - {he: יושב, en: sits}
+  answer: 0
+  explanation_he: 'עצוב אומר איך מישהו מרגיש או נראה. ילד הוא שם עצם, ויושב הוא פועל.'
+  explanation_en: '"Sad" says how someone feels. "Boy" is a noun and "sits" is a verb.'
+  tags: [parts_of_speech]
+- id: heb.pos.009
+  skill: hebrew.grammar.parts_of_speech
+  kind: true_false
+  grade: 3
+  difficulty: -1.0
+  prompt_he: המילה "רחוב" היא שם עצם.
+  prompt_en: The word "rehov" (street) is a noun.
+  answer: true
+  explanation_he: 'רחוב הוא מקום, ושמות של מקומות הם שמות עצם. אפשר לומר "הרחוב", ולכן ברור שזה שם.'
+  explanation_en: 'A street is a place, and names of places are nouns. You can say "the street", which shows it is a noun.'
+  tags: [parts_of_speech]
+- id: heb.pos.010
+  skill: hebrew.grammar.parts_of_speech
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: המילה "אוכלת" היא שם תואר.
+  prompt_en: The word "ochelet" (eats) is an adjective.
+  answer: false
+  explanation_he: 'אוכלת מספרת מה עושה מישהי, ולכן היא פועל. שם תואר מתאר, כמו "רעבה".'
+  explanation_en: '"Eats" tells what someone does, so it is a verb. An adjective describes, like "hungry".'
+  tags: [parts_of_speech]
+- id: heb.pos.011
+  skill: hebrew.grammar.parts_of_speech
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: המילה "צהוב" היא שם תואר.
+  prompt_en: The word "tsahov" (yellow) is an adjective.
+  answer: true
+  explanation_he: 'צהוב מתאר איזה צבע יש לדבר, כמו "בננה צהובה". מילה שמתארת היא שם תואר.'
+  explanation_en: '"Yellow" says what color a thing is, as in "a yellow banana". A describing word is an adjective.'
+  tags: [parts_of_speech]
+- id: heb.pos.012
+  skill: hebrew.grammar.parts_of_speech
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: במשפט "הציפור שרה שיר" יש שני שמות עצם.
+  prompt_en: In "The bird sang a song" there are two nouns.
+  answer: true
+  explanation_he: ציפור ושיר הם שמות עצם. המילה "שרה" היא הפועל.
+  explanation_en: '"Bird" and "song" are nouns. The word "sang" is the verb.'
+  tags: [parts_of_speech]
+- id: heb.pos.013
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'כמה פעלים יש במשפט: "אמא קוראת וסבא מצייר"?'
+  prompt_en: 'How many verbs are in: "Mom reads and Grandpa draws"?'
+  choices:
+  - {he: שניים, en: two}
+  - {he: אחד, en: one}
+  - {he: שלושה, en: three}
+  answer: 0
+  explanation_he: 'קוראת ומצייר הם פעלים, כי כל אחד מהם מספר מה עושים. אמא וסבא הם שמות עצם.'
+  explanation_en: '"Reads" and "draws" are verbs, because each tells what someone does. "Mom" and "Grandpa" are nouns.'
+  tags: [parts_of_speech]
+- id: heb.pos.014
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: באיזה משפט יש שם תואר?
+  prompt_en: Which sentence has an adjective?
+  choices:
+  - {he: הילד רץ ואוכל, en: The boy runs and eats}
+  - {he: אבא ואמא בבית, en: Dad and Mom are home}
+  - {he: התפוח אדום ומתוק, en: The apple is red and sweet}
+  answer: 2
+  explanation_he: 'במשפט הראשון "אדום" ו"מתוק" מתארים את התפוח. בשני יש פעלים, ובשלישי יש רק שמות עצם.'
+  explanation_en: 'In the first, "red" and "sweet" describe the apple. The second has verbs and the third has only nouns.'
+  tags: [parts_of_speech]
+- id: heb.pos.015
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזו מילה אינה שם עצם?
+  prompt_en: Which word is not a noun?
+  choices:
+  - {he: שמיכה, en: blanket}
+  - {he: לישון, en: to sleep}
+  - {he: כרית, en: pillow}
+  answer: 1
+  explanation_he: 'לישון אומרת מה עושים, ולכן היא פועל. שמיכה וכרית הן דברים, ולכן הן שמות עצם.'
+  explanation_en: '"To sleep" says what you do, so it is a verb. A blanket and a pillow are things, so they are nouns.'
+  tags: [parts_of_speech]
+- id: heb.pos.016
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזו מילה אינה פועל?
+  prompt_en: Which word is not a verb?
+  choices:
+  - {he: חמוד, en: cute}
+  - {he: מתרוצץ, en: runs around}
+  - {he: מחייך, en: smiles}
+  answer: 0
+  explanation_he: 'חמוד מתאר, ולכן הוא שם תואר. מתרוצץ ומחייך אומרים מה עושים, ולכן הם פעלים.'
+  explanation_en: '"Cute" describes, so it is an adjective. "Runs around" and "smiles" say what someone does, so they are verbs.'
+  tags: [parts_of_speech]
+- id: heb.pos.017
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'מה מתאים להשלים: "הילד קנה ___ חדש"?'
+  prompt_en: 'What fits: "The boy bought a new ___"?'
+  choices:
+  - {he: צוחק, en: laughs}
+  - {he: כדור, en: ball}
+  - {he: שמח, en: happy}
+  answer: 1
+  explanation_he: 'אחרי "קנה" בא דבר שקונים, ולכן צריך שם עצם: כדור. צוחק הוא פועל ושמח הוא שם תואר.'
+  explanation_en: 'After "bought" comes a thing you can buy, so a noun is needed: a ball.'
+  tags: [parts_of_speech]
+- id: heb.pos.018
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'איזו מילה מתאימה: "בחורף יש ימים ___"?'
+  prompt_en: 'Which word fits: "In winter there are ___ days"?'
+  choices:
+  - {he: גשם, en: rain}
+  - {he: לובשים, en: wear}
+  - {he: קרים, en: cold}
+  answer: 2
+  explanation_he: 'כאן צריך שם תואר שמתאר את הימים, וקרים מתאים. גשם הוא שם עצם, ולובשים הוא פועל.'
+  explanation_en: 'A describing word is needed for the days, and "cold" fits. "Rain" is a noun and "wear" is a verb.'
+  tags: [parts_of_speech]
+- id: heb.pos.019
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'איזו מילה מתאימה: "הדג ___ בים"?'
+  prompt_en: 'Which word fits: "The fish ___ in the sea"?'
+  choices:
+  - {he: כחול, en: blue}
+  - {he: גדול, en: big}
+  - {he: שוחה, en: swims}
+  answer: 2
+  explanation_he: 'במשפט חסר פועל שמספר מה הדג עושה: שוחה. כחול וגדול מתארים, אבל לא אומרים מה עושים.'
+  explanation_en: 'The sentence needs a verb that tells what the fish does: swims. "Blue" and "big" describe, they do not say what it does.'
+  tags: [parts_of_speech]
+- id: heb.pos.020
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'מה סוג המילה "ענק" במשפט: "ראינו דינוזאור ענק"?'
+  prompt_en: 'What kind of word is "anak" (giant) in: "We saw a giant dinosaur"?'
+  choices:
+  - {he: שם עצם, en: noun}
+  - {he: שם תואר, en: adjective}
+  - {he: פועל, en: verb}
+  answer: 1
+  explanation_he: 'ענק אומר איך הדינוזאור: גדול מאוד. אפשר לשאול "איזה דינוזאור?", ולכן הוא שם תואר.'
+  explanation_en: '"Giant" says what the dinosaur is like. You can ask "which dinosaur?", so it is an adjective.'
+  tags: [parts_of_speech]
+- id: heb.pos.021
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'מה סוג המילה "אור" במשפט: "האור נדלק בחדר"?'
+  prompt_en: 'What kind of word is "or" (light) in: "The light came on in the room"?'
+  choices:
+  - {he: שם עצם, en: noun}
+  - {he: פועל, en: verb}
+  - {he: שם תואר, en: adjective}
+  answer: 0
+  explanation_he: 'אור הוא שם של דבר, והוא בא עם "ה" הידיעה. הפועל במשפט הוא נדלק.'
+  explanation_en: '"Light" is the name of a thing, and it comes with "the". The verb in the sentence is "came on".'
+  tags: [parts_of_speech]
+- id: heb.pos.022
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'מה סוג המילה "מחכה" במשפט: "דני מחכה לאוטובוס"?'
+  prompt_en: 'What kind of word is "mechake" (waits) in: "Danny waits for the bus"?'
+  choices:
+  - {he: שם עצם, en: noun}
+  - {he: פועל, en: verb}
+  - {he: שם תואר, en: adjective}
+  answer: 1
+  explanation_he: 'מחכה מספרת מה דני עושה, ולכן היא פועל. דני ואוטובוס הם שמות עצם.'
+  explanation_en: '"Waits" tells what Danny does, so it is a verb. "Danny" and "bus" are nouns.'
+  tags: [parts_of_speech]
+- id: heb.pos.023
+  skill: hebrew.grammar.parts_of_speech
+  kind: true_false
+  grade: 3
+  difficulty: 0.5
+  prompt_he: במשפט "השמש החמה זורחת" המילה "החמה" היא שם תואר.
+  prompt_en: In "The warm sun shines" the word "hama" (warm) is an adjective.
+  answer: true
+  explanation_he: 'החמה מתארת את השמש: איזו שמש? חמה. "זורחת" היא הפועל.'
+  explanation_en: '"Warm" describes the sun: which sun? A warm one. "Shines" is the verb.'
+  tags: [parts_of_speech]
+- id: heb.pos.024
+  skill: hebrew.grammar.parts_of_speech
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: שם עצם אומר מה עושים.
+  prompt_en: A noun says what someone does.
+  answer: false
+  explanation_he: 'מה עושים אומר הפועל. שם עצם הוא שם של אדם, חיה, דבר או מקום.'
+  explanation_en: 'The verb says what someone does. A noun is the name of a person, an animal, a thing or a place.'
+  tags: [parts_of_speech]
+- id: heb.pos.025
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: 'כמה שמות תואר יש במשפט: "הכלב הקטן, השחור והנחמד שכב"?'
+  prompt_en: 'How many adjectives are in: "The small, black and nice dog lay down"?'
+  choices:
+  - {he: שניים, en: two}
+  - {he: ארבעה, en: four}
+  - {he: שלושה, en: three}
+  answer: 2
+  explanation_he: 'הקטן, השחור והנחמד מתארים את הכלב. הכלב הוא שם עצם, ושכב הוא פועל.'
+  explanation_en: '"Small", "black" and "nice" describe the dog. "Dog" is a noun and "lay down" is a verb.'
+  tags: [parts_of_speech]
+- id: heb.pos.026
+  skill: hebrew.grammar.parts_of_speech
+  kind: choice
+  grade: 3
+  difficulty: 1.5
+  prompt_he: באיזה משפט המילה "ספר" היא פועל?
+  prompt_en: In which sentence is "sapar" a verb?
+  choices:
+  - {he: הספר על השולחן, en: The book is on the table}
+  - {he: הוא ספר את הכסף, en: He counted the money}
+  - {he: זה ספר מעניין, en: This is an interesting book}
+  answer: 1
+  explanation_he: 'במשפט הראשון ספר הוא מה שהוא עושה: סופר. בשני האחרים ספר הוא הדבר שקוראים בו. המשפט מראה אם זה פועל או שם עצם.'
+  explanation_en: 'In the first, "sapar" is what he does: he counted. In the others it is the thing you read. The sentence shows the type.'
+  tags: [parts_of_speech]
+- id: heb.agree.001
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'השלימו: "הילדה ___ בגן".'
+  prompt_en: 'Complete: "The girl ___ in the park".'
+  choices:
+  - {he: משחקת, en: plays (f.)}
+  - {he: משחק, en: plays (m.)}
+  - {he: משחקים, en: play (m. pl.)}
+  answer: 0
+  explanation_he: 'ילדה היא נקבה ביחיד, ולכן גם הפועל נקבה ביחיד: משחקת.'
+  explanation_en: '"Girl" is feminine singular, so the verb is feminine singular too: plays.'
+  tags: [agreement]
+- id: heb.agree.002
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'השלימו: "הכלבים ___ בחצר".'
+  prompt_en: 'Complete: "The dogs ___ in the yard".'
+  choices:
+  - {he: רץ, en: runs (m.)}
+  - {he: רצה, en: runs (f.)}
+  - {he: רצים, en: run (m. pl.)}
+  answer: 2
+  explanation_he: 'כלבים הוא זכר רבים, ולכן גם הפועל בזכר רבים: רצים.'
+  explanation_en: '"Dogs" is masculine plural, so the verb is masculine plural: run.'
+  tags: [agreement]
+- id: heb.agree.003
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'השלימו: "מכונית ___".'
+  prompt_en: 'Complete: "a ___ car".'
+  choices:
+  - {he: חדש, en: new (m.)}
+  - {he: חדשה, en: new (f.)}
+  - {he: חדשים, en: new (m. pl.)}
+  answer: 1
+  explanation_he: 'מכונית היא נקבה ביחיד, ולכן שם התואר בנקבה ביחיד: חדשה.'
+  explanation_en: '"Car" is feminine singular, so the adjective is feminine singular: new.'
+  tags: [agreement]
+- id: heb.agree.004
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'השלימו: "ספרים ___".'
+  prompt_en: 'Complete: "___ books".'
+  choices:
+  - {he: מעניינים, en: interesting (m. pl.)}
+  - {he: מעניין, en: interesting (m.)}
+  - {he: מעניינות, en: interesting (f. pl.)}
+  answer: 0
+  explanation_he: 'ספרים הוא זכר רבים, ולכן שם התואר בזכר רבים: מעניינים.'
+  explanation_en: '"Books" is masculine plural, so the adjective is masculine plural.'
+  tags: [agreement]
+- id: heb.agree.005
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'השלימו: "הפרחים ___".'
+  prompt_en: 'Complete: "The flowers are ___".'
+  choices:
+  - {he: צבעוני, en: colorful (m.)}
+  - {he: צבעוניות, en: colorful (f. pl.)}
+  - {he: צבעוניים, en: colorful (m. pl.)}
+  answer: 2
+  explanation_he: 'פרחים הוא זכר רבים. שם התואר צריך להתאים לו, ולכן הוא מסתיים ב"ים".'
+  explanation_en: '"Flowers" is masculine plural, and the adjective must match it, so it ends in "-im".'
+  tags: [agreement]
+- id: heb.agree.006
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'השלימו: "השמלות ___".'
+  prompt_en: 'Complete: "The dresses are ___".'
+  choices:
+  - {he: צבעוני, en: colorful (m.)}
+  - {he: צבעוניות, en: colorful (f. pl.)}
+  - {he: צבעוניים, en: colorful (m. pl.)}
+  answer: 1
+  explanation_he: 'שמלה היא נקבה, ושמלות הוא נקבה רבות. לכן שם התואר מסתיים ב"ות".'
+  explanation_en: '"Dress" is feminine, so "dresses" is feminine plural, and the adjective ends in "-ot".'
+  tags: [agreement]
+- id: heb.agree.007
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה משפט כתוב נכון?
+  prompt_en: Which sentence is written correctly?
+  choices:
+  - {he: הילדות שרות שיר, en: The girls sing a song}
+  - {he: הילדות שר שיר, en: (the verb is masculine singular)}
+  - {he: הילדות שרים שיר, en: (the verb is masculine plural)}
+  answer: 0
+  explanation_he: 'ילדות הוא נקבה רבות, ולכן גם הפועל בנקבה רבות: שרות.'
+  explanation_en: '"Girls" is feminine plural, so the verb is feminine plural: sing.'
+  tags: [agreement]
+- id: heb.agree.008
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה משפט כתוב נכון?
+  prompt_en: Which sentence is written correctly?
+  choices:
+  - {he: התלמיד כתבה מכתב ארוך, en: (feminine verb)}
+  - {he: התלמיד כתבו מכתב ארוך, en: (plural verb)}
+  - {he: התלמיד כתב מכתב ארוך, en: The pupil wrote a long letter}
+  answer: 2
+  explanation_he: 'תלמיד הוא זכר ביחיד, לכן הפועל "כתב" גם זכר ביחיד.'
+  explanation_en: '"Pupil" is masculine singular, so the verb "wrote" is masculine singular too.'
+  tags: [agreement]
+- id: heb.agree.009
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזה משפט כתוב נכון?
+  prompt_en: Which sentence is written correctly?
+  choices:
+  - {he: הדלת פתוח, en: (masculine adjective)}
+  - {he: הדלת פתוחה, en: The door is open}
+  - {he: הדלת פתוחים, en: (plural adjective)}
+  answer: 1
+  explanation_he: 'דלת היא נקבה ביחיד, ולכן שם התואר נקבה ביחיד: פתוחה.'
+  explanation_en: '"Door" is feminine singular, so the adjective is feminine singular: open.'
+  tags: [agreement]
+- id: heb.agree.010
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: איזה משפט כתוב נכון?
+  prompt_en: Which sentence is written correctly?
+  choices:
+  - {he: השמיים כחולות, en: (feminine plural)}
+  - {he: השמיים כחולים, en: The sky is blue}
+  - {he: השמיים כחולה, en: (feminine singular)}
+  answer: 1
+  explanation_he: 'המילה "שמיים" תמיד ברבים, והיא זכר. לכן אומרים "כחולים".'
+  explanation_en: '"Shamayim" is always plural and masculine, so we say "blue" in the masculine plural.'
+  tags: [agreement]
+- id: heb.agree.011
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 1.5
+  prompt_he: איזה משפט כתוב נכון?
+  prompt_en: Which sentence is written correctly?
+  choices:
+  - {he: השולחנות גדולים, en: The tables are big}
+  - {he: השולחנות גדולות, en: (feminine plural)}
+  - {he: השולחנות גדול, en: (singular)}
+  answer: 0
+  explanation_he: 'שולחן הוא זכר, אפילו שהרבים שלו מסתיים ב"ות". לכן שם התואר בזכר רבים: גדולים.'
+  explanation_en: 'A table is masculine, even though its plural ends in "-ot". So the adjective is masculine plural.'
+  tags: [agreement]
+- id: heb.agree.012
+  skill: hebrew.grammar.agreement
+  kind: true_false
+  grade: 3
+  difficulty: 1.0
+  prompt_he: המשפט "הנעליים החדשות נוחות" כתוב נכון.
+  prompt_en: The sentence "The new shoes are comfortable" is written correctly.
+  answer: true
+  explanation_he: נעליים הוא נקבה רבות. לכן גם "החדשות" וגם "נוחות" באות בנקבה רבות.
+  explanation_en: '"Shoes" is feminine plural, so both "new" and "comfortable" are feminine plural.'
+  tags: [agreement]
+- id: heb.agree.013
+  skill: hebrew.grammar.agreement
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: המשפט "הילדים שרה בחצר" כתוב נכון.
+  prompt_en: The sentence "The children sings in the yard" is written correctly.
+  answer: false
+  explanation_he: 'ילדים הוא זכר רבים, והפועל "שרה" הוא נקבה ביחיד. צריך לכתוב: הילדים שרים בחצר.'
+  explanation_en: '"Children" is masculine plural, but the verb is feminine singular. It should be: the children sing.'
+  tags: [agreement]
+- id: heb.agree.014
+  skill: hebrew.grammar.agreement
+  kind: true_false
+  grade: 3
+  difficulty: -1.0
+  prompt_he: המשפט "אמא שלי עייפה" כתוב נכון.
+  prompt_en: The sentence "My mom is tired" is written correctly.
+  answer: true
+  explanation_he: 'אמא היא נקבה ביחיד, ולכן שם התואר גם הוא בנקבה: עייפה.'
+  explanation_en: '"Mom" is feminine singular, so the adjective is feminine too: tired.'
+  tags: [agreement]
+- id: heb.agree.015
+  skill: hebrew.grammar.agreement
+  kind: true_false
+  grade: 3
+  difficulty: 0.5
+  prompt_he: המשפט "הדודים שלי גרות בחיפה" כתוב נכון.
+  prompt_en: The sentence "My uncles (m.) live (f.) in Haifa" is written correctly.
+  answer: false
+  explanation_he: 'דודים הוא זכר רבים, ולכן הפועל "גרים". כדי לכתוב "גרות" צריך לומר "הדודות".'
+  explanation_en: 'Uncles is masculine plural, so the verb is "garim". "Garot" would go with "aunts".'
+  tags: [agreement]
+- id: heb.agree.016
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'השלימו: "הילדים ___ ספרים".'
+  prompt_en: 'Complete: "The children ___ books".'
+  choices:
+  - {he: קורא, en: reads (m.)}
+  - {he: קוראים, en: read (m. pl.)}
+  - {he: קוראת, en: reads (f.)}
+  answer: 1
+  explanation_he: 'ילדים הוא זכר רבים, ולכן הפועל בזכר רבים: קוראים.'
+  explanation_en: '"Children" is masculine plural, so the verb is masculine plural: read.'
+  tags: [agreement]
+- id: heb.agree.017
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'השלימו: "אחותי ___ ציור".'
+  prompt_en: 'Complete: "My sister ___ a picture".'
+  choices:
+  - {he: מצייר, en: draws (m.)}
+  - {he: מציירים, en: draw (m. pl.)}
+  - {he: מציירת, en: draws (f.)}
+  answer: 2
+  explanation_he: 'אחות היא נקבה ביחיד, ולכן הפועל בנקבה ביחיד: מציירת.'
+  explanation_en: '"Sister" is feminine singular, so the verb is feminine singular: draws.'
+  tags: [agreement]
+- id: heb.agree.018
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'השלימו: "הן ___ לשחות".'
+  prompt_en: 'Complete: "They (f.) ___ to swim".'
+  choices:
+  - {he: אוהבות, en: love (f. pl.)}
+  - {he: אוהב, en: loves (m.)}
+  - {he: אוהבים, en: love (m. pl.)}
+  answer: 0
+  explanation_he: 'הן מדבר על נקבות רבות, ולכן הפועל בנקבה רבות: אוהבות.'
+  explanation_en: '"Hen" means several females, so the verb is feminine plural: love.'
+  tags: [agreement]
+- id: heb.agree.019
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'מצאו את המילה שאינה מתאימה: "הילדה הקטנה רץ בגינה".'
+  prompt_en: 'Find the word that does not fit: "The little girl runs (m.) in the garden".'
+  choices:
+  - {he: רץ, en: runs (m.)}
+  - {he: הקטנה, en: little (f.)}
+  - {he: הילדה, en: the girl}
+  answer: 0
+  explanation_he: 'ילדה היא נקבה, ולכן צריך "רצה". המילה "הקטנה" כבר מתאימה, כי היא בנקבה.'
+  explanation_en: 'A girl is feminine, so it should be "runs" in the feminine. "Little" already fits.'
+  tags: [agreement]
+- id: heb.agree.020
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'מצאו את המילה שאינה מתאימה: "הכלבים הקטנים שמחה".'
+  prompt_en: 'Find the word that does not fit: "The little dogs happy (f.)".'
+  choices:
+  - {he: הקטנים, en: little (m. pl.)}
+  - {he: שמחה, en: happy (f.)}
+  - {he: הכלבים, en: the dogs}
+  answer: 1
+  explanation_he: 'כלבים הוא זכר רבים, ולכן צריך "שמחים". הקטנים והכלבים מתאימים זה לזה.'
+  explanation_en: '"Dogs" is masculine plural, so it should be "happy" in masculine plural.'
+  tags: [agreement]
+- id: heb.agree.021
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה צירוף מתאים?
+  prompt_en: Which phrase matches?
+  choices:
+  - {he: מכוניות מהירים, en: (masculine adjective)}
+  - {he: מכונית מהירות, en: (singular noun)}
+  - {he: מכוניות מהירות, en: fast cars}
+  answer: 2
+  explanation_he: 'מכוניות הוא נקבה רבות, ולכן גם שם התואר: מהירות.'
+  explanation_en: '"Cars" is feminine plural, so the adjective is also feminine plural.'
+  tags: [agreement]
+- id: heb.agree.022
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה צירוף מתאים?
+  prompt_en: Which phrase matches?
+  choices:
+  - {he: עננים אפורה, en: (feminine singular)}
+  - {he: ענן אפורים, en: (singular noun)}
+  - {he: עננים אפורים, en: gray clouds}
+  answer: 2
+  explanation_he: 'עננים הוא זכר רבים, ולכן גם שם התואר: אפורים.'
+  explanation_en: '"Clouds" is masculine plural, so the adjective is also masculine plural.'
+  tags: [agreement]
+- id: heb.agree.023
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: איזה צירוף מתאים?
+  prompt_en: Which phrase matches?
+  choices:
+  - {he: בובות קטנות, en: small dolls}
+  - {he: בובה קטנות, en: (singular noun)}
+  - {he: בובות קטנים, en: (masculine adjective)}
+  answer: 0
+  explanation_he: 'בובות הוא נקבה רבות, ולכן גם שם התואר: קטנות.'
+  explanation_en: '"Dolls" is feminine plural, so the adjective is also feminine plural.'
+  tags: [agreement]
+- id: heb.agree.024
+  skill: hebrew.grammar.agreement
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: איזה צירוף מתאים?
+  prompt_en: Which phrase matches?
+  choices:
+  - {he: תיק כבדה, en: (feminine adjective)}
+  - {he: תיק כבד, en: a heavy bag}
+  - {he: תיקים כבד, en: (plural noun)}
+  answer: 1
+  explanation_he: 'תיק הוא זכר ביחיד, ולכן שם התואר זכר ביחיד: כבד.'
+  explanation_en: '"Bag" is masculine singular, so the adjective is masculine singular: heavy.'
+  tags: [agreement]

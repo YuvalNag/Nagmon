@@ -80,3 +80,46 @@ skills:
   prereq: [hebrew.words.opposites]
   generator: bank
   params: {bank: hebrew/words.yaml, tags: [plural]}
+# --- grades 3-9 (generated from the authoring sources; edit the YAML banks, not this list's order) ---
+- id: hebrew.grammar.agreement
+  grade: 3
+  title_he: התאמה במין ובמספר
+  title_en: Agreement in gender and number
+  prereq: [hebrew.words.gender, hebrew.words.plural]
+  generator: bank
+  params: {bank: hebrew/grammar.yaml, tags: [agreement]}
+- id: hebrew.grammar.parts_of_speech
+  grade: 3
+  title_he: 'שם עצם, פועל ושם תואר'
+  title_en: 'Nouns, verbs and adjectives'
+  prereq: [hebrew.words.gender]
+  generator: bank
+  params: {bank: hebrew/grammar.yaml, tags: [parts_of_speech]}
+- id: hebrew.reading.passage_3
+  grade: 3
+  title_he: 'הבנת הנקרא: קטע קצר'
+  title_en: 'Reading comprehension, grade 3'
+  prereq: [hebrew.reading.sentences]
+  generator: bank
+  params: {bank: hebrew/passages_3.yaml, tags: [passage_3]}
+- id: hebrew.spelling.similar_sounds
+  grade: 3
+  title_he: 'כתיב: אותיות בעלות צליל דומה'
+  title_en: 'Spelling: letters that sound alike'
+  prereq: [hebrew.letters.final]
+  generator: bank
+  params: {bank: hebrew/spelling.yaml, tags: [similar_sounds]}
+- id: hebrew.text.sentence_types
+  grade: 3
+  title_he: סוגי משפטים
+  title_en: Kinds of sentences
+  prereq: [hebrew.reading.sentences]
+  generator: bank
+  params: {bank: hebrew/text.yaml, tags: [sentence_types]}
+- id: hebrew.vocab.synonyms
+  grade: 3
+  title_he: מילים נרדפות
+  title_en: Synonyms
+  prereq: [hebrew.words.opposites]
+  generator: bank
+  params: {bank: hebrew/vocab.yaml, tags: [synonyms]}
