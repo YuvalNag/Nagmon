@@ -52,7 +52,9 @@ def load_objects() -> dict[str, dict[str, Any]]:
     for path in sorted(OBJECTS.glob("*.yaml")):
         doc = read_yaml(path)
         if not isinstance(doc, dict) or doc.get("id") != path.stem:
-            raise ValueError(f"objects: {path.name}: the id is the file's name")
+            raise ValueError(
+                f"objects: {path.name}: the id is the file's name"
+            )
         out[doc["id"]] = doc
     return out
 
@@ -95,14 +97,21 @@ def check_places(defs: dict[str, dict[str, Any]]) -> None:
             if place.get("map") not in WORLD_MAPS:
                 raise ValueError(f"objects: {where}: not a map of the world")
             x, y = place.get("x"), place.get("y")
-            if not all(isinstance(v, int) and not isinstance(v, bool) and v >= 0 for v in (x, y)):
-                raise ValueError(f"objects: {where}: x and y are tiles, 0 or more")
+            if not all(
+                isinstance(v, int) and not isinstance(v, bool) and v >= 0
+                for v in (x, y)
+            ):
+                raise ValueError(
+                    f"objects: {where}: x and y are tiles, 0 or more"
+                )
             if place["map"] in seen_maps:
                 raise ValueError(f"objects: {oid} is twice on {place['map']}")
             seen_maps.add(place["map"])
             key = (place["map"], x, y)
             if key in tiles:
-                raise ValueError(f"objects: {oid} and {tiles[key]} share the tile {key}")
+                raise ValueError(
+                    f"objects: {oid} and {tiles[key]} share the tile {key}"
+                )
             tiles[key] = oid
             events = _map_events(place["map"])
             slug = slug_of(oid)
@@ -112,14 +121,21 @@ def check_places(defs: dict[str, dict[str, Any]]) -> None:
                 for word, args in _acts(e)
             )
             talks = any(
-                any(str(b).split() == ["talk", slug] for b in e.get("behav") or [])
+                any(
+                    str(b).split() == ["talk", slug]
+                    for b in e.get("behav") or []
+                )
                 and ("open_object", [oid]) in _acts(e)
                 for e in events
             )
             if not made:
-                raise ValueError(f"objects: {place['map']}: no event creates {slug} at {x},{y}")
+                raise ValueError(
+                    f"objects: {place['map']}: no event creates {slug} at {x},{y}"
+                )
             if not talks:
-                raise ValueError(f"objects: {place['map']}: no event runs `open_object {oid}` when talking to {slug}")
+                raise ValueError(
+                    f"objects: {place['map']}: no event runs `open_object {oid}` when talking to {slug}"
+                )
 
 
 def _monster_slugs() -> set[str]:
@@ -128,7 +144,9 @@ def _monster_slugs() -> set[str]:
     return set(db.app_monsters()) | db.nagmon_slugs("monster")
 
 
-def check_objects(defs: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
+def check_objects(
+    defs: dict[str, dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
     if not defs:
         raise ValueError("objects: needs at least one object")
     for oid, d in defs.items():
@@ -138,8 +156,13 @@ def check_objects(defs: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
             raise ValueError(f"objects: {oid}: screen is one of {SCREENS}")
         _line(f"{oid}.title_he", d.get("title_he"), 30)
         sprite = d.get("sprite")
-        if not isinstance(sprite, str) or not (SPRITES / f"{sprite}.png").is_file():
-            raise ValueError(f"objects: {oid}: the picture {sprite!r} is not in sprites_obj")
+        if (
+            not isinstance(sprite, str)
+            or not (SPRITES / f"{sprite}.png").is_file()
+        ):
+            raise ValueError(
+                f"objects: {oid}: the picture {sprite!r} is not in sprites_obj"
+            )
         if not isinstance(d.get("places"), list) or not d["places"]:
             raise ValueError(f"objects: {oid}: needs a place")
         screen = d["screen"]
@@ -163,8 +186,14 @@ def _check_people(oid: str, people: Any) -> None:
     seen: set[str] = set()
     for p in people:
         slug = p.get("slug") if isinstance(p, dict) else None
-        if not isinstance(slug, str) or not SLUG.fullmatch(slug) or slug in seen:
-            raise ValueError(f"objects: {oid}: bad or repeated person {slug!r}")
+        if (
+            not isinstance(slug, str)
+            or not SLUG.fullmatch(slug)
+            or slug in seen
+        ):
+            raise ValueError(
+                f"objects: {oid}: bad or repeated person {slug!r}"
+            )
         seen.add(slug)
         _line(f"{oid}.{slug}.name_he", p.get("name_he"), 30)
         _line(f"{oid}.{slug}.offers_he", p.get("offers_he"), 40)
@@ -173,7 +202,9 @@ def _check_people(oid: str, people: Any) -> None:
 
 def _check_snacks(oid: str, snacks: Any) -> None:
     if not isinstance(snacks, list) or len(snacks) < 3:
-        raise ValueError(f"objects: {oid}: the fridge needs at least three snacks")
+        raise ValueError(
+            f"objects: {oid}: the fridge needs at least three snacks"
+        )
     seen: set[str] = set()
     for s in snacks:
         sid = s.get("id") if isinstance(s, dict) else None
@@ -186,8 +217,14 @@ def _check_snacks(oid: str, snacks: Any) -> None:
 
 def _check_tv(oid: str, d: dict[str, Any]) -> None:
     news = d.get("news")
-    if not isinstance(news, list) or len(set(news)) != len(news) or len(news) < 3:
-        raise ValueError(f"objects: {oid}: needs at least three different headlines")
+    if (
+        not isinstance(news, list)
+        or len(set(news)) != len(news)
+        or len(news) < 3
+    ):
+        raise ValueError(
+            f"objects: {oid}: needs at least three different headlines"
+        )
     for i, headline in enumerate(news):
         _line(f"{oid}.news[{i}]", headline)
     creatures = d.get("creatures")
@@ -207,7 +244,9 @@ def _check_board(oid: str, postings: Any) -> None:
     for p in postings:
         pid = p.get("id") if isinstance(p, dict) else None
         if not isinstance(pid, str) or not SLUG.fullmatch(pid) or pid in seen:
-            raise ValueError(f"objects: {oid}: bad or repeated posting {pid!r}")
+            raise ValueError(
+                f"objects: {oid}: bad or repeated posting {pid!r}"
+            )
         seen.add(pid)
         if p.get("slot") not in SLOTS:
             raise ValueError(f"objects: {oid}: {pid}: slot is one of {SLOTS}")
@@ -219,12 +258,16 @@ def _check_board(oid: str, postings: Any) -> None:
         givers = {p["giver_he"] for p in mine}
         # three different givers in a slot: a day's three cards can always be from three different people
         if slot != "weekly" and len(givers) < 3:
-            raise ValueError(f"objects: {oid}: the {slot} slot needs three givers")
+            raise ValueError(
+                f"objects: {oid}: the {slot} slot needs three givers"
+            )
         if slot == "weekly" and not mine:
             raise ValueError(f"objects: {oid}: needs a weekly posting")
 
 
-def check_letters(doc: Any, facts: set[str], items: set[str]) -> dict[str, Any]:
+def check_letters(
+    doc: Any, facts: set[str], items: set[str]
+) -> dict[str, Any]:
     if not isinstance(doc, dict):
         raise ValueError("letters: needs a mapping")
     senders = doc.get("senders")
@@ -236,17 +279,31 @@ def check_letters(doc: Any, facts: set[str], items: set[str]) -> dict[str, Any]:
         _line(f"{slug}.name_he", s.get("name_he"), 30)
         _code(f"{slug}.emoji", s.get("emoji"))
     if not any(s.get("always") for s in senders.values()):
-        raise ValueError("letters: someone must be known from the start (always: true)")
+        raise ValueError(
+            "letters: someone must be known from the start (always: true)"
+        )
 
     def check_gift(where: str, gift: Any) -> None:
-        if not isinstance(gift, dict) or len(gift) != 1 and set(gift) != {"item", "n"}:
+        if (
+            not isinstance(gift, dict)
+            or len(gift) != 1
+            and set(gift) != {"item", "n"}
+        ):
             raise ValueError(f"letters: {where}: a gift is coins or an item")
         if "coins" in gift:
             c = gift["coins"]
-            if not isinstance(c, int) or isinstance(c, bool) or not 1 <= c <= COINS_PER_WEEK:
-                raise ValueError(f"letters: {where}: coins are 1 to {COINS_PER_WEEK}")
+            if (
+                not isinstance(c, int)
+                or isinstance(c, bool)
+                or not 1 <= c <= COINS_PER_WEEK
+            ):
+                raise ValueError(
+                    f"letters: {where}: coins are 1 to {COINS_PER_WEEK}"
+                )
         elif gift.get("item") not in items:
-            raise ValueError(f"letters: {where}: unknown item {gift.get('item')!r}")
+            raise ValueError(
+                f"letters: {where}: unknown item {gift.get('item')!r}"
+            )
 
     gifts = doc.get("gifts")
     if not isinstance(gifts, list) or not gifts:
@@ -254,7 +311,9 @@ def check_letters(doc: Any, facts: set[str], items: set[str]) -> dict[str, Any]:
     for i, g in enumerate(gifts):
         check_gift(f"gifts[{i}]", g)
     if not any("item" in g for g in gifts):
-        raise ValueError("letters: the gifts need an item (the coin cap falls back to it)")
+        raise ValueError(
+            "letters: the gifts need an item (the coin cap falls back to it)"
+        )
     letters = doc.get("letters")
     if not isinstance(letters, dict) or not letters:
         raise ValueError("letters: needs letters")
@@ -262,7 +321,9 @@ def check_letters(doc: Any, facts: set[str], items: set[str]) -> dict[str, Any]:
         if not SLUG.fullmatch(str(lid)):
             raise ValueError(f"letters: bad id {lid!r}")
         if letter.get("from") not in senders:
-            raise ValueError(f"letters: {lid}: unknown sender {letter.get('from')!r}")
+            raise ValueError(
+                f"letters: {lid}: unknown sender {letter.get('from')!r}"
+            )
         kind = letter.get("kind")
         if kind not in ("postcard", "event"):
             raise ValueError(f"letters: {lid}: kind is postcard or event")
@@ -274,11 +335,17 @@ def check_letters(doc: Any, facts: set[str], items: set[str]) -> dict[str, Any]:
             _line(f"letters: {where}", v.get("text_he"), LETTER_MAX)
             for name in PLACEHOLDER.findall(v["text_he"]):
                 if name != "name":
-                    raise ValueError(f"letters: {where}: only {{name}} is put in")
+                    raise ValueError(
+                        f"letters: {where}: only {{name}} is put in"
+                    )
             if "fact" in v and v["fact"] not in facts:
-                raise ValueError(f"letters: {where}: unknown fact {v['fact']!r}")
+                raise ValueError(
+                    f"letters: {where}: unknown fact {v['fact']!r}"
+                )
             if v.get("recall") and "fact" not in v:
-                raise ValueError(f"letters: {where}: a recall question needs a fact")
+                raise ValueError(
+                    f"letters: {where}: a recall question needs a fact"
+                )
             if "gift" in v:
                 check_gift(where, v["gift"])
     return doc

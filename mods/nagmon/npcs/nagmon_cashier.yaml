@@ -1,0 +1,40 @@
+# Avi the shopkeeper (docs/app/WORLD_V2.md 6.1 row 2): chatty, counts coins aloud.
+# Stands on the street in front of the shop; his money question (the old talk
+# events in classic_hearthrock_city.yaml) goes on after his greeting, as before.
+id: nagmon_cashier
+short: avi
+class: M
+name_he: המוכר אבי
+name_en: Avi the Shopkeeper
+role: shopkeeper
+age_feel: adult
+sprite: nagmon_shopkeeper
+anchor: true
+voice:
+  style: "chatty, friendly, counts coins aloud, proud of his shop"
+  quirks: ["counts under his breath", "taps the counter twice"]
+  catchphrases: ["אחת, שתיים, שלוש!"]
+  register: playful
+personality: [talkative, helpful, careful with numbers]
+knows:
+  topics:
+    - {id: coins, label_he: "מטבעות", icon: "1f4b0", unlock: 0}
+    - {id: counting, label_he: "לספור יחד", icon: "1f9ee", unlock: 0}
+    - {id: shop, label_he: "מה יש בחנות?", icon: "1f6d2", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families, what other shops charge]
+never_says: [names of real brands, anything scary]
+goals: ["everyone leaves with exactly what they need"]
+likes:
+  loved: [pie]
+  liked: [biscuit]
+schedule:
+  default: {map: classic_hearthrock_city, spot: cashier_post}
+offers:
+  shop: {tab: nets_snacks_helpers}
+  tutor_math: money
+relationship:
+  memory_flags: [asked_coins, asked_counting, asked_shop, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

@@ -25,6 +25,8 @@ async function seedChild(page: Page, { name = "תמר", avatar = "girl_teal", ad
     ({ name, avatar, adaptive, start }) => {
       if (localStorage.getItem("seeded")) return;
       localStorage.setItem("seeded", "1");
+      // the town's people are those of ten in the morning, whatever the machine's clock says
+      localStorage.setItem("nagmon.clock.hour", "10");
       if (start) localStorage.setItem("nagmon.map.start", start);
       if (!adaptive) localStorage.setItem("nagmon.map.adaptiveResolution", "off");
       localStorage.setItem("nagmon-fs:d:profiles", "");

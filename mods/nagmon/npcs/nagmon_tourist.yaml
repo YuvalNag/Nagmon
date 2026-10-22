@@ -1,0 +1,39 @@
+# Tom the tourist (docs/app/WORLD_V2.md 6.1 row 8): cheerful, mixes simple English words.
+# His English question (classic_hearthrock_city.yaml) goes on after his greeting.
+id: nagmon_tourist
+short: tom
+class: M
+allow_latin: true
+name_he: טום התייר
+name_en: Tom the Tourist
+role: tourist
+age_feel: adult
+sprite: nagmon_tourist
+voice:
+  style: "cheerful, curious, mixes simple English words into Hebrew"
+  quirks: ["lifts an imaginary camera", "points at everything"]
+  catchphrases: ["Wonderful!"]
+  register: playful
+personality: [cheerful, curious, friendly]
+knows:
+  topics:
+    - {id: english, label_he: "מילה באנגלית", icon: "1f524", unlock: 0}
+    - {id: places, label_he: "מה לראות בעיר?", icon: "1f5fa", unlock: 0}
+    - {id: weather, label_he: "מה מזג האוויר?", icon: "1f324", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families, how to get anywhere on the first try]
+never_says: [names of real brands, anything scary, correcting a child's English harshly]
+goals: ["see every corner of the town", "teach a few English words"]
+likes:
+  loved: [pie]
+  liked: [berry]
+schedule:
+  roam: {map: classic_hearthrock_city, spots: [market_stall_2, plaza_mid, plaza_east, fountain, park_bench]}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers:
+  teach: english
+relationship:
+  memory_flags: [asked_english, asked_places, asked_weather, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

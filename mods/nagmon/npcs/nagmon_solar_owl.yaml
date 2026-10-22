@@ -1,0 +1,31 @@
+# The Owl in the Suit (docs/app/WORLD_V2.md 6: row 29). The owl in a helmet, in every zone; his zone facts and the sun mission stay as they are.
+id: nagmon_solar_owl
+short: solowl
+class: M
+name_he: הינשוף בחליפה
+name_en: The Owl in the Suit
+role: hint_giver
+age_feel: adult
+sprite: nagmon_owl_space
+voice:
+  style: "warm, slightly formal, the same voice as the wise owl"
+  quirks: ["taps the glass of his helmet"]
+  catchphrases: ["בואו נחשוב ביחד."]
+  register: gentle
+personality: [wise, patient, curious]
+knows:
+  topics:
+    - {id: helmet, label_he: "על החליפה", icon: "1f9d1", unlock: 0}
+    - {id: tip, label_he: "טיפ מהינשוף", icon: "1f4a1", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["help every child enjoy finding things out"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  fixed: {maps: [solar_moon, solar_sun, solar_rocky_planets, solar_giants, solar_outer]}
+offers: {hints: daily}
+relationship:
+  memory_flags: [asked_helmet, asked_tip]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

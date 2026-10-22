@@ -174,8 +174,8 @@ for (const scale of [1, 1.3]) {
     await expect(page.locator(id("wild_hp"))).toBeVisible();
     await expect(page.locator(id("battle_intent"))).toBeVisible();
     await expect(page.locator(id("battle_loves"))).toHaveAttribute("data-known", "true");
-    for (const b of ["battle_net", "battle_bag", "battle_run"]) await expect(page.locator(id(b))).toBeVisible();
-    await expect(page.locator(id("battle_net"))).toBeDisabled();
+    for (const b of ["battle_befriend", "battle_bag", "battle_run"]) await expect(page.locator(id(b))).toBeVisible();
+    await expect(page.locator(id("battle_befriend"))).toBeEnabled();
     for (const old of ["battle_fight", "battle_move", "battle_friend", "battle_special", "battle_charge"]) await expect(page.locator(id(old))).toHaveCount(0);
     await shot("1-menu");
     await audit(page, "menu", { cards: true });
@@ -232,7 +232,7 @@ for (const scale of [1, 1.3]) {
     await expect(arena(page)).toHaveAttribute("data-view", "calm");
     await expect(page.locator(id("battle_results"))).toBeVisible();
     await expect(page.locator("[data-star=calm]")).toHaveAttribute("data-on", "true");
-    await expect(page.locator(id("battle_net"))).toBeEnabled();
+    await expect(page.locator(id("befriend_tray"))).toBeVisible();
     await shot("7-calm");
     await audit(page, "calm");
     await axe(page, "calm");

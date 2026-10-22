@@ -1,9 +1,13 @@
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { App } from "../../../src/App";
 import { openServices } from "../../../src/app/services";
 import { uninstallAppLog } from "../../../src/platform/appLog";
 import { MemoryFileStore } from "../../../src/platform/storage";
+import { preloadAll } from "../../../src/ui/lazy";
+
+// the rarely used screens are separate chunks: fetched once, so each test finds them as soon as it asks
+beforeAll(() => preloadAll());
 
 // the map's Phaser scene does not run in jsdom: a stand-in
 vi.mock("../../../src/game/mapGame", () => ({
@@ -37,7 +41,7 @@ async function start() {
   const screen = () => container.querySelector("[data-screen]")!.getAttribute("data-screen");
   const code = async () => {
     for (const d of "1234") await press(`key_${d}`);
-    await vi.waitFor(() => expect(screen()).not.toBe("pin"), { timeout: 5000 });
+    await vi.waitFor(() => expect(["pin", "loading"]).not.toContain(screen()), { timeout: 5000 });
   };
   const hasButton = () => container.querySelector(BUTTON) !== null;
   return { container, child, press, screen, hasButton, code };

@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import type { Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
-import { answer, battleAnswer, battleResultClosed, castMove, openMap, quiz, readDialog, seedChild, steps, toCashier } from "./cashier";
+import { answer, battleAnswer, battleResultClosed, castMove, openMap, quiz, readDialog, seedChild, steps, throwNow, toCashier } from "./cashier";
 import { fitsAndSharp, touch, typeCode } from "./touch";
 
 /**
@@ -267,8 +267,8 @@ test("the start loads only what who-plays needs: no game engine, a small script"
   console.log(`scripts at start: ${scripts.length}, ${Math.round(total / 1024)} KiB`);
   // Phaser is about 1.2 MB: the map and battle load it when they open
   expect(scripts.filter((s) => s.engine).map((s) => s.url)).toEqual([]);
-  // W2 (working objects): the saves of the mail, journal, PC, people and board are read at the start (5 kB)
-  expect(total).toBeLessThan(610 * 1024);
+  // W2 adds the reads of the mail, journal, PC, people and board saves (5 kB)
+  expect(total).toBeLessThan(450 * 1024); // 390 KiB since the battle, shop, parents and tutor screens are lazy (was 600)
 });
 
 test("who-plays with eight children, the longest name among them, at 130% text", async ({ page }, info) => {
@@ -278,6 +278,8 @@ test("who-plays with eight children, the longest name among them, at 130% text",
     document.addEventListener("DOMContentLoaded", set);
     if (localStorage.getItem("seeded")) return;
     localStorage.setItem("seeded", "1");
+    // the town's people are those of ten in the morning, whatever the machine's clock says
+    localStorage.setItem("nagmon.clock.hour", "10");
     // made-up names
     ["אבגדהוזחטיכלמנסע", "בר", "גל", "דנה", "הדר", "ורד", "זיו", "חן"].forEach((name, i) => {
       const pid = `p0000${i}`;
@@ -389,7 +391,7 @@ for (const scale of [1, 1.3]) {
       set();
       document.addEventListener("DOMContentLoaded", set);
     }, scale);
-    await seedChild(page, { grade: 2, battle: true });
+    await seedChild(page, { grade: 2, battle: true, befriendDice: "0" });
     const shot = (name: string) => page.screenshot({ path: info.outputPath(`${scale * 100}-battle-${name}.png`) });
     await openMap(page);
     await steps(page, "right", 1);
@@ -411,12 +413,12 @@ for (const scale of [1, 1.3]) {
     }
     await expect(page.locator("[data-screen=battle][data-view=calm]")).toBeVisible();
     await audit(page, "43_calm", shot);
-    for (let i = 0; i < 3 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
-      await touch(page, page.locator(id("battle_net")), 30);
-      await battleAnswer(page, "right");
-      await battleResultClosed(page);
+    await throwNow(page);
+    for (let i = 0; i < 10 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
+      if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")), 30);
+      await page.waitForTimeout(200);
     }
-    await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
+    await expect(page.locator("[data-screen=battle-caught]")).toBeVisible({ timeout: 20_000 });
     await audit(page, "44_new_friend", shot);
   });
 }

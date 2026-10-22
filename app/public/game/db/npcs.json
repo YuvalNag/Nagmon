@@ -65,6 +65,84 @@
    "portrait_scale": 3
   }
  },
+ "nagmon_baker": {
+  "slug": "nagmon_baker",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_granite",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_granite.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
+ "nagmon_card_trader": {
+  "slug": "nagmon_card_trader",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_mila_space",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_mila_space.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
+ "nagmon_carpenter": {
+  "slug": "nagmon_carpenter",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_shopkeeper",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_shopkeeper.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
  "nagmon_cashier": {
   "slug": "nagmon_cashier",
   "speech": {
@@ -93,6 +171,58 @@
    "portrait_scale": 3
   }
  },
+ "nagmon_cat_pita": {
+  "slug": "nagmon_cat_pita",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "rockitten",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/rockitten.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
+ "nagmon_chess_haim": {
+  "slug": "nagmon_chess_haim",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_sage",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_sage.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
  "nagmon_chest_home": {
   "slug": "nagmon_chest_home",
   "speech": {
@@ -118,6 +248,58 @@
     128
    ],
    "scale": 4
+  }
+ },
+ "nagmon_clockmaker": {
+  "slug": "nagmon_clockmaker",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_astronomer",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_astronomer.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
+ "nagmon_fisher": {
+  "slug": "nagmon_fisher",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_granite",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_granite.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
   }
  },
  "nagmon_gardener": {
@@ -366,6 +548,32 @@
    "scale": 4
   }
  },
+ "nagmon_librarian": {
+  "slug": "nagmon_librarian",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_grey_hood",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_grey_hood.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
  "nagmon_nest_home": {
   "slug": "nagmon_nest_home",
   "speech": {
@@ -391,6 +599,32 @@
     128
    ],
    "scale": 4
+  }
+ },
+ "nagmon_newsboy": {
+  "slug": "nagmon_newsboy",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_kid",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_kid.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
   }
  },
  "nagmon_obj_bookshelf": {
@@ -620,6 +854,136 @@
    }
   }
  },
+ "nagmon_pharmacist": {
+  "slug": "nagmon_pharmacist",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_astronomer",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_astronomer.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
+ "nagmon_photographer": {
+  "slug": "nagmon_photographer",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_mila",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_mila.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
+ "nagmon_ranger": {
+  "slug": "nagmon_ranger",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_moon_engineer",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_moon_engineer.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
+ "nagmon_rival_roni": {
+  "slug": "nagmon_rival_roni",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_rover_driver",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_rover_driver.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
+ "nagmon_robot_tiky": {
+  "slug": "nagmon_robot_tiky",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_moon_engineer",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_moon_engineer.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
  "nagmon_route1_trainer": {
   "slug": "nagmon_route1_trainer",
   "speech": {
@@ -646,6 +1010,32 @@
    "scale": 8,
    "portrait": "sprites/portraits/nagmon_mailcarrier.png",
    "portrait_scale": 3
+  }
+ },
+ "nagmon_scout": {
+  "slug": "nagmon_scout",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_rover_driver",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_rover_driver.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
   }
  },
  "nagmon_sign_route1": {
@@ -860,6 +1250,32 @@
   ],
   "sprites": {
    "map": "sprites/npc/nagmon_sage.png",
+   "frame": [
+    128,
+    256
+   ],
+   "scale": 8
+  }
+ },
+ "nagmon_tailor": {
+  "slug": "nagmon_tailor",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_teacher",
+   "combat_sheet": "noclass",
+   "slug": "noclass"
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_cast.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/npc/nagmon_teacher.png",
    "frame": [
     128,
     256

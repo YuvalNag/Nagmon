@@ -22,20 +22,19 @@ import { BattleQuizBudget, type SubjectMap } from "../learning/quiz_flow";
 import { type HelperBag, type HelperKind, type QuizRequest, QuizSession } from "../world/quiz";
 import type { Creature, WorldState } from "../world/worldState";
 import {
-  addCreature,
   type Growth,
   giveXp,
   markSeen,
   PARTY_SIZE,
   partner as partnerOf,
 } from "./collection";
-import { claimSpareNet, countOf, type Economy, type Item, spendBoost, take } from "./items";
+import { claimSpareNet, countOf, type Economy, economy as economyFrom, type Item, spendBoost, take } from "./items";
+import { Befriending, type Selection, type TryResult } from "./befriendTry";
 import type { BattleData, Move } from "../data/battleTypes";
 import { awakeParty, faint, nurseHeals, partyDown, usable, wakeWith } from "./faint";
 import { setPartner } from "./party";
 import {
   BRILLIANT_COIN_MAX,
-  CATCH_POINTS,
   S1_PACING,
   ROLL_MIN,
   STAR_COINS,
@@ -59,6 +58,14 @@ import type { FieldLog } from "./fieldLog";
 import type { MonsterTable } from "./monsters";
 
 export const MAX_CREATURES = 60;
+/** The tests' draws for the befriend shakes: each is used once, in order; then the battle's own random. */
+function diceFrom(list: number[], rest: () => number): () => number {
+  const queue = [...list];
+  return () => (queue.length ? queue.shift()! : rest());
+}
+
+/** An empty Bag's economy, for a battle made without one (befriending then has no tools). */
+const NO_ECONOMY = economyFrom({});
 export { PARTY_SIZE };
 
 /** The expected number a Puff shows over the creature (the roll fixed at its middle). */
@@ -67,7 +74,7 @@ const SHOWN_ROLL = 0.96;
 const LUCKY_STAR = 1 / 16;
 
 /**
- * fighting: asking questions; calm: the fog is gone, a net can come;
+ * fighting: asking questions; calm: the fog is gone (befriending is open in both);
  * caught: the friend joined; won: a master's test is won; ran: gone on;
  * carried: the whole team fell asleep and was carried to the Rest Center.
  */
@@ -149,22 +156,6 @@ export interface Card {
   home: boolean;
 }
 
-/** One go at a net: the seal question(s) and what came of them. */
-export interface SealResult {
-  /** Right answers still needed (0 when it is caught). */
-  left: number;
-  correct: boolean;
-  /** The creature that joined, when this answer finished the seal. */
-  caught: Creature | null;
-  /** It joined the Meadow, not the party. */
-  toMeadow: boolean;
-  /** The friend count was full: it is in the Book, but did not join. */
-  full: boolean;
-  coins: number;
-  /** Growth the befriending gave the partner. */
-  growth: Growth | null;
-}
-
 export interface BattleOptions {
   engine: LearningEngine;
   world: WorldState;
@@ -188,7 +179,7 @@ export interface BattleOptions {
   /** A random number in [0, 1): a test passes a seeded one. */
   rng?: () => number;
   /** The tests' hook: start the partner's Pep or the enemy's Fog at this number. */
-  debug?: { pep?: number; fog?: number; charges?: number };
+  debug?: { pep?: number; fog?: number; charges?: number; /** the befriend draws, in order (then the battle's own random): the browser tests' sure fail or sure success */ dice?: number[] };
 }
 
 /** How many times a question is tried for before the battle ends in peace. */
@@ -222,13 +213,8 @@ export class Battle {
   reward: Reward | null = null;
   /** The cap on questions of this fight, and how many were asked. */
   readonly budget: BattleQuizBudget;
-  /** The net being used: a wrong seal answer keeps it, a right one finishing the seal uses it up. */
-  net: Item | null = null;
-  /** Seal answers still needed with that net. */
-  sealLeft = 0;
-  /** Tries at the seal in this meeting (a wrong one is only a try). */
-  tries = 0;
-  lastSeal: SealResult | null = null;
+  /** Befriending (S3, section 8): the tray's chance, the tries of this fight, pity and Mercy (befriendTry.ts). */
+  readonly befriend: Befriending;
   /** The owl's free hint is offered on the next question (three wrong answers in a row). */
   autoHint = false;
   /** Brilliant hits so far. */
@@ -271,6 +257,27 @@ export class Battle {
     this.fog = o.debug?.fog ?? this.maxFog;
     this.budget = new BattleQuizBudget(rules.bands[this.band].question_cap[o.master ? "guardian" : "wild"]);
     markSeen(w, o.wild.species);
+    this.befriend = new Befriending({
+      world: w,
+      eco: o.economy ?? NO_ECONOMY,
+      monsters: o.monsters,
+      data: o.data,
+      band: this.band,
+      rng: o.debug?.dice ? diceFrom(o.debug.dice, this.rng) : this.rng,
+      field: o.field,
+      onChange: o.onChange,
+      species: o.wild.species,
+      level: o.wild.level,
+      subject: this.enemy.subject,
+      zone: o.data.species[o.wild.species]?.zone ?? "",
+      gift: o.data.species[o.wild.species]?.gift ?? null,
+      fog: () => this.fog,
+      maxFog: () => this.maxFog,
+      statuses: () => this.enemyStatuses(),
+      allowed: () => this.canBefriend(),
+      partnerId: () => this.partner.id,
+      maxCreatures: MAX_CREATURES,
+    });
     // everybody awake starts full; the fainted wait for medicine or the nurse
     for (const c of w.creatures.slice(0, PARTY_SIZE)) if (usable(c)) this.pep.set(c.id, this.maxPepOf(c));
     if (o.debug?.pep !== undefined) {
@@ -460,6 +467,11 @@ export class Battle {
     const bag = this.helperBag();
     if (bag) r.helpers = bag;
     return r;
+  }
+
+  private questionHelpers(): { helpers?: HelperBag } {
+    const bag = this.helperBag();
+    return bag ? { helpers: bag } : {};
   }
 
   /** The Bag's helpers for a question: the feather, the clover and the owl's pass, counted from the Bag. */
@@ -810,29 +822,52 @@ export class Battle {
     return this.play({ kind: "medicine", to: creatureId });
   }
 
-  // ---- calm: the current Net (befriending is S3) ----
+  // ---- befriending (S3, BATTLE_V3 8): a try that can fail, from the tray at any time ----
 
-  /** Seal answers a net needs for this creature: one; three for a rare (grown-up form) one; a silver net saves one. */
-  sealNeeded(net: Item): number {
-    const rare = (this.o.monsters[this.o.wild.species]?.stage ?? "basic") !== "basic";
-    return Math.max(1, (rare ? 3 : 1) - net.sealLess);
+  /** The creature's statuses by name, for the befriend chance: "calm" at Fog 0 (slice S2 adds Drowsy, Dizzy and the rest here). */
+  enemyStatuses(): string[] {
+    return this.fog <= 0 ? ["calm"] : [];
+  }
+
+  /** Befriending is open: wild creatures only (never a master, Keeper or guardian), fighting or calm, no friend waiting to be picked. */
+  canBefriend(): boolean {
+    return this.kind === "wild" && (this.phase === "fighting" || this.phase === "calm") && !this.needSwap;
   }
 
   /**
-   * The Net: throws one at the calm creature. Nothing is used up yet;
-   * the seal question comes next (`nextSeal`). Null when the creature is
-   * not calm or the child has no such net.
+   * The optional Gift question (8.3): one normal-tier question in the creature's subject. Right: x1.5 on the next try;
+   * wrong or closed: x1, nothing lost. Null when no question can be made.
    */
-  throwNet(eco: Economy, netId: string): Item | null {
-    const net = eco.items[netId];
-    if (this.phase !== "calm" || !net || net.kind !== "net" || countOf(this.o.world, netId) < 1) return null;
-    // the same net again goes on with the seals already broken; another net starts over
-    if (this.net?.id !== net.id) {
-      this.net = net;
-      this.sealLeft = this.sealNeeded(net);
-      this.o.field.item({ item: net.id, where: "battle", ok: true });
+  giftQuestion(): QuizSession | null {
+    if (!this.canBefriend()) return null;
+    const bias = biasFor(this.data.rules.bands[this.band].right_chance.N, this.o.engine.learner.targetFrontier);
+    for (let i = 0; i < TRIES; i++) {
+      const session = new QuizSession(
+        this.o.engine,
+        { topic: this.enemy.subject, context: "seal", maxChoices: this.o.maxChoices, speed: false, kinds: ["order", "letters"], bias, ...this.questionHelpers() },
+        this.o.clock,
+        (outcome) => {
+          this.stats.questions++;
+          this.stats.ms += session.elapsedMs;
+          if (outcome.correct) this.stats.correct++;
+          this.befriend.gift = outcome.correct;
+          this.o.onChange();
+        },
+        this.o.warn,
+      );
+      if (session.question) return session;
     }
-    return net;
+    return null;
+  }
+
+  /** One try with a tool and a treat. A friend ends the fight; a failed try changes nothing but the next chance (the creature never runs away). */
+  tryBefriend(sel: Selection): TryResult {
+    const r = this.befriend.attempt(sel);
+    if (r.kind === "caught") {
+      this.phase = "caught";
+      this.end("caught");
+    }
+    return r;
   }
 
   /** The owl's spare net (only with no net at all, once a day). */
@@ -843,67 +878,6 @@ export class Battle {
       this.o.onChange();
     }
     return net;
-  }
-
-  /** The seal question for the net thrown; null when no net is out or no question can be made. */
-  nextSeal(eco: Economy): QuizSession | null {
-    if (this.phase !== "calm" || !this.net) return null;
-    for (let i = 0; i < TRIES; i++) {
-      const session = new QuizSession(
-        this.o.engine,
-        { topic: this.enemy.subject, context: "seal", maxChoices: this.o.maxChoices, speed: false, kinds: ["order", "letters"], ...this.sealHelpers() },
-        this.o.clock,
-        (outcome) => this.sealed(eco, session, outcome.correct),
-        this.o.warn,
-      );
-      if (session.question) return session;
-    }
-    return null;
-  }
-
-  private sealHelpers(): { helpers?: HelperBag } {
-    const bag = this.helperBag();
-    return bag ? { helpers: bag } : {};
-  }
-
-  /** The seal answer: right takes a seal off; the last one catches. Wrong: the creature stays, the net is kept, try again. */
-  private sealed(eco: Economy, session: QuizSession, correct: boolean): void {
-    const net = this.net!;
-    this.tries++;
-    this.stats.questions++;
-    this.stats.ms += session.elapsedMs;
-    let caught: Creature | null = null;
-    let toMeadow = false;
-    let full = false;
-    let coins = 0;
-    let growth: Growth | null = null;
-    if (correct) {
-      this.stats.correct++;
-      this.sealLeft = Math.max(0, this.sealLeft - 1);
-      if (this.sealLeft === 0) {
-        const w = this.o.world;
-        w.seen.add(this.o.wild.species);
-        w.caught.add(this.o.wild.species);
-        full = w.creatures.length >= MAX_CREATURES;
-        if (!full) {
-          take(w, net.id);
-          caught = addCreature(w, this.o.wild.species, this.o.wild.level);
-          toMeadow = w.creatures.length > PARTY_SIZE;
-          coins = eco.sealCoins;
-          w.addMoney(coins);
-          growth = giveXp(w, this.partner.id, CATCH_POINTS, this.o.monsters);
-          this.phase = "caught";
-          this.net = null;
-        }
-      }
-    }
-    this.o.field.capture({ species: this.o.wild.species, net: net.id, ok: correct, left: this.sealLeft, tries: this.tries });
-    if (caught) {
-      this.o.field.note("catch", { species: caught.species, level: caught.level, party: toMeadow ? 0 : 1 });
-      this.end("caught");
-    }
-    this.lastSeal = { left: this.sealLeft, correct, caught, toMeadow, full, coins, growth };
-    this.o.onChange();
   }
 
   /** The child's own name for the new friend; null or a bad name is "skip". Kept on the phone only. */

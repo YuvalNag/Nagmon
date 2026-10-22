@@ -2,7 +2,7 @@
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import { readFileSync } from "node:fs";
 import { createRef, type MutableRefObject } from "react";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeAll, describe, expect, it } from "vitest";
 import { appLogText, installAppLog, uninstallAppLog } from "../../../src/platform/appLog";
 import { openPlay, type FetchJson } from "../../../src/app/play";
 import { defaultsForGrade } from "../../../src/core/family/gradeDefaults";
@@ -11,6 +11,10 @@ import { readMap, type TiledMap } from "../../../src/core/world/mapData";
 import type { MapOptions } from "../../../src/game/mapGame";
 import { type JsonObject, MemoryFileStore, pendingWrites } from "../../../src/platform/storage";
 import { MapScreen } from "../../../src/ui/screens/MapScreen";
+import { preloadAll } from "../../../src/ui/lazy";
+
+// the rarely used screens are separate chunks: fetched once, so each test finds them as soon as it asks
+beforeAll(() => preloadAll());
 
 const fetchJson: FetchJson = async (path) => {
   // the built game has a trip file now; these tests are about the game without one
@@ -71,8 +75,13 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
         const open = () => {
           if (neverReady) return;
           if (stallWhenPaused && held.size) return void setTimeout(open, 5);
-          o.onMap?.(inside ?? city);
-          o.onReady?.();
+          // the real scene asks for the people of this hour as the map opens, then tells the screen
+          const w = inside ?? city;
+          // (a child who opens the menu "before the play has loaded" gets the map early, with nobody placed yet)
+          void Promise.resolve(menuFirst ? (void o.place?.(w), undefined) : o.place?.(w)).then(() => {
+            o.onMap?.(w);
+            o.onReady?.();
+          });
         };
         setTimeout(open, stallWhenPaused ? 100 : 0);
         return {
@@ -99,7 +108,8 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
         // the child opens the menu before the play has loaded
         if (menuFirst) await new Promise((r) => setTimeout(r, 60));
         const log = o.log ?? { info: () => {}, warning: () => {}, error: () => {} };
-        return openPlay({ ...o, log: { ...log, info: (m: string) => (logs.push(m), log.info(m)) }, fetchJson: trips ? tripFetch : fetchJson, seed: 3 });
+        // ten in the morning: the town's people of that hour (the clock is not the machine's)
+        return openPlay({ ...o, log: { ...log, info: (m: string) => (logs.push(m), log.info(m)) }, fetchJson: trips ? tripFetch : fetchJson, seed: 3, now: () => new Date(2026, 9, 20, 10, 0) });
       }}
     />,
   );
@@ -314,16 +324,86 @@ describe("the home: the daily chest and the egg nest", () => {
 });
 
 describe("talking on the map", () => {
-  it("shows the talk button only facing the cashier, beside a coin count", async () => {
+  it("shows the talk button facing a person of the world who is here (no allow-list), beside a coin count; nobody else", async () => {
     const m = await start();
     expect(m.el("coins")?.dataset.coins).toBe("0");
     expect(m.el("map_talk")).toBeNull();
+    // the owl is an anchor: always at his post, and he can be talked to now
     await m.face("nagmon_owl");
+    expect(m.el("map_talk")?.textContent).toBe("לדבר");
+    // someone who is not on the map at this hour, and a prop with nothing to say, give no button
+    await m.face("nagmon_house_pet");
+    expect(m.el("map_talk")).toBeNull();
+    await m.face("nobody");
     expect(m.el("map_talk")).toBeNull();
     await m.face("nagmon_cashier");
     expect(m.el("map_talk")?.textContent).toBe("לדבר");
+    // a person with topics also gets "ask"
+    expect(m.el("map_ask")?.textContent).toBe("לשאול");
     await m.face(null);
     expect(m.el("map_talk")).toBeNull();
+    expect(m.el("map_ask")).toBeNull();
+  });
+
+  it("a talk with the owl: his own greeting alone in a box, and the memory of it saved as ids and numbers, no words", async () => {
+    const m = await start();
+    await m.face("nagmon_owl");
+    await m.press("map_talk");
+    const said = await m.read();
+    expect(said).toHaveLength(1);
+    expect(said[0]).toMatch(/^הינשוף החכם: /);
+    expect(m.calls.at(-1)).toBe("resume talk");
+    await pendingWrites(m.fs);
+    const world = await m.profiles.loadWorldDict(m.profile.id);
+    const npcs = world["npcs"] as Record<string, Record<string, unknown>>;
+    expect(world["schema_version"]).toBe(2);
+    expect(npcs["nagmon_owl"]).toMatchObject({ met: 1, pts: 1 });
+    expect((npcs["nagmon_owl"]!["recent"] as string[])[0]).toMatch(/^owl\.gf\./);
+    // nothing of what he said, and nothing of the child's name, is kept
+    expect(JSON.stringify(npcs)).not.toMatch(/[\u0590-\u05FF]/);
+    // a number of this child's own, made once
+    expect(typeof world["npc_seed"]).toBe("number");
+  });
+
+  it("asking: the chips, an answer, the chips again, goodbye; a new topic is a point; the map is held and comes back", async () => {
+    const m = await start();
+    await m.face("nagmon_owl");
+    await m.press("map_ask");
+    expect(m.q("[data-screen=topics]")).not.toBeNull();
+    expect(m.calls).toContain("pause talk");
+    const chips = [...m.container.querySelectorAll("[data-id^=topic_]")].map((b) => b.getAttribute("data-id"));
+    expect(chips).toEqual(["topic_tip", "topic_why", "topic_fact", "topic_town", "topic_bye"]);
+    await m.press("topic_tip");
+    expect(await m.read()).toHaveLength(1);
+    // the chips come again, and a fact shows its card verbatim
+    await m.press("topic_fact");
+    await m.read();
+    expect(m.q("[data-screen=fact]")).not.toBeNull();
+    await m.press("fact_ok");
+    expect(m.q("[data-screen=topics]")).not.toBeNull();
+    await m.press("topic_bye");
+    const bye = await m.read();
+    expect(bye).toHaveLength(1);
+    expect(bye[0]).toMatch(/^הינשוף החכם: /);
+    expect(m.q("[data-screen=topics]")).toBeNull();
+    expect(m.calls.at(-1)).toBe("resume talk");
+    expect(m.el("map_talk")).not.toBeNull();
+    await pendingWrites(m.fs);
+    const npcs = (await m.profiles.loadWorldDict(m.profile.id))["npcs"] as Record<string, { pts: number; flags: string[] }>;
+    // one for the day's first contact, two for two new topics
+    expect(npcs["nagmon_owl"]!.pts).toBe(3);
+    expect(npcs["nagmon_owl"]!.flags).toEqual(["asked_tip", "asked_fact"]);
+  });
+
+  it("Android's back on the chips is goodbye", async () => {
+    const m = await start();
+    await m.face("nagmon_owl");
+    await m.press("map_ask");
+    await act(async () => m.backRef.current?.());
+    await settle();
+    expect(m.q("[data-screen=topics]")).toBeNull();
+    expect(m.q("[data-screen=map-menu]")).toBeNull();
+    expect(m.calls.at(-1)).toBe("resume talk");
   });
 
   it("the cashier end to end: hello, a question, the right answer, 20 coins saved", async () => {
@@ -334,7 +414,11 @@ describe("talking on the map", () => {
     expect(m.calls).toContain("pause talk");
     expect(m.el("dpad")).toBeNull();
     expect(m.el("map_menu")).toBeNull();
-    expect(await m.read()).toEqual(["המוכר אבי: שלום! אני סופר את הכסף בקופה.", "אפשר לעזור לי עם חשבון קטן?"]);
+    // his own greeting of the day opens the same box, then the old words, as before
+    const hello = await m.read();
+    expect(hello).toHaveLength(3);
+    expect(hello[0]).toMatch(/^המוכר אבי: /);
+    expect(hello.slice(1)).toEqual(["המוכר אבי: שלום! אני סופר את הכסף בקופה.", "אפשר לעזור לי עם חשבון קטן?"]);
     expect(m.q("[data-screen=quiz]")).not.toBeNull();
     if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
     const { answer } = m.quiz()!;
@@ -399,10 +483,13 @@ describe("talking on the map", () => {
       await settle();
     };
     const dialog = () => m.q("[data-screen=dialog]");
-    if (dialog()!.dataset.full !== "true") await back(); // the whole first page
+    if (dialog()!.dataset.full !== "true") await back(); // the whole first page (his own greeting)
     expect(dialog()?.dataset.full).toBe("true");
     await back(); // the second page
     expect(dialog()?.dataset.page).toBe("1");
+    if (dialog()!.dataset.full !== "true") await back();
+    await back(); // the third page
+    expect(dialog()?.dataset.page).toBe("2");
     if (dialog()!.dataset.full !== "true") await back();
     await back(); // closed
     expect(m.q("[data-screen=quiz]")).not.toBeNull();
@@ -558,6 +645,7 @@ describe("a wild creature in the grass", () => {
   afterEach(() => {
     localStorage.removeItem("nagmon.encounter.always");
     localStorage.removeItem("nagmon.battle.timescale");
+    localStorage.removeItem("nagmon.befriend.dice");
     localStorage.removeItem("nagmon.battle.seed");
   });
 
@@ -589,10 +677,12 @@ describe("a wild creature in the grass", () => {
     expect(((await m.profiles.loadWorldDict(m.profile.id))["creatures"] as unknown[]).length).toBe(1);
   });
 
-  it("wrong answers hurt nobody; right ones calm it; a net and a seal answer make it a friend, saved", async () => {
+  it("wrong answers hurt nobody; right ones calm it; the Befriend tray, a failed try and a friend, saved", async () => {
     localStorage.setItem("nagmon.encounter.always", "1");
     localStorage.setItem("nagmon.battle.timescale", "0.02");
     localStorage.setItem("nagmon.battle.seed", "7");
+    // the first try fails on its first shake (the draw after it is the net's: 0.9), the second holds on all three
+    localStorage.setItem("nagmon.befriend.dice", "0.999,0.9,0,0,0,0");
     const m = await grass();
     await act(async () => m.opts().onStep?.(5, 8));
     const wildSpecies = m.q("[data-screen=battle]")!.dataset.wild!;
@@ -612,7 +702,8 @@ describe("a wild creature in the grass", () => {
     expect(fog1).toBeLessThan(fog0);
     expect(fog1).toBeGreaterThan(fog0 - 12);
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("turn");
-    expect((m.el("battle_net") as HTMLButtonElement).disabled).toBe(true);
+    // befriending is open at any time, with no calm needed (8.1)
+    expect((m.el("battle_befriend") as HTMLButtonElement).disabled).toBe(false);
     expect(m.logs.some((l) => /^MOVE n=1 move=\w+ subject=\w+ tier=\w ok=0 dmg=\d+ /.test(l))).toBe(true);
     // right answers until it is calm
     for (let i = 0; i < 20 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
@@ -627,33 +718,44 @@ describe("a wild creature in the grass", () => {
     expect(m.q("[data-star=calm]")?.getAttribute("data-on")).toBe("true");
     expect(Number(m.q("[data-id=battle_results]")!.getAttribute("data-coins"))).toBeGreaterThanOrEqual(5 + 3);
     expect(m.el("battle_message")?.textContent).toMatch(/נרגע/);
-    expect((m.el("battle_net") as HTMLButtonElement).disabled).toBe(false);
     // no friend joined by itself
     await pendingWrites(m.fs);
     expect(((await m.profiles.loadWorldDict(m.profile.id))["creatures"] as unknown[]).length).toBe(1);
-    // the net, a seal question: a wrong answer only means another try
-    await m.press("battle_net");
+    // the tray pops up by itself once the creature is calm (T14), on Auto: a chance word, a tool, Throw
+    expect(m.q("[data-id=befriend_tray]")).not.toBeNull();
+    expect(m.q("[data-id=befriend_chance]")?.getAttribute("data-word")).toBe("great");
+    expect(m.el("befriend_tool")?.textContent).toMatch(/\S/);
+    // the Gift question is optional: a wrong answer costs nothing and the tray is back
+    await m.press("befriend_gift");
     expect(m.q("[data-screen=battle-ask]")?.dataset.seal).toBe("true");
-    if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
-    await m.press("quiz_dont_know");
-    await closeResult(m);
+    await answerQuestion(m, false, true);
+    expect(m.q("[data-id=befriend_tray]")).not.toBeNull();
+    expect((m.el("befriend_gift") as HTMLButtonElement).dataset.state).toBe("missed");
+    // a try that fails: the throw plays, the creature sniffs the net, nothing is lost but the net or not, and the fight goes on
+    await m.press("befriend_throw");
+    expect(m.q("[data-id=befriend_throw]")?.getAttribute("data-result")).toBe("failed");
+    for (let i = 0; i < 400 && m.q("[data-id=befriend_throw]"); i++) await settle(5);
+    expect(m.q("[data-id=befriend_throw]")).toBeNull();
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("calm");
-    expect(m.el("battle_message")?.textContent).toMatch(/אפשר לנסות שוב/);
-    // a grown-up creature needs three seal answers: right ones until it is caught
-    for (let i = 0; i < 3 && !m.q("[data-screen=battle-caught]"); i++) {
-      await m.press("battle_net");
-      await answerQuestion(m, true, true);
-    }
+    expect(m.el("battle_message")?.textContent).toMatch(/מריח את הרשת/);
+    expect(m.logs.some((l) => /^BEFRIEND try species=\w+ tool=magic_net treat=none gift=0 ok=0 shakes=1 /.test(l))).toBe(true);
+    // the child taps Befriend again: the tray opens on the last choice, and this one holds on all three shakes
+    await m.press("battle_befriend");
+    await m.press("befriend_throw");
+    expect(m.q("[data-id=befriend_throw]")?.getAttribute("data-result")).toBe("caught");
+    for (let i = 0; i < 400 && !m.q("[data-screen=battle-caught]"); i++) await settle(5);
     expect(m.q("[data-screen=battle-caught]")).not.toBeNull();
-    // a name or skip
-    await m.press("battle_skip");
+    // the card has one big Next, and "Name it" is a quiet chip
+    expect(m.el("battle_name_chip")).not.toBeNull();
+    await m.press("battle_befriend_next");
     expect(m.q("[data-screen=battle]")).toBeNull();
     await pendingWrites(m.fs);
     const world = await m.profiles.loadWorldDict(m.profile.id);
     expect((world["creatures"] as { species: string; name?: string }[]).map((c) => c.species)[1]).toBe(wildSpecies);
     expect((world["creatures"] as { name?: string }[])[1]!.name).toBeUndefined();
     expect(world["caught"]).toContain(wildSpecies);
-    expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
+    // the kit's 3 nets: the one that caught is gone; the one that failed came back (ages 5-7) or not
+    expect([1, 2]).toContain((world["items"] as Record<string, number>)["magic_net"]);
     // the log of the fight: moves, rounds, and one end line with questions, turns and seconds
     expect(m.logs.filter((l) => l.startsWith("MOVE ")).length).toBeGreaterThanOrEqual(2);
     expect(m.logs.filter((l) => l.startsWith("ROUND ")).length).toBeGreaterThanOrEqual(2);
@@ -681,7 +783,8 @@ describe("a wild creature in the grass", () => {
     expect(m.logs.some((l) => /^HELPER use kind=pass skill=/.test(l))).toBe(true);
   });
 
-  it("a name picked from the three, kept in the save", async () => {
+  it("a name picked from the three (behind the Name it chip), kept in the save", async () => {
+    localStorage.setItem("nagmon.befriend.dice", "0");
     const m = await grass();
     await act(async () => m.opts().onStep?.(5, 8));
     for (let i = 0; i < 20 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
@@ -689,10 +792,12 @@ describe("a wild creature in the grass", () => {
       await answerQuestion(m, true, true);
       await settle(5);
     }
-    for (let i = 0; i < 3 && !m.q("[data-screen=battle-caught]"); i++) {
-      await m.press("battle_net");
-      await answerQuestion(m, true, true);
+    await m.press("befriend_throw");
+    for (let i = 0; i < 400 && !m.q("[data-screen=battle-caught]"); i++) {
+      await settle(5);
+      if (m.el("growth_close")) await m.press("growth_close");
     }
+    await m.press("battle_name_chip");
     await m.press("battle_suggest_0");
     await pendingWrites(m.fs);
     const world = await m.profiles.loadWorldDict(m.profile.id);

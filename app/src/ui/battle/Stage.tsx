@@ -69,6 +69,8 @@ interface Props {
   enemyFx: EnemyFx | null;
   /** The map the battle is on: its zone picks the backdrop. */
   map?: string;
+  /** The wild creature's mood while befriending (8.3): leaning closer, sniffing the net, or none. */
+  mood?: "lean" | "sniff" | null;
   /** The ids the tests read. */
   children?: ReactNode;
 }
@@ -266,7 +268,7 @@ export function Stage(p: Props) {
             )}
           </div>
         )}
-        <div ref={theirsRef} className={cls("battle-pic theirs", [!!plan?.wildHit, "hit"], [wrong && !!plan?.oops && !plan.calm, "smirk"], [p.victory, "friend"])}>
+        <div ref={theirsRef} className={cls("battle-pic theirs", [!!plan?.wildHit, "hit"], [wrong && !!plan?.oops && !plan.calm, "smirk"], [p.victory, "friend"], [p.mood === "lean", "lean"], [p.mood === "sniff", "sniff"])}>
           <MonsterPic monsters={p.monsters} species={p.wildSpecies} side="front" height={0.26} />
         </div>
       </div>

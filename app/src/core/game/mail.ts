@@ -18,6 +18,7 @@
  * the same letter had last. No child name or free text is saved: a letter
  * is its id and variant, and the name is put in when it is read.
  */
+import { hasMet } from "./people";
 import type { WorldState } from "../world/worldState";
 import { dayNumber, hashOf, weekOf } from "./dayPick";
 import type { Economy } from "./items";
@@ -177,7 +178,7 @@ export function parseMail(v: unknown): MailSave {
 /** The people the child may get a postcard from: always-known ones, and those met. */
 export function knownSenders(world: WorldState, data: MailData): Sender[] {
   return Object.values(data.senders)
-    .filter((s) => s.always || world.met[s.slug] !== undefined)
+    .filter((s) => s.always || hasMet(world, s.slug))
     .sort((a, b) => (a.slug < b.slug ? -1 : 1));
 }
 

@@ -152,7 +152,7 @@ export function RestScreen({ play, onClose, onChanged, backRef }: Props) {
                   <li key={c.id}>
                     <Tap id={`rest_friend_${c.id}`} className="rest-card" data-mood={c.fainted ? "asleep" : "cheerful"} data-asleep={c.fainted === true} aria-pressed={sel === c.id} aria-label={`${nameOf(c)} ${t("battleLevel", { level: c.level })}`} onTap={() => tap(c)}>
                       <span className="rest-pic">
-                        <MonsterPic monsters={play.monsters} species={c.species} height={0.17} />
+                        <MonsterPic monsters={play.monsters} species={c.species} height={0.15} />
                         <span className="zzz" aria-hidden="true">
                           💤
                         </span>
@@ -181,7 +181,7 @@ export function RestScreen({ play, onClose, onChanged, backRef }: Props) {
                   {wait.map((c) => (
                     <li key={c.id}>
                       <Tap id={`rest_meadow_${c.id}`} className="rest-small" data-mood="cheerful" aria-pressed={sel === c.id} aria-label={`${nameOf(c)} ${t("battleLevel", { level: c.level })}`} onTap={() => tap(c)}>
-                        <MonsterPic monsters={play.monsters} species={c.species} height={0.1} />
+                        <MonsterPic monsters={play.monsters} species={c.species} height={0.085} />
                         {heart(c)}
                         <span className="friend-sub">{t("battleLevel", { level: c.level })}</span>
                       </Tap>

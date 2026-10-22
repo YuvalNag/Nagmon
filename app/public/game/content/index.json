@@ -17,12 +17,56 @@
    "source": "learning/english/words.yaml"
   },
   {
+   "file": "hebrew/grammar.json",
+   "source": "learning/hebrew/grammar.yaml"
+  },
+  {
    "file": "hebrew/letters.json",
    "source": "learning/hebrew/letters.yaml"
   },
   {
+   "file": "hebrew/passages_3.json",
+   "source": "learning/hebrew/passages_3.yaml"
+  },
+  {
+   "file": "hebrew/passages_4.json",
+   "source": "learning/hebrew/passages_4.yaml"
+  },
+  {
+   "file": "hebrew/passages_5.json",
+   "source": "learning/hebrew/passages_5.yaml"
+  },
+  {
+   "file": "hebrew/passages_6.json",
+   "source": "learning/hebrew/passages_6.yaml"
+  },
+  {
+   "file": "hebrew/passages_7.json",
+   "source": "learning/hebrew/passages_7.yaml"
+  },
+  {
+   "file": "hebrew/passages_8.json",
+   "source": "learning/hebrew/passages_8.yaml"
+  },
+  {
+   "file": "hebrew/passages_9.json",
+   "source": "learning/hebrew/passages_9.yaml"
+  },
+  {
    "file": "hebrew/reading.json",
    "source": "learning/hebrew/reading.yaml"
+  },
+  {
+   "file": "hebrew/spelling.json",
+   "source": "learning/hebrew/spelling.yaml"
+  },
+  {
+   "file": "hebrew/text.json",
+   "source": "learning/hebrew/text.yaml"
+  },
+  {
+   "file": "hebrew/vocab.json",
+   "source": "learning/hebrew/vocab.yaml"
   },
   {
    "file": "hebrew/words.json",
@@ -106,8 +150,8 @@
   }
  ],
  "counts": {
-  "skills": 260,
-  "bank_items": 1693,
+  "skills": 292,
+  "bank_items": 2507,
   "words": 1008
  }
 }

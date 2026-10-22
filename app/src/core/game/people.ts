@@ -64,6 +64,25 @@ export function meet(world: WorldState, slug: string, today: string): boolean {
   return true;
 }
 
-/** The people of the directory the child has met, in the directory's order. */
+/**
+ * The child has met `slug`: by the people system of the world (core/world/memory.ts, which has the friendship of the
+ * people it defines) or by the plain `met` list (people without a definition there).
+ */
+export const hasMet = (world: WorldState, slug: string): boolean => (world.npcs.get(slug)?.met ?? 0) > 0 || world.met[slug] !== undefined;
+
+/**
+ * The people of the directory the child has met, in the directory's order. For a person the world's people system
+ * knows, the hearts are its friendship level; the gift tastes stay in `met`.
+ */
 export const metPeople = (world: WorldState, directory: readonly Person[]): { person: Person; met: Met }[] =>
-  directory.flatMap((p) => (world.met[p.slug] ? [{ person: p, met: world.met[p.slug]! }] : []));
+  directory.flatMap((p) => {
+    const rec = world.npcs.get(p.slug);
+    const own = world.met[p.slug];
+    if (rec && rec.met > 0) {
+      const day = rec.last ?? own?.first ?? "";
+      const met: Met = { first: own?.first ?? day, last: day, hearts: Math.min(MAX_HEARTS, rec.lvl) };
+      if (own?.tastes) met.tastes = own.tastes;
+      return [{ person: p, met }];
+    }
+    return own ? [{ person: p, met: own }] : [];
+  });

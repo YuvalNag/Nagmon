@@ -1,7 +1,28 @@
 # Route 1: a friendly duel, a bilingual sign and Pitzi the lost kitten.
 # The wild encounters are the tmx's, in the same grass, from our own table
 # (nagmon_route1: the first animals of the solar-system trip).
+#
+# Danny the mail carrier, the scout and the fisher are people of the world
+# (mods/nagmon/npcs): the resolver puts them on these spots by the day and
+# the time (docs/app/WORLD_V2.md 5.4). The sign and the kitten are props.
+placement:
+  max_npcs: 5
+  spots:
+    camp: [6, 3, down]
+    lookout: [20, 3, down]
+    pond: [10, 16, up]
+    trail_bend: [18, 16, up]
+    sign_post: [35, 17, left]
+    meadow_gate: [31, 15, down]
+
 events:
+
+  Place People:
+    type: event
+    conditions:
+    - not npcs_placed
+    actions:
+    - place_npcs
 
   # ------------------------------------------------ wild encounters
   Nagmon Encounters 1:
@@ -52,8 +73,6 @@ events:
     conditions:
     - not char_exists nagmon_route1_trainer
     actions:
-    - create_npc nagmon_route1_trainer,30,16
-    - char_face nagmon_route1_trainer,right
     - add_monster lunibble,5,nagmon_route1_trainer,3,5
     - add_monster dustip,6,nagmon_route1_trainer,3,5
 

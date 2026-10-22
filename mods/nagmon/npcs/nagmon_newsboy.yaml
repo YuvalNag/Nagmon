@@ -1,0 +1,33 @@
+# Aviv the Newsboy (docs/app/WORLD_V2.md 6: row 19). Art is a stand-in (shares Yoav's sheet): needs a newsboy sheet.
+id: nagmon_newsboy
+short: aviv
+class: R
+name_he: אביב מחלק העיתון
+name_en: Aviv the Newsboy
+role: newsboy
+age_feel: child
+sprite: nagmon_kid
+voice:
+  style: "fast, shouts headlines, out of breath and happy"
+  quirks: ["waves a rolled newspaper"]
+  catchphrases: ["חדשות חדשות!"]
+  register: playful
+personality: [fast, loud, cheerful]
+knows:
+  topics:
+    - {id: news, label_he: "מה החדשות?", icon: "1f4f0", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["tell the whole town the good news"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [morning]}, at: {map: classic_hearthrock_city, spots: [plaza_mid, plaza_west, school_gate, post_box]}}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {quests: [q_moon_phase]}
+relationship:
+  memory_flags: [asked_news, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

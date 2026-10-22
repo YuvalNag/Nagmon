@@ -555,6 +555,23 @@ button.map-menu {
   pointer-events: none;
 }
 
+/* the "ask" button sits above "talk" in the same column, a little smaller */
+.map-talk-slot:has(.map-ask) {
+  height: calc(var(--touch) * 2.7);
+  flex-direction: column;
+  gap: 8px;
+}
+
+button.map-ask {
+  flex: 0 0 auto;
+  min-height: var(--touch);
+  padding: 0 8px;
+  font-size: calc(var(--text) * 1.05);
+  font-weight: 700;
+  pointer-events: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
 button.map-talk {
   flex: 1;
   padding: 0;
@@ -699,6 +716,8 @@ button.dialog {
 .quiz-passage p {
   margin: 0 0 calc(var(--gap) / 3);
   text-align: start;
+  /* a poem keeps its line breaks */
+  white-space: pre-line;
 }
 
 .quiz-passage-title {
@@ -1753,7 +1772,8 @@ button.quiz-choice {
 /* the menu (docs/app/BATTLE_V3.md 2.2): the friends strip (2 x 2 portraits), the four move cards (2 x 2, each at least 150 x 56), Net, Bag and Run */
 .action-bar {
   display: grid;
-  grid-template-columns: calc(2 * 56px + 8px) minmax(0, 1fr) calc(3 * 64px + 16px);
+  /* the three small buttons are as wide as their words need ("ממשיכים" is one word on one line, at any text size) */
+  grid-template-columns: calc(2 * 56px + 8px) minmax(0, 1fr) max-content;
   gap: 8px;
   padding: 8px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left));
   background: rgba(23, 50, 58, 0.12);
@@ -1933,7 +1953,7 @@ button.quiz-choice {
 }
 
 .action-bar button.move-card.sturdy .move-name {
-  opacity: 0.75;
+  opacity: 0.9;
 }
 
 .action-bar button.move-card.dimmed {
@@ -1952,8 +1972,13 @@ button.quiz-choice {
 
 .side-buttons {
   display: grid;
-  grid-template-columns: repeat(3, minmax(64px, 1fr));
+  grid-template-columns: repeat(3, minmax(64px, max-content));
   gap: 8px;
+}
+
+.side-buttons button {
+  padding-inline: 8px;
+  overflow-wrap: normal;
 }
 
 .action-bar button.pulse {
@@ -2957,7 +2982,7 @@ button.zone {
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 220px;
+  grid-template-columns: minmax(0, 1fr) clamp(220px, 30vw, 280px);
   gap: var(--gap);
 }
 
@@ -3005,7 +3030,7 @@ button.zone {
   position: relative;
   display: flex;
   justify-content: center;
-  min-height: calc(17vh);
+  min-height: calc(12vh);
   align-items: flex-end;
 }
 
@@ -3069,6 +3094,8 @@ button.zone {
   display: flex;
   gap: 6px;
   overflow-x: auto;
+  /* the cards' lower edge is not cut by the row's scroll box */
+  padding-block: 2px 4px;
   touch-action: pan-x;
 }
 
@@ -3102,10 +3129,18 @@ button.zone {
 
 .desk-art {
   width: 100%;
-  max-height: 64px;
+  max-height: 44px;
+  flex: none;
+}
+
+/* the desk's buttons keep the height their words need (a flex column shrinks them under bigger text) */
+.rest-desk > * {
+  flex: none;
 }
 
 .rest-desk button {
+  padding-block: 4px;
+  line-height: 1.1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3120,7 +3155,7 @@ button.zone {
 }
 
 .rest-said {
-  min-height: 2.4em;
+  line-height: 1.2;
   color: var(--ink-soft);
   font-size: calc(var(--text) * 0.55);
 }
@@ -3165,6 +3200,32 @@ button.zone {
 .world-card strong {
   max-width: 40em;
   font-size: calc(var(--text) * 0.95);
+}
+
+/* what to ask a person: big chips, a picture and a few words each */
+.topics-card .topic-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 44em;
+}
+
+button.topic-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: calc(var(--touch) * 2.6);
+  min-height: calc(var(--touch) * 1.5);
+  padding: 6px 10px;
+  font-weight: 700;
+}
+
+button.topic-chip img {
+  width: 32px;
+  height: 32px;
 }
 
 .chest-art {
@@ -3317,4 +3378,189 @@ button.zone {
 
 .quiz.quiz-example .quiz-question {
   font-size: calc(var(--text) * 0.85);
+}
+
+/* ---- befriending (docs/app/BATTLE_V3.md 8): the tray, the throw, the creature's mood ---- */
+.befriend-tray {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: var(--bar-h);
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 0.9fr) minmax(0, 1.1fr) 56px;
+  gap: 8px;
+  padding: 8px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left));
+  background: rgba(23, 50, 58, 0.12);
+  animation: tray-in 0.25s ease-out both;
+}
+
+@keyframes tray-in {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.befriend-tray button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 48px;
+  min-height: 48px;
+  height: 100%;
+  padding: 2px 4px;
+  font-size: calc(var(--text) * 0.55);
+  font-weight: 700;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.befriend-tray .tray-tile > span,
+.befriend-tray button > span,
+.tray-chance small,
+.tray-chance strong {
+  line-height: 1.3;
+}
+
+.befriend-tray .tile-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: calc(var(--text) * 1.0);
+  line-height: 1.3;
+}
+
+.befriend-tray .tile-count {
+  font-size: calc(var(--text) * 0.5);
+  font-weight: 700;
+}
+
+.befriend-tray .tile-heart {
+  color: #d9578f;
+  font-size: calc(var(--text) * 0.6);
+}
+
+.befriend-tray .tile-name {
+  font-size: calc(var(--text) * 0.5);
+  font-weight: 600;
+}
+
+.befriend-tray .tray-tile[data-empty="true"] .tile-icon {
+  opacity: 0.45;
+}
+
+.befriend-tray .tray-tile[data-off="true"] {
+  border-style: dashed;
+}
+
+.befriend-tray .tray-tile.gift[data-state="right"] {
+  border-color: #3f9d58;
+}
+
+.tray-chance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  border-radius: 12px;
+  border: 3px solid var(--word, #8a97a6);
+  background: var(--card, #fff);
+  color: var(--ink, #17323a);
+  font-size: calc(var(--text) * 0.5);
+  line-height: 1.3;
+  text-align: center;
+}
+
+.tray-chance strong {
+  font-size: calc(var(--text) * 0.8);
+  line-height: 1.3;
+}
+
+.tray-chance[data-word="low"] { --word: #8a97a6; }
+.tray-chance[data-word="fair"] { --word: #d99a1e; }
+.tray-chance[data-word="good"] { --word: #3f9d58; }
+.tray-chance[data-word="great"] { --word: #1f8aa8; }
+
+.tray-go {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 6px;
+  min-width: 0;
+}
+
+.befriend-tray .tray-go button {
+  height: auto;
+}
+
+.befriend-tray .tray-go .primary {
+  min-height: 56px;
+  font-size: calc(var(--text) * 0.8);
+}
+
+.befriend-tray .tray-auto {
+  background: rgba(255, 255, 255, 0.85);
+  min-height: 48px;
+  font-size: calc(var(--text) * 0.5);
+}
+
+.befriend-tray .tray-back small {
+  display: none;
+}
+
+.battle[data-calm-fx="true"] .befriend-tray {
+  animation: none;
+}
+
+/* the creature's mood: it leans closer while the tray is open, sniffs the net after a fail (the individual transform properties, so the bobbing keeps playing) */
+.battle-pic.theirs.lean {
+  translate: -10px 0;
+  scale: 1.04;
+  transition: translate 0.25s ease-out, scale 0.25s ease-out;
+}
+
+.battle-pic.theirs.sniff {
+  animation: sniff 1.2s ease-in-out both;
+}
+
+@keyframes sniff {
+  0% { translate: 0 0; rotate: 0deg; }
+  30% { translate: -12px 0; rotate: -3deg; }
+  55% { translate: -12px 0; rotate: 3deg; }
+  100% { translate: 14px 0; rotate: 0deg; }
+}
+
+.battle[data-calm-fx="true"] .battle-pic.theirs.lean,
+.battle[data-calm-fx="true"] .battle-pic.theirs.sniff {
+  translate: none;
+  scale: none;
+  animation: none;
+}
+
+.throw-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.throw-layer .skip-layer {
+  inset: 0;
+}
+
+.throw-net,
+.throw-burst {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-size: 400% 200%;
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.befriend-result .name-chips {
+  flex-wrap: wrap;
 }

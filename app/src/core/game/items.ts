@@ -12,7 +12,7 @@ import { addItemText } from "../../i18n";
 import { countOneMore, countToday, type WorldState } from "../world/worldState";
 import { giveXp, type Growth, type MonsterInfo } from "./collection";
 
-export type ItemKind = "net" | "snack" | "tonic" | "medicine" | "helper" | "key";
+export type ItemKind = "net" | "befriend_tool" | "snack" | "tonic" | "medicine" | "helper" | "key";
 export type HelperKind = "hint" | "fifty" | "pass";
 
 export interface Item {
@@ -37,6 +37,19 @@ export interface Item {
   effect: string | null;
   healShare: number;
   healsDozing: boolean;
+  /** A net or a card (BATTLE_V3 8.4): the multiplier of the befriend chance (1 for everything else). */
+  toolMult: number;
+  /** A snack as a treat in the Befriend tray: its multiplier (1 when it is not a treat). */
+  treatMult: number;
+  /** A friendship card: it counts on every creature ("any"), those of one subject, or those native to one zone. */
+  scope: "any" | "subject" | "zone" | null;
+  scopeId: string | null;
+  /** The Star Net: the first shake never fails. */
+  firstShakeSafe: boolean;
+  /** False: not on any shelf (Star Net, the Rainbow Card); it comes from rewards. */
+  forSale: boolean;
+  /** The data's progress gate for the shop ("keeper:1", "guardian:moon", "guardians:3"), or null. */
+  soldAfter: string | null;
 }
 
 export interface Economy {
@@ -50,9 +63,11 @@ export interface Economy {
   sealCoins: number;
 }
 
-const KINDS = new Set(["net", "snack", "tonic", "medicine", "helper", "key"]);
+const KINDS = new Set(["net", "befriend_tool", "snack", "tonic", "medicine", "helper", "key"]);
 const HELPERS = new Set(["hint", "fifty", "pass"]);
 const num = (v: unknown, d = 0): number => (typeof v === "number" && Number.isFinite(v) ? Math.max(0, Math.trunc(v)) : d);
+/** A multiplier: a finite number from 1 to 3 (anything else is 1). */
+const mult = (v: unknown): number => (typeof v === "number" && Number.isFinite(v) && v >= 1 && v <= 3 ? v : 1);
 
 /** From the parsed game/economy.json; an item with unreadable fields is left out. */
 export function economy(doc: unknown): Economy {
@@ -79,6 +94,13 @@ export function economy(doc: unknown): Economy {
       effect: typeof r["effect"] === "string" ? r["effect"] : null,
       healShare: typeof r["heal_share"] === "number" ? Math.max(0, Math.min(1, r["heal_share"])) : 0,
       healsDozing: r["heals_dozing"] === true,
+      toolMult: mult(r["tool_mult"]),
+      treatMult: mult(r["treat_mult"]),
+      scope: r["scope"] === "any" || r["scope"] === "subject" || r["scope"] === "zone" ? r["scope"] : null,
+      scopeId: typeof r["scope_id"] === "string" ? r["scope_id"] : null,
+      firstShakeSafe: r["first_shake_never_fails"] === true,
+      forSale: r["sold"] !== false,
+      soldAfter: typeof r["sold_after"] === "string" ? r["sold_after"] : null,
     };
     // the data's own words for an item with no entry in the texts (the medicine of the new battle)
     if (typeof r["name_he"] === "string") addItemText(r["id"], r["name_he"], typeof r["desc_he"] === "string" ? r["desc_he"] : "");

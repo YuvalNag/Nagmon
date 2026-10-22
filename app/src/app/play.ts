@@ -27,6 +27,7 @@ import { type MonsterTable, monsterTable } from "../core/game/monsters";
 import type { QuizSession } from "../core/world/quiz";
 import { he } from "../i18n";
 import { fillText } from "../core/world/dialog";
+import { type NpcTable, npcTable } from "../core/world/npcs";
 import { localDay, WorldState } from "../core/world/worldState";
 import type { JsonObject } from "../platform/storage";
 
@@ -54,6 +55,8 @@ export interface GameData {
   mail: MailData;
   /** The battle's data (moves, species, intents, rules); null when the build has none (no battles then). */
   battle: BattleData | null;
+  /** The people of the world (game/npcs.json); none in a build without them. */
+  npcs: NpcTable;
 }
 
 let cached: { fetch: FetchJson; data: Promise<GameData> } | null = null;
@@ -62,7 +65,7 @@ let cached: { fetch: FetchJson; data: Promise<GameData> } | null = null;
 export function loadGameData(fetchJson: FetchJson = fetchGameJson): Promise<GameData> {
   if (cached?.fetch === fetchJson) return cached.data;
   const data = (async () => {
-    const [index, texts, monsters, encounters, eco, lootDoc, factsDoc, objectsDoc, mailDoc, battle] = await Promise.all([
+    const [index, texts, monsters, encounters, eco, lootDoc, factsDoc, objectsDoc, mailDoc, battle, npcsDoc] = await Promise.all([
       fetchJson("content/index.json") as Promise<{ files: { file: string }[] }>,
       fetchJson("i18n/he.json") as Promise<Record<string, string>>,
       fetchJson("db/monsters.json"),
@@ -79,11 +82,13 @@ export function loadGameData(fetchJson: FetchJson = fetchGameJson): Promise<Game
       Promise.resolve(fetchJson("mail.json")).catch(() => ({})),
       // the battle data is checked as it loads; a build without it has no battles, not a broken game
       loadBattleData(fetchJson).catch(() => null),
+      // and none for the people is a town with no one to talk to beyond the map's own scripts
+      Promise.resolve(fetchJson("npcs.json")).catch(() => ({})),
     ]);
     const files = Object.fromEntries(
       await Promise.all(index.files.map(async (f) => [f.file, await fetchJson(`content/${f.file}`)] as const)),
     );
-    return { content: loadContent(files), subjects: SubjectMap.fromDoc(files["subjects.json"]), texts, monsters: monsterTable(monsters), encounters: encounterTables(encounters), economy: economy(eco), loot: loot(lootDoc), facts: facts(factsDoc), objects: objectDefs(objectsDoc), mail: mailData(mailDoc), battle };
+    return { content: loadContent(files), subjects: SubjectMap.fromDoc(files["subjects.json"]), texts, monsters: monsterTable(monsters), encounters: encounterTables(encounters), economy: economy(eco), loot: loot(lootDoc), facts: facts(factsDoc), objects: objectDefs(objectsDoc), mail: mailData(mailDoc), battle, npcs: npcTable(npcsDoc) };
   })();
   cached = { fetch: fetchJson, data };
   data.catch(() => {
@@ -127,6 +132,8 @@ export interface PlayOptions {
   now?: () => Date;
   /** Seeds the question picker (the browser tests' hook); random otherwise. */
   seed?: number | null;
+  /** The hour of the day the people of the world keep (the browser tests' hook); the clock's otherwise. */
+  hour?: number | null;
   log?: { info(m: string): void; warning(m: string): void; error(m: string, e?: unknown): void };
 }
 
@@ -160,6 +167,8 @@ export class Play {
     /** The working objects (the PC, the mailbox, the TV...) and the letters. */
     readonly objects: ObjectDefs = {},
     readonly mail: MailData = { senders: {}, letters: {}, gifts: [] },
+    /** The people of the world (game/npcs.json). */
+    readonly npcs: NpcTable = {},
   ) {
     this.maxChoices = maxChoicesFor(profile);
     this.field = new FieldLog(log);
@@ -203,6 +212,16 @@ export class Play {
   /** The phone's day for the daily prizes. */
   today(): string {
     return localDay(this.now());
+  }
+
+  /** The hour the people of the world keep when a test fixes it (never on a phone). */
+  hourOverride: number | null = null;
+
+  /** The phone's clock now (the day part of the people's day). */
+  clock(): Date {
+    const d = this.now();
+    if (this.hourOverride !== null) d.setHours(this.hourOverride, 0, 0, 0);
+    return d;
   }
 
   /** A catalogue text with the child's name put in (a missing one shows its id and is logged). */
@@ -260,7 +279,7 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   const now = opts.now ?? (() => new Date());
   const log = opts.log ?? { info: () => {}, warning: () => {}, error: () => {} };
   const { profile, profiles } = opts;
-  const [{ content, subjects, texts, monsters, encounters, economy: eco, loot: lootTable, facts: factsTable, objects: objectsTable, mail: mailTable, battle: battleData }, learnerDict, worldDict] = await Promise.all([
+  const [{ content, subjects, texts, monsters, encounters, economy: eco, loot: lootTable, facts: factsTable, objects: objectsTable, mail: mailTable, battle: battleData, npcs: peopleTable }, learnerDict, worldDict] = await Promise.all([
     loadGameData(fetchJson),
     profiles.loadLearnerDict(profile.id),
     profiles.loadWorldDict(profile.id),
@@ -276,5 +295,7 @@ export async function openPlay(opts: PlayOptions): Promise<Play> {
   // a trip file that is not there, or a map not built, is not an error: the zone is "coming soon"
   const trips = await loadTrips(fetchJson, (map) => Promise.resolve(fetchJson(`maps/${map}.json`)).then(() => true, () => false)).catch(() => []);
   log.info(`Play opened: grade ${profile.grade}, ${learner.answers_total} answers so far, ${world.money} coins`);
-  return new Play(profile, engine, world, texts, subjects, monsters, encounters, eco, trips, profiles, log, now, lootTable, factsTable, battleData, objectsTable, mailTable);
+  const play = new Play(profile, engine, world, texts, subjects, monsters, encounters, eco, trips, profiles, log, now, lootTable, factsTable, battleData, objectsTable, mailTable, peopleTable);
+  if (typeof opts.hour === "number") play.hourOverride = opts.hour;
+  return play;
 }

@@ -45,12 +45,22 @@ def test_every_object_stands_where_its_map_says_it_does():
 
 def test_the_spec_objects_are_there_in_the_places_the_spec_names():
     d = defs()
-    assert set(d) == {"pc", "mailbox", "bookshelf", "library", "tv", "fridge", "noticeboard"}
+    assert set(d) == {
+        "pc",
+        "mailbox",
+        "bookshelf",
+        "library",
+        "tv",
+        "fridge",
+        "noticeboard",
+    }
     at = {(p["map"], p["x"], p["y"]) for p in d["pc"]["places"]}
     # the PC goes in the home nook (2,2) and at the Rest Center; the bookshelf in the other nook (5,2)
     assert ("nagmon_home", 2, 2) in at
     assert any(m == "nagmon_rest_center" for m, _, _ in at)
-    assert {(p["map"], p["x"], p["y"]) for p in d["bookshelf"]["places"]} == {("nagmon_home", 5, 2)}
+    assert {(p["map"], p["x"], p["y"]) for p in d["bookshelf"]["places"]} == {
+        ("nagmon_home", 5, 2)
+    }
     assert d["tv"]["places"][0]["map"] == "nagmon_friend_house"
     assert d["fridge"]["places"][0]["map"] == "nagmon_friend_house"
 
@@ -66,18 +76,44 @@ def test_the_spec_objects_are_there_in_the_places_the_spec_names():
         # a place the map's events do not make: the build stops, the object would never show
         lambda d: d["pc"]["places"][0].update(x=3),
         # two objects on one tile
-        lambda d: d["library"].update(places=[{"map": "nagmon_home", "x": 2, "y": 2}]),
+        lambda d: d["library"].update(
+            places=[{"map": "nagmon_home", "x": 2, "y": 2}]
+        ),
         lambda d: d["bookshelf"].update(mode="shelf"),
         lambda d: d["fridge"]["snacks"].__delitem__(slice(2, None)),
         lambda d: d["fridge"]["snacks"][0].pop("emoji"),
         lambda d: d["tv"]["news"].__delitem__(slice(1, None)),
         lambda d: d["tv"]["news"].append("א" * 71),
         lambda d: d["tv"]["creatures"].update(nosuchcreature="א"),
-        lambda d: d["noticeboard"]["postings"].append({"id": "x", "slot": "huge", "giver_he": "x", "goal_he": "x"}),
-        lambda d: d["noticeboard"]["postings"].append({"id": "board_easy_book", "slot": "easy", "giver_he": "x", "goal_he": "x"}),
-        lambda d: d["noticeboard"].update(postings=[p for p in d["noticeboard"]["postings"] if p["slot"] != "weekly"]),
-        lambda d: d["pc"]["people"].append({"slug": "Bad Slug", "name_he": "א", "offers_he": "ב", "emoji": "1f989"}),
-        lambda d: d["pc"]["people"].append(copy.deepcopy(d["pc"]["people"][0])),
+        lambda d: d["noticeboard"]["postings"].append(
+            {"id": "x", "slot": "huge", "giver_he": "x", "goal_he": "x"}
+        ),
+        lambda d: d["noticeboard"]["postings"].append(
+            {
+                "id": "board_easy_book",
+                "slot": "easy",
+                "giver_he": "x",
+                "goal_he": "x",
+            }
+        ),
+        lambda d: d["noticeboard"].update(
+            postings=[
+                p
+                for p in d["noticeboard"]["postings"]
+                if p["slot"] != "weekly"
+            ]
+        ),
+        lambda d: d["pc"]["people"].append(
+            {
+                "slug": "Bad Slug",
+                "name_he": "א",
+                "offers_he": "ב",
+                "emoji": "1f989",
+            }
+        ),
+        lambda d: d["pc"]["people"].append(
+            copy.deepcopy(d["pc"]["people"][0])
+        ),
     ],
 )
 def test_an_object_with_a_mistake_stops_the_build(change):
@@ -109,17 +145,29 @@ def test_the_shipped_letters_are_valid_one_letter_per_variant_with_real_facts_an
         lambda d: d["letters"]["postcard_owl"].update(**{"from": "ghost"}),
         lambda d: d["letters"]["postcard_owl"].update(kind="telegram"),
         lambda d: d["letters"]["postcard_owl"]["variants"].pop(),
-        lambda d: d["letters"]["postcard_owl"]["variants"][0].update(text_he=""),
-        lambda d: d["letters"]["postcard_owl"]["variants"][0].update(text_he="א" * 200),
-        lambda d: d["letters"]["postcard_owl"]["variants"][0].update(fact="no_such_fact"),
+        lambda d: d["letters"]["postcard_owl"]["variants"][0].update(
+            text_he=""
+        ),
+        lambda d: d["letters"]["postcard_owl"]["variants"][0].update(
+            text_he="א" * 200
+        ),
+        lambda d: d["letters"]["postcard_owl"]["variants"][0].update(
+            fact="no_such_fact"
+        ),
         lambda d: d["letters"]["postcard_owl"]["variants"][0].pop("fact"),
-        lambda d: d["letters"]["level3_gift"]["variants"][0].update(gift={"item": "no_such_item"}),
-        lambda d: d["letters"]["level3_gift"]["variants"][0].update(gift={"coins": 500}),
+        lambda d: d["letters"]["level3_gift"]["variants"][0].update(
+            gift={"item": "no_such_item"}
+        ),
+        lambda d: d["letters"]["level3_gift"]["variants"][0].update(
+            gift={"coins": 500}
+        ),
         lambda d: d["gifts"].append({"item": "no_such_item"}),
         lambda d: d["gifts"].append({"coins": 25}),
         lambda d: [s.pop("always", None) for s in d["senders"].values()],
         lambda d: d["senders"]["nagmon_owl"].update(name_he=""),
-        lambda d: d["letters"]["postcard_owl"]["variants"][0].update(text_he="שלום {kid}"),
+        lambda d: d["letters"]["postcard_owl"]["variants"][0].update(
+            text_he="שלום {kid}"
+        ),
     ],
 )
 def test_a_letter_with_a_mistake_stops_the_build(change):

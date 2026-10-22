@@ -158,6 +158,7 @@ describe("saving", () => {
   it("a world with none of the object saves is the file it always was, byte for byte", () => {
     const old = { schema_version: 1, money: 7, variables: { a: "b" }, creatures: [{ id: "c1", species: "heliobud", level: 3, xp: 0 }] };
     const w = WorldState.fromDict(old);
-    expect(JSON.stringify(w.toDict())).toBe(JSON.stringify(old));
+    // written as the current schema version, and nothing else added
+    expect(JSON.stringify(w.toDict())).toBe(JSON.stringify({ ...old, schema_version: 2 }));
   });
 });

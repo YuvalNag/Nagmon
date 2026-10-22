@@ -1,4 +1,5 @@
 import type { Economy } from "../core/game/items";
+import type { Chip } from "../core/world/director";
 import type { Found } from "../core/world/events";
 import { t } from "../i18n";
 import { prizeLook } from "./prizeLook";
@@ -66,6 +67,32 @@ export function FactCard({ fact, onClose }: { fact: { emoji: string; text: strin
         <strong data-id="fact_text">{fact.text}</strong>
         <Tap id="fact_ok" className="primary" onTap={onClose}>
           {t("cardContinue")}
+        </Tap>
+      </div>
+    </ScreenTime>
+  );
+}
+
+/**
+ * What to ask a person of the world (docs/app/WORLD_V2.md 4.4): up to four
+ * big chips, each a picture and a few words, so a child who cannot type
+ * can still ask. "Bye" ends the talk. Nothing here is typed.
+ */
+export function TopicsCard({ speaker, chips, onChoose }: { speaker: string; chips: readonly Chip[]; onChoose: (id: string | null) => void }) {
+  return (
+    <ScreenTime>
+      <div className="map-overlay world-card topics-card" data-screen="topics" role="dialog" aria-label={t("topicsTitle", { name: speaker })}>
+        <strong role="status">{t("topicsTitle", { name: speaker })}</strong>
+        <div className="topic-chips">
+          {chips.map((c) => (
+            <Tap key={c.id} id={`topic_${c.id}`} className="topic-chip" onTap={() => onChoose(c.id)}>
+              <img src={`game/emoji/${c.icon}.svg`} alt="" draggable={false} />
+              <span>{c.label}</span>
+            </Tap>
+          ))}
+        </div>
+        <Tap id="topic_bye" className="quiet" onTap={() => onChoose(null)}>
+          {t("topicsBye")}
         </Tap>
       </div>
     </ScreenTime>
