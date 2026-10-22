@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import { createRef, type MutableRefObject } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Dialog, TYPE_CPS } from "../../../src/ui/Dialog";
@@ -111,5 +111,23 @@ describe("the dialog", () => {
     fireEvent.pointerDown(b, { pointerId: 1, clientX: 100, clientY: 100, button: 0 });
     fireEvent.pointerUp(b, { pointerId: 1, clientX: 100, clientY: 100, button: 0 });
     expect(d.layer().dataset.full).toBe("false");
+  });
+
+  it("shows the speaker's portrait on the box when there is one", async () => {
+    const { container } = render(
+      <ScreenTime>
+        <Dialog pages={PAGES} speaker="nagmon_owl" onDone={() => {}} />
+      </ScreenTime>,
+    );
+    await waitFor(() => expect(container.querySelector(".dialog-box [data-art='npc.nagmon_owl.battle']")).not.toBeNull());
+  });
+
+  it("shows no portrait for a speaker with none", () => {
+    const { container } = render(
+      <ScreenTime>
+        <Dialog pages={PAGES} onDone={() => {}} />
+      </ScreenTime>,
+    );
+    expect(container.querySelector("[data-art]")).toBeNull();
   });
 });

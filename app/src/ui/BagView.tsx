@@ -6,6 +6,7 @@ import { countOf, feed, giveStarterKit, type Item, itemsInTab } from "../core/ga
 import { itemText, type TextKey, t } from "../i18n";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
+import { ItemIcon } from "./ItemIcon";
 
 const TAB_TEXT: Record<string, TextKey> = { nets: "tabNets", snacks: "tabSnacks", tools: "tabTools" };
 const TAB_ICON: Record<string, string> = { nets: "🥅", snacks: "🍓", tools: "🪶" };
@@ -138,7 +139,7 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
           )}
           {items.map((i) => (
             <Tap key={i.id} id={`bag_item_${i.id}`} className="bag-card" aria-pressed={item?.id === i.id} aria-label={`${itemText(i.id, "name")} ${countOf(play.world, i.id)}`} onTap={() => { setPicked(i.id); setAsking(false); setSaid(null); }}>
-              <span className="bag-icon" aria-hidden="true">{i.icon}</span>
+              <span className="bag-icon" aria-hidden="true"><ItemIcon id={i.id} emoji={i.icon} /></span>
               <span className="bag-count">x{countOf(play.world, i.id)}</span>
             </Tap>
           ))}
@@ -146,7 +147,7 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
         <div className="bag-detail" data-id="bag_detail">
           {item && !asking && (
             <>
-              <span className="bag-big" aria-hidden="true">{item.icon}</span>
+              <span className="bag-big" aria-hidden="true"><ItemIcon id={item.id} emoji={item.icon} /></span>
               <strong data-id="bag_name">{itemText(item.id, "name")}</strong>
               <span className="bag-desc">{itemText(item.id, "desc")}</span>
               {reason && <span className="bag-why" data-id="bag_why">{reason}</span>}

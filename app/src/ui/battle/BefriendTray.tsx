@@ -2,6 +2,7 @@ import type { ChanceWord, Tool, Treat } from "../../core/game/befriend";
 import { itemText, t, type TextKey } from "../../i18n";
 import { ScreenTime } from "../screenTime";
 import { Tap } from "../Tap";
+import { ItemIcon } from "../ItemIcon";
 
 export const WORD_TEXT: Record<ChanceWord, TextKey> = { low: "chanceLow", fair: "chanceFair", good: "chanceGood", great: "chanceGreat" };
 
@@ -68,7 +69,7 @@ export function BefriendTray(p: TrayProps) {
           onTap={() => p.onTool(cycle(p.tools.map((x) => x.item.id), p.tool, false))}
         >
           <span className="tile-icon" aria-hidden="true">
-            {tool ? tool.item.icon : "·"}
+            {tool ? <ItemIcon id={tool.item.id} emoji={tool.item.icon} /> : "·"}
             {tool && <span className="tile-count">x{tool.count}</span>}
           </span>
           <span className="tile-name">{tool ? shortName(itemText(tool.item.id, "name")) : t("befriendNoTool")}</span>
@@ -82,7 +83,7 @@ export function BefriendTray(p: TrayProps) {
           onTap={() => p.onTreat(cycle(p.treats.map((x) => x.item.id), p.treat, true))}
         >
           <span className="tile-icon" aria-hidden="true">
-            {treat ? treat.item.icon : "·"}
+            {treat ? <ItemIcon id={treat.item.id} emoji={treat.item.icon} /> : "·"}
             {treat && <span className="tile-count">x{treat.count}</span>}
             {treat?.liked && p.likedKnown && <span className="tile-heart">♥</span>}
           </span>

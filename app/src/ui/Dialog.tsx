@@ -1,5 +1,8 @@
-import { type MutableRefObject, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { lazy, type MutableRefObject, Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Tap } from "./Tap";
+
+/** The speaker's picture comes with the art manifest: its own chunk, fetched only when somebody has a portrait. */
+const Portrait = lazy(() => import("./SpriteFrame").then((m) => ({ default: m.Portrait })));
 
 /** How fast a page types out, characters a second (the old game's dialogs typed too). */
 export const TYPE_CPS = 45;
@@ -9,6 +12,8 @@ interface Props {
   pages: readonly string[];
   /** A picture behind each page (the same index; none for a page without), e.g. the owl's story cards. */
   art?: readonly (string | undefined)[];
+  /** Who speaks: a person of the sprite registry (art/manifest.json `npc_sprites`); their portrait stands on the box. */
+  speaker?: string;
   /** The last page was read. */
   onDone: () => void;
   /** Android's back: the same as a tap (MapScreen calls it). */
@@ -26,7 +31,7 @@ interface Props {
  *   this one presses nothing under it.
  * - Android's back does what a tap does: it never leaves the map.
  */
-export function Dialog({ pages, art, onDone, advanceRef }: Props) {
+export function Dialog({ pages, art, speaker, onDone, advanceRef }: Props) {
   // the page and how much of it shows; the ref holds the same, so a tap or
   // a back press always acts on what is on the screen now, even two in a row
   const [view, setView] = useState({ page: 0, shown: 0 });
@@ -87,6 +92,11 @@ export function Dialog({ pages, art, onDone, advanceRef }: Props) {
       {art?.[view.page] && <img className="dialog-art" data-id="dialog_art" src={art[view.page]} alt="" draggable={false} />}
       <Tap id="dialog" className="dialog" aria-label={text} onTap={() => advance.current()}>
         <span className="dialog-box">
+          {speaker && (
+            <Suspense fallback={null}>
+              <Portrait npc={speaker} height="100%" className="dialog-speaker" />
+            </Suspense>
+          )}
           <span className="dialog-text" data-id="dialog_text" aria-hidden="true">
             {/* the rest of the page holds its place, so the box never grows as it types */}
             <span>{chars.slice(0, view.shown).join("")}</span>

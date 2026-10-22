@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { countSteps, Payment, type PayPlan } from "../core/game/shop";
 import { t } from "../i18n";
 import { Tap } from "./Tap";
@@ -9,7 +9,7 @@ export const COUNT_MS = 420;
 
 interface Props {
   plan: PayPlan;
-  icon: string;
+  icon: ReactNode;
   name: string;
   /** Counting speed; 0 shows the count at once (calm motion, and the tests). */
   stepMs?: number;

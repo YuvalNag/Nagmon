@@ -4,6 +4,7 @@ import { progressPercent, travelTo, zoneState, type Trip, type Zone } from "../c
 import { t } from "../i18n";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
+import { Portrait } from "./SpriteFrame";
 
 interface Props {
   play: Play;
@@ -39,7 +40,9 @@ export function TripScreen({ play, current, homeMap, go, master, onClose, onChan
   return (
     <ScreenTime>
       <section className="trips" data-screen="trips">
-        <h2 className="title">{t("tripsTitle")}</h2>
+        <h2 className="title">
+          <Portrait npc="nagmon_mila" height="1.6em" className="trips-mila" /> {t("tripsTitle")}
+        </h2>
         <p className="trips-coins" role="status" data-id="trips_coins">
           {t("tripsCoins", { coins: world.money })}
         </p>

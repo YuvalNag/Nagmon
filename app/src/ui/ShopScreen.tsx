@@ -9,6 +9,7 @@ import { COUNT_MS, PayStep } from "./PayStep";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
 import { CoinIcon, ShelfArt } from "./WorldArt";
+import { ItemIcon } from "./ItemIcon";
 
 const SHELF_TEXT: Record<Shelf, TextKey> = { nets: "tabNets", snacks: "shelfSnacks", helpers: "shelfHelpers", medicine: "shelfMedicine" };
 const SHELF_ICON: Record<Shelf, string> = { nets: "🥅", snacks: "🍓", helpers: "🪶", medicine: "💊" };
@@ -85,7 +86,7 @@ export function ShopScreen({ play, onClose, onChanged, backRef, stepMs }: Props)
     return (
       <ScreenTime key="pay">
         <div className="sheet shop" role="dialog" aria-label={t("shopTitle")} data-screen="shop" data-mode="pay" data-band={band}>
-          <PayStep plan={payPlan(i.price, band)} icon={i.icon} name={itemText(i.id, "name")} stepMs={stepMs ?? (calm ? 0 : COUNT_MS)} onPaid={(p: Payment) => finish(i, { exact: true, helped: p.helped, quick: false }, p.wrong)} onCancel={() => setMode({ k: "browse" })} />
+          <PayStep plan={payPlan(i.price, band)} icon={<ItemIcon id={i.id} emoji={i.icon} />} name={itemText(i.id, "name")} stepMs={stepMs ?? (calm ? 0 : COUNT_MS)} onPaid={(p: Payment) => finish(i, { exact: true, helped: p.helped, quick: false }, p.wrong)} onCancel={() => setMode({ k: "browse" })} />
         </div>
       </ScreenTime>
     );
@@ -98,7 +99,7 @@ export function ShopScreen({ play, onClose, onChanged, backRef, stepMs }: Props)
         <div className="sheet shop" role="dialog" aria-label={t("shopTitle")} data-screen="shop" data-mode="bought">
           <div className="shop-bought" data-id="shop_bought">
             <span className="bought-icon" aria-hidden="true">
-              {i.icon}
+              <ItemIcon id={i.id} emoji={i.icon} />
             </span>
             <strong role="status">{t("payBought", { name: itemText(i.id, "name") })}</strong>
             {mode.got.back > 0 && (
@@ -157,7 +158,7 @@ export function ShopScreen({ play, onClose, onChanged, backRef, stepMs }: Props)
                 }}
               >
                 <span className="bag-icon" aria-hidden="true">
-                  {i.icon}
+                  <ItemIcon id={i.id} emoji={i.icon} />
                 </span>
                 <span className="shop-name">{itemText(i.id, "name")}</span>
                 <span className="price-chip" data-price={i.price}>
@@ -177,7 +178,7 @@ export function ShopScreen({ play, onClose, onChanged, backRef, stepMs }: Props)
           {item && (
             <>
               <span className="bag-big" aria-hidden="true">
-                {item.icon}
+                <ItemIcon id={item.id} emoji={item.icon} />
               </span>
               <strong data-id="shop_name">{itemText(item.id, "name")}</strong>
               <span className="bag-desc">{itemText(item.id, "desc")}</span>

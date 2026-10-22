@@ -3521,3 +3521,25 @@ button.zone {
 .befriend-result .name-chips {
   flex-wrap: wrap;
 }
+
+/* the owner's item icons (art/manifest.json `icons`): a frame of the icon sheet, as big as the emoji it replaces */
+.item-icon {
+  width: auto;
+  vertical-align: middle;
+  image-rendering: auto;
+}
+
+/* the speaker's portrait (Dialog `speaker`, a person of the sprite registry): stands on the top edge of the words box */
+.dialog-speaker {
+  position: absolute;
+  bottom: 100%;
+  inset-inline-start: 0.5em;
+  /* the frame is a battle picture, about 90% figure: this tall, and never more than a third of the screen */
+  height: min(11em, 38vh) !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+  pointer-events: none;
+}
+
+.trips-mila {
+  vertical-align: middle;
+}

@@ -90,7 +90,7 @@ export function IntroScreen({ play, onDone, advanceRef, onChanged, chapterSubjec
     });
     return (
       <ScreenTime key={`say-${step.k}`}>
-        <Dialog pages={pageList.flat()} art={cards.length ? art : undefined} onDone={then} advanceRef={advanceRef} />
+        <Dialog pages={pageList.flat()} art={cards.length ? art : undefined} speaker="nagmon_owl" onDone={then} advanceRef={advanceRef} />
       </ScreenTime>
     );
   };
