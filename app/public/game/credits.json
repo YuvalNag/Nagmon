@@ -3266,6 +3266,27 @@
    "adapted": ""
   },
   {
+   "path": "emoji/1f31e.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f31e.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/1f321.svg",
    "kind": "emoji",
    "sources": [
@@ -3543,6 +3564,27 @@
    "kind": "emoji",
    "sources": [
     "mods/nagmon/gfx/emoji/svg/1f33e.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "emoji/1f33f.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f33f.svg"
    ],
    "credits": [
     "emoji-nagmon-twemoji"
@@ -5618,10 +5660,52 @@
    "adapted": ""
   },
   {
+   "path": "emoji/1f431.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f431.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/1f433.svg",
    "kind": "emoji",
    "sources": [
     "mods/nagmon/gfx/emoji/svg/1f433.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "emoji/1f436.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f436.svg"
    ],
    "credits": [
     "emoji-nagmon-twemoji"
@@ -6206,6 +6290,27 @@
    "adapted": ""
   },
   {
+   "path": "emoji/1f46b.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f46b.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/1f46e.svg",
    "kind": "emoji",
    "sources": [
@@ -6458,6 +6563,27 @@
    "adapted": ""
   },
   {
+   "path": "emoji/1f4a8.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f4a8.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/1f4aa.svg",
    "kind": "emoji",
    "sources": [
@@ -6689,6 +6815,27 @@
    "adapted": ""
   },
   {
+   "path": "emoji/1f4dd.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f4dd.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/1f4e6.svg",
    "kind": "emoji",
    "sources": [
@@ -6794,6 +6941,27 @@
    "adapted": ""
   },
   {
+   "path": "emoji/1f504.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f504.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/1f50a.svg",
    "kind": "emoji",
    "sources": [
@@ -6819,6 +6987,27 @@
    "kind": "emoji",
    "sources": [
     "mods/nagmon/gfx/emoji/svg/1f50b.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "emoji/1f50d.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f50d.svg"
    ],
    "credits": [
     "emoji-nagmon-twemoji"
@@ -6882,6 +7071,48 @@
    "kind": "emoji",
    "sources": [
     "mods/nagmon/gfx/emoji/svg/1f51f.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "emoji/1f522.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f522.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "emoji/1f524.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f524.svg"
    ],
    "credits": [
     "emoji-nagmon-twemoji"
@@ -7512,6 +7743,27 @@
    "kind": "emoji",
    "sources": [
     "mods/nagmon/gfx/emoji/svg/1f634.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "emoji/1f64f.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f64f.svg"
    ],
    "credits": [
     "emoji-nagmon-twemoji"
@@ -8243,10 +8495,52 @@
    "adapted": ""
   },
   {
+   "path": "emoji/1f7e5.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f7e5.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/1f7e6.svg",
    "kind": "emoji",
    "sources": [
     "mods/nagmon/gfx/emoji/svg/1f7e6.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "emoji/1f7e9.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f7e9.svg"
    ],
    "credits": [
     "emoji-nagmon-twemoji"
@@ -10175,6 +10469,27 @@
    "adapted": ""
   },
   {
+   "path": "emoji/1f9f9.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/1f9f9.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/1f9fa.svg",
    "kind": "emoji",
    "sources": [
@@ -10868,6 +11183,27 @@
    "adapted": ""
   },
   {
+   "path": "emoji/2194.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/2194.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/231a.svg",
    "kind": "emoji",
    "sources": [
@@ -11183,6 +11519,27 @@
    "adapted": ""
   },
   {
+   "path": "emoji/267e.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/267e.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "emoji/2696.svg",
    "kind": "emoji",
    "sources": [
@@ -11481,6 +11838,27 @@
    "kind": "emoji",
    "sources": [
     "mods/nagmon/gfx/emoji/svg/2764.svg"
+   ],
+   "credits": [
+    "emoji-nagmon-twemoji"
+   ],
+   "authors": [
+    "jdecked and contributors"
+   ],
+   "author": "jdecked and contributors",
+   "licences": [
+    "CC BY 4.0"
+   ],
+   "licence": "CC BY 4.0",
+   "note": "",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "emoji/2795.svg",
+   "kind": "emoji",
+   "sources": [
+    "mods/nagmon/gfx/emoji/svg/2795.svg"
    ],
    "credits": [
     "emoji-nagmon-twemoji"

@@ -17,7 +17,7 @@ def doc():
 
 def test_the_shipped_table_is_valid_and_has_forty_six_items():
     out = Output()
-    assert economy.build(out) == {"items": 46, "chests": 1, "facts": 6}
+    assert economy.build(out) == {"items": 46, "chests": 1, "facts": 69}
     assert "economy.json" in out.paths()
     assert "loot.json" in out.paths()
     assert "facts.json" in out.paths()
@@ -143,6 +143,17 @@ def test_the_shipped_facts_are_valid_one_liners_with_a_picture_that_exists():
     assert economy.fact_codes() == {f["emoji"] for f in d["facts"].values()}
 
 
+def test_the_fact_base_has_every_subject_and_no_line_twice():
+    d = economy.check_facts(facts())["facts"]
+    by_subject: dict[str, int] = {}
+    for fact in d.values():
+        by_subject[fact["subject"]] = by_subject.get(fact["subject"], 0) + 1
+    assert set(by_subject) == set(economy.FACT_SUBJECTS)
+    assert min(by_subject.values()) >= 5
+    texts = [f["text_he"] for f in d.values()]
+    assert len(set(texts)) == len(texts)
+
+
 @pytest.mark.parametrize(
     "change",
     [
@@ -152,6 +163,8 @@ def test_the_shipped_facts_are_valid_one_liners_with_a_picture_that_exists():
         lambda d: d["facts"]["owl_night"].update(text_he="א" * 71),
         lambda d: d["facts"]["owl_night"].update(text_he="שורה\nשתיים"),
         lambda d: d["facts"].update({"bad id": d["facts"]["owl_night"]}),
+        lambda d: d["facts"]["owl_night"].pop("subject"),
+        lambda d: d["facts"]["owl_night"].update(subject="sports"),
     ],
 )
 def test_a_fact_with_a_mistake_stops_the_build(change):
