@@ -221,7 +221,10 @@ def test_map_frames_match_their_pictures(built):
             im = image(built, sheet["map"])
             static = sheet["map"].startswith("sprites/objects/")
             assert im.size == ((w, h) if static else (3 * w, 4 * h))
-            if not static:
+            if sheet["map"].endswith("_map.png"):
+                # an owner's person (tools/app/skins.py): a square frame, two tiles wide
+                assert (w, h) == (32 * sheet["scale"], 32 * sheet["scale"])
+            elif not static:
                 # a character is 16x32 at 1x
                 assert (w, h) == (16 * sheet["scale"], 32 * sheet["scale"])
 

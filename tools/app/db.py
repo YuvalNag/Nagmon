@@ -41,7 +41,7 @@ from typing import Any
 
 from PIL import Image
 
-from tools.app import hd, overlays
+from tools.app import hd, overlays, skins
 from tools.app.common import MOD_ORDER, MODS, Output, mod_file, rel_repo
 
 EXTENSIONS = [".json", ".yaml", ".yml"]
@@ -593,7 +593,10 @@ def build(out: Output, scripts: list[dict[str, Any]]) -> dict[str, Any]:
         tpl = rec.get("template") or {}
         art: dict[str, Any] = {}
         name = tpl.get("sprite_name")
-        if name:
+        owner = skins.override(out, slug)
+        if owner:
+            art |= owner
+        elif name:
             folder = "sprites_obj" if tpl.get("is_static_prop") else "sprites"
             sub = "objects" if tpl.get("is_static_prop") else "npc"
             art |= map_sheet(

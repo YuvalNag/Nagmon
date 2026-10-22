@@ -72,7 +72,9 @@ def open_backs(sheet, portrait=None):
 def test_no_back_view_shows_skin_below_the_neck(built):
     rows, bad = [], []
     shown = people(built)
-    assert len(shown) == 17  # 18 map sheets less the three owls
+    assert (
+        len(shown) == 20
+    )  # 21 map sheets less the three owls; 3 are the owner's people
     for m, p in sorted(shown.items()):
         counts = open_backs(
             shipped(built, m), shipped(built, p) if p else None

@@ -83,9 +83,9 @@
    "mods/nagmon/db/npc/nagmon_cast.yaml"
   ],
   "sprites": {
-   "map": "sprites/npc/nagmon_granite.png",
+   "map": "sprites/npc/nagmon_baker_map.png",
    "frame": [
-    128,
+    256,
     256
    ],
    "scale": 8
@@ -294,9 +294,9 @@
    "mods/nagmon/db/npc/nagmon_cast.yaml"
   ],
   "sprites": {
-   "map": "sprites/npc/nagmon_granite.png",
+   "map": "sprites/npc/nagmon_fisher_map.png",
    "frame": [
-    128,
+    256,
     256
    ],
    "scale": 8
@@ -566,9 +566,9 @@
    "mods/nagmon/db/npc/nagmon_cast.yaml"
   ],
   "sprites": {
-   "map": "sprites/npc/nagmon_grey_hood.png",
+   "map": "sprites/npc/nagmon_librarian_map.png",
    "frame": [
-    128,
+    256,
     256
    ],
    "scale": 8
@@ -646,12 +646,12 @@
    "mods/nagmon/db/npc/nagmon_objects.yaml"
   ],
   "sprites": {
-   "map": "sprites/objects/nagmon_bookshelf.png",
+   "map": "sprites/objects/props_home_pets_13.png",
    "frame": [
-    64,
+    128,
     128
    ],
-   "scale": 4
+   "scale": 8
   }
  },
  "nagmon_obj_fridge": {
@@ -700,12 +700,12 @@
    "mods/nagmon/db/npc/nagmon_objects.yaml"
   ],
   "sprites": {
-   "map": "sprites/objects/nagmon_bookshelf.png",
+   "map": "sprites/objects/props_home_pets_13.png",
    "frame": [
-    64,
+    128,
     128
    ],
-   "scale": 4
+   "scale": 8
   }
  },
  "nagmon_obj_mailbox": {
@@ -727,12 +727,12 @@
    "mods/nagmon/db/npc/nagmon_objects.yaml"
   ],
   "sprites": {
-   "map": "sprites/objects/nagmon_mailbox.png",
+   "map": "sprites/objects/props_world_14.png",
    "frame": [
-    64,
-    128
+    128,
+    207
    ],
-   "scale": 4
+   "scale": 8
   }
  },
  "nagmon_obj_noticeboard": {
@@ -754,12 +754,12 @@
    "mods/nagmon/db/npc/nagmon_objects.yaml"
   ],
   "sprites": {
-   "map": "sprites/objects/nagmon_noticeboard.png",
+   "map": "sprites/objects/props_world_3.png",
    "frame": [
-    64,
-    128
+    128,
+    119
    ],
-   "scale": 4
+   "scale": 8
   }
  },
  "nagmon_obj_pc": {

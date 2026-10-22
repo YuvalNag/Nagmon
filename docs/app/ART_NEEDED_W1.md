@@ -30,3 +30,10 @@ nurse/gardener share two sheets (granny, teacher) and would each like their own.
 Prompt for each (one image per request): "Soft digital illustration in the same style as the attached reference sheet
 of Nagmon (friendly, rounded, flat colours, thin dark outline, children's game). Subject: <person from the table>.
 Layout: map walking sheet, 4 directions x stand and two steps. Plain flat background. Modest clothing. No text."
+
+## Done with the owner's art (tools/app/skins.py)
+
+Fuad (`nagmon_fisher`), Ofir (`nagmon_baker`) and Larisa (`nagmon_librarian`) walk with their own sheets. Left on borrowed pictures: the house nurse (the registry has a nurse, but the
+portrait guard needs her portrait to match first), and because the match is not certain: the carpenter (a builder is drawn), the gardener (the farmer is a man), the scout (sheet needs revision), Haim (the
+grandpa may not be him), the kids. W2 props: the notice board, the mailbox (its flag is always up) and both
+bookshelves use the owner's props; the PC, TV and fridge keep their stand-ins.
