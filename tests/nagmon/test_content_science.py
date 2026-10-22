@@ -77,7 +77,9 @@ def _flatten_passages(passages):
     """A reading-passage file (a list) as an ordinary bank: questions inherit skill, grade and tags."""
     items = []
     for passage in passages:
-        inherited = {k: passage[k] for k in ("skill", "grade", "tags") if k in passage}
+        inherited = {
+            k: passage[k] for k in ("skill", "grade", "tags") if k in passage
+        }
         items.extend({**inherited, **q} for q in passage["questions"])
     return {"skill": passages[0]["skill"], "items": items}
 
@@ -87,7 +89,9 @@ def _load_bank(path: Path):
     return _flatten_passages(doc) if isinstance(doc, list) else doc
 
 
-BANKS = {p.relative_to(LEARNING).as_posix(): _load_bank(p) for p in _bank_files()}
+BANKS = {
+    p.relative_to(LEARNING).as_posix(): _load_bank(p) for p in _bank_files()
+}
 SKILLS = {
     subject: _load(LEARNING / rel)
     for subject, rel in SKILL_FILES.items()
