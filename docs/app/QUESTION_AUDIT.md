@@ -95,10 +95,59 @@ questions are one skill.
 
 ## 5. Left
 
-- Hebrew content for grades 3 to 9 (parent's content decision).
+- Hebrew: grades 3 to 9 now have content (section 6). Left there: a native review of the wording, more items at grades 8 and 9 (one grade-9 child still meets repeats: 8 skills, about 190 items), and a worked example that shows the passage of its sibling.
 - Science tells: the right option is still the longest in 53% of the science items; 39 of the worst were fixed.
 - Templated math and geometry: the wording is the same for every item of a skill ("כמה זה a + b?"). Story forms for
   add and subtract, and more forms for `geometry.shapes.more`, `quad.classify`, `symmetry.lines`, would help.
 - Elements-to-subjects spread in the battle, and the question of whether the grade 0 and 1 chains should open two
   skills at the start.
 - The storybook (private data repo) needs its `ARCH` / `PLAN` rows and a new `VERSION` for this change.
+
+## 6. Hebrew grades 3 to 9
+
+Trigger: the Hebrew content ended at grade 2 (160 items, 11 skills), so a child of grade 4 to 9 got grade-2 Hebrew in every
+battle. Branch `app/hebrew-3-9`. 32 new bank skills, 814 original items (665 choice, 135 true-or-false, 14 order), 198 of
+them questions about 35 original reading passages. Every skill has 20 to 40 items, grade tags, and a prerequisite chain
+that starts at the grade 0 to 2 skills. No niqqud (the game rule), no copied text, no religious claims.
+
+| Grade | New skills | Items |
+|---|---|---|
+| 3 | parts of speech, agreement, synonyms, similar-sounding letters, sentence types, reading passage | 161 (all of grade 3) |
+| 4 | tenses, person, punctuation, subject and predicate, homonyms, reading passage | 146 |
+| 5 | roots, prefix letters and endings, proverbs and idioms, text types, reading passage | 137 |
+| 6 | binyanim, figurative language, reading passage | 82 |
+| 7 | construct state (smichut), text analysis, complex sentences, reading passage | 101 |
+| 8 | registers, word formation, summary and paraphrase, reading passage | 98 |
+| 9 | argument text, reading poems, tone and implied meaning, reading passage | 99 |
+
+Files: `hebrew/{grammar,vocab,spelling,text}.yaml` (items carry their skill and tag) and `hebrew/passages_3..9.yaml` (lists of
+passages, `text_he` only; a poem is a literal block so its lines stay). The question screen shows the passage in Hebrew
+(`white-space: pre-line` keeps a poem's lines).
+
+Measured with the same headless child (`hebrew_audit.test.ts`, 200 Hebrew battle questions per grade, no placement):
+
+| Child's grade | Mean grades below level, before / after | Share two or more grades below | Distinct skills in 200 questions |
+|---|---|---|---|
+| 3 | 1.73 / 0.28 | 0.53 / 0.09 | 11 / 16 |
+| 4 | 2.65 / 0.36 | 1.00 / 0.00 | 11 / 16 |
+| 5 | 3.74 / 0.01 | 1.00 / 0.00 | 11 / 11 |
+| 6 | 4.74 / 0.50 | 1.00 / 0.10 | 11 / 14 |
+| 7 | 5.74 / 0.68 | 1.00 / 0.23 | 11 / 14 |
+| 8 | 6.75 / 0.13 | 1.00 / 0.07 | 11 / 10 |
+| 9 | 7.75 / 0.23 | 1.00 / 0.00 | 11 / 8 |
+
+The old bank against the new one (strict: the right option is longer than every other / shorter than every other):
+
+| Measure | Old Hebrew (160) | New Hebrew (814) |
+|---|---|---|
+| Right option strictly the longest | 0.17 | 0.22 |
+| Right option strictly the shortest | 0.20 | 0.27 |
+| Place of the right option in the file (1st / 2nd / 3rd) | 0.34 / 0.34 / 0.30 | 0.33 / 0.33 / 0.34 |
+| True-or-false that are "true" | 0.57 | 0.51 |
+| Mean explanation length (characters) | 49 | 60 |
+
+Held by `content_hebrew_upper.test.ts` and `tests/nagmon/test_content_hebrew_upper.py` (ids, grade, prerequisites,
+20 to 40 items, no duplicate item, distinct options, no bias in length or place, true-or-false balance, explanations that
+are not the question, passage length growing by grade, a worked-example sibling for every skill) and by two cases in
+`question_quality.test.ts` (a grade 3 to 9 child is asked Hebrew of their own grade). The placement test that said
+"Hebrew has content to grade 2" now says a grade-6 child who answers right starts Hebrew at their own level.

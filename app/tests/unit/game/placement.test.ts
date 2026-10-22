@@ -80,9 +80,11 @@ describe("the owl's placement", () => {
     expect(second!.correct).toBe(false);
   });
 
-  it("a subject never starts above what it has: Hebrew has content to grade 2", () => {
+  it("Hebrew now has content to grade 9, so a grade-6 child who answers right starts it at their own level, not at grade 2", () => {
     const { p } = run(6, () => true);
-    expect(p.result().levels["hebrew"]).toBeLessThanOrEqual(2);
+    const hebrew = p.result().levels["hebrew"]!;
+    expect(hebrew).toBeGreaterThanOrEqual(6);
+    expect(hebrew).toBeLessThanOrEqual(9);
   });
 
   it("apply() sets each subject's start level on the learner, and the parent's grade stays", () => {

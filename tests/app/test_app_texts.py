@@ -24,7 +24,7 @@ def test_every_content_yaml_file_has_a_json_file_with_the_same_data(built):
 def test_content_index_lists_every_file(built):
     index = data(built, "content/index.json")
     assert len(index["files"]) == len(content.content_files())
-    assert index["counts"]["skills"] == 260
+    assert index["counts"]["skills"] == 292
 
 
 def test_content_keeps_its_structure(built):

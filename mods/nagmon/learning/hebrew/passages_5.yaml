@@ -1,0 +1,379 @@
+# Nagmon Hebrew reading passages, grade 5 (SDD_CONTENT section 5): original short texts written for this game.
+# Each passage names its skill and tags; its questions are regular bank items that inherit grade, skill and tags.
+# Hebrew only, without niqqud. The passage shows on the question screen (meta.passage_he).
+
+- id: pass5.01
+  grade: 5
+  skill: hebrew.reading.passage_5
+  tags: [passage_5]
+  title: המפה בעליית הגג
+  text_he: >-
+    נעמה מצאה בעליית הגג מפה ישנה ומצהיבה. בפינה היה כתוב: "המטמון נמצא מתחת לעץ הגדול."
+    היא קראה לאחיה אורי, ויחד יצאו לחפש. הם ספרו עשרים צעדים מהשער, פנו שמאלה ועצרו ליד עץ תאנה ענק.
+    אורי חפר בעזרת כפית, עד שהתגלתה קופסת פח קטנה. בתוכה היו כדורי זכוכית צבעוניים ופתק: "שחקו בהם, וחזרו להחביא."
+    נעמה ואורי חייכו. הם החליטו להחביא את הקופסה מחדש, כדי שגם ילדים אחרים ימצאו אותה יום אחד.
+  questions:
+    - id: heb.pass5.001
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'איפה מצאה נעמה את המפה?'
+      prompt_en: 'Where did Naama find the map?'
+      choices:
+      - {he: במגירה של אורי, en: 'In Uri''s drawer'}
+      - {he: בחצר ליד עץ התאנה, en: In the yard by the fig tree}
+      - {he: בעליית הגג של הבית, en: In the attic of the house}
+      answer: 2
+      explanation_he: 'הקטע מתחיל במילים: "נעמה מצאה בעליית הגג מפה ישנה".'
+      explanation_en: 'The text begins: "Naama found an old map in the attic".'
+    - id: heb.pass5.002
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'באיזה עץ עצרו הילדים?'
+      prompt_en: 'At which tree did the children stop?'
+      choices:
+      - {he: עץ זית עתיק, en: An ancient olive tree}
+      - {he: עץ תאנה ענק, en: A giant fig tree}
+      - {he: עץ אקליפטוס גבוה, en: A tall eucalyptus tree}
+      answer: 1
+      explanation_he: 'כתוב: "עצרו ליד עץ תאנה ענק".'
+      explanation_en: 'It says: "stopped next to a giant fig tree".'
+    - id: heb.pass5.003
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה היה בקופסת הפח?'
+      prompt_en: 'What was in the tin box?'
+      choices:
+      - {he: כדורי זכוכית ופתק, en: Glass marbles and a note}
+      - {he: מטבעות עתיקים ומפתח, en: Ancient coins and a key}
+      - {he: ספר ישן ומפה נוספת, en: An old book and another map}
+      answer: 0
+      explanation_he: הקטע אומר שבקופסה היו כדורי זכוכית צבעוניים ופתק.
+      explanation_en: The text says the box held colorful glass marbles and a note.
+    - id: heb.pass5.004
+      kind: choice
+      difficulty: 0.5
+      prompt_he: 'מה ביקש הפתק מהמוצאים?'
+      prompt_en: 'What did the note ask of the finders?'
+      choices:
+      - {he: לקחת את הכדורים הביתה, en: To take the marbles home}
+      - {he: לספר לכל השכונה על המטמון, en: To tell the whole neighborhood about the treasure}
+      - {he: לשחק בכדורים ולהחביא אותם שוב, en: To play with the marbles and hide them again}
+      answer: 2
+      explanation_he: 'בפתק כתוב: "שחקו בהם, וחזרו להחביא".'
+      explanation_en: 'The note says: "play with them, and hide them again".'
+    - id: heb.pass5.005
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'למה הילדים החביאו את הקופסה מחדש?'
+      prompt_en: 'Why did the children hide the box again?'
+      choices:
+      - {he: כדי שילדים אחרים ימצאו אותה יום אחד, en: So that other children would find it one day}
+      - {he: כדי שאיש לא יגלה את הכדורים, en: So no one would discover the marbles}
+      - {he: כי הכדורים לא מצאו חן בעיניהם, en: Because they did not like the marbles}
+      answer: 0
+      explanation_he: 'הילדים רצו שמישהו אחר ייהנה מהמציאה כמוהם, ולכן נתנו להם הזדמנות למצוא.'
+      explanation_en: The children wanted someone else to enjoy the find as they did.
+    - id: heb.pass5.006
+      kind: order
+      difficulty: 0.5
+      prompt_he: סדרו את האירועים לפי הסדר בקטע.
+      prompt_en: Put the events in the order of the text.
+      choices:
+      - {he: אורי חפר, en: Uri dug}
+      - {he: נעמה מצאה מפה, en: Naama found a map}
+      - {he: ספרו צעדים מהשער, en: They counted steps from the gate}
+      - {he: החביאו את הקופסה מחדש, en: They hid the box again}
+      answer: [1, 2, 0, 3]
+      explanation_he: 'קודם מצאו מפה, אחר כך ספרו צעדים, חפרו ומצאו, ולבסוף החביאו.'
+      explanation_en: 'First a map, then counting steps, then digging, and at the end hiding the box.'
+- id: pass5.02
+  grade: 5
+  skill: hebrew.reading.passage_5
+  tags: [passage_5]
+  title: חיי הנמלים
+  text_he: >-
+    נמלים הן חרקים קטנים שחיים בקהילות גדולות. בכל קן יש מלכה שמטילה ביצים, ועובדות שמחפשות מזון, מנקות ובונות.
+    כשנמלה מוצאת אוכל, היא משאירה בדרך חומר בעל ריח, וכך הנמלים האחרות מוצאות את הדרך אליו.
+    נמלה יכולה לשאת משא כבד פי כמה ממשקלה, ולכן קל לראות נמלה סוחבת פירור ענק.
+    בקן יש מנהרות וחדרים רבים, וכל קבוצת נמלים אחראית על חלק אחר. הנמלים עובדות יחד, ולכן הקן נשאר מסודר ובטוח.
+  questions:
+    - id: heb.pass5.007
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מה תפקיד המלכה בקן?'
+      prompt_en: 'What is the queen''s role in the nest?'
+      choices:
+      - {he: להטיל ביצים, en: To lay eggs}
+      - {he: לחפש אוכל, en: To look for food}
+      - {he: לבנות את הקן, en: To build the nest}
+      answer: 0
+      explanation_he: 'כתוב שהמלכה מטילה ביצים. העובדות מחפשות מזון, מנקות ובונות.'
+      explanation_en: 'It says the queen lays eggs. The workers look for food, clean and build.'
+    - id: heb.pass5.008
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה עושות העובדות?'
+      prompt_en: 'What do the workers do?'
+      choices:
+      - {he: מטילות ביצים בלבד, en: They only lay eggs}
+      - {he: 'מחפשות מזון, מנקות ובונות', en: 'They search for food, clean and build'}
+      - {he: שומרות על המלכה ולא יוצאות, en: They guard the queen and never go out}
+      answer: 1
+      explanation_he: 'הקטע מפרט את עבודת העובדות: מזון, ניקיון ובנייה.'
+      explanation_en: 'The text lists the workers'' jobs: food, cleaning and building.'
+    - id: heb.pass5.009
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'איך נמלים אחרות מוצאות את האוכל?'
+      prompt_en: 'How do other ants find the food?'
+      choices:
+      - {he: לפי קול שהמלכה משמיעה, en: By a sound the queen makes}
+      - {he: לפי אור שהן רואות בלילה, en: By a light they see at night}
+      - {he: לפי חומר בעל ריח שנמלה משאירה, en: By a smelly substance an ant leaves behind}
+      answer: 2
+      explanation_he: 'נמלה שמצאה אוכל משאירה בדרך חומר בעל ריח, והאחרות הולכות בעקבותיו.'
+      explanation_en: 'An ant that found food leaves a scented trail, and the others follow it.'
+    - id: heb.pass5.010
+      kind: choice
+      difficulty: 0.5
+      prompt_he: 'מה פירוש "משא כבד" בקטע?'
+      prompt_en: 'What does "a heavy load" mean in the text?'
+      choices:
+      - {he: עבודה קשה מאוד, en: Very hard work}
+      - {he: קן גדול, en: A big nest}
+      - {he: דבר כבד שנושאים, en: A heavy thing that is carried}
+      answer: 2
+      explanation_he: 'משא הוא מה שנושאים. נמלה נושאת משא כבד פי כמה ממשקלה, כמו פירור גדול.'
+      explanation_en: A load is what is carried. An ant carries a load several times its own weight.
+    - id: heb.pass5.011
+      kind: true_false
+      difficulty: 0.5
+      prompt_he: 'לפי הקטע, נמלה יכולה לשאת רק משא קטן ממשקלה.'
+      prompt_en: 'According to the text, an ant can carry only a load lighter than itself.'
+      answer: false
+      explanation_he: הקטע אומר שנמלה יכולה לשאת משא כבד פי כמה ממשקלה.
+      explanation_en: The text says an ant can carry a load several times its own weight.
+- id: pass5.03
+  grade: 5
+  skill: hebrew.reading.passage_5
+  tags: [passage_5]
+  title: יום הספורט של גיא
+  text_he: >-
+    בבוקר יום הספורט נעמד גיא בקו ההתחלה, וליבו דפק חזק. בלילה הקודם כמעט לא ישן, וחשב על כל הפעמים שנשאר מאחור. ביום שלפני כן התאמן לבד בחצר ולא סיפר לאיש. הוא תמיד היה האחרון בריצות, ועכשיו כולם יסתכלו עליו.
+    "העיקר שתרוץ," לחש לו המאמן.
+    כשנשמעה הצפירה, גיא רץ. הוא לא הגיע ראשון, והוא אפילו לא הגיע שני, אבל הוא סיים את המסלול בלי לעצור לרגע, וקיבל מחיאות כפיים מכל הכיתה.
+    בדרך הביתה אמר לאמא: "לראשונה אני לא מתבייש."
+  questions:
+    - id: heb.pass5.012
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'איך גיא הרגיש לפני הריצה?'
+      prompt_en: 'How did Guy feel before the race?'
+      choices:
+      - {he: מתוח וחושש, en: Tense and worried}
+      - {he: רגוע ובטוח בעצמו, en: Calm and confident}
+      - {he: משועמם ועייף, en: Bored and tired}
+      answer: 0
+      explanation_he: ליבו דפק חזק והוא ידע שכולם יסתכלו עליו. אלה סימנים של מתח וחשש.
+      explanation_en: His heart beat hard and he knew everyone would watch him. These are signs of tension and worry.
+    - id: heb.pass5.013
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה אמר המאמן לגיא?'
+      prompt_en: 'What did the coach tell Guy?'
+      choices:
+      - {he: העיקר שתנצח, en: The main thing is that you win}
+      - {he: העיקר שתרוץ, en: The main thing is that you run}
+      - {he: תחכה עד שיגיעו כולם, en: Wait until everyone arrives}
+      answer: 1
+      explanation_he: 'המאמן לחש: "העיקר שתרוץ", כלומר חשוב להשתתף ולהתאמץ.'
+      explanation_en: 'The coach whispered: "the main thing is that you run", meaning taking part and trying matters.'
+    - id: heb.pass5.014
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה הצליח גיא לעשות בריצה?'
+      prompt_en: 'What did Guy manage to do in the race?'
+      choices:
+      - {he: לסיים את המסלול בלי לעצור, en: To finish the course without stopping}
+      - {he: להגיע במקום הראשון, en: To come first}
+      - {he: להגיע במקום השני, en: To come second}
+      answer: 0
+      explanation_he: 'הקטע אומר שגיא לא הגיע ראשון או שני, אבל סיים בלי לעצור.'
+      explanation_en: 'The text says he came neither first nor second, but finished without stopping.'
+    - id: heb.pass5.015
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'למה הכיתה מחאה כפיים?'
+      prompt_en: 'Why did the class applaud?'
+      choices:
+      - {he: כי גיא ניצח את כולם, en: Because Guy beat everyone}
+      - {he: כי המאמן ביקש מהם, en: Because the coach asked them to}
+      - {he: כי גיא התאמץ והמשיך עד הסוף, en: Because Guy tried hard and kept going to the end}
+      answer: 2
+      explanation_he: 'גיא לא ניצח, אבל לא ויתר. הכיתה מחאה כפיים להתמדה שלו.'
+      explanation_en: 'Guy did not win, but did not give up. The class applauded his perseverance.'
+    - id: heb.pass5.016
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה פירוש "לראשונה אני לא מתבייש"?'
+      prompt_en: 'What does "for the first time I am not ashamed" mean?'
+      choices:
+      - {he: שהוא כועס על המאמן, en: That he is angry at the coach}
+      - {he: שהוא גאה בעצמו, en: That he is proud of himself}
+      - {he: שהוא לא רוצה לרוץ שוב, en: That he does not want to run again}
+      answer: 1
+      explanation_he: 'עד היום גיא התבייש בריצה, והפעם הוא הרגיש טוב. זה מראה שהוא גאה בעצמו.'
+      explanation_en: 'Until now Guy was embarrassed about running, but this time he felt good. He is proud of himself.'
+- id: pass5.04
+  grade: 5
+  skill: hebrew.reading.passage_5
+  tags: [passage_5]
+  title: מסע המים
+  text_he: >-
+    מים בים מתחממים בשמש והופכים לאדים שעולים אל השמיים. למעלה, בגובה, האוויר קר, והאדים מתעבים לטיפות קטנות שיוצרות עננים.
+    כשהעננים מתמלאים בהרבה טיפות, הטיפות נעשות כבדות ונופלות כגשם.
+    הגשם מתחבר לנחלים, והנחלים זורמים בחזרה אל הים.
+    כך המים חוזרים על המסע שוב ושוב, כמו מעגל. השמש היא המנוע של כל המסע הזה: בלי החום שלה המים לא היו עולים אל השמיים. המסע נמשך כבר מיליוני שנים, והמים שבכוס שלכם עברו אותו פעמים רבות.
+  questions:
+    - id: heb.pass5.017
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מה גורם למים בים להפוך לאדים?'
+      prompt_en: 'What causes sea water to turn into vapor?'
+      choices:
+      - {he: חום של השמש, en: The heat of the sun}
+      - {he: רוח חזקה, en: A strong wind}
+      - {he: אור של הירח, en: The light of the moon}
+      answer: 0
+      explanation_he: 'הקטע מתחיל: "מים בים מתחממים בשמש והופכים לאדים".'
+      explanation_en: 'It starts: "water in the sea warms in the sun and turns into vapor".'
+    - id: heb.pass5.018
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'למה האדים מתעבים לטיפות בגובה?'
+      prompt_en: 'Why does the vapor turn into drops high up?'
+      choices:
+      - {he: כי האוויר שם חם, en: Because the air there is hot}
+      - {he: כי יש שם הרבה ציפורים, en: Because there are many birds there}
+      - {he: כי האוויר שם קר, en: Because the air there is cold}
+      answer: 2
+      explanation_he: 'כתוב: "בגובה האוויר קר, והאדים מתעבים".'
+      explanation_en: 'It says: "high up the air is cold and the vapor condenses".'
+    - id: heb.pass5.019
+      kind: choice
+      difficulty: 0.5
+      prompt_he: 'מתי הטיפות נופלות כגשם?'
+      prompt_en: 'When do the drops fall as rain?'
+      choices:
+      - {he: כשהן נעשות כבדות, en: When they become heavy}
+      - {he: כשהרוח נחלשת, en: When the wind weakens}
+      - {he: כשמגיע הלילה, en: When night comes}
+      answer: 0
+      explanation_he: כשיש בענן הרבה טיפות הן נעשות כבדות ונופלות.
+      explanation_en: When a cloud has many drops they become heavy and fall.
+    - id: heb.pass5.020
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה פירוש "מתעבים" בקטע?'
+      prompt_en: 'What does "condense" mean in the text?'
+      choices:
+      - {he: נעלמים לגמרי, en: They vanish completely}
+      - {he: הופכים לקרח, en: They turn into ice}
+      - {he: הופכים מאדים לטיפות, en: They change from vapor to drops}
+      answer: 2
+      explanation_he: 'התעבות היא מעבר של אדים לטיפות מים, כמו טיפות על כוס קרה.'
+      explanation_en: 'Condensation is vapor turning into water drops, like drops on a cold glass.'
+    - id: heb.pass5.021
+      kind: order
+      difficulty: 0.5
+      prompt_he: סדרו את שלבי המסע של המים.
+      prompt_en: 'Put the stages of the water''s journey in order.'
+      choices:
+      - {he: המים מתחממים ועולים כאדים, en: The water warms and rises as vapor}
+      - {he: הנחלים זורמים אל הים, en: Streams flow to the sea}
+      - {he: יורד גשם, en: Rain falls}
+      - {he: נוצרים עננים, en: Clouds form}
+      answer: [0, 3, 2, 1]
+      explanation_he: 'הסדר הוא כמו מעגל: חום, עננים, גשם, נחלים וחזרה לים.'
+      explanation_en: 'The order is like a circle: heat, clouds, rain, streams and back to the sea.'
+    - id: heb.pass5.022
+      kind: true_false
+      difficulty: 0.5
+      prompt_he: 'לפי הקטע, הנחלים זורמים מן הים אל ההרים.'
+      prompt_en: 'According to the text, streams flow from the sea to the mountains.'
+      answer: false
+      explanation_he: 'הנחלים זורמים בחזרה אל הים, ולא ממנו.'
+      explanation_en: 'The streams flow back to the sea, not away from it.'
+- id: pass5.05
+  grade: 5
+  skill: hebrew.reading.passage_5
+  tags: [passage_5]
+  title: פינת קריאה בחצר
+  text_he: >-
+    לדעתי כדאי להקים בחצר בית הספר פינת קריאה.
+    ראשית, בפינה שקטה אפשר לנוח מהמשחקים ולהירגע.
+    שנית, ילדים שיקראו בהפסקה יגלו כמה כיף לקרוא, ואולי יאהבו ספרים יותר.
+    לבסוף, פינה כזו תיראה יפה, אם נצבע אותה בצבעים עליזים ונוסיף ספסלים.
+    יש מי שיאמרו שהחצר נועדה לריצה ולמשחק. אולם הפינה תהיה קטנה ותשאיר מקום רב לכדורגל ולקפיצות. אני מוכנה לאסוף ספרים ישנים מהתלמידים ולסדר אותם על מדף.
+    אני מקווה שהמנהלת תסכים.
+  questions:
+    - id: heb.pass5.023
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מה מציעה הכותבת?'
+      prompt_en: 'What does the writer propose?'
+      choices:
+      - {he: לקנות ספרים חדשים לספרייה, en: To buy new books for the library}
+      - {he: להקים פינת קריאה בחצר, en: To set up a reading corner in the yard}
+      - {he: להגדיל את זמן ההפסקה, en: To lengthen the break}
+      answer: 1
+      explanation_he: 'המשפט הראשון אומר: "כדאי להקים בחצר בית הספר פינת קריאה".'
+      explanation_en: The first sentence says it is worth setting up a reading corner in the school yard.
+    - id: heb.pass5.024
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'כמה סיבות נותנת הכותבת להצעה?'
+      prompt_en: 'How many reasons does the writer give?'
+      choices:
+      - {he: שלוש, en: three}
+      - {he: שתיים, en: two}
+      - {he: ארבע, en: four}
+      answer: 0
+      explanation_he: 'המילים "ראשית", "שנית" ו"לבסוף" פותחות שלוש סיבות.'
+      explanation_en: 'The words "first", "second" and "finally" begin three reasons.'
+    - id: heb.pass5.025
+      kind: choice
+      difficulty: 0.5
+      prompt_he: 'מהי הסיבה הראשונה?'
+      prompt_en: 'What is the first reason?'
+      choices:
+      - {he: הפינה תיראה יפה, en: The corner will look nice}
+      - {he: אפשר לנוח מהמשחקים, en: One can rest from the games}
+      - {he: הילדים יאהבו ספרים, en: The children will love books}
+      answer: 1
+      explanation_he: 'אחרי המילה "ראשית" כתוב: "אפשר לנוח מהמשחקים ולהירגע".'
+      explanation_en: 'After the word "first" it says one can rest from the games.'
+    - id: heb.pass5.026
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'איזו מילה מסמנת את הסיבה האחרונה?'
+      prompt_en: 'Which word marks the last reason?'
+      choices:
+      - {he: לבסוף, en: finally}
+      - {he: ראשית, en: first}
+      - {he: שנית, en: second}
+      answer: 0
+      explanation_he: 'המילה "לבסוף" באה לפני הסיבה האחרונה: הפינה תיראה יפה.'
+      explanation_en: 'The word "finally" comes before the last reason: the corner will look nice.'
+    - id: heb.pass5.027
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מהי מטרת הטקסט?'
+      prompt_en: 'What is the purpose of the text?'
+      choices:
+      - {he: לספר סיפור מצחיק, en: To tell a funny story}
+      - {he: להסביר איך בונים ספסל, en: To explain how to build a bench}
+      - {he: לשכנע את המנהלת, en: To persuade the principal}
+      answer: 2
+      explanation_he: 'הכותבת נותנת סיבות כדי שהמנהלת תסכים, ולכן הטקסט נועד לשכנע.'
+      explanation_en: 'The writer gives reasons so that the principal will agree, so the text is meant to persuade.'

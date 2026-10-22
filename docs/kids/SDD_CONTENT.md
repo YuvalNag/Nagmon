@@ -12,6 +12,9 @@ mods/nagmon/learning/
   english/sentences.yaml                           # השלמת משפטים ודקדוק (כיתות ד–ט)
   english/reading.yaml                             # קטעי קריאה קצרים + שאלות
   science/<topic>.yaml                             # מאגרי שאלות מדעים
+  hebrew/{letters,words,reading}.yaml              # עברית כיתות ג'־ב' (אותיות, מילים, משפטים)
+  hebrew/{grammar,vocab,spelling,text}.yaml        # עברית כיתות ג'־ט': דקדוק, אוצר מילים, כתיב, טקסט (מיומנות לכל תג)
+  hebrew/passages_<כיתה>.yaml                      # קטעי קריאה בעברית (text_he בלבד), כיתות ג'־ט'
   subjects.yaml                                    # שיוך סוג מפלצת ← מקצוע, צבעים, שמות
 ```
 
@@ -97,6 +100,7 @@ items:
 ```
 
 - שדות נוספים בפריט: `speak_en` (טקסט להקראה באנגלית, למשל האות או המילה ששומעים), `emoji` (תמונה ליד השאלה). בחירה יכולה להיות עם `en` בלבד.
+- קטעי קריאה בעברית (`hebrew/passages_<כיתה>.yaml`) הם אותה רשימת קטעים, עם `text_he` בלבד (בלי `text_en`) וכותרת. שיר נכתב כ־`text_he: |-` כדי ששורותיו יישמרו, והמסך מציג אותו בשורות (`white-space: pre-line`).
 - שאלות של קטע קריאה יורשות `skill`, `tags`, `grade` ו־`level` מהקטע. הטקסט מגיע לממשק ב־`Question.meta["passage_en"/"passage_he"]` (SDD_LEARNING §16).
 - `science/monster_facts.yaml`: בלוק `elements:` עם עובדות לקלפי המדע (`ContentLibrary.element_facts`), ו־`items:` רגילים.
 

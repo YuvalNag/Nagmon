@@ -699,6 +699,8 @@ button.dialog {
 .quiz-passage p {
   margin: 0 0 calc(var(--gap) / 3);
   text-align: start;
+  /* a poem keeps its line breaks */
+  white-space: pre-line;
 }
 
 .quiz-passage-title {
