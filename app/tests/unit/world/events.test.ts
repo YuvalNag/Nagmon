@@ -148,7 +148,7 @@ describe("Hearthrock's scripts in M4", () => {
       quiz: async (_t, _c, answered) => answered("correct"),
       changed: () => void snapshots.push(JSON.stringify(state.toDict())),
     };
-    const runner = new EventRunner(city.events, state, h, { grade: 2, today: () => DAY });
+    const runner = new EventRunner(city.events, state, h, { grade: 2, today: () => DAY, people: placedOnly(["nagmon_cashier"]) });
     await runner.start();
     await runner.talk("nagmon_cashier");
     const saved = snapshots.map((s) => JSON.parse(s) as { money: number; variables: Record<string, string> });
