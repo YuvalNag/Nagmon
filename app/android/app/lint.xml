@@ -33,7 +33,5 @@
         <ignore path="src/main/res/xml/config.xml" />
         <ignore path="src/main/res/layout/activity_main.xml" />
         <ignore path="src/main/res/values/strings.xml" />
-        <ignore path="src/main/res/drawable/ic_launcher_background.xml" />
-        <ignore path="src/main/res/drawable/ic_launcher_foreground.xml" />
     </issue>
 </lint>
