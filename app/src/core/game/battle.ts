@@ -288,7 +288,7 @@ export interface BattleOptions {
   /** A random number in [0, 1): a test passes a seeded one. */
   rng?: () => number;
   /** The tests' hook: start the partner's Pep or the enemy's Fog at this number. */
-  debug?: { pep?: number; fog?: number; charges?: number; spark?: number };
+  debug?: { pep?: number; fog?: number; charges?: number; spark?: number; cards?: string[] };
 }
 
 /** How many times a question is tried for before the battle ends in peace. */
@@ -537,7 +537,8 @@ export class Battle {
     const p = this.partner;
     const tr = this.traits(p);
     const show = this.revealed();
-    const cards = cardMoves(this.data, p.species, p.level, tr.subject).map<Card>((m) => this.cardOf(p, m, show, tr.subject));
+    const moves = this.o.debug?.cards ? this.o.debug.cards.map((id) => this.data.movesById[id]!).filter(Boolean) : cardMoves(this.data, p.species, p.level, tr.subject);
+    const cards = moves.map<Card>((m) => this.cardOf(p, m, show, tr.subject));
     if (cards.length === 0 || cards.every((c) => c.dimmed)) {
       const wiggle = this.data.movesById[WIGGLE]!;
       return [{ move: wiggle, left: null, max: null, dimmed: false, hit: null, home: false }];
