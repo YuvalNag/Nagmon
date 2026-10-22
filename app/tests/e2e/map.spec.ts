@@ -209,7 +209,7 @@ test("who-plays opens without Phaser; the map opens on the child's card, crisp a
   );
   console.log(`who-plays shown ${coldMs} ms after the page started loading; scripts: ${JSON.stringify(before)}`);
   expect(before.some((s) => s.name.startsWith("mapGame"))).toBe(false);
-  expect(before.reduce((n, s) => n + s.size, 0)).toBeLessThan(650_000); // the battle (S1: 50 moves' rules, intents, fainting) is in this start script: 594 kB before, 619 kB now
+  expect(before.reduce((n, s) => n + s.size, 0)).toBeLessThan(450_000); // the start script: the battle, shop, parents and other rare screens are lazy chunks (src/ui/lazy.tsx); 619 kB before they were split off, about 410 kB now
 
   const d = await openMap(page);
   await page.waitForTimeout(500);

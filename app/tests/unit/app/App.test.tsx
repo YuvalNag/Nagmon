@@ -1,5 +1,5 @@
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { App, backStep, type View } from "../../../src/App";
 import { openServices } from "../../../src/app/services";
 import type { PinCheck } from "../../../src/core/family/parent";
@@ -8,6 +8,10 @@ import { t } from "../../../src/i18n";
 import { appLogText, installAppLog, uninstallAppLog } from "../../../src/platform/appLog";
 import { MemoryFileStore } from "../../../src/platform/storage";
 import { currentMap } from "../../../src/game/current";
+import { preloadAll } from "../../../src/ui/lazy";
+
+// the rarely used screens are separate chunks: fetched once, so each test finds them as soon as it asks
+beforeAll(() => preloadAll());
 
 // the map's Phaser scene does not run in jsdom: a stand-in that records pauses
 const mapCalls: string[] = [];

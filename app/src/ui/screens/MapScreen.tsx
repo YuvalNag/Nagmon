@@ -6,7 +6,7 @@ import { crumb } from "../../core/game/breadcrumb";
 import { FieldLog } from "../../core/game/fieldLog";
 import { pages } from "../../core/world/dialog";
 import { EventRunner, type EventHost, type Found, type ScreenKind } from "../../core/world/events";
-import type { WorldMap } from "../../core/world/mapData";
+import { inBox, type WorldMap } from "../../core/world/mapData";
 import { QuizSession } from "../../core/world/quiz";
 import { currentMap, setCurrentMap } from "../../game/current";
 import type { MapController, MapLifecycle } from "../../game/mapGame";
@@ -19,22 +19,14 @@ import { DpadState } from "../dpadState";
 import { partner as partnerOf } from "../../core/game/collection";
 import { Encounters, type Wild } from "../../core/game/encounters";
 import { introNeeded } from "../../core/game/intro";
-import { BattleScreen } from "../BattleScreen";
-import { BagView } from "../BagView";
-import { RestScreen } from "../RestScreen";
 import { ChestWrongCard, FactCard, FoundCard } from "../WorldCards";
-import { ShopScreen } from "../ShopScreen";
-import { FriendsView } from "../FriendsView";
-import { BestiaryScreen } from "../BestiaryScreen";
-import { TripScreen } from "../TripScreen";
 import { progressPercent, refreshProgress, tripFor, type Trip } from "../../core/game/trips";
 import { PlaceSaver, type Place } from "../../core/world/place";
 import { START_MAP } from "../../game/startMap";
-import { IntroScreen } from "../IntroScreen";
-import { QuizScreen } from "../QuizScreen";
 import type { Lesson } from "../../core/game/lessons";
 import { loadGameLessons } from "../tutor/lessonData";
-import { TUTOR_NPCS, TutorScreen } from "../tutor/TutorScreen";
+import { TUTOR_NPCS } from "../tutor/npcs";
+import { Bag, Battle, Bestiary, Friends, Intro, Later, Quiz, Rest, Shop, Trips, Tutor, preloadSoon } from "../lazy";
 import { ScreenTime } from "../screenTime";
 import { Tap } from "../Tap";
 
@@ -293,6 +285,9 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     };
   }, [play]);
 
+  // the rarely used screens come in while the map is idle, the battle first
+  useEffect(() => (play ? preloadSoon() : undefined), [play]);
+
   // the map's people and their words: a runner for each map entered
   useEffect(() => {
     if (!play || !world || intro) return;
@@ -536,6 +531,8 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     if (!play || !world || !encounters || held || menuOpen) return;
     const mine = partnerOf(play.world);
     if (!mine) return;
+    // standing in the grass, a fight is likely: its screen is fetched before it is needed
+    if (world.encounters.some((a) => inBox(a.box, x, y))) void Battle.preload().catch(() => {});
     const wild = encounters.step(world, x, y, mine.level);
     if (!wild) return;
     dpad.clear();
@@ -619,10 +616,10 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
         </ScreenTime>
       )}
       {intro && play && !menuOpen && status === "ready" && (
-        <IntroScreen play={play} advanceRef={dialogAdvance} onChanged={() => setCoins(play.world.money)} onDone={() => setIntro(false)} />
+        <Later><Intro.Screen play={play} advanceRef={dialogAdvance} onChanged={() => setCoins(play.world.money)} onDone={() => setIntro(false)} /></Later>
       )}
       {battle && play && !menuOpen && status === "ready" && (
-        <BattleScreen
+        <Later><Battle.Screen
           play={play}
           wild={battle.wild}
           map={battle.map}
@@ -640,7 +637,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
               tell([t("badgeWonMsg", { badge: trip.master.badgeTitle })]);
             } else checkTrips();
           }}
-        />
+        /></Later>
       )}
       {/* the pause menu, opened as the map came up, stays on top of a dialog that starts under it */}
       {overlay?.kind === "dialog" && !menuOpen && (
@@ -650,7 +647,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       )}
       {overlay?.kind === "quiz" && play && !menuOpen && (
         <ScreenTime key={`quiz-${overlay.n}`}>
-          <QuizScreen
+          <Later><Quiz.Screen
             session={overlay.session}
             text={(id) => play.text(id)}
             subjectTitle={(s) => play.subjects.title(s)}
@@ -664,11 +661,11 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
                 void play.saveWorld();
               },
             }}
-          />
+          /></Later>
         </ScreenTime>
       )}
       {overlay?.kind === "tutor" && play && !menuOpen && (
-        <TutorScreen
+        <Later><Tutor.Screen
           key={`tutor-${overlay.n}`}
           play={play}
           lessons={lessons}
@@ -676,10 +673,10 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           backRef={tutorBack}
           onClose={closeOverlay}
           onChanged={() => setCoins(play.world.money)}
-        />
+        /></Later>
       )}
       {overlay?.kind === "screen" && overlay.screen === "shop" && play && !menuOpen && (
-        <ShopScreen key={`shop-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
+        <Later><Shop.Screen key={`shop-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} /></Later>
       )}
       {overlay?.kind === "found" && play && !menuOpen && <FoundCard key={`found-${overlay.n}`} found={overlay.found} economy={play.economy} onClose={closeOverlay} />}
       {overlay?.kind === "chest-wrong" && !menuOpen && (
@@ -697,10 +694,10 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       )}
       {overlay?.kind === "fact" && !menuOpen && <FactCard key={`fact-${overlay.n}`} fact={overlay.fact} onClose={closeOverlay} />}
       {overlay?.kind === "screen" && overlay.screen === "rest" && play && !menuOpen && (
-        <RestScreen key={`rest-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} />
+        <Later><Rest.Screen key={`rest-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} /></Later>
       )}
       {menuOpen && panel === "trips" && play && (
-        <TripScreen
+        <Later><Trips.Screen
           play={play}
           current={mapNow}
           homeMap={START_MAP}
@@ -718,11 +715,11 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           }}
           onClose={() => setPanel(null)}
           onChanged={() => setCoins(play.world.money)}
-        />
+        /></Later>
       )}
-      {menuOpen && panel === "friends" && play && <FriendsView play={play} onClose={() => setPanel(null)} />}
-      {menuOpen && panel === "bag" && play && <BagView play={play} onClose={() => setPanel(null)} />}
-      {menuOpen && panel === "bestiary" && play && <BestiaryScreen play={play} onClose={() => setPanel(null)} />}
+      {menuOpen && panel === "friends" && play && <Later><Friends.Screen play={play} onClose={() => setPanel(null)} /></Later>}
+      {menuOpen && panel === "bag" && play && <Later><Bag.Screen play={play} onClose={() => setPanel(null)} /></Later>}
+      {menuOpen && panel === "bestiary" && play && <Later><Bestiary.Screen play={play} onClose={() => setPanel(null)} /></Later>}
       {menuOpen && !panel && (
         <ScreenTime key={`menu-${menu}`}>
           <div className="map-overlay" data-screen="map-menu" role="dialog" aria-label={t("mapPaused")}>
