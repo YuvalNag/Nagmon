@@ -1,4 +1,4 @@
-# Nagmon learning content - hebrew / vocab (grades 3): synonyms, homonyms, proverbs and idioms, figurative language, register
+# Nagmon learning content - hebrew / vocab (grades 3-4): synonyms, homonyms, proverbs and idioms, figurative language, register
 # Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
 # Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
 # Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
@@ -10,8 +10,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזו מילה דומה במשמעות ל"שמח"?
-  prompt_en: Which word is close in meaning to "same'ach" (happy)?
+  prompt_he: 'איזו מילה דומה במשמעות ל"שמח"?'
+  prompt_en: 'Which word is close in meaning to "same''ach" (happy)?'
   choices:
   - {he: עצוב, en: sad}
   - {he: עייף, en: tired}
@@ -25,8 +25,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזו מילה דומה במשמעות ל"מהיר"?
-  prompt_en: Which word is close in meaning to "mahir" (fast)?
+  prompt_he: 'איזו מילה דומה במשמעות ל"מהיר"?'
+  prompt_en: 'Which word is close in meaning to "mahir" (fast)?'
   choices:
   - {he: זריז, en: quick}
   - {he: איטי, en: slow}
@@ -40,8 +40,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזו מילה דומה במשמעות ל"קטן מאוד"?
-  prompt_en: Which word is close in meaning to "very small"?
+  prompt_he: 'איזו מילה דומה במשמעות ל"קטן מאוד"?'
+  prompt_en: 'Which word is close in meaning to "very small"?'
   choices:
   - {he: עצום, en: huge}
   - {he: זעיר, en: tiny}
@@ -55,8 +55,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזו מילה דומה במשמעות ל"יפה"?
-  prompt_en: Which word is close in meaning to "yafe" (beautiful)?
+  prompt_he: 'איזו מילה דומה במשמעות ל"יפה"?'
+  prompt_en: 'Which word is close in meaning to "yafe" (beautiful)?'
   choices:
   - {he: מוזר, en: strange}
   - {he: מקסים, en: lovely}
@@ -70,8 +70,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזו מילה דומה במשמעות ל"לדבר"?
-  prompt_en: Which word is close in meaning to "ledaber" (to talk)?
+  prompt_he: 'איזו מילה דומה במשמעות ל"לדבר"?'
+  prompt_en: 'Which word is close in meaning to "ledaber" (to talk)?'
   choices:
   - {he: לשוחח, en: to chat}
   - {he: לשתוק, en: to be silent}
@@ -85,8 +85,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזו מילה דומה במשמעות ל"לסיים"?
-  prompt_en: Which word is close in meaning to "lesayem" (to finish)?
+  prompt_he: 'איזו מילה דומה במשמעות ל"לסיים"?'
+  prompt_en: 'Which word is close in meaning to "lesayem" (to finish)?'
   choices:
   - {he: להתחיל, en: to start}
   - {he: להמשיך, en: to continue}
@@ -100,8 +100,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזו מילה דומה במשמעות ל"לקנות"?
-  prompt_en: Which word is close in meaning to "liknot" (to buy)?
+  prompt_he: 'איזו מילה דומה במשמעות ל"לקנות"?'
+  prompt_en: 'Which word is close in meaning to "liknot" (to buy)?'
   choices:
   - {he: למכור, en: to sell}
   - {he: לרכוש, en: to purchase}
@@ -115,8 +115,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: איזו מילה דומה במשמעות ל"לברוח"?
-  prompt_en: Which word is close in meaning to "liv'roach" (to run away)?
+  prompt_he: 'איזו מילה דומה במשמעות ל"לברוח"?'
+  prompt_en: 'Which word is close in meaning to "liv''roach" (to run away)?'
   choices:
   - {he: להימלט, en: to escape}
   - {he: להישאר, en: to stay}
@@ -130,8 +130,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: איזו מילה דומה במשמעות ל"פחד"?
-  prompt_en: Which word is close in meaning to "pachad" (fear)?
+  prompt_he: 'איזו מילה דומה במשמעות ל"פחד"?'
+  prompt_en: 'Which word is close in meaning to "pachad" (fear)?'
   choices:
   - {he: צחוק, en: laughter}
   - {he: כבוד, en: respect}
@@ -145,8 +145,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: איזו מילה דומה במשמעות ל"חכם"?
-  prompt_en: Which word is close in meaning to "chacham" (clever)?
+  prompt_he: 'איזו מילה דומה במשמעות ל"חכם"?'
+  prompt_en: 'Which word is close in meaning to "chacham" (clever)?'
   choices:
   - {he: נבון, en: wise}
   - {he: עצלן, en: lazy}
@@ -160,8 +160,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 1.0
-  prompt_he: איזו מילה דומה במשמעות ל"רכב"?
-  prompt_en: Which word is close in meaning to "rechev" (vehicle)?
+  prompt_he: 'איזו מילה דומה במשמעות ל"רכב"?'
+  prompt_en: 'Which word is close in meaning to "rechev" (vehicle)?'
   choices:
   - {he: שביל, en: path}
   - {he: מכונית, en: car}
@@ -176,7 +176,7 @@ items:
   grade: 3
   difficulty: 1.0
   prompt_he: 'אפשר להחליף את המילה "הרגיש" במשפט "הילד הרגיש עצוב" במילה:'
-  prompt_en: Which word can replace "hargish" (felt) in "The boy felt sad"?
+  prompt_en: 'Which word can replace "hargish" (felt) in "The boy felt sad"?'
   choices:
   - {he: שר, en: sang}
   - {he: רץ, en: ran}
@@ -190,8 +190,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזו מילה אינה נרדפת לשאר?
-  prompt_en: Which word is not a synonym of the others?
+  prompt_he: 'איזו מילה אינה נרדפת לשאר?'
+  prompt_en: 'Which word is not a synonym of the others?'
   choices:
   - {he: מהיר, en: fast}
   - {he: איטי, en: slow}
@@ -205,8 +205,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזו מילה אינה נרדפת לשאר?
-  prompt_en: Which word is not a synonym of the others?
+  prompt_he: 'איזו מילה אינה נרדפת לשאר?'
+  prompt_en: 'Which word is not a synonym of the others?'
   choices:
   - {he: עצוב, en: sad}
   - {he: שמח, en: happy}
@@ -220,8 +220,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: איזו מילה אינה נרדפת לשאר?
-  prompt_en: Which word is not a synonym of the others?
+  prompt_he: 'איזו מילה אינה נרדפת לשאר?'
+  prompt_en: 'Which word is not a synonym of the others?'
   choices:
   - {he: קטן, en: small}
   - {he: זעיר, en: tiny}
@@ -235,8 +235,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה זוג הוא מילים נרדפות?
-  prompt_en: Which pair are synonyms?
+  prompt_he: 'איזה זוג הוא מילים נרדפות?'
+  prompt_en: 'Which pair are synonyms?'
   choices:
   - {he: לסיים - לגמור, en: to finish - to end}
   - {he: לבנות - להרוס, en: to build - to destroy}
@@ -250,8 +250,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: איזה זוג הוא מילים נרדפות?
-  prompt_en: Which pair are synonyms?
+  prompt_he: 'איזה זוג הוא מילים נרדפות?'
+  prompt_en: 'Which pair are synonyms?'
   choices:
   - {he: מהר - לאט, en: fast - slowly}
   - {he: חם - קר, en: hot - cold}
@@ -265,8 +265,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: -1.0
-  prompt_he: המילים "לגמור" ו"לסיים" דומות במשמעות.
-  prompt_en: The words "ligmor" and "lesayem" are close in meaning.
+  prompt_he: 'המילים "לגמור" ו"לסיים" דומות במשמעות.'
+  prompt_en: 'The words "ligmor" and "lesayem" are close in meaning.'
   answer: true
   explanation_he: 'שתיהן אומרות שמשהו הגיע לסופו: אפשר לומר "גמרתי לאכול" או "סיימתי לאכול".'
   explanation_en: 'Both say that something has come to its end: "I finished eating" either way.'
@@ -276,8 +276,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: -1.0
-  prompt_he: המילים "חם" ו"קר" דומות במשמעות.
-  prompt_en: The words "cham" and "kar" (hot and cold) are close in meaning.
+  prompt_he: 'המילים "חם" ו"קר" דומות במשמעות.'
+  prompt_en: 'The words "cham" and "kar" (hot and cold) are close in meaning.'
   answer: false
   explanation_he: 'חם וקר הפוכים זה מזה. מילים נרדפות הן מילים שאומרות כמעט אותו דבר, כמו "חם" ו"לוהט".'
   explanation_en: 'Hot and cold are opposites. Synonyms say almost the same thing, like "hot" and "burning".'
@@ -287,8 +287,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: 0.0
-  prompt_he: המילים "קטן" ו"זעיר" דומות במשמעות.
-  prompt_en: The words "katan" and "za'ir" are close in meaning.
+  prompt_he: 'המילים "קטן" ו"זעיר" דומות במשמעות.'
+  prompt_en: 'The words "katan" and "za''ir" are close in meaning.'
   answer: true
   explanation_he: 'זעיר הוא קטן מאוד, ולכן המילים קרובות. מילים נרדפות לא תמיד זהות לגמרי, אבל קרובות.'
   explanation_en: 'Za''ir means very small, so the words are close. Synonyms are not always identical, only close.'
@@ -298,7 +298,7 @@ items:
   kind: true_false
   grade: 3
   difficulty: 0.5
-  prompt_he: המילים "לרוץ" ו"ללכת" נרדפות לגמרי.
+  prompt_he: 'המילים "לרוץ" ו"ללכת" נרדפות לגמרי.'
   prompt_en: 'The words "larutz" and "lalechet" (to run, to walk) are fully synonymous.'
   answer: false
   explanation_he: 'רצים מהר יותר מהולכים. שתי המילים קשורות, אבל הן לא אומרות אותו דבר.'
@@ -309,19 +309,19 @@ items:
   kind: true_false
   grade: 3
   difficulty: 1.0
-  prompt_he: המילים "ילדה" ו"בת" לפעמים אומרות אותו דבר.
-  prompt_en: The words "yalda" and "bat" sometimes mean the same.
+  prompt_he: 'המילים "ילדה" ו"בת" לפעמים אומרות אותו דבר.'
+  prompt_en: 'The words "yalda" and "bat" sometimes mean the same.'
   answer: true
   explanation_he: 'אפשר לומר "ילדה קטנה" או "בת קטנה". בהקשרים אחרים "בת" היא הבת של ההורים, ולכן הן לא תמיד זהות.'
-  explanation_en: You can say "little girl" in both ways. In other contexts "bat" means a parent's daughter.
+  explanation_en: 'You can say "little girl" in both ways. In other contexts "bat" means a parent''s daughter.'
   tags: [synonyms]
 - id: heb.syn.023
   skill: hebrew.vocab.synonyms
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: מה פירוש המילה "זעיר"?
-  prompt_en: What does "za'ir" mean?
+  prompt_he: 'מה פירוש המילה "זעיר"?'
+  prompt_en: 'What does "za''ir" mean?'
   choices:
   - {he: מהיר מאוד, en: very fast}
   - {he: קטן מאוד, en: very small}
@@ -330,3 +330,317 @@ items:
   explanation_he: 'זעיר פירושו קטן מאוד, למשל "נמלה זעירה".'
   explanation_en: '"Za''ir" means very small, for example "a tiny ant".'
   tags: [synonyms]
+- id: heb.homo.001
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מה פירוש "גל" במשפט "בנינו גל אבנים בשדה"?'
+  prompt_en: 'What does "gal" mean in "We built a pile of stones in the field"?'
+  choices:
+  - {he: תנועה של מים, en: a wave}
+  - {he: ערימה, en: a heap}
+  - {he: צבע בהיר, en: a pale color}
+  answer: 1
+  explanation_he: 'ל"גל" יש כמה משמעויות. כאן הכוונה לערימה של אבנים, ולא לגל בים.'
+  explanation_en: '"Gal" has several meanings. Here it means a heap of stones, not a sea wave.'
+  tags: [homonyms]
+- id: heb.homo.002
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'מה פירוש "גל" במשפט "גל גדול הגיע אל החוף"?'
+  prompt_en: 'What does "gal" mean in "A big wave reached the shore"?'
+  choices:
+  - {he: תנועה של מים, en: a wave}
+  - {he: ערימה של אבנים, en: a heap of stones}
+  - {he: סוג של דג, en: a kind of fish}
+  answer: 0
+  explanation_he: 'מדברים על חוף ועל מים, ולכן גל הוא תנועה של מי הים.'
+  explanation_en: 'The text is about a shore and water, so "gal" is a wave of the sea.'
+  tags: [homonyms]
+- id: heb.homo.003
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'מה פירוש "כף" במשפט "אכלתי מרק בעזרת כף"?'
+  prompt_en: 'What does "kaf" mean in "I ate soup with a kaf"?'
+  choices:
+  - {he: חלק של היד, en: the palm}
+  - {he: כלי לכתיבה, en: a pen}
+  - {he: כלי אוכל, en: a spoon}
+  answer: 2
+  explanation_he: 'מרק אוכלים בכף. ל"כף" יש גם משמעות אחרת: כף היד.'
+  explanation_en: 'We eat soup with a spoon. "Kaf" also has another meaning: the palm of the hand.'
+  tags: [homonyms]
+- id: heb.homo.004
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מה פירוש "כף" במשפט "הוא הניח את כף היד על השולחן"?'
+  prompt_en: 'What does "kaf" mean in "He put his kaf on the table"?'
+  choices:
+  - {he: החלק הפתוח של היד, en: the palm}
+  - {he: כלי אוכל, en: a spoon}
+  - {he: סוג של כובע, en: a kind of hat}
+  answer: 0
+  explanation_he: 'כשאומרים "כף יד" מתכוונים לחלק הפתוח של היד. זה לא כלי אוכל.'
+  explanation_en: 'When we say "kaf yad" we mean the open part of the hand, not a spoon.'
+  tags: [homonyms]
+- id: heb.homo.005
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מה פירוש "קרן" במשפט "קרן שמש חדרה מהחלון"?'
+  prompt_en: 'What does "keren" mean in "A keren of sun came through the window"?'
+  choices:
+  - {he: חלק בראש של חיה, en: a horn}
+  - {he: פס של אור, en: a ray}
+  - {he: סכום כסף שחוסכים, en: a fund}
+  answer: 1
+  explanation_he: 'קרן שמש היא פס של אור. ל"קרן" יש גם משמעויות אחרות, כמו קרן של פרה או קרן כספים.'
+  explanation_en: '"Keren" can be a ray, a horn or a fund. A sun-ray is a beam of light.'
+  tags: [homonyms]
+- id: heb.homo.006
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'מה פירוש "קרן" במשפט "לקרנף יש קרן על האף"?'
+  prompt_en: 'What does "keren" mean in "A rhino has a keren on its nose"?'
+  choices:
+  - {he: פס של אור, en: a ray}
+  - {he: קרן כספים, en: a fund}
+  - {he: חלק קשה בראש של חיה, en: a horn}
+  answer: 2
+  explanation_he: קרן של חיה היא חלק קשה וחד שגדל בראש או על האף.
+  explanation_en: 'An animal''s horn is a hard pointed part that grows on the head or nose.'
+  tags: [homonyms]
+- id: heb.homo.007
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מה פירוש "חשבון" במשפט "אבא שילם את החשבון במסעדה"?'
+  prompt_en: 'What does "cheshbon" mean in "Dad paid the cheshbon at the restaurant"?'
+  choices:
+  - {he: מקצוע בלימודים, en: the subject math}
+  - {he: מספר טלפון, en: a phone number}
+  - {he: כמה צריך לשלם, en: the bill}
+  answer: 2
+  explanation_he: 'במסעדה מקבלים חשבון: כמה צריך לשלם. "חשבון" הוא גם מקצוע בבית הספר.'
+  explanation_en: 'At a restaurant you get a bill. "Cheshbon" is also a school subject.'
+  tags: [homonyms]
+- id: heb.homo.008
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'מה פירוש "ראש" במשפט "ראש העיר פתח את החגיגה"?'
+  prompt_en: 'What does "rosh" mean in "The rosh of the city opened the celebration"?'
+  choices:
+  - {he: חלק בגוף, en: a head}
+  - {he: האדם הראשי, en: the head (leader)}
+  - {he: פסגה של הר, en: a summit}
+  answer: 1
+  explanation_he: 'ראש העיר הוא האדם הראשי בעיר. ל"ראש" יש כמה משמעויות, ואחת מהן היא מנהיג.'
+  explanation_en: 'The "rosh" of a city is its leader. "Rosh" has several meanings, one of them is leader.'
+  tags: [homonyms]
+- id: heb.homo.009
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'מה פירוש "ספר" במשפט "הספר גזר את השיער של דני"?'
+  prompt_en: 'What does "sapar" mean in "The sapar cut Danny''s hair"?'
+  choices:
+  - {he: מי שגוזר שיער, en: a barber}
+  - {he: מה שקוראים בו, en: a book}
+  - {he: עשה חישוב, en: counted}
+  answer: 0
+  explanation_he: 'מי שגוזר שיער נקרא ספר. אותה מילה, ספר, יכולה להיות גם חפץ לקריאה.'
+  explanation_en: The one who cuts hair is a barber. The same letters can mean a book to read.
+  tags: [homonyms]
+- id: heb.homo.010
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'מה פירוש "מסך" במשפט "המסך באולם התיאטרון נפתח"?'
+  prompt_en: 'What does "masach" mean in "The masach in the theater hall opened"?'
+  choices:
+  - {he: צג של מחשב, en: a screen}
+  - {he: וילון גדול, en: a curtain}
+  - {he: שולחן גדול, en: a big table}
+  answer: 1
+  explanation_he: 'בתיאטרון, מסך הוא וילון גדול שנפתח בתחילת ההצגה. במחשב מסך הוא מה שרואים עליו.'
+  explanation_en: 'In a theater, a masach is the big curtain. On a computer a masach is what you see on.'
+  tags: [homonyms]
+- id: heb.homo.011
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'מה פירוש "מפתח" במשפט "בעזרת המפתח במפה אפשר להבין כל סימן"?'
+  prompt_en: 'What does "mafteach" mean in "With the mafteach on the map you can understand each sign"?'
+  choices:
+  - {he: כלי לפתיחת דלת, en: a door key}
+  - {he: מנהל, en: a manager}
+  - {he: הסבר לסימנים, en: a legend}
+  answer: 2
+  explanation_he: 'במפה יש מפתח שמסביר מה כל צורה וצבע אומרים. ל"מפתח" יש גם משמעות של כלי לדלת.'
+  explanation_en: 'A map has a legend explaining each shape and color. "Mafteach" can also be a door key.'
+  tags: [homonyms]
+- id: heb.homo.012
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'מה פירוש "לב" במשפט "הם גרים בלב העיר"?'
+  prompt_en: 'What does "lev" mean in "They live in the lev of the city"?'
+  choices:
+  - {he: המרכז, en: the center}
+  - {he: חלק בגוף, en: the heart}
+  - {he: מקום ליד הים, en: a place near the sea}
+  answer: 0
+  explanation_he: 'לב העיר הוא מרכז העיר. ל"לב" יש גם משמעות של איבר בגוף.'
+  explanation_en: 'The lev of a city is its center. "Lev" is also an organ of the body.'
+  tags: [homonyms]
+- id: heb.homo.013
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'מה פירוש "פנים" במשפט "היה חם מאוד בפנים הבית"?'
+  prompt_en: 'What does "panim" mean in "It was very hot in the panim of the house"?'
+  choices:
+  - {he: בתוך, en: inside}
+  - {he: על הפנים, en: on the face}
+  - {he: לפני, en: before}
+  answer: 0
+  explanation_he: 'בפנים הבית פירושו בתוך הבית. "פנים" יכולה להיות גם חלק בראש של אדם.'
+  explanation_en: '"Bifnim habayit" means inside the house. "Panim" can also be someone''s face.'
+  tags: [homonyms]
+- id: heb.homo.014
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'מה פירוש "צד" במשפט "הדייג צד דגים בים"?'
+  prompt_en: 'What does "tsad" mean in "The fisherman tsad fish in the sea"?'
+  choices:
+  - {he: עמד בצד, en: stood aside}
+  - {he: תפס, en: caught}
+  - {he: הכין לאכילה, en: prepared for eating}
+  answer: 1
+  explanation_he: 'צד פירושו תופס חיות כמו דגים. יש גם "צד" שהוא כיוון, למשל צד ימין.'
+  explanation_en: '"Tsad" means to catch animals like fish. There is also "tsad" as a side, like the right side.'
+  tags: [homonyms]
+- id: heb.homo.015
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'מה פירוש "עברה" במשפט "היא עברה את הכביש"?'
+  prompt_en: 'What does "avra" mean in "She avra the road"?'
+  choices:
+  - {he: זמן שהיה, en: the past}
+  - {he: שכחה, en: forgot}
+  - {he: חצתה, en: crossed}
+  answer: 2
+  explanation_he: 'עברה את הכביש היא חצתה אותו. המילה "עבר" יכולה להיות גם זמן שכבר היה.'
+  explanation_en: '"Avra et hakvish" means she crossed it. "Avar" can also mean the past.'
+  tags: [homonyms]
+- id: heb.homo.016
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'מה פירוש "עין" במשפט "ליד העין בנחל מצאנו צבים"?'
+  prompt_en: 'What does "ayin" mean in "Near the ayin in the stream we found turtles"?'
+  choices:
+  - {he: איבר ראייה, en: an eye}
+  - {he: מעיין מים, en: a spring}
+  - {he: חור בכיסא, en: a hole}
+  answer: 1
+  explanation_he: 'עין יכולה להיות מעיין של מים, כמו בשמות של מקומות. כאן מדובר במעיין ליד נחל.'
+  explanation_en: '"Ayin" can be a spring of water, as in place names. Here it is a spring near a stream.'
+  tags: [homonyms]
+- id: heb.homo.017
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'איזו מילה היא רב-משמעית (יש לה כמה משמעויות)?'
+  prompt_en: 'Which word has several meanings?'
+  choices:
+  - {he: גל, en: gal}
+  - {he: ארנב, en: rabbit}
+  - {he: מחברת, en: notebook}
+  answer: 0
+  explanation_he: 'גל הוא ערימה, וגם תנועה של מים. ארנב ומחברת מתייחסים לדבר אחד בלבד.'
+  explanation_en: '"Gal" is a heap and also a wave of water. "Rabbit" and "notebook" mean one thing.'
+  tags: [homonyms]
+- id: heb.homo.018
+  skill: hebrew.vocab.homonyms
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'באיזה משפט "כוכב" אינו כוכב בשמיים?'
+  prompt_en: 'In which sentence is "kochav" not a star in the sky?'
+  choices:
+  - {he: כוכב נפל בלילה, en: A star fell at night}
+  - {he: הכוכב זורח בשמיים, en: The star shines in the sky}
+  - {he: הכוכב של הסרט הגיע לבכורה, en: The star of the film came to the premiere}
+  answer: 2
+  explanation_he: במשפט הראשון כוכב הוא שחקן מפורסם. בשני האחרים הוא גוף בשמיים.
+  explanation_en: 'In the first, "kochav" is a famous actor. In the others it is a body in the sky.'
+  tags: [homonyms]
+- id: heb.homo.019
+  skill: hebrew.vocab.homonyms
+  kind: true_false
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'למילה "עין" יש יותר ממשמעות אחת.'
+  prompt_en: 'The word "ayin" has more than one meaning.'
+  answer: true
+  explanation_he: 'עין היא איבר ראייה, וגם מעיין מים. מילים כאלה הן מילים רב-משמעיות.'
+  explanation_en: '"Ayin" is an organ of sight and also a spring. Such words have several meanings.'
+  tags: [homonyms]
+- id: heb.homo.020
+  skill: hebrew.vocab.homonyms
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: אפשר לדעת איזו משמעות יש למילה רב-משמעית לפי שאר המשפט.
+  prompt_en: You can tell which meaning a many-meaning word has from the rest of the sentence.
+  answer: true
+  explanation_he: 'המילים שסביב המילה עוזרות להבין למה היא מתכוונת, למשל "גל בים" לעומת "גל אבנים".'
+  explanation_en: 'The words around it help us understand it, e.g. "wave in the sea" versus "pile of stones".'
+  tags: [homonyms]
+- id: heb.homo.021
+  skill: hebrew.vocab.homonyms
+  kind: true_false
+  grade: 4
+  difficulty: -1.0
+  prompt_he: לכל מילה בעברית יש בדיוק משמעות אחת.
+  prompt_en: Every Hebrew word has exactly one meaning.
+  answer: false
+  explanation_he: 'לחלק מהמילים יש כמה משמעויות, כמו "כף", "קרן" ו"גל".'
+  explanation_en: 'Some words have several meanings, like "kaf", "keren" and "gal".'
+  tags: [homonyms]
+- id: heb.homo.022
+  skill: hebrew.vocab.homonyms
+  kind: true_false
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'במשפט "הכף נפלה מהשולחן" הכוונה לחלק של היד.'
+  prompt_en: 'In "The kaf fell off the table" the meaning is the part of the hand.'
+  answer: false
+  explanation_he: 'מה נופל מהשולחן? כלי אוכל. כף היד לא נופלת מהשולחן.'
+  explanation_en: 'What falls off a table? A spoon. A hand does not fall off a table.'
+  tags: [homonyms]

@@ -10,8 +10,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזו מילה כתובה נכון?
-  prompt_en: Which word is spelled correctly?
+  prompt_he: 'איזו מילה כתובה נכון?'
+  prompt_en: 'Which word is spelled correctly?'
   choices:
   - {he: תיק, en: תיק}
   - {he: טיק, en: טיק}
@@ -40,8 +40,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איך כותבים נכון?
-  prompt_en: How is it written correctly?
+  prompt_he: 'איך כותבים נכון?'
+  prompt_en: 'How is it written correctly?'
   choices:
   - {he: טפוח, en: טפוח}
   - {he: תפוח, en: תפוח}
@@ -55,8 +55,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: באיזו מילה אין שגיאת כתיב?
-  prompt_en: Which word has no spelling mistake?
+  prompt_he: 'באיזו מילה אין שגיאת כתיב?'
+  prompt_en: 'Which word has no spelling mistake?'
   choices:
   - {he: תיול, en: תיול}
   - {he: טיוד, en: טיוד}
@@ -85,8 +85,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזו מילה כתובה נכון?
-  prompt_en: Which word is spelled correctly?
+  prompt_he: 'איזו מילה נכתבה בלי שגיאה?'
+  prompt_en: 'Which word was written without a mistake?'
   choices:
   - {he: כלב, en: כלב}
   - {he: קלב, en: קלב}
@@ -100,8 +100,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: סמנו את הכתיב הנכון.
-  prompt_en: Pick the correct spelling.
+  prompt_he: בחרו את הכתיב הנכון.
+  prompt_en: Choose the correct spelling.
   choices:
   - {he: קדור, en: קדור}
   - {he: כדור, en: כדור}
@@ -115,8 +115,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איך כותבים נכון?
-  prompt_en: How is it written correctly?
+  prompt_he: 'איך נכון לכתוב את המילה?'
+  prompt_en: 'How is the word correctly written?'
   choices:
   - {he: קיץ, en: קיץ}
   - {he: כיץ, en: כיץ}
@@ -130,8 +130,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: באיזו מילה אין שגיאת כתיב?
-  prompt_en: Which word has no spelling mistake?
+  prompt_he: 'איזו מילה כתובה נכון?'
+  prompt_en: 'Which word is spelled correctly?'
   choices:
   - {he: אכשיו, en: אכשיו}
   - {he: עקשיו, en: עקשיו}
@@ -145,8 +145,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 1.0
-  prompt_he: מצאו את המילה הכתובה נכון.
-  prompt_en: Find the word that is written correctly.
+  prompt_he: סמנו את הכתיב הנכון.
+  prompt_en: Pick the correct spelling.
   choices:
   - {he: ארוחה, en: ארוחה}
   - {he: ערוחה, en: ערוחה}
@@ -160,8 +160,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: איזו מילה כתובה נכון?
-  prompt_en: Which word is spelled correctly?
+  prompt_he: 'איך כותבים נכון?'
+  prompt_en: 'How is it written correctly?'
   choices:
   - {he: איתון, en: איתון}
   - {he: עיתון, en: עיתון}
@@ -175,8 +175,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: סמנו את הכתיב הנכון.
-  prompt_en: Pick the correct spelling.
+  prompt_he: 'באיזו מילה אין שגיאת כתיב?'
+  prompt_en: 'Which word has no spelling mistake?'
   choices:
   - {he: ערנב, en: ערנב}
   - {he: ארנף, en: ארנף}
@@ -190,8 +190,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איך כותבים נכון?
-  prompt_en: How is it written correctly?
+  prompt_he: מצאו את המילה הכתובה נכון.
+  prompt_en: Find the word that is written correctly.
   choices:
   - {he: שבתא, en: שבתא}
   - {he: סבטא, en: סבטא}
@@ -205,8 +205,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: באיזו מילה אין שגיאת כתיב?
-  prompt_en: Which word has no spelling mistake?
+  prompt_he: 'איזו מילה נכתבה בלי שגיאה?'
+  prompt_en: 'Which word was written without a mistake?'
   choices:
   - {he: שכין, en: שכין}
   - {he: סכין, en: סכין}
@@ -220,8 +220,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: מצאו את המילה הכתובה נכון.
-  prompt_en: Find the word that is written correctly.
+  prompt_he: בחרו את הכתיב הנכון.
+  prompt_en: Choose the correct spelling.
   choices:
   - {he: חלון, en: חלון}
   - {he: כלון, en: כלון}
@@ -235,8 +235,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזו מילה כתובה נכון?
-  prompt_en: Which word is spelled correctly?
+  prompt_he: 'איך נכון לכתוב את המילה?'
+  prompt_en: 'How is the word correctly written?'
   choices:
   - {he: חתול, en: חתול}
   - {he: כתול, en: כתול}
@@ -250,14 +250,14 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: סמנו את הכתיב הנכון.
-  prompt_en: Pick the correct spelling.
+  prompt_he: 'איזו מילה כתובה נכון?'
+  prompt_en: 'Which word is spelled correctly?'
   choices:
   - {he: טלמיד, en: טלמיד}
   - {he: תלמיד, en: תלמיד}
   - {he: תלמית, en: תלמית}
   answer: 1
-  explanation_he: תלמיד מתחילה באות ת ונגמרת באות ד. היא קשורה למילה "ללמוד".
+  explanation_he: 'תלמיד מתחילה באות ת ונגמרת באות ד. היא קשורה למילה "ללמוד".'
   explanation_en: '"Talmid" starts with a tav and ends with a dalet. It comes from the root l-m-d.'
   tags: [similar_sounds]
 - id: heb.sound.018
@@ -273,7 +273,7 @@ items:
   - {he: קן, en: nest}
   answer: 2
   explanation_he: 'בונים קן, והוא נכתב בק. המילה "כן" נשמעת כמוהו אבל פירושה אחר, ונכתבת בכ.'
-  explanation_en: A bird builds a "ken" (nest) with a kuf. The word "ken" (yes) sounds the same but is written with a kaf.
+  explanation_en: 'A bird builds a "ken" (nest) with a kuf. The word "ken" (yes) sounds the same but is written with a kaf.'
   tags: [similar_sounds]
 - id: heb.sound.019
   skill: hebrew.spelling.similar_sounds
@@ -288,7 +288,7 @@ items:
   - {he: כל, en: all}
   answer: 1
   explanation_he: 'כשעונים בהסכמה כותבים "כן" עם כ. המילה "קן" נשמעת אותו דבר, אבל פירושה בית של ציפור.'
-  explanation_en: To agree we write "ken" with a kaf. "Ken" with a kuf sounds the same but means a bird's nest.
+  explanation_en: 'To agree we write "ken" with a kaf. "Ken" with a kuf sounds the same but means a bird''s nest.'
   tags: [similar_sounds]
 - id: heb.sound.020
   skill: hebrew.spelling.similar_sounds
@@ -333,7 +333,7 @@ items:
   - {he: אף, en: nose}
   answer: 1
   explanation_he: 'עז היא חיה, והיא נכתבת בע. המילה "אז" נשמעת אותו דבר, אבל היא מילת זמן.'
-  explanation_en: A goat is an animal and is written with an ayin. "Az" with an alef sounds the same but means "then".
+  explanation_en: 'A goat is an animal and is written with an ayin. "Az" with an alef sounds the same but means "then".'
   tags: [similar_sounds]
 - id: heb.sound.023
   skill: hebrew.spelling.similar_sounds
@@ -347,7 +347,7 @@ items:
   - {he: עז, en: goat}
   - {he: עד, en: until}
   answer: 0
-  explanation_he: אז היא מילה שאומרת "אחר כך" וכותבים אותה עם א. "עז" היא חיה.
+  explanation_he: 'אז היא מילה שאומרת "אחר כך" וכותבים אותה עם א. "עז" היא חיה.'
   explanation_en: '"Az" means "then" and is written with an alef. "Az" with an ayin is a goat.'
   tags: [similar_sounds]
 - id: heb.sound.024
@@ -355,8 +355,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: 0.0
-  prompt_he: המילה "קפה" נכתבת עם ק.
-  prompt_en: The word "kafe" (coffee) is written with a kuf.
+  prompt_he: 'המילה "קפה" נכתבת עם ק.'
+  prompt_en: 'The word "kafe" (coffee) is written with a kuf.'
   answer: true
   explanation_he: 'קפה נכתבת עם ק בהתחלה, כמו המילה "קר". כך כותבים אותה בעברית.'
   explanation_en: 'Coffee is written with a kuf at the start, like the word "kar" (cold).'
@@ -366,8 +366,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: -1.0
-  prompt_he: המילה "טוב" נכתבת עם ת בהתחלה.
-  prompt_en: The word "tov" (good) is written with a tav at the start.
+  prompt_he: 'המילה "טוב" נכתבת עם ת בהתחלה.'
+  prompt_en: 'The word "tov" (good) is written with a tav at the start.'
   answer: false
   explanation_he: 'טוב נכתבת עם ט. הצליל "ט" והצליל "ת" נשמעים אותו דבר, ולכן צריך לזכור את האות.'
   explanation_en: 'Tov is written with a tet. The tet and tav sound the same, so you must remember the letter.'
@@ -377,8 +377,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: 0.5
-  prompt_he: המילים "אור" ו"עור" נשמעות אותו דבר אבל כתובות אחרת.
-  prompt_en: The words "or" (light) and "or" (skin) sound the same but are written differently.
+  prompt_he: 'המילים "אור" ו"עור" נשמעות אותו דבר אבל כתובות אחרת.'
+  prompt_en: 'The words "or" (light) and "or" (skin) sound the same but are written differently.'
   answer: true
   explanation_he: 'לפעמים שתי מילים נשמעות זהה, ורק האות (א או ע) מראה על איזו מילה מדובר.'
   explanation_en: 'Sometimes two words sound alike, and only the letter (alef or ayin) shows which word it is.'

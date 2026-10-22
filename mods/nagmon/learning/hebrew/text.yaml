@@ -1,4 +1,4 @@
-# Nagmon learning content - hebrew / text (grades 3): sentence types, punctuation, text types, text analysis, argument
+# Nagmon learning content - hebrew / text (grades 3-4): sentence types, punctuation, text types, text analysis, argument
 # Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
 # Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
 # Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
@@ -10,8 +10,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזה סוג משפט זה? "הילדים הולכים לים."
-  prompt_en: What kind of sentence is this? "The children are going to the sea."
+  prompt_he: 'איזה סוג משפט זה? "הילדים הולכים לים."'
+  prompt_en: 'What kind of sentence is this? "The children are going to the sea."'
   choices:
   - {he: משפט שאלה, en: question}
   - {he: משפט ציווי, en: command}
@@ -25,8 +25,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזה סוג משפט זה? "מתי נצא לטיול?"
-  prompt_en: What kind of sentence is this? "When will we go on the trip?"
+  prompt_he: 'איזה סוג משפט זה? "מתי נצא לטיול?"'
+  prompt_en: 'What kind of sentence is this? "When will we go on the trip?"'
   choices:
   - {he: משפט שאלה, en: question}
   - {he: משפט סיפורי, en: statement}
@@ -55,8 +55,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזה סוג משפט זה? "איזה יום יפה!"
-  prompt_en: What kind of sentence is this? "What a beautiful day!"
+  prompt_he: 'איזה סוג משפט זה? "איזה יום יפה!"'
+  prompt_en: 'What kind of sentence is this? "What a beautiful day!"'
   choices:
   - {he: משפט סיפורי, en: statement}
   - {he: משפט ציווי, en: command}
@@ -70,8 +70,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה סוג משפט זה? "שבו במקומות."
-  prompt_en: What kind of sentence is this? "Sit in your places."
+  prompt_he: 'איזה סוג משפט זה? "שבו במקומות."'
+  prompt_en: 'What kind of sentence is this? "Sit in your places."'
   choices:
   - {he: משפט ציווי, en: command}
   - {he: משפט סיפורי, en: statement}
@@ -85,8 +85,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה סוג משפט זה? "כמה גדול הפיל הזה!"
-  prompt_en: What kind of sentence is this? "How big this elephant is!"
+  prompt_he: 'איזה סוג משפט זה? "כמה גדול הפיל הזה!"'
+  prompt_en: 'What kind of sentence is this? "How big this elephant is!"'
   choices:
   - {he: משפט שאלה, en: question}
   - {he: משפט קריאה, en: exclamation}
@@ -100,8 +100,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזה סוג משפט זה? "מה השעה?"
-  prompt_en: What kind of sentence is this? "What time is it?"
+  prompt_he: 'איזה סוג משפט זה? "מה השעה?"'
+  prompt_en: 'What kind of sentence is this? "What time is it?"'
   choices:
   - {he: משפט סיפורי, en: statement}
   - {he: משפט ציווי, en: command}
@@ -115,8 +115,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה סוג משפט זה? "אמא הכינה עוגה."
-  prompt_en: What kind of sentence is this? "Mom made a cake."
+  prompt_he: 'איזה סוג משפט זה? "אמא הכינה עוגה."'
+  prompt_en: 'What kind of sentence is this? "Mom made a cake."'
   choices:
   - {he: משפט סיפורי, en: statement}
   - {he: משפט קריאה, en: exclamation}
@@ -130,8 +130,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: איזה סוג משפט זה? "אל תיגע בכיריים."
-  prompt_en: What kind of sentence is this? "Do not touch the stove."
+  prompt_he: 'איזה סוג משפט זה? "אל תיגע בכיריים."'
+  prompt_en: 'What kind of sentence is this? "Do not touch the stove."'
   choices:
   - {he: משפט סיפורי, en: statement}
   - {he: משפט ציווי, en: command}
@@ -145,8 +145,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה סוג משפט זה? "איפה הכובע שלי?"
-  prompt_en: What kind of sentence is this? "Where is my hat?"
+  prompt_he: 'איזה סוג משפט זה? "איפה הכובע שלי?"'
+  prompt_en: 'What kind of sentence is this? "Where is my hat?"'
   choices:
   - {he: משפט קריאה, en: exclamation}
   - {he: משפט שאלה, en: question}
@@ -175,8 +175,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה סוג משפט זה? "השמש זורחת מהמזרח."
-  prompt_en: What kind of sentence is this? "The sun rises in the east."
+  prompt_he: 'איזה סוג משפט זה? "השמש זורחת מהמזרח."'
+  prompt_en: 'What kind of sentence is this? "The sun rises in the east."'
   choices:
   - {he: משפט סיפורי, en: statement}
   - {he: משפט שאלה, en: question}
@@ -190,8 +190,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה סוג משפט זה? "תנו לי בבקשה את הספר."
-  prompt_en: What kind of sentence is this? "Please give me the book."
+  prompt_he: 'איזה סוג משפט זה? "תנו לי בבקשה את הספר."'
+  prompt_en: 'What kind of sentence is this? "Please give me the book."'
   choices:
   - {he: משפט סיפורי, en: statement}
   - {he: משפט קריאה, en: exclamation}
@@ -205,27 +205,27 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזה משפט הוא משפט שאלה?
-  prompt_en: Which sentence is a question?
+  prompt_he: 'איזה משפט הוא משפט שאלה?'
+  prompt_en: 'Which sentence is a question?'
   choices:
   - {he: פתחו את החלון., en: Open the window.}
-  - {he: מי פתח את החלון?, en: Who opened the window?}
+  - {he: 'מי פתח את החלון?', en: 'Who opened the window?'}
   - {he: החלון פתוח., en: The window is open.}
   answer: 1
-  explanation_he: רק המשפט הראשון שואל משהו. הוא מתחיל ב"מי" ונגמר בסימן שאלה.
-  explanation_en: Only the first sentence asks something. It starts with "who" and ends with a question mark.
+  explanation_he: 'רק המשפט הראשון שואל משהו. הוא מתחיל ב"מי" ונגמר בסימן שאלה.'
+  explanation_en: 'Only the first sentence asks something. It starts with "who" and ends with a question mark.'
   tags: [sentence_types]
 - id: heb.stype.015
   skill: hebrew.text.sentence_types
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה משפט הוא משפט ציווי?
-  prompt_en: Which sentence is a command?
+  prompt_he: 'איזה משפט הוא משפט ציווי?'
+  prompt_en: 'Which sentence is a command?'
   choices:
   - {he: הביאו את התיקים., en: Bring the bags.}
   - {he: הם הביאו את התיקים., en: They brought the bags.}
-  - {he: מי הביא את התיקים?, en: Who brought the bags?}
+  - {he: 'מי הביא את התיקים?', en: 'Who brought the bags?'}
   answer: 0
   explanation_he: המשפט הראשון אומר מה לעשות. בשני האחרים מספרים או שואלים.
   explanation_en: The first tells what to do. The others tell or ask.
@@ -235,12 +235,12 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה משפט הוא משפט קריאה?
-  prompt_en: Which sentence is an exclamation?
+  prompt_he: 'איזה משפט הוא משפט קריאה?'
+  prompt_en: 'Which sentence is an exclamation?'
   choices:
   - {he: הים כחול., en: The sea is blue.}
-  - {he: האם הים כחול?, en: Is the sea blue?}
-  - {he: כמה הים כחול!, en: How blue the sea is!}
+  - {he: 'האם הים כחול?', en: 'Is the sea blue?'}
+  - {he: 'כמה הים כחול!', en: 'How blue the sea is!'}
   answer: 2
   explanation_he: 'רק המשפט הראשון מביע התפעלות, ולכן הוא נגמר בסימן קריאה.'
   explanation_en: 'Only the first shows amazement, so it ends with an exclamation mark.'
@@ -253,9 +253,9 @@ items:
   prompt_he: 'איזה סימן מתאים בסוף: "מי בא איתנו"?'
   prompt_en: 'Which mark fits at the end: "Who is coming with us"?'
   choices:
-  - {he: סימן שאלה (?), en: question mark (?)}
+  - {he: 'סימן שאלה (?)', en: 'question mark (?)'}
   - {he: נקודה (.), en: period (.)}
-  - {he: סימן קריאה (!), en: exclamation mark (!)}
+  - {he: 'סימן קריאה (!)', en: 'exclamation mark (!)'}
   answer: 0
   explanation_he: 'המשפט שואל, ולכן בסופו סימן שאלה.'
   explanation_en: 'The sentence asks, so it ends with a question mark.'
@@ -269,8 +269,8 @@ items:
   prompt_en: 'Which mark fits at the end: "What fun to play in the sea"?'
   choices:
   - {he: נקודה (.), en: period (.)}
-  - {he: סימן קריאה (!), en: exclamation mark (!)}
-  - {he: סימן שאלה (?), en: question mark (?)}
+  - {he: 'סימן קריאה (!)', en: 'exclamation mark (!)'}
+  - {he: 'סימן שאלה (?)', en: 'question mark (?)'}
   answer: 1
   explanation_he: 'המשפט מביע שמחה גדולה, ולכן בסופו סימן קריאה.'
   explanation_en: 'The sentence shows great joy, so it ends with an exclamation mark.'
@@ -283,8 +283,8 @@ items:
   prompt_he: 'איזה סימן מתאים בסוף: "הכלב ישן על השטיח"?'
   prompt_en: 'Which mark fits at the end: "The dog is sleeping on the rug"?'
   choices:
-  - {he: סימן שאלה (?), en: question mark (?)}
-  - {he: סימן קריאה (!), en: exclamation mark (!)}
+  - {he: 'סימן שאלה (?)', en: 'question mark (?)'}
+  - {he: 'סימן קריאה (!)', en: 'exclamation mark (!)'}
   - {he: נקודה (.), en: period (.)}
   answer: 2
   explanation_he: 'המשפט מספר משהו רגיל, ולכן בסופו נקודה.'
@@ -295,11 +295,11 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: איך הופכים את המשפט "הילד אוכל תפוח" לשאלה?
-  prompt_en: How do you turn "The boy eats an apple" into a question?
+  prompt_he: 'איך הופכים את המשפט "הילד אוכל תפוח" לשאלה?'
+  prompt_en: 'How do you turn "The boy eats an apple" into a question?'
   choices:
-  - {he: הילד אוכל תפוח!, en: The boy eats an apple!}
-  - {he: מה הילד אוכל?, en: What does the boy eat?}
+  - {he: 'הילד אוכל תפוח!', en: 'The boy eats an apple!'}
+  - {he: 'מה הילד אוכל?', en: 'What does the boy eat?'}
   - {he: 'אכול תפוח, ילד.', en: 'Eat an apple, boy.'}
   answer: 1
   explanation_he: 'כדי לשאול משתמשים במילת שאלה כמו "מה", ובסוף שמים סימן שאלה.'
@@ -310,8 +310,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: -1.0
-  prompt_he: המשפט "מה אתה אוכל?" הוא משפט שאלה.
-  prompt_en: The sentence "What are you eating?" is a question.
+  prompt_he: 'המשפט "מה אתה אוכל?" הוא משפט שאלה.'
+  prompt_en: 'The sentence "What are you eating?" is a question.'
   answer: true
   explanation_he: המשפט פותח במילת שאלה ונגמר בסימן שאלה.
   explanation_en: It starts with a question word and ends with a question mark.
@@ -321,8 +321,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: 0.0
-  prompt_he: המשפט "קחו מטרייה" הוא משפט סיפורי.
-  prompt_en: The sentence "Take an umbrella" is a statement.
+  prompt_he: 'המשפט "קחו מטרייה" הוא משפט סיפורי.'
+  prompt_en: 'The sentence "Take an umbrella" is a statement.'
   answer: false
   explanation_he: 'המשפט אומר לאנשים מה לעשות, ולכן הוא משפט ציווי ולא סיפורי.'
   explanation_en: 'The sentence tells people what to do, so it is a command and not a statement.'
@@ -360,3 +360,294 @@ items:
   explanation_he: 'אלה מילות שאלה. הן עוזרות לדעת שהמשפט שואל, אבל יש גם שאלות בלעדיהן, כמו "באת היום?".'
   explanation_en: 'These are question words. They help, but some questions have none, like "Did you come today?".'
   tags: [sentence_types]
+- id: heb.punct.001
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'איפה צריך פסיק? "קניתי תפוחים בננות ותותים."'
+  prompt_en: 'Where does a comma go? "I bought apples bananas and strawberries."'
+  choices:
+  - {he: 'אחרי "קניתי"', en: 'after "I bought"'}
+  - {he: 'אחרי "תפוחים"', en: 'after "apples"'}
+  - {he: 'אחרי "ותותים"', en: 'after "and strawberries"'}
+  answer: 1
+  explanation_he: 'ברשימה מפרידים בין הפריטים בפסיק: תפוחים, בננות ותותים. לפני "ו" לא שמים פסיק.'
+  explanation_en: 'In a list we separate items with commas: apples, bananas and strawberries. No comma before "and".'
+  tags: [punctuation]
+- id: heb.punct.002
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'איזה סימן מתאים לפני רשימה? "קניתי בשוק ___ עגבניות, מלפפונים וגזר".'
+  prompt_en: 'Which mark fits before a list? "I bought at the market ___ tomatoes, cucumbers and carrots".'
+  choices:
+  - {he: נקודתיים (:), en: colon (:)}
+  - {he: נקודה (.), en: period (.)}
+  - {he: 'סימן שאלה (?)', en: 'question mark (?)'}
+  answer: 0
+  explanation_he: נקודתיים מקדימות רשימה או דברים שאומרים. אחריהן בא הפירוט.
+  explanation_en: A colon introduces a list or words that are said. The details come after it.
+  tags: [punctuation]
+- id: heb.punct.003
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'איזה סימנים שמים סביב מה שאדם אומר?'
+  prompt_en: 'Which marks go around what a person says?'
+  choices:
+  - {he: סוגריים, en: parentheses}
+  - {he: נקודתיים, en: a colon}
+  - {he: מירכאות, en: quotation marks}
+  answer: 2
+  explanation_he: 'מירכאות סוגרות את דברי האומר, למשל: אמא אמרה: "בואו לאכול".'
+  explanation_en: 'Quotation marks enclose the speaker''s words.'
+  tags: [punctuation]
+- id: heb.punct.004
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'איפה צריך נקודה? "הילדים שיחקו בחצר אחר כך הם אכלו".'
+  prompt_en: 'Where does a period go? "The children played in the yard then they ate".'
+  choices:
+  - {he: 'אחרי "אחר"', en: 'after "then"'}
+  - {he: 'אחרי "בחצר"', en: 'after "in the yard"'}
+  - {he: 'אחרי "הם"', en: 'after "they"'}
+  answer: 1
+  explanation_he: 'המשפט הראשון נגמר ב"בחצר". אחרי נקודה מתחיל משפט חדש: אחר כך הם אכלו.'
+  explanation_en: 'The first sentence ends at "in the yard". After a period a new sentence begins.'
+  tags: [punctuation]
+- id: heb.punct.005
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'באיזה משפט הפסיקים במקום הנכון?'
+  prompt_en: 'In which sentence are the commas in the right place?'
+  choices:
+  - {he: 'בגינה, יש ורדים חבצלות, ושושנים.', en: (commas misplaced)}
+  - {he: 'בגינה יש, ורדים חבצלות ושושנים.', en: '(comma after "there is")'}
+  - {he: 'בגינה יש ורדים, חבצלות ושושנים.', en: (commas separate the list)}
+  answer: 2
+  explanation_he: 'הפסיקים מפרידים בין שמות הפרחים ברשימה. הם לא נכנסים בין "יש" לבין מה שיש.'
+  explanation_en: 'The commas separate the flower names in the list, not "there are" from the list.'
+  tags: [punctuation]
+- id: heb.punct.006
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'מה תפקיד הפסיק?'
+  prompt_en: 'What is the job of a comma?'
+  choices:
+  - {he: להפריד בין פריטים או חלקי משפט, en: To separate items or parts of a sentence}
+  - {he: לסיים משפט, en: To end a sentence}
+  - {he: לשאול שאלה, en: To ask a question}
+  answer: 0
+  explanation_he: 'פסיק עוזר לקרוא לאט ובמקום הנכון. הוא מפריד, והוא לא מסיים משפט.'
+  explanation_en: A comma helps us read in the right place. It separates and does not end a sentence.
+  tags: [punctuation]
+- id: heb.punct.007
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'מה תפקיד הנקודה?'
+  prompt_en: 'What is the job of a period?'
+  choices:
+  - {he: לסיים משפט, en: To end a sentence}
+  - {he: להפריד בין פריטים ברשימה, en: To separate items in a list}
+  - {he: לפתוח דברים שאומרים, en: To open spoken words}
+  answer: 0
+  explanation_he: 'נקודה באה בסוף משפט שמספר משהו, ואחריה מתחיל משפט חדש.'
+  explanation_en: 'A period ends a sentence that tells something, and a new sentence begins after it.'
+  tags: [punctuation]
+- id: heb.punct.008
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'איזה סימן שמים בסוף משפט שמביע התפעלות?'
+  prompt_en: 'Which mark ends a sentence that shows amazement?'
+  choices:
+  - {he: נקודה, en: period}
+  - {he: פסיק, en: comma}
+  - {he: סימן קריאה, en: exclamation mark}
+  answer: 2
+  explanation_he: 'סימן קריאה מראה התפעלות, פתיחות או קריאה: "איזה יום נהדר!".'
+  explanation_en: 'An exclamation mark shows amazement or a call: "What a wonderful day!".'
+  tags: [punctuation]
+- id: heb.punct.009
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'איזה משפט מכיל דברים שמישהו אמר, בדיוק כפי שנאמרו?'
+  prompt_en: 'Which sentence has the exact words someone said?'
+  choices:
+  - {he: אמא אמרה שנבוא לאכול., en: Mom said we should come and eat.}
+  - {he: 'אמא אמרה: "בואו לאכול."', en: 'Mom said: "Come and eat."'}
+  - {he: אמא קראה לנו לאכול., en: Mom called us to eat.}
+  answer: 1
+  explanation_he: 'רק במשפט הראשון יש נקודתיים ומירכאות, שמראות את הדברים כפי שנאמרו.'
+  explanation_en: Only the first has a colon and quotation marks that show the words as spoken.
+  tags: [punctuation]
+- id: heb.punct.010
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'איזה סימן חסר בסוף? "מה כל כך מצחיק בסיפור הזה"'
+  prompt_en: 'Which mark is missing at the end? "What is so funny about this story"'
+  choices:
+  - {he: סימן שאלה, en: question mark}
+  - {he: נקודה, en: period}
+  - {he: מירכאות, en: quotation marks}
+  answer: 0
+  explanation_he: 'המשפט שואל, ולכן בסופו סימן שאלה.'
+  explanation_en: 'The sentence asks, so it ends with a question mark.'
+  tags: [punctuation]
+- id: heb.punct.011
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'איזה משפט כתוב נכון?'
+  prompt_en: 'Which sentence is written correctly?'
+  choices:
+  - {he: 'דנה איפה, את?', en: (comma misplaced)}
+  - {he: 'דנה איפה את,?', en: (comma before the question mark)}
+  - {he: 'דנה, איפה את?', en: 'Dana, where are you?'}
+  answer: 2
+  explanation_he: 'כשפונים למישהו בשמו, שמים פסיק אחרי השם: דנה, איפה את?'
+  explanation_en: 'When addressing someone by name, a comma goes after the name.'
+  tags: [punctuation]
+- id: heb.punct.012
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'איפה נכון לשים פסיק? "כשירד גשם הילדים נכנסו הביתה".'
+  prompt_en: 'Where should the comma go? "When it rained the children went home".'
+  choices:
+  - {he: 'אחרי "הילדים"', en: 'after "the children"'}
+  - {he: 'אחרי "גשם"', en: 'after "rained"'}
+  - {he: 'אחרי "נכנסו"', en: 'after "went in"'}
+  answer: 1
+  explanation_he: 'המשפט מתחלק לשני חלקים: כשירד גשם, הילדים נכנסו הביתה. הפסיק מפריד ביניהם.'
+  explanation_en: 'The sentence has two parts: "when it rained" and "the children went home". A comma separates them.'
+  tags: [punctuation]
+- id: heb.punct.013
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'מה אפשר לשים אחרי המילה "אמרה", כדי להביא את דברי הדוברת?'
+  prompt_en: 'What can follow "said" to bring the speaker''s words?'
+  choices:
+  - {he: נקודתיים ומירכאות, en: a colon and quotation marks}
+  - {he: נקודה בלבד, en: a period only}
+  - {he: סימן שאלה בלבד, en: a question mark only}
+  answer: 0
+  explanation_he: 'אחרי "אמרה" באות נקודתיים ואחריהן מירכאות עם הדברים עצמם.'
+  explanation_en: 'After "said" come a colon and then quotation marks with the words themselves.'
+  tags: [punctuation]
+- id: heb.punct.014
+  skill: hebrew.text.punctuation
+  kind: true_false
+  grade: 4
+  difficulty: -1.0
+  prompt_he: בסוף משפט שאלה שמים נקודה.
+  prompt_en: At the end of a question we put a period.
+  answer: false
+  explanation_he: 'בסוף משפט שאלה שמים סימן שאלה, ולא נקודה. הנקודה באה בסוף משפט שמספר משהו.'
+  explanation_en: 'We end a question with a question mark, not a period.'
+  tags: [punctuation]
+- id: heb.punct.015
+  skill: hebrew.text.punctuation
+  kind: true_false
+  grade: 4
+  difficulty: -1.0
+  prompt_he: פסיק מפריד בין פריטים ברשימה.
+  prompt_en: A comma separates the items of a list.
+  answer: true
+  explanation_he: 'כך קל יותר לקרוא: חתול, כלב וציפור. לפני "ו" לא שמים פסיק.'
+  explanation_en: 'It makes reading easier: cat, dog and bird. No comma before "and".'
+  tags: [punctuation]
+- id: heb.punct.016
+  skill: hebrew.text.punctuation
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: מירכאות סוגרות סביב דברים שמישהו אמר.
+  prompt_en: Quotation marks go around the words someone said.
+  answer: true
+  explanation_he: 'הן מראות איפה מתחילים הדברים ואיפה נגמרים: יובל אמר: "תודה".'
+  explanation_en: 'They show where the words begin and end: Yuval said: "Thanks".'
+  tags: [punctuation]
+- id: heb.punct.017
+  skill: hebrew.text.punctuation
+  kind: true_false
+  grade: 4
+  difficulty: -1.0
+  prompt_he: אחרי נקודה מתחיל משפט חדש.
+  prompt_en: After a period a new sentence begins.
+  answer: true
+  explanation_he: 'הנקודה מסיימת משפט, ואחריה כותבים את המשפט הבא.'
+  explanation_en: The period ends a sentence and the next sentence is written after it.
+  tags: [punctuation]
+- id: heb.punct.018
+  skill: hebrew.text.punctuation
+  kind: true_false
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'לפני המילה "ו" ברשימה תמיד שמים פסיק.'
+  prompt_en: 'Before the word "and" in a list we always put a comma.'
+  answer: false
+  explanation_he: 'בעברית לא שמים פסיק לפני "ו": תפוחים, בננות ותותים.'
+  explanation_en: 'In Hebrew there is no comma before "ve": apples, bananas and strawberries.'
+  tags: [punctuation]
+- id: heb.punct.019
+  skill: hebrew.text.punctuation
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: סימן קריאה יכול לבוא אחרי משפט ציווי.
+  prompt_en: An exclamation mark can follow a command.
+  answer: true
+  explanation_he: 'כשמבקשים או מצווים בקול חזק, כמו "עצרו!", שמים סימן קריאה.'
+  explanation_en: 'When we ask or order loudly, like "Stop!", we use an exclamation mark.'
+  tags: [punctuation]
+- id: heb.punct.020
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'איזה סימן שמים בסוף המשפט: "הציפורים עפות מעל העץ"?'
+  prompt_en: 'Which mark ends the sentence: "The birds fly above the tree"?'
+  choices:
+  - {he: סימן שאלה, en: question mark}
+  - {he: נקודה, en: period}
+  - {he: פסיק, en: comma}
+  answer: 1
+  explanation_he: 'המשפט מספר מה קורה, ולכן הוא נגמר בנקודה.'
+  explanation_en: 'The sentence tells what happens, so it ends with a period.'
+  tags: [punctuation]
+- id: heb.punct.021
+  skill: hebrew.text.punctuation
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'איזה משפט צריך לסיים בסימן שאלה?'
+  prompt_en: 'Which sentence should end with a question mark?'
+  choices:
+  - {he: השארתי את התיק בבית, en: I left the bag at home}
+  - {he: איזה תיק כבד, en: What a heavy bag}
+  - {he: איפה השארת את התיק, en: Where did you leave the bag}
+  answer: 2
+  explanation_he: 'המשפט הראשון שואל, והוא מתחיל במילת השאלה "איפה".'
+  explanation_en: 'The first asks something, and it begins with the question word "where".'
+  tags: [punctuation]

@@ -1,0 +1,395 @@
+# Nagmon Hebrew reading passages, grade 4 (SDD_CONTENT section 5): original short texts written for this game.
+# Each passage names its skill and tags; its questions are regular bank items that inherit grade, skill and tags.
+# Hebrew only, without niqqud. The passage shows on the question screen (meta.passage_he).
+
+- id: pass4.01
+  grade: 4
+  skill: hebrew.reading.passage_4
+  tags: [passage_4]
+  title: יום גשום
+  text_he: >-
+    ביום גשום לא יכלו הילדים לצאת לחצר. עידו התאכזב והתיישב ליד החלון.
+    אחותו הגדולה, שירה, הציעה: "בוא נבנה מגרש כדורגל בסלון, מקופסאות קרטון."
+    הם סידרו קופסאות כשערים, גללו כדור קטן מנייר דבוק ושיחקו משחק ארוך ושמח עד שהגשם פסק.
+    כשיצאו לחצר ראו קשת צבעונית בשמיים.
+    עידו אמר: "היה יום מצוין, אפילו בלי שמש."
+  questions:
+    - id: heb.pass4.001
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'למה הילדים לא יצאו לחצר?'
+      prompt_en: 'Why did the children not go out to the yard?'
+      choices:
+      - {he: ירד גשם, en: It rained}
+      - {he: היה חם מאוד, en: It was very hot}
+      - {he: הם היו עייפים, en: They were tired}
+      answer: 0
+      explanation_he: 'הקטע מתחיל במילים: "ביום גשום לא יכלו הילדים לצאת לחצר".'
+      explanation_en: 'The text begins: "On a rainy day the children could not go out to the yard".'
+    - id: heb.pass4.002
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מי הציעה לבנות מגרש בסלון?'
+      prompt_en: 'Who suggested building a field in the living room?'
+      choices:
+      - {he: עידו, en: Ido}
+      - {he: אמא, en: Mom}
+      - {he: שירה, en: Shira}
+      answer: 2
+      explanation_he: 'אחותו הגדולה של עידו, שירה, היא שהציעה.'
+      explanation_en: 'Ido''s big sister, Shira, is the one who suggested it.'
+    - id: heb.pass4.003
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'ממה בנו הילדים את השערים?'
+      prompt_en: 'What did the children build the goals from?'
+      choices:
+      - {he: מכיסאות ושולחנות קטנים, en: Chairs and small tables}
+      - {he: מקופסאות קרטון, en: Cardboard boxes}
+      - {he: מכריות, en: Pillows}
+      answer: 1
+      explanation_he: 'כתוב: "מגרש כדורגל בסלון, מקופסאות קרטון", והם סידרו קופסאות כשערים.'
+      explanation_en: It says they arranged boxes as goals.
+    - id: heb.pass4.004
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'איך עידו הרגיש בתחילת היום?'
+      prompt_en: 'How did Ido feel at the start of the day?'
+      choices:
+      - {he: שמח מאוד, en: Very happy}
+      - {he: כועס על שירה, en: Angry at Shira}
+      - {he: מאוכזב, en: Disappointed}
+      answer: 2
+      explanation_he: 'כתוב שהוא "התאכזב והתיישב ליד החלון".'
+      explanation_en: 'It says he "was disappointed and sat by the window".'
+    - id: heb.pass4.005
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה עידו התכוון באמרו "היה יום מצוין, אפילו בלי שמש"?'
+      prompt_en: 'What did Ido mean by "it was an excellent day, even without sun"?'
+      choices:
+      - {he: שנהנה גם שירד גשם, en: That he enjoyed it even though it rained}
+      - {he: שהוא אוהב גשם יותר משמש, en: That he likes rain more than sun}
+      - {he: שהשמש הפריעה לו, en: That the sun bothered him}
+      answer: 0
+      explanation_he: 'הוא התחיל את היום מאוכזב, ובסוף נהנה. הוא אומר שגם בלי שמש היה לו טוב.'
+      explanation_en: 'He started the day disappointed and ended up enjoying it, saying it was good even without sun.'
+    - id: heb.pass4.006
+      kind: order
+      difficulty: 0.5
+      prompt_he: סדרו את האירועים לפי הסדר בקטע.
+      prompt_en: Put the events in the order of the text.
+      choices:
+      - {he: ירד גשם, en: It rained}
+      - {he: יצאו לחצר וראו קשת, en: They went out and saw a rainbow}
+      - {he: בנו מגרש בסלון, en: They built a field in the living room}
+      answer: [0, 2, 1]
+      explanation_he: 'קודם ירד גשם, אחר כך בנו מגרש בסלון, ובסוף כשהגשם פסק יצאו וראו קשת.'
+      explanation_en: 'First it rained, then they built a field, and at the end they went out and saw a rainbow.'
+- id: pass4.02
+  grade: 4
+  skill: hebrew.reading.passage_4
+  tags: [passage_4]
+  title: צבות הים
+  text_he: >-
+    בקיץ מגיעות צבות ים לחופי ישראל כדי להטיל ביצים. בלילה הצבה יוצאת מהמים, חופרת בור בחול ומטילה בו עשרות ביצים.
+    אחר כך היא מכסה את הבור וחוזרת לים.
+    כעבור כחודשיים בוקעים מהביצים צבים קטנים, והם מתחילים מיד לזחול אל הים.
+    אור הירח עוזר להם למצוא את הדרך.
+    לכן חשוב לכבות אורות חזקים ליד החוף, כדי שהצבים לא יתבלבלו.
+  questions:
+    - id: heb.pass4.007
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מתי הצבות מגיעות לחופי ישראל?'
+      prompt_en: 'When do the turtles come to the shores of Israel?'
+      choices:
+      - {he: בחורף, en: In winter}
+      - {he: בקיץ, en: In summer}
+      - {he: באביב, en: In spring}
+      answer: 1
+      explanation_he: 'הקטע מתחיל במילים: "בקיץ מגיעות צבות ים".'
+      explanation_en: 'The text begins: "In summer sea turtles arrive".'
+    - id: heb.pass4.008
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'איפה הצבה מטילה את הביצים?'
+      prompt_en: 'Where does the turtle lay her eggs?'
+      choices:
+      - {he: 'בתוך המים, קרוב לחוף', en: In the water near the shore}
+      - {he: על סלע ליד הים, en: On a rock near the sea}
+      - {he: בבור שחפרה בחול, en: In a pit she dug in the sand}
+      answer: 2
+      explanation_he: הצבה חופרת בור בחול ומטילה בו את הביצים.
+      explanation_en: The turtle digs a pit in the sand and lays the eggs in it.
+    - id: heb.pass4.009
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה קורה כעבור כחודשיים?'
+      prompt_en: 'What happens after about two months?'
+      choices:
+      - {he: צבים קטנים בוקעים מהביצים, en: Little turtles hatch from the eggs}
+      - {he: הצבה חוזרת לחוף ומטילה עוד, en: The mother returns and lays more}
+      - {he: הביצים מתייבשות, en: The eggs dry up}
+      answer: 0
+      explanation_he: 'כתוב: "כעבור כחודשיים בוקעים מהביצים צבים קטנים".'
+      explanation_en: 'It says: "after about two months little turtles hatch from the eggs".'
+    - id: heb.pass4.010
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה עוזר לצבים הקטנים למצוא את הים?'
+      prompt_en: 'What helps the little turtles find the sea?'
+      choices:
+      - {he: אור הירח, en: The light of the moon}
+      - {he: קול של גלים בלבד, en: Only the sound of waves}
+      - {he: האמא שלהם, en: Their mother}
+      answer: 0
+      explanation_he: 'כתוב: "אור הירח עוזר להם למצוא את הדרך".'
+      explanation_en: 'It says: "the moonlight helps them find the way".'
+    - id: heb.pass4.011
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'למה חשוב לכבות אורות חזקים ליד החוף?'
+      prompt_en: 'Why is it important to turn off strong lights near the beach?'
+      choices:
+      - {he: כדי לחסוך חשמל בלילות הקיץ, en: To save electricity on summer nights}
+      - {he: כדי שהירח יאיר יותר, en: So the moon shines brighter}
+      - {he: כדי שהצבים לא יתבלבלו, en: So the turtles will not get confused}
+      answer: 2
+      explanation_he: הצבים מוצאים את הים לפי אור הירח. אור חזק אחר עלול להטעות אותם.
+      explanation_en: The turtles find the sea by moonlight. A strong other light can mislead them.
+    - id: heb.pass4.012
+      kind: true_false
+      difficulty: 0.5
+      prompt_he: 'לפי הקטע, הצבה נשארת לשמור על הביצים עד שהן בוקעות.'
+      prompt_en: 'According to the text, the mother stays to guard the eggs until they hatch.'
+      answer: false
+      explanation_he: הצבה מכסה את הבור וחוזרת לים. הצבים הקטנים מוצאים את הדרך לבד.
+      explanation_en: The mother covers the pit and goes back to the sea. The little turtles find their way alone.
+- id: pass4.03
+  grade: 4
+  skill: hebrew.reading.passage_4
+  tags: [passage_4]
+  title: מכתב לסבא
+  text_he: >-
+    סבא יקר,
+    מה שלומך? אצלנו הכול בסדר. שמרתי לך ציור שציירתי בגינה.
+    בשבוע שעבר הייתה בבית הספר תחרות חידות, וכיתה ד' ניצחה!
+    אני פתרתי את החידה הקשה ביותר: מה עולה ויורד ולא זז ממקומו? התשובה היא מדרגות.
+    אני מחכה לראות אותך בחופשה, ואז נשחק שוב בשש בש.
+    מחבק,
+    יובל
+  questions:
+    - id: heb.pass4.013
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'למי כתב יובל את המכתב?'
+      prompt_en: 'To whom did Yuval write the letter?'
+      choices:
+      - {he: לסבא, en: To his grandpa}
+      - {he: לסבתא, en: To his grandma}
+      - {he: למורה, en: To his teacher}
+      answer: 0
+      explanation_he: 'המכתב נפתח במילים "סבא יקר".'
+      explanation_en: 'The letter opens with "Dear Grandpa".'
+    - id: heb.pass4.014
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'איזו תחרות הייתה בבית הספר?'
+      prompt_en: 'What contest was there at school?'
+      choices:
+      - {he: תחרות ריצה בחצר, en: A running race in the yard}
+      - {he: תחרות ציור, en: A drawing contest}
+      - {he: תחרות חידות, en: A riddle contest}
+      answer: 2
+      explanation_he: 'במכתב כתוב: "הייתה בבית הספר תחרות חידות". יובל אף מספר איזו חידה פתר.'
+      explanation_en: 'It says: "there was a riddle contest at school".'
+    - id: heb.pass4.015
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה הייתה התשובה לחידה?'
+      prompt_en: 'What was the answer to the riddle?'
+      choices:
+      - {he: מעלית, en: An elevator}
+      - {he: מדרגות, en: Stairs}
+      - {he: הר גבוה, en: A tall mountain}
+      answer: 1
+      explanation_he: 'יובל כותב: "התשובה היא מדרגות".'
+      explanation_en: 'Yuval writes: "the answer is stairs".'
+    - id: heb.pass4.016
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה יובל מקווה שיקרה בחופשה?'
+      prompt_en: 'What does Yuval hope will happen on vacation?'
+      choices:
+      - {he: שיראה את סבא וישחקו, en: That he will see Grandpa and they will play}
+      - {he: 'שיטוסו יחד לטיול בחו"ל', en: That they will fly abroad together}
+      - {he: שיעזור לסבא לצייר, en: That he will help Grandpa paint}
+      answer: 0
+      explanation_he: 'כתוב שהוא מחכה לראות את סבא, ואז הם ישחקו בשש בש.'
+      explanation_en: 'He waits to see Grandpa, and then they will play backgammon.'
+    - id: heb.pass4.017
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'איך אפשר לדעת שהמכתב כתוב בחום?'
+      prompt_en: 'How can you tell the letter is written warmly?'
+      choices:
+      - {he: הוא ארוך מאוד, en: It is very long}
+      - {he: הוא כתוב בכתב יד יפה וקריא מאוד, en: 'It is in neat, readable handwriting'}
+      - {he: 'הוא מתחיל ב"יקר" ונגמר ב"מחבק"', en: 'It starts with "dear" and ends with "hugs"'}
+      answer: 2
+      explanation_he: 'מי שכותב "יקר" ו"מחבק" מראה חיבה. אלה מילים חמות.'
+      explanation_en: 'Someone who writes "dear" and "hugs" shows affection. These are warm words.'
+    - id: heb.pass4.018
+      kind: true_false
+      difficulty: -1.0
+      prompt_he: 'כיתה ד'' הפסידה בתחרות החידות.'
+      prompt_en: Class 4 lost the riddle contest.
+      answer: false
+      explanation_he: 'יובל כותב שכיתה ד'' ניצחה.'
+      explanation_en: Yuval writes that class 4 won.
+- id: pass4.04
+  grade: 4
+  skill: hebrew.reading.passage_4
+  tags: [passage_4]
+  title: הגוזל והענף
+  text_he: >-
+    גוזל קטן ישב בקן והסתכל על הענפים שמסביב.
+    "אני מפחד לעוף," אמר לאמא שלו.
+    "מי שלא מנסה, לא יודע מה הוא יכול," ענתה לו אמא.
+    הגוזל פרש את הכנפיים, נפל מעט, אבל תפס אוויר ועף מטר אחד.
+    "עפתי!" צייץ בשמחה.
+    מאותו יום ניסה כל בוקר לעוף קצת יותר רחוק, עד שהגיע לעץ הסמוך.
+  questions:
+    - id: heb.pass4.019
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'ממה פחד הגוזל?'
+      prompt_en: 'What was the chick afraid of?'
+      choices:
+      - {he: מלעוף, en: Of flying}
+      - {he: מהחושך, en: Of the dark}
+      - {he: מהאמא, en: Of his mother}
+      answer: 0
+      explanation_he: 'הגוזל אמר: "אני מפחד לעוף".'
+      explanation_en: 'The chick said: "I am afraid to fly".'
+    - id: heb.pass4.020
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה אמרה האמא כדי לעודד את הגוזל?'
+      prompt_en: 'What did the mother say to encourage the chick?'
+      choices:
+      - {he: 'אל תעוף לבד, חכה לאבא', en: 'Do not fly alone, wait for Dad'}
+      - {he: תחכה עד שתגדל קצת, en: Wait until you grow a little}
+      - {he: שצריך לנסות כדי לדעת, en: That you must try to know}
+      answer: 2
+      explanation_he: 'האמא אמרה לו שרק מי שמנסה יודע מה הוא יכול, כדי שלא יפחד.'
+      explanation_en: 'The mother told him that only one who tries knows what he can do, so he would not be afraid.'
+    - id: heb.pass4.021
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'כמה רחוק עף הגוזל בפעם הראשונה?'
+      prompt_en: 'How far did the chick fly the first time?'
+      choices:
+      - {he: עד העץ הסמוך, en: To the nearby tree}
+      - {he: מטר אחד, en: One meter}
+      - {he: עשרה מטרים, en: Ten meters}
+      answer: 1
+      explanation_he: 'כתוב: "תפס אוויר ועף מטר אחד".'
+      explanation_en: 'It says: "caught air and flew one meter".'
+    - id: heb.pass4.022
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה אפשר ללמוד מהסיפור?'
+      prompt_en: 'What can we learn from the story?'
+      choices:
+      - {he: צריך תמיד לעוף רחוק, en: You must always fly far}
+      - {he: עדיף להישאר בקן ולחכות לרוח, en: It is better to stay in the nest and wait for the wind}
+      - {he: כדאי לנסות גם כשמפחדים, en: It is worth trying even when afraid}
+      answer: 2
+      explanation_he: 'הגוזל פחד, ניסה, והצליח בכל יום קצת יותר. המסר הוא שכדאי לנסות.'
+      explanation_en: 'The chick was afraid, tried, and did a little better each day. The message is to try.'
+    - id: heb.pass4.023
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה פירוש "פרש את הכנפיים"?'
+      prompt_en: 'What does "he spread his wings" mean?'
+      choices:
+      - {he: קיפל אותן מתחת לגוף, en: He folded them under his body}
+      - {he: פתח אותן לרווחה, en: He opened them wide}
+      - {he: ניקה אותן, en: He cleaned them}
+      answer: 1
+      explanation_he: 'לפרוש פירושו לפתוח ולפרוס לרוחב, כדי שאפשר יהיה לעוף.'
+      explanation_en: 'To spread means to open wide, so that one can fly.'
+- id: pass4.05
+  grade: 4
+  skill: hebrew.reading.passage_4
+  tags: [passage_4]
+  title: בקבוקים למחזור
+  text_he: >-
+    בכיתה ד' החליטו התלמידים לאסוף בקבוקי פלסטיק.
+    בכל יום הביאו כמה בקבוקים והניחו אותם בפח כחול מיוחד.
+    אחרי חודש ספרו 240 בקבוקים.
+    המורה הסבירה שמהבקבוקים אפשר לייצר חומר חדש, ולכן לא צריך לזרוק אותם לפח הרגיל.
+    התלמידים הכינו שלט ותלו אותו ליד הפח, כדי שגם כיתות אחרות יצטרפו.
+  questions:
+    - id: heb.pass4.024
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מה אספו התלמידים?'
+      prompt_en: 'What did the pupils collect?'
+      choices:
+      - {he: בקבוקי פלסטיק, en: Plastic bottles}
+      - {he: עיתונים ישנים, en: Old newspapers}
+      - {he: פחיות, en: Cans}
+      answer: 0
+      explanation_he: 'הקטע מתחיל במילים: "החליטו התלמידים לאסוף בקבוקי פלסטיק".'
+      explanation_en: 'The text starts: "the pupils decided to collect plastic bottles".'
+    - id: heb.pass4.025
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'כמה בקבוקים ספרו אחרי חודש?'
+      prompt_en: 'How many bottles did they count after a month?'
+      choices:
+      - {he: '420', en: '420'}
+      - {he: '240', en: '240'}
+      - {he: '204', en: '204'}
+      answer: 1
+      explanation_he: 'בטקסט כתוב: "אחרי חודש ספרו 240 בקבוקים". שימו לב לספרות של המספר.'
+      explanation_en: 'It says: "after a month they counted 240 bottles".'
+    - id: heb.pass4.026
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'למה לא צריך לזרוק את הבקבוקים לפח הרגיל?'
+      prompt_en: 'Why should the bottles not be thrown in the regular bin?'
+      choices:
+      - {he: אפשר לייצר מהם חומר חדש, en: New material can be made from them}
+      - {he: הם כבדים מדי בשביל הפח הרגיל, en: They are too heavy for the regular bin}
+      - {he: הפח הרגיל מלא, en: The regular bin is full}
+      answer: 0
+      explanation_he: המורה הסבירה שמבקבוקים אפשר לייצר חומר חדש.
+      explanation_en: The teacher explained that new material can be made from bottles.
+    - id: heb.pass4.027
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'למה תלו שלט ליד הפח?'
+      prompt_en: 'Why did they hang a sign next to the bin?'
+      choices:
+      - {he: כדי שאף אחד לא יזרוק בו דברים אחרים, en: So that no one throws other things in it}
+      - {he: כדי לקשט את החצר, en: To decorate the yard}
+      - {he: כדי שגם כיתות אחרות יצטרפו, en: So other classes would join too}
+      answer: 2
+      explanation_he: 'כתוב: "כדי שגם כיתות אחרות יצטרפו".'
+      explanation_en: 'It says: "so that other classes would join too".'
+    - id: heb.pass4.028
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'איזו מילה מתארת את התלמידים?'
+      prompt_en: 'Which word describes the pupils?'
+      choices:
+      - {he: אכפתיים, en: caring}
+      - {he: עצלנים וחסרי סבלנות, en: lazy and impatient}
+      - {he: פחדנים, en: fearful}
+      answer: 0
+      explanation_he: הם אספו בקבוקים ועשו שלט כדי לעזור לסביבה. כך נוהגים אנשים שאכפת להם.
+      explanation_en: They collected bottles and made a sign to help the environment. That is what caring people do.

@@ -123,3 +123,45 @@ skills:
   prereq: [hebrew.words.opposites]
   generator: bank
   params: {bank: hebrew/vocab.yaml, tags: [synonyms]}
+- id: hebrew.grammar.person
+  grade: 4
+  title_he: 'גוף: אני, אתה, היא, הם'
+  title_en: 'Person: I, you, she, they'
+  prereq: [hebrew.grammar.agreement, hebrew.grammar.tenses]
+  generator: bank
+  params: {bank: hebrew/grammar.yaml, tags: [person]}
+- id: hebrew.grammar.subject_predicate
+  grade: 4
+  title_he: נושא ונשוא
+  title_en: Subject and predicate
+  prereq: [hebrew.grammar.parts_of_speech]
+  generator: bank
+  params: {bank: hebrew/grammar.yaml, tags: [subject_predicate]}
+- id: hebrew.grammar.tenses
+  grade: 4
+  title_he: 'זמנים: עבר, הווה ועתיד'
+  title_en: 'Tenses: past, present, future'
+  prereq: [hebrew.grammar.parts_of_speech]
+  generator: bank
+  params: {bank: hebrew/grammar.yaml, tags: [tenses]}
+- id: hebrew.reading.passage_4
+  grade: 4
+  title_he: 'הבנת הנקרא: קטע בינוני'
+  title_en: 'Reading comprehension, grade 4'
+  prereq: [hebrew.reading.passage_3]
+  generator: bank
+  params: {bank: hebrew/passages_4.yaml, tags: [passage_4]}
+- id: hebrew.text.punctuation
+  grade: 4
+  title_he: סימני פיסוק
+  title_en: Punctuation marks
+  prereq: [hebrew.text.sentence_types]
+  generator: bank
+  params: {bank: hebrew/text.yaml, tags: [punctuation]}
+- id: hebrew.vocab.homonyms
+  grade: 4
+  title_he: מילים עם כמה משמעויות
+  title_en: Words with several meanings
+  prereq: [hebrew.vocab.synonyms]
+  generator: bank
+  params: {bank: hebrew/vocab.yaml, tags: [homonyms]}

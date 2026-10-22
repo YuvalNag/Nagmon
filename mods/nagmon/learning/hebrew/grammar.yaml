@@ -1,4 +1,4 @@
-# Nagmon learning content - hebrew / grammar (grades 3): parts of speech, agreement, tenses, person, subject and predicate, roots, affixes, binyanim, construct state
+# Nagmon learning content - hebrew / grammar (grades 3-4): parts of speech, agreement, tenses, person, subject and predicate, roots, affixes, binyanim, construct state
 # Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
 # Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
 # Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
@@ -55,8 +55,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזו מילה במשפט "הכלב הקטן רץ בגינה" היא שם תואר?
-  prompt_en: Which word in "The small dog runs in the garden" is an adjective?
+  prompt_he: 'איזו מילה במשפט "הכלב הקטן רץ בגינה" היא שם תואר?'
+  prompt_en: 'Which word in "The small dog runs in the garden" is an adjective?'
   choices:
   - {he: הכלב, en: the dog}
   - {he: הקטן, en: the small}
@@ -70,8 +70,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזו מילה במשפט "דנה שותה מיץ קר" היא פועל?
-  prompt_en: Which word in "Dana drinks cold juice" is a verb?
+  prompt_he: 'איזו מילה במשפט "דנה שותה מיץ קר" היא פועל?'
+  prompt_en: 'Which word in "Dana drinks cold juice" is a verb?'
   choices:
   - {he: מיץ, en: juice}
   - {he: קר, en: cold}
@@ -85,8 +85,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזו מילה היא שם עצם?
-  prompt_en: Which word is a noun?
+  prompt_he: 'איזו מילה היא שם עצם?'
+  prompt_en: 'Which word is a noun?'
   choices:
   - {he: חלון, en: window}
   - {he: לרקוד, en: to dance}
@@ -100,8 +100,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזו מילה היא פועל?
-  prompt_en: Which word is a verb?
+  prompt_he: 'איזו מילה היא פועל?'
+  prompt_en: 'Which word is a verb?'
   choices:
   - {he: מחברת, en: notebook}
   - {he: כותב, en: writes}
@@ -115,8 +115,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזו מילה היא שם תואר?
-  prompt_en: Which word is an adjective?
+  prompt_he: 'איזו מילה היא שם תואר?'
+  prompt_en: 'Which word is an adjective?'
   choices:
   - {he: עצוב, en: sad}
   - {he: ילד, en: boy}
@@ -130,8 +130,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: -1.0
-  prompt_he: המילה "רחוב" היא שם עצם.
-  prompt_en: The word "rehov" (street) is a noun.
+  prompt_he: 'המילה "רחוב" היא שם עצם.'
+  prompt_en: 'The word "rehov" (street) is a noun.'
   answer: true
   explanation_he: 'רחוב הוא מקום, ושמות של מקומות הם שמות עצם. אפשר לומר "הרחוב", ולכן ברור שזה שם.'
   explanation_en: 'A street is a place, and names of places are nouns. You can say "the street", which shows it is a noun.'
@@ -141,8 +141,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: 0.0
-  prompt_he: המילה "אוכלת" היא שם תואר.
-  prompt_en: The word "ochelet" (eats) is an adjective.
+  prompt_he: 'המילה "אוכלת" היא שם תואר.'
+  prompt_en: 'The word "ochelet" (eats) is an adjective.'
   answer: false
   explanation_he: 'אוכלת מספרת מה עושה מישהי, ולכן היא פועל. שם תואר מתאר, כמו "רעבה".'
   explanation_en: '"Eats" tells what someone does, so it is a verb. An adjective describes, like "hungry".'
@@ -152,8 +152,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: 0.0
-  prompt_he: המילה "צהוב" היא שם תואר.
-  prompt_en: The word "tsahov" (yellow) is an adjective.
+  prompt_he: 'המילה "צהוב" היא שם תואר.'
+  prompt_en: 'The word "tsahov" (yellow) is an adjective.'
   answer: true
   explanation_he: 'צהוב מתאר איזה צבע יש לדבר, כמו "בננה צהובה". מילה שמתארת היא שם תואר.'
   explanation_en: '"Yellow" says what color a thing is, as in "a yellow banana". A describing word is an adjective.'
@@ -163,10 +163,10 @@ items:
   kind: true_false
   grade: 3
   difficulty: 0.0
-  prompt_he: במשפט "הציפור שרה שיר" יש שני שמות עצם.
-  prompt_en: In "The bird sang a song" there are two nouns.
+  prompt_he: 'במשפט "הציפור שרה שיר" יש שני שמות עצם.'
+  prompt_en: 'In "The bird sang a song" there are two nouns.'
   answer: true
-  explanation_he: ציפור ושיר הם שמות עצם. המילה "שרה" היא הפועל.
+  explanation_he: 'ציפור ושיר הם שמות עצם. המילה "שרה" היא הפועל.'
   explanation_en: '"Bird" and "song" are nouns. The word "sang" is the verb.'
   tags: [parts_of_speech]
 - id: heb.pos.013
@@ -189,8 +189,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.5
-  prompt_he: באיזה משפט יש שם תואר?
-  prompt_en: Which sentence has an adjective?
+  prompt_he: 'באיזה משפט יש שם תואר?'
+  prompt_en: 'Which sentence has an adjective?'
   choices:
   - {he: הילד רץ ואוכל, en: The boy runs and eats}
   - {he: אבא ואמא בבית, en: Dad and Mom are home}
@@ -204,8 +204,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזו מילה אינה שם עצם?
-  prompt_en: Which word is not a noun?
+  prompt_he: 'איזו מילה אינה שם עצם?'
+  prompt_en: 'Which word is not a noun?'
   choices:
   - {he: שמיכה, en: blanket}
   - {he: לישון, en: to sleep}
@@ -219,8 +219,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזו מילה אינה פועל?
-  prompt_en: Which word is not a verb?
+  prompt_he: 'איזו מילה אינה פועל?'
+  prompt_en: 'Which word is not a verb?'
   choices:
   - {he: חמוד, en: cute}
   - {he: מתרוצץ, en: runs around}
@@ -324,8 +324,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: 0.5
-  prompt_he: במשפט "השמש החמה זורחת" המילה "החמה" היא שם תואר.
-  prompt_en: In "The warm sun shines" the word "hama" (warm) is an adjective.
+  prompt_he: 'במשפט "השמש החמה זורחת" המילה "החמה" היא שם תואר.'
+  prompt_en: 'In "The warm sun shines" the word "hama" (warm) is an adjective.'
   answer: true
   explanation_he: 'החמה מתארת את השמש: איזו שמש? חמה. "זורחת" היא הפועל.'
   explanation_en: '"Warm" describes the sun: which sun? A warm one. "Shines" is the verb.'
@@ -361,8 +361,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 1.5
-  prompt_he: באיזה משפט המילה "ספר" היא פועל?
-  prompt_en: In which sentence is "sapar" a verb?
+  prompt_he: 'באיזה משפט המילה "ספר" היא פועל?'
+  prompt_en: 'In which sentence is "sapar" a verb?'
   choices:
   - {he: הספר על השולחן, en: The book is on the table}
   - {he: הוא ספר את הכסף, en: He counted the money}
@@ -466,8 +466,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה משפט כתוב נכון?
-  prompt_en: Which sentence is written correctly?
+  prompt_he: 'איזה משפט כתוב נכון?'
+  prompt_en: 'Which sentence is written correctly?'
   choices:
   - {he: הילדות שרות שיר, en: The girls sing a song}
   - {he: הילדות שר שיר, en: (the verb is masculine singular)}
@@ -481,8 +481,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה משפט כתוב נכון?
-  prompt_en: Which sentence is written correctly?
+  prompt_he: 'איזה משפט כתוב נכון?'
+  prompt_en: 'Which sentence is written correctly?'
   choices:
   - {he: התלמיד כתבה מכתב ארוך, en: (feminine verb)}
   - {he: התלמיד כתבו מכתב ארוך, en: (plural verb)}
@@ -496,8 +496,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזה משפט כתוב נכון?
-  prompt_en: Which sentence is written correctly?
+  prompt_he: 'איזה משפט כתוב נכון?'
+  prompt_en: 'Which sentence is written correctly?'
   choices:
   - {he: הדלת פתוח, en: (masculine adjective)}
   - {he: הדלת פתוחה, en: The door is open}
@@ -511,8 +511,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 1.0
-  prompt_he: איזה משפט כתוב נכון?
-  prompt_en: Which sentence is written correctly?
+  prompt_he: 'איזה משפט כתוב נכון?'
+  prompt_en: 'Which sentence is written correctly?'
   choices:
   - {he: השמיים כחולות, en: (feminine plural)}
   - {he: השמיים כחולים, en: The sky is blue}
@@ -526,8 +526,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 1.5
-  prompt_he: איזה משפט כתוב נכון?
-  prompt_en: Which sentence is written correctly?
+  prompt_he: 'איזה משפט כתוב נכון?'
+  prompt_en: 'Which sentence is written correctly?'
   choices:
   - {he: השולחנות גדולים, en: The tables are big}
   - {he: השולחנות גדולות, en: (feminine plural)}
@@ -541,10 +541,10 @@ items:
   kind: true_false
   grade: 3
   difficulty: 1.0
-  prompt_he: המשפט "הנעליים החדשות נוחות" כתוב נכון.
-  prompt_en: The sentence "The new shoes are comfortable" is written correctly.
+  prompt_he: 'המשפט "הנעליים החדשות נוחות" כתוב נכון.'
+  prompt_en: 'The sentence "The new shoes are comfortable" is written correctly.'
   answer: true
-  explanation_he: נעליים הוא נקבה רבות. לכן גם "החדשות" וגם "נוחות" באות בנקבה רבות.
+  explanation_he: 'נעליים הוא נקבה רבות. לכן גם "החדשות" וגם "נוחות" באות בנקבה רבות.'
   explanation_en: '"Shoes" is feminine plural, so both "new" and "comfortable" are feminine plural.'
   tags: [agreement]
 - id: heb.agree.013
@@ -552,8 +552,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: 0.0
-  prompt_he: המשפט "הילדים שרה בחצר" כתוב נכון.
-  prompt_en: The sentence "The children sings in the yard" is written correctly.
+  prompt_he: 'המשפט "הילדים שרה בחצר" כתוב נכון.'
+  prompt_en: 'The sentence "The children sings in the yard" is written correctly.'
   answer: false
   explanation_he: 'ילדים הוא זכר רבים, והפועל "שרה" הוא נקבה ביחיד. צריך לכתוב: הילדים שרים בחצר.'
   explanation_en: '"Children" is masculine plural, but the verb is feminine singular. It should be: the children sing.'
@@ -563,8 +563,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: -1.0
-  prompt_he: המשפט "אמא שלי עייפה" כתוב נכון.
-  prompt_en: The sentence "My mom is tired" is written correctly.
+  prompt_he: 'המשפט "אמא שלי עייפה" כתוב נכון.'
+  prompt_en: 'The sentence "My mom is tired" is written correctly.'
   answer: true
   explanation_he: 'אמא היא נקבה ביחיד, ולכן שם התואר גם הוא בנקבה: עייפה.'
   explanation_en: '"Mom" is feminine singular, so the adjective is feminine too: tired.'
@@ -574,8 +574,8 @@ items:
   kind: true_false
   grade: 3
   difficulty: 0.5
-  prompt_he: המשפט "הדודים שלי גרות בחיפה" כתוב נכון.
-  prompt_en: The sentence "My uncles (m.) live (f.) in Haifa" is written correctly.
+  prompt_he: 'המשפט "הדודים שלי גרות בחיפה" כתוב נכון.'
+  prompt_en: 'The sentence "My uncles (m.) live (f.) in Haifa" is written correctly.'
   answer: false
   explanation_he: 'דודים הוא זכר רבים, ולכן הפועל "גרים". כדי לכתוב "גרות" צריך לומר "הדודות".'
   explanation_en: 'Uncles is masculine plural, so the verb is "garim". "Garot" would go with "aunts".'
@@ -660,8 +660,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה צירוף מתאים?
-  prompt_en: Which phrase matches?
+  prompt_he: 'איזה צירוף מתאים?'
+  prompt_en: 'Which phrase matches?'
   choices:
   - {he: מכוניות מהירים, en: (masculine adjective)}
   - {he: מכונית מהירות, en: (singular noun)}
@@ -675,8 +675,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה צירוף מתאים?
-  prompt_en: Which phrase matches?
+  prompt_he: 'איזה צירוף מתאים?'
+  prompt_en: 'Which phrase matches?'
   choices:
   - {he: עננים אפורה, en: (feminine singular)}
   - {he: ענן אפורים, en: (singular noun)}
@@ -690,8 +690,8 @@ items:
   kind: choice
   grade: 3
   difficulty: 0.0
-  prompt_he: איזה צירוף מתאים?
-  prompt_en: Which phrase matches?
+  prompt_he: 'איזה צירוף מתאים?'
+  prompt_en: 'Which phrase matches?'
   choices:
   - {he: בובות קטנות, en: small dolls}
   - {he: בובה קטנות, en: (singular noun)}
@@ -705,8 +705,8 @@ items:
   kind: choice
   grade: 3
   difficulty: -1.0
-  prompt_he: איזה צירוף מתאים?
-  prompt_en: Which phrase matches?
+  prompt_he: 'איזה צירוף מתאים?'
+  prompt_en: 'Which phrase matches?'
   choices:
   - {he: תיק כבדה, en: (feminine adjective)}
   - {he: תיק כבד, en: a heavy bag}
@@ -715,3 +715,1065 @@ items:
   explanation_he: 'תיק הוא זכר ביחיד, ולכן שם התואר זכר ביחיד: כבד.'
   explanation_en: '"Bag" is masculine singular, so the adjective is masculine singular: heavy.'
   tags: [agreement]
+- id: heb.tense.001
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'באיזה זמן כתוב המשפט? "אתמול שיחקנו בכדור."'
+  prompt_en: 'In which tense is this sentence? "Yesterday we played ball."'
+  choices:
+  - {he: הווה, en: present}
+  - {he: עתיד, en: future}
+  - {he: עבר, en: past}
+  answer: 2
+  explanation_he: 'המילה "אתמול" ו"שיחקנו" מראות שזה כבר קרה. משפט כזה כתוב בזמן עבר.'
+  explanation_en: 'The words "yesterday" and "we played" show it already happened. This is the past tense.'
+  tags: [tenses]
+- id: heb.tense.002
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'באיזה זמן כתוב המשפט? "מחר נלך לים."'
+  prompt_en: 'In which tense is this sentence? "Tomorrow we will go to the sea."'
+  choices:
+  - {he: עבר, en: past}
+  - {he: עתיד, en: future}
+  - {he: הווה, en: present}
+  answer: 1
+  explanation_he: 'המילה "מחר" ו"נלך" מראות שזה עוד לא קרה. משפט כזה כתוב בזמן עתיד.'
+  explanation_en: '"Tomorrow" and "we will go" show it has not happened yet. This is the future tense.'
+  tags: [tenses]
+- id: heb.tense.003
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'באיזה זמן כתוב המשפט? "הילדה קוראת ספר עכשיו."'
+  prompt_en: 'In which tense is this sentence? "The girl is reading a book now."'
+  choices:
+  - {he: הווה, en: present}
+  - {he: עבר, en: past}
+  - {he: עתיד, en: future}
+  answer: 0
+  explanation_he: 'המילה "עכשיו" ו"קוראת" מראות שזה קורה ברגע זה. זה זמן הווה.'
+  explanation_en: '"Now" and "reads" show it is happening at this moment. This is the present tense.'
+  tags: [tenses]
+- id: heb.tense.004
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'באיזה זמן כתוב המשפט? "הציפור בנתה קן."'
+  prompt_en: 'In which tense is this sentence? "The bird built a nest."'
+  choices:
+  - {he: הווה, en: present}
+  - {he: עתיד, en: future}
+  - {he: עבר, en: past}
+  answer: 2
+  explanation_he: 'בנתה היא צורה של עבר. המעשה כבר נגמר, והקן עומד על העץ.'
+  explanation_en: '"Banta" is a past form. The action is over and the nest is on the tree.'
+  tags: [tenses]
+- id: heb.tense.005
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'באיזה זמן כתוב המשפט? "הם יאכלו ארוחת צהריים."'
+  prompt_en: 'In which tense is this sentence? "They will eat lunch."'
+  choices:
+  - {he: עבר, en: past}
+  - {he: עתיד, en: future}
+  - {he: הווה, en: present}
+  answer: 1
+  explanation_he: 'יאכלו היא צורה של עתיד, שמתחילה ב"י". הארוחה עוד לא הייתה.'
+  explanation_en: '"Yochlu" is a future form, starting with "y". The meal has not happened yet.'
+  tags: [tenses]
+- id: heb.tense.006
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'באיזה זמן כתוב המשפט? "אני כותב מכתב."'
+  prompt_en: 'In which tense is this sentence? "I am writing a letter."'
+  choices:
+  - {he: הווה, en: present}
+  - {he: עבר, en: past}
+  - {he: עתיד, en: future}
+  answer: 0
+  explanation_he: 'כותב אומר מה קורה עכשיו, ולכן זה הווה. בעבר היה "כתבתי", ובעתיד "אכתוב".'
+  explanation_en: '"Kotev" says what is happening now, so it is present. The past is "katavti" and the future "echtov".'
+  tags: [tenses]
+- id: heb.tense.007
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'באיזה זמן כתוב המשפט? "סבא סיפר סיפור."'
+  prompt_en: 'In which tense is this sentence? "Grandpa told a story."'
+  choices:
+  - {he: עבר, en: past}
+  - {he: עתיד, en: future}
+  - {he: הווה, en: present}
+  answer: 0
+  explanation_he: 'סיפר הוא עבר: הסיפור כבר סופר. בהווה היה "מספר".'
+  explanation_en: '"Siper" is past: the story was already told. The present would be "mesaper".'
+  tags: [tenses]
+- id: heb.tense.008
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'באיזה זמן כתוב המשפט? "בשבוע הבא תתחיל הכיתה לטייל."'
+  prompt_en: 'In which tense is this sentence? "Next week the class will start to hike."'
+  choices:
+  - {he: עבר, en: past}
+  - {he: עתיד, en: future}
+  - {he: הווה, en: present}
+  answer: 1
+  explanation_he: 'הביטוי "בשבוע הבא" מראה על עתיד. גם הפועל "תתחיל" מתחיל באות ת, כמו פעלים רבים בעתיד.'
+  explanation_en: '"Next week" points to the future, and "tatchil" is a future form.'
+  tags: [tenses]
+- id: heb.tense.009
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'איזה משפט כתוב בזמן עבר?'
+  prompt_en: 'Which sentence is in the past tense?'
+  choices:
+  - {he: הילדים רצים בחצר, en: The children are running in the yard}
+  - {he: הילדים ירוצו בחצר, en: The children will run in the yard}
+  - {he: הילדים רצו בחצר, en: The children ran in the yard}
+  answer: 2
+  explanation_he: 'רצו היא צורת עבר. רצים הוא הווה, וירוצו הוא עתיד.'
+  explanation_en: '"Ratzu" is past. "Ratzim" is present and "yarutzu" is future.'
+  tags: [tenses]
+- id: heb.tense.010
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'איזה משפט כתוב בזמן עתיד?'
+  prompt_en: 'Which sentence is in the future tense?'
+  choices:
+  - {he: אני כתבתי אתמול, en: I wrote yesterday}
+  - {he: אני אכתוב מחר, en: I will write tomorrow}
+  - {he: אני כותב עכשיו, en: I am writing now}
+  answer: 1
+  explanation_he: 'אכתוב הוא עתיד, והמילה "מחר" מסייעת. כתבתי הוא עבר וכותב הוא הווה.'
+  explanation_en: '"Echtov" is future, and "tomorrow" helps. "Katavti" is past and "kotev" is present.'
+  tags: [tenses]
+- id: heb.tense.011
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'איזה משפט כתוב בזמן הווה?'
+  prompt_en: 'Which sentence is in the present tense?'
+  choices:
+  - {he: הדג שוחה בנחל, en: The fish swims in the stream}
+  - {he: הדג שחה בנחל, en: The fish swam in the stream}
+  - {he: הדג ישחה בנחל, en: The fish will swim in the stream}
+  answer: 0
+  explanation_he: 'שוחה אומר מה הדג עושה עכשיו. שחה הוא עבר, וישחה הוא עתיד.'
+  explanation_en: '"Socheh" says what the fish does now. "Shachah" is past and "yischeh" is future.'
+  tags: [tenses]
+- id: heb.tense.012
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מה הצורה בעבר של "לאכול" (הוא)?'
+  prompt_en: 'What is the past form of "le''echol" (he)?'
+  choices:
+  - {he: אוכל, en: eats}
+  - {he: יאכל, en: will eat}
+  - {he: אכל, en: ate}
+  answer: 2
+  explanation_he: 'בעבר אומרים "הוא אכל". "אוכל" הוא הווה, ו"יאכל" הוא עתיד.'
+  explanation_en: 'In the past we say "he ate". "Ochel" is present and "yochal" is future.'
+  tags: [tenses]
+- id: heb.tense.013
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מה הצורה בעתיד של "ללכת" (אני)?'
+  prompt_en: 'What is the future form of "lalechet" (I)?'
+  choices:
+  - {he: הלכתי, en: I went}
+  - {he: הולך, en: I go}
+  - {he: אלך, en: I will go}
+  answer: 2
+  explanation_he: 'בעתיד אומרים "אני אלך". הלכתי הוא עבר, והולך הוא הווה.'
+  explanation_en: 'In the future we say "I will go". "Halachti" is past and "holech" is present.'
+  tags: [tenses]
+- id: heb.tense.014
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: '"הוא כותב" — איך אומרים את זה בעבר?'
+  prompt_en: 'How do you say "he writes" in the past tense?'
+  choices:
+  - {he: הוא יכתוב, en: he will write}
+  - {he: הוא כתב, en: he wrote}
+  - {he: הוא כותב מחר, en: he writes tomorrow}
+  answer: 1
+  explanation_he: 'כשמשהו כבר קרה, הפועל משתנה: כותב הופך ל"כתב".'
+  explanation_en: 'When something already happened the verb changes: "kotev" becomes "katav".'
+  tags: [tenses]
+- id: heb.tense.015
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: '"היא קוראת" — איך אומרים את זה בעבר?'
+  prompt_en: 'How do you say "she reads" in the past tense?'
+  choices:
+  - {he: היא קראה, en: she read}
+  - {he: היא תקרא, en: she will read}
+  - {he: היא קוראת מחר, en: she reads tomorrow}
+  answer: 0
+  explanation_he: 'בעבר הפועל משתנה: קוראת הופך ל"קראה".'
+  explanation_en: 'In the past the verb changes: "koret" becomes "kar''a".'
+  tags: [tenses]
+- id: heb.tense.016
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: '"הם רצים" — איך אומרים את זה בעתיד?'
+  prompt_en: 'How do you say "they run" in the future tense?'
+  choices:
+  - {he: הם ירוצו, en: they will run}
+  - {he: הם רצו, en: they ran}
+  - {he: הם רצים, en: they run}
+  answer: 0
+  explanation_he: 'בעתיד הפועל מתחיל ב"י" כשמדברים על הם: ירוצו.'
+  explanation_en: 'In the future the verb starts with "y" for "they": "yarutzu".'
+  tags: [tenses]
+- id: heb.tense.017
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: '"אתה שר" — איך אומרים את זה בעבר?'
+  prompt_en: 'How do you say "you (m.) sing" in the past tense?'
+  choices:
+  - {he: תשיר, en: you will sing}
+  - {he: שרת, en: you sang}
+  - {he: שר, en: sings}
+  answer: 1
+  explanation_he: 'בעבר, כשמדברים אל מישהו, הפועל מסתיים ב"ת": שרת.'
+  explanation_en: 'In the past, when talking to someone, the verb ends with "t": "sharta".'
+  tags: [tenses]
+- id: heb.tense.018
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: '"אנחנו לומדים" — איך אומרים את זה בעבר?'
+  prompt_en: 'How do you say "we study" in the past tense?'
+  choices:
+  - {he: נלמד, en: we will study}
+  - {he: לומדים, en: we study}
+  - {he: למדנו, en: we studied}
+  answer: 2
+  explanation_he: 'בעבר, כשמדברים על אנחנו, הפועל מסתיים ב"נו": למדנו.'
+  explanation_en: 'In the past, for "we", the verb ends with "-nu": "lamadnu".'
+  tags: [tenses]
+- id: heb.tense.019
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: '"היא תבשל" — איך אומרים את זה בהווה?'
+  prompt_en: 'How do you say "she will cook" in the present tense?'
+  choices:
+  - {he: היא בישלה, en: she cooked}
+  - {he: היא מבשלת, en: she is cooking}
+  - {he: היא תבשל, en: she will cook}
+  answer: 1
+  explanation_he: 'בהווה הפועל מראה מה קורה עכשיו: היא מבשלת.'
+  explanation_en: 'In the present the verb shows what is happening now: "she is cooking".'
+  tags: [tenses]
+- id: heb.tense.020
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'איזו מילה מראה שהמשפט בעבר?'
+  prompt_en: 'Which word shows the sentence is in the past?'
+  choices:
+  - {he: אתמול, en: yesterday}
+  - {he: מחר, en: tomorrow}
+  - {he: עכשיו, en: now}
+  answer: 0
+  explanation_he: 'אתמול כבר היה, ולכן המילה מרמזת על עבר. מחר הוא עתיד, ועכשיו הוא הווה.'
+  explanation_en: 'Yesterday is already gone, so it hints at the past. Tomorrow is future and now is present.'
+  tags: [tenses]
+- id: heb.tense.021
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'איזה ביטוי מראה שהמשפט בעתיד?'
+  prompt_en: 'Which phrase shows the sentence is in the future?'
+  choices:
+  - {he: לפני שנה, en: a year ago}
+  - {he: כרגע, en: right now}
+  - {he: בעוד שנה, en: in a year}
+  answer: 2
+  explanation_he: 'בעוד שנה מדבר על זמן שיבוא. לפני שנה הוא עבר, וכרגע הוא הווה.'
+  explanation_en: '"In a year" is about time that will come. "A year ago" is past and "right now" is present.'
+  tags: [tenses]
+- id: heb.tense.022
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'איזו מילה לא מתאימה למשפט: "אתמול אני אאכל פיצה"?'
+  prompt_en: 'Which word does not fit the sentence: "Yesterday I will eat pizza"?'
+  choices:
+  - {he: אתמול, en: yesterday}
+  - {he: אאכל, en: will eat}
+  - {he: פיצה, en: pizza}
+  answer: 1
+  explanation_he: 'אתמול הוא עבר, אבל אאכל הוא עתיד. צריך לומר "אכלתי".'
+  explanation_en: '"Yesterday" is past but "I will eat" is future. It should be "I ate".'
+  tags: [tenses]
+- id: heb.tense.023
+  skill: hebrew.grammar.tenses
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'איזו מילה לא מתאימה למשפט: "מחר אכלנו עוגה"?'
+  prompt_en: 'Which word does not fit the sentence: "Tomorrow we ate cake"?'
+  choices:
+  - {he: אכלנו, en: we ate}
+  - {he: מחר, en: tomorrow}
+  - {he: עוגה, en: cake}
+  answer: 0
+  explanation_he: 'מחר הוא עתיד, ואכלנו הוא עבר. צריך לומר "נאכל".'
+  explanation_en: '"Tomorrow" is future and "we ate" is past. It should be "we will eat".'
+  tags: [tenses]
+- id: heb.tense.024
+  skill: hebrew.grammar.tenses
+  kind: true_false
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'המילה "אתמול" מרמזת על זמן עבר.'
+  prompt_en: 'The word "etmol" (yesterday) hints at the past.'
+  answer: true
+  explanation_he: 'אתמול כבר עבר, ולכן הפועל במשפט יהיה בעבר.'
+  explanation_en: 'Yesterday is gone, so the verb in the sentence will be in the past.'
+  tags: [tenses]
+- id: heb.tense.025
+  skill: hebrew.grammar.tenses
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'המשפט "אני אלמד מחר" כתוב בהווה.'
+  prompt_en: 'The sentence "I will study tomorrow" is in the present tense.'
+  answer: false
+  explanation_he: 'אלמד ומחר מדברים על משהו שעוד יקרה, ולכן זה עתיד.'
+  explanation_en: '"Elmad" and "tomorrow" talk about something that will happen, so it is future.'
+  tags: [tenses]
+- id: heb.tense.026
+  skill: hebrew.grammar.tenses
+  kind: true_false
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'המשפט "הם משחקים בחצר" כתוב בהווה.'
+  prompt_en: 'The sentence "They are playing in the yard" is in the present tense.'
+  answer: true
+  explanation_he: 'משחקים מתאר מה קורה עכשיו, ולכן זה הווה.'
+  explanation_en: '"Mesachakim" describes what is happening now, so it is present.'
+  tags: [tenses]
+- id: heb.tense.027
+  skill: hebrew.grammar.tenses
+  kind: true_false
+  grade: 4
+  difficulty: -1.0
+  prompt_he: פועל בעבר מספר על משהו שעוד לא קרה.
+  prompt_en: A verb in the past tells about something that has not happened yet.
+  answer: false
+  explanation_he: עבר מספר על משהו שכבר קרה. על משהו שעוד לא קרה מדברים בעתיד.
+  explanation_en: The past tells about something that already happened. We speak about what has not happened in the future.
+  tags: [tenses]
+- id: heb.tense.028
+  skill: hebrew.grammar.tenses
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'הביטוי "בעוד שבוע" מרמז על זמן עתיד.'
+  prompt_en: 'The phrase "in a week" hints at the future.'
+  answer: true
+  explanation_he: 'בעוד שבוע הוא זמן שעוד יבוא, ולכן הפועל יהיה בעתיד.'
+  explanation_en: '"In a week" is a time that is still to come, so the verb will be in the future.'
+  tags: [tenses]
+- id: heb.person.001
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'איזה כינוי גוף מתאים: "דנה אוכלת תפוח, ___ אוהבת אותו"?'
+  prompt_en: 'Which pronoun fits: "Dana is eating an apple, ___ loves it"?'
+  choices:
+  - {he: היא, en: she}
+  - {he: הוא, en: he}
+  - {he: אנחנו, en: we}
+  answer: 0
+  explanation_he: 'דנה היא נקבה אחת, ולכן במקום שמה אומרים "היא".'
+  explanation_en: 'Dana is one female, so instead of her name we say "she".'
+  tags: [person]
+- id: heb.person.002
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'במקום "דני ואני" אומרים:'
+  prompt_en: 'Instead of "Danny and I" we say:'
+  choices:
+  - {he: הם, en: they}
+  - {he: אנחנו, en: we}
+  - {he: אתם, en: you (pl.)}
+  answer: 1
+  explanation_he: 'כשמדברים על עצמנו ועוד מישהו, אומרים "אנחנו".'
+  explanation_en: 'When we speak about ourselves and someone else, we say "we".'
+  tags: [person]
+- id: heb.person.003
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'במקום "גיל ונועה" אומרים:'
+  prompt_en: 'Instead of "Gil and Noa" we say:'
+  choices:
+  - {he: הן, en: they (f.)}
+  - {he: אתם, en: you (pl.)}
+  - {he: הם, en: they (m.)}
+  answer: 2
+  explanation_he: 'כשמדברים על בנים, או על בנים ובנות יחד, אומרים "הם".'
+  explanation_en: 'When speaking about boys, or about boys and girls together, we say "hem".'
+  tags: [person]
+- id: heb.person.004
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'במקום "דנה ורינה" אומרים:'
+  prompt_en: 'Instead of "Dana and Rina" we say:'
+  choices:
+  - {he: הן, en: they (f.)}
+  - {he: הם, en: they (m.)}
+  - {he: אנחנו, en: we}
+  answer: 0
+  explanation_he: 'דנה ורינה הן שתי בנות, ולכן אומרים "הן".'
+  explanation_en: 'Dana and Rina are two girls, so we say "hen".'
+  tags: [person]
+- id: heb.person.005
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'כשפונים אל ילדה אחת, איזה כינוי אומרים?'
+  prompt_en: 'When talking to one girl, which pronoun do we use?'
+  choices:
+  - {he: אתה, en: you (m.)}
+  - {he: את, en: you (f.)}
+  - {he: הן, en: they (f.)}
+  answer: 1
+  explanation_he: 'פונים אל מישהי אחת בנקבה ביחיד: "את". אל בן אחד אומרים "אתה".'
+  explanation_en: 'To one girl we say "at". To one boy we say "ata".'
+  tags: [person]
+- id: heb.person.006
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'השלימו: "אנחנו ___ בגן אתמול".'
+  prompt_en: 'Complete: "We ___ in the park yesterday".'
+  choices:
+  - {he: שיחקתי, en: I played}
+  - {he: שיחקו, en: they played}
+  - {he: שיחקנו, en: played}
+  answer: 2
+  explanation_he: 'עם "אנחנו" הפועל בעבר מסתיים ב"נו": שיחקנו.'
+  explanation_en: 'With "we" the past verb ends in "-nu": "sichaknu".'
+  tags: [person]
+- id: heb.person.007
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'השלימו: "הם ___ בגן אתמול".'
+  prompt_en: 'Complete: "They ___ in the park yesterday".'
+  choices:
+  - {he: שיחקו, en: played}
+  - {he: שיחקנו, en: we played}
+  - {he: שיחקתי, en: I played}
+  answer: 0
+  explanation_he: 'עם "הם" הפועל בעבר מסתיים ב"ו": שיחקו.'
+  explanation_en: 'With "they" the past verb ends in "-u": "sichaku".'
+  tags: [person]
+- id: heb.person.008
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'השלימו: "אני ___ לבית הספר אתמול".'
+  prompt_en: 'Complete: "I ___ to school yesterday".'
+  choices:
+  - {he: הלכנו, en: we went}
+  - {he: הלכו, en: they went}
+  - {he: הלכתי, en: went}
+  answer: 2
+  explanation_he: 'עם "אני" הפועל בעבר מסתיים ב"תי": הלכתי.'
+  explanation_en: 'With "I" the past verb ends in "-ti": "halachti".'
+  tags: [person]
+- id: heb.person.009
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'השלימו: "אני ___ מחר ספר".'
+  prompt_en: 'Complete: "I ___ a book tomorrow".'
+  choices:
+  - {he: יקרא, en: he will read}
+  - {he: אקרא, en: will read}
+  - {he: נקרא, en: we will read}
+  answer: 1
+  explanation_he: 'בעתיד, עם "אני", הפועל מתחיל ב"א": אקרא.'
+  explanation_en: 'In the future, with "I", the verb starts with "a": "ekra".'
+  tags: [person]
+- id: heb.person.010
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'השלימו: "אנחנו ___ מחר ספר".'
+  prompt_en: 'Complete: "We ___ a book tomorrow".'
+  choices:
+  - {he: אקרא, en: I will read}
+  - {he: נקרא, en: will read}
+  - {he: יקראו, en: they will read}
+  answer: 1
+  explanation_he: 'בעתיד, עם "אנחנו", הפועל מתחיל ב"נ": נקרא.'
+  explanation_en: 'In the future, with "we", the verb starts with "n": "nikra".'
+  tags: [person]
+- id: heb.person.011
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'השלימו: "הם ___ מחר ספר".'
+  prompt_en: 'Complete: "They ___ a book tomorrow".'
+  choices:
+  - {he: תקרא, en: she will read}
+  - {he: אקרא, en: I will read}
+  - {he: יקראו, en: will read}
+  answer: 2
+  explanation_he: 'בעתיד, עם "הם", הפועל מתחיל ב"י" ומסתיים ב"ו": יקראו.'
+  explanation_en: 'In the future, with "they", the verb starts with "y" and ends with "-u": "yikre''u".'
+  tags: [person]
+- id: heb.person.012
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'השלימו: "היא ___ מחר ספר".'
+  prompt_en: 'Complete: "She ___ a book tomorrow".'
+  choices:
+  - {he: תקרא, en: will read}
+  - {he: יקרא, en: he will read}
+  - {he: נקרא, en: we will read}
+  answer: 0
+  explanation_he: 'בעתיד, עם "היא", הפועל מתחיל ב"ת": תקרא.'
+  explanation_en: 'In the future, with "she", the verb starts with "t": "tikra".'
+  tags: [person]
+- id: heb.person.013
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'לאיזה כינוי גוף מתאים הפועל "הלכנו"?'
+  prompt_en: 'Which pronoun fits the verb "halachnu"?'
+  choices:
+  - {he: הם, en: they}
+  - {he: אנחנו, en: we}
+  - {he: אני, en: I}
+  answer: 1
+  explanation_he: 'סוף המילה "נו" מראה שמדברים על כמה אנשים, כולל המדבר: אנחנו.'
+  explanation_en: 'The ending "-nu" shows we speak about several people, including the speaker: "we".'
+  tags: [person]
+- id: heb.person.014
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'לאיזה כינוי גוף מתאים הפועל "ישבו"?'
+  prompt_en: 'Which pronoun fits the verb "yashvu"?'
+  choices:
+  - {he: אנחנו, en: we}
+  - {he: אני, en: I}
+  - {he: הם, en: they}
+  answer: 2
+  explanation_he: 'הסוף "ו" מראה שמדברים על כמה אנשים אחרים: הם.'
+  explanation_en: 'The ending "-u" shows we speak about several other people: "they".'
+  tags: [person]
+- id: heb.person.015
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'לאיזה כינוי גוף מתאים הפועל "אכלה"?'
+  prompt_en: 'Which pronoun fits the verb "achla"?'
+  choices:
+  - {he: היא, en: she}
+  - {he: אתה, en: you (m.)}
+  - {he: אנחנו, en: we}
+  answer: 0
+  explanation_he: 'הסוף "ה" מראה שמדברים על נקבה אחת: היא.'
+  explanation_en: 'The ending "-ah" shows we speak about one female: "she".'
+  tags: [person]
+- id: heb.person.016
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'השלימו: "___ יושבות על הספסל" (שרה ומיכל).'
+  prompt_en: 'Complete: "___ are sitting on the bench" (Sara and Michal).'
+  choices:
+  - {he: הן, en: they (f.)}
+  - {he: הם, en: they (m.)}
+  - {he: היא, en: she}
+  answer: 0
+  explanation_he: 'שרה ומיכל הן שתי בנות, והפועל יושבות הוא בנקבה רבות, ולכן "הן".'
+  explanation_en: 'Sara and Michal are two girls and "yoshvot" is feminine plural, so "hen".'
+  tags: [person]
+- id: heb.person.017
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'איזה משפט כתוב נכון?'
+  prompt_en: 'Which sentence is written correctly?'
+  choices:
+  - {he: הם אכלה ארוחה, en: (feminine singular verb)}
+  - {he: הם אכלו ארוחה, en: They ate a meal}
+  - {he: הם אכלנו ארוחה, en: (first-person plural verb)}
+  answer: 1
+  explanation_he: 'הפועל צריך להתאים לכינוי: "הם" מתאים ל"אכלו".'
+  explanation_en: 'The verb must fit the pronoun: "hem" goes with "achlu".'
+  tags: [person]
+- id: heb.person.018
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'איזה משפט כתוב נכון?'
+  prompt_en: 'Which sentence is written correctly?'
+  choices:
+  - {he: אנחנו שר בכיתה, en: (singular verb)}
+  - {he: אנחנו שרה בכיתה, en: (feminine singular verb)}
+  - {he: אנחנו שרים בכיתה, en: We sing in the class}
+  answer: 2
+  explanation_he: 'אנחנו הוא רבים, ולכן הפועל ברבים: שרים.'
+  explanation_en: '"Anachnu" is plural, so the verb is plural: "sing".'
+  tags: [person]
+- id: heb.person.019
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'באיזה גוף כתוב המשפט "אנחנו הולכים לים"?'
+  prompt_en: 'In which person is "We are going to the sea"?'
+  choices:
+  - {he: 'גוף ראשון, רבים', en: 'first person, plural'}
+  - {he: 'גוף שני, רבים', en: 'second person, plural'}
+  - {he: 'גוף שלישי, רבים', en: 'third person, plural'}
+  answer: 0
+  explanation_he: 'מדברים על עצמנו (אנחנו), ולכן זה גוף ראשון, ורבים כי יש כמה אנשים.'
+  explanation_en: 'We speak about ourselves, so this is first person; plural since several people.'
+  tags: [person]
+- id: heb.person.020
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'באיזה גוף כתוב המשפט "היא רצה מהר"?'
+  prompt_en: 'In which person is "She runs fast"?'
+  choices:
+  - {he: גוף ראשון, en: first person}
+  - {he: גוף שלישי, en: third person}
+  - {he: גוף שני, en: second person}
+  answer: 1
+  explanation_he: 'מדברים על מישהי אחרת שלא נמצאת בשיחה, ולכן זה גוף שלישי.'
+  explanation_en: 'We speak about someone else who is not in the conversation, so it is third person.'
+  tags: [person]
+- id: heb.person.021
+  skill: hebrew.grammar.person
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'באיזה גוף כתוב המשפט "אתם עובדים יפה"?'
+  prompt_en: 'In which person is "You (pl.) work nicely"?'
+  choices:
+  - {he: גוף ראשון, en: first person}
+  - {he: גוף שלישי, en: third person}
+  - {he: גוף שני, en: second person}
+  answer: 2
+  explanation_he: 'פונים אל השומעים (אתם), ולכן זה גוף שני.'
+  explanation_en: 'We address the listeners ("you"), so it is second person.'
+  tags: [person]
+- id: heb.person.022
+  skill: hebrew.grammar.person
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'המילה "אני" היא גוף ראשון.'
+  prompt_en: 'The word "ani" (I) is first person.'
+  answer: true
+  explanation_he: 'גוף ראשון הוא מי שמדבר: אני או אנחנו.'
+  explanation_en: 'First person is the one who speaks: "I" or "we".'
+  tags: [person]
+- id: heb.person.023
+  skill: hebrew.grammar.person
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'המילה "אתה" היא גוף שלישי.'
+  prompt_en: 'The word "ata" (you) is third person.'
+  answer: false
+  explanation_he: 'אתה מדברים אל מישהו, ולכן זה גוף שני. גוף שלישי הוא מי שמדברים עליו, כמו הוא.'
+  explanation_en: '"Ata" is spoken to someone, so it is second person. Third person is the one we talk about, like "he".'
+  tags: [person]
+- id: heb.person.024
+  skill: hebrew.grammar.person
+  kind: true_false
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'המילה "הם" היא גוף שלישי.'
+  prompt_en: 'The word "hem" (they) is third person.'
+  answer: true
+  explanation_he: 'מדברים על אחרים שאינם המדבר ואינם השומעים: גוף שלישי.'
+  explanation_en: 'We talk about others who are neither the speaker nor the listeners: third person.'
+  tags: [person]
+- id: heb.subj.001
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'מהו הנושא במשפט "הכלב נבח בחוץ"?'
+  prompt_en: 'What is the subject of "The dog barked outside"?'
+  choices:
+  - {he: הכלב, en: the dog}
+  - {he: נבח, en: barked}
+  - {he: בחוץ, en: outside}
+  answer: 0
+  explanation_he: 'הנושא הוא מי שעושה: הכלב. הנשוא הוא מה שאומרים עליו: נבח בחוץ.'
+  explanation_en: 'The subject is who does it: the dog. The predicate is what is said about it: barked outside.'
+  tags: [subject_predicate]
+- id: heb.subj.002
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'מהו הנושא במשפט "דנה ציירה פרח צבעוני"?'
+  prompt_en: 'What is the subject of "Dana drew a colorful flower"?'
+  choices:
+  - {he: ציירה פרח, en: drew a flower}
+  - {he: דנה, en: Dana}
+  - {he: פרח צבעוני, en: a colorful flower}
+  answer: 1
+  explanation_he: 'על מי המשפט מדבר? על דנה. היא הנושא.'
+  explanation_en: 'Who is the sentence about? Dana. She is the subject.'
+  tags: [subject_predicate]
+- id: heb.subj.003
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מהו הנושא במשפט "הילדים הקטנים שיחקו בחצר"?'
+  prompt_en: 'What is the subject of "The little children played in the yard"?'
+  choices:
+  - {he: הקטנים שיחקו, en: the little ones played}
+  - {he: שיחקו בחצר, en: played in the yard}
+  - {he: הילדים הקטנים, en: the little children}
+  answer: 2
+  explanation_he: 'הנושא יכול להיות כמה מילים: הילדים הקטנים. הם מי ששיחקו.'
+  explanation_en: 'The subject can be several words: the little children. They are who played.'
+  tags: [subject_predicate]
+- id: heb.subj.004
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מהו הנושא במשפט "אחי הגדול אוהב כדורגל"?'
+  prompt_en: 'What is the subject of "My big brother loves football"?'
+  choices:
+  - {he: אחי הגדול, en: my big brother}
+  - {he: הגדול אוהב, en: the big one loves}
+  - {he: אוהב כדורגל, en: loves football}
+  answer: 0
+  explanation_he: 'מי אוהב כדורגל? אחי הגדול. שתי המילים יחד הן הנושא, כי הן עונות על השאלה "מי?".'
+  explanation_en: 'Who loves football? My big brother. That is the subject.'
+  tags: [subject_predicate]
+- id: heb.subj.005
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'על מי מדברים במשפט "סבתא אפתה עוגה"?'
+  prompt_en: 'Who is spoken about in "Grandma baked a cake"?'
+  choices:
+  - {he: עוגה, en: cake}
+  - {he: סבתא, en: Grandma}
+  - {he: אפתה, en: baked}
+  answer: 1
+  explanation_he: 'מדברים על סבתא. היא הנושא, ו"אפתה עוגה" הוא הנשוא.'
+  explanation_en: 'The sentence is about Grandma. She is the subject, and "baked a cake" is the predicate.'
+  tags: [subject_predicate]
+- id: heb.subj.006
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'מי עושה את הפעולה במשפט "הדוור הביא מכתב"?'
+  prompt_en: 'Who does the action in "The mail carrier brought a letter"?'
+  choices:
+  - {he: מכתב, en: a letter}
+  - {he: הביא, en: brought}
+  - {he: הדוור, en: the mail carrier}
+  answer: 2
+  explanation_he: הדוור הוא מי שהביא. זה הנושא של המשפט.
+  explanation_en: The mail carrier is who brought it. That is the subject of the sentence.
+  tags: [subject_predicate]
+- id: heb.subj.007
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מהו הנשוא במשפט "הציפור שרה שיר יפה"?'
+  prompt_en: 'What is the predicate of "The bird sang a pretty song"?'
+  choices:
+  - {he: הציפור, en: the bird}
+  - {he: שיר יפה, en: a pretty song}
+  - {he: שרה שיר יפה, en: sang a pretty song}
+  answer: 2
+  explanation_he: 'הנשוא הוא מה שאומרים על הנושא: הציפור שרה שיר יפה.'
+  explanation_en: 'The predicate is what is said about the subject: sang a pretty song.'
+  tags: [subject_predicate]
+- id: heb.subj.008
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מהו הנשוא במשפט "הילד רץ מהר"?'
+  prompt_en: 'What is the predicate of "The boy ran fast"?'
+  choices:
+  - {he: הילד רץ, en: the boy ran}
+  - {he: רץ מהר, en: ran fast}
+  - {he: הילד, en: the boy}
+  answer: 1
+  explanation_he: 'הנושא הוא "הילד", והנשוא הוא כל מה שנאמר עליו: רץ מהר.'
+  explanation_en: 'The subject is "the boy" and the predicate is everything said about him: ran fast.'
+  tags: [subject_predicate]
+- id: heb.subj.009
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מהו הנשוא במשפט "הדוב ישן בחורף"?'
+  prompt_en: 'What is the predicate of "The bear sleeps in winter"?'
+  choices:
+  - {he: ישן בחורף, en: sleeps in winter}
+  - {he: הדוב ישן, en: the bear sleeps}
+  - {he: הדוב, en: the bear}
+  answer: 0
+  explanation_he: 'מה אומרים על הדוב? שהוא ישן בחורף. זה הנשוא.'
+  explanation_en: 'What do we say about the bear? That he sleeps in winter. That is the predicate.'
+  tags: [subject_predicate]
+- id: heb.subj.010
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 0.0
+  prompt_he: 'מהו הנשוא במשפט "התלמידים קראו ספר"?'
+  prompt_en: 'What is the predicate of "The pupils read a book"?'
+  choices:
+  - {he: התלמידים קראו, en: the pupils read}
+  - {he: קראו ספר, en: read a book}
+  - {he: התלמידים, en: the pupils}
+  answer: 1
+  explanation_he: 'הנושא הוא התלמידים. הנשוא הוא מה שעשו: קראו ספר.'
+  explanation_en: 'The subject is the pupils. The predicate is what they did: read a book.'
+  tags: [subject_predicate]
+- id: heb.subj.011
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'מהו הנשוא במשפט "האוטובוס מגיע בשמונה"?'
+  prompt_en: 'What is the predicate of "The bus arrives at eight"?'
+  choices:
+  - {he: מגיע בשמונה, en: arrives at eight}
+  - {he: האוטובוס מגיע, en: the bus arrives}
+  - {he: האוטובוס, en: the bus}
+  answer: 0
+  explanation_he: 'הנושא הוא האוטובוס, והנשוא הוא מה שנאמר עליו: מגיע בשמונה.'
+  explanation_en: 'The subject is the bus and the predicate is what is said about it: arrives at eight.'
+  tags: [subject_predicate]
+- id: heb.subj.012
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'מהו הנשוא במשפט "הים כחול ושקט"?'
+  prompt_en: 'What is the predicate of "The sea is blue and calm"?'
+  choices:
+  - {he: הים כחול, en: the sea is blue}
+  - {he: הים, en: the sea}
+  - {he: כחול ושקט, en: blue and calm}
+  answer: 2
+  explanation_he: 'לפעמים הנשוא אינו פועל אלא תיאור. הוא מספר איך הנושא: כחול ושקט.'
+  explanation_en: 'Sometimes the predicate is not a verb but a description: it says what the subject is like.'
+  tags: [subject_predicate]
+- id: heb.subj.013
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'מהו הנושא ומהו הנשוא במשפט "הפרחים יפים"?'
+  prompt_en: 'What are the subject and predicate in "The flowers are pretty"?'
+  choices:
+  - {he: 'הנושא: יפים, הנשוא: הפרחים', en: 'Subject: pretty, predicate: the flowers'}
+  - {he: 'הנושא והנשוא: הפרחים', en: 'Subject and predicate: the flowers'}
+  - {he: 'הנושא: הפרחים, הנשוא: יפים', en: 'Subject: the flowers, predicate: pretty'}
+  answer: 2
+  explanation_he: 'מדברים על הפרחים (הנושא), ואומרים עליהם שהם יפים (הנשוא).'
+  explanation_en: We speak about the flowers (subject) and say that they are pretty (predicate).
+  tags: [subject_predicate]
+- id: heb.subj.014
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'איזה צירוף הוא משפט שלם?'
+  prompt_en: 'Which phrase is a complete sentence?'
+  choices:
+  - {he: הילדה שרה, en: The girl sings}
+  - {he: הילדה הקטנה, en: The little girl}
+  - {he: שיר יפה, en: A pretty song}
+  answer: 0
+  explanation_he: 'במשפט שלם יש נושא ונשוא: הילדה (נושא) שרה (נשוא). בשני האחרים אין נשוא.'
+  explanation_en: A full sentence has a subject and a predicate. The others have no predicate.
+  tags: [subject_predicate]
+- id: heb.subj.015
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 1.0
+  prompt_he: 'מה מתאים כנשוא לנושא "הדגים"?'
+  prompt_en: 'What fits as a predicate for the subject "the fish"?'
+  choices:
+  - {he: שוחה בים, en: swims (singular) in the sea}
+  - {he: שוחים בים, en: swim in the sea}
+  - {he: שוחות בים, en: swim (f. pl.) in the sea}
+  answer: 1
+  explanation_he: 'הנשוא צריך להתאים לנושא במין ובמספר. דגים הוא זכר רבים, ולכן "שוחים".'
+  explanation_en: 'The predicate must agree with the subject: "fish" is masculine plural, so "swim".'
+  tags: [subject_predicate]
+- id: heb.subj.016
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 0.5
+  prompt_he: 'כמה מילים יש בנושא של המשפט "אמא שלי מבשלת מרק"?'
+  prompt_en: 'How many words are in the subject of "My mom cooks soup"?'
+  choices:
+  - {he: אחת, en: one}
+  - {he: שתיים, en: two}
+  - {he: שלוש, en: three}
+  answer: 1
+  explanation_he: 'הנושא הוא "אמא שלי", שתי מילים. הנשוא הוא "מבשלת מרק".'
+  explanation_en: 'The subject is "my mom", two words. The predicate is "cooks soup".'
+  tags: [subject_predicate]
+- id: heb.subj.017
+  skill: hebrew.grammar.subject_predicate
+  kind: true_false
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'הנושא במשפט "הציפור שרה" הוא המילה "שרה".'
+  prompt_en: 'The subject of "The bird sings" is the word "sings".'
+  answer: false
+  explanation_he: 'הנושא הוא מי שעושה: הציפור. "שרה" היא הנשוא.'
+  explanation_en: 'The subject is who does it: the bird. "Sings" is the predicate.'
+  tags: [subject_predicate]
+- id: heb.subj.018
+  skill: hebrew.grammar.subject_predicate
+  kind: true_false
+  grade: 4
+  difficulty: -1.0
+  prompt_he: הנשוא אומר מה הנושא עושה או איך הוא.
+  prompt_en: The predicate says what the subject does or what it is like.
+  answer: true
+  explanation_he: 'נשוא הוא מה שאומרים על הנושא: עושה, קורה או נראה.'
+  explanation_en: 'The predicate is what is said about the subject: does, happens or looks like.'
+  tags: [subject_predicate]
+- id: heb.subj.019
+  skill: hebrew.grammar.subject_predicate
+  kind: true_false
+  grade: 4
+  difficulty: -1.0
+  prompt_he: 'במשפט "החתול ישן על הספה" הנושא הוא "החתול".'
+  prompt_en: 'In "The cat sleeps on the sofa" the subject is "the cat".'
+  answer: true
+  explanation_he: 'על מי מדברים במשפט? על החתול, ולכן הוא הנושא. "ישן על הספה" הוא הנשוא.'
+  explanation_en: 'Who is the sentence about? The cat. It is the subject.'
+  tags: [subject_predicate]
+- id: heb.subj.020
+  skill: hebrew.grammar.subject_predicate
+  kind: true_false
+  grade: 4
+  difficulty: 1.0
+  prompt_he: הנושא של משפט הוא תמיד המילה הראשונה.
+  prompt_en: The subject of a sentence is always the first word.
+  answer: false
+  explanation_he: 'לפעמים הנושא אינו ראשון: "בגינה גדל עץ". הנושא הוא "עץ".'
+  explanation_en: 'Sometimes the subject is not first: "In the garden grew a tree". The subject is "a tree".'
+  tags: [subject_predicate]
+- id: heb.subj.021
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 1.5
+  prompt_he: 'מה הנושא במשפט "בגינה גדל עץ"?'
+  prompt_en: 'What is the subject of "In the garden grew a tree"?'
+  choices:
+  - {he: בגינה, en: in the garden}
+  - {he: גדל, en: grew}
+  - {he: עץ, en: a tree}
+  answer: 2
+  explanation_he: 'מי גדל? עץ. הוא הנושא, גם שהוא בא בסוף המשפט.'
+  explanation_en: 'What grew? A tree. It is the subject, even though it comes last.'
+  tags: [subject_predicate]
+- id: heb.subj.022
+  skill: hebrew.grammar.subject_predicate
+  kind: choice
+  grade: 4
+  difficulty: 1.5
+  prompt_he: 'מה הנושא במשפט "מעל העץ עפה ציפור"?'
+  prompt_en: 'What is the subject of "Above the tree flew a bird"?'
+  choices:
+  - {he: ציפור, en: a bird}
+  - {he: מעל העץ, en: above the tree}
+  - {he: עפה, en: flew}
+  answer: 0
+  explanation_he: 'מי עפה? ציפור. היא הנושא, והמילים "מעל העץ" מספרות איפה.'
+  explanation_en: 'Who flew? A bird. It is the subject, and "above the tree" says where.'
+  tags: [subject_predicate]

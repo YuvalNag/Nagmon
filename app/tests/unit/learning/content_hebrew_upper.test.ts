@@ -155,13 +155,15 @@ describe("every new skill is a bank of 20 to 40 items", () => {
         const lens = i.choices.map((c) => text(c).length);
         const a = lens[i.answer as number]!;
         if (new Set(lens).size === 1) continue;
+        const others = lens.filter((_, k) => k !== i.answer);
         n++;
         sn++;
-        if (a === Math.max(...lens)) {
+        // strictly longer (or shorter) than every other option: the length alone gives it away
+        if (a > Math.max(...others)) {
           longest++;
           slong++;
         }
-        if (a === Math.min(...lens)) shortest++;
+        if (a < Math.min(...others)) shortest++;
         pos[i.answer as number]!++;
         spos[i.answer as number]!++;
       }
