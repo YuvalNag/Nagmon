@@ -54,12 +54,15 @@ export const FOG_BAND: Readonly<Record<Band, number>> = { A: 0.8, B: 1.0, C: 0.9
 export const FOG_LENGTH = { short: 0.75, normal: 1.0, long: 1.3 } as const;
 
 /**
- * S1's pacing: the spec's Fog (kind 2.0) is calibrated for the whole move set, where a Finale (three hits for one Spark
- * meter) and stretch moves do a good part of the work. S1 has neither, so the same fight would be about 10 questions
- * long instead of 6 to 9 (measured, tests/unit/game/battleSim.test.ts). The Length knob's number brings it back; S2 puts
- * it to 1.0 with the Finale. The spec's own table is `fogOf` with its default length.
+ * S1 had a stopgap pacing of 0.75 because it had no Finale and no stretch moves. S2 has both, so the stopgap is gone
+ * (1.0). What is left is the tuning that the seeded simulation asks for (tests/unit/game/battleSim.test.ts, the real
+ * `Battle` class, answers at the tier table's chances): the spec's Fog (kind 2.0) gives about 10.8 questions in band B,
+ * where the spec's own simulation had 8.2, because a real card list has fewer Sparkle hits than the spec's player (who
+ * met a weak enemy half of the time). `FOG_TUNE` brings the wild fight back to 6 to 9 questions; the data and the
+ * spec's table (`fogOf`) are untouched, so the Length knob and the Fog tests still read the spec's numbers.
  */
-export const S1_PACING = 0.75;
+export const S1_PACING = 1.0;
+export const FOG_TUNE: Readonly<Record<FightKind, number>> = { wild: 0.7, keeper: 1.0, guardian: 1.0, master: 1.0 };
 
 /** Fog from the data's own multipliers (battle_rules.json: the kind's and the band's). */
 export function fogFrom(level: number, kind: number, band: number, length = 1.0): number {
@@ -111,6 +114,8 @@ export interface DamageInput {
   wheel?: number;
   /** A finisher's Mark bonus. */
   mark?: number;
+  /** A Finale's chain step (x1.0, 1.15, 1.3). */
+  chain?: number;
   brilliant?: boolean;
   /** The subject differs from the last move's. */
   mix?: boolean;
@@ -132,7 +137,7 @@ export function damageOf(d: DamageInput): number {
   const home = d.home ? HOME_BONUS : 1;
   const wheel = d.wheel ?? 1;
   // a wrong answer keeps only Home and the wheel (weak, but not silly)
-  const bonus = Math.min(BONUS_CAP, d.right ? home * wheel * (d.mark ?? 1) * (d.brilliant ? BRILLIANT_BONUS : 1) * (d.mix ? MIX_BONUS : 1) : home * wheel);
+  const bonus = Math.min(BONUS_CAP, d.right ? home * wheel * (d.mark ?? 1) * (d.chain ?? 1) * (d.brilliant ? BRILLIANT_BONUS : 1) * (d.mix ? MIX_BONUS : 1) : home * wheel);
   const quality = d.right ? 1 : WRONG_QUALITY;
   return Math.max(1, floor(raw * bonus * quality * d.roll * (d.gentle ?? 1)));
 }
@@ -143,6 +148,8 @@ export function damageOf(d: DamageInput): number {
 export const WHEEL: readonly string[] = ["math", "logic", "geometry", "science", "english", "hebrew"];
 
 export const SPARKLE = 1.5;
+/** The Sparkly gift (3.5). */
+export const SPARKLY = 1.65;
 export const STURDY = 0.67;
 
 export type WheelHit = "sparkle" | "sturdy" | null;

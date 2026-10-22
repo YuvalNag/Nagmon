@@ -1,21 +1,29 @@
 /**
- * One friendly battle, slice S1 of docs/app/BATTLE_V3.md: the child picks
- * one of the partner's four moves, and the question IS the cast. A round
+ * One friendly battle, slices S1 and S2 of docs/app/BATTLE_V3.md: the child
+ * picks one of the partner's moves, and the question IS the cast. A round
  * is: the child chooses (and answers), then both sides act in order of
  * Speed; the enemy's intent was shown before the child chose.
  *
- * - Right answer: the move's full effect. Wrong answer: x0.35 damage
- *   (at least 1), no Brilliant, nothing else lost. Nothing is taken from
- *   the Bag, the coins or the hearts.
+ * - Right answer: the move's full effect (damage, a status, a Mark, a shield,
+ *   a heal ...). Wrong answer: x0.35 damage (at least 1), no status, no Mark,
+ *   no Brilliant, and the weak version of a utility move. Nothing is taken
+ *   from the Bag, the coins or the hearts.
  * - Both sides have a bar: the enemy's Fog (take it to 0 and it is calm)
  *   and the partner's Pep. A creature at 0 Pep at the end of a round
  *   FAINTS (decision of the parent): it is not lost, but it cannot be used
  *   until it is healed (medicine or the Rest Center's nurse). The answered
  *   move always plays, even when the enemy's first action brings Pep to 0.
+ * - Spark (4 stars, shared by the team) fills with right answers and the
+ *   hard hits the partner takes; a full meter opens the Finale: three
+ *   questions in one go.
+ * - The enemy telegraphs what it will do (nine intents); a Big Puff is a
+ *   windup that a good round (25% of its Fog) staggers.
  * - Pep and Charges are per battle: every awake friend starts a battle full.
- *   Fainting is the only thing that carries over.
+ *   Fainting is the only thing that carries over; statuses never do.
  * - Speed counts for nothing in the rating or the growth (a creature's Speed
  *   only decides who acts first; there is no timer).
+ *
+ * The status state is in battleStatus.ts; the numbers in battleNumbers.ts.
  */
 import type { LearningEngine } from "../learning/engine";
 import { BattleQuizBudget, type SubjectMap } from "../learning/quiz_flow";
@@ -30,14 +38,17 @@ import {
   partner as partnerOf,
 } from "./collection";
 import { claimSpareNet, countOf, type Economy, type Item, spendBoost, take } from "./items";
-import type { BattleData, Move } from "../data/battleTypes";
+import type { BattleData, Move, MoveEffect, StatName, StatusId } from "../data/battleTypes";
 import { awakeParty, faint, nurseHeals, partyDown, usable, wakeWith } from "./faint";
 import { setPartner } from "./party";
 import {
   BRILLIANT_COIN_MAX,
   CATCH_POINTS,
+  FOG_TUNE,
   S1_PACING,
   ROLL_MIN,
+  SPARKLE,
+  SPARKLY,
   STAR_COINS,
   WIN_POINTS,
   type Band,
@@ -51,9 +62,29 @@ import {
   wheelMult,
   winCoins,
 } from "./battleNumbers";
+import {
+  type Badge,
+  type Fighter,
+  absorb,
+  addMark,
+  badges,
+  cleanse,
+  expire,
+  hasMajor,
+  isDizzy,
+  isDrowsy,
+  isImmune,
+  isSlow,
+  markBonus,
+  newFighter,
+  shieldLeft,
+  shiftStage,
+  stageOf,
+  statMult,
+} from "./battleStatus";
 import { creatureStats, speciesBattle, type SpeciesTraits } from "./battleSpecies";
-import { BIG_PUFF, drawIntent, giggleEvery, giggleShare, type IntentId, puffPower, type Weights, weightsOf } from "./intents";
-import { cardMoves, WIGGLE } from "./moves";
+import { BIG_PUFF, bigPuffMinLevel, bigPuffPower, drawIntent, giggleEvery, giggleShare, type IntentId, puffPower, type Weights, weightsOf } from "./intents";
+import { cardMoves, finaleOf, WIGGLE } from "./moves";
 import type { Wild } from "./encounters";
 import type { FieldLog } from "./fieldLog";
 import type { MonsterTable } from "./monsters";
@@ -65,6 +96,14 @@ export { PARTY_SIZE };
 const SHOWN_ROLL = 0.96;
 /** A lucky star: one right answer in sixteen is Brilliant. */
 const LUCKY_STAR = 1 / 16;
+/** A Windup is Staggered by a round that takes this share of the enemy's maximum Fog (4.3). */
+export const STAGGER_SHARE = 0.25;
+/** An enemy that is Dizzy stumbles in this share of its actions (4.1). */
+const STUMBLE = 0.33;
+/** Yawn (Drowsy on our side): the Power of the move is cut by a quarter. */
+const YAWN_POWER = 0.75;
+/** Taps on the sleepy partner that wake it at once. */
+export const WAKE_TAPS = 3;
 
 /**
  * fighting: asking questions; calm: the fog is gone, a net can come;
@@ -73,25 +112,61 @@ const LUCKY_STAR = 1 / 16;
  */
 export type BattlePhase = "fighting" | "calm" | "caught" | "won" | "ran" | "carried";
 
+/** What an event of a round was, for the screen to play and say. */
+export type EventKind =
+  | "hit"
+  | "utility"
+  | "puff"
+  | "windup"
+  | "stagger"
+  | "thicken"
+  | "giggle"
+  | "silly"
+  | "cheer"
+  | "mist"
+  | "sleep"
+  | "stumble"
+  | "swap"
+  | "medicine";
+
 /** One thing that happened in a round, for the screen to play in order. */
 export interface RoundEvent {
   who: "me" | "them";
-  kind: "hit" | "puff" | "giggle" | "silly" | "swap" | "medicine";
-  /** Fog taken, Pep taken, or what a Giggle gave back. */
+  kind: EventKind;
+  /** Fog taken, Pep taken, what a Giggle gave back, or what a heal gave. */
   amount: number;
   /** The bars right after this event. */
   fog: number;
   pep: number;
   /** The creature that acted or was acted on. */
   creature: string;
+  /** The enemy's intent that this event plays. */
+  intent?: IntentId;
+  /** The status a mist put on us. */
+  status?: StatusId;
+  /** Fog taken from the enemy by a mirror, while the enemy hit us. */
+  returned?: number;
+}
+
+/** What a move or an intent did besides taking Fog, for the line and the badges. */
+export interface Effect {
+  on: "me" | "them";
+  kind: "status" | "heal" | "shield" | "regen" | "boost" | "weaken" | "cleanse" | "mirror" | "mark" | "reveal" | "focus" | "swap_boosts" | "echo" | "spark" | "resist" | "windup";
+  status?: StatusId;
+  stat?: StatName;
+  amount?: number;
+  stages?: number;
+  subject?: string;
 }
 
 export interface IntentView {
   id: IntentId;
-  /** A Puff's number (about; the roll fixed); 0 for the others. */
+  /** A hit's number (about; the roll fixed); 0 for the others. */
   amount: number;
   /** The enemy acts before the partner this round (Speed). */
   first: boolean;
+  /** A Windup that is let go at the end of this round (the Big Puff of last round). */
+  release?: boolean;
 }
 
 export interface Round {
@@ -99,7 +174,7 @@ export interface Round {
   kind: "move" | "swap" | "medicine";
   move: Move | null;
   correct: boolean;
-  /** Fog the move took. */
+  /** Fog the move took (all three hits of a Finale). */
   damage: number;
   wheel: WheelHit;
   brilliant: boolean;
@@ -123,6 +198,14 @@ export interface Round {
   needSwap: boolean;
   /** The whole team fell asleep: carried to the Rest Center and healed. */
   carried: boolean;
+  /** What the child's move did besides taking Fog. */
+  effects: Effect[];
+  /** A Windup was staggered in this round (the enemy tumbles and loses it). */
+  staggered: boolean;
+  /** Spark after this round (0 to 4). */
+  spark: number;
+  /** The move was a Finale. */
+  finale: boolean;
 }
 
 /** What a calm creature pays (5.4, 6.5): coins and the stars of the results card. */
@@ -135,14 +218,18 @@ export interface Reward {
   capped: boolean;
 }
 
+/** Why a card cannot be played now. */
+export type Why = "charges" | "yawn" | "dizzy" | "echo" | "spark";
+
 /** A card of the 2 x 2 grid. */
 export interface Card {
   move: Move;
   /** Charges left (null: no limit) and the most. */
   left: number | null;
   max: number | null;
-  /** No charges left: the card is dimmed. */
+  /** Cannot be played now: the card is dimmed. */
   dimmed: boolean;
+  why?: Why;
   /** The wheel against this enemy, when the child may know it (the age band's rule). */
   hit: WheelHit;
   /** The move is of the partner's own subject (Home bonus). */
@@ -163,6 +250,19 @@ export interface SealResult {
   coins: number;
   /** Growth the befriending gave the partner. */
   growth: Growth | null;
+}
+
+/** One question of a Finale, answered: the hit it dealt right away. */
+export interface FinaleStep {
+  /** 0 to 2. */
+  i: number;
+  correct: boolean;
+  damage: number;
+  fog: number;
+  wheel: WheelHit;
+  brilliant: boolean;
+  /** The chain bonus this hit had (1, 1.15, 1.3). */
+  chain: number;
 }
 
 export interface BattleOptions {
@@ -188,7 +288,7 @@ export interface BattleOptions {
   /** A random number in [0, 1): a test passes a seeded one. */
   rng?: () => number;
   /** The tests' hook: start the partner's Pep or the enemy's Fog at this number. */
-  debug?: { pep?: number; fog?: number; charges?: number };
+  debug?: { pep?: number; fog?: number; charges?: number; spark?: number };
 }
 
 /** How many times a question is tried for before the battle ends in peace. */
@@ -200,6 +300,8 @@ export function biasFor(wanted: number, target: number): number {
   const clamp = (p: number) => Math.min(0.97, Math.max(0.03, p));
   return Math.max(-1.5, Math.min(1.5, logit(clamp(wanted)) - logit(clamp(target))));
 }
+
+const floor = (x: number): number => Math.floor(x + 1e-9);
 
 export class Battle {
   phase: BattlePhase = "fighting";
@@ -235,6 +337,19 @@ export class Battle {
   brilliant = 0;
   /** Friends that fell asleep in this fight. */
   fainted = 0;
+  /** The Spark meter (0 to 4), shared by the team. */
+  spark = 0;
+  /** The enemy's statuses and the partner's (reset when the partner leaves). */
+  foe: Fighter = newFighter();
+  mine: Fighter = newFighter();
+  /** Intents the child has seen ahead (Detective Lens): ids, next first. */
+  peek: IntentId[] = [];
+  /** A Finale is being asked: the step (0 to 2) and what the first hits did. */
+  finale: { move: Move; step: number; chain: number; hits: FinaleStep[]; rights: number } | null = null;
+  /** The last hit of a Finale question, for the screen to play while the next question is made. */
+  finaleStep: FinaleStep | null = null;
+  /** The enemy took a round's worth of windup and will let it go at the end of this round. */
+  windup: { releaseAt: number } | null = null;
 
   private readonly data: BattleData;
   private readonly weights: Weights;
@@ -247,8 +362,15 @@ export class Battle {
   private wrongStreak = 0;
   private easier = false;
   private lastSubject: string | null = null;
+  private lastDamageMove: Move | null = null;
   private sinceGiggle = 99;
   private lastWasBigPuff = false;
+  private lastWasStatus = false;
+  private queue: IntentId[] = [];
+  private wakeTaps = 0;
+  private xpCarry = 0;
+  private growthKeep: Growth | null = null;
+  private roundDamage = 0;
   private readonly seenBefore: boolean;
   private readonly startedAt: number;
   private ended = false;
@@ -267,7 +389,7 @@ export class Battle {
     this.enemy = { ...sp, level: o.wild.level, speed: st.speed, power: st.power, guard: st.guard };
     this.weights = weightsOf(o.data, sp.temperament);
     const rules = o.data.rules;
-    this.maxFog = fogFrom(o.wild.level, rules.fog_kind[this.kind], rules.bands[this.band].fog, S1_PACING);
+    this.maxFog = fogFrom(o.wild.level, rules.fog_kind[this.kind], rules.bands[this.band].fog, S1_PACING * FOG_TUNE[this.kind]);
     this.fog = o.debug?.fog ?? this.maxFog;
     this.budget = new BattleQuizBudget(rules.bands[this.band].question_cap[o.master ? "guardian" : "wild"]);
     markSeen(w, o.wild.species);
@@ -290,6 +412,8 @@ export class Battle {
       const next = awakeParty(w)[0]!;
       setPartner(w, next.id);
     }
+    // Cheerful: the battle starts with a star
+    this.spark = Math.min(this.sparkMax, o.debug?.spark ?? (this.giftOf(this.partner) === "cheerful" ? 1 : 0));
     this.intent = this.drawNext();
   }
 
@@ -303,6 +427,20 @@ export class Battle {
     return this.enemy.subject;
   }
 
+  /** The enemy is a boss (the master; guardians when they come): it resists a major status for a while. */
+  get boss(): boolean {
+    return this.kind === "master" || this.kind === "guardian";
+  }
+
+  get sparkMax(): number {
+    return this.data.rules.spark.max;
+  }
+
+  /** The round the child is choosing for. */
+  private get next(): number {
+    return this.turns + 1;
+  }
+
   /** The partner's friends of the party, awake or not. */
   team(): Creature[] {
     return this.o.world.creatures.slice(0, PARTY_SIZE);
@@ -311,6 +449,11 @@ export class Battle {
   /** The species' traits of one of the child's creatures. */
   traits(c: Creature): SpeciesTraits {
     return speciesBattle(this.data, c.species, this.o.subjects.subjectFor(this.o.monsters[c.species]?.types ?? [], null, c.species));
+  }
+
+  /** The Gift of a friend (3.5); Brave Heart is also the default gift of the youngest band. */
+  giftOf(c: Creature): string {
+    return this.traits(c).gift;
   }
 
   maxPepOf(c: Creature): number {
@@ -341,18 +484,60 @@ export class Battle {
   private weakKey = () => `nagmon_weak_${this.o.wild.species}`;
   private known = () => this.o.world.variables.has(this.weakKey());
 
+  /** The badges beside the two bars (4.1): what is on the enemy and on the partner now. */
+  badgesOf(side: "mine" | "theirs"): Badge[] {
+    const turn = this.next;
+    if (side === "mine") return badges(this.mine, turn, { dozing: !usable(this.partner) });
+    return badges(this.foe, turn, { windup: !!this.windup, calm: this.phase === "calm" || this.phase === "won" || this.fog <= 0 }).map((b) => (b.id === "drowsy" || b.id === "dizzy" || b.id === "slow") && isImmune(this.foe, b.id, turn) ? { ...b, locked: true } : b);
+  }
+
+  /** A boss's lock icons: kinds it shrugs off now. */
+  lockedKinds(): string[] {
+    return (["drowsy", "dizzy", "slow"] as const).filter((k) => isImmune(this.foe, k, this.next));
+  }
+
+  /** The Yawn (Drowsy) is on the partner: three taps on it wake it at once. */
+  get yawning(): boolean {
+    return isDrowsy(this.mine, this.next);
+  }
+
+  /** A tap on the sleepy partner; the third wakes it. Returns true when it woke. */
+  wakeTap(): boolean {
+    if (!this.yawning) return false;
+    this.wakeTaps++;
+    if (this.wakeTaps < WAKE_TAPS) return false;
+    this.mine.drowsy = null;
+    this.wakeTaps = 0;
+    return true;
+  }
+
   // ---- the cards ----
 
-  /** The four moves of the partner, with charges and the wheel; when every one is out of charges, only the Little Wiggle. */
+  /** What the Yawn and the Dizziness allow: by tier. */
+  private lockedBy(m: Move): Why | null {
+    const turn = this.next;
+    if (isDrowsy(this.mine, turn) && !["E", "Q", "W"].includes(m.tier)) return "yawn";
+    if (isDizzy(this.mine, turn) && m.tier === "S") return "dizzy";
+    return null;
+  }
+
+  private chargesLeft(p: Creature, m: Move): number | null {
+    if (m.charges === null) return null;
+    return this.charges.get(`${p.id}:${m.id}`) ?? Math.min(m.charges, this.o.debug?.charges ?? m.charges);
+  }
+
+  private cardOf(p: Creature, m: Move, show: boolean, home: string): Card {
+    const left = this.chargesLeft(p, m);
+    const why: Why | undefined = left !== null && left <= 0 ? "charges" : (this.lockedBy(m) ?? (m.id === "echo" && !this.lastDamageMove ? "echo" : undefined));
+    return { move: m, left, max: m.charges, dimmed: !!why, ...(why ? { why } : {}), hit: show && m.subject !== "any" && m.power !== null ? wheelHit(m.subject, this.enemy.subject, this.enemy.weak) : null, home: m.subject === home };
+  }
+
+  /** The four moves of the partner, with charges and the wheel; when none can be played, only the Little Wiggle. */
   cards(): Card[] {
     const p = this.partner;
     const tr = this.traits(p);
     const show = this.revealed();
-    const cards = cardMoves(this.data, p.species, p.level, tr.subject).map<Card>((m) => {
-      const max = m.charges;
-      const left = max === null ? null : (this.charges.get(`${p.id}:${m.id}`) ?? Math.min(max, this.o.debug?.charges ?? max));
-      return { move: m, left, max, dimmed: left !== null && left <= 0, hit: show && m.subject !== "any" ? wheelHit(m.subject, this.enemy.subject, this.enemy.weak) : null, home: m.subject === tr.subject };
-    });
+    const cards = cardMoves(this.data, p.species, p.level, tr.subject).map<Card>((m) => this.cardOf(p, m, show, tr.subject));
     if (cards.length === 0 || cards.every((c) => c.dimmed)) {
       const wiggle = this.data.movesById[WIGGLE]!;
       return [{ move: wiggle, left: null, max: null, dimmed: false, hit: null, home: false }];
@@ -360,36 +545,83 @@ export class Battle {
     return cards;
   }
 
+  /** The Finale card of the partner's species (level 6 on), and whether the Spark meter is full for it. */
+  finaleCard(): { move: Move; ready: boolean; spark: number; cost: number } | null {
+    const p = this.partner;
+    const m = finaleOf(this.data, p.species, p.level);
+    if (!m) return null;
+    const cost = m.spark_cost ?? this.sparkMax;
+    return { move: m, ready: this.spark >= cost && this.phase === "fighting" && !this.needSwap, spark: this.spark, cost };
+  }
+
+  // ---- stats with the stages and statuses on them ----
+
+  private mineStat(stat: StatName, c: Creature = this.partner, turn = this.next): number {
+    const base = creatureStats(this.traits(c), c.level)[stat];
+    return Math.max(1, floor(base * statMult(this.mine, stat, turn) * (stat === "speed" && isSlow(this.mine, turn) ? 0.5 : 1)));
+  }
+
+  private foeStat(stat: StatName, turn = this.next): number {
+    return Math.max(1, floor(this.enemy[stat] * statMult(this.foe, stat, turn) * (stat === "speed" && isSlow(this.foe, turn) ? 0.5 : 1)));
+  }
+
   // ---- intents ----
 
-  private drawNext(): IntentView {
-    const p = this.partnerOrNull();
+  private intentState(p: Creature | null) {
     const pepMax = p ? this.maxPepOf(p) : 1;
-    const amount = p ? this.puffAmount(p, SHOWN_ROLL) : 0;
-    const id = drawIntent(this.rng(), this.weights, {
+    const amount = p ? this.hitAmount(p, SHOWN_ROLL, puffPower(this.data, this.boss)) : 0;
+    return {
       lastWasBigPuff: this.lastWasBigPuff,
       sinceGiggle: this.sinceGiggle,
       fogFull: this.fog >= this.maxFog,
       puffIsBig: amount > BIG_PUFF * pepMax,
-    }, giggleEvery(this.data));
-    return { id, amount: id === "puff" ? amount : 0, first: p ? this.enemy.speed > creatureStats(this.traits(p), p.level).speed : false };
+      lastWasStatus: this.lastWasStatus,
+      level: this.enemy.level,
+      bandA: this.band === "A",
+      childMajor: hasMajor(this.mine, this.next),
+      childSlow: isSlow(this.mine, this.next),
+      shielded: shieldLeft(this.foe, this.next) > 0,
+      powerMax: stageOf(this.foe, "power", this.next) >= 3,
+      windup: !!this.windup,
+      boss: this.boss,
+      bigMinLevel: bigPuffMinLevel(this.data),
+    };
+  }
+
+  private draw(p: Creature | null): IntentId {
+    return drawIntent(this.rng(), this.weights, this.intentState(p), giggleEvery(this.data));
+  }
+
+  private drawNext(): IntentView {
+    const p = this.partnerOrNull();
+    const mine = p ? this.partner : null;
+    let id: IntentId;
+    let release = false;
+    if (this.windup) {
+      // the Big Puff charged last round: it is let go at the end of this one
+      id = "big_puff";
+      release = true;
+    } else id = this.queue.shift() ?? this.draw(mine);
+    const amount = p ? (id === "big_puff" ? this.hitAmount(p, SHOWN_ROLL, bigPuffPower(this.data)) : id === "fog_puff" ? this.hitAmount(p, SHOWN_ROLL, puffPower(this.data, this.boss)) : 0) : 0;
+    const my = p ? this.mineStat("speed", p) : 0;
+    return { id, amount, first: p ? this.foeStat("speed") > my : false, ...(release ? { release } : {}) };
+  }
+
+  /** The Detective Lens: the next `n` intents are known (the screen shows them). */
+  private reveal(n: number): void {
+    const p = this.partnerOrNull();
+    while (this.queue.length < n) this.queue.push(this.draw(p ? this.partner : null));
+    this.peek = this.queue.slice(0, n);
   }
 
   private partnerOrNull(): Creature | null {
     return this.phase === "carried" ? null : (partnerOf(this.o.world) ?? null);
   }
 
-  /** What the enemy's Puff takes from this friend: the same formula, the friend's Guard, the band's gentle factor. */
-  private puffAmount(c: Creature, roll: number): number {
-    return damageOf({
-      level: this.enemy.level,
-      mp: puffPower(this.data, this.kind === "master"),
-      power: this.enemy.power,
-      guard: creatureStats(this.traits(c), c.level).guard,
-      right: true,
-      roll,
-      gentle: this.data.rules.bands[this.band].gentle,
-    });
+  /** What an enemy hit takes from this friend: the same formula, the friend's Guard, the band's gentle factor. */
+  private hitAmount(c: Creature, roll: number, mp: number, turn = this.next): number {
+    const guard = c.id === this.partner.id ? this.mineStat("guard", c, turn) : creatureStats(this.traits(c), c.level).guard;
+    return damageOf({ level: this.enemy.level, mp, power: this.foeStat("power", turn), guard, right: true, roll, gentle: this.data.rules.bands[this.band].gentle });
   }
 
   // ---- the round ----
@@ -401,16 +633,29 @@ export class Battle {
 
   /**
    * The child picks a move. A move with a question opens it (`session`);
-   * the answer is the cast. The Little Wiggle asks nothing and plays at
-   * once (`round`). Null when the card is not open now.
+   * the answer is the cast. The Little Wiggle and Echo ask nothing and play
+   * at once (`round`). A Finale opens its first of three questions. Null when
+   * the card is not open now.
    */
   choose(moveId: string): { move: Move; session: QuizSession | null; round: Round | null; hint: boolean } | null {
     if (this.phase !== "fighting" || this.needSwap) return null;
-    const card = this.cards().find((c) => c.move.id === moveId);
-    if (!card || card.dimmed) return null;
-    const move = card.move;
+    let move: Move;
+    if (this.finale && this.finale.move.id === moveId) move = this.finale.move;
+    else {
+      const fin = this.finaleCard();
+      if (fin && fin.move.id === moveId) {
+        if (!fin.ready) return null;
+        move = fin.move;
+        this.finale = { move, step: 0, chain: 0, hits: [], rights: 0 };
+      } else {
+        const card = this.cards().find((c) => c.move.id === moveId);
+        if (!card || card.dimmed) return null;
+        move = card.move;
+        this.finale = null;
+      }
+    }
     this.casting = null;
-    if (move.tier === "W") return { move, session: null, round: this.play({ kind: "move", move, correct: true, ms: 0, question: false }), hint: false };
+    if (move.question === "none") return { move, session: null, round: this.play({ kind: "move", move, correct: true, ms: 0, question: false }), hint: false };
     for (let i = 0; i < TRIES; i++) {
       const session = new QuizSession(
         this.o.engine,
@@ -432,6 +677,19 @@ export class Battle {
     return null;
   }
 
+  /** The next question of a Finale, after the answer to one: null when none is open. */
+  nextFinale(): QuizSession | null {
+    const f = this.finale;
+    if (!f || this.phase !== "fighting") return null;
+    const c = this.choose(f.move.id);
+    return c?.session ?? null;
+  }
+
+  /** A Finale is in the middle: its next question is waiting. */
+  get finaleOpen(): boolean {
+    return !!this.finale && this.finale.step > 0 && this.finale.step < 3 && !this.casting;
+  }
+
   /** The question was closed without an answer (the owl's pass, or Android's back): nothing is counted or spent. */
   cancel(): void {
     this.casting = null;
@@ -449,7 +707,7 @@ export class Battle {
     const target = this.o.engine.learner.targetFrontier;
     // no Elo speed bonus in a battle: the rating stays about knowledge, not reflexes
     const r: QuizRequest = {
-      topic: move.subject,
+      topic: move.subject === "any" ? this.enemy.subject : move.subject,
       context: "battle",
       maxChoices: this.o.maxChoices,
       speed: false,
@@ -490,28 +748,283 @@ export class Battle {
     this.resolve(move, correct, session.elapsedMs);
   }
 
-  private resolve(move: Move, correct: boolean, ms: number): Round {
+  private resolve(move: Move, correct: boolean, ms: number): Round | null {
     this.stats.questions++;
     this.budget.take();
+    if (move.tier === "F" && this.finale) {
+      const f = this.finale;
+      if (f.step < 2) {
+        // the first two hits land at once; the round (the enemy's turn) comes after the third
+        this.finaleStep = this.finaleHit(f, correct);
+        f.step++;
+        return null;
+      }
+    }
     return this.play({ kind: "move", move, correct, ms, question: true });
   }
 
   /**
    * The rules' own entry for simulations and tests: the cast of a move with a given answer, no question asked.
-   * (The screen always goes through `choose`, where the question is the cast.) Null when the card is not open.
+   * (The screen always goes through `choose`, where the question is the cast.) Null when the card is not open; for a
+   * Finale it plays all three answers the same.
    */
-  castScripted(moveId: string, correct: boolean): Round | null {
+  castScripted(moveId: string, correct: boolean | boolean[]): Round | null {
     if (this.phase !== "fighting" || this.needSwap) return null;
+    const fin = this.finaleCard();
+    if (fin && fin.move.id === moveId) {
+      if (!fin.ready) return null;
+      this.finale = { move: fin.move, step: 0, chain: 0, hits: [], rights: 0 };
+      const answers = Array.isArray(correct) ? correct : [correct, correct, correct];
+      let r: Round | null = null;
+      for (let i = 0; i < 3; i++) r = this.resolve(fin.move, answers[i] ?? false, 0);
+      return r;
+    }
     const card = this.cards().find((c) => c.move.id === moveId);
     if (!card || card.dimmed) return null;
-    if (card.move.tier === "W") return this.play({ kind: "move", move: card.move, correct: true, ms: 0, question: false });
-    return this.resolve(card.move, correct, 0);
+    this.finale = null;
+    const right = Array.isArray(correct) ? (correct[0] ?? false) : correct;
+    if (card.move.question === "none") return this.play({ kind: "move", move: card.move, correct: true, ms: 0, question: false });
+    return this.resolve(card.move, right, 0);
   }
 
-  /** Whose turn order: true when the child's creature acts first (higher Speed; ties go to the child). */
-  private meFirst(): boolean {
+  /** Whose turn order: true when the child's creature acts first (Quick moves first; then higher Speed; ties go to the child). */
+  private meFirst(move: Move | null): boolean {
+    if (move && (move.priority ?? 0) > 0) return true;
+    return this.mineStat("speed", this.partner, this.turns) >= this.foeStat("speed", this.turns);
+  }
+
+  /** Marks an answer: the streak, the point, the owl's help after three misses; returns whether the answer is Brilliant by streak or luck. */
+  private grade(correct: boolean, move: Move, round: Round | null): { streak: boolean } {
+    const w = this.o.world;
+    if (correct) {
+      this.stats.correct++;
+      this.rightStreak++;
+      this.wrongStreak = 0;
+      const base = spendBoost(w);
+      const mult = this.giftOf(this.partner) === "quick_learner" ? 1.2 : 1;
+      const total = base * mult * (move.tier === "S" ? 2 : 1) + this.xpCarry;
+      const pts = floor(total);
+      this.xpCarry = total - pts;
+      const g = giveXp(w, this.partner.id, pts, this.o.monsters);
+      if (g.leveled) this.growthKeep = g;
+      void round;
+      this.addSpark(move.tier === "S" ? this.data.rules.spark.per_right_stretch : this.data.rules.spark.per_right);
+      return { streak: this.rightStreak % 3 === 0 };
+    }
+    this.rightStreak = 0;
+    this.wrongStreak++;
+    if (this.wrongStreak >= this.data.rules.kindness.wrong_in_a_row_for_help) {
+      this.autoHint = true;
+      this.easier = true;
+      this.wrongStreak = 0;
+      this.addSpark(1);
+    }
+    return { streak: false };
+  }
+
+  private addSpark(n: number): void {
+    this.spark = Math.max(0, Math.min(this.sparkMax, this.spark + n));
+  }
+
+  private sparkleMult(hit: WheelHit): number {
+    return hit === "sparkle" && this.giftOf(this.partner) === "sparkly" ? SPARKLY : hit === "sparkle" ? SPARKLE : wheelMult(hit);
+  }
+
+  /** One hit of the child's creature on the enemy: the damage, with the shield taking its share. */
+  private strike(o: { move: Move; mp: number; correct: boolean; question: boolean; brilliant: boolean; chain?: number; mark?: number; ignoreShield?: boolean; share?: number }): { damage: number; hit: WheelHit } {
     const p = this.partner;
-    return creatureStats(this.traits(p), p.level).speed >= this.enemy.speed;
+    const tr = this.traits(p);
+    const subject = o.move.subject === "any" ? null : o.move.subject;
+    const hit = subject ? wheelHit(subject, this.enemy.subject, this.enemy.weak) : null;
+    const mix = o.question && subject !== null && this.lastSubject !== null && this.lastSubject !== subject;
+    const yawn = isDrowsy(this.mine, this.turns) ? YAWN_POWER : 1;
+    const raw = damageOf({
+      level: p.level,
+      mp: o.mp * yawn * (o.share ?? 1),
+      power: this.mineStat("power", this.partner, this.turns),
+      guard: this.foeStat("guard", this.turns),
+      home: subject !== null && subject === tr.subject,
+      wheel: this.sparkleMult(hit),
+      ...(o.mark ? { mark: o.mark } : {}),
+      ...(o.chain ? { chain: o.chain } : {}),
+      brilliant: o.question && o.correct && o.brilliant,
+      mix,
+      right: o.correct,
+      roll: ROLL_MIN + (1 - ROLL_MIN) * this.rng(),
+    });
+    if (o.question && subject) this.lastSubject = subject;
+    let dmg = raw;
+    if (!o.ignoreShield) {
+      const s = absorb(this.foe, raw, this.turns);
+      dmg = s.left;
+    }
+    const damage = Math.min(this.fog, dmg);
+    this.fog -= damage;
+    return { damage, hit };
+  }
+
+  /** One of the Finale's three hits, dealt at once (the first two; the third is the round's own). */
+  private finaleHit(f: NonNullable<Battle["finale"]>, correct: boolean): FinaleStep {
+    const { streak } = this.grade(correct, f.move, null);
+    const steps = f.move.effects.find((e): e is Extract<MoveEffect, { type: "chain_bonus" }> => e.type === "chain_bonus")?.steps ?? [1, 1.15, 1.3];
+    const chain = correct ? (steps[Math.min(f.chain, steps.length - 1)] ?? 1) : 1;
+    f.chain = correct ? f.chain + 1 : 0;
+    const brilliant = correct && (streak || this.rng() < LUCKY_STAR || this.mine.focus);
+    if (correct && this.mine.focus) this.mine.focus = false;
+    const { damage, hit } = this.strike({ move: f.move, mp: f.move.power ?? 70, correct, question: true, brilliant, chain });
+    if (brilliant) this.brilliant++;
+    this.roundDamage += damage;
+    if (hit && !this.known() && correct) this.o.world.variables.set(this.weakKey(), "1");
+    const step: FinaleStep = { i: f.step, correct, damage, fog: this.fog, wheel: correct ? hit : null, brilliant, chain };
+    f.hits.push(step);
+    if (correct) f.rights++;
+    return step;
+  }
+
+  /** The enemy's Fog takes the heal of a Giggle, a Regen tick ... capped at the maximum. */
+  private foeHeal(n: number): number {
+    const give = Math.max(0, Math.min(this.maxFog - this.fog, n));
+    this.fog += give;
+    return give;
+  }
+
+  private healMine(c: Creature, n: number): number {
+    const max = this.maxPepOf(c);
+    const give = Math.max(0, Math.min(max - this.pepOf(c), n));
+    this.pep.set(c.id, this.pepOf(c) + give);
+    return give;
+  }
+
+  /** A status lands on the enemy (4.4: Drowsy and Dizzy exclusive, a boss's lock, Steady). Returns whether it took. */
+  private statusOnFoe(status: StatusId, e: Extract<MoveEffect, { type: "status" }>, fx: Effect[]): boolean {
+    const t = this.turns;
+    const rounds = e.rounds ?? 3;
+    if (status === "dizzy" && this.enemy.gift === "steady") return false;
+    if ((status === "drowsy" || status === "dizzy" || status === "slow") && this.boss && isImmune(this.foe, status, t)) {
+      fx.push({ on: "them", kind: "resist", status });
+      return false;
+    }
+    if (status === "drowsy") {
+      const actions = this.boss ? (e.boss_actions ?? 1) : (e.actions ?? 2);
+      if (actions <= 0) return false;
+      this.foe.dizzy = null;
+      this.foe.drowsy = { actions, until: 0 };
+      this.cancelWindup();
+    } else if (status === "dizzy") {
+      this.foe.drowsy = null;
+      this.foe.dizzy = { until: t + rounds };
+    } else if (status === "slow") this.foe.slow = { until: t + rounds };
+    else if (status === "sniffly") this.foe.sniffly = { until: t + rounds - 1 };
+    else if (status === "giggly") this.foe.giggly = e.attacks ?? 1;
+    else return false;
+    if (this.boss && (status === "drowsy" || status === "dizzy" || status === "slow")) this.foe.immune[status] = t + (this.data.statusesById[status]?.boss_immune_rounds ?? 3) + rounds;
+    fx.push({ on: "them", kind: "status", status });
+    return true;
+  }
+
+  /** A status the enemy put on the partner: softened (4.1 "on our creature"). */
+  private statusOnMine(status: StatusId, fx: Effect[]): boolean {
+    const t = this.turns;
+    if (status === "dizzy" && this.giftOf(this.partner) === "steady") return false;
+    if (status === "drowsy") {
+      this.mine.dizzy = null;
+      this.mine.drowsy = { actions: 0, from: t + 1, until: t + 1 };
+      this.wakeTaps = 0;
+    } else if (status === "dizzy") {
+      this.mine.drowsy = null;
+      this.mine.dizzy = { from: t + 1, until: t + 2 };
+    } else if (status === "slow") this.mine.slow = { until: t + 3 };
+    else return false;
+    fx.push({ on: "me", kind: "status", status });
+    return true;
+  }
+
+  private cancelWindup(): void {
+    this.windup = null;
+  }
+
+  /** What a move does besides its damage: its effects (a right answer) or the weak version (a wrong one). */
+  private applyEffects(list: MoveEffect[], correct: boolean, fx: Effect[], round: Round): void {
+    const p = this.partner;
+    const t = this.turns;
+    const gift = this.giftOf(p);
+    for (const e of list) {
+      switch (e.type) {
+        case "status":
+          if ((e.target ?? "enemy") === "self") break;
+          if (e.chance >= 1 || this.rng() < e.chance) this.statusOnFoe(e.status, e, fx);
+          break;
+        case "weaken":
+          if (this.rng() < e.chance) {
+            shiftStage(this.foe, e.stat, -e.stages, t, e.rounds);
+            fx.push({ on: "them", kind: "weaken", stat: e.stat, stages: e.stages });
+          }
+          break;
+        case "boost":
+          for (const stat of e.stats) {
+            shiftStage(this.mine, stat, e.stages, t, e.rounds);
+            fx.push({ on: "me", kind: "boost", stat, stages: e.stages });
+          }
+          break;
+        case "shield": {
+          const rounds = e.rounds + (gift === "sturdy_shell" ? 1 : 0);
+          const amount = Math.max(1, floor(e.share * this.maxPepOf(p)));
+          this.mine.shield = { amount: Math.max(amount, shieldLeft(this.mine, t)), until: t + rounds };
+          fx.push({ on: "me", kind: "shield", amount });
+          break;
+        }
+        case "heal": {
+          const n = Math.ceil(e.share * this.maxPepOf(p) * (gift === "warm_fog" ? 1.2 : 1));
+          const given = this.healMine(p, n);
+          fx.push({ on: "me", kind: "heal", amount: given });
+          break;
+        }
+        case "regen":
+          this.mine.regen = { share: e.share, until: t + e.rounds - 1 };
+          fx.push({ on: "me", kind: "regen", amount: Math.ceil(e.share * this.maxPepOf(p)) });
+          break;
+        case "cleanse": {
+          const n = cleanse(this.mine, e.scope, this.next);
+          fx.push({ on: "me", kind: "cleanse", amount: n });
+          break;
+        }
+        case "mirror":
+          this.mine.mirror = { soften: e.soften, ret: e.return, until: t + e.rounds };
+          fx.push({ on: "me", kind: "mirror" });
+          break;
+        case "mark":
+          if (correct) {
+            addMark(this.foe, e.subject, t, e.rounds);
+            fx.push({ on: "them", kind: "mark", subject: e.subject });
+          }
+          break;
+        case "reveal":
+          this.o.world.variables.set(this.weakKey(), "1");
+          if (e.intents > 0) this.reveal(e.intents);
+          fx.push({ on: "them", kind: "reveal", amount: e.intents });
+          break;
+        case "focus":
+          this.mine.focus = true;
+          fx.push({ on: "me", kind: "focus" });
+          break;
+        case "swap_boosts": {
+          let n = 0;
+          for (const stat of ["power", "guard", "speed"] as StatName[]) {
+            const st = stageOf(this.foe, stat, t);
+            if (st > 0) {
+              if (e.copy_to_self) shiftStage(this.mine, stat, st, t, this.data.stageRules.boost_rounds);
+              this.foe.stages[stat] = { stage: 0, until: 0 };
+              n++;
+            }
+          }
+          fx.push({ on: "me", kind: "swap_boosts", amount: n });
+          break;
+        }
+        default:
+          break;
+      }
+    }
+    void round;
   }
 
   private play(a: { kind: "move"; move: Move; correct: boolean; ms: number; question: boolean } | { kind: "swap"; to: string } | { kind: "medicine"; to: string }): Round {
@@ -540,12 +1053,23 @@ export class Battle {
       next: null,
       needSwap: false,
       carried: false,
+      effects: [],
+      staggered: false,
+      spark: this.spark,
+      finale: a.kind === "move" && a.move.tier === "F",
     };
+    const finale = round.finale ? this.finale : null;
+    if (!finale) this.roundDamage = 0;
+    let staggerIt = false;
 
     // ---- the child's action ----
     const doMine = () => {
       if (a.kind === "swap") {
-        if (setPartner(w, a.to)) this.o.field.note("partner", { species: this.partner.species, subject: this.traits(this.partner).subject });
+        if (setPartner(w, a.to)) {
+          this.mine = newFighter();
+          this.wakeTaps = 0;
+          this.o.field.note("partner", { species: this.partner.species, subject: this.traits(this.partner).subject });
+        }
         events.push({ who: "me", kind: "swap", amount: 0, fog: this.fog, pep: this.partnerPep.now, creature: this.partner.id });
         return;
       }
@@ -553,65 +1077,79 @@ export class Battle {
         events.push({ who: "me", kind: "medicine", amount: 0, fog: this.fog, pep: this.partnerPep.now, creature: a.to });
         return;
       }
+      const move = a.move;
       const p = this.partner;
-      const mine = creatureStats(this.traits(p), p.level);
-      const tr = this.traits(p);
-      const subject = a.move.subject === "any" ? null : a.move.subject;
-      const hit = subject ? wheelHit(subject, this.enemy.subject, this.enemy.weak) : null;
+      const subject = move.subject === "any" ? null : move.subject;
       let brilliant = false;
-      if (a.question) {
-        if (a.correct) {
-          this.stats.correct++;
-          this.rightStreak++;
-          this.wrongStreak = 0;
-          brilliant = this.rightStreak % 3 === 0 || this.rng() < LUCKY_STAR || a.move.tier === "S";
-          round.growth = giveXp(w, p.id, spendBoost(w), this.o.monsters);
-        } else {
-          this.rightStreak = 0;
-          this.wrongStreak++;
-          if (this.wrongStreak >= 3) {
-            this.autoHint = true;
-            this.easier = true;
-            this.wrongStreak = 0;
-          }
-        }
+      let chain: number | undefined;
+      const correct = a.correct;
+      if (finale) {
+        const steps = move.effects.find((e): e is Extract<MoveEffect, { type: "chain_bonus" }> => e.type === "chain_bonus")?.steps ?? [1, 1.15, 1.3];
+        const { streak } = this.grade(correct, move, round);
+        chain = correct ? (steps[Math.min(finale.chain, steps.length - 1)] ?? 1) : 1;
+        finale.chain = correct ? finale.chain + 1 : 0;
+        brilliant = correct && (streak || this.rng() < LUCKY_STAR || this.mine.focus);
+        if (correct && this.mine.focus) this.mine.focus = false;
+      } else if (a.question) {
+        const { streak } = this.grade(correct, move, round);
+        brilliant = correct && (streak || this.rng() < LUCKY_STAR || move.tier === "S" || this.mine.focus || move.effects.some((e) => e.type === "always_brilliant"));
+        if (correct && this.mine.focus) this.mine.focus = false;
       }
-      const mix = a.question && subject !== null && this.lastSubject !== null && this.lastSubject !== subject;
-      const damage = Math.min(
-        this.fog,
-        damageOf({
-          level: p.level,
-          mp: a.move.power ?? 0,
-          power: mine.power,
-          guard: this.enemyGuard(),
-          home: subject !== null && subject === tr.subject,
-          wheel: wheelMult(hit),
-          brilliant: a.question && a.correct && brilliant,
-          mix,
-          right: a.correct,
-          roll: ROLL_MIN + (1 - ROLL_MIN) * this.rng(),
-        }),
-      );
-      if (a.question && subject) this.lastSubject = subject;
-      this.fog -= damage;
-      if (a.move.charges !== null) {
-        const key = `${p.id}:${a.move.id}`;
-        this.charges.set(key, Math.max(0, (this.charges.get(key) ?? Math.min(a.move.charges, this.o.debug?.charges ?? a.move.charges)) - 1));
+      const isEcho = move.id === "echo" && this.lastDamageMove;
+      const source = isEcho ? this.lastDamageMove! : move;
+      const damaging = source.power !== null;
+      let damage = 0;
+      let hit: WheelHit = null;
+      if (damaging) {
+        const fin = move.effects.find((e): e is Extract<MoveEffect, { type: "finisher" }> => e.type === "finisher");
+        const mark = fin && correct ? markBonus(this.foe, move.subject, n, fin) : 1;
+        const ignore = move.effects.some((e) => e.type === "ignore_shield");
+        const r = this.strike({
+          move: source,
+          mp: source.power ?? 0,
+          correct,
+          question: a.question,
+          brilliant,
+          ...(chain ? { chain } : {}),
+          ...(mark > 1 ? { mark } : {}),
+          ...(ignore ? { ignoreShield: true } : {}),
+          ...(isEcho ? { share: move.effects.find((e): e is Extract<MoveEffect, { type: "echo" }> => e.type === "echo")?.power_share ?? 0.6 } : {}),
+        });
+        damage = r.damage;
+        hit = r.hit;
+        if (fin && correct && mark > 1) this.foe.marks = [];
+        if (!isEcho && move.tier !== "W") this.lastDamageMove = move;
+        if (isEcho) round.effects.push({ on: "them", kind: "echo", amount: damage });
       }
-      round.damage = damage;
-      round.wheel = a.question ? hit : null;
-      round.brilliant = a.question && a.correct && brilliant;
+      this.roundDamage += damage;
+      // statuses, marks and the rest (a wrong answer has none, or the weak version of a utility move)
+      const list = correct ? move.effects : (move.wrong ?? []);
+      if (move.tier !== "F") this.applyEffects(list, correct, round.effects, round);
+      if (move.tier === "F" && finale && finale.step >= 2) {
+        // the last hit's extra, when its answer was right
+        if (correct) this.applyEffects(this.lastHitEffects(move), correct, round.effects, round);
+        this.spark = 0;
+      }
+      if (move.charges !== null) {
+        const key = `${p.id}:${move.id}`;
+        this.charges.set(key, Math.max(0, (this.charges.get(key) ?? Math.min(move.charges, this.o.debug?.charges ?? move.charges)) - 1));
+      }
+      round.damage = finale ? this.roundDamage : damage;
+      round.wheel = a.question && correct ? hit : null;
+      round.brilliant = brilliant && (a.question || !!finale);
       if (round.brilliant) this.brilliant++;
       // the wheel is learned by seeing it work (ages 11 and up)
       if (a.question && hit && !this.known()) w.variables.set(this.weakKey(), "1");
-      events.push({ who: "me", kind: "hit", amount: damage, fog: this.fog, pep: this.pepOf(p), creature: p.id });
+      const utility = !damaging;
+      const healed = round.effects.filter((e) => e.on === "me" && e.kind === "heal").reduce((x, e) => x + (e.amount ?? 0), 0);
+      events.push({ who: "me", kind: utility ? "utility" : "hit", amount: utility ? healed : damage, fog: this.fog, pep: this.pepOf(p), creature: p.id });
       this.o.field.move({
         n,
-        move: a.move.id,
+        move: move.id,
         subject: subject ?? "none",
-        tier: a.move.tier,
+        tier: move.tier,
         ok: a.correct,
-        damage,
+        damage: round.damage,
         wheel: hit ?? "none",
         brilliant: round.brilliant,
         ms: a.ms,
@@ -623,41 +1161,96 @@ export class Battle {
     };
 
     // ---- the enemy's action ----
+    let releasing = false;
     const doTheirs = () => {
       if (this.fog <= 0) return;
       const p = this.partner;
-      let amount = 0;
-      let kind: RoundEvent["kind"] = "silly";
-      if (intent.id === "puff") {
-        kind = "puff";
-        amount = this.puffAmount(p, ROLL_MIN + (1 - ROLL_MIN) * this.rng());
-        const max = this.maxPepOf(p);
-        let pep = this.pepOf(p) - amount;
-        // Brave Heart (the youngest band): the first hit that would put a friend to sleep leaves it at 1 Pep
-        if (pep <= 0 && this.data.rules.bands[this.band].brave_heart_default && !this.brave.has(p.id)) {
-          this.brave.add(p.id);
-          pep = 1;
-        }
-        this.pep.set(p.id, Math.max(0, Math.min(max, pep)));
-        this.lastWasBigPuff = amount > BIG_PUFF * max;
-        this.sinceGiggle++;
-      } else if (intent.id === "giggle") {
-        kind = "giggle";
-        amount = Math.max(0, Math.min(this.maxFog - this.fog, Math.ceil(this.maxFog * giggleShare(this.data))));
-        this.fog += amount;
-        this.sinceGiggle = 0;
-        this.lastWasBigPuff = false;
-      } else {
-        this.sinceGiggle++;
-        this.lastWasBigPuff = false;
+      const push = (kind: EventKind, amount: number, extra: Partial<RoundEvent> = {}) => events.push({ who: "them", kind, amount, fog: this.fog, pep: this.pepOf(p), creature: p.id, intent: intent.id, ...extra });
+      // asleep: the action (and a charging Windup) is lost
+      if (this.foe.drowsy && this.foe.drowsy.actions > 0) {
+        this.foe.drowsy.actions--;
+        this.cancelWindup();
+        push("sleep", 0);
+        return;
       }
-      round.enemyDamage = kind === "puff" ? amount : 0;
-      events.push({ who: "them", kind, amount, fog: this.fog, pep: this.pepOf(p), creature: p.id });
+      // dizzy: a third of its actions stumble
+      if (isDizzy(this.foe, n) && this.rng() < STUMBLE) {
+        this.cancelWindup();
+        push("stumble", 0);
+        return;
+      }
+      if (intent.release) {
+        releasing = true;
+        return;
+      }
+      switch (intent.id) {
+        case "fog_puff": {
+          const r = this.enemyHit(p, puffPower(this.data, this.boss), false);
+          this.sinceGiggle++;
+          this.lastWasStatus = false;
+          round.enemyDamage += r.taken;
+          push("puff", r.taken, r.returned ? { returned: r.returned } : {});
+          break;
+        }
+        case "big_puff":
+          // the charge: it shows a ring and lets go at the end of the next round
+          this.windup = { releaseAt: n + 1 };
+          this.sinceGiggle++;
+          this.lastWasStatus = false;
+          round.effects.push({ on: "them", kind: "windup" });
+          push("windup", 0);
+          break;
+        case "thicken": {
+          const amount = floor(this.maxFog * (this.data.intentsById["thicken"]?.shield_share_of_max_fog ?? 0.2));
+          const rounds = (this.data.intentsById["thicken"]?.rounds ?? 2) + (this.enemy.gift === "sturdy_shell" ? 1 : 0);
+          this.foe.shield = { amount, until: n + rounds };
+          this.sinceGiggle++;
+          this.lastWasStatus = false;
+          this.lastWasBigPuff = false;
+          push("thicken", amount);
+          break;
+        }
+        case "giggle": {
+          const give = this.foeHeal(Math.ceil(this.maxFog * giggleShare(this.data)));
+          this.sinceGiggle = 0;
+          this.lastWasBigPuff = false;
+          this.lastWasStatus = false;
+          push("giggle", give);
+          break;
+        }
+        case "drowsy_mist":
+        case "dizzy_swirl":
+        case "sticky_mud": {
+          const status = this.data.intentsById[intent.id]!.status as StatusId;
+          const took = this.statusOnMine(status, round.effects);
+          this.sinceGiggle++;
+          this.lastWasBigPuff = false;
+          this.lastWasStatus = took;
+          push("mist", 0, { status });
+          break;
+        }
+        case "cheer_up": {
+          shiftStage(this.foe, "power", 1, n, this.data.intentsById["cheer_up"]?.rounds ?? 3);
+          this.sinceGiggle++;
+          this.lastWasBigPuff = false;
+          this.lastWasStatus = false;
+          push("cheer", 0);
+          break;
+        }
+        default:
+          // Silly Dance: a breather, and a star for the child
+          this.addSpark(this.data.intentsById["silly_dance"]?.spark_for_child ?? 1);
+          this.sinceGiggle++;
+          this.lastWasBigPuff = false;
+          this.lastWasStatus = false;
+          push("silly", 0);
+      }
     };
 
-    // a swap, or medicine, comes before the enemy's action; a move goes by Speed
-    const mine = a.kind !== "move" || this.meFirst();
+    // a swap, or medicine, comes before the enemy's action; a move goes by Speed (Quick moves first)
+    const mine = a.kind !== "move" || this.meFirst(a.move);
     round.first = mine ? "me" : "them";
+    // the Speed of the order is read before anything of this round changes it
     if (mine) {
       doMine();
       doTheirs();
@@ -668,13 +1261,36 @@ export class Battle {
 
     // ---- the end of the round ----
     const p = this.partner;
+    // a Windup is let go at the end of the round, unless a good round (or a lullaby) staggered it
+    if (releasing && this.windup && this.fog > 0) {
+      if (this.roundDamage >= Math.ceil(this.maxFog * STAGGER_SHARE)) {
+        staggerIt = true;
+        round.staggered = true;
+        this.windup = null;
+        events.push({ who: "them", kind: "stagger", amount: 0, fog: this.fog, pep: this.pepOf(p), creature: p.id, intent: "big_puff" });
+        this.lastWasBigPuff = false;
+        this.sinceGiggle++;
+      } else {
+        this.windup = null;
+        const r = this.enemyHit(p, bigPuffPower(this.data), true);
+        this.lastWasBigPuff = true;
+        round.enemyDamage += r.taken;
+        events.push({ who: "them", kind: "puff", amount: r.taken, fog: this.fog, pep: this.pepOf(p), creature: p.id, intent: "big_puff", ...(r.returned ? { returned: r.returned } : {}) });
+      }
+    }
+    void staggerIt;
     // the answered move has played: only now does a friend at 0 Pep fall asleep
     if (this.pepOf(p) <= 0 && usable(p)) {
       faint(p);
       this.fainted++;
       round.fainted = p.id;
+      this.mine = newFighter();
       this.o.field.doze({ species: p.species, n, awake: awakeParty(w).length });
     }
+    if (usable(p)) this.ticks(p, n);
+    else this.tickFoe(n);
+    expire(this.foe, n);
+    if (usable(p)) expire(this.mine, n);
     this.fog = Math.max(0, this.fog);
     if (this.fog > 0 && a.kind === "move" && a.question && this.budget.asked >= this.budget.limit) {
       this.fog = 0;
@@ -682,6 +1298,7 @@ export class Battle {
       this.o.field.cap({ asked: this.budget.asked, limit: this.budget.limit, band: this.band });
     }
     if (this.fog <= 0) {
+      this.windup = null;
       round.calm = true;
       this.calmed(round);
     } else if (round.fainted) {
@@ -696,6 +1313,9 @@ export class Battle {
         round.needSwap = true;
       }
     }
+    if (this.finale && round.finale) this.finale = null;
+    this.finaleStep = null;
+    round.spark = this.spark;
     if (this.phase === "fighting") {
       // while a friend must be picked the next intent waits: it is drawn for the friend who comes in
       this.intent = this.needSwap ? null : this.drawNext();
@@ -712,13 +1332,68 @@ export class Battle {
       next: this.intent?.id ?? "none",
       action: a.kind,
     });
+    if (this.growthKeep && !round.growth.leveled) round.growth = this.growthKeep;
+    this.growthKeep = null;
     this.last = round;
     this.o.onChange();
     return round;
   }
 
-  private enemyGuard(): number {
-    return this.enemy.guard;
+  /** The extra the last hit of a Finale adds when its answer was right (a shield, a Slow, a heal ...). */
+  private lastHitEffects(move: Move): MoveEffect[] {
+    return move.last_hit ?? [];
+  }
+
+  /**
+   * An enemy hit on the partner: the formula, then the Giggly halving, the mirror's softening and the shield. Brave
+   * Heart (the youngest band, or the gift) leaves 1 Pep once. A hard hit fills a star of Spark.
+   */
+  private enemyHit(p: Creature, mp: number, release: boolean): { taken: number; returned: number } {
+    const n = this.turns;
+    let amount = this.hitAmount(p, ROLL_MIN + (1 - ROLL_MIN) * this.rng(), mp, n);
+    if (this.foe.giggly > 0) {
+      amount = Math.max(1, floor(amount * 0.5));
+      this.foe.giggly--;
+    }
+    let returned = 0;
+    const m = this.mine.mirror;
+    if (m && m.until >= n) {
+      returned = Math.max(1, floor(amount * m.ret));
+      amount = Math.max(1, floor(amount * (1 - m.soften)));
+      this.mine.mirror = null;
+      returned = Math.min(returned, Math.max(0, this.fog - 1));
+      this.fog -= returned;
+    }
+    const s = absorb(this.mine, amount, n);
+    const hit = s.left;
+    const max = this.maxPepOf(p);
+    let pep = this.pepOf(p) - hit;
+    // Brave Heart: the first hit that would put a friend to sleep leaves it at 1 Pep
+    const braveDefault = this.data.rules.bands[this.band].brave_heart_default;
+    if (pep <= 0 && (braveDefault || this.giftOf(p) === "brave_heart") && !this.brave.has(p.id)) {
+      this.brave.add(p.id);
+      pep = 1;
+    }
+    this.pep.set(p.id, Math.max(0, Math.min(max, pep)));
+    if (hit >= this.data.rules.spark.hard_hit_share_of_pep * max) this.addSpark(this.data.rules.spark.per_hard_hit);
+    if (!release) this.lastWasBigPuff = hit > BIG_PUFF * max;
+    return { taken: hit, returned };
+  }
+
+  /** Our side's ticks at the end of a round: Regen heals, Sniffly drips (never below 1 Pep). */
+  private ticks(p: Creature, n: number): void {
+    const max = this.maxPepOf(p);
+    const r = this.mine.regen;
+    if (r && r.until >= n) this.healMine(p, Math.ceil(r.share * max));
+    const s = this.mine.sniffly;
+    if (s && s.until >= n) this.pep.set(p.id, Math.max(1, this.pepOf(p) - Math.ceil(0.06 * max)));
+    this.tickFoe(n);
+  }
+
+  private tickFoe(n: number): void {
+    if (this.foe.regen && this.foe.regen.until >= n) this.foeHeal(Math.ceil(this.foe.regen.share * this.maxFog));
+    const s = this.foe.sniffly;
+    if (s && s.until >= n && this.fog > 1) this.fog = Math.max(1, this.fog - Math.max(1, Math.ceil(0.03 * this.maxFog)));
   }
 
   /** The fog is gone: the creature sits down, calm, and pays (a master's test is won). */
@@ -754,6 +1429,7 @@ export class Battle {
     if (!c || !usable(c) || c.id === this.partner.id) return null;
     if (this.phase === "calm" || this.needSwap) {
       if (!setPartner(this.o.world, id)) return null;
+      this.mine = newFighter();
       this.needSwap = false;
       this.o.field.note("partner", { species: c.species, subject: this.traits(c).subject });
       if (this.phase === "fighting" && this.intent === null) this.intent = this.drawNext();

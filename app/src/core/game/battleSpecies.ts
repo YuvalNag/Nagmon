@@ -16,11 +16,15 @@ export interface SpeciesTraits {
   /** Subjects besides the wheel's that are a Sparkle against it. */
   weak: string[];
   temperament: Temperament;
+  /** The species' Gift (3.5), a passive trait. */
+  gift: string;
+  /** Evolution stage, 0 basic. */
+  stage: number;
 }
 
 export function speciesBattle(data: BattleData, slug: string, fallbackSubject = "math"): SpeciesTraits {
   const s = data.species[slug];
-  if (!s) return { bases: DEFAULT_BASES, mult: 1, subject: fallbackSubject, weak: [], temperament: "playful" };
+  if (!s) return { bases: DEFAULT_BASES, mult: 1, subject: fallbackSubject, weak: [], temperament: "playful", gift: "none", stage: 0 };
   const [bp, bw, bg, bs] = s.bases;
   return {
     bases: { bp, bw, bg, bs },
@@ -29,6 +33,8 @@ export function speciesBattle(data: BattleData, slug: string, fallbackSubject = 
     // the data's weak pair is [the wheel's subject, one more]: only the extra is added to the wheel
     weak: s.weak.slice(1),
     temperament: isTemperament(s.temperament) ? s.temperament : "playful",
+    gift: s.gift,
+    stage: s.stage,
   };
 }
 

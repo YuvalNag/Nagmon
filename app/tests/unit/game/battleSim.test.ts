@@ -26,7 +26,7 @@ beforeAll(async () => {
 const monsters = monsterTable(gameJson("db/monsters.json"));
 const subjects = SubjectMap.fromDoc(gameJson("content/subjects.json"));
 const AGE: Record<Band, number> = { A: 6, B: 9, C: 12 };
-const ACC: Record<Band, { E: number; N: number }> = { A: { E: 0.9, N: 0.8 }, B: { E: 0.85, N: 0.72 }, C: { E: 0.8, N: 0.68 } };
+const ACC: Record<Band, { E: number; N: number; S: number }> = { A: { E: 0.9, N: 0.8, S: 0.65 }, B: { E: 0.85, N: 0.72, S: 0.55 }, C: { E: 0.8, N: 0.68, S: 0.5 } };
 /** Seconds of the time budget of 5.9: choose 2.0 + our animation 2.0 + the enemy's 1.5 + ticks 0.4; a question 6 s (easy) or 11 s (normal). */
 const TURN_S = 5.9;
 const Q_S = { E: 6, N: 11 } as const;
@@ -73,20 +73,39 @@ function fight(band: Band, seed: number): Out {
       if (!next) break;
       battle.swap(next.id);
     }
-    const open = battle.cards().filter((c) => !c.dimmed);
+    const acc = (tier: "E" | "N" | "S") => ACC[band][tier];
+    // a full Spark meter: the Finale, three questions of the normal tier
+    const fin = battle.finaleCard();
+    if (fin?.ready) {
+      battle.castScripted(fin.move.id, [rng() < acc("N"), rng() < acc("N"), rng() < acc("N")]);
+      secs += 3 * Q_S.N + 14;
+      continue;
+    }
+    const open = battle.cards().filter((c) => !c.dimmed && c.move.power !== null);
     // the Sparkle, when it is there and the child sees it
     const sparkle = open.find((c) => c.move.subject && battle.loves().includes(c.move.subject));
     let card = sparkle && rng() < 0.6 ? sparkle : undefined;
     if (!card) {
+      const marked = battle.foe.marks.length > 0;
+      const finisher = open.find((c) => c.move.tier === "K");
+      const starter = open.find((c) => c.move.tier === "C");
       const home = open.filter((c) => c.home);
+      const sShare = band === "A" ? 0 : band === "B" ? 0.15 : 0.3;
       const eShare = band === "A" ? 0.3 : band === "B" ? 0.15 : 0;
-      const want = rng() < eShare ? "E" : "N";
-      card = home.find((c) => c.move.tier === want) ?? home[0] ?? open[0]!;
+      const r = rng();
+      const stretch = home.find((c) => c.move.tier === "S");
+      if (marked && finisher && rng() < 0.8) card = finisher;
+      else if (!marked && starter && r < 0.2) card = starter;
+      else if (stretch && r < sShare) card = stretch;
+      else {
+        const want = rng() < eShare ? "E" : "N";
+        card = home.find((c) => c.move.tier === want) ?? home[0] ?? open[0]!;
+      }
     }
-    const tier = card.move.tier === "E" ? "E" : "N";
-    const right = rng() < ACC[band][tier];
+    const tier = card.move.question === "E" ? "E" : card.move.question === "S" ? "S" : "N";
+    const right = rng() < acc(tier);
     battle.castScripted(card.move.id, right);
-    secs += Q_S[tier] + TURN_S;
+    secs += (tier === "S" ? 16 : Q_S[tier]) + TURN_S;
   }
   return { questions: battle.stats.questions, turns: battle.turns, fainted: battle.fainted, secs, capped: !!battle.reward?.capped, calm: battle.phase === "calm" };
 }
@@ -117,7 +136,7 @@ describe("a wild fight, simulated 2,000 times a band (docs/app/BATTLE_V3.md 5.9 
     it(`band ${band} at ${acc * 100}% right`, () => {
       const r = run(band);
       // eslint-disable-next-line no-console
-      console.log(`SIM band=${band} acc=${acc} q=${r.q.toFixed(2)} p10=${r.p10} p90=${r.p90} max=${r.maxQ} turns=${r.turns.toFixed(2)} maxTurns=${r.maxTurns} min=${r.minutes.toFixed(2)} faint=${(r.faint * 100).toFixed(1)}% capped=${(r.capped * 100).toFixed(1)}% calm=${(r.ended * 100).toFixed(1)}%`);
+      process.stderr.write(`SIM band=${band} acc=${acc} q=${r.q.toFixed(2)} p10=${r.p10} p90=${r.p90} max=${r.maxQ} turns=${r.turns.toFixed(2)} maxTurns=${r.maxTurns} min=${r.minutes.toFixed(2)} faint=${(r.faint * 100).toFixed(1)}% capped=${(r.capped * 100).toFixed(1)}% calm=${(r.ended * 100).toFixed(1)}%\n`);
       expect(r.q).toBeGreaterThanOrEqual(5.5);
       expect(r.q).toBeLessThanOrEqual(9.5);
       expect(r.p90).toBeLessThanOrEqual(QUESTION_CAP[band]);
