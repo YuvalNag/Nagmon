@@ -1753,7 +1753,8 @@ button.quiz-choice {
 /* the menu (docs/app/BATTLE_V3.md 2.2): the friends strip (2 x 2 portraits), the four move cards (2 x 2, each at least 150 x 56), Net, Bag and Run */
 .action-bar {
   display: grid;
-  grid-template-columns: calc(2 * 56px + 8px) minmax(0, 1fr) calc(3 * 64px + 16px);
+  /* the three small buttons are as wide as their words need ("ממשיכים" is one word on one line, at any text size) */
+  grid-template-columns: calc(2 * 56px + 8px) minmax(0, 1fr) max-content;
   gap: 8px;
   padding: 8px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left));
   background: rgba(23, 50, 58, 0.12);
@@ -1952,8 +1953,13 @@ button.quiz-choice {
 
 .side-buttons {
   display: grid;
-  grid-template-columns: repeat(3, minmax(64px, 1fr));
+  grid-template-columns: repeat(3, minmax(64px, max-content));
   gap: 8px;
+}
+
+.side-buttons button {
+  padding-inline: 8px;
+  overflow-wrap: normal;
 }
 
 .action-bar button.pulse {
@@ -2957,7 +2963,7 @@ button.zone {
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 220px;
+  grid-template-columns: minmax(0, 1fr) clamp(220px, 30vw, 280px);
   gap: var(--gap);
 }
 
@@ -3005,7 +3011,7 @@ button.zone {
   position: relative;
   display: flex;
   justify-content: center;
-  min-height: calc(17vh);
+  min-height: calc(12vh);
   align-items: flex-end;
 }
 
@@ -3069,6 +3075,8 @@ button.zone {
   display: flex;
   gap: 6px;
   overflow-x: auto;
+  /* the cards' lower edge is not cut by the row's scroll box */
+  padding-block: 2px 4px;
   touch-action: pan-x;
 }
 
@@ -3102,10 +3110,18 @@ button.zone {
 
 .desk-art {
   width: 100%;
-  max-height: 64px;
+  max-height: 44px;
+  flex: none;
+}
+
+/* the desk's buttons keep the height their words need (a flex column shrinks them under bigger text) */
+.rest-desk > * {
+  flex: none;
 }
 
 .rest-desk button {
+  padding-block: 4px;
+  line-height: 1.1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3120,7 +3136,7 @@ button.zone {
 }
 
 .rest-said {
-  min-height: 2.4em;
+  line-height: 1.2;
   color: var(--ink-soft);
   font-size: calc(var(--text) * 0.55);
 }
