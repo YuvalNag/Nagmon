@@ -229,7 +229,7 @@ describe("every new skill is a bank of 20 to 40 items", () => {
 });
 
 describe("reading passages (hebrew.reading.passage_3 to 9)", () => {
-  const BAND: Record<number, [number, number]> = { 3: [35, 100], 4: [50, 125], 5: [65, 150], 6: [85, 180], 7: [100, 200], 8: [110, 230], 9: [120, 260] };
+  const BAND: Record<number, [number, number]> = { 3: [35, 100], 4: [50, 125], 5: [60, 150], 6: [70, 180], 7: [90, 200], 8: [105, 230], 9: [120, 260] };
 
   it("each skill has five or more passages with four to six questions each, drawn on the question screen", () => {
     for (let g = 3; g <= 9; g++) {

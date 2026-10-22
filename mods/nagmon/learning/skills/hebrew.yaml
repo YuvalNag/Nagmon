@@ -242,3 +242,31 @@ skills:
   prereq: [hebrew.text.text_types, hebrew.reading.passage_6]
   generator: bank
   params: {bank: hebrew/text.yaml, tags: [text_analysis]}
+- id: hebrew.reading.passage_8
+  grade: 8
+  title_he: 'הבנת הנקרא: טקסטים מורכבים'
+  title_en: 'Reading comprehension, grade 8'
+  prereq: [hebrew.reading.passage_7]
+  generator: bank
+  params: {bank: hebrew/passages_8.yaml, tags: [passage_8]}
+- id: hebrew.vocab.register
+  grade: 8
+  title_he: 'רמות לשון: רשמית, תקנית ודיבור'
+  title_en: 'Registers: formal, standard and spoken'
+  prereq: [hebrew.vocab.figurative, hebrew.text.text_analysis]
+  generator: bank
+  params: {bank: hebrew/vocab.yaml, tags: [register]}
+- id: hebrew.reading.passage_9
+  grade: 9
+  title_he: 'הבנת הנקרא: טקסטים מתקדמים'
+  title_en: 'Reading comprehension, grade 9'
+  prereq: [hebrew.reading.passage_8]
+  generator: bank
+  params: {bank: hebrew/passages_9.yaml, tags: [passage_9]}
+- id: hebrew.text.argument
+  grade: 9
+  title_he: 'טקסט טיעון: טענה, נימוק ודוגמה'
+  title_en: 'Argument text: claim, reason and example'
+  prereq: [hebrew.text.text_analysis, hebrew.vocab.register]
+  generator: bank
+  params: {bank: hebrew/text.yaml, tags: [argument]}

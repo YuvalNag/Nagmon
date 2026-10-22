@@ -1,4 +1,4 @@
-# Nagmon learning content - hebrew / text (grades 3-7): sentence types, punctuation, text types, text analysis, argument
+# Nagmon learning content - hebrew / text (grades 3-9): sentence types, punctuation, text types, text analysis, argument
 # Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
 # Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
 # Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
@@ -307,6 +307,21 @@ items:
   tags: [sentence_types]
 - id: heb.stype.021
   skill: hebrew.text.sentence_types
+  kind: order
+  grade: 3
+  difficulty: 0.0
+  prompt_he: סדרו את המילים למשפט שאלה.
+  prompt_en: Put the words in order to make a question.
+  choices:
+  - {he: לטיול, en: on the trip}
+  - {he: מתי, en: when}
+  - {he: נצא, en: will we go out}
+  answer: [1, 2, 0]
+  explanation_he: 'משפט שאלה פותח במילת שאלה (מתי), ואחריה בא הפועל ואז המשלים. בסוף כותבים סימן שאלה.'
+  explanation_en: 'A question opens with a question word (when), then the verb, then the rest. At the end we write a question mark.'
+  tags: [sentence_types]
+- id: heb.stype.022
+  skill: hebrew.text.sentence_types
   kind: true_false
   grade: 3
   difficulty: -1.0
@@ -316,7 +331,7 @@ items:
   explanation_he: המשפט פותח במילת שאלה ונגמר בסימן שאלה.
   explanation_en: It starts with a question word and ends with a question mark.
   tags: [sentence_types]
-- id: heb.stype.022
+- id: heb.stype.023
   skill: hebrew.text.sentence_types
   kind: true_false
   grade: 3
@@ -327,7 +342,7 @@ items:
   explanation_he: 'המשפט אומר לאנשים מה לעשות, ולכן הוא משפט ציווי ולא סיפורי.'
   explanation_en: 'The sentence tells people what to do, so it is a command and not a statement.'
   tags: [sentence_types]
-- id: heb.stype.023
+- id: heb.stype.024
   skill: hebrew.text.sentence_types
   kind: true_false
   grade: 3
@@ -338,7 +353,7 @@ items:
   explanation_he: 'משפט קריאה אומר כמה אנחנו מתפעלים, שמחים או מופתעים, ובסופו סימן קריאה.'
   explanation_en: 'An exclamation shows how amazed, happy or surprised we are, and ends with an exclamation mark.'
   tags: [sentence_types]
-- id: heb.stype.024
+- id: heb.stype.025
   skill: hebrew.text.sentence_types
   kind: true_false
   grade: 3
@@ -349,7 +364,7 @@ items:
   explanation_he: 'רוב המשפטים עם נקודה הם משפטים סיפוריים. ציווי יכול להיגמר בנקודה, אבל זה לא תמיד כך.'
   explanation_en: 'Most sentences with a period are statements. A command can end with a period, but not always.'
   tags: [sentence_types]
-- id: heb.stype.025
+- id: heb.stype.026
   skill: hebrew.text.sentence_types
   kind: true_false
   grade: 3
@@ -383,10 +398,10 @@ items:
   prompt_he: 'איזה סימן מתאים לפני רשימה? "קניתי בשוק ___ עגבניות, מלפפונים וגזר".'
   prompt_en: 'Which mark fits before a list? "I bought at the market ___ tomatoes, cucumbers and carrots".'
   choices:
-  - {he: נקודתיים (:), en: colon (:)}
   - {he: נקודה (.), en: period (.)}
   - {he: 'סימן שאלה (?)', en: 'question mark (?)'}
-  answer: 0
+  - {he: נקודתיים (:), en: colon (:)}
+  answer: 2
   explanation_he: נקודתיים מקדימות רשימה או דברים שאומרים. אחריהן בא הפירוט.
   explanation_en: A colon introduces a list or words that are said. The details come after it.
   tags: [punctuation]
@@ -398,10 +413,10 @@ items:
   prompt_he: 'איזה סימנים שמים סביב מה שאדם אומר?'
   prompt_en: 'Which marks go around what a person says?'
   choices:
+  - {he: מירכאות, en: quotation marks}
   - {he: סוגריים, en: parentheses}
   - {he: נקודתיים, en: a colon}
-  - {he: מירכאות, en: quotation marks}
-  answer: 2
+  answer: 0
   explanation_he: 'מירכאות סוגרות את דברי האומר, למשל: אמא אמרה: "בואו לאכול".'
   explanation_en: 'Quotation marks enclose the speaker''s words.'
   tags: [punctuation]
@@ -413,10 +428,10 @@ items:
   prompt_he: 'איפה צריך נקודה? "הילדים שיחקו בחצר אחר כך הם אכלו".'
   prompt_en: 'Where does a period go? "The children played in the yard then they ate".'
   choices:
-  - {he: 'אחרי "אחר"', en: 'after "then"'}
   - {he: 'אחרי "בחצר"', en: 'after "in the yard"'}
+  - {he: 'אחרי "אחר"', en: 'after "then"'}
   - {he: 'אחרי "הם"', en: 'after "they"'}
-  answer: 1
+  answer: 0
   explanation_he: 'המשפט הראשון נגמר ב"בחצר". אחרי נקודה מתחיל משפט חדש: אחר כך הם אכלו.'
   explanation_en: 'The first sentence ends at "in the yard". After a period a new sentence begins.'
   tags: [punctuation]
@@ -443,10 +458,10 @@ items:
   prompt_he: 'מה תפקיד הפסיק?'
   prompt_en: 'What is the job of a comma?'
   choices:
-  - {he: להפריד בין פריטים או חלקי משפט, en: To separate items or parts of a sentence}
   - {he: לסיים משפט, en: To end a sentence}
+  - {he: להפריד בין פריטים או חלקי משפט, en: To separate items or parts of a sentence}
   - {he: לשאול שאלה, en: To ask a question}
-  answer: 0
+  answer: 1
   explanation_he: 'פסיק עוזר לקרוא לאט ובמקום הנכון. הוא מפריד, והוא לא מסיים משפט.'
   explanation_en: A comma helps us read in the right place. It separates and does not end a sentence.
   tags: [punctuation]
@@ -519,9 +534,9 @@ items:
   prompt_en: 'Which sentence is written correctly?'
   choices:
   - {he: 'דנה איפה, את?', en: (comma misplaced)}
-  - {he: 'דנה איפה את,?', en: (comma before the question mark)}
   - {he: 'דנה, איפה את?', en: 'Dana, where are you?'}
-  answer: 2
+  - {he: 'דנה איפה את,?', en: (comma before the question mark)}
+  answer: 1
   explanation_he: 'כשפונים למישהו בשמו, שמים פסיק אחרי השם: דנה, איפה את?'
   explanation_en: 'When addressing someone by name, a comma goes after the name.'
   tags: [punctuation]
@@ -534,9 +549,9 @@ items:
   prompt_en: 'Where should the comma go? "When it rained the children went home".'
   choices:
   - {he: 'אחרי "הילדים"', en: 'after "the children"'}
-  - {he: 'אחרי "גשם"', en: 'after "rained"'}
   - {he: 'אחרי "נכנסו"', en: 'after "went in"'}
-  answer: 1
+  - {he: 'אחרי "גשם"', en: 'after "rained"'}
+  answer: 2
   explanation_he: 'המשפט מתחלק לשני חלקים: כשירד גשם, הילדים נכנסו הביתה. הפסיק מפריד ביניהם.'
   explanation_en: 'The sentence has two parts: "when it rained" and "the children went home". A comma separates them.'
   tags: [punctuation]
@@ -548,10 +563,10 @@ items:
   prompt_he: 'מה אפשר לשים אחרי המילה "אמרה", כדי להביא את דברי הדוברת?'
   prompt_en: 'What can follow "said" to bring the speaker''s words?'
   choices:
-  - {he: נקודתיים ומירכאות, en: a colon and quotation marks}
   - {he: נקודה בלבד, en: a period only}
+  - {he: נקודתיים ומירכאות, en: a colon and quotation marks}
   - {he: סימן שאלה בלבד, en: a question mark only}
-  answer: 0
+  answer: 1
   explanation_he: 'אחרי "אמרה" באות נקודתיים ואחריהן מירכאות עם הדברים עצמם.'
   explanation_en: 'After "said" come a colon and then quotation marks with the words themselves.'
   tags: [punctuation]
@@ -630,9 +645,9 @@ items:
   prompt_en: 'Which mark ends the sentence: "The birds fly above the tree"?'
   choices:
   - {he: סימן שאלה, en: question mark}
-  - {he: נקודה, en: period}
   - {he: פסיק, en: comma}
-  answer: 1
+  - {he: נקודה, en: period}
+  answer: 2
   explanation_he: 'המשפט מספר מה קורה, ולכן הוא נגמר בנקודה.'
   explanation_en: 'The sentence tells what happens, so it ends with a period.'
   tags: [punctuation]
@@ -645,9 +660,9 @@ items:
   prompt_en: 'Which sentence should end with a question mark?'
   choices:
   - {he: השארתי את התיק בבית, en: I left the bag at home}
-  - {he: איזה תיק כבד, en: What a heavy bag}
   - {he: איפה השארת את התיק, en: Where did you leave the bag}
-  answer: 2
+  - {he: איזה תיק כבד, en: What a heavy bag}
+  answer: 1
   explanation_he: 'המשפט הראשון שואל, והוא מתחיל במילת השאלה "איפה".'
   explanation_en: 'The first asks something, and it begins with the question word "where".'
   tags: [punctuation]
@@ -659,10 +674,10 @@ items:
   prompt_he: 'איזה סוג טקסט זה? "פעם אחת חי בכפר קטן ילד בשם נדב שאהב לצייר."'
   prompt_en: 'What kind of text is this? "Once a boy named Nadav, who loved to draw, lived in a small village."'
   choices:
-  - {he: סיפור, en: story}
   - {he: הוראות, en: instructions}
   - {he: מכתב, en: letter}
-  answer: 0
+  - {he: סיפור, en: story}
+  answer: 2
   explanation_he: 'יש דמות (נדב) ופתיחה של סיפור: "פעם אחת". זה סיפור.'
   explanation_en: 'There is a character (Nadav) and a story opening: "once upon a time". This is a story.'
   tags: [text_types]
@@ -675,9 +690,9 @@ items:
   prompt_en: 'What kind of text is this? "Tigers have stripes, and no two have the same pattern."'
   choices:
   - {he: סיפור, en: story}
-  - {he: שיר, en: poem}
   - {he: טקסט מידע, en: informational text}
-  answer: 2
+  - {he: שיר, en: poem}
+  answer: 1
   explanation_he: 'הטקסט מוסר עובדות על חיה, בלי דמויות ובלי עלילה. זה טקסט מידע.'
   explanation_en: 'The text gives facts about an animal, without characters or plot. This is informational.'
   tags: [text_types]
@@ -689,10 +704,10 @@ items:
   prompt_he: 'איזה סוג טקסט זה? "קחו שתי ביצים והקציפו אותן. הוסיפו קמח ומעט חלב."'
   prompt_en: 'What kind of text is this? "Take two eggs and whisk them. Add flour and a little milk."'
   choices:
-  - {he: סיפור, en: story}
   - {he: הוראות, en: instructions}
+  - {he: סיפור, en: story}
   - {he: פרסומת, en: advertisement}
-  answer: 1
+  answer: 0
   explanation_he: 'הפעלים "קחו", "הקציפו", "הוסיפו" אומרים מה לעשות, שלב אחרי שלב. אלה הוראות.'
   explanation_en: 'The verbs "take", "whisk", "add" say what to do step by step. These are instructions.'
   tags: [text_types]
@@ -705,9 +720,9 @@ items:
   prompt_en: 'What kind of text is this? "Hello Grandma, I miss you very much. See you soon, Noam."'
   choices:
   - {he: שיר, en: poem}
-  - {he: הוראות, en: instructions}
   - {he: מכתב, en: letter}
-  answer: 2
+  - {he: הוראות, en: instructions}
+  answer: 1
   explanation_he: הטקסט פונה לאדם מסוים (סבתא) ונגמר בשם הכותב. זה מכתב.
   explanation_en: 'The text addresses a specific person (Grandma) and ends with the writer''s name. It is a letter.'
   tags: [text_types]
@@ -720,9 +735,9 @@ items:
   prompt_en: 'What kind of text is this? "Rain fell on the city, wet the street, wet the wall."'
   choices:
   - {he: טקסט מידע, en: informational text}
-  - {he: שיר, en: poem}
   - {he: הזמנה, en: invitation}
-  answer: 1
+  - {he: שיר, en: poem}
+  answer: 2
   explanation_he: יש כאן חרוזים (עיר-קיר) ושורות קצרות. זה שיר.
   explanation_en: It has rhymes (ir-kir) and short lines. This is a poem.
   tags: [text_types]
@@ -750,9 +765,9 @@ items:
   prompt_en: 'What kind of text is this? "Our new ice cream is cold, tasty and cheap! Come taste it today!"'
   choices:
   - {he: שיר, en: poem}
-  - {he: פרסומת, en: advertisement}
   - {he: טקסט מידע, en: informational text}
-  answer: 1
+  - {he: פרסומת, en: advertisement}
+  answer: 2
   explanation_he: הטקסט משבח מוצר ומזמין לקנות. זו פרסומת.
   explanation_en: The text praises a product and invites you to buy. It is an advertisement.
   tags: [text_types]
@@ -765,9 +780,9 @@ items:
   prompt_en: 'What kind of text is this? "On Tuesday a new children''s museum will open in the city."'
   choices:
   - {he: סיפור, en: story}
-  - {he: הוראות, en: instructions}
   - {he: כתבה בעיתון, en: news report}
-  answer: 2
+  - {he: הוראות, en: instructions}
+  answer: 1
   explanation_he: 'הטקסט מדווח על אירוע אמיתי, מתי ואיפה. כך נראית כתבה בעיתון.'
   explanation_en: 'The text reports a real event, when and where. This is how a news report looks.'
   tags: [text_types]
@@ -809,10 +824,10 @@ items:
   prompt_he: 'מה מטרת טקסט מידע?'
   prompt_en: 'What is the purpose of an informational text?'
   choices:
-  - {he: לשעשע בחרוזים, en: To amuse with rhymes}
   - {he: להביא עובדות ולהסביר, en: To give facts and explain}
+  - {he: לשעשע בחרוזים, en: To amuse with rhymes}
   - {he: להזמין לאירוע, en: To invite to an event}
-  answer: 1
+  answer: 0
   explanation_he: 'טקסט מידע מלמד אותנו משהו על העולם, למשל על חיות או על מקומות.'
   explanation_en: 'An informational text teaches us something about the world, e.g. about animals or places.'
   tags: [text_types]
@@ -824,10 +839,10 @@ items:
   prompt_he: 'מה מטרת סיפור?'
   prompt_en: 'What is the purpose of a story?'
   choices:
-  - {he: לספר על דמויות ואירועים, en: To tell about characters and events}
   - {he: לתת הוראות הפעלה, en: To give operating instructions}
+  - {he: לספר על דמויות ואירועים, en: To tell about characters and events}
   - {he: לדווח על חדשות, en: To report news}
-  answer: 0
+  answer: 1
   explanation_he: 'בסיפור יש דמויות ועלילה, ולפעמים גם מסר.'
   explanation_en: 'A story has characters and a plot, and sometimes a message.'
   tags: [text_types]
@@ -854,10 +869,10 @@ items:
   prompt_he: 'איזה טקסט מתחיל במילה "שלום" ונגמר בשם הכותב?'
   prompt_en: 'Which text begins with "hello" and ends with the writer''s name?'
   choices:
-  - {he: מכתב, en: letter}
   - {he: מתכון, en: recipe}
+  - {he: מכתב, en: letter}
   - {he: כתבה, en: news report}
-  answer: 0
+  answer: 1
   explanation_he: 'מכתב כתוב לאדם מסוים, ולכן מתחיל בפנייה ונגמר בחתימה.'
   explanation_en: 'A letter is written to a specific person, so it opens with a greeting and ends with a signature.'
   tags: [text_types]
@@ -869,10 +884,10 @@ items:
   prompt_he: 'איפה נצפה למצוא את הכותרות "מצרכים" ו"אופן ההכנה"?'
   prompt_en: 'Where would we expect to find the headings "ingredients" and "method"?'
   choices:
-  - {he: בשיר, en: in a poem}
   - {he: במתכון, en: in a recipe}
+  - {he: בשיר, en: in a poem}
   - {he: בהזמנה, en: in an invitation}
-  answer: 1
+  answer: 0
   explanation_he: 'מתכון הוא סוג של הוראות, והוא כולל רשימת חומרים ושלבי עבודה.'
   explanation_en: 'A recipe is a kind of instructions: a list of ingredients and steps.'
   tags: [text_types]
@@ -884,10 +899,10 @@ items:
   prompt_he: 'איזה טקסט מציין מתי ואיפה יתקיים אירוע?'
   prompt_en: 'Which text says when and where an event takes place?'
   choices:
+  - {he: הזמנה, en: invitation}
   - {he: שיר, en: poem}
   - {he: סיפור, en: story}
-  - {he: הזמנה, en: invitation}
-  answer: 2
+  answer: 0
   explanation_he: 'בהזמנה כתובים שעה, תאריך ומקום, כדי שהמוזמן יידע לבוא.'
   explanation_en: 'An invitation has the time, date and place, so the guest knows to come.'
   tags: [text_types]
@@ -900,9 +915,9 @@ items:
   prompt_en: 'Which sentence fits the opening of a story?'
   choices:
   - {he: לפניכם הוראות להרכבת המדף., en: Here are the instructions for assembling the shelf.}
-  - {he: תמר התעוררה וגילתה מעטפה על הכרית., en: Tamar woke and found an envelope on her pillow.}
   - {he: הזמנה לכל תלמידי כיתה ה., en: An invitation to all fifth graders.}
-  answer: 1
+  - {he: תמר התעוררה וגילתה מעטפה על הכרית., en: Tamar woke and found an envelope on her pillow.}
+  answer: 2
   explanation_he: 'בסיפור יש דמות ואירוע, ולכן הפתיחה על תמר ועל המעטפה מתאימה.'
   explanation_en: 'A story has a character and an event, so the opening about Tamar and the envelope fits.'
   tags: [text_types]
@@ -914,11 +929,11 @@ items:
   prompt_he: סדרו את שלבי ההכנה של כריך.
   prompt_en: Put the steps of making a sandwich in order.
   choices:
+  - {he: פורסים לחם, en: Slice bread}
   - {he: סוגרים ואוכלים, en: Close it and eat}
   - {he: מניחים גבינה, en: Add cheese}
-  - {he: פורסים לחם, en: Slice bread}
   - {he: מורחים חמאה, en: Spread butter}
-  answer: [2, 3, 1, 0]
+  answer: [0, 3, 2, 1]
   explanation_he: 'בהוראות יש סדר: קודם החומר, אחר כך מוסיפים עליו, ובסוף אוכלים.'
   explanation_en: 'Instructions have an order: first the base, then the additions, and finally eating.'
   tags: [text_types]
@@ -1310,3 +1325,340 @@ items:
   explanation_he: המילים שבסביבה נותנות רמזים. כך מבינים מילה גם בלי מילון.
   explanation_en: The surrounding words give clues. That is how we understand a word even without a dictionary.
   tags: [text_analysis]
+- id: heb.argu.001
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: -1.0
+  prompt_he: 'איזה משפט הוא עובדה?'
+  prompt_en: 'Which sentence is a fact?'
+  choices:
+  - {he: כדורגל הוא המשחק הכי כיפי., en: Football is the most fun game.}
+  - {he: בשבוע יש שבעה ימים., en: A week has seven days.}
+  - {he: ימי חמישי הם הימים הטובים ביותר., en: Thursdays are the best days.}
+  answer: 1
+  explanation_he: עובדה אפשר לבדוק ולקבוע אם היא נכונה. שני המשפטים האחרים הם דעות אישיות.
+  explanation_en: A fact can be checked and shown true. The other two sentences are personal opinions.
+  tags: [argument]
+- id: heb.argu.002
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: -1.0
+  prompt_he: 'איזה משפט הוא דעה?'
+  prompt_en: 'Which sentence is an opinion?'
+  choices:
+  - {he: המים רותחים ב-100 מעלות בלחץ רגיל., en: Water boils at 100 degrees at normal pressure.}
+  - {he: בכיתה שלנו יש ארבעים תלמידים., en: There are forty pupils in our class.}
+  - {he: הגלידה הטעימה ביותר היא גלידת וניל., en: The tastiest ice cream is vanilla.}
+  answer: 2
+  explanation_he: 'טעם הוא עניין של טעם אישי, ואי אפשר להוכיח מה הכי טעים. שני האחרים אפשר למדוד ולבדוק.'
+  explanation_en: Taste is personal and cannot be proven. The other two can be measured and checked.
+  tags: [argument]
+- id: heb.argu.003
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 0.0
+  prompt_he: 'מהי הטענה במשפט: "כדאי לצמצם שעות מסך, כי הן פוגעות בשינה"?'
+  prompt_en: 'What is the claim in: "It is worth cutting screen time, because it harms sleep"?'
+  choices:
+  - {he: כדאי לצמצם שעות מסך, en: It is worth cutting screen time}
+  - {he: המסך פוגע בשינה של הילדים, en: 'Screens harm children''s sleep'}
+  - {he: שינה חשובה מאוד לבריאות הגוף, en: Sleep is very important for body health}
+  answer: 0
+  explanation_he: 'הטענה היא מה שהכותב רוצה לשכנע בו. מה שאחרי "כי" הוא הנימוק.'
+  explanation_en: 'The claim is what the writer wants to convince us of. What follows "because" is the reason.'
+  tags: [argument]
+- id: heb.argu.004
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 0.0
+  prompt_he: 'מהו הנימוק במשפט: "כדאי לצמצם שעות מסך, כי הן פוגעות בשינה"?'
+  prompt_en: 'What is the reason in: "It is worth cutting screen time, because it harms sleep"?'
+  choices:
+  - {he: כדאי לצמצם שעות מסך, en: It is worth cutting screen time}
+  - {he: הן פוגעות בשינה, en: They harm sleep}
+  - {he: אני אוהב לישון, en: I like sleeping}
+  answer: 1
+  explanation_he: 'הנימוק מסביר למה הטענה נכונה. הוא מופיע אחרי "כי".'
+  explanation_en: 'The reason explains why the claim is right. It appears after "because".'
+  tags: [argument]
+- id: heb.argu.005
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'איזו מילה פותחת נימוק?'
+  prompt_en: 'Which word opens a reason?'
+  choices:
+  - {he: שכן, en: since}
+  - {he: למשל, en: for example}
+  - {he: אולם, en: however}
+  answer: 0
+  explanation_he: 'שכן, כי ומפני ש מציגות סיבה. למשל מציגה דוגמה, ואולם מציגה ניגוד.'
+  explanation_en: '"Shechen", "ki" and "mipnei she" present a reason. "For example" gives an example and "however" a contrast.'
+  tags: [argument]
+- id: heb.argu.006
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: -1.0
+  prompt_he: 'איזו מילה מציגה דוגמה?'
+  prompt_en: 'Which word presents an example?'
+  choices:
+  - {he: לפיכך, en: therefore}
+  - {he: אולם, en: however}
+  - {he: למשל, en: for example}
+  answer: 2
+  explanation_he: 'אחרי "למשל" באה דוגמה שמחזקת את הטענה.'
+  explanation_en: 'After "for example" comes an example that strengthens the claim.'
+  tags: [argument]
+- id: heb.argu.007
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'איזו דוגמה תומכת בטענה "קריאה מעשירה את אוצר המילים"?'
+  prompt_en: 'Which example supports the claim "reading enriches vocabulary"?'
+  choices:
+  - {he: ספרים מודפסים על נייר מיוחד, en: Books are printed on special paper}
+  - {he: בספרייה יש שקט ואפשר לשבת, en: The library is quiet and one can sit}
+  - {he: ילדים שקוראים הרבה מכירים יותר מילים, en: Children who read a lot know more words}
+  answer: 2
+  explanation_he: 'דוגמה טובה מראה את הקשר שבטענה: קריאה והכרת מילים. האחרות נכונות אך לא קשורות.'
+  explanation_en: 'A good example shows the link in the claim: reading and knowing words. The others are true but unrelated.'
+  tags: [argument]
+- id: heb.argu.008
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'איזה נימוק מתאים לטענה "כדאי לישון מוקדם לפני מבחן"?'
+  prompt_en: 'Which reason fits the claim "it is worth sleeping early before a test"?'
+  choices:
+  - {he: כי המבחן קל וכולם עוברים אותו, en: Because the test is easy and everyone passes}
+  - {he: כי שינה מסייעת לזיכרון ולריכוז, en: Because sleep helps memory and concentration}
+  - {he: כי המורה אוהב תלמידים שישנים מוקדם, en: Because the teacher likes pupils who sleep early}
+  answer: 1
+  explanation_he: 'נימוק טוב מסביר למה הטענה נכונה. שינה משפיעה על זיכרון וריכוז, וזה חשוב במבחן.'
+  explanation_en: 'A good reason explains why the claim is right. Sleep affects memory and concentration, important in a test.'
+  tags: [argument]
+- id: heb.argu.009
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'איזו טענה מנוסחת בבירור?'
+  prompt_en: 'Which claim is clearly stated?'
+  choices:
+  - {he: להוסיף שעת ספורט שבועית בבית הספר, en: To add a weekly sport hour at school}
+  - {he: ספורט זה טוב ובריא לכל אחד מאיתנו, en: Sports are good and healthy for each of us}
+  - {he: אולי כדאי משהו בקשר לספורט, en: Maybe something about sports}
+  answer: 0
+  explanation_he: 'טענה טובה אומרת בדיוק מה מציעים. "ספורט זה טוב" כללי מדי, והשלישית לא החלטית.'
+  explanation_en: 'A good claim says exactly what is proposed. "Sports are good" is too general and the third is undecided.'
+  tags: [argument]
+- id: heb.argu.010
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'איזה נימוק חלש יותר?'
+  prompt_en: 'Which reason is weaker?'
+  choices:
+  - {he: כי כולם אומרים כך, en: Because everyone says so}
+  - {he: כי מחקר שנערך בבתי ספר הראה זאת, en: Because a study in schools showed it}
+  - {he: כי אפשר למדוד את התוצאות, en: Because the results can be measured}
+  answer: 0
+  explanation_he: '"כולם אומרים" אינו נימוק אמיתי, כי הרבה אנשים יכולים לטעות. מחקר ומדידה הם ראיות.'
+  explanation_en: '"Everyone says so" is not a real reason, since many people can be wrong. A study and measurement are evidence.'
+  tags: [argument]
+- id: heb.argu.011
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 1.5
+  prompt_he: 'איזה משפט הוא הכללה מוגזמת?'
+  prompt_en: 'Which sentence is an overgeneralization?'
+  choices:
+  - {he: חלק מבני הנוער אוהבים משחקי מחשב., en: Some teenagers love computer games.}
+  - {he: כל בני הנוער אוהבים משחקי מחשב., en: All teenagers love computer games.}
+  - {he: רבים מבני הנוער משחקים במחשב., en: Many teenagers play on the computer.}
+  answer: 1
+  explanation_he: 'המילה "כל" מכלילה על כולם, וקל להפריך אותה בדוגמה אחת. "חלק" ו"רבים" זהירים יותר.'
+  explanation_en: 'The word "all" covers everyone and is refuted by a single example. "Some" and "many" are more careful.'
+  tags: [argument]
+- id: heb.argu.012
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מה תפקיד המשפט "אולי יאמרו שהשעון המעורר מציק"?'
+  prompt_en: 'What is the role of the sentence "Some may say the alarm clock is annoying"?'
+  choices:
+  - {he: סיום הטקסט והסיכום שלו, en: The end of the text and its summary}
+  - {he: הצגת דוגמה לטענה שלו, en: Presenting an example for his claim}
+  - {he: הצגת טענה נגדית, en: Presenting a counterclaim}
+  answer: 2
+  explanation_he: הכותב מזכיר דעה שונה משלו כדי להשיב עליה אחר כך. זו טענה נגדית.
+  explanation_en: The writer mentions a view different from his own in order to answer it. This is a counterclaim.
+  tags: [argument]
+- id: heb.argu.013
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'מה אפשר לעשות עם טענה נגדית בטקסט טיעון?'
+  prompt_en: 'What can we do with a counterclaim in an argument text?'
+  choices:
+  - {he: להסתיר אותה מהקורא לגמרי כך שלא יראה, en: Hide it from the reader entirely so he does not see it}
+  - {he: להשיב עליה ולהסביר למה היא חלשה, en: Answer it and explain why it is weak}
+  - {he: להסכים איתה ולוותר על כל הטענה שלי, en: Agree with it and give up my whole claim}
+  answer: 1
+  explanation_he: כותב טוב מכיר בטענה נגדית ומראה למה הנימוקים שלו חזקים יותר. כך הוא משכנע.
+  explanation_en: A good writer acknowledges a counterclaim and shows why his reasons are stronger. That is persuasive.
+  tags: [argument]
+- id: heb.argu.014
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: -1.0
+  prompt_he: 'איזה חלק מופיע בסוף טקסט טיעון?'
+  prompt_en: 'Which part appears at the end of an argument text?'
+  choices:
+  - {he: פתיחה, en: Opening}
+  - {he: נימוק ראשון, en: First reason}
+  - {he: מסקנה, en: Conclusion}
+  answer: 2
+  explanation_he: 'בסוף מסכמים ומחזקים את הטענה, וזו המסקנה.'
+  explanation_en: 'At the end we summarize and reinforce the claim, which is the conclusion.'
+  tags: [argument]
+- id: heb.argu.015
+  skill: hebrew.text.argument
+  kind: order
+  grade: 9
+  difficulty: 0.5
+  prompt_he: סדרו את חלקי טקסט הטיעון.
+  prompt_en: Put the parts of an argument text in order.
+  choices:
+  - {he: מסקנה, en: Conclusion}
+  - {he: פתיחה והצגת הנושא, en: Opening and presenting the topic}
+  - {he: טענה ונימוקים, en: Claim and reasons}
+  - {he: טענה נגדית ותשובה לה, en: Counterclaim and an answer to it}
+  answer: [1, 2, 3, 0]
+  explanation_he: 'טקסט טיעון פותח בנושא, ממשיך בטענה ונימוקים, מתמודד עם טענה נגדית, ומסכם.'
+  explanation_en: 'An argument text opens with the topic, goes on to claim and reasons, handles a counterclaim, and summarizes.'
+  tags: [argument]
+- id: heb.argu.016
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 1.5
+  prompt_he: 'איזו מילה מסמנת טענה נגדית?'
+  prompt_en: 'Which word marks a counterclaim?'
+  choices:
+  - {he: לכן, en: therefore}
+  - {he: אמנם, en: admittedly}
+  - {he: למשל, en: for example}
+  answer: 1
+  explanation_he: '"אמנם... אך" מציגה טענה אחרת שמכירים בה, ואחריה בא "אך", שחוזר לטענה שלנו.'
+  explanation_en: '"Admittedly... but" presents another claim we acknowledge, and "but" returns to our own.'
+  tags: [argument]
+- id: heb.argu.017
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 0.5
+  prompt_he: 'איזה נימוק מתאים לטענה "כדאי לשמור על ניקיון החוף"?'
+  prompt_en: 'Which reason fits "it is worth keeping the beach clean"?'
+  choices:
+  - {he: כי החוף ארוך ויש בו הרבה חול, en: Because the beach is long and has a lot of sand}
+  - {he: כי החול צהוב ונעים לצפייה בקיץ, en: Because the sand is yellow and pleasant to look at}
+  - {he: כי זבל פוגע בחיות הים ובאנשים, en: Because litter harms sea animals and people}
+  answer: 2
+  explanation_he: הנימוק מסביר מה הנזק של זבל. שני האחרים נכונים אך אינם קשורים לטענה.
+  explanation_en: The reason explains the harm litter causes. The other two are true but not linked to the claim.
+  tags: [argument]
+- id: heb.argu.018
+  skill: hebrew.text.argument
+  kind: choice
+  grade: 9
+  difficulty: 1.0
+  prompt_he: 'איזו מסקנה מתאימה לטקסט שנתן שלושה נימוקים בעד תוספת של שעת קריאה בבית הספר?'
+  prompt_en: 'Which conclusion fits a text that gave three reasons for adding a reading hour at school?'
+  choices:
+  - {he: לכן כדאי להוסיף שעת קריאה שבועית, en: So a weekly reading hour is worth adding}
+  - {he: לכן כדאי לבטל את הספרייה בבית הספר, en: So the school library should be closed}
+  - {he: לכן אין צורך בספרים ובשעת קריאה, en: So there is no need for books or a reading hour}
+  answer: 0
+  explanation_he: 'מסקנה צריכה להתאים לטענה ולנימוקים, ולכן היא מסכמת ומחזקת את ההצעה.'
+  explanation_en: 'A conclusion must match the claim and reasons, summarizing and reinforcing the proposal.'
+  tags: [argument]
+- id: heb.argu.019
+  skill: hebrew.text.argument
+  kind: true_false
+  grade: 9
+  difficulty: -1.0
+  prompt_he: אפשר לבדוק עובדה ולהוכיח אם היא נכונה.
+  prompt_en: A fact can be checked and proved true.
+  answer: true
+  explanation_he: 'עובדה היא משהו שאפשר למדוד, לספור או לאמת. דעה היא עמדה אישית.'
+  explanation_en: 'A fact can be measured, counted or verified. An opinion is a personal stand.'
+  tags: [argument]
+- id: heb.argu.020
+  skill: hebrew.text.argument
+  kind: true_false
+  grade: 9
+  difficulty: 0.0
+  prompt_he: אפשר להוכיח דעה כנכונה בעזרת מדידה.
+  prompt_en: An opinion can be proved true by measurement.
+  answer: false
+  explanation_he: 'דעה היא עמדה אישית. אפשר לתמוך בה בנימוקים, אך לא למדוד אם היא נכונה.'
+  explanation_en: An opinion is a personal stand. It can be supported with reasons but not measured as true.
+  tags: [argument]
+- id: heb.argu.021
+  skill: hebrew.text.argument
+  kind: true_false
+  grade: 9
+  difficulty: -1.0
+  prompt_he: מספיק לכתוב טענה בלי נימוק כדי לשכנע.
+  prompt_en: It is enough to write a claim without a reason in order to persuade.
+  answer: false
+  explanation_he: בלי נימוק הקורא אינו יודע למה לקבל את הטענה. נימוק ודוגמה הם שמשכנעים.
+  explanation_en: Without a reason the reader does not know why to accept the claim. Reasons and examples persuade.
+  tags: [argument]
+- id: heb.argu.022
+  skill: hebrew.text.argument
+  kind: true_false
+  grade: 9
+  difficulty: 0.0
+  prompt_he: דוגמה טובה מחזקת את הנימוק.
+  prompt_en: A good example strengthens a reason.
+  answer: true
+  explanation_he: 'דוגמה מראה את הנימוק במציאות, וכך קל יותר להאמין לו.'
+  explanation_en: 'An example shows the reason in reality, making it easier to believe.'
+  tags: [argument]
+- id: heb.argu.023
+  skill: hebrew.text.argument
+  kind: true_false
+  grade: 9
+  difficulty: 1.0
+  prompt_he: טענה נגדית תמיד מבטלת את הטענה שלי.
+  prompt_en: A counterclaim always cancels my claim.
+  answer: false
+  explanation_he: אפשר להשיב על טענה נגדית ולהראות שהנימוקים שלי חזקים ממנה.
+  explanation_en: We can answer a counterclaim and show my reasons are stronger.
+  tags: [argument]
+- id: heb.argu.024
+  skill: hebrew.text.argument
+  kind: true_false
+  grade: 9
+  difficulty: 1.5
+  prompt_he: 'המילה "תמיד" בטענה עלולה להפוך אותה להכללה שקל להפריך.'
+  prompt_en: 'The word "always" in a claim may turn it into an easily refuted generalization.'
+  answer: true
+  explanation_he: 'מספיק מקרה אחד חריג כדי להפריך משפט שאומר "תמיד" או "כל". ניסוח זהיר חזק יותר.'
+  explanation_en: 'One exception is enough to refute a statement with "always" or "all". Careful wording is stronger.'
+  tags: [argument]

@@ -1,4 +1,4 @@
-# Nagmon learning content - hebrew / vocab (grades 3-6): synonyms, homonyms, proverbs and idioms, figurative language, register
+# Nagmon learning content - hebrew / vocab (grades 3-8): synonyms, homonyms, proverbs and idioms, figurative language, register
 # Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
 # Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
 # Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
@@ -991,6 +991,22 @@ items:
   tags: [proverbs]
 - id: heb.proverb.024
   skill: hebrew.vocab.proverbs
+  kind: order
+  grade: 5
+  difficulty: 0.5
+  prompt_he: סדרו את המילים לניב המוכר.
+  prompt_en: Put the words in order to make the known idiom.
+  choices:
+  - {he: בחול, en: in the sand}
+  - {he: את, en: (object marker)}
+  - {he: קבר, en: buried}
+  - {he: הראש, en: the head}
+  answer: [2, 1, 3, 0]
+  explanation_he: 'הניב הוא "קבר את הראש בחול". כשמסדרים אותו נכון, אפשר לחשוב מה הוא אומר על מי שמתעלם מבעיה.'
+  explanation_en: 'The idiom is "buried his head in the sand". Arranged correctly, it tells us about someone who ignores a problem.'
+  tags: [proverbs]
+- id: heb.proverb.025
+  skill: hebrew.vocab.proverbs
   kind: true_false
   grade: 5
   difficulty: -1.0
@@ -1000,7 +1016,7 @@ items:
   explanation_he: כאן לא מדובר בפציעה. שוברים את הראש כשחושבים הרבה.
   explanation_en: 'It is not about an injury. You "break your head" when you think hard.'
   tags: [proverbs]
-- id: heb.proverb.025
+- id: heb.proverb.026
   skill: hebrew.vocab.proverbs
   kind: true_false
   grade: 5
@@ -1011,7 +1027,7 @@ items:
   explanation_he: 'ניב הוא צירוף שמשמעותו אינה סכום המילים. "ירד לו האסימון" אינו קשור לאסימון ממש.'
   explanation_en: An idiom is a phrase whose meaning is not the sum of its words.
   tags: [proverbs]
-- id: heb.proverb.026
+- id: heb.proverb.027
   skill: hebrew.vocab.proverbs
   kind: true_false
   grade: 5
@@ -1022,7 +1038,7 @@ items:
   explanation_he: 'זהב הוא דבר יקר, ולכן הניב מדבר על לב יקר: טוב ונדיב.'
   explanation_en: 'Gold is precious, so the idiom speaks of a precious heart: kind and generous.'
   tags: [proverbs]
-- id: heb.proverb.027
+- id: heb.proverb.028
   skill: hebrew.vocab.proverbs
   kind: true_false
   grade: 5
@@ -1033,7 +1049,7 @@ items:
   explanation_he: הפתגם משתמש במים כדי לדבר על אנשים. אדם שקט יכול להיות מלא מחשבות.
   explanation_en: The saying uses water to speak about people. A quiet person can be full of thoughts.
   tags: [proverbs]
-- id: heb.proverb.028
+- id: heb.proverb.029
   skill: hebrew.vocab.proverbs
   kind: true_false
   grade: 5
@@ -1053,9 +1069,9 @@ items:
   prompt_en: 'What device is in the sentence? "The boy ran like lightning."'
   choices:
   - {he: האנשה, en: personification}
-  - {he: דימוי, en: simile}
   - {he: הפלגה, en: hyperbole}
-  answer: 1
+  - {he: דימוי, en: simile}
+  answer: 2
   explanation_he: 'משווים בין הילד לברק בעזרת המילה "כמו". זה דימוי.'
   explanation_en: 'The boy is compared to lightning using "like". That is a simile.'
   tags: [figurative]
@@ -1067,10 +1083,10 @@ items:
   prompt_he: 'איזה אמצעי יש במשפט? "הרוח לחשה בין העצים."'
   prompt_en: 'What device is in the sentence? "The wind whispered among the trees."'
   choices:
-  - {he: האנשה, en: personification}
   - {he: דימוי, en: simile}
+  - {he: האנשה, en: personification}
   - {he: הפלגה, en: hyperbole}
-  answer: 0
+  answer: 1
   explanation_he: 'לחישה היא משהו שאנשים עושים. הרוח "לוחשת", ולכן יש כאן האנשה.'
   explanation_en: 'Whispering is something people do. The wind "whispers", so this is personification.'
   tags: [figurative]
@@ -1082,10 +1098,10 @@ items:
   prompt_he: 'איזה אמצעי יש במשפט? "אמרתי לך מיליון פעם לסדר את החדר!"'
   prompt_en: 'What device is in the sentence? "I told you a million times to tidy your room!"'
   choices:
+  - {he: הפלגה, en: hyperbole}
   - {he: דימוי, en: simile}
   - {he: האנשה, en: personification}
-  - {he: הפלגה, en: hyperbole}
-  answer: 2
+  answer: 0
   explanation_he: לא נאמר מיליון פעם באמת. המספר מוגזם כדי להדגיש. זו הפלגה.
   explanation_en: It was not really said a million times. The number is exaggerated for emphasis. That is hyperbole.
   tags: [figurative]
@@ -1097,10 +1113,10 @@ items:
   prompt_he: 'איזה אמצעי יש במשפט? "השמש חייכה אלינו מהשמיים."'
   prompt_en: 'What device is in the sentence? "The sun smiled at us from the sky."'
   choices:
+  - {he: האנשה, en: personification}
   - {he: דימוי, en: simile}
   - {he: הפלגה, en: hyperbole}
-  - {he: האנשה, en: personification}
-  answer: 2
+  answer: 0
   explanation_he: 'חיוך הוא של אדם, אבל כאן הוא מיוחס לשמש. זו האנשה.'
   explanation_en: A smile belongs to a person but here it is given to the sun. That is personification.
   tags: [figurative]
@@ -1127,10 +1143,10 @@ items:
   prompt_he: 'איזה אמצעי יש במשפט? "יש לי אלף דברים לעשות היום."'
   prompt_en: 'What device is in the sentence? "I have a thousand things to do today."'
   choices:
-  - {he: הפלגה, en: hyperbole}
   - {he: דימוי, en: simile}
   - {he: האנשה, en: personification}
-  answer: 0
+  - {he: הפלגה, en: hyperbole}
+  answer: 2
   explanation_he: 'אלף הוא מספר מוגזם, שמראה שיש הרבה עבודה. זו הפלגה.'
   explanation_en: A thousand is an exaggeration that shows there is a lot of work. That is hyperbole.
   tags: [figurative]
@@ -1203,9 +1219,9 @@ items:
   prompt_en: 'What device is in the sentence? "The class was as noisy as a beehive."'
   choices:
   - {he: האנשה, en: personification}
-  - {he: דימוי, en: simile}
   - {he: הפלגה, en: hyperbole}
-  answer: 1
+  - {he: דימוי, en: simile}
+  answer: 2
   explanation_he: 'משווים בין הכיתה לכוורת מזמזמת, בעזרת "כמו". דימוי.'
   explanation_en: 'The class is compared to a buzzing hive using "like". A simile.'
   tags: [figurative]
@@ -1218,9 +1234,9 @@ items:
   prompt_en: 'Which sentence contains a simile?'
   choices:
   - {he: הצב צעד מאוד לאט, en: The turtle walked very slowly}
-  - {he: השעון צעק לי שמאחר, en: The clock screamed that I am late}
   - {he: הוא איטי כמו צב, en: He is as slow as a turtle}
-  answer: 2
+  - {he: השעון צעק לי שמאחר, en: The clock screamed that I am late}
+  answer: 1
   explanation_he: 'רק במשפט הראשון יש השוואה בעזרת "כמו". במשפט השלישי השעון "צועק", וזו האנשה.'
   explanation_en: 'Only the first compares with "like". In the third the clock "screams", which is personification.'
   tags: [figurative]
@@ -1233,9 +1249,9 @@ items:
   prompt_en: 'What does the simile "light as a feather" say?'
   choices:
   - {he: צבעוני מאוד, en: Very colorful}
-  - {he: עף בשמיים, en: Flies in the sky}
   - {he: קל מאוד, en: Very light}
-  answer: 2
+  - {he: עף בשמיים, en: Flies in the sky}
+  answer: 1
   explanation_he: 'נוצה קלה מאוד, ולכן מי שקל כמוה כמעט לא שוקל כלום.'
   explanation_en: 'A feather is very light, so something "light as a feather" weighs almost nothing.'
   tags: [figurative]
@@ -1247,10 +1263,10 @@ items:
   prompt_he: 'מה אומר הדימוי "שקט כמו דג"?'
   prompt_en: 'What does the simile "quiet as a fish" say?'
   choices:
-  - {he: מסריח מאוד, en: Very smelly}
   - {he: 'שקט מאוד, בלי קול', en: 'Very quiet, without a sound'}
+  - {he: מסריח מאוד, en: Very smelly}
   - {he: שוחה מהר, en: Swims fast}
-  answer: 1
+  answer: 0
   explanation_he: 'דגים לא משמיעים קול, ולכן שקט כמו דג פירושו שאינו משמיע שום קול.'
   explanation_en: 'Fish make no sound, so "quiet as a fish" means making no sound at all.'
   tags: [figurative]
@@ -1262,10 +1278,10 @@ items:
   prompt_he: 'מה ההבדל בין דימוי להאנשה?'
   prompt_en: 'What is the difference between a simile and personification?'
   choices:
-  - {he: 'דימוי משווה, והאנשה מתארת דבר כאדם', en: A simile compares; personification describes a thing as a person}
   - {he: 'דימוי הוא מספר גדול, והאנשה מספר קטן', en: 'A simile is a large number, personification a small one'}
   - {he: אין הבדל, en: There is no difference}
-  answer: 0
+  - {he: 'דימוי משווה, והאנשה מתארת דבר כאדם', en: A simile compares; personification makes it human}
+  answer: 2
   explanation_he: 'אפשר לזהות דימוי לפי "כמו". בהאנשה משהו שאינו אדם מתנהג כמו אדם, למשל רוח שלוחשת.'
   explanation_en: 'A simile can be spotted by "like". In personification a non-human acts like a person, e.g. a whispering wind.'
   tags: [figurative]
@@ -1277,10 +1293,10 @@ items:
   prompt_he: 'השלימו דימוי: "חזק כמו ___".'
   prompt_en: 'Complete the simile: "strong as a ___".'
   choices:
-  - {he: אריה, en: lion}
   - {he: נוצה, en: feather}
   - {he: ענן, en: cloud}
-  answer: 0
+  - {he: אריה, en: lion}
+  answer: 2
   explanation_he: 'אריה הוא חיה חזקה, ולכן מתאימה לדימוי של חוזק. נוצה וענן קלים.'
   explanation_en: 'A lion is a strong animal, so it suits a simile of strength. A feather and a cloud are light.'
   tags: [figurative]
@@ -1292,10 +1308,10 @@ items:
   prompt_he: 'השלימו דימוי: "איטי כמו ___".'
   prompt_en: 'Complete the simile: "slow as a ___".'
   choices:
+  - {he: צב, en: turtle}
   - {he: ברק, en: lightning}
   - {he: חץ, en: arrow}
-  - {he: צב, en: turtle}
-  answer: 2
+  answer: 0
   explanation_he: 'צב הולך לאט, ולכן הוא מתאים לדימוי של איטיות. ברק וחץ מהירים.'
   explanation_en: 'A turtle walks slowly, so it fits a simile of slowness. Lightning and an arrow are fast.'
   tags: [figurative]
@@ -1323,9 +1339,9 @@ items:
   prompt_en: 'What does "I have butterflies in my stomach" mean?'
   choices:
   - {he: אני רעב מאוד, en: I am very hungry}
-  - {he: אני מתרגש וקצת חושש, en: I am excited and a little nervous}
   - {he: אני אוהב פרפרים, en: I love butterflies}
-  answer: 1
+  - {he: אני מתרגש וקצת חושש, en: I am excited and a little nervous}
+  answer: 2
   explanation_he: אין פרפרים באמת. זו דרך ציורית לתאר תחושה של התרגשות לפני אירוע חשוב.
   explanation_en: There are no real butterflies. It is a picturesque way to describe excitement before an important event.
   tags: [figurative]
@@ -1337,10 +1353,10 @@ items:
   prompt_he: 'איזה משפט אינו הפלגה?'
   prompt_en: 'Which sentence is not a hyperbole?'
   choices:
-  - {he: אכלתי שתי פרוסות לחם, en: I ate two slices of bread}
   - {he: אכלתי כל כך הרבה שאתפוצץ, en: I ate so much I will explode}
+  - {he: אכלתי שתי פרוסות לחם, en: I ate two slices of bread}
   - {he: הרעב אכל אותי מבפנים, en: Hunger ate me from inside}
-  answer: 0
+  answer: 1
   explanation_he: המשפט הראשון מדווח עובדה בלי להגזים. בשני האחרים יש גוזמה או ציור מילולי.
   explanation_en: The first states a fact without exaggeration. The others exaggerate or use pictorial language.
   tags: [figurative]
@@ -1399,3 +1415,343 @@ items:
   explanation_he: 'שתיקה היא של בני אדם. כאן היא מתארת ים רגוע, ולכן זו האנשה.'
   explanation_en: 'Silence is human. Here it describes a calm sea, so it is personification.'
   tags: [figurative]
+- id: heb.register.001
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'איזה משפט כתוב בלשון רשמית?'
+  prompt_en: 'Which sentence is written in a formal register?'
+  choices:
+  - {he: בא לי לקבוע משהו בשבוע הבא., en: I feel like setting something next week.}
+  - {he: 'נפגש מתישהו, יאללה?', en: 'We''ll meet sometime, okay?'}
+  - {he: אבקש לקבוע פגישה בשבוע הבא., en: I request to set a meeting next week.}
+  answer: 2
+  explanation_he: 'בלשון רשמית משתמשים בניסוח מנומס ומדויק, כמו "אבקש". ניסוחי דיבור כמו "בא לי" ו"יאללה" מתאימים לשיחה בין חברים.'
+  explanation_en: 'Formal language uses polite, exact wording like "I request". Spoken wording like "I feel like" fits chatting with friends.'
+  tags: [register]
+- id: heb.register.002
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'למי מתאים לכתוב "היי, מה נשמע?"'
+  prompt_en: 'To whom would it suit to write "Hi, what''s up?"'
+  choices:
+  - {he: לחבר קרוב, en: To a close friend}
+  - {he: למנהלת בית הספר, en: To the school principal}
+  - {he: לראש העיר, en: To the mayor}
+  answer: 0
+  explanation_he: 'ברכה כזו היא לשון דיבור, ומתאימה למי שמכירים היטב. לאנשים רשמיים כותבים "שלום רב" או "שלום וברכה".'
+  explanation_en: 'Such a greeting is colloquial and suits someone you know well. For official persons we write "shalom rav".'
+  tags: [register]
+- id: heb.register.003
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'באיזה מצב נכתוב בלשון רשמית?'
+  prompt_en: 'In which situation would we write in formal language?'
+  choices:
+  - {he: בהודעה קצרה לחבר טוב שלי, en: In a short message to a good friend of mine}
+  - {he: במכתב למנהל בית הספר, en: In a letter to the school principal}
+  - {he: בשיחה עם חברים במגרש הכדורגל, en: In a chat with friends on the football field}
+  answer: 1
+  explanation_he: 'כשפונים למי שאינו חבר קרוב, ובמיוחד לגורם רשמי, מקפידים על לשון מכובדת.'
+  explanation_en: 'When addressing someone who is not a close friend, especially an official, we keep a respectful register.'
+  tags: [register]
+- id: heb.register.004
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 0.0
+  prompt_he: 'איזו פתיחה מתאימה למכתב למנהלת?'
+  prompt_en: 'Which opening fits a letter to the principal?'
+  choices:
+  - {he: 'היי כהן, מה קורה אצלך היום?', en: 'Hey Cohen, what''s going on with you today?'}
+  - {he: 'שלום וברכה, גברת כהן', en: 'Hello and greetings, Mrs. Cohen'}
+  - {he: 'אהלן וסהלן, מה העניינים אצלכם?', en: 'Welcome, how are things with you?'}
+  answer: 1
+  explanation_he: פנייה מכובדת ותואר לפני השם הם סימן ללשון רשמית.
+  explanation_en: A respectful address and a title before the name show a formal register.
+  tags: [register]
+- id: heb.register.005
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 0.0
+  prompt_he: 'איזה ביטוי מתאים לסיום מכתב רשמי?'
+  prompt_en: 'Which phrase fits the end of a formal letter?'
+  choices:
+  - {he: בכבוד רב, en: Respectfully}
+  - {he: 'נדבר, ביי', en: 'Talk later, bye'}
+  - {he: 'סבבה, חלאס', en: 'Cool, enough'}
+  answer: 0
+  explanation_he: '"בכבוד רב" הוא ניסוח מקובל לסיום מכתב רשמי. שני האחרים הם לשון דיבור.'
+  explanation_en: '"With great respect" is the standard way to end a formal letter. The others are spoken language.'
+  tags: [register]
+- id: heb.register.006
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'איזו מילה היא סלנג?'
+  prompt_en: 'Which word is slang?'
+  choices:
+  - {he: נהדר, en: wonderful}
+  - {he: מצוין, en: excellent}
+  - {he: אחלה, en: great (slang)}
+  answer: 2
+  explanation_he: 'סלנג הוא לשון חברים שאינה מופיעה בטקסט רשמי. "נהדר" ו"מצוין" מתאימים גם בכתב רשמי.'
+  explanation_en: 'Slang is friends'' language that does not appear in formal texts. "Wonderful" and "excellent" suit formal writing too.'
+  tags: [register]
+- id: heb.register.007
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'איזו מילה היא לשון גבוהה, מתאימה לטקסט כתוב?'
+  prompt_en: 'Which word is elevated, suitable for written text?'
+  choices:
+  - {he: אולם, en: however}
+  - {he: אבל, en: but}
+  - {he: אז, en: so}
+  answer: 0
+  explanation_he: '"אולם" היא מילת קישור גבוהה לניגוד, ומופיעה בעיקר בכתב. "אבל" היא הצורה היומיומית.'
+  explanation_en: '"Ulam" is an elevated contrast connector, mostly in writing. "Aval" is the everyday form.'
+  tags: [register]
+- id: heb.register.008
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'איזו מילת קישור גבוהה מתאימה במקום "אבל" בכתיבה רשמית?'
+  prompt_en: 'Which elevated connector can replace "but" in formal writing?'
+  choices:
+  - {he: כי, en: because}
+  - {he: גם, en: also}
+  - {he: אולם, en: however}
+  answer: 2
+  explanation_he: 'אולם משמשת בכתיבה במקום אבל. "כי" מציינת סיבה, ו"גם" מוסיפה.'
+  explanation_en: '"Ulam" replaces "aval" in writing. "Ki" marks a reason and "gam" adds.'
+  tags: [register]
+- id: heb.register.009
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איזו מילה גבוהה מתאימה במקום "לכן"?'
+  prompt_en: 'Which elevated word can replace "therefore"?'
+  choices:
+  - {he: אפילו, en: even}
+  - {he: לפיכך, en: accordingly}
+  - {he: בעצם, en: actually}
+  answer: 1
+  explanation_he: 'לפיכך היא צורה כתובה וגבוהה של "לכן": מראה תוצאה.'
+  explanation_en: '"Lefichach" is a written, elevated form of "lachen": it shows a result.'
+  tags: [register]
+- id: heb.register.010
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איך נאמר בלשון תקנית "לא בא לי"?'
+  prompt_en: 'How would we say "I don''t feel like it" in standard language?'
+  choices:
+  - {he: אינני רוצה, en: I do not want to}
+  - {he: 'חלאס, די', en: Enough already}
+  - {he: לא מתחשק בקטע, en: Not feeling it}
+  answer: 0
+  explanation_he: '"אינני רוצה" הוא ניסוח תקני ומנומס, בלי ביטויי דיבור.'
+  explanation_en: '"Eini rotzeh" is a standard, polite wording, without spoken expressions.'
+  tags: [register]
+- id: heb.register.011
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איך נאמר בלשון רשמית "תשלחו לי מייל"?'
+  prompt_en: 'How would we say "send me an email" formally?'
+  choices:
+  - {he: שלחו לי כבר מייל עם הפרטים, en: Send me an email with the details already}
+  - {he: אנא שלחו אליי דואר אלקטרוני, en: Please send me an electronic mail}
+  - {he: תזרקו לי מייל כשיש לכם רגע, en: Toss me an email when you have a moment}
+  answer: 1
+  explanation_he: 'בלשון רשמית מוסיפים "אנא" ומשתמשים בביטוי מלא, בלי מילות דיבור.'
+  explanation_en: 'In formal language we add "please" and use a full phrase, without colloquialisms.'
+  tags: [register]
+- id: heb.register.012
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'מה הכי מנומס לומר למורה?'
+  prompt_en: 'What is the most polite thing to say to a teacher?'
+  choices:
+  - {he: תן לי לצאת לשירותים עכשיו, en: Let me go to the restroom now}
+  - {he: 'אני יוצא לשירותים, ביי', en: 'I''m going to the restroom, bye'}
+  - {he: 'אפשר בבקשה לצאת לשירותים?', en: 'May I please go to the restroom?'}
+  answer: 2
+  explanation_he: 'בקשה מנומסת כוללת "אפשר" ו"בבקשה", בלי פקודה.'
+  explanation_en: 'A polite request includes "may" and "please", not a command.'
+  tags: [register]
+- id: heb.register.013
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'מה הרישום של המשפט "הנני מתכבד להזמין אתכם לטקס"?'
+  prompt_en: 'What register is "I have the honor to invite you to the ceremony"?'
+  choices:
+  - {he: גבוה ורשמי, en: Elevated and formal}
+  - {he: לשון דיבור, en: Colloquial}
+  - {he: סלנג של בני נוער, en: Teen slang}
+  answer: 0
+  explanation_he: 'המילים "הנני" ו"מתכבד" שייכות ללשון גבוהה, ומתאימות להזמנות רשמיות.'
+  explanation_en: '"Hineni" and "mitchabed" belong to elevated language and suit formal invitations.'
+  tags: [register]
+- id: heb.register.014
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איזו מילה מתאימה ביותר לנאום של מנהלת בטקס?'
+  prompt_en: 'Which word fits best in a principal''s ceremony speech?'
+  choices:
+  - {he: אחים, en: bros}
+  - {he: נכבדים, en: distinguished guests}
+  - {he: חבר׳ה, en: folks}
+  answer: 1
+  explanation_he: 'בטקס פונים לקהל בכבוד, ולכן המילה "נכבדים" מתאימה. שתי האחרות הן לשון דיבור.'
+  explanation_en: 'In a ceremony the audience is addressed with respect, so "distinguished" fits.'
+  tags: [register]
+- id: heb.register.015
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'איזה משפט כתוב בלשון דיבור?'
+  prompt_en: 'Which sentence is in colloquial language?'
+  choices:
+  - {he: אני מעדיף גלידה על פני עוגה, en: I prefer ice cream to cake}
+  - {he: הגלידה הובאה אל השולחן, en: The ice cream was brought to the table}
+  - {he: אני מת על הגלידה הזאת, en: 'I''m dying for this ice cream'}
+  answer: 2
+  explanation_he: '"מת על" הוא ביטוי של דיבור ולא להבנה מילולית. בשני האחרים הניסוח תקני.'
+  explanation_en: '"Mat al" is a spoken expression, not literal. The others are standard.'
+  tags: [register]
+- id: heb.register.016
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 1.5
+  prompt_he: 'מה פירוש "חבל על הזמן" בלשון דיבור?'
+  prompt_en: 'What does "chaval al hazman" mean in spoken language?'
+  choices:
+  - {he: זה בזבוז זמן גדול מאוד, en: It is a very big waste of time}
+  - {he: השעון התקלקל באמצע השיעור, en: The clock broke in the middle of the lesson}
+  - {he: 'מצוין, ברמה גבוהה מאוד', en: 'Excellent, at a very high level'}
+  answer: 2
+  explanation_he: 'כאן הביטוי משבח: משהו כל כך טוב שחבל על הזמן שמדברים על אחר. לפעמים הביטוי הפוך, כך שההקשר חשוב.'
+  explanation_en: 'Here the expression praises. Sometimes the meaning is opposite, so context matters.'
+  tags: [register]
+- id: heb.register.017
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 0.0
+  prompt_he: 'באיזה מצב נשתמש בסלנג?'
+  prompt_en: 'In which situation would we use slang?'
+  choices:
+  - {he: בנאום בטקס יום העצמאות, en: In a speech at the Independence Day ceremony}
+  - {he: בשיחה עם חברים בהפסקה, en: In a chat with friends at break}
+  - {he: בעבודה שהגשנו למורה, en: In a paper handed to the teacher}
+  answer: 1
+  explanation_he: סלנג מתאים לשיחה בין חברים. בטקס ובעבודה כתובה צריך לשון מכובדת.
+  explanation_en: 'Slang fits friends'' chat. A ceremony and a written paper call for a respectful register.'
+  tags: [register]
+- id: heb.register.018
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 1.0
+  prompt_he: 'איזה משפט מתאים לעבודה כתובה בבית הספר?'
+  prompt_en: 'Which sentence fits a written school paper?'
+  choices:
+  - {he: מחקרים מראים שהשינה משפרת ריכוז., en: Studies show that sleep improves concentration.}
+  - {he: 'וואלה, שינה זה הכי חשוב בעולם.', en: 'Wow, sleep is the most important thing in the world.'}
+  - {he: 'ישנתי טוב, אז הרגשתי אחלה בבוקר.', en: 'I slept well, so I felt great in the morning.'}
+  answer: 0
+  explanation_he: 'בעבודה כותבים בלשון ענייני ותקנית, בלי מילים כמו "וואלה" ו"אחלה".'
+  explanation_en: 'In a paper we write in an objective, standard register, without words like "wallah" and "achla".'
+  tags: [register]
+- id: heb.register.019
+  skill: hebrew.vocab.register
+  kind: true_false
+  grade: 8
+  difficulty: -1.0
+  prompt_he: לשון רשמית מתאימה לשיחה עם חברים בהפסקה.
+  prompt_en: Formal language suits a chat with friends at break.
+  answer: false
+  explanation_he: בין חברים מדברים בלשון חופשית. לשון רשמית שמורה לאירועים ומכתבים רשמיים.
+  explanation_en: Between friends we speak freely. Formal language is kept for events and official letters.
+  tags: [register]
+- id: heb.register.020
+  skill: hebrew.vocab.register
+  kind: true_false
+  grade: 8
+  difficulty: 0.0
+  prompt_he: סלנג משתנה עם הזמן.
+  prompt_en: Slang changes over time.
+  answer: true
+  explanation_he: מילות סלנג נכנסות לשימוש ויוצאות ממנו. מה שנשמע מגניב לפני שלושים שנה אינו בהכרח מגניב היום.
+  explanation_en: Slang words come into and out of use. What sounded cool thirty years ago is not necessarily cool today.
+  tags: [register]
+- id: heb.register.021
+  skill: hebrew.vocab.register
+  kind: true_false
+  grade: 8
+  difficulty: -1.0
+  prompt_he: 'אפשר לכתוב "וואלה אחלה" במכתב למנהלת.'
+  prompt_en: 'We can write "wallah achla" in a letter to the principal.'
+  answer: false
+  explanation_he: 'אלה מילים של סלנג, ולכן אינן מתאימות למכתב רשמי.'
+  explanation_en: 'These are slang words, so they do not suit a formal letter.'
+  tags: [register]
+- id: heb.register.022
+  skill: hebrew.vocab.register
+  kind: true_false
+  grade: 8
+  difficulty: 0.5
+  prompt_he: 'אדם יכול לדבר בכמה רישומים שונים, לפי מי ששומע.'
+  prompt_en: 'A person can speak in several registers, depending on who is listening.'
+  answer: true
+  explanation_he: מבקרים בכיתה ומדברים אחרת מאשר עם חברים. להתאים את השפה לקהל זה סימן לשליטה בלשון.
+  explanation_en: We speak differently in class than with friends. Matching language to the audience shows command of language.
+  tags: [register]
+- id: heb.register.023
+  skill: hebrew.vocab.register
+  kind: true_false
+  grade: 8
+  difficulty: 1.0
+  prompt_he: '"לפיכך" ו"לכן" משמשות באותו רישום, ללא הבדל.'
+  prompt_en: '"Lefichach" and "lachen" are used in the same register, with no difference.'
+  answer: false
+  explanation_he: 'לפיכך גבוהה ומופיעה בעיקר בכתב, ואילו לכן שגורה בדיבור וגם בכתב.'
+  explanation_en: '"Lefichach" is elevated and mostly written, while "lachen" is common in speech and writing.'
+  tags: [register]
+- id: heb.register.024
+  skill: hebrew.vocab.register
+  kind: choice
+  grade: 8
+  difficulty: 1.5
+  prompt_he: 'איזה משפט מכיל ביטוי שאינו מתאים לטקסט רשמי?'
+  prompt_en: 'Which sentence has an expression that does not suit a formal text?'
+  choices:
+  - {he: הישיבה התקיימה בשעה שמונה, en: The meeting took place at eight}
+  - {he: הישיבה הייתה פשוט בקטע, en: 'The meeting was simply "in the zone"'}
+  - {he: הישיבה נמשכה שעתיים, en: The meeting lasted two hours}
+  answer: 1
+  explanation_he: 'הביטוי "בקטע" אינו תקני, והוא לא מתאים לדוח. שני המשפטים האחרים ענייניים.'
+  explanation_en: 'The expression "baketa" is not standard and does not suit a report. The other sentences are factual.'
+  tags: [register]

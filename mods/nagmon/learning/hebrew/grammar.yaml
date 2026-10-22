@@ -1764,16 +1764,32 @@ items:
   tags: [subject_predicate]
 - id: heb.subj.022
   skill: hebrew.grammar.subject_predicate
+  kind: order
+  grade: 4
+  difficulty: 0.0
+  prompt_he: סדרו את המילים למשפט שיש בו נושא ונשוא.
+  prompt_en: Put the words in order to make a sentence with a subject and predicate.
+  choices:
+  - {he: הילדה, en: the girl}
+  - {he: ספר, en: a book}
+  - {he: קראה, en: read}
+  - {he: מעניין, en: interesting}
+  answer: [0, 2, 1, 3]
+  explanation_he: 'הנושא בא ראשון (הילדה), אחריו הנשוא (קראה ספר מעניין). שם התואר בא אחרי שם העצם שהוא מתאר.'
+  explanation_en: 'The subject comes first (the girl), then the predicate (read an interesting book). The adjective follows its noun.'
+  tags: [subject_predicate]
+- id: heb.subj.023
+  skill: hebrew.grammar.subject_predicate
   kind: choice
   grade: 4
   difficulty: 1.5
   prompt_he: 'מה הנושא במשפט "מעל העץ עפה ציפור"?'
   prompt_en: 'What is the subject of "Above the tree flew a bird"?'
   choices:
-  - {he: ציפור, en: a bird}
   - {he: מעל העץ, en: above the tree}
   - {he: עפה, en: flew}
-  answer: 0
+  - {he: ציפור, en: a bird}
+  answer: 2
   explanation_he: 'מי עפה? ציפור. היא הנושא, והמילים "מעל העץ" מספרות איפה.'
   explanation_en: 'Who flew? A bird. It is the subject, and "above the tree" says where.'
   tags: [subject_predicate]
@@ -1785,10 +1801,10 @@ items:
   prompt_he: 'מהו השורש של המילה "כתבתי"?'
   prompt_en: 'What is the root of the word "כתבתי"?'
   choices:
-  - {he: כ-ת-י, en: כ-ת-י}
   - {he: כ-ת-ב, en: כ-ת-ב}
+  - {he: כ-ת-י, en: כ-ת-י}
   - {he: ת-ב-י, en: ת-ב-י}
-  answer: 1
+  answer: 0
   explanation_he: 'השורש הוא האותיות שנשארות בכל המילים מהמשפחה: כותב, מכתב, כתובת. הסוף "תי" מסמן "אני".'
   explanation_en: 'The root is the letters that stay in all words of the family: writes, letter, address. The ending "-ti" marks "I".'
   tags: [roots]
@@ -1815,10 +1831,10 @@ items:
   prompt_he: 'מהו השורש של המילה "אכלנו"?'
   prompt_en: 'What is the root of the word "אכלנו"?'
   choices:
-  - {he: א-כ-ל, en: א-כ-ל}
   - {he: כ-ל-נ, en: כ-ל-נ}
+  - {he: א-כ-ל, en: א-כ-ל}
   - {he: א-ל-נ, en: א-ל-נ}
-  answer: 0
+  answer: 1
   explanation_he: 'אוכל, מאכל ואכילה חולקים את האותיות א-כ-ל. הסוף "נו" אינו חלק מהשורש.'
   explanation_en: 'Food, dish and eating share the letters a-ch-l. The ending "-nu" is not part of the root.'
   tags: [roots]
@@ -1831,9 +1847,9 @@ items:
   prompt_en: 'What is the root of the word "מכתב"?'
   choices:
   - {he: מ-כ-ת, en: מ-כ-ת}
-  - {he: מ-ת-ב, en: מ-ת-ב}
   - {he: כ-ת-ב, en: כ-ת-ב}
-  answer: 2
+  - {he: מ-ת-ב, en: מ-ת-ב}
+  answer: 1
   explanation_he: 'האות מ בהתחלה היא תוספת שיוצרת שם עצם. השורש הוא כ-ת-ב, כמו בכתב וכותב.'
   explanation_en: 'The initial "m" is an addition that forms a noun. The root is k-t-v, as in "wrote" and "writes".'
   tags: [roots]
@@ -1845,10 +1861,10 @@ items:
   prompt_he: 'מהו השורש של המילה "משחק"?'
   prompt_en: 'What is the root of the word "משחק"?'
   choices:
-  - {he: מ-ש-ח, en: מ-ש-ח}
   - {he: ש-ח-ק, en: ש-ח-ק}
+  - {he: מ-ש-ח, en: מ-ש-ח}
   - {he: מ-ח-ק, en: מ-ח-ק}
-  answer: 1
+  answer: 0
   explanation_he: 'האות מ בהתחלה אינה מהשורש. מוציאים אותה ונשארים עם ש-ח-ק, כמו בשחקן ושיחקנו.'
   explanation_en: 'The initial "m" is not from the root. Remove it and you get sh-ch-k, as in "player" and "we played".'
   tags: [roots]
@@ -1860,10 +1876,10 @@ items:
   prompt_he: 'מהו השורש של המילה "שמחה"?'
   prompt_en: 'What is the root of the word "שמחה"?'
   choices:
-  - {he: ש-מ-ח, en: ש-מ-ח}
   - {he: ש-מ-ה, en: ש-מ-ה}
   - {he: מ-ח-ה, en: מ-ח-ה}
-  answer: 0
+  - {he: ש-מ-ח, en: ש-מ-ח}
+  answer: 2
   explanation_he: 'שמח, משמח ושמחה באים כולם מאותן אותיות. הסוף "ה" רק מסמן נקבה.'
   explanation_en: 'Happy, gladdening and joy all come from the same letters. The ending "-ah" only marks feminine.'
   tags: [roots]
@@ -1875,10 +1891,10 @@ items:
   prompt_he: 'מהו השורש של המילה "מגדל"?'
   prompt_en: 'What is the root of the word "מגדל"?'
   choices:
-  - {he: ג-ד-ל, en: ג-ד-ל}
   - {he: מ-ג-ד, en: מ-ג-ד}
   - {he: מ-ד-ל, en: מ-ד-ל}
-  answer: 0
+  - {he: ג-ד-ל, en: ג-ד-ל}
+  answer: 2
   explanation_he: 'מגדל הוא משהו שגדל לגובה. השורש ג-ד-ל מופיע גם ב"גדול" וב"גדלנו".'
   explanation_en: 'A tower is something that grows tall. The root g-d-l also appears in "big" and "we grew".'
   tags: [roots]
@@ -1890,10 +1906,10 @@ items:
   prompt_he: 'מהו השורש של המילה "פתחתי"?'
   prompt_en: 'What is the root of the word "פתחתי"?'
   choices:
+  - {he: פ-ת-ח, en: פ-ת-ח}
   - {he: פ-ת-י, en: פ-ת-י}
   - {he: ת-ח-י, en: ת-ח-י}
-  - {he: פ-ת-ח, en: פ-ת-ח}
-  answer: 2
+  answer: 0
   explanation_he: 'פתח, מפתח ופתיחה הם מאותו שורש: פ-ת-ח. הסוף "תי" מסמן "אני".'
   explanation_en: 'Opening, key and opening all share the root p-t-ch. The ending "-ti" marks "I".'
   tags: [roots]
@@ -1920,10 +1936,10 @@ items:
   prompt_he: 'מהו השורש של המילה "קריאה"?'
   prompt_en: 'What is the root of the word "קריאה"?'
   choices:
-  - {he: ק-ר-י, en: ק-ר-י}
   - {he: ק-ר-א, en: ק-ר-א}
+  - {he: ק-ר-י, en: ק-ר-י}
   - {he: ר-י-א, en: ר-י-א}
-  answer: 1
+  answer: 0
   explanation_he: 'קריאה באה מהפועל לקרוא: קראתי, קורא. השורש הוא ק-ר-א.'
   explanation_en: '"Reading" comes from the verb "to read". The root is k-r-a.'
   tags: [roots]
@@ -1935,10 +1951,10 @@ items:
   prompt_he: 'מהו השורש של המילה "מחברת"?'
   prompt_en: 'What is the root of the word "מחברת"?'
   choices:
-  - {he: ח-ב-ר, en: ח-ב-ר}
   - {he: מ-ח-ב, en: מ-ח-ב}
   - {he: ב-ר-ת, en: ב-ר-ת}
-  answer: 0
+  - {he: ח-ב-ר, en: ח-ב-ר}
+  answer: 2
   explanation_he: 'מחברת היא חיבור של דפים, ולכן קרובה למילים חבר וחיבור. האות מ והסוף ת הם תוספות.'
   explanation_en: 'A notebook is pages joined together, so it is close to "friend" and "connection". The "m" and final "t" are additions.'
   tags: [roots]
@@ -1951,9 +1967,9 @@ items:
   prompt_en: 'What is the root of the word "ציור"?'
   choices:
   - {he: צ-ו-ר, en: צ-ו-ר}
-  - {he: י-ו-ר, en: י-ו-ר}
   - {he: צ-י-ר, en: צ-י-ר}
-  answer: 2
+  - {he: י-ו-ר, en: י-ו-ר}
+  answer: 1
   explanation_he: 'ציור וציירתי הם מאותו שורש: צ-י-ר. האות ו היא צליל שנוסף.'
   explanation_en: '"Drawing" and "I drew" share the root ts-y-r. The vav is just an added vowel sound.'
   tags: [roots]
@@ -1980,10 +1996,10 @@ items:
   prompt_he: 'מהו השורש של המילה "ריקוד"?'
   prompt_en: 'What is the root of the word "ריקוד"?'
   choices:
-  - {he: ר-ק-ד, en: ר-ק-ד}
   - {he: ר-י-ק, en: ר-י-ק}
+  - {he: ר-ק-ד, en: ר-ק-ד}
   - {he: י-ק-ד, en: י-ק-ד}
-  answer: 0
+  answer: 1
   explanation_he: רקדנית ורקדתי חולקות את ר-ק-ד. האות י נוספת רק במילה ריקוד.
   explanation_en: '"Dancer" and "I danced" share r-k-d. The "y" appears only in "dance".'
   tags: [roots]
@@ -1995,10 +2011,10 @@ items:
   prompt_he: 'מהו השורש של המילה "הדלקנו"?'
   prompt_en: 'What is the root of the word "הדלקנו"?'
   choices:
-  - {he: ה-ד-ל, en: ה-ד-ל}
   - {he: ד-ל-ק, en: ד-ל-ק}
+  - {he: ה-ד-ל, en: ה-ד-ל}
   - {he: ל-ק-נ, en: ל-ק-נ}
-  answer: 1
+  answer: 0
   explanation_he: 'דלק ודליקה קרובות. האות ה בהתחלה והסוף "נו" הם תוספות, ונשאר ד-ל-ק.'
   explanation_en: '"Fuel" and "blaze" are close. The initial "h" and ending "-nu" are additions, leaving d-l-k.'
   tags: [roots]
@@ -2010,10 +2026,10 @@ items:
   prompt_he: 'איזו מילה אינה מהשורש כ-ת-ב?'
   prompt_en: 'Which word is not from the root k-t-v?'
   choices:
-  - {he: כתר, en: crown}
   - {he: כתובת, en: address}
+  - {he: כתר, en: crown}
   - {he: מכתב, en: letter}
-  answer: 0
+  answer: 1
   explanation_he: 'כתובת ומכתב קשורות לכתיבה. כתר נראה דומה, אבל הוא מהשורש כ-ת-ר ופירושו כובע של מלך.'
   explanation_en: 'Address and letter relate to writing. "Keter" looks similar but is from k-t-r: a king''s crown.'
   tags: [roots]
@@ -2040,10 +2056,10 @@ items:
   prompt_he: 'איזו מילה אינה מהשורש ש-מ-ר?'
   prompt_en: 'Which word is not from the root sh-m-r?'
   choices:
-  - {he: שומר, en: guard}
   - {he: שמן, en: oil}
+  - {he: שומר, en: guard}
   - {he: משמר, en: watch}
-  answer: 1
+  answer: 0
   explanation_he: 'שומר ומשמר קשורות לשמירה. שמן הוא נוזל חלק, והשורש שלו ש-מ-ן.'
   explanation_en: Guard and watch relate to guarding. Oil is a smooth liquid; its root is sh-m-n.
   tags: [roots]
@@ -2055,10 +2071,10 @@ items:
   prompt_he: 'איזו מילה אינה מהשורש ג-ד-ל?'
   prompt_en: 'Which word is not from the root g-d-l?'
   choices:
+  - {he: גדי, en: kid (young goat)}
   - {he: גדול, en: big}
   - {he: מגדל, en: tower}
-  - {he: גדי, en: kid (young goat)}
-  answer: 2
+  answer: 0
   explanation_he: 'גדול ומגדל קשורות לגדילה. גדי הוא ילד של עז, והשורש שלו הוא ג-ד-י.'
   explanation_en: 'Big and tower relate to growth. A "gdi" is a young goat, with the root g-d-y.'
   tags: [roots]
@@ -2071,9 +2087,9 @@ items:
   prompt_en: 'Which word is not from the root sh-ch-k?'
   choices:
   - {he: שחקן, en: player}
-  - {he: שחור, en: black}
   - {he: משחק, en: game}
-  answer: 1
+  - {he: שחור, en: black}
+  answer: 2
   explanation_he: 'שחקן ומשחק קשורות למשחק. שחור הוא צבע, והוא נראה דומה בגלל האותיות בלבד.'
   explanation_en: Player and game relate to playing. Black is a color; it looks similar only because of the letters.
   tags: [roots]
@@ -2085,10 +2101,10 @@ items:
   prompt_he: 'איזו מילה אינה מהשורש ס-פ-ר?'
   prompt_en: 'Which word is not from the root s-f-r?'
   choices:
-  - {he: ספינה, en: ship}
   - {he: מספר, en: number}
+  - {he: ספינה, en: ship}
   - {he: ספרייה, en: library}
-  answer: 0
+  answer: 1
   explanation_he: 'מספר וספרייה קשורות לספר ולספירה. ספינה היא כלי שט, והשורש שלה ס-פ-נ.'
   explanation_en: 'Number and library relate to book and counting. A ship is a vessel, root s-f-n.'
   tags: [roots]
@@ -2115,10 +2131,10 @@ items:
   prompt_he: 'איזו מילה אינה מהשורש פ-ת-ח?'
   prompt_en: 'Which word is not from the root p-t-ch?'
   choices:
+  - {he: פתית, en: flake}
   - {he: מפתח, en: key}
   - {he: פתיחה, en: opening}
-  - {he: פתית, en: flake}
-  answer: 2
+  answer: 0
   explanation_he: 'מפתח ופתיחה קשורות לפתיחה. פתית, כמו פתית שלג, מגיעה מהשורש פ-ת-ת: פירורים קטנים.'
   explanation_en: 'Key and opening relate to opening. A flake, like a snowflake, is from p-t-t: tiny crumbs.'
   tags: [roots]
@@ -2130,10 +2146,10 @@ items:
   prompt_he: 'איזו מילה היא מהשורש ב-ש-ל?'
   prompt_en: 'Which word is from the root b-sh-l?'
   choices:
-  - {he: מבשל, en: cooks}
   - {he: בשר, en: meat}
   - {he: שביל, en: path}
-  answer: 0
+  - {he: מבשל, en: cooks}
+  answer: 2
   explanation_he: 'מבשל מגיע מבישול. בשר ושביל משתמשות באותן אותיות בסדר אחר, אבל השורשים שלהן שונים.'
   explanation_en: '"Mevashel" comes from cooking. Meat and path use similar letters, but other roots.'
   tags: [roots]
@@ -2145,10 +2161,10 @@ items:
   prompt_he: 'איזו מילה היא מהשורש ר-ק-ד?'
   prompt_en: 'Which word is from the root r-k-d?'
   choices:
-  - {he: רקדנית, en: dancer (f.)}
   - {he: רקע, en: background}
   - {he: קרקע, en: ground}
-  answer: 0
+  - {he: רקדנית, en: dancer (f.)}
+  answer: 2
   explanation_he: רקדנית היא מי שרוקדת. רקע וקרקע שייכות לשורשים אחרים.
   explanation_en: 'A dancer is someone who dances. "Background" and "ground" belong to other roots.'
   tags: [roots]
@@ -2161,9 +2177,9 @@ items:
   prompt_en: 'Which word is from the root ts-y-r?'
   choices:
   - {he: ציפור, en: bird}
-  - {he: צינור, en: pipe}
   - {he: צייר, en: painter}
-  answer: 2
+  - {he: צינור, en: pipe}
+  answer: 1
   explanation_he: 'צייר הוא מי שמצייר. ציפור וצינור מתחילות באותן אותיות, אבל השורשים שונים.'
   explanation_en: A painter is someone who draws. Bird and pipe begin the same but have different roots.
   tags: [roots]
@@ -2175,10 +2191,10 @@ items:
   prompt_he: 'כמה אותיות יש בדרך כלל בשורש?'
   prompt_en: 'How many letters does a root usually have?'
   choices:
-  - {he: שתיים, en: two}
   - {he: שלוש, en: three}
+  - {he: שתיים, en: two}
   - {he: חמש, en: five}
-  answer: 1
+  answer: 0
   explanation_he: 'רוב השורשים בעברית בנויים משלוש אותיות, כמו כ-ת-ב ו-ל-מ-ד.'
   explanation_en: 'Most Hebrew roots are built from three letters, like k-t-v and l-m-d.'
   tags: [roots]
@@ -2234,10 +2250,10 @@ items:
   prompt_he: 'מה אפשר לדעת על מילים מאותו שורש?'
   prompt_en: 'What can we know about words from the same root?'
   choices:
-  - {he: הן נשמעות בדיוק אותו דבר, en: They sound exactly alike}
   - {he: יש קשר בין המשמעויות שלהן, en: Their meanings are related}
+  - {he: הן נשמעות בדיוק אותו דבר, en: They sound exactly alike}
   - {he: הן תמיד באורך זהה, en: They are always the same length}
-  answer: 1
+  answer: 0
   explanation_he: 'מילים מאותו שורש קשורות ברעיון: כותב, מכתב וכתובת קשורות כולן לכתיבה.'
   explanation_en: 'Words from one root share an idea: writer, letter and address all relate to writing.'
   tags: [roots]
@@ -2249,10 +2265,10 @@ items:
   prompt_he: 'אילו אותיות נוספו למילה "מטבח" לעומת השורש ט-ב-ח?'
   prompt_en: 'Which letter was added in "mitbach" compared to the root t-b-ch?'
   choices:
-  - {he: מ, en: mem}
   - {he: ט, en: tet}
   - {he: ח, en: chet}
-  answer: 0
+  - {he: מ, en: mem}
+  answer: 2
   explanation_he: 'השורש ט-ב-ח נשאר במילה, והאות מ בהתחלה היא תוספת. ב"מטבח" מבשלים וטובחים אוכל.'
   explanation_en: 'The root t-b-ch stays in the word and the initial "m" is an addition.'
   tags: [roots]
@@ -2265,9 +2281,9 @@ items:
   prompt_en: 'What does the word "bagina" mean?'
   choices:
   - {he: אל הגינה, en: to the garden}
-  - {he: בתוך הגינה, en: in the garden}
   - {he: מהגינה, en: from the garden}
-  answer: 1
+  - {he: בתוך הגינה, en: in the garden}
+  answer: 2
   explanation_he: 'האות ב בתחילת המילה פירושה "בתוך". היא אות שימוש, ואינה חלק מהמילה גינה.'
   explanation_en: 'The letter bet at the start means "in". It is a prefix letter, not part of the word "garden".'
   tags: [affixes]
@@ -2279,10 +2295,10 @@ items:
   prompt_he: 'מה פירוש המילה "לגינה"?'
   prompt_en: 'What does the word "lagina" mean?'
   choices:
+  - {he: אל הגינה, en: to the garden}
   - {he: בתוך הגינה, en: in the garden}
   - {he: מהגינה, en: from the garden}
-  - {he: אל הגינה, en: to the garden}
-  answer: 2
+  answer: 0
   explanation_he: 'האות ל בתחילת המילה פירושה "אל", כמו הליכה אל מקום.'
   explanation_en: 'The letter lamed at the start means "to", like going to a place.'
   tags: [affixes]
@@ -2294,10 +2310,10 @@ items:
   prompt_he: 'מה פירוש המילה "מהגינה"?'
   prompt_en: 'What does the word "mehagina" mean?'
   choices:
-  - {he: מתוך הגינה, en: from the garden}
   - {he: אל הגינה, en: to the garden}
+  - {he: מתוך הגינה, en: from the garden}
   - {he: בתוך הגינה, en: in the garden}
-  answer: 0
+  answer: 1
   explanation_he: 'האות מ פירושה "מ..." (מן). מי שבא מהגינה יצא ממנה.'
   explanation_en: 'The letter mem means "from". Someone who comes "from the garden" left it.'
   tags: [affixes]
@@ -2310,9 +2326,9 @@ items:
   prompt_en: 'Which letter means "and" at the start of a word?'
   choices:
   - {he: ה, en: hey}
-  - {he: ו, en: vav}
   - {he: ש, en: shin}
-  answer: 1
+  - {he: ו, en: vav}
+  answer: 2
   explanation_he: 'האות ו מחברת בין מילים: "לחם וחמאה" פירושו לחם וגם חמאה.'
   explanation_en: 'The letter vav connects words: "bread and butter" means bread together with butter.'
   tags: [affixes]
@@ -2340,9 +2356,9 @@ items:
   prompt_en: 'How do you write "to the sea" in one word?'
   choices:
   - {he: בים, en: in the sea}
-  - {he: הים, en: the sea}
   - {he: לים, en: to the sea}
-  answer: 2
+  - {he: הים, en: the sea}
+  answer: 1
   explanation_he: 'ל פירושה "אל", והיא נדבקת למילה: לים.'
   explanation_en: 'Lamed means "to" and attaches to the word: "layam".'
   tags: [affixes]
@@ -2354,10 +2370,10 @@ items:
   prompt_he: 'איך כותבים במילה אחת "מן הבית"?'
   prompt_en: 'How do you write "from the house" in one word?'
   choices:
+  - {he: מהבית, en: from the house}
   - {he: לבית, en: to the house}
   - {he: בבית, en: in the house}
-  - {he: מהבית, en: from the house}
-  answer: 2
+  answer: 0
   explanation_he: 'האות מ מחליפה את "מן", ונדבקת למילה עם ה הידיעה: מהבית.'
   explanation_en: 'The letter mem replaces "min" and attaches with "ha": "mehabayit".'
   tags: [affixes]
@@ -2369,10 +2385,10 @@ items:
   prompt_he: 'מה פירוש האות ש בתחילת המילה "שאכלנו" במשפט "הלחם שאכלנו"?'
   prompt_en: 'What does the letter shin mean at the start of "sheachalnu" in "the bread that we ate"?'
   choices:
-  - {he: אשר, en: that}
   - {he: וגם, en: and}
+  - {he: אשר, en: that}
   - {he: אל, en: to}
-  answer: 0
+  answer: 1
   explanation_he: 'האות ש מחליפה את המילה "אשר" וקושרת בין חלקי המשפט: הלחם שאכלנו.'
   explanation_en: 'Shin replaces "asher" (that) and links parts of the sentence.'
   tags: [affixes]
@@ -2385,9 +2401,9 @@ items:
   prompt_en: 'What does the word "kedov" mean?'
   choices:
   - {he: בתוך דוב, en: inside a bear}
-  - {he: כמו דוב, en: like a bear}
   - {he: אל הדוב, en: to the bear}
-  answer: 1
+  - {he: כמו דוב, en: like a bear}
+  answer: 2
   explanation_he: 'האות כ בתחילת מילה פירושה "כמו": כדוב הוא "כמו דוב".'
   explanation_en: 'Kaf at the start of a word means "like": "kedov" is "like a bear".'
   tags: [affixes]
@@ -2444,10 +2460,10 @@ items:
   prompt_he: 'מה פירוש המילה "ספרנו"?'
   prompt_en: 'What does the word "sifrenu" mean?'
   choices:
-  - {he: הספר שלנו, en: our book}
   - {he: הספר שלי, en: my book}
+  - {he: הספר שלנו, en: our book}
   - {he: הספר שלהם, en: their book}
-  answer: 0
+  answer: 1
   explanation_he: 'הסוף נו מסמן "שלנו", כמו "ביתנו" (הבית שלנו).'
   explanation_en: 'The ending "-nu" marks "our", like "beitenu" (our house).'
   tags: [affixes]
@@ -2459,10 +2475,10 @@ items:
   prompt_he: 'מה פירוש המילה "ספרך"?'
   prompt_en: 'What does the word "sifrecha" mean?'
   choices:
-  - {he: הספר שלו, en: his book}
   - {he: הספר שלך, en: your book}
+  - {he: הספר שלו, en: his book}
   - {he: הספר שלנו, en: our book}
-  answer: 1
+  answer: 0
   explanation_he: 'הסוף ך מסמן "שלך", כשפונים לאדם אחד.'
   explanation_en: 'The ending "-cha" marks "your", when speaking to one person.'
   tags: [affixes]
@@ -2504,10 +2520,10 @@ items:
   prompt_he: 'מה נשאר מהמילה "והחתולים" אחרי שמוציאים אותיות שימוש וסיומת?'
   prompt_en: 'What remains of "vehachatulim" after removing prefix letters and ending?'
   choices:
-  - {he: חתול, en: cat}
   - {he: חתולים, en: cats}
+  - {he: חתול, en: cat}
   - {he: החתול, en: the cat}
-  answer: 0
+  answer: 1
   explanation_he: 'מוציאים את ו (וגם), את ה (הידיעה) ואת הסיומת ים, ונשארת המילה חתול.'
   explanation_en: 'Remove the vav, the "ha" and the ending "-im", and the word "chatul" remains.'
   tags: [affixes]
@@ -2519,10 +2535,10 @@ items:
   prompt_he: 'מהו השורש של המילה "מהמשחקים"?'
   prompt_en: 'What is the root of the word "mehamischakim"?'
   choices:
-  - {he: מ-ה-מ, en: m-h-m}
   - {he: ש-ח-ק, en: sh-ch-k}
+  - {he: מ-ה-מ, en: m-h-m}
   - {he: ח-ק-י, en: ch-k-y}
-  answer: 1
+  answer: 0
   explanation_he: 'מוציאים את מ ו-ה בהתחלה, את מ של "משחק" ואת הסיומת ים, ונשארים עם ש-ח-ק.'
   explanation_en: Remove the prefix letters and endings; what remains is sh-ch-k.
   tags: [affixes]
@@ -2535,9 +2551,9 @@ items:
   prompt_en: 'What is the root of the word "veshekatavnu"?'
   choices:
   - {he: ש-כ-ת, en: sh-k-t}
-  - {he: כ-ת-ב, en: k-t-v}
   - {he: ו-ש-כ, en: v-sh-k}
-  answer: 1
+  - {he: כ-ת-ב, en: k-t-v}
+  answer: 2
   explanation_he: 'ו (וגם) ו-ש (ש) הן אותיות שימוש, והסוף נו מסמן אנחנו. נשארו האותיות כ-ת-ב.'
   explanation_en: 'Vav and shin are prefix letters and "-nu" marks "we". What remains is k-t-v.'
   tags: [affixes]
@@ -2620,9 +2636,9 @@ items:
   prompt_en: 'In which binyan is the verb "כתב"?'
   choices:
   - {he: נפעל, en: 'nif''al'}
-  - {he: פעל, en: 'pa''al'}
   - {he: הפעיל, en: 'hif''il'}
-  answer: 1
+  - {he: פעל, en: 'pa''al'}
+  answer: 2
   explanation_he: 'כתב הוא פועל פשוט, בלי תוספת בהתחלה: כ-ת-ב. זה בניין פעל, כמו אכל, למד ושמר.'
   explanation_en: 'Katav is a plain verb with nothing added at the start. This is pa''al, like ate, learned and guarded.'
   tags: [binyanim]
@@ -2634,10 +2650,10 @@ items:
   prompt_he: 'באיזה בניין הפועל "נכנס"?'
   prompt_en: 'In which binyan is the verb "נכנס"?'
   choices:
-  - {he: נפעל, en: 'nif''al'}
   - {he: פעל, en: 'pa''al'}
+  - {he: נפעל, en: 'nif''al'}
   - {he: פיעל, en: 'pi''el'}
-  answer: 0
+  answer: 1
   explanation_he: 'הנ בהתחלה היא סימן של בניין נפעל, כמו בנשבר, נפתח ונסגר.'
   explanation_en: 'The initial "n" marks the nif''al binyan, as in broke, opened and closed.'
   tags: [binyanim]
@@ -2649,10 +2665,10 @@ items:
   prompt_he: 'באיזה בניין הפועל "סיפר"?'
   prompt_en: 'In which binyan is the verb "סיפר"?'
   choices:
+  - {he: פיעל, en: 'pi''el'}
   - {he: פעל, en: 'pa''al'}
   - {he: התפעל, en: 'hitpa''el'}
-  - {he: פיעל, en: 'pi''el'}
-  answer: 2
+  answer: 0
   explanation_he: 'סיפר מבוסס על השורש ס-פ-ר, והאות י באמצע היא סימן של בניין פיעל, כמו דיבר ושיחק.'
   explanation_en: 'Siper is based on s-f-r, and the "i" in the middle marks the pi''el binyan, as in spoke and played.'
   tags: [binyanim]
@@ -2664,10 +2680,10 @@ items:
   prompt_he: 'באיזה בניין הפועל "הדליק"?'
   prompt_en: 'In which binyan is the verb "הדליק"?'
   choices:
+  - {he: הפעיל, en: 'hif''il'}
   - {he: נפעל, en: 'nif''al'}
   - {he: פעל, en: 'pa''al'}
-  - {he: הפעיל, en: 'hif''il'}
-  answer: 2
+  answer: 0
   explanation_he: 'ה בהתחלה ו-י לפני האות האחרונה הן סימן של בניין הפעיל, כמו הסביר והגדיל.'
   explanation_en: 'The initial "h" and the "i" before the last letter mark the hif''il binyan, as in explained and enlarged.'
   tags: [binyanim]
@@ -2694,10 +2710,10 @@ items:
   prompt_he: 'באיזה בניין הפועל "נשבר"?'
   prompt_en: 'In which binyan is the verb "נשבר"?'
   choices:
-  - {he: נפעל, en: 'nif''al'}
   - {he: פיעל, en: 'pi''el'}
   - {he: הפעיל, en: 'hif''il'}
-  answer: 0
+  - {he: נפעל, en: 'nif''al'}
+  answer: 2
   explanation_he: 'הנ בהתחלה מסמנת בניין נפעל. הכוס נשברה: משהו קרה לה.'
   explanation_en: 'The initial "n" marks nif''al. The glass broke: something happened to it.'
   tags: [binyanim]
@@ -2709,10 +2725,10 @@ items:
   prompt_he: 'באיזה בניין הפועל "הסביר"?'
   prompt_en: 'In which binyan is the verb "הסביר"?'
   choices:
+  - {he: הפעיל, en: 'hif''il'}
   - {he: פעל, en: 'pa''al'}
   - {he: התפעל, en: 'hitpa''el'}
-  - {he: הפעיל, en: 'hif''il'}
-  answer: 2
+  answer: 0
   explanation_he: 'ה בהתחלה ו-י לפני האות האחרונה מסמנות הפעיל: הסביר, הדליק, הכניס.'
   explanation_en: 'The initial "h" and the "i" before the last letter mark hif''il: explained, lit, put in.'
   tags: [binyanim]
@@ -2725,9 +2741,9 @@ items:
   prompt_en: 'In which binyan is the verb "צייר"?'
   choices:
   - {he: נפעל, en: 'nif''al'}
-  - {he: פיעל, en: 'pi''el'}
   - {he: הפעיל, en: 'hif''il'}
-  answer: 1
+  - {he: פיעל, en: 'pi''el'}
+  answer: 2
   explanation_he: 'במילה צייר האות י באה אחרי האות הראשונה. זה בניין פיעל, כמו שיחק ובישל.'
   explanation_en: 'In "tsiyer" the "i" comes after the first letter. This is pi''el, as in played and cooked.'
   tags: [binyanim]
@@ -2739,10 +2755,10 @@ items:
   prompt_he: 'באיזה בניין הפועל "למד"?'
   prompt_en: 'In which binyan is the verb "למד"?'
   choices:
-  - {he: פעל, en: 'pa''al'}
   - {he: פיעל, en: 'pi''el'}
+  - {he: פעל, en: 'pa''al'}
   - {he: התפעל, en: 'hitpa''el'}
-  answer: 0
+  answer: 1
   explanation_he: 'למד היא צורה פשוטה של ל-מ-ד: פעל. הצורה "לימד" כבר שייכת לבניין אחר.'
   explanation_en: '"Lamad" is the simple form of l-m-d: pa''al. The form "limed" belongs to another binyan.'
   tags: [binyanim]
@@ -2754,10 +2770,10 @@ items:
   prompt_he: 'באיזה בניין הפועל "התעורר"?'
   prompt_en: 'In which binyan is the verb "התעורר"?'
   choices:
-  - {he: התפעל, en: 'hitpa''el'}
   - {he: פעל, en: 'pa''al'}
+  - {he: התפעל, en: 'hitpa''el'}
   - {he: פיעל, en: 'pi''el'}
-  answer: 0
+  answer: 1
   explanation_he: 'התעורר מתחיל ב"הת", כמו התלבש והתרחץ. זה בניין התפעל.'
   explanation_en: '"Hitorer" begins with "hit-", like got dressed and washed. This is hitpa''el.'
   tags: [binyanim]
@@ -2770,9 +2786,9 @@ items:
   prompt_en: 'In which binyan is the verb "הגדיל"?'
   choices:
   - {he: נפעל, en: 'nif''al'}
-  - {he: הפעיל, en: 'hif''il'}
   - {he: פיעל, en: 'pi''el'}
-  answer: 1
+  - {he: הפעיל, en: 'hif''il'}
+  answer: 2
   explanation_he: 'הגדיל מגיע מ-ג-ד-ל, עם ה בהתחלה ו-י לפני האות האחרונה: הפעיל.'
   explanation_en: '"Higdil" comes from g-d-l with an "h" at the start and an "i" before the last letter: hif''il.'
   tags: [binyanim]
@@ -2784,10 +2800,10 @@ items:
   prompt_he: 'באיזה בניין הפועל "נפתח"?'
   prompt_en: 'In which binyan is the verb "נפתח"?'
   choices:
+  - {he: נפעל, en: 'nif''al'}
   - {he: פעל, en: 'pa''al'}
   - {he: התפעל, en: 'hitpa''el'}
-  - {he: נפעל, en: 'nif''al'}
-  answer: 2
+  answer: 0
   explanation_he: 'נפתח מתחיל ב-נ ומראה שמשהו קרה לדבר: הדלת נפתחה. זה נפעל.'
   explanation_en: '"Niftach" begins with "n" and shows something happened to the thing: the door opened. Nif''al.'
   tags: [binyanim]
@@ -2815,9 +2831,9 @@ items:
   prompt_en: 'In which binyan is the verb "התאמן"?'
   choices:
   - {he: הפעיל, en: 'hif''il'}
-  - {he: פעל, en: 'pa''al'}
   - {he: התפעל, en: 'hitpa''el'}
-  answer: 2
+  - {he: פעל, en: 'pa''al'}
+  answer: 1
   explanation_he: 'התאמן מתחיל ב"הת", וזה בניין התפעל. מי שמתאמן עובד על עצמו.'
   explanation_en: '"Hitamen" begins with "hit-" and is hitpa''el. Someone who trains works on himself.'
   tags: [binyanim]
@@ -2830,9 +2846,9 @@ items:
   prompt_en: 'Which verb is in the hitpa''el binyan?'
   choices:
   - {he: רחץ, en: washed (something)}
-  - {he: התרחץ, en: washed himself}
   - {he: הרחיץ, en: made someone wash}
-  answer: 1
+  - {he: התרחץ, en: washed himself}
+  answer: 2
   explanation_he: 'התרחץ מתחיל ב"הת" ופירושו שמישהו רחץ את עצמו. רחץ הוא פעל, והרחיץ הוא הפעיל.'
   explanation_en: 'Hitrachetz begins with "hit-" and means someone washed himself. Rachatz is pa''al and hirchitz is hif''il.'
   tags: [binyanim]
@@ -2845,9 +2861,9 @@ items:
   prompt_en: 'Which verb is in the hif''il binyan?'
   choices:
   - {he: דלק, en: burned}
-  - {he: הדליק, en: lit}
   - {he: נדלק, en: was lit}
-  answer: 1
+  - {he: הדליק, en: lit}
+  answer: 2
   explanation_he: 'הדליק מתחיל ב-ה ופירושו שמישהו גרם לאש לדלוק. נדלק הוא נפעל, ודלק הוא פעל.'
   explanation_en: '"Hidlik" begins with "h" and means someone made a fire burn. "Nidlak" is nif''al and "dalak" is pa''al.'
   tags: [binyanim]
@@ -2859,10 +2875,10 @@ items:
   prompt_he: 'איזה פועל הוא בבניין נפעל?'
   prompt_en: 'Which verb is in the nif''al binyan?'
   choices:
+  - {he: נפתח, en: was opened}
   - {he: פתח, en: opened}
   - {he: התפתח, en: developed}
-  - {he: נפתח, en: was opened}
-  answer: 2
+  answer: 0
   explanation_he: 'נפתח מתחיל ב-נ. פתח הוא פעל, והתפתח הוא התפעל.'
   explanation_en: '"Niftach" begins with "n". "Patach" is pa''al and "hitpatech" is hitpa''el.'
   tags: [binyanim]
@@ -2874,10 +2890,10 @@ items:
   prompt_he: 'איזה פועל הוא בבניין פיעל?'
   prompt_en: 'Which verb is in the pi''el binyan?'
   choices:
-  - {he: סיפר, en: told}
   - {he: ספר, en: counted}
+  - {he: סיפר, en: told}
   - {he: נספר, en: was counted}
-  answer: 0
+  answer: 1
   explanation_he: 'סיפר יש בו י אחרי האות הראשונה. ספר הוא פעל, ונספר הוא נפעל.'
   explanation_en: '"Siper" has an "i" after the first letter. "Safar" is pa''al and "nispar" is nif''al.'
   tags: [binyanim]
@@ -2889,10 +2905,10 @@ items:
   prompt_he: 'איזה משפט משתמש בפועל בבניין נפעל?'
   prompt_en: 'Which sentence uses a verb in the nif''al binyan?'
   choices:
-  - {he: החלון נפתח מעצמו, en: The window opened by itself}
   - {he: דנה פתחה את החלון, en: Dana opened the window}
   - {he: הילד יפתח את החלון, en: The boy will open the window}
-  answer: 0
+  - {he: החלון נפתח מעצמו, en: The window opened by itself}
+  answer: 2
   explanation_he: 'נפתח אומר שהחלון עבר פעולה, בלי לומר מי עשה אותה. פתחה ויפתח הם בניין פעל.'
   explanation_en: '"Niftach" says the window underwent an action without saying who did it. The others are pa''al.'
   tags: [binyanim]
@@ -2919,10 +2935,10 @@ items:
   prompt_he: 'מה ההבדל במשמעות בין "אכל" ל"האכיל"?'
   prompt_en: 'What is the difference in meaning between "achal" and "he''echil"?'
   choices:
+  - {he: האכיל = נתן לאחר לאכול, en: 'He''echil = gave someone else food to eat'}
   - {he: האכיל = אכל מהר, en: 'He''echil = ate fast'}
   - {he: אין הבדל, en: There is no difference}
-  - {he: האכיל = נתן לאחר לאכול, en: 'He''echil = gave someone else food to eat'}
-  answer: 2
+  answer: 0
   explanation_he: 'אכל פירושו שהוא בעצמו אכל. האכיל פירושו שהוא נתן לאחר לאכול, כמו אמא שהאכילה את התינוק.'
   explanation_en: '"Achal" means he ate himself. "He''echil" means he fed someone else, like a mother feeding her baby.'
   tags: [binyanim]
@@ -2934,10 +2950,10 @@ items:
   prompt_he: 'מה ההבדל במשמעות בין "למד" ל"לימד"?'
   prompt_en: 'What is the difference in meaning between "lamad" and "limed"?'
   choices:
+  - {he: לימד = העביר ידע לאחרים, en: Limed = passed knowledge on to others}
   - {he: לימד = שכח, en: Limed = forgot}
   - {he: לימד = למד מהר, en: Limed = learned fast}
-  - {he: לימד = העביר ידע לאחרים, en: Limed = passed knowledge on to others}
-  answer: 2
+  answer: 0
   explanation_he: 'למד הוא מי שמקבל ידע, ולימד הוא מי שנותן אותו, כמו מורה.'
   explanation_en: '"Lamad" receives knowledge and "limed" gives it, like a teacher.'
   tags: [binyanim]
@@ -2949,10 +2965,10 @@ items:
   prompt_he: 'מה השורש והבניין של "התלבש"?'
   prompt_en: 'What are the root and binyan of "hitlabesh"?'
   choices:
-  - {he: 'ל-ב-ש, התפעל', en: 'l-v-sh, hitpa''el'}
   - {he: 'ת-ל-ב, נפעל', en: 't-l-v, nif''al'}
+  - {he: 'ל-ב-ש, התפעל', en: 'l-v-sh, hitpa''el'}
   - {he: 'ה-ת-ל, פיעל', en: 'h-t-l, pi''el'}
-  answer: 0
+  answer: 1
   explanation_he: 'מוציאים את "הת" והשורש הוא ל-ב-ש. "הת" בהתחלה מסמן בניין התפעל.'
   explanation_en: 'Remove "hit-" and the root is l-v-sh. "Hit-" at the start marks hitpa''el.'
   tags: [binyanim]
@@ -2965,9 +2981,9 @@ items:
   prompt_en: 'What are the root and binyan of "hidlik"?'
   choices:
   - {he: 'ה-ד-ל, פעל', en: 'h-d-l, pa''al'}
-  - {he: 'ד-ל-ק, הפעיל', en: 'd-l-k, hif''il'}
   - {he: 'ל-י-ק, נפעל', en: 'l-y-k, nif''al'}
-  answer: 1
+  - {he: 'ד-ל-ק, הפעיל', en: 'd-l-k, hif''il'}
+  answer: 2
   explanation_he: 'ה בהתחלה ו-י לפני האות האחרונה הן סימני בניין הפעיל, ונשארים עם ד-ל-ק.'
   explanation_en: 'The "h" at the start and the "i" before the last letter are hif''il marks; the root d-l-k remains.'
   tags: [binyanim]
@@ -3049,10 +3065,10 @@ items:
   prompt_he: 'מהו הנסמך בצירוף "דלת הבית"?'
   prompt_en: 'What is the first noun (nismach) in "delet habayit"?'
   choices:
-  - {he: דלת, en: door}
   - {he: הבית, en: the house}
+  - {he: דלת, en: door}
   - {he: דלת הבית, en: door of the house}
-  answer: 0
+  answer: 1
   explanation_he: 'הנסמך הוא המילה הראשונה בסמיכות, ולפעמים צורתה משתנה. הסומך הוא המילה השנייה.'
   explanation_en: 'The nismach is the first word of a construct, and its form sometimes changes. The second is the somech.'
   tags: [smichut]
@@ -3064,10 +3080,10 @@ items:
   prompt_he: 'מהו הסומך בצירוף "ספר ילדים"?'
   prompt_en: 'What is the second noun (somech) in "sefer yeladim"?'
   choices:
-  - {he: ספר, en: book}
   - {he: ילדים, en: children}
+  - {he: ספר, en: book}
   - {he: ספר ילדים, en: 'children''s book'}
-  answer: 1
+  answer: 0
   explanation_he: 'הסומך הוא המילה השנייה, זו שהראשונה "נשענת" עליה: ספר של ילדים.'
   explanation_en: 'The somech is the second word, which the first "leans" on: a book of children.'
   tags: [smichut]
@@ -3080,9 +3096,9 @@ items:
   prompt_en: 'Which phrase is written correctly?'
   choices:
   - {he: הדלת הבית, en: (the article on the wrong word)}
-  - {he: דלת הבתים הגדולה, en: (a different phrase)}
   - {he: דלת הבית, en: the door of the house}
-  answer: 2
+  - {he: דלת הבתים הגדולה, en: (a different phrase)}
+  answer: 1
   explanation_he: 'בסמיכות מוסיפים "ה" הידיעה רק למילה השנייה: דלת הבית. לא כותבים "הדלת הבית".'
   explanation_en: 'In a construct the article is added only to the second word: "delet habayit". Not "hadelet habayit".'
   tags: [smichut]
@@ -3110,9 +3126,9 @@ items:
   prompt_en: 'How do you say "the picture of the family" in a construct?'
   choices:
   - {he: תמונה המשפחה, en: (no change)}
-  - {he: תמונת המשפחה, en: the family picture}
   - {he: התמונה המשפחה, en: (article on the first word)}
-  answer: 1
+  - {he: תמונת המשפחה, en: the family picture}
+  answer: 2
   explanation_he: 'תמונה מסתיימת ב-ה, ובסמיכות הופכת ל"תמונת". המשפחה היא הסומך, ולכן עם ה.'
   explanation_en: '"Tmuna" ends in "-ah" and becomes "tmunat" in a construct. "Hamishpacha" is the somech, so it has "ha".'
   tags: [smichut]
@@ -3124,10 +3140,10 @@ items:
   prompt_he: 'איך אומרים "הספרים של הילדים" בסמיכות?'
   prompt_en: 'How do you say "the books of the children" in a construct?'
   choices:
+  - {he: ספרי הילדים, en: 'the children''s books'}
   - {he: ספרים הילדים, en: (no change)}
   - {he: הספרים הילדים, en: (article on the first word)}
-  - {he: ספרי הילדים, en: 'the children''s books'}
-  answer: 2
+  answer: 0
   explanation_he: 'כשהנסמך ברבים זכרים, הסיום "ים" הופך ל-י: ספרים הופך ל"ספרי".'
   explanation_en: 'When the first word is masculine plural, "-im" becomes "-ei": "sfarim" becomes "sifrei".'
   tags: [smichut]
@@ -3154,10 +3170,10 @@ items:
   prompt_he: 'איך אומרים "הילדים של הכיתה" בסמיכות?'
   prompt_en: 'How do you say "the children of the class" in a construct?'
   choices:
-  - {he: ילדי הכיתה, en: the class children}
   - {he: ילדים הכיתה, en: (no change)}
   - {he: ילדות הכיתה, en: (feminine plural)}
-  answer: 0
+  - {he: ילדי הכיתה, en: the class children}
+  answer: 2
   explanation_he: 'ילדים הופכת ל"ילדי" בסמיכות. הסומך "הכיתה" מקבל ה.'
   explanation_en: '"Yeladim" becomes "yaldei" in a construct. The somech "hakita" takes "ha".'
   tags: [smichut]
@@ -3184,10 +3200,10 @@ items:
   prompt_he: 'מהו הרבים של "בית ספר"?'
   prompt_en: 'What is the plural of "beit sefer"?'
   choices:
-  - {he: בתי ספר, en: schools}
   - {he: בית ספרים, en: (only the second word is plural)}
   - {he: בתים ספר, en: (wrong plural)}
-  answer: 0
+  - {he: בתי ספר, en: schools}
+  answer: 2
   explanation_he: 'ברבים משנים את המילה הראשונה בלבד: בית הופך ל"בתי". הסומך ספר נשאר.'
   explanation_en: 'In the plural only the first word changes: "bayit" becomes "batei". The somech stays.'
   tags: [smichut]
@@ -3199,10 +3215,10 @@ items:
   prompt_he: 'מהו הרבים של "גן ילדים"?'
   prompt_en: 'What is the plural of "gan yeladim"?'
   choices:
+  - {he: גני ילדים, en: kindergartens}
   - {he: גן ילדים, en: (no change)}
   - {he: גנים ילדים, en: (wrong plural)}
-  - {he: גני ילדים, en: kindergartens}
-  answer: 2
+  answer: 0
   explanation_he: 'ברבים משנים את הנסמך: גן הופך ל"גני". הסומך ילדים כבר ברבים.'
   explanation_en: 'In the plural the first word changes: "gan" becomes "ganei". "Yeladim" is already plural.'
   tags: [smichut]
@@ -3214,10 +3230,10 @@ items:
   prompt_he: 'מהו הרבים של "ארון בגדים"?'
   prompt_en: 'What is the plural of "aron begadim"?'
   choices:
+  - {he: ארונים בגדים, en: '(wrong ending: -im)'}
   - {he: ארונות בגדים, en: clothes closets}
-  - {he: ארונים בגדים, en: (wrong ending)}
-  - {he: ארון בגדות, en: (wrong ending)}
-  answer: 0
+  - {he: ארון בגדות, en: '(wrong ending: -ot on the second)'}
+  answer: 1
   explanation_he: 'ארון הוא זכר אבל רבים שלו "ארונות". כאן הסומך בגדים נשאר.'
   explanation_en: '"Aron" is masculine but its plural is "aronot". The somech stays.'
   tags: [smichut]
@@ -3229,10 +3245,10 @@ items:
   prompt_he: 'מהו הרבים של "חדר אוכל"?'
   prompt_en: 'What is the plural of "cheder ochel"?'
   choices:
-  - {he: חדרים אוכל, en: (wrong form)}
   - {he: חדרי אוכל, en: dining rooms}
-  - {he: חדר אוכלים, en: (wrong form)}
-  answer: 1
+  - {he: חדרים אוכל, en: '(wrong form: -im on the first)'}
+  - {he: חדר אוכלים, en: '(wrong form: -im on the second)'}
+  answer: 0
   explanation_he: 'ברבים משנים את הנסמך: חדר הופך ל"חדרי".'
   explanation_en: 'In the plural the first word changes: "cheder" becomes "chadrei".'
   tags: [smichut]
@@ -3260,9 +3276,9 @@ items:
   prompt_en: 'Which phrase is not a construct?'
   choices:
   - {he: מיץ תפוחים, en: apple juice}
-  - {he: תפוח אדום, en: a red apple}
   - {he: עץ תפוח, en: an apple tree}
-  answer: 1
+  - {he: תפוח אדום, en: a red apple}
+  answer: 2
   explanation_he: 'אדום מתאר את התפוח, ולכן זה צירוף של שם עצם ושם תואר. במיץ תפוחים שני שמות עצם.'
   explanation_en: '"Red" describes the apple: a noun and an adjective. In "apple juice" there are two nouns.'
   tags: [smichut]
@@ -3274,10 +3290,10 @@ items:
   prompt_he: 'מה מיוחד בסמיכות?'
   prompt_en: 'What is special about a construct?'
   choices:
+  - {he: שני שמות עצם הקשורים זה לזה, en: Two nouns tied to each other}
   - {he: שם עצם ושם תואר שמתאימים במין, en: A noun and adjective that agree in gender}
   - {he: פועל ושם עצם בלי קשר ביניהם, en: A verb and a noun without a link}
-  - {he: שני שמות עצם הקשורים זה לזה, en: Two nouns tied to each other}
-  answer: 2
+  answer: 0
   explanation_he: 'בסמיכות שני שמות עצם יוצרים יחד רעיון אחד, כמו בית ספר או דלת הבית.'
   explanation_en: 'In a construct two nouns create one idea together, like school or the door of the house.'
   tags: [smichut]
@@ -3289,10 +3305,10 @@ items:
   prompt_he: 'איזו מילה בצירוף "שמלת הילדה" היא הנסמך?'
   prompt_en: 'Which word in "simlat hayalda" is the first noun?'
   choices:
-  - {he: שמלת, en: dress of}
   - {he: הילדה, en: the girl}
+  - {he: שמלת, en: dress of}
   - {he: שתיהן, en: both}
-  answer: 0
+  answer: 1
   explanation_he: 'הנסמך הוא המילה הראשונה. היא השתנתה מ"שמלה" ל"שמלת".'
   explanation_en: 'The nismach is the first word. It changed from "simla" to "simlat".'
   tags: [smichut]
@@ -3305,9 +3321,9 @@ items:
   prompt_en: 'Which word in "yad hayeled" is the somech?'
   choices:
   - {he: יד, en: hand}
-  - {he: הילד, en: the boy}
   - {he: ה, en: the}
-  answer: 1
+  - {he: הילד, en: the boy}
+  answer: 2
   explanation_he: 'הסומך הוא המילה השנייה: הילד. אליו מוסיפים את ה הידיעה.'
   explanation_en: 'The somech is the second word: "the boy". The article is added to it.'
   tags: [smichut]
