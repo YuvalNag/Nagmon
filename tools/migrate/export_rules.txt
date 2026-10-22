@@ -1,0 +1,84 @@
+# Export rules for tools/migrate/export_snapshot.py
+#
+# One rule per line:  "- pattern" leaves a path out, "+ pattern" brings it back.
+# The LAST rule that matches a path wins; a path no rule matches is kept.
+# A pattern names a file or a folder (a folder takes everything below it).
+#   *  any characters except "/"      **  any characters including "/"
+# Lines starting with "#" and blank lines are ignored.
+#
+# What the new repo (nagmon-game) is: the app (app/), the data build that
+# makes app/public/game (tools/app + the mods + the two Python packages the
+# build imports), the Python tests of that build (tests/app), the app's docs
+# and its CI workflow. Measured with a file-access trace of
+# `build_data --check` and `pytest tests/app` on nagmon-app 884b9b6, then
+# proved by a clean-room dry run (docs: tools/migrate/README.md).
+
+# ---------------------------------------------------------------- top level
+# old Tuxemon / desktop-game packaging and launchers, not used by the app
+- .vscode
+- .readthedocs.yaml
+- Makefile
+- MANIFEST.in
+- CONTRIBUTING.md
+- README.md
+- run_tuxemon.py
+- run_nagmon.sh
+- run_nagmon.bat
+- buildconfig
+- scripts
+
+# ---------------------------------------------------------------- workflows
+# only the app's build; the others build the old desktop game / Android port
+- .github
++ .github/workflows/app.yml
+
+# ---------------------------------------------------------------- docs
+# the Sphinx site of Tuxemon and its concept art; the app's and the
+# project's own specs stay
+- docs
++ docs/app
++ docs/kids
+
+# ---------------------------------------------------------------- tests
+# tests of the old pygame game; tests/app tests the data build
+- tests/nagmon
+- tests/tuxemon
+- tests/README.md
+
+# ---------------------------------------------------------------- tools
+# old Android/pygame tooling, tours and sheets of the desktop game
+- tools/android
++ tools/android/screen_shape.py
+- tools/dev
+- tools/figures
+- tools/modesty
+# this export tooling stays in the old repo
+- tools/migrate
+- tests/migrate
+
+# ---------------------------------------------------------------- raw art
+# art_sources: 48 MB of generated source images; only the Solar monsters are
+# read by tools.app.build_data. The rest goes to the nagmon-art repo.
+- art_sources
++ art_sources/solar/monsters
+
+# Tuxemon music: 153 MB. build_data reads these six tracks only.
+- mods/tuxemon/music
++ mods/tuxemon/music/JRPGCollection/ogg/JRPG_battle_loop.ogg
++ mods/tuxemon/music/JRPGCollection/ogg/JRPG_gameOver.ogg
++ mods/tuxemon/music/JRPGCollection/ogg/JRPG_mainTheme.ogg
++ mods/tuxemon/music/JRPGCollection2/ogg/JRPG_winBattleBoss.ogg
++ mods/tuxemon/music/JRPG_royalCourt_loop.ogg
++ mods/tuxemon/music/JRPG_town_loop.ogg
+
+# Tuxemon fonts: 19 MB of font files the app does not read (it ships its own
+# in app/public); the OFL licence texts stay
+- mods/tuxemon/font
++ mods/tuxemon/font/OFL.txt
++ mods/tuxemon/font/Rubik-OFL.txt
+
+# Nagmon art the data build does not read
+- mods/nagmon/gfx/intro
+- mods/nagmon/gfx/owl
+# (the emoji PNGs stay although the app shows the SVGs: tools/app/emoji.py
+# decides which emoji exist by looking for the PNG, 3.6 MB)

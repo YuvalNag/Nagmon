@@ -1,0 +1,58 @@
+# Nagmon (נגמון) - the game
+
+A private, family learning game in Hebrew: maths, geometry, English, science
+and logic inside a monster-collecting adventure. Each child has a profile;
+there is a parents' area. This repo is **private** and is **not a fork**: the
+code of the game, built on data from [Tuxemon](https://github.com/Tuxemon/Tuxemon)
+(GPL-3.0, with CC-BY-SA art, see `LICENSE` and `ATTRIBUTIONS.md`).
+
+Family details, device logs and field data are **not** here. They live in the
+private data repo `YuvalNag/nagmon-data`.
+
+## What is in the repo
+
+| Folder | What |
+|---|---|
+| `app/` | The app: React + Phaser + Capacitor (Android). `app/public/game` is the generated game data. |
+| `tools/app/` | The data build: turns `mods/` into `app/public/game`. |
+| `mods/nagmon`, `mods/tuxemon` | The game data the build reads (monsters, maps, texts, sounds, art). |
+| `tuxemon/`, `nagmon/` | Python packages the data build imports. |
+| `tests/app/` | Python tests of the data build and of the content. |
+| `docs/app/`, `docs/kids/` | Specs (SDD), status and plans. |
+| `.github/workflows/` | `app.yml` (checks, browser, APK, emulator), `data.yml` (data build and Python tests). |
+
+## Build and test
+
+Needs Node 22 and Python 3.12+.
+
+```bash
+# the app
+cd app
+npm ci
+npm run typecheck      # tsc --noEmit
+npm test               # vitest
+npm run build          # tsc + vite build
+npm run e2e            # Playwright, after: npx playwright install chromium
+
+# the data (from the repo root)
+python -m venv .venv && . .venv/bin/activate
+pip install -r requirements.txt pytest numpy scipy
+python -m tools.app.build_data --check   # app/public/game is up to date with mods/
+python -m tools.app.build_data           # regenerate it
+pytest tests/app -q
+```
+
+`app/public/game` is committed. After a change in `mods/` or `tools/app/`, run
+the data build and commit the result; CI fails when they differ.
+
+## Art
+
+The raw art sources (`art_sources/`, 48 MB, except the Solar monsters the
+build reads), the intro frames and the unused Tuxemon music and fonts are **not** in this repo. They go to the
+private art repo `YuvalNag/nagmon-art` (see `docs/app/ART_DELIVERY.md`).
+
+## Where this came from
+
+A snapshot of `{{OLD_NAME}}` (public Tuxemon fork), commit `{{SOURCE_COMMIT}}`:
+{{SOURCE_DESCRIBE}}. The history stayed in the old repo. See `EXPORT_INFO.txt`.
+References to the old repo name were changed to `{{NEW_NAME}}`.
