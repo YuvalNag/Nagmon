@@ -773,6 +773,4205 @@
    "adapted": ""
   },
   {
+   "path": "art/chapters/body/background.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/background.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/badge.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/badge.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/guide_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/guide_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/guide_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/guide_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/heart_room.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/heart_room.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/icons.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/icons.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/local1_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/local1_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/local1_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/local1_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/local2_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/local2_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/local2_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/local2_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/master_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/master_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/master_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/master_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/mila_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/mila_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/mila_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/mila_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/owl_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/owl_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/owl_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/owl_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/props.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/props.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/body/vehicle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/body/vehicle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/background.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/background.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/badge.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/badge.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/guide_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/guide_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/guide_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/guide_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/icons.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/icons.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/local1_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/local1_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/local1_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/local1_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/local1_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/local1_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/local2_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/local2_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/local2_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/local2_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/local2_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/local2_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/market_street.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/market_street.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/master_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/master_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/master_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/master_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/master_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/master_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/mila_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/mila_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/mila_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/mila_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/mila_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/mila_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/owl_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/owl_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/owl_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/owl_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/owl_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/owl_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/props.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/props.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/harbor/vehicle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/harbor/vehicle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/alphabet_grove.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/alphabet_grove.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/background.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/background.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/badge.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/badge.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/card_1.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/card_1.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/card_2.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/card_2.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/card_3.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/card_3.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/card_4.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/card_4.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/card_5.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/card_5.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/guide_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/guide_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/guide_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/guide_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/guide_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/guide_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/guide_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/guide_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/hub.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/hub.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/icons.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/icons.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/local1_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/local1_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/local1_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/local1_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/local1_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/local1_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/local1_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/local1_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/local2_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/local2_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/local2_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/local2_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/local2_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/local2_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/local2_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/local2_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/master_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/master_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/master_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/master_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/master_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/master_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/master_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/master_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/mila_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/mila_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/mila_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/mila_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/mila_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/mila_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/mila_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/mila_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/owl_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/owl_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/owl_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/owl_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/owl_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/owl_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/owl_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/owl_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/place_1.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/place_1.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/place_2.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/place_2.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/place_3.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/place_3.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/place_4.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/place_4.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/poem_hill.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/poem_hill.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/props.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/props.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/story_cave.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/story_cave.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/vehicle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/vehicle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/vehicle_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/vehicle_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/vehicle_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/vehicle_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/vehicle_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/vehicle_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/letters/word_river.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/letters/word_river.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/background.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/background.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/badge.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/badge.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/big_bridge.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/big_bridge.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/card_1.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/card_1.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/card_2.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/card_2.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/card_3.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/card_3.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/card_4.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/card_4.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/card_5.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/card_5.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/card_6.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/card_6.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/card_7.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/card_7.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/card_8.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/card_8.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/clock_tower.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/clock_tower.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/coin_market.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/coin_market.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/counting_meadow.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/counting_meadow.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/guide_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/guide_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/guide_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/guide_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/guide_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/guide_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/guide_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/guide_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/hub.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/hub.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/icons.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/icons.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/local1_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/local1_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/local1_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/local1_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/local1_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/local1_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/local1_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/local1_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/local2_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/local2_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/local2_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/local2_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/local2_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/local2_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/local2_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/local2_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/master_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/master_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/master_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/master_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/master_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/master_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/master_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/master_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/mila_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/mila_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/mila_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/mila_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/mila_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/mila_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/mila_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/mila_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/owl_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/owl_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/owl_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/owl_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/owl_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/owl_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/owl_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/owl_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/place_1.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/place_1.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/place_2.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/place_2.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/place_3.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/place_3.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/place_4.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/place_4.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/props.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/props.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/vehicle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/vehicle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/vehicle_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/vehicle_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/vehicle_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/vehicle_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/numbers/vehicle_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/numbers/vehicle_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/background.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/background.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/badge.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/badge.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/guide_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/guide_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/guide_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/guide_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/icons.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/icons.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/local1_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/local1_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/local1_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/local1_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/local2_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/local2_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/local2_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/local2_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/master_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/master_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/master_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/master_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/mila_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/mila_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/mila_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/mila_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/owl_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/owl_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/owl_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/owl_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/pattern_gate.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/pattern_gate.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/props.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/props.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/puzzle/vehicle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/puzzle/vehicle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/background.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/background.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/badge.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/badge.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/card_1.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/card_1.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/card_2.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/card_2.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/card_3.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/card_3.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/card_4.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/card_4.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/card_5.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/card_5.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/card_6.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/card_6.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/card_7.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/card_7.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/card_8.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/card_8.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/coral_reef.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/coral_reef.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/deep_sea.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/deep_sea.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/guide_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/guide_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/guide_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/guide_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/guide_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/guide_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/guide_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/guide_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/hub.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/hub.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/icons.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/icons.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/kelp_forest.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/kelp_forest.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/local1_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/local1_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/local1_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/local1_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/local1_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/local1_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/local1_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/local1_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/local2_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/local2_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/local2_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/local2_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/local2_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/local2_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/local2_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/local2_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/master_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/master_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/master_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/master_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/master_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/master_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/master_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/master_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/mila_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/mila_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/mila_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/mila_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/mila_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/mila_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/mila_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/mila_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/owl_battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/owl_battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/owl_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/owl_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/owl_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/owl_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/owl_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/owl_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/place_1.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/place_1.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/place_2.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/place_2.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/place_3.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/place_3.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/place_4.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/place_4.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/props.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/props.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/sunken_ship.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/sunken_ship.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/vehicle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/vehicle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/vehicle_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/vehicle_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/vehicle_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/vehicle_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/sea/vehicle_map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/sea/vehicle_map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/background.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/background.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/badge.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/badge.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/circle_garden.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/circle_garden.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/guide_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/guide_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/guide_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/guide_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/icons.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/icons.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/local1_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/local1_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/local1_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/local1_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/local2_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/local2_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/local2_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/local2_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/master_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/master_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/master_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/master_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/mila_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/mila_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/mila_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/mila_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/owl_icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/owl_icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/owl_map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/owl_map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/props.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/props.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/chapters/shapes/vehicle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/chapters/shapes/vehicle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "art/effects/attack_english.webp",
    "kind": "art",
    "sources": [
@@ -1305,6 +5504,1355 @@
    "adapted": ""
   },
   {
+   "path": "art/icon/items.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/icon/items.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/icon/ui.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/icon/ui.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/interior/home.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/interior/home.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/interior/lab.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/interior/lab.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/interior/rest.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/interior/rest.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/interior/shop.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/interior/shop.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/interior/station.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/interior/station.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_artist/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_artist/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_artist/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_artist/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_artist/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_artist/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_artist/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_artist/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_baker/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_baker/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_baker/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_baker/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_baker/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_baker/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_baker/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_baker/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_builder/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_builder/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_builder/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_builder/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_builder/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_builder/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_builder/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_builder/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_farmer/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_farmer/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_farmer/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_farmer/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_farmer/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_farmer/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_farmer/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_farmer/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_fisher/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_fisher/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_fisher/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_fisher/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_fisher/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_fisher/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_fisher/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_fisher/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_grandpa/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_grandpa/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_grandpa/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_grandpa/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_grandpa/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_grandpa/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_grandpa/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_grandpa/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_librarian/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_librarian/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_librarian/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_librarian/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_librarian/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_librarian/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_librarian/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_librarian/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_mila/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_mila/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_mila/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_mila/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_mila/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_mila/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_mila/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_mila/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_nurse/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_nurse/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_nurse/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_nurse/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_nurse/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_nurse/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_nurse/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_nurse/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_owl/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_owl/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_owl/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_owl/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_owl/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_owl/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_owl/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_owl/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_pilot/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_pilot/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_pilot/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_pilot/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_pilot/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_pilot/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_pilot/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_pilot/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_scientist/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_scientist/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_scientist/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_scientist/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_scientist/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_scientist/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_scientist/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_scientist/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_scout_girl/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_scout_girl/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_scout_girl/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_scout_girl/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_scout_girl/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_scout_girl/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status needs_revision)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_scout_girl/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_scout_girl/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_student_boy/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_student_boy/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_student_boy/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_student_boy/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_student_boy/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_student_boy/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_student_boy/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_student_boy/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_student_girl/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_student_girl/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_student_girl/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_student_girl/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_student_girl/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_student_girl/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_student_girl/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_student_girl/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_toddler_helper/battle.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_toddler_helper/battle.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_toddler_helper/icon.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_toddler_helper/icon.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_toddler_helper/map_a.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_toddler_helper/map_a.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/npc/nagmon_toddler_helper/map_b.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/npc/nagmon_toddler_helper/map_b.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "art/portraits/mila.webp",
    "kind": "art",
    "sources": [
@@ -1396,6 +6944,63 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/props/hidden.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/props/hidden.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/props/home_pets.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/props/home_pets.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/props/world.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/props/world.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
    "matched": true,
    "adapted": ""
   },
@@ -1590,6 +7195,310 @@
    "adapted": ""
   },
   {
+   "path": "art/tile/route_tiles_00.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/route_tiles_00.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/route_tiles_01.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/route_tiles_01.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/route_tiles_02.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/route_tiles_02.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/route_tiles_03.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/route_tiles_03.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_ground_00.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_ground_00.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_ground_01.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_ground_01.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_ground_02.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_ground_02.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_ground_03.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_ground_03.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_ground_04.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_ground_04.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_ground_05.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_ground_05.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_ground_06.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_ground_06.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_ground_07.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_ground_07.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_water_00.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_water_00.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_water_01.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_water_01.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_water_02.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_water_02.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/tile/town_water_03.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/tile/town_water_03.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status draft)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
    "path": "art/title/logo.webp",
    "kind": "art",
    "sources": [
@@ -1643,6 +7552,120 @@
    ],
    "licence": "not stated yet",
    "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 2",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/trip/badge_astronomer.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/trip/badge_astronomer.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/trip/place_control_station.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/trip/place_control_station.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/trip/place_ice_outpost.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/trip/place_ice_outpost.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/trip/place_moon_base.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/trip/place_moon_base.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/trip/place_space_station.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/trip/place_space_station.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
+   "matched": true,
+   "adapted": ""
+  },
+  {
+   "path": "art/trip/ship_small.webp",
+   "kind": "art",
+   "sources": [
+    "app/public/game/art/trip/ship_small.webp"
+   ],
+   "credits": [],
+   "authors": [
+    "the Nagmon owner (made with image generators)"
+   ],
+   "author": "the Nagmon owner (made with image generators)",
+   "licences": [
+    "not stated yet"
+   ],
+   "licence": "not stated yet",
+   "note": "Owner art: the owner has to choose a licence (docs/app/INVENTORY.md §6.1). owner art, batch 3 (checkpoint 59, status accepted)",
    "matched": true,
    "adapted": ""
   },

@@ -1,0 +1,269 @@
+{
+ "drafts_enabled": true,
+ "sheets": {
+  "icon.items": {
+   "file": "art/icon/items.webp",
+   "frame": [
+    192,
+    192
+   ],
+   "cols": 8,
+   "rows": 8,
+   "status": "accepted"
+  },
+  "icon.ui": {
+   "file": "art/icon/ui.webp",
+   "frame": [
+    192,
+    192
+   ],
+   "cols": 8,
+   "rows": 8,
+   "status": "accepted"
+  }
+ },
+ "items": {
+  "magic_net": {
+   "asset": "icon.items",
+   "frame": 0
+  },
+  "silver_net": {
+   "asset": "icon.items",
+   "frame": 1
+  },
+  "berry": {
+   "asset": "icon.items",
+   "frame": 7
+  },
+  "biscuit": {
+   "asset": "icon.items",
+   "frame": 3
+  },
+  "pie": {
+   "asset": "icon.items",
+   "frame": 4
+  },
+  "growth_tonic": {
+   "asset": "icon.items",
+   "frame": 6
+  },
+  "spring_tonic": {
+   "asset": "icon.items",
+   "frame": 5
+  },
+  "hint_feather": {
+   "asset": "icon.items",
+   "frame": 13
+  },
+  "clover": {
+   "asset": "icon.items",
+   "frame": 14
+  },
+  "owl_pass": {
+   "asset": "icon.items",
+   "frame": 15
+  },
+  "explorer_map": {
+   "asset": "icon.items",
+   "frame": 18
+  },
+  "badge_case": {
+   "asset": "icon.items",
+   "frame": 26
+  },
+  "mystery_egg": {
+   "asset": "icon.items",
+   "frame": 28
+  },
+  "wake_berry": {
+   "asset": "icon.items",
+   "frame": 8
+  },
+  "energy_berry": {
+   "asset": "icon.items",
+   "frame": 11
+  },
+  "sunrise_berry": {
+   "asset": "icon.items",
+   "frame": 12
+  }
+ },
+ "ui": {
+  "friends": {
+   "asset": "icon.ui",
+   "frame": 0
+  },
+  "bag": {
+   "asset": "icon.ui",
+   "frame": 1
+  },
+  "book": {
+   "asset": "icon.ui",
+   "frame": 2
+  },
+  "quests": {
+   "asset": "icon.ui",
+   "frame": 3
+  },
+  "me": {
+   "asset": "icon.ui",
+   "frame": 4
+  },
+  "settings": {
+   "asset": "icon.ui",
+   "frame": 5
+  },
+  "ask": {
+   "asset": "icon.ui",
+   "frame": 8
+  },
+  "net": {
+   "asset": "icon.ui",
+   "frame": 9
+  },
+  "bag_tab": {
+   "asset": "icon.ui",
+   "frame": 10
+  },
+  "friends_tab": {
+   "asset": "icon.ui",
+   "frame": 11
+  },
+  "leave": {
+   "asset": "icon.ui",
+   "frame": 12
+  },
+  "math": {
+   "asset": "icon.ui",
+   "frame": 16
+  },
+  "hebrew": {
+   "asset": "icon.ui",
+   "frame": 17
+  },
+  "english": {
+   "asset": "icon.ui",
+   "frame": 18
+  },
+  "science": {
+   "asset": "icon.ui",
+   "frame": 19
+  },
+  "geography": {
+   "asset": "icon.ui",
+   "frame": 20
+  },
+  "art": {
+   "asset": "icon.ui",
+   "frame": 21
+  },
+  "music": {
+   "asset": "icon.ui",
+   "frame": 22
+  },
+  "history": {
+   "asset": "icon.ui",
+   "frame": 23
+  },
+  "logic": {
+   "asset": "icon.ui",
+   "frame": 24
+  },
+  "heart_full": {
+   "asset": "icon.ui",
+   "frame": 32
+  },
+  "heart_empty": {
+   "asset": "icon.ui",
+   "frame": 33
+  },
+  "star_full": {
+   "asset": "icon.ui",
+   "frame": 34
+  },
+  "star_empty": {
+   "asset": "icon.ui",
+   "frame": 35
+  },
+  "lock_closed": {
+   "asset": "icon.ui",
+   "frame": 36
+  },
+  "lock_open": {
+   "asset": "icon.ui",
+   "frame": 37
+  },
+  "check": {
+   "asset": "icon.ui",
+   "frame": 38
+  },
+  "question": {
+   "asset": "icon.ui",
+   "frame": 39
+  },
+  "sound": {
+   "asset": "icon.ui",
+   "frame": 40
+  },
+  "muted": {
+   "asset": "icon.ui",
+   "frame": 41
+  },
+  "pause": {
+   "asset": "icon.ui",
+   "frame": 42
+  },
+  "play": {
+   "asset": "icon.ui",
+   "frame": 43
+  },
+  "back": {
+   "asset": "icon.ui",
+   "frame": 44
+  },
+  "home": {
+   "asset": "icon.ui",
+   "frame": 45
+  },
+  "more": {
+   "asset": "icon.ui",
+   "frame": 46
+  },
+  "close": {
+   "asset": "icon.ui",
+   "frame": 47
+  },
+  "moon": {
+   "asset": "icon.ui",
+   "frame": 48
+  },
+  "sun": {
+   "asset": "icon.ui",
+   "frame": 49
+  },
+  "rocky_planet": {
+   "asset": "icon.ui",
+   "frame": 50
+  },
+  "ringed_planet": {
+   "asset": "icon.ui",
+   "frame": 51
+  },
+  "icy_planet": {
+   "asset": "icon.ui",
+   "frame": 52
+  },
+  "space_station": {
+   "asset": "icon.ui",
+   "frame": 53
+  },
+  "spaceship": {
+   "asset": "icon.ui",
+   "frame": 54
+  },
+  "telescope": {
+   "asset": "icon.ui",
+   "frame": 55
+  }
+ }
+}

@@ -1,0 +1,12592 @@
+{
+ "chapter.body.background": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "body_background.png",
+   "path": "chapter_body/tiles/body_background.png",
+   "sha256": "e1d822f553fefc50c5f3a62efd968742306f48426877648d92729e1e401c3896",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.body.badge": {
+  "boxes": [
+   [
+    77,
+    55,
+    562,
+    586
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 2050,
+   "pink_after": 0,
+   "pink_before": 2889
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "body_badge.png",
+   "path": "chapter_body/objects/body_badge.png",
+   "sha256": "d434c4e44cd0cd3a4cfde81481af7f0eafc9b06e2bf088d0c4cf07355c6fe32f",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.body.guide.icon": {},
+ "chapter.body.guide.map_a": {
+  "boxes": [
+   [
+    118,
+    6,
+    222,
+    245
+   ],
+   [
+    78,
+    6,
+    177,
+    241
+   ],
+   [
+    39,
+    6,
+    142,
+    245
+   ],
+   [
+    80,
+    0,
+    213,
+    228
+   ],
+   [
+    60,
+    0,
+    178,
+    228
+   ],
+   [
+    26,
+    0,
+    160,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 314,
+   "pink_after": 0,
+   "pink_before": 1031
+  },
+  "cut_frames": [
+   3,
+   4,
+   5
+  ],
+  "feet": [
+   [
+    165.3,
+    245.0
+   ],
+   [
+    126.3,
+    241.0
+   ],
+   [
+    91.2,
+    245.0
+   ],
+   [
+    154.9,
+    227.5
+   ],
+   [
+    118.7,
+    227.5
+   ],
+   [
+    59.4,
+    227.5
+   ]
+  ],
+  "note": "TOP LEFT must lead LEFT/imageRIGHT; preserve third.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_body/art_inbox/body_guide/map_a.png",
+   "sha256": "169a049f12904e4746fd2ffcfbb895e7b0261a5c1fc42f564cb2affaffbc70e9",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.body.heart_room": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "note": "Native door overlays oversized versus building doorway.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "body_heart_room.png",
+   "path": "chapter_body/tiles/body_heart_room.png",
+   "sha256": "024901adb389102dd72f54d06b7e086f0d6258d6651f29b63f017e7f225c73df",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.body.icons": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 602,
+   "pink_after": 0,
+   "pink_before": 789
+  },
+  "note": "Remove crossing mullions from all heart/stomach-house icon windows; round glass only.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "body_icons.png",
+   "path": "chapter_body/icons/body_icons.png",
+   "sha256": "4c813b5f8bd8e50c174ae6f72058e8e7598d5cf1328b54432da7237060b71240",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.body.local1.icon": {},
+ "chapter.body.local1.map_a": {
+  "boxes": [
+   [
+    122,
+    16,
+    226,
+    243
+   ],
+   [
+    78,
+    16,
+    180,
+    241
+   ],
+   [
+    33,
+    16,
+    135,
+    243
+   ],
+   [
+    96,
+    5,
+    229,
+    224
+   ],
+   [
+    69,
+    5,
+    178,
+    224
+   ],
+   [
+    26,
+    5,
+    160,
+    222
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 43
+  },
+  "feet": [
+   [
+    185.1,
+    243.0
+   ],
+   [
+    128.5,
+    241.0
+   ],
+   [
+    65.5,
+    243.0
+   ],
+   [
+    173.9,
+    224.0
+   ],
+   [
+    129.1,
+    224.0
+   ],
+   [
+    61.9,
+    222.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_body/art_inbox/body_local1/map_a.png",
+   "sha256": "df8803e9c269f683c8193e980b10b1cbfad063c3e5c829f7c967ffad317d75a0",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.body.local2.icon": {},
+ "chapter.body.local2.map_a": {
+  "boxes": [
+   [
+    109,
+    15,
+    231,
+    243
+   ],
+   [
+    66,
+    15,
+    182,
+    242
+   ],
+   [
+    24,
+    15,
+    145,
+    244
+   ],
+   [
+    94,
+    4,
+    230,
+    227
+   ],
+   [
+    83,
+    4,
+    181,
+    228
+   ],
+   [
+    24,
+    4,
+    167,
+    229
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 31
+  },
+  "feet": [
+   [
+    183.2,
+    243.0
+   ],
+   [
+    126.6,
+    242.5
+   ],
+   [
+    83.2,
+    244.5
+   ],
+   [
+    163.6,
+    227.0
+   ],
+   [
+    127.2,
+    227.5
+   ],
+   [
+    47.7,
+    229.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_body/art_inbox/body_local2/map_a.png",
+   "sha256": "9b5aa4fc1739b0c8b019cee900dc463d8dbd77b833d5b14e7aa3c8e3f217145d",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.body.master.icon": {},
+ "chapter.body.master.map_a": {
+  "boxes": [
+   [
+    121,
+    14,
+    229,
+    246
+   ],
+   [
+    76,
+    14,
+    180,
+    243
+   ],
+   [
+    27,
+    14,
+    132,
+    246
+   ],
+   [
+    94,
+    4,
+    234,
+    226
+   ],
+   [
+    62,
+    4,
+    178,
+    227
+   ],
+   [
+    14,
+    4,
+    164,
+    227
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 83,
+   "pink_before": 520
+  },
+  "feet": [
+   [
+    179.8,
+    246.0
+   ],
+   [
+    127.2,
+    243.0
+   ],
+   [
+    81.6,
+    246.0
+   ],
+   [
+    173.0,
+    225.5
+   ],
+   [
+    123.9,
+    227.0
+   ],
+   [
+    42.1,
+    227.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_body/art_inbox/body_master/map_a.png",
+   "sha256": "5a7823c94df17c55555efa85823b8e4dabf141f4f1149b492265343cdb5d8334",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.body.mila.icon": {},
+ "chapter.body.mila.map_a": {
+  "boxes": [
+   [
+    99,
+    20,
+    204,
+    246
+   ],
+   [
+    76,
+    20,
+    176,
+    238
+   ],
+   [
+    50,
+    20,
+    152,
+    242
+   ],
+   [
+    80,
+    10,
+    206,
+    228
+   ],
+   [
+    69,
+    10,
+    188,
+    226
+   ],
+   [
+    40,
+    10,
+    160,
+    225
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 1004,
+   "pink_after": 0,
+   "pink_before": 2800
+  },
+  "feet": [
+   [
+    158.1,
+    246.5
+   ],
+   [
+    125.4,
+    237.5
+   ],
+   [
+    108.2,
+    241.5
+   ],
+   [
+    150.4,
+    227.5
+   ],
+   [
+    123.8,
+    225.5
+   ],
+   [
+    81.6,
+    225.0
+   ]
+  ],
+  "note": "TOP RIGHT must lead RIGHT/imageLEFT foot; currently repeats LEFT.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_body/art_inbox/body_mila/map_a.png",
+   "sha256": "f4eb60c4538add9874f6d57fa7be214da5d5e10a64560d4602230f60c0b97638",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.body.owl.icon": {},
+ "chapter.body.owl.map_a": {
+  "boxes": [
+   [
+    44,
+    20,
+    240,
+    236
+   ],
+   [
+    31,
+    20,
+    227,
+    232
+   ],
+   [
+    14,
+    20,
+    202,
+    234
+   ],
+   [
+    56,
+    8,
+    233,
+    224
+   ],
+   [
+    49,
+    8,
+    220,
+    222
+   ],
+   [
+    39,
+    8,
+    213,
+    222
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    155.0,
+    236.5
+   ],
+   [
+    127.8,
+    232.0
+   ],
+   [
+    99.7,
+    234.0
+   ],
+   [
+    149.2,
+    224.0
+   ],
+   [
+    123.3,
+    222.5
+   ],
+   [
+    110.5,
+    222.0
+   ]
+  ],
+  "note": "FRONT feet reversed: first LEFT/imageRIGHT, third RIGHT/imageLEFT.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_body/art_inbox/body_owl/map_a.png",
+   "sha256": "af72eccfd17fe108d816ca6695a219cda8381f69bf86640d2046df3430b7c354",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.body.props": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 2168,
+   "pink_after": 0,
+   "pink_before": 3090
+  },
+  "note": "Remove equatorial crossbars from row3cols1/2 round lantern glass.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "body_props.png",
+   "path": "chapter_body/props/body_props.png",
+   "sha256": "c267bf02e8113bf58f4183617d16dbb376cf0f773acc6122262a8f211160d6d3",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.body.vehicle": {
+  "boxes": [
+   [
+    33,
+    57,
+    628,
+    560
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "body_vehicle.png",
+   "path": "chapter_body/objects/body_vehicle.png",
+   "sha256": "985bd8c1d87675414d7cf6d8d4ec4b06c6c6dfe798125930c8be953751d8c6a5",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.harbor.background": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "harbor_background.png",
+   "path": "chapter_harbor/tiles/harbor_background.png",
+   "sha256": "e5e5e4baeb33b05e07cd5062a10ef4149f79452e2c342556549e4230d0ff48a6",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.harbor.badge": {
+  "boxes": [
+   [
+    124,
+    22,
+    516,
+    591
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "harbor_badge.png",
+   "path": "chapter_harbor/objects/harbor_badge.png",
+   "sha256": "a69675cf1fc8886136b640588c0630358855230086e605682d27296415ecb77e",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.harbor.guide.icon": {},
+ "chapter.harbor.guide.map_a": {
+  "boxes": [
+   [
+    108,
+    12,
+    232,
+    256
+   ],
+   [
+    63,
+    12,
+    187,
+    256
+   ],
+   [
+    26,
+    12,
+    152,
+    256
+   ],
+   [
+    96,
+    0,
+    230,
+    214
+   ],
+   [
+    53,
+    0,
+    172,
+    214
+   ],
+   [
+    19,
+    0,
+    168,
+    216
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "cut_frames": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "feet": [
+   [
+    169.8,
+    256.0
+   ],
+   [
+    130.4,
+    256.0
+   ],
+   [
+    95.5,
+    256.0
+   ],
+   [
+    168.1,
+    214.0
+   ],
+   [
+    127.7,
+    213.5
+   ],
+   [
+    63.7,
+    216.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_harbor/art_inbox/harbor_guide/map_a.png",
+   "sha256": "2ca47ea7b5101bb3793bbba9c5ab6ee41a2d207eae81f5f1a419bfe0fe350069",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.harbor.icons": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1412
+  },
+  "note": "All13icons present. School windows in ROW1COL3andstampCOL7 have cross mullions; make small round unsegmented blue windows. Review station glass similarly. ROW2COL4book has unrequested5pointstar; replace with plain gold round dot/ring.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "harbor_icons.png",
+   "path": "chapter_harbor/icons/harbor_icons.png",
+   "sha256": "1290b0a160fb797642c806fcc73c35bb172f443d46cf4ae6c0923410a035a2cb",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.harbor.local1.icon": {},
+ "chapter.harbor.local1.map_a": {
+  "boxes": [
+   [
+    119,
+    16,
+    220,
+    249
+   ],
+   [
+    83,
+    16,
+    174,
+    244
+   ],
+   [
+    34,
+    16,
+    130,
+    249
+   ],
+   [
+    98,
+    7,
+    224,
+    230
+   ],
+   [
+    80,
+    7,
+    170,
+    230
+   ],
+   [
+    24,
+    7,
+    152,
+    230
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1499
+  },
+  "feet": [
+   [
+    173.0,
+    249.0
+   ],
+   [
+    126.8,
+    244.5
+   ],
+   [
+    75.8,
+    249.0
+   ],
+   [
+    157.8,
+    230.0
+   ],
+   [
+    122.8,
+    230.0
+   ],
+   [
+    47.8,
+    230.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_harbor/art_inbox/harbor_local1/map_a.png",
+   "sha256": "aaa93fc7a404f6ed52e82833151b7c8d727b169359e44bc5f2184f5adb42e1ce",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.harbor.local1.map_b": {
+  "boxes": [
+   [
+    96,
+    16,
+    230,
+    239
+   ],
+   [
+    84,
+    16,
+    169,
+    244
+   ],
+   [
+    35,
+    16,
+    160,
+    243
+   ],
+   [
+    107,
+    4,
+    213,
+    225
+   ],
+   [
+    78,
+    4,
+    168,
+    225
+   ],
+   [
+    41,
+    4,
+    150,
+    225
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 675
+  },
+  "feet": [
+   [
+    175.5,
+    239.0
+   ],
+   [
+    129.9,
+    244.5
+   ],
+   [
+    88.9,
+    243.0
+   ],
+   [
+    169.2,
+    225.0
+   ],
+   [
+    125.2,
+    225.0
+   ],
+   [
+    96.3,
+    225.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_harbor/art_inbox/harbor_local1/map_b.png",
+   "sha256": "6ce69f086a01f627177c8c60632eb22367520f9645372f07c31a7e1991a1196b",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.harbor.local2.icon": {},
+ "chapter.harbor.local2.map_a": {
+  "boxes": [
+   [
+    101,
+    15,
+    238,
+    246
+   ],
+   [
+    60,
+    15,
+    194,
+    240
+   ],
+   [
+    20,
+    15,
+    156,
+    246
+   ],
+   [
+    88,
+    4,
+    230,
+    228
+   ],
+   [
+    56,
+    4,
+    176,
+    227
+   ],
+   [
+    20,
+    4,
+    170,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 249
+  },
+  "feet": [
+   [
+    185.9,
+    245.5
+   ],
+   [
+    128.3,
+    239.5
+   ],
+   [
+    102.4,
+    245.5
+   ],
+   [
+    164.5,
+    228.5
+   ],
+   [
+    127.5,
+    227.0
+   ],
+   [
+    59.0,
+    228.5
+   ]
+  ],
+  "note": "Lantern physicalRIGHT correct and LEFT profiles distinct. FRONT column3still leads physicalLEFT/viewerRIGHT like column1; correct third to physicalRIGHT/viewerLEFT.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_harbor/art_inbox/harbor_local2/map_a.png",
+   "sha256": "cca4164745032ec95304e3f4fdee1c98d64e7ffee8d0fe5918883c5a13a989c5",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.harbor.local2.map_b": {
+  "boxes": [
+   [
+    90,
+    15,
+    226,
+    241
+   ],
+   [
+    82,
+    15,
+    178,
+    241
+   ],
+   [
+    27,
+    15,
+    158,
+    243
+   ],
+   [
+    96,
+    2,
+    236,
+    218
+   ],
+   [
+    68,
+    2,
+    200,
+    220
+   ],
+   [
+    30,
+    2,
+    170,
+    220
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 256,
+   "pink_after": 0,
+   "pink_before": 1723
+  },
+  "feet": [
+   [
+    171.6,
+    241.0
+   ],
+   [
+    119.9,
+    241.0
+   ],
+   [
+    101.9,
+    243.0
+   ],
+   [
+    169.5,
+    218.5
+   ],
+   [
+    123.7,
+    219.5
+   ],
+   [
+    87.9,
+    219.5
+   ]
+  ],
+  "note": "RIGHT profile first/third both nearRIGHT leg back; TOP RIGHT needs nearRIGHT forward.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_harbor/art_inbox/harbor_local2/map_b.png",
+   "sha256": "d2ead4772b1fbe661da16c183ef618e9595bd099112be52b0c2a4821fa0d5d41",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.harbor.market_street": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 17144,
+   "pink_after": 0,
+   "pink_before": 20318
+  },
+  "note": "All16harbour-square cells present. Closed/open door overlays much larger than original building doorway at native scale; need placement test and fit correction. Floors require3x3repeat review.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "harbor_market_street.png",
+   "path": "chapter_harbor/tiles/harbor_market_street.png",
+   "sha256": "a90a73365058c38705bf2e81c6fa8275f63d75d185b40770357828df88291503",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.harbor.master.icon": {},
+ "chapter.harbor.master.map_a": {
+  "boxes": [
+   [
+    120,
+    16,
+    232,
+    246
+   ],
+   [
+    77,
+    16,
+    184,
+    241
+   ],
+   [
+    26,
+    16,
+    136,
+    246
+   ],
+   [
+    98,
+    8,
+    228,
+    230
+   ],
+   [
+    77,
+    8,
+    184,
+    230
+   ],
+   [
+    20,
+    8,
+    157,
+    230
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 198
+  },
+  "feet": [
+   [
+    180.9,
+    246.5
+   ],
+   [
+    127.7,
+    241.0
+   ],
+   [
+    73.5,
+    246.5
+   ],
+   [
+    172.3,
+    230.5
+   ],
+   [
+    125.2,
+    229.5
+   ],
+   [
+    45.0,
+    230.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_harbor/art_inbox/harbor_master/map_a.png",
+   "sha256": "5abeead727a8308e472d18f3cff8d996a9550cc4a4b7a3d8a33fa9ff8b7c4f10",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.harbor.master.map_b": {
+  "boxes": [
+   [
+    102,
+    16,
+    237,
+    244
+   ],
+   [
+    67,
+    16,
+    175,
+    241
+   ],
+   [
+    20,
+    16,
+    148,
+    244
+   ],
+   [
+    111,
+    6,
+    227,
+    230
+   ],
+   [
+    74,
+    6,
+    177,
+    228
+   ],
+   [
+    28,
+    6,
+    145,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 23
+  },
+  "feet": [
+   [
+    210.7,
+    243.5
+   ],
+   [
+    126.4,
+    241.0
+   ],
+   [
+    88.6,
+    243.5
+   ],
+   [
+    172.9,
+    229.5
+   ],
+   [
+    127.2,
+    227.5
+   ],
+   [
+    80.6,
+    227.5
+   ]
+  ],
+  "note": "BACK third repeats lifted LEFT foot; lift RIGHT/imageRIGHT instead. Strict rear heads, no cheek/nose.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_harbor/art_inbox/harbor_master/map_b.png",
+   "sha256": "e341878d7325a21c17b63b371e32e7f51d4d9d163383b054d7e4cbb65be2d5b9",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.harbor.mila.icon": {},
+ "chapter.harbor.mila.map_a": {
+  "boxes": [
+   [
+    98,
+    20,
+    204,
+    241
+   ],
+   [
+    76,
+    20,
+    175,
+    236
+   ],
+   [
+    50,
+    20,
+    152,
+    238
+   ],
+   [
+    82,
+    8,
+    207,
+    222
+   ],
+   [
+    66,
+    10,
+    189,
+    224
+   ],
+   [
+    38,
+    8,
+    160,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 10
+  },
+  "feet": [
+   [
+    158.7,
+    241.0
+   ],
+   [
+    125.6,
+    236.0
+   ],
+   [
+    113.8,
+    237.5
+   ],
+   [
+    146.4,
+    222.0
+   ],
+   [
+    125.8,
+    224.5
+   ],
+   [
+    84.7,
+    225.5
+   ]
+  ],
+  "note": "Harbour costume and RIGHT-hand spyglass correct. FRONT third walking pose still leads physicalLEFT/viewerRIGHT like column1. Correct TOP RIGHT to RIGHT/viewerLEFT shoe forward; keep good LEFT profiles.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_harbor/art_inbox/harbor_mila/map_a.png",
+   "sha256": "e7b557bb188b621e29df4de8947c8ed4fe2c0d927de9268edfe92bb560266619",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.harbor.mila.map_b": {
+  "boxes": [
+   [
+    102,
+    16,
+    228,
+    234
+   ],
+   [
+    78,
+    16,
+    196,
+    236
+   ],
+   [
+    60,
+    16,
+    180,
+    238
+   ],
+   [
+    94,
+    0,
+    206,
+    216
+   ],
+   [
+    82,
+    0,
+    188,
+    216
+   ],
+   [
+    54,
+    0,
+    164,
+    216
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 5
+  },
+  "cut_frames": [
+   3,
+   4,
+   5
+  ],
+  "feet": [
+   [
+    176.3,
+    234.0
+   ],
+   [
+    130.3,
+    236.0
+   ],
+   [
+    129.6,
+    237.5
+   ],
+   [
+    162.3,
+    215.5
+   ],
+   [
+    129.3,
+    216.5
+   ],
+   [
+    102.6,
+    216.0
+   ]
+  ],
+  "note": "BACK heads three-quarterRIGHT with cheek/nose visible. Strict rear heads all3.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_harbor/art_inbox/harbor_mila/map_b.png",
+   "sha256": "338f27d1d289e1173759827dc78fa42ae9c66de240473dc6a5dc0c7d31796f6f",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.harbor.owl.icon": {},
+ "chapter.harbor.owl.map_a": {
+  "boxes": [
+   [
+    53,
+    10,
+    232,
+    238
+   ],
+   [
+    34,
+    10,
+    216,
+    231
+   ],
+   [
+    22,
+    10,
+    200,
+    233
+   ],
+   [
+    58,
+    5,
+    231,
+    224
+   ],
+   [
+    47,
+    5,
+    220,
+    220
+   ],
+   [
+    31,
+    5,
+    204,
+    220
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    140.2,
+    237.5
+   ],
+   [
+    125.7,
+    231.0
+   ],
+   [
+    103.5,
+    233.0
+   ],
+   [
+    150.8,
+    223.5
+   ],
+   [
+    120.4,
+    220.0
+   ],
+   [
+    105.5,
+    219.5
+   ]
+  ],
+  "note": "Natural owl/cape/cap and LEFT book correct. FRONT column1and3 both lift physicalLEFT/viewerRIGHT. Correct TOP RIGHT to lift physicalRIGHT/viewerLEFT; preserve bottom LEFT profiles.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_harbor/art_inbox/harbor_owl/map_a.png",
+   "sha256": "b1a86abc69e55c112864e746051bc05a8559bb46c11cd78ec679d035a9a4560d",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.harbor.owl.map_b": {
+  "boxes": [
+   [
+    50,
+    8,
+    224,
+    256
+   ],
+   [
+    32,
+    8,
+    203,
+    256
+   ],
+   [
+    22,
+    8,
+    192,
+    256
+   ],
+   [
+    44,
+    0,
+    232,
+    223
+   ],
+   [
+    32,
+    0,
+    218,
+    223
+   ],
+   [
+    18,
+    0,
+    198,
+    223
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 297,
+   "pink_after": 0,
+   "pink_before": 741
+  },
+  "cut_frames": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "feet": [
+   [
+    140.3,
+    256.0
+   ],
+   [
+    126.5,
+    256.0
+   ],
+   [
+    112.4,
+    256.0
+   ],
+   [
+    138.4,
+    223.0
+   ],
+   [
+    126.4,
+    223.0
+   ],
+   [
+    113.0,
+    223.0
+   ]
+  ],
+  "note": "RIGHT profile near wing appears to carry book; required farLEFT wing carrying and nearRIGHT free. Rear LEFT book good.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_harbor/art_inbox/harbor_owl/map_b.png",
+   "sha256": "360531cd64af3efdd0077e453eca8a79ed5ca280a35d696cbeff9785896b4544",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.harbor.props": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 31
+  },
+  "note": "All16props in required order. Portable round lantern ROW3COL1 has an equatorial horizontal bar crossing its vertical supports; remove equatorial bar so glass has no cross-shaped framework. Preserve lamp silhouette/highlight.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "harbor_props.png",
+   "path": "chapter_harbor/props/harbor_props.png",
+   "sha256": "2972f2037a9733cd469b53573972a44d508c16a2faeac2f37171eae8f03dbf36",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.harbor.vehicle": {
+  "boxes": [
+   [
+    20,
+    95,
+    620,
+    530
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "harbor_vehicle.png",
+   "path": "chapter_harbor/objects/harbor_vehicle.png",
+   "sha256": "e4eff8c51e100c58d074e155829b635b8d8c436436fec8801f71ebb9dc860ff4",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.letters.alphabet_grove": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 2
+  },
+  "note": "Eight ground variants visually reviewed in3x3repeat and are periodic; native closed/open entrance overlay fit still requires placement preview. Do not infer readiness from2048canvas.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "letters_alphabet_grove.png",
+   "path": "chapter_letters/tiles/letters_alphabet_grove.png",
+   "sha256": "df2c4290259025b13cac4f80da0dd850df719df2c0b9ee7f1628de98ca83dcc3",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.letters.background": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 1,
+   "pink_before": 1
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "letters_background.png",
+   "path": "chapter_letters/tiles/letters_background.png",
+   "sha256": "b6ced159e50e0caf9c0b315acf77e2ca76e6171251b7d80b843c2185706359bd",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.letters.badge": {
+  "boxes": [
+   [
+    116,
+    38,
+    522,
+    607
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "letters_badge.png",
+   "path": "chapter_letters/objects/letters_badge.png",
+   "sha256": "fa96723ae8484d76d5fde60571e23247856bfc175e04fb318c9bcb14f6892796",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.letters.card_1": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "note": "Poet has an extra third arm/hand behind her next to Mila. Keep two arms only, quill in physicalLEFT.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "letters_card_1.png",
+   "path": "chapter_letters/cards/letters_card_1.png",
+   "sha256": "82927b9905bbdff312aa0960ace2e9d12f806c49a50abe65d2850b2435e86b8c",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.letters.card_2": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "letters_card_2.png",
+   "path": "chapter_letters/cards/letters_card_2.png",
+   "sha256": "88f47d318a0ae00e910776d100f282c12500613381a28a6ca9c485b3bd354910",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.letters.card_3": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "letters_card_3.png",
+   "path": "chapter_letters/cards/letters_card_3.png",
+   "sha256": "414074b1a72146a46078c4bd0a13a85342b46d88e4bea76f14c48de56bcd6cc3",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.letters.card_4": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "note": "Boat differs from established carpet-boat; match green/cream/gold carpetboat with curved leaf sail.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "letters_card_4.png",
+   "path": "chapter_letters/cards/letters_card_4.png",
+   "sha256": "de0b32f7a6d4369866b5a238563d829a074f99d81bcbdd84a7a6a2041f321c85",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.letters.card_5": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "note": "Mila book in physicalRIGHT; must carry book physicalLEFT/imageRIGHT.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "letters_card_5.png",
+   "path": "chapter_letters/cards/letters_card_5.png",
+   "sha256": "0bde026a99ca25e443a7993bb4307d340728936f4c982e4227a4744853e31bf4",
+   "size": [
+    1672,
+    940
+   ]
+  }
+ },
+ "chapter.letters.guide.battle": {
+  "boxes": [
+   [
+    453,
+    52,
+    782,
+    833
+   ],
+   [
+    94,
+    55,
+    415,
+    838
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 84
+  },
+  "feet": [
+   [
+    618.3,
+    833.0
+   ],
+   [
+    253.4,
+    838.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_letters/art_inbox/letters_guide/battle.png",
+   "sha256": "947e244b18fe80ad660d3d406f7d2f028b957445e36ab93cf909b8fc7c342c19",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.letters.guide.icon": {},
+ "chapter.letters.guide.map_a": {
+  "boxes": [
+   [
+    128,
+    12,
+    232,
+    246
+   ],
+   [
+    77,
+    12,
+    181,
+    244
+   ],
+   [
+    29,
+    12,
+    133,
+    246
+   ],
+   [
+    102,
+    4,
+    236,
+    232
+   ],
+   [
+    78,
+    4,
+    180,
+    233
+   ],
+   [
+    16,
+    4,
+    144,
+    232
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 343
+  },
+  "feet": [
+   [
+    180.8,
+    245.5
+   ],
+   [
+    126.8,
+    243.5
+   ],
+   [
+    79.0,
+    245.5
+   ],
+   [
+    177.2,
+    232.0
+   ],
+   [
+    124.6,
+    233.0
+   ],
+   [
+    46.1,
+    232.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_letters/art_inbox/letters_guide/map_a.png",
+   "sha256": "c802e0b70c5ebdd85834cc1e4ac95a3fcaf0fbe8d8a29080adc250001bf3e4f9",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.guide.map_b": {
+  "boxes": [
+   [
+    116,
+    12,
+    238,
+    245
+   ],
+   [
+    74,
+    12,
+    176,
+    245
+   ],
+   [
+    21,
+    12,
+    148,
+    244
+   ],
+   [
+    116,
+    4,
+    230,
+    233
+   ],
+   [
+    78,
+    4,
+    174,
+    232
+   ],
+   [
+    26,
+    4,
+    134,
+    232
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 426
+  },
+  "feet": [
+   [
+    202.4,
+    245.0
+   ],
+   [
+    127.8,
+    245.0
+   ],
+   [
+    73.3,
+    243.5
+   ],
+   [
+    185.6,
+    233.0
+   ],
+   [
+    127.4,
+    232.5
+   ],
+   [
+    71.8,
+    232.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_letters/art_inbox/letters_guide/map_b.png",
+   "sha256": "c73d7578fc3c77407e867d011694bdda8ff0d5e378655df6e29b644dfadddfd4",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.hub": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 131
+  },
+  "note": "Hub has16cells and unsegmented round window. Quest desk LEFT/RIGHT halves are two separately rounded/end-capped tables, not a continuous joinable desk. Needs one continuous two-cell desk plus wall/corner and door native-fit review.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "letters_hub.png",
+   "path": "chapter_letters/tiles/letters_hub.png",
+   "sha256": "7c783925ba78807ddd3662d48b489ad0f42d77160407bb40b174df18fd41e3d2",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.letters.icons": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "letters_icons.png",
+   "path": "chapter_letters/icons/letters_icons.png",
+   "sha256": "6d14dbe523d6f0277748150d862238c298f54fb011b6683d3268295ac04771c3",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.letters.local1.battle": {
+  "boxes": [
+   [
+    383,
+    38,
+    770,
+    847
+   ],
+   [
+    103,
+    38,
+    480,
+    847
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 60
+  },
+  "feet": [
+   [
+    561.9,
+    847.0
+   ],
+   [
+    288.0,
+    847.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_letters/art_inbox/letters_local1/battle.png",
+   "sha256": "8f31f0ddccd7a9ac5a18935cfc6489623e3a55cb39eeb70c5f777d4ef9dd9abc",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.letters.local1.icon": {},
+ "chapter.letters.local1.map_a": {
+  "boxes": [
+   [
+    124,
+    17,
+    230,
+    243
+   ],
+   [
+    73,
+    17,
+    176,
+    242
+   ],
+   [
+    26,
+    17,
+    130,
+    243
+   ],
+   [
+    103,
+    5,
+    233,
+    225
+   ],
+   [
+    82,
+    5,
+    166,
+    225
+   ],
+   [
+    15,
+    5,
+    141,
+    225
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    177.5,
+    243.0
+   ],
+   [
+    124.9,
+    241.5
+   ],
+   [
+    80.2,
+    243.0
+   ],
+   [
+    175.2,
+    225.0
+   ],
+   [
+    120.7,
+    225.0
+   ],
+   [
+    47.2,
+    225.0
+   ]
+  ],
+  "note": "Scroll corrected to physicalRIGHT in all6front/LEFTposes. FRONT third walking shoe still needs clearer physicalRIGHT/viewerLEFT lead; preserve correct hand and profile gait.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_letters/art_inbox/letters_local1/map_a.png",
+   "sha256": "714f5aacf4c1a8bcac63863e251c5d3ac24dc8bec0fb977b239a1966414c5cca",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.local1.map_b": {
+  "boxes": [
+   [
+    121,
+    21,
+    238,
+    242
+   ],
+   [
+    84,
+    20,
+    174,
+    242
+   ],
+   [
+    28,
+    20,
+    148,
+    242
+   ],
+   [
+    125,
+    7,
+    234,
+    222
+   ],
+   [
+    78,
+    6,
+    173,
+    222
+   ],
+   [
+    28,
+    6,
+    135,
+    222
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 93
+  },
+  "feet": [
+   [
+    182.7,
+    242.5
+   ],
+   [
+    129.0,
+    242.5
+   ],
+   [
+    83.6,
+    242.0
+   ],
+   [
+    171.9,
+    222.5
+   ],
+   [
+    127.2,
+    221.5
+   ],
+   [
+    82.4,
+    221.5
+   ]
+  ],
+  "note": "RIGHT/BACK gait correct, but scroll is physicalLEFT, including BACK viewerLEFT. Required physicalRIGHT: BACK viewerRIGHT, RIGHT profile nearRIGHT arm carries, farLEFT arm free.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_letters/art_inbox/letters_local1/map_b.png",
+   "sha256": "9e71deec51ad66c9417cb6559f5ccac264a24ba2079074df40a953a29791e259",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.local2.battle": {
+  "boxes": [
+   [
+    423,
+    38,
+    772,
+    847
+   ],
+   [
+    116,
+    38,
+    464,
+    847
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    597.2,
+    847.0
+   ],
+   [
+    289.6,
+    847.0
+   ]
+  ],
+  "note": "Girl needs OPEN blank primer BOTH hands, currently closed.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_letters/art_inbox/letters_local2/battle.png",
+   "sha256": "21c7d1367142733f92822c2da917d4c564715dde8fcf00581c38c2906c091763",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.letters.local2.icon": {},
+ "chapter.letters.local2.map_a": {
+  "boxes": [
+   [
+    127,
+    18,
+    228,
+    245
+   ],
+   [
+    80,
+    18,
+    178,
+    245
+   ],
+   [
+    30,
+    18,
+    130,
+    245
+   ],
+   [
+    107,
+    3,
+    237,
+    226
+   ],
+   [
+    68,
+    3,
+    180,
+    227
+   ],
+   [
+    18,
+    3,
+    156,
+    227
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 68
+  },
+  "feet": [
+   [
+    179.9,
+    245.0
+   ],
+   [
+    128.2,
+    245.0
+   ],
+   [
+    78.6,
+    245.0
+   ],
+   [
+    176.3,
+    225.5
+   ],
+   [
+    126.6,
+    227.0
+   ],
+   [
+    62.4,
+    227.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_letters/art_inbox/letters_local2/map_a.png",
+   "sha256": "536c61353cc285b1d19dc12ee06defda7b6924f0b12497058530d231ec50d747",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.local2.map_b": {
+  "boxes": [
+   [
+    106,
+    18,
+    240,
+    243
+   ],
+   [
+    75,
+    18,
+    177,
+    244
+   ],
+   [
+    21,
+    18,
+    148,
+    243
+   ],
+   [
+    119,
+    3,
+    220,
+    228
+   ],
+   [
+    80,
+    3,
+    172,
+    226
+   ],
+   [
+    28,
+    3,
+    130,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 53
+  },
+  "feet": [
+   [
+    192.9,
+    243.0
+   ],
+   [
+    126.5,
+    244.5
+   ],
+   [
+    81.1,
+    243.0
+   ],
+   [
+    163.3,
+    228.5
+   ],
+   [
+    125.5,
+    226.0
+   ],
+   [
+    84.4,
+    228.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_letters/art_inbox/letters_local2/map_b.png",
+   "sha256": "431706c6d3a28b0f7589eee625fa8d190e9853ea9b16971443c0b345ecd62326",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.master.battle": {
+  "boxes": [
+   [
+    342,
+    43,
+    775,
+    845
+   ],
+   [
+    137,
+    62,
+    548,
+    842
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1
+  },
+  "feet": [
+   [
+    567.7,
+    845.0
+   ],
+   [
+    328.9,
+    842.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_letters/art_inbox/letters_master/battle.png",
+   "sha256": "ef589a342fed2c1e5b2f21aebb4108152d56e005bf5f36e11fd696a2a684da45",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.letters.master.icon": {},
+ "chapter.letters.master.map_a": {
+  "boxes": [
+   [
+    118,
+    16,
+    236,
+    243
+   ],
+   [
+    72,
+    16,
+    186,
+    241
+   ],
+   [
+    22,
+    16,
+    136,
+    243
+   ],
+   [
+    104,
+    4,
+    240,
+    226
+   ],
+   [
+    78,
+    4,
+    178,
+    226
+   ],
+   [
+    16,
+    4,
+    157,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    181.2,
+    243.0
+   ],
+   [
+    127.0,
+    241.0
+   ],
+   [
+    77.1,
+    243.0
+   ],
+   [
+    180.0,
+    226.5
+   ],
+   [
+    125.0,
+    226.5
+   ],
+   [
+    41.0,
+    226.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_letters/art_inbox/letters_master/map_a.png",
+   "sha256": "bae29572392c90323f341ba4925733789c13ccc998a6f75e8e957fa428e708f6",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.master.map_b": {
+  "boxes": [
+   [
+    108,
+    16,
+    240,
+    240
+   ],
+   [
+    79,
+    16,
+    183,
+    242
+   ],
+   [
+    26,
+    16,
+    152,
+    242
+   ],
+   [
+    112,
+    2,
+    235,
+    224
+   ],
+   [
+    70,
+    2,
+    179,
+    222
+   ],
+   [
+    29,
+    2,
+    152,
+    224
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 37
+  },
+  "feet": [
+   [
+    191.1,
+    240.0
+   ],
+   [
+    131.5,
+    242.5
+   ],
+   [
+    88.2,
+    242.0
+   ],
+   [
+    173.5,
+    223.5
+   ],
+   [
+    128.5,
+    222.0
+   ],
+   [
+    85.4,
+    224.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_letters/art_inbox/letters_master/map_b.png",
+   "sha256": "8f3be7b8e56712c2d32516fc8ff703d3ec3093ccfea13b3b90592b39c5426408",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.mila.battle": {
+  "boxes": [
+   [
+    365,
+    31,
+    761,
+    842
+   ],
+   [
+    90,
+    32,
+    512,
+    842
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 301
+  },
+  "feet": [
+   [
+    569.4,
+    842.0
+   ],
+   [
+    296.4,
+    842.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_letters/art_inbox/letters_mila/battle.png",
+   "sha256": "b4bda958fa4239924ba8ab4ba314e5e6af3d2c710b98604defb3241c788cc7e1",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.letters.mila.icon": {},
+ "chapter.letters.mila.map_a": {
+  "boxes": [
+   [
+    91,
+    20,
+    208,
+    239
+   ],
+   [
+    68,
+    20,
+    185,
+    238
+   ],
+   [
+    44,
+    20,
+    164,
+    240
+   ],
+   [
+    90,
+    11,
+    208,
+    224
+   ],
+   [
+    82,
+    11,
+    186,
+    224
+   ],
+   [
+    50,
+    11,
+    162,
+    224
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    139.0,
+    239.0
+   ],
+   [
+    126.2,
+    238.5
+   ],
+   [
+    109.1,
+    239.5
+   ],
+   [
+    142.4,
+    223.5
+   ],
+   [
+    123.0,
+    224.0
+   ],
+   [
+    88.3,
+    223.5
+   ]
+  ],
+  "note": "Storybook physicalLEFT corrected in all6frames. FRONT foot order remains reversed: column1physicalRIGHT/viewerLEFT leads; column3physicalLEFT/viewerRIGHT leads. Correct FRONT shoe poses only.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_letters/art_inbox/letters_mila/map_a.png",
+   "sha256": "579da4393a2d29e4051d19c3febe6fc56c789a0977fc96a5a2f49a19f8f10e4b",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.mila.map_b": {
+  "boxes": [
+   [
+    104,
+    16,
+    220,
+    256
+   ],
+   [
+    75,
+    16,
+    174,
+    232
+   ],
+   [
+    38,
+    16,
+    162,
+    256
+   ],
+   [
+    105,
+    0,
+    212,
+    216
+   ],
+   [
+    82,
+    0,
+    180,
+    214
+   ],
+   [
+    42,
+    0,
+    150,
+    216
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 77,
+   "pink_before": 78
+  },
+  "cut_frames": [
+   0,
+   2,
+   3,
+   4,
+   5
+  ],
+  "feet": [
+   [
+    154.5,
+    256.0
+   ],
+   [
+    138.2,
+    232.5
+   ],
+   [
+    99.0,
+    256.0
+   ],
+   [
+    162.9,
+    216.0
+   ],
+   [
+    128.5,
+    214.5
+   ],
+   [
+    105.8,
+    216.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_letters/art_inbox/letters_mila/map_b.png",
+   "sha256": "ca7ba8f28aed5303b63438392df78c1530bb06752cb3341c2ede851c5822cf5f",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.owl.battle": {
+  "boxes": [
+   [
+    161,
+    38,
+    824,
+    841
+   ],
+   [
+    64,
+    38,
+    718,
+    842
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 294,
+   "pink_before": 294
+  },
+  "feet": [
+   [
+    507.9,
+    841.0
+   ],
+   [
+    374.0,
+    842.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_letters/art_inbox/letters_owl/battle.png",
+   "sha256": "e485cddda1a19805524fcc36c8647151a2abdb458dd3d814c41fa2c33b3fd856",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.letters.owl.icon": {},
+ "chapter.letters.owl.map_a": {
+  "boxes": [
+   [
+    48,
+    20,
+    238,
+    234
+   ],
+   [
+    37,
+    20,
+    218,
+    234
+   ],
+   [
+    20,
+    20,
+    205,
+    234
+   ],
+   [
+    60,
+    7,
+    232,
+    224
+   ],
+   [
+    48,
+    7,
+    218,
+    222
+   ],
+   [
+    40,
+    7,
+    212,
+    220
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    124.6,
+    234.5
+   ],
+   [
+    127.9,
+    234.5
+   ],
+   [
+    121.4,
+    234.5
+   ],
+   [
+    149.6,
+    223.5
+   ],
+   [
+    123.5,
+    221.5
+   ],
+   [
+    114.4,
+    220.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_letters/art_inbox/letters_owl/map_a.png",
+   "sha256": "e445556ee583da7c6559a65eaf91398932066fafc4e101cede6e9501bb995eb6",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.owl.map_b": {
+  "boxes": [
+   [
+    48,
+    16,
+    210,
+    234
+   ],
+   [
+    34,
+    16,
+    188,
+    234
+   ],
+   [
+    22,
+    16,
+    182,
+    234
+   ],
+   [
+    44,
+    4,
+    228,
+    219
+   ],
+   [
+    36,
+    4,
+    212,
+    219
+   ],
+   [
+    18,
+    4,
+    198,
+    219
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 446
+  },
+  "feet": [
+   [
+    141.5,
+    234.5
+   ],
+   [
+    126.0,
+    234.5
+   ],
+   [
+    118.8,
+    234.5
+   ],
+   [
+    149.8,
+    219.0
+   ],
+   [
+    125.2,
+    219.0
+   ],
+   [
+    108.1,
+    219.0
+   ]
+  ],
+  "note": "Gait and rear heads are correct, but book moved to physicalRIGHT in RIGHT/BACK sheet. Must be physicalLEFT: BACK on viewerLEFT, RIGHT profiles farLEFT wing carries while nearRIGHT is free.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_letters/art_inbox/letters_owl/map_b.png",
+   "sha256": "b26945788cbd077a49cb9c888ab8bf9f10553f87e0821f773fcd60504128fa2e",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.place_1": {
+  "boxes": [
+   [
+    27,
+    79,
+    612,
+    554
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "letters_place_1.png",
+   "path": "chapter_letters/objects/letters_place_1.png",
+   "sha256": "a1c679b724c1ff6c01a41e32fe2fabe071c4032d3ca43a825f7fbed326f61e07",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.letters.place_2": {
+  "boxes": [
+   [
+    24,
+    77,
+    619,
+    558
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "letters_place_2.png",
+   "path": "chapter_letters/objects/letters_place_2.png",
+   "sha256": "a55d02b408cea326e5de6d2982b2fc71ff6dba375a004c0b16d23f09143e03ec",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.letters.place_3": {
+  "boxes": [
+   [
+    24,
+    57,
+    616,
+    568
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "letters_place_3.png",
+   "path": "chapter_letters/objects/letters_place_3.png",
+   "sha256": "41a0ba6aa0e427d40d9de95626d1edc6c22fe84a7213617ba9b316d393651ff4",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.letters.place_4": {
+  "boxes": [
+   [
+    29,
+    75,
+    615,
+    557
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "letters_place_4.png",
+   "path": "chapter_letters/objects/letters_place_4.png",
+   "sha256": "7b3e16bde0eeb12afa56380bc9866b259ee8086ce446564c7d2ccbc25756c47b",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.letters.poem_hill": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "note": "Poem-hill sheet contains matching architecture and plain closed/open leaves; native overlay fit and ground-repeat review pending.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "letters_poem_hill.png",
+   "path": "chapter_letters/tiles/letters_poem_hill.png",
+   "sha256": "5b2a28aabd8f40e59eb4475199c994f84583fab9e7a8f718aa4dad67bbe5f756",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.letters.props": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1446
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "letters_props.png",
+   "path": "chapter_letters/props/letters_props.png",
+   "sha256": "c54f1c35b1e844ce015b56094b53896bd674d20d18252463a664a6640e637e63",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.letters.story_cave": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 4
+  },
+  "note": "Story-cave sheet contains matching architecture and plain closed/open leaves; native overlay placement fit and ground-repeat review still pending.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "letters_story_cave.png",
+   "path": "chapter_letters/tiles/letters_story_cave.png",
+   "sha256": "8f663df3b36361bb020b75ae469c48c5e6991cc927ad204c8f2931db5565dc23",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.letters.vehicle": {
+  "boxes": [
+   [
+    10,
+    93,
+    631,
+    574
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "letters_vehicle.png",
+   "path": "chapter_letters/objects/letters_vehicle.png",
+   "sha256": "dbb28b8d4403f0c9378f81aec8c3a1b7460d7e749919167d33a7891c11ec1276",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.letters.vehicle.icon": {},
+ "chapter.letters.vehicle.map_a": {
+  "boxes": [
+   [
+    28,
+    75,
+    242,
+    240
+   ],
+   [
+    20,
+    54,
+    235,
+    220
+   ],
+   [
+    13,
+    32,
+    228,
+    202
+   ],
+   [
+    23,
+    46,
+    247,
+    204
+   ],
+   [
+    16,
+    28,
+    240,
+    192
+   ],
+   [
+    8,
+    11,
+    232,
+    168
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 36
+  },
+  "feet": [
+   [
+    135.1,
+    239.5
+   ],
+   [
+    128.2,
+    219.5
+   ],
+   [
+    120.2,
+    202.0
+   ],
+   [
+    148.8,
+    203.5
+   ],
+   [
+    141.5,
+    192.0
+   ],
+   [
+    134.0,
+    168.0
+   ]
+  ],
+  "note": "Six EMPTY carpet-boats, correct front/LEFT directional distinction, no crossbar; native sprite widths roughly420px instead of requiredabout240px. Need freshly drawn smaller sprites/fixed-anchor hover guides, no code resampling.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_letters/art_inbox/letters_vehicle/map_a.png",
+   "sha256": "6abcccc48d947aa3b05e8ddcc11630ea3608b0ce30c5861b0db9e08b484ae44c",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.vehicle.map_b": {
+  "boxes": [
+   [
+    18,
+    92,
+    244,
+    240
+   ],
+   [
+    18,
+    73,
+    244,
+    223
+   ],
+   [
+    18,
+    48,
+    244,
+    198
+   ],
+   [
+    33,
+    66,
+    225,
+    194
+   ],
+   [
+    33,
+    52,
+    225,
+    187
+   ],
+   [
+    34,
+    40,
+    226,
+    176
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    131.8,
+    239.5
+   ],
+   [
+    131.7,
+    223.0
+   ],
+   [
+    131.8,
+    197.5
+   ],
+   [
+    129.3,
+    194.0
+   ],
+   [
+    129.6,
+    187.0
+   ],
+   [
+    129.9,
+    175.5
+   ]
+  ],
+  "note": "Correct strictRIGHT/BACK and empty boat, but nativewidth440 instead240; redraw miniature.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_letters/art_inbox/letters_vehicle/map_b.png",
+   "sha256": "c4ea5b29ac320fe3f8f90317fe82a5bcf74a393892d25ace7e6c97224db3a1dd",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.letters.word_river": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "note": "Word-river sheet contains both CLOSED doors in row4col2andcol3. Row4col3 must show OPEN door, matching native building opening. Door fit and floors need native preview review.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "letters_word_river.png",
+   "path": "chapter_letters/tiles/letters_word_river.png",
+   "sha256": "9fca67654aeae3b0d024d785386fa01958969fdee65d9ce3177c7ea8f06a5c6a",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.numbers.background": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_background.png",
+   "path": "chapter_numbers/tiles/numbers_background.png",
+   "sha256": "a2d6e18c35cfb2726c05dfc0e77b01fc6bc40d82f508aaa97828b10ab35dead0",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.numbers.badge": {
+  "boxes": [
+   [
+    86,
+    24,
+    554,
+    607
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 210,
+   "pink_after": 0,
+   "pink_before": 605
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_badge.png",
+   "path": "chapter_numbers/objects/numbers_badge.png",
+   "sha256": "87697c6c6928f72ef18d1d58c3f207b7bd7b83e311a2abf96fe5c6caf74d60d3",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.numbers.big_bridge": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 325
+  },
+  "note": "All16 cells and unchanged native foreground verified. Exact floor edge checks pass, but bridge floor includes repeated posts/rope obstacles. Door overlays are too large for the building entrance; needs native-size fit.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "numbers_big_bridge.png",
+   "path": "chapter_numbers/tiles/numbers_big_bridge.png",
+   "sha256": "5d256191c05b69c120bc53702d4433e7435480506a922c2807aeaaffed8a6c45",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.numbers.card_1": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_card_1.png",
+   "path": "chapter_numbers/cards/numbers_card_1.png",
+   "sha256": "79aee26a8dc71555a0725986a7fd2f038130c1a3ddddd8c8a05e038362c6ef2e",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.numbers.card_2": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_card_2.png",
+   "path": "chapter_numbers/cards/numbers_card_2.png",
+   "sha256": "0213802b685fa60d24b1b62f72568ca9d8d69793c6d1acf04eea6bbff7d0a5a0",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.numbers.card_3": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_card_3.png",
+   "path": "chapter_numbers/cards/numbers_card_3.png",
+   "sha256": "ff169f9daf06d9322ec0217ea05a9b407d96d22ecb94adb1471c2cc2947c3ce4",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.numbers.card_4": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_card_4.png",
+   "path": "chapter_numbers/cards/numbers_card_4.png",
+   "sha256": "f42e03e1159de221b0839ffac439663c03581a68325775ec86900adf78bd162d",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.numbers.card_5": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "note": "Upper-left windows now unsegmented round glass. Unrequested five-point star ornaments remain on hanging coin faces (not permitted unless explicitly requested). Replace all coin star marks with single round dots/rings.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "numbers_card_5.png",
+   "path": "chapter_numbers/cards/numbers_card_5.png",
+   "sha256": "9d0af325e7843f28a0333b0dc695a9eb1a358801bce5cbc21e4cb9e848cb4001",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.numbers.card_6": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_card_6.png",
+   "path": "chapter_numbers/cards/numbers_card_6.png",
+   "sha256": "e105013070a75faaf2bf3a6e4767ed0690a8ff878ce664e60258147aeef0a4bd",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.numbers.card_7": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "note": "Knowledge-test scene cast and physical props correct. Unrequested five-point star coin emblem at upper-left must become plain round dot/ring.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "numbers_card_7.png",
+   "path": "chapter_numbers/cards/numbers_card_7.png",
+   "sha256": "9bf7c5af456f40559251526c6d1e1e639d0cda08bc0654d1aff40da5320b9cbc",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.numbers.card_8": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "note": "Guide abacus corrected to physicalLEFT. Master holds a second scenic completion MEDAL instead of her required round CLOCK DIAL. Replace only her held object with the exact cream/gold clock supported BOTH hands; leave Mila medal unchanged. Also remove unrequested star-shaped coin decorations.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "numbers_card_8.png",
+   "path": "chapter_numbers/cards/numbers_card_8.png",
+   "sha256": "88c5abf89d55fd835bbc7d9cf9684ab6afefb87037858499bf235def71a67763",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.numbers.clock_tower": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 70,
+   "pink_before": 258
+  },
+  "note": "All16 cells and unchanged native foreground verified. Eight floor tiles pass exact edge and visual3x3 review; door overlays are much larger than the small building entrance. Required native-fit repair. Clock-tower architectural identity also needs stronger thematic distinction.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "numbers_clock_tower.png",
+   "path": "chapter_numbers/tiles/numbers_clock_tower.png",
+   "sha256": "cc51cd23296de3adb533e5cb16ba847cb6862aa726a9a265f8838e10aad1c533",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.numbers.coin_market": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 637,
+   "pink_after": 0,
+   "pink_before": 2259
+  },
+  "note": "All16 cells and unchanged native foreground verified. Eight floor tiles pass exact edge and visual3x3 review; closed/open overlays are too large for the market building opening.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "numbers_coin_market.png",
+   "path": "chapter_numbers/tiles/numbers_coin_market.png",
+   "sha256": "cb618ba737992d2777e78bbe4bfba1a9ac7fbd1e654480228aeb5a164b8c6643",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.numbers.counting_meadow": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 720
+  },
+  "note": "Door guide removed; door frame still oversized. Needs native fit repair, not approved.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "numbers_counting_meadow.png",
+   "path": "chapter_numbers/tiles/numbers_counting_meadow.png",
+   "sha256": "dfeaaa77c4c73825e4ae7b768768c2f8c2f35b3f2f9ca122ea2286e4703bd27a",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.numbers.guide.battle": {
+  "boxes": [
+   [
+    391,
+    34,
+    777,
+    846
+   ],
+   [
+    97,
+    35,
+    474,
+    847
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 31
+  },
+  "feet": [
+   [
+    585.9,
+    846.0
+   ],
+   [
+    278.6,
+    847.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_numbers/art_inbox/numbers_guide/battle.png",
+   "sha256": "4e76698b1682b21c96cf11f41f1952e2208480a1c84f1911cd6d6d0872c41aa2",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.numbers.guide.icon": {},
+ "chapter.numbers.guide.map_a": {
+  "boxes": [
+   [
+    122,
+    14,
+    238,
+    243
+   ],
+   [
+    76,
+    14,
+    185,
+    240
+   ],
+   [
+    18,
+    14,
+    132,
+    243
+   ],
+   [
+    104,
+    5,
+    238,
+    224
+   ],
+   [
+    82,
+    5,
+    168,
+    226
+   ],
+   [
+    9,
+    5,
+    151,
+    224
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 126
+  },
+  "feet": [
+   [
+    183.9,
+    243.0
+   ],
+   [
+    127.7,
+    240.5
+   ],
+   [
+    71.0,
+    243.0
+   ],
+   [
+    175.6,
+    224.5
+   ],
+   [
+    123.5,
+    225.5
+   ],
+   [
+    52.8,
+    224.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_numbers/art_inbox/numbers_guide/map_a.png",
+   "sha256": "a5cadd919fb5cbf163a2f6a9877508b40bb6e0aa9d9762d614d40fb11c4fd42f",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.guide.map_b": {
+  "boxes": [
+   [
+    114,
+    13,
+    249,
+    240
+   ],
+   [
+    84,
+    13,
+    176,
+    240
+   ],
+   [
+    14,
+    13,
+    146,
+    241
+   ],
+   [
+    118,
+    3,
+    235,
+    226
+   ],
+   [
+    76,
+    3,
+    176,
+    224
+   ],
+   [
+    22,
+    3,
+    143,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 132
+  },
+  "feet": [
+   [
+    218.7,
+    240.5
+   ],
+   [
+    133.1,
+    240.5
+   ],
+   [
+    73.0,
+    241.0
+   ],
+   [
+    170.7,
+    225.5
+   ],
+   [
+    127.0,
+    224.0
+   ],
+   [
+    60.8,
+    225.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_numbers/art_inbox/numbers_guide/map_b.png",
+   "sha256": "9abe39c6274e66ae0478d05219e90394acb9e7ea33638d37ed393bd911d2be63",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.hub": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 8600,
+   "pink_after": 0,
+   "pink_before": 10548
+  },
+  "note": "All16 cells and unchanged native foreground verified. Four floor tiles pass exact edge and visual3x3 review; closed/open doorway fits and modular wall joins still require native placement review.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "numbers_hub.png",
+   "path": "chapter_numbers/tiles/numbers_hub.png",
+   "sha256": "45dbbc793a1a6d752a3dda2cf028e36e66418b323cf80e9e18df0071a20a9d28",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.numbers.icons": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 177,
+   "pink_after": 0,
+   "pink_before": 1787
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_icons.png",
+   "path": "chapter_numbers/icons/numbers_icons.png",
+   "sha256": "6dce6c78b69aed05632a011b22fa0662c93bce83c1200566ba17a5a38b2ff00f",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.numbers.local1.battle": {
+  "boxes": [
+   [
+    321,
+    42,
+    753,
+    844
+   ],
+   [
+    144,
+    44,
+    554,
+    842
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 274
+  },
+  "feet": [
+   [
+    524.6,
+    844.0
+   ],
+   [
+    338.4,
+    842.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_numbers/art_inbox/numbers_local1/battle.png",
+   "sha256": "cd1708213b9aff233c034bb664fbcf8b90144e710073e6f7ea4f7efa0fd778a0",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.numbers.local1.icon": {},
+ "chapter.numbers.local1.map_a": {
+  "boxes": [
+   [
+    118,
+    14,
+    244,
+    242
+   ],
+   [
+    68,
+    14,
+    186,
+    241
+   ],
+   [
+    22,
+    14,
+    148,
+    242
+   ],
+   [
+    105,
+    3,
+    238,
+    228
+   ],
+   [
+    76,
+    3,
+    179,
+    228
+   ],
+   [
+    14,
+    3,
+    148,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    182.4,
+    242.5
+   ],
+   [
+    126.3,
+    241.0
+   ],
+   [
+    75.8,
+    242.5
+   ],
+   [
+    172.9,
+    228.0
+   ],
+   [
+    121.3,
+    228.0
+   ],
+   [
+    55.4,
+    228.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_numbers/art_inbox/numbers_local1/map_a.png",
+   "sha256": "37a51cd0d83071b833fe0e3479ed275061ae3987321ee2dcd7f1489f33a2029b",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.local1.map_b": {
+  "boxes": [
+   [
+    104,
+    14,
+    234,
+    243
+   ],
+   [
+    74,
+    14,
+    177,
+    243
+   ],
+   [
+    24,
+    14,
+    148,
+    244
+   ],
+   [
+    109,
+    2,
+    238,
+    226
+   ],
+   [
+    66,
+    2,
+    192,
+    226
+   ],
+   [
+    18,
+    2,
+    147,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 58
+  },
+  "feet": [
+   [
+    186.7,
+    243.0
+   ],
+   [
+    129.5,
+    243.0
+   ],
+   [
+    97.4,
+    243.5
+   ],
+   [
+    170.6,
+    226.5
+   ],
+   [
+    128.2,
+    226.5
+   ],
+   [
+    86.6,
+    226.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_numbers/art_inbox/numbers_local1/map_b.png",
+   "sha256": "9a24ffae5a8a47f59cc8b6863376e1f3d206c8506033f6a526cef5ffafeba6a0",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.local2.battle": {
+  "boxes": [
+   [
+    370,
+    32,
+    746,
+    844
+   ],
+   [
+    104,
+    32,
+    486,
+    844
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 2
+  },
+  "feet": [
+   [
+    548.9,
+    844.0
+   ],
+   [
+    297.5,
+    844.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_numbers/art_inbox/numbers_local2/battle.png",
+   "sha256": "964faf7c5ab21a73d12efa2511734526225c1184066151815d0bf1eb074bf84f",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.numbers.local2.icon": {},
+ "chapter.numbers.local2.map_a": {
+  "boxes": [
+   [
+    117,
+    16,
+    222,
+    242
+   ],
+   [
+    76,
+    16,
+    172,
+    240
+   ],
+   [
+    23,
+    16,
+    126,
+    242
+   ],
+   [
+    105,
+    4,
+    228,
+    222
+   ],
+   [
+    78,
+    4,
+    174,
+    222
+   ],
+   [
+    20,
+    4,
+    143,
+    222
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 9
+  },
+  "feet": [
+   [
+    184.8,
+    242.5
+   ],
+   [
+    125.3,
+    239.5
+   ],
+   [
+    64.4,
+    242.5
+   ],
+   [
+    168.0,
+    222.0
+   ],
+   [
+    124.5,
+    222.0
+   ],
+   [
+    46.6,
+    222.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_numbers/art_inbox/numbers_local2/map_a.png",
+   "sha256": "2fe5210ede3d42cb6da5b1465ca032386ed051d96e203f17877676d4d2d9619a",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.local2.map_b": {
+  "boxes": [
+   [
+    126,
+    16,
+    244,
+    240
+   ],
+   [
+    83,
+    16,
+    180,
+    239
+   ],
+   [
+    27,
+    16,
+    148,
+    239
+   ],
+   [
+    123,
+    0,
+    228,
+    219
+   ],
+   [
+    80,
+    0,
+    176,
+    219
+   ],
+   [
+    34,
+    0,
+    139,
+    219
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 78,
+   "pink_before": 155
+  },
+  "cut_frames": [
+   3,
+   4,
+   5
+  ],
+  "feet": [
+   [
+    214.6,
+    239.5
+   ],
+   [
+    132.0,
+    239.0
+   ],
+   [
+    87.9,
+    239.0
+   ],
+   [
+    168.9,
+    219.0
+   ],
+   [
+    128.3,
+    219.0
+   ],
+   [
+    82.6,
+    219.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_numbers/art_inbox/numbers_local2/map_b.png",
+   "sha256": "92f2c9decc3578fa6fd2d8ca35412a2bfbcaef08e83adcebd97437c859bfde94",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.master.battle": {
+  "boxes": [
+   [
+    376,
+    65,
+    770,
+    825
+   ],
+   [
+    88,
+    65,
+    496,
+    825
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    571.0,
+    825.0
+   ],
+   [
+    275.8,
+    825.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_numbers/art_inbox/numbers_master/battle.png",
+   "sha256": "d306d7656a421d0c9f5a0756a9525d1783bce8fe119656d8b3b80caf431d058a",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.numbers.master.icon": {},
+ "chapter.numbers.master.map_a": {
+  "boxes": [
+   [
+    120,
+    17,
+    242,
+    247
+   ],
+   [
+    78,
+    17,
+    194,
+    242
+   ],
+   [
+    26,
+    17,
+    145,
+    247
+   ],
+   [
+    106,
+    4,
+    238,
+    226
+   ],
+   [
+    81,
+    4,
+    186,
+    226
+   ],
+   [
+    25,
+    4,
+    158,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 6
+  },
+  "feet": [
+   [
+    184.2,
+    247.0
+   ],
+   [
+    128.1,
+    242.0
+   ],
+   [
+    63.3,
+    247.0
+   ],
+   [
+    182.3,
+    226.5
+   ],
+   [
+    123.5,
+    226.5
+   ],
+   [
+    77.9,
+    226.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_numbers/art_inbox/numbers_master/map_a.png",
+   "sha256": "992498627e8c36699e9a88d6d5c37c274515f0dda2a3f1222467f88b8aace542",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.master.map_b": {
+  "boxes": [
+   [
+    106,
+    18,
+    250,
+    242
+   ],
+   [
+    72,
+    18,
+    182,
+    243
+   ],
+   [
+    25,
+    18,
+    162,
+    242
+   ],
+   [
+    112,
+    2,
+    229,
+    225
+   ],
+   [
+    76,
+    2,
+    182,
+    225
+   ],
+   [
+    28,
+    2,
+    144,
+    225
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 153
+  },
+  "feet": [
+   [
+    200.0,
+    242.0
+   ],
+   [
+    131.4,
+    243.0
+   ],
+   [
+    91.4,
+    242.0
+   ],
+   [
+    177.9,
+    225.0
+   ],
+   [
+    124.8,
+    225.0
+   ],
+   [
+    74.0,
+    225.0
+   ]
+  ],
+  "note": "Gait order and strict rear heads now correct; clock held BOTH hands. Rear headcover gained TWO matching blue/gold side fasteners, whereas identity has one on physicalLEFT. Remove extra fastener on IMAGE RIGHT of all three back heads.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_numbers/art_inbox/numbers_master/map_b.png",
+   "sha256": "c36d9b0d9828172a97352b8d3e87b791a26f00c48eca1015ecda011b6f13bbd2",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.mila.battle": {
+  "boxes": [
+   [
+    377,
+    41,
+    722,
+    835
+   ],
+   [
+    156,
+    47,
+    499,
+    841
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    551.5,
+    835.0
+   ],
+   [
+    322.7,
+    841.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_numbers/art_inbox/numbers_mila/battle.png",
+   "sha256": "2f2941c6fa065040e21a0aac94ae14ed3d8acdfb0f094f0ab5e4722f027ae77e",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.numbers.mila.icon": {},
+ "chapter.numbers.mila.map_a": {
+  "boxes": [
+   [
+    106,
+    20,
+    202,
+    238
+   ],
+   [
+    82,
+    20,
+    176,
+    238
+   ],
+   [
+    58,
+    20,
+    151,
+    238
+   ],
+   [
+    93,
+    10,
+    206,
+    222
+   ],
+   [
+    80,
+    10,
+    188,
+    225
+   ],
+   [
+    53,
+    10,
+    160,
+    225
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    161.6,
+    238.5
+   ],
+   [
+    124.0,
+    238.5
+   ],
+   [
+    90.2,
+    238.5
+   ],
+   [
+    142.2,
+    222.0
+   ],
+   [
+    125.4,
+    225.0
+   ],
+   [
+    83.2,
+    225.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_numbers/art_inbox/numbers_mila/map_a.png",
+   "sha256": "d3c32f813ab5258470a869a223fea8efc29592123f9651dd82c6d698e4dfae00",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.mila.map_b": {
+  "boxes": [
+   [
+    88,
+    17,
+    208,
+    233
+   ],
+   [
+    67,
+    17,
+    166,
+    236
+   ],
+   [
+    46,
+    17,
+    161,
+    233
+   ],
+   [
+    98,
+    6,
+    192,
+    226
+   ],
+   [
+    78,
+    6,
+    172,
+    226
+   ],
+   [
+    57,
+    6,
+    150,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 38
+  },
+  "feet": [
+   [
+    167.5,
+    233.0
+   ],
+   [
+    125.8,
+    235.5
+   ],
+   [
+    106.7,
+    233.0
+   ],
+   [
+    144.2,
+    225.5
+   ],
+   [
+    124.0,
+    225.5
+   ],
+   [
+    102.6,
+    225.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_numbers/art_inbox/numbers_mila/map_b.png",
+   "sha256": "27153ca93e746a10d4f368645e68689606e933a4bd38f8e33285dd6b3add2888",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.owl.battle": {
+  "boxes": [
+   [
+    163,
+    51,
+    859,
+    827
+   ],
+   [
+    34,
+    49,
+    723,
+    827
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1
+  },
+  "feet": [
+   [
+    481.3,
+    827.0
+   ],
+   [
+    404.2,
+    827.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_numbers/art_inbox/numbers_owl/battle.png",
+   "sha256": "6e8c671b32cc2a55eb01b90a7062c387a2ba5271ae8d678e4ce81a8de1600a56",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.numbers.owl.icon": {},
+ "chapter.numbers.owl.map_a": {
+  "boxes": [
+   [
+    43,
+    20,
+    232,
+    232
+   ],
+   [
+    27,
+    20,
+    216,
+    232
+   ],
+   [
+    12,
+    21,
+    200,
+    231
+   ],
+   [
+    60,
+    10,
+    241,
+    224
+   ],
+   [
+    50,
+    9,
+    222,
+    220
+   ],
+   [
+    38,
+    10,
+    216,
+    222
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 12
+  },
+  "feet": [
+   [
+    128.9,
+    231.5
+   ],
+   [
+    127.0,
+    232.0
+   ],
+   [
+    114.2,
+    231.0
+   ],
+   [
+    151.2,
+    223.5
+   ],
+   [
+    120.0,
+    219.5
+   ],
+   [
+    110.4,
+    222.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_numbers/art_inbox/numbers_owl/map_a.png",
+   "sha256": "beadba74513086e826f7c072aa9b9170c6c4e7acba8facf28d4e0cc229bc62f3",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.owl.map_b": {
+  "boxes": [
+   [
+    30,
+    14,
+    226,
+    256
+   ],
+   [
+    14,
+    14,
+    206,
+    256
+   ],
+   [
+    14,
+    14,
+    202,
+    256
+   ],
+   [
+    49,
+    0,
+    244,
+    212
+   ],
+   [
+    44,
+    0,
+    241,
+    212
+   ],
+   [
+    32,
+    0,
+    226,
+    212
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 498,
+   "pink_after": 0,
+   "pink_before": 1056
+  },
+  "cut_frames": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "feet": [
+   [
+    139.7,
+    256.0
+   ],
+   [
+    131.0,
+    256.0
+   ],
+   [
+    121.1,
+    256.0
+   ],
+   [
+    145.7,
+    212.0
+   ],
+   [
+    128.5,
+    212.0
+   ],
+   [
+    115.0,
+    212.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_numbers/art_inbox/numbers_owl/map_b.png",
+   "sha256": "d64126a1cd7771cb1685ad0bbc4de74cc4886abb1164a25e5453f603c60e5ead",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.place_1": {
+  "boxes": [
+   [
+    12,
+    88,
+    628,
+    534
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_place_1.png",
+   "path": "chapter_numbers/objects/numbers_place_1.png",
+   "sha256": "6c4f3e91989a63347ca91e67e41a0d820e623ba29df1cd1afa9db704114289e3",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.numbers.place_2": {
+  "boxes": [
+   [
+    50,
+    22,
+    592,
+    579
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_place_2.png",
+   "path": "chapter_numbers/objects/numbers_place_2.png",
+   "sha256": "763e0147afecc3031aa65e243dffb9c802a8e0a08ec0a38384b6509025ea0150",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.numbers.place_3": {
+  "boxes": [
+   [
+    31,
+    64,
+    614,
+    527
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 3153,
+   "pink_after": 0,
+   "pink_before": 3794
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_place_3.png",
+   "path": "chapter_numbers/objects/numbers_place_3.png",
+   "sha256": "78491a504515b551a18459471505cebfaa5e0676f831a3328e12f11b7405cf47",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.numbers.place_4": {
+  "boxes": [
+   [
+    2,
+    79,
+    638,
+    564
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 2491,
+   "pink_after": 0,
+   "pink_before": 5497
+  },
+  "note": "Bridge-house theme, round unsegmented porthole and blue/cream/gold palette good. Outer bridge rails/posts reach canvas left/right edges with no required clear margin; preserve object shape by regenerating with adequate margins. Zone140small shell also needs matching bridge-house detail.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "numbers_place_4.png",
+   "path": "chapter_numbers/objects/numbers_place_4.png",
+   "sha256": "cb682c7007131dab715512034fbcb03e14bedf1a788d63fdf3c26cd83dcbecb6",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.numbers.props": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 968
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_props.png",
+   "path": "chapter_numbers/props/numbers_props.png",
+   "sha256": "715514b41bf5440a2b18a88886d7c2304ab09b2590f3f97fc04547ed4dba081a",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.numbers.vehicle": {
+  "boxes": [
+   [
+    122,
+    13,
+    516,
+    618
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 28796,
+   "pink_after": 0,
+   "pink_before": 34062
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "numbers_vehicle.png",
+   "path": "chapter_numbers/objects/numbers_vehicle.png",
+   "sha256": "180013dc661b2c007c83ef43460203273e8356ea4aa1f2e6e4b7f22f2905a5c0",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.numbers.vehicle.icon": {},
+ "chapter.numbers.vehicle.map_a": {
+  "boxes": [
+   [
+    70,
+    43,
+    218,
+    244
+   ],
+   [
+    56,
+    23,
+    201,
+    237
+   ],
+   [
+    43,
+    16,
+    188,
+    234
+   ],
+   [
+    68,
+    32,
+    224,
+    240
+   ],
+   [
+    55,
+    18,
+    208,
+    232
+   ],
+   [
+    41,
+    7,
+    194,
+    225
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 8098,
+   "pink_after": 0,
+   "pink_before": 19415
+  },
+  "feet": [
+   [
+    144.1,
+    244.0
+   ],
+   [
+    128.6,
+    237.0
+   ],
+   [
+    116.5,
+    233.5
+   ],
+   [
+    139.1,
+    240.0
+   ],
+   [
+    126.7,
+    232.5
+   ],
+   [
+    114.7,
+    225.0
+   ]
+  ],
+  "note": "Six EMPTY balloon baskets and required1/2/3 flags present. TOP FRONT views good; BOTTOM intended LEFT profiles still repeat FRONT-facing flag/rope arrangement. Sprite widths about300px rather than requested240px; require genuine LEFT views and native-size correction.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_numbers/art_inbox/numbers_vehicle/map_a.png",
+   "sha256": "b19e083059c17420c6a447389805e91cbdecdbea22587cae4b58b0d66b10db24",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.numbers.vehicle.map_b": {
+  "boxes": [
+   [
+    66,
+    58,
+    216,
+    252
+   ],
+   [
+    56,
+    33,
+    202,
+    236
+   ],
+   [
+    42,
+    13,
+    190,
+    256
+   ],
+   [
+    66,
+    24,
+    220,
+    232
+   ],
+   [
+    52,
+    10,
+    204,
+    220
+   ],
+   [
+    37,
+    0,
+    190,
+    208
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 153,
+   "pink_after": 0,
+   "pink_before": 17494
+  },
+  "cut_frames": [
+   2,
+   5
+  ],
+  "feet": [
+   [
+    143.1,
+    252.0
+   ],
+   [
+    131.1,
+    236.5
+   ],
+   [
+    113.8,
+    256.0
+   ],
+   [
+    141.5,
+    231.5
+   ],
+   [
+    128.4,
+    220.0
+   ],
+   [
+    112.9,
+    207.5
+   ]
+  ],
+  "note": "Rear balloon flags correctly show plain backs and empty basket; right-profile top row is still mostly FRONT/three-quarter. About300pxwide rather than240px. Needs stricter right profile/native size and fixed-anchor hover review.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_numbers/art_inbox/numbers_vehicle/map_b.png",
+   "sha256": "cc1da571f85727e942fac1d9d49f227eeb850564f7e30dffacdca172ffb14888",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.puzzle.background": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 61,
+   "pink_before": 61
+  },
+  "note": "Recreate background: sparse tiny rounded keyholes/wisps only,64px flat border; current large towers/treasures wrong.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "puzzle_background.png",
+   "path": "chapter_puzzle/tiles/puzzle_background.png",
+   "sha256": "40db47da8e34d122cadc4541eabb78b7a4e0489eb496e80364ba19ef1ffd6065",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.puzzle.badge": {
+  "boxes": [
+   [
+    79,
+    19,
+    561,
+    610
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 1502,
+   "pink_after": 0,
+   "pink_before": 1877
+  },
+  "note": "Gold four-quadrant divider forms prohibited plus/cross. Replace with disconnected oval scenes and round centre.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "puzzle_badge.png",
+   "path": "chapter_puzzle/objects/puzzle_badge.png",
+   "sha256": "750e9aefb44e9b08267cbf657606483a35cd337921145a556dac8f04f73788b9",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.puzzle.guide.icon": {},
+ "chapter.puzzle.guide.map_a": {
+  "boxes": [
+   [
+    117,
+    18,
+    230,
+    245
+   ],
+   [
+    76,
+    18,
+    184,
+    241
+   ],
+   [
+    31,
+    18,
+    137,
+    245
+   ],
+   [
+    100,
+    6,
+    241,
+    227
+   ],
+   [
+    85,
+    6,
+    178,
+    227
+   ],
+   [
+    17,
+    6,
+    166,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 211
+  },
+  "feet": [
+   [
+    183.0,
+    245.0
+   ],
+   [
+    128.0,
+    241.0
+   ],
+   [
+    74.8,
+    245.0
+   ],
+   [
+    181.1,
+    227.0
+   ],
+   [
+    124.8,
+    227.0
+   ],
+   [
+    46.8,
+    228.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_puzzle/art_inbox/puzzle_guide/map_a.png",
+   "sha256": "19a46394fd1e5718735eaec78b5ff2921980baa684ca16f83558a26fb371b66c",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.puzzle.icons": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 979,
+   "pink_after": 0,
+   "pink_before": 2106
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "puzzle_icons.png",
+   "path": "chapter_puzzle/icons/puzzle_icons.png",
+   "sha256": "91521acf73228fd931db4f0afce88085d5a0d1754a0464256088ac5ae2540351",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.puzzle.local1.icon": {},
+ "chapter.puzzle.local1.map_a": {
+  "boxes": [
+   [
+    94,
+    12,
+    232,
+    242
+   ],
+   [
+    56,
+    12,
+    185,
+    240
+   ],
+   [
+    23,
+    12,
+    151,
+    241
+   ],
+   [
+    92,
+    6,
+    230,
+    232
+   ],
+   [
+    50,
+    6,
+    176,
+    232
+   ],
+   [
+    18,
+    6,
+    166,
+    232
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 615,
+   "pink_after": 0,
+   "pink_before": 3253
+  },
+  "feet": [
+   [
+    178.4,
+    241.5
+   ],
+   [
+    126.0,
+    240.0
+   ],
+   [
+    77.6,
+    241.0
+   ],
+   [
+    168.5,
+    231.5
+   ],
+   [
+    124.5,
+    231.5
+   ],
+   [
+    57.3,
+    231.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_puzzle/art_inbox/puzzle_local1/map_a.png",
+   "sha256": "64f784d89a922405a5b7d22ee8bc44184ec392ee14ddb96456e520bb34fe4b78",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.puzzle.local2.icon": {},
+ "chapter.puzzle.local2.map_a": {
+  "boxes": [
+   [
+    120,
+    21,
+    215,
+    246
+   ],
+   [
+    82,
+    21,
+    172,
+    242
+   ],
+   [
+    38,
+    21,
+    132,
+    246
+   ],
+   [
+    96,
+    8,
+    218,
+    228
+   ],
+   [
+    68,
+    8,
+    166,
+    228
+   ],
+   [
+    28,
+    8,
+    160,
+    230
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 450
+  },
+  "feet": [
+   [
+    180.7,
+    245.5
+   ],
+   [
+    126.9,
+    242.5
+   ],
+   [
+    71.6,
+    246.0
+   ],
+   [
+    163.0,
+    227.5
+   ],
+   [
+    119.0,
+    228.0
+   ],
+   [
+    53.4,
+    230.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_puzzle/art_inbox/puzzle_local2/map_a.png",
+   "sha256": "a3ea7592e34537bea33c15d9f093ed7ff2bcffe0e9b582978713730f76e85b9b",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.puzzle.master.icon": {},
+ "chapter.puzzle.master.map_a": {
+  "boxes": [
+   [
+    109,
+    19,
+    238,
+    243
+   ],
+   [
+    71,
+    19,
+    190,
+    240
+   ],
+   [
+    19,
+    19,
+    142,
+    243
+   ],
+   [
+    93,
+    6,
+    238,
+    227
+   ],
+   [
+    80,
+    6,
+    177,
+    225
+   ],
+   [
+    24,
+    6,
+    170,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 3
+  },
+  "feet": [
+   [
+    186.1,
+    243.0
+   ],
+   [
+    127.8,
+    239.5
+   ],
+   [
+    90.9,
+    243.0
+   ],
+   [
+    166.5,
+    227.0
+   ],
+   [
+    122.4,
+    225.0
+   ],
+   [
+    56.8,
+    226.0
+   ]
+  ],
+  "note": "TOP RIGHT must lead RIGHT/imageLEFT foot.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_puzzle/art_inbox/puzzle_master/map_a.png",
+   "sha256": "a7681eb36bbcc4d6128ec898f67cb2010496e4624909e151e63dec211806bbd4",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.puzzle.mila.icon": {},
+ "chapter.puzzle.mila.map_a": {
+  "boxes": [
+   [
+    90,
+    20,
+    212,
+    244
+   ],
+   [
+    70,
+    20,
+    184,
+    238
+   ],
+   [
+    44,
+    20,
+    160,
+    241
+   ],
+   [
+    86,
+    10,
+    220,
+    225
+   ],
+   [
+    66,
+    10,
+    188,
+    226
+   ],
+   [
+    38,
+    10,
+    168,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 1034,
+   "pink_after": 0,
+   "pink_before": 2952
+  },
+  "feet": [
+   [
+    161.9,
+    243.5
+   ],
+   [
+    126.9,
+    238.0
+   ],
+   [
+    91.1,
+    241.0
+   ],
+   [
+    146.0,
+    225.0
+   ],
+   [
+    124.8,
+    226.0
+   ],
+   [
+    83.3,
+    226.5
+   ]
+  ],
+  "note": "All key bows contain plus cutout. Replace with simple round hole; correct gait/RIGHT hand preserved.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_puzzle/art_inbox/puzzle_mila/map_a.png",
+   "sha256": "9e7002d65fffa3249a3e2790637eb0cd68b93c284bfa00968057c6aeddde0812",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.puzzle.owl.icon": {},
+ "chapter.puzzle.owl.map_a": {
+  "boxes": [
+   [
+    40,
+    20,
+    241,
+    236
+   ],
+   [
+    30,
+    20,
+    227,
+    232
+   ],
+   [
+    14,
+    20,
+    212,
+    231
+   ],
+   [
+    60,
+    8,
+    238,
+    224
+   ],
+   [
+    50,
+    8,
+    222,
+    220
+   ],
+   [
+    39,
+    8,
+    217,
+    220
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    147.6,
+    235.5
+   ],
+   [
+    126.9,
+    231.5
+   ],
+   [
+    102.3,
+    231.0
+   ],
+   [
+    148.0,
+    224.0
+   ],
+   [
+    121.4,
+    220.0
+   ],
+   [
+    105.3,
+    220.0
+   ]
+  ],
+  "note": "TOP RIGHT must lift RIGHT/imageLEFT foot, not LEFT/imageRIGHT.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_puzzle/art_inbox/puzzle_owl/map_a.png",
+   "sha256": "2ec0c007a873cbdac1400610eb15023274855c59df3833019ee7d39841aa0e1f",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.puzzle.pattern_gate": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 48
+  },
+  "note": "Native door overlays oversized versus building doorway.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "puzzle_pattern_gate.png",
+   "path": "chapter_puzzle/tiles/puzzle_pattern_gate.png",
+   "sha256": "0448f94b2a13117bf8a891117d80cd8a8f11c16b913bb5734802cc71015b7d01",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.puzzle.props": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 252
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "puzzle_props.png",
+   "path": "chapter_puzzle/props/puzzle_props.png",
+   "sha256": "b7195049ef5f17e24175fe76ccb914a0414d6b7317514435f449e9a4d48b9c6f",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.puzzle.vehicle": {
+  "boxes": [
+   [
+    97,
+    0,
+    544,
+    595
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 87809,
+   "pink_after": 0,
+   "pink_before": 94574
+  },
+  "cut_frames": [
+   0
+  ],
+  "note": "Complete cropped top suspension pole inside magenta margins.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "puzzle_vehicle.png",
+   "path": "chapter_puzzle/objects/puzzle_vehicle.png",
+   "sha256": "54b2ff8818fff41bdd9691a9b79a39aa94318ea8a61f63bd6ae91df2e4f10dbd",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.sea.background": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_background.png",
+   "path": "chapter_sea/tiles/sea_background.png",
+   "sha256": "341ac274370c6c72ec975b5eeb1a1d10eedf5fe3a247e777f37c8df29e17613d",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.sea.badge": {
+  "boxes": [
+   [
+    58,
+    20,
+    576,
+    603
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 4561,
+   "pink_after": 0,
+   "pink_before": 5486
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_badge.png",
+   "path": "chapter_sea/objects/sea_badge.png",
+   "sha256": "38d38cfc1e3b96cd7520f6fd35520007411e7e61c4df5b361fe4e2c6bf708b63",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.sea.card_1": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_card_1.png",
+   "path": "chapter_sea/cards/sea_card_1.png",
+   "sha256": "6b3ea3953e7604a0359a9ada40dcf6c95ce12a513df446f34402ff881c06bbc6",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.sea.card_2": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_card_2.png",
+   "path": "chapter_sea/cards/sea_card_2.png",
+   "sha256": "202b112609322c327033171f54b062c0de7bebb527d9d901b901a44d313fd7ed",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.sea.card_3": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_card_3.png",
+   "path": "chapter_sea/cards/sea_card_3.png",
+   "sha256": "28c091fb9a737b29e50ee88cad2be0e7f01d9b488897974f7ce99e19e1802c06",
+   "size": [
+    1672,
+    940
+   ]
+  }
+ },
+ "chapter.sea.card_4": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_card_4.png",
+   "path": "chapter_sea/cards/sea_card_4.png",
+   "sha256": "0df2954c124ca6277158a4f8c1ef08bc2578a127651abdb57baad7381e9605d4",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.sea.card_5": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_card_5.png",
+   "path": "chapter_sea/cards/sea_card_5.png",
+   "sha256": "025a43d99326fa97f4cc3ea9ec5ceb4cf03c5e56d8d0f2872c2c57105331c5f4",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.sea.card_6": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_card_6.png",
+   "path": "chapter_sea/cards/sea_card_6.png",
+   "sha256": "2274b5287866946aa783fd3ee25c08cd17663d58ece3e0ac357e2e1da69fdbdc",
+   "size": [
+    1672,
+    940
+   ]
+  }
+ },
+ "chapter.sea.card_7": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_card_7.png",
+   "path": "chapter_sea/cards/sea_card_7.png",
+   "sha256": "28e99eec21cdfb899402c3c8000204faac22d249d7a561958e042e07d3062004",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.sea.card_8": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_card_8.png",
+   "path": "chapter_sea/cards/sea_card_8.png",
+   "sha256": "3855fb4c002fc91b0c776c1e45f9ae6df4c1c437ca7f417fe00ce3beedcb0746",
+   "size": [
+    1672,
+    941
+   ]
+  }
+ },
+ "chapter.sea.coral_reef": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 88
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_coral_reef.png",
+   "path": "chapter_sea/tiles/sea_coral_reef.png",
+   "sha256": "16bb1d9b2b1578c458fcb9174d2c9956749299655d1fbdcbfbfb821c23e57dcc",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.sea.deep_sea": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 149
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_deep_sea.png",
+   "path": "chapter_sea/tiles/sea_deep_sea.png",
+   "sha256": "0d9cc68ed3addaed6136635eb863c769fe8f865e02122a2314f6eb525ccbc656",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.sea.guide.battle": {
+  "boxes": [
+   [
+    350,
+    42,
+    770,
+    839
+   ],
+   [
+    100,
+    43,
+    509,
+    842
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 106
+  },
+  "feet": [
+   [
+    561.9,
+    839.0
+   ],
+   [
+    312.3,
+    842.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_sea/art_inbox/sea_guide/battle.png",
+   "sha256": "3cacdd0f918cdf4df708327a077112fe1464fc8364c05361aa304fa946c592b5",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.sea.guide.icon": {},
+ "chapter.sea.guide.map_a": {
+  "boxes": [
+   [
+    116,
+    16,
+    236,
+    246
+   ],
+   [
+    68,
+    16,
+    185,
+    245
+   ],
+   [
+    22,
+    16,
+    137,
+    245
+   ],
+   [
+    98,
+    3,
+    240,
+    227
+   ],
+   [
+    78,
+    3,
+    185,
+    228
+   ],
+   [
+    15,
+    3,
+    154,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 23
+  },
+  "feet": [
+   [
+    176.7,
+    246.0
+   ],
+   [
+    126.8,
+    245.0
+   ],
+   [
+    76.1,
+    245.0
+   ],
+   [
+    171.2,
+    227.0
+   ],
+   [
+    125.4,
+    228.5
+   ],
+   [
+    67.3,
+    228.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_sea/art_inbox/sea_guide/map_a.png",
+   "sha256": "0d64d8a9160b6ea06604b705160f0abd34068f3864b11ba36015cf3a8d13db3e",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.guide.map_b": {
+  "boxes": [
+   [
+    116,
+    16,
+    238,
+    256
+   ],
+   [
+    78,
+    16,
+    182,
+    256
+   ],
+   [
+    21,
+    16,
+    154,
+    256
+   ],
+   [
+    111,
+    0,
+    238,
+    227
+   ],
+   [
+    72,
+    0,
+    188,
+    224
+   ],
+   [
+    24,
+    0,
+    157,
+    224
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 26
+  },
+  "cut_frames": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "feet": [
+   [
+    176.1,
+    256.0
+   ],
+   [
+    130.1,
+    256.0
+   ],
+   [
+    89.9,
+    256.0
+   ],
+   [
+    169.4,
+    227.0
+   ],
+   [
+    130.5,
+    224.5
+   ],
+   [
+    76.4,
+    224.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_sea/art_inbox/sea_guide/map_b.png",
+   "sha256": "58d9f9e1749a0f379a704e3cec62e712c33ed7ccd5b1487d9a12e0bb3400043c",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.hub": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 107
+  },
+  "note": "Straight wall native bounds now[295, 154]; it became shorter than the matching corner end. Native join height is still inconsistent. All source foreground retained in2048derivedatlas; target canvas alone does not establish modular fit. Review furniture source-relative edge anchors separately.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "sea_hub.png",
+   "path": "chapter_sea/tiles/sea_hub.png",
+   "sha256": "5410880009815e204256935bc2c414819fde012ecade93d1d701779d1ca0ddcb",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.sea.icons": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 807
+  },
+  "package_status": "accepted_exact_grid_native_cutouts",
+  "source": {
+   "name": "sea_icons.png",
+   "path": "chapter_sea/icons/sea_icons.png",
+   "sha256": "947e824f79826394c7eb1b10a4709adde66ab43d8c4708b32474e4d1b418b1c0",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.sea.kelp_forest": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 61
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_kelp_forest.png",
+   "path": "chapter_sea/tiles/sea_kelp_forest.png",
+   "sha256": "1dc2c9a0ef969854f38687be3a7aae700218d51c247d315bfe3b55b8e639780b",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.sea.local1.battle": {
+  "boxes": [
+   [
+    345,
+    26,
+    750,
+    850
+   ],
+   [
+    144,
+    26,
+    540,
+    853
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 49
+  },
+  "feet": [
+   [
+    532.4,
+    850.0
+   ],
+   [
+    348.1,
+    853.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_sea/art_inbox/sea_local1/battle.png",
+   "sha256": "5067e2b66ef14fb1884b82fa31e3d1c8d258a2f03a105e99af9039a370f35e6c",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.sea.local1.icon": {},
+ "chapter.sea.local1.map_a": {
+  "boxes": [
+   [
+    121,
+    16,
+    230,
+    241
+   ],
+   [
+    73,
+    16,
+    175,
+    241
+   ],
+   [
+    22,
+    16,
+    132,
+    241
+   ],
+   [
+    110,
+    5,
+    233,
+    226
+   ],
+   [
+    74,
+    5,
+    167,
+    226
+   ],
+   [
+    20,
+    5,
+    144,
+    224
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1
+  },
+  "feet": [
+   [
+    171.8,
+    241.0
+   ],
+   [
+    126.3,
+    241.0
+   ],
+   [
+    68.5,
+    241.0
+   ],
+   [
+    172.7,
+    225.5
+   ],
+   [
+    121.5,
+    225.5
+   ],
+   [
+    46.2,
+    224.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_sea/art_inbox/sea_local1/map_a.png",
+   "sha256": "267f3e7471d5ee02da6d823a3d24a921b62ea77f7a3bfa2907578884d6596afe",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.local1.map_b": {
+  "boxes": [
+   [
+    117,
+    16,
+    234,
+    240
+   ],
+   [
+    82,
+    17,
+    175,
+    241
+   ],
+   [
+    30,
+    16,
+    145,
+    240
+   ],
+   [
+    117,
+    3,
+    228,
+    223
+   ],
+   [
+    80,
+    3,
+    183,
+    223
+   ],
+   [
+    32,
+    3,
+    136,
+    224
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 52
+  },
+  "feet": [
+   [
+    191.4,
+    239.5
+   ],
+   [
+    132.4,
+    241.0
+   ],
+   [
+    118.4,
+    239.5
+   ],
+   [
+    175.3,
+    223.0
+   ],
+   [
+    127.0,
+    223.0
+   ],
+   [
+    73.7,
+    224.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_sea/art_inbox/sea_local1/map_b.png",
+   "sha256": "ab433d5a9caee9fe71ad2fbd0704f7f8d7ba1dcfb33aa322d60270d6be2e8ca2",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.local2.battle": {
+  "boxes": [
+   [
+    360,
+    47,
+    761,
+    839
+   ],
+   [
+    109,
+    50,
+    515,
+    839
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 307
+  },
+  "feet": [
+   [
+    558.5,
+    839.0
+   ],
+   [
+    303.9,
+    839.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_sea/art_inbox/sea_local2/battle.png",
+   "sha256": "f53174e7103ffc4d4e5b3d63dc586991ff0a6766e5f22e811cdcd85cdd28e990",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.sea.local2.icon": {},
+ "chapter.sea.local2.map_a": {
+  "boxes": [
+   [
+    121,
+    16,
+    232,
+    243
+   ],
+   [
+    75,
+    16,
+    184,
+    242
+   ],
+   [
+    25,
+    16,
+    136,
+    243
+   ],
+   [
+    106,
+    4,
+    239,
+    227
+   ],
+   [
+    82,
+    4,
+    184,
+    228
+   ],
+   [
+    18,
+    4,
+    160,
+    227
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 373
+  },
+  "feet": [
+   [
+    187.4,
+    243.0
+   ],
+   [
+    129.4,
+    242.5
+   ],
+   [
+    70.4,
+    243.0
+   ],
+   [
+    174.5,
+    227.0
+   ],
+   [
+    126.3,
+    228.0
+   ],
+   [
+    53.3,
+    227.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_sea/art_inbox/sea_local2/map_a.png",
+   "sha256": "d1c88f5440a2926f8a0b189d772572eb17d795d5f5a4232a4c8e39dce8c05273",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.local2.map_b": {
+  "boxes": [
+   [
+    129,
+    17,
+    249,
+    244
+   ],
+   [
+    80,
+    16,
+    178,
+    244
+   ],
+   [
+    24,
+    16,
+    160,
+    244
+   ],
+   [
+    123,
+    3,
+    241,
+    229
+   ],
+   [
+    77,
+    3,
+    178,
+    228
+   ],
+   [
+    34,
+    2,
+    152,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1080
+  },
+  "feet": [
+   [
+    192.2,
+    244.0
+   ],
+   [
+    134.2,
+    244.0
+   ],
+   [
+    109.0,
+    244.0
+   ],
+   [
+    179.0,
+    229.0
+   ],
+   [
+    127.3,
+    228.0
+   ],
+   [
+    81.4,
+    228.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_sea/art_inbox/sea_local2/map_b.png",
+   "sha256": "1342b6c5f0fbdd8f005e2e327bc0b80f0c7ed098b3ecfdcc06136577f0071f10",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.master.battle": {
+  "boxes": [
+   [
+    316,
+    42,
+    732,
+    835
+   ],
+   [
+    156,
+    42,
+    570,
+    835
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 9
+  },
+  "feet": [
+   [
+    514.9,
+    835.0
+   ],
+   [
+    371.5,
+    835.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_sea/art_inbox/sea_master/battle.png",
+   "sha256": "09bb0ccd8b306856be7e6cdb77bd6584d4627cd09c571d6951bd3620e7b3c8c6",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.sea.master.icon": {},
+ "chapter.sea.master.map_a": {
+  "boxes": [
+   [
+    120,
+    14,
+    234,
+    242
+   ],
+   [
+    70,
+    14,
+    182,
+    239
+   ],
+   [
+    23,
+    14,
+    136,
+    242
+   ],
+   [
+    104,
+    4,
+    237,
+    224
+   ],
+   [
+    66,
+    4,
+    172,
+    224
+   ],
+   [
+    15,
+    4,
+    158,
+    222
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 968
+  },
+  "feet": [
+   [
+    184.1,
+    242.0
+   ],
+   [
+    127.7,
+    239.0
+   ],
+   [
+    71.6,
+    242.0
+   ],
+   [
+    169.3,
+    223.5
+   ],
+   [
+    123.9,
+    223.5
+   ],
+   [
+    50.7,
+    222.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_sea/art_inbox/sea_master/map_a.png",
+   "sha256": "00b79211557f1bc0ad457ba5bc534ddf52a137de6eb06d49b5d1de9d0a940a42",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.master.map_b": {
+  "boxes": [
+   [
+    114,
+    14,
+    248,
+    236
+   ],
+   [
+    81,
+    14,
+    180,
+    240
+   ],
+   [
+    16,
+    14,
+    157,
+    238
+   ],
+   [
+    101,
+    2,
+    237,
+    218
+   ],
+   [
+    74,
+    2,
+    192,
+    222
+   ],
+   [
+    30,
+    2,
+    152,
+    218
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 335
+  },
+  "feet": [
+   [
+    163.3,
+    236.5
+   ],
+   [
+    130.1,
+    240.0
+   ],
+   [
+    123.3,
+    237.5
+   ],
+   [
+    159.7,
+    218.5
+   ],
+   [
+    127.1,
+    221.5
+   ],
+   [
+    92.1,
+    218.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_sea/art_inbox/sea_master/map_b.png",
+   "sha256": "1aaaffdf0b0d7991116895af8b2feedadd3b57979a9acbad2becfaef5edd30b8",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.mila.battle": {
+  "boxes": [
+   [
+    411,
+    35,
+    756,
+    845
+   ],
+   [
+    130,
+    35,
+    466,
+    845
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 133
+  },
+  "feet": [
+   [
+    577.7,
+    845.0
+   ],
+   [
+    297.9,
+    845.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_sea/art_inbox/sea_mila/battle.png",
+   "sha256": "40842536e810e84b5c6c1a35a73836cb9cc7d46bce255b89402645318874e605",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.sea.mila.icon": {},
+ "chapter.sea.mila.map_a": {
+  "boxes": [
+   [
+    113,
+    14,
+    211,
+    240
+   ],
+   [
+    78,
+    14,
+    177,
+    238
+   ],
+   [
+    50,
+    14,
+    148,
+    240
+   ],
+   [
+    96,
+    8,
+    206,
+    224
+   ],
+   [
+    72,
+    8,
+    177,
+    226
+   ],
+   [
+    40,
+    8,
+    156,
+    223
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 213,
+   "pink_before": 534
+  },
+  "feet": [
+   [
+    166.2,
+    240.0
+   ],
+   [
+    126.8,
+    238.5
+   ],
+   [
+    87.7,
+    240.0
+   ],
+   [
+    164.8,
+    224.5
+   ],
+   [
+    121.1,
+    226.0
+   ],
+   [
+    69.7,
+    223.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_sea/art_inbox/sea_mila/map_a.png",
+   "sha256": "9b5dd5cec2ad5138b0bda6ec58c9985562ca7217ee470963397d2e88080d3fd9",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.mila.map_b": {
+  "boxes": [
+   [
+    102,
+    13,
+    211,
+    236
+   ],
+   [
+    77,
+    14,
+    178,
+    236
+   ],
+   [
+    44,
+    13,
+    154,
+    236
+   ],
+   [
+    100,
+    2,
+    203,
+    221
+   ],
+   [
+    81,
+    2,
+    178,
+    222
+   ],
+   [
+    51,
+    2,
+    152,
+    222
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 479
+  },
+  "feet": [
+   [
+    151.1,
+    236.0
+   ],
+   [
+    127.6,
+    236.5
+   ],
+   [
+    116.7,
+    236.5
+   ],
+   [
+    151.4,
+    221.0
+   ],
+   [
+    126.2,
+    222.5
+   ],
+   [
+    104.4,
+    222.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_sea/art_inbox/sea_mila/map_b.png",
+   "sha256": "d261a07b7a0e16bc4359a70548e06ba3305a33a82723f189030984c8b8ade507",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.owl.battle": {
+  "boxes": [
+   [
+    231,
+    42,
+    826,
+    805
+   ],
+   [
+    10,
+    42,
+    662,
+    789
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 232,
+   "pink_after": 0,
+   "pink_before": 1246
+  },
+  "feet": [
+   [
+    541.6,
+    805.0
+   ],
+   [
+    310.7,
+    789.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "chapter_sea/art_inbox/sea_owl/battle.png",
+   "sha256": "01e5bcd4fd34364112bee431598a45308f4e3df119739e8767efb410f456065e",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "chapter.sea.owl.icon": {},
+ "chapter.sea.owl.map_a": {
+  "boxes": [
+   [
+    50,
+    26,
+    236,
+    234
+   ],
+   [
+    34,
+    26,
+    218,
+    234
+   ],
+   [
+    20,
+    26,
+    205,
+    235
+   ],
+   [
+    60,
+    8,
+    243,
+    220
+   ],
+   [
+    46,
+    8,
+    228,
+    220
+   ],
+   [
+    30,
+    8,
+    207,
+    220
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 2409
+  },
+  "feet": [
+   [
+    135.5,
+    234.5
+   ],
+   [
+    126.8,
+    234.5
+   ],
+   [
+    112.8,
+    235.0
+   ],
+   [
+    148.4,
+    220.5
+   ],
+   [
+    125.6,
+    220.5
+   ],
+   [
+    106.4,
+    220.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_sea/art_inbox/sea_owl/map_a.png",
+   "sha256": "0ff2e55707da1f2ad3a4e47aa492080e11372aacd54de012add0ddd4a8659304",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.owl.map_b": {
+  "boxes": [
+   [
+    52,
+    24,
+    218,
+    236
+   ],
+   [
+    34,
+    24,
+    196,
+    236
+   ],
+   [
+    13,
+    24,
+    180,
+    235
+   ],
+   [
+    54,
+    6,
+    221,
+    220
+   ],
+   [
+    42,
+    6,
+    209,
+    220
+   ],
+   [
+    35,
+    6,
+    202,
+    220
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 887
+  },
+  "feet": [
+   [
+    140.6,
+    235.5
+   ],
+   [
+    130.7,
+    235.5
+   ],
+   [
+    98.5,
+    235.0
+   ],
+   [
+    152.6,
+    219.5
+   ],
+   [
+    127.7,
+    219.5
+   ],
+   [
+    103.2,
+    219.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_sea/art_inbox/sea_owl/map_b.png",
+   "sha256": "1771e92e01a677096540a221482341b319ab10f46bd071f6e6ce62065fb042a9",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.place_1": {
+  "boxes": [
+   [
+    32,
+    32,
+    606,
+    583
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 3
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_place_1.png",
+   "path": "chapter_sea/objects/sea_place_1.png",
+   "sha256": "775f5bc28eabffd8e8e6ae5bd69e39b789af1e7e3c7cc0aa21e6a6352cce1fb3",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.sea.place_2": {
+  "boxes": [
+   [
+    37,
+    54,
+    617,
+    575
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 1253,
+   "pink_after": 0,
+   "pink_before": 3171
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_place_2.png",
+   "path": "chapter_sea/objects/sea_place_2.png",
+   "sha256": "eb7f2d0d7aab77abe843387a70da2739711df1bb62c6a507f7df669d5a4ac1d0",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.sea.place_3": {
+  "boxes": [
+   [
+    29,
+    34,
+    618,
+    598
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 213
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_place_3.png",
+   "path": "chapter_sea/objects/sea_place_3.png",
+   "sha256": "2e5572856f4f1622ed3c32f6f880d2a326f306aadbcc8cc2c5474a2a2956da38",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.sea.place_4": {
+  "boxes": [
+   [
+    13,
+    37,
+    627,
+    598
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 830
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_place_4.png",
+   "path": "chapter_sea/objects/sea_place_4.png",
+   "sha256": "b8ffbebaed84a08666c07e0d480408848bcc5a0aeab30e5d595685d7c7c8a506",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.sea.props": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 1151,
+   "pink_after": 0,
+   "pink_before": 3775
+  },
+  "package_status": "accepted_exact_grid_native_cutouts",
+  "source": {
+   "name": "sea_props.png",
+   "path": "chapter_sea/props/sea_props.png",
+   "sha256": "6fd8c7488f8a4dd321f4db450c453e165a83a4867feede79e269ddddb9a74ecc",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.sea.sunken_ship": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 1454,
+   "pink_after": 123,
+   "pink_before": 4028
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_sunken_ship.png",
+   "path": "chapter_sea/tiles/sea_sunken_ship.png",
+   "sha256": "1d723f7fefb15efbc2a93fa4904e784434d015e68e559d40e67a8dd4e7ff7142",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.sea.vehicle": {
+  "boxes": [
+   [
+    12,
+    8,
+    629,
+    601
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "sea_vehicle.png",
+   "path": "chapter_sea/objects/sea_vehicle.png",
+   "sha256": "a07834be7cb2c414796e01a17fe5a74c68edbdfca2443127667e18d1cf6165b3",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.sea.vehicle.icon": {},
+ "chapter.sea.vehicle.map_a": {
+  "boxes": [
+   [
+    42,
+    60,
+    220,
+    236
+   ],
+   [
+    38,
+    60,
+    218,
+    236
+   ],
+   [
+    36,
+    52,
+    216,
+    232
+   ],
+   [
+    39,
+    48,
+    236,
+    203
+   ],
+   [
+    38,
+    48,
+    234,
+    203
+   ],
+   [
+    38,
+    48,
+    234,
+    199
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    131.3,
+    236.5
+   ],
+   [
+    129.1,
+    235.5
+   ],
+   [
+    127.3,
+    231.5
+   ],
+   [
+    112.3,
+    203.0
+   ],
+   [
+    111.6,
+    203.0
+   ],
+   [
+    111.0,
+    199.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_sea/art_inbox/sea_vehicle/map_a.png",
+   "sha256": "ff51578cdbc04d745fef83878d3bae34487b094ae219b186bb89fdcfba5c148e",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.sea.vehicle.map_b": {
+  "boxes": [
+   [
+    35,
+    88,
+    225,
+    234
+   ],
+   [
+    30,
+    69,
+    218,
+    216
+   ],
+   [
+    24,
+    47,
+    216,
+    196
+   ],
+   [
+    60,
+    53,
+    217,
+    203
+   ],
+   [
+    50,
+    35,
+    206,
+    183
+   ],
+   [
+    38,
+    20,
+    196,
+    171
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    155.4,
+    234.5
+   ],
+   [
+    149.1,
+    215.5
+   ],
+   [
+    145.7,
+    195.5
+   ],
+   [
+    137.7,
+    203.0
+   ],
+   [
+    127.5,
+    183.0
+   ],
+   [
+    116.2,
+    171.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "chapter_sea/art_inbox/sea_vehicle/map_b.png",
+   "sha256": "9fb541ee85194577106757773211f61ba843f64c5c318f6a04d1ca624fb0e287",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.shapes.background": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "shapes_background.png",
+   "path": "chapter_shapes/tiles/shapes_background.png",
+   "sha256": "06660217bdc9265cf5a84b393a9ca8c8e3b5020976c76a7a45a0ffd474f64770",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.shapes.badge": {
+  "boxes": [
+   [
+    81,
+    49,
+    558,
+    592
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 3117,
+   "pink_after": 0,
+   "pink_before": 3595
+  },
+  "note": "Medal four-quadrant gold divider forms prohibited plus. Use four disconnected oval scenes.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "shapes_badge.png",
+   "path": "chapter_shapes/objects/shapes_badge.png",
+   "sha256": "b05b7c99cad10cd21e555574bfc248a5cb02265cc09ffa5efe90111056a54ca8",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.shapes.circle_garden": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 12
+  },
+  "note": "Native door overlays oversized versus building doorway.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "shapes_circle_garden.png",
+   "path": "chapter_shapes/tiles/shapes_circle_garden.png",
+   "sha256": "47091d0f40177750274fdf26021ef7b0c0f073b53b34720532fff95109d7dfdc",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.shapes.guide.icon": {},
+ "chapter.shapes.guide.map_a": {
+  "boxes": [
+   [
+    116,
+    16,
+    228,
+    242
+   ],
+   [
+    72,
+    16,
+    184,
+    236
+   ],
+   [
+    32,
+    16,
+    142,
+    243
+   ],
+   [
+    97,
+    6,
+    223,
+    222
+   ],
+   [
+    80,
+    6,
+    172,
+    222
+   ],
+   [
+    31,
+    6,
+    161,
+    222
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 335
+  },
+  "feet": [
+   [
+    181.3,
+    242.5
+   ],
+   [
+    128.0,
+    236.0
+   ],
+   [
+    74.4,
+    243.0
+   ],
+   [
+    160.8,
+    222.0
+   ],
+   [
+    124.3,
+    222.0
+   ],
+   [
+    58.7,
+    222.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_shapes/art_inbox/shapes_guide/map_a.png",
+   "sha256": "fcae4901025dcc4a4115296e7bf293aebef1c024c231b10fc32e2a8e88d738cd",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.shapes.icons": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 2119,
+   "pink_after": 0,
+   "pink_before": 2877
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "shapes_icons.png",
+   "path": "chapter_shapes/icons/shapes_icons.png",
+   "sha256": "8309e16ce27c577d3b3c5a8602352798a59ddc1d46c00df45f12e3f1f61ef4ab",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "chapter.shapes.local1.icon": {},
+ "chapter.shapes.local1.map_a": {
+  "boxes": [
+   [
+    106,
+    18,
+    222,
+    246
+   ],
+   [
+    67,
+    18,
+    176,
+    242
+   ],
+   [
+    26,
+    18,
+    142,
+    246
+   ],
+   [
+    78,
+    6,
+    216,
+    228
+   ],
+   [
+    52,
+    6,
+    174,
+    227
+   ],
+   [
+    20,
+    6,
+    165,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1281
+  },
+  "feet": [
+   [
+    154.2,
+    245.5
+   ],
+   [
+    124.5,
+    242.5
+   ],
+   [
+    80.4,
+    245.5
+   ],
+   [
+    157.1,
+    227.5
+   ],
+   [
+    120.6,
+    227.0
+   ],
+   [
+    55.7,
+    228.5
+   ]
+  ],
+  "note": "TOP LEFT must lead LEFT/imageRIGHT; preserve third and RIGHT mirror.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_shapes/art_inbox/shapes_local1/map_a.png",
+   "sha256": "ea934708ef3cf11d53bb49a82b991741d0512f4643ea819ebfdfc2854a1137d1",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.shapes.local2.icon": {},
+ "chapter.shapes.local2.map_a": {
+  "boxes": [
+   [
+    117,
+    16,
+    215,
+    244
+   ],
+   [
+    80,
+    16,
+    176,
+    240
+   ],
+   [
+    42,
+    16,
+    139,
+    244
+   ],
+   [
+    87,
+    4,
+    224,
+    229
+   ],
+   [
+    73,
+    4,
+    175,
+    230
+   ],
+   [
+    34,
+    4,
+    166,
+    230
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 14
+  },
+  "feet": [
+   [
+    176.2,
+    244.0
+   ],
+   [
+    127.2,
+    240.0
+   ],
+   [
+    75.6,
+    244.0
+   ],
+   [
+    156.6,
+    229.0
+   ],
+   [
+    126.5,
+    229.5
+   ],
+   [
+    60.1,
+    229.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_shapes/art_inbox/shapes_local2/map_a.png",
+   "sha256": "d251274e3064bcf6e18859755757278cfe8c74c32ff659bc163950c33ee7ef9f",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.shapes.master.icon": {},
+ "chapter.shapes.master.map_a": {
+  "boxes": [
+   [
+    116,
+    15,
+    222,
+    248
+   ],
+   [
+    76,
+    15,
+    181,
+    244
+   ],
+   [
+    32,
+    15,
+    136,
+    248
+   ],
+   [
+    86,
+    4,
+    234,
+    232
+   ],
+   [
+    75,
+    4,
+    180,
+    232
+   ],
+   [
+    32,
+    4,
+    172,
+    232
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    174.8,
+    248.0
+   ],
+   [
+    127.4,
+    244.5
+   ],
+   [
+    82.9,
+    248.0
+   ],
+   [
+    175.3,
+    232.0
+   ],
+   [
+    121.5,
+    232.0
+   ],
+   [
+    53.6,
+    232.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_shapes/art_inbox/shapes_master/map_a.png",
+   "sha256": "4259216307356782e31b3e2f040f14d27b954eafc2da2281aa1d0e734202d25c",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.shapes.mila.icon": {},
+ "chapter.shapes.mila.map_a": {
+  "boxes": [
+   [
+    95,
+    20,
+    203,
+    238
+   ],
+   [
+    70,
+    20,
+    175,
+    238
+   ],
+   [
+    44,
+    20,
+    152,
+    238
+   ],
+   [
+    82,
+    10,
+    206,
+    222
+   ],
+   [
+    64,
+    10,
+    188,
+    225
+   ],
+   [
+    37,
+    10,
+    160,
+    225
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 544,
+   "pink_after": 80,
+   "pink_before": 3806
+  },
+  "feet": [
+   [
+    138.6,
+    238.5
+   ],
+   [
+    124.8,
+    238.5
+   ],
+   [
+    112.6,
+    238.5
+   ],
+   [
+    143.7,
+    222.5
+   ],
+   [
+    123.4,
+    225.0
+   ],
+   [
+    80.2,
+    225.0
+   ]
+  ],
+  "note": "FRONT feet reversed; first LEFT/imageRIGHT leads, third RIGHT/imageLEFT leads.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_shapes/art_inbox/shapes_mila/map_a.png",
+   "sha256": "b8308ae0e7ceb5f9d08500fe8e0f1418af99d21fa4d187b1dfd1fffe162522f9",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.shapes.owl.icon": {},
+ "chapter.shapes.owl.map_a": {
+  "boxes": [
+   [
+    47,
+    20,
+    232,
+    236
+   ],
+   [
+    35,
+    20,
+    218,
+    236
+   ],
+   [
+    22,
+    20,
+    202,
+    236
+   ],
+   [
+    59,
+    9,
+    239,
+    224
+   ],
+   [
+    49,
+    9,
+    226,
+    222
+   ],
+   [
+    39,
+    9,
+    225,
+    223
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    149.0,
+    236.5
+   ],
+   [
+    127.3,
+    236.5
+   ],
+   [
+    102.4,
+    236.5
+   ],
+   [
+    151.5,
+    224.0
+   ],
+   [
+    121.4,
+    222.5
+   ],
+   [
+    111.6,
+    223.0
+   ]
+  ],
+  "note": "FRONT feet reversed; LEFT book correct.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "chapter_shapes/art_inbox/shapes_owl/map_a.png",
+   "sha256": "5ccd478f7dd93906c991c735f3016d45930ad36c8118b4c75cbb6c5e7ce36786",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "chapter.shapes.props": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 2731
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "shapes_props.png",
+   "path": "chapter_shapes/props/shapes_props.png",
+   "sha256": "33e292706aa055a45cb04be7275b501050e428e7719ab0fafb4fbbea982a2c0e",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "chapter.shapes.vehicle": {
+  "boxes": [
+   [
+    35,
+    43,
+    613,
+    588
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "shapes_vehicle.png",
+   "path": "chapter_shapes/objects/shapes_vehicle.png",
+   "sha256": "1fcb29a13566822dda632f19f9ad5c5e849addf915b035089e48fc87d4ab0293",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "icon.items": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 173
+  },
+  "package_status": "accepted_exact_grid_native_cutouts",
+  "source": {
+   "name": "icons_items.png",
+   "path": "group4_icons/icons/icons_items.png",
+   "sha256": "adc3c3deb840837500906cd6448d1398e2eee7c6fe1075e1573d3c8628b3df46",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "icon.ui": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 2738,
+   "pink_after": 0,
+   "pink_before": 6926
+  },
+  "package_status": "accepted_exact_grid_native_cutouts",
+  "source": {
+   "name": "icons_ui.png",
+   "path": "group4_icons/icons/icons_ui.png",
+   "sha256": "6bde37b2139a7d72eedba3bcdcd1957c8f75bf266f71175aa2338008de8da419",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "interior.home": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 54,
+   "pink_before": 164
+  },
+  "note": "Straight wall native bounds now[271, 177]; it became shorter than the matching corner end. Native join height is still inconsistent. All source foreground retained in2048derivedatlas; target canvas alone does not establish modular fit. Review furniture source-relative edge anchors separately.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "tiles_interior_home.png",
+   "path": "group2_interiors/tiles/tiles_interior_home.png",
+   "sha256": "09debc94f68581069e454ddf8d5d9bd8b95869c156461105b12ba1e2ece79cb5",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "interior.lab": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 1322,
+   "pink_after": 0,
+   "pink_before": 2245
+  },
+  "note": "Fixed fractional-cell segmentation: the final source floor column was incorrectly included in wall bounds. Wall native dimensions are now[304, 199], without stray floor column; source artwork unchanged. Wall/corner exact join height still needs review, as do furniture endpoint anchors. Prior313pxwal",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "tiles_interior_lab.png",
+   "path": "group2_interiors/tiles/tiles_interior_lab.png",
+   "sha256": "d2c17ad200a879cc10bd69bc959607f5024ce1f017ac6d3747034df8171812ea",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "interior.rest": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "note": "Fixed fractional-cell segmentation: the final source floor column was incorrectly included in wall bounds. Wall native dimensions are now[302, 185], without stray floor column; source artwork unchanged. Wall/corner exact join height still needs review, as do furniture endpoint anchors. Prior313pxwal",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "tiles_interior_rest.png",
+   "path": "group2_interiors/tiles/tiles_interior_rest.png",
+   "sha256": "19818d097770b5de44bbe1fd954261401b9e6f24e92dff40097eb2521b8845b1",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "interior.shop": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "note": "Fixed fractional-cell segmentation: the final source floor column was incorrectly included in wall bounds. Wall native dimensions are now[294, 197], without stray floor column; source artwork unchanged. Wall/corner exact join height still needs review, as do furniture endpoint anchors. Prior313pxwal",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "tiles_interior_shop.png",
+   "path": "group2_interiors/tiles/tiles_interior_shop.png",
+   "sha256": "1b35d83f07cd720561e45f870f168787d7376be247108d3575d80d2a0f3a6dde",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "interior.station": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 26
+  },
+  "note": "Fixed fractional-cell segmentation: the final source floor column was incorrectly included in wall bounds. Wall native dimensions are now[311, 159], without stray floor column; source artwork unchanged. Wall/corner exact join height still needs review, as do furniture endpoint anchors. Prior313pxwal",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "tiles_interior_station.png",
+   "path": "group2_interiors/tiles/tiles_interior_station.png",
+   "sha256": "11e0c7d1b3dacbaaa30dae34f4665347c7e6eeb77dc63d57a76a3c9f2398f23c",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "npc.nagmon_artist.battle": {
+  "boxes": [
+   [
+    378,
+    31,
+    774,
+    856
+   ],
+   [
+    125,
+    26,
+    498,
+    859
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 51
+  },
+  "feet": [
+   [
+    577.4,
+    856.0
+   ],
+   [
+    311.9,
+    859.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_artist/battle.png",
+   "sha256": "5b2afed3f6ccdd25e2ddb22cb2ec19b6902001c09968b45449222e24d0bc13b1",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_artist.icon": {},
+ "npc.nagmon_artist.map_a": {
+  "boxes": [
+   [
+    124,
+    16,
+    233,
+    247
+   ],
+   [
+    77,
+    16,
+    182,
+    242
+   ],
+   [
+    28,
+    16,
+    134,
+    245
+   ],
+   [
+    98,
+    4,
+    236,
+    228
+   ],
+   [
+    70,
+    4,
+    174,
+    229
+   ],
+   [
+    12,
+    4,
+    154,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 29
+  },
+  "feet": [
+   [
+    163.1,
+    247.0
+   ],
+   [
+    127.7,
+    242.5
+   ],
+   [
+    65.7,
+    245.0
+   ],
+   [
+    184.5,
+    228.0
+   ],
+   [
+    122.2,
+    229.0
+   ],
+   [
+    38.5,
+    228.5
+   ]
+  ],
+  "note": "LEFT profile extremes improved; FRONT column1still leads physical RIGHT on viewerLEFT. Correct TOP LEFT only.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_artist/map_a.png",
+   "sha256": "2429b500a577af85001ffb8332871df7c1d95f5dde7f660b3db2cd941449bcde",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_artist.map_b": {
+  "boxes": [
+   [
+    116,
+    16,
+    240,
+    242
+   ],
+   [
+    82,
+    16,
+    178,
+    244
+   ],
+   [
+    18,
+    16,
+    144,
+    242
+   ],
+   [
+    113,
+    4,
+    230,
+    229
+   ],
+   [
+    74,
+    4,
+    181,
+    228
+   ],
+   [
+    20,
+    4,
+    137,
+    229
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 131
+  },
+  "feet": [
+   [
+    179.6,
+    242.5
+   ],
+   [
+    127.4,
+    244.0
+   ],
+   [
+    84.6,
+    242.5
+   ],
+   [
+    166.7,
+    229.0
+   ],
+   [
+    126.3,
+    228.5
+   ],
+   [
+    73.0,
+    229.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_artist/map_b.png",
+   "sha256": "af0a05bd2c4b650a61699ddf6d0b8e05365dc612c05c2b37a83ae7dea846b942",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_baker.battle": {
+  "boxes": [
+   [
+    304,
+    38,
+    768,
+    839
+   ],
+   [
+    111,
+    40,
+    550,
+    838
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    532.8,
+    839.0
+   ],
+   [
+    328.7,
+    838.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_baker/battle.png",
+   "sha256": "fc8dcbda7978b3fe366231802d2dd5070d55b21a5d96f9a4a7efdb74f07483e4",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_baker.icon": {},
+ "npc.nagmon_baker.map_a": {
+  "boxes": [
+   [
+    114,
+    17,
+    236,
+    242
+   ],
+   [
+    68,
+    17,
+    187,
+    240
+   ],
+   [
+    21,
+    17,
+    140,
+    242
+   ],
+   [
+    88,
+    6,
+    237,
+    226
+   ],
+   [
+    54,
+    6,
+    256,
+    226
+   ],
+   [
+    0,
+    6,
+    164,
+    227
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 25
+  },
+  "cut_frames": [
+   4,
+   5
+  ],
+  "feet": [
+   [
+    175.0,
+    242.0
+   ],
+   [
+    127.8,
+    240.0
+   ],
+   [
+    76.8,
+    242.0
+   ],
+   [
+    178.2,
+    226.5
+   ],
+   [
+    123.3,
+    226.5
+   ],
+   [
+    41.8,
+    227.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_baker/map_a.png",
+   "sha256": "a63c887b71d4ceced10cfaf5d035ccc6d98c8d42f63805efd78eb12ecc52a285",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_baker.map_b": {
+  "boxes": [
+   [
+    102,
+    15,
+    255,
+    238
+   ],
+   [
+    68,
+    15,
+    206,
+    240
+   ],
+   [
+    14,
+    15,
+    160,
+    238
+   ],
+   [
+    98,
+    4,
+    248,
+    224
+   ],
+   [
+    58,
+    2,
+    188,
+    224
+   ],
+   [
+    16,
+    2,
+    156,
+    224
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 8
+  },
+  "feet": [
+   [
+    175.7,
+    237.5
+   ],
+   [
+    130.2,
+    240.0
+   ],
+   [
+    85.1,
+    238.5
+   ],
+   [
+    185.3,
+    223.5
+   ],
+   [
+    128.9,
+    223.5
+   ],
+   [
+    85.0,
+    223.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_baker/map_b.png",
+   "sha256": "4760db248c8ee8947e5f39007ea8e7f1885e65d130593c7bf3255ff477fa1e4a",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_builder.battle": {
+  "boxes": [
+   [
+    278,
+    23,
+    789,
+    852
+   ],
+   [
+    80,
+    23,
+    599,
+    852
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 2792,
+   "pink_after": 0,
+   "pink_before": 4770
+  },
+  "feet": [
+   [
+    558.0,
+    852.0
+   ],
+   [
+    312.0,
+    852.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_builder/battle.png",
+   "sha256": "c6f6d1573e1174b01fb4c2ba288637983b7598b0e3a6937f27b9faa19f70fca3",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_builder.icon": {},
+ "npc.nagmon_builder.map_a": {
+  "boxes": [
+   [
+    108,
+    9,
+    248,
+    241
+   ],
+   [
+    60,
+    9,
+    200,
+    239
+   ],
+   [
+    11,
+    9,
+    154,
+    240
+   ],
+   [
+    98,
+    4,
+    236,
+    227
+   ],
+   [
+    78,
+    3,
+    178,
+    227
+   ],
+   [
+    14,
+    4,
+    162,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 2098
+  },
+  "feet": [
+   [
+    183.5,
+    241.0
+   ],
+   [
+    123.5,
+    239.0
+   ],
+   [
+    63.6,
+    240.5
+   ],
+   [
+    170.3,
+    227.0
+   ],
+   [
+    116.0,
+    227.0
+   ],
+   [
+    50.2,
+    228.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_builder/map_a.png",
+   "sha256": "bb4911d3205549456d9b0d923f4580fca2219578a3c2d4c7110854f7e8939d5c",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_builder.map_b": {
+  "boxes": [
+   [
+    104,
+    13,
+    242,
+    242
+   ],
+   [
+    89,
+    13,
+    173,
+    242
+   ],
+   [
+    15,
+    13,
+    154,
+    242
+   ],
+   [
+    92,
+    4,
+    236,
+    231
+   ],
+   [
+    56,
+    4,
+    189,
+    228
+   ],
+   [
+    14,
+    4,
+    156,
+    231
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1443
+  },
+  "feet": [
+   [
+    175.7,
+    242.0
+   ],
+   [
+    128.1,
+    242.0
+   ],
+   [
+    82.0,
+    242.0
+   ],
+   [
+    153.3,
+    231.0
+   ],
+   [
+    128.8,
+    228.5
+   ],
+   [
+    103.1,
+    231.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_builder/map_b.png",
+   "sha256": "644029061c510d3811e8da051fad0e3de783ba5144247efe7ebe3931574c4068",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_farmer.battle": {
+  "boxes": [
+   [
+    409,
+    21,
+    819,
+    845
+   ],
+   [
+    64,
+    24,
+    476,
+    845
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 1326,
+   "pink_after": 0,
+   "pink_before": 4151
+  },
+  "feet": [
+   [
+    561.0,
+    845.0
+   ],
+   [
+    304.1,
+    845.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_farmer/battle.png",
+   "sha256": "8488c8358f0e3ac8c8fadf11776342fe4d91bddcfbd1c8e954a1cfe8a3d92c88",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_farmer.icon": {},
+ "npc.nagmon_farmer.map_a": {
+  "boxes": [
+   [
+    108,
+    9,
+    234,
+    239
+   ],
+   [
+    63,
+    9,
+    178,
+    238
+   ],
+   [
+    3,
+    9,
+    125,
+    239
+   ],
+   [
+    94,
+    4,
+    232,
+    226
+   ],
+   [
+    62,
+    4,
+    174,
+    226
+   ],
+   [
+    4,
+    4,
+    135,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 212,
+   "pink_after": 0,
+   "pink_before": 1445
+  },
+  "feet": [
+   [
+    188.1,
+    239.0
+   ],
+   [
+    128.5,
+    238.0
+   ],
+   [
+    62.9,
+    239.0
+   ],
+   [
+    173.6,
+    226.0
+   ],
+   [
+    125.5,
+    226.0
+   ],
+   [
+    48.2,
+    226.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_farmer/map_a.png",
+   "sha256": "37251dc33c0de968a1402ca7313f7bc02cb86f6ec46e1761a7da60aac8742596",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_farmer.map_b": {
+  "boxes": [
+   [
+    102,
+    8,
+    234,
+    256
+   ],
+   [
+    70,
+    8,
+    176,
+    256
+   ],
+   [
+    21,
+    8,
+    156,
+    256
+   ],
+   [
+    109,
+    0,
+    234,
+    226
+   ],
+   [
+    80,
+    0,
+    192,
+    224
+   ],
+   [
+    38,
+    0,
+    160,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 574,
+   "pink_after": 0,
+   "pink_before": 2847
+  },
+  "cut_frames": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "feet": [
+   [
+    163.8,
+    256.0
+   ],
+   [
+    126.3,
+    256.0
+   ],
+   [
+    87.8,
+    256.0
+   ],
+   [
+    170.5,
+    225.5
+   ],
+   [
+    125.2,
+    224.0
+   ],
+   [
+    77.7,
+    225.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_farmer/map_b.png",
+   "sha256": "e140265f34a7d2116912d7b4205f65c6c4a27cb977772edb7bb8cc212377b298",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_fisher.battle": {
+  "boxes": [
+   [
+    269,
+    56,
+    751,
+    813
+   ],
+   [
+    137,
+    55,
+    602,
+    812
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 332,
+   "pink_after": 3036,
+   "pink_before": 3727
+  },
+  "feet": [
+   [
+    529.1,
+    813.0
+   ],
+   [
+    350.4,
+    812.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_fisher/battle.png",
+   "sha256": "a7e44b614351717fa95e8a3885ebb1dd2d01d53b538baabc4fb586919b617c0d",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_fisher.icon": {},
+ "npc.nagmon_fisher.map_a": {
+  "boxes": [
+   [
+    116,
+    13,
+    249,
+    240
+   ],
+   [
+    68,
+    13,
+    201,
+    234
+   ],
+   [
+    19,
+    13,
+    152,
+    240
+   ],
+   [
+    106,
+    2,
+    244,
+    226
+   ],
+   [
+    64,
+    2,
+    181,
+    228
+   ],
+   [
+    16,
+    2,
+    166,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 4684,
+   "pink_before": 4751
+  },
+  "feet": [
+   [
+    179.5,
+    239.5
+   ],
+   [
+    128.4,
+    234.5
+   ],
+   [
+    73.0,
+    239.5
+   ],
+   [
+    188.6,
+    225.5
+   ],
+   [
+    129.1,
+    228.0
+   ],
+   [
+    51.2,
+    226.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_fisher/map_a.png",
+   "sha256": "24072f0374ccdace8df3187f9efd34c645e170c7527e30b0d803b4d2f93c9b34",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_fisher.map_b": {
+  "boxes": [
+   [
+    110,
+    13,
+    253,
+    238
+   ],
+   [
+    72,
+    13,
+    205,
+    235
+   ],
+   [
+    18,
+    13,
+    158,
+    238
+   ],
+   [
+    98,
+    2,
+    250,
+    226
+   ],
+   [
+    58,
+    1,
+    191,
+    226
+   ],
+   [
+    10,
+    1,
+    162,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 4430,
+   "pink_before": 4439
+  },
+  "feet": [
+   [
+    185.2,
+    237.5
+   ],
+   [
+    132.5,
+    235.0
+   ],
+   [
+    85.4,
+    237.5
+   ],
+   [
+    182.0,
+    225.5
+   ],
+   [
+    132.1,
+    225.5
+   ],
+   [
+    97.7,
+    225.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_fisher/map_b.png",
+   "sha256": "726e69c69e2ec933c032a2fb13a7706a9ce77259b3d535c059e82e5d4465c47f",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_grandpa.battle": {
+  "boxes": [
+   [
+    353,
+    78,
+    772,
+    818
+   ],
+   [
+    98,
+    67,
+    494,
+    819
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 3
+  },
+  "feet": [
+   [
+    600.3,
+    818.0
+   ],
+   [
+    299.2,
+    819.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_grandpa/battle.png",
+   "sha256": "fb4bb2c2cdd6307564cbafde5e77d2a7233f03eb78588f2d07bfafc8d9a65783",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_grandpa.icon": {},
+ "npc.nagmon_grandpa.map_a": {
+  "boxes": [
+   [
+    117,
+    18,
+    234,
+    234
+   ],
+   [
+    72,
+    18,
+    184,
+    230
+   ],
+   [
+    24,
+    18,
+    138,
+    235
+   ],
+   [
+    106,
+    6,
+    242,
+    222
+   ],
+   [
+    65,
+    6,
+    174,
+    218
+   ],
+   [
+    20,
+    6,
+    152,
+    218
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 3331,
+   "pink_after": 0,
+   "pink_before": 4190
+  },
+  "feet": [
+   [
+    178.3,
+    234.0
+   ],
+   [
+    122.2,
+    230.5
+   ],
+   [
+    81.2,
+    235.0
+   ],
+   [
+    169.0,
+    221.5
+   ],
+   [
+    122.7,
+    218.5
+   ],
+   [
+    58.4,
+    218.5
+   ]
+  ],
+  "note": "LEFT profile extremes improved; FRONT column3still leads physical LEFT on viewerRIGHT. Correct TOP RIGHT to physical RIGHT on viewerLEFT.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_grandpa/map_a.png",
+   "sha256": "d6d3217b8eb15cee7b6dd2249a24d330f2191f402bb50edf0a17b474a43804c7",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_grandpa.map_b": {
+  "boxes": [
+   [
+    100,
+    18,
+    226,
+    232
+   ],
+   [
+    74,
+    18,
+    178,
+    232
+   ],
+   [
+    8,
+    18,
+    130,
+    232
+   ],
+   [
+    100,
+    6,
+    226,
+    222
+   ],
+   [
+    67,
+    6,
+    187,
+    219
+   ],
+   [
+    17,
+    6,
+    143,
+    222
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 1824,
+   "pink_after": 0,
+   "pink_before": 3406
+  },
+  "feet": [
+   [
+    173.9,
+    232.0
+   ],
+   [
+    120.3,
+    232.0
+   ],
+   [
+    75.3,
+    232.0
+   ],
+   [
+    175.2,
+    222.0
+   ],
+   [
+    128.4,
+    219.0
+   ],
+   [
+    92.0,
+    222.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_grandpa/map_b.png",
+   "sha256": "60fa05be2d4adba5acb7cd96499423bb09379c8d17c202d63ffda2de4ae9ae11",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_librarian.battle": {
+  "boxes": [
+   [
+    421,
+    38,
+    749,
+    827
+   ],
+   [
+    129,
+    38,
+    450,
+    827
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 18
+  },
+  "feet": [
+   [
+    576.5,
+    827.0
+   ],
+   [
+    289.1,
+    827.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_librarian/battle.png",
+   "sha256": "d20ea31ab4a363ec05f696935552cad48c2f4bc17307e2327c5151452a22cc2e",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_librarian.icon": {},
+ "npc.nagmon_librarian.map_a": {
+  "boxes": [
+   [
+    126,
+    16,
+    230,
+    246
+   ],
+   [
+    80,
+    16,
+    178,
+    243
+   ],
+   [
+    30,
+    16,
+    131,
+    246
+   ],
+   [
+    103,
+    4,
+    240,
+    227
+   ],
+   [
+    83,
+    4,
+    175,
+    227
+   ],
+   [
+    14,
+    4,
+    162,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    177.3,
+    246.0
+   ],
+   [
+    127.2,
+    243.0
+   ],
+   [
+    73.5,
+    246.0
+   ],
+   [
+    175.8,
+    227.0
+   ],
+   [
+    124.2,
+    227.0
+   ],
+   [
+    41.0,
+    226.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_librarian/map_a.png",
+   "sha256": "aa528c68f734d04c6108ad5164d0ad85f0946439e793acfb17c405051d1819c1",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_librarian.map_b": {
+  "boxes": [
+   [
+    124,
+    16,
+    247,
+    242
+   ],
+   [
+    84,
+    16,
+    172,
+    244
+   ],
+   [
+    31,
+    16,
+    150,
+    242
+   ],
+   [
+    124,
+    4,
+    236,
+    228
+   ],
+   [
+    80,
+    4,
+    176,
+    228
+   ],
+   [
+    30,
+    4,
+    141,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 171
+  },
+  "feet": [
+   [
+    181.2,
+    242.0
+   ],
+   [
+    133.8,
+    243.5
+   ],
+   [
+    83.3,
+    242.5
+   ],
+   [
+    173.4,
+    227.5
+   ],
+   [
+    128.6,
+    227.5
+   ],
+   [
+    78.2,
+    227.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_librarian/map_b.png",
+   "sha256": "3d8a0f7e562305013fa31982b643f8a0ff83412a34bc991497ca4408166de45a",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_mila.battle": {
+  "boxes": [
+   [
+    358,
+    44,
+    692,
+    829
+   ],
+   [
+    186,
+    44,
+    518,
+    830
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 160
+  },
+  "feet": [
+   [
+    521.8,
+    829.0
+   ],
+   [
+    346.6,
+    830.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group5_upgrades/art_inbox/nagmon_mila/battle.png",
+   "sha256": "6e5e96adf3183bff90b0c0ac8611e7c805b19f05254d2538449dbfc8d9d15943",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_mila.icon": {},
+ "npc.nagmon_mila.map_a": {
+  "boxes": [
+   [
+    106,
+    20,
+    202,
+    237
+   ],
+   [
+    84,
+    20,
+    172,
+    236
+   ],
+   [
+    60,
+    20,
+    152,
+    238
+   ],
+   [
+    94,
+    11,
+    205,
+    222
+   ],
+   [
+    81,
+    11,
+    188,
+    223
+   ],
+   [
+    48,
+    11,
+    160,
+    223
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 81
+  },
+  "feet": [
+   [
+    138.7,
+    237.0
+   ],
+   [
+    125.0,
+    236.0
+   ],
+   [
+    111.2,
+    238.0
+   ],
+   [
+    143.2,
+    222.5
+   ],
+   [
+    124.7,
+    223.0
+   ],
+   [
+    98.4,
+    223.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group5_upgrades/art_inbox/nagmon_mila/map_a.png",
+   "sha256": "8bdbbf72d58da2dca37c6c4aacddbbe63c405797611f28d696549416a063fe09",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_mila.map_b": {
+  "boxes": [
+   [
+    88,
+    18,
+    188,
+    236
+   ],
+   [
+    68,
+    18,
+    163,
+    238
+   ],
+   [
+    56,
+    18,
+    168,
+    237
+   ],
+   [
+    90,
+    9,
+    186,
+    226
+   ],
+   [
+    76,
+    9,
+    168,
+    224
+   ],
+   [
+    62,
+    9,
+    156,
+    225
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 19
+  },
+  "feet": [
+   [
+    148.1,
+    236.0
+   ],
+   [
+    123.5,
+    237.5
+   ],
+   [
+    114.3,
+    237.0
+   ],
+   [
+    128.3,
+    226.5
+   ],
+   [
+    121.3,
+    224.5
+   ],
+   [
+    111.1,
+    225.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group5_upgrades/art_inbox/nagmon_mila/map_b.png",
+   "sha256": "46af0c555ae64e9a9073296cc7e36f9979777d9e976a6087946f349b99dc6acb",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_nurse.battle": {
+  "boxes": [
+   [
+    370,
+    38,
+    769,
+    848
+   ],
+   [
+    105,
+    38,
+    497,
+    850
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    553.0,
+    848.0
+   ],
+   [
+    304.1,
+    850.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_nurse/battle.png",
+   "sha256": "6c0ad9b56ee3ce54bc933d7c0a110179b970746d646206f52a3b7caa402770a1",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_nurse.icon": {},
+ "npc.nagmon_nurse.map_a": {
+  "boxes": [
+   [
+    122,
+    17,
+    232,
+    242
+   ],
+   [
+    78,
+    17,
+    182,
+    240
+   ],
+   [
+    30,
+    17,
+    136,
+    244
+   ],
+   [
+    108,
+    6,
+    236,
+    226
+   ],
+   [
+    86,
+    6,
+    176,
+    226
+   ],
+   [
+    20,
+    6,
+    158,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 196
+  },
+  "feet": [
+   [
+    179.4,
+    242.0
+   ],
+   [
+    128.6,
+    239.5
+   ],
+   [
+    76.0,
+    244.0
+   ],
+   [
+    179.8,
+    226.5
+   ],
+   [
+    125.7,
+    226.5
+   ],
+   [
+    44.3,
+    226.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_nurse/map_a.png",
+   "sha256": "ad5aa6ba9c533eab122a78ca59761338275098796f1e5ebb2c85aff5fc060cde",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_nurse.map_b": {
+  "boxes": [
+   [
+    110,
+    14,
+    237,
+    240
+   ],
+   [
+    80,
+    15,
+    174,
+    242
+   ],
+   [
+    28,
+    14,
+    154,
+    240
+   ],
+   [
+    122,
+    5,
+    234,
+    228
+   ],
+   [
+    78,
+    5,
+    178,
+    227
+   ],
+   [
+    31,
+    5,
+    144,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 112,
+   "pink_before": 288
+  },
+  "feet": [
+   [
+    170.2,
+    240.5
+   ],
+   [
+    129.4,
+    241.5
+   ],
+   [
+    86.0,
+    240.0
+   ],
+   [
+    166.9,
+    228.5
+   ],
+   [
+    127.1,
+    227.0
+   ],
+   [
+    91.9,
+    228.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_nurse/map_b.png",
+   "sha256": "049a7438f0c52f52e2cbcb0dd85c5ef0bdf79ba6ea8bc2861c3693f8d78b7601",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_owl.battle": {
+  "boxes": [
+   [
+    225,
+    65,
+    817,
+    815
+   ],
+   [
+    43,
+    64,
+    653,
+    812
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    518.5,
+    815.0
+   ],
+   [
+    347.3,
+    812.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group5_upgrades/art_inbox/nagmon_owl/battle.png",
+   "sha256": "1881eca232dfd3b8fcfabe39eb44eaecbd06c2578a1d25ad80a1843db869fa9f",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_owl.icon": {},
+ "npc.nagmon_owl.map_a": {
+  "boxes": [
+   [
+    54,
+    20,
+    231,
+    230
+   ],
+   [
+    42,
+    20,
+    217,
+    230
+   ],
+   [
+    28,
+    20,
+    202,
+    230
+   ],
+   [
+    58,
+    8,
+    226,
+    224
+   ],
+   [
+    48,
+    8,
+    218,
+    221
+   ],
+   [
+    38,
+    8,
+    209,
+    224
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "feet": [
+   [
+    151.5,
+    229.5
+   ],
+   [
+    127.8,
+    229.5
+   ],
+   [
+    101.9,
+    229.5
+   ],
+   [
+    149.5,
+    223.5
+   ],
+   [
+    123.9,
+    221.0
+   ],
+   [
+    129.6,
+    223.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group5_upgrades/art_inbox/nagmon_owl/map_a.png",
+   "sha256": "58dc1c5f64713728b99aa65a598f2c5aebbc9b7912d46317c061387e5c2ab1b4",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_owl.map_b": {
+  "boxes": [
+   [
+    46,
+    18,
+    211,
+    229
+   ],
+   [
+    38,
+    18,
+    204,
+    228
+   ],
+   [
+    26,
+    18,
+    190,
+    230
+   ],
+   [
+    54,
+    0,
+    222,
+    222
+   ],
+   [
+    40,
+    0,
+    212,
+    222
+   ],
+   [
+    27,
+    0,
+    198,
+    222
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 161,
+   "pink_after": 0,
+   "pink_before": 433
+  },
+  "cut_frames": [
+   4
+  ],
+  "feet": [
+   [
+    124.4,
+    229.0
+   ],
+   [
+    130.5,
+    228.0
+   ],
+   [
+    110.0,
+    229.5
+   ],
+   [
+    146.9,
+    222.5
+   ],
+   [
+    124.8,
+    222.5
+   ],
+   [
+    110.5,
+    222.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group5_upgrades/art_inbox/nagmon_owl/map_b.png",
+   "sha256": "80ec0f58a1ee976a596af0a45d92e1305305c9d926c7f6476530dcc27dfde4fa",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_pilot.battle": {
+  "boxes": [
+   [
+    341,
+    39,
+    710,
+    847
+   ],
+   [
+    145,
+    40,
+    516,
+    848
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 843
+  },
+  "feet": [
+   [
+    554.6,
+    847.0
+   ],
+   [
+    304.6,
+    848.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_pilot/battle.png",
+   "sha256": "f95e65a1fb2ec13a2e9ecf14ce6017db6873d03716a956ae6ab9f65ac0a2cf29",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_pilot.icon": {},
+ "npc.nagmon_pilot.map_a": {
+  "boxes": [
+   [
+    122,
+    18,
+    243,
+    246
+   ],
+   [
+    78,
+    18,
+    195,
+    246
+   ],
+   [
+    29,
+    18,
+    145,
+    248
+   ],
+   [
+    106,
+    6,
+    238,
+    230
+   ],
+   [
+    88,
+    6,
+    183,
+    230
+   ],
+   [
+    14,
+    6,
+    142,
+    230
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 18
+  },
+  "feet": [
+   [
+    182.3,
+    246.5
+   ],
+   [
+    128.0,
+    246.5
+   ],
+   [
+    68.8,
+    248.5
+   ],
+   [
+    181.9,
+    229.5
+   ],
+   [
+    122.7,
+    229.5
+   ],
+   [
+    43.9,
+    230.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_pilot/map_a.png",
+   "sha256": "f97862523b51949e7b41a1eaa511ae8dfe1f69a29119caff90a4eb62bd419c3a",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_pilot.map_b": {
+  "boxes": [
+   [
+    127,
+    16,
+    252,
+    246
+   ],
+   [
+    82,
+    16,
+    178,
+    246
+   ],
+   [
+    25,
+    16,
+    151,
+    246
+   ],
+   [
+    118,
+    3,
+    239,
+    232
+   ],
+   [
+    70,
+    4,
+    176,
+    228
+   ],
+   [
+    20,
+    4,
+    140,
+    231
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 17
+  },
+  "feet": [
+   [
+    196.4,
+    246.0
+   ],
+   [
+    132.9,
+    246.0
+   ],
+   [
+    99.1,
+    246.0
+   ],
+   [
+    165.4,
+    231.5
+   ],
+   [
+    128.1,
+    228.5
+   ],
+   [
+    76.5,
+    231.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_pilot/map_b.png",
+   "sha256": "115318162313c7d0fe6e3234f0abfd17ad62d3ed43cba0901b99f4d51349f36e",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_scientist.battle": {
+  "boxes": [
+   [
+    392,
+    51,
+    777,
+    826
+   ],
+   [
+    114,
+    54,
+    492,
+    822
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 2
+  },
+  "feet": [
+   [
+    583.4,
+    826.0
+   ],
+   [
+    308.0,
+    822.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_scientist/battle.png",
+   "sha256": "23436ec7117d185c8b8790e94264eec482162373e331de653d14a5370a4219f7",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_scientist.icon": {},
+ "npc.nagmon_scientist.map_a": {
+  "boxes": [
+   [
+    126,
+    14,
+    230,
+    238
+   ],
+   [
+    72,
+    14,
+    170,
+    238
+   ],
+   [
+    26,
+    14,
+    128,
+    238
+   ],
+   [
+    108,
+    2,
+    231,
+    224
+   ],
+   [
+    78,
+    3,
+    170,
+    224
+   ],
+   [
+    20,
+    2,
+    160,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 78
+  },
+  "feet": [
+   [
+    166.6,
+    238.5
+   ],
+   [
+    120.4,
+    237.5
+   ],
+   [
+    85.9,
+    238.5
+   ],
+   [
+    175.0,
+    223.5
+   ],
+   [
+    121.5,
+    224.5
+   ],
+   [
+    49.4,
+    228.0
+   ]
+  ],
+  "note": "LEFT profiles now have distinct near-forward/backward-sole extremes; FRONT leading feet remain reversed: column1RIGHT foot, column3LEFT. Requires front leg-order repair.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_scientist/map_a.png",
+   "sha256": "8aeaf77e573a12f69a1e6e45a6ed39cd1ca6bfcf032e5f6aeae8ffd787c86c31",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_scientist.map_b": {
+  "boxes": [
+   [
+    119,
+    14,
+    233,
+    238
+   ],
+   [
+    76,
+    14,
+    174,
+    239
+   ],
+   [
+    27,
+    14,
+    144,
+    238
+   ],
+   [
+    116,
+    1,
+    238,
+    221
+   ],
+   [
+    76,
+    1,
+    181,
+    221
+   ],
+   [
+    22,
+    1,
+    142,
+    223
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 435
+  },
+  "feet": [
+   [
+    174.5,
+    238.0
+   ],
+   [
+    127.7,
+    239.0
+   ],
+   [
+    80.1,
+    238.0
+   ],
+   [
+    171.2,
+    221.0
+   ],
+   [
+    127.8,
+    221.0
+   ],
+   [
+    66.9,
+    223.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_scientist/map_b.png",
+   "sha256": "101039d430aa534ef3a52b6c95b49be3040d37cb3c45e3516aa42c205afc3bdb",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_scout_girl.battle": {
+  "boxes": [
+   [
+    392,
+    35,
+    728,
+    836
+   ],
+   [
+    144,
+    35,
+    494,
+    839
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1835
+  },
+  "feet": [
+   [
+    544.4,
+    836.0
+   ],
+   [
+    297.7,
+    839.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_scout_girl/battle.png",
+   "sha256": "e8f1b9d8c207c2b474a38e171087dd9d2d9b3d799314e844afec92dd2a0c2f56",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_scout_girl.icon": {},
+ "npc.nagmon_scout_girl.map_a": {
+  "boxes": [
+   [
+    125,
+    18,
+    238,
+    244
+   ],
+   [
+    77,
+    18,
+    184,
+    240
+   ],
+   [
+    29,
+    18,
+    138,
+    244
+   ],
+   [
+    108,
+    4,
+    232,
+    226
+   ],
+   [
+    78,
+    4,
+    180,
+    226
+   ],
+   [
+    14,
+    4,
+    154,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 412
+  },
+  "feet": [
+   [
+    172.6,
+    244.0
+   ],
+   [
+    126.3,
+    240.5
+   ],
+   [
+    72.8,
+    244.0
+   ],
+   [
+    173.4,
+    226.0
+   ],
+   [
+    121.7,
+    226.5
+   ],
+   [
+    40.1,
+    226.5
+   ]
+  ],
+  "note": "LEFT profile extremes improved; FRONT column1still leads physical RIGHT on viewerLEFT rather than physicalLEFT. Correct TOP LEFT only.",
+  "package_status": "needs_revision",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_scout_girl/map_a.png",
+   "sha256": "12e24d4aa09911eb0bc4f25a2596a7db030782865d6d3c679991327c3c70ad48",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_scout_girl.map_b": {
+  "boxes": [
+   [
+    117,
+    18,
+    233,
+    238
+   ],
+   [
+    74,
+    18,
+    172,
+    240
+   ],
+   [
+    30,
+    18,
+    150,
+    236
+   ],
+   [
+    125,
+    3,
+    222,
+    231
+   ],
+   [
+    81,
+    3,
+    176,
+    228
+   ],
+   [
+    36,
+    3,
+    134,
+    230
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 1021
+  },
+  "feet": [
+   [
+    173.8,
+    238.0
+   ],
+   [
+    128.8,
+    240.5
+   ],
+   [
+    84.6,
+    236.5
+   ],
+   [
+    185.7,
+    231.0
+   ],
+   [
+    126.5,
+    228.5
+   ],
+   [
+    83.3,
+    230.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_scout_girl/map_b.png",
+   "sha256": "92b07339c044954a455a8033f4b4235165ebfd0acfeb16c2504b67f0f8bd4341",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_student_boy.battle": {
+  "boxes": [
+   [
+    365,
+    39,
+    747,
+    845
+   ],
+   [
+    125,
+    39,
+    503,
+    845
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 110
+  },
+  "feet": [
+   [
+    555.5,
+    845.0
+   ],
+   [
+    313.9,
+    845.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_student_boy/battle.png",
+   "sha256": "81f3c6ae22fb7a87b617eff4794cd70e4a1d3a92f1bc30a40ede4fec56dd72b9",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_student_boy.icon": {},
+ "npc.nagmon_student_boy.map_a": {
+  "boxes": [
+   [
+    124,
+    16,
+    232,
+    240
+   ],
+   [
+    76,
+    16,
+    180,
+    236
+   ],
+   [
+    25,
+    16,
+    133,
+    240
+   ],
+   [
+    104,
+    2,
+    237,
+    222
+   ],
+   [
+    78,
+    2,
+    178,
+    220
+   ],
+   [
+    22,
+    2,
+    157,
+    222
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 9
+  },
+  "feet": [
+   [
+    185.6,
+    240.0
+   ],
+   [
+    127.8,
+    235.5
+   ],
+   [
+    68.7,
+    240.0
+   ],
+   [
+    172.4,
+    222.0
+   ],
+   [
+    123.6,
+    220.5
+   ],
+   [
+    48.4,
+    222.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_student_boy/map_a.png",
+   "sha256": "77e7ac2f58692063f9f5589ba24fd17c6ca618b6dfce5727e5abe0567df48f3a",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_student_boy.map_b": {
+  "boxes": [
+   [
+    122,
+    15,
+    244,
+    236
+   ],
+   [
+    84,
+    15,
+    176,
+    236
+   ],
+   [
+    24,
+    15,
+    146,
+    236
+   ],
+   [
+    112,
+    2,
+    232,
+    226
+   ],
+   [
+    76,
+    2,
+    178,
+    221
+   ],
+   [
+    24,
+    2,
+    142,
+    226
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 16
+  },
+  "feet": [
+   [
+    190.9,
+    236.0
+   ],
+   [
+    130.0,
+    236.0
+   ],
+   [
+    92.8,
+    235.5
+   ],
+   [
+    182.1,
+    225.5
+   ],
+   [
+    126.4,
+    221.0
+   ],
+   [
+    94.4,
+    225.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_student_boy/map_b.png",
+   "sha256": "9c2dac9ff5c81705570763d4cd8a7e80bee40e1ec5186416961a4b2a80fe6265",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_student_girl.battle": {
+  "boxes": [
+   [
+    409,
+    31,
+    760,
+    842
+   ],
+   [
+    127,
+    41,
+    501,
+    843
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 366
+  },
+  "feet": [
+   [
+    584.3,
+    842.0
+   ],
+   [
+    298.4,
+    843.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_student_girl/battle.png",
+   "sha256": "f770c7291fdc5bd3be3457df55d0de0142c306bdbce8178e21a85a6e1fcfb772",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_student_girl.icon": {},
+ "npc.nagmon_student_girl.map_a": {
+  "boxes": [
+   [
+    130,
+    16,
+    244,
+    245
+   ],
+   [
+    79,
+    16,
+    194,
+    243
+   ],
+   [
+    32,
+    16,
+    146,
+    243
+   ],
+   [
+    102,
+    4,
+    244,
+    229
+   ],
+   [
+    84,
+    4,
+    197,
+    229
+   ],
+   [
+    20,
+    4,
+    160,
+    228
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 211
+  },
+  "feet": [
+   [
+    180.8,
+    245.0
+   ],
+   [
+    127.5,
+    243.0
+   ],
+   [
+    77.4,
+    243.0
+   ],
+   [
+    180.0,
+    229.0
+   ],
+   [
+    125.5,
+    229.0
+   ],
+   [
+    44.5,
+    228.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_student_girl/map_a.png",
+   "sha256": "b6622dedcace6abbbf6e9d3b57c858065c7b632aeb3a7a05d07a92a6c33ddd90",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_student_girl.map_b": {
+  "boxes": [
+   [
+    110,
+    16,
+    231,
+    246
+   ],
+   [
+    62,
+    16,
+    170,
+    246
+   ],
+   [
+    14,
+    16,
+    141,
+    246
+   ],
+   [
+    126,
+    0,
+    223,
+    233
+   ],
+   [
+    78,
+    0,
+    174,
+    230
+   ],
+   [
+    30,
+    0,
+    134,
+    233
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 346
+  },
+  "feet": [
+   [
+    187.3,
+    246.0
+   ],
+   [
+    127.8,
+    246.5
+   ],
+   [
+    84.8,
+    246.0
+   ],
+   [
+    182.4,
+    233.0
+   ],
+   [
+    126.9,
+    230.0
+   ],
+   [
+    75.0,
+    233.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_student_girl/map_b.png",
+   "sha256": "b2fd3e5e9cc0c3f3d78941b12b5e4824e3ed0238f4f8790a43f45cb4e9ef95b1",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_toddler_helper.battle": {
+  "boxes": [
+   [
+    420,
+    204,
+    711,
+    792
+   ],
+   [
+    164,
+    207,
+    459,
+    792
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 146
+  },
+  "feet": [
+   [
+    563.0,
+    792.0
+   ],
+   [
+    307.3,
+    792.0
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "battle.png",
+   "path": "group1_people/art_inbox/nagmon_toddler_helper/battle.png",
+   "sha256": "7cdb4857a495fcc0d0bed347e8bf8f0806a8f5cf1a3c61def0eea78ea4c23f7a",
+   "size": [
+    1774,
+    887
+   ]
+  }
+ },
+ "npc.nagmon_toddler_helper.icon": {},
+ "npc.nagmon_toddler_helper.map_a": {
+  "boxes": [
+   [
+    127,
+    50,
+    220,
+    246
+   ],
+   [
+    77,
+    50,
+    170,
+    245
+   ],
+   [
+    32,
+    50,
+    126,
+    246
+   ],
+   [
+    114,
+    22,
+    220,
+    214
+   ],
+   [
+    80,
+    22,
+    172,
+    214
+   ],
+   [
+    32,
+    22,
+    138,
+    214
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 22
+  },
+  "feet": [
+   [
+    176.0,
+    246.5
+   ],
+   [
+    124.5,
+    245.0
+   ],
+   [
+    72.9,
+    246.5
+   ],
+   [
+    174.3,
+    214.0
+   ],
+   [
+    123.2,
+    214.0
+   ],
+   [
+    53.7,
+    213.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_a.png",
+   "path": "group1_people/art_inbox/nagmon_toddler_helper/map_a.png",
+   "sha256": "7a2cebd5621dce02e0f80f6096a4dc8698e45fef006304a571d545a0fb0a86b3",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "npc.nagmon_toddler_helper.map_b": {
+  "boxes": [
+   [
+    122,
+    62,
+    220,
+    248
+   ],
+   [
+    76,
+    62,
+    164,
+    246
+   ],
+   [
+    41,
+    61,
+    137,
+    246
+   ],
+   [
+    128,
+    24,
+    213,
+    204
+   ],
+   [
+    80,
+    24,
+    164,
+    202
+   ],
+   [
+    44,
+    24,
+    128,
+    204
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 9
+  },
+  "feet": [
+   [
+    170.2,
+    247.5
+   ],
+   [
+    123.3,
+    246.0
+   ],
+   [
+    87.3,
+    246.5
+   ],
+   [
+    164.3,
+    204.5
+   ],
+   [
+    121.0,
+    201.5
+   ],
+   [
+    80.2,
+    203.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map_b.png",
+   "path": "group1_people/art_inbox/nagmon_toddler_helper/map_b.png",
+   "sha256": "2ee48bc6c409bb84c52d0f1a9ca468704aafa179add53377b3cdfc5192ed32ca",
+   "size": [
+    1536,
+    1024
+   ]
+  }
+ },
+ "props.hidden": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 631
+  },
+  "package_status": "accepted_exact_grid_native_cutouts",
+  "source": {
+   "name": "props_hidden.png",
+   "path": "group3_props/props/props_hidden.png",
+   "sha256": "0e044b9060a189fa96002a0a68adc9845fffe8c85be5ff91d04e3a372e51870d",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "props.home_pets": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 1931,
+   "pink_after": 0,
+   "pink_before": 5568
+  },
+  "package_status": "accepted_exact_grid_native_cutouts",
+  "source": {
+   "name": "props_home_pets.png",
+   "path": "group3_props/props/props_home_pets.png",
+   "sha256": "d1b095bbef7d05fe411752b6cd4c1c383b491cf8674031a042ec2b39319f7da4",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "props.world": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 219
+  },
+  "package_status": "accepted_exact_grid_native_cutouts",
+  "source": {
+   "name": "props_world.png",
+   "path": "group3_props/props/props_world.png",
+   "sha256": "44baabd72e636fd5d0bc0324cf16f3ba4a98e1ce441626cb85d832aa83fdd149",
+   "size": [
+    2048,
+    2048
+   ]
+  }
+ },
+ "tile.route_tiles_00": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "route_tiles_00.png",
+   "path": "seamless_tiles/route_tiles_00.png",
+   "sha256": "49e7434f856e7b38609391181506affaeaa7d84f3f5d99d6ff43715dbf3eefb5",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.route_tiles_01": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "route_tiles_01.png",
+   "path": "seamless_tiles/route_tiles_01.png",
+   "sha256": "946d38a6be25a36cd0507a93f59346edfedfcfb494a84260edba0e6e45b8bd24",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.route_tiles_02": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "route_tiles_02.png",
+   "path": "seamless_tiles/route_tiles_02.png",
+   "sha256": "a6f2a1d39a3dbd93f828af7cc706459090e66bfa64c1e0e7bc22535a76df30f0",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.route_tiles_03": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "route_tiles_03.png",
+   "path": "seamless_tiles/route_tiles_03.png",
+   "sha256": "38b3b3ba5a2bcf4d20ddd290c3d9a89463bc4841b4daa2f8156b243a7666f719",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_ground_00": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_ground_00.png",
+   "path": "seamless_tiles/town_ground_00.png",
+   "sha256": "f4cdacd62877c37832672d628ae8a23e7711ff643dbdf4797a0633d9898e1716",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_ground_01": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_ground_01.png",
+   "path": "seamless_tiles/town_ground_01.png",
+   "sha256": "46b07fdbcdbc639cdb53e2c5be40b7871e85d2758a36c63d483775ab152c8023",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_ground_02": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_ground_02.png",
+   "path": "seamless_tiles/town_ground_02.png",
+   "sha256": "1bd3f6155ae25fe83d2c7b59fda676bb154b7cb2cdbcdd8a1eeaa7bb755145ce",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_ground_03": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_ground_03.png",
+   "path": "seamless_tiles/town_ground_03.png",
+   "sha256": "29d6ddc215fcd744acdb1eb5f1ec144aab21ecb9f9b8ab6c187edb213a6f41b5",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_ground_04": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_ground_04.png",
+   "path": "seamless_tiles/town_ground_04.png",
+   "sha256": "2634fd1309e40dd446d6c70a07fab4625e8332047bd1da1669ff5a42ebb8c330",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_ground_05": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_ground_05.png",
+   "path": "seamless_tiles/town_ground_05.png",
+   "sha256": "adae2f9ca8bb70fd7f167d297c439049636eb5aa37cd087031accb13cda58d1a",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_ground_06": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_ground_06.png",
+   "path": "seamless_tiles/town_ground_06.png",
+   "sha256": "a989b76975d3a5e4b6ebfe10ea28db8c13c9778ba01436277028d31b8005650f",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_ground_07": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_ground_07.png",
+   "path": "seamless_tiles/town_ground_07.png",
+   "sha256": "d96017f9da6071ea9efa982fd7af19fa1e1b6b426ff48dfd3e491e9d203e1600",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_water_00": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_water_00.png",
+   "path": "seamless_tiles/town_water_00.png",
+   "sha256": "ebaf1d4aee61c447c967b72d8c81fc3f8a45bb8840ba9342499c7223f52d32b2",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_water_01": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_water_01.png",
+   "path": "seamless_tiles/town_water_01.png",
+   "sha256": "2cf181bb01fe83ad433dabb30babe42dd11337c47c4f55f5071787b5663684f8",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_water_02": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_water_02.png",
+   "path": "seamless_tiles/town_water_02.png",
+   "sha256": "c32fd943539397170a723dc579c37a42713a7757c74aa65fbbf38533883964b0",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "tile.town_water_03": {
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "draft",
+  "source": {
+   "name": "town_water_03.png",
+   "path": "seamless_tiles/town_water_03.png",
+   "sha256": "a1a9a52ce9d4810139a21fe89298d0122247d770d7e1d63553a4715d8be4cfa0",
+   "size": [
+    320,
+    320
+   ]
+  }
+ },
+ "trip.badge_astronomer": {
+  "boxes": [
+   [
+    100,
+    34,
+    539,
+    579
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "badge_astronomer.png",
+   "path": "solar_trip_art_2/objects/badge_astronomer.png",
+   "sha256": "1bacf338575735f774efb1d3c148f1d2d8283efe4bc957e938d29c4a4df719e7",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "trip.place_control_station": {
+  "boxes": [
+   [
+    60,
+    54,
+    579,
+    587
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "place_control_station.png",
+   "path": "solar_trip_art_2/objects/place_control_station.png",
+   "sha256": "ad6de35d7a6b729c9d9f72949ff5babb45a8713e1eade8aa47dc12a1ee552074",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "trip.place_ice_outpost": {
+  "boxes": [
+   [
+    31,
+    54,
+    609,
+    576
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "place_ice_outpost.png",
+   "path": "solar_trip_art_2/objects/place_ice_outpost.png",
+   "sha256": "5780d2a46d0542661024a5bd87b0493a1c9518352e4b4dc0faec0781448402f1",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "trip.place_moon_base": {
+  "boxes": [
+   [
+    33,
+    108,
+    615,
+    520
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 1849,
+   "pink_after": 0,
+   "pink_before": 4128
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "place_moon_base.png",
+   "path": "solar_trip_art_2/objects/place_moon_base.png",
+   "sha256": "d4305a6a867774276655b60f45b9b68051fd4bedc25a58563bf4deddf7ed8915",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "trip.place_space_station": {
+  "boxes": [
+   [
+    9,
+    69,
+    633,
+    565
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 0,
+   "pink_after": 0,
+   "pink_before": 0
+  },
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "place_space_station.png",
+   "path": "solar_trip_art_2/objects/place_space_station.png",
+   "sha256": "b479107cc2b401dd463e95494c2e13bb67b9fdabee9ee402fe2fbfb7c9cd709e",
+   "size": [
+    1254,
+    1254
+   ]
+  }
+ },
+ "trip.ship_small": {
+  "boxes": [
+   [
+    28,
+    66,
+    232,
+    267
+   ],
+   [
+    37,
+    60,
+    220,
+    265
+   ],
+   [
+    32,
+    58,
+    217,
+    244
+   ],
+   [
+    22,
+    44,
+    239,
+    261
+   ],
+   [
+    36,
+    42,
+    233,
+    254
+   ],
+   [
+    34,
+    39,
+    230,
+    226
+   ],
+   [
+    27,
+    33,
+    246,
+    250
+   ],
+   [
+    26,
+    27,
+    232,
+    243
+   ],
+   [
+    20,
+    27,
+    227,
+    220
+   ],
+   [
+    27,
+    22,
+    235,
+    232
+   ],
+   [
+    37,
+    22,
+    220,
+    218
+   ],
+   [
+    32,
+    21,
+    217,
+    206
+   ]
+  ],
+  "cleanup": {
+   "blob_after": 0,
+   "blob_before": 838,
+   "pink_after": 0,
+   "pink_before": 12691
+  },
+  "feet": [
+   [
+    129.3,
+    267.0
+   ],
+   [
+    128.1,
+    264.8
+   ],
+   [
+    123.9,
+    244.5
+   ],
+   [
+    101.8,
+    261.0
+   ],
+   [
+    110.1,
+    253.5
+   ],
+   [
+    110.5,
+    226.5
+   ],
+   [
+    164.5,
+    250.5
+   ],
+   [
+    159.1,
+    243.0
+   ],
+   [
+    150.2,
+    220.5
+   ],
+   [
+    130.5,
+    231.8
+   ],
+   [
+    127.5,
+    218.2
+   ],
+   [
+    123.6,
+    205.5
+   ]
+  ],
+  "package_status": "accepted_native_resolution",
+  "source": {
+   "name": "map.png",
+   "path": "solar_trip_art_2/art_inbox/ship_small/map.png",
+   "sha256": "1940f9bc2c43c481bbe545c33911069ca30b35d266eba7f354a056ccffd5307e",
+   "size": [
+    1024,
+    1536
+   ]
+  }
+ }
+}
