@@ -736,9 +736,9 @@ test("the people of the town: placed by the day and the hour, a talk with the ow
   expect(at("nagmon_cashier")).toMatchObject({ x: 14, y: 14 });
   const tiles = d.npcs.map((n) => `${n.x},${n.y}`);
   expect(new Set(tiles).size).toBe(tiles.length);
-  // at ten in the morning: the wallet's prop, the notice board and ten people of the world at most
+  // at ten in the morning: the quest props (the wallet, the lost-and-found), the notice board and ten people of the world at most
   expect(d.npcs.length).toBeGreaterThanOrEqual(7);
-  expect(d.npcs.length).toBeLessThanOrEqual(12);
+  expect(d.npcs.length).toBeLessThanOrEqual(13);
   await shot("people_01_town");
 
   // the owl, face to face: his own greeting, typed out in a box of its own

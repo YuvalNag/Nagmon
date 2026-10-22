@@ -118,9 +118,19 @@ button.danger {
   height: calc(var(--touch) * 0.8);
 }
 
-/* the battle's switches: one row of three, a little smaller than the doors above */
+/* the battle's switches: four in one row, a little smaller than the doors above, the words on two lines when they must */
+.parents-row.effects-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  gap: calc(var(--gap) / 2);
+}
+
 .effects-row button {
-  font-size: calc(var(--text) * 0.8);
+  font-size: calc(var(--text) * 0.62);
+  line-height: 1.1;
+  padding: 0 calc(var(--gap) / 2);
+  min-width: 0;
 }
 
 /* ---- learning settings: steppers and subject switches ---- */

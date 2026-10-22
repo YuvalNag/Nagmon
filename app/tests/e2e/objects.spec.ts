@@ -79,6 +79,8 @@ async function textScale(page: Page, scale: number) {
  */
 async function layout(page: Page, name: string) {
   await page.evaluate(() => document.fonts.ready);
+  // a finite animation (the partner's hop after a snack) moves boxes while it plays: measure once it has landed
+  await page.evaluate(() => Promise.all(document.getAnimations().filter((a) => a.effect?.getComputedTiming().iterations !== Infinity).map((a) => a.finished.catch(() => null))));
   const g = await page.evaluate(() => {
     const sheet = document.querySelector<HTMLElement>("[data-screen=object]")!;
     const bad: string[] = [];
