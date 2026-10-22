@@ -11,10 +11,10 @@ const TAB_TEXT: Record<string, TextKey> = { nets: "tabNets", snacks: "tabSnacks"
 const TAB_ICON: Record<string, string> = { nets: "🥅", snacks: "🍓", tools: "🪶" };
 
 export interface BagBattle {
-  /** The wild creature is calm: a net can be thrown. */
-  calm: boolean;
-  /** Throw this net (the Bag closes). */
-  onNet: (itemId: string) => void;
+  /** Befriending is open (a wild creature): a net, a card or a treat goes to the Befriend tray. */
+  canBefriend: boolean;
+  /** Pick this net, card or treat in the tray (the Bag closes and the tray opens). */
+  onTool: (itemId: string) => void;
   /** Medicine for a sleeping friend of the team (the Bag closes); false when it could not be used. */
   onMedicine?: (itemId: string, creatureId: string) => boolean;
   /** The friends of the team a medicine can be used on now (ids): decided by the battle. */
@@ -67,17 +67,17 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
     if (i.kind === "helper") return t("bagInQuestion");
     if (i.kind === "medicine") return targetsOf(i).length ? null : battle ? t("bagNoSleeper") : i.healsDozing ? t("bagNoSleeper") : t("bagOnlyInBattle");
     if (battle) {
-      if (i.kind === "net") return battle.calm ? null : t("bagNeedCalm");
+      if (i.kind === "net" || i.kind === "befriend_tool" || (i.kind === "snack" && i.treatMult > 1)) return battle.canBefriend ? null : t("bagNotInBattle");
       return t("bagNotInBattle");
     }
-    if (i.kind === "net") return t("bagNeedCalm");
+    if (i.kind === "net" || i.kind === "befriend_tool") return t("bagNeedCalm");
     return play.world.creatures.length ? null : t("bagNoFriend");
   };
 
   const use = (i: Item) => {
     if (why(i)) return;
-    if (battle && i.kind === "net") {
-      battle.onNet(i.id);
+    if (battle && (i.kind === "net" || i.kind === "befriend_tool" || (i.kind === "snack" && i.treatMult > 1))) {
+      battle.onTool(i.id);
       return;
     }
     setAsking(true);

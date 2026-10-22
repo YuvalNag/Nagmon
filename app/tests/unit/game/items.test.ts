@@ -10,8 +10,8 @@ const eco = economy(gameJson("economy.json"));
 const monsters = monsterTable(gameJson("db/monsters.json"));
 
 describe("the economy table", () => {
-  it("is the shipped one: twenty-one items the Bag loads (the befriend tools and cards wait for S3 and S4), three tabs, every item priced and in a tab", () => {
-    expect(Object.keys(eco.items)).toHaveLength(21);
+  it("is the shipped one: thirty-three items the Bag loads (the Star Net and the eleven Friendship Cards joined in S3; the evolution cards wait for S4), three tabs, every item priced and in a tab", () => {
+    expect(Object.keys(eco.items)).toHaveLength(33);
     expect(eco.tabs).toHaveLength(3);
     for (const i of Object.values(eco.items)) {
       expect(eco.tabs).toContain(i.tab);

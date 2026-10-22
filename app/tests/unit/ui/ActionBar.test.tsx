@@ -40,7 +40,7 @@ function show(over: Partial<ActionBarProps> = {}) {
     subjectTitle: (s) => titles[s] ?? s,
     friends: friends(),
     calm: false,
-    canNet: false,
+    canBefriend: false,
     live: true,
     idle: true,
     queued: null,
@@ -48,7 +48,7 @@ function show(over: Partial<ActionBarProps> = {}) {
     turn: 0,
     onMove: (id) => calls.push(`move:${id}`),
     onFriend: (id) => calls.push(`friend:${id}`),
-    onNet: () => calls.push("net"),
+    onBefriend: () => calls.push("befriend"),
     onBag: () => calls.push("bag"),
     onLeave: () => calls.push("leave"),
     ...over,
@@ -62,23 +62,23 @@ async function tap(b: HTMLButtonElement) {
 }
 
 describe("the battle's menu (BATTLE_V3 2.2)", () => {
-  it("has the friends strip, the four move cards in a 2 x 2 grid, and Net, Bag and Run", () => {
+  it("has the friends strip, the four move cards in a 2 x 2 grid, and Befriend, Bag and Run", () => {
     show();
     const ids = [...host.querySelectorAll("button")].map((b) => b.dataset["id"]);
-    expect(ids).toEqual(["battle_friend_c1", "battle_friend_c2", "battle_friend_c3", "battle_move_sum_spark", "battle_move_add_it_up", "battle_move_number_nudge", "battle_move_block_bounce", "battle_net", "battle_bag", "battle_run"]);
+    expect(ids).toEqual(["battle_friend_c1", "battle_friend_c2", "battle_friend_c3", "battle_move_sum_spark", "battle_move_add_it_up", "battle_move_number_nudge", "battle_move_block_bounce", "battle_befriend", "battle_bag", "battle_run"]);
     expect(host.querySelectorAll(".move-grid .move-card")).toHaveLength(4);
     expect(host.querySelector(".action-bar")!.getAttribute("role")).toBe("toolbar");
   });
 
-  it("each card casts its own move, once; a friend's portrait swaps; Net, Bag and Run do their own", async () => {
-    const m = show({ canNet: true });
+  it("each card casts its own move, once; a friend's portrait swaps; Befriend, Bag and Run do their own", async () => {
+    const m = show({ canBefriend: true });
     await tap(m.el("battle_move_sum_spark"));
     await tap(m.el("battle_move_add_it_up"));
     await tap(m.el("battle_friend_c2"));
-    await tap(m.el("battle_net"));
+    await tap(m.el("battle_befriend"));
     await tap(m.el("battle_bag"));
     await tap(m.el("battle_run"));
-    expect(m.calls).toEqual(["move:sum_spark", "move:add_it_up", "friend:c2", "net", "bag", "leave"]);
+    expect(m.calls).toEqual(["move:sum_spark", "move:add_it_up", "friend:c2", "befriend", "bag", "leave"]);
   });
 
   it("a card shows the move's name, its subject, its flames, a tier badge and the charges as dots, and says all of it to a screen reader", () => {
@@ -162,15 +162,15 @@ describe("the battle's menu (BATTLE_V3 2.2)", () => {
     expect(m.calls).toEqual(["friend:c2"]);
   });
 
-  it("calm: only the Net is the next step; the cards rest", () => {
-    const m = show({ calm: true, canNet: true });
-    expect(m.el("battle_net").disabled).toBe(false);
-    expect(m.el("battle_net").classList.contains("pulse")).toBe(true);
+  it("calm: Befriend is the next step and pulses; the cards rest", () => {
+    const m = show({ calm: true, canBefriend: true });
+    expect(m.el("battle_befriend").disabled).toBe(false);
+    expect(m.el("battle_befriend").classList.contains("pulse")).toBe(true);
     expect(m.el("battle_move_sum_spark").disabled).toBe(true);
   });
 
-  it("with no net to throw, Net rests", () => {
-    expect(show({ canNet: false }).el("battle_net").disabled).toBe(true);
+  it("when befriending is not open (a master, a friend to be picked), Befriend rests", () => {
+    expect(show({ canBefriend: false }).el("battle_befriend").disabled).toBe(true);
   });
 
   it("every button has a label a screen reader can read (text or aria-label)", () => {

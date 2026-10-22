@@ -558,6 +558,7 @@ describe("a wild creature in the grass", () => {
   afterEach(() => {
     localStorage.removeItem("nagmon.encounter.always");
     localStorage.removeItem("nagmon.battle.timescale");
+    localStorage.removeItem("nagmon.befriend.dice");
     localStorage.removeItem("nagmon.battle.seed");
   });
 
@@ -589,10 +590,12 @@ describe("a wild creature in the grass", () => {
     expect(((await m.profiles.loadWorldDict(m.profile.id))["creatures"] as unknown[]).length).toBe(1);
   });
 
-  it("wrong answers hurt nobody; right ones calm it; a net and a seal answer make it a friend, saved", async () => {
+  it("wrong answers hurt nobody; right ones calm it; the Befriend tray, a failed try and a friend, saved", async () => {
     localStorage.setItem("nagmon.encounter.always", "1");
     localStorage.setItem("nagmon.battle.timescale", "0.02");
     localStorage.setItem("nagmon.battle.seed", "7");
+    // the first try fails on its first shake (the draw after it is the net's: 0.9), the second holds on all three
+    localStorage.setItem("nagmon.befriend.dice", "0.999,0.9,0,0,0,0");
     const m = await grass();
     await act(async () => m.opts().onStep?.(5, 8));
     const wildSpecies = m.q("[data-screen=battle]")!.dataset.wild!;
@@ -612,7 +615,8 @@ describe("a wild creature in the grass", () => {
     expect(fog1).toBeLessThan(fog0);
     expect(fog1).toBeGreaterThan(fog0 - 12);
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("turn");
-    expect((m.el("battle_net") as HTMLButtonElement).disabled).toBe(true);
+    // befriending is open at any time, with no calm needed (8.1)
+    expect((m.el("battle_befriend") as HTMLButtonElement).disabled).toBe(false);
     expect(m.logs.some((l) => /^MOVE n=1 move=\w+ subject=\w+ tier=\w ok=0 dmg=\d+ /.test(l))).toBe(true);
     // right answers until it is calm
     for (let i = 0; i < 20 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
@@ -627,33 +631,44 @@ describe("a wild creature in the grass", () => {
     expect(m.q("[data-star=calm]")?.getAttribute("data-on")).toBe("true");
     expect(Number(m.q("[data-id=battle_results]")!.getAttribute("data-coins"))).toBeGreaterThanOrEqual(5 + 3);
     expect(m.el("battle_message")?.textContent).toMatch(/נרגע/);
-    expect((m.el("battle_net") as HTMLButtonElement).disabled).toBe(false);
     // no friend joined by itself
     await pendingWrites(m.fs);
     expect(((await m.profiles.loadWorldDict(m.profile.id))["creatures"] as unknown[]).length).toBe(1);
-    // the net, a seal question: a wrong answer only means another try
-    await m.press("battle_net");
+    // the tray pops up by itself once the creature is calm (T14), on Auto: a chance word, a tool, Throw
+    expect(m.q("[data-id=befriend_tray]")).not.toBeNull();
+    expect(m.q("[data-id=befriend_chance]")?.getAttribute("data-word")).toBe("great");
+    expect(m.el("befriend_tool")?.textContent).toMatch(/\S/);
+    // the Gift question is optional: a wrong answer costs nothing and the tray is back
+    await m.press("befriend_gift");
     expect(m.q("[data-screen=battle-ask]")?.dataset.seal).toBe("true");
-    if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
-    await m.press("quiz_dont_know");
-    await closeResult(m);
+    await answerQuestion(m, false, true);
+    expect(m.q("[data-id=befriend_tray]")).not.toBeNull();
+    expect((m.el("befriend_gift") as HTMLButtonElement).dataset.state).toBe("missed");
+    // a try that fails: the throw plays, the creature sniffs the net, nothing is lost but the net or not, and the fight goes on
+    await m.press("befriend_throw");
+    expect(m.q("[data-id=befriend_throw]")?.getAttribute("data-result")).toBe("failed");
+    for (let i = 0; i < 400 && m.q("[data-id=befriend_throw]"); i++) await settle(5);
+    expect(m.q("[data-id=befriend_throw]")).toBeNull();
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("calm");
-    expect(m.el("battle_message")?.textContent).toMatch(/אפשר לנסות שוב/);
-    // a grown-up creature needs three seal answers: right ones until it is caught
-    for (let i = 0; i < 3 && !m.q("[data-screen=battle-caught]"); i++) {
-      await m.press("battle_net");
-      await answerQuestion(m, true, true);
-    }
+    expect(m.el("battle_message")?.textContent).toMatch(/מריח את הרשת/);
+    expect(m.logs.some((l) => /^BEFRIEND try species=\w+ tool=magic_net treat=none gift=0 ok=0 shakes=1 /.test(l))).toBe(true);
+    // the child taps Befriend again: the tray opens on the last choice, and this one holds on all three shakes
+    await m.press("battle_befriend");
+    await m.press("befriend_throw");
+    expect(m.q("[data-id=befriend_throw]")?.getAttribute("data-result")).toBe("caught");
+    for (let i = 0; i < 400 && !m.q("[data-screen=battle-caught]"); i++) await settle(5);
     expect(m.q("[data-screen=battle-caught]")).not.toBeNull();
-    // a name or skip
-    await m.press("battle_skip");
+    // the card has one big Next, and "Name it" is a quiet chip
+    expect(m.el("battle_name_chip")).not.toBeNull();
+    await m.press("battle_befriend_next");
     expect(m.q("[data-screen=battle]")).toBeNull();
     await pendingWrites(m.fs);
     const world = await m.profiles.loadWorldDict(m.profile.id);
     expect((world["creatures"] as { species: string; name?: string }[]).map((c) => c.species)[1]).toBe(wildSpecies);
     expect((world["creatures"] as { name?: string }[])[1]!.name).toBeUndefined();
     expect(world["caught"]).toContain(wildSpecies);
-    expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
+    // the kit's 3 nets: the one that caught is gone; the one that failed came back (ages 5-7) or not
+    expect([1, 2]).toContain((world["items"] as Record<string, number>)["magic_net"]);
     // the log of the fight: moves, rounds, and one end line with questions, turns and seconds
     expect(m.logs.filter((l) => l.startsWith("MOVE ")).length).toBeGreaterThanOrEqual(2);
     expect(m.logs.filter((l) => l.startsWith("ROUND ")).length).toBeGreaterThanOrEqual(2);
@@ -681,7 +696,8 @@ describe("a wild creature in the grass", () => {
     expect(m.logs.some((l) => /^HELPER use kind=pass skill=/.test(l))).toBe(true);
   });
 
-  it("a name picked from the three, kept in the save", async () => {
+  it("a name picked from the three (behind the Name it chip), kept in the save", async () => {
+    localStorage.setItem("nagmon.befriend.dice", "0");
     const m = await grass();
     await act(async () => m.opts().onStep?.(5, 8));
     for (let i = 0; i < 20 && m.q("[data-screen=battle]")?.dataset.view !== "calm"; i++) {
@@ -689,10 +705,12 @@ describe("a wild creature in the grass", () => {
       await answerQuestion(m, true, true);
       await settle(5);
     }
-    for (let i = 0; i < 3 && !m.q("[data-screen=battle-caught]"); i++) {
-      await m.press("battle_net");
-      await answerQuestion(m, true, true);
+    await m.press("befriend_throw");
+    for (let i = 0; i < 400 && !m.q("[data-screen=battle-caught]"); i++) {
+      await settle(5);
+      if (m.el("growth_close")) await m.press("growth_close");
     }
+    await m.press("battle_name_chip");
     await m.press("battle_suggest_0");
     await pendingWrites(m.fs);
     const world = await m.profiles.loadWorldDict(m.profile.id);

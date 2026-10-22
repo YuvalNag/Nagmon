@@ -58,6 +58,12 @@ import type { FieldLog } from "./fieldLog";
 import type { MonsterTable } from "./monsters";
 
 export const MAX_CREATURES = 60;
+/** The tests' draws for the befriend shakes: each is used once, in order; then the battle's own random. */
+function diceFrom(list: number[], rest: () => number): () => number {
+  const queue = [...list];
+  return () => (queue.length ? queue.shift()! : rest());
+}
+
 /** An empty Bag's economy, for a battle made without one (befriending then has no tools). */
 const NO_ECONOMY = economyFrom({});
 export { PARTY_SIZE };
@@ -173,7 +179,7 @@ export interface BattleOptions {
   /** A random number in [0, 1): a test passes a seeded one. */
   rng?: () => number;
   /** The tests' hook: start the partner's Pep or the enemy's Fog at this number. */
-  debug?: { pep?: number; fog?: number; charges?: number };
+  debug?: { pep?: number; fog?: number; charges?: number; /** the befriend draws, in order (then the battle's own random): the browser tests' sure fail or sure success */ dice?: number[] };
 }
 
 /** How many times a question is tried for before the battle ends in peace. */
@@ -257,7 +263,7 @@ export class Battle {
       monsters: o.monsters,
       data: o.data,
       band: this.band,
-      rng: this.rng,
+      rng: o.debug?.dice ? diceFrom(o.debug.dice, this.rng) : this.rng,
       field: o.field,
       onChange: o.onChange,
       species: o.wild.species,

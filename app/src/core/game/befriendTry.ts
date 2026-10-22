@@ -18,7 +18,6 @@ import {
   type Chance,
   chanceOf,
   isNet,
-  nextWord,
   rollShakes,
   type ChanceWord,
   type Tool,
@@ -63,8 +62,9 @@ export interface TryResult {
   gift: boolean;
   /** The net came back (the tool was not used up). */
   netBack: boolean;
-  /** The word the next try will show (one step up after a failure). */
+  /** The word the next try with the same tool will show (pity raised it), and whether that try is sure (Mercy). */
   nextWord: ChanceWord | null;
+  nextMercy: boolean;
   caught: Creature | null;
   toMeadow: boolean;
   full: boolean;
@@ -87,6 +87,7 @@ const refused = (refusal: Refusal): TryResult => ({
   gift: false,
   netBack: false,
   nextWord: null,
+  nextMercy: false,
   caught: null,
   toMeadow: false,
   full: refusal === "full",
@@ -171,6 +172,10 @@ export class Befriending {
     const tools = toolsIn(this.h.eco, this.have, this.target);
     const tool = tools.find((t) => t.item.id === sel.tool);
     const treat = treatsIn(this.h.eco, this.have, this.h.species, this.rules).find((t) => t.item.id === sel.treat);
+    return this.chanceWith(tool, treat, this.gift === true);
+  }
+
+  private chanceWith(tool: Tool | undefined, treat: Treat | undefined, gift: boolean): Chance {
     const rate = this.h.data.species[this.h.species]?.catch_rate ?? 150;
     return chanceOf(
       {
@@ -181,7 +186,7 @@ export class Befriending {
         tool: tool?.mult ?? 1,
         treat: treat?.mult ?? 1,
         statuses: this.h.statuses(),
-        gift: this.gift === true,
+        gift,
         curious: this.h.gift === "curious",
         failed: this.failed,
         firstSafe: !!tool?.item.firstShakeSafe,
@@ -229,6 +234,7 @@ export class Befriending {
       gift: giftRight,
       netBack,
       nextWord: null,
+      nextMercy: false,
       caught: null,
       toMeadow: false,
       full: false,
@@ -239,7 +245,10 @@ export class Befriending {
     };
     if (!roll.ok) {
       this.failed++;
-      base.nextWord = nextWord(chance.word);
+      // what the same tool would give on the next try (pity is in): the child sees the word move
+      const next = this.chanceWith(tool, treat, false);
+      base.nextWord = next.word;
+      base.nextMercy = next.mercy;
     } else {
       const c = addCreature(w, h.species, h.level);
       if (treat) c.hearts = Math.min(MAX_HEARTS, (c.hearts ?? 0) + 1);
