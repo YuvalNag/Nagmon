@@ -88,9 +88,9 @@ describe("enemy intents (4.3), from intents.json", () => {
     expect(drawIntent(0.4, playful, { ...calm, lastWasStatus: true })).toBe("silly_dance");
     expect(drawIntent(0.4, playful, { ...calm, childMajor: true })).toBe("silly_dance");
     const sleepy = weightsOf(data, "sleepy");
-    expect(drawIntent(0.1, sleepy, calm)).toBe("drowsy_mist");
-    expect(drawIntent(0.1, sleepy, { ...calm, bandA: true })).toBe("silly_dance");
-    expect(drawIntent(0.1, sleepy, { ...calm, childMajor: true })).toBe("silly_dance");
+    expect(drawIntent(0.6, sleepy, calm)).toBe("drowsy_mist");
+    expect(drawIntent(0.6, sleepy, { ...calm, bandA: true })).toBe("silly_dance");
+    expect(drawIntent(0.6, sleepy, { ...calm, childMajor: true })).toBe("silly_dance");
     expect(drawIntent(0.1, weightsOf(data, "proud"), { ...calm, powerMax: true })).toBe("fog_puff");
     expect(BIG_PUFF).toBe(0.15);
   });
