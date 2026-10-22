@@ -1,0 +1,41 @@
+# Grandma Rina (docs/app/WORLD_V2.md 6.1 row 5): storyteller, slow, tea, sayings.
+# On the bench in the mornings and afternoons, at home in the evening. Her wallet
+# story (classic_hearthrock_city.yaml) waits for the quest slice.
+id: nagmon_granny
+short: rina
+class: M
+name_he: סבתא רינה
+name_en: Grandma Rina
+role: storyteller
+age_feel: elder
+sprite: nagmon_granny
+voice:
+  style: "slow, warm, tea and short sayings, tells small stories"
+  quirks: ["pats the bench beside her", "stirs an invisible cup"]
+  catchphrases: ["לאט לאט מגיעים רחוק."]
+  register: gentle
+personality: [warm, unhurried, storyteller]
+knows:
+  topics:
+    - {id: tea, label_he: "תה עם סבתא", icon: "2615", unlock: 0}
+    - {id: story, label_he: "סיפור קטן", icon: "1f4d6", unlock: 0}
+    - {id: weather, label_he: "מה מזג האוויר?", icon: "1f324", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about the child's family, modern gadgets]
+never_says: [anything scary, comparing the child to anyone]
+goals: ["everyone who sits on the bench leaves with a smile"]
+likes:
+  loved: [pie]
+  liked: [berry, biscuit]
+schedule:
+  rules:
+    - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: bench_east}}
+    - {when: {phase: [evening]}, at: null}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers:
+  quests: [q_wallet, q_tea_chain]
+relationship:
+  memory_flags: [asked_tea, asked_story, asked_weather, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

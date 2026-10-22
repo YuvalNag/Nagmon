@@ -1,0 +1,31 @@
+# Mila (docs/app/WORLD_V2.md 6: row 28). The pilot at the station dock; fares and rides stay as they are.
+id: nagmon_solar_mila
+short: mila
+class: M
+name_he: מילה
+name_en: Mila
+role: pilot
+age_feel: adult
+sprite: nagmon_mila_space
+voice:
+  style: "brisk, kind, jokes about bumps on the way"
+  quirks: ["checks the straps twice"]
+  catchphrases: ["חגורות קשורות?"]
+  register: playful
+personality: [brisk, kind, funny]
+knows:
+  topics:
+    - {id: ship, label_he: "על החללית", icon: "1f680", unlock: 0}
+    - {id: pack, label_he: "מה לוקחים?", icon: "1f392", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["a smooth ride for everyone"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  fixed: {maps: [solar_station]}
+offers: {travel: fares}
+relationship:
+  memory_flags: [asked_ship, asked_pack]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

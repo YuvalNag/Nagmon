@@ -1,0 +1,34 @@
+# Ofir the Baker (docs/app/WORLD_V2.md 6: row 10). Art is a stand-in (the old man with the compass): needs a baker sheet (docs/app/ART_NEEDED_W1.md).
+id: nagmon_baker
+short: ofir
+class: R
+name_he: אופיר האופה
+name_en: Ofir the Baker
+role: baker
+age_feel: adult
+sprite: nagmon_granite
+voice:
+  style: "booming, generous, flour on everything"
+  quirks: ["dusts his hands on his apron"]
+  catchphrases: ["טרי מהתנור!"]
+  register: playful
+personality: [generous, loud, warm]
+knows:
+  topics:
+    - {id: bread, label_he: "מה אופים היום?", icon: "1f35e", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["bake enough for everyone"]
+likes: {loved: [pie], liked: [berry]}
+schedule:
+  rules:
+    - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: market_stall}}
+    - {when: {phase: [evening]}, at: null}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {quests: [q_recipe]}
+relationship:
+  memory_flags: [asked_bread, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

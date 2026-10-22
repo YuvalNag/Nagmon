@@ -341,6 +341,54 @@ msgstr "ארנק"
 msgid "nagmon_route1_trainer"
 msgstr "הדוור דני"
 
+msgid "nagmon_baker"
+msgstr "אופיר האופה"
+
+msgid "nagmon_carpenter"
+msgstr "סלים הנגר"
+
+msgid "nagmon_pharmacist"
+msgstr "תסמה הרוקחת"
+
+msgid "nagmon_librarian"
+msgstr "לריסה הספרנית"
+
+msgid "nagmon_ranger"
+msgstr "איתן שומר הפארק"
+
+msgid "nagmon_photographer"
+msgstr "שירה הצלמת"
+
+msgid "nagmon_rival_roni"
+msgstr "רוני"
+
+msgid "nagmon_chess_haim"
+msgstr "חיים השחמטאי"
+
+msgid "nagmon_card_trader"
+msgstr "מזל סוחרת הכרטיסים"
+
+msgid "nagmon_newsboy"
+msgstr "אביב מחלק העיתון"
+
+msgid "nagmon_tailor"
+msgstr "חנה התופרת"
+
+msgid "nagmon_clockmaker"
+msgstr "יוסף השען"
+
+msgid "nagmon_robot_tiky"
+msgstr "טיקי הרובוט"
+
+msgid "nagmon_cat_pita"
+msgstr "פיתה החתולה"
+
+msgid "nagmon_scout"
+msgstr "קרן הצופה"
+
+msgid "nagmon_fisher"
+msgstr "פואד הדייג"
+
 msgid "nagmon_sign_route1"
 msgstr "שלט"
 

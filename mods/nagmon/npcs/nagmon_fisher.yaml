@@ -1,0 +1,34 @@
+# Fuad the Fisher (docs/app/WORLD_V2.md 6: row 26). Art is a stand-in (the old man with the compass): needs a fisher sheet.
+id: nagmon_fisher
+short: fuad
+class: R
+name_he: פואד הדייג
+name_en: Fuad the Fisher
+role: fisher
+age_feel: adult
+sprite: nagmon_granite
+voice:
+  style: "patient, tells long short stories, speaks slowly"
+  quirks: ["watches the line a long time"]
+  catchphrases: ["סבלנות, והדג יבוא."]
+  register: gentle
+personality: [patient, calm, storyteller]
+knows:
+  topics:
+    - {id: fishing, label_he: "איך דגים?", icon: "1f3a3", unlock: 0}
+    - {id: water, label_he: "על מים", icon: "1f4a7", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["one quiet afternoon at the pond"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [afternoon, evening]}, at: {map: classic_route_1, spot: pond}}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {quests: [q_bait]}
+relationship:
+  memory_flags: [asked_fishing, asked_water, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

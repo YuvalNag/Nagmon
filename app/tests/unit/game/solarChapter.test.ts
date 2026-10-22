@@ -8,7 +8,6 @@
  */
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { TALK_TO } from "../../../src/app/playConfig";
 import { countOf, economy } from "../../../src/core/game/items";
 import { addCreature } from "../../../src/core/game/collection";
 import { Encounters, encounterTables } from "../../../src/core/game/encounters";
@@ -68,7 +67,7 @@ async function visit(map: WorldMap, world: WorldState, word: () => QuizWord, day
     openTutor: async (institute) => void tutors.push(institute),
     found: async (f) => void found.push(f),
   };
-  const runner = new EventRunner(map.events, world, host, { grade: 3, today: day, talkTo: TALK_TO, objects: OBJECTS });
+  const runner = new EventRunner(map.events, world, host, { grade: 3, today: day, objects: OBJECTS });
   await runner.start();
   return { runner, said, topics, tutors, found };
 }

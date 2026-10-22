@@ -117,7 +117,7 @@ describe("the save", () => {
     expect(back.eggs).toEqual(w.eggs);
     const old = WorldState.fromDict({ schema_version: 1, money: 5, variables: {} });
     expect(old.eggs).toEqual([]);
-    expect(old.toDict()).toEqual({ schema_version: 1, money: 5, variables: {} });
+    expect(old.toDict()).toEqual({ schema_version: 2, money: 5, variables: {} });
   });
 
   it("reads damaged eggs leniently: bad ones are left out", () => {

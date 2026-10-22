@@ -1,12 +1,15 @@
 import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Play, PlayOptions } from "../../app/play";
-import { TALK_TO, testAlwaysEncounter, testQuizTopic, testSeed, testStartMap } from "../../app/playConfig";
+import { testAlwaysEncounter, testHour, testQuizTopic, testSeed, testStartMap } from "../../app/playConfig";
 import type { Profile, ProfileStore } from "../../core/family/profiles";
 import { crumb } from "../../core/game/breadcrumb";
 import { FieldLog } from "../../core/game/fieldLog";
+import { type Chip, Director } from "../../core/world/director";
 import { pages } from "../../core/world/dialog";
-import { EventRunner, type EventHost, type Found, type ScreenKind } from "../../core/world/events";
-import { inBox, type WorldMap } from "../../core/world/mapData";
+import { EventRunner, type EventHost, type Found, type People, type ScreenKind } from "../../core/world/events";
+import { inBox, type Placement, type WorldMap } from "../../core/world/mapData";
+import { phaseOf } from "../../core/world/npcs";
+import { resolve as resolvePeople } from "../../core/world/resolver";
 import { QuizSession } from "../../core/world/quiz";
 import { currentMap, setCurrentMap } from "../../game/current";
 import type { MapController, MapLifecycle } from "../../game/mapGame";
@@ -19,13 +22,12 @@ import { DpadState } from "../dpadState";
 import { partner as partnerOf } from "../../core/game/collection";
 import { Encounters, type Wild } from "../../core/game/encounters";
 import { introNeeded } from "../../core/game/intro";
-import { ChestWrongCard, FactCard, FoundCard } from "../WorldCards";
+import { ChestWrongCard, FactCard, FoundCard, TopicsCard } from "../WorldCards";
 import { progressPercent, refreshProgress, tripFor, type Trip } from "../../core/game/trips";
 import { PlaceSaver, type Place } from "../../core/world/place";
 import { START_MAP } from "../../game/startMap";
 import type { Lesson } from "../../core/game/lessons";
 import { loadGameLessons } from "../tutor/lessonData";
-import { TUTOR_NPCS } from "../tutor/npcs";
 import { Bag, Battle, Bestiary, Friends, Intro, Later, Quiz, Rest, Shop, Trips, Tutor, preloadSoon } from "../lazy";
 import { ScreenTime } from "../screenTime";
 import { Tap } from "../Tap";
@@ -77,7 +79,9 @@ type Shown =
   /** The world's small cards: what a chest gave, the choice after a wrong answer at a chest, a sign's fact. */
   | { kind: "found"; found: Found; done: () => void }
   | { kind: "chest-wrong"; choose: (c: "again" | "gift" | "leave") => void; done: () => void }
-  | { kind: "fact"; fact: { emoji: string; text: string }; done: () => void };
+  | { kind: "fact"; fact: { emoji: string; text: string }; done: () => void }
+  /** The topic chips of a person of the world: tapping one answers with its id, "bye" (or back) with null. */
+  | { kind: "topics"; speaker: string; chips: readonly Chip[]; choose: (id: string | null) => void; done: () => void };
 /** What lies over the map: a dialog or a question, each its own screen (`n`). */
 type Overlay = Shown & { n: number };
 
@@ -134,6 +138,9 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   const [mapNow, setMapNow] = useState<string | null>(null);
   const battleLeave = useRef<(() => void) | null>(null);
   const stepRef = useRef<(x: number, y: number) => void>(() => {});
+  // the people of the world standing on this map now (decided as the map opened) and the one who speaks for them
+  const placedRef = useRef<{ map: string; list: Placement[] } | null>(null);
+  const placeRef = useRef<(w: WorldMap) => Promise<Placement[]>>(async () => []);
   // the runner's own state changed (it started, a talk ended): draw again
   const [, setRunnerTick] = useState(0);
   const seq = useRef(0);
@@ -154,10 +161,52 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   const menuOpen = menu > 0;
   const { avatar } = profile;
 
+  // the child's people: what each remembers, and what they say (core/world/director.ts)
+  const director = useMemo(
+    () =>
+      play
+        ? new Director({
+            npcs: play.npcs,
+            memory: play.world.npcs,
+            today: () => play.today(),
+            hour: () => play.clock().getHours(),
+            hero: () => profile.name,
+            // who else is here today, for the "who is in town" topic
+            town: () => (placedRef.current?.list ?? []).map((p) => play.npcs[p.slug]?.name ?? "").filter(Boolean),
+          })
+        : null,
+    [play, profile.name],
+  );
+
+  // who stands on a map as it opens: the resolver's answer for this day and hour (core/world/resolver.ts)
+  placeRef.current = async (w: WorldMap) => {
+    const p = await playReady.current?.promise;
+    if (!p || !w.placement || !Object.keys(p.npcs).length) return [];
+    if (p.world.npcSeed === null) {
+      // a number of this child's own, made once: another child's town has other days
+      p.world.npcSeed = Math.floor(Math.random() * 0x100000000);
+      void p.saveWorld();
+    }
+    const now = p.clock();
+    const list = resolvePeople({
+      map: w.name,
+      placement: w.placement,
+      npcs: p.npcs,
+      day: p.today(),
+      phase: phaseOf(now.getHours()),
+      seed: p.world.npcSeed,
+      flags: (f) => p.world.variables.has(f),
+      friendship: (s) => p.world.npcs.get(s)?.lvl ?? 0,
+    });
+    const placed = list.map(({ slug, x, y, facing }) => ({ slug, x, y, facing }));
+    placedRef.current = { map: w.name, list: placed };
+    return placed;
+  };
+
   // the map's code and the child's play load side by side
   useEffect(() => {
     let alive = true;
-    openPlay({ profiles, profile, seed: testSeed(), log: getLogger("nagmon.play") }).then(
+    openPlay({ profiles, profile, seed: testSeed(), hour: testHour(), log: getLogger("nagmon.play") }).then(
       (p) => {
         if (!alive) return;
         const saves = new PlaceSaver(
@@ -225,6 +274,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             const talk = edge(".map-talk");
             return talk ? window.innerWidth - talk.left + PAD_GAP : 0;
           },
+          place: (w) => placeRef.current(w),
           onFacing: (who) => alive && setFacing(who),
           onMap: (w, there) => {
             const at: Place = there ?? { map: w.name, x: w.start?.x ?? 0, y: w.start?.y ?? 0, facing: "up" };
@@ -294,19 +344,31 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     let alive = true;
     const show = (o: Shown) => setOverlay({ ...o, n: ++seq.current });
     const host: EventHost = {
-      say: (msgid) =>
+      say: (msgid, _speaker, lead) =>
         new Promise<void>((resolve) => {
           if (!alive) return resolve();
           field.dialogStart(msgid);
           const since = performance.now();
           show({
             kind: "dialog",
-            pages: pages(play.text(msgid)),
+            // what the person opened with, then the event's own words: one box
+            pages: [...(lead ?? []).flatMap((x) => pages(x)), ...pages(play.text(msgid))],
             done: () => {
               field.dialogEnd(msgid, performance.now() - since);
               resolve();
             },
           });
+        }),
+      line: (text) =>
+        new Promise<void>((resolve) => {
+          if (!alive) return resolve();
+          show({ kind: "dialog", pages: pages(text), done: resolve });
+        }),
+      topics: (slug, chips) =>
+        new Promise<string | null>((resolve) => {
+          if (!alive) return resolve(null);
+          // closing the card (Android's back) is "bye"
+          show({ kind: "topics", speaker: play.npcs[slug]?.name ?? "", chips, choose: resolve, done: () => resolve(null) });
         }),
       quiz: (topic, context, answered) =>
         new Promise<void>((resolve) => {
@@ -361,10 +423,24 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       },
       warn: (m) => log.warning(m),
     };
+    // the director speaks for the people of the world; the runner asks it who is on this map
+    const people: People | undefined = director
+      ? {
+          defined: (s) => director.defined(s),
+          greet: (s) => director.greet(s),
+          chips: (s) => director.chips(s),
+          topic: (s, id) => director.topic(s, id),
+          farewell: (s) => director.farewell(s),
+          level: (s) => director.level(s),
+          flags: (s) => director.flags(s),
+          placed: () => (placedRef.current?.map === world.name ? placedRef.current.list : []),
+        }
+      : undefined;
     const r = new EventRunner(world.events, play.world, host, {
       grade: play.profile.grade,
       today: () => play.today(),
-      talkTo: new Set([...TALK_TO, ...TUTOR_NPCS]),
+      hour: () => play.clock().getHours(),
+      ...(people ? { people } : {}),
       objects: { economy: play.economy, loot: play.loot, facts: play.facts, pools: play.pools, zone: world.encounters[0]?.table ?? DEFAULT_ZONE },
     });
     const waiting = r.waiting();
@@ -381,7 +457,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       setOverlay(null);
       o?.done();
     };
-  }, [play, world, intro]);
+  }, [play, world, intro, director]);
 
   const encounters = useMemo(
     () =>
@@ -461,6 +537,13 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       checkTrips();
     });
   }, [runner, facing, dpad, checkTrips]);
+
+  const ask = useCallback(() => {
+    if (!runner || !facing || !runner.askable(facing)) return;
+    dpad.clear();
+    setTalking(true);
+    void runner.ask(facing).finally(() => setTalking(false));
+  }, [runner, facing, dpad]);
 
   const openMenu = useCallback(() => {
     dpad.clear();
@@ -547,6 +630,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
   }, [play, held, menuOpen, tell, overlay, battle]);
 
   const canTalk = !held && !!facing && !!runner && runner.talkable(facing);
+  const canAsk = !held && !!facing && !!runner && runner.askable(facing);
 
   return (
     <main
@@ -607,6 +691,11 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           )}
           <DPad state={dpad} />
           <div className="map-talk-slot">
+            {canAsk && (
+              <Tap id="map_ask" className="map-ask" onTap={ask}>
+                {t("mapAsk")}
+              </Tap>
+            )}
             {canTalk && (
               <Tap id="map_talk" className="map-talk primary" onTap={talk}>
                 {t("mapTalk")}
@@ -693,6 +782,21 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
         />
       )}
       {overlay?.kind === "fact" && !menuOpen && <FactCard key={`fact-${overlay.n}`} fact={overlay.fact} onClose={closeOverlay} />}
+      {overlay?.kind === "topics" && !menuOpen && (
+        <TopicsCard
+          key={`topics-${overlay.n}`}
+          speaker={overlay.speaker}
+          chips={overlay.chips}
+          onChoose={(id) => {
+            // the card closes, and the talk goes on with the child's choice
+            const o = overlay;
+            shown.current = null;
+            setOverlay(null);
+            o.choose(id);
+            o.done();
+          }}
+        />
+      )}
       {overlay?.kind === "screen" && overlay.screen === "rest" && play && !menuOpen && (
         <Later><Rest.Screen key={`rest-${overlay.n}`} play={play} backRef={screenBack} onClose={closeOverlay} onChanged={() => setCoins(play.world.money)} /></Later>
       )}

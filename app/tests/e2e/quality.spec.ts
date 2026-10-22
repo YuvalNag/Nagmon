@@ -277,6 +277,8 @@ test("who-plays with eight children, the longest name among them, at 130% text",
     document.addEventListener("DOMContentLoaded", set);
     if (localStorage.getItem("seeded")) return;
     localStorage.setItem("seeded", "1");
+    // the town's people are those of ten in the morning, whatever the machine's clock says
+    localStorage.setItem("nagmon.clock.hour", "10");
     // made-up names
     ["אבגדהוזחטיכלמנסע", "בר", "גל", "דנה", "הדר", "ורד", "זיו", "חן"].forEach((name, i) => {
       const pid = `p0000${i}`;

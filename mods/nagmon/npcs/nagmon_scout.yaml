@@ -1,0 +1,34 @@
+# Keren the Scout (docs/app/WORLD_V2.md 6: row 25). Art is a stand-in (the rover driver): needs a scout sheet. Her friendly duel waits for a later slice.
+id: nagmon_scout
+short: keren
+class: R
+name_he: קרן הצופה
+name_en: Keren the Scout
+role: scout
+age_feel: teen
+sprite: nagmon_rover_driver
+voice:
+  style: "sporty, encouraging, loves a good hike"
+  quirks: ["does a quick stretch"]
+  catchphrases: ["קדימה, צעד אחר צעד!"]
+  register: playful
+personality: [sporty, encouraging, upbeat]
+knows:
+  topics:
+    - {id: trail, label_he: "איך הולכים בדרך?", icon: "1f6b6", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["walk every trail with a friend"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [morning]}, at: {map: classic_route_1, spot: camp}}
+    - {when: {phase: [afternoon]}, at: {map: classic_route_1, spot: trail_bend}}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {duel: daily}
+relationship:
+  memory_flags: [asked_trail, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

@@ -75,8 +75,13 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
         const open = () => {
           if (neverReady) return;
           if (stallWhenPaused && held.size) return void setTimeout(open, 5);
-          o.onMap?.(inside ?? city);
-          o.onReady?.();
+          // the real scene asks for the people of this hour as the map opens, then tells the screen
+          const w = inside ?? city;
+          // (a child who opens the menu "before the play has loaded" gets the map early, with nobody placed yet)
+          void Promise.resolve(menuFirst ? (void o.place?.(w), undefined) : o.place?.(w)).then(() => {
+            o.onMap?.(w);
+            o.onReady?.();
+          });
         };
         setTimeout(open, stallWhenPaused ? 100 : 0);
         return {
@@ -103,7 +108,8 @@ async function start({ grade = 2, settings = defaultsForGrade(2).settings as Jso
         // the child opens the menu before the play has loaded
         if (menuFirst) await new Promise((r) => setTimeout(r, 60));
         const log = o.log ?? { info: () => {}, warning: () => {}, error: () => {} };
-        return openPlay({ ...o, log: { ...log, info: (m: string) => (logs.push(m), log.info(m)) }, fetchJson: trips ? tripFetch : fetchJson, seed: 3 });
+        // ten in the morning: the town's people of that hour (the clock is not the machine's)
+        return openPlay({ ...o, log: { ...log, info: (m: string) => (logs.push(m), log.info(m)) }, fetchJson: trips ? tripFetch : fetchJson, seed: 3, now: () => new Date(2026, 9, 20, 10, 0) });
       }}
     />,
   );
@@ -318,16 +324,86 @@ describe("the home: the daily chest and the egg nest", () => {
 });
 
 describe("talking on the map", () => {
-  it("shows the talk button only facing the cashier, beside a coin count", async () => {
+  it("shows the talk button facing a person of the world who is here (no allow-list), beside a coin count; nobody else", async () => {
     const m = await start();
     expect(m.el("coins")?.dataset.coins).toBe("0");
     expect(m.el("map_talk")).toBeNull();
+    // the owl is an anchor: always at his post, and he can be talked to now
     await m.face("nagmon_owl");
+    expect(m.el("map_talk")?.textContent).toBe("לדבר");
+    // someone who is not on the map at this hour, and a prop with nothing to say, give no button
+    await m.face("nagmon_house_pet");
+    expect(m.el("map_talk")).toBeNull();
+    await m.face("nobody");
     expect(m.el("map_talk")).toBeNull();
     await m.face("nagmon_cashier");
     expect(m.el("map_talk")?.textContent).toBe("לדבר");
+    // a person with topics also gets "ask"
+    expect(m.el("map_ask")?.textContent).toBe("לשאול");
     await m.face(null);
     expect(m.el("map_talk")).toBeNull();
+    expect(m.el("map_ask")).toBeNull();
+  });
+
+  it("a talk with the owl: his own greeting alone in a box, and the memory of it saved as ids and numbers, no words", async () => {
+    const m = await start();
+    await m.face("nagmon_owl");
+    await m.press("map_talk");
+    const said = await m.read();
+    expect(said).toHaveLength(1);
+    expect(said[0]).toMatch(/^הינשוף החכם: /);
+    expect(m.calls.at(-1)).toBe("resume talk");
+    await pendingWrites(m.fs);
+    const world = await m.profiles.loadWorldDict(m.profile.id);
+    const npcs = world["npcs"] as Record<string, Record<string, unknown>>;
+    expect(world["schema_version"]).toBe(2);
+    expect(npcs["nagmon_owl"]).toMatchObject({ met: 1, pts: 1 });
+    expect((npcs["nagmon_owl"]!["recent"] as string[])[0]).toMatch(/^owl\.gf\./);
+    // nothing of what he said, and nothing of the child's name, is kept
+    expect(JSON.stringify(npcs)).not.toMatch(/[\u0590-\u05FF]/);
+    // a number of this child's own, made once
+    expect(typeof world["npc_seed"]).toBe("number");
+  });
+
+  it("asking: the chips, an answer, the chips again, goodbye; a new topic is a point; the map is held and comes back", async () => {
+    const m = await start();
+    await m.face("nagmon_owl");
+    await m.press("map_ask");
+    expect(m.q("[data-screen=topics]")).not.toBeNull();
+    expect(m.calls).toContain("pause talk");
+    const chips = [...m.container.querySelectorAll("[data-id^=topic_]")].map((b) => b.getAttribute("data-id"));
+    expect(chips).toEqual(["topic_tip", "topic_why", "topic_fact", "topic_town", "topic_bye"]);
+    await m.press("topic_tip");
+    expect(await m.read()).toHaveLength(1);
+    // the chips come again, and a fact shows its card verbatim
+    await m.press("topic_fact");
+    await m.read();
+    expect(m.q("[data-screen=fact]")).not.toBeNull();
+    await m.press("fact_ok");
+    expect(m.q("[data-screen=topics]")).not.toBeNull();
+    await m.press("topic_bye");
+    const bye = await m.read();
+    expect(bye).toHaveLength(1);
+    expect(bye[0]).toMatch(/^הינשוף החכם: /);
+    expect(m.q("[data-screen=topics]")).toBeNull();
+    expect(m.calls.at(-1)).toBe("resume talk");
+    expect(m.el("map_talk")).not.toBeNull();
+    await pendingWrites(m.fs);
+    const npcs = (await m.profiles.loadWorldDict(m.profile.id))["npcs"] as Record<string, { pts: number; flags: string[] }>;
+    // one for the day's first contact, two for two new topics
+    expect(npcs["nagmon_owl"]!.pts).toBe(3);
+    expect(npcs["nagmon_owl"]!.flags).toEqual(["asked_tip", "asked_fact"]);
+  });
+
+  it("Android's back on the chips is goodbye", async () => {
+    const m = await start();
+    await m.face("nagmon_owl");
+    await m.press("map_ask");
+    await act(async () => m.backRef.current?.());
+    await settle();
+    expect(m.q("[data-screen=topics]")).toBeNull();
+    expect(m.q("[data-screen=map-menu]")).toBeNull();
+    expect(m.calls.at(-1)).toBe("resume talk");
   });
 
   it("the cashier end to end: hello, a question, the right answer, 20 coins saved", async () => {
@@ -338,7 +414,11 @@ describe("talking on the map", () => {
     expect(m.calls).toContain("pause talk");
     expect(m.el("dpad")).toBeNull();
     expect(m.el("map_menu")).toBeNull();
-    expect(await m.read()).toEqual(["המוכר אבי: שלום! אני סופר את הכסף בקופה.", "אפשר לעזור לי עם חשבון קטן?"]);
+    // his own greeting of the day opens the same box, then the old words, as before
+    const hello = await m.read();
+    expect(hello).toHaveLength(3);
+    expect(hello[0]).toMatch(/^המוכר אבי: /);
+    expect(hello.slice(1)).toEqual(["המוכר אבי: שלום! אני סופר את הכסף בקופה.", "אפשר לעזור לי עם חשבון קטן?"]);
     expect(m.q("[data-screen=quiz]")).not.toBeNull();
     if (m.quiz()!.phase === "example") await m.press("quiz_example_done");
     const { answer } = m.quiz()!;
@@ -403,10 +483,13 @@ describe("talking on the map", () => {
       await settle();
     };
     const dialog = () => m.q("[data-screen=dialog]");
-    if (dialog()!.dataset.full !== "true") await back(); // the whole first page
+    if (dialog()!.dataset.full !== "true") await back(); // the whole first page (his own greeting)
     expect(dialog()?.dataset.full).toBe("true");
     await back(); // the second page
     expect(dialog()?.dataset.page).toBe("1");
+    if (dialog()!.dataset.full !== "true") await back();
+    await back(); // the third page
+    expect(dialog()?.dataset.page).toBe("2");
     if (dialog()!.dataset.full !== "true") await back();
     await back(); // closed
     expect(m.q("[data-screen=quiz]")).not.toBeNull();

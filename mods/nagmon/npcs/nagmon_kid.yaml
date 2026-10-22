@@ -1,0 +1,36 @@
+# Yoav (docs/app/WORLD_V2.md 6: row 7). His kitten story (classic_hearthrock_city.yaml) waits for the quest slice; for now he only chats.
+id: nagmon_kid
+short: yoav
+class: R
+name_he: יואב
+name_en: Yoav
+role: lost_kid
+age_feel: child
+sprite: nagmon_kid
+voice:
+  style: "earnest, tells everything, giggles at his own jokes"
+  quirks: ["bounces on his toes"]
+  catchphrases: ["אני יודע דבר!"]
+  register: playful
+personality: [earnest, energetic, kind]
+knows:
+  topics:
+    - {id: play, label_he: "מה משחקים?", icon: "1f3ae", unlock: 0}
+    - {id: joke, label_he: "בדיחה קטנה", icon: "1f604", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["find a friend for every game"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [morning]}, at: {map: classic_hearthrock_city, spot: school_gate}}
+    - {when: {phase: [afternoon]}, at: {map: classic_hearthrock_city, spot: fountain}}
+    - {when: {phase: [evening]}, at: null}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {quests: [q_kitten]}
+relationship:
+  memory_flags: [asked_play, asked_joke, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}
