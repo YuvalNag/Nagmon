@@ -1933,7 +1933,7 @@ button.quiz-choice {
 }
 
 .action-bar button.move-card.sturdy .move-name {
-  opacity: 0.75;
+  opacity: 0.9;
 }
 
 .action-bar button.move-card.dimmed {
@@ -3350,8 +3350,15 @@ button.zone {
   padding: 2px 4px;
   font-size: calc(var(--text) * 0.55);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.3;
   overflow-wrap: anywhere;
+}
+
+.befriend-tray .tray-tile > span,
+.befriend-tray button > span,
+.tray-chance small,
+.tray-chance strong {
+  line-height: 1.3;
 }
 
 .befriend-tray .tile-icon {
@@ -3360,7 +3367,7 @@ button.zone {
   align-items: center;
   gap: 4px;
   font-size: calc(var(--text) * 1.0);
-  line-height: 1.15;
+  line-height: 1.3;
 }
 
 .befriend-tray .tile-count {
@@ -3402,13 +3409,13 @@ button.zone {
   background: var(--card, #fff);
   color: var(--ink, #17323a);
   font-size: calc(var(--text) * 0.5);
-  line-height: 1.1;
+  line-height: 1.3;
   text-align: center;
 }
 
 .tray-chance strong {
   font-size: calc(var(--text) * 0.8);
-  line-height: 1.1;
+  line-height: 1.3;
 }
 
 .tray-chance[data-word="low"] { --word: #8a97a6; }

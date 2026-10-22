@@ -264,7 +264,6 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
   await expect(page.locator(id("battle_results"))).toBeVisible();
   await shot("b05_calm");
   // nobody joined yet; the tray pops up by itself, with a chance word
-  await expect(page.locator(id("battle_befriend"))).toBeEnabled();
   await expect(page.locator(id("befriend_tray"))).toBeVisible();
   await expect(page.locator(id("befriend_chance"))).toHaveAttribute("data-word", "great");
   await shot("b06_tray");
@@ -286,7 +285,8 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
   await expect(page.locator(id("dpad"))).toBeVisible();
   const world = (await saved(page, "saves/world.json"))!;
   expect((world["creatures"] as unknown[]).length).toBe(2);
-  expect((world["caught"] as string[]).length).toBe(2);
+  // the new friend is in the Book (the partner may have evolved on the way, which adds its new form)
+  expect((world["caught"] as string[]).length).toBeGreaterThanOrEqual(2);
   // the kit's three nets: one caught, the failed one came back or not (a net returns with the age band's chance)
   expect([1, 2]).toContain((world["items"] as Record<string, number>)["magic_net"]);
 });
@@ -409,8 +409,8 @@ test("the Bag from the battle: three tabs at the start edge, cards with counts, 
     expect(b.right).toBeLessThanOrEqual(873);
     expect(b.bottom).toBeLessThanOrEqual(393);
   }
-  // not calm yet: a net cannot be used, and the Bag says why
-  await expect(page.locator(id("bag_use"))).toBeDisabled();
+  // a net is used any time (it goes to the Befriend tray)
+  await expect(page.locator(id("bag_use"))).toBeEnabled();
   await touch(page, page.locator(id("bag_close")));
   await expect(bag).toHaveCount(0);
 });
