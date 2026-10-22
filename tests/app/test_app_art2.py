@@ -21,7 +21,12 @@ def test_the_committed_manifest_matches_the_files(manifest):
 
 
 def test_the_art_fits_the_apk_budget(manifest):
-    total = sum((OUT / e["file"]).stat().st_size for e in manifest["assets"])
+    # batch 3 (tools/app/art3.py) has its own budget in test_app_art3.py
+    total = sum(
+        (OUT / e["file"]).stat().st_size
+        for e in manifest["assets"]
+        if e.get("importer") != "art3"
+    )
     assert total < BUDGET
 
 

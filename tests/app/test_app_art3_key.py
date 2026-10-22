@@ -17,7 +17,10 @@ def synthetic(size: int = 160) -> np.ndarray:
     """
     yy, xx = np.mgrid[0:size, 0:size].astype(float)
     r = np.hypot(xx - 60, yy - 80)
-    cover = np.clip(32 - r, 0, 1) * (r > 14) + np.clip(r - 14, 0, 1) * (r <= 14) * 0
+    cover = (
+        np.clip(32 - r, 0, 1) * (r > 14)
+        + np.clip(r - 14, 0, 1) * (r <= 14) * 0
+    )
     cover = np.clip(32 - r, 0, 1) * np.clip(r - 14, 0, 1)
     color = np.broadcast_to(RED, (size, size, 3)).copy()
     # the rod: a fuchsia line 10 px thick, outside the donut
@@ -81,12 +84,27 @@ def test_a_thick_pink_object_is_the_picture_and_stays():
     assert np.abs(core[..., :3].astype(int) - [240, 20, 230]).max() <= 2
 
 
+def test_a_thick_gap_in_the_matte_colour_goes_unless_it_is_kept():
+    src = synthetic()
+    # the rod is now the colour of the matte itself: a gap between two limbs
+    rod = (src[..., 3] == 255) & (
+        np.abs(src[..., :3].astype(int) - [240, 20, 230]).max(-1) < 3
+    )
+    src[rod, :3] = (246, 10, 244)
+    gone, _ = key.clean_matte(src)
+    assert (gone[60:100, 133:138, 3] == 0).all()
+    kept, _ = key.clean_matte(src, keep_fuchsia=True)
+    assert (kept[60:100, 133:138, 3] == 255).all()
+
+
 def test_pixels_that_are_really_the_picture_do_not_change():
     src = synthetic()
     out, _ = key.clean_matte(src)
     inside = np.zeros(src.shape[:2], bool)
     yy, xx = np.mgrid[0:160, 0:160]
-    inside[(np.hypot(xx - 60, yy - 80) > 18) & (np.hypot(xx - 60, yy - 80) < 28)] = True
+    inside[
+        (np.hypot(xx - 60, yy - 80) > 18) & (np.hypot(xx - 60, yy - 80) < 28)
+    ] = True
     assert (out[inside] == src[inside]).all()
 
 

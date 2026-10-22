@@ -125,8 +125,20 @@ def has_matte(rgba: np.ndarray) -> bool:
     return bool((rgba[..., 3] == 0).any())
 
 
-def clean_matte(rgba: np.ndarray) -> tuple[np.ndarray, dict[str, Any]]:
-    """Returns (cleaned uint8 RGBA of the same size, what was done)."""
+#: A pink thing whose mean distance to the matte is below this IS the
+#: matte colour (a gap between an arm and a leg), however thick.
+MATTE_MEAN_D = 25.0
+
+
+def clean_matte(
+    rgba: np.ndarray, *, keep_fuchsia: bool = False
+) -> tuple[np.ndarray, dict[str, Any]]:
+    """
+    Returns (cleaned uint8 RGBA of the same size, what was done).
+
+    ``keep_fuchsia``: a thick thing in the colour of the matte is the
+    picture (a fisher's pink rod): it stays. Otherwise it is a gap, and goes.
+    """
     h, w = rgba.shape[:2]
     stats: dict[str, Any] = {
         "pink_before": pink_pixels(rgba),
@@ -166,6 +178,16 @@ def clean_matte(rgba: np.ndarray) -> tuple[np.ndarray, dict[str, Any]]:
     pink = solid & (d < PINK_D)
     core = ndi.binary_erosion(pink, EIGHT, iterations=THICK)
     protected = _label_ids(pink, core)
+    if not keep_fuchsia and protected.any():
+        plab, pn = ndi.label(protected, EIGHT)
+        idx = range(1, pn + 1)
+        mean_d = np.asarray(ndi.mean(d, plab, idx))
+        gaps = np.nonzero(mean_d < MATTE_MEAN_D)[0] + 1
+        gap = np.isin(plab, gaps)
+        removed = removed | gap
+        solid = opaque & ~removed
+        pink = solid & (d < PINK_D)
+        protected = protected & ~gap
     thin = pink & ~protected
 
     # 3. key the ring of the silhouette and the thin pink
@@ -184,10 +206,14 @@ def clean_matte(rgba: np.ndarray) -> tuple[np.ndarray, dict[str, Any]]:
     interior = solid & (dist_bg > FRINGE_PX)
     tinted = band & ~protected & (d >= SOLID_D) & ~thin
     if interior.any() and tinted.any():
-        _, (ry, rx) = ndi.distance_transform_edt(~interior, return_indices=True)
+        _, (ry, rx) = ndi.distance_transform_edt(
+            ~interior, return_indices=True
+        )
         ref = base[ry, rx]
         have = np.minimum(color[..., 0], color[..., 2]) - color[..., 1]
-        keep = np.maximum(0, np.minimum(ref[..., 0], ref[..., 2]) - ref[..., 1])
+        keep = np.maximum(
+            0, np.minimum(ref[..., 0], ref[..., 2]) - ref[..., 1]
+        )
         exc = np.where(tinted, np.maximum(0, have - keep), 0)
         color = color.copy()
         color[..., 0] -= exc
