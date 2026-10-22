@@ -36,7 +36,7 @@ export function frameAt(f: number): string {
 
 const NET_FRAMES = { ball: 0, opening: 1, flying: 2, open: 3, closing: 4, closed: 5, closedB: 6, glow: 7 } as const;
 /** Pixels of the net on screen. */
-const SIZE = 84;
+const SIZE = 130;
 
 export function BefriendThrow({ r, scale, sound, onDone }: Props) {
   const root = useRef<HTMLDivElement>(null);

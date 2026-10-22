@@ -42,10 +42,10 @@ export const TODAY = `(() => { const d = new Date(); const p = (n) => String(n).
  */
 export async function seedChild(
   page: Page,
-  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number>, creatures = null as null | Record<string, unknown>[], battleScale = 0.1, battleStart = {} as Record<string, number> } = {},
+  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number>, creatures = null as null | Record<string, unknown>[], battleScale = 0.1, battleStart = {} as Record<string, number>, befriendDice = "" } = {},
 ) {
   await page.addInitScript(
-    ({ grade, settings, world, seed, pid, today, intro, battle, items, creatures, battleScale, battleStart }) => {
+    ({ grade, settings, world, seed, pid, today, intro, battle, items, creatures, battleScale, battleStart, befriendDice }) => {
       if (localStorage.getItem("seeded")) return;
       localStorage.setItem("seeded", "1");
       localStorage.setItem("nagmon.map.adaptiveResolution", "off");
@@ -54,6 +54,8 @@ export async function seedChild(
       localStorage.setItem("nagmon.battle.seed", String(seed));
       if (battleScale !== 1) localStorage.setItem("nagmon.battle.timescale", String(battleScale));
       for (const [k, v] of Object.entries(battleStart)) localStorage.setItem(`nagmon.battle.${k}`, String(v));
+      // the befriend draws of the first tries, in order ("0.999,0.9,0": a fail on shake 1, the net's draw, then a sure success)
+      if (befriendDice) localStorage.setItem("nagmon.befriend.dice", befriendDice);
       localStorage.setItem("nagmon-fs:d:profiles", "");
       localStorage.setItem(`nagmon-fs:d:profiles/${pid}`, "");
       localStorage.setItem(
@@ -76,7 +78,7 @@ export async function seedChild(
         localStorage.setItem(`nagmon-fs:f:profiles/${pid}/saves/world.json`, JSON.stringify({ schema_version: 1, money: have.money, variables, ...extra, ...(Object.keys(items).length ? { items } : {}) }));
       }
     },
-    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle, items, creatures, battleScale, battleStart },
+    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle, items, creatures, battleScale, battleStart, befriendDice },
   );
 }
 
@@ -192,4 +194,12 @@ export async function castMove(page: Page, steps = 30) {
   const card = page.locator(".move-card:not(:disabled)").first();
   await expect(card).toBeVisible();
   await touch(page, card, steps);
+}
+
+/** The Befriend tray is open (it pops up by itself at calm, or from the Befriend button) and Throw is pressed; resolves when the throw layer is gone. */
+export async function throwNow(page: Page) {
+  if (!(await page.locator(id("befriend_tray")).count())) await touch(page, page.locator(id("battle_befriend")), 30);
+  await expect(page.locator(id("befriend_tray"))).toBeVisible();
+  await touch(page, page.locator(id("befriend_throw")), 30);
+  await expect(page.locator(id("befriend_throw"))).toHaveCount(0, { timeout: 20_000 });
 }

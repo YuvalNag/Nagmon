@@ -1,4 +1,4 @@
-import { PID, answer, battleAnswer, battleResultClosed, castMove, coins, debug, id, openMap, quiz, readDialog, saved, seedChild, steps, toCashier } from "./cashier";
+import { PID, answer, battleAnswer, battleResultClosed, castMove, coins, debug, id, openMap, quiz, readDialog, saved, seedChild, steps, throwNow, toCashier } from "./cashier";
 import { expect, test } from "./fixtures";
 import { responseTimes, touch, watchEventTiming } from "./touch";
 
@@ -224,9 +224,10 @@ test("the owl's intro: questions in different subjects, then a choice of one of 
   expect((await saved(page, "saves/world.json"))?.["variables"]).toMatchObject({ nagmon_intro_done: "yes" });
 });
 
-test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody, a right one wins a friend", async ({ page }, info) => {
+test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody, a befriend try can fail and the next one holds", async ({ page }, info) => {
   const shot = (name: string) => page.screenshot({ path: info.outputPath(`${name}.png`) });
-  await seedChild(page, { grade: 2, battle: true });
+  // the first try fails on its first shake (then the net's draw), the second holds on all three
+  await seedChild(page, { grade: 2, battle: true, befriendDice: "0.999,0.9,0,0,0" });
   await openMap(page);
   expect((await debug(page))!.map).toBe("classic_route_1");
   // one step into the grass
@@ -262,34 +263,36 @@ test("a wild creature in the grass: a friendly battle, wrong answers hurt nobody
   expect(Number(await battle.getAttribute("data-hp"))).toBe(0);
   await expect(page.locator(id("battle_results"))).toBeVisible();
   await shot("b05_calm");
-  // nobody joined yet; the Net pulses
-  await expect(page.locator(id("battle_net"))).toBeEnabled();
-  // the net, a wrong seal answer (the net bounces back), then a right one
-  await touch(page, page.locator(id("battle_net")));
-  await battleAnswer(page, "dont_know");
-  await battleResultClosed(page);
+  // nobody joined yet; the tray pops up by itself, with a chance word
+  await expect(page.locator(id("battle_befriend"))).toBeEnabled();
+  await expect(page.locator(id("befriend_tray"))).toBeVisible();
+  await expect(page.locator(id("befriend_chance"))).toHaveAttribute("data-word", "great");
+  await shot("b06_tray");
+  // a try that fails: the throw plays and ends, the creature sniffs the net, the fight goes on
+  await throwNow(page);
   await expect(battle).toHaveAttribute("data-view", "calm");
+  await expect(page.locator(id("battle_message"))).toContainText("מריח את הרשת");
   await shot("b06_try_again");
-  // a grown-up creature needs three seal answers
-  for (let i = 0; i < 3 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
-    await touch(page, page.locator(id("battle_net")));
-    await battleAnswer(page, "right");
-    await battleResultClosed(page);
+  // the next one holds
+  await throwNow(page);
+  for (let i = 0; i < 10 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
     if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")));
+    await page.waitForTimeout(200);
   }
-  await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
+  await expect(page.locator("[data-screen=battle-caught]")).toBeVisible({ timeout: 20_000 });
   await shot("b07_new_friend");
-  await touch(page, page.locator(id("battle_skip")));
+  await touch(page, page.locator(id("battle_befriend_next")));
   await expect(battle).toHaveCount(0);
   await expect(page.locator(id("dpad"))).toBeVisible();
   const world = (await saved(page, "saves/world.json"))!;
   expect((world["creatures"] as unknown[]).length).toBe(2);
   expect((world["caught"] as string[]).length).toBe(2);
-  expect((world["items"] as Record<string, number>)["magic_net"]).toBe(2);
+  // the kit's three nets: one caught, the failed one came back or not (a net returns with the age band's chance)
+  expect([1, 2]).toContain((world["items"] as Record<string, number>)["magic_net"]);
 });
 
 test("naming a new friend with the letter board: the board covers the map, every key can be tapped, the name is saved", async ({ page }, info) => {
-  await seedChild(page, { grade: 2, battle: true, creatures: [{ id: "c1", species: "heliobud", level: 12, xp: 0 }] });
+  await seedChild(page, { grade: 2, battle: true, befriendDice: "0", creatures: [{ id: "c1", species: "heliobud", level: 12, xp: 0 }] });
   await openMap(page);
   await steps(page, "right", 1);
   const battle = page.locator("[data-screen=battle]");
@@ -304,13 +307,14 @@ test("naming a new friend with the letter board: the board covers the map, every
     await growth();
   }
   await expect(battle).toHaveAttribute("data-view", "calm");
-  for (let i = 0; i < 6 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
-    await touch(page, page.locator(id("battle_net")));
-    await battleAnswer(page, "right");
-    await battleResultClosed(page);
+  await throwNow(page);
+  for (let i = 0; i < 10 && !(await page.locator("[data-screen=battle-caught]").count()); i++) {
     await growth();
+    await page.waitForTimeout(200);
   }
-  await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
+  await expect(page.locator("[data-screen=battle-caught]")).toBeVisible({ timeout: 20_000 });
+  // naming is a chip on the result card: one tap to the names, one more to the board
+  await touch(page, page.locator(id("battle_name_chip")));
   await touch(page, page.locator(id("battle_name_own")));
 
   // the board is on top of the map: its keys are what a finger hits (the old bug: the map's canvas lay over it)
@@ -348,7 +352,7 @@ test("a new child (grade 0): the first map opens under the owl, not a black scre
   await expect(page.locator("[data-screen=dialog]")).toBeVisible();
 });
 
-test("the battle's menu: the friends strip, four move cards of 150x56 and more, Net, Bag and Run, all in the bottom third", async ({ page }, info) => {
+test("the battle's menu: the friends strip, four move cards of 150x56 and more, Befriend, Bag and Run, all in the bottom third", async ({ page }, info) => {
   await seedChild(page, { grade: 2, battle: true });
   await openMap(page);
   await steps(page, "right", 1);
@@ -358,7 +362,7 @@ test("the battle's menu: the friends strip, four move cards of 150x56 and more, 
   const boxes = await page.locator(".action-bar button").evaluateAll((els) => els.map((e) => ({ id: (e as HTMLElement).dataset["id"]!, ...(e.getBoundingClientRect().toJSON() as { x: number; y: number; width: number; height: number; right: number; bottom: number }) })));
   const cards = boxes.filter((b) => b.id.startsWith("battle_move_"));
   const friends = boxes.filter((b) => b.id.startsWith("battle_friend_"));
-  const side = boxes.filter((b) => ["battle_net", "battle_bag", "battle_run"].includes(b.id));
+  const side = boxes.filter((b) => ["battle_befriend", "battle_bag", "battle_run"].includes(b.id));
   expect([cards.length, friends.length, side.length]).toEqual([4, 1, 3]);
   for (const b of cards) {
     expect(b.width, b.id).toBeGreaterThanOrEqual(150);
@@ -371,7 +375,7 @@ test("the battle's menu: the friends strip, four move cards of 150x56 and more, 
     expect(b.x, b.id).toBeGreaterThanOrEqual(0);
     expect(b.right, b.id).toBeLessThanOrEqual(873);
   }
-  // Hebrew runs right to left: the friends strip at the right edge, then the cards, then Net, Bag and Run at the end
+  // Hebrew runs right to left: the friends strip at the right edge, then the cards, then Befriend, Bag and Run at the end
   expect(friends[0]!.x).toBeGreaterThan(cards[0]!.right - 1);
   expect(Math.max(...side.map((b) => b.right))).toBeLessThanOrEqual(Math.min(...cards.map((c) => c.x)) + 1);
   // the creatures above are not covered by the bar

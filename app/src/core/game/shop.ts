@@ -36,19 +36,39 @@ export function shelfOf(item: Item): Shelf | null {
   // the data says where medicine sits: most of it on its own shelf, a mint and an energy berry among the snacks
   if (item.kind === "medicine") return item.shelf === "snacks" ? "snacks" : "medicine";
   if (item.kind === "net") return "nets";
+  // Friendship Cards (S3); the Star Net and other rewards are not for sale
+  if (item.kind === "befriend_tool") return item.forSale ? "nets" : null;
   if (item.kind === "snack" || item.kind === "tonic") return "snacks";
   if (item.kind === "helper") return "helpers";
   return null;
 }
 
-/** What a shelf sells, in the table's order. */
-export function shelfItems(eco: Economy, shelf: Shelf): Item[] {
+/**
+ * Is a Friendship Card on the shelf yet? The data's gates ("keeper:1", "guardian:moon", "guardians:3") name Keepers and
+ * guardians, which the game does not have until slice S5; until then the trip's finished zones stand in for them:
+ * "keeper:N" and "guardians:N" need N finished zones, "guardian:<zone>" needs that zone finished. Other items have no gate here.
+ */
+export function onSale(item: Item, world: WorldState): boolean {
+  if (item.kind !== "befriend_tool" || !item.soldAfter) return true;
+  const done = world.trips.done;
+  const [what, arg = ""] = item.soldAfter.split(":");
+  if (what === "guardian") return done.some((k) => k.endsWith(`/${arg}`));
+  const n = Number(arg);
+  return Number.isFinite(n) && done.length >= n;
+}
+
+/** Items on the nets shelf at a time: nets and cards scroll (the other shelves show six). */
+export const NETS_SHELF_SIZE = 14;
+
+/** What a shelf sells, in the table's order. Without the child's world the gated cards are not shown. */
+export function shelfItems(eco: Economy, shelf: Shelf, world?: WorldState): Item[] {
   return eco.order
     .map((id) => eco.items[id]!)
     .filter((i) => shelfOf(i) === shelf)
+    .filter((i) => (world ? onSale(i, world) : i.kind !== "befriend_tool"))
     // the youngest count to ten with stacks of at most 100, so the shop sells nothing dearer than that (All Better, 110, waits)
     .filter((i) => i.price <= 100)
-    .slice(0, shelf === "medicine" ? 8 : SHELF_SIZE);
+    .slice(0, shelf === "medicine" ? 8 : shelf === "nets" ? NETS_SHELF_SIZE : SHELF_SIZE);
 }
 
 /** A tenth of the price, rounded down: the price is never more than listed. */

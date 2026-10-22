@@ -47,7 +47,7 @@ export function ShopScreen({ play, onClose, onChanged, backRef, stepMs }: Props)
   // calm effects (the parents' switch, or the system's): the count shows at once
   const calm = useCalm(play.profile.settings);
 
-  const items = shelfItems(eco, shelf);
+  const items = shelfItems(eco, shelf, world);
   const item = items.find((i) => i.id === picked) ?? items[0];
   const quick = quickBuyAllowed(play.profile.settings) && moneyMastered(play.engine.learner.mastered, band, world.variables);
 
