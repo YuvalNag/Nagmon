@@ -302,3 +302,157 @@ button[aria-pressed="true"].toggle {
   background: #165468;
   border-color: #165468;
 }
+
+/* ---- text review (docs/app/TEXT_REVIEW.md): one line at a time ----
+   The header, the filters and the three buttons stay; only the line's
+   card scrolls (the edit view too, so the keyboard never hides the field) */
+
+.screen.review-page {
+  justify-content: flex-start;
+}
+
+.review-page > .bar,
+.review-filters,
+.review-actions {
+  flex-shrink: 0;
+}
+
+.review-side {
+  margin-inline-start: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.2;
+}
+
+.review-progress {
+  font-weight: 700;
+}
+
+.review-status {
+  font-size: calc(var(--text) * 0.6);
+  color: var(--ink-soft);
+  max-width: 14em;
+  text-align: end;
+}
+
+.review-filters {
+  width: 100%;
+  display: flex;
+  gap: calc(var(--gap) / 2);
+  overflow-x: auto;
+  touch-action: pan-x;
+  scrollbar-width: none;
+}
+
+.review-chip {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 0 var(--gap);
+}
+
+.review-chip[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.review-body {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  touch-action: pan-y;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-body > * {
+  margin-block: auto;
+}
+
+.review-card,
+.review-edit {
+  width: 100%;
+  max-width: 44em;
+  padding: var(--gap);
+  border: 2px solid var(--card-edge);
+  border-radius: var(--radius);
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) / 2);
+}
+
+.review-ctx,
+.review-en {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: calc(var(--text) * 0.7);
+}
+
+.review-line {
+  margin: 0;
+  font-size: calc(var(--text) * 1.25);
+  font-weight: 600;
+  text-align: start;
+}
+
+.review-en {
+  text-align: start;
+}
+
+.review-actions {
+  width: 100%;
+  max-width: 44em;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 0.8fr;
+  gap: var(--gap);
+}
+
+.review-actions button {
+  padding: 0 calc(var(--gap) / 2);
+  white-space: nowrap;
+}
+
+.review-edit-row {
+  display: flex;
+  gap: var(--gap);
+  align-items: stretch;
+}
+
+.review-field {
+  flex: 1;
+  min-width: 0;
+  min-height: calc(var(--touch) * 1.5);
+  padding: calc(var(--gap) / 2) var(--gap);
+  font: inherit;
+  font-size: calc(var(--text) * 1.1);
+  color: var(--ink);
+  background: var(--card);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  resize: none;
+  touch-action: manipulation;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.review-edit-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) / 2);
+}
+
+.review-edit .message {
+  margin: 0;
+  min-height: 1.35em;
+}
+
+.review-done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+}

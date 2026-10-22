@@ -75,6 +75,7 @@ export const DATA_FILES = {
   lastCrash: "crash/last_crash.txt",
   nativeCrash: "crash/native_crash.txt",
   appLog: "nagmon/app_log.txt",
+  review: "review/decisions.json",
   profileDir: (id: string) => `profiles/${id}`,
   profile: (id: string) => `profiles/${id}/profile.json`,
   learning: (id: string) => `profiles/${id}/learning.json`,

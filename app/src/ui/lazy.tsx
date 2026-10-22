@@ -101,6 +101,11 @@ export const Parents = chunk(
   () => import("./screens/parents/ParentsArea"),
   (m) => m.ParentsArea,
 );
+/** The parents' text review: opened from the parents' area only. */
+export const Review = chunk(
+  () => import("./screens/parents/ReviewPage"),
+  (m) => m.ReviewPage,
+);
 
 /**
  * What shows while a chunk comes in: at once (no import of its own), with a
@@ -124,7 +129,7 @@ export function Later({ children, over = true }: { children: ReactNode; over?: b
   return <Suspense fallback={<Wait over={over} />}>{children}</Suspense>;
 }
 
-const ALL = [Battle, Bag, Friends, Shop, Rest, Quiz, Bestiary, Trips, Tutor, Intro, Evolution, Parents, WorldMap, Journal, Choice];
+const ALL = [Battle, Bag, Friends, Shop, Rest, Quiz, Bestiary, Trips, Tutor, Intro, Evolution, Parents, Review, WorldMap, Journal, Choice];
 
 /** Every chunk at once (tests: the screens are then there as soon as they are asked for). */
 export function preloadAll(): Promise<unknown> {

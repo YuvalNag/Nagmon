@@ -131,7 +131,9 @@ async function main(): Promise<void> {
     services = await opening;
     performance.mark("nagmon:services");
     // reports that waited (no network, no token yet) go now, if the parents allow it
-    void services.fieldData.deliverReports();
+    // the parent's text-review decisions after them: one upload runs at a time
+    const data = services.fieldData;
+    void data.deliverReports().then(() => data.deliverReview());
     root.render(
       <StrictMode>
         <App services={services} onStarted={() => void noteStarted()} lifecycle={lifecycle} />

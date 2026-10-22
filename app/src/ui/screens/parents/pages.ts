@@ -18,6 +18,7 @@ export type ParentsPage =
   | { kind: "learning-coins"; id: string }
   | { kind: "pin-old"; message?: string; attempt?: number }
   | { kind: "pin-new"; current: string; first?: string; message?: string; attempt?: number }
+  | { kind: "review" }
   | { kind: "github" }
   | { kind: "token"; message?: string }
   | { kind: "confirm"; prepared: Prepared; what: string }
@@ -67,6 +68,7 @@ export function samePage(a: ParentsPage, b: ParentsPage): boolean {
       a.kind === "pin-new" ||
       a.kind === "child-name" ||
       a.kind === "token" ||
+      a.kind === "review" ||
       // a switch or a step on the page keeps the page (and the finger's rhythm)
       a.kind === "learning" ||
       a.kind === "learning-subjects" ||

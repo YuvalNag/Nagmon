@@ -7,6 +7,7 @@
  *     devices/<install-id>/crashes/<UTC>.txt
  *     devices/<install-id>/progress/<UTC>.json
  *     devices/<install-id>/reports/<UTC>/report.json (and screenshot.jpg: the screen)
+ *     devices/<install-id>/review/<UTC>/decisions.json (the parent's text review, docs/app/TEXT_REVIEW.md)
  *
  * The same paths as the old app, so the data repo stays one layout and
  * `tools/field/latest.py` reads both. Every text is cleaned of keys (and,
@@ -18,6 +19,7 @@
  */
 import { hideNames, redactSecrets } from "../crashReport";
 import type { Reports, WaitingReport } from "../report/reports";
+import { decisionsFile, type ReviewStore } from "../review/review";
 import { redact } from "../family/parent";
 import { DATA_FILES, type FileStore, type JsonObject, readJson, writeJson } from "../../platform/storage";
 import { SECRET_KEYS, type SecretStore } from "../../platform/secrets";
@@ -64,6 +66,13 @@ export function uploadPath(device: string, kind: Kind, now: Date): string {
   // a report is a folder of its own: report.json and screenshot.jpg
   if (kind === "reports") return `devices/${device}/reports/${stamp}/report.json`;
   return `devices/${device}/${kind}/${stamp}${KINDS[kind]}`;
+}
+
+/** `devices/<device>/review/<YYYYMMDDTHHMMSSZ>/decisions.json`: a folder of its own, like a report. */
+export function reviewPath(device: string, now: Date): string {
+  if (!ID_RE.test(device)) throw new RangeError("the install id is 8 hex digits");
+  const stamp = now.toISOString().replace(/\.\d+Z$/, "Z").replace(/[-:]/g, "");
+  return `devices/${device}/review/${stamp}/decisions.json`;
 }
 
 /** The end of `text`, at most `limit` UTF-8 bytes, from a line's start. */
@@ -130,6 +139,8 @@ export interface FieldDataOptions {
   makeId?: () => string;
   /** The reports waiting on the phone (the game's "something is wrong"). */
   reports?: Reports;
+  /** The parent's text-review decisions waiting on the phone. */
+  review?: ReviewStore;
 }
 
 /** The parent area's side of the data repo: the token, the status, the uploads. */
@@ -143,6 +154,8 @@ export class FieldData {
   #log: (message: string) => void;
   #makeId: () => string;
   #reports: Reports | undefined;
+  #review: ReviewStore | undefined;
+  #lastReviewAt = 0;
   #sending = false;
 
   constructor(o: FieldDataOptions) {
@@ -155,6 +168,7 @@ export class FieldData {
     this.#log = o.log ?? (() => undefined);
     this.#makeId = o.makeId ?? newId;
     this.#reports = o.reports;
+    this.#review = o.review;
   }
 
   toString(): string {
@@ -241,6 +255,49 @@ export class FieldData {
       return (await this.send(prepared)).code === "ok" ? "sent" : "queued";
     } catch (e) {
       this.#log(`Delivery of reports failed: ${e instanceof Error ? e.name : "error"}`);
+      return "queued";
+    }
+  }
+
+  /** How many text-review decisions wait on the phone. */
+  async waitingReview(): Promise<number> {
+    return (await this.#review?.waiting()) ?? 0;
+  }
+
+  /**
+   * Sends the waiting text-review decisions as one file, if the parents
+   * allow it (the same consent as the reports: a saved token, the switch
+   * not off): "sent" (all up, or none waiting), "queued" (still on the
+   * phone: no network, the repo refused, another send is running; the
+   * next start tries again) or "off". Never rejects. The text is game
+   * text the parent corrected: keys are removed, and the screen refuses a
+   * correction with a child's name in it, so none is sent.
+   */
+  async deliverReview(): Promise<ReportDelivery> {
+    const store = this.#review;
+    try {
+      if (!store || !(await this.reportsAuto())) return "off";
+      if (this.#sending) return "queued";
+      const waiting = await store.unsent();
+      if (waiting.length === 0) return "sent";
+      const token = await this.token();
+      if (token === null) return "off";
+      this.#sending = true;
+      try {
+        // one folder a second at most: two sends in one second must not share a path
+        this.#lastReviewAt = Math.max(this.#clock(), this.#lastReviewAt + 1000);
+        const path = reviewPath(await this.installId(), new Date(this.#lastReviewAt));
+        const content = await this.clean(decisionsFile(waiting), { names: false });
+        const result = await this.client(token).put(path, content, "Field data: review");
+        this.#log(`Upload of review: ${result.code}`);
+        if (result.code !== "ok") return "queued";
+        await store.markSent(waiting);
+        return "sent";
+      } finally {
+        this.#sending = false;
+      }
+    } catch (e) {
+      this.#log(`Delivery of review failed: ${e instanceof Error ? e.name : "error"}`);
       return "queued";
     }
   }

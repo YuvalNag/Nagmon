@@ -20,6 +20,7 @@ import { shareText } from "../../../platform/share";
 import { LetterBoard } from "../../LetterBoard";
 import { PinPad } from "../../PinPad";
 import { ScreenTime } from "../../screenTime";
+import { Later, Review } from "../../lazy";
 import { Choices } from "../Choices";
 import { Notice } from "../Notice";
 import { ChildPage } from "./ChildPage";
@@ -80,6 +81,8 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
   const [children, setChildren] = useState<Profile[] | null>(null);
   // the game's "something is wrong" reports waiting on the phone
   const [waiting, setWaiting] = useState(0);
+  // the parent's text-review decisions waiting to be sent
+  const [reviewWaiting, setReviewWaiting] = useState(0);
   // whether the game's reports go up by themselves (the GitHub page's switch)
   const [auto, setAuto] = useState<boolean | undefined>(undefined);
   const [busy, setBusy] = useState(false);
@@ -168,6 +171,17 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
     fieldData.waitingReports().then(
       (n) => alive && setWaiting(n),
       (e) => log.warning("Could not count the waiting reports", e),
+    );
+    fieldData.waitingReview().then(
+      (n) => alive && setReviewWaiting(n),
+      (e) => log.warning("Could not count the waiting review decisions", e),
+    );
+    return () => {
+      alive = false;
+    };
+    fieldData.waitingReview().then(
+      (n) => alive && setReviewWaiting(n),
+      (e) => log.warning("Could not count the waiting review decisions", e),
     );
     return () => {
       alive = false;
@@ -547,12 +561,14 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
           <ParentsHome
             busy={busy}
             waiting={waiting}
+            reviewWaiting={reviewWaiting}
             onSendReports={askReports}
             onChildren={() => go({ kind: "children" })}
             onPin={askCurrentPin}
             onGithub={() => go({ kind: "github" })}
             onShareLog={shareLog}
             onReport={report}
+            onReview={() => go({ kind: "review" })}
             onBack={back}
           />
         );
@@ -659,6 +675,12 @@ export function ParentsArea({ services, backRef, onExit, onChildren, workTimeout
             onDone={(pin) => setNew(p, pin)}
             onCancel={back}
           />
+        );
+      case "review":
+        return (
+          <Later over={false}>
+            <Review.Screen store={services.review} deliver={() => fieldData.deliverReview()} names={() => profiles.allNames()} onBack={back} />
+          </Later>
         );
       case "github": {
         const status =

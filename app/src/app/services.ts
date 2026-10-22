@@ -4,6 +4,7 @@ import { ProfileStore } from "../core/family/profiles";
 import { FieldData } from "../core/fieldData/uploads";
 import { FieldLog } from "../core/game/fieldLog";
 import { Reports } from "../core/report/reports";
+import { ReviewStore } from "../core/review/review";
 import { appLogText, buildInfo, getLogger } from "../platform/appLog";
 import { MemorySecretStore, type SecretStore } from "../platform/secrets";
 import { createFileStore, type FileStore } from "../platform/storage";
@@ -19,6 +20,8 @@ export interface Services {
   fieldData: FieldData;
   /** The "something is wrong" reports from the game, kept on the phone until the parents send them. */
   reports: Reports;
+  /** The parent's text-review decisions, kept until they are sent. */
+  review: ReviewStore;
 }
 
 export async function openServices(
@@ -34,12 +37,14 @@ export async function openServices(
     log: appLogText,
     names: () => profiles.allNames(),
   });
+  const review = new ReviewStore(fs);
   return {
     fs,
     profiles,
     parent: await ParentStore.open(fs),
     secrets,
-    fieldData: new FieldData({ fs, secrets, names: () => profiles.allNames(), log: (m) => log.info(m), reports }),
+    fieldData: new FieldData({ fs, secrets, names: () => profiles.allNames(), log: (m) => log.info(m), reports, review }),
     reports,
+    review,
   };
 }
