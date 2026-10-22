@@ -89,7 +89,7 @@ describe("the child's creatures", () => {
     expect(back.creatures).toEqual(w.creatures);
     expect([...back.seen].sort()).toEqual(["ghost", "heliobud"]);
     expect(WorldState.fromDict({ schema_version: 1, money: 3, variables: {} }).creatures).toEqual([]);
-    expect(new WorldState().toDict()).toEqual({ schema_version: 1, money: 0, variables: {} });
+    expect(new WorldState().toDict()).toEqual({ schema_version: 2, money: 0, variables: {} });
   });
 
   it("a damaged creature in the file is dropped, not a crash", () => {

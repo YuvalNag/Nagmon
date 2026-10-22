@@ -283,7 +283,7 @@ describe("the world's saved state", () => {
     w.addMoney(35);
     w.variables.set("b", "2");
     w.variables.set("a", "1");
-    expect(w.toDict()).toEqual({ schema_version: 1, money: 35, variables: { a: "1", b: "2" } });
+    expect(w.toDict()).toEqual({ schema_version: 2, money: 35, variables: { a: "1", b: "2" } });
     expect(WorldState.fromDict(JSON.parse(JSON.stringify(w.toDict()))).toDict()).toEqual(w.toDict());
     for (const bad of [null, [], "x", { money: -5 }, { money: "100" }, { money: Number.NaN, variables: [1] }]) {
       expect(WorldState.fromDict(bad).money).toBe(0);
