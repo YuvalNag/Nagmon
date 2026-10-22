@@ -4,21 +4,6 @@
  */
 
 /**
- * Who and what the player may talk to (core/world/events.ts `talkTo`): the
- * cashier, the people of the houses that have something to do (the
- * shopkeeper, the nurse, the pet at home) and the home's chest and nest.
- */
-export const TALK_TO: ReadonlySet<string> = new Set([
-  "nagmon_cashier",
-  "nagmon_house_shopkeeper",
-  "nagmon_house_nurse",
-  "nagmon_house_pet",
-  "nagmon_chest_home",
-  "nagmon_nest_home",
-  ...["astronomer", "mila", "owl", "moon_engineer", "rover_driver", "sage", "grey_hood"].map((n) => `nagmon_solar_${n}`),
-]);
-
-/**
  * A test hook, as `nagmon.map.adaptiveResolution`: a number here seeds
  * the question picker, so a browser test gets the same questions each
  * run, and the question showing can be read (`window.__nagmonQuiz`).
@@ -31,6 +16,22 @@ export function testSeed(): number | null {
   try {
     const v = localStorage.getItem(SEED_KEY);
     return v !== null && /^\d+$/.test(v) ? Number(v) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * A test hook: the hour of the day (0 to 23) the people of the world keep, so a browser test meets the
+ * same people whatever time the machine says. It moves the day part of the town only, never the date.
+ * Never set on a phone.
+ */
+export const HOUR_KEY = "nagmon.clock.hour";
+
+export function testHour(): number | null {
+  try {
+    const v = localStorage.getItem(HOUR_KEY);
+    return v !== null && /^([01]?\d|2[0-3])$/.test(v) ? Number(v) : null;
   } catch {
     return null;
   }

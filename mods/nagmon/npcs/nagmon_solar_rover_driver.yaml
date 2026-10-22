@@ -1,0 +1,31 @@
+# Mohammed the Driver (docs/app/WORLD_V2.md 6: row 43). The rover driver in the rocky planets and the outer zone; the three-stop drive stays as it is.
+id: nagmon_solar_rover_driver
+short: mohamed
+class: M
+name_he: מוחמד הנהג
+name_en: Mohammed the Driver
+role: pilot
+age_feel: adult
+sprite: nagmon_rover_driver
+voice:
+  style: "jokey, cautious on hills, loves a smooth road"
+  quirks: ["pats the steering wheel"]
+  catchphrases: ["לאט בעליות!"]
+  register: playful
+personality: [jokey, careful, friendly]
+knows:
+  topics:
+    - {id: rover, label_he: "על הרובר", icon: "1f697", unlock: 0}
+    - {id: road, label_he: "על הדרך", icon: "1f6e4", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["get everyone there in one piece"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  fixed: {maps: [solar_rocky_planets, solar_outer]}
+offers: {rides: rocky}
+relationship:
+  memory_flags: [asked_rover, asked_road]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

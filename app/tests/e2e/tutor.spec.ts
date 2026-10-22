@@ -173,6 +173,8 @@ for (const scale of scales) {
       ({ log }) => {
         if (localStorage.getItem("seeded")) return;
         localStorage.setItem("seeded", "1");
+        // the town's people are those of ten in the morning, whatever the machine's clock says
+        localStorage.setItem("nagmon.clock.hour", "10");
         localStorage.setItem("nagmon-fs:d:profiles", "");
         localStorage.setItem("nagmon-fs:d:profiles/p00001", "");
         localStorage.setItem("nagmon-fs:f:profiles/p00001/profile.json", JSON.stringify({ id: "p00001", name: "דנה", avatar: "girl_teal", grade: 3, order: 0, schema_version: 2, settings: { questions_per_battle: 5, learning: {}, lessons: { first_pass_coins: 40, repeat_coins: 10 } } }));

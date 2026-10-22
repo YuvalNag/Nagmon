@@ -1,0 +1,385 @@
+# Nagmon learning content - hebrew / spelling (grades 3): letters that sound alike
+# Format: docs/kids/SDD_CONTENT.md section 3. Original text written for this game (no textbook passages); reviewed by a parent.
+# Hebrew without niqqud. Answer indexes are 0-based; for kind=order, answer lists choice indexes in the correct order.
+# Aligned with the Israeli language curriculum (MoE "הוראת הלשון", grades 3-9): grammar, vocabulary, spelling, text.
+
+skill: hebrew.spelling.similar_sounds
+items:
+- id: heb.sound.001
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'איזו מילה כתובה נכון?'
+  prompt_en: 'Which word is spelled correctly?'
+  choices:
+  - {he: תיק, en: תיק}
+  - {he: טיק, en: טיק}
+  - {he: תיכ, en: תיכ}
+  answer: 0
+  explanation_he: 'המילה "תיק" נכתבת באות ת בהתחלה ובאות ק בסוף. היא נשמעת כמו "טיק", אבל כותבים ת.'
+  explanation_en: '"Tik" (bag) is written with a tav at the start and a kuf at the end.'
+  tags: [similar_sounds]
+- id: heb.sound.002
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: סמנו את הכתיב הנכון.
+  prompt_en: Pick the correct spelling.
+  choices:
+  - {he: תלפון, en: תלפון}
+  - {he: טלפוץ, en: טלפוץ}
+  - {he: טלפון, en: טלפון}
+  answer: 2
+  explanation_he: 'טלפון נכתבת באות ט, כמו "טלוויזיה" ו"טיול". כדאי לזכור את צורת המילה.'
+  explanation_en: '"Telefon" is written with a tet, like "televizia" and "tiyul". Remember the shape of the word.'
+  tags: [similar_sounds]
+- id: heb.sound.003
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'איך כותבים נכון?'
+  prompt_en: 'How is it written correctly?'
+  choices:
+  - {he: טפוח, en: טפוח}
+  - {he: תפוח, en: תפוח}
+  - {he: תפוך, en: תפוך}
+  answer: 1
+  explanation_he: 'תפוח מתחילה באות ת ונגמרת באות ח, כמו "תפוז" שמתחילה גם היא באות ת.'
+  explanation_en: '"Tapuach" starts with a tav and ends with a chet, like "tapuz" and "tut".'
+  tags: [similar_sounds]
+- id: heb.sound.004
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'באיזו מילה אין שגיאת כתיב?'
+  prompt_en: 'Which word has no spelling mistake?'
+  choices:
+  - {he: תיול, en: תיול}
+  - {he: טיוד, en: טיוד}
+  - {he: טיול, en: טיול}
+  answer: 2
+  explanation_he: 'טיול נכתבת באות ט, כמו "טבע", כי בטיול נהנים מהטבע.'
+  explanation_en: '"Tiyul" is written with a tet, like "teva" (nature).'
+  tags: [similar_sounds]
+- id: heb.sound.005
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: מצאו את המילה הכתובה נכון.
+  prompt_en: Find the word that is written correctly.
+  choices:
+  - {he: כופ, en: כופ}
+  - {he: קוף, en: קוף}
+  - {he: קוס, en: קוס}
+  answer: 1
+  explanation_he: 'קוף נכתבת עם ק. כשצריך לבחור בין כ לק, כדאי לזכור את המילה כפי שרואים אותה בספר.'
+  explanation_en: '"Kof" is written with a kuf. When unsure between kaf and kuf, remember how the word looks in a book.'
+  tags: [similar_sounds]
+- id: heb.sound.006
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'איזו מילה נכתבה בלי שגיאה?'
+  prompt_en: 'Which word was written without a mistake?'
+  choices:
+  - {he: כלב, en: כלב}
+  - {he: קלב, en: קלב}
+  - {he: כלט, en: כלט}
+  answer: 0
+  explanation_he: 'כלב נכתבת באות כ בהתחלה, ונגמרת באות ב.'
+  explanation_en: '"Kelev" is written with a kaf at the start and a bet at the end.'
+  tags: [similar_sounds]
+- id: heb.sound.007
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: בחרו את הכתיב הנכון.
+  prompt_en: Choose the correct spelling.
+  choices:
+  - {he: קדור, en: קדור}
+  - {he: כדור, en: כדור}
+  - {he: כדוד, en: כדוד}
+  answer: 1
+  explanation_he: 'כדור נכתבת באות כ בהתחלה ובאות ר בסוף, כמו "כדורגל".'
+  explanation_en: '"Kadur" is written with a kaf at the start and a resh at the end, like "kaduregel" (football).'
+  tags: [similar_sounds]
+- id: heb.sound.008
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'איך נכון לכתוב את המילה?'
+  prompt_en: 'How is the word correctly written?'
+  choices:
+  - {he: קיץ, en: קיץ}
+  - {he: כיץ, en: כיץ}
+  - {he: קיז, en: קיז}
+  answer: 0
+  explanation_he: 'קיץ נכתבת באות ק בהתחלה, ונגמרת באות צ סופית (ץ).'
+  explanation_en: '"Kayitz" starts with a kuf and ends with a final tsadi.'
+  tags: [similar_sounds]
+- id: heb.sound.009
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'איזו מילה כתובה נכון?'
+  prompt_en: 'Which word is spelled correctly?'
+  choices:
+  - {he: אכשיו, en: אכשיו}
+  - {he: עקשיו, en: עקשיו}
+  - {he: עכשיו, en: עכשיו}
+  answer: 2
+  explanation_he: 'עכשיו מתחילה באות ע, ואחריה האות כ. אין בה א.'
+  explanation_en: '"Achshav" starts with an ayin followed by a kaf.'
+  tags: [similar_sounds]
+- id: heb.sound.010
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: סמנו את הכתיב הנכון.
+  prompt_en: Pick the correct spelling.
+  choices:
+  - {he: ארוחה, en: ארוחה}
+  - {he: ערוחה, en: ערוחה}
+  - {he: אירוחה, en: אירוחה}
+  answer: 0
+  explanation_he: 'ארוחה מתחילה באות א ונגמרת באות ה. אין בה ע, גם אם היא נשמעת כך.'
+  explanation_en: '"Arucha" starts with an alef and ends with a hey.'
+  tags: [similar_sounds]
+- id: heb.sound.011
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'איך כותבים נכון?'
+  prompt_en: 'How is it written correctly?'
+  choices:
+  - {he: איתון, en: איתון}
+  - {he: עיתון, en: עיתון}
+  - {he: עיטון, en: עיטון}
+  answer: 1
+  explanation_he: 'עיתון נכתבת באות ע בהתחלה, ובאמצע שלה האות ת. אין בה ט.'
+  explanation_en: '"Iton" is written with an ayin at the start and a tav in the middle.'
+  tags: [similar_sounds]
+- id: heb.sound.012
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'באיזו מילה אין שגיאת כתיב?'
+  prompt_en: 'Which word has no spelling mistake?'
+  choices:
+  - {he: ערנב, en: ערנב}
+  - {he: ארנף, en: ארנף}
+  - {he: ארנב, en: ארנב}
+  answer: 2
+  explanation_he: ארנב מתחילה באות א ונגמרת באות ב. אין בה ע.
+  explanation_en: '"Arnav" starts with an alef and ends with a bet, with no ayin.'
+  tags: [similar_sounds]
+- id: heb.sound.013
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: מצאו את המילה הכתובה נכון.
+  prompt_en: Find the word that is written correctly.
+  choices:
+  - {he: שבתא, en: שבתא}
+  - {he: סבטא, en: סבטא}
+  - {he: סבתא, en: סבתא}
+  answer: 2
+  explanation_he: סבתא מתחילה באות ס ונגמרת באות א. באמצע שלה האות ת.
+  explanation_en: '"Savta" starts with a samech and ends with an alef.'
+  tags: [similar_sounds]
+- id: heb.sound.014
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'איזו מילה נכתבה בלי שגיאה?'
+  prompt_en: 'Which word was written without a mistake?'
+  choices:
+  - {he: שכין, en: שכין}
+  - {he: סכין, en: סכין}
+  - {he: סקין, en: סקין}
+  answer: 1
+  explanation_he: 'סכין נכתבת באות ס בהתחלה ובאות כ באמצע, ונגמרת באות ן סופית.'
+  explanation_en: '"Sakin" is written with a samech and a kaf, and ends with a final nun.'
+  tags: [similar_sounds]
+- id: heb.sound.015
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.0
+  prompt_he: בחרו את הכתיב הנכון.
+  prompt_en: Choose the correct spelling.
+  choices:
+  - {he: חלון, en: חלון}
+  - {he: כלון, en: כלון}
+  - {he: חלוך, en: חלוך}
+  answer: 0
+  explanation_he: 'חלון מתחילה באות ח. האותיות ח וכ נשמעות דומה אצל חלק מהילדים, ולכן כדאי לזכור איזו אות כותבים.'
+  explanation_en: '"Chalon" starts with a chet. Chet and kaf sound alike for some children, so remember the letter.'
+  tags: [similar_sounds]
+- id: heb.sound.016
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'איך נכון לכתוב את המילה?'
+  prompt_en: 'How is the word correctly written?'
+  choices:
+  - {he: חתול, en: חתול}
+  - {he: כתול, en: כתול}
+  - {he: חטול, en: חטול}
+  answer: 0
+  explanation_he: 'חתול מתחילה באות ח, ואחריה האות ת. אין בה ט וגם לא כ.'
+  explanation_en: '"Chatul" starts with a chet followed by a tav.'
+  tags: [similar_sounds]
+- id: heb.sound.017
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'איזו מילה כתובה נכון?'
+  prompt_en: 'Which word is spelled correctly?'
+  choices:
+  - {he: טלמיד, en: טלמיד}
+  - {he: תלמיד, en: תלמיד}
+  - {he: תלמית, en: תלמית}
+  answer: 1
+  explanation_he: 'תלמיד מתחילה באות ת ונגמרת באות ד. היא קשורה למילה "ללמוד".'
+  explanation_en: '"Talmid" starts with a tav and ends with a dalet. It comes from the root l-m-d.'
+  tags: [similar_sounds]
+- id: heb.sound.018
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'השלימו: "הציפור בנתה ___ על העץ".'
+  prompt_en: 'Complete: "The bird built a ___ on the tree".'
+  choices:
+  - {he: כן, en: 'yes'}
+  - {he: קל, en: light}
+  - {he: קן, en: nest}
+  answer: 2
+  explanation_he: 'בונים קן, והוא נכתב בק. המילה "כן" נשמעת כמוהו אבל פירושה אחר, ונכתבת בכ.'
+  explanation_en: 'A bird builds a "ken" (nest) with a kuf. The word "ken" (yes) sounds the same but is written with a kaf.'
+  tags: [similar_sounds]
+- id: heb.sound.019
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'השלימו: "שאלו אותי אם אני רוצה לבוא, וענית ___".'
+  prompt_en: 'Complete: "They asked me if I want to come, and I answered ___".'
+  choices:
+  - {he: קן, en: nest}
+  - {he: כן, en: 'yes'}
+  - {he: כל, en: all}
+  answer: 1
+  explanation_he: 'כשעונים בהסכמה כותבים "כן" עם כ. המילה "קן" נשמעת אותו דבר, אבל פירושה בית של ציפור.'
+  explanation_en: 'To agree we write "ken" with a kaf. "Ken" with a kuf sounds the same but means a bird''s nest.'
+  tags: [similar_sounds]
+- id: heb.sound.020
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: 'השלימו: "ה___ של החתול רך מאוד".'
+  prompt_en: 'Complete: "The cat''s ___ is very soft".'
+  choices:
+  - {he: אור, en: light}
+  - {he: עד, en: until}
+  - {he: עור, en: skin}
+  answer: 2
+  explanation_he: 'עור כתובה בע, והיא הצד החיצוני של הגוף. "אור" נשמעת אותו דבר אבל פירושה אחר.'
+  explanation_en: '"Or" with an ayin is skin. "Or" with an alef sounds the same but means light.'
+  tags: [similar_sounds]
+- id: heb.sound.021
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: 'השלימו: "כשקמתי, ה___ נכנס מהחלון".'
+  prompt_en: 'Complete: "When I woke up, the ___ came in through the window".'
+  choices:
+  - {he: אור, en: light}
+  - {he: עור, en: skin}
+  - {he: עץ, en: tree}
+  answer: 0
+  explanation_he: 'אור באה עם א, והיא מה שאנחנו רואים בו. "עור" נשמעת אותו דבר אבל כותבים אותה עם ע.'
+  explanation_en: '"Or" with an alef is light. "Or" with an ayin sounds the same but is skin.'
+  tags: [similar_sounds]
+- id: heb.sound.022
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: 'השלימו: "ה___ שלנו אוכלת עשב בשדה".'
+  prompt_en: 'Complete: "Our ___ eats grass in the field".'
+  choices:
+  - {he: אז, en: then}
+  - {he: עז, en: goat}
+  - {he: אף, en: nose}
+  answer: 1
+  explanation_he: 'עז היא חיה, והיא נכתבת בע. המילה "אז" נשמעת אותו דבר, אבל היא מילת זמן.'
+  explanation_en: 'A goat is an animal and is written with an ayin. "Az" with an alef sounds the same but means "then".'
+  tags: [similar_sounds]
+- id: heb.sound.023
+  skill: hebrew.spelling.similar_sounds
+  kind: choice
+  grade: 3
+  difficulty: 1.0
+  prompt_he: 'השלימו: "קמתי בבוקר, ו___ אכלתי ארוחה".'
+  prompt_en: 'Complete: "I got up in the morning, and ___ I ate a meal".'
+  choices:
+  - {he: אז, en: then}
+  - {he: עז, en: goat}
+  - {he: עד, en: until}
+  answer: 0
+  explanation_he: 'אז היא מילה שאומרת "אחר כך" וכותבים אותה עם א. "עז" היא חיה.'
+  explanation_en: '"Az" means "then" and is written with an alef. "Az" with an ayin is a goat.'
+  tags: [similar_sounds]
+- id: heb.sound.024
+  skill: hebrew.spelling.similar_sounds
+  kind: true_false
+  grade: 3
+  difficulty: 0.0
+  prompt_he: 'המילה "קפה" נכתבת עם ק.'
+  prompt_en: 'The word "kafe" (coffee) is written with a kuf.'
+  answer: true
+  explanation_he: 'קפה נכתבת עם ק בהתחלה, כמו המילה "קר". כך כותבים אותה בעברית.'
+  explanation_en: 'Coffee is written with a kuf at the start, like the word "kar" (cold).'
+  tags: [similar_sounds]
+- id: heb.sound.025
+  skill: hebrew.spelling.similar_sounds
+  kind: true_false
+  grade: 3
+  difficulty: -1.0
+  prompt_he: 'המילה "טוב" נכתבת עם ת בהתחלה.'
+  prompt_en: 'The word "tov" (good) is written with a tav at the start.'
+  answer: false
+  explanation_he: 'טוב נכתבת עם ט. הצליל "ט" והצליל "ת" נשמעים אותו דבר, ולכן צריך לזכור את האות.'
+  explanation_en: 'Tov is written with a tet. The tet and tav sound the same, so you must remember the letter.'
+  tags: [similar_sounds]
+- id: heb.sound.026
+  skill: hebrew.spelling.similar_sounds
+  kind: true_false
+  grade: 3
+  difficulty: 0.5
+  prompt_he: 'המילים "אור" ו"עור" נשמעות אותו דבר אבל כתובות אחרת.'
+  prompt_en: 'The words "or" (light) and "or" (skin) sound the same but are written differently.'
+  answer: true
+  explanation_he: 'לפעמים שתי מילים נשמעות זהה, ורק האות (א או ע) מראה על איזו מילה מדובר.'
+  explanation_en: 'Sometimes two words sound alike, and only the letter (alef or ayin) shows which word it is.'
+  tags: [similar_sounds]

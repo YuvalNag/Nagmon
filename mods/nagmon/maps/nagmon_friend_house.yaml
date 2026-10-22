@@ -38,3 +38,35 @@ events:
     - talk nagmon_house_neighbor
     actions:
     - translated_dialog nagmon_world_friend_neighbor,nagmon_house_neighbor
+
+  # ---- working objects (mods/nagmon/objects/*.yaml; tools/app/objects.py checks that these events match them)
+
+  Create Fridge:
+    type: event
+    conditions:
+    - not char_exists nagmon_obj_fridge
+    actions:
+    - create_npc nagmon_obj_fridge,7,2
+    - char_face nagmon_obj_fridge,down
+
+  Fridge Talk:
+    type: event
+    behav:
+    - talk nagmon_obj_fridge
+    actions:
+    - open_object fridge
+
+  Create TV:
+    type: event
+    conditions:
+    - not char_exists nagmon_obj_tv
+    actions:
+    - create_npc nagmon_obj_tv,2,2
+    - char_face nagmon_obj_tv,down
+
+  TV Talk:
+    type: event
+    behav:
+    - talk nagmon_obj_tv
+    actions:
+    - open_object tv

@@ -1,0 +1,78 @@
+greet_first:
+  - "Hello, שלום! אני טום, ואני מטייל."
+  - "Hi there! איזו עיר יפה יש לכם."
+  - "Hello, friends! אפשר להגיד שלום באנגלית?"
+  - "שלום! Nice to meet you, נעים מאוד."
+  - "Hello! אני מצלם הכל, אבל קודם אני אומר שלום."
+  - "Hi! הכל כאן wonderful, אני לא מפסיק להתפעל."
+  - "Hello! אני מחפש מקום יפה לצילום, אולי אתם יודעים?"
+  - "שלום! My name is Tom, איך קוראים לכם?"
+  - "Hello, hello! התייר הגיע, והוא שמח."
+  - {text: "Good morning! בוקר טוב, חברים.", when: {phase: [morning]}}
+  - {text: "Good afternoon! צהריים טובים לכם.", when: {phase: [afternoon]}}
+  - {text: "Good evening! ערב טוב, חברים.", when: {phase: [evening]}}
+  - {text: "My friends! חברים שלי, how are you?", when: {friendship_min: 2}}
+  - {text: "Hello {hero}! שמחתי שחזרתם.", when: {friendship_min: 1}}
+greet_again:
+  - "Hi again! שלום שוב."
+  - "Oh, you are back! חזרתם, איזה כיף."
+  - "Hello again, friends! שלום שוב."
+  - "שוב אתם! That is great."
+  - "Hi! עוד שיחה קטנה, yes?"
+  - "Welcome back! ברוכים השבים."
+  - "Hello again! אני עוד מסתובב בעיר."
+  - "Nice to see you again! שמח לראות אתכם."
+  - "שלום שוב! I have a new word for you."
+  - {text: "Another good morning! עוד בוקר נחמד.", when: {phase: [morning]}}
+  - {text: "Another nice afternoon! אחר צהריים נעים.", when: {phase: [afternoon]}}
+  - {text: "Good evening again! ערב טוב שוב.", when: {phase: [evening, night]}}
+idle:
+  - "Sun is up! השמש בחוץ, והכל זוהר."
+  - "אני אוהב את העיר: small and sweet, קטנה ומתוקה."
+  - "I take a picture! צילמתי עץ יפה."
+  - "Water, please. מים, כי הולכים הרבה."
+  - "Big tree, small bird! עץ גדול, ציפור קטנה."
+  - "Everything is new for me. הכל חדש בשבילי."
+  - "אני לומד עברית: shalom, toda, bevakasha. יופי, no?"
+  - "Happy day! יום שמח לכולם."
+  - "Look, a nice house! בית יפה."
+  - "In my country we say hello like this: Hello! וגם אצלכם."
+  - "I walk, I look, I smile. הולך, מסתכל, מחייך."
+  - "Friends are the best souvenir. חברים הם המזכרת הכי טובה."
+farewell:
+  - "Goodbye! להתראות, חברים."
+  - "See you! נתראה בקרוב."
+  - "Bye bye! שיהיה לכם יום נהדר."
+  - "Take care! תשמרו על עצמכם."
+  - "Have a nice day! יום נעים."
+  - "Thank you! תודה על השיחה."
+  - "Bye! אני ממשיך לטייל."
+  - "See you later! נתראה אחר כך."
+  - "Goodbye, my friends! שלום ולהתראות."
+  - {text: "Have a great morning! בוקר נהדר.", when: {phase: [morning]}}
+  - {text: "Have a lovely afternoon! אחר צהריים נחמד.", when: {phase: [afternoon]}}
+  - {text: "Good night! לילה טוב, כשיגיע.", when: {phase: [evening, night]}}
+topic.english:
+  - "Today's word: friend, חבר. Friend!"
+  - "אפשר להגיד thank you, פירושו תודה. Thank you!"
+  - "A big word: wonderful, פירושו נפלא. Wonderful!"
+  - "Water, פירושו מים. Water, water, water!"
+  - "Good luck, פירושו בהצלחה. Good luck!"
+topic.places:
+  - "העיר שלכם יפה. אני אוהב את הבתים הקטנים והגינות."
+  - "אני רוצה לצלם את הגינה של הגננת. יש שם הרבה צבעים."
+  - "היום ראיתי מקום יפה ליד הספסל. Nice view, נוף יפה."
+  - "יש בעיר מקום שבו אפשר לנוח ולהסתכל. Perfect, מושלם."
+  - "הדואר מסתובב ומחלק. I like his bag, התיק שלו מעולה."
+topic.weather:
+  - "Today is a good day for a walk. יום טוב לטיול."
+  - "Sun, sun, sun! אני אוהב שמש."
+  - "אם יש ענן, אני עדיין מחייך. Cloud is okay."
+  - "Warm or cold, אני תמיד שם כובע."
+  - "Nice weather! מזג אוויר נעים."
+topic.town:
+  - "היום בעיר: {who}. I say hello, אני אומר שלום."
+  - "היום בעיר: {who}. Nice people, אנשים נחמדים."
+  - "אני רואה הרבה חברים בעיר. Everybody smiles."
+  - "העיר שקטה ונעימה. Quiet and nice."
+  - "בכל יום אחרים בעיר. It's like a surprise!"

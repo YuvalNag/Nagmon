@@ -342,6 +342,54 @@ msgstr "Wallet"
 msgid "nagmon_route1_trainer"
 msgstr "Danny the mail carrier"
 
+msgid "nagmon_baker"
+msgstr "Ofir the Baker"
+
+msgid "nagmon_carpenter"
+msgstr "Salim the Carpenter"
+
+msgid "nagmon_pharmacist"
+msgstr "Tasma the Pharmacist"
+
+msgid "nagmon_librarian"
+msgstr "Larisa the Librarian"
+
+msgid "nagmon_ranger"
+msgstr "Eitan the Park Ranger"
+
+msgid "nagmon_photographer"
+msgstr "Shira the Photographer"
+
+msgid "nagmon_rival_roni"
+msgstr "Roni"
+
+msgid "nagmon_chess_haim"
+msgstr "Haim the Chess Player"
+
+msgid "nagmon_card_trader"
+msgstr "Mazal the Card Trader"
+
+msgid "nagmon_newsboy"
+msgstr "Aviv the Newsboy"
+
+msgid "nagmon_tailor"
+msgstr "Hana the Tailor"
+
+msgid "nagmon_clockmaker"
+msgstr "Yosef the Clockmaker"
+
+msgid "nagmon_robot_tiky"
+msgstr "Tiky the Robot"
+
+msgid "nagmon_cat_pita"
+msgstr "Pita the Cat"
+
+msgid "nagmon_scout"
+msgstr "Keren the Scout"
+
+msgid "nagmon_fisher"
+msgstr "Fuad the Fisher"
+
 msgid "nagmon_sign_route1"
 msgstr "Sign"
 
@@ -654,6 +702,27 @@ msgstr "The home chest"
 
 msgid "nagmon_nest_home"
 msgstr "The nest"
+
+msgid "nagmon_obj_pc"
+msgstr "The PC"
+
+msgid "nagmon_obj_mailbox"
+msgstr "The mailbox"
+
+msgid "nagmon_obj_bookshelf"
+msgstr "The bookshelf"
+
+msgid "nagmon_obj_library"
+msgstr "The library"
+
+msgid "nagmon_obj_tv"
+msgstr "The TV"
+
+msgid "nagmon_obj_fridge"
+msgstr "The fridge"
+
+msgid "nagmon_obj_noticeboard"
+msgstr "The notice board"
 
 msgid "nagmon_world_chest_empty_daily"
 msgstr "The chest is empty for now. Tomorrow there will be something new!"

@@ -26,7 +26,7 @@ const TRIES = 6;
 /** Draws of one skill, looking for a form that is not true-or-false. */
 const FORM_TRIES = 4;
 
-/** The order subjects are asked in: the young start with Hebrew, the others leave it for last (its content ends at grade 2). */
+/** The order subjects are asked in: the young start with Hebrew; for the others it stays last (the order is kept so the placement a child met before does not change). */
 export function subjectOrder(grade: number): string[] {
   return grade <= 2 ? ["math", "hebrew", "english", "science", "logic", "geometry"] : ["math", "english", "science", "geometry", "logic", "hebrew"];
 }

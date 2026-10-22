@@ -1,0 +1,164 @@
+# The rest of Hearthrock's and Route 1's people (docs/app/WORLD_V2.md 6.1, rows 10 to 26).
+# Their pictures are the existing sheets, borrowed until each has its own
+# (docs/app/ART_NEEDED_W1.md lists what is missing). The persona, the schedule
+# and the lines are in mods/nagmon/npcs; no portrait yet (combat_sheet noclass).
+- slug: nagmon_baker
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_granite
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_carpenter
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_shopkeeper
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_pharmacist
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_astronomer
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_librarian
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_grey_hood
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_ranger
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_moon_engineer
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_photographer
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_mila
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_rival_roni
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_rover_driver
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_chess_haim
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_sage
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_card_trader
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_mila_space
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_newsboy
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_kid
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_tailor
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_teacher
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_clockmaker
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_astronomer
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_robot_tiky
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_moon_engineer
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_cat_pita
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: rockitten
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_scout
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_rover_driver
+    combat_sheet: noclass
+    slug: noclass
+- slug: nagmon_fisher
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_granite
+    combat_sheet: noclass
+    slug: noclass

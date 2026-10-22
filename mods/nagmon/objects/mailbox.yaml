@@ -1,0 +1,9 @@
+# The mailbox at the home door (docs/app/WORLD_V2.md section 8, object 2). One daily postcard from someone the
+# child knows, and event letters the morning after; opens the Mail view (core/game/mail.ts; the letters are
+# mods/nagmon/mail/letters.yaml). The post box in Hearthrock (the postman's) comes with W1.
+id: mailbox
+screen: mailbox
+title_he: תיבת הדואר
+sprite: nagmon_mailbox
+places:
+  - {map: nagmon_home, x: 2, y: 6}

@@ -29,8 +29,8 @@ export interface ActionBarProps {
   friends: Friend[];
   /** The creature is calm: the Net is the next step and the cards rest. */
   calm: boolean;
-  /** A net can be thrown now. */
-  canNet: boolean;
+  /** Befriending is open now (a wild creature, fighting or calm; the tray opens). */
+  canBefriend: boolean;
   /** The cards take taps now (not while our own animation plays); a tap while a round plays waits its turn. */
   live: boolean;
   /** Nothing is playing: swapping and the Bag are open too. */
@@ -43,7 +43,7 @@ export interface ActionBarProps {
   turn: number;
   onMove: (id: string) => void;
   onFriend: (id: string) => void;
-  onNet: () => void;
+  onBefriend: () => void;
   onBag: () => void;
   onLeave: () => void;
 }
@@ -66,7 +66,7 @@ function Dots({ left, max }: { left: number | null; max: number | null }) {
 
 /**
  * The menu of docs/app/BATTLE_V3.md (2.2): the friends strip, the four move
- * cards in a 2 x 2 grid (choosing a move IS the question), and Net, Bag and
+ * cards in a 2 x 2 grid (choosing a move IS the question), and Befriend, Bag and
  * Run. A card shows the move's name, its subject in the subject's colour, its
  * power flames, a tier badge, its charges as dots and, when the child may
  * know it, whether the enemy loves that subject (a sparkle) or is sturdy
@@ -146,11 +146,11 @@ export function ActionBar(p: ActionBarProps) {
           })}
         </div>
         <div className="side-buttons">
-          <Tap id="battle_net" className={`small${p.canNet ? " pulse" : ""}`} disabled={!p.canNet} onTap={p.onNet}>
+          <Tap id="battle_befriend" className={`small${p.canBefriend && p.calm ? " pulse" : ""}`} disabled={!p.canBefriend} onTap={p.onBefriend}>
             <span className="act-icon" aria-hidden="true">
               🥅
             </span>
-            {t("battleNet")}
+            {t("battleBefriend")}
           </Tap>
           <Tap id="battle_bag" className="small" disabled={!p.idle} onTap={p.onBag}>
             <span className="act-icon" aria-hidden="true">

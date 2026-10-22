@@ -242,6 +242,8 @@ def check_loot(doc: Any, items: set[str]) -> dict[str, Any]:
 
 #: A sign shows one short line.
 FACT_MAX = 70
+#: The subjects a fact may belong to (mods/nagmon/learning/subjects.yaml).
+FACT_SUBJECTS = ("math", "geometry", "english", "science", "logic", "hebrew")
 
 
 def check_facts(doc: Any) -> dict[str, Any]:
@@ -257,6 +259,10 @@ def check_facts(doc: Any) -> dict[str, Any]:
         text = fact.get("text_he")
         if not isinstance(text, str) or not text.strip():
             raise ValueError(f"facts: {fid}: needs a line of text")
+        if fact.get("subject") not in FACT_SUBJECTS:
+            raise ValueError(
+                f"facts: {fid}: subject is one of {FACT_SUBJECTS}"
+            )
         if len(text) > FACT_MAX or "\n" in text:
             raise ValueError(
                 f"facts: {fid}: one line, at most {FACT_MAX} characters"

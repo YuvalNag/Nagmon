@@ -93,3 +93,29 @@ describe("meeting wild creatures", () => {
     expect([-1, 0, 1].map((shift) => wildLevel([3, 6], 10, () => 0, shift))).toEqual([7, 8, 9]);
   });
 });
+
+describe("the creature of the day (the TV's hint)", () => {
+  const first = tables["nagmon_route1"]!.filter((e) => monsters[e.monster]?.hasSprite && (e.daytime === null || e.daytime === true));
+  const share = (species: string | null, factor: number) => {
+    let hits = 0;
+    const n = 6000;
+    let seed = 1;
+    const rnd = () => ((seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648);
+    const e = new Encounters({ tables, monsters, random: rnd, daytime: () => true, cooldownSteps: 0, always: true, ...(species ? { boost: () => ({ species, factor }) } : {}) });
+    for (let i = 0; i < n; i++) if (e.step(route, 5, 8, 6)?.species === species) hits++;
+    return hits / n;
+  };
+
+  it("is met about a quarter more often in the grass that day, and the others a little less", () => {
+    const species = first[0]!.monster;
+    const base = share(species, 1);
+    const boosted = share(species, 1.25);
+    expect(boosted / base).toBeGreaterThan(1.1);
+    expect(boosted / base).toBeLessThan(1.4);
+  });
+
+  it("changes nothing without a boost, or for a species that is not in the zone", () => {
+    expect(share("nosuchcreature", 1.25)).toBe(0);
+    expect(first.length).toBeGreaterThan(2);
+  });
+});

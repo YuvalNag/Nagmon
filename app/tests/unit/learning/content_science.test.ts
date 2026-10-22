@@ -36,9 +36,25 @@ const ID_RE = /^[a-z0-9_]+(\.[a-z0-9_]+)+$/;
 
 const len = (s: string): number => Array.from(s).length;
 
+/** A reading-passage file (a list of passages) as an ordinary bank: its questions inherit skill, grade and tags from their passage. */
+function flattenPassages(passages: Dict[]): Dict {
+  const items: Dict[] = [];
+  for (const p of passages) {
+    for (const q of p["questions"] as Dict[]) {
+      const item: Dict = {};
+      for (const k of ["skill", "grade", "tags"]) if (k in p) item[k] = p[k];
+      items.push({ ...item, ...q });
+    }
+  }
+  return { skill: passages[0]!["skill"], items };
+}
+
 function banks(): Map<string, Dict> {
   const out = new Map<string, Dict>();
-  for (const [rel, doc] of Object.entries(realDocs()).sort()) if (BANK_DIRS.includes(rel.split("/")[0]!) && rel.split("/").length === 2) out.set(rel, doc as Dict);
+  for (const [rel, doc] of Object.entries(realDocs()).sort()) {
+    if (!BANK_DIRS.includes(rel.split("/")[0]!) || rel.split("/").length !== 2) continue;
+    out.set(rel, Array.isArray(doc) ? flattenPassages(doc as Dict[]) : (doc as Dict));
+  }
   return out;
 }
 
@@ -86,7 +102,7 @@ describe("content: science and hebrew", () => {
     expect(rels.some((r) => r.startsWith("science/"))).toBe(true);
     expect(rels.some((r) => r.startsWith("hebrew/"))).toBe(true);
     expect(items().filter(([rel]) => rel.startsWith("science/")).length).toBeGreaterThanOrEqual(600);
-    expect(items().filter(([rel]) => rel.startsWith("hebrew/")).length).toBeGreaterThanOrEqual(120);
+    expect(items().filter(([rel]) => rel.startsWith("hebrew/")).length).toBeGreaterThanOrEqual(700);
   });
 
   it.each([...banks().keys()])("bank file shape: %s", (rel) => {
@@ -228,7 +244,7 @@ describe("content: science and hebrew", () => {
 
   it("skill counts", () => {
     expect(skillsBySubject().get("science")!.skills.length).toBeGreaterThanOrEqual(40);
-    expect(skillsBySubject().get("hebrew")!.skills.length).toBeGreaterThanOrEqual(8);
+    expect(skillsBySubject().get("hebrew")!.skills.length).toBeGreaterThanOrEqual(35);
   });
 
   it("skill bank resolves (every skill)", () => {

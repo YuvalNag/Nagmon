@@ -1,0 +1,36 @@
+# Eitan the Park Ranger (docs/app/WORLD_V2.md 6: row 14). Art is a stand-in (the hard hat of the moon engineer): needs a ranger sheet.
+id: nagmon_ranger
+short: eitan
+class: R
+name_he: איתן שומר הפארק
+name_en: Eitan the Park Ranger
+role: ranger
+age_feel: adult
+sprite: nagmon_moon_engineer
+voice:
+  style: "outdoorsy, calm, calls the creatures the neighbours"
+  quirks: ["shades his eyes to look far"]
+  catchphrases: ["השכנים שלנו בדשא."]
+  register: simple
+personality: [calm, observant, kind to animals]
+knows:
+  topics:
+    - {id: neighbours, label_he: "השכנים שלנו", icon: "1f43e", unlock: 0}
+    - {id: hide, label_he: "איפה מתחבאים?", icon: "1f50d", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["keep the meadow safe for the neighbours"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [morning]}, at: {map: classic_hearthrock_city, spot: meadow_gate}}
+    - {when: {phase: [afternoon]}, at: {map: classic_route_1, spot: lookout}}
+    - {when: {phase: [evening]}, at: null}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {quests: [q_counts]}
+relationship:
+  memory_flags: [asked_neighbours, asked_hide, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

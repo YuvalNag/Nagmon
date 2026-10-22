@@ -1,0 +1,31 @@
+# Ezra the Sage (docs/app/WORLD_V2.md 6: row 44). The sage of the rocky planets and the giants zone; his riddle of the rings stays as it is.
+id: nagmon_solar_sage
+short: ezra
+class: M
+name_he: החכם עזרא
+name_en: Ezra the Sage
+role: sage
+age_feel: elder
+sprite: nagmon_sage
+voice:
+  style: "slow, speaks in short sayings, says ask again tomorrow"
+  quirks: ["strokes his beard"]
+  catchphrases: ["שאלו שוב מחר."]
+  register: gentle
+personality: [slow, kind, wise]
+knows:
+  topics:
+    - {id: wisdom, label_he: "מילה חכמה", icon: "1f4ac", unlock: 0}
+    - {id: slow, label_he: "על סבלנות", icon: "1f422", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["a good question for every visitor"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  fixed: {maps: [solar_rocky_planets, solar_giants]}
+offers: {riddles: rings}
+relationship:
+  memory_flags: [asked_wisdom, asked_slow]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

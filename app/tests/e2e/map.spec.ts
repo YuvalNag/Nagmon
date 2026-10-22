@@ -71,6 +71,8 @@ async function seedChild(page: Page, { name = "תמר", avatar = "girl_teal", ad
       if (localStorage.getItem("seeded")) return;
       localStorage.setItem("seeded", "1");
       if (!adaptive) localStorage.setItem("nagmon.map.adaptiveResolution", "off");
+      // the town's people are those of ten in the morning, whatever the machine's clock says
+      localStorage.setItem("nagmon.clock.hour", "10");
       localStorage.setItem("nagmon-fs:d:profiles", "");
       localStorage.setItem("nagmon-fs:d:profiles/p00001", "");
       localStorage.setItem(
@@ -209,7 +211,7 @@ test("who-plays opens without Phaser; the map opens on the child's card, crisp a
   );
   console.log(`who-plays shown ${coldMs} ms after the page started loading; scripts: ${JSON.stringify(before)}`);
   expect(before.some((s) => s.name.startsWith("mapGame"))).toBe(false);
-  expect(before.reduce((n, s) => n + s.size, 0)).toBeLessThan(650_000); // the battle (S1: 50 moves' rules, intents, fainting) is in this start script: 594 kB before, 619 kB now
+  expect(before.reduce((n, s) => n + s.size, 0)).toBeLessThan(450_000); // the start script: the battle, shop, parents and other rare screens are lazy chunks (src/ui/lazy.tsx); 619 kB before they were split off, about 410 kB now
 
   const d = await openMap(page);
   await page.waitForTimeout(500);
@@ -345,7 +347,8 @@ test("who-plays opens without Phaser; the map opens on the child's card, crisp a
     expect(Math.min(b.w, b.h), `${b.id} is a finger wide`).toBeGreaterThanOrEqual(b.id === "report_open" ? 48 : 9 * MM);
     expect(b.name, `${b.id} has a name`).toBeTruthy();
   }
-  expect(buttons.map((b) => b.id).sort()).toEqual(["dpad_down", "dpad_left", "dpad_right", "dpad_up", "map_menu", "report_open"]);
+  // the owl stands in front of the start and can be talked to: "talk" and "ask" show (a person of the world has topics)
+  expect(buttons.map((b) => b.id).sort()).toEqual(["dpad_down", "dpad_left", "dpad_right", "dpad_up", "map_ask", "map_menu", "map_talk", "report_open"]);
   // the d-pad on the left, low; the menu at the top on the other side
   const pad = (await page.locator(id("dpad")).boundingBox())!;
   expect(pad.x).toBeLessThan(873 / 3);
@@ -717,4 +720,71 @@ test("a door leads into the academy and back; two maps stay in memory", async ({
   await steps(page, "down", 1);
   expect((await debug(page))!.player).toMatchObject({ x: 18, y: 15 });
   expect(d.cachedMaps).toEqual(["classic_hearthrock_city", "classic_gym_mila"]);
+});
+
+test("the people of the town: placed by the day and the hour, a talk with the owl, a topic, goodbye, and what is saved", async ({ page }, info) => {
+  // the owl is in front of the start; the town is the one of ten in the morning
+  await page.goto("/");
+  await openMap(page);
+  await settled(page);
+  // SHOT_DIR keeps the pictures of a passing run (a person looks at them)
+  const shot = (name: string) => page.screenshot({ path: process.env["SHOT_DIR"] ? `${process.env["SHOT_DIR"]}/${name}.png` : info.outputPath(`${name}.png`) });
+  const d = (await debug(page))!;
+  // the owl and the shopkeeper stand at their posts; a few more of the town are out, and not on the same tile
+  const at = (slug: string) => d.npcs.find((n) => n.slug === slug);
+  expect(at("nagmon_owl")).toMatchObject({ x: 29, y: 15 });
+  expect(at("nagmon_cashier")).toMatchObject({ x: 14, y: 14 });
+  const tiles = d.npcs.map((n) => `${n.x},${n.y}`);
+  expect(new Set(tiles).size).toBe(tiles.length);
+  // at ten in the morning: the wallet's prop, the notice board and ten people of the world at most
+  expect(d.npcs.length).toBeGreaterThanOrEqual(7);
+  expect(d.npcs.length).toBeLessThanOrEqual(12);
+  await shot("people_01_town");
+
+  // the owl, face to face: his own greeting, typed out in a box of its own
+  await expect(page.locator(id("map_talk"))).toBeVisible();
+  await expect(page.locator(id("map_ask"))).toBeVisible();
+  await touch(page, page.locator(id("map_talk")));
+  const layer = page.locator("[data-screen=dialog]");
+  await expect(layer).toBeVisible();
+  await expect(layer).toHaveAttribute("data-full", "true", { timeout: 10_000 });
+  const greeting = (await page.locator(id("dialog")).getAttribute("aria-label"))!;
+  expect(greeting).toMatch(/^הינשוף החכם: /);
+  await shot("people_02_talk");
+  await touch(page, page.locator(id("dialog")));
+  await expect(layer).toHaveCount(0);
+  await expect(page.locator(id("map_talk"))).toBeVisible();
+
+  // asking: big chips with pictures, no keyboard
+  await touch(page, page.locator(id("map_ask")));
+  const card = page.locator("[data-screen=topics]");
+  await expect(card).toBeVisible();
+  for (const chip of ["topic_tip", "topic_why", "topic_fact", "topic_town"]) {
+    const box = (await page.locator(id(chip)).boundingBox())!;
+    expect(Math.min(box.width, box.height), `${chip} is a finger wide`).toBeGreaterThanOrEqual(48);
+    expect(box.x).toBeGreaterThanOrEqual(0);
+    expect(box.x + box.width).toBeLessThanOrEqual(873);
+  }
+  await expect(page.locator("[data-screen=topics] input, [data-screen=topics] textarea")).toHaveCount(0);
+  await shot("people_03_chips");
+  await touch(page, page.locator(id("topic_tip")));
+  await expect(layer).toBeVisible();
+  await expect(layer).toHaveAttribute("data-full", "true", { timeout: 10_000 });
+  expect((await page.locator(id("dialog")).getAttribute("aria-label"))!).toMatch(/^הינשוף החכם: /);
+  await shot("people_04_answer");
+  await touch(page, page.locator(id("dialog")));
+  await expect(card).toBeVisible();
+  await touch(page, page.locator(id("topic_bye")));
+  await expect(layer).toBeVisible();
+  await expect(layer).toHaveAttribute("data-full", "true", { timeout: 10_000 });
+  await touch(page, page.locator(id("dialog")));
+  await expect(layer).toHaveCount(0);
+  await expect.poll(async () => (await debug(page))!.paused).toEqual([]);
+
+  // what is saved: ids and numbers, no words, no name
+  const world = await page.evaluate(() => JSON.parse(localStorage.getItem("nagmon-fs:f:profiles/p00001/saves/world.json")!) as { schema_version: number; npc_seed: number; npcs: Record<string, { pts: number; met: number; flags: string[]; recent: string[] }> });
+  expect(world.schema_version).toBe(2);
+  expect(world.npcs["nagmon_owl"]).toMatchObject({ met: 1, pts: 2, flags: ["asked_tip"] });
+  expect(world.npcs["nagmon_owl"]!.recent).toHaveLength(3);
+  expect(JSON.stringify(world.npcs)).not.toMatch(/[֐-׿]/);
 });

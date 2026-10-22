@@ -19,7 +19,7 @@ const objects: WorldObjects = {
       once: { repeat: "once", prizes: [{ item: "clover", n: 1 }], consolation: { coins: 3 } },
     },
   }),
-  facts: { owl_night: { emoji: "1f989", text: "ינשוף רואה בלילה." } },
+  facts: { owl_night: { emoji: "1f989", text: "ינשוף רואה בלילה.", subject: "science" } },
   pools: (table) => (table === "zone1" ? [{ species: "heliobud", level: 4 }] : []),
   zone: "zone1",
 };

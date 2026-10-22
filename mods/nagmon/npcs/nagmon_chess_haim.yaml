@@ -1,0 +1,35 @@
+# Haim the Chess Player (docs/app/WORLD_V2.md 6: row 17). Art is a stand-in (the bearded sage): needs a chess-player sheet.
+id: nagmon_chess_haim
+short: haim
+class: R
+name_he: חיים השחמטאי
+name_en: Haim the Chess Player
+role: chess_player
+age_feel: elder
+sprite: nagmon_sage
+voice:
+  style: "dry humour, short sentences, thinks before speaking"
+  quirks: ["taps the table twice before a move"]
+  catchphrases: ["צעד אחד, ואז עוד אחד."]
+  register: simple
+personality: [dry, patient, thoughtful]
+knows:
+  topics:
+    - {id: chess, label_he: "על שחמט", icon: "265f", unlock: 0}
+    - {id: think, label_he: "לחשוב לפני צעד", icon: "1f4a1", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["teach one child the knight"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: park_bench}}
+    - {when: {phase: [evening]}, at: null}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {quests: [q_riddle_chain]}
+relationship:
+  memory_flags: [asked_chess, asked_think, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

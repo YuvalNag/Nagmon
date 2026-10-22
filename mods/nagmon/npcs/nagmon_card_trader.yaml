@@ -1,0 +1,34 @@
+# Mazal the Card Trader (docs/app/WORLD_V2.md 6: row 18). Art is a stand-in (the orange space suit of Mila): needs a trader sheet. Here every second day.
+id: nagmon_card_trader
+short: mazal
+class: R
+name_he: מזל סוחרת הכרטיסים
+name_en: Mazal the Card Trader
+role: trader
+age_feel: adult
+sprite: nagmon_mila_space
+voice:
+  style: "sharp, honest, loves a fair bargain"
+  quirks: ["shuffles cards like a fan"]
+  catchphrases: ["עסקה הוגנת."]
+  register: playful
+personality: [sharp, honest, friendly]
+knows:
+  topics:
+    - {id: cards, label_he: "על כרטיסים", icon: "1f0cf", unlock: 0}
+    - {id: fair, label_he: "מה זה הוגן?", icon: "2696", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["every swap is fair to both sides"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [morning, afternoon], every: 2}, at: {map: classic_hearthrock_city, spot: market_stall_2}}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {trade: evolution_cards}
+relationship:
+  memory_flags: [asked_cards, asked_fair, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

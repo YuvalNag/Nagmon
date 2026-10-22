@@ -1,0 +1,405 @@
+# Nagmon Hebrew reading passages, grade 9 (SDD_CONTENT section 5): original short texts written for this game.
+# Each passage names its skill and tags; its questions are regular bank items that inherit grade, skill and tags.
+# Hebrew only, without niqqud. The passage shows on the question screen (meta.passage_he).
+
+- id: pass9.01
+  grade: 9
+  skill: hebrew.reading.passage_9
+  tags: [passage_9]
+  title: המכתב שלא נשלח
+  text_he: >-
+    מצאתי את המכתב במגירה של השולחן, בין כרטיסי ברכה ישנים ותמונות מהכיתה. בראשו היה כתוב בכתב ידי: "לעמית, שלום. אני כותבת כי רציתי להגיד סליחה."
+    אני זוכרת את היום ההוא, בכיתה ח'. עמית היה חבר שלי הכי טוב, ופעם אחת, כשכולם צחקו עליו אחרי שנפל במגרש, אני צחקתי איתם. רק לרגע, אבל הוא שמע. למחרת הוא ישב ליד מישהו אחר.
+    כתבתי את המכתב באותו ערב, אבל לא הצלחתי לשלוח אותו. ישבתי ארוכות על המיטה, והרגשתי שהמילים שכתבתי קטנות מדי לגודל הרגע. אמרתי לעצמי שאין טעם, שהכול כבר נשכח, ובכל יום שעבר, המשקל גדל.
+    עכשיו, כמעט שלוש שנים אחרי, אני קוראת אותו שוב ומבינה שדווקא הדברים הקטנים נשארים. אני מקפלת את הדף, שמה אותו בכיס, ובדרכי לבית הספר מחפשת בעיניים את עמית.
+  questions:
+    - id: heb.pass9.001
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מדוע הכותבת כתבה את המכתב?'
+      prompt_en: 'Why did the writer write the letter?'
+      choices:
+      - {he: כדי להזמין אותו למסיבת יום הולדת, en: To invite him to a birthday party}
+      - {he: כדי לבקש סליחה מחבר שפגעה בו, en: To apologize to a friend she had hurt}
+      - {he: כדי לספר לו על הטיול שלה בקיץ, en: To tell him about her summer trip}
+      answer: 1
+      explanation_he: 'המכתב נפתח במילים "רציתי להגיד סליחה", ובהמשך מסופר על הפגיעה.'
+      explanation_en: 'The letter opens with "I wanted to say sorry", and the text then tells of the hurt.'
+    - id: heb.pass9.002
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה עשתה הכותבת שפגע בעמית?'
+      prompt_en: 'What did the writer do that hurt Amit?'
+      choices:
+      - {he: צחקה איתו כשכולם צחקו עליו, en: She laughed along when everyone laughed at him}
+      - {he: לא הזמינה אותו לבית שלה לשחק, en: She did not invite him to her home to play}
+      - {he: סיפרה לכולם סוד שהוא סיפר לה, en: She told everyone a secret he had told her}
+      answer: 0
+      explanation_he: 'כתוב: "כשכולם צחקו עליו... אני צחקתי איתם. רק לרגע, אבל הוא שמע".'
+      explanation_en: 'It says: "when everyone laughed at him... I laughed with them. Just for a moment, but he heard".'
+    - id: heb.pass9.003
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה קרה למחרת?'
+      prompt_en: 'What happened the next day?'
+      choices:
+      - {he: עמית סלח לה מיד ושיחק איתה, en: Amit forgave her at once and played with her}
+      - {he: הכותבת עברה לכיתה אחרת בבית ספר, en: The writer moved to another class in school}
+      - {he: עמית ישב ליד מישהו אחר, en: Amit sat next to someone else}
+      answer: 2
+      explanation_he: 'כתוב: "למחרת הוא ישב ליד מישהו אחר". זה סימן שהוא נפגע.'
+      explanation_en: 'It says: "the next day he sat next to someone else". This signals he was hurt.'
+    - id: heb.pass9.004
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה פירוש "דווקא הדברים הקטנים נשארים"?'
+      prompt_en: 'What does "it is precisely the small things that remain" mean?'
+      choices:
+      - {he: דברים קטנים נשכחים מהר מאוד, en: Small things are forgotten very fast}
+      - {he: רגעים קטנים נחרטים בזיכרון ובלב, en: Small moments are etched in memory and heart}
+      - {he: כדאי לאסוף חפצים קטנים מהמגירה, en: It is worth collecting small objects from the drawer}
+      answer: 1
+      explanation_he: 'היא חשבה שהכול נשכח, אך גילתה שהרגע הקטן ההוא נשאר איתה שנים.'
+      explanation_en: 'She thought everything was forgotten, but found that small moment stayed with her for years.'
+    - id: heb.pass9.005
+      kind: choice
+      difficulty: 1.5
+      prompt_he: 'מה משמעות הסיום: "מחפשת בעיניים את עמית"?'
+      prompt_en: 'What is the meaning of the ending: "looking for Amit with her eyes"?'
+      choices:
+      - {he: היא כועסת על עמית שלא שלח מכתב, en: She is angry at Amit for not sending a letter}
+      - {he: היא רוצה לשכוח את כל הסיפור הזה, en: She wants to forget this whole story}
+      - {he: היא החליטה לבקש סליחה בעצמה, en: She decided to apologize in person}
+      answer: 2
+      explanation_he: 'היא לוקחת את המכתב בכיס ומחפשת את עמית: סימן שהיא מוכנה לבקש סליחה פנים אל פנים.'
+      explanation_en: 'She takes the letter in her pocket and looks for Amit: she is ready to apologize face to face.'
+    - id: heb.pass9.006
+      kind: true_false
+      difficulty: 0.0
+      prompt_he: 'לפי הקטע, הכותבת שלחה את המכתב באותו ערב.'
+      prompt_en: 'According to the text, the writer sent the letter that same evening.'
+      answer: false
+      explanation_he: 'כתוב שלא הצליחה לשלוח אותו, והמכתב נשאר במגירה כמעט שלוש שנים.'
+      explanation_en: 'It says she could not send it, and the letter stayed in a drawer for almost three years.'
+- id: pass9.02
+  grade: 9
+  skill: hebrew.reading.passage_9
+  tags: [passage_9]
+  title: שינה וזיכרון
+  text_he: >-
+    רבים חושבים שהשינה היא זמן שבו המוח נח, אבל מחקרים מראים שהמוח עובד גם בלילה. כשאנחנו ישנים, המוח עובר על מה שלמדנו ביום, מחזק חלק מהזיכרונות ומוחק פרטים פחות חשובים.
+    בניסוי נתנו לשתי קבוצות של תלמידים רשימה של מילים ללמוד. קבוצה אחת ישנה אחר כך כרגיל, ובקבוצה האחרת התלמידים נשארו ערים. למחרת הקבוצה שישנה זכרה יותר מילים.
+    חוקרים מעריכים ששלבים שונים של השינה קשורים לסוגים שונים של זיכרון, ולכן שינה קצרה ומקוטעת אינה תחליף ללילה שלם.
+    הממצא אינו אומר שאפשר ללמוד מתוך שינה, אלא ששינה אחרי למידה עוזרת לשמור את הידע. לכן תלמיד שלומד עד שעות הלילה המאוחרות ומוותר על שינה עלול לשלם על כך במבחן.
+    מסקנה מעשית: כדאי ללמוד מוקדם יותר, לנוח ולישון מספיק, כדי שהמוח יספיק לעבד את החומר.
+  questions:
+    - id: heb.pass9.007
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה עושה המוח בזמן השינה לפי הקטע?'
+      prompt_en: 'What does the brain do during sleep, according to the text?'
+      choices:
+      - {he: נח לגמרי ואינו פועל כלל עד הבוקר, en: Rests completely and does not work at all until morning}
+      - {he: לומד חומר חדש בעזרת החלומות, en: Learns new material with the help of dreams}
+      - {he: עובר על הלמידה ומחזק זיכרונות, en: Reviews learning and strengthens memories}
+      answer: 2
+      explanation_he: 'הקטע אומר שהמוח עובד בלילה: עובר על מה שנלמד, מחזק ומוחק.'
+      explanation_en: 'The text says the brain works at night: it reviews what was learned, strengthens and erases.'
+    - id: heb.pass9.008
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'איך נבדקה ההשפעה של השינה בניסוי?'
+      prompt_en: 'How was the effect of sleep tested in the experiment?'
+      choices:
+      - {he: השוו בין מי שישן לבין מי שנשאר ער, en: They compared those who slept with those who stayed awake}
+      - {he: שאלו את התלמידים אם הם אוהבים ללמוד, en: They asked the pupils if they like to study}
+      - {he: ספרו כמה שעות ישן כל תלמיד בשבוע, en: They counted how many hours each pupil slept per week}
+      answer: 0
+      explanation_he: 'בניסוי היו שתי קבוצות: האחת ישנה והאחרת נשארה ערה, ולמחרת בדקו מי זכרה יותר.'
+      explanation_en: 'The experiment had two groups: one slept, the other stayed awake, and next day they checked who remembered more.'
+    - id: heb.pass9.009
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה הממצא של הניסוי?'
+      prompt_en: 'What was the finding of the experiment?'
+      choices:
+      - {he: מי שנשאר ער זכר יותר מילים למחרת, en: Those who stayed awake remembered more words next day}
+      - {he: מי שישן אחרי הלמידה זכר יותר מילים, en: Those who slept after learning remembered more words}
+      - {he: שתי הקבוצות זכרו בדיוק אותו מספר מילים, en: Both groups remembered exactly the same number of words}
+      answer: 1
+      explanation_he: 'כתוב: "הקבוצה שישנה זכרה יותר מילים".'
+      explanation_en: 'It says: "the group that slept remembered more words".'
+    - id: heb.pass9.010
+      kind: choice
+      difficulty: 1.5
+      prompt_he: 'מהי המסקנה שאינה מתאימה לקטע?'
+      prompt_en: 'Which conclusion does not fit the text?'
+      choices:
+      - {he: אפשר ללמוד לבחינה בשנת הלילה, en: One can learn for an exam in nighttime sleep}
+      - {he: כדאי לישון מספיק אחרי שלומדים, en: It is worth sleeping enough after studying}
+      - {he: כדאי להתחיל ללמוד הרבה לפני המבחן, en: It is worth starting to study well before the test}
+      answer: 0
+      explanation_he: 'הקטע מדגיש שהשינה אינה מחליפה למידה אלא עוזרת לשמור אותה: "הממצא אינו אומר שאפשר ללמוד מתוך שינה".'
+      explanation_en: 'The text stresses sleep does not replace learning but helps keep it: "the finding does not say one can learn in sleep".'
+    - id: heb.pass9.011
+      kind: choice
+      difficulty: 1.5
+      prompt_he: 'איזה משפט הוא טענה ולא עובדה?'
+      prompt_en: 'Which sentence is a claim and not a fact?'
+      choices:
+      - {he: בניסוי השתתפו שתי קבוצות של תלמידים, en: Two groups of pupils took part in the experiment}
+      - {he: הקבוצה שישנה זכרה יותר מילים, en: The group that slept remembered more words}
+      - {he: מי שמוותר על שינה עלול לשלם במבחן, en: Someone who gives up sleep may pay for it in the test}
+      answer: 2
+      explanation_he: 'המשפט הראשון מסיק מסקנה ומזהיר ("עלול"). שני האחרים מתארים מה קרה בניסוי.'
+      explanation_en: 'The first draws a conclusion and warns ("may"). The other two describe what happened in the experiment.'
+    - id: heb.pass9.012
+      kind: true_false
+      difficulty: 0.0
+      prompt_he: 'לפי הקטע, שינה היא זמן שבו המוח אינו פועל כלל.'
+      prompt_en: 'According to the text, sleep is a time when the brain does not work at all.'
+      answer: false
+      explanation_he: 'הקטע אומר שהמוח עובד גם בלילה: הוא מעבד את מה שלמדנו.'
+      explanation_en: 'The text says the brain works at night too: it processes what we learned.'
+- id: pass9.03
+  grade: 9
+  skill: hebrew.reading.passage_9
+  tags: [passage_9]
+  title: מסך ותשומת לב
+  text_he: >-
+    בשנים האחרונות רבים מתלוננים שילדים ובני נוער אינם מסוגלים להתרכז. המצדדים בהגבלת המסכים טוענים שהטלפון מפריע לריכוז: כל התראה קוטעת את המחשבה, וכדי לחזור אליה נדרש זמן. לדבריהם, מי שבודק את הטלפון כל כמה דקות מתקשה להעמיק בשיעור או בספר.
+    המתנגדים להגבלה עונים שהמסך אינו אויב. אפשר ללמוד דרכו, לשוחח עם חברים ולהתפתח, והבעיה אינה במכשיר אלא באופן שבו משתמשים בו. אין טעם, לדבריהם, להפוך את הטלפון לאשם.
+    יש גם מי שמציעים פשרה: אזורים בבית ובבית הספר שבהם הטלפון אסור, ואזורים שבהם מותר. הרעיון הזה שומר על חופש אך מגדיר גבולות.
+    לדעתי שני הצדדים צודקים במשהו. המסך הוא כלי שימושי, אבל כדאי ללמוד לשלוט בו. למשל, אפשר להרחיק את הטלפון בשעת למידה ולקבוע זמנים שבהם לא בודקים הודעות. כך נהנים מהיתרונות בלי לשלם במחיר של ריכוז.
+  questions:
+    - id: heb.pass9.013
+      kind: choice
+      difficulty: -1.0
+      prompt_he: 'מהי הטענה של המצדדים בהגבלת המסכים?'
+      prompt_en: 'What is the claim of those who support limiting screens?'
+      choices:
+      - {he: הטלפון יקר מדי, en: The phone is too expensive}
+      - {he: המסך מזיק לעיניים בלבד, en: The screen only harms the eyes}
+      - {he: הטלפון מפריע לריכוז, en: The phone disrupts concentration}
+      answer: 2
+      explanation_he: 'לדבריהם כל התראה קוטעת את המחשבה, ולכן קשה להתרכז.'
+      explanation_en: 'According to them every notification interrupts a thought, so it is hard to concentrate.'
+    - id: heb.pass9.014
+      kind: choice
+      difficulty: 0.5
+      prompt_he: 'מהו הנימוק של המצדדים?'
+      prompt_en: 'What is the supporters'' reason?'
+      choices:
+      - {he: כל הילדים משחקים יותר מדי, en: All children play too much}
+      - {he: כל התראה קוטעת את המחשבה, en: Every notification interrupts the thought}
+      - {he: הטלפון כבד ותופס מקום בתיק, en: The phone is heavy and takes up space in the bag}
+      answer: 1
+      explanation_he: 'הקטע מציין שהתראה קוטעת את המחשבה, וחזרה אליה אורכת זמן.'
+      explanation_en: The text notes a notification cuts the thought and returning takes time.
+    - id: heb.pass9.015
+      kind: choice
+      difficulty: 0.5
+      prompt_he: 'מה הטענה של המתנגדים להגבלה?'
+      prompt_en: 'What is the claim of those who oppose the limit?'
+      choices:
+      - {he: הבעיה בשימוש ולא במכשיר עצמו, en: The problem is in use and not in the device itself}
+      - {he: המסך אינו משפיע על ילדים כלל, en: The screen has no effect on children at all}
+      - {he: צריך לאסור לגמרי את הטלפונים, en: Phones should be banned entirely}
+      answer: 0
+      explanation_he: 'הם אומרים שהמסך אינו אויב, ושהבעיה היא בדרך השימוש.'
+      explanation_en: They say the screen is not an enemy and the problem is in how it is used.
+    - id: heb.pass9.016
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מהי עמדת הכותבת?'
+      prompt_en: 'What is the writer''s stand?'
+      choices:
+      - {he: רק המצדדים בהגבלה צודקים בעניין, en: Only the supporters of the limit are right}
+      - {he: שני הצדדים צודקים וצריך לשלוט במסך, en: Both sides are right and we must control the screen}
+      - {he: רק המתנגדים להגבלה צודקים בעניין, en: Only the opponents of the limit are right}
+      answer: 1
+      explanation_he: 'היא כותבת במפורש: "שני הצדדים צודקים במשהו" ומציעה פתרון של שליטה.'
+      explanation_en: 'She writes explicitly: "both sides are right about something" and proposes control as a solution.'
+    - id: heb.pass9.017
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה תפקיד המילה "למשל" בפסקה האחרונה?'
+      prompt_en: 'What is the role of "for example" in the last paragraph?'
+      choices:
+      - {he: להציג דוגמה להצעה, en: To present an example of the proposal}
+      - {he: להציג טענה נגדית חדשה, en: To present a new counterclaim}
+      - {he: לסכם את כל הקטע בקצרה, en: To summarize the whole text briefly}
+      answer: 0
+      explanation_he: 'אחרי "למשל" באות דוגמאות מעשיות: להרחיק את הטלפון ולקבוע זמנים.'
+      explanation_en: 'After "for example" come practical examples: keeping the phone away and setting times.'
+    - id: heb.pass9.018
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'באיזה מבנה כתוב הטקסט?'
+      prompt_en: 'What structure is the text written in?'
+      choices:
+      - {he: 'סיפור עם התחלה, אמצע וסוף', en: 'A story with a beginning, middle and end'}
+      - {he: רשימת הוראות הפעלה לשימוש, en: A list of operating instructions for use}
+      - {he: שתי עמדות ואז דעת הכותבת, en: 'Two stands and then the writer''s opinion'}
+      answer: 2
+      explanation_he: 'הטקסט מציג עמדה, עמדה נגדית, ואחר כך את דעת הכותבת. זהו טקסט טיעון.'
+      explanation_en: 'The text presents one stand, a counter-stand, and then the writer''s opinion. It is an argument text.'
+- id: pass9.04
+  grade: 9
+  skill: hebrew.reading.passage_9
+  tags: [passage_9]
+  title: איך נולדות מילים
+  text_he: >-
+    כשהעברית חזרה להיות שפה מדוברת בעשורים האחרונים של המאה התשע עשרה ובמאה העשרים, התברר שחסרות בה מילים רבות. איך אומרים "מטוס", "חשמל" או "מחשב"? לא היו מילים כאלה בעברית העתיקה, כי הדברים עצמם עוד לא היו קיימים.
+    הפתרון היה ליצור מילים חדשות. לעתים לקחו שורש קיים והוסיפו לו תבנית: מהשורש ט-ו-ס, שפירושו לעוף, נוצרה המילה "מטוס", ומהשורש ח-ש-ב נוצרה המילה "מחשב". לפעמים החיו מילה עתיקה ונתנו לה משמעות חדשה, כמו "חשמל", ולעתים לקחו מילה משפה אחרת והתאימו אותה לעברית.
+    כיום פועלת האקדמיה ללשון העברית, מוסד שמציע מילים חדשות. לא כל הצעה מתקבלת: הציבור הוא שמחליט איזו מילה תישאר בשימוש. למשל, רבים מעדיפים "טלפון" על פני ניסיונות להחליפו במילה עברית.
+    כך שפה חיה: היא משתנה, מתעדכנת, ומתאימה את עצמה לעולם.
+  questions:
+    - id: heb.pass9.019
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'למה חסרו מילים בעברית המדוברת?'
+      prompt_en: 'Why were words missing in spoken Hebrew?'
+      choices:
+      - {he: דברים חדשים לא היו קיימים בעבר, en: New things did not exist in the past}
+      - {he: כי אנשים לא רצו לדבר עברית בבית, en: Because people did not want to speak Hebrew at home}
+      - {he: כי המילים נשכחו במלחמה גדולה, en: Because the words were forgotten in a great war}
+      answer: 0
+      explanation_he: 'הקטע מסביר שהדברים עצמם עוד לא היו קיימים, ולכן לא היו מילים בשבילם.'
+      explanation_en: 'The text explains the things themselves did not yet exist, so there were no words for them.'
+    - id: heb.pass9.020
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'איך נוצרה המילה "מטוס" לפי הקטע?'
+      prompt_en: 'How was the word "matos" created, according to the text?'
+      choices:
+      - {he: הוצאה ממילון עתיק מאוד בספרייה, en: Taken from a very old dictionary in the library}
+      - {he: 'משורש קיים, ט-ו-ס, עם תבנית חדשה', en: 'From an existing root, t-v-s, with a new pattern'}
+      - {he: הועתקה במדויק משפה זרה כלשהי, en: Copied exactly from some foreign language}
+      answer: 1
+      explanation_he: 'כתוב שנוצרה מהשורש ע-ו-ף בעזרת תבנית, והיא קשורה לתעופה.'
+      explanation_en: 'It says it was created from the root a-v-f with a pattern, and relates to flying.'
+    - id: heb.pass9.021
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מהי הדרך השנייה ליצירת מילים?'
+      prompt_en: 'What is the other way of creating words?'
+      choices:
+      - {he: המצאת צלילים חדשים ללא שורש, en: Inventing new sounds with no root}
+      - {he: ביטול כל המילים הישנות בשפה, en: Abolishing all the old words of the language}
+      - {he: החייאת מילה עתיקה ומשמעות חדשה, en: Reviving an ancient word with a new meaning}
+      answer: 2
+      explanation_he: 'לפעמים החיו מילה עתיקה כמו "חשמל" ונתנו לה משמעות חדשה.'
+      explanation_en: 'Sometimes an ancient word like "keren" was revived and given a new meaning.'
+    - id: heb.pass9.022
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מי קובע איזו מילה חדשה תישאר בשימוש?'
+      prompt_en: 'Who decides which new word stays in use?'
+      choices:
+      - {he: האקדמיה בלבד, en: The academy alone}
+      - {he: משרד הממשלה, en: A government ministry}
+      - {he: הציבור, en: The public}
+      answer: 2
+      explanation_he: 'כתוב במפורש: "הציבור הוא שמחליט איזו מילה תישאר בשימוש".'
+      explanation_en: 'It says explicitly: "the public decides which word will stay in use".'
+    - id: heb.pass9.023
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה הכוונה במשפט "כך שפה חיה: היא משתנה ומתעדכנת"?'
+      prompt_en: 'What is meant by "so a language is alive: it changes and updates"?'
+      choices:
+      - {he: שפה מפסיקה להתקיים עם הזמן, en: A language ceases to exist with time}
+      - {he: שפה ממשיכה להתפתח ולהתחדש, en: A language keeps developing and renewing}
+      - {he: שפה נשארת כפי שהייתה תמיד, en: A language stays as it always was}
+      answer: 1
+      explanation_he: 'זו האנשה: שפה היא כמו יצור חי שמתפתח. המשפט מסכם את הקטע.'
+      explanation_en: 'It is personification: a language is like a living creature that develops. The sentence sums up the text.'
+    - id: heb.pass9.024
+      kind: true_false
+      difficulty: 0.5
+      prompt_he: 'לפי הקטע, האקדמיה ללשון העברית קובעת בעצמה איזו מילה תישאר.'
+      prompt_en: 'According to the text, the Academy of the Hebrew Language itself decides which word stays.'
+      answer: false
+      explanation_he: האקדמיה רק מציעה מילים. הציבור הוא שמחליט איזו מילה תתקבל.
+      explanation_en: The academy only proposes words. The public decides which word is accepted.
+- id: pass9.05
+  grade: 9
+  skill: hebrew.reading.passage_9
+  tags: [passage_9]
+  title: הבחירה
+  text_he: >-
+    בהפסקה הגדולה ראה נדב את החבורה מקיפה את גיל, תלמיד חדש בכיתה. אחד מהם הניח את התיק של גיל על גג המכולה ואמר בקול: "בוא תנסה להוריד אותו."
+    נדב ידע שאם יתערב יהיה לו קשה: החבורה הזאת הייתה פופולרית, והוא רצה להשתייך אליה. הוא עמד במקומו והרגיש איך הלב דופק.
+    ואז הוא ראה את הפנים של גיל, שניסה להישאר רגוע אבל הידיים שלו רעדו. נדב נזכר איך הרגיש ביום הראשון שלו בבית הספר.
+    הוא התקדם, הושיט יד, והוריד את התיק. "בוא," אמר לגיל, "נלך לשתות." בלי לענות לחבורה, התרחקו שניהם. בדרך חזרה לכיתה כבר לא הרגיש נדב את הלחץ בחזה, רק חיוך קטן שניסה להסתיר.
+    בערב כתב נדב ביומן: "לא בטוח שאני נחמד יותר מקודם. אני רק יודע שאם לא הייתי עושה כלום, לא הייתי מסוגל להסתכל במראה."
+  questions:
+    - id: heb.pass9.025
+      kind: choice
+      difficulty: 0.0
+      prompt_he: 'מה הקושי שבו עמד נדב?'
+      prompt_en: 'What difficulty did Nadav face?'
+      choices:
+      - {he: הוא לא ידע איפה התיק של גיל, en: 'He did not know where Gil''s bag was'}
+      - {he: הוא חשש לאבד את מקומו בחבורה, en: He feared losing his place in the group}
+      - {he: הוא היה עייף מהשיעורים הארוכים, en: He was tired from the long lessons}
+      answer: 1
+      explanation_he: 'נדב רצה להשתייך לחבורה, והתערבות עלולה הייתה לפגוע בכך.'
+      explanation_en: 'Nadav wanted to belong to the group, and intervening might harm that.'
+    - id: heb.pass9.026
+      kind: choice
+      difficulty: 0.5
+      prompt_he: 'מה גרם לנדב להחליט לפעול?'
+      prompt_en: 'What led Nadav to decide to act?'
+      choices:
+      - {he: הפנים של גיל וזיכרון היום הראשון, en: 'Gil''s face and the memory of the first day'}
+      - {he: מורה שצעקה עליו באמצע ההפסקה, en: A teacher who shouted at him in the middle of break}
+      - {he: פחד מהעונש שיקבל מהמנהלת, en: Fear of the punishment from the principal}
+      answer: 0
+      explanation_he: ראה את גיל מנסה להישאר רגוע ונזכר איך הוא עצמו הרגיש.
+      explanation_en: He saw Gil trying to stay calm and remembered how he himself had felt.
+    - id: heb.pass9.027
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מה פירוש המשפט "לא הייתי מסוגל להסתכל במראה"?'
+      prompt_en: 'What does "I could not look in the mirror" mean?'
+      choices:
+      - {he: היה נראה רע, en: He would look bad}
+      - {he: המראה הייתה שבורה, en: The mirror was broken}
+      - {he: היה מתבייש בעצמו, en: He would be ashamed of himself}
+      answer: 2
+      explanation_he: 'זו דרך ציורית לומר שהיה מתבייש במעשיו, אילו לא עזר.'
+      explanation_en: It is a figurative way to say he would be ashamed of his actions had he not helped.
+    - id: heb.pass9.028
+      kind: choice
+      difficulty: 1.5
+      prompt_he: 'מה אפשר להבין מהמשפט "לא בטוח שאני נחמד יותר מקודם"?'
+      prompt_en: 'What can we understand from "I am not sure I am nicer than before"?'
+      choices:
+      - {he: נדב כועס על עצמו שלא פעל מוקדם, en: Nadav is angry at himself for not acting sooner}
+      - {he: נדב צנוע ואינו רואה עצמו גיבור, en: Nadav is modest and does not see himself as a hero}
+      - {he: נדב רוצה שהחבורה תקבל אותו, en: Nadav wants the group to accept him}
+      answer: 1
+      explanation_he: הוא לא מתהלל במעשה אלא רק יודע שהיה חייב לפעול. זו צניעות.
+      explanation_en: He does not boast of the deed but only knows he had to act. That is modesty.
+    - id: heb.pass9.029
+      kind: choice
+      difficulty: 1.0
+      prompt_he: 'מהו הנושא המרכזי של הקטע?'
+      prompt_en: 'What is the central theme of the text?'
+      choices:
+      - {he: חשיבות הפופולריות בבית הספר, en: The importance of popularity at school}
+      - {he: סכנות של מכולות בחצר בית הספר, en: Dangers of containers in the school yard}
+      - {he: אומץ לעשות את הנכון גם כשקשה, en: Courage to do the right thing even when it is hard}
+      answer: 2
+      explanation_he: 'הסיפור מראה בחירה בין השתייכות לבין עשיית הנכון, ונדב בוחר בנכון.'
+      explanation_en: 'The story shows a choice between belonging and doing right, and Nadav chooses right.'
+    - id: heb.pass9.030
+      kind: true_false
+      difficulty: 0.0
+      prompt_he: 'לפי הקטע, נדב הצטרף לחבורה ועזר להם.'
+      prompt_en: 'According to the text, Nadav joined the group and helped them.'
+      answer: false
+      explanation_he: 'נדב הוריד את התיק עבור גיל והתרחק עימו, בלי להצטרף לחבורה.'
+      explanation_en: 'Nadav took the bag down for Gil and walked away with him, without joining the group.'

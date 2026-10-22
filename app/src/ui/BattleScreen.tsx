@@ -1,14 +1,15 @@
 import { type MutableRefObject, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import type { AnswerOutcome } from "../core/learning/engine";
 import type { Play } from "../app/play";
-import { Battle, type Effect, type Round, type RoundEvent, type SealResult } from "../core/game/battle";
+import { Battle, type Effect, type Round, type RoundEvent } from "../core/game/battle";
+import type { Selection, TryResult } from "../core/game/befriendTry";
 import type { IntentId, StatusId } from "../core/data/battleTypes";
 import type { Move } from "../core/game/moves";
 import { needFor } from "../core/game/collection";
 import type { Wild } from "../core/game/encounters";
 import { usable } from "../core/game/faint";
 import { seededRng } from "../core/game/rng";
-import { countOf, giveStarterKit } from "../core/game/items";
+import { giveStarterKit } from "../core/game/items";
 import type { QuizSession } from "../core/world/quiz";
 import { t } from "../i18n";
 import { gameClock } from "../platform/lifecycle";
@@ -16,6 +17,9 @@ import { pageSfx } from "../platform/sfx";
 import { ageFromProfile } from "../core/family/age";
 import { effectsFrom } from "../core/family/effects";
 import { ActionBar, type Friend } from "./battle/ActionBar";
+import { BefriendResult } from "./battle/BefriendResult";
+import { BefriendThrow, type ThrowSound } from "./battle/BefriendThrow";
+import { BefriendTray, WORD_TEXT } from "./battle/BefriendTray";
 import { BattleQuestion, presentationFor } from "./battle/BattleQuestion";
 import { planFor, planForFree } from "./battle/effects";
 import * as fxm from "./battle/fx";
@@ -50,8 +54,8 @@ interface Props {
   onChanged?: () => void;
 }
 
-/** menu: the cards are open; question: a move's question is open; playing: a round plays; seal: the net's question; caught, naming: after the net. */
-type Mode = "menu" | "question" | "playing" | "seal" | "caught" | "naming";
+/** menu: the cards are open; question: a move's question is open; playing: a round plays; gift: the tray's Gift question; throw: the befriend throw plays; caught, naming: after it. */
+type Mode = "menu" | "question" | "playing" | "gift" | "throw" | "caught" | "namecard" | "naming";
 
 /** The test hooks (docs/app/BATTLE_V3.md 12.1): localStorage numbers read once, never set by the game itself. */
 function hook(key: string): number | undefined {
@@ -59,6 +63,17 @@ function hook(key: string): number | undefined {
     const v = localStorage.getItem(key);
     const n = v === null ? NaN : Number(v);
     return Number.isFinite(n) && n > 0 ? n : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+/** The browser tests' befriend draws ("0.999,0": a sure fail, then a sure success), read once. */
+function diceHook(): number[] | undefined {
+  try {
+    const v = localStorage.getItem("nagmon.befriend.dice");
+    const list = v ? v.split(",").map(Number).filter((n) => Number.isFinite(n) && n >= 0 && n <= 1) : [];
+    return list.length ? list : undefined;
   } catch {
     return undefined;
   }
@@ -98,6 +113,11 @@ export interface BattleProbe {
   turns: number;
   questions: number;
   needSwap: boolean;
+  /** The Befriend tray is open, the tries of this fight, the failed ones, and the chance word of the choice in the tray. */
+  tray: boolean;
+  tries: number;
+  failed: number;
+  word: string | null;
   cards: { id: string; left: number | null; dimmed: boolean; hit: string | null }[];
   team: { id: string; fainted: boolean }[];
   spark: number;
@@ -131,7 +151,8 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     } catch {
       intents = undefined;
     }
-    const debug = { ...(intents ? { intents } : {}), ...(pep ? { pep } : {}), ...(fog ? { fog } : {}), ...(charges ? { charges } : {}), ...(spark ? { spark } : {}) };
+    const dice = diceHook();
+    const debug = { ...(intents ? { intents } : {}), ...(pep ? { pep } : {}), ...(fog ? { fog } : {}), ...(charges ? { charges } : {}), ...(spark ? { spark } : {}), ...(dice ? { dice } : {}) };
     const b = new Battle({
       engine: play.engine,
       data: play.battle!,
@@ -194,8 +215,14 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const fxId = useRef(0);
   // the move being asked, and the question
   const [cast, setCast] = useState<{ session: QuizSession; move: Move } | null>(null);
-  const [sealSession, setSealSession] = useState<QuizSession | null>(null);
-  const [lastSeal, setLastSeal] = useState<SealResult | null>(null);
+  // the Befriend tray (the choice in it, or null when closed), the Gift question, the throw in play and what it gave
+  const [tray, setTray] = useState<Selection | null>(null);
+  const [trayTurn, setTrayTurn] = useState(0);
+  const [giftSession, setGiftSession] = useState<QuizSession | null>(null);
+  const [flight, setFlight] = useState<{ r: TryResult; id: number } | null>(null);
+  const [befriended, setBefriended] = useState<TryResult | null>(null);
+  const [mood, setMood] = useState<"lean" | "sniff" | null>(null);
+  const autoTray = useRef(false);
   // the bars while a round plays (each beat sets what it shows), and whether the partner lies down already
   const [shown, setShown] = useState<{ fog: number; pep: number } | null>(null);
   const [sleeping, setSleeping] = useState(false);
@@ -254,6 +281,10 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
       turns: battle.turns,
       questions: battle.stats.questions,
       needSwap: battle.needSwap,
+      tray: tray !== null,
+      tries: battle.befriend.tries,
+      failed: battle.befriend.failed,
+      word: tray ? battle.befriend.chance(tray).word : null,
       cards: battle.cards().map((c) => ({ id: c.move.id, left: c.left, dimmed: c.dimmed, hit: c.hit })),
       team: battle.team().map((c) => ({ id: c.id, fainted: !usable(c) })),
       spark: battle.spark,
@@ -572,77 +603,121 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     return true;
   };
 
-  /** The Net: a net is thrown at the calm creature, then its seal question. */
-  const throwNet = (itemId: string) => {
-    setSheet(null);
-    if (!battle.throwNet(play.economy, itemId)) return;
-    const session = battle.nextSeal(play.economy);
-    if (!session) {
-      play.warn("A seal could not make a question");
+  // ---- befriending (docs/app/BATTLE_V3.md 8): the tray, the Gift question, the throw ----
+
+  /** The tray opens on the last choice (or Auto); with no tool at all the owl's spare net comes, once a day. */
+  const openTray = (pick?: string) => {
+    if (!battle.canBefriend()) return;
+    if (battle.befriend.options().tools.length === 0 && !battle.spareNet(play.economy, play.today())) {
+      setMsg(t("battleNoNet"));
       return;
     }
+    setMsg(null);
+    const cur = battle.befriend.initial();
+    const o = battle.befriend.options();
+    const sel: Selection = !pick ? cur : o.tools.some((x) => x.item.id === pick) ? { ...cur, tool: pick } : { ...cur, treat: pick };
+    setTray(sel);
+    setMood("lean");
+    setTrayTurn((n) => n + 1);
+  };
+
+  const closeTray = () => {
+    setTray(null);
+    setMood(null);
+    setTick((n) => n + 1);
+  };
+
+  /** The Gift question: normal tier, the creature's subject; right is x1.5, wrong or closed costs nothing. */
+  const onGift = () => {
+    const q = battle.giftQuestion();
+    if (!q) return;
     setFlow(askingFlow());
     setOutcome(null);
-    setSealSession(session);
-    setMode("seal");
+    setGiftSession(q);
+    setMode("gift");
   };
 
-  const onNet = () => {
-    const nets = Object.values(play.economy.items).filter((i) => i.kind === "net" && countOf(play.world, i.id) > 0);
-    if (nets.length === 0) {
-      // never stuck: the owl's spare net, once a day
-      const spare = battle.spareNet(play.economy, play.today());
-      if (!spare) {
-        setMsg(t("battleNoNet"));
-        return;
-      }
-      throwNet(spare.id);
-    } else if (nets.length === 1) throwNet(nets[0]!.id);
-    else setSheet("bag");
-  };
-
-  /** The seal answer was given: the line shows under the arena. */
-  const onSealResult = (o: AnswerOutcome) => {
-    if (!sealSession) return;
-    play.logAnswer(sealSession, "seal");
-    const caught = !!battle.lastSeal?.caught;
+  const onGiftResult = (o: AnswerOutcome) => {
+    if (!giftSession) return;
+    play.logAnswer(giftSession, "gift");
     const switches = effectsFrom(play.profile.settings);
-    void sfx.play(caught ? "win" : o.correct ? "hit" : "oops", switches);
-    if (o.correct) sfx.tick(switches);
+    void sfx.play(o.correct ? "hit" : "oops", switches);
     setOutcome(o);
     setFlow(answered(o.correct, performance.now()));
     void flowDone().then(() => {
       if (!alive.current) return;
       setOutcome(null);
-      afterSeal();
+      afterGift();
     });
   };
 
-  const afterSeal = () => {
-    const session = sealSession;
-    if (session?.passed) {
-      const next = battle.nextSeal(play.economy);
+  const afterGift = () => {
+    const passed = giftSession?.passed;
+    if (passed) {
+      const next = battle.giftQuestion();
       if (next) {
-        setSealSession(next);
+        setGiftSession(next);
         return;
       }
     }
-    const seal = battle.lastSeal;
-    setSealSession(null);
-    setLastSeal(seal);
-    if (!seal) {
-      setMode("menu");
+    setGiftSession(null);
+    const g = battle.befriend.gift;
+    setMsg(g === null ? null : g ? t("befriendGiftWon") : t("befriendGiftLost"));
+    setMode("menu");
+    setTrayTurn((n) => n + 1);
+  };
+
+  /** Throw: the outcome is decided now and the throw only shows it (about 4 s, a tap speeds it up, a second skips). */
+  const onThrow = () => {
+    if (!tray) return;
+    const r = battle.tryBefriend(tray);
+    setTray(null);
+    if (r.kind === "refused") {
+      setMood(null);
+      setMsg(r.refusal === "full" ? t("befriendFull", { name: wildName }) : r.refusal === "no_tool" ? t("battleNoNet") : null);
+      setTick((n) => n + 1);
       return;
     }
-    if (seal.caught) {
-      if (seal.growth?.leveled) setCard({ before: battle.partner.species, evolvedTo: seal.growth.evolvedTo, level: seal.growth.level });
+    setMsg(null);
+    setMood(null);
+    setFlight({ r, id: ++fxId.current });
+    setMode("throw");
+  };
+
+  const throwSound = (s: ThrowSound) => {
+    const switches = effectsFrom(play.profile.settings);
+    if (s === "shake") sfx.tick(switches);
+    else if (s === "win") void sfx.play("win", switches);
+    else if (s === "throw") void sfx.play("hit", switches);
+  };
+
+  /** The throw is over: a friend (the result card), or a gentle fail (the creature sniffs the net, the chance word moved). */
+  const thrown = () => {
+    const f = flight;
+    setFlight(null);
+    if (!f || !alive.current) return;
+    const r = f.r;
+    setBefriended(r);
+    if (r.kind === "caught") {
+      if (r.growth?.leveled) setCard({ before: battle.partner.species, evolvedTo: r.growth.evolvedTo, level: r.growth.level });
       setMode("caught");
-    } else {
-      setMsg(seal.correct ? t("battleSealOpen", { left: seal.left }) : t("battleSealMiss"));
-      setMode("menu");
+      return;
     }
+    const said = r.nextMercy ? t("befriendSniffMercy", { name: wildName }) : t("befriendSniff", { name: wildName, word: r.nextWord ? t(WORD_TEXT[r.nextWord]) : "" });
+    setMsg(r.netBack ? `${said} ${t("befriendNetBack")}` : said);
+    setMood("sniff");
+    setTimeout(() => alive.current && setMood((m) => (m === "sniff" ? null : m)), 1800 * scale);
+    setMode("menu");
     setTick((n) => n + 1);
   };
+
+  // the creature calms: the tray pops up by itself once (T14), after any level-up card
+  useEffect(() => {
+    if (battle.phase !== "calm" || mode !== "menu" || card || tray || autoTray.current || sheet) return;
+    autoTray.current = true;
+    openTray();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
 
   const mine = battle.partner;
   const myName = nameOf(mine.id);
@@ -654,7 +729,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   };
   const phase = battle.phase;
 
-  if (card && mode !== "question" && mode !== "playing" && mode !== "seal") {
+  if (card && mode !== "question" && mode !== "playing" && mode !== "gift" && mode !== "throw") {
     return (
       <ScreenTime key={`card-${tick}`}>
         <GrowthCard monsters={play.monsters} before={card.before} evolvedTo={card.evolvedTo} level={card.level} name={(sp) => play.text(sp)} learned={learnedLine(card.level)} onClose={() => setCard(null)} />
@@ -685,53 +760,61 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     );
   }
 
+  const friend = befriended?.caught ?? null;
+  const leaveCaught = () => {
+    finished.current = true;
+    onDone(true);
+  };
+
   if (mode === "naming") {
-    const c = lastSeal?.caught ? play.world.creatures.find((x) => x.id === lastSeal.caught?.id) : undefined;
     return (
       <LetterBoard
         title={t("nameItTitle")}
         onDone={(text) => {
-          if (c) battle.nameIt(c.id, text);
-          finished.current = true;
-          onDone(true);
+          if (friend) battle.nameIt(friend.id, text);
+          leaveCaught();
         }}
-        onCancel={() => setMode("caught")}
+        onCancel={() => setMode("namecard")}
       />
     );
   }
 
-  if (mode === "caught" && lastSeal?.caught) {
-    const c = lastSeal.caught;
+  // "Name it" is a chip on the result card (8.6): the three suggested names, a name of one's own, or none
+  if (mode === "namecard" && friend && befriended) {
     return (
-      <ScreenTime key={`caught-${tick}`}>
+      <ScreenTime key="namecard">
         <NameCard
           monsters={play.monsters}
-          species={c.species}
-          title={t("battleNewFriend", { name: play.text(c.species) })}
-          line={lastSeal.toMeadow ? t("battleToMeadow") : t("battleJoined")}
-          coins={lastSeal.coins}
-          suggestions={suggestionsFor(c.species, c.level)}
+          species={friend.species}
+          title={t("battleNewFriend", { name: play.text(friend.species) })}
+          line={befriended.toMeadow ? t("battleToMeadow") : t("battleJoined")}
+          coins={0}
+          suggestions={suggestionsFor(friend.species, friend.level)}
           freeNames={play.profile.settings["free_names"] !== false}
           onPick={(name) => {
-            battle.nameIt(c.id, name);
-            finished.current = true;
-            onDone(true);
+            battle.nameIt(friend.id, name);
+            leaveCaught();
           }}
           onOwn={() => setMode("naming")}
-          onSkip={() => {
-            finished.current = true;
-            onDone(true);
-          }}
+          onSkip={leaveCaught}
         />
       </ScreenTime>
     );
   }
 
+  if (mode === "caught" && friend && befriended) {
+    return (
+      <ScreenTime key="caught">
+        <BefriendResult monsters={play.monsters} species={friend.species} name={play.text(friend.species)} r={befriended} canName={play.profile.settings["free_names"] !== false} onNext={leaveCaught} onName={() => setMode("namecard")} />
+      </ScreenTime>
+    );
+  }
+
   // a question is a part of the battle: the creatures stay in view while the child thinks
-  const asking = mode === "question" || mode === "seal";
-  const session = mode === "question" ? cast?.session : mode === "seal" ? sealSession : null;
+  const asking = mode === "question" || mode === "gift";
+  const session = mode === "question" ? cast?.session : mode === "gift" ? giftSession : null;
   const calmView = phase === "calm" || phase === "won";
-  const view = mode === "question" ? "question" : mode === "seal" ? "seal" : mode === "playing" ? "playing" : phase === "calm" ? "calm" : phase === "won" ? "won" : battle.needSwap ? "swap" : battle.turns === 0 ? "meet" : "turn";
+  const view = mode === "question" ? "question" : mode === "gift" ? "gift" : mode === "throw" ? "throw" : mode === "playing" ? "playing" : phase === "calm" ? "calm" : phase === "won" ? "won" : battle.needSwap ? "swap" : battle.turns === 0 ? "meet" : "turn";
   const band = battle.band;
   const detail = band === "A" ? 1 : band === "B" ? 2 : 3;
   const team = battle.team();
@@ -747,6 +830,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const calmLine = battle.reward?.capped ? t("battleCapped", { name: wildName }) : phase === "won" ? t("battleMasterWon", { name: wildName }) : t("battleCalm", { name: wildName });
   const needBar = mode === "menu" || mode === "playing";
   const finaleCard = battle.finaleCard();
+  const trayOpen = tray !== null && mode === "menu";
 
   return (
     <ScreenTime key="battle">
@@ -758,6 +842,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
         data-asking={asking}
         data-flow={flow.k}
         data-calm={phase === "calm"}
+        data-tray={trayOpen}
         data-turn={mode === "playing" ? "playing" : "idle"}
         data-hp={shown?.fog ?? battle.fog}
         data-pep={shown?.pep ?? pep.now}
@@ -799,7 +884,10 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
             battle.wakeTap();
             nudge((n) => n + 1);
           }}
-        />
+          mood={mood}
+        >
+          {mode === "throw" && flight && <BefriendThrow key={flight.id} r={flight.r} scale={scale} sound={throwSound} onDone={thrown} />}
+        </Stage>
         {!asking && calmView && battle.reward && (
           <div className="message-box top" data-id="battle_message" role="status">
             <ResultsCard reward={battle.reward} asleep={asleepNames} line={calmLine} />
@@ -850,9 +938,9 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
             />
           </div>
         )}
-        {mode === "seal" && sealSession && (
+        {mode === "gift" && giftSession && (
           <div className="battle-ask" data-screen="battle-ask" data-seal="true" data-pad={padAnswer}>
-            <BattleQuestion session={sealSession} text={(id) => play.text(id)} subjectTitle={subjectTitle} onResult={onSealResult} onClose={afterSeal} onPhase={lookChanged} />
+            <BattleQuestion session={giftSession} text={(id) => play.text(id)} subjectTitle={subjectTitle} onResult={onGiftResult} onClose={afterGift} onPhase={lookChanged} />
           </div>
         )}
         {asking && flow.k === "result" && outcome && (
@@ -881,7 +969,8 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
             {t("battleFinaleReady")}
           </Tap>
         )}
-        {phase !== "won" && needBar && (
+        
+        {phase !== "won" && needBar && !trayOpen && (
           <ActionBar
             monsters={play.monsters}
             cards={battle.cards()}
@@ -889,7 +978,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
             subjectTitle={subjectTitle}
             friends={friends}
             calm={phase === "calm"}
-            canNet={phase === "calm" && mode === "menu"}
+            canBefriend={battle.canBefriend() && mode === "menu"}
             live={live}
             idle={mode === "menu"}
             queued={queued}
@@ -897,12 +986,32 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
             turn={tick}
             onMove={onMove}
             onFriend={onFriend}
-            onNet={onNet}
+            onBefriend={() => openTray()}
             onBag={() => setSheet("bag")}
             onLeave={leave}
           />
         )}
-        {sheet === "bag" && <BagView play={play} battle={{ calm: phase === "calm", onNet: throwNet, onMedicine, targets: (itemId) => battle.medicineTargets(itemId) }} onClose={() => setSheet(null)} />}
+        {trayOpen && tray && (
+          <BefriendTray
+            tools={battle.befriend.options().tools}
+            treats={battle.befriend.options().treats}
+            tool={tray.tool}
+            treat={tray.treat}
+            word={battle.befriend.chance(tray).word}
+            mercy={battle.befriend.chance(tray).mercy}
+            gift={battle.befriend.gift}
+            canGift={battle.canBefriend()}
+            likedKnown={battle.befriend.likedKnown()}
+            turn={trayTurn}
+            onTool={(id) => setTray({ ...tray, tool: id })}
+            onTreat={(id) => setTray({ ...tray, treat: id })}
+            onGift={onGift}
+            onAuto={() => setTray(battle.befriend.options().auto)}
+            onThrow={onThrow}
+            onClose={closeTray}
+          />
+        )}
+        {sheet === "bag" && <BagView play={play} battle={{ canBefriend: battle.canBefriend(), onTool: (id) => { setSheet(null); openTray(id); }, onMedicine, targets: (itemId) => battle.medicineTargets(itemId) }} onClose={() => setSheet(null)} />}
       </section>
     </ScreenTime>
   );

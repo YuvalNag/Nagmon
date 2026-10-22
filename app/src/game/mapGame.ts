@@ -78,6 +78,12 @@ export interface MapOptions {
    */
   resume?: () => Promise<Place | null>;
   /**
+   * Who of the people of the world stands on a map as it opens (core/world/resolver.ts):
+   * asked each time the map is entered, so the town of this hour and this day is the one
+   * drawn. A failure leaves the map with its own `create_npc` people only.
+   */
+  place?: (world: WorldMap) => Promise<Placement[]>;
+  /**
    * The app's lifecycle (src/platform/lifecycle.ts): the map pauses in the
    * background (loop, music, d-pad) and goes on in the foreground.
    */
@@ -311,11 +317,22 @@ class MapScene extends Phaser.Scene {
     if (!json) throw new Error(`no map ${name}`);
     const world = this.maps.get(name) ?? readMap(name, json);
     this.maps.set(name, world);
+    // the people of the world of this hour: decided again at every entry (the town differs by day and hour)
+    world.placed = [];
+    if (world.placement && this.opts.place) {
+      try {
+        world.placed = (await this.opts.place(world)).filter((p) => !world.npcs.some((n) => n.slug === p.slug));
+      } catch (e) {
+        log.warning(`Nobody was placed on ${name}: ${e instanceof Error ? e.message : String(e)}`);
+      }
+      if (this.dead) return false;
+    }
+    const everyone = [...world.npcs, ...world.placed];
     const ts = json.tilesets[0];
     const npcs = this.cache.json.get("db:npcs");
     await this.loadAll(() => {
       if (!this.textures.exists(atlasKey(name))) this.load.image(atlasKey(name), `game/${ts.image.replace(/^\.\.\//, "")}`);
-      for (const p of world.npcs) {
+      for (const p of everyone) {
         const sheet = npcSheet(npcs, p.slug);
         if (sheet && !this.textures.exists(npcKey(p.slug)) && this.fits(sheet, world)) {
           this.load.spritesheet(npcKey(p.slug), sheet.url, { frameWidth: sheet.frameWidth, frameHeight: sheet.frameHeight });
@@ -341,7 +358,7 @@ class MapScene extends Phaser.Scene {
     this.zoom = zoomFor(world, this.render);
 
     this.leftOff = [];
-    for (const p of world.npcs) {
+    for (const p of everyone) {
       const sheet = npcSheet(npcs, p.slug);
       if (!sheet || !this.textures.exists(npcKey(p.slug))) {
         this.leftOff.push(p.slug);
@@ -411,12 +428,13 @@ class MapScene extends Phaser.Scene {
   private remember(name: string): void {
     this.cached = [name, ...this.cached.filter((m) => m !== name)];
     const dropped = this.cached.splice(KEEP_MAPS);
-    const needed = new Set(this.cached.flatMap((m) => this.maps.get(m)?.npcs.map((n) => n.slug) ?? []));
+    const everyoneOn = (m: string) => [...(this.maps.get(m)?.npcs ?? []), ...(this.maps.get(m)?.placed ?? [])];
+    const needed = new Set(this.cached.flatMap((m) => everyoneOn(m).map((n) => n.slug)));
     for (const m of dropped) {
       this.cache.tilemap.remove(tilesKey(m));
       if (this.textures.exists(atlasKey(m))) this.textures.remove(atlasKey(m));
       this.filters.delete(atlasKey(m));
-      for (const n of this.maps.get(m)?.npcs ?? []) {
+      for (const n of everyoneOn(m)) {
         if (!needed.has(n.slug) && this.textures.exists(npcKey(n.slug))) {
           this.textures.remove(npcKey(n.slug));
           this.filters.delete(npcKey(n.slug));

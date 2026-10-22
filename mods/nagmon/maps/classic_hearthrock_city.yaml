@@ -6,8 +6,53 @@
 # The five doors on this map lead to the houses' insides (nagmon_home,
 # nagmon_lab, nagmon_friend_house, nagmon_rest_center, nagmon_shop). A door
 # that leads nowhere must stay a wall (tests/app/test_app_maps.py).
+#
+# Who stands where is not written here any more: the people of the town are
+# in mods/nagmon/npcs (one file each, with their schedule), and the
+# resolver puts them on the named spots below by the day and the time
+# (docs/app/WORLD_V2.md 5.4). `Place People` makes them exist for the
+# scripts. The wallet and the kitten are props of a quest and keep
+# their create_npc.
+#
+# Keep these tiles free of spots: the walk from the start to the shop
+# (row 16 from x 14 to 29, and the tile 14,15) that the browser tests make.
+placement:
+  max_npcs: 10
+  spots:
+    owl_post: [29, 15, down]
+    cashier_post: [14, 14, down]
+    post_box: [20, 7, down]
+    school_gate: [24, 7, down]
+    bench_east: [35, 7, left]
+    greenhouse: [4, 16, right]
+    flowerbed: [9, 17, up]
+    market_stall: [20, 14, down]
+    market_stall_2: [21, 14, down]
+    pharmacy_door: [10, 14, down]
+    tailor_door: [12, 8, down]
+    clock_corner: [8, 8, down]
+    library_steps: [28, 7, down]
+    workshop_door: [31, 7, down]
+    plaza_west: [8, 11, right]
+    plaza_mid: [16, 11, down]
+    fountain: [26, 11, down]
+    plaza_east: [32, 11, left]
+    park_bench: [34, 12, left]
+    meadow_gate: [37, 8, left]
+    east_gate: [37, 15, left]
+    south_east: [34, 16, up]
+    pond_view: [36, 17, left]
+    corner_lane: [3, 12, right]
 
 events:
+
+  # ----------------------------------------- the people of the town
+  Place People:
+    type: event
+    conditions:
+    - not npcs_placed
+    actions:
+    - place_npcs
 
   # ----------------------------------------- the houses' doors
   Teleport to Home:
@@ -76,28 +121,6 @@ events:
     - set_variable blackout_no_monsters:true
     - set_teleport_faint player,classic_hearthrock_city.tmx,29,16
     - set_variable nagmon_started:yes
-
-  Create Owl:
-    type: event
-    conditions:
-    - not char_exists nagmon_owl
-    - not variable_set academy_granite_done:yes
-    actions:
-    - create_npc nagmon_owl,29,15
-    - char_face nagmon_owl,down
-
-  # After the first badge the owl wears its cape. NPCs are made again on
-  # every load of the map, so the cape goes on each time it is created
-  # (docs/kids/SDD_ART.md §2.8).
-  Create Owl Caped:
-    type: event
-    conditions:
-    - not char_exists nagmon_owl
-    - is variable_set academy_granite_done:yes
-    actions:
-    - create_npc nagmon_owl,29,15
-    - char_face nagmon_owl,down
-    - set_template nagmon_owl,nagmon_owl_caped,nagmon_owl
 
   Owl Intro:
     type: event
@@ -260,14 +283,6 @@ events:
     - set_variable nagmon_owl_congrats_mila:yes
 
   # ------------------------------------- Avi the shopkeeper: money math
-  Create Cashier:
-    type: event
-    conditions:
-    - not char_exists nagmon_cashier
-    actions:
-    - create_npc nagmon_cashier,14,14
-    - char_face nagmon_cashier,down
-
   Cashier Talk Small:
     type: event
     behav:
@@ -328,14 +343,6 @@ events:
     - translated_dialog nagmon_world_cashier_wrong,nagmon_cashier
 
   # -------------------------------------------- Tom the tourist: English
-  Create Tourist:
-    type: event
-    conditions:
-    - not char_exists nagmon_tourist
-    actions:
-    - create_npc nagmon_tourist,20,7
-    - char_face nagmon_tourist,down
-
   Tourist Talk:
     type: event
     behav:
@@ -351,7 +358,7 @@ events:
     - is nagmon_daily_below tourist,3
     actions:
     - clear_variable nagmon_tourist_q
-    - add_item potion,1
+    - give_item dew_drop,1
     - nagmon_daily_count tourist
     - translated_dialog nagmon_world_tourist_good,nagmon_tourist
 
@@ -373,14 +380,6 @@ events:
     - translated_dialog nagmon_world_tourist_wrong,nagmon_tourist
 
   # ----------------------------------------- Michal the gardener: science
-  Create Gardener:
-    type: event
-    conditions:
-    - not char_exists nagmon_gardener
-    actions:
-    - create_npc nagmon_gardener,4,16
-    - char_face nagmon_gardener,right
-
   Gardener Talk:
     type: event
     behav:
@@ -396,7 +395,7 @@ events:
     - is nagmon_daily_below gardener,3
     actions:
     - clear_variable nagmon_gardener_q
-    - add_item wood_berry,1
+    - give_item berry,1
     - nagmon_daily_count gardener
     - translated_dialog nagmon_world_gardener_good,nagmon_gardener
 
@@ -418,19 +417,16 @@ events:
     - translated_dialog nagmon_world_gardener_wrong,nagmon_gardener
 
   # -------------------------------- Yoav and Pitzi the kitten: kindness
-  Create Kid:
-    type: event
-    conditions:
-    - not char_exists nagmon_kid
-    actions:
-    - create_npc nagmon_kid,24,7
-    - char_face nagmon_kid,down
-
+  # The kitten quest waits for the quest slice (W3): the kitten on Route 1
+  # needs remove_npc and a sprite that follows the story. Until then Yoav
+  # only chats (his lines are in mods/nagmon/npcs), so no child is sent
+  # looking for a kitten that cannot be found.
   Kid Talk Lost:
     type: event
     behav:
     - talk nagmon_kid
     conditions:
+    - is variable_set nagmon_quests_w3:yes
     - not variable_set nagmon_kitten
     actions:
     - translated_dialog nagmon_world_kid_lost
@@ -453,7 +449,7 @@ events:
     - is variable_set nagmon_kitten:found
     actions:
     - translated_dialog nagmon_world_kid_thanks
-    - add_item potion,2
+    - give_item dew_drop,2
     - modify_money player,30
     - translated_dialog nagmon_world_kid_reward
     - set_variable nagmon_kitten:home
@@ -524,23 +520,6 @@ events:
     - remove_npc nagmon_wallet
     - translated_dialog nagmon_world_wallet_kept
 
-  Create Granny:
-    type: event
-    conditions:
-    - not char_exists nagmon_granny
-    actions:
-    - create_npc nagmon_granny,35,7
-    - char_face nagmon_granny,left
-
-  Granny Talk Hello:
-    type: event
-    behav:
-    - talk nagmon_granny
-    conditions:
-    - not variable_set nagmon_wallet
-    actions:
-    - translated_dialog nagmon_world_granny_hello
-
   Granny Talk Thanks:
     type: event
     behav:
@@ -551,7 +530,7 @@ events:
     - set_variable nagmon_wallet:returned
     - translated_dialog nagmon_world_granny_thanks
     - modify_money player,30
-    - add_item water_berry,1
+    - give_item berry,1
     - translated_dialog nagmon_world_granny_reward
     - translated_dialog nagmon_world_granny_value
 
@@ -576,7 +555,7 @@ events:
     - clear_variable nagmon_granny_choice
     - translated_dialog nagmon_world_granny_thanks
     - modify_money player,30
-    - add_item water_berry,1
+    - give_item berry,1
     - translated_dialog nagmon_world_granny_reward
     - translated_dialog nagmon_world_granny_value
 
@@ -596,3 +575,20 @@ events:
     - is variable_set nagmon_wallet:returned
     actions:
     - translated_dialog nagmon_world_granny_happy
+
+  # ---- working objects (mods/nagmon/objects/*.yaml; tools/app/objects.py checks that these events match them)
+
+  Create Notice Board:
+    type: event
+    conditions:
+    - not char_exists nagmon_obj_noticeboard
+    actions:
+    - create_npc nagmon_obj_noticeboard,21,15
+    - char_face nagmon_obj_noticeboard,down
+
+  Notice Board Talk:
+    type: event
+    behav:
+    - talk nagmon_obj_noticeboard
+    actions:
+    - open_object noticeboard

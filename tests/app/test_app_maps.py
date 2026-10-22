@@ -25,13 +25,16 @@ KNOWN_ACTIONS = {
     "nagmon_daily_count",
     "open_tutor",
     "open_chest",
+    "open_object",
     "open_rest",
     "open_shop",
     "place_egg",
+    "place_npcs",
     "play_map_animation",
     "play_music",
     "random_encounter",
     "remove_npc",
+    "send_letter",
     "set_battle",
     "set_environment",
     "set_monster_health",
@@ -57,6 +60,7 @@ KNOWN_CONDITIONS = {
     "environment_is",
     "music_playing",
     "nagmon_daily_below",
+    "npcs_placed",
     "one_of",
     "party_size",
     "profile_grade_at_least",
@@ -227,7 +231,7 @@ def test_city_has_both_the_tmx_events_and_the_nagmon_events(built):
         s["source"] for s in scripts(map_doc(built, "classic_hearthrock_city"))
     ]
     assert sources.count("tmx") == 6
-    assert sources.count("nagmon") == 57
+    assert sources.count("nagmon") == 52
 
 
 def test_event_box_is_in_pixels_of_the_map_tiles(built):
@@ -301,6 +305,10 @@ def test_npcs_are_created_on_free_tiles(built, name):
         for action in script["actions"]:
             if action["type"] == "create_npc":
                 x, y = int(action["args"][1]), int(action["args"][2])
+                # a working object (the PC, the shelf) may stand against the furniture of a nook:
+                # it is talked to from the free tile in front of it (WORLD_V2.md section 8)
+                if action["args"][0].startswith("nagmon_obj_"):
+                    continue
                 assert rows[y][x] == ".", action
 
 

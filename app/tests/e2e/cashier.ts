@@ -42,18 +42,22 @@ export const TODAY = `(() => { const d = new Date(); const p = (n) => String(n).
  */
 export async function seedChild(
   page: Page,
-  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number>, creatures = null as null | Record<string, unknown>[], battleScale = 0.1, battleStart = {} as Record<string, number | string> } = {},
+  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number>, creatures = null as null | Record<string, unknown>[], battleScale = 0.1, battleStart = {} as Record<string, number | string>, befriendDice = "" } = {},
 ) {
   await page.addInitScript(
-    ({ grade, settings, world, seed, pid, today, intro, battle, items, creatures, battleScale, battleStart }) => {
+    ({ grade, settings, world, seed, pid, today, intro, battle, items, creatures, battleScale, battleStart, befriendDice }) => {
       if (localStorage.getItem("seeded")) return;
       localStorage.setItem("seeded", "1");
       localStorage.setItem("nagmon.map.adaptiveResolution", "off");
       localStorage.setItem("nagmon.quiz.seed", String(seed));
+      // the people of the town are those of ten in the morning, whatever the machine's clock says
+      localStorage.setItem("nagmon.clock.hour", "10");
       // a battle's draws are the same every run, and its beats are short unless a test wants the real ones (battle_v3.spec.ts)
       localStorage.setItem("nagmon.battle.seed", String(seed));
       if (battleScale !== 1) localStorage.setItem("nagmon.battle.timescale", String(battleScale));
       for (const [k, v] of Object.entries(battleStart)) localStorage.setItem(`nagmon.battle.${k}`, String(v));
+      // the befriend draws of the first tries, in order ("0.999,0.9,0": a fail on shake 1, the net's draw, then a sure success)
+      if (befriendDice) localStorage.setItem("nagmon.befriend.dice", befriendDice);
       localStorage.setItem("nagmon-fs:d:profiles", "");
       localStorage.setItem(`nagmon-fs:d:profiles/${pid}`, "");
       localStorage.setItem(
@@ -76,7 +80,7 @@ export async function seedChild(
         localStorage.setItem(`nagmon-fs:f:profiles/${pid}/saves/world.json`, JSON.stringify({ schema_version: 1, money: have.money, variables, ...extra, ...(Object.keys(items).length ? { items } : {}) }));
       }
     },
-    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle, items, creatures, battleScale, battleStart },
+    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle, items, creatures, battleScale, battleStart, befriendDice },
   );
 }
 
@@ -117,8 +121,9 @@ export async function steps(page: Page, dir: string, n: number) {
 /** From the start (29,16) to (14,15), facing the cashier at (14,14) (the shop door at (13,13) stays free). */
 export async function toCashier(page: Page) {
   expect((await debug(page))!.player).toMatchObject({ x: 29, y: 16 });
-  // nobody to talk to at the start: the owl's words wait for M5
-  await expect(page.locator(id("map_talk"))).toHaveCount(0);
+  // the owl stands in front of the start and can be talked to now: every person of the world can (W1)
+  expect((await debug(page))!.inFront).toBe("nagmon_owl");
+  await expect(page.locator(id("map_talk"))).toBeVisible();
   await steps(page, "left", 15);
   await steps(page, "up", 1);
   const d = (await debug(page))!;
@@ -192,4 +197,12 @@ export async function castMove(page: Page, steps = 30) {
   const card = page.locator(".move-card:not(:disabled)").first();
   await expect(card).toBeVisible();
   await touch(page, card, steps);
+}
+
+/** The Befriend tray is open (it pops up by itself at calm, or from the Befriend button) and Throw is pressed; resolves when the throw layer is gone. */
+export async function throwNow(page: Page) {
+  if (!(await page.locator(id("befriend_tray")).count())) await touch(page, page.locator(id("battle_befriend")), 30);
+  await expect(page.locator(id("befriend_tray"))).toBeVisible();
+  await touch(page, page.locator(id("befriend_throw")), 30);
+  await expect(page.locator(id("befriend_throw"))).toHaveCount(0, { timeout: 20_000 });
 }

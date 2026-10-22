@@ -1,0 +1,35 @@
+# Shira the Photographer (docs/app/WORLD_V2.md 6: row 15). Art is a stand-in (the orange dress of Mila): needs a photographer sheet.
+id: nagmon_photographer
+short: shira
+class: R
+name_he: שירה הצלמת
+name_en: Shira the Photographer
+role: photographer
+age_feel: adult
+sprite: nagmon_mila
+voice:
+  style: "observant, says hold still, loves light"
+  quirks: ["frames the view with her fingers"]
+  catchphrases: ["עמדו רגע בשקט!"]
+  register: playful
+personality: [observant, patient, cheerful]
+knows:
+  topics:
+    - {id: photo, label_he: "איך מצלמים?", icon: "1f4f7", unlock: 0}
+    - {id: light, label_he: "על אור", icon: "2600", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["catch one perfect picture of the town"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spots: [fountain, plaza_east, market_stall_2, park_bench]}}
+    - {when: {phase: [evening]}, at: null}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {quests: [q_show_creature]}
+relationship:
+  memory_flags: [asked_photo, asked_light, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

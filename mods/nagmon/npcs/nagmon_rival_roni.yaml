@@ -1,0 +1,35 @@
+# Roni (docs/app/WORLD_V2.md 6: row 16). Art is a stand-in (the rover driver): needs a teen sheet. Roni learns alongside the child.
+id: nagmon_rival_roni
+short: roni
+class: R
+name_he: רוני
+name_en: Roni
+role: rival_learner
+age_feel: teen
+sprite: nagmon_rover_driver
+voice:
+  style: "competitive but kind, always asks how do you do it"
+  quirks: ["counts on her fingers when nobody looks"]
+  catchphrases: ["איך עושים את זה?"]
+  register: playful
+personality: [competitive, curious, generous]
+knows:
+  topics:
+    - {id: how, label_he: "איך עושים את זה?", icon: "1f914", unlock: 0}
+    - {id: race, label_he: "מי מהיר יותר?", icon: "1f3c3", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["learn something new every day"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [afternoon]}, at: {map: classic_hearthrock_city, spot: plaza_east}}
+    - {when: {phase: [evening], every: 2}, at: {map: classic_hearthrock_city, spot: fountain}}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {teach: roni}
+relationship:
+  memory_flags: [asked_how, asked_race, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}

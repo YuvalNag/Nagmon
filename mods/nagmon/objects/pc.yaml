@@ -1,0 +1,33 @@
+# The PC (docs/app/WORLD_V2.md section 8, object 1): five tabs. Boxes (the Meadow in boxes, sorted, a star;
+# a friend moves between the party and a box and nothing can be released), Items (an item box with 99 more of
+# every item), Mail, Journal ("what I learned" by subject, with kind words and a Recap) and People (everyone
+# met, hearts 0 to 3). The screen is app/src/ui/pc/PcScreen.tsx; what the PC remembers is `pc`, `journal`,
+# `mail` and `met` in the child's world.json (all optional).
+#
+# `places` say where it stands: the map and the tile of the prop (the map's own events create it and run
+# `open_object pc`; tools/app/objects.py checks that they do). Move an object by changing the place AND the
+# map's events together; the build stops when they disagree.
+id: pc
+screen: pc
+title_he: המחשב
+sprite: nagmon_pc
+places:
+  - {map: nagmon_home, x: 2, y: 2}
+  - {map: nagmon_rest_center, x: 1, y: 3}
+# The People tab's directory: who can be met, and what they offer. W1's NPC definitions replace this list with
+# the real cast (the contract is core/game/people.ts: a slug, a name, what they offer, a picture).
+people:
+  - {slug: nagmon_owl, name_he: הינשוף החכם, offers_he: שאלות ועצות, emoji: "1f989"}
+  - {slug: nagmon_cashier, name_he: המוכר אבי, offers_he: חשבון וקופה, emoji: "1f9d1"}
+  - {slug: nagmon_house_shopkeeper, name_he: המוכר אבי, offers_he: חנות עם מדפים, emoji: "1f6d2"}
+  - {slug: nagmon_house_nurse, name_he: האחות דנה, offers_he: מנוחה ומתנת היום, emoji: "1fa7a"}
+  - {slug: nagmon_house_tutor, name_he: המורה, offers_he: שיעורים במעבדה, emoji: "1f4da"}
+  - {slug: nagmon_gardener, name_he: הגננת מיכל, offers_he: שאלות על מדעים, emoji: "1f33b"}
+  - {slug: nagmon_tourist, name_he: טום התייר, offers_he: אנגלית בכיף, emoji: "1f9f3"}
+  - {slug: nagmon_granny, name_he: סבתא רינה, offers_he: סיפורים ותודות, emoji: "1f475"}
+  - {slug: nagmon_kid, name_he: יואב, offers_he: משחקים עם פיצי, emoji: "1f9d2"}
+  - {slug: nagmon_solar_astronomer, name_he: האסטרונומית, offers_he: כוכבים וחלל, emoji: "1f52d"}
+  - {slug: nagmon_solar_mila, name_he: מילה, offers_he: נסיעות בין העולמות, emoji: "1f680"}
+  - {slug: nagmon_solar_moon_engineer, name_he: מהנדסת הירח, offers_he: הירח ואורות, emoji: "1f319"}
+  - {slug: nagmon_solar_rover_driver, name_he: נהג הרובר, offers_he: מאדים וסלעים, emoji: "1f697"}
+  - {slug: nagmon_solar_sage, name_he: החכם, offers_he: ענקי הגז, emoji: "1fa90"}

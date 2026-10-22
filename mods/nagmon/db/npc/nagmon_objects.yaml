@@ -1,0 +1,80 @@
+# The working objects of the world (docs/app/WORLD_V2.md section 8; the definitions are mods/nagmon/objects/*.yaml):
+# one static prop for each, a 16x32 picture on the map, stand-ins until the generated art exists
+# (docs/app/ART_NEEDED_W2.md). The maps create them and run `open_object <id>` when the child talks to them.
+- slug: nagmon_obj_pc
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_pc
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true
+- slug: nagmon_obj_mailbox
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_mailbox
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true
+- slug: nagmon_obj_bookshelf
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_bookshelf
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true
+- slug: nagmon_obj_library
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_bookshelf
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true
+- slug: nagmon_obj_tv
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_tv
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true
+- slug: nagmon_obj_fridge
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_fridge
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true
+- slug: nagmon_obj_noticeboard
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_noticeboard
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true

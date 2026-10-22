@@ -91,3 +91,50 @@ events:
     - talk nagmon_nest_home
     actions:
     - place_egg
+
+  # ---- working objects (mods/nagmon/objects/*.yaml; tools/app/objects.py checks that these events match them)
+
+  Create Bookshelf:
+    type: event
+    conditions:
+    - not char_exists nagmon_obj_bookshelf
+    actions:
+    - create_npc nagmon_obj_bookshelf,5,2
+    - char_face nagmon_obj_bookshelf,down
+
+  Bookshelf Talk:
+    type: event
+    behav:
+    - talk nagmon_obj_bookshelf
+    actions:
+    - open_object bookshelf
+
+  Create Mailbox:
+    type: event
+    conditions:
+    - not char_exists nagmon_obj_mailbox
+    actions:
+    - create_npc nagmon_obj_mailbox,2,6
+    - char_face nagmon_obj_mailbox,down
+
+  Mailbox Talk:
+    type: event
+    behav:
+    - talk nagmon_obj_mailbox
+    actions:
+    - open_object mailbox
+
+  Create PC:
+    type: event
+    conditions:
+    - not char_exists nagmon_obj_pc
+    actions:
+    - create_npc nagmon_obj_pc,2,2
+    - char_face nagmon_obj_pc,down
+
+  PC Talk:
+    type: event
+    behav:
+    - talk nagmon_obj_pc
+    actions:
+    - open_object pc

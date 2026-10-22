@@ -72,23 +72,30 @@ describe("the Bag", () => {
   it("a net outside a battle, and a helper anywhere, cannot be used here, and say why", async () => {
     const m = setup({ magic_net: 1, clover: 1 });
     expect(m.q("bag_use")!.disabled).toBe(true);
-    expect(m.q("bag_why")!.textContent).toContain("רגוע");
+    expect(m.q("bag_why")!.textContent).toContain("קרב");
     await m.press("bag_tab_tools");
     expect(m.q("bag_use")!.disabled).toBe(true);
     expect(m.q("bag_why")!.textContent).toContain("שאלה");
   });
 
-  it("in a battle only a net works, and only when the creature is calm", async () => {
-    const onNet = vi.fn();
-    const fighting = setup({ magic_net: 1, berry: 1 }, { calm: false, onNet });
-    expect(fighting.q("bag_use")!.disabled).toBe(true);
+  it("in a battle a net, a card or a treat goes to the Befriend tray (at any time); the rest cannot be used there", async () => {
+    const onTool = vi.fn();
+    const fighting = setup({ magic_net: 1, berry: 1, silver_net: 1 }, { canBefriend: true, onTool });
+    await fighting.press("bag_use");
+    expect(onTool).toHaveBeenCalledWith("magic_net");
+    expect(countOf(fighting.world, "magic_net")).toBe(1);
     await fighting.press("bag_tab_snacks");
-    expect(fighting.q("bag_use")!.disabled).toBe(true);
+    expect(fighting.q("bag_use")!.disabled).toBe(false);
+    await fighting.press("bag_use");
+    expect(onTool).toHaveBeenLastCalledWith("berry");
     cleanup();
-    const calm = setup({ magic_net: 1 }, { calm: true, onNet });
-    await calm.press("bag_use");
-    expect(onNet).toHaveBeenCalledWith("magic_net");
-    expect(countOf(calm.world, "magic_net")).toBe(1);
+    // a master's test cannot be befriended: the Bag says so
+    const master = setup({ magic_net: 1 }, { canBefriend: false, onTool });
+    expect(master.q("bag_use")!.disabled).toBe(true);
+    cleanup();
+    const tonic = setup({ growth_tonic: 1 }, { canBefriend: true, onTool });
+    await tonic.press("bag_tab_snacks");
+    expect(tonic.q("bag_use")!.disabled).toBe(true);
   });
 });
 
@@ -127,7 +134,7 @@ describe("medicine (only the Wake Berry and the Sunrise Berry wake a friend that
 
   it("in a battle the battle says who it can be used on, and takes it from there", async () => {
     const onMedicine = vi.fn(() => true);
-    const m = setup({ wake_berry: 1 }, { calm: false, onNet: () => {}, onMedicine, targets: () => ["c2"] });
+    const m = setup({ wake_berry: 1 }, { canBefriend: true, onTool: () => {}, onMedicine, targets: () => ["c2"] });
     m.world.creatures.push({ id: "c2", species: "lunibble", level: 3, xp: 0, fainted: true });
     m.world.creatures.push({ id: "c9", species: "terrabub", level: 3, xp: 0, fainted: true });
     await m.press("bag_tab_snacks");

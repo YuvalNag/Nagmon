@@ -133,6 +133,14 @@ export class FieldLog {
     this.line("CAPTURE try", pairs({ species: p.species, net: p.net, ok: p.ok ? 1 : 0, left: p.left, tries: p.tries }));
   }
 
+  /** One befriend try (S3): ids and numbers only. chance is the percent shown as a word; shakes is how many the child saw. */
+  befriend(p: { species: string; tool: string; treat: string; gift: boolean; ok: boolean; shakes: number; chance: number; tries: number; mercy: boolean; netBack: boolean; fog: number; max: number }): void {
+    this.line(
+      "BEFRIEND try",
+      pairs({ species: p.species, tool: p.tool, treat: p.treat, gift: p.gift ? 1 : 0, ok: p.ok ? 1 : 0, shakes: p.shakes, chance: p.chance, tries: p.tries, mercy: p.mercy ? 1 : 0, back: p.netBack ? 1 : 0, fog: p.fog, max: p.max }),
+    );
+  }
+
   /** The starting level of each subject, in subject order by name. */
   placement(levels: Readonly<Record<string, number>>): void {
     const sorted = Object.fromEntries(Object.entries(levels).sort(([a], [b]) => (a < b ? -1 : 1)));

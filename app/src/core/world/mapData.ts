@@ -1,4 +1,5 @@
 import { CollisionGrid, type CollisionData, type Dir, isDir, type Tile } from "./grid";
+import { type MapPlacement, mapPlacement } from "./npcs";
 
 /**
  * What the map scene needs from a converted map (tools/app/maps.py):
@@ -106,8 +107,12 @@ export interface WorldMap {
   music: string | null;
   /** The new game's start on this map (the old `set_teleport_faint`), if it is here. */
   start: Tile | null;
-  /** Who stands on the map at the start of a new game. */
+  /** Who stands on the map at the start of a new game (the map's own `create_npc` events: props of a quest). */
   npcs: Placement[];
+  /** The named spots and the room for people of the world (`nagmon_placement`); null when the map places nobody. */
+  placement: MapPlacement | null;
+  /** The people of the world the resolver put here the last time the map opened (core/world/resolver.ts). */
+  placed: Placement[];
   teleports: Teleport[];
   blocked: BlockedExit[];
   /** The tile layers, bottom up; `above` are drawn over the walkers. */
@@ -258,6 +263,8 @@ export function readMap(name: string, json: TiledMap, state: WorldState = NEW_GA
     music,
     start,
     npcs,
+    placement: mapPlacement(prop("nagmon_placement")),
+    placed: [],
     teleports,
     blocked,
     layers: { below: tileLayers.filter((n) => !above.includes(n)), above },

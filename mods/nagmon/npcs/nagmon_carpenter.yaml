@@ -1,0 +1,35 @@
+# Salim the Carpenter (docs/app/WORLD_V2.md 6: row 11). Art is a stand-in (the apron and tools of the shopkeeper): needs a carpenter sheet.
+id: nagmon_carpenter
+short: salim
+class: R
+name_he: סלים הנגר
+name_en: Salim the Carpenter
+role: carpenter
+age_feel: adult
+sprite: nagmon_shopkeeper
+voice:
+  style: "quiet, proud of his hands, tells riddles slowly"
+  quirks: ["runs a thumb along a board"]
+  catchphrases: ["עץ טוב לא ממהר."]
+  register: simple
+personality: [quiet, careful, proud]
+knows:
+  topics:
+    - {id: wood, label_he: "עץ ונגרות", icon: "1f333", unlock: 0}
+    - {id: riddle, label_he: "חידה קטנה", icon: "1f9e9", unlock: 0}
+    - {id: town, label_he: "מי בעיר היום?", icon: "1f3d8", unlock: 0}
+  facts: []
+doesnt_know: [anything about families]
+never_says: [names of real brands, anything scary]
+goals: ["build a bench for the whole town"]
+likes: {loved: [berry], liked: [biscuit]}
+schedule:
+  rules:
+    - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: workshop_door}}
+    - {when: {phase: [evening]}, at: {map: classic_hearthrock_city, spot: park_bench}}
+  appears_if: {flag_all: [nagmon_intro_done]}
+offers: {quests: [q_board_chain]}
+relationship:
+  memory_flags: [asked_wood, asked_riddle, asked_town]
+ai: {enabled: false}
+safety: {age_min_band: A, heavy_topics: none}
