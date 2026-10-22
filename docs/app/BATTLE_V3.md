@@ -39,7 +39,7 @@ These override the text above where they differ. S1 is built to them.
 
 ## 1. What was wrong with slice 2 (from the field log)
 
-Source: the device log `devices/77bcce20/logs/20261021T171927Z.txt` in the private data repo (the parent's phone, 2026-10-21, version 0.1.0, Android 16). Quoted numbers only; no family details.
+Source: the device log `devices/<device-id>/logs/20261021T171927Z.txt` in the private data repo (a parent's phone, 2026-10-21, version 0.1.0, Android 16). Quoted numbers only; no family details.
 
 ### 1.1 The three-minute fight
 

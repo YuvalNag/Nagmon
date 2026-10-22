@@ -230,3 +230,7 @@ Status per pack is in the table above; per picture it is in the manifest.
 * The shipped icon cells are small inside their frames (fill ratio about 50%); that is the package's, not the keyer's.
 * The 16 seamless ground tiles come from `art_fixed` (made by code from the earlier town sheets, offset
   cross-blend), not from checkpoint 59; they are `draft` and unchecked in a map.
+
+## App icon
+
+The launcher icon, splash and favicon are the Nagmon badge (`app/public/game/art/title/logo.webp`), made by `python -m tools.app.icons` (adaptive foreground and monochrome inside the safe zone, legacy mipmaps, splash, `app/public/favicon.png`); `--check` fails when a file differs. The badge is cropped and scaled, never redrawn. Tests: `tests/app/test_app_icons.py`.

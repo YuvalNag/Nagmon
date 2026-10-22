@@ -88,8 +88,10 @@ jobs:
       # deletes it). With the ANDROID_KEYSTORE_* secrets the key is the
       # owner's; without them the first build makes one and the Actions
       # cache keeps it. A cache belongs to its branch and goes after 7 days
-      # unused, so only builds of nagmon-app go to the parent, and the
-      # secrets are the permanent way (docs/app/SDD.md §9).
+      # unused, so only builds of the default branch (main) go to the parent,
+      # and the secrets are the permanent way. The key of the new repo is a
+      # new one: the first install over an old build needs an uninstall
+      # (docs/app/SDD.md §9).
       if: env.HAS_KEY != 'true'
       uses: actions/cache@v4
       with:

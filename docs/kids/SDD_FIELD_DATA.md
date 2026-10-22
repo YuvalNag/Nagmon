@@ -11,13 +11,13 @@
 - **HTTP:** `nagmon/ai/providers.py` כולל `Transport` ו־`UrllibTransport` עם timeout. שגיאות HTTP חוזרות כתשובה ולא כחריגה, והבדיקות מזריקות transport מזויף.
 - **סודות:** `secrets.json` נכתב בהרשאה 0600 עם read-merge-write (`save_keys`).
   - אסור לכתוב בשיטה של `SecretStore._write`, שדורסת את כל הקובץ.
-- **הריפו:** ריפו הקוד `YuvalNag/Nagmon` נשאר **ציבורי**. לכן הנתונים לא נכנסים אליו (גם לא לענף), אלא לריפו נפרד ופרטי: `YuvalNag/nagmon-data`.
+- **הריפו:** ריפו הקוד (`YuvalNag/nagmon-game`) הוא ריפו פרטי, לא fork. פרטי משפחה והתקדמות מהטלפון לא נכנסים אליו (גם לא לענף), אלא לריפו נתונים נפרד ופרטי: `YuvalNag/nagmon-data`.
 
 ## 2. העיצוב
 
 ### 2.1 החיבור (`nagmon/field_data/github.py`)
 - **הטוקן:**
-  - fine-grained, רק לריפו הנתונים, עם הרשאה אחת: **Contents: Read and write**. עדכון עצמי מ־Releases לא צריך אותו, כי ריפו הקוד ציבורי.
+  - fine-grained, רק לריפו הנתונים, עם הרשאה אחת: **Contents: Read and write**. עדכון עצמי מ־Releases של ריפו פרטי דורש טוקן קריאה משלו (תוכנית; ראו ה־SDD של העדכון העצמי).
   - נשמר ב־`secrets.json["github"] = {"token": ..., "repo": "YuvalNag/nagmon-data"}` עם read-merge-write והרשאה 0600. הריפו ניתן לשינוי; ברירת המחדל היא `YuvalNag/nagmon-data`.
   - לעולם לא נרשם בלוג, לא מוצג ולא נכנס לדוח. ה־`repr` מוסתר.
 - **בדיקת חיבור:** `GET /repos/{repo}`.
@@ -108,7 +108,7 @@
 | `tools/field/latest.py` על עותק מדומה של ריפו הנתונים | `tests/nagmon/test_field_tool.py` |
 
 ## 4. מחוץ לתוכנית הזו
-- עדכון עצמי מ־Releases. יש לו SDD משלו (ריפו הקוד ציבורי, ולכן בלי טוקן).
+- עדכון עצמי מ־Releases. יש לו SDD משלו (ריפו הקוד פרטי, ולכן צריך טוקן קריאה: תוכנית).
 - שליחה אוטומטית בלי לחיצה.
 
 ## 5. הערות מימוש

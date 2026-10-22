@@ -23,8 +23,7 @@ cleanup: the app now ships 70 creatures, all declared by the trip files in
   recorded in `ATTRIBUTIONS.md` (see 3.2).
 * The biggest remaining dependency is the maps and tilesets (4 Tuxemon maps,
   9 tileset atlases, plus 5 houses laid out on Tuxemon tiles).
-* The repo is a public GitHub fork of `Tuxemon/Tuxemon` (checked with the
-  GitHub API: `fork: true`, parent `Tuxemon/Tuxemon`).
+* Status: the project moves to a new private repository (`YuvalNag/nagmon-game`, default branch `main`), not a fork. The old repo was a public GitHub fork of `Tuxemon/Tuxemon` (`fork: true`).
 * The build tools import Tuxemon's Python code, and `mods/tuxemon` (196 MB)
   is the source of most of the data.
 
@@ -133,7 +132,7 @@ loaders are Tuxemon's. Our own format is cheap (S) and removes the question.
 
 ### 3.4 The repo, the fork and the history
 
-* The repo is a fork. GitHub support can detach a fork from its network on
+* Historical: the old repo was a fork. GitHub support can detach a fork from its network on
   request; the repo, history, issues and stars stay. Confirm the current
   procedure with GitHub, since it is done by a support ticket. Detaching
   changes the label, not the licence: every Tuxemon commit already in the
@@ -198,7 +197,7 @@ image generator already used for creatures and people.
 5. **Stage 4, code (M).** Build tools without the Tuxemon import, delete
    `mods/tuxemon` and `tuxemon/`, move or drop the old-game tests, and
    decide on 3.3 with a lawyer.
-6. **Stage 5, repo (S).** Detach the fork, or start a fresh repo from our
+6. **Stage 5, repo (S).** Done by starting a fresh private repo (`YuvalNag/nagmon-game`) from our
    paths only. Choose the app's licence on purpose.
 
 A useful check at every stage: a test that counts Tuxemon-sourced assets in

@@ -9,7 +9,7 @@
 ## 0. עדכונים אחרי ההחלטות שלך והמחקר
 
 **ההחלטות שלך:**
-- ילדים בגילאי 5–12. התוכן מגיע עד כיתה ט'. (פרטי המשפחה בריפו הפרטי `nagmon-data`, `family/FAMILY.md`.)
+- ילדים בכמה פסי גיל (עיצוב: A 5–7, B 8–10, C 11–14). התוכן מגיע עד כיתה ט'. (פרטי המשפחה בריפו הפרטי `nagmon-data`, `family/FAMILY.md`.)
 - **מחשב** (Windows ו־Linux) במקום טלפון.
 - **צניעות.**
 - מודל מרוחק, כל ספק חינמי.
@@ -83,7 +83,7 @@
   - **כל התוכן הלימודי עובד בלי אינטרנט ובלי AI**: מחוללים פרוצדורליים ומאגרי שאלות.
   - **AI בענן** משמש רק את ההורה, ב"סטודיו תוכן" (יצירת שאלות, סיפורים ומשימות שההורה מאשר).
   - **AI בזמן משחק** רץ רק על מודל מקומי (Ollama על המחשב בבית, ובהמשך אולי על הטלפון).
-- **הריפו עוד ציבורי, ואני לא יכול לשנות את זה מכאן.** הוא fork ציבורי של Tuxemon, ו־GitHub לא מאפשר להפוך fork לפרטי כל עוד הוא מחובר לרשת ה־fork. ההוראות בסעיף 15.
+- **הריפו פרטי.** הפרויקט הוא ריפו פרטי (`YuvalNag/nagmon-game`), לא fork. הרקע בסעיף 15.
 
 ---
 
@@ -665,7 +665,7 @@ Cashier Reward:
 1. **שלב 0, spike של יום–יומיים:** APK מינימלי של pygame-ce ב־GitHub Actions, ואז הוספת pydantic. אם pydantic-core לא נבנה, יש שתי חלופות:
    - recipe מוכן מהקהילה, אם קיים (לא מאומת);
    - החלפת השימוש ב־pydantic בשכבת ולידציה קלה (הוא משמש בעיקר לטעינת ה־YAML של ה־DB).
-2. **עדכון עצמי** (לקח מה־playbook): בדיקה מול GitHub Releases של הריפו הפרטי, הורדה והתקנה. ב־Xiaomi ההתקנה השקטה נחסמת, ולכן יש נפילה למסך ההתקנה של המערכת. המפתח לחתימה קבוע, כדי שעדכון תמיד יותקן מעל הגרסה הקודמת.
+2. **עדכון עצמי** (לקח מה־playbook): בדיקה מול GitHub Releases של הריפו הפרטי, הורדה והתקנה. בחלק מהיצרנים (למשל Xiaomi) ההתקנה השקטה נחסמת, ולכן יש נפילה למסך ההתקנה של המערכת. המפתח לחתימה קבוע, כדי שעדכון תמיד יותקן מעל הגרסה הקודמת.
 3. **גודל:** המרת מוזיקה ל־ogg באיכות נמוכה יותר והסרת קמפיינים שלא נשתמש בהם. היעד הוא APK מתחת ל־80MB.
 4. **מסך:** המשחק מתוכנן לרוחב (landscape). נשאר בזה, כי זה מתאים לטלפון שמחזיקים בשתי ידיים.
 5. **בזמן ה־spike:** הפיתוח והבדיקות ממשיכים על דסקטופ ובמצב headless, כך שהעבודה על עברית, פרופילים ולמידה לא מחכה לאנדרואיד.
@@ -702,13 +702,9 @@ Cashier Reward:
 
 ## 15. סיכונים והחלטות פתוחות
 
-### 15.1 להפוך את הריפו לפרטי (פעולה שלך)
+### 15.1 הריפו פרטי
 
-- הריפו `YuvalNag/Nagmon` הוא **fork ציבורי** של `Tuxemon/Tuxemon`. GitHub לא מאפשר לשנות נראות של fork כל עוד הוא ברשת ה־fork, ואין לי כלי לשנות הגדרות ריפו.
-- **הדרך:**
-  1. בגיטהאב: Settings ← General ← בתחתית, Danger Zone ← **Leave fork network**.
-  2. אחרי זה, באותו מקום: **Change repository visibility ← Private**.
-  3. אם אין כפתור "Leave fork network", פונים לתמיכה של GitHub ומבקשים "detach fork". זה בדרך כלל מהיר.
+- הפרויקט הוא ריפו פרטי (`YuvalNag/nagmon-game`, ענף ברירת המחדל `main`), לא fork. הוא נפתח כריפו חדש, בלי חיבור לרשת ה־fork של Tuxemon.
 - **השפעות של ריפו פרטי:**
   - GitHub Actions בריפו פרטי מוגבל ל־2,000 דקות בחודש בחשבון חינמי. בניית APK לוקחת כ־10–20 דקות, כלומר עשרות בניות בחודש. זה מספיק אם בונים APK רק ב־merge ל־main ובניות PR קלות יותר.
   - GitHub Pages מריפו פרטי דורש חשבון בתשלום. רלוונטי רק אם נבחר גרסת דפדפן.
@@ -742,6 +738,6 @@ Cashier Reward:
 - Klinkenberg, S., Straatemeier, M. & van der Maas, H. L. J. (2011). *Computer adaptive practice of Maths ability using a new item response model for on the fly ability and difficulty estimation.* Computers & Education. Math Garden: Elo שמשלב דיוק וזמן תגובה.
 - Pelánek, R. (2016). *Applications of the Elo rating system in adaptive educational systems.* Computers & Education.
 - [Gemini API Additional Terms of Service](https://ai.google.dev/gemini-api/terms): הגבלת גיל ושימוש באפליקציות לקטינים.
-- [GitHub Docs: forks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks): אי אפשר לשנות נראות של fork, ואפשר לעזוב את רשת ה־fork.
+- [GitHub Docs: forks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks): רקע: אי אפשר לשנות נראות של fork.
 - [python-bidi](https://pypi.org/project/python-bidi/): אלגוריתם bidi של Unicode, כולל גרסה טהורה.
 - [pygbag](https://github.com/pygame-web/pygbag): הרצת pygame-ce בדפדפן.
