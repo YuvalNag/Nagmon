@@ -28,7 +28,7 @@ schedule:
     - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: clock_corner}}
     - {when: {phase: [evening]}, at: null}
   appears_if: {flag_all: [nagmon_intro_done]}
-offers: {quests: [q_clocks]}
+offers: {quests: [q_clock_set]}
 relationship:
   memory_flags: [asked_time, asked_tick, asked_town]
 ai: {enabled: false}

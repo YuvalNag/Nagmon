@@ -85,24 +85,8 @@ def test_the_spec_objects_are_there_in_the_places_the_spec_names():
         lambda d: d["tv"]["news"].__delitem__(slice(1, None)),
         lambda d: d["tv"]["news"].append("א" * 71),
         lambda d: d["tv"]["creatures"].update(nosuchcreature="א"),
-        lambda d: d["noticeboard"]["postings"].append(
-            {"id": "x", "slot": "huge", "giver_he": "x", "goal_he": "x"}
-        ),
-        lambda d: d["noticeboard"]["postings"].append(
-            {
-                "id": "board_easy_book",
-                "slot": "easy",
-                "giver_he": "x",
-                "goal_he": "x",
-            }
-        ),
-        lambda d: d["noticeboard"].update(
-            postings=[
-                p
-                for p in d["noticeboard"]["postings"]
-                if p["slot"] != "weekly"
-            ]
-        ),
+        # the board's cards are the quests': a static list would be a second source
+        lambda d: d["noticeboard"].update(postings=[]),
         lambda d: d["pc"]["people"].append(
             {
                 "slug": "Bad Slug",

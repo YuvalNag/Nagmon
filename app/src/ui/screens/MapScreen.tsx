@@ -32,7 +32,7 @@ import { PlaceSaver, type Place } from "../../core/world/place";
 import { START_MAP } from "../../game/startMap";
 import type { Lesson } from "../../core/game/lessons";
 import { loadGameLessons } from "../tutor/lessonData";
-import { Bag, Battle, Bestiary, Friends, Intro, Later, Quiz, Rest, Shop, Trips, Tutor, preloadSoon } from "../lazy";
+import { Bag, Battle, Bestiary, Choice, Friends, Intro, Later, Quiz, Rest, Shop, Trips, Tutor, preloadSoon } from "../lazy";
 import { ScreenTime } from "../screenTime";
 import { Tap } from "../Tap";
 
@@ -87,6 +87,8 @@ type Shown =
   | { kind: "found"; found: Found; done: () => void }
   | { kind: "chest-wrong"; choose: (c: "again" | "gift" | "leave") => void; done: () => void }
   | { kind: "fact"; fact: { emoji: string; text: string }; done: () => void }
+  /** A quest's choice (the offer, a kindness scene): tapping an option answers with its id, closing the card (or back) with null. */
+  | { kind: "choice"; speaker: string; prompt: string; options: readonly { id: string; label: string }[]; choose: (id: string | null) => void; done: () => void }
   /** The topic chips of a person of the world: tapping one answers with its id, "bye" (or back) with null. */
   | { kind: "topics"; speaker: string; chips: readonly Chip[]; choose: (id: string | null) => void; done: () => void };
 /** What lies over the map: a dialog or a question, each its own screen (`n`). */
@@ -185,9 +187,21 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
     [play, profile.name],
   );
 
+  // a finished quest is a friendship point with the giver: the director knows what that does
+  useEffect(() => {
+    if (!play) return;
+    play.befriend = (slug) => director?.questDone(slug);
+    return () => {
+      play.befriend = () => {};
+    };
+  }, [play, director]);
+
   // who stands on a map as it opens: the resolver's answer for this day and hour (core/world/resolver.ts)
   placeRef.current = async (w: WorldMap) => {
     const p = await playReady.current?.promise;
+    // the props the maps' own events make (the kitten that waits on Route 1 while a quest says she is lost, the wallet
+    // until it is dealt with) follow what the child has done: made again at every entry from the saved variables
+    if (p) w.npcs = p.propsNow(w.events, p.world.variables);
     if (!p || !w.placement || !Object.keys(p.npcs).length) return [];
     if (p.world.npcSeed === null) {
       // a number of this child's own, made once: another child's town has other days
@@ -423,6 +437,12 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           if (!alive) return resolve();
           show({ kind: "fact", fact, done: resolve });
         }),
+      choose: (prompt, speaker, options) =>
+        new Promise<string | null>((resolve) => {
+          if (!alive) return resolve(null);
+          // closing the card (Android's back) is "not now": no answer, nothing lost
+          show({ kind: "choice", speaker, prompt, options, choose: resolve, done: () => resolve(null) });
+        }),
       changed: () => {
         if (!alive) return;
         setCoins(play.world.money);
@@ -448,6 +468,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
       today: () => play.today(),
       hour: () => play.clock().getHours(),
       ...(people ? { people } : {}),
+      quests: play.quests,
       objects: {
         economy: play.economy,
         loot: play.loot,
@@ -804,6 +825,22 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
         />
       )}
       {overlay?.kind === "fact" && !menuOpen && <FactCard key={`fact-${overlay.n}`} fact={overlay.fact} onClose={closeOverlay} />}
+      {overlay?.kind === "choice" && !menuOpen && (
+        <Later><Choice.Screen
+          key={`choice-${overlay.n}`}
+          speaker={overlay.speaker}
+          prompt={overlay.prompt}
+          options={overlay.options}
+          onChoose={(id) => {
+            // the card closes, and the quest goes on with the child's choice
+            const o = overlay;
+            shown.current = null;
+            setOverlay(null);
+            o.choose(id);
+            o.done();
+          }}
+        /></Later>
+      )}
       {overlay?.kind === "topics" && !menuOpen && (
         <TopicsCard
           key={`topics-${overlay.n}`}

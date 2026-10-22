@@ -11,6 +11,8 @@ import { monsterTable } from "../../../src/core/game/monsters";
 import { objectDefs } from "../../../src/core/game/objects";
 import { readFact } from "../../../src/core/game/journal";
 import { SubjectMap } from "../../../src/core/learning/quiz_flow";
+import { QuestEngine } from "../../../src/core/game/questFlow";
+import { questData } from "../../../src/core/game/quests";
 import { WorldState } from "../../../src/core/world/worldState";
 import { ObjectScreen } from "../../../src/ui/pc/ObjectScreen";
 import { heObj } from "../../../src/ui/pc/words";
@@ -45,6 +47,8 @@ function setup(object: string, o: { friends?: number; today?: string; configure?
     text: (id: string) => id,
     today: () => day.v,
     saveWorld: vi.fn(async () => {}),
+    // the board's cards are the quests': the engine behind the screen, on the same world and calendar
+    quests: new QuestEngine({ data: questData(gameJson("quests.json")), world, economy: eco, today: () => day.v, grade: () => 2, name: (s) => s, befriend: () => {}, seed: () => 3 }),
   } as unknown as Play;
   const changed = vi.fn();
   const close = vi.fn();
@@ -268,7 +272,7 @@ describe("the TV", () => {
 });
 
 describe("the notice board", () => {
-  it("shows three cards (a fourth on Sunday) and accepting is free and kept", async () => {
+  it("shows the quests' cards (three a day, a fourth on Sunday) and accepting is free, kept, and a quest of the journal", async () => {
     const m = setup("noticeboard", { today: "2026-10-22" });
     expect(m.q("board")!.getAttribute("data-count")).toBe("3");
     const first = m.container.querySelector<HTMLElement>("[data-id^=board_accept_]")!;
@@ -276,6 +280,9 @@ describe("the notice board", () => {
     expect((first as HTMLButtonElement).disabled).toBe(true);
     expect(Object.keys(m.world.board.accepted)).toHaveLength(1);
     expect(m.world.money).toBe(0);
+    // the accepted card is in the journal at once
+    expect(m.play.quests.journal()).toHaveLength(1);
+    expect(m.q("board_said")!.textContent).toContain("שמורה");
     cleanup();
     expect(setup("noticeboard", { today: "2026-10-25" }).q("board")!.getAttribute("data-count")).toBe("4");
   });

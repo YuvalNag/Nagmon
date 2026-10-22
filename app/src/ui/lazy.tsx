@@ -80,6 +80,14 @@ export const Tutor = chunk(
   () => import("./tutor/TutorScreen"),
   (m) => m.TutorScreen,
 );
+export const Journal = chunk(
+  () => import("./journal/QuestJournal"),
+  (m) => m.QuestJournal,
+);
+export const Choice = chunk(
+  () => import("./journal/ChoiceCard"),
+  (m) => m.ChoiceCard,
+);
 export const Parents = chunk(
   () => import("./screens/parents/ParentsArea"),
   (m) => m.ParentsArea,
@@ -107,7 +115,7 @@ export function Later({ children, over = true }: { children: ReactNode; over?: b
   return <Suspense fallback={<Wait over={over} />}>{children}</Suspense>;
 }
 
-const ALL = [Battle, Bag, Friends, Shop, Rest, Quiz, Bestiary, Trips, Tutor, Intro, Parents];
+const ALL = [Battle, Bag, Friends, Shop, Rest, Quiz, Bestiary, Trips, Tutor, Intro, Parents, Journal, Choice];
 
 /** Every chunk at once (tests: the screens are then there as soon as they are asked for). */
 export function preloadAll(): Promise<unknown> {

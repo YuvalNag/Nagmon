@@ -104,7 +104,9 @@ describe("Hearthrock's scripts in M4", () => {
     expect(quizzes).toEqual([]);
     // the new game's start (nagmon_apply_profile) waits for M5: no owl intro
     expect(state.variables.size).toBe(0);
-    expect(runner.waiting()).toEqual(expect.arrayContaining(["Nagmon Start", "Owl Gifts", "Wallet Found"]));
+    expect(runner.waiting()).toEqual(expect.arrayContaining(["Nagmon Start", "Owl Gifts"]));
+    // the kitten and wallet stories are the quests' now (W3): no event of the maps waits on an action the app lacks for them
+    expect(runner.waiting().filter((n) => /Wallet|Kitten|Granny|Kid Talk/.test(n))).toEqual([]);
   });
 
   it("lets the player talk only to who a test limits it to (the build has no allow-list)", async () => {

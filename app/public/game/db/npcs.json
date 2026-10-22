@@ -574,6 +574,33 @@
    "scale": 8
   }
  },
+ "nagmon_lostfound": {
+  "slug": "nagmon_lostfound",
+  "speech": {
+   "profile": {
+    "default": {}
+   }
+  },
+  "combat": {},
+  "audio": {},
+  "template": {
+   "sprite_name": "nagmon_chest",
+   "combat_sheet": "noclass",
+   "slug": "noclass",
+   "is_static_prop": true
+  },
+  "_source": [
+   "mods/nagmon/db/npc/nagmon_world.yaml"
+  ],
+  "sprites": {
+   "map": "sprites/objects/nagmon_chest.png",
+   "frame": [
+    64,
+    128
+   ],
+   "scale": 4
+  }
+ },
  "nagmon_nest_home": {
   "slug": "nagmon_nest_home",
   "speech": {

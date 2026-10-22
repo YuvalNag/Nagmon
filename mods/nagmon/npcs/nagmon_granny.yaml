@@ -33,8 +33,7 @@ schedule:
     - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: bench_east}}
     - {when: {phase: [evening]}, at: null}
   appears_if: {flag_all: [nagmon_intro_done]}
-offers:
-  quests: [q_wallet, q_tea_chain]
+offers: {}
 relationship:
   memory_flags: [asked_tea, asked_story, asked_weather, asked_town]
 ai: {enabled: false}

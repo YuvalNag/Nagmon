@@ -304,6 +304,12 @@ export class Director {
     return spoken;
   }
 
+  /** A finished quest is a friendship gain: the person's own `quest_done` points (the level may rise, never falls). */
+  questDone(slug: string): void {
+    const def = this.o.npcs[slug];
+    if (def) addPoints(this.record(slug), def.relationship.gain.quest_done, def.relationship.levels);
+  }
+
   /** The words at the end of a talk (null if the person has none). */
   async farewell(slug: string): Promise<Spoken | null> {
     return this.say(slug, "farewell");

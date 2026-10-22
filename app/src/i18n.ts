@@ -137,6 +137,7 @@ export const he = {
   mapAsk: "לשאול",
   topicsTitle: "על מה נשאל את {name}?",
   topicsBye: "להתראות",
+  choiceLater: "אחר כך",
   mapCoins: "{coins} מטבעות",
   introHello: "שלום {name}! אני הינשוף, ואני מלווה ילדים שמחזירים עולמות מערפל השכחה.",
   introStory: "הערפל מכסה עולמות שלמים. מי שלומד דברים חדשים מסלק אותו, חלק אחרי חלק.",

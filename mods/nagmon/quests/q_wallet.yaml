@@ -1,0 +1,39 @@
+# Quest 2: the wallet on the bench (kindness, SEL M3 and M4; WORLD_V2.md 7.5). Every option pays the same: the
+# reward is the quest's own and an option may not carry one (tools/app/quests.py refuses it). No score, no praise
+# line: the person replies differently, that is all. "Not now" is always a way out (leaving the card unread).
+id: q_wallet
+giver: nagmon_granny
+type: kindness
+emoji: "1f45b"
+title: {he: ארנק על הספסל, en: A wallet on the bench}
+offer:
+  at: nagmon_wallet
+  ask: false
+  lines:
+    - {he: "יש ארנק על הספסל. אף אחד לא נמצא לידו.", en: "There is a wallet on the bench. Nobody is near it."}
+repeat: {kind: once}
+steps:
+  - kind: choose
+    npc: nagmon_wallet
+    todo: {he: "להחליט מה עושים עם הארנק", en: "Decide what to do with the wallet"}
+    prompt: {he: "מה עושים עם הארנק?", en: "What do you do with the wallet?"}
+    options:
+      - id: return
+        label: {he: "להחזיר לסבתא רינה", en: "Give it to Grandma Rina"}
+        reply: {he: "סבתא רינה מכירה את כולם בעיר. היא תמצא את הבעלים.", en: "Grandma Rina knows everyone in town. She will find the owner."}
+      - id: adult
+        label: {he: "לשאול מבוגר", en: "Ask a grown-up"}
+        reply: {he: "מבוגר יכול לעזור למצוא את הבעלים. סבתא רינה תשמח לשמוע.", en: "A grown-up can help find the owner. Grandma Rina will be glad to hear."}
+      - id: leave
+        label: {he: "להשאיר במקום", en: "Leave it there"}
+        reply: {he: "אולי מישהו יחזור לחפש אותו. סבתא רינה תעזור גם בזה.", en: "Maybe someone will come back to look for it. Grandma Rina will help with that too."}
+    done: [set_variable nagmon_wallet:done]
+  - kind: say
+    npc: nagmon_granny
+    todo: {he: "לספר לסבתא רינה על הארנק", en: "Tell Grandma Rina about the wallet"}
+    say:
+      - {he: "תודה ששמתם לב לארנק. הבעלים כבר קיבל אותו בחזרה.", en: "Thank you for noticing the wallet. The owner has it back already."}
+      - {he: "הארנק הגיע לבעלים. יום טוב לכולנו!", en: "The wallet reached its owner. A good day for all of us!"}
+    done: [send_letter thanks_helped]
+reward: {coins: S, items: [{id: berry, n: 1}], friendship: true}
+sel: true

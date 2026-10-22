@@ -33,6 +33,7 @@ schedule:
   appears_if: {flag_all: [nagmon_intro_done]}
 offers:
   teach: english
+  quests: [q_tom_swap]
 relationship:
   memory_flags: [asked_english, asked_places, asked_weather, asked_town]
 ai: {enabled: false}

@@ -416,53 +416,9 @@ events:
     - clear_variable nagmon_gardener_q
     - translated_dialog nagmon_world_gardener_wrong,nagmon_gardener
 
-  # -------------------------------- Yoav and Pitzi the kitten: kindness
-  # The kitten quest waits for the quest slice (W3): the kitten on Route 1
-  # needs remove_npc and a sprite that follows the story. Until then Yoav
-  # only chats (his lines are in mods/nagmon/npcs), so no child is sent
-  # looking for a kitten that cannot be found.
-  Kid Talk Lost:
-    type: event
-    behav:
-    - talk nagmon_kid
-    conditions:
-    - is variable_set nagmon_quests_w3:yes
-    - not variable_set nagmon_kitten
-    actions:
-    - translated_dialog nagmon_world_kid_lost
-    - set_variable nagmon_kitten:asked
-
-  Kid Talk Waiting:
-    type: event
-    behav:
-    - talk nagmon_kid
-    conditions:
-    - is variable_set nagmon_kitten:asked
-    actions:
-    - translated_dialog nagmon_world_kid_waiting
-
-  Kid Talk Thanks:
-    type: event
-    behav:
-    - talk nagmon_kid
-    conditions:
-    - is variable_set nagmon_kitten:found
-    actions:
-    - translated_dialog nagmon_world_kid_thanks
-    - give_item dew_drop,2
-    - modify_money player,30
-    - translated_dialog nagmon_world_kid_reward
-    - set_variable nagmon_kitten:home
-
-  Kid Talk Home:
-    type: event
-    behav:
-    - talk nagmon_kid
-    conditions:
-    - is variable_set nagmon_kitten:home
-    actions:
-    - translated_dialog nagmon_world_kid_happy
-
+  # -------------------------------- Yoav and Pitzi the kitten
+  # The story is the quest q_kitten_home (mods/nagmon/quests): the quest engine runs the talks and sets the
+  # variable `nagmon_kitten` (asked, found, home). The map only shows the kitten where that variable says.
   Create Kitten Home:
     type: event
     conditions:
@@ -488,93 +444,17 @@ events:
     actions:
     - create_npc nagmon_wallet,12,7
 
-  Wallet Found:
-    type: event
-    behav:
-    - talk nagmon_wallet
-    conditions:
-    - not variable_set nagmon_wallet
-    actions:
-    - translated_dialog nagmon_world_wallet_found
-    - translated_dialog_choice nagmon_world_choice_return:nagmon_world_choice_keep,nagmon_wallet_choice
+  # The wallet's story is the quest q_wallet (mods/nagmon/quests): a choice that pays the same whatever is
+  # chosen, then Grandma Rina. The quest sets `nagmon_wallet:done`, and the wallet is gone from the bench.
 
-  Wallet Return:
+  # ---- the lost-and-found box (the quest q_lost_found talks to it)
+  Create Lost Found:
     type: event
     conditions:
-    - is variable_set nagmon_wallet_choice:nagmon_world_choice_return
-    - not variable_set nagmon_wallet
+    - not char_exists nagmon_lostfound
     actions:
-    - set_variable nagmon_wallet:carry
-    - clear_variable nagmon_wallet_choice
-    - remove_npc nagmon_wallet
-    - translated_dialog nagmon_world_wallet_return
-
-  Wallet Keep:
-    type: event
-    conditions:
-    - is variable_set nagmon_wallet_choice:nagmon_world_choice_keep
-    - not variable_set nagmon_wallet
-    actions:
-    - set_variable nagmon_wallet:kept
-    - clear_variable nagmon_wallet_choice
-    - remove_npc nagmon_wallet
-    - translated_dialog nagmon_world_wallet_kept
-
-  Granny Talk Thanks:
-    type: event
-    behav:
-    - talk nagmon_granny
-    conditions:
-    - is variable_set nagmon_wallet:carry
-    actions:
-    - set_variable nagmon_wallet:returned
-    - translated_dialog nagmon_world_granny_thanks
-    - modify_money player,30
-    - give_item berry,1
-    - translated_dialog nagmon_world_granny_reward
-    - translated_dialog nagmon_world_granny_value
-
-  # Kept it? No punishment, just a second chance to do the right thing.
-  Granny Talk Lost:
-    type: event
-    behav:
-    - talk nagmon_granny
-    conditions:
-    - is variable_set nagmon_wallet:kept
-    actions:
-    - translated_dialog nagmon_world_granny_lost
-    - translated_dialog_choice nagmon_world_choice_give:nagmon_world_choice_later,nagmon_granny_choice
-
-  Granny Give:
-    type: event
-    conditions:
-    - is variable_set nagmon_granny_choice:nagmon_world_choice_give
-    - is variable_set nagmon_wallet:kept
-    actions:
-    - set_variable nagmon_wallet:returned
-    - clear_variable nagmon_granny_choice
-    - translated_dialog nagmon_world_granny_thanks
-    - modify_money player,30
-    - give_item berry,1
-    - translated_dialog nagmon_world_granny_reward
-    - translated_dialog nagmon_world_granny_value
-
-  Granny Later:
-    type: event
-    conditions:
-    - is variable_set nagmon_granny_choice:nagmon_world_choice_later
-    actions:
-    - clear_variable nagmon_granny_choice
-    - translated_dialog nagmon_world_granny_later
-
-  Granny Talk Happy:
-    type: event
-    behav:
-    - talk nagmon_granny
-    conditions:
-    - is variable_set nagmon_wallet:returned
-    actions:
-    - translated_dialog nagmon_world_granny_happy
+    - create_npc nagmon_lostfound,31,14
+    - char_face nagmon_lostfound,down
 
   # ---- working objects (mods/nagmon/objects/*.yaml; tools/app/objects.py checks that these events match them)
 

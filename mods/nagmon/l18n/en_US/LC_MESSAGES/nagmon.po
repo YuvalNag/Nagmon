@@ -339,6 +339,9 @@ msgstr "Grandma Rina"
 msgid "nagmon_wallet"
 msgstr "Wallet"
 
+msgid "nagmon_lostfound"
+msgstr "Lost-and-found box"
+
 msgid "nagmon_route1_trainer"
 msgstr "Danny the mail carrier"
 
@@ -1570,7 +1573,7 @@ msgid "nagmon_solar_moon_moon_engineer_ask"
 msgstr "I am writing the craters in my log, and there are so many. Will you help me with one question?"
 
 msgid "nagmon_solar_moon_moon_engineer_good"
-msgstr "Right! The craters are in the log. Here are 10 coins for your help."
+msgstr "Right! The craters are in the log. Here are 25 coins for your help."
 
 msgid "nagmon_solar_moon_owl"
 msgstr "The Moon makes no light of its own. We see sunlight coming back from it. The Moon goes around the Earth about once a month."
@@ -1588,7 +1591,7 @@ msgid "nagmon_solar_sun_owl_found"
 msgstr "That is my filter! Thank you. A filter like this protects the eyes, and without it we do not look at the Sun. I have one more question for you."
 
 msgid "nagmon_solar_sun_owl_good"
-msgstr "Right! Here are 12 coins, and thank you for finding the filter."
+msgstr "Right! Here are 30 coins, and thank you for finding the filter."
 
 msgid "nagmon_solar_sun_grey_hood"
 msgstr "The Sun is so big that more than a million Earths would fit inside it. Its light takes about eight minutes to reach us."
@@ -1603,7 +1606,7 @@ msgid "nagmon_solar_rocky_planets_rover_driver_ask"
 msgstr "Want to ride with me? There are three stops on the way, and a question at each stop."
 
 msgid "nagmon_solar_rocky_planets_rover_driver_good"
-msgstr "We made it! A fine drive. Here are 15 coins."
+msgstr "We made it! A fine drive. Here are 40 coins."
 
 msgid "nagmon_solar_rocky_planets_rover_driver_weak"
 msgstr "The road was a little bumpy, but we learned on the way. We can drive again whenever you like."
@@ -1621,7 +1624,7 @@ msgid "nagmon_solar_giants_sage_ask"
 msgstr "A riddle for you: I have beautiful rings of ice and rock, and I am the sixth planet from the Sun. Who am I? We will find the answer after one question."
 
 msgid "nagmon_solar_giants_sage_good"
-msgstr "Right! And the answer to the riddle: Saturn, the planet with the rings. Here are 18 coins."
+msgstr "Right! And the answer to the riddle: Saturn, the planet with the rings. Here are 50 coins."
 
 msgid "nagmon_solar_giants_sage_wrong"
 msgstr "No problem! Now we saw the answer. And the answer to the riddle: Saturn, the planet with the rings. You can try again."
@@ -1648,7 +1651,7 @@ msgid "nagmon_solar_outer_grey_hood_card3"
 msgstr "Third card, a comet: a ball of ice and dust. When it comes near the Sun, it grows a tail."
 
 msgid "nagmon_solar_outer_grey_hood_good"
-msgstr "Right! The cards are yours to remember. Here are 25 coins."
+msgstr "Right! The cards are yours to remember. Here are 60 coins."
 
 msgid "nagmon_solar_outer_rover_driver"
 msgstr "Probes fly for years to get here. They have no driver, only an antenna that talks to us. Sometimes a signal takes hours to arrive."

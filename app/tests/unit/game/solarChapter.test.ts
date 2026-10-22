@@ -8,6 +8,7 @@
  */
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { parse as parseYaml } from "yaml";
 import { countOf, economy } from "../../../src/core/game/items";
 import { addCreature } from "../../../src/core/game/collection";
 import { Encounters, encounterTables } from "../../../src/core/game/encounters";
@@ -31,8 +32,8 @@ const en = gameJson<Record<string, string>>("i18n/en.json");
 const tables = encounterTables(gameJson("db/encounters.json"));
 const monsters = monsterTable(gameJson("db/monsters.json"));
 
-/** What a mission pays (tools/app/solar_texts.py MISSION_COINS) and the everyday answer's coins. */
-const MISSION_COINS: Record<string, number> = { moon: 10, sun: 12, rocky_planets: 15, giants: 18, outer: 25 };
+/** What a mission pays: the quest rules' own numbers (mods/nagmon/quests/rules.yaml, raised in W3), and the everyday answer's coins. */
+const MISSION_COINS = (parseYaml(readFileSync("../mods/nagmon/quests/rules.yaml", "utf8")) as { solar_missions: Record<string, number> }).solar_missions;
 const QUIZ_COINS = 3;
 /** Who the child talks to, in order, to finish each zone's mission. */
 const MISSION_TALKS: Record<string, string[]> = {

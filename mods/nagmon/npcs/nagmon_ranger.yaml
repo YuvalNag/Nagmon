@@ -29,7 +29,7 @@ schedule:
     - {when: {phase: [afternoon]}, at: {map: classic_route_1, spot: lookout}}
     - {when: {phase: [evening]}, at: null}
   appears_if: {flag_all: [nagmon_intro_done]}
-offers: {quests: [q_counts]}
+offers: {}
 relationship:
   memory_flags: [asked_neighbours, asked_hide, asked_town]
 ai: {enabled: false}

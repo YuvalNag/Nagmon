@@ -1,0 +1,43 @@
+# Quest 11: three riddles over three days (a chain). Each riddle is a logic question of the engine; the next one
+# opens on a later day (`after_days`), never timed, never lost. Each riddle pays its own coins.
+id: q_chess_riddles
+giver: nagmon_chess_haim
+type: chain
+emoji: "265f"
+title: {he: שלוש חידות שחמט, en: Three chess riddles}
+subject: logic
+offer:
+  at: nagmon_chess_haim
+  lines:
+    - {he: "יש לי שלוש חידות. אחת היום, ועוד אחת בכל יום שבא אחריו. מתחילים?", en: "I have three riddles. One today, and one on each day that follows. Shall we start?"}
+    - {he: "החידות שלי באות אחת אחת, ביום אחר כל פעם. רוצים לנסות?", en: "My riddles come one at a time, on a different day each time. Want to try?"}
+board:
+  slot: normal
+  goal: {he: "לפתור שלוש חידות של חיים השחמטאי, אחת בכל יום", en: "Solve three riddles of Haim the chess player, one each day"}
+repeat: {kind: once}
+steps:
+  - kind: ask
+    npc: nagmon_chess_haim
+    topic: logic
+    todo: {he: "החידה הראשונה של חיים", en: "Haim's first riddle"}
+    say:
+      - {he: "החידה הראשונה נפתרה! מחר מחכה השנייה.", en: "The first riddle is solved! The second waits tomorrow."}
+    reward: {coins: 15}
+  - kind: ask
+    npc: nagmon_chess_haim
+    topic: logic
+    after_days: 1
+    todo: {he: "החידה השנייה של חיים (ביום אחר)", en: "Haim's second riddle (on another day)"}
+    say:
+      - {he: "גם השנייה! עוד אחת, והיא האחרונה.", en: "The second too! One more, and it is the last."}
+    reward: {coins: 20}
+  - kind: ask
+    npc: nagmon_chess_haim
+    topic: logic
+    after_days: 1
+    todo: {he: "החידה השלישית של חיים (ביום אחר)", en: "Haim's third riddle (on another day)"}
+    say:
+      - {he: "שלוש חידות פתורות! אתם שחמטאים אמיתיים.", en: "Three riddles solved! You are real chess players."}
+    reward: {coins: 30}
+reward: {friendship: true}
+sel: false

@@ -1,0 +1,37 @@
+# Quest 5: the mail round (deliver). Three letters for three people; where they stand today is the town's
+# (core/world/resolver.ts), so the child looks for them or asks around. The recipients are away at night.
+id: q_mail_round
+giver: nagmon_route1_trainer
+type: deliver
+emoji: "1f4ee"
+title: {he: סיבוב דואר, en: The mail round}
+offer:
+  at: nagmon_route1_trainer
+  lines:
+    - {he: "יש לי שלושה מכתבים ואין לי זמן. תעזרו לי למסור אותם?", en: "I have three letters and no time. Will you help me hand them out?"}
+    - {he: "הדואר מחכה לי. אפשר למסור שלושה מכתבים במקומי?", en: "The post is waiting for me. Can you deliver three letters in my place?"}
+board:
+  slot: easy
+  goal: {he: "למסור שלושה מכתבים לשלושה אנשים בעיר", en: "Deliver three letters to three people in town"}
+repeat: {kind: daily}
+steps:
+  - kind: say
+    npc: nagmon_granny
+    todo: {he: "למסור מכתב לסבתא רינה", en: "Hand a letter to Grandma Rina"}
+    say:
+      - {he: "מכתב בשבילי? איזה כיף, תודה!", en: "A letter for me? How lovely, thank you!"}
+    reward: {friendship: true}
+  - kind: say
+    npc: nagmon_baker
+    todo: {he: "למסור מכתב לאופיר האופה", en: "Hand a letter to Ofir the baker"}
+    say:
+      - {he: "מכתב לאופה! תודה רבה, זה ריח של עוגה.", en: "A letter for the baker! Thanks, it smells of cake."}
+    reward: {friendship: true}
+  - kind: say
+    npc: nagmon_gardener
+    todo: {he: "למסור מכתב למיכל הגננת", en: "Hand a letter to Michal the gardener"}
+    say:
+      - {he: "מכתב לגינה! תודה, עכשיו יש לי מה לקרוא בשמש.", en: "A letter for the garden! Thanks, now I have something to read in the sun."}
+    reward: {friendship: true}
+reward: {coins: S, friendship: true}
+sel: false

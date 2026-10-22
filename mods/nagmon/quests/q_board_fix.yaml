@@ -1,0 +1,46 @@
+# Quest 13: fixing the notice board (a chain). When it is done the board has a 4th card (a second easy one):
+# `unlocks: board_slot` (core/game/quests.ts reads it).
+id: q_board_fix
+giver: nagmon_carpenter
+type: chain
+emoji: "1f528"
+title: {he: מתקנים את לוח המודעות, en: Mending the notice board}
+subject: logic
+offer:
+  at: nagmon_carpenter
+  lines:
+    - {he: "לוח המודעות בכיכר מתנדנד. תעזרו לי לתקן אותו, צעד אחר צעד?", en: "The notice board in the square wobbles. Will you help me fix it, step by step?"}
+    - {he: "הלוח בכיכר צריך תיקון, וביד אחת קשה לי. תעזרו?", en: "The board in the square needs mending, and it is hard with one hand. Will you help?"}
+board:
+  slot: normal
+  goal: {he: "לעזור לסלים הנגר לתקן את לוח המודעות", en: "Help Salim the carpenter mend the notice board"}
+repeat: {kind: once}
+steps:
+  - kind: ask
+    npc: nagmon_carpenter
+    topic: logic
+    todo: {he: "לסדר את הקרשים לפי הדוגמה", en: "Arrange the planks by the pattern"}
+    say:
+      - {he: "הקרשים במקום! עכשיו צריך ציר חדש.", en: "The planks are in place! Now we need a new hinge."}
+    reward: {coins: 15}
+  - kind: ask
+    npc: nagmon_carpenter
+    topic: math
+    later: true
+    todo: {he: "למדוד את הציר", en: "Measure the hinge"}
+    say:
+      - {he: "הציר מתאים בדיוק. נשאר רק הצבע.", en: "The hinge fits exactly. Only the paint is left."}
+    reward: {coins: 15}
+  - kind: choose
+    npc: nagmon_carpenter
+    later: true
+    free: true
+    todo: {he: "לבחור צבע ללוח", en: "Choose a colour for the board"}
+    prompt: {he: "באיזה צבע צובעים את הלוח?", en: "What colour do we paint the board?"}
+    options:
+      - {id: green, label: {he: "ירוק", en: "Green"}, reply: {he: "ירוק כמו העלים. נראה יפה!", en: "Green like leaves. It looks lovely!"}}
+      - {id: blue, label: {he: "כחול", en: "Blue"}, reply: {he: "כחול כמו השמיים. נראה יפה!", en: "Blue like the sky. It looks lovely!"}}
+      - {id: yellow, label: {he: "צהוב", en: "Yellow"}, reply: {he: "צהוב כמו השמש. נראה יפה!", en: "Yellow like the sun. It looks lovely!"}}
+reward: {coins: 40, friendship: true}
+unlocks: board_slot
+sel: false

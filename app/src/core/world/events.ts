@@ -22,6 +22,7 @@ import { type MailData, queueEvent } from "../game/mail";
 import { grant, type Loot, type Prize, pickPrize } from "../game/loot";
 import type { ObjectDefs } from "../game/objects";
 import { meet } from "../game/people";
+import type { QuestEngine, QuestIO } from "../game/questFlow";
 import type { Chip, Spoken } from "./director";
 import type { Action, Condition, WorldEvent } from "./mapData";
 import { phaseOf } from "./npcs";
@@ -76,6 +77,11 @@ export interface EventHost {
   chestWrong?(chest: string): Promise<"again" | "gift" | "leave">;
   /** A sign's fact: its picture and its line. */
   fact?(fact: { emoji: string; text: string }): Promise<void>;
+  /**
+   * A choice of a quest (the offer "gladly / not now", a kindness scene, a book's shelf): resolves with the id
+   * tapped, or null when the card was closed (Android's back). A host without it takes the first option.
+   */
+  choose?(prompt: string, speaker: string, options: readonly { id: string; label: string }[]): Promise<string | null>;
   warn?(message: string): void;
 }
 
@@ -142,7 +148,15 @@ export interface RunnerOptions {
   talkTo?: ReadonlySet<string>;
   /** What the world objects need; without it their events stop and say so. */
   objects?: WorldObjects;
+  /** The quest engine (core/game/questFlow.ts): who a quest is waiting at, offers, steps. */
+  quests?: QuestEngine;
 }
+
+/**
+ * The actions a quest step may run (tools/app/quests.py STEP_ACTIONS): the interpreter's own, no new ones.
+ * Money is paid by the quest's reward, never by a step.
+ */
+export const QUEST_ACTIONS: ReadonlySet<string> = new Set(["set_variable", "clear_variable", "give_item", "send_letter"]);
 
 /** The actions this interpreter runs. */
 export const ACTIONS: ReadonlySet<string> = new Set([
@@ -334,7 +348,7 @@ export class EventRunner {
 
   /** Whether talking to `slug` now would start something (the map's "talk" button). */
   talkable(slug: string): boolean {
-    return !this.running && this.characters.has(slug) && (this.known(slug) || this.talksFor(slug).length > 0);
+    return !this.running && this.characters.has(slug) && (this.known(slug) || this.talksFor(slug).length > 0 || (this.opts.quests?.talkable(slug) ?? false));
   }
 
   /** Whether the person has topic chips to offer now (the map's "ask" button). */
@@ -347,6 +361,13 @@ export class EventRunner {
     if (this.running) return;
     this.running = true;
     try {
+      // the board's accepted cards become quests, and the first step's actions run (a prop shows where a quest says)
+      const quests = this.opts.quests;
+      if (quests) {
+        if (quests.syncBoard().length) this.dirty = true;
+        await quests.enterPending(this.questIO());
+        this.save();
+      }
       await this.settle();
     } finally {
       this.running = false;
@@ -362,7 +383,8 @@ export class EventRunner {
     if (this.running || !this.characters.has(slug)) return false;
     const events = this.talksFor(slug);
     const person = this.known(slug);
-    if (!events.length && !person) return false;
+    const quests = this.opts.quests;
+    if (!events.length && !person && !quests?.talkable(slug)) return false;
     this.running = true;
     try {
       if (person) {
@@ -371,6 +393,8 @@ export class EventRunner {
         this.lead = spoken ? [`${spoken.speaker}: ${spoken.text}`] : [];
       }
       for (const e of events) if (this.ready(e)) await this.run(e);
+      // a quest waiting at this person, or one they offer (core/game/questFlow.ts); the greeting leads its first words
+      if (quests && quests.talkable(slug) && (await quests.talk(slug, this.questIO()))) this.dirty = true;
       // someone of the town without a definition in the people system: met, and a heart more on a new day (the PC's People tab); the others have their friendship there
       if (!person && this.opts.objects?.people?.has(slug) && meet(this.state, slug, this.opts.today())) this.dirty = true;
       // no dialog of the events carried the greeting: it is said on its own, before what they set off
@@ -421,6 +445,22 @@ export class EventRunner {
       this.running = false;
     }
     return true;
+  }
+
+  /** What the quest engine may do through this runner (core/game/questFlow.ts `runnerIO` builds it: it stays out of the start script). */
+  private questIO(): QuestIO {
+    return this.opts.quests!.io({
+      host: this.host,
+      lead: () => this.lead.length > 0,
+      flushLead: () => this.flushLead(),
+      save: () => this.save(),
+      mark: () => {
+        this.dirty = true;
+      },
+      allowed: QUEST_ACTIONS,
+      act: (a) => this.act(a),
+      show: (prize) => this.show({ prize, how: "item" }),
+    });
   }
 
   /** What opened the talk, if no dialog has carried it yet, said now on its own. */

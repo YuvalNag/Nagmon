@@ -1,0 +1,39 @@
+# Quest 14: the mint run (a chain across people). Mint from the gardener, tea at the pharmacist's, the cup to
+# Grandma Rina. The mint is a real item: the gardener gives it, the pharmacist takes it, the end gives two.
+id: q_mint_run
+giver: nagmon_gardener
+type: chain
+emoji: "1f33f"
+title: {he: ריצת נענע, en: The mint run}
+subject: science
+offer:
+  at: nagmon_gardener
+  lines:
+    - {he: "יש לי נענע טרייה לתה של סבתא רינה. תעזרו להעביר אותה?", en: "I have fresh mint for Grandma Rina's tea. Will you help pass it on?"}
+    - {he: "הנענע שלי מוכנה לדרך. מי לוקח אותה לתה של סבתא רינה?", en: "My mint is ready for the road. Who will take it to Grandma Rina for her tea?"}
+board:
+  slot: normal
+  goal: {he: "להעביר נענע מהגינה דרך הרוקחת אל סבתא רינה", en: "Carry mint from the garden through the pharmacist to Grandma Rina"}
+repeat: {kind: once}
+steps:
+  - kind: say
+    npc: nagmon_gardener
+    todo: {he: "לקחת נענע ממיכל", en: "Take the mint from Michal"}
+    say:
+      - {he: "הנה נענע טרייה. קחו אותה לתסמה הרוקחת, היא תכין תה.", en: "Here is fresh mint. Take it to Tasma the pharmacist, she will make tea."}
+    done: ["give_item fresh_mint,1"]
+  - kind: bring
+    npc: nagmon_pharmacist
+    item: fresh_mint
+    n: 1
+    todo: {he: "לתת את הנענע לתסמה הרוקחת", en: "Give the mint to Tasma the pharmacist"}
+    wait: {he: "עוד אין לכם נענע. מיכל הגננת נתנה לכם אחת.", en: "You have no mint yet. Michal the gardener gave you one."}
+    say:
+      - {he: "נענע! ידעתם שתה נענע עוזר כשהבטן מרגישה לא טוב? הנה כוס תה לסבתא רינה.", en: "Mint! Did you know mint tea helps when your tummy feels bad? Here is a cup of tea for Grandma Rina."}
+  - kind: say
+    npc: nagmon_granny
+    todo: {he: "להביא את התה לסבתא רינה", en: "Bring the tea to Grandma Rina"}
+    say:
+      - {he: "תה נענע! בדיוק מה שהייתי צריכה. תודה לכולכם.", en: "Mint tea! Just what I needed. Thank you all."}
+reward: {coins: 25, items: [{id: fresh_mint, n: 2}], friendship: true}
+sel: false

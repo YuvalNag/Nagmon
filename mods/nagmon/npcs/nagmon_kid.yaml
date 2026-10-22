@@ -1,4 +1,4 @@
-# Yoav (docs/app/WORLD_V2.md 6: row 7). His kitten story (classic_hearthrock_city.yaml) waits for the quest slice; for now he only chats.
+# Yoav (docs/app/WORLD_V2.md 6: row 7). His kitten story is the quest q_kitten_home (mods/nagmon/quests).
 id: nagmon_kid
 short: yoav
 class: R
@@ -29,7 +29,7 @@ schedule:
     - {when: {phase: [afternoon]}, at: {map: classic_hearthrock_city, spot: fountain}}
     - {when: {phase: [evening]}, at: null}
   appears_if: {flag_all: [nagmon_intro_done]}
-offers: {quests: [q_kitten]}
+offers: {quests: [q_kitten_home]}
 relationship:
   memory_flags: [asked_play, asked_joke, asked_town]
 ai: {enabled: false}

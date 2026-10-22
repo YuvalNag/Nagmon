@@ -33,7 +33,7 @@ schedule:
     - {when: {phase: [afternoon]}, at: {map: classic_hearthrock_city, spot: flowerbed}}
   appears_if: {flag_all: [nagmon_intro_done]}
 offers:
-  quests: [q_baskets]
+  quests: [q_berry_basket, q_mint_run]
 relationship:
   memory_flags: [asked_plants, asked_berries, asked_fact, asked_weather]
 ai: {enabled: false}

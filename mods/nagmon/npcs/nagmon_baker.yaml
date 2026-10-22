@@ -27,7 +27,7 @@ schedule:
     - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: market_stall}}
     - {when: {phase: [evening]}, at: null}
   appears_if: {flag_all: [nagmon_intro_done]}
-offers: {quests: [q_recipe]}
+offers: {quests: [q_baker_double]}
 relationship:
   memory_flags: [asked_bread, asked_town]
 ai: {enabled: false}

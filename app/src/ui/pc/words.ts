@@ -132,7 +132,8 @@ export const heObj = {
   boardAccept: "לקבל",
   boardAccepted: "התקבל",
   boardFrom: "מאת {name}",
-  boardSaved: "הכרטיס שמור אצלכם. המשימות עצמן יתחילו בקרוב.",
+  boardSaved: "המשימה שמורה ביומן המשימות. אפשר להתחיל!",
+  boardKept: "הכרטיס שמור. כשיהיה מקום ביומן המשימות, המשימה תתחיל.",
   boardNone: "אין מודעות היום.",
   recallPicture: "מה כתוב על התמונה הזאת?",
 } as const;

@@ -27,7 +27,7 @@ schedule:
   rules:
     - {when: {phase: [afternoon, evening]}, at: {map: classic_route_1, spot: pond}}
   appears_if: {flag_all: [nagmon_intro_done]}
-offers: {quests: [q_bait]}
+offers: {}
 relationship:
   memory_flags: [asked_fishing, asked_water, asked_town]
 ai: {enabled: false}

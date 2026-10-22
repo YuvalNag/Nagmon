@@ -28,7 +28,7 @@ schedule:
     - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: library_steps}}
     - {when: {phase: [evening]}, at: null}
   appears_if: {flag_all: [nagmon_intro_done]}
-offers: {quests: [q_shelves]}
+offers: {quests: [q_shelf_sort]}
 relationship:
   memory_flags: [asked_books, asked_quiet, asked_town]
 ai: {enabled: false}

@@ -1,0 +1,33 @@
+# Quest 6: trade words with Tom (the English question is the learning engine's; the six stories are Tom's).
+id: q_tom_swap
+giver: nagmon_tourist
+type: teach
+emoji: "1f524"
+title: {he: מחליפים מילים עם טום, en: Swapping words with Tom}
+subject: english
+offer:
+  at: nagmon_tourist
+  lines:
+    - {he: "אני מלמד אתכם מילה באנגלית, ואתם עוזרים לי בעברית. מסכימים?", en: "I teach you an English word, and you help me with Hebrew. Deal?"}
+    - {he: "בואו נחליף מילים! אני אשאל משהו באנגלית.", en: "Let us swap words! I will ask something in English."}
+board:
+  slot: learning
+  goal: {he: "להחליף מילים באנגלית עם טום התייר", en: "Swap English words with Tom the tourist"}
+repeat: {kind: pool, cooldown_days: 3, variant_cooldown: 5}
+variants:
+  - {id: v1, band: A, he: "אני מחפש את המילה הנכונה לחיות. תעזרו לי?", en: "I am looking for the right word for animals. Will you help?"}
+  - {id: v2, band: A, he: "היום אני לומד צבעים. שאלה קטנה:", en: "Today I am learning colours. A small question:"}
+  - {id: v3, band: B, he: "בטיול ראיתי שלט באנגלית ולא הבנתי. תעזרו?", en: "On my trip I saw a sign in English and did not understand. Can you help?"}
+  - {id: v4, band: B, he: "אני אוסף מילים חדשות במחברת. הנה אחת לבדוק:", en: "I collect new words in my notebook. Here is one to check:"}
+  - {id: v5, band: C, he: "אני כותב גלויה באנגלית וצריך עזרה במשפט:", en: "I am writing a postcard in English and need help with a sentence:"}
+  - {id: v6, band: C, he: "מי יודע לבטא את זה נכון? אני מנסה ללמוד:", en: "Who knows how to say this right? I am trying to learn:"}
+steps:
+  - kind: ask
+    npc: nagmon_tourist
+    topic: english
+    todo: {he: "לענות לטום על שאלה באנגלית", en: "Answer Tom's English question"}
+    say:
+      - {he: "תודה! עכשיו אני יודע עוד מילה. Thank you!", en: "Thanks! Now I know one more word. Thank you!"}
+      - {he: "מעולה! בפעם הבאה אני אלמד אתכם עוד מילה.", en: "Great! Next time I will teach you another word."}
+reward: {coins: 25, friendship: true}
+sel: false

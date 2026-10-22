@@ -1,0 +1,36 @@
+# Quest 1 (docs/app/WORLD_V2.md 7.6): the lost kitten. Yoav asks; the kitten waits on Route 1 (the map's own
+# `create_npc` event shows her while `nagmon_kitten` is `asked`); she goes home to the town when Yoav has his news.
+# The steps only use actions the event interpreter already has (set_variable, give_item through the reward).
+id: q_kitten_home
+giver: nagmon_kid
+type: lost
+emoji: "1f431"
+title: {he: פיצי הקטנה הלכה לאיבוד, en: Little Pitzi is lost}
+offer:
+  at: nagmon_kid
+  lines:
+    - {he: "פיצי, החתולה הקטנה שלי, ברחה! אתם יכולים לעזור לי למצוא אותה?", en: "Pitzi, my little kitten, ran away! Can you help me find her?"}
+    - {he: "איבדתי את פיצי החתולה. תעזרו לי לחפש אותה?", en: "I lost my kitten Pitzi. Will you help me look for her?"}
+repeat: {kind: once}
+steps:
+  - kind: say
+    npc: nagmon_kid
+    todo: {he: "לשמוע מיואב לאן פיצי הלכה", en: "Hear from Yoav where Pitzi went"}
+    say:
+      - {he: "תודה רבה! אני חושב שפיצי הלכה לשביל 1. חפשו אותה שם.", en: "Thank you so much! I think Pitzi went to Route 1. Look for her there."}
+    done: [set_variable nagmon_kitten:asked]
+  - kind: say
+    npc: nagmon_kitten
+    todo: {he: "למצוא את פיצי בשביל 1", en: "Find Pitzi on Route 1"}
+    say:
+      - {he: "מיאו! פיצי מצאה אתכם. היא מוכנה לחזור הביתה.", en: "Meow! Pitzi found you. She is ready to go home."}
+    done: [set_variable nagmon_kitten:found]
+  - kind: say
+    npc: nagmon_kid
+    todo: {he: "לספר ליואב שפיצי נמצאה", en: "Tell Yoav that Pitzi is found"}
+    say:
+      - {he: "פיצי חזרה! תודה, תודה, תודה!", en: "Pitzi is back! Thank you, thank you, thank you!"}
+      - {he: "היא כבר שותה חלב. איזה כיף! תודה רבה לכם.", en: "She is already drinking milk. How nice! Thank you very much."}
+    done: [set_variable nagmon_kitten:home, send_letter thanks_friend]
+reward: {coins: M, items: [{id: dew_drop, n: 2}], friendship: true}
+sel: false

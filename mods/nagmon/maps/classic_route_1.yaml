@@ -160,13 +160,5 @@ events:
     - create_npc nagmon_kitten,21,16
     - char_face nagmon_kitten,down
 
-  Kitten Found:
-    type: event
-    behav:
-    - talk nagmon_kitten
-    conditions:
-    - is variable_set nagmon_kitten:asked
-    actions:
-    - translated_dialog nagmon_world_kitten_found
-    - set_variable nagmon_kitten:found
-    - remove_npc nagmon_kitten
+  # Finding her is a step of the quest q_kitten_home (mods/nagmon/quests): the quest engine lets the child talk to
+  # her and sets `nagmon_kitten:found`; this map only shows her while the variable says `asked`.

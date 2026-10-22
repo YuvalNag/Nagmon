@@ -1,0 +1,34 @@
+# Quest 3: double the recipe. The question is the learning engine's (math, at the child's level); the six variants
+# are the baker's story around it, picked by grade band and by the day, never one inside its cooldown.
+id: q_baker_double
+giver: nagmon_baker
+type: problem
+emoji: "1f967"
+title: {he: כפול מתכון, en: Double the recipe}
+subject: math
+offer:
+  at: nagmon_baker
+  lines:
+    - {he: "אני אופה הרבה היום וצריך עזרה בחשבון. תעזרו לי?", en: "I am baking a lot today and need help with numbers. Will you help?"}
+    - {he: "המתכון שלי גדל והחשבון התבלבל. אפשר לעזור?", en: "My recipe grew and the numbers got mixed up. Can you help?"}
+board:
+  slot: learning
+  goal: {he: "לעזור לאופיר לפתור חידת חשבון של מתכון", en: "Help Ofir solve a recipe number puzzle"}
+repeat: {kind: pool, cooldown_days: 1, variant_cooldown: 5}
+variants:
+  - {id: v1, band: A, he: "היום אופים עוגה אחת. שאלה קטנה לפני שמדליקים את התנור:", en: "Today we bake one cake. A small question before we heat the oven:"}
+  - {id: v2, band: A, he: "הביצים והקמח מוכנים על השולחן. רק שאלה אחת חסרה:", en: "The eggs and flour are ready on the table. Only one question is missing:"}
+  - {id: v3, band: B, he: "שתי עוגות במקום אחת! צריך לחשוב קצת:", en: "Two cakes instead of one! We need to think a little:"}
+  - {id: v4, band: B, he: "המתכון הסודי שלי צריך חשבון מדויק. הנה השאלה:", en: "My secret recipe needs exact numbers. Here is the question:"}
+  - {id: v5, band: C, he: "מכינים מנה גדולה לכל העיר. כמה צריך? שאלה:", en: "I am making a big batch for the whole town. How much? A question:"}
+  - {id: v6, band: C, he: "המתכון גדל פי כמה, והבצק לא מחכה. תעזרו לחשב?", en: "The recipe grew several times over, and the dough will not wait. Can you work it out?"}
+steps:
+  - kind: ask
+    npc: nagmon_baker
+    topic: math
+    todo: {he: "לפתור את חידת המתכון אצל אופיר", en: "Solve the recipe puzzle at Ofir's stall"}
+    say:
+      - {he: "נכון! עכשיו העוגה תצא מושלמת.", en: "Right! Now the cake will be perfect."}
+      - {he: "יופי! הבצק כבר תופח. תודה רבה.", en: "Lovely! The dough is already rising. Thank you."}
+reward: {coins: 25, items: [{id: biscuit, n: 1}], friendship: true}
+sel: false

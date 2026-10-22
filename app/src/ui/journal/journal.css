@@ -1,0 +1,140 @@
+/*
+ * The quest journal (src/ui/journal): up to three open quests as cards and the shelf of finished ones.
+ * Sized for the family's phone (873x393) at 100% and 130% text: every button is at least a finger (--touch),
+ * the cards scroll inside their own box and nothing else does.
+ */
+
+.sheet.journal {
+  background: linear-gradient(#f3f7ef, #dbe8d3);
+}
+
+.journal-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.journal-head {
+  margin: 0;
+  font-size: calc(var(--text) * 0.6);
+  color: var(--ink-soft);
+}
+
+.journal-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: var(--gap);
+  align-items: stretch;
+  overflow-y: auto;
+}
+
+.journal-card {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  text-align: center;
+  background: #fffdf6;
+  border: 3px solid #9a8a5a;
+  border-radius: var(--radius);
+}
+
+.journal-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.journal-title {
+  font-size: calc(var(--text) * 0.62);
+  line-height: 1.15;
+}
+
+.journal-todo {
+  flex: 1;
+  font-size: calc(var(--text) * 0.56);
+  line-height: 1.2;
+}
+
+.journal-steps {
+  display: flex;
+  gap: 6px;
+}
+
+.journal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #6c8f56;
+  background: transparent;
+}
+
+.journal-dot[data-on="true"] {
+  background: #6c8f56;
+}
+
+.journal-dot[data-now="true"] {
+  background: #f4c542;
+  border-color: #9a6b00;
+}
+
+.journal-card button {
+  width: 100%;
+  font-size: calc(var(--text) * 0.6);
+}
+
+.journal-said {
+  min-height: 1.3em;
+}
+
+.journal-shelf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-height: 3.6em;
+  overflow-y: auto;
+}
+
+.journal-done {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e3ecd8;
+  border: 2px solid #6c8f56;
+  font-size: calc(var(--text) * 0.52);
+}
+
+.done-pic {
+  width: 20px;
+  height: 20px;
+}
+
+.journal-card .card-pic {
+  width: 36px;
+  height: 36px;
+  flex: none;
+}
+
+.journal-body .obj-empty,
+.journal-body .obj-note,
+.journal-body .obj-said {
+  margin: 0;
+  font-size: calc(var(--text) * 0.62);
+  line-height: 1.25;
+}
+
+.journal-body .obj-said {
+  min-height: 1.3em;
+  font-weight: 600;
+}

@@ -28,7 +28,7 @@ schedule:
     - {when: {phase: [morning, afternoon]}, at: {map: classic_hearthrock_city, spot: workshop_door}}
     - {when: {phase: [evening]}, at: {map: classic_hearthrock_city, spot: park_bench}}
   appears_if: {flag_all: [nagmon_intro_done]}
-offers: {quests: [q_board_chain]}
+offers: {quests: [q_board_fix]}
 relationship:
   memory_flags: [asked_wood, asked_riddle, asked_town]
 ai: {enabled: false}

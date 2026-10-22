@@ -15,7 +15,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from tools.app import content, economy, lessons, npcs, objects
+from tools.app import content, economy, lessons, npcs, objects, quests
 from tools.app.common import NAG, REPO, Output
 
 EMOJI_DIR = NAG / "gfx" / "emoji"
@@ -55,6 +55,7 @@ def build(out: Output) -> dict[str, Any]:
         | lessons.emoji_codes()
         | economy.fact_codes()
         | objects.emoji_codes()
+        | quests.emoji_codes()
         | npcs.topic_codes()
     )
     from_generators = generator_codes()

@@ -30,7 +30,6 @@ MAPS = NAG / "maps"
 
 SCREENS = ("pc", "mailbox", "bookshelf", "tv", "fridge", "board")
 BOOK_MODES = ("daily", "library")
-SLOTS = ("easy", "normal", "learning", "weekly")
 #: One line on a screen: a headline, a goal, a creature's line.
 LINE_MAX = 70
 #: A letter's greeting (the fact is shown under it).
@@ -175,7 +174,7 @@ def check_objects(
         if screen == "tv":
             _check_tv(oid, d)
         if screen == "board":
-            _check_board(oid, d.get("postings"))
+            _check_board(oid, d)
     check_places(defs)
     return defs
 
@@ -237,32 +236,13 @@ def _check_tv(oid: str, d: dict[str, Any]) -> None:
         _line(f"{oid}.{species}", text)
 
 
-def _check_board(oid: str, postings: Any) -> None:
-    if not isinstance(postings, list):
-        raise ValueError(f"objects: {oid}: needs postings")
-    seen: set[str] = set()
-    for p in postings:
-        pid = p.get("id") if isinstance(p, dict) else None
-        if not isinstance(pid, str) or not SLUG.fullmatch(pid) or pid in seen:
-            raise ValueError(
-                f"objects: {oid}: bad or repeated posting {pid!r}"
-            )
-        seen.add(pid)
-        if p.get("slot") not in SLOTS:
-            raise ValueError(f"objects: {oid}: {pid}: slot is one of {SLOTS}")
-        _line(f"{oid}.{pid}.goal_he", p.get("goal_he"))
-        _line(f"{oid}.{pid}.giver_he", p.get("giver_he"), 30)
-        _code(f"{oid}.{pid}.emoji", p.get("emoji"))
-    for slot in SLOTS:
-        mine = [p for p in postings if p["slot"] == slot]
-        givers = {p["giver_he"] for p in mine}
-        # three different givers in a slot: a day's three cards can always be from three different people
-        if slot != "weekly" and len(givers) < 3:
-            raise ValueError(
-                f"objects: {oid}: the {slot} slot needs three givers"
-            )
-        if slot == "weekly" and not mine:
-            raise ValueError(f"objects: {oid}: needs a weekly posting")
+def _check_board(oid: str, d: dict[str, Any]) -> None:
+    # W3: the cards are the quests' own (tools/app/quests.py: each quest names its slot), made by the generator
+    # in app/src/core/game/boardGen.ts. A static list here would be a second source that could disagree.
+    if "postings" in d:
+        raise ValueError(
+            f"objects: {oid}: the board's cards come from the quests (mods/nagmon/quests), not from a list here"
+        )
 
 
 def check_letters(
@@ -355,7 +335,7 @@ def emoji_codes() -> set[str]:
     """The pictures the objects and the letters use (the emoji build ships them)."""
     codes: set[str] = set()
     for d in load_objects().values():
-        for key in ("people", "snacks", "postings"):
+        for key in ("people", "snacks"):
             codes |= {x["emoji"] for x in d.get(key) or []}
     codes |= {s["emoji"] for s in read_yaml(LETTERS)["senders"].values()}
     return codes

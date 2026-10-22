@@ -1,0 +1,26 @@
+# Quest 8: set the shop clocks. The question is the engine's (math).
+id: q_clock_set
+giver: nagmon_clockmaker
+type: problem
+emoji: "23f0"
+title: {he: מכוונים את השעונים, en: Setting the clocks}
+subject: math
+offer:
+  at: nagmon_clockmaker
+  lines:
+    - {he: "השעונים בחנות שלי צריכים כוונון. תעזרו לי בחשבון?", en: "The clocks in my shop need setting. Will you help me with numbers?"}
+    - {he: "כל שעון מראה שעה אחרת! בואו נסדר אותם יחד.", en: "Every clock shows a different time! Let us fix them together."}
+board:
+  slot: learning
+  goal: {he: "לעזור ליוסף השען לכוונן את השעונים", en: "Help Yosef the clockmaker set the clocks"}
+repeat: {kind: weekly}
+steps:
+  - kind: ask
+    npc: nagmon_clockmaker
+    topic: math
+    todo: {he: "לענות ליוסף על שאלה של שעונים", en: "Answer Yosef's clock question"}
+    say:
+      - {he: "בדיוק! השעון מראה את השעה הנכונה. תודה.", en: "Exactly! The clock shows the right time. Thank you."}
+      - {he: "יופי! עכשיו כל השעונים מתקתקים יחד.", en: "Lovely! Now all the clocks tick together."}
+reward: {coins: 25, friendship: true}
+sel: false

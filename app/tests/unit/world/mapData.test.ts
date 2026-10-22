@@ -21,8 +21,8 @@ describe("Hearthrock, as the build converted it", () => {
     expect(city.placement?.spots["owl_post"]).toEqual({ x: 29, y: 15, facing: "down" });
     expect(city.placement?.spots["cashier_post"]).toEqual({ x: 14, y: 14, facing: "down" });
     expect(city.placement?.maxNpcs).toBe(10);
-    // what the map itself creates is the quest's prop (the wallet) and the notice board; the kitten comes home only after the quest
-    expect(city.npcs.map((n) => n.slug)).toEqual(["nagmon_wallet", "nagmon_obj_noticeboard"]);
+    // what the map itself creates is the quests' props (the wallet, the lost-and-found box) and the notice board; the kitten comes home only after the quest
+    expect(city.npcs.map((n) => n.slug)).toEqual(["nagmon_wallet", "nagmon_lostfound", "nagmon_obj_noticeboard"]);
     expect(city.placed).toEqual([]);
   });
 

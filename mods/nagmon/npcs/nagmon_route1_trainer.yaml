@@ -38,7 +38,7 @@ schedule:
   appears_if: {flag_all: [nagmon_intro_done]}
 offers:
   mail: {carrier: true}
-  quests: [q_mail_deliver, q_letter_lost]
+  quests: [q_mail_round]
 relationship:
   memory_flags: [asked_weather, asked_town, asked_letters, asked_route]
 ai:

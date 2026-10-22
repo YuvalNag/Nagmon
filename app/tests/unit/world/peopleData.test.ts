@@ -49,7 +49,7 @@ describe("the cast is data", () => {
   });
 
   it("every person any map creates or places has a definition (or is a prop) and art", () => {
-    const props = new Set(["classic_gym_leader_granite", "classic_gym_leader_mila", "nagmon_wallet", "nagmon_kitten", "nagmon_sign_route1", "nagmon_house_pet", "nagmon_house_shopkeeper", "nagmon_chest_home", "nagmon_nest_home"]);
+    const props = new Set(["classic_gym_leader_granite", "classic_gym_leader_mila", "nagmon_wallet", "nagmon_lostfound", "nagmon_kitten", "nagmon_sign_route1", "nagmon_house_pet", "nagmon_house_shopkeeper", "nagmon_chest_home", "nagmon_nest_home"]);
     for (const [name, m] of Object.entries(maps)) {
       const created = [...m.events.flatMap((e) => e.actions).filter((a) => a.type === "create_npc").map((a) => a.args[0]!)];
       for (const slug of created) {

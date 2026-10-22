@@ -7,6 +7,8 @@ import { itemText, type TextKey, t } from "../i18n";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
 import { ItemIcon } from "./ItemIcon";
+import { Journal, Later } from "./lazy";
+import { jw } from "./journal/words";
 
 const TAB_TEXT: Record<string, TextKey> = { nets: "tabNets", snacks: "tabSnacks", tools: "tabTools" };
 const TAB_ICON: Record<string, string> = { nets: "🥅", snacks: "🍓", tools: "🪶" };
@@ -48,6 +50,8 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
   const [tab, setTab] = useState(eco.tabs[0] ?? "nets");
   const [picked, setPicked] = useState<string | null>(null);
   const [asking, setAsking] = useState(false);
+  // the quest journal opens from here (a screen of its own, fetched when first opened)
+  const [journal, setJournal] = useState(false);
   const [said, setSaid] = useState<string | null>(null);
   const [, redraw] = useState(0);
 
@@ -116,6 +120,7 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
   };
 
   const reason = item ? why(item) : null;
+  if (journal) return <Later><Journal.Screen play={play} onClose={() => setJournal(false)} /></Later>;
   return (
     <ScreenTime>
       <div className="sheet bag" role="dialog" aria-label={t("bagTitle")} data-screen="bag" data-tab={tab}>
@@ -126,6 +131,12 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
               <small>{t(TAB_TEXT[id] ?? "bagTitle")}</small>
             </Tap>
           ))}
+          {!battle && (
+            <Tap id="bag_journal" className="bag-journal" aria-label={jw("title")} onTap={() => setJournal(true)}>
+              <span aria-hidden="true">📜</span>
+              <small>{jw("tab")}</small>
+            </Tap>
+          )}
           <Tap id="bag_close" className="bag-back" onTap={onClose}>
             {t("tripsBack")}
           </Tap>

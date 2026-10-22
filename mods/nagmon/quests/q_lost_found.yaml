@@ -1,0 +1,51 @@
+# Quest 7: the lost-and-found box. Three things, three owners, each matched by a clue; the order of the owners
+# changes every day so the child reads. A wrong pick costs nothing: try again (the build's `correct` rounds).
+id: q_lost_found
+giver: nagmon_lostfound
+giver_he: קופסת האבדות
+type: lost
+emoji: "1f9f3"
+title: {he: "מי איבד את זה?", en: "Whose is this?"}
+subject: logic
+offer:
+  at: nagmon_lostfound
+  lines:
+    - {he: "בקופסה יש שלושה דברים שמישהו איבד. כל אחד עם רמז. לעזור למצוא את הבעלים?", en: "There are three lost things in the box, each with a clue. Help find the owners?"}
+    - {he: "הקופסה מלאה בדברים שאיבדו. נחפש להם בעלים?", en: "The box is full of things people lost. Shall we look for their owners?"}
+board:
+  slot: easy
+  goal: {he: "להחזיר שלושה דברים אבודים לבעלים שלהם", en: "Give three lost things back to their owners"}
+repeat: {kind: weekly}
+steps:
+  - kind: choose
+    npc: nagmon_lostfound
+    todo: {he: "למצוא את הבעלים של ספר השחמט", en: "Find the owner of the chess book"}
+    prompt: {he: "ספר שחמט קטן. הרמז: הבעלים אוהב לשבת וללמוד מהלכים. של מי הוא?", en: "A small chess book. The clue: the owner loves to sit and learn moves. Whose is it?"}
+    options:
+      - {id: haim, label: {he: "חיים השחמטאי", en: "Haim the chess player"}, reply: {he: "נכון! חיים חיפש אותו כל היום.", en: "Right! Haim looked for it all day."}}
+      - {id: michal, label: {he: "מיכל הגננת", en: "Michal the gardener"}, reply: {he: "מיכל אוהבת צמחים. עוד רמז: יש בספר משבצות שחורות ולבנות.", en: "Michal loves plants. Another clue: the book has black and white squares."}}
+      - {id: ofir, label: {he: "אופיר האופה", en: "Ofir the baker"}, reply: {he: "אופיר אוהב לאפות. עוד רמז: בספר יש מלך ומלכה.", en: "Ofir loves to bake. Another clue: the book has a king and a queen."}}
+    correct: haim
+    hint: {he: "הרמז: שחמט.", en: "The clue: chess."}
+  - kind: choose
+    npc: nagmon_lostfound
+    todo: {he: "למצוא את הבעלים של כפפת הגינה", en: "Find the owner of the garden glove"}
+    prompt: {he: "כפפה מלוכלכת באדמה. הרמז: הבעלים אוהב פרחים. של מי היא?", en: "A glove dirty with soil. The clue: the owner loves flowers. Whose is it?"}
+    options:
+      - {id: haim, label: {he: "חיים השחמטאי", en: "Haim the chess player"}, reply: {he: "חיים אוהב שחמט. עוד רמז: על הכפפה יש עלה.", en: "Haim loves chess. Another clue: there is a leaf on the glove."}}
+      - {id: michal, label: {he: "מיכל הגננת", en: "Michal the gardener"}, reply: {he: "נכון! מיכל חיפשה אותה ליד הערוגה.", en: "Right! Michal looked for it near the flowerbed."}}
+      - {id: ofir, label: {he: "אופיר האופה", en: "Ofir the baker"}, reply: {he: "אופיר אוהב לאפות. עוד רמז: האדמה על הכפפה היא מהגינה.", en: "Ofir loves to bake. Another clue: the soil on the glove is from the garden."}}
+    correct: michal
+    hint: {he: "הרמז: גינה.", en: "The clue: garden."}
+  - kind: choose
+    npc: nagmon_lostfound
+    todo: {he: "למצוא את הבעלים של כובע האפייה", en: "Find the owner of the baking hat"}
+    prompt: {he: "כובע לבן עם קמח. הרמז: הבעלים אוהב לאפות. של מי הוא?", en: "A white hat with flour on it. The clue: the owner loves to bake. Whose is it?"}
+    options:
+      - {id: haim, label: {he: "חיים השחמטאי", en: "Haim the chess player"}, reply: {he: "חיים אוהב שחמט. עוד רמז: יש קמח על הכובע.", en: "Haim loves chess. Another clue: there is flour on the hat."}}
+      - {id: michal, label: {he: "מיכל הגננת", en: "Michal the gardener"}, reply: {he: "מיכל אוהבת צמחים. עוד רמז: הכובע מריח כמו לחם.", en: "Michal loves plants. Another clue: the hat smells like bread."}}
+      - {id: ofir, label: {he: "אופיר האופה", en: "Ofir the baker"}, reply: {he: "נכון! אופיר חיפש אותו ליד התנור.", en: "Right! Ofir looked for it near the oven."}}
+    correct: ofir
+    hint: {he: "הרמז: אפייה.", en: "The clue: baking."}
+reward: {coins: 30, friendship: false}
+sel: false

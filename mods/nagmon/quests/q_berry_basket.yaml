@@ -1,0 +1,28 @@
+# Quest 4: a basket of berries for the gardener (fetch). The berries come from the Bag; she keeps them.
+id: q_berry_basket
+giver: nagmon_gardener
+type: fetch
+emoji: "1f353"
+title: {he: סל פירות יער, en: A basket of berries}
+subject: science
+offer:
+  at: nagmon_gardener
+  lines:
+    - {he: "אני מכינה ריבה ויחסרו לי שלושה פירות יער. תביאו לי?", en: "I am making jam and I need three berries more. Will you bring them?"}
+    - {he: "שלושה פירות יער יעשו לי יום מתוק. אפשר להביא?", en: "Three berries would make my day sweet. Can you bring them?"}
+board:
+  slot: weekly
+  goal: {he: "להביא לגננת מיכל שלושה פירות יער", en: "Bring Michal the gardener three berries"}
+repeat: {kind: weekly}
+steps:
+  - kind: bring
+    npc: nagmon_gardener
+    item: berry
+    n: 3
+    todo: {he: "להביא 3 פירות יער למיכל", en: "Bring 3 berries to Michal"}
+    wait: {he: "עוד לא מספיק פירות יער. אפשר למצוא אותם בתיבות ובגינה.", en: "Not enough berries yet. You can find them in chests and gardens."}
+    say:
+      - {he: "תודה! ידעתם? צמחים צריכים אור שמש כדי לגדול.", en: "Thank you! Did you know? Plants need sunlight to grow."}
+      - {he: "מושלם! ידעתם? שורשים שותים מים מהאדמה.", en: "Perfect! Did you know? Roots drink water from the soil."}
+reward: {coins: S, friendship: true}
+sel: false

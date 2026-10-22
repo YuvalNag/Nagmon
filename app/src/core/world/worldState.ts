@@ -16,6 +16,7 @@ import { journalIsEmpty, type JournalSave, noJournal, parseJournal } from "../ga
 import { mailIsEmpty, type MailSave, noMail, parseMail } from "../game/mail";
 import { noPc, parsePc, pcIsEmpty, type PcSave } from "../game/pcBox";
 import { type MetSave, parseMet } from "../game/people";
+import type { QuestSave } from "../game/questSave";
 import { type NpcRecord, parseRecords, recordsToDict } from "./memory";
 import { parsePlace, type Place } from "./place";
 
@@ -103,11 +104,16 @@ export interface WorldData {
   met?: MetSave;
   /** The notice board's accepted postings (core/game/board.ts). */
   board?: BoardSave;
+  /** The quests: which are active and where, which are done, the day's board (core/game/quests.ts); ids, days and counters. */
+  quests?: QuestSave;
   /** What each person of the world remembers (core/world/memory.ts): ids and numbers, no text. */
   npcs?: Record<string, NpcRecord>;
   /** A random number of this child's world, so the people's days differ between children (not an id). */
   npc_seed?: number;
 }
+
+/** A world with no quest done or begun (what `noQuests()` of core/game/questSave.ts makes, as the text it saves as). */
+const NO_QUESTS = '{"active":{},"done":{},"week":{"w":0,"n":0},"board":null,"log":[],"vhist":{},"declined":{},"taken":[]}';
 
 export const noTrips = (): TripSave => ({ done: [], visited: [], badges: [], at: null });
 export const noLessons = (): LessonSave => ({ done: [], repeatDay: null, charges: 0 });
@@ -169,6 +175,8 @@ export class WorldState {
   pc: PcSave = noPc();
   met: MetSave = {};
   board: BoardSave = noBoard();
+  /** Read back unchecked here and checked when the quest engine takes it (core/game/questSave.ts `parseQuests`): the start script does not carry the checker. */
+  quests: QuestSave = JSON.parse(NO_QUESTS) as QuestSave;
   /** The people's memory of the child, by the person's slug. */
   npcs = new Map<string, NpcRecord>();
   /** Where this child's town days come from (made once, on the first need). */
@@ -214,6 +222,7 @@ export class WorldState {
     if (d["pc"] !== undefined) w.pc = parsePc(d["pc"]);
     if (d["met"] !== undefined) w.met = parseMet(d["met"]);
     if (d["board"] !== undefined) w.board = parseBoard(d["board"]);
+    if (typeof d["quests"] === "object" && d["quests"] !== null) w.quests = structuredClone(d["quests"]) as QuestSave;
     w.npcs = parseRecords(d["npcs"]);
     const seed = d["npc_seed"];
     if (typeof seed === "number" && Number.isInteger(seed) && seed >= 0 && seed <= 0xffffffff) w.npcSeed = seed;
@@ -253,6 +262,7 @@ export class WorldState {
     if (!pcIsEmpty(this.pc)) out.pc = structuredClone(this.pc);
     if (Object.keys(this.met).length) out.met = structuredClone(this.met);
     if (!boardIsEmpty(this.board)) out.board = structuredClone(this.board);
+    if (JSON.stringify(this.quests) !== NO_QUESTS) out.quests = structuredClone(this.quests);
     if (this.npcs.size) out.npcs = recordsToDict(this.npcs);
     if (this.npcSeed !== null) out.npc_seed = this.npcSeed;
     const t = this.trips;

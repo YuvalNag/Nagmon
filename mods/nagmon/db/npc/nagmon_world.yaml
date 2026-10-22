@@ -218,3 +218,14 @@
     combat_sheet: noclass
     slug: noclass
     is_static_prop: true
+- slug: nagmon_lostfound
+  speech:
+    profile:
+      default: {}
+  combat: {}
+  audio: {}
+  template:
+    sprite_name: nagmon_chest
+    combat_sheet: noclass
+    slug: noclass
+    is_static_prop: true

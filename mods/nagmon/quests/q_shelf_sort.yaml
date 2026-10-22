@@ -1,0 +1,49 @@
+# Quest 9: put books on the right shelves (matching). A wrong shelf costs nothing: try again.
+id: q_shelf_sort
+giver: nagmon_librarian
+type: problem
+emoji: "1f4da"
+title: {he: מסדרים את הספרים, en: Sorting the books}
+subject: logic
+offer:
+  at: nagmon_librarian
+  lines:
+    - {he: "הספרים התערבבו על השולחן. תעזרו לי להחזיר אותם למדפים?", en: "The books got mixed up on the table. Will you help me put them back on the shelves?"}
+    - {he: "כל ספר צריך מדף משלו. אפשר לעזור לי לסדר?", en: "Every book needs a shelf of its own. Can you help me tidy up?"}
+board:
+  slot: normal
+  goal: {he: "לסדר ספרים על המדפים הנכונים בספרייה", en: "Put books on the right shelves in the library"}
+repeat: {kind: weekly}
+steps:
+  - kind: choose
+    npc: nagmon_librarian
+    todo: {he: "לסדר את ספר החשבון", en: "Place the number book"}
+    prompt: {he: "הספר 'מספרים וצורות'. על איזה מדף הוא?", en: "The book 'Numbers and Shapes'. Which shelf is it for?"}
+    options:
+      - {id: math, label: {he: "חשבון", en: "Numbers"}, reply: {he: "נכון! זה מדף החשבון.", en: "Right! That is the numbers shelf."}}
+      - {id: science, label: {he: "מדעים", en: "Science"}, reply: {he: "כמעט. במדף הזה יש ספרים על טבע. נסו מדף אחר.", en: "Nearly. That shelf holds books about nature. Try another shelf."}}
+      - {id: english, label: {he: "אנגלית", en: "English"}, reply: {he: "במדף הזה יש מילים באנגלית. נסו מדף אחר.", en: "That shelf has words in English. Try another shelf."}}
+    correct: math
+    hint: {he: "ברמז: מספרים.", en: "A hint: numbers."}
+  - kind: choose
+    npc: nagmon_librarian
+    todo: {he: "לסדר את ספר הטבע", en: "Place the nature book"}
+    prompt: {he: "הספר 'חיות ופרחים'. על איזה מדף הוא?", en: "The book 'Animals and Flowers'. Which shelf is it for?"}
+    options:
+      - {id: math, label: {he: "חשבון", en: "Numbers"}, reply: {he: "במדף הזה יש מספרים. נסו מדף אחר.", en: "That shelf has numbers. Try another shelf."}}
+      - {id: science, label: {he: "מדעים", en: "Science"}, reply: {he: "נכון! חיות ופרחים הם טבע ומדעים.", en: "Right! Animals and flowers are nature and science."}}
+      - {id: english, label: {he: "אנגלית", en: "English"}, reply: {he: "במדף הזה יש מילים באנגלית. נסו מדף אחר.", en: "That shelf has words in English. Try another shelf."}}
+    correct: science
+    hint: {he: "ברמז: טבע.", en: "A hint: nature."}
+  - kind: choose
+    npc: nagmon_librarian
+    todo: {he: "לסדר את ספר המילים", en: "Place the word book"}
+    prompt: {he: "הספר 'מילים ראשונות באנגלית'. על איזה מדף הוא?", en: "The book 'First Words in English'. Which shelf is it for?"}
+    options:
+      - {id: math, label: {he: "חשבון", en: "Numbers"}, reply: {he: "במדף הזה יש מספרים. נסו מדף אחר.", en: "That shelf has numbers. Try another shelf."}}
+      - {id: science, label: {he: "מדעים", en: "Science"}, reply: {he: "במדף הזה יש ספרי טבע. נסו מדף אחר.", en: "That shelf holds nature books. Try another shelf."}}
+      - {id: english, label: {he: "אנגלית", en: "English"}, reply: {he: "נכון! מילים באנגלית שייכות כאן.", en: "Right! English words belong here."}}
+    correct: english
+    hint: {he: "ברמז: אנגלית.", en: "A hint: English."}
+reward: {coins: S, friendship: true}
+sel: false

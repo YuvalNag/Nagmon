@@ -2,7 +2,7 @@
 """
 What the people of the solar-system trip say, in Hebrew and English.
 
-Pure data (no imports), read by ``solar_layouts`` (which hands it to the
+Pure data (the coins of the missions are read from the quest rules, mods/nagmon/quests/rules.yaml), read by ``solar_layouts`` (which hands it to the
 importer that writes the ``.po`` strings) and by ``solar_missions`` (which
 turns it into the maps' events).
 
@@ -17,15 +17,17 @@ that. Short, calm, no niqqud.
 
 from __future__ import annotations
 
+from pathlib import Path
+
+import yaml
+
 #: Coins for the first mission of each zone, and for a right answer to a
 #: person's question (at most ``DAILY_LIMIT`` a day for each person).
-MISSION_COINS = {
-    "moon": 10,
-    "sun": 12,
-    "rocky_planets": 15,
-    "giants": 18,
-    "outer": 25,
-}
+MISSION_COINS: dict[str, int] = yaml.safe_load(
+    (
+        Path(__file__).resolve().parents[2] / "mods/nagmon/quests/rules.yaml"
+    ).read_text(encoding="utf-8")
+)["solar_missions"]
 #: The one item a zone's mission gives besides the coins, on its first
 #: completion (ids of mods/nagmon/economy/items.yaml; a different one per zone).
 MISSION_ITEMS = {

@@ -3230,6 +3230,18 @@ button.topic-chip img {
   height: 32px;
 }
 
+/* a quest's choice: the person who asks, then the question, then the options as big buttons */
+.choice-card .choice-from {
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.choice-card .choice-opt {
+  min-height: var(--touch);
+  min-width: calc(var(--touch) * 2.4);
+  max-width: 20em;
+}
+
 .chest-art {
   width: calc(var(--touch) * 2);
   height: calc(var(--touch) * 1.7);

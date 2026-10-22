@@ -1,12 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { accept, boardData, isAccepted, parseBoard, staticPostings } from "../../../src/core/game/board";
+import { accept, isAccepted, parseBoard } from "../../../src/core/game/board";
 import { choicesFor, eat, fridgeData, fridgeOpened } from "../../../src/core/game/fridge";
 import { meet, metPeople, parseMet } from "../../../src/core/game/people";
 import { creatureOfDay, HEADLINES, staticNews, tvData } from "../../../src/core/game/tv";
 import { monsterTable } from "../../../src/core/game/monsters";
 import { WorldState } from "../../../src/core/world/worldState";
 import { gameJson } from "../game/helpers";
-import { dayOfWeek } from "../../../src/core/game/dayPick";
 import { days, worldWith } from "./helpers";
 
 describe("people met", () => {
@@ -109,38 +108,8 @@ describe("the TV", () => {
   });
 });
 
+// the board's cards are made by the quest generator (tests/unit/quests/board.test.ts); here the saved contract
 describe("the notice board", () => {
-  const pool = [
-    ...["a", "b", "c"].map((g, i) => ({ id: `e${i}`, slot: "easy", giver_he: g, goal_he: `easy ${i}` })),
-    ...["d", "e", "f"].map((g, i) => ({ id: `n${i}`, slot: "normal", giver_he: g, goal_he: `normal ${i}` })),
-    ...["a", "g", "h"].map((g, i) => ({ id: `l${i}`, slot: "learning", giver_he: g, goal_he: `learn ${i}` })),
-    ...["w"].map((g, i) => ({ id: `w${i}`, slot: "weekly", giver_he: g, goal_he: `weekly ${i}` })),
-    { id: "bad", slot: "huge", giver_he: "x", goal_he: "x" },
-    { id: "empty", slot: "easy", giver_he: "x", goal_he: "" },
-  ];
-  const source = staticPostings(boardData({ postings: pool }));
-
-  it("leaves out a posting with no goal or a slot it does not know", () => {
-    expect(boardData({ postings: pool }).pool.map((p) => p.id)).not.toContain("bad");
-    expect(boardData({ postings: pool }).pool.map((p) => p.id)).not.toContain("empty");
-  });
-
-  it("posts three a day, one of each slot, never two from the same giver", () => {
-    for (const d of days("2026-10-01", 60).filter((x) => dayOfWeek(x) !== 0)) {
-      const p = source.postings(d);
-      expect(p.map((x) => x.slot)).toEqual(["easy", "normal", "learning"]);
-      expect(new Set(p.map((x) => x.giver)).size).toBe(3);
-      expect(source.postings(d)).toEqual(p);
-    }
-  });
-
-  it("adds the weekly card on Sundays only", () => {
-    for (const d of days("2026-10-18", 14)) {
-      const weekly = source.postings(d).filter((x) => x.slot === "weekly");
-      expect(weekly.length, d).toBe(dayOfWeek(d) === 0 ? 1 : 0);
-    }
-  });
-
   it("accepting is free and kept for good; the same card is not taken twice", () => {
     const w = worldWith();
     expect(accept(w, "e1", "2026-10-22")).toBe(true);

@@ -26,7 +26,7 @@ schedule:
   rules:
     - {when: {phase: [morning]}, at: {map: classic_hearthrock_city, spots: [plaza_mid, plaza_west, school_gate, post_box]}}
   appears_if: {flag_all: [nagmon_intro_done]}
-offers: {quests: [q_moon_phase]}
+offers: {}
 relationship:
   memory_flags: [asked_news, asked_town]
 ai: {enabled: false}

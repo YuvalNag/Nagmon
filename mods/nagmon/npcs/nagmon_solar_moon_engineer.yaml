@@ -24,7 +24,7 @@ goals: ["build things that last"]
 likes: {loved: [berry], liked: [biscuit]}
 schedule:
   fixed: {maps: [solar_moon, solar_giants]}
-offers: {quests: [q_craters]}
+offers: {}
 relationship:
   memory_flags: [asked_tools, asked_moon]
 ai: {enabled: false}

@@ -31,8 +31,7 @@ likes:
 schedule:
   default: {map: classic_hearthrock_city, spot: owl_post}
   night: true
-offers:
-  quests: [q_owl_daily]
+offers: {}
 relationship:
   memory_flags: [asked_tip, asked_why, asked_fact, asked_town]
 ai: {enabled: true, intents: [greet_first, greet_again, idle, topic, react, farewell], share: 0.5, max_live_per_day: 6}

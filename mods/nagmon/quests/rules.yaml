@@ -1,0 +1,90 @@
+# The numbers of the quest system (docs/app/WORLD_V2.md 7 and 9.4), in data so a content release can change them
+# with no code change. tools/app/quests.py checks this file and ships it inside game/quests.json (`rules`).
+# Quest files name a reward as a scale word (XS to XL) or a whole number; the build turns the words into numbers.
+scale: {XS: 10, S: 20, M: 30, L: 50, XL: 80}
+# Cards the journal holds as active at once (section 7.3).
+active_max: 3
+# A wrong answer never fails a quest (7.5): a free retry, the owl's hint after this many wrong answers,
+# and after this many the quest finishes in its lesser form.
+hint_after: 2
+lesser_after: 3
+# The lesser form pays this share of the coins (items and friendship are unchanged).
+lesser_coins_pct: 50
+# The 4th repeatable quest of a week (7.4) pays this share of the coins; the first three pay all.
+repeat_free_per_week: 3
+repeat_coins_pct: 60
+# The board (7.3 and 7.4).
+board:
+  # how many past postings are remembered
+  history: 24
+  # a giver is not used in the last this many postings
+  giver_gap: 3
+  # a variant is not used in the last this many postings of its quest
+  variant_cooldown: 5
+  # at most this many board postings a week for one giver
+  giver_week_max: 2
+  # the share of learning postings that go to the child's two weakest subjects (computed on the phone, never sent)
+  weak_pct: 40
+  # the weekly card appears on this weekday (0 is Sunday)
+  weekly_day: 0
+# The solar chapter's missions pay these coins (7.6 rows 25, 27, 29, 31, 33): tools/app/solar_texts.py reads them.
+solar_missions: {moon: 25, sun: 30, rocky_planets: 40, giants: 50, outer: 60}
+# The grade bands of the variants (A: kindergarten to grade 2, B: 3 to 5, C: 6 and up).
+bands: {A: 2, B: 5}
+# The names props speak under in a dialog (a kitten, a box), and what the quests say that is no quest's own.
+props:
+  nagmon_kitten: {he: פיצי, en: Pitzi}
+  nagmon_wallet: {he: ארנק, en: Wallet}
+  nagmon_lostfound: {he: קופסת האבדות, en: The lost-and-found box}
+lines:
+  owl: {he: הינשוף החכם, en: The Wise Owl}
+  later: {he: "זה לא להיום. בואו שוב ביום אחר.", en: "Not for today. Come again on another day."}
+  hint: {he: "הינשוף מציע: קוראים לאט, חושבים רגע ומנסים שוב.", en: "The owl suggests: read slowly, think a moment and try again."}
+  retry: {he: "בסדר גמור, אפשר לנסות שוב.", en: "That is fine, you can try again."}
+  lesser: {he: "ביחד פתרנו את זה. הנה חלק מהפרס.", en: "We solved it together. Here is part of the prize."}
+  accept: {he: "בשמחה", en: "Gladly"}
+  decline: {he: "לא עכשיו", en: "Not now"}
+# Where a person is, for the journal's "Show me" (a place the resolver names; core/game/questWhere.ts). Maps and spots by id.
+places:
+  maps:
+    classic_hearthrock_city: {he: "בעיר", en: "In town"}
+    classic_route_1: {he: "בשביל 1", en: "On Route 1"}
+    nagmon_lab: {he: "במעבדה", en: "In the lab"}
+    nagmon_friend_house: {he: "בבית החבר", en: "At the friend's house"}
+    nagmon_rest_center: {he: "במרכז המנוחה", en: "At the Rest Center"}
+    nagmon_shop: {he: "בחנות", en: "In the shop"}
+    nagmon_home: {he: "בבית", en: "At home"}
+  spots:
+    owl_post: {he: "ליד הינשוף", en: "Near the owl"}
+    cashier_post: {he: "ליד הקופה", en: "Near the till"}
+    post_box: {he: "ליד תיבת הדואר", en: "Near the post box"}
+    school_gate: {he: "ליד שער בית הספר", en: "Near the school gate"}
+    bench_east: {he: "על הספסל במזרח", en: "On the east bench"}
+    greenhouse: {he: "ליד החממה", en: "Near the greenhouse"}
+    flowerbed: {he: "ליד ערוגת הפרחים", en: "Near the flowerbed"}
+    market_stall: {he: "ליד דוכן השוק", en: "Near the market stall"}
+    market_stall_2: {he: "ליד דוכן השוק", en: "Near the market stall"}
+    pharmacy_door: {he: "ליד בית המרקחת", en: "Near the pharmacy"}
+    tailor_door: {he: "ליד התופרת", en: "Near the tailor"}
+    clock_corner: {he: "בפינת השעונים", en: "At the clock corner"}
+    library_steps: {he: "על מדרגות הספרייה", en: "On the library steps"}
+    workshop_door: {he: "ליד בית המלאכה", en: "Near the workshop"}
+    plaza_west: {he: "בצד המערבי של הכיכר", en: "On the west side of the square"}
+    plaza_mid: {he: "באמצע הכיכר", en: "In the middle of the square"}
+    fountain: {he: "ליד המזרקה", en: "Near the fountain"}
+    plaza_east: {he: "בצד המזרחי של הכיכר", en: "On the east side of the square"}
+    park_bench: {he: "על ספסל הפארק", en: "On the park bench"}
+    meadow_gate: {he: "ליד שער הכר", en: "Near the meadow gate"}
+    east_gate: {he: "ליד השער המזרחי", en: "Near the east gate"}
+    south_east: {he: "בפינה הדרומית־מזרחית", en: "In the south-east corner"}
+    pond_view: {he: "ליד האגם", en: "Near the pond view"}
+    corner_lane: {he: "בסמטה", en: "In the lane"}
+    camp: {he: "ליד המחנה", en: "Near the camp"}
+    lookout: {he: "בנקודת התצפית", en: "At the lookout"}
+    pond: {he: "ליד הבריכה", en: "Near the pond"}
+    trail_bend: {he: "בעיקול השביל", en: "At the bend of the trail"}
+    sign_post: {he: "ליד השלט", en: "Near the signpost"}
+  # The map a prop is on while a quest uses it (the kitten waits on Route 1 until she is found).
+  prop_maps: {nagmon_kitten: classic_route_1, nagmon_wallet: classic_hearthrock_city, nagmon_lostfound: classic_hearthrock_city}
+  # Shown when the person is not in town now (a shop closed for the night).
+  away: {he: "לא בעיר עכשיו. אפשר לחפש ביום.", en: "Not in town now. Look for them in the daytime."}

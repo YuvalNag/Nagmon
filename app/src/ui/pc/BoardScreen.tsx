@@ -1,6 +1,6 @@
-import { type MutableRefObject, useMemo, useState } from "react";
+import { type MutableRefObject, useState } from "react";
 import type { Play } from "../../app/play";
-import { accept, boardData, isAccepted, type Posting, type PostingSource, staticPostings } from "../../core/game/board";
+import { accept, isAccepted, type Posting, type PostingSource } from "../../core/game/board";
 import type { ObjectDef } from "../../core/game/objects";
 import { Tap } from "../Tap";
 import { Pic } from "./ObjectArt";
@@ -11,13 +11,14 @@ const SLOT = { easy: "boardEasy", normal: "boardNormal", learning: "boardLearnin
 
 /**
  * The notice board (docs/app/WORLD_V2.md 7.3 and 8, object 6): the day's cards, each with a picture, a
- * one-line goal and the giver; accepting is free and kept for good. This is the SHELL of slice W2: the cards
- * come from a {@link PostingSource} (the static one here; the quest generator of W3 replaces it) and an
- * accepted card is saved in `board.accepted` for the quest engine to read. Nothing is timed or lost.
+ * one-line goal and the giver; accepting is free and kept for good. The cards come from a
+ * {@link PostingSource}: the quest generator (core/game/boardGen.ts, through the child's quest engine) and an
+ * accepted card is saved in `board.accepted` and turned into a quest card in the journal by the quest engine.
+ * Nothing is timed or lost.
  */
 export function BoardScreen({ play, def, onClose, onChanged, backRef, source }: { play: Play; def: ObjectDef; onClose: () => void; onChanged?: () => void; backRef?: MutableRefObject<(() => void) | null>; source?: PostingSource }) {
   const today = play.today();
-  const src = useMemo(() => source ?? staticPostings(boardData(def.data)), [source, def]);
+  const src = source ?? play.quests.source();
   const postings = src.postings(today);
   const [, redraw] = useState(0);
   const [said, setSaid] = useState<string | null>(null);
@@ -25,7 +26,9 @@ export function BoardScreen({ play, def, onClose, onChanged, backRef, source }: 
   const take = (p: Posting) => {
     if (!accept(play.world, p.id, today)) return;
     play.field.note("board", { accepted: p.id, slot: p.slot });
-    setSaid(w("boardSaved"));
+    // the quest engine turns the accepted card into a quest of the journal
+    const started = play.quests.syncBoard().length > 0;
+    setSaid(w(started ? "boardSaved" : "boardKept"));
     void play.saveWorld();
     onChanged?.();
     redraw((n) => n + 1);

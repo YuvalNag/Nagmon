@@ -338,6 +338,9 @@ msgstr "סבתא רינה"
 msgid "nagmon_wallet"
 msgstr "ארנק"
 
+msgid "nagmon_lostfound"
+msgstr "קופסת האבדות"
+
 msgid "nagmon_route1_trainer"
 msgstr "הדוור דני"
 
@@ -1569,7 +1572,7 @@ msgid "nagmon_solar_moon_moon_engineer_ask"
 msgstr "אני רושמת את המכתשים ביומן, ויש המון. תעזרו לי עם שאלה אחת?"
 
 msgid "nagmon_solar_moon_moon_engineer_good"
-msgstr "נכון! המכתשים נרשמו ביומן. קבלו 10 מטבעות על העזרה."
+msgstr "נכון! המכתשים נרשמו ביומן. קבלו 25 מטבעות על העזרה."
 
 msgid "nagmon_solar_moon_owl"
 msgstr "הירח לא מאיר בעצמו. אנחנו רואים אור שמש שחוזר ממנו. הירח מקיף את כדור הארץ בערך פעם בחודש."
@@ -1587,7 +1590,7 @@ msgid "nagmon_solar_sun_owl_found"
 msgstr "זה המסנן שלי! תודה. מסנן כזה מגן על העיניים, ובלעדיו לא מסתכלים על השמש. יש לי עוד שאלה בשבילכם."
 
 msgid "nagmon_solar_sun_owl_good"
-msgstr "נכון! קבלו 12 מטבעות, ותודה שמצאתם את המסנן."
+msgstr "נכון! קבלו 30 מטבעות, ותודה שמצאתם את המסנן."
 
 msgid "nagmon_solar_sun_grey_hood"
 msgstr "השמש גדולה כל כך שיותר ממיליון כדורי ארץ היו נכנסים בתוכה. האור שלה לוקח בערך שמונה דקות להגיע אלינו."
@@ -1602,7 +1605,7 @@ msgid "nagmon_solar_rocky_planets_rover_driver_ask"
 msgstr "רוצים לנסוע איתי? יהיו שלוש תחנות בדרך, ובכל תחנה שאלה."
 
 msgid "nagmon_solar_rocky_planets_rover_driver_good"
-msgstr "הגענו! נסיעה יפה. קבלו 15 מטבעות."
+msgstr "הגענו! נסיעה יפה. קבלו 40 מטבעות."
 
 msgid "nagmon_solar_rocky_planets_rover_driver_weak"
 msgstr "הדרך הייתה קצת משובשת, אבל למדנו בדרך. אפשר לנסוע שוב מתי שרוצים."
@@ -1620,7 +1623,7 @@ msgid "nagmon_solar_giants_sage_ask"
 msgstr "חידה בשבילכם: יש לי טבעות יפות של קרח וסלעים, ואני הכוכב השישי מהשמש. מי אני? נגלה את התשובה אחרי שאלה אחת."
 
 msgid "nagmon_solar_giants_sage_good"
-msgstr "נכון! והתשובה לחידה: שבתאי, הכוכב עם הטבעות. הנה 18 מטבעות."
+msgstr "נכון! והתשובה לחידה: שבתאי, הכוכב עם הטבעות. הנה 50 מטבעות."
 
 msgid "nagmon_solar_giants_sage_wrong"
 msgstr "לא נורא! עכשיו ראינו את התשובה. והתשובה לחידה: שבתאי, הכוכב עם הטבעות. אפשר לנסות שוב."
@@ -1647,7 +1650,7 @@ msgid "nagmon_solar_outer_grey_hood_card3"
 msgstr "קלף שלישי, שביט: כדור של קרח ואבק. כשהוא מתקרב לשמש, הוא מפתח זנב."
 
 msgid "nagmon_solar_outer_grey_hood_good"
-msgstr "נכון! הקלפים שלכם. קבלו 25 מטבעות."
+msgstr "נכון! הקלפים שלכם. קבלו 60 מטבעות."
 
 msgid "nagmon_solar_outer_rover_driver"
 msgstr "גשושיות טסות לכאן במשך שנים. אין להן נהג, רק אנטנה שמדברת איתנו. לפעמים האות לוקח שעות להגיע."
