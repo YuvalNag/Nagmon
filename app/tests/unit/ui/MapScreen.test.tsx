@@ -1,3 +1,4 @@
+import "../../../src/ui/BattleScreen"; // loaded once up front: the map imports it lazily
 /// <reference types="node" />
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import { readFileSync } from "node:fs";
@@ -566,6 +567,7 @@ describe("a wild creature in the grass", () => {
     await act(async () => m.opts().onStep?.(0, 0));
     expect(m.q("[data-screen=battle]")).toBeNull();
     await act(async () => m.opts().onStep?.(5, 8));
+    await settle(20);
     expect(m.q("[data-screen=battle]")?.dataset.view).toBe("meet");
     expect(m.calls).toContain("pause talk");
     // the four move cards (the question is the cast), the friends strip, Net, Bag and Run

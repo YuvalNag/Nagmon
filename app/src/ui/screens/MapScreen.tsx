@@ -1,4 +1,4 @@
-import { type MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, type MutableRefObject, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Play, PlayOptions } from "../../app/play";
 import { TALK_TO, testAlwaysEncounter, testQuizTopic, testSeed, testStartMap } from "../../app/playConfig";
 import type { Profile, ProfileStore } from "../../core/family/profiles";
@@ -21,7 +21,8 @@ import { DpadState } from "../dpadState";
 import { partner as partnerOf } from "../../core/game/collection";
 import { Encounters, type Wild } from "../../core/game/encounters";
 import { introNeeded } from "../../core/game/intro";
-import { BattleScreen } from "../BattleScreen";
+// the battle (its engine, its cards, its effects) loads when the first meeting happens, not at the start
+const BattleScreen = lazy(() => import("../BattleScreen").then((m) => ({ default: m.BattleScreen })));
 import { BagView } from "../BagView";
 import { RestScreen } from "../RestScreen";
 import { ChestWrongCard, FactCard, FoundCard } from "../WorldCards";
@@ -624,6 +625,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
         <IntroScreen play={play} advanceRef={dialogAdvance} onChanged={() => setCoins(play.world.money)} onDone={() => setIntro(false)} />
       )}
       {battle && play && !menuOpen && status === "ready" && (
+        <Suspense fallback={null}>
         <BattleScreen
           play={play}
           wild={battle.wild}
@@ -643,6 +645,7 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
             } else checkTrips();
           }}
         />
+        </Suspense>
       )}
       {/* the pause menu, opened as the map came up, stays on top of a dialog that starts under it */}
       {overlay?.kind === "dialog" && !menuOpen && (
