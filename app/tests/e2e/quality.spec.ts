@@ -267,7 +267,7 @@ test("the start loads only what who-plays needs: no game engine, a small script"
   console.log(`scripts at start: ${scripts.length}, ${Math.round(total / 1024)} KiB`);
   // Phaser is about 1.2 MB: the map and battle load it when they open
   expect(scripts.filter((s) => s.engine).map((s) => s.url)).toEqual([]);
-  expect(total).toBeLessThan(600 * 1024);
+  expect(total).toBeLessThan(450 * 1024); // 390 KiB since the battle, shop, parents and tutor screens are lazy (was 600)
 });
 
 test("who-plays with eight children, the longest name among them, at 130% text", async ({ page }, info) => {
@@ -414,6 +414,8 @@ for (const scale of [1, 1.3]) {
       await touch(page, page.locator(id("battle_net")), 30);
       await battleAnswer(page, "right");
       await battleResultClosed(page);
+      // a level-up card may come with the seal answer (the speed bonus varies the xp): it is closed like the others
+      if (await page.locator(id("growth_close")).count()) await touch(page, page.locator(id("growth_close")), 30);
     }
     await expect(page.locator("[data-screen=battle-caught]")).toBeVisible();
     await audit(page, "44_new_friend", shot);
