@@ -124,7 +124,7 @@ describe("the hit numbers", () => {
 });
 
 describe("the results card", () => {
-  const reward = (over = {}) => ({ coins: 17, points: 3, brilliant: 0, capped: false, stars: { calm: true as const, steady: true, bright: false }, ...over });
+  const reward = (over = {}) => ({ coins: 17, points: 3, brilliant: 0, capped: false, found: null as string | null, stars: { calm: true as const, steady: true, bright: false }, ...over });
 
   it("three stars (Calm always, Steady when nobody slept, Bright for two Brilliant hits), the coins and the points", () => {
     const c = render(<ResultsCard reward={reward()} asleep={[]} line="נרגע" />).container;
@@ -132,6 +132,14 @@ describe("the results card", () => {
     expect(c.textContent).toContain("קיבלת 17 מטבעות");
     expect(c.textContent).toContain("3 נקודות גדילה");
     expect(c.querySelector("[data-id=battle_asleep]")).toBeNull();
+  });
+
+  it("a card the creature left shows on the card, with a gift mark and its name; none when it left nothing", () => {
+    cleanup();
+    const c = render(<ResultsCard reward={reward({ found: "zone_card_sun" })} asleep={[]} line="נרגע" found="ניצן השאיר לך מתנה: כרטיס התפתחות השמש!" />).container;
+    expect(c.querySelector("[data-id=battle_found]")!.textContent).toContain("כרטיס התפתחות השמש");
+    cleanup();
+    expect(render(<ResultsCard reward={reward()} asleep={[]} line="נרגע" />).container.querySelector("[data-id=battle_found]")).toBeNull();
   });
 
   it("a missing star takes nothing away, and friends who need rest are named gently", () => {

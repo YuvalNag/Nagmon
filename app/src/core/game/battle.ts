@@ -36,7 +36,8 @@ import {
   PARTY_SIZE,
   partner as partnerOf,
 } from "./collection";
-import { claimSpareNet, countOf, type Economy, economy as economyFrom, type Item, spendBoost, take } from "./items";
+import { addKnowHow, findCard } from "./evolution";
+import { claimSpareNet, countOf, type Economy, economy as economyFrom, give, type Item, spendBoost, take } from "./items";
 import { Befriending, type Selection, type TryResult } from "./befriendTry";
 import type { BattleData, Move, MoveEffect, StatName, StatusId } from "../data/battleTypes";
 import { awakeParty, faint, nurseHeals, partyDown, usable, wakeWith } from "./faint";
@@ -223,6 +224,8 @@ export interface Reward {
   stars: { calm: true; steady: boolean; bright: boolean };
   brilliant: number;
   capped: boolean;
+  /** An Evolution Card the creature left (7.2): the item's id, or null. */
+  found: string | null;
 }
 
 /** Why a card cannot be played now. */
@@ -420,7 +423,7 @@ export class Battle {
       setPartner(w, next.id);
     }
     // Cheerful: the battle starts with a star
-    this.spark = Math.min(this.sparkMax, o.debug?.spark ?? (this.giftOf(this.partner) === "cheerful" ? 1 : 0));
+    this.spark = Math.min(this.sparkMax, o.debug?.spark ?? (this.giftOf(this.partner) === "cheerful" ? 1 : 0) + (this.partner.shimmer ? 1 : 0));
     this.intent = this.drawNext();
   }
 
@@ -818,6 +821,8 @@ export class Battle {
     const w = this.o.world;
     if (correct) {
       this.stats.correct++;
+      // Know-how: a right answer in the partner's home subject while it is the partner (5.4)
+      if (move.subject !== "any" && move.subject === this.traits(this.partner).subject) addKnowHow(this.partner, 1);
       this.rightStreak++;
       this.wrongStreak = 0;
       const base = spendBoost(w);
@@ -825,7 +830,7 @@ export class Battle {
       const total = base * mult * (move.tier === "S" ? 2 : 1) + this.xpCarry;
       const pts = floor(total);
       this.xpCarry = total - pts;
-      const g = giveXp(w, this.partner.id, pts, this.o.monsters);
+      const g = giveXp(w, this.partner.id, pts);
       if (g.leveled) this.growthKeep = g;
       void round;
       this.addSpark(move.tier === "S" ? this.data.rules.spark.per_right_stretch : this.data.rules.spark.per_right);
@@ -1069,7 +1074,7 @@ export class Battle {
       calm: false,
       capped: false,
       partnerBefore,
-      growth: { leveled: false, level: this.partner.level, evolvedTo: null },
+      growth: { leveled: false, level: this.partner.level },
       next: null,
       needSwap: false,
       carried: false,
@@ -1426,13 +1431,22 @@ export class Battle {
     const bright = !round.capped && this.brilliant >= 2;
     const coins = winCoins(this.o.wild.level) + brilliant + (steady ? STAR_COINS : 0) + (bright ? STAR_COINS : 0);
     w.addMoney(coins);
-    const growth = giveXp(w, this.partner.id, WIN_POINTS, this.o.monsters);
-    if (growth.leveled) round.growth = { leveled: true, level: growth.level, evolvedTo: growth.evolvedTo ?? round.growth.evolvedTo };
-    this.reward = { coins, points: WIN_POINTS, stars: { calm: true, steady, bright }, brilliant: this.brilliant, capped: round.capped };
+    const growth = giveXp(w, this.partner.id, WIN_POINTS);
+    if (growth.leveled) round.growth = { leveled: true, level: growth.level };
+    const found = this.o.master || !this.o.economy ? null : this.leaveCard(this.o.economy);
+    this.reward = { coins, points: WIN_POINTS, stars: { calm: true, steady, bright }, brilliant: this.brilliant, capped: round.capped, found };
     if (this.o.master) {
       this.phase = "won";
       this.end("won");
     } else this.phase = "calm";
+  }
+
+  /** A card the calmed creature leaves (the rules' chance): into the Bag, or nothing when it does not fit. */
+  private leaveCard(eco: Economy): string | null {
+    const id = findCard(eco, this.data.rules.evolution, this.o.monsters, this.data, this.partner, this.rng);
+    if (!id || !give(this.o.world, eco, id, 1)) return null;
+    this.o.field.note("card_found", { item: id });
+    return id;
   }
 
   // ---- swapping and medicine ----

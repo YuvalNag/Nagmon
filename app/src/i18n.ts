@@ -3,6 +3,8 @@
  * language the phone is set to (the old app followed its own saved
  * setting and came out in English on a Hebrew phone).
  */
+import type { evoHe } from "./i18nEvolution";
+
 export const he = {
   appName: "נגמון",
   whoPlays: "מי משחק היום?",
@@ -164,7 +166,6 @@ export const he = {
   battleCaught: "{name} הצטרף אליך.",
   battleSeen: "יש לך כבר הרבה חברים. {name} נשאר בגן החיות של העולם.",
   battleLevelUp: "{partner} עלה לרמה {level}!",
-  battleEvolved: "וואו! {partner} התפתח והפך ל{name}!",
   battleLevel: "רמה {level}",
   battleHealth: "ערפל של {name}: {hp} מתוך {max}",
   battleNoNet: "אין עוד רשת. אפשר למצוא אחת בדרך.",
@@ -598,7 +599,14 @@ export const he = {
   right: "ימינה",
 } as const;
 
-export type TextKey = keyof typeof he;
+/** Every text key: this table's, and the table of evolution that the lazy screens bring (i18nEvolution.ts). */
+export type TextKey = keyof typeof he | keyof typeof evoHe;
+
+/** Tables the lazy screens add when they load (their words are not in the start script). */
+const added: Record<string, string> = {};
+export function registerTexts(table: Readonly<Record<string, string>>): void {
+  Object.assign(added, table);
+}
 
 /** An item's name or its one-line effect, by item id (the words are in the table above). */
 export function itemText(id: string, part: "name" | "desc"): string {
@@ -613,5 +621,6 @@ export function addItemText(id: string, name: string, desc: string): void {
 }
 
 export function t(key: TextKey, values: Record<string, string | number> = {}): string {
-  return he[key].replace(/\{(\w+)\}/g, (_, k: string) => String(values[k] ?? `{${k}}`));
+  const text = (he as Record<string, string>)[key] ?? added[key] ?? key;
+  return text.replace(/\{(\w+)\}/g, (_, k: string) => String(values[k] ?? `{${k}}`));
 }

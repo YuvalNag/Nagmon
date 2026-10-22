@@ -4,7 +4,10 @@
  * also served, for anything that wants it at run time).
  */
 import manifest from "../../public/game/art/manifest.json";
+import { artFile, artFileState } from "./artSource";
 import { sheetStyle } from "./icons";
+
+export { onArtChanged } from "./artSource";
 
 const { backdrops, assets } = manifest;
 
@@ -12,7 +15,14 @@ const { backdrops, assets } = manifest;
 export function artUrl(id: string): string {
   const entry = assets.find((a) => a.id === id);
   if (!entry) throw new Error(`art: no picture ${id}`);
-  return `game/${entry.file}`;
+  return artFile(entry.file);
+}
+
+/** "real" when the picture's file is in the build, "placeholder" when its flat stand-in is drawn instead (A1 of docs/app/ART_DELIVERY.md). */
+export function artState(id: string): "real" | "placeholder" {
+  const entry = assets.find((a) => a.id === id);
+  if (!entry) throw new Error(`art: no picture ${id}`);
+  return artFileState(entry.file);
 }
 
 /**
@@ -42,6 +52,10 @@ export interface ArtEntry {
   rows: number;
   labels?: string[];
   status?: "accepted" | "draft" | "needs_revision";
+  /** The group it ships with (docs/app/ART_DELIVERY.md). */
+  pack?: string;
+  /** For a creature sheet: where front, back and the menu icons are, in the sheet's pixels. */
+  regions?: Record<string, [number, number, number, number]>;
   known_issues?: string[];
   lazy?: boolean;
   empty_frames?: number[];

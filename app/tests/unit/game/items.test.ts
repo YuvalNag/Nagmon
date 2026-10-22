@@ -1,17 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { addCreature } from "../../../src/core/game/collection";
 import { boostLeft, claimSpareNet, countOf, economy, feed, give, giveStarterKit, itemsInTab, spendBoost, take } from "../../../src/core/game/items";
-import { monsterTable } from "../../../src/core/game/monsters";
 import { WorldState } from "../../../src/core/world/worldState";
 import { itemText } from "../../../src/i18n";
 import { gameJson } from "./helpers";
 
 const eco = economy(gameJson("economy.json"));
-const monsters = monsterTable(gameJson("db/monsters.json"));
 
 describe("the economy table", () => {
-  it("is the shipped one: thirty-three items the Bag loads (the Star Net and the eleven Friendship Cards joined in S3; the evolution cards wait for S4), three tabs, every item priced and in a tab", () => {
-    expect(Object.keys(eco.items)).toHaveLength(33);
+  it("is the shipped one: forty-six items the Bag loads (the Star Net and the eleven Friendship Cards joined in S3, the thirteen Evolution Cards in S4), three tabs, every item priced and in a tab", () => {
+    expect(Object.keys(eco.items)).toHaveLength(46);
     expect(eco.tabs).toHaveLength(3);
     for (const i of Object.values(eco.items)) {
       expect(eco.tabs).toContain(i.tab);
@@ -102,7 +100,7 @@ describe("snacks and tonics outside a battle", () => {
   it("a snack gives hearts and growth, and is used up", () => {
     const { w, c } = friend();
     give(w, eco, "biscuit", 1);
-    const r = feed(w, eco, monsters, c.id, "biscuit");
+    const r = feed(w, eco, c.id, "biscuit");
     expect(r.ok).toBe(true);
     expect(w.creatures[0]!.hearts).toBe(2);
     expect(w.creatures[0]!.xp).toBe(2);
@@ -112,26 +110,26 @@ describe("snacks and tonics outside a battle", () => {
   it("hearts stop at five and never go down; the growth still counts", () => {
     const { w, c } = friend();
     give(w, eco, "pie", 4);
-    for (let i = 0; i < 4; i++) feed(w, eco, monsters, c.id, "pie");
+    for (let i = 0; i < 4; i++) feed(w, eco, c.id, "pie");
     expect(w.creatures[0]!.hearts).toBe(5);
     expect(w.creatures[0]!.level).toBeGreaterThan(4);
   });
 
   it("an item that is not in the Bag, or not a snack, is refused and nothing changes", () => {
     const { w, c } = friend();
-    expect(feed(w, eco, monsters, c.id, "berry").ok).toBe(false);
+    expect(feed(w, eco, c.id, "berry").ok).toBe(false);
     give(w, eco, "clover", 1);
-    expect(feed(w, eco, monsters, c.id, "clover").ok).toBe(false);
-    expect(feed(w, eco, monsters, "nobody", "clover").ok).toBe(false);
+    expect(feed(w, eco, c.id, "clover").ok).toBe(false);
+    expect(feed(w, eco, "nobody", "clover").ok).toBe(false);
     expect(countOf(w, "clover")).toBe(1);
   });
 
   it("the growth tonic doubles the next five right answers, and is not wasted twice", () => {
     const { w, c } = friend();
     give(w, eco, "growth_tonic", 2);
-    expect(feed(w, eco, monsters, c.id, "growth_tonic").ok).toBe(true);
+    expect(feed(w, eco, c.id, "growth_tonic").ok).toBe(true);
     expect(boostLeft(w)).toBe(5);
-    expect(feed(w, eco, monsters, c.id, "growth_tonic").ok).toBe(false);
+    expect(feed(w, eco, c.id, "growth_tonic").ok).toBe(false);
     expect(countOf(w, "growth_tonic")).toBe(1);
     expect([1, 2, 3, 4, 5, 6].map(() => spendBoost(w))).toEqual([2, 2, 2, 2, 2, 1]);
     expect(boostLeft(w)).toBe(0);

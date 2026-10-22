@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { learnerFor, loadLibrary, maxChoicesFor, openPlay, type FetchJson } from "../../../src/app/play";
 import { defaultsForGrade } from "../../../src/core/family/gradeDefaults";
+import { addCreature, needFor } from "../../../src/core/game/collection";
+import { give } from "../../../src/core/game/items";
 import { ProfileStore, type Profile } from "../../../src/core/family/profiles";
 import { QuizSession } from "../../../src/core/world/quiz";
 import { MemoryFileStore, pendingWrites } from "../../../src/platform/storage";
@@ -157,6 +159,83 @@ describe("a child's play", () => {
     const saved = (await a.profiles.loadWorldDict(a.profile.id)) as { creatures?: unknown[]; eggs?: unknown[] };
     expect(saved.creatures).toHaveLength(1);
     expect(saved.eggs).toBeUndefined();
+  });
+});
+
+describe("growth and evolution in play (S4)", () => {
+  const rightAnswer = (play: Awaited<ReturnType<typeof openPlay>>, topic: string, context: string) => {
+    let t = 1000;
+    const s = new QuizSession(play.engine, { topic, context, maxChoices: null }, () => (t += 2500), () => {});
+    if (s.phase === "example") s.exampleDone();
+    s.choose(s.question!.answer as string) || (typeOut(s, String(s.question!.answer)), s.check());
+    play.logAnswer(s, context);
+  };
+
+  it("a right answer in the partner's home subject outside a battle is one Know-how; another subject and a battle's own answer are none (the battle counts its own)", async () => {
+    const a = await child();
+    const play = await openPlay({ ...a, fetchJson, seed: 3 });
+    addCreature(play.world, "heliobud", 5); // Math
+    rightAnswer(play, "math.money.change_20", "shop");
+    expect(play.world.creatures[0]!.knowHow).toBe(1);
+    rightAnswer(play, "math.money.change_20", "battle");
+    expect(play.world.creatures[0]!.knowHow).toBe(1);
+    rightAnswer(play, "geometry.shapes.identify", "chest");
+    expect(play.world.creatures[0]!.knowHow).toBe(1);
+  });
+
+  it("the evolution check reads the child's stars, lessons and place; the curve is the data's", async () => {
+    const a = await child();
+    const play = await openPlay({ ...a, fetchJson });
+    const ctx = play.evolveCtx()!;
+    expect(ctx.stars("math")).toBe(0);
+    play.engine.learner.stars.set("math", 3);
+    expect(ctx.stars("math")).toBe(3);
+    expect(ctx.zone).toBeNull();
+    play.world.trips.at = "solar/sun";
+    play.world.lessons.done.push("moon");
+    const ctx2 = play.evolveCtx()!;
+    expect([ctx2.zone, ctx2.lessons]).toEqual(["sun", ["moon"]]);
+    expect(ctx2.subjectOf("heliobud")).toBe("math");
+    expect(needFor(10)).toBe(16);
+  });
+});
+
+describe("evolving (S4): the one way the screens do it", () => {
+  async function ready() {
+    const a = await child();
+    const lines: string[] = [];
+    const play = await openPlay({ ...a, fetchJson, seed: 3, log: { info: (m) => lines.push(m), warning: () => {}, error: () => {} } });
+    const c = addCreature(play.world, "heliobud", 12);
+    c.name = "דובי";
+    return { a, play, c, lines };
+  }
+
+  it("by learning needs every gate: refused (nothing changes) until Know-how, stars, hearts and the lesson are there, then the species changes, with the Shimmer, saved, one log line of ids", async () => {
+    const { a, play, c, lines } = await ready();
+    expect(play.evolveNow(c.id, "learning")).toBeNull();
+    expect(c.species).toBe("heliobud");
+    c.knowHow = 40;
+    c.hearts = 2;
+    play.engine.learner.stars.set("math", 2);
+    play.world.lessons.done.push("solar_system");
+    const r = play.evolveNow(c.id, "learning")!;
+    expect([r.before, r.after, c.species, c.shimmer]).toEqual(["heliobud", "heliolynx", "heliolynx", true]);
+    expect(lines.filter((l) => l.startsWith("EVOLVE "))).toEqual(["EVOLVE from=heliobud to=heliolynx how=learning level=12"]);
+    expect(lines.join("\n")).not.toContain("דובי");
+    await play.idle();
+    const saved = (await a.profiles.loadWorldDict(a.profile.id)) as { creatures: { species: string }[] };
+    expect(saved.creatures[0]!.species).toBe("heliolynx");
+  });
+
+  it("by a card skips the gates but not the level, uses the card up, and gives no Shimmer", async () => {
+    const { play, c } = await ready();
+    give(play.world, play.economy, "zone_card_sun", 1);
+    c.level = 8;
+    expect(play.evolveNow(c.id, "card", "zone_card_sun")).toBeNull();
+    expect(play.world.items.get("zone_card_sun")).toBe(1);
+    c.level = 9;
+    expect(play.evolveNow(c.id, "card", "zone_card_sun")).not.toBeNull();
+    expect([c.species, c.shimmer, play.world.items.get("zone_card_sun")]).toEqual(["heliolynx", undefined, undefined]);
   });
 });
 

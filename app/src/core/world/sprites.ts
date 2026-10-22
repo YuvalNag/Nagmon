@@ -1,3 +1,4 @@
+import { artFile } from "../../game/artSource";
 import type { Dir } from "./grid";
 
 /**
@@ -22,7 +23,7 @@ interface SheetRecord {
 }
 
 function sheetOf(r: SheetRecord): Sheet {
-  return { url: `game/${r.map}`, frameWidth: r.frame[0], frameHeight: r.frame[1], scale: r.scale ?? null };
+  return { url: artFile(r.map), frameWidth: r.frame[0], frameHeight: r.frame[1], scale: r.scale ?? null };
 }
 
 /**

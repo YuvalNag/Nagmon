@@ -1,4 +1,5 @@
 import type { MonsterTable } from "../core/game/monsters";
+import { artFile } from "../game/artSource";
 
 interface Props {
   monsters: MonsterTable;
@@ -37,7 +38,7 @@ export function MonsterPic({ monsters, species, side = "front", height = 0.3 }: 
         style={{
           width: w,
           height: h,
-          backgroundImage: `url(game/${sp.sheet})`,
+          backgroundImage: `url(${artFile(sp.sheet)})`,
           backgroundPosition: `${-x}px ${-y}px`,
           transform: `scale(${k})`,
         }}

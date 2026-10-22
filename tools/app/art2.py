@@ -342,7 +342,9 @@ def import_art(
         else {}
     )
     theirs = [
-        e for e in previous.get("assets", []) if e.get("importer") == "art3"
+        e
+        for e in previous.get("assets", [])
+        if e.get("importer") in ("art3", "sprites")
     ]
     manifest = {
         **{
@@ -355,6 +357,9 @@ def import_art(
         "backdrops": backdrop_map(),
         "assets": sorted(imp.entries + theirs, key=lambda e: e["id"]),
     }
+    from tools.app import art_sprites  # the pack and status of art2's entries
+
+    art_sprites.stamp(manifest)
     keep = {root.parent / e["file"] for e in imp.entries + theirs}
     for old in root.rglob("*.webp"):
         if old not in keep:
@@ -438,6 +443,8 @@ def build(out: Output) -> dict[str, Any]:
     if bad:
         raise ValueError("art manifest: " + "; ".join(bad))
     for e in manifest["assets"]:
+        if e.get("importer") == "sprites":
+            continue  # a sprite is written by its own step (art_sprites)
         note = (
             "owner art, batch 3 (checkpoint 59, status "
             + e.get("status", "?")
@@ -447,11 +454,18 @@ def build(out: Output) -> dict[str, Any]:
         )
         out.add_copy(e["file"], OUT / e["file"], "art", note=note)
     out.add_json(MANIFEST, manifest)
+    from tools.app import placeholders  # a stand-in for every picture (A1)
+
+    ph = placeholders.build(out, manifest)
     for extra in (art3.DETAIL, art3.ICONS_FILE):
         if (OUT / extra).is_file():
             out.add_json(extra, json.loads((OUT / extra).read_text()))
     size = sum((OUT / e["file"]).stat().st_size for e in manifest["assets"])
-    return {"assets": len(manifest["assets"]), "bytes": size}
+    return {
+        "assets": len(manifest["assets"]),
+        "bytes": size,
+        "placeholders": ph,
+    }
 
 
 def main(argv: list[str] | None = None) -> int:

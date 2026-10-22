@@ -20,8 +20,8 @@ import { ScreenTime } from "./ui/screenTime";
 import { Choices } from "./ui/screens/Choices";
 import { Notice } from "./ui/screens/Notice";
 import type { MapLifecycle } from "./game/mapGame";
-import { MapScreen } from "./ui/screens/MapScreen";
-import { Later, Parents } from "./ui/lazy";
+import type { MapScreen } from "./ui/screens/MapScreen";
+import { Later, Parents, WorldMap } from "./ui/lazy";
 import { WhoPlays } from "./ui/screens/WhoPlays";
 
 const log = getLogger("nagmon.screens");
@@ -190,6 +190,9 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
   );
 
   useEffect(() => readPlayers(true), [readPlayers]);
+
+  // the map's code comes in while who-plays is on screen, before the first tap
+  useEffect(() => void WorldMap.preload().catch(() => {}), []);
 
   useEffect(() => {
     if (view.kind === "who" && players === "failed") readPlayers(false);
@@ -424,14 +427,16 @@ export function App({ services, backButton = bindBackButton, workTimeoutMs = WOR
         // a card is only there for a child on the list: one gone meanwhile leads back to who-plays
         if (!child) return <Notice text={t("errorTryAgain")} onNext={() => show(WHO)} />;
         return (
-          <MapScreen
-            profile={child}
-            profiles={profiles}
-            backRef={mapBack}
-            lifecycle={lifecycle}
-            openPlay={openPlay}
-            onExit={() => show(WHO)}
-          />
+          <Later>
+            <WorldMap.Screen
+              profile={child}
+              profiles={profiles}
+              backRef={mapBack}
+              lifecycle={lifecycle}
+              openPlay={openPlay}
+              onExit={() => show(WHO)}
+            />
+          </Later>
         );
       }
     }

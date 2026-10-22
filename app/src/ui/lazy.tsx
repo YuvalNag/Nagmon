@@ -88,6 +88,15 @@ export const Choice = chunk(
   () => import("./journal/ChoiceCard"),
   (m) => m.ChoiceCard,
 );
+export const Evolution = chunk(
+  () => import("./evolution/EvolutionScene"),
+  (m) => m.EvolutionScene,
+);
+/** The map's screen: with the world's rules and the quiz it is a large part of the code, and who-plays does not need it. */
+export const WorldMap = chunk(
+  () => import("./screens/MapScreen"),
+  (m) => m.MapScreen,
+);
 export const Parents = chunk(
   () => import("./screens/parents/ParentsArea"),
   (m) => m.ParentsArea,
@@ -115,7 +124,7 @@ export function Later({ children, over = true }: { children: ReactNode; over?: b
   return <Suspense fallback={<Wait over={over} />}>{children}</Suspense>;
 }
 
-const ALL = [Battle, Bag, Friends, Shop, Rest, Quiz, Bestiary, Trips, Tutor, Intro, Parents, Journal, Choice];
+const ALL = [Battle, Bag, Friends, Shop, Rest, Quiz, Bestiary, Trips, Tutor, Intro, Evolution, Parents, WorldMap, Journal, Choice];
 
 /** Every chunk at once (tests: the screens are then there as soon as they are asked for). */
 export function preloadAll(): Promise<unknown> {

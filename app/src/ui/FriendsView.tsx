@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import type { Play } from "../app/play";
+import { checkGates, type GateRow, setKeepSmall } from "../core/game/evolution";
 import { details, meadowCount, partyOf, setPartner } from "../core/game/party";
 import type { Creature } from "../core/world/worldState";
-import { t } from "../i18n";
+import { t, type TextKey } from "../i18n";
 import { Sheet } from "./battle/Sheet";
+import { SUBJECT_COLOR } from "./battle/subjects";
+import { evolutionScale } from "./evolution/scale";
+import { Evolution, Later } from "./lazy";
 import { MonsterPic } from "./MonsterPic";
 import { Tap } from "./Tap";
 import { EggRing } from "./WorldArt";
+import "../i18nEvolution";
 
 interface Props {
   play: Play;
@@ -16,6 +21,13 @@ interface Props {
 }
 
 const hearts = (n: number) => "❤️".repeat(n) + "🤍".repeat(5 - n);
+
+/** One line of the checklist (7.1): "Know-how in Math 31 of 40". */
+function gateText(r: GateRow, subject: string | null, place: string): string {
+  const v = { have: r.have, need: r.need, subject: subject ?? "" };
+  const key: Record<GateRow["id"], TextKey> = { level: "evoGateLevel", know_how: "evoGateKnow", stars: "evoGateStars", hearts: "evoGateHearts", lesson: "evoGateLesson", place: "evoGatePlace" };
+  return r.id === "place" ? t(key.place, { name: place }) : t(key[r.id], v);
+}
 
 /**
  * The Friends screen (docs/app/FEATURES.md 4.6 and 4.7): the party of
@@ -29,6 +41,8 @@ export function FriendsView({ play, onClose, onChanged }: Props) {
   const [pickedId, setPickedId] = useState(party[0]?.id ?? "");
   const [said, setSaid] = useState<string | null>(null);
   const [, redraw] = useState(0);
+  // an evolution that was just done: the scene plays over the screen
+  const [evolving, setEvolving] = useState<{ id: string; from: string; to: string } | null>(null);
   const chosen: Creature | undefined = party.find((c) => c.id === pickedId) ?? party[0];
   const nameOf = (c: Creature) => c.name ?? play.text(c.species);
 
@@ -43,6 +57,42 @@ export function FriendsView({ play, onClose, onChanged }: Props) {
 
   const d = chosen ? details(chosen, play.monsters, play.subjects) : null;
   const first = partyOf(play.world)[0];
+  const ctx = play.evolveCtx();
+  const readyOf = (c: Creature) => (ctx ? (checkGates(c, ctx)?.ready ?? false) : false);
+  const check = chosen && ctx ? checkGates(chosen, ctx) : null;
+  const zoneTitle = (id: string | null) => (id ? (play.trips?.flatMap((tr) => tr.zones).find((z) => z.id === id)?.title ?? id) : "");
+
+  const evolveNow = (c: Creature) => {
+    const r = play.evolveNow(c.id, "learning");
+    if (!r) return;
+    onChanged?.();
+    setEvolving({ id: r.id, from: r.before, to: r.after });
+  };
+  const keepSmall = (c: Creature) => {
+    setKeepSmall(c, c.keepSmall !== true);
+    void play.saveWorld();
+    redraw((n) => n + 1);
+  };
+
+  if (evolving) {
+    return (
+      <Later>
+        <Evolution.Screen
+          key={`evolution-${evolving.id}`}
+          play={play}
+          creatureId={evolving.id}
+          from={evolving.from}
+          to={evolving.to}
+          how="learning"
+          scale={evolutionScale()}
+          onDone={() => {
+            setEvolving(null);
+            redraw((n) => n + 1);
+          }}
+        />
+      </Later>
+    );
+  }
   return (
     <Sheet title={t("friendsTitle")} onClose={onClose} id="friends">
       <div className="friends" data-id="friends">
@@ -51,7 +101,7 @@ export function FriendsView({ play, onClose, onChanged }: Props) {
             const dd = details(c, play.monsters, play.subjects);
             return (
               <li key={c.id}>
-                <Tap id={`friend_${c.id}`} className="friend-card" aria-pressed={c.id === chosen?.id} aria-label={`${nameOf(c)} ${t("battleLevel", { level: c.level })}`} onTap={() => { setPickedId(c.id); setSaid(null); }}>
+                <Tap id={`friend_${c.id}`} className="friend-card" data-ready={readyOf(c) && !c.keepSmall} data-shimmer={c.shimmer === true} style={c.shimmer ? ({ ["--shimmer" as string]: SUBJECT_COLOR[dd.subject] ?? "#ffd54f" } as CSSProperties) : undefined} aria-pressed={c.id === chosen?.id} aria-label={`${nameOf(c)} ${t("battleLevel", { level: c.level })}`} onTap={() => { setPickedId(c.id); setSaid(null); }}>
                   <MonsterPic monsters={play.monsters} species={c.species} height={0.17} />
                   <span className="friend-name">{nameOf(c)}</span>
                   <span className="friend-sub">
@@ -88,6 +138,16 @@ export function FriendsView({ play, onClose, onChanged }: Props) {
             <span role="img" aria-label={t("friendsHearts", { n: d.hearts })}>
               {hearts(d.hearts)}
             </span>
+            {check?.ready && (
+              <Tap id="friend_evolve" className="primary evolve-now" onTap={() => evolveNow(chosen)}>
+                {t("evoGo")}
+              </Tap>
+            )}
+            {chosen.shimmer && (
+              <span className="friend-sub friend-shimmer" data-id="friend_shimmer">
+                ✨ {t("evoShimmer")}
+              </span>
+            )}
             <Tap id="friend_partner" className="primary" disabled={chosen.id === first?.id || chosen.fainted === true} onTap={() => makePartner(chosen)}>
               {t("friendsMakePartner")}
             </Tap>
@@ -98,6 +158,25 @@ export function FriendsView({ play, onClose, onChanged }: Props) {
             )}
           </div>
         )}
+        <div className="friend-checklist friend-gates-strip" data-id="friend_gates" role="group" aria-label={t("evoChecklist")}>
+          {check ? (
+            <>
+              <strong className="friend-sub">{check.ready ? t("evoReady", { name: nameOf(chosen) }) : t("evoChecklist")}</strong>
+              <ul>
+                {check.rows.map((r) => (
+                  <li key={r.id} data-gate={r.id} data-met={r.met}>
+                    <span aria-hidden="true">{r.met ? "✅" : "⭕"}</span> {gateText(r, r.subject ? play.subjects.title(r.subject) : null, zoneTitle(check.form.place))}
+                  </li>
+                ))}
+              </ul>
+              <Tap id="friend_keep_small" className="keep-small" aria-pressed={chosen.keepSmall === true} onTap={() => keepSmall(chosen)}>
+                {chosen.keepSmall ? t("evoKeepSmallOn") : t("evoKeepSmall")}
+              </Tap>
+            </>
+          ) : (
+            <span className="friend-sub">{t("evoNoForm")}</span>
+          )}
+        </div>
         {play.world.eggs.length > 0 && (
           <ul className="friends-eggs" data-id="friends_eggs" aria-label={t("eggsTitle")}>
             {play.world.eggs.map((e) => (

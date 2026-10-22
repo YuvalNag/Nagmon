@@ -4,6 +4,7 @@
  * once). art/icons.json is written by tools/app/art3.py with the manifest.
  */
 import icons from "../../public/game/art/icons.json";
+import { artFile } from "./artSource";
 
 interface Sheet {
   file: string;
@@ -44,5 +45,5 @@ export function itemIconStyle(itemId: string, height: string): { id: string; fra
   const v = data.items[itemId];
   const sheet = v && data.sheets[v.asset];
   if (!v || !usable(sheet)) return null;
-  return { id: v.asset, frame: v.frame, style: sheetStyle(`game/${sheet.file}`, sheet.cols, sheet.rows, sheet.frame, v.frame, height) };
+  return { id: v.asset, frame: v.frame, style: sheetStyle(artFile(sheet.file), sheet.cols, sheet.rows, sheet.frame, v.frame, height) };
 }

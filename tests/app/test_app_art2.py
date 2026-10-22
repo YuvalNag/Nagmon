@@ -25,7 +25,7 @@ def test_the_art_fits_the_apk_budget(manifest):
     total = sum(
         (OUT / e["file"]).stat().st_size
         for e in manifest["assets"]
-        if e.get("importer") != "art3"
+        if e.get("importer") not in ("art3", "sprites")
     )
     assert total < BUDGET
 

@@ -256,7 +256,7 @@ export class Befriending {
       base.toMeadow = w.creatures.length > PARTY_SIZE;
       base.coins = h.eco.sealCoins;
       w.addMoney(base.coins);
-      base.growth = giveXp(w, h.partnerId(), CATCH_POINTS, h.monsters);
+      base.growth = giveXp(w, h.partnerId(), CATCH_POINTS);
       if (another && h.eco.items[REPEAT_GIFT] && give(w, h.eco, REPEAT_GIFT, 1)) base.giftItem = REPEAT_GIFT;
     }
     h.field.befriend({

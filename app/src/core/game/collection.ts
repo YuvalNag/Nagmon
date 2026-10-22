@@ -4,15 +4,13 @@
  *
  * - The first creature is the partner: it answers in battle.
  * - A correct answer is one point of growth (a super answer, two). A
- *   level takes a few points, a little more for each level.
- * - A creature evolves when its species says, a third of the way: the old
- *   game's level 24 is level 8 here, because a child plays minutes a day.
- *   It only evolves into a creature that has a picture.
+ *   level takes 6 + the level points (the rules file's curve).
+ * - Growth never evolves a creature: evolution has gates and the child
+ *   chooses when (core/game/evolution.ts, BATTLE_V3 7.1).
  */
 import type { Creature, WorldState } from "../world/worldState";
 
 export const MAX_LEVEL = 50;
-export const MIN_EVOLVE = 6;
 /** The friends that go along: the first four creatures; the rest wait in the Meadow. */
 export const PARTY_SIZE = 4;
 
@@ -25,19 +23,27 @@ export interface MonsterInfo {
   hasSprite: boolean;
 }
 
+/** The growth curve: points to the next level are `base + perLevel * level` (the data's `growth.need_base` and `need_per_level`). */
+export interface GrowthCurve {
+  base: number;
+  perLevel: number;
+}
+export const DEFAULT_GROWTH: Readonly<GrowthCurve> = { base: 6, perLevel: 1 };
+let curve: GrowthCurve = { ...DEFAULT_GROWTH };
+
 /**
- * Growth points a creature of this level needs for the next level: 6 + level
- * (docs/app/BATTLE_V3.md 5.4). The first curve (3 + level/2) was about twice
- * as fast: a parent saw levels 9 to 12 within minutes. Levels already earned
- * are kept; only the next ones cost more.
+ * Sets the curve from the rules file when the game's data loads (a nonsense rule changes nothing). The first
+ * curve (3 + level/2) was about twice as fast: a parent saw levels 9 to 12 within minutes. Levels already earned
+ * are kept; only the next ones cost what the curve says (BATTLE_V3 5.4).
  */
-export function needFor(level: number): number {
-  return 6 + level;
+export function configureGrowth(rules: { need_base?: unknown; need_per_level?: unknown }): void {
+  const ok = (v: unknown): v is number => typeof v === "number" && Number.isInteger(v) && v >= 1 && v <= 50;
+  if (ok(rules.need_base) && ok(rules.need_per_level)) curve = { base: rules.need_base, perLevel: rules.need_per_level };
 }
 
-/** The level at which a species that evolves "at level N" does, here. */
-export function evolveLevel(atLevel: number): number {
-  return Math.max(MIN_EVOLVE, Math.round(atLevel / 3));
+/** Growth points a creature of this level needs for the next level (6 + level, unless the data says otherwise). */
+export function needFor(level: number): number {
+  return curve.base + curve.perLevel * level;
 }
 
 export function markSeen(world: WorldState, species: string): void {
@@ -63,30 +69,21 @@ export function addCreature(world: WorldState, species: string, level: number): 
 export interface Growth {
   leveled: boolean;
   level: number;
-  evolvedTo: string | null;
 }
 
-/** Gives growth points to a creature: levels up, and evolves when it is time. */
-export function giveXp(world: WorldState, id: string, points: number, monsters: Readonly<Record<string, MonsterInfo>>): Growth {
+/** Gives growth points to a creature: levels up. It never evolves (that is the child's choice, core/game/evolution.ts). */
+export function giveXp(world: WorldState, id: string, points: number): Growth {
   const c = world.creatures.find((x) => x.id === id);
-  if (!c) return { leveled: false, level: 0, evolvedTo: null };
+  if (!c) return { leveled: false, level: 0 };
   let leveled = false;
-  let evolvedTo: string | null = null;
   c.xp += Math.max(0, Math.trunc(points));
   while (c.level < MAX_LEVEL && c.xp >= needFor(c.level)) {
     c.xp -= needFor(c.level);
     c.level++;
     leveled = true;
-    const next = monsters[c.species]?.evolutions[0];
-    if (next && c.level >= evolveLevel(next.at_level) && monsters[next.monster_slug]?.hasSprite) {
-      c.species = next.monster_slug;
-      evolvedTo = next.monster_slug;
-      world.seen.add(next.monster_slug);
-      world.caught.add(next.monster_slug);
-    }
   }
   if (c.level >= MAX_LEVEL) c.xp = 0;
-  return { leveled, level: c.level, evolvedTo };
+  return { leveled, level: c.level };
 }
 
 export function bestiary(world: WorldState, all: readonly string[]): { seen: number; caught: number; total: number } {

@@ -4,21 +4,23 @@ import { ProfileStore } from "../../../src/core/family/profiles";
 import { MemoryFileStore } from "../../../src/platform/storage";
 
 describe("the parents' switches for the battle's effects", () => {
-  it("default: movement follows the system, sound on (low), vibration on", () => {
+  it("default: movement follows the system, sound on (low), vibration on, the long evolution", () => {
     expect(effectsFrom({})).toEqual(DEFAULT_EFFECTS);
-    expect(DEFAULT_EFFECTS).toEqual({ motion: "system", sound: true, vibration: true });
+    expect(DEFAULT_EFFECTS).toEqual({ motion: "system", sound: true, vibration: true, evolution: "long" });
     expect(effectsFrom(undefined)).toEqual(DEFAULT_EFFECTS);
     expect(effectsFrom({ effects: "loud" })).toEqual(DEFAULT_EFFECTS);
   });
 
   it("a bad value falls back to its own default, the good ones stay", () => {
-    expect(effectsFrom({ effects: { motion: "wild", sound: "yes", vibration: false } })).toEqual({ motion: "system", sound: true, vibration: false });
+    expect(effectsFrom({ effects: { motion: "wild", sound: "yes", vibration: false, evolution: "endless" } })).toEqual({ motion: "system", sound: true, vibration: false, evolution: "long" });
+    expect(effectsFrom({ effects: { evolution: "short" } }).evolution).toBe("short");
   });
 
   it("changing one keeps the others and the rest of the settings", () => {
     const s = withEffects({ learning: { timer: true }, free_names: false }, { sound: false });
-    expect(s).toEqual({ learning: { timer: true }, free_names: false, effects: { motion: "system", sound: false, vibration: true } });
-    expect(effectsFrom(withEffects(s, { motion: "less" }))).toEqual({ motion: "less", sound: false, vibration: true });
+    expect(s).toEqual({ learning: { timer: true }, free_names: false, effects: { motion: "system", sound: false, vibration: true, evolution: "long" } });
+    expect(effectsFrom(withEffects(s, { motion: "less" }))).toEqual({ motion: "less", sound: false, vibration: true, evolution: "long" });
+    expect(effectsFrom(withEffects(s, { evolution: "short" }))).toMatchObject({ sound: false, evolution: "short" });
   });
 
   it("the motion button goes round: system, less, full", () => {
@@ -41,6 +43,6 @@ describe("the parents' switches for the battle's effects", () => {
     p.settings = withEffects(p.settings, { motion: "less", sound: false, vibration: false });
     await store.save(p);
     const again = await new ProfileStore(fs, { avatars: new Set(["boy_a"]) }).get(p.id);
-    expect(effectsFrom(again.settings)).toEqual({ motion: "less", sound: false, vibration: false });
+    expect(effectsFrom(again.settings)).toEqual({ motion: "less", sound: false, vibration: false, evolution: "long" });
   });
 });

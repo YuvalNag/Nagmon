@@ -42,6 +42,12 @@ export interface Creature {
    * battle nor be used in the field until it is healed, by medicine from the shop or by the nurse at the Rest Center.
    */
   fainted?: boolean;
+  /** Right answers in its home subject while it was the partner (BATTLE_V3 5.4): a gate of evolution (7.1). */
+  knowHow?: number;
+  /** "Keep small": the evolution prompt stays away (7.1); the child can take the ribbon off any time. */
+  keepSmall?: boolean;
+  /** It evolved by learning, not by a card: a soft aura in its subject's colour and a Spark to start with (7.1). */
+  shimmer?: boolean;
 }
 
 /** Where the child is in the trips (core/game/trips.ts). */
@@ -133,6 +139,10 @@ function creature(v: unknown): Creature | null {
   if (Number.isFinite(hearts) && hearts > 0) out.hearts = Math.min(5, Math.trunc(hearts));
   if (typeof c["name"] === "string" && c["name"].trim()) out.name = c["name"].trim().slice(0, 16);
   if (c["fainted"] === true) out.fainted = true;
+  const knowHow = Number(c["knowHow"] ?? 0);
+  if (Number.isFinite(knowHow) && knowHow > 0) out.knowHow = Math.min(9999, Math.trunc(knowHow));
+  if (c["keepSmall"] === true) out.keepSmall = true;
+  if (c["shimmer"] === true) out.shimmer = true;
   return out;
 }
 

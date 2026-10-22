@@ -10,6 +10,12 @@ import type { Creature, WorldState } from "../world/worldState";
 import { PARTY_SIZE } from "./collection";
 import { countOf, type Economy, take } from "./items";
 
+/**
+ * Where a team that fell asleep wakes (the parent's decision: "carried back to the Rest Center", healed free): the map
+ * and the tile in front of the nurse's counter.
+ */
+export const CARRIED_TO = { map: "nagmon_rest_center", at: { x: 6, y: 7 } } as const;
+
 /** Can this creature be used now, in a battle or in the field? */
 export const usable = (c: Creature): boolean => c.fainted !== true;
 

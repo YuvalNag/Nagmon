@@ -518,7 +518,8 @@ def test_the_app_stays_within_its_art_budget(committed):
     total = sum(
         (OUT / e["file"]).stat().st_size
         for e in committed["assets"]
-        if not e.get("lazy")
+        # the sprites outside art/ (art_sprites.py) were never part of this budget
+        if not e.get("lazy") and e.get("importer") != "sprites"
     )
     assert total < 20_000_000
 

@@ -42,10 +42,10 @@ export const TODAY = `(() => { const d = new Date(); const p = (n) => String(n).
  */
 export async function seedChild(
   page: Page,
-  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number>, creatures = null as null | Record<string, unknown>[], battleScale = 0.1, battleStart = {} as Record<string, number | string>, befriendDice = "" } = {},
+  { grade = 2, settings = {} as Record<string, unknown>, world = null as null | { money: number; variables: Record<string, string> }, seed = 3, intro = false, battle = false, items = {} as Record<string, number>, creatures = null as null | Record<string, unknown>[], battleScale = 0.1, battleStart = {} as Record<string, number | string>, befriendDice = "", worldExtra = {} as Record<string, unknown>, stars = {} as Record<string, number> } = {},
 ) {
   await page.addInitScript(
-    ({ grade, settings, world, seed, pid, today, intro, battle, items, creatures, battleScale, battleStart, befriendDice }) => {
+    ({ grade, settings, world, seed, pid, today, intro, battle, items, creatures, battleScale, battleStart, befriendDice, worldExtra, stars }) => {
       if (localStorage.getItem("seeded")) return;
       localStorage.setItem("seeded", "1");
       localStorage.setItem("nagmon.map.adaptiveResolution", "off");
@@ -77,10 +77,12 @@ export async function seedChild(
           localStorage.setItem("nagmon.encounter.always", "1");
         }
         localStorage.setItem(`nagmon-fs:d:profiles/${pid}/saves`, "");
-        localStorage.setItem(`nagmon-fs:f:profiles/${pid}/saves/world.json`, JSON.stringify({ schema_version: 1, money: have.money, variables, ...extra, ...(Object.keys(items).length ? { items } : {}) }));
+        localStorage.setItem(`nagmon-fs:f:profiles/${pid}/saves/world.json`, JSON.stringify({ schema_version: 1, money: have.money, variables, ...extra, ...(Object.keys(items).length ? { items } : {}), ...worldExtra }));
       }
+      // the stars the learning engine gave (a gate of evolution): one for each mastered skill of a subject
+      if (Object.keys(stars).length) localStorage.setItem(`nagmon-fs:f:profiles/${pid}/learning.json`, JSON.stringify({ schema_version: 1, grade, age: grade + 6, stars }));
     },
-    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle, items, creatures, battleScale, battleStart, befriendDice },
+    { grade, settings, world, seed, pid: PID, today: TODAY, intro, battle, items, creatures, battleScale, battleStart, befriendDice, worldExtra, stars },
   );
 }
 

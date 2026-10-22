@@ -135,11 +135,16 @@ describe("the children", () => {
     await app.waitScreen("parents-child");
     await app.press("child_vibration");
     await app.waitScreen("parents-child");
+    // the evolution animation: long at first, the short one is the parent's choice
+    expect(app.text()).toContain(t("evoEffectsAnim", { mode: t("evoEffectsLong") }));
+    await app.press("child_evolution");
+    await app.waitScreen("parents-child");
+    expect(app.text()).toContain(t("evoEffectsAnim", { mode: t("evoEffectsShort") }));
     expect(app.text()).toContain(t("effectsMotion", { mode: t("effectsMotionLess") }));
     expect(app.text()).toContain(t("effectsSound", { state: t("effectsOff") }));
     expect(app.text()).toContain(t("effectsVibration", { state: t("effectsOff") }));
     const saved = await app.services.profiles.get(dana!);
-    expect(effectsFrom(saved.settings)).toEqual({ motion: "less", sound: false, vibration: false });
+    expect(effectsFrom(saved.settings)).toEqual({ motion: "less", sound: false, vibration: false, evolution: "short" });
   });
 
   it("the shop's quick buy is a switch in the child's page: on at first, saved when turned off", async () => {

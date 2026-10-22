@@ -4,6 +4,7 @@ import {
   affordable,
   bandOf,
   buy,
+  chargeFor,
   countSteps,
   discountOf,
   moneyMastered,
@@ -20,8 +21,8 @@ import { gameJson } from "./helpers";
 const eco = economy(gameJson("economy.json"));
 
 describe("the shelves", () => {
-  it("are four, and each item is on one: nets, snacks, tonics and the medicine for a friend who fell asleep, helpers", () => {
-    expect(SHELVES).toEqual(["nets", "snacks", "helpers", "medicine"]);
+  it("are five, and each item is on one: nets, snacks, tonics and the medicine for a friend who fell asleep, helpers, Evolution Cards", () => {
+    expect(SHELVES).toEqual(["nets", "snacks", "helpers", "medicine", "cards"]);
     const ids = (s: (typeof SHELVES)[number]) => shelfItems(eco, s).map((i) => i.id);
     expect(ids("nets")).toEqual(["magic_net", "silver_net"]);
     expect(ids("snacks")).toEqual(["berry", "biscuit", "pie", "growth_tonic", "fresh_mint", "energy_berry"]);
@@ -33,7 +34,7 @@ describe("the shelves", () => {
   it("sell nothing that is free (the key items are found, not bought) and show at most six (the nets shelf scrolls)", () => {
     const all = SHELVES.flatMap((s) => shelfItems(eco, s));
     expect(all.every((i) => i.price > 0)).toBe(true);
-    for (const s of SHELVES.filter((x) => x !== "nets")) expect(shelfItems(eco, s).length).toBeLessThanOrEqual(6);
+    for (const s of SHELVES.filter((x) => x !== "nets" && x !== "cards")) expect(shelfItems(eco, s).length).toBeLessThanOrEqual(6);
   });
 
   it("prices come from the economy table", () => {
@@ -287,6 +288,76 @@ describe("Friendship Cards on the nets shelf (S3)", () => {
     for (const c of cards) {
       expect(c.price).toBe(c.scope === "zone" ? 60 : 45);
       expect(payPlan(c.price, "A").target).toBeLessThanOrEqual(10);
+    }
+  });
+});
+
+describe("Evolution Cards on the cards shelf (S4)", () => {
+  const ids = (w?: WorldState) => shelfItems(eco, "cards", w).map((i) => i.id);
+  const finish = (w: WorldState, ...zones: string[]) => zones.forEach((z) => w.trips.done.push(`solar/${z}`));
+
+  it("nothing is on the shelf before the gates are met, and without the child's world", () => {
+    expect(ids()).toEqual([]);
+    expect(ids(new WorldState())).toEqual([]);
+  });
+
+  it("the first finished zone stands in for the first Keeper (S5): the six Subject Cards at 200 appear, and that zone's Zone Card at 120", () => {
+    const w = new WorldState();
+    finish(w, "moon");
+    const got = ids(w);
+    expect(got.filter((i) => i.startsWith("subject_card_"))).toHaveLength(6);
+    expect(got).toContain("zone_card_moon");
+    expect(got).not.toContain("zone_card_sun");
+    expect(got).not.toContain("bright_card");
+    expect(got).not.toContain("rainbow_card");
+    for (const i of shelfItems(eco, "cards", w)) expect(i.price).toBe(i.card === "zone" ? 120 : 200);
+  });
+
+  it("the Bright Card (450) waits for the third zone; the Rainbow Card is never sold", () => {
+    const w = new WorldState();
+    finish(w, "moon", "sun");
+    expect(ids(w)).not.toContain("bright_card");
+    finish(w, "rocky_planets");
+    expect(ids(w)).toContain("bright_card");
+    expect(shelfItems(eco, "cards", w).find((i) => i.id === "bright_card")!.price).toBe(450);
+    finish(w, "giants", "outer");
+    expect(ids(w)).not.toContain("rainbow_card");
+    expect(ids(w)).toHaveLength(12);
+  });
+
+  it("even the youngest can pay them: a card is at most ten stacks (120 is 4 of 30, 200 is 8 of 25, 450 is 9 of 50) and the stacks add up", () => {
+    const w = new WorldState();
+    finish(w, "moon", "sun", "rocky_planets");
+    for (const c of shelfItems(eco, "cards", w)) {
+      const q = payPlan(c.price, "A");
+      expect(q.target, c.id).toBeLessThanOrEqual(10);
+      expect(q.target * q.unit).toBe(c.price);
+    }
+    expect([payPlan(120, "A").unit, payPlan(200, "A").unit, payPlan(450, "A").unit]).toEqual([30, 25, 50]);
+  });
+
+  it("every band pays exactly the shelf price (C its tenth off) and the shopkeeper's count makes it from the band's own coins", () => {
+    const w = new WorldState();
+    finish(w, "moon", "sun", "rocky_planets");
+    for (const band of ["A", "B", "C"] as const) {
+      const card = eco.items["bright_card"]!;
+      const p = new Payment(payPlan(card.price, band));
+      p.help();
+      expect(p.sum).toBe(payPlan(card.price, band).target);
+    }
+    const poor = new WorldState();
+    poor.addMoney(100);
+    expect(buy(poor, eco, "bright_card", { band: "B", exact: true, helped: false, quick: false })).toMatchObject({ ok: false, reason: "coins" });
+    poor.addMoney(350);
+    const bought = buy(poor, eco, "bright_card", { band: "B", exact: true, helped: false, quick: false });
+    expect(bought).toMatchObject({ ok: true, charged: 405, back: 45 });
+    expect(poor.items.get("bright_card")).toBe(1);
+  });
+
+  it("a card costs coins only: nothing is taken for a wrong amount and the price is never exceeded", () => {
+    for (const id of ["zone_card_moon", "subject_card_math", "bright_card"]) {
+      const item = eco.items[id]!;
+      for (const band of ["A", "B", "C"] as const) for (const exact of [true, false]) expect(chargeFor(item, { band, exact, helped: !exact, quick: false }).charged).toBeLessThanOrEqual(item.price);
     }
   });
 });

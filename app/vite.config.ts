@@ -15,17 +15,30 @@ const manifestPath = join(here, "public", "game", "art", "manifest.json");
 const lazyChapters = existsSync(manifestPath) && JSON.parse(readFileSync(manifestPath, "utf8")).chapters_lazy === true;
 const shipChapters = process.env["NAGMON_CHAPTER_ART"] === "1" || !lazyChapters;
 
+/**
+ * The pictures whose files are not in this build (docs/app/ART_DELIVERY.md, A1): the app draws their
+ * placeholders instead (src/game/artSource.ts). A build with all the art lists nothing.
+ */
+const missingArt: string[] = existsSync(manifestPath)
+  ? (JSON.parse(readFileSync(manifestPath, "utf8")).assets as { file: string }[])
+      .map((a) => a.file)
+      .filter((f) => !existsSync(join(here, "public", "game", f)))
+  : [];
+
 const leaveOutChapterArt = (): Plugin => ({
   name: "nagmon-leave-out-chapter-art",
   apply: "build",
   closeBundle() {
-    if (!shipChapters) rmSync(join(here, "dist", "game", "art", "chapters"), { recursive: true, force: true });
+    if (shipChapters) return;
+    // the chapters' placeholders stay with the chapters' pictures
+    for (const base of ["art", join("placeholders", "art")])
+      rmSync(join(here, "dist", "game", base, "chapters"), { recursive: true, force: true });
   },
 });
 
 export default defineConfig({
   plugins: [react(), leaveOutChapterArt()],
-  define: { __NAGMON_CHAPTER_ART__: JSON.stringify(shipChapters) },
+  define: { __NAGMON_CHAPTER_ART__: JSON.stringify(shipChapters), __NAGMON_ART_MISSING__: JSON.stringify(missingArt) },
   // Capacitor loads the app from the device's files: relative paths.
   base: "./",
   // Phaser (about 1.4 MB) is its own chunk, fetched when a map opens

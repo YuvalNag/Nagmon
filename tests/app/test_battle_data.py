@@ -404,6 +404,45 @@ def test_evolution_gates_follow_section_7_1(d):
     assert sp["mercurip"]["evolve"]["lesson"] is None
 
 
+def test_growth_and_evolution_numbers_are_in_the_rules_file():
+    """S4: the curve, the finds and the animation lengths are data, not code."""
+    rules = read_yaml(moves.RULES)
+    assert rules["growth"]["need_base"] == 6
+    assert rules["growth"]["need_per_level"] == 1
+    find = rules["evolution"]["find"]
+    assert find["wild_win"] == {"zone": 0.03, "subject": 0.02, "bright": 0.01}
+    assert find["tutor_every"] == 4
+    a = rules["evolution"]["animation"]
+    assert (a["long_s"], a["short_s"], a["calm_s"], a["skip_rate"]) == (
+        10.6,
+        6.0,
+        1.6,
+        3,
+    )
+    moves.check_growth(rules)
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        lambda r: r["growth"].update(need_per_level=0),
+        lambda r: r["growth"].pop("need_base"),
+        lambda r: r["evolution"].update(level=[24, 12]),
+        lambda r: r["evolution"].update(stars=[2]),
+        lambda r: r["evolution"].update(card_level_offset=1),
+        lambda r: r["evolution"]["find"]["wild_win"].update(zone=0.9),
+        lambda r: r["evolution"]["find"].update(tutor_every=0),
+        lambda r: r["evolution"]["animation"].update(short_s=11),
+        lambda r: r["evolution"]["animation"].update(skip_rate=1),
+    ],
+)
+def test_a_mistake_in_the_growth_rules_stops_the_build(change):
+    rules = copy.deepcopy(read_yaml(moves.RULES))
+    change(rules)
+    with pytest.raises((ValueError, KeyError)):
+        moves.check_growth(rules)
+
+
 def test_the_subjects_yaml_matches_the_families(d):
     subjects = read_yaml(moves.NAG / "learning" / "subjects.yaml")["subjects"]
     for sub, rec in subjects.items():
