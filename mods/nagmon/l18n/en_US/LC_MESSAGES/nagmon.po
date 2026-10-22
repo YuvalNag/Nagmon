@@ -1108,6 +1108,112 @@ msgstr "They are called Hatters, because their heads look like a tall pointed ha
 msgid "dandicub_description"
 msgstr "After a litter is born, they float all over the world, looking for a new place to grow."
 
+# --- evolution (BATTLE_V3 S4): the app's own texts, app_<key> of app/src/i18nEvolution.ts (kept in step by tests/app/test_app_evolution_texts.py) ---
+
+msgid "app_evoWarm"
+msgstr "{name} feels something warm inside..."
+
+msgid "app_evoGo"
+msgstr "Evolve!"
+
+msgid "app_evoLater"
+msgstr "Later"
+
+msgid "app_evoSkip"
+msgstr "Skip"
+
+msgid "app_evoDone"
+msgstr "Continue"
+
+msgid "app_evoShelf"
+msgstr "Evolution Cards"
+
+msgid "app_evoFound"
+msgstr "{name} left you a gift: {card}!"
+
+msgid "app_evoNoTarget"
+msgstr "No friend can use this card right now."
+
+msgid "app_evoNotYet"
+msgstr "This card works from level {level}."
+
+msgid "app_evoWhoCard"
+msgstr "Who will grow?"
+
+msgid "app_evoCardInBattle"
+msgstr "Evolution Cards are used outside a battle."
+
+msgid "app_evoChecklist"
+msgstr "What is missing to evolve?"
+
+msgid "app_evoReady"
+msgstr "{name} is ready to evolve!"
+
+msgid "app_evoGateLevel"
+msgstr "Level {have} of {need}"
+
+msgid "app_evoGateKnow"
+msgstr "Know-how in {subject} {have} of {need}"
+
+msgid "app_evoGateStars"
+msgstr "Stars in {subject} {have} of {need}"
+
+msgid "app_evoGateHearts"
+msgstr "Hearts {have} of {need}"
+
+msgid "app_evoGateLesson"
+msgstr "A lesson with the tutor"
+
+msgid "app_evoGatePlace"
+msgstr "Stand in the home of {name}"
+
+msgid "app_evoNoForm"
+msgstr "It has no bigger form."
+
+msgid "app_evoKeepSmall"
+msgstr "Keep small"
+
+msgid "app_evoKeepSmallOn"
+msgstr "Staying small and cute"
+
+msgid "app_evoShimmer"
+msgstr "Shimmering from learning"
+
+msgid "app_evoStatPep"
+msgstr "Pep"
+
+msgid "app_evoStatPower"
+msgstr "Power"
+
+msgid "app_evoStatGuard"
+msgstr "Guard"
+
+msgid "app_evoStatSpeed"
+msgstr "Speed"
+
+msgid "app_evoOwl"
+msgstr "Well done! Your learning helped it grow."
+
+msgid "app_evoBook"
+msgstr "A new entry in the Book"
+
+msgid "app_evoShimmerLine"
+msgstr "It shines in the colour of {subject}!"
+
+msgid "app_evoEffectsAnim"
+msgstr "Evolution: {mode}"
+
+msgid "app_evoEffectsLong"
+msgstr "Long"
+
+msgid "app_evoEffectsShort"
+msgstr "Short"
+
+msgid "app_evoTutorGift"
+msgstr "The tutor gave you a gift: {name}!"
+
+# --- end of the evolution texts ---
+
 # --- solar-system animals (tools/art/import_solar_monsters.py) ---
 
 msgid "lunibble"

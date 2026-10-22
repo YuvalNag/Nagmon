@@ -349,8 +349,19 @@ export interface BattleRules {
   moves_equipped: number;
   kindness: { wrong_in_a_row_for_help: number; run_is_free: boolean };
   enemy_level: Record<string, Record<string, unknown>>;
-  growth: Record<string, unknown>;
-  evolution: { level: [number, number]; know_how: [number, number]; stars: [number, number]; hearts: [number, number]; card_level_offset: number; rainbow_min_level: number } & Record<string, unknown>;
+  growth: { need_base: number; need_per_level: number } & Record<string, unknown>;
+  evolution: {
+    level: [number, number];
+    know_how: [number, number];
+    stars: [number, number];
+    hearts: [number, number];
+    card_level_offset: number;
+    rainbow_min_level: number;
+    /** 7.2: where cards are found: the chance after a calmed wild creature, and the tutor's gift every Nth first lesson of a subject. */
+    find: { wild_win: { zone: number; subject: number; bright: number }; tutor_every: number };
+    /** 7.4: seconds of the long, the short and the calm version; the rate of a skip. */
+    animation: { long_s: number; short_s: number; calm_s: number; skip_rate: number };
+  } & Record<string, unknown>;
   befriend: Record<string, unknown>;
   /** The parent's rule: a dozing friend wakes only with shop medicine or the nurse. */
   dozing: { bench_nap: Record<string, number>; heal_only_with: string[]; wakes_at_battle_end: boolean };

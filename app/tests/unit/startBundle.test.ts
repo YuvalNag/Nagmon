@@ -30,14 +30,14 @@ describe.skipIf(!built)("the start bundle (dist/)", () => {
 
   it("does not preload Phaser or the lazy screens", () => {
     const files = startScripts().map((f) => f.split("/").pop()!);
-    for (const heavy of ["mapGame", "play", "BattleScreen", "ParentsArea", "ShopScreen", "RestScreen", "TutorScreen", "QuizScreen", "BagView"]) {
+    for (const heavy of ["mapGame", "play", "BattleScreen", "ParentsArea", "ShopScreen", "RestScreen", "TutorScreen", "QuizScreen", "BagView", "EvolutionScene"]) {
       expect(files.some((f) => f.startsWith(heavy + "-")), heavy).toBe(false);
     }
   });
 
   it("has every lazy screen as a chunk of its own, loaded from the app's own files", () => {
     const chunks = readdirSync(join(DIST, "assets")).filter((f) => f.endsWith(".js"));
-    for (const name of ["BattleScreen", "BagView", "RestScreen", "ShopScreen", "ParentsArea", "TutorScreen", "FriendsView", "BestiaryScreen", "TripScreen", "IntroScreen", "QuizScreen"]) {
+    for (const name of ["BattleScreen", "BagView", "RestScreen", "ShopScreen", "ParentsArea", "TutorScreen", "FriendsView", "BestiaryScreen", "TripScreen", "IntroScreen", "QuizScreen", "EvolutionScene"]) {
       expect(chunks.some((f) => f.startsWith(name + "-")), name).toBe(true);
     }
     // nothing is fetched from elsewhere: no absolute URL in an import

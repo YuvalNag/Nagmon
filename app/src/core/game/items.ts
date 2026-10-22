@@ -10,9 +10,10 @@
  */
 import { addItemText } from "../../i18n";
 import { countOneMore, countToday, type WorldState } from "../world/worldState";
-import { giveXp, type Growth, type MonsterInfo } from "./collection";
+import { giveXp, type Growth } from "./collection";
 
-export type ItemKind = "net" | "befriend_tool" | "snack" | "tonic" | "medicine" | "helper" | "key";
+export type ItemKind = "net" | "befriend_tool" | "snack" | "tonic" | "medicine" | "helper" | "key" | "evolution_card";
+export type CardKind = "zone" | "subject" | "bright" | "rainbow";
 export type HelperKind = "hint" | "fifty" | "pass";
 
 export interface Item {
@@ -50,6 +51,10 @@ export interface Item {
   forSale: boolean;
   /** The data's progress gate for the shop ("keeper:1", "guardian:moon", "guardians:3"), or null. */
   soldAfter: string | null;
+  /** An Evolution Card (BATTLE_V3 7.2): which kind, the stage it evolves from (a number, or any), and the lowest level it works at (Rainbow). */
+  card: CardKind | null;
+  fromStage: number | "any" | null;
+  minLevel: number;
 }
 
 export interface Economy {
@@ -63,7 +68,8 @@ export interface Economy {
   sealCoins: number;
 }
 
-const KINDS = new Set(["net", "befriend_tool", "snack", "tonic", "medicine", "helper", "key"]);
+const KINDS = new Set(["net", "befriend_tool", "snack", "tonic", "medicine", "helper", "key", "evolution_card"]);
+const CARDS = new Set(["zone", "subject", "bright", "rainbow"]);
 const HELPERS = new Set(["hint", "fifty", "pass"]);
 const num = (v: unknown, d = 0): number => (typeof v === "number" && Number.isFinite(v) ? Math.max(0, Math.trunc(v)) : d);
 /** A multiplier: a finite number from 1 to 3 (anything else is 1). */
@@ -101,6 +107,9 @@ export function economy(doc: unknown): Economy {
       firstShakeSafe: r["first_shake_never_fails"] === true,
       forSale: r["sold"] !== false,
       soldAfter: typeof r["sold_after"] === "string" ? r["sold_after"] : null,
+      card: CARDS.has(String(r["card"])) ? (r["card"] as CardKind) : null,
+      fromStage: r["from_stage"] === "any" ? "any" : typeof r["from_stage"] === "number" ? Math.trunc(r["from_stage"]) : null,
+      minLevel: num(r["min_level"]),
     };
     // the data's own words for an item with no entry in the texts (the medicine of the new battle)
     if (typeof r["name_he"] === "string") addItemText(r["id"], r["name_he"], typeof r["desc_he"] === "string" ? r["desc_he"] : "");
@@ -195,7 +204,7 @@ export function spendBoost(world: WorldState): number {
  * used up) for an item not in the Bag, one that is not for eating, an
  * unknown friend, or a tonic while one is still working.
  */
-export function feed(world: WorldState, eco: Economy, monsters: Readonly<Record<string, MonsterInfo>>, creatureId: string, itemId: string): Fed {
+export function feed(world: WorldState, eco: Economy, creatureId: string, itemId: string): Fed {
   const item = eco.items[itemId];
   const c = world.creatures.find((x) => x.id === creatureId);
   const no: Fed = { ok: false, growth: null };
@@ -203,7 +212,7 @@ export function feed(world: WorldState, eco: Economy, monsters: Readonly<Record<
   if (item.kind === "snack") {
     take(world, itemId);
     c.hearts = Math.min(5, (c.hearts ?? 0) + item.hearts);
-    return { ok: true, growth: giveXp(world, c.id, item.xp, monsters) };
+    return { ok: true, growth: giveXp(world, c.id, item.xp) };
   }
   if (item.kind === "tonic") {
     if (boostLeft(world) > 0) return no;

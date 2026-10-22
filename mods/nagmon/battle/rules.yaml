@@ -62,6 +62,7 @@ enemy_level:
 growth:
   need_formula: "6 + L"
   need_base: 6
+  need_per_level: 1
   per_right: 1
   per_right_stretch: 2
   per_fight: {wild_win: 3, befriend: 2, keeper_win: 6, guardian_win: 12}
@@ -77,6 +78,15 @@ evolution:
   rainbow_min_level: 8
   lesson_gate_zones: [moon, sun]
   place_gate_stage2: true
+  # 7.2 where Evolution Cards are found (the shop prices are in economy/items.yaml).
+  # wild_win: the chance, after a calmed wild creature, of a card that fits the child's partner
+  # (its zone card, its subject card, a Bright Card for a stage 1 partner); at most one card a fight.
+  # tutor_every: every Nth lesson passed for the first time in a subject gives that subject's card.
+  find:
+    wild_win: {zone: 0.03, subject: 0.02, bright: 0.01}
+    tutor_every: 4
+  # 7.4 the animation, seconds: the whole sequence, the short one, the calm crossfade; a skip plays at skip_rate
+  animation: {long_s: 10.6, short_s: 6.0, calm_s: 1.6, skip_rate: 3}
 # 8.2 befriending
 befriend:
   hp_factor: "(3 * Fmax - 2 * Fnow) / (3 * Fmax)"

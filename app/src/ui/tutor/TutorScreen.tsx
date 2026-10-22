@@ -9,6 +9,8 @@ import {
   lessonsAt,
   stampCard,
 } from "../../core/game/lessons";
+import { tutorGift } from "../../core/game/evolution";
+import { give } from "../../core/game/items";
 import { QuizSession } from "../../core/world/quiz";
 import { getLogger } from "../../platform/appLog";
 import { gameClock } from "../../platform/lifecycle";
@@ -116,9 +118,15 @@ export function TutorScreen({ play, lessons, institute, onClose, onChanged, back
     play.world.lessons = gift ? addCharges(award.state, gift) : award.state;
     if (award.coins > 0) play.world.addMoney(award.coins);
     play.field.lesson({ step: "pass", id: lesson.id, ok: true, coins: award.coins, first: award.first });
+    // every Nth first pass in a subject, that subject's Evolution Card (7.2; the data's N)
+    const rules = play.battle?.rules.evolution;
+    const subjectOf = (id: string) => lessons.find((l) => l.id === id)?.skill.split(".")[0] ?? "";
+    const cardId = award.first && rules ? tutorGift(play.economy, rules, play.world.lessons.done, lesson.id, subjectOf) : null;
+    const giftCard = cardId && give(play.world, play.economy, cardId, 1) ? cardId : null;
+    if (giftCard) play.field.note("card_found", { item: giftCard, from: "tutor" });
     void play.saveWorld();
     onChanged();
-    setStep({ kind: "passed", passed: { lesson, coins: award.coins, first: award.first, gift, card: stampCard(mine, play.world.lessons), total: play.world.money } });
+    setStep({ kind: "passed", passed: { lesson, coins: award.coins, first: award.first, gift, giftCard, card: stampCard(mine, play.world.lessons), total: play.world.money } });
   };
 
   const back = useCallback(() => {

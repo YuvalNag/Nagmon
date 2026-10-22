@@ -1,12 +1,16 @@
 import { useState } from "react";
 import type { Play } from "../app/play";
 import { needFor } from "../core/game/collection";
+import { qualifying } from "../core/game/evolution";
 import { fainted as asleepFriends, wakeWith } from "../core/game/faint";
 import { countOf, feed, giveStarterKit, type Item, itemsInTab } from "../core/game/items";
 import { itemText, type TextKey, t } from "../i18n";
+import { evolutionScale } from "./evolution/scale";
+import { Evolution, Later } from "./lazy";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
 import { ItemIcon } from "./ItemIcon";
+import "../i18nEvolution";
 
 const TAB_TEXT: Record<string, TextKey> = { nets: "tabNets", snacks: "tabSnacks", tools: "tabTools" };
 const TAB_ICON: Record<string, string> = { nets: "🥅", snacks: "🍓", tools: "🪶" };
@@ -50,9 +54,16 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
   const [asking, setAsking] = useState(false);
   const [said, setSaid] = useState<string | null>(null);
   const [, redraw] = useState(0);
+  // an Evolution Card used: the scene plays over the Bag, then the Bag is back
+  const [evolving, setEvolving] = useState<{ id: string; from: string; to: string } | null>(null);
 
   const items = itemsInTab(play.world, eco, tab);
   // who the picked medicine can be used on: in a battle the battle says; outside one only a wake works, on any sleeping friend
+  /** The friends an Evolution Card works on now (7.2): only they are offered. */
+  const cardTargets = (i: Item) => {
+    const ctx = play.evolveCtx();
+    return (ctx ? qualifying(play.world, i, ctx) : []).slice(0, 8);
+  };
   const targetsOf = (i: Item) => (battle?.targets ? battle.targets(i.id).flatMap((id) => play.world.creatures.filter((c) => c.id === id)) : i.healsDozing ? asleepFriends(play.world) : []).slice(0, 8);
   const item: Item | undefined = picked && countOf(play.world, picked) > 0 ? eco.items[picked] : items[0];
 
@@ -66,6 +77,7 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
   const why = (i: Item): string | null => {
     if (i.kind === "key") return t("bagKeyItem");
     if (i.kind === "helper") return t("bagInQuestion");
+    if (i.kind === "evolution_card") return battle ? t("evoCardInBattle") : cardTargets(i).length ? null : t("evoNoTarget");
     if (i.kind === "medicine") return targetsOf(i).length ? null : battle ? t("bagNoSleeper") : i.healsDozing ? t("bagNoSleeper") : t("bagOnlyInBattle");
     if (battle) {
       if (i.kind === "net" || i.kind === "befriend_tool" || (i.kind === "snack" && i.treatMult > 1)) return battle.canBefriend ? null : t("bagNotInBattle");
@@ -88,6 +100,18 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
     const c = play.world.creatures.find((x) => x.id === creatureId);
     if (!c) return;
     const name = c.name ?? play.text(c.species);
+    if (i.kind === "evolution_card") {
+      setAsking(false);
+      const r = play.evolveNow(creatureId, "card", i.id);
+      play.field.item({ item: i.id, where: "bag", ok: !!r });
+      if (!r) {
+        setSaid(t("evoNoTarget"));
+        return;
+      }
+      onChanged?.();
+      setEvolving({ id: r.id, from: r.before, to: r.after });
+      return;
+    }
     if (i.kind === "medicine") {
       setAsking(false);
       if (battle?.onMedicine) {
@@ -104,7 +128,7 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
       changed();
       return;
     }
-    const r = feed(play.world, eco, play.monsters, creatureId, i.id);
+    const r = feed(play.world, eco, creatureId, i.id);
     play.field.item({ item: i.id, where: "bag", ok: r.ok });
     setAsking(false);
     if (!r.ok) {
@@ -116,6 +140,26 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
   };
 
   const reason = item ? why(item) : null;
+  if (evolving) {
+    return (
+      <Later>
+        <Evolution.Screen
+          key={`evolution-${evolving.id}`}
+          play={play}
+          creatureId={evolving.id}
+          from={evolving.from}
+          to={evolving.to}
+          how="card"
+          scale={evolutionScale()}
+          onDone={() => {
+            setEvolving(null);
+            setPicked(null);
+            redraw((n) => n + 1);
+          }}
+        />
+      </Later>
+    );
+  }
   return (
     <ScreenTime>
       <div className="sheet bag" role="dialog" aria-label={t("bagTitle")} data-screen="bag" data-tab={tab}>
@@ -158,11 +202,11 @@ export function BagView({ play, battle, onClose, onChanged }: Props) {
           )}
           {item && asking && (
             <>
-              <strong>{t("bagWho")}</strong>
+              <strong>{item.kind === "evolution_card" ? t("evoWhoCard") : t("bagWho")}</strong>
               <div className="bag-who">
-                {(item.kind === "medicine" ? targetsOf(item) : play.world.creatures.slice(0, 4)).map((c) => (
+                {(item.kind === "evolution_card" ? cardTargets(item) : item.kind === "medicine" ? targetsOf(item) : play.world.creatures.slice(0, 4)).map((c) => (
                   <Tap key={c.id} id={`bag_who_${c.id}`} onTap={() => give(item, c.id)}>
-                    {c.name ?? play.text(c.species)} {t("battleLevel", { level: c.level })} {item.kind === "medicine" ? (c.fainted ? "💤" : "") : `${c.xp}/${needFor(c.level)}`}
+                    {c.name ?? play.text(c.species)} {t("battleLevel", { level: c.level })} {item.kind === "evolution_card" ? "🔮" : item.kind === "medicine" ? (c.fainted ? "💤" : "") : `${c.xp}/${needFor(c.level)}`}
                   </Tap>
                 ))}
               </div>

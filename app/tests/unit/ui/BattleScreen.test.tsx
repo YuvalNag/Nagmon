@@ -1,6 +1,6 @@
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { Play } from "../../../src/app/play";
+import { Play } from "../../../src/app/play";
 import { addCreature } from "../../../src/core/game/collection";
 import { FieldLog } from "../../../src/core/game/fieldLog";
 import { economy, give } from "../../../src/core/game/items";
@@ -9,6 +9,7 @@ import type { ContentLibrary } from "../../../src/core/learning";
 import { SubjectMap } from "../../../src/core/learning/quiz_flow";
 import { WorldState } from "../../../src/core/world/worldState";
 import { BattleScreen } from "../../../src/ui/BattleScreen";
+import { Evolution } from "../../../src/ui/lazy";
 import type { BattleData } from "../../../src/core/data/battleTypes";
 import { battleData, engineFor, gameJson, shipped } from "../game/helpers";
 
@@ -17,6 +18,7 @@ let bdata: BattleData;
 beforeAll(async () => {
   content = shipped();
   bdata = await battleData();
+  await Evolution.preload();
 });
 afterEach(() => {
   cleanup();
@@ -30,24 +32,38 @@ beforeEach(() => {
 
 const settle = (ms = 0) => act(() => new Promise((r) => setTimeout(r, ms)));
 
-function setup(o: { team?: string[]; wild?: string; level?: number; items?: Record<string, number>; grade?: number; asleep?: boolean } = {}) {
+function setup(o: { team?: string[]; wild?: string; level?: number; items?: Record<string, number>; grade?: number; asleep?: boolean; ready?: boolean; keepSmall?: boolean; hearts?: number } = {}) {
   const world = new WorldState();
   for (const sp of o.team ?? ["heliobud", "lunibble"]) addCreature(world, sp, 6);
   world.seen.add("heliobud");
   world.variables.set("nagmon_kit", "yes");
   if (o.asleep) for (const c of world.creatures) c.fainted = true;
+  // every gate of the partner's first evolution met (Sun, Math: level 12, Know-how 40, 2 stars, 2 hearts, the lesson)
+  if (o.ready) {
+    const c = world.creatures[0]!;
+    Object.assign(c, { level: 12, knowHow: 40, hearts: o.hearts ?? 2, ...(o.keepSmall ? { keepSmall: true } : {}) });
+    world.lessons.done.push("solar_system");
+  }
   const eco = economy(gameJson("economy.json"));
   for (const [id, n] of Object.entries(o.items ?? {})) give(world, eco, id, n);
   const lines: string[] = [];
   const done: boolean[] = [];
+  const carried: boolean[] = [];
   const field = new FieldLog({ info: (m) => lines.push(m) });
   const engine = engineFor(content, o.grade ?? 3, 5);
+  const monsters = monsterTable(gameJson("db/monsters.json"));
+  const subjectOf = (sp: string) => bdata.species[sp]?.subject ?? "math";
   const play = {
     world,
     engine,
     battle: bdata,
     economy: eco,
-    monsters: monsterTable(gameJson("db/monsters.json")),
+    monsters,
+    subjectOf,
+    evolveCtx: () => ({ monsters, battle: bdata, rules: bdata.rules.evolution, stars: () => (o.ready ? 2 : 0), lessons: world.lessons.done, zone: null, subjectOf }),
+    evolveNow(this: Play, ...a: Parameters<Play["evolveNow"]>) {
+      return Play.prototype.evolveNow.apply(this, a);
+    },
     subjects: SubjectMap.fromDoc(gameJson("content/subjects.json")),
     maxChoices: null,
     profile: { grade: o.grade ?? 3, name: "תמר", avatar: "girl_teal", settings: {} },
@@ -59,7 +75,7 @@ function setup(o: { team?: string[]; wild?: string; level?: number; items?: Reco
     saveLearner: vi.fn(async () => {}),
     logAnswer: vi.fn(),
   } as unknown as Play;
-  const r = render(<BattleScreen play={play} wild={{ species: o.wild ?? "mercurip", level: o.level ?? 6, table: "t" }} map="test" onDone={(w) => done.push(w)} />);
+  const r = render(<BattleScreen play={play} wild={{ species: o.wild ?? "mercurip", level: o.level ?? 6, table: "t" }} map="test" onDone={(w, c) => (done.push(w), c && carried.push(c))} />);
   const q = (sel: string) => r.container.querySelector<HTMLElement>(sel);
   const el = (id: string) => r.container.querySelector<HTMLButtonElement>(`[data-id=${id}]`);
   const screen = () => q("[data-screen=battle]");
@@ -86,7 +102,7 @@ function setup(o: { team?: string[]; wild?: string; level?: number; items?: Reco
     const grow = el("growth_close");
     if (grow) await press("growth_close");
   }
-  return { world, play, lines, done, container: r.container, q, el, press, data, wrongRound, openCard, engine };
+  return { world, play, lines, done, carried, container: r.container, q, el, press, data, wrongRound, openCard, engine };
 }
 
 describe("the arena of a battle (BATTLE_V3 S1)", () => {
@@ -115,6 +131,7 @@ describe("the arena of a battle (BATTLE_V3 S1)", () => {
     const m = setup();
     await m.press("battle_run");
     expect(m.done).toEqual([false]);
+    expect(m.carried).toEqual([]);
     expect(m.world.creatures).toHaveLength(2);
     expect(m.lines.at(-1)).toMatch(/^BATTLE end result=ran questions=0 correct=0 ms=\d+ turns=0 secs=\d+$/);
   });
@@ -177,6 +194,8 @@ describe("fainting (the parent's decision)", () => {
     expect(m.world.money).toBe(12);
     await m.press("battle_carried_ok");
     expect(m.done).toEqual([false]);
+    // the map is told, so that it carries the child to the Rest Center (the parent's decision)
+    expect(m.carried).toEqual([true]);
   });
 
   it("a team asleep before the fight: carried back at once and healed, no fight", async () => {
@@ -186,6 +205,7 @@ describe("fainting (the parent's decision)", () => {
     expect(m.world.creatures.every((c) => !c.fainted)).toBe(true);
     await m.press("battle_carried_ok");
     expect(m.done).toEqual([false]);
+    expect(m.carried).toEqual([true]);
     expect(m.lines.some((l) => /^BATTLE end result=carried questions=0/.test(l))).toBe(true);
   });
 
@@ -237,5 +257,70 @@ describe("the round plays in order and a late tap waits for its end", () => {
       // the round had no enemy beat to tap in (it ended first): nothing to check
       expect(m.data("turn")).toBe("idle");
     }
+  });
+});
+
+describe("evolution after a fight (BATTLE_V3 7.1): the child's choice, never in the middle of one", () => {
+  /** The fog of the wild creature is 1: any answer, even a wrong one (it takes at least 1), calms it. */
+  const calmIt = async (m: ReturnType<typeof setup>) => {
+    await m.wrongRound();
+    for (let i = 0; i < 40 && m.data("view") !== "calm" && !m.q("[data-screen=evolve-offer]"); i++) await settle(10);
+  };
+
+  it("with every gate met, the calm creature's fight ends with 'feels something warm', a big Evolve and a small Later; the species has not changed", async () => {
+    localStorage.setItem("nagmon.battle.fog", "1");
+    const m = setup({ ready: true, wild: "lunibble" });
+    await calmIt(m);
+    expect(m.q("[data-screen=evolve-offer]")).not.toBeNull();
+    expect(m.el("evolve_offer_title")!.textContent).toContain("מרגיש משהו חם");
+    expect(m.el("evolve_go")).not.toBeNull();
+    expect(m.el("evolve_later")).not.toBeNull();
+    expect(m.world.creatures[0]!.species).toBe("heliobud");
+  });
+
+  it("Later keeps the friend as it is and the fight goes on to befriending; no log line of an evolution", async () => {
+    localStorage.setItem("nagmon.battle.fog", "1");
+    const m = setup({ ready: true, wild: "lunibble" });
+    await calmIt(m);
+    await m.press("evolve_later");
+    expect(m.q("[data-screen=evolve-offer]")).toBeNull();
+    expect(m.world.creatures[0]!.species).toBe("heliobud");
+    expect(m.lines.some((l) => l.startsWith("EVOLVE "))).toBe(false);
+    expect(m.data("view")).toBe("calm");
+  });
+
+  it("Evolve changes the species at once (so skipping loses nothing), plays the scene, and the fight carries on afterwards", async () => {
+    localStorage.setItem("nagmon.battle.fog", "1");
+    localStorage.setItem("nagmon.battle.timescale", "0.02");
+    const m = setup({ ready: true, wild: "lunibble" });
+    await calmIt(m);
+    await settle(300);
+    await m.press("evolve_go");
+    expect(m.world.creatures[0]!.species).toBe("heliolynx");
+    expect(m.world.creatures[0]!.shimmer).toBe(true);
+    expect(m.lines.filter((l) => l.startsWith("EVOLVE "))).toEqual(["EVOLVE from=heliobud to=heliolynx how=learning level=12"]);
+    for (let i = 0; i < 100 && !m.q("[data-screen=evolution]"); i++) await settle(10);
+    expect(m.q("[data-screen=evolution]")).not.toBeNull();
+    for (let i = 0; i < 100 && m.q("[data-screen=evolution]"); i++) await settle(20);
+    expect(m.q("[data-screen=evolution]")).toBeNull();
+    expect(m.data("view")).toBe("calm");
+    expect(m.play.saveWorld).toHaveBeenCalled();
+  });
+
+  it("is not offered while the fight goes on, when a gate is missing, or under the Keep small ribbon", async () => {
+    // the fight goes on: no offer after a round that does not calm it
+    const fighting = setup({ ready: true, wild: "lunibble" });
+    await fighting.wrongRound();
+    expect(fighting.q("[data-screen=evolve-offer]")).toBeNull();
+    cleanup();
+    localStorage.setItem("nagmon.battle.fog", "1");
+    const short = setup({ ready: true, hearts: 1, wild: "lunibble" });
+    await calmIt(short);
+    expect(short.q("[data-screen=evolve-offer]")).toBeNull();
+    cleanup();
+    const small = setup({ ready: true, keepSmall: true, wild: "lunibble" });
+    await calmIt(small);
+    expect(small.q("[data-screen=evolve-offer]")).toBeNull();
+    expect(small.data("view")).toBe("calm");
   });
 });

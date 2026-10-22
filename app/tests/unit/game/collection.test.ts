@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { addCreature, bestiary, evolveLevel, giveXp, markSeen, needFor, partner, MAX_LEVEL, type MonsterInfo } from "../../../src/core/game/collection";
+import { addCreature, bestiary, configureGrowth, DEFAULT_GROWTH, giveXp, markSeen, needFor, partner, MAX_LEVEL, type MonsterInfo } from "../../../src/core/game/collection";
 import { WorldState } from "../../../src/core/world/worldState";
 
 const monsters: Record<string, MonsterInfo> = {
@@ -37,7 +37,7 @@ describe("the child's creatures", () => {
     // ten right answers a fight and a few fights a level, not a level a fight
     const w = new WorldState();
     const c = addCreature(w, "heliobud", 3);
-    for (let i = 0; i < 8; i++) giveXp(w, c.id, 1, monsters);
+    for (let i = 0; i < 8; i++) giveXp(w, c.id, 1);
     expect(c.level).toBe(3);
   });
 
@@ -46,39 +46,48 @@ describe("the child's creatures", () => {
     const c = addCreature(w, "heliobud", 5);
     const need = needFor(5);
     expect(need).toBeGreaterThan(1);
-    for (let i = 0; i < need - 1; i++) expect(giveXp(w, c.id, 1, monsters).leveled).toBe(false);
-    expect(giveXp(w, c.id, 1, monsters)).toMatchObject({ leveled: true, level: 6 });
+    for (let i = 0; i < need - 1; i++) expect(giveXp(w, c.id, 1).leveled).toBe(false);
+    expect(giveXp(w, c.id, 1)).toMatchObject({ leveled: true, level: 6 });
     expect(c.xp).toBe(0);
-    giveXp(w, c.id, needFor(6) - 1, monsters);
+    giveXp(w, c.id, needFor(6) - 1);
     expect(c.level).toBe(6);
-    giveXp(w, c.id, 1, monsters);
+    giveXp(w, c.id, 1);
     expect(c.level).toBe(7);
   });
 
-  it("evolves when its species says, a third of the way: level 24 becomes 8", () => {
-    expect(evolveLevel(24)).toBe(8);
-    expect(evolveLevel(36)).toBe(12);
+  it("growth never evolves a creature: it is the child's choice (7.1), whatever the level", () => {
     const w = new WorldState();
     const c = addCreature(w, "heliobud", 7);
-    let r = { evolvedTo: null as string | null };
-    while (c.level < 8) r = giveXp(w, c.id, needFor(c.level), monsters);
-    expect(r.evolvedTo).toBe("heliolynx");
-    expect(c.species).toBe("heliolynx");
-    expect(w.caught.has("heliolynx")).toBe(true);
+    for (let i = 0; i < 40; i++) giveXp(w, c.id, needFor(c.level));
+    expect(c.level).toBeGreaterThan(30);
+    expect(c.species).toBe("heliobud");
+    expect(w.caught.has("heliolynx")).toBe(false);
   });
 
-  it("does not evolve into a creature with no picture", () => {
+  it("the curve is the data's: 6 + level by default, and a changed rule changes the cost (never a creature's level)", () => {
+    expect(DEFAULT_GROWTH).toEqual({ base: 6, perLevel: 1 });
     const w = new WorldState();
-    const c = addCreature(w, "ghost", 9);
-    giveXp(w, c.id, needFor(9), monsters);
-    expect(c.level).toBe(10);
-    expect(c.species).toBe("ghost");
+    const c = addCreature(w, "heliobud", 5);
+    try {
+      configureGrowth({ need_base: 10, need_per_level: 2 });
+      expect(needFor(5)).toBe(20);
+      giveXp(w, c.id, 19);
+      expect(c.level).toBe(5);
+      giveXp(w, c.id, 1);
+      expect(c.level).toBe(6);
+      // a nonsense rule changes nothing
+      configureGrowth({ need_base: 0, need_per_level: -1 });
+      expect(needFor(5)).toBe(20);
+    } finally {
+      configureGrowth({ need_base: 6, need_per_level: 1 });
+    }
+    expect(needFor(5)).toBe(11);
   });
 
   it("stops growing at the top level", () => {
     const w = new WorldState();
     const c = addCreature(w, "heliarch", MAX_LEVEL);
-    expect(giveXp(w, c.id, 99, monsters)).toMatchObject({ leveled: false, level: MAX_LEVEL });
+    expect(giveXp(w, c.id, 99)).toMatchObject({ leveled: false, level: MAX_LEVEL });
   });
 
   it("is saved with the world and comes back; an old world file has none", () => {

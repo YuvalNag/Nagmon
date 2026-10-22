@@ -1,35 +1,56 @@
 import { act, cleanup, render } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
-import type { Play } from "../../../src/app/play";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { Play } from "../../../src/app/play";
+import type { BattleData } from "../../../src/core/data/battleTypes";
 import { addCreature } from "../../../src/core/game/collection";
 import { FieldLog } from "../../../src/core/game/fieldLog";
 import { countOf, economy, give } from "../../../src/core/game/items";
 import { monsterTable } from "../../../src/core/game/monsters";
 import { WorldState } from "../../../src/core/world/worldState";
 import { BagView, type BagBattle } from "../../../src/ui/BagView";
-import { gameJson } from "../game/helpers";
+import { Evolution } from "../../../src/ui/lazy";
+import { battleData, gameJson } from "../game/helpers";
 
-afterEach(cleanup);
+let bdata: BattleData;
+beforeAll(async () => {
+  bdata = await battleData();
+  await Evolution.preload();
+});
+beforeEach(() => localStorage.setItem("nagmon.battle.timescale", "0.02"));
+afterEach(() => {
+  cleanup();
+  localStorage.removeItem("nagmon.battle.timescale");
+});
 
-function setup(items: Record<string, number>, battle?: BagBattle) {
+function setup(items: Record<string, number>, battle?: BagBattle, team: [string, number][] = [["heliobud", 4]]) {
   const world = new WorldState();
-  addCreature(world, "heliobud", 4);
+  for (const [sp, level] of team) addCreature(world, sp, level);
   const eco = economy(gameJson("economy.json"));
   for (const [id, n] of Object.entries(items)) give(world, eco, id, n);
   world.variables.set("nagmon_kit", "yes");
   const lines: string[] = [];
+  const monsters = monsterTable(gameJson("db/monsters.json"));
+  const subjectOf = (sp: string) => bdata.species[sp]?.subject ?? "math";
   const play = {
     world,
     economy: eco,
-    monsters: monsterTable(gameJson("db/monsters.json")),
+    monsters,
+    battle: bdata,
+    subjectOf,
+    evolveCtx: () => ({ monsters, battle: bdata, rules: bdata.rules.evolution, stars: () => 0, lessons: [], zone: null, subjectOf }),
+    evolveNow(this: Play, ...a: Parameters<Play["evolveNow"]>) {
+      return Play.prototype.evolveNow.apply(this, a);
+    },
     field: new FieldLog({ info: (m) => lines.push(m) }),
     text: (id: string) => id,
+    subjects: { title: (s: string) => s },
+    profile: { settings: {} },
     saveWorld: vi.fn(async () => {}),
   } as unknown as Play;
   const r = render(<BagView play={play} {...(battle ? { battle } : {})} onClose={() => {}} />);
   const q = (id: string) => r.container.querySelector<HTMLButtonElement>(`[data-id=${id}]`);
   const press = async (id: string) => act(async () => q(id)!.click());
-  return { world, lines, q, press, text: () => r.container.textContent ?? "" };
+  return { world, lines, q, press, text: () => r.container.textContent ?? "", container: r.container };
 }
 
 describe("the Bag", () => {
@@ -145,5 +166,56 @@ describe("medicine (only the Wake Berry and the Sunrise Berry wake a friend that
     expect(onMedicine).toHaveBeenCalledWith("wake_berry", "c2");
     // the battle itself uses it up and wakes the friend; the view does not
     expect(countOf(m.world, "wake_berry")).toBe(1);
+  });
+});
+
+describe("Evolution Cards in the Bag (BATTLE_V3 7.2)", () => {
+  const TEAM: [string, number][] = [["heliobud", 9], ["lunibble", 9], ["heliolynx", 9]];
+
+  it("are in the Tools tab with their count and one line; looking uses nothing", async () => {
+    const m = setup({ zone_card_sun: 2 }, undefined, TEAM);
+    await m.press("bag_tab_tools");
+    await m.press("bag_item_zone_card_sun");
+    expect(m.q("bag_name")!.textContent).toBe("כרטיס התפתחות השמש");
+    expect(m.q("bag_item_zone_card_sun")!.textContent).toContain("x2");
+    expect(countOf(m.world, "zone_card_sun")).toBe(2);
+  });
+
+  it("outside a battle 'use' asks who: only the friends the card works on are offered (a stage 0 of that zone, from level 9)", async () => {
+    const m = setup({ zone_card_sun: 1 }, undefined, TEAM);
+    await m.press("bag_tab_tools");
+    expect(m.q("bag_use")!.disabled).toBe(false);
+    await m.press("bag_use");
+    expect([...m.container.querySelectorAll("[data-id^=bag_who_]")].map((e) => e.getAttribute("data-id"))).toEqual(["bag_who_c1"]);
+  });
+
+  it("the friend evolves at once (the species changes, the card is used up, saved, one log line of ids, no Shimmer), the scene plays, and the Bag is back after it", async () => {
+    const m = setup({ zone_card_sun: 1, berry: 1 }, undefined, TEAM);
+    await m.press("bag_tab_tools");
+    await m.press("bag_use");
+    await m.press("bag_who_c1");
+    expect(m.world.creatures[0]!.species).toBe("heliolynx");
+    expect(m.world.creatures[0]!.shimmer).toBeUndefined();
+    expect(countOf(m.world, "zone_card_sun")).toBe(0);
+    expect(m.lines.filter((l) => l.startsWith("EVOLVE "))).toEqual(["EVOLVE from=heliobud to=heliolynx how=card level=9"]);
+    expect(m.container.querySelector("[data-screen=evolution]")).not.toBeNull();
+    for (let i = 0; i < 100 && m.container.querySelector("[data-screen=evolution]"); i++) await act(async () => new Promise((r) => setTimeout(r, 20)));
+    expect(m.container.querySelector("[data-screen=bag]")).not.toBeNull();
+    expect(m.q("bag_item_zone_card_sun")).toBeNull();
+  });
+
+  it("with no friend it works on, it says so and cannot be used (nothing is used by trying)", async () => {
+    const m = setup({ zone_card_sun: 1 }, undefined, [["heliobud", 8]]);
+    await m.press("bag_tab_tools");
+    expect(m.q("bag_use")!.disabled).toBe(true);
+    expect(m.q("bag_why")!.textContent).toContain("אין עכשיו חבר");
+    expect(countOf(m.world, "zone_card_sun")).toBe(1);
+  });
+
+  it("in a battle it cannot be used: evolution is never in the middle of a fight", async () => {
+    const m = setup({ zone_card_sun: 1 }, { canBefriend: true, onTool: () => {} }, TEAM);
+    await m.press("bag_tab_tools");
+    expect(m.q("bag_use")!.disabled).toBe(true);
+    expect(m.q("bag_why")!.textContent).toContain("מחוץ לקרב");
   });
 });

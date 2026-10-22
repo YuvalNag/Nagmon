@@ -30,6 +30,7 @@ import { ChestWrongCard, FactCard, FoundCard, TopicsCard } from "../WorldCards";
 import { progressPercent, refreshProgress, tripFor, type Trip } from "../../core/game/trips";
 import { PlaceSaver, type Place } from "../../core/world/place";
 import { START_MAP } from "../../game/startMap";
+import { CARRIED_TO } from "../../core/game/faint";
 import type { Lesson } from "../../core/game/lessons";
 import { loadGameLessons } from "../tutor/lessonData";
 import { Bag, Battle, Bestiary, Friends, Intro, Later, Quiz, Rest, Shop, Trips, Tutor, preloadSoon } from "../lazy";
@@ -737,10 +738,15 @@ export function MapScreen({ profile, profiles, onExit, backRef, lifecycle, load 
           leaveRef={battleLeave}
           onChanged={() => setCoins(play.world.money)}
           master={battle.trip !== undefined}
-          onDone={(won) => {
+          onDone={(won, carried) => {
             encounters?.reset();
             const trip = battle.trip;
             setBattle(null);
+            // the whole team fell asleep: carried back to the Rest Center, where the nurse has healed them (free)
+            if (carried) {
+              setPending({ map: CARRIED_TO.map, at: CARRIED_TO.at });
+              return;
+            }
             if (trip && won) {
               play.world.trips.badges.push(`${trip.id}/${trip.master.badge}`);
               play.field.note("badge", { trip: trip.id, badge: trip.master.badge });

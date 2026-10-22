@@ -5,6 +5,7 @@ import type { Profile } from "../../../core/family/profiles";
 import { t } from "../../../i18n";
 import { Tap } from "../../Tap";
 import { Bar } from "./Bar";
+import "../../../i18nEvolution";
 
 interface Props {
   child: Profile;
@@ -70,6 +71,9 @@ export function ChildPage({ child, message, busy, onName, onGrade, onAvatar, eff
           </Tap>
           <Tap id="child_vibration" disabled={busy} aria-pressed={effects.vibration} onTap={() => onEffects({ vibration: !effects.vibration })}>
             {t("effectsVibration", { state: t(effects.vibration ? "effectsOn" : "effectsOff") })}
+          </Tap>
+          <Tap id="child_evolution" disabled={busy} aria-pressed={effects.evolution === "short"} onTap={() => onEffects({ evolution: effects.evolution === "short" ? "long" : "short" })}>
+            {t("evoEffectsAnim", { mode: t(effects.evolution === "short" ? "evoEffectsShort" : "evoEffectsLong") })}
           </Tap>
         </div>
         <p className="message ok" role="status">

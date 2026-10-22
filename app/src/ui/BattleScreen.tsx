@@ -7,11 +7,12 @@ import type { IntentId, StatusId } from "../core/data/battleTypes";
 import type { Move } from "../core/game/moves";
 import { needFor } from "../core/game/collection";
 import type { Wild } from "../core/game/encounters";
+import { readyToEvolve } from "../core/game/evolution";
 import { usable } from "../core/game/faint";
 import { seededRng } from "../core/game/rng";
 import { giveStarterKit } from "../core/game/items";
 import type { QuizSession } from "../core/world/quiz";
-import { t } from "../i18n";
+import { itemText, t } from "../i18n";
 import { gameClock } from "../platform/lifecycle";
 import { pageSfx } from "../platform/sfx";
 import { ageFromProfile } from "../core/family/age";
@@ -36,16 +37,20 @@ import { NameCard } from "./battle/NameCard";
 import { LetterBoard } from "./LetterBoard";
 import { BagView } from "./BagView";
 import { GrowthCard } from "./battle/GrowthCard";
+import { EvolveOffer } from "./battle/EvolveOffer";
+import { evolutionScale } from "./evolution/scale";
+import { Evolution, Later } from "./lazy";
 import { ScreenTime } from "./screenTime";
 import { Tap } from "./Tap";
+import "../i18nEvolution";
 
 interface Props {
   play: Play;
   wild: Wild;
   /** The map's name, for the log. */
   map: string;
-  /** The battle is over: won, or the child went on their way. */
-  onDone: (won: boolean) => void;
+  /** The battle is over: won, or the child went on their way; `carried`: the whole team fell asleep and was carried back (the map takes the child to the Rest Center). */
+  onDone: (won: boolean, carried?: boolean) => void;
   /** A master's test: a longer fight, a badge for a prize. */
   master?: boolean;
   /** Android's back: the same as "going on". */
@@ -197,7 +202,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   // the line over the arena: what just happened, or what to do
   const [msg, setMsg] = useState<string | null>(null);
   // the level-up or evolution card, shown over the arena until it is tapped
-  const [card, setCard] = useState<{ before: string; evolvedTo: string | null; level: number } | null>(null);
+  const [card, setCard] = useState<{ species: string; level: number } | null>(null);
   const finished = useRef(false);
   const alive = useRef(true);
   useEffect(
@@ -223,6 +228,11 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   const [befriended, setBefriended] = useState<TryResult | null>(null);
   const [mood, setMood] = useState<"lean" | "sniff" | null>(null);
   const autoTray = useRef(false);
+  // the evolution after a fight (7.1): "feels something warm" once, then the scene; the tray waits for both
+  const [offer, setOffer] = useState<string | null>(null);
+  const [evolving, setEvolving] = useState<{ id: string; from: string; to: string } | null>(null);
+  const offered = useRef(false);
+  const offerOpen = useRef(false);
   // the bars while a round plays (each beat sets what it shows), and whether the partner lies down already
   const [shown, setShown] = useState<{ fog: number; pep: number } | null>(null);
   const [sleeping, setSleeping] = useState(false);
@@ -483,7 +493,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     setCast(null);
     setMsg(round.needSwap ? t("battleAsleep", { name: nameOf(round.fainted ?? battle.partner.id) }) : null);
     setTick((n) => n + 1);
-    if (round.growth.leveled) setCard({ before: round.partnerBefore, evolvedTo: round.growth.evolvedTo, level: round.growth.level });
+    if (round.growth.leveled) setCard({ species: round.partnerBefore, level: round.growth.level });
     setMode("menu");
     const next = queuedRef.current;
     queuedRef.current = null;
@@ -699,7 +709,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
     const r = f.r;
     setBefriended(r);
     if (r.kind === "caught") {
-      if (r.growth?.leveled) setCard({ before: battle.partner.species, evolvedTo: r.growth.evolvedTo, level: r.growth.level });
+      if (r.growth?.leveled) setCard({ species: battle.partner.species, level: r.growth.level });
       setMode("caught");
       return;
     }
@@ -713,7 +723,18 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
 
   // the creature calms: the tray pops up by itself once (T14), after any level-up card
   useEffect(() => {
-    if (battle.phase !== "calm" || mode !== "menu" || card || tray || autoTray.current || sheet) return;
+    if ((battle.phase !== "calm" && battle.phase !== "won") || mode !== "menu" || card || offered.current) return;
+    offered.current = true;
+    const ctx = play.evolveCtx();
+    const ready = ctx ? readyToEvolve(play.world, ctx).find((c) => c.id === battle.partner.id) : undefined;
+    if (ready) {
+      offerOpen.current = true;
+      setOffer(ready.id);
+    }
+  });
+
+  useEffect(() => {
+    if (battle.phase !== "calm" || mode !== "menu" || card || offerOpen.current || tray || autoTray.current || sheet) return;
     autoTray.current = true;
     openTray();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -732,9 +753,59 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
   if (card && mode !== "question" && mode !== "playing" && mode !== "gift" && mode !== "throw") {
     return (
       <ScreenTime key={`card-${tick}`}>
-        <GrowthCard monsters={play.monsters} before={card.before} evolvedTo={card.evolvedTo} level={card.level} name={(sp) => play.text(sp)} learned={learnedLine(card.level)} onClose={() => setCard(null)} />
+        <GrowthCard monsters={play.monsters} species={card.species} level={card.level} name={(sp) => play.text(sp)} learned={learnedLine(card.level)} onClose={() => setCard(null)} />
       </ScreenTime>
     );
+  }
+
+  if (evolving) {
+    return (
+      <Later>
+        <Evolution.Screen
+          key={`evolution-${evolving.id}`}
+          play={play}
+          creatureId={evolving.id}
+          from={evolving.from}
+          to={evolving.to}
+          how="learning"
+          scale={evolutionScale()}
+          onDone={() => {
+            setEvolving(null);
+            offerOpen.current = false;
+            nudge((n) => n + 1);
+          }}
+        />
+      </Later>
+    );
+  }
+
+  if (offer && mode === "menu" && !card) {
+    const c = play.world.creatures.find((x) => x.id === offer);
+    if (c) {
+      return (
+        <ScreenTime key="offer">
+          <EvolveOffer
+            monsters={play.monsters}
+            species={c.species}
+            name={nameOf(c.id)}
+            onLater={() => {
+              setOffer(null);
+              offerOpen.current = false;
+            }}
+            onEvolve={() => {
+              const r = play.evolveNow(c.id, "learning");
+              setOffer(null);
+              if (!r) {
+                offerOpen.current = false;
+                return;
+              }
+              onChanged?.();
+              setEvolving({ id: r.id, from: r.before, to: r.after });
+            }}
+          />
+        </ScreenTime>
+      );
+    }
   }
 
   // the lethal round plays first; the card comes once it is over (or at once when the fight never began)
@@ -750,7 +821,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
             className="primary"
             onTap={() => {
               finished.current = true;
-              onDone(false);
+              onDone(false, true);
             }}
           >
             {t("battleCarriedGo")}
@@ -890,7 +961,7 @@ export function BattleScreen({ play, wild, map, onDone, master, leaveRef, onChan
         </Stage>
         {!asking && calmView && battle.reward && (
           <div className="message-box top" data-id="battle_message" role="status">
-            <ResultsCard reward={battle.reward} asleep={asleepNames} line={calmLine} />
+            <ResultsCard reward={battle.reward} asleep={asleepNames} line={calmLine} found={battle.reward.found ? t("evoFound", { name: wildName, card: itemText(battle.reward.found, "name") }) : null} />
             {msg && <span>{msg}</span>}
           </div>
         )}

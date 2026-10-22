@@ -90,6 +90,8 @@ describe("the egg's progress ring", () => {
       monsters: monsterTable(gameJson("db/monsters.json")),
       subjects: { title: (s: string) => s, subjectFor: () => "math" },
       field: { note: () => {} },
+      // a build without battle data: no evolution to ask about
+      evolveCtx: () => null,
       text: (id: string) => id,
       saveWorld: vi.fn(async () => {}),
     } as unknown as Play;
@@ -102,7 +104,7 @@ describe("the egg's progress ring", () => {
   it("is not there when there is no egg", () => {
     const world = new WorldState();
     addCreature(world, "heliobud", 4);
-    const play = { world, monsters: monsterTable(gameJson("db/monsters.json")), subjects: { title: (s: string) => s, subjectFor: () => "math" }, field: { note: () => {} }, text: (id: string) => id, saveWorld: vi.fn(async () => {}) } as unknown as Play;
+    const play = { world, monsters: monsterTable(gameJson("db/monsters.json")), subjects: { title: (s: string) => s, subjectFor: () => "math" }, field: { note: () => {} }, evolveCtx: () => null, text: (id: string) => id, saveWorld: vi.fn(async () => {}) } as unknown as Play;
     const r = render(<FriendsView play={play} onClose={() => {}} />);
     expect(r.container.querySelector("[data-id=friends_eggs]")).toBeNull();
   });

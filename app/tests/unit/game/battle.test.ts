@@ -646,3 +646,64 @@ describe("speed counts for nothing in the rating", () => {
     expect(last(fast.engine)).toEqual(last(slow.engine));
   });
 });
+
+describe("S4: growth and evolution in a fight (BATTLE_V3 5.4 and 7)", () => {
+  it("a right answer in the partner's home subject is one Know-how; another subject, a wrong answer and a utility move are none", () => {
+    const { battle, world } = make({ species: "lunibble" });
+    const me = world.creatures[0]!;
+    cast(battle, true, "sum_spark"); // Math, the home subject of heliobud
+    expect(me.knowHow).toBe(1);
+    cast(battle, true, "block_bounce"); // Geometry: a coverage card
+    expect(me.knowHow).toBe(1);
+    cast(battle, false, "add_it_up"); // home subject, wrong
+    expect(me.knowHow).toBe(1);
+    cast(battle, true, "add_it_up");
+    expect(me.knowHow).toBe(2);
+  });
+
+  it("Know-how is the partner's own: a friend on the bench gains none (the partner swapped in does)", () => {
+    const { battle, world } = make({ team: ["heliobud", "terrabub"] });
+    const [a, b] = world.creatures as [NonNullable<(typeof world.creatures)[0]>, NonNullable<(typeof world.creatures)[0]>];
+    cast(battle, true, "sum_spark");
+    expect([a.knowHow, b.knowHow ?? 0]).toEqual([1, 0]);
+  });
+
+  it("a fight never evolves the partner, however far past the gate level it grows", () => {
+    const { battle, world } = make({ partner: 11, species: "lunibble", wild: 3 });
+    const me = world.creatures[0]!;
+    me.xp = 15;
+    expect(calmIt(battle, 60)).toBe(true);
+    expect(me.level).toBeGreaterThanOrEqual(12);
+    expect(me.species).toBe("heliobud");
+    expect(battle.last?.growth.leveled).toBeTypeOf("boolean");
+  });
+
+  it("a calmed wild creature may leave a card the partner can use (the rules' chance, one roll); it goes in the Bag and is told on the results", () => {
+    const lucky = make({ rng: () => 0.01, species: "lunibble", wild: 3 });
+    expect(calmIt(lucky.battle, 60)).toBe(true);
+    expect(lucky.battle.reward?.found).toBe("zone_card_sun");
+    expect(lucky.world.items.get("zone_card_sun")).toBe(1);
+    const plain = make({ rng: () => 0.5, species: "lunibble", wild: 3 });
+    expect(calmIt(plain.battle, 60)).toBe(true);
+    expect(plain.battle.reward?.found).toBeNull();
+    expect(plain.world.items.get("zone_card_sun")).toBeUndefined();
+  });
+
+  it("a master's test finds no card (it pays its badge), and a full Bag finds none either", () => {
+    const m = make({ rng: () => 0.01, master: true, species: "lunibble", wild: 18, partner: 18 });
+    calmIt(m.battle, 80);
+    expect(m.battle.reward?.found ?? null).toBeNull();
+    const full = make({ rng: () => 0.01, species: "lunibble", wild: 3 });
+    give(full.world, eco, "zone_card_sun", 99);
+    calmIt(full.battle, 60);
+    expect(full.battle.reward?.found).toBeNull();
+  });
+
+  it("a creature that evolved by learning (the Shimmer) starts with one Spark, a card evolution does not", () => {
+    const shimmer = make();
+    shimmer.world.creatures[0]!.shimmer = true;
+    const again = make({ world: shimmer.world });
+    expect(again.battle.spark).toBe(1);
+    expect(make().battle.spark).toBe(0);
+  });
+});

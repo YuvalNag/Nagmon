@@ -17,10 +17,10 @@ import type { WorldState } from "../world/worldState";
 import { countOf, type Economy, give, type Item } from "./items";
 
 export type Band = "A" | "B" | "C";
-export type Shelf = "nets" | "snacks" | "helpers" | "medicine";
+export type Shelf = "nets" | "snacks" | "helpers" | "medicine" | "cards";
 
 /** The three shelves, in the order the shop shows them. */
-export const SHELVES: readonly Shelf[] = ["nets", "snacks", "helpers", "medicine"];
+export const SHELVES: readonly Shelf[] = ["nets", "snacks", "helpers", "medicine", "cards"];
 /** Items on a shelf at a time. */
 export const SHELF_SIZE = 6;
 export const DISCOUNT_PERCENT = 10;
@@ -36,6 +36,8 @@ export function shelfOf(item: Item): Shelf | null {
   // the data says where medicine sits: most of it on its own shelf, a mint and an energy berry among the snacks
   if (item.kind === "medicine") return item.shelf === "snacks" ? "snacks" : "medicine";
   if (item.kind === "net") return "nets";
+  // Evolution Cards (S4); the Rainbow Card is a reward and is not sold
+  if (item.kind === "evolution_card") return item.forSale ? "cards" : null;
   // Friendship Cards (S3); the Star Net and other rewards are not for sale
   if (item.kind === "befriend_tool") return item.forSale ? "nets" : null;
   if (item.kind === "snack" || item.kind === "tonic") return "snacks";
@@ -44,12 +46,12 @@ export function shelfOf(item: Item): Shelf | null {
 }
 
 /**
- * Is a Friendship Card on the shelf yet? The data's gates ("keeper:1", "guardian:moon", "guardians:3") name Keepers and
+ * Is a Friendship Card or an Evolution Card on the shelf yet? The data's gates ("keeper:1", "guardian:moon", "guardians:3") name Keepers and
  * guardians, which the game does not have until slice S5; until then the trip's finished zones stand in for them:
  * "keeper:N" and "guardians:N" need N finished zones, "guardian:<zone>" needs that zone finished. Other items have no gate here.
  */
 export function onSale(item: Item, world: WorldState): boolean {
-  if (item.kind !== "befriend_tool" || !item.soldAfter) return true;
+  if ((item.kind !== "befriend_tool" && item.kind !== "evolution_card") || !item.soldAfter) return true;
   const done = world.trips.done;
   const [what, arg = ""] = item.soldAfter.split(":");
   if (what === "guardian") return done.some((k) => k.endsWith(`/${arg}`));
@@ -65,10 +67,10 @@ export function shelfItems(eco: Economy, shelf: Shelf, world?: WorldState): Item
   return eco.order
     .map((id) => eco.items[id]!)
     .filter((i) => shelfOf(i) === shelf)
-    .filter((i) => (world ? onSale(i, world) : i.kind !== "befriend_tool"))
-    // the youngest count to ten with stacks of at most 100, so the shop sells nothing dearer than that (All Better, 110, waits)
-    .filter((i) => i.price <= 100)
-    .slice(0, shelf === "medicine" ? 8 : shelf === "nets" ? NETS_SHELF_SIZE : SHELF_SIZE);
+    .filter((i) => (world ? onSale(i, world) : i.kind !== "befriend_tool" && i.kind !== "evolution_card"))
+    // the youngest count to ten stacks at most, so the shop sells nothing that cannot be made of ten (All Better, 110, waits)
+    .filter((i) => payPlan(i.price, "A").target <= 10)
+    .slice(0, shelf === "medicine" ? 8 : shelf === "nets" || shelf === "cards" ? NETS_SHELF_SIZE : SHELF_SIZE);
 }
 
 /** A tenth of the price, rounded down: the price is never more than listed. */
@@ -77,7 +79,7 @@ export const discountOf = (price: number): number => Math.floor((price * DISCOUN
 /** The coins and bills a child can pick from. */
 const COINS_B: readonly number[] = [1, 2, 5, 10, 20, 50];
 const COINS_A: readonly number[] = [1, 5];
-const STACK_UNITS = [1, 5, 10, 25, 50, 100];
+const STACK_UNITS = [1, 5, 10, 25, 30, 50, 100];
 
 export interface PayPlan {
   band: Band;
